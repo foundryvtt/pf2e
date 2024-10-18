@@ -4,7 +4,7 @@ import type { EffectAreaShape } from "@item/spell/types.ts";
 import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { MeasuredTemplateDocumentPF2e, ScenePF2e } from "@scene";
 import { measureDistance } from "./helpers.ts";
-import { TokenPF2e, type TemplateLayerPF2e } from "./index.ts";
+import type { TemplateLayerPF2e } from "./layer/template.ts";
 
 class MeasuredTemplatePF2e<
     TDocument extends MeasuredTemplateDocumentPF2e<ScenePF2e | null> = MeasuredTemplateDocumentPF2e<ScenePF2e | null>,
@@ -147,25 +147,6 @@ class MeasuredTemplatePF2e<
         const rowCount = Math.ceil(padded / (dimensions.size / canvas.grid.sizeX));
         const columnCount = Math.ceil(padded / (dimensions.size / canvas.grid.sizeY));
 
-        // If this is an emanation, measure from the outer squares of the token's space
-        const offsetEmanationOrigin = (destination: Point): Point => {
-            if (!(areaShape === "emanation" && this instanceof TokenPF2e)) {
-                return { x: 0, y: 0 };
-            }
-
-            // No offset is needed for medium and smaller creatures
-            if (this.w <= dimensions.size) return { x: 0, y: 0 };
-
-            const offset = (this.w - dimensions.size) / 2;
-            const getCoordinate = (centerCoord: number, destCoord: number): number =>
-                destCoord === centerCoord ? 0 : destCoord > centerCoord ? offset : -offset;
-
-            return {
-                x: getCoordinate(this.center.x, destination.x),
-                y: getCoordinate(this.center.y, destination.y),
-            };
-        };
-
         const pointSource = new foundry.canvas.sources.PointMovementSource({ object: this });
         const points: PointCollision[] = [];
         for (let a = -columnCount; a < columnCount; a++) {
@@ -180,10 +161,9 @@ class MeasuredTemplatePF2e<
                 if (destination.x < 0 || destination.y < 0) continue;
 
                 // Determine point of origin
-                const emanationOriginOffset = offsetEmanationOrigin(destination);
                 const origin = {
-                    x: snappedOrigin.x + coneOriginOffset.x + emanationOriginOffset.x,
-                    y: snappedOrigin.y + coneOriginOffset.y + emanationOriginOffset.y,
+                    x: snappedOrigin.x + coneOriginOffset.x,
+                    y: snappedOrigin.y + coneOriginOffset.y,
                 };
 
                 if (areaShape === "cone") {

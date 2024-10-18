@@ -1,31 +1,32 @@
 {
-    "_id": "6p2Sjl7XxCc55ft4",
-    "img": "icons/commodities/stone/ore-pile-orange.webp",
-    "name": "Effect: Mudrock Snare (Success)",
+    "_id": "2tOVDTjCZVx4uEjP",
+    "img": "icons/commodities/biological/tentacle-yellow.webp",
+    "name": "Effect: Skin Net",
     "system": {
         "description": {
-            "value": "<p>The creature takes a -5-foot circumstance penalty to its Speed for 1 minute or until it Escapes (DC 27).</p>"
+            "value": "<p>You take a –10-foot circumstance penalty to your Speeds.</p>"
         },
         "duration": {
-            "expiry": "turn-end",
+            "expiry": "turn-start",
             "sustained": false,
-            "unit": "minutes",
+            "unit": "rounds",
             "value": 1
         },
         "level": {
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens: The Grand Bazaar"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #207: The Resurrection Flood"
         },
         "rules": [
             {
+                "damageType": "spirit",
                 "key": "FlatModifier",
-                "selector": "land-speed",
+                "selector": "all-speeds",
                 "type": "circumstance",
-                "value": -5
+                "value": -10
             }
         ],
         "start": {
@@ -36,7 +37,6 @@
             "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },

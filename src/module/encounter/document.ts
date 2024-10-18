@@ -100,7 +100,7 @@ class EncounterPF2e extends Combat {
 
     /**
      * Prevent double data preparation of child documents.
-     * @removeme in V13
+     * @todo remove in V13
      */
     override prepareData(): void {
         if (game.release.generation === 12 && this.initialized) return;
@@ -309,6 +309,13 @@ class EncounterPF2e extends Combat {
                     const alreadyWent = combatant?.roundOfLastTurn === this.round;
                     if (combatant && !alreadyWent) {
                         await combatant.startTurn();
+                    }
+                }
+
+                // Update all per turn abilities by other combatants
+                for (const otherCombatant of this.combatants) {
+                    if (combatant !== otherCombatant) {
+                        otherCombatant.actor?.recharge({ duration: "turn" });
                     }
                 }
             }

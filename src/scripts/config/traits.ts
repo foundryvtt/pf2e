@@ -556,6 +556,7 @@ const otherConsumableTags: Record<OtherConsumableTag, string> = {
 };
 
 const otherWeaponTags: Record<OtherWeaponTag, string> = {
+    "handwraps-of-mighty-blows": "PF2E.Item.Physical.OtherTag.HandwrapsOfMightyBlows",
     improvised: "PF2E.Item.Physical.OtherTag.Improvised",
     shoddy: "PF2E.Item.Physical.OtherTag.Shoddy",
 };

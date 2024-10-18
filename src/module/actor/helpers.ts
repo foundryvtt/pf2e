@@ -36,7 +36,7 @@ import {
 import { NPCStrike } from "./npc/data.ts";
 import { CheckContext } from "./roll-context/check.ts";
 import { DamageContext } from "./roll-context/damage.ts";
-import { AttributeString, AuraEffectData } from "./types.ts";
+import { ActorCommitData, AttributeString, AuraEffectData } from "./types.ts";
 
 /**
  * Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors
@@ -829,7 +829,24 @@ async function transferItemsBetweenActors(
     }
 }
 
+/** Applies multiple batched updates to the actor, delaying rendering till the end */
+async function applyActorUpdate<T extends ActorPF2e>(actor: T, data: ActorCommitData<T>): Promise<void> {
+    if (data.actorUpdates) {
+        await actor.update(data.actorUpdates, { render: false });
+    }
+    if (data.itemCreates.length > 0) {
+        await actor.createEmbeddedDocuments("Item", data.itemCreates, { render: false });
+    }
+    if (data.itemUpdates.length > 0) {
+        await actor.updateEmbeddedDocuments("Item", data.itemUpdates, { render: false });
+    }
+    if (data.actorUpdates || data.itemCreates.length || data.itemUpdates.length) {
+        actor.render();
+    }
+}
+
 export {
+    applyActorUpdate,
     auraAffectsActor,
     calculateMAPs,
     calculateRangePenalty,

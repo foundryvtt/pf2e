@@ -191,11 +191,13 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     override getBarAttribute(barName: string, options?: { alternative?: string }): TokenResourceData | null {
         const attribute = super.getBarAttribute(barName, options);
         if (!attribute) return null;
+
         const isStaminaOrResolve =
             ["attributes.hp.sp", "resources.resolve"].includes(attribute.attribute) &&
             game.pf2e.settings.variants.stamina;
+        const isSpecialResource = /^resources\.([\w-]+)/.test(attribute.attribute);
         const isShieldHP = attribute.attribute === "attributes.shield.hp" && !!this.actor?.attributes.shield?.itemId;
-        if (isStaminaOrResolve || isShieldHP) {
+        if (isStaminaOrResolve || isSpecialResource || isShieldHP) {
             attribute.editable = true;
         }
 

@@ -72,7 +72,7 @@ import {
     MartialProficiency,
     WeaponGroupProficiencyKey,
 } from "./data.ts";
-import { CharacterFeats } from "./feats.ts";
+import { CharacterFeats } from "./feats/index.ts";
 import {
     PCAttackTraitHelpers,
     WeaponAuxiliaryAction,
@@ -211,6 +211,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     /** If one exists, prepare this character's familiar */
     override prepareData(): void {
+        if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
+            return;
+        }
         super.prepareData();
 
         if (game.ready && this.familiar && game.actors.has(this.familiar.id)) {
@@ -1010,7 +1013,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Acquire the character's handwraps of mighty blows and apply its runes to all unarmed attacks
         const handwrapsSlug = "handwraps-of-mighty-blows";
         const handwraps = itemTypes.weapon.find(
-            (w) => w.slug === handwrapsSlug && w.category === "unarmed" && w.isEquipped && w.isInvested,
+            (w) =>
+                (w.slug === handwrapsSlug || w.system.traits.otherTags.includes(handwrapsSlug)) &&
+                w.category === "unarmed" &&
+                w.isEquipped &&
+                w.isInvested,
         );
         const unarmedRunes = fu.deepClone(handwraps?._source.system.runes) ?? { potency: 0, striking: 0, property: [] };
 
@@ -1062,7 +1069,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             .filter(R.isNonNull);
         // Exclude handwraps as a strike
         const weapons = [
-            itemTypes.weapon.filter((w) => w.slug !== handwrapsSlug),
+            itemTypes.weapon.filter(
+                (w) => w.slug !== handwrapsSlug && !w.system.traits.otherTags.includes(handwrapsSlug),
+            ),
             syntheticWeapons,
             basicUnarmed ?? [],
             // Generate a shield attacks from the character's shields

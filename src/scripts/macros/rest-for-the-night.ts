@@ -1,10 +1,10 @@
-import type { CharacterPF2e } from "@actor";
+import { CharacterPF2e } from "@actor";
 import { CharacterAttributesSource, CharacterResourcesSource } from "@actor/character/data.ts";
+import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { ActionDefaultOptions } from "@system/action-macros/index.ts";
-import { localizer, tupleHasValue } from "@util";
-import { Duration } from "luxon";
+import { localizer } from "@util";
 
 interface RestForTheNightOptions extends ActionDefaultOptions {
     skipDialog?: boolean;
@@ -42,6 +42,7 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
             attributes: { hp: { value: actor._source.system.attributes.hp.value } },
             resources: {},
         };
+        const itemCreates: PreCreate<ItemSourcePF2e>[] = [];
         const itemUpdates: EmbeddedDocumentUpdateData[] = [];
         // A list of messages informing the user of updates made due to rest
         const statements: string[] = [];
@@ -106,30 +107,12 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
             statements.push(localize("Message.InfusedReagents"));
         }
 
-        // Spellcasting entries and focus points
-        const spellcastingRecharge = actor.spellcasting.recharge();
-        itemUpdates.push(...spellcastingRecharge.itemUpdates);
-        if (spellcastingRecharge.actorUpdates?.["system.resources.focus.value"]) {
-            actorUpdates.resources.focus = {
-                value: spellcastingRecharge.actorUpdates?.["system.resources.focus.value"],
-            };
+        // Perform all built in actor recharges, such as spellcasting and frequencies
+        const recharges = await actor.recharge({ duration: "day", commit: false });
+        if (recharges.actorUpdates?.system?.resources) {
+            actorUpdates.resources = fu.mergeObject(actorUpdates.resources, recharges.actorUpdates.system.resources);
         }
-
-        // Action Frequencies
-        const actionsAndFeats = [...actor.itemTypes.action, ...actor.itemTypes.feat];
-        const withFrequency = actionsAndFeats.filter(
-            (a) =>
-                a.frequency &&
-                (tupleHasValue(["turn", "round", "day"], a.frequency.per) ||
-                    Duration.fromISO(a.frequency.per) <= Duration.fromISO("PT8H")) &&
-                a.frequency.value < a.frequency.max,
-        );
-        if (withFrequency.length > 0) {
-            statements.push(localize("Message.Frequencies"));
-            itemUpdates.push(
-                ...withFrequency.map((a) => ({ _id: a.id, "system.frequency.value": a.frequency?.max ?? 0 })),
-            );
-        }
+        itemUpdates.push(...recharges.itemUpdates);
 
         // Stamina points
         if (game.pf2e.settings.variants.stamina) {
@@ -145,18 +128,26 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
             }
         }
 
-        // Collect temporary crafted items to remove
-        const temporaryItems = actor.inventory.filter((i) => i.isTemporary).map((i) => i.id);
-        const hasActorUpdates = Object.keys({ ...actorUpdates.attributes, ...actorUpdates.resources }).length > 0;
-        const hasItemUpdates = itemUpdates.length > 0;
+        // Collect temporary crafted items to remove. Skip those that are a special resource
+        const specialResourceItems = Object.values(actor.synthetics.resources)
+            .map((r) => r.itemUUID)
+            .filter((i) => !!i);
+        const temporaryItems = actor.inventory
+            .filter((i) => i.isTemporary && (!i.sourceId || !specialResourceItems.includes(i.sourceId)))
+            .map((i) => i.id);
         const removeTempItems = temporaryItems.length > 0;
 
         // Updated actor with the sweet fruits of rest
+        const hasActorUpdates = Object.keys({ ...actorUpdates.attributes, ...actorUpdates.resources }).length > 0;
         if (hasActorUpdates) {
             await actor.update({ system: actorUpdates }, { render: false });
         }
 
-        if (hasItemUpdates) {
+        if (itemCreates.length > 0) {
+            await actor.createEmbeddedDocuments("Item", itemCreates, { render: false });
+        }
+
+        if (itemUpdates.length > 0) {
             await actor.updateEmbeddedDocuments("Item", itemUpdates, { render: false });
         }
 
@@ -165,11 +156,20 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
             statements.push(localize("Message.TemporaryItems"));
         }
 
-        if (spellcastingRecharge.actorUpdates) {
-            statements.push(localize("Message.FocusPoints"));
+        if (recharges.affected.frequencies) {
+            statements.push(localize("Message.Frequencies"));
         }
 
-        if (spellcastingRecharge.itemUpdates.length > 0) {
+        for (const resource of recharges.affected.resources) {
+            if (resource === "focus") {
+                statements.push(localize("Message.FocusPoints"));
+            } else if (resource in actor.synthetics.resources) {
+                const name = actor.synthetics.resources[resource].label;
+                statements.push(localize("Message.Resource", { name }));
+            }
+        }
+
+        if (recharges.affected.spellSlots) {
             statements.push(localize("Message.SpellSlots"));
         }
 
