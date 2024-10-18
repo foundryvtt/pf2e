@@ -307,6 +307,12 @@
                 },
                 "rules": [
                     {
+                        "disabledIf": [
+                            {
+                                "not": "shift-form"
+                            }
+                        ],
+                        "disabledValue": false,
                         "domain": "all",
                         "key": "RollOption",
                         "option": "gallop",
@@ -351,7 +357,23 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "shift-form",
+                        "priority": 40,
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "shift-form"
+                        ],
+                        "selector": "land-speed",
+                        "value": 10
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
