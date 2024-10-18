@@ -116,8 +116,8 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
         }
     }
 
-    createGroup(options: FeatGroupData): this {
-        return this.set(options.id, new FeatGroup(this.actor, options));
+    createGroup(data: FeatGroupData): this {
+        return this.set(data.id, new FeatGroup(this.actor, data));
     }
 
     /** Inserts a feat into the character. If groupId is empty string, it's a bonus feat. */
