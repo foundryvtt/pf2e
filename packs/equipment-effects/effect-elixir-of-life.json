@@ -25,14 +25,13 @@
                 "adjustName": false,
                 "choices": [
                     {
-                        "label": "PF2E.SpecificRule.Equipment.ElixirOfLife.MinorOrLesser",
                         "predicate": [
                             {
                                 "or": [
                                     "parent:origin:item:slug:elixir-of-life-minor",
-                                    "parent:origin:item:slug:elixir-of-life-lesser",
                                     {
                                         "nor": [
+                                            "parent:origin:item:slug:elixir-of-life-lesser",
                                             "parent:origin:item:slug:elixir-of-life-moderate",
                                             "parent:origin:item:slug:elixir-of-life-greater",
                                             "parent:origin:item:slug:elixir-of-life-major",
@@ -42,18 +41,17 @@
                                 ]
                             }
                         ],
-                        "value": 1
+                        "value": "Compendium.pf2e.equipment-srd.Item.Elixir of Life (Minor)"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Equipment.ElixirOfLife.ModerateOrGreater",
                         "predicate": [
                             {
                                 "or": [
-                                    "parent:origin:item:slug:elixir-of-life-moderate",
-                                    "parent:origin:item:slug:elixir-of-life-greater",
+                                    "parent:origin:item:slug:elixir-of-life-lesser",
                                     {
                                         "nor": [
                                             "parent:origin:item:slug:elixir-of-life-minor",
+                                            "parent:origin:item:slug:elixir-of-life-moderate",
                                             "parent:origin:item:slug:elixir-of-life-lesser",
                                             "parent:origin:item:slug:elixir-of-life-major",
                                             "parent:origin:item:slug:elixir-of-life-true"
@@ -62,10 +60,47 @@
                                 ]
                             }
                         ],
-                        "value": 2
+                        "value": "Compendium.pf2e.equipment-srd.Item.Elixir of Life (Lesser)"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Equipment.ElixirOfLife.Major",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:elixir-of-life-moderate",
+                                    {
+                                        "nor": [
+                                            "parent:origin:item:slug:elixir-of-life-minor",
+                                            "parent:origin:item:slug:elixir-of-life-lesser",
+                                            "parent:origin:item:slug:elixir-of-life-greater",
+                                            "parent:origin:item:slug:elixir-of-life-major",
+                                            "parent:origin:item:slug:elixir-of-life-true"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Elixir of Life (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:elixir-of-life-greater",
+                                    {
+                                        "nor": [
+                                            "parent:origin:item:slug:elixir-of-life-minor",
+                                            "parent:origin:item:slug:elixir-of-life-lesser",
+                                            "parent:origin:item:slug:elixir-of-life-moderate",
+                                            "parent:origin:item:slug:elixir-of-life-major",
+                                            "parent:origin:item:slug:elixir-of-life-true"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Elixir of Life (Greater)"
+                    },
+                    {
                         "predicate": [
                             {
                                 "or": [
@@ -82,10 +117,9 @@
                                 ]
                             }
                         ],
-                        "value": 3
+                        "value": "Compendium.pf2e.equipment-srd.Item.Elixir of Life (Major)"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Equipment.ElixirOfLife.True",
                         "predicate": [
                             {
                                 "or": [
@@ -102,11 +136,12 @@
                                 ]
                             }
                         ],
-                        "value": 4
+                        "value": "Compendium.pf2e.equipment-srd.Item.Elixir of Life (True)"
                     }
                 ],
-                "flag": "bonus",
-                "key": "ChoiceSet"
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "consumable"
             },
             {
                 "key": "FlatModifier",
@@ -119,8 +154,44 @@
                     }
                 ],
                 "selector": "saving-throw",
+                "slug": "elixir-of-life-bonus",
                 "type": "item",
-                "value": "@item.flags.pf2e.rulesSelections.bonus"
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "elixir-of-life:elixir-of-life-moderate",
+                            "elixir-of-life:elixir-of-life-greater"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "elixir-of-life-bonus",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "elixir-of-life:elixir-of-life-major"
+                ],
+                "selector": "saving-throw",
+                "slug": "elixir-of-life-bonus",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "elixir-of-life:elixir-of-life-true"
+                ],
+                "selector": "saving-throw",
+                "slug": "elixir-of-life-bonus",
+                "value": 4
             }
         ],
         "start": {
