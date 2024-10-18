@@ -24,6 +24,7 @@ import type { Statistic } from "@system/statistic/index.ts";
 import type { TokenSource } from "types/foundry/common/documents/token.d.ts";
 import type { DamageAlteration } from "./rule-element/damage-alteration/alteration.ts";
 import type { Suboption } from "./rule-element/roll-option/data.ts";
+import { SpecialResourceRuleElement } from "./rule-element/special-resource.ts";
 
 /** Defines a list of data provided by rule elements that an actor can pull from during its data preparation lifecycle */
 interface RuleElementSynthetics<TActor extends ActorPF2e = ActorPF2e> {
@@ -43,6 +44,7 @@ interface RuleElementSynthetics<TActor extends ActorPF2e = ActorPF2e> {
     modifiers: ModifierSynthetics;
     movementTypes: { [K in MovementType]?: DeferredMovementType[] };
     multipleAttackPenalties: Record<string, MAPSynthetic[]>;
+    resources: Record<string, SpecialResourceRuleElement>;
     rollNotes: Record<string, RollNotePF2e[]>;
     rollSubstitutions: Record<string, RollSubstitution[]>;
     rollTwice: Record<string, RollTwiceSynthetic[]>;

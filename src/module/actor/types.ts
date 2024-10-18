@@ -2,6 +2,7 @@ import type * as ActorInstance from "@actor";
 import type { ActorPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { ItemInstances } from "@item/types.ts";
 import type { RollNotePF2e } from "@module/notes.ts";
 import type { ItemAlteration } from "@module/rules/rule-element/item-alteration/alteration.ts";
@@ -91,8 +92,9 @@ interface AuraAppearanceData {
     } | null;
 }
 
-interface ActorCommitData<T extends ActorPF2e> {
+interface ActorCommitData<T extends ActorPF2e = ActorPF2e> {
     actorUpdates: DeepPartial<T["_source"]> | null;
+    itemCreates: PreCreate<ItemSourcePF2e>[];
     itemUpdates: EmbeddedDocumentUpdateData[];
 }
 

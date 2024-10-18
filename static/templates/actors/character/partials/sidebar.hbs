@@ -195,6 +195,21 @@
     {{> "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs" title="PF2E.ArmorClassLabel"}}
 {{/with}}
 
+{{#if specialResources}}
+    <header>
+        <h2>Special Resources</h2>
+    </header>
+    <ol>
+        {{#each specialResources as |resource|}}
+            <li class="special-resource">
+                <span class="label">{{resource.label}}</span>
+                <input type="number" data-resource="{{resource.slug}}" value="{{resource.value}}" />
+                / {{resource.max}}
+            </li>
+        {{/each}}
+    </ol>
+{{/if}}
+
 {{!-- Perception --}}
 <header>
     <h2>{{localize "PF2E.PerceptionHeader"}}</h2>

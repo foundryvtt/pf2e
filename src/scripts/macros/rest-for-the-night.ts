@@ -1,5 +1,6 @@
 import { CharacterPF2e } from "@actor";
 import { CharacterAttributesSource, CharacterResourcesSource } from "@actor/character/data.ts";
+import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { ActionDefaultOptions } from "@system/action-macros/index.ts";
@@ -41,6 +42,7 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
             attributes: { hp: { value: actor._source.system.attributes.hp.value } },
             resources: {},
         };
+        const itemCreates: PreCreate<ItemSourcePF2e>[] = [];
         const itemUpdates: EmbeddedDocumentUpdateData[] = [];
         // A list of messages informing the user of updates made due to rest
         const statements: string[] = [];
@@ -126,18 +128,26 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
             }
         }
 
-        // Collect temporary crafted items to remove
-        const temporaryItems = actor.inventory.filter((i) => i.isTemporary).map((i) => i.id);
-        const hasActorUpdates = Object.keys({ ...actorUpdates.attributes, ...actorUpdates.resources }).length > 0;
-        const hasItemUpdates = itemUpdates.length > 0;
+        // Collect temporary crafted items to remove. Skip those that are a special resource
+        const specialResourceItems = Object.values(actor.synthetics.resources)
+            .map((r) => r.itemUUID)
+            .filter((i) => !!i);
+        const temporaryItems = actor.inventory
+            .filter((i) => i.isTemporary && (!i.sourceId || !specialResourceItems.includes(i.sourceId)))
+            .map((i) => i.id);
         const removeTempItems = temporaryItems.length > 0;
 
         // Updated actor with the sweet fruits of rest
+        const hasActorUpdates = Object.keys({ ...actorUpdates.attributes, ...actorUpdates.resources }).length > 0;
         if (hasActorUpdates) {
             await actor.update({ system: actorUpdates }, { render: false });
         }
 
-        if (hasItemUpdates) {
+        if (itemCreates.length > 0) {
+            await actor.createEmbeddedDocuments("Item", itemCreates, { render: false });
+        }
+
+        if (itemUpdates.length > 0) {
             await actor.updateEmbeddedDocuments("Item", itemUpdates, { render: false });
         }
 
@@ -150,8 +160,13 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
             statements.push(localize("Message.Frequencies"));
         }
 
-        if (recharges.affected.resources.includes("focus")) {
-            statements.push(localize("Message.FocusPoints"));
+        for (const resource of recharges.affected.resources) {
+            if (resource === "focus") {
+                statements.push(localize("Message.FocusPoints"));
+            } else if (resource in actor.synthetics.resources) {
+                const name = actor.synthetics.resources[resource].label;
+                statements.push(localize("Message.Resource", { name }));
+            }
         }
 
         if (recharges.affected.spellSlots) {

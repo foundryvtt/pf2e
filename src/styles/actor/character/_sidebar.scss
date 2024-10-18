@@ -22,7 +22,6 @@ aside {
 
     input[type="number"] {
         color: var(--text-light);
-        font-size: var(--font-size-28);
         font-weight: initial;
         line-height: 1em;
         text-align: center;
@@ -237,6 +236,10 @@ aside {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
                 justify-content: space-evenly;
+
+                input {
+                    font-size: var(--font-size-28);
+                }
 
                 .container {
                     text-align: center;
@@ -487,6 +490,25 @@ aside {
                     justify-content: center;
                     margin-top: var(--space-4);
                 }
+            }
+        }
+
+        .special-resource {
+            align-items: baseline;
+            font-size: var(--font-size-16);
+            flex-wrap: nowrap;
+            line-height: 1.25;
+            .label {
+                flex: 1;
+                font-weight: initial;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            input {
+                width: 3ch;
+                text-align: end;
+                margin-right: var(--space-2);
             }
         }
 

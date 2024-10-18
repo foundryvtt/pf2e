@@ -30,7 +30,14 @@ import { PerceptionStatistic } from "@system/statistic/perception.ts";
 import { ErrorPF2e, localizer, setHasElement } from "@util";
 import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
-import { CreatureSpeeds, CreatureSystemData, LabeledSpeed, VisionLevel, VisionLevels } from "./data.ts";
+import {
+    CreatureResources,
+    CreatureSpeeds,
+    CreatureSystemData,
+    LabeledSpeed,
+    VisionLevel,
+    VisionLevels,
+} from "./data.ts";
 import { imposeEncumberedCondition, setImmunitiesFromTraits } from "./helpers.ts";
 import { CreatureTrait, CreatureType, CreatureUpdateOperation, GetReachParameters } from "./types.ts";
 
@@ -616,6 +623,19 @@ abstract class CreaturePF2e<
         });
     }
 
+    /** Updates a resource. Redirects to special resources if needed */
+    async updateResource(resource: string, value: number): Promise<void> {
+        const resources = this.system.resources;
+
+        const special = this.synthetics.resources[resource];
+        if (special) {
+            await special.update(Math.clamp(value, 0, special.max));
+        } else if (!!resources?.[resource] && ["heroPoints", "focus", "resolve"].includes(resource)) {
+            value = Math.clamp(value, 0, resources[resource]?.max ?? 0);
+            await this.update({ [`system.resources.${resource}.value`]: value });
+        }
+    }
+
     prepareSpeed(movementType: "land"): this["system"]["attributes"]["speed"];
     prepareSpeed(movementType: Exclude<MovementType, "land">): (LabeledSpeed & StatisticModifier) | null;
     prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) | null;
@@ -778,6 +798,15 @@ abstract class CreaturePF2e<
             const updatedPoints = Number(focusUpdate.value ?? this.system.resources.focus?.value) || 0;
             const enforcedMax = (Number(focusUpdate.max) || this.system.resources.focus?.max) ?? 0;
             focusUpdate.value = Math.clamp(updatedPoints, 0, enforcedMax);
+        }
+
+        // Remove special resources from update data
+        if (changed.system.resources) {
+            for (const special of Object.keys(this.synthetics.resources)) {
+                if (special in changed.system.resources) {
+                    delete (changed.system.resources as CreatureResources)[special];
+                }
+            }
         }
 
         // Preserve alignment traits if not exposed

@@ -347,7 +347,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
                 const value = (() => {
                     const value =
-                        element instanceof HTMLInputElement && element.type === "checbox"
+                        element instanceof HTMLInputElement && element.type === "checkbox"
                             ? element.checked
                             : element.value;
                     if (typeof value === "boolean") return value;
