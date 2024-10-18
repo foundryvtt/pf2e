@@ -583,18 +583,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             this.toggleInitiativeLink();
         });
 
-        // Adjust Hero Points
-        const heroPointsPips = htmlQuery(html, "[data-action=adjust-hero-points]");
-        heroPointsPips?.addEventListener("click", async () => {
-            const newValue = Math.min(this.actor.heroPoints.value + 1, this.actor.heroPoints.max);
-            await this.actor.update({ "system.resources.heroPoints.value": newValue });
-        });
-        heroPointsPips?.addEventListener("contextmenu", async (event) => {
-            event.preventDefault();
-            const newValue = Math.max(this.actor.heroPoints.value - 1, 0);
-            await this.actor.update({ "system.resources.heroPoints.value": newValue });
-        });
-
         $html.find(".adjust-item-stat").on("click contextmenu", (event) => this.#onClickAdjustItemStat(event));
         $html.find(".adjust-item-stat-select").on("change", (event) => this.#onChangeAdjustItemStat(event));
 
@@ -738,21 +726,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         // SPELLCASTING
         const castingPanel = htmlQuery(html, ".tab[data-tab=spellcasting]");
-
-        // Focus pool pips
-        const focusPips = htmlQueryAll(castingPanel, ".focus-pool");
-        if (focusPips.length > 0) {
-            const listener = (event: Event) => {
-                const change = event.type === "click" ? 1 : -1;
-                const points = this.actor.system.resources.focus.value + change;
-                this.actor.update({ "system.resources.focus.value": points });
-            };
-
-            for (const pips of focusPips) {
-                pips.addEventListener("click", listener);
-                pips.addEventListener("contextmenu", listener);
-            }
-        }
 
         // Update all "normal" spellcasting entries
         for (const select of htmlQueryAll<HTMLSelectElement>(html, "select[data-action=update-spellcasting-rank]")) {

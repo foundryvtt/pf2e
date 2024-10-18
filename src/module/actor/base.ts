@@ -63,6 +63,7 @@ import type { ActorSourcePF2e } from "./data/index.ts";
 import { Immunity, Resistance, Weakness } from "./data/iwr.ts";
 import { ActorSizePF2e } from "./data/size.ts";
 import {
+    applyActorUpdate,
     auraAffectsActor,
     checkAreaEffects,
     createEncounterRollOptions,
@@ -516,6 +517,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     async recharge(options: RechargeOptions): Promise<ActorRechargeData<this>> {
         const commitData: ActorRechargeData<this> = {
             actorUpdates: null,
+            itemCreates: [],
             itemUpdates: [],
             affected: {
                 frequencies: false,
@@ -558,6 +560,16 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 commitData.itemUpdates.push(...spellcastingRecharge.itemUpdates);
                 commitData.affected.spellSlots = spellcastingRecharge.itemUpdates.length > 0;
             }
+
+            // Restore special resources
+            for (const resource of Object.values(this.synthetics.resources)) {
+                const updates = await resource.update(resource.max, { save: false });
+                commitData.itemCreates.push(...updates.itemCreates);
+                commitData.itemUpdates.push(...updates.itemUpdates);
+                if (updates.itemCreates.length || updates.itemUpdates.length) {
+                    commitData.affected.resources.push(resource.slug);
+                }
+            }
         }
 
         // Log what resources got updated in commit data
@@ -567,15 +579,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         // Commit to the database unless commit is explicitly set to false
         if (options.commit !== false) {
-            if (commitData.actorUpdates !== null) {
-                await this.update(commitData.actorUpdates, { render: false });
-            }
-            if (commitData.itemUpdates.length > 0) {
-                await this.updateEmbeddedDocuments("Item", commitData.itemUpdates, { render: false });
-            }
-            if (commitData.actorUpdates || commitData.itemUpdates.length) {
-                this.render();
-            }
+            await applyActorUpdate(this, commitData);
         }
 
         return commitData;
@@ -751,6 +755,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             movementTypes: {},
             multipleAttackPenalties: {},
             ephemeralEffects: {},
+            resources: {},
             rollNotes: {},
             rollSubstitutions: {},
             rollTwice: {},
@@ -1018,6 +1023,17 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 const item = this.items.get(itemId);
                 await item?.update({ "system.hp.value": damage });
             }
+            return this;
+        }
+
+        // If this is a resource, update the resource instead. It may be a SpecialResource rule element.
+        const actor = token?.actor;
+        const isCreature = actor?.isOfType("creature");
+        const resourceMatch = isCreature ? /^resources\.([\w-]+)/.exec(attribute) : null;
+        if (isCreature && resourceMatch) {
+            const resource = resourceMatch[1];
+            const newValue = isDelta ? (actor.system.resources?.[resource]?.value ?? 0) + value : value;
+            await actor.updateResource(resource, newValue);
             return this;
         }
 

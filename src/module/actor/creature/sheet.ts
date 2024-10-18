@@ -53,6 +53,9 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
                 remainingDying: Math.max(actor.attributes.dying.max - actor.attributes.dying.value),
                 remainingWounded: Math.max(actor.attributes.wounded.max - actor.attributes.wounded.value),
             },
+            specialResources: Object.values(this.actor.synthetics.resources)
+                .filter((r) => !r.itemUUID)
+                .map((r) => R.pick(r, ["slug", "label", "value", "max"])),
         };
     }
 
@@ -93,6 +96,37 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             });
             pips.addEventListener("contextmenu", () => {
                 return this.actor.decreaseCondition(slug);
+            });
+        }
+
+        // Resource Pips
+        const resourcePips = htmlQueryAll(html, "[data-action=adjust-resource]:not(input)");
+        if (resourcePips.length > 0) {
+            const listener = (event: Event) => {
+                const resources = this.actor.system.resources;
+                const resource = htmlClosest(event.target, "[data-resource]")?.dataset.resource;
+                if (!resource || !resources || !(resource in resources)) return;
+
+                const current = resources[resource]?.value ?? 0;
+                const change = event.type === "click" ? 1 : -1;
+                this.actor.updateResource(resource, current + change);
+            };
+
+            for (const pips of resourcePips) {
+                pips.addEventListener("click", listener);
+                pips.addEventListener("contextmenu", listener);
+            }
+        }
+
+        // Resource Input Fields
+        const resourceInputs = htmlQueryAll<HTMLInputElement>(html, "input[data-resource]");
+        for (const element of resourceInputs) {
+            const resources = this.actor.system.resources;
+            const resource = element.dataset.resource;
+            if (!resource || !resources || !(resource in resources)) continue;
+
+            element.addEventListener("change", () => {
+                this.actor.updateResource(resource, Number(element.value));
             });
         }
     }
@@ -474,6 +508,12 @@ interface CreatureSheetData<TActor extends CreaturePF2e> extends ActorSheetDataP
         remainingDying: number;
         remainingWounded: number;
     };
+    specialResources: {
+        slug: string;
+        label: string;
+        value: number;
+        max: number;
+    }[];
 }
 
 export { CreatureSheetPF2e, type CreatureSheetData };
