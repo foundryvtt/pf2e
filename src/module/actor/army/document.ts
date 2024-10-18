@@ -56,6 +56,9 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
     }
 
     override prepareData(): void {
+        if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
+            return;
+        }
         super.prepareData();
         this.kingdom?.notifyUpdate();
     }

@@ -211,6 +211,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     /** If one exists, prepare this character's familiar */
     override prepareData(): void {
+        if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
+            return;
+        }
         super.prepareData();
 
         if (game.ready && this.familiar && game.actors.has(this.familiar.id)) {

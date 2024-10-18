@@ -172,7 +172,7 @@ class CombatantPF2e<
 
     /**
      * If embedded, don't prepare data if the parent hasn't finished initializing.
-     * @removeme in V13
+     * @todo remove in V13
      */
     override prepareData(): void {
         if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {

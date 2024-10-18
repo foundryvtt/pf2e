@@ -53,7 +53,7 @@ function createHTMLElement<K extends keyof HTMLElementTagNameMap>(
 
 interface CreateHTMLElementOptions {
     classes?: string[];
-    dataset?: Record<string, string | number | boolean | null | undefined>;
+    dataset?: Record<string, Maybe<string | number | boolean>>;
     children?: (HTMLElement | string)[];
     innerHTML?: string;
 }
