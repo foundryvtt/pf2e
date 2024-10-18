@@ -1,44 +1,43 @@
-<h2>{{localize "PF2E.SETTINGS.CompendiumBrowserSources.Name"}}</h2>
-<p>
-    {{localize "PF2E.SETTINGS.CompendiumBrowserSources.Hint"}}
-</p>
+<div class="setting-section single-column">
+    <h2>{{localize "PF2E.SETTINGS.CompendiumBrowserSources.Name"}}</h2>
+    <p>{{localize "PF2E.SETTINGS.CompendiumBrowserSources.Hint"}}</p>
+</div>
 
 <div class="setting-section single-column">
-    <h3>{{localize "PF2E.SETTINGS.Settings"}}</h3>
-    <dl>
-        <label>
-            <dt><input type="checkbox" name="show-empty-sources" {{checked sources.showEmptySources}}></dt>
-            <dd>{{localize "PF2E.SETTINGS.CompendiumBrowserSources.ShowEmptySources"}}</dd>
-        </label>
-    </dl>
+    <fieldset>
+        <legend>{{localize "PF2E.SETTINGS.Settings"}}</legend>
 
-    <dl>
-        <label>
-            <dt><input type="checkbox" name="show-unknown-sources" {{checked sources.showUnknownSources}}></dt>
-            <dd>{{localize "PF2E.SETTINGS.CompendiumBrowserSources.ShowUnknownSources"}}</dd>
+        <label for="show-empty-sources">
+            <input type="checkbox" id="show-empty-sources" name="show-empty-sources" {{checked sources.showEmptySources}}>
+            {{localize "PF2E.SETTINGS.CompendiumBrowserSources.ShowEmptySources"}}
         </label>
-    </dl>
 
-    <dl>
-        <label>
-            <dt><input type="checkbox" name="ignore-as-gm" {{checked sources.ignoreAsGM}}></dt>
-            <dd>{{localize "PF2E.SETTINGS.CompendiumBrowserSources.IgnoreAsGM"}}</dd>
+        <label for="show-unknown-sources">
+            <input type="checkbox" name="show-unknown-sources" {{checked sources.showUnknownSources}}>
+           {{localize "PF2E.SETTINGS.CompendiumBrowserSources.ShowUnknownSources"}}
         </label>
-    </dl>
+
+        <label for="ignore-as-gm">
+            <input type="checkbox" name="ignore-as-gm" {{checked sources.ignoreAsGM}}>
+            {{localize "PF2E.SETTINGS.CompendiumBrowserSources.IgnoreAsGM"}}
+        </label>
+    </fieldset>
 
     <button type="button" data-action="settings-sources-delete">{{localize "PF2E.SETTINGS.CompendiumBrowserSources.DeleteAllTitle"}}</button>
 </div>
 
-<div class="setting-section single-column">
-    <h3>{{localize "PF2E.SETTINGS.CompendiumBrowserSources.SourcesListHeader"}}</h3>
-    <dl>
-        <dt><input type="checkbox" data-action="setting-sources-toggle-visible" /></dt>
-        <dd><input type="text" data-element="setting-sources-search" /></dd>
+<div class="setting-section single-column fixed-height">
+    <fieldset>
+        <legend>{{localize "PF2E.SETTINGS.CompendiumBrowserSources.SourcesListHeader"}}</legend>
+        <div class="sources-header">
+            <input type="checkbox" data-action="setting-sources-toggle-visible" />
+            <input type="text" data-element="setting-sources-search" />
+        </div>
         {{#each sources.sources}}
-            <label data-element="setting-source" data-name="{{this.name}}">
-                <dt><input type="checkbox" name="source-{{@key}}" {{checked this.load}}></dt>
-                <dd>{{this.name}}</dd>
+            <label for="source-{{@key}}" data-element="setting-source" data-name="{{this.name}}">
+                <input type="checkbox" id="source-{{@key}}" name="source-{{@key}}" {{checked this.load}}>
+                {{this.name}}
             </label>
         {{/each}}
-    <dl>
+    </fieldset>
 </div>

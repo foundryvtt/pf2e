@@ -12,7 +12,6 @@ import {
     htmlQuery,
     htmlQueryAll,
     isObject,
-    localizer,
     objectHasKey,
     setHasElement,
 } from "@util";
@@ -20,8 +19,20 @@ import { getSelectedActors } from "@util/token-actor-utils.ts";
 import Tagify from "@yaireo/tagify";
 import noUiSlider from "nouislider";
 import * as R from "remeda";
-import { BrowserTabs, PackInfo, SourceInfo, TabData, TabName } from "./data.ts";
+import type {
+    ApplicationClosingOptions,
+    ApplicationConfiguration,
+    ApplicationHeaderControlsEntry,
+    ApplicationRenderOptions,
+} from "types/foundry/client-esm/applications/_types.ts";
+import type {
+    HandlebarsRenderOptions,
+    HandlebarsTemplatePart,
+} from "types/foundry/client-esm/applications/api/handlebars-application.ts";
+import { BrowserTab, BrowserTabs, PackInfo, SourceInfo, TabData, TabName } from "./data.ts";
 import { PackLoader } from "./loader.ts";
+import { CompendiumBrowserSettingsApp } from "./settings.ts";
+import type { CompendiumBrowserTab } from "./tabs/base.ts";
 import {
     ActionFilters,
     BestiaryFilters,
@@ -37,20 +48,20 @@ import {
 } from "./tabs/data.ts";
 import * as browserTabs from "./tabs/index.ts";
 
-class CompendiumBrowser extends Application {
+const foundryApp = foundry.applications.api;
+
+class CompendiumBrowser extends foundryApp.HandlebarsApplicationMixin(foundryApp.ApplicationV2) {
     settings: CompendiumBrowserSettings;
     dataTabsList = ["action", "bestiary", "campaignFeature", "equipment", "feat", "hazard", "spell"] as const;
-    navigationTab: Tabs;
     tabs: BrowserTabs;
 
     packLoader = new PackLoader();
-    declare activeTab: TabName;
+    activeTab?: BrowserTab;
 
-    constructor(options = {}) {
+    constructor(options: Partial<ApplicationConfiguration> = {}) {
         super(options);
 
         this.settings = game.settings.get("pf2e", "compendiumBrowserPacks");
-        this.navigationTab = this.hookTab();
         this.tabs = {
             action: new browserTabs.Actions(this),
             bestiary: new browserTabs.Bestiary(this),
@@ -68,48 +79,163 @@ class CompendiumBrowser extends Application {
         return game.i18n.localize("PF2E.CompendiumBrowser.Title");
     }
 
-    static override get defaultOptions(): ApplicationOptions {
-        return {
-            ...super.defaultOptions,
-            id: "compendium-browser",
-            classes: [],
-            template: "systems/pf2e/templates/compendium-browser/compendium-browser.hbs",
+    static override DEFAULT_OPTIONS: DeepPartial<ApplicationConfiguration> = {
+        id: "compendium-browser",
+        classes: ["compendium-browser"],
+        position: {
             width: 800,
             height: 700,
-            resizable: true,
-            dragDrop: [{ dragSelector: "ul.item-list > li.item" }],
-            tabs: [
+        },
+        window: {
+            controls: [
                 {
-                    navSelector: "nav",
-                    contentSelector: "section.content",
-                    initial: "landing-page",
+                    action: "openSettings",
+                    icon: "fa-solid fa-cogs",
+                    label: "PF2E.CompendiumBrowser.Settings.OpenSettings",
                 },
                 {
-                    navSelector: "nav[data-group=settings]",
-                    contentSelector: ".settings-container",
-                    initial: "packs",
+                    action: "addToRollTable",
+                    icon: "fa-solid fa-list",
+                    label: "PF2E.CompendiumBrowser.RollTable.AddLabel",
+                },
+                {
+                    action: "createRollTable",
+                    icon: "fa-solid fa-list",
+                    label: "PF2E.CompendiumBrowser.RollTable.CreateLabel",
                 },
             ],
-            scrollY: [".control-area", ".item-list", ".settings-container"],
-        };
-    }
+            resizable: true,
+        },
+        actions: {
+            addToRollTable: () => {
+                const browser = game.pf2e.compendiumBrowser;
+                if (!browser.activeTab) return;
+                browser.toggleControls();
+                browser.activeTab.addToRollTable();
+            },
+            createRollTable: () => {
+                const browser = game.pf2e.compendiumBrowser;
+                if (!browser.activeTab) return;
+                browser.toggleControls();
+                browser.activeTab.createRollTable();
+            },
+            openSettings: () => {
+                game.pf2e.compendiumBrowser.toggleControls();
+                new CompendiumBrowserSettingsApp().render(true);
+            },
+        },
+    };
+
+    static override PARTS: Record<string, HandlebarsTemplatePart> = {
+        main: {
+            template: "systems/pf2e/templates/compendium-browser/compendium-browser.hbs",
+        },
+        filters: {
+            template: "systems/pf2e/templates/compendium-browser/filters.hbs",
+            scrollable: [""],
+        },
+        resultList: {
+            template: "systems/pf2e/templates/compendium-browser/partials/result-list.hbs",
+            scrollable: [""],
+        },
+    };
+
+    override tabGroups: Record<string, string> = {
+        primary: "landing-page",
+    };
 
     /** Reset initial filtering */
-    override async close(options?: { force?: boolean }): Promise<void> {
+    override async close(options?: ApplicationClosingOptions): Promise<foundry.applications.api.ApplicationV2> {
         for (const tab of Object.values(this.tabs)) {
             tab.filterData.search.text = "";
         }
-        await super.close(options);
+        return super.close(options);
     }
 
-    hookTab(): Tabs {
-        const navigationTab = this._tabs[0];
-        const tabCallback = navigationTab.callback;
-        navigationTab.callback = async (event: JQuery.TriggeredEvent | null, tabs: Tabs, active: TabName) => {
-            tabCallback?.(event, tabs, active);
-            await this.loadTab(active);
+    override changeTab(
+        tab: TabName | "landing-page",
+        group: string,
+        options: { event?: Event; navElement?: HTMLElement; force?: boolean; updatePosition?: boolean },
+    ): void {
+        (async () => {
+            if (tab !== "landing-page" && tab !== this.activeTab?.tabName) {
+                await this.loadTab(tab);
+            }
+            super.changeTab(tab, group, options);
+        })();
+    }
+
+    protected override _getHeaderControls(): ApplicationHeaderControlsEntry[] {
+        const controls = super._getHeaderControls();
+        const gmControls = ["addToRollTable", "createRollTable", "openSettings"];
+        for (const control of controls) {
+            if (!game.user.isGM && gmControls.includes(control.action)) {
+                control.visible = false;
+            }
+        }
+        return controls;
+    }
+
+    protected override _onRender(context: CompendiumBrowserRenderContext, options: ApplicationRenderOptions): void {
+        super._onRender(context, options);
+
+        if (!this.activeTab && options.parts?.includes("main")) {
+            // Remove unnecessary parts from landing page
+            htmlQuery(this.element, "[data-application-part=filters]")?.remove();
+            htmlQuery(this.element, "[data-application-part=resultList]")?.remove();
+        }
+    }
+
+    protected override async _prepareContext(
+        _options: ApplicationRenderOptions,
+    ): Promise<CompendiumBrowserRenderContext> {
+        return {
+            activeTab: this.activeTab?.tabName ?? "landing-page",
+            filterData: this.activeTab?.filterData,
+            user: game.user,
         };
-        return navigationTab;
+    }
+
+    protected override async _preparePartContext(
+        partId: string,
+        context: CompendiumBrowserRenderContext,
+    ): Promise<CompendiumBrowserRenderContext> {
+        if (partId === "main") {
+            context.showCampaign = game.settings.get("pf2e", "campaignType") !== "none";
+            context.tabs = this.#getTabs(context.showCampaign);
+        }
+        return context;
+    }
+
+    #getTabs(showCampaign: boolean): CompendiumBrowserNavTab[] {
+        const translations: Record<TabName, string> = {
+            action: "PF2E.Item.Ability.Plural",
+            bestiary: "PF2E.CompendiumBrowser.TabBestiary",
+            campaignFeature: "PF2E.CompendiumBrowser.TabCampaign",
+            equipment: "TYPES.Item.equipment",
+            feat: "PF2E.CompendiumBrowser.TabFeat",
+            hazard: "PF2E.Actor.Hazard.Plural",
+            spell: "PF2E.Item.Spell.Plural",
+        };
+        const tabs: CompendiumBrowserNavTab[] = [];
+        const activeTabName = this.activeTab?.tabName ?? "";
+        for (const name of this.dataTabsList) {
+            if (!showCampaign && name === "campaignFeature") continue;
+            tabs.push({
+                class: activeTabName === name ? "active" : "",
+                group: "primary",
+                label: translations[name],
+                name,
+            });
+        }
+        // Add landing page
+        tabs.push({
+            group: "primary",
+            label: "",
+            style: "display: none;",
+            name: "landing-page",
+        });
+        return tabs;
     }
 
     initCompendiumList(): void {
@@ -196,13 +322,11 @@ class CompendiumBrowser extends Application {
     openTab(name: "feat", filter?: FeatFilters): Promise<void>;
     openTab(name: "hazard", filter?: HazardFilters): Promise<void>;
     openTab(name: "spell", filter?: SpellFilters): Promise<void>;
-    openTab(name: "settings"): Promise<void>;
     async openTab(tabName: TabName, filter?: BrowserFilter): Promise<void> {
-        this.activeTab = tabName;
-        if (tabName !== "settings" && filter) {
-            return this.tabs[tabName].open(filter);
+        if (!this.dataTabsList.includes(tabName)) {
+            throw ErrorPF2e(`Unknown tab "${tabName}"`);
         }
-        return this.loadTab(tabName);
+        return this.loadTab(tabName, filter);
     }
 
     async openActionTab(options: {
@@ -212,8 +336,8 @@ class CompendiumBrowser extends Application {
     }): Promise<void> {
         const actionTab = this.tabs.action;
         const filter = await actionTab.getFilterData();
-        const { types } = filter.checkboxes;
-        const { traits } = filter.multiselects;
+        const types = filter.checkboxes.types;
+        const traits = filter.multiselects.traits;
 
         types.selected = [];
         for (const type in types.options) {
@@ -272,31 +396,23 @@ class CompendiumBrowser extends Application {
         spellTab.open(filter);
     }
 
-    async loadTab(tabName: TabName): Promise<void> {
-        this.activeTab = tabName;
-        // Settings tab
-        if (tabName === "settings") {
-            await this.packLoader.updateSources(this.loadedPacksAll());
-            this.render(true);
-            return;
-        }
-
+    async loadTab(tabName: TabName, filter?: BrowserFilter): Promise<void> {
         if (!this.dataTabsList.includes(tabName)) {
             throw ErrorPF2e(`Unknown tab "${tabName}"`);
         }
 
-        const currentTab = this.tabs[tabName];
-
-        // Initialize Tab if it is not already initialzed
-        if (!currentTab.isInitialized) {
-            await currentTab.init();
+        this.activeTab = this.tabs[tabName];
+        if (!this.activeTab.isInitialized) {
+            await this.activeTab.init();
+        }
+        if (filter) {
+            this.activeTab.filterData = filter;
         }
 
-        this.render(true);
+        await this.render({ force: true });
     }
 
     loadedPacks(tab: TabName): string[] {
-        if (tab === "settings") return [];
         return Object.entries(this.settings[tab] ?? []).flatMap(([collection, info]) => {
             return info?.load ? [collection] : [];
         });
@@ -306,204 +422,146 @@ class CompendiumBrowser extends Application {
         return R.unique(this.dataTabsList.flatMap((t) => this.loadedPacks(t))).sort();
     }
 
-    override activateListeners($html: JQuery): void {
-        super.activateListeners($html);
-        const html = $html[0];
-        const activeTabName = this.activeTab;
+    protected override _attachPartListeners(partId: string, html: HTMLElement, options: HandlebarsRenderOptions): void {
+        super._attachPartListeners(partId, html, options);
 
-        // Set the navigation tab. This is only needed when the browser is openend
-        // with CompendiumBrowserTab#open
-        if (this.navigationTab.active !== activeTabName) {
-            this.navigationTab.activate(activeTabName);
+        switch (partId) {
+            case "filters":
+                return this._attachFilterListeners(html);
+            case "resultList":
+                return this._attachResultListListener(html);
         }
+    }
 
-        // Settings Tab
-        if (activeTabName === "settings") {
-            const settings = htmlQuery(html, ".compendium-browser-settings");
-            const form = settings?.querySelector<HTMLFormElement>("form");
-            if (!form) return;
+    _attachResultListListener(list: HTMLElement): void {
+        if (!this.activeTab) return;
+        const currentTab = this.activeTab;
 
-            htmlQuery(settings, "button[data-action=save-settings]")?.addEventListener("click", async () => {
-                const formData = new FormData(form);
-                for (const [t, packs] of Object.entries(this.settings) as [string, { [key: string]: PackInfo }][]) {
-                    for (const [key, pack] of Object.entries(packs) as [string, PackInfo][]) {
-                        pack.load = formData.has(`${t}-${key}`);
-                    }
+        list.addEventListener("scroll", () => {
+            if (list.scrollTop + list.clientHeight >= list.scrollHeight - 5) {
+                const currentValue = currentTab.scrollLimit;
+                const maxValue = currentTab.totalItemCount ?? 0;
+                if (currentValue < maxValue) {
+                    currentTab.scrollLimit = Math.clamp(currentValue + 100, 100, maxValue);
+                    this.#renderResultList({ list: list as HTMLUListElement, start: currentValue });
                 }
-                await game.settings.set("pf2e", "compendiumBrowserPacks", this.settings);
+            }
+        });
 
-                for (const [key, source] of Object.entries(this.packLoader.sourcesSettings.sources)) {
-                    if (!source?.name) {
-                        delete this.packLoader.sourcesSettings.sources[key]; // just to make sure we clean up
-                        continue;
-                    }
-                    source.load = formData.has(`source-${key}`);
-                }
+        list.addEventListener("dragstart", (event) => {
+            event.stopPropagation();
+            const liElement = htmlClosest(event.target, "li");
+            if (!liElement) return;
+            event.dataTransfer?.setDragImage(liElement, 0, 0);
+            this._onDragStart(event, liElement);
+        });
 
-                this.packLoader.sourcesSettings.showEmptySources = formData.has("show-empty-sources");
-                this.packLoader.sourcesSettings.showUnknownSources = formData.has("show-unknown-sources");
-                this.packLoader.sourcesSettings.ignoreAsGM = formData.has("ignore-as-gm");
-                await game.settings.set("pf2e", "compendiumBrowserSources", this.packLoader.sourcesSettings);
+        list.addEventListener("click", async (event) => {
+            const target = event.target;
+            if (!(target instanceof HTMLElement)) return;
+            const uuid = htmlClosest(target, "li[data-entry-uuid]")?.dataset.entryUuid;
+            if (!uuid) return;
+            const action = target.dataset.action;
 
-                await this.#resetInitializedTabs();
-                this.render(true);
-                ui.notifications.info("PF2E.BrowserSettingsSaved", { localize: true });
-            });
+            if (target.classList.contains("actor-link") || target.classList.contains("item-link")) {
+                (await fromUuid(uuid))?.sheet.render(true);
+            } else if (action === "take-item") {
+                this.#takePhysicalItem(uuid);
+            } else if (action === "buy-item") {
+                this.#buyPhysicalItem(uuid);
+            }
+        });
 
-            const sourceSearch = htmlQuery<HTMLInputElement>(form, "input[data-element=setting-sources-search]");
-            const sourceToggle = htmlQuery<HTMLInputElement>(form, "input[data-action=setting-sources-toggle-visible]");
-            const sourceSettings = htmlQueryAll<HTMLElement>(form, "label[data-element=setting-source]");
+        this.#renderResultList({ list: list as HTMLUListElement });
+    }
 
-            sourceSearch?.addEventListener("input", () => {
-                const value = sourceSearch.value?.trim().toLocaleLowerCase(game.i18n.lang);
-
-                for (const element of sourceSettings) {
-                    const name = element.dataset.name?.toLocaleLowerCase(game.i18n.lang);
-                    const shouldBeHidden = !!value && !!name && !name.includes(value);
-
-                    element.classList.toggle("hidden", shouldBeHidden);
-                }
-
-                if (sourceToggle) {
-                    sourceToggle.checked = false;
-                }
-            });
-
-            sourceToggle?.addEventListener("click", () => {
-                for (const element of sourceSettings) {
-                    const checkbox = htmlQuery<HTMLInputElement>(element, "input[type=checkbox]");
-                    if (!element.classList.contains("hidden") && checkbox) {
-                        checkbox.checked = sourceToggle.checked;
-                    }
-                }
-            });
-
-            const deleteButton = htmlQuery<HTMLInputElement>(form, "button[data-action=settings-sources-delete]");
-            deleteButton?.addEventListener("click", async () => {
-                const localize = localizer("PF2E.SETTINGS.CompendiumBrowserSources");
-                const confirm = await Dialog.confirm({
-                    title: localize("DeleteAllTitle"),
-                    content: `
-                        <p>
-                            ${localize("DeleteAllQuestion")}
-                        </p>
-                        <p>
-                            ${localize("DeleteAllInfo")}
-                        </p>
-                        `,
-                });
-
-                if (confirm) {
-                    await this.packLoader.hardReset(this.loadedPacksAll());
-                    await game.settings.set("pf2e", "compendiumBrowserSources", this.packLoader.sourcesSettings);
-                    await this.#resetInitializedTabs();
-                    this.render(true);
-                }
-            });
-            return;
-        }
-
-        // Other tabs
-        const currentTab = this.tabs[activeTabName];
-        const controlArea = html.querySelector<HTMLDivElement>("div.control-area");
-        if (!controlArea) return;
+    _attachFilterListeners(controlArea: HTMLElement): void {
+        if (!this.activeTab) return;
+        const currentTab = this.activeTab;
+        const activeTabName = this.activeTab.tabName;
 
         // Search field
-        const search = controlArea.querySelector<HTMLInputElement>("input[name=textFilter]");
+        const search = htmlQuery<HTMLInputElement>(controlArea, "input[name=textFilter]");
         if (search) {
             search.addEventListener("input", () => {
                 currentTab.filterData.search.text = search.value;
-                this.#clearScrollLimit();
+                this.#resetView();
                 this.#renderResultList({ replace: true });
             });
         }
 
         // Sort item list
-        const sortContainer = controlArea.querySelector<HTMLDivElement>("div.sortcontainer");
+        const sortContainer = htmlQuery(controlArea, "div.sortcontainer");
         if (sortContainer) {
-            const order = sortContainer.querySelector<HTMLSelectElement>("select.order");
+            const order = htmlQuery<HTMLSelectElement>(sortContainer, "select.order");
             if (order) {
                 order.addEventListener("change", () => {
                     currentTab.filterData.order.by = order.value ?? "name";
-                    this.#clearScrollLimit(true);
+                    this.#resetView(["filters"]);
                 });
             }
-            const directionAnchor = sortContainer.querySelector<HTMLAnchorElement>("a.direction");
+            const directionAnchor = htmlQuery(sortContainer, "a.direction");
             if (directionAnchor) {
                 directionAnchor.addEventListener("click", () => {
                     const direction = directionAnchor.dataset.direction ?? "asc";
                     currentTab.filterData.order.direction = direction === "asc" ? "desc" : "asc";
-                    this.#clearScrollLimit(true);
+                    this.#resetView(["filters"]);
                 });
             }
         }
 
         if (activeTabName === "spell") {
-            const timeFilter = controlArea.querySelector<HTMLSelectElement>("select[name=timefilter]");
+            const timeFilter = htmlQuery<HTMLSelectElement>(controlArea, "select[name=timefilter]");
             if (timeFilter) {
                 timeFilter.addEventListener("change", () => {
                     if (!currentTab.isOfType("spell")) return;
                     const filterData = currentTab.filterData;
                     if (!filterData.selects?.timefilter) return;
                     filterData.selects.timefilter.selected = timeFilter.value;
-                    this.#clearScrollLimit(true);
+                    this.#resetView(["filters"]);
                 });
             }
         }
 
         // Clear all filters button
-        controlArea.querySelector<HTMLButtonElement>("button.clear-filters")?.addEventListener("click", () => {
+        htmlQuery(controlArea, "button.clear-filters")?.addEventListener("click", () => {
             this.#resetFilters();
-            this.#clearScrollLimit(true);
-        });
-
-        // Create Roll Table button
-        htmlQuery(html, "[data-action=create-roll-table]")?.addEventListener("click", () =>
-            currentTab.createRollTable(),
-        );
-
-        // Add to Roll Table button
-        htmlQuery(html, "[data-action=add-to-roll-table]")?.addEventListener("click", async () => {
-            if (game.tables.contents.length === 0) return;
-            currentTab.addToRollTable();
+            this.#resetView(["filters"]);
         });
 
         // Filters
-        const filterContainers = controlArea.querySelectorAll<HTMLDivElement>("div.filtercontainer");
-        for (const container of Array.from(filterContainers)) {
+        for (const container of htmlQueryAll(controlArea, "div.filtercontainer")) {
             const { filterType, filterName } = container.dataset;
             // Clear this filter button
-            container
-                .querySelector<HTMLButtonElement>("button[data-action=clear-filter]")
-                ?.addEventListener("click", (event) => {
-                    event.stopImmediatePropagation();
-                    switch (filterType) {
-                        case "checkboxes": {
-                            const checkboxes = currentTab.filterData.checkboxes;
-                            if (objectHasKey(checkboxes, filterName)) {
-                                for (const option of Object.values(checkboxes[filterName].options)) {
-                                    option.selected = false;
-                                }
-                                checkboxes[filterName].selected = [];
-                                this.render(true);
+            htmlQuery(container, "button[data-action=clear-filter]")?.addEventListener("click", (event) => {
+                event.stopImmediatePropagation();
+                switch (filterType) {
+                    case "checkboxes": {
+                        const checkboxes = currentTab.filterData.checkboxes;
+                        if (objectHasKey(checkboxes, filterName)) {
+                            for (const option of Object.values(checkboxes[filterName].options)) {
+                                option.selected = false;
                             }
-                            break;
+                            checkboxes[filterName].selected = [];
+                            this.#resetView(["filters"]);
                         }
-                        case "ranges": {
-                            if (currentTab.isOfType("equipment")) {
-                                const ranges = currentTab.filterData.ranges;
-                                if (objectHasKey(ranges, filterName)) {
-                                    ranges[filterName].values = currentTab.defaultFilterData.ranges[filterName].values;
-                                    ranges[filterName].changed = false;
-                                    this.render(true);
-                                }
+                        break;
+                    }
+                    case "ranges": {
+                        if (currentTab.isOfType("equipment")) {
+                            const ranges = currentTab.filterData.ranges;
+                            if (objectHasKey(ranges, filterName)) {
+                                ranges[filterName].values = currentTab.defaultFilterData.ranges[filterName].values;
+                                ranges[filterName].changed = false;
+                                this.#resetView(["filters"]);
                             }
                         }
                     }
-                });
+                }
+            });
 
             // Toggle visibility of filter container
-            const title = container.querySelector<HTMLDivElement>("div.title");
+            const title = htmlQuery(container, "div.title");
             title?.addEventListener("click", () => {
                 const toggleFilter = (filter: CheckboxData | RangesInputData | SliderData) => {
                     filter.isExpanded = !filter.isExpanded;
@@ -537,7 +595,7 @@ class CompendiumBrowser extends Application {
             });
 
             if (filterType === "checkboxes") {
-                container.querySelectorAll<HTMLInputElement>("input[type=checkbox]").forEach((checkboxElement) => {
+                for (const checkboxElement of htmlQueryAll<HTMLInputElement>(container, "input[type=checkbox]")) {
                     checkboxElement.addEventListener("click", () => {
                         if (objectHasKey(currentTab.filterData.checkboxes, filterName)) {
                             const optionName = checkboxElement.name;
@@ -549,14 +607,14 @@ class CompendiumBrowser extends Application {
                             } else {
                                 checkbox.selected = checkbox.selected.filter((name) => name !== optionName);
                             }
-                            this.#clearScrollLimit(true);
+                            this.#resetView(["filters"]);
                         }
                     });
-                });
+                }
             }
 
             if (filterType === "ranges") {
-                container.querySelectorAll<HTMLInputElement>("input[name*=Bound]").forEach((range) => {
+                for (const range of htmlQueryAll<HTMLInputElement>(container, "input[name*=Bound]")) {
                     range.addEventListener("keyup", (event) => {
                         if (!currentTab.isOfType("equipment")) return;
                         if (event.key !== "Enter") return;
@@ -564,16 +622,16 @@ class CompendiumBrowser extends Application {
                         if (ranges && objectHasKey(ranges, filterName)) {
                             const range = ranges[filterName];
                             const lowerBound =
-                                container.querySelector<HTMLInputElement>("input[name*=lowerBound]")?.value ?? "";
+                                htmlQuery<HTMLInputElement>(container, "input[name*=lowerBound]")?.value ?? "";
                             const upperBound =
-                                container.querySelector<HTMLInputElement>("input[name*=upperBound]")?.value ?? "";
+                                htmlQuery<HTMLInputElement>(container, "input[name*=upperBound]")?.value ?? "";
                             const values = currentTab.parseRangeFilterInput(filterName, lowerBound, upperBound);
                             range.values = values;
                             range.changed = true;
-                            this.#clearScrollLimit(true);
+                            this.#resetView(["filters"]);
                         }
                     });
-                });
+                }
             }
 
             if (filterType === "multiselects") {
@@ -581,7 +639,8 @@ class CompendiumBrowser extends Application {
                 const multiselects = currentTab.filterData.multiselects;
                 if (!multiselects) continue;
                 if (objectHasKey(multiselects, filterName)) {
-                    const multiselect = container.querySelector<HTMLInputElement>(
+                    const multiselect = htmlQuery<HTMLInputElement>(
+                        container,
                         `input[name=${filterName}][data-tagify-select]`,
                     );
                     if (!multiselect) continue;
@@ -609,15 +668,15 @@ class CompendiumBrowser extends Application {
                     });
 
                     tagify.on("click", (event) => {
-                        const target = event.detail.event.target as HTMLElement;
-                        if (!target) return;
+                        const target = event.detail.event.target;
+                        if (!(target instanceof HTMLElement)) return;
                         const action = htmlClosest(target, "[data-action]")?.dataset?.action;
                         if (action === "toggle-not") {
                             const value = event.detail.data.value;
                             const selected = data.selected.find((s) => s.value === value);
                             if (selected) {
                                 selected.not = !selected.not;
-                                this.render();
+                                this.#resetView(["filters"]);
                             }
                         }
                     });
@@ -632,7 +691,7 @@ class CompendiumBrowser extends Application {
 
                         if (isValid) {
                             data.selected = selections;
-                            this.render();
+                            this.#resetView(["filters"]);
                         }
                     });
 
@@ -644,7 +703,7 @@ class CompendiumBrowser extends Application {
                             const value = element.value;
                             if (value === "and" || value === "or") {
                                 data.conjunction = value;
-                                this.render();
+                                this.#resetView(["filters"]);
                             }
                         });
                     }
@@ -669,7 +728,7 @@ class CompendiumBrowser extends Application {
                 if (!sliders) continue;
 
                 if (objectHasKey(sliders, filterName)) {
-                    const sliderElement = container.querySelector<HTMLDivElement>(`div.slider-${filterName}`);
+                    const sliderElement = htmlQuery(container, `div.slider-${filterName}`);
                     if (!sliderElement) continue;
                     const data = sliders[filterName];
 
@@ -694,47 +753,24 @@ class CompendiumBrowser extends Application {
                         data.values.min = min;
                         data.values.max = max;
 
-                        const $minLabel = $html.find(`label.${name}-min-label`);
-                        const $maxLabel = $html.find(`label.${name}-max-label`);
-                        $minLabel.text(min);
-                        $maxLabel.text(max);
+                        const minLabel = htmlQuery(controlArea, `label.${filterName}-min-label`);
+                        const maxLabel = htmlQuery(controlArea, `label.${filterName}-max-label`);
+                        if (minLabel && maxLabel) {
+                            minLabel.innerText = String(min);
+                            maxLabel.innerText = String(max);
+                        }
 
-                        this.#clearScrollLimit(true);
+                        this.#resetView(["filters"]);
                     });
 
                     // Set styling
-                    sliderElement.querySelectorAll<HTMLDivElement>(".noUi-handle").forEach((element) => {
+                    for (const element of htmlQueryAll(sliderElement, ".noUi-handle")) {
                         element.classList.add("handle");
-                    });
-                    sliderElement.querySelectorAll<HTMLDivElement>(".noUi-connect").forEach((element) => {
+                    }
+                    for (const element of htmlQueryAll(sliderElement, ".noUi-connect")) {
                         element.classList.add("range_selected");
-                    });
+                    }
                 }
-            }
-        }
-
-        const list = html.querySelector<HTMLUListElement>(".tab.active ul.item-list");
-        if (!list) return;
-        list.addEventListener("scroll", () => {
-            if (list.scrollTop + list.clientHeight >= list.scrollHeight - 5) {
-                const currentValue = currentTab.scrollLimit;
-                const maxValue = currentTab.totalItemCount ?? 0;
-                if (currentValue < maxValue) {
-                    currentTab.scrollLimit = Math.clamp(currentValue + 100, 100, maxValue);
-                    this.#renderResultList({ list, start: currentValue });
-                }
-            }
-        });
-
-        // Initial result list render
-        this.#renderResultList({ list });
-    }
-
-    async #resetInitializedTabs(): Promise<void> {
-        for (const tab of Object.values(this.tabs)) {
-            if (tab.isInitialized) {
-                await tab.init();
-                tab.scrollLimit = 100;
             }
         }
     }
@@ -747,20 +783,17 @@ class CompendiumBrowser extends Application {
      * @param options.replace Replace the current list with the new results?
      */
     async #renderResultList({ list, start = 0, replace = false }: RenderResultListOptions): Promise<void> {
-        const currentTab = this.activeTab !== "settings" ? this.tabs[this.activeTab] : null;
-        const html = this.element[0];
+        const currentTab = this.activeTab ?? null;
         if (!currentTab) return;
 
         if (!list) {
-            const listElement = html.querySelector<HTMLUListElement>(".tab.active ul.item-list");
+            const listElement = htmlQuery<HTMLUListElement>(this.element, ".tab.active ul.item-list");
             if (!listElement) return;
             list = listElement;
         }
 
         // Get new results from index
         const newResults = await currentTab.renderResults(start);
-        // Add listeners to new results only
-        this.#activateResultListeners(newResults);
         // Add the results to the DOM
         const fragment = document.createDocumentFragment();
         fragment.append(...newResults);
@@ -768,42 +801,6 @@ class CompendiumBrowser extends Application {
             list.replaceChildren(fragment);
         } else {
             list.append(fragment);
-        }
-        // Re-apply drag drop handler
-        for (const dragDropHandler of this._dragDrop) {
-            dragDropHandler.bind(html);
-        }
-    }
-
-    /** Activate click listeners on loaded actors and items */
-    #activateResultListeners(liElements: HTMLLIElement[] = []): void {
-        for (const liElement of liElements) {
-            const { entryUuid } = liElement.dataset;
-            if (!entryUuid) continue;
-
-            const nameAnchor = liElement.querySelector<HTMLAnchorElement>("div.name > a");
-            if (nameAnchor) {
-                nameAnchor.addEventListener("click", async () => {
-                    const document = await fromUuid(entryUuid);
-                    if (document?.sheet) {
-                        document.sheet.render(true);
-                    }
-                });
-            }
-
-            if (this.activeTab === "equipment") {
-                // Add an item to selected tokens' actors' inventories
-                liElement
-                    .querySelector<HTMLAnchorElement>("a[data-action=take-item]")
-                    ?.addEventListener("click", () => {
-                        this.#takePhysicalItem(entryUuid);
-                    });
-
-                // Attempt to buy an item with the selected tokens' actors'
-                liElement.querySelector<HTMLAnchorElement>("a[data-action=buy-item]")?.addEventListener("click", () => {
-                    this.#buyPhysicalItem(entryUuid);
-                });
-            }
         }
     }
 
@@ -896,22 +893,16 @@ class CompendiumBrowser extends Application {
         return item;
     }
 
-    protected override _canDragStart(): boolean {
-        return true;
-    }
-
-    protected override _canDragDrop(): boolean {
-        return true;
-    }
-
     /** Set drag data and lower opacity of the application window to reveal any tokens */
-    protected override _onDragStart(event: DragEvent): void {
-        if (!(event.currentTarget instanceof HTMLElement && event.dataTransfer)) {
-            return super._onDragStart(event);
-        }
+    protected _onDragStart(event: DragEvent, item: HTMLLIElement): void {
+        if (!event.dataTransfer) return;
 
-        this.element.animate({ opacity: 0.125 }, 250);
-        const item = event.currentTarget;
+        gsap.to(this.element, {
+            duration: 0.25,
+            opacity: 0.125,
+            pointerEvents: "none",
+        });
+
         event.dataTransfer.setData(
             "text/plain",
             JSON.stringify({
@@ -919,15 +910,15 @@ class CompendiumBrowser extends Application {
                 uuid: item.dataset.entryUuid,
             }),
         );
-        // awful hack (dataTransfer.types will include "from-browser")
-        event.dataTransfer.setData("from-browser", "true");
 
         item.addEventListener(
             "dragend",
             () => {
                 window.setTimeout(() => {
-                    this.element.animate({ opacity: 1 }, 250, () => {
-                        this.element.css({ pointerEvents: "" });
+                    gsap.to(this.element, {
+                        duration: 0.25,
+                        opacity: 1,
+                        pointerEvents: "",
                     });
                 }, 500);
             },
@@ -935,48 +926,32 @@ class CompendiumBrowser extends Application {
         );
     }
 
-    protected override _onDragOver(event: DragEvent): void {
-        super._onDragOver(event);
-        if (event.dataTransfer?.types.includes("from-browser")) {
-            this.element.css({ pointerEvents: "none" });
+    async resetInitializedTabs(): Promise<void> {
+        for (const tab of Object.values(this.tabs)) {
+            if (tab.isInitialized) {
+                await tab.init();
+                tab.scrollLimit = 100;
+            }
         }
-    }
-
-    override getData(): CompendiumBrowserSheetData {
-        const activeTab = this.activeTab;
-        const tab = objectHasKey(this.tabs, activeTab) ? this.tabs[activeTab] : null;
-
-        const settings = {
-            settings: this.settings,
-            sources: this.packLoader.sourcesSettings,
-        };
-
-        return {
-            user: game.user,
-            [activeTab]: activeTab === "settings" ? settings : { filterData: tab?.filterData },
-            scrollLimit: tab?.scrollLimit,
-            showCampaign: game.settings.get("pf2e", "campaignType") !== "none",
-        };
+        if (this.activeTab) {
+            this.render({ parts: ["filters", "resultList"] });
+        }
     }
 
     #resetFilters(): void {
-        const activeTab = this.activeTab;
-        if (activeTab !== "settings") {
-            this.tabs[activeTab].resetFilters();
-        }
+        this.activeTab?.resetFilters();
     }
 
-    #clearScrollLimit(render = false): void {
+    #resetView(renderParts: string[] = []): void {
         const tab = this.activeTab;
-        if (tab === "settings") return;
-
-        const list = htmlQuery(this.element[0], ".tab.active ul.item-list");
+        if (!tab) return;
+        const list = htmlQuery<HTMLUListElement>(this.element, ".tab.active ul.item-list");
         if (!list) return;
         list.scrollTop = 0;
-        this.tabs[tab].scrollLimit = 100;
-
-        if (render) {
-            this.render();
+        tab.scrollLimit = 100;
+        this.#renderResultList({ list, replace: true });
+        if (renderParts.length > 0) {
+            this.render({ parts: renderParts });
         }
     }
 }
@@ -991,11 +966,20 @@ interface CompendiumBrowserSources {
     sources: CompendiumBrowserSourcesList;
 }
 
-interface CompendiumBrowserSheetData {
+interface CompendiumBrowserRenderContext {
+    activeTab: TabName | "landing-page";
     user: Active<UserPF2e>;
-    settings?: { settings: CompendiumBrowserSettings; sources: CompendiumBrowserSources };
-    scrollLimit?: number;
-    showCampaign: boolean;
+    filterData?: CompendiumBrowserTab["filterData"];
+    showCampaign?: boolean;
+    tabs?: CompendiumBrowserNavTab[];
+}
+
+interface CompendiumBrowserNavTab {
+    class?: string;
+    group: string;
+    label: string;
+    name: string;
+    style?: string;
 }
 
 export { CompendiumBrowser };

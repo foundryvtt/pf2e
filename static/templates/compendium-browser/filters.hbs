@@ -4,8 +4,10 @@
         <dl>
             <dt>{{localize "PF2E.BrowserSortyByLabel"}}:</dt>
             <dd>
-                <select class="order">
-                    {{selectOptions filterData.order.options selected=filterData.order.by localize=true}}
+                <select name="order" class="order">
+                    {{#if filterData}}
+                        {{selectOptions filterData.order.options selected=filterData.order.by localize=true}}
+                    {{/if}}
                 </select>
                 <a class="direction" data-type="alpha" data-direction="{{filterData.order.direction}}">
                     {{#if (eq filterData.order.direction "asc")}}
@@ -88,17 +90,10 @@
                 {{/if}}
             </div>
             <div class="slidercontainer-flex" {{#if (not slider.isExpanded)}}style="display: none;"{{/if}}>
-                <label id="{{name}}-min-label">{{slider.values.min}}</label>
+                <div class="slider-label" id="{{name}}-min-label">{{slider.values.min}}</div>
                 <div class="slider-{{name}}"></div>
-                <label id="{{name}}-max-label">{{slider.values.max}}</label>
+                <div class="slider-label" id="{{name}}-max-label">{{slider.values.max}}</div>
             </div>
         </div>
     {{/each}}
 </div>
-
-{{#if @root.user.isGM}}
-    <div class="list-buttons">
-        <button type="button" class="create-roll-table" data-action="create-roll-table"><i class="fa-solid fa-list"></i> {{localize "PF2E.CompendiumBrowser.RollTable.CreateLabel"}}</button>
-        <button type="button" class="create-roll-table" data-action="add-to-roll-table"><i class="fa-solid fa-list"></i> {{localize "PF2E.CompendiumBrowser.RollTable.AddLabel"}}</button>
-    </div>
-{{/if}}
