@@ -561,14 +561,43 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Whenever the kun makes a jaws Strike from within an area of darkness, their jaws deals an additional @Damage[2d6[spirit]] damage and gains the unholy trait.</p>"
+                    "value": "<p>Whenever the kun makes a jaws Strike from within an area of darkness, their jaws deals an additional 2d6 spirit damage and gains the unholy trait.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "heart-of-darkness",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "spirit",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "heart-of-darkness"
+                        ],
+                        "selector": "jaws-damage"
+                    },
+                    {
+                        "definition": [
+                            "item:slug:jaws"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "heart-of-darkness"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "unholy"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
