@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import type { FeatGroup } from "@actor/character/feats.ts";
+import type { FeatGroup } from "@actor/character/feats/index.ts";
 import { ItemPF2e } from "@item";
 import { normalizeActionChangeData } from "@item/ability/helpers.ts";
 import { ActionCost, Frequency } from "@item/base/data/index.ts";
