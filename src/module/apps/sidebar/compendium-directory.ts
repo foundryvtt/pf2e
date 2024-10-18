@@ -70,6 +70,7 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
         return {
             ...(await super.getData(options)),
             searchContents: game.user.settings.searchPackContents,
+            isV13: game.release.generation === 13,
         };
     }
 
@@ -269,6 +270,7 @@ interface CompendiumDirectoryPF2e extends CompendiumDirectory {
 
 interface CompendiumDirectoryDataPF2e extends CompendiumDirectoryData {
     searchContents: boolean;
+    isV13: boolean;
 }
 
 export { CompendiumDirectoryPF2e };
