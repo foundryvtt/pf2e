@@ -28,6 +28,63 @@
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.actionspf2e.Item.Implement's Interruption"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:usage:hands:1",
+                        {
+                            "nor": [
+                                "item:trait:consumable",
+                                "item:magical"
+                            ]
+                        }
+                    ],
+                    "itemType": "weapon"
+                },
+                "flag": "weaponImplement",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "rarity",
+                        "value": "unique"
+                    }
+                ],
+                "flag": "weaponImplement",
+                "key": "GrantItem",
+                "track": true,
+                "uuid": "{item|flags.pf2e.rulesSelections.weaponImplement}"
+            },
+            {
+                "key": "RollOption",
+                "option": "implement-held",
+                "predicate": [
+                    "weapon-implement:equipped"
+                ]
+            },
+            {
+                "key": "RollOption",
+                "option": "implement:weapon:equipped",
+                "predicate": [
+                    "weapon-implement:equipped"
+                ]
+            },
+            {
+                "itemId": "{item|flags.pf2e.itemGrants.weaponImplement.id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Thaumaturge.Implement.Description.Weapon"
+                    }
+                ]
             }
         ],
         "traits": {
