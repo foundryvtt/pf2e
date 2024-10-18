@@ -1,4 +1,4 @@
-import { FeatGroup } from "@actor/character/feats.ts";
+import { FeatGroup } from "@actor/character/feats/index.ts";
 import { Sense } from "@actor/creature/sense.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
