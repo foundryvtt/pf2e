@@ -228,7 +228,7 @@ class CraftingAbility implements CraftingAbilityData {
             (r: CraftingAbilityRuleSource): r is CraftingAbilityRuleData =>
                 r.key === "CraftingAbility" && r.slug === this.slug,
         );
-        const itemUpdates = createBatchRuleElementUpdate(rules, { preparedFormulas: this.preparedFormulaData });
+        const itemUpdates = createBatchRuleElementUpdate(rules, { prepared: this.preparedFormulaData });
         if (itemUpdates.length) {
             await this.actor.updateEmbeddedDocuments("Item", itemUpdates);
         }
