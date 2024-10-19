@@ -1,0 +1,63 @@
+{
+    "_id": "lgvjbbQiHBGKR3C6",
+    "img": "systems/pf2e/icons/equipment/consumables/ammunition/rhino-shot.webp",
+    "name": "Effect: Rhino Shot",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Rhino Shot]</p>\n<p>On a successful Strike, your attack deals an additional 2d6 force damage, and the target must succeed at a DC 19 Fortitude save or be knocked Prone. If the hit with the <em>rhino shot</em> was a critical success, the target is knocked prone unless it critically succeeds at its save.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens: The Grand Bazaar"
+        },
+        "rules": [
+            {
+                "damageType": "force",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "strike-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.Equipment.RhinoShot.Success",
+                "title": "Rhino Shot"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.Equipment.RhinoShot.Success",
+                "title": "Rhino Shot"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}
