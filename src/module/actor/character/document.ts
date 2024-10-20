@@ -1156,7 +1156,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             `item:proficiency:rank:${proficiencyRank}`,
             // @todo migrate away:
             PROFICIENCY_RANK_OPTION[proficiencyRank],
-            ...weaponTraits, // always add weapon traits as options
+            ...weaponTraits, // @todo same
             meleeOrRanged,
         ]);
 
