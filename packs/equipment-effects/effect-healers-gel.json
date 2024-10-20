@@ -25,7 +25,6 @@
                 "adjustName": false,
                 "choices": [
                     {
-                        "label": "PF2E.SpecificRule.Equipment.HealersGel.Lesser",
                         "predicate": [
                             {
                                 "or": [
@@ -39,10 +38,9 @@
                                 ]
                             }
                         ],
-                        "value": 5
+                        "value": "Compendium.pf2e.equipment-srd.Item.Healer's Gel (Lesser)"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Equipment.HealersGel.Moderate",
                         "predicate": [
                             {
                                 "or": [
@@ -56,10 +54,9 @@
                                 ]
                             }
                         ],
-                        "value": 10
+                        "value": "Compendium.pf2e.equipment-srd.Item.Healer's Gel (Moderate)"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Equipment.HealersGel.Greater",
                         "predicate": [
                             {
                                 "or": [
@@ -73,16 +70,33 @@
                                 ]
                             }
                         ],
-                        "value": 15
+                        "value": "Compendium.pf2e.equipment-srd.Item.Healer's Gel (Greater)"
                     }
                 ],
-                "flag": "healersGel",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety"
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "healers-gel"
             },
             {
                 "key": "TempHP",
-                "value": "@item.flags.pf2e.rulesSelections.healersGel"
+                "predicate": [
+                    "healers-gel:healers-gel-lesser"
+                ],
+                "value": 5
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "healers-gel:healers-gel-moderate"
+                ],
+                "value": 10
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "healers-gel:healers-gel-greater"
+                ],
+                "value": 15
             }
         ],
         "start": {

@@ -22,9 +22,9 @@
         },
         "rules": [
             {
+                "adjustName": false,
                 "choices": [
                     {
-                        "label": "PF2E.SpecificRule.Equipment.BloodBooster.Lesser",
                         "predicate": [
                             {
                                 "or": [
@@ -38,10 +38,9 @@
                                 ]
                             }
                         ],
-                        "value": 5
+                        "value": "Compendium.pf2e.equipment-srd.Item.Blood Booster (Lesser)"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Equipment.BloodBooster.Moderate",
                         "predicate": [
                             {
                                 "or": [
@@ -55,10 +54,9 @@
                                 ]
                             }
                         ],
-                        "value": 10
+                        "value": "Compendium.pf2e.equipment-srd.Item.Blood Booster (Moderate)"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Equipment.BloodBooster.Greater",
                         "predicate": [
                             {
                                 "or": [
@@ -72,12 +70,37 @@
                                 ]
                             }
                         ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Blood Booster (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "blood-booster"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            "blood-booster:blood-booster-lesser"
+                        ],
+                        "value": 5
+                    },
+                    {
+                        "predicate": [
+                            "blood-booster:blood-booster-moderate"
+                        ],
+                        "value": 10
+                    },
+                    {
+                        "predicate": [
+                            "blood-booster:blood-booster-greater"
+                        ],
                         "value": 20
                     }
                 ],
                 "flag": "bloodBooster",
-                "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety"
+                "key": "ChoiceSet"
             },
             {
                 "key": "Resistance",
