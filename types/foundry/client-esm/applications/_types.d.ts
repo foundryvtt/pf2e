@@ -114,7 +114,7 @@ export interface ApplicationWindowRenderOptions {
     controls: boolean;
 }
 
-type ApplicationRenderContext = Record<string, unknown>;
+type ApplicationRenderContext = object;
 
 export interface ApplicationClosingOptions {
     /** Whether to animate the close, or perform it instantaneously */
