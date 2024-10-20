@@ -452,7 +452,7 @@ class TextEditorPF2e extends TextEditor {
             element.appendChild(text);
 
             // difficulty class
-            const visibility = (params["show-dc"] || "all").trim().toLowerCase();
+            const visibility = (params["show-dc"] || (game.pf2e.settings.metagame.dcs ? "all" : "gm")).trim().toLowerCase();
             const showDC =
                 (visibility === "all" && game.pf2e.settings.metagame.dcs) ||
                 (["all", "gm"].includes(visibility) && game.user.isGM);
