@@ -49,6 +49,7 @@ import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { CreatureSheetPF2e } from "../creature/sheet.ts";
 import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies.ts";
+import { ABCPicker } from "./apps/abc-picker/app.ts";
 import { AttributeBuilder } from "./apps/attribute-builder.ts";
 import { AutomaticBonusProgression } from "./automatic-bonus-progression.ts";
 import { CharacterConfig } from "./config.ts";
@@ -820,6 +821,15 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         };
 
         // MAIN TAB
+
+        handlers["open-abc-picker"] = async (_event, target) => {
+            const itemType = target.dataset.itemType;
+            if (!tupleHasValue(["ancestry", "heritage", "background", "class", "deity"], itemType)) {
+                throw ErrorPF2e("Unexpected item type");
+            }
+
+            new ABCPicker({ actor: this.actor, itemType }).render({ force: true });
+        };
 
         handlers["edit-attribute-boosts"] = () => {
             const builder =
