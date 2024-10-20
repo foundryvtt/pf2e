@@ -34,7 +34,183 @@
             "title": "Pathfinder GM Core"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "wand-of-widening",
+                "placement": "spellcasting",
+                "toggleable": true,
+                "label": "{item|name}",
+                "value": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "lte": [
+                            "item:rank",
+                            9
+                        ]
+                    },
+                    "wand-of-widening",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:area:type:burst",
+                                    {
+                                        "gte": [
+                                            "item:area:size",
+                                            10
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    {
+                                        "or": [
+                                            "item:area:type:cone",
+                                            "item:area:type:line"
+                                        ]
+                                    },
+                                    {
+                                        "lte": [
+                                            "item:area:size",
+                                            15
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "area-size",
+                "value": 5
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "lte": [
+                            "item:rank",
+                            9
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:area:type:line",
+                            "item:area:type:cone"
+                        ]
+                    },
+                    {
+                        "gt": [
+                            "item:area:size",
+                            15
+                        ]
+                    },
+                    "wand-of-widening"
+                ],
+                "priority": 119,
+                "property": "area-size",
+                "value": 10
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "lte": [
+                            "item:rank",
+                            9
+                        ]
+                    },
+                    "wand-of-widening",
+                    "item:area:type:burst",
+                    {
+                        "gte": [
+                            "item:area:size",
+                            10
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.WidenSpell.Burst"
+                    }
+                ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "lte": [
+                            "item:rank",
+                            9
+                        ]
+                    },
+                    "wand-of-widening",
+                    {
+                        "or": [
+                            "item:area:type:cone",
+                            "item:area:type:line"
+                        ]
+                    },
+                    {
+                        "lte": [
+                            "item:area:size",
+                            20
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.WidenSpell.ConeOrLineSmall"
+                    }
+                ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "lte": [
+                            "item:rank",
+                            9
+                        ]
+                    },
+                    "wand-of-widening",
+                    {
+                        "or": [
+                            "item:area:type:cone",
+                            "item:area:type:line"
+                        ]
+                    },
+                    {
+                        "gt": [
+                            "item:area:size",
+                            20
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.WidenSpell.ConeOrLineLarge"
+                    }
+                ]
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "common",
