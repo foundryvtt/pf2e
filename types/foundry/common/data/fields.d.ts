@@ -748,8 +748,8 @@ export class ArrayField<
 
     override initialize(
         value: JSONValue,
-        model: ConstructorOf<abstract.DataModel>,
-        options: ArrayFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>,
+        model?: ConstructorOf<abstract.DataModel>,
+        options?: ArrayFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>,
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
     override toObject(value: TModelProp): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
