@@ -1,0 +1,62 @@
+{
+    "_id": "cCyXnyhrW4pUQIz3",
+    "img": "icons/magic/nature/root-vine-entangle-foot-green.webp",
+    "name": "Effect: Hobbling Snare",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Hobbling Snare]</p>\n<p>You take a status penalty to your Speed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": -5
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": -10
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": -20
+                    }
+                ],
+                "flag": "speedPenalty",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "land-speed",
+                "type": "status",
+                "value": "{item|flags.pf2e.rulesSelections.speedPenalty}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
