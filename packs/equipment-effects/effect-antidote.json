@@ -22,83 +22,64 @@
         },
         "rules": [
             {
+                "adjustName": false,
                 "choices": [
                     {
-                        "label": "PF2E.SpecificRule.Equipment.Antidote.Lesser",
                         "predicate": [
                             {
                                 "or": [
                                     "parent:origin:item:slug:antidote-lesser",
                                     {
-                                        "nor": [
-                                            "parent:origin:item:slug:antidote-greater",
-                                            "parent:origin:item:slug:antidote-major",
-                                            "parent:origin:item:slug:antidote-moderate"
-                                        ]
+                                        "not": "parent:origin:item"
                                     }
                                 ]
                             }
                         ],
-                        "value": 2
+                        "value": "Compendium.pf2e.equipment-srd.Item.Antidote (Lesser)"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Equipment.Antidote.Moderate",
                         "predicate": [
                             {
                                 "or": [
                                     "parent:origin:item:slug:antidote-moderate",
                                     {
-                                        "nor": [
-                                            "parent:origin:item:slug:antidote-greater",
-                                            "parent:origin:item:slug:antidote-lesser",
-                                            "parent:origin:item:slug:antidote-major"
-                                        ]
+                                        "not": "parent:origin:item"
                                     }
                                 ]
                             }
                         ],
-                        "value": 3
+                        "value": "Compendium.pf2e.equipment-srd.Item.Antidote (Moderate)"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Equipment.Antidote.Greater",
                         "predicate": [
                             {
                                 "or": [
                                     "parent:origin:item:slug:antidote-greater",
                                     {
-                                        "nor": [
-                                            "parent:origin:item:slug:antidote-moderate",
-                                            "parent:origin:item:slug:antidote-lesser",
-                                            "parent:origin:item:slug:antidote-major"
-                                        ]
+                                        "not": "parent:origin:item"
                                     }
                                 ]
                             }
                         ],
-                        "value": 4
+                        "value": "Compendium.pf2e.equipment-srd.Item.Antidote (Greater)"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Equipment.Antidote.Major",
                         "predicate": [
                             {
                                 "or": [
                                     "parent:origin:item:slug:antidote-major",
                                     {
-                                        "nor": [
-                                            "parent:origin:item:slug:antidote-greater",
-                                            "parent:origin:item:slug:antidote-lesser",
-                                            "parent:origin:item:slug:antidote-moderate"
-                                        ]
+                                        "not": "parent:origin:item"
                                     }
                                 ]
                             }
                         ],
-                        "value": 4
+                        "value": "Compendium.pf2e.equipment-srd.Item.Antidote (Major)"
                     }
                 ],
-                "flag": "antidote",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety"
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "antidote"
             },
             {
                 "key": "FlatModifier",
@@ -106,8 +87,34 @@
                     "item:trait:poison"
                 ],
                 "selector": "fortitude",
+                "slug": "antidote-bonus",
                 "type": "item",
-                "value": "@item.flags.pf2e.rulesSelections.antidote"
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "antidote:antidote-moderate"
+                ],
+                "selector": "fortitude",
+                "slug": "antidote-bonus",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "antidote:antidote-greater",
+                            "antidote:antidote-major"
+                        ]
+                    }
+                ],
+                "selector": "fortitude",
+                "slug": "antidote-bonus",
+                "value": 4
             }
         ],
         "start": {

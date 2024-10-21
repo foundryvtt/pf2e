@@ -22,83 +22,64 @@
         },
         "rules": [
             {
+                "adjustName": false,
                 "choices": [
                     {
-                        "label": "PF2E.SpecificRule.Equipment.Antiplague.Lesser",
                         "predicate": [
                             {
                                 "or": [
                                     "parent:origin:item:slug:antiplague-lesser",
                                     {
-                                        "nor": [
-                                            "parent:origin:item:slug:antiplague-greater",
-                                            "parent:origin:item:slug:antiplague-major",
-                                            "parent:origin:item:slug:antiplague-moderate"
-                                        ]
+                                        "not": "parent:origin:item"
                                     }
                                 ]
                             }
                         ],
-                        "value": 2
+                        "value": "Compendium.pf2e.equipment-srd.Item.Antiplague (Lesser)"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Equipment.Antiplague.Moderate",
                         "predicate": [
                             {
                                 "or": [
                                     "parent:origin:item:slug:antiplague-moderate",
                                     {
-                                        "nor": [
-                                            "parent:origin:item:slug:antiplague-greater",
-                                            "parent:origin:item:slug:antiplague-lesser",
-                                            "parent:origin:item:slug:antiplague-major"
-                                        ]
+                                        "not": "parent:origin:item"
                                     }
                                 ]
                             }
                         ],
-                        "value": 3
+                        "value": "Compendium.pf2e.equipment-srd.Item.Antiplague (Moderate)"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Equipment.Antiplague.Greater",
                         "predicate": [
                             {
                                 "or": [
                                     "parent:origin:item:slug:antiplague-greater",
                                     {
-                                        "nor": [
-                                            "parent:origin:item:slug:antiplague-moderate",
-                                            "parent:origin:item:slug:antiplague-lesser",
-                                            "parent:origin:item:slug:antiplague-major"
-                                        ]
+                                        "not": "parent:origin:item"
                                     }
                                 ]
                             }
                         ],
-                        "value": 4
+                        "value": "Compendium.pf2e.equipment-srd.Item.Antiplague (Greater)"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Equipment.Antiplague.Major",
                         "predicate": [
                             {
                                 "or": [
                                     "parent:origin:item:slug:antiplague-major",
                                     {
-                                        "nor": [
-                                            "parent:origin:item:slug:antiplague-greater",
-                                            "parent:origin:item:slug:antiplague-lesser",
-                                            "parent:origin:item:slug:antiplague-moderate"
-                                        ]
+                                        "not": "parent:origin:item"
                                     }
                                 ]
                             }
                         ],
-                        "value": 4
+                        "value": "Compendium.pf2e.equipment-srd.Item.Antiplague (Major)"
                     }
                 ],
-                "flag": "antiplague",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety"
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "antiplague"
             },
             {
                 "key": "FlatModifier",
@@ -106,8 +87,34 @@
                     "item:trait:disease"
                 ],
                 "selector": "fortitude",
+                "slug": "antiplague-bonus",
                 "type": "item",
-                "value": "@item.flags.pf2e.rulesSelections.antiplague"
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "antiplague:antiplague-moderate"
+                ],
+                "selector": "fortitude",
+                "slug": "antiplague-bonus",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "antiplague:antiplague-greater",
+                            "antiplague:antiplague-major"
+                        ]
+                    }
+                ],
+                "selector": "fortitude",
+                "slug": "antiplague-bonus",
+                "value": 4
             }
         ],
         "start": {

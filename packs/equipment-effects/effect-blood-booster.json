@@ -22,67 +22,75 @@
         },
         "rules": [
             {
+                "adjustName": false,
                 "choices": [
                     {
-                        "label": "PF2E.SpecificRule.Equipment.BloodBooster.Lesser",
                         "predicate": [
                             {
                                 "or": [
                                     "parent:origin:item:slug:blood-booster-lesser",
                                     {
-                                        "nor": [
-                                            "parent:origin:item:slug:blood-booster-moderate",
-                                            "parent:origin:item:slug:blood-booster-greater"
-                                        ]
+                                        "not": "parent:origin:item"
                                     }
                                 ]
                             }
                         ],
-                        "value": 5
+                        "value": "Compendium.pf2e.equipment-srd.Item.Blood Booster (Lesser)"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Equipment.BloodBooster.Moderate",
                         "predicate": [
                             {
                                 "or": [
                                     "parent:origin:item:slug:blood-booster-moderate",
                                     {
-                                        "nor": [
-                                            "parent:origin:item:slug:blood-booster-lesser",
-                                            "parent:origin:item:slug:blood-booster-greater"
-                                        ]
+                                        "not": "parent:origin:item"
                                     }
                                 ]
                             }
                         ],
-                        "value": 10
+                        "value": "Compendium.pf2e.equipment-srd.Item.Blood Booster (Moderate)"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Equipment.BloodBooster.Greater",
                         "predicate": [
                             {
                                 "or": [
                                     "parent:origin:item:slug:blood-booster-greater",
                                     {
-                                        "nor": [
-                                            "parent:origin:item:slug:blood-booster-lesser",
-                                            "parent:origin:item:slug:blood-booster-moderate"
-                                        ]
+                                        "not": "parent:origin:item"
                                     }
                                 ]
                             }
                         ],
-                        "value": 20
+                        "value": "Compendium.pf2e.equipment-srd.Item.Blood Booster (Greater)"
                     }
                 ],
-                "flag": "bloodBooster",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety"
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "blood-booster"
             },
             {
                 "key": "Resistance",
+                "predicate": [
+                    "blood-booster:blood-booster-lesser"
+                ],
                 "type": "bleed",
-                "value": "@item.flags.pf2e.rulesSelections.bloodBooster"
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "blood-booster:blood-booster-moderate"
+                ],
+                "type": "bleed",
+                "value": 10
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "blood-booster:blood-booster-greater"
+                ],
+                "type": "bleed",
+                "value": 20
             },
             {
                 "definition": [
@@ -91,8 +99,37 @@
                 ],
                 "key": "Resistance",
                 "label": "PF2E.IWR.Custom.PersistentPoison",
+                "predicate": [
+                    "blood-booster:blood-booster-lesser"
+                ],
                 "type": "custom",
-                "value": "@item.flags.pf2e.rulesSelections.bloodBooster"
+                "value": 5
+            },
+            {
+                "definition": [
+                    "damage:category:persistent",
+                    "damage:type:poison"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.PersistentPoison",
+                "predicate": [
+                    "blood-booster:blood-booster-moderate"
+                ],
+                "type": "custom",
+                "value": 10
+            },
+            {
+                "definition": [
+                    "damage:category:persistent",
+                    "damage:type:poison"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.PersistentPoison",
+                "predicate": [
+                    "blood-booster:blood-booster-greater"
+                ],
+                "type": "custom",
+                "value": 20
             },
             {
                 "itemType": "condition",
