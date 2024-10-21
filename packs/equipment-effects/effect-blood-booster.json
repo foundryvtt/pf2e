@@ -78,37 +78,28 @@
                 "rollOption": "blood-booster"
             },
             {
-                "adjustName": false,
-                "choices": [
-                    {
-                        "label": "5",
-                        "predicate": [
-                            "blood-booster:blood-booster-lesser"
-                        ],
-                        "value": 5
-                    },
-                    {
-                        "label": "10",
-                        "predicate": [
-                            "blood-booster:blood-booster-moderate"
-                        ],
-                        "value": 10
-                    },
-                    {
-                        "label": "20",
-                        "predicate": [
-                            "blood-booster:blood-booster-greater"
-                        ],
-                        "value": 20
-                    }
+                "key": "Resistance",
+                "predicate": [
+                    "blood-booster:blood-booster-lesser"
                 ],
-                "flag": "bloodBooster",
-                "key": "ChoiceSet"
+                "type": "bleed",
+                "value": 5
             },
             {
                 "key": "Resistance",
+                "predicate": [
+                    "blood-booster:blood-booster-moderate"
+                ],
                 "type": "bleed",
-                "value": "@item.flags.pf2e.rulesSelections.bloodBooster"
+                "value": 10
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "blood-booster:blood-booster-greater"
+                ],
+                "type": "bleed",
+                "value": 20
             },
             {
                 "definition": [
@@ -117,8 +108,37 @@
                 ],
                 "key": "Resistance",
                 "label": "PF2E.IWR.Custom.PersistentPoison",
+                "predicate": [
+                    "blood-booster:blood-booster-lesser"
+                ],
                 "type": "custom",
-                "value": "@item.flags.pf2e.rulesSelections.bloodBooster"
+                "value": 5
+            },
+            {
+                "definition": [
+                    "damage:category:persistent",
+                    "damage:type:poison"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.PersistentPoison",
+                "predicate": [
+                    "blood-booster:blood-booster-moderate"
+                ],
+                "type": "custom",
+                "value": 10
+            },
+            {
+                "definition": [
+                    "damage:category:persistent",
+                    "damage:type:poison"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.PersistentPoison",
+                "predicate": [
+                    "blood-booster:blood-booster-greater"
+                ],
+                "type": "custom",
+                "value": 20
             },
             {
                 "itemType": "condition",
