@@ -89,6 +89,12 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
                     ? (origin.getSelfRollOptions("origin").map((o) => `${prefix}:${o}`) ?? [])
                     : [];
             })();
+        if (originRollOptions.length > 0) {
+            originRollOptions.push(`${prefix}:origin`);
+            if (originRollOptions.some((o) => o.startsWith(`${prefix}:origin:item:`))) {
+                originRollOptions.push(`${prefix}:origin:item`);
+            }
+        }
 
         const grantingItem = this.grantedBy?.getRollOptions(`${prefix}:granter`) ?? [];
         const badge = this.badge;
