@@ -7,7 +7,13 @@ import { PhysicalItemTrait } from "@item/physical/data.ts";
 import type { SearchResult } from "minisearch";
 import { SortDirection } from "../data.ts";
 
-type CheckboxOptions = Record<string, { label: string; selected: boolean }>;
+interface CheckboxOption {
+    label: string;
+    selected: boolean;
+}
+
+type CheckboxOptions = Record<string, CheckboxOption>;
+
 interface CheckboxData {
     isExpanded: boolean;
     label: string;
@@ -15,8 +21,7 @@ interface CheckboxData {
     selected: string[];
 }
 
-interface MultiselectData<T extends string = string> {
-    label: string;
+interface TraitData<T extends string = string> {
     conjunction: "and" | "or";
     options: { label: string; value: T }[];
     selected: { label: string; not?: boolean; value: T }[];
@@ -32,11 +37,14 @@ interface OrderData {
     by: string;
     direction: SortDirection;
     /** The key must be present as an index key in the database */
-    options: Record<string, string>;
+    options: Record<string, { label: string; type: "alpha" | "numeric" }>;
+    type: "alpha" | "numeric";
 }
 
 interface RangesInputData {
     changed: boolean;
+    defaultMin: string;
+    defaultMax: string;
     isExpanded: boolean;
     values: {
         min: number;
@@ -47,16 +55,13 @@ interface RangesInputData {
     label: string;
 }
 
-interface SliderData {
+interface LevelData {
+    changed: boolean;
     isExpanded: boolean;
-    values: {
-        lowerLimit: number;
-        upperLimit: number;
-        min: number;
-        max: number;
-        step: number;
-    };
-    label: string;
+    min: number;
+    max: number;
+    from: number;
+    to: number;
 }
 
 interface BaseFilterData {
@@ -64,6 +69,7 @@ interface BaseFilterData {
     search: {
         text: string;
     };
+    traits: TraitData<string>;
 }
 
 interface ActionFilters extends BaseFilterData {
@@ -72,9 +78,7 @@ interface ActionFilters extends BaseFilterData {
         category: CheckboxData;
         source: CheckboxData;
     };
-    multiselects: {
-        traits: MultiselectData<AbilityTrait>;
-    };
+    traits: TraitData<AbilityTrait>;
 }
 
 interface BestiaryFilters extends BaseFilterData {
@@ -83,22 +87,14 @@ interface BestiaryFilters extends BaseFilterData {
         sizes: CheckboxData;
         source: CheckboxData;
     };
-    multiselects: {
-        traits: MultiselectData<CreatureTrait>;
-    };
-    sliders: {
-        level: SliderData;
-    };
+    level: LevelData;
+    traits: TraitData<CreatureTrait>;
 }
 
 interface CampaignFeatureFilters extends BaseFilterData {
     checkboxes: Record<"category" | "rarity" | "source", CheckboxData>;
-    multiselects: {
-        traits: MultiselectData<KingmakerTrait>;
-    };
-    sliders: {
-        level: SliderData;
-    };
+    level: LevelData;
+    traits: TraitData<KingmakerTrait>;
 }
 
 interface EquipmentFilters extends BaseFilterData {
@@ -109,25 +105,17 @@ interface EquipmentFilters extends BaseFilterData {
         source: CheckboxData;
         weaponTypes: CheckboxData;
     };
-    multiselects: {
-        traits: MultiselectData<PhysicalItemTrait>;
-    };
     ranges: {
         price: RangesInputData;
     };
-    sliders: {
-        level: SliderData;
-    };
+    level: LevelData;
+    traits: TraitData<PhysicalItemTrait>;
 }
 
 interface FeatFilters extends BaseFilterData {
     checkboxes: Record<"category" | "skills" | "rarity" | "source", CheckboxData>;
-    multiselects: {
-        traits: MultiselectData<FeatTrait>;
-    };
-    sliders: {
-        level: SliderData;
-    };
+    traits: TraitData<FeatTrait>;
+    level: LevelData;
 }
 
 interface HazardFilters extends BaseFilterData {
@@ -136,12 +124,8 @@ interface HazardFilters extends BaseFilterData {
         rarity: CheckboxData;
         source: CheckboxData;
     };
-    multiselects: {
-        traits: MultiselectData<HazardTrait>;
-    };
-    sliders: {
-        level: SliderData;
-    };
+    level: LevelData;
+    traits: TraitData<HazardTrait>;
 }
 
 interface SpellFilters extends BaseFilterData {
@@ -151,9 +135,6 @@ interface SpellFilters extends BaseFilterData {
         rarity: CheckboxData;
         source: CheckboxData;
         traditions: CheckboxData;
-    };
-    multiselects: {
-        traits: MultiselectData<string>;
     };
     selects: {
         timefilter: SelectData;
@@ -184,14 +165,15 @@ export type {
     BrowserFilter,
     CampaignFeatureFilters,
     CheckboxData,
+    CheckboxOption,
     CheckboxOptions,
     CompendiumBrowserIndexData,
     EquipmentFilters,
     FeatFilters,
     HazardFilters,
-    MultiselectData,
+    LevelData,
     RangesInputData,
     RenderResultListOptions,
-    SliderData,
     SpellFilters,
+    TraitData,
 };

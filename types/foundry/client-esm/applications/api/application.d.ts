@@ -12,7 +12,7 @@ export default abstract class ApplicationV2<
     TConfig extends ApplicationConfiguration = ApplicationConfiguration,
     TRenderOptions extends ApplicationRenderOptions = ApplicationRenderOptions,
 > {
-    constructor(options: DeepPartial<TConfig>);
+    constructor(options?: DeepPartial<TConfig>);
 
     /**
      * Designates which upstream Application class in this class' inheritance chain is the base application.
