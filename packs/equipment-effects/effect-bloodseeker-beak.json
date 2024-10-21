@@ -22,6 +22,7 @@
         },
         "rules": [
             {
+                "adjustName": false,
                 "choices": [
                     {
                         "predicate": [
@@ -45,32 +46,23 @@
                 "rollOption": "bloodseeker-beak"
             },
             {
-                "adjustName": false,
-                "choices": [
-                    {
-                        "label": "1",
-                        "predicate": [
-                            "bloodseeker-beak:bloodseeker-beak"
-                        ],
-                        "value": 1
-                    },
-                    {
-                        "label": "2",
-                        "predicate": [
-                            "bloodseeker-beak:bloodseeker-beak-greater"
-                        ],
-                        "value": 2
-                    }
+                "category": "precision",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "bloodseeker-beak:bloodseeker-beak"
                 ],
-                "flag": "bloodSeekerBeak",
-                "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety"
+                "selector": "strike-damage"
             },
             {
                 "category": "precision",
-                "diceNumber": "{item|flags.pf2e.rulesSelections.bloodSeekerBeak}",
+                "diceNumber": 2,
                 "dieSize": "d4",
                 "key": "DamageDice",
+                "predicate": [
+                    "bloodseeker-beak:bloodseeker-beak-greater"
+                ],
                 "selector": "strike-damage"
             }
         ],
