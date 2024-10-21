@@ -1,11 +1,12 @@
 import { Predicate, PredicateStatement, RawPredicate, StatementValidator } from "@system/predication.ts";
-import { SlugCamel, sluggify } from "@util";
+import { ErrorPF2e, SlugCamel, sluggify } from "@util";
 import * as R from "remeda";
 import type DataModel from "types/foundry/common/abstract/data.d.ts";
 import type {
     ArrayFieldOptions,
     CleanFieldOptions,
     DataField,
+    DataFieldContext,
     DataFieldOptions,
     DataFieldValidationOptions,
     DataSchema,
@@ -176,6 +177,8 @@ class DataUnionField<
     TNullable,
     THasInitial
 > {
+    static override recursive = true;
+
     fields: TField[];
 
     constructor(
@@ -494,7 +497,126 @@ class RecordField<
     }
 }
 
-/** A field that always results in a value of `null` */
+class MapEntryField<TKeyField extends DataField, TValueField extends DataField> extends fields.DataField<
+    [SourcePropFromDataField<TKeyField>, SourcePropFromDataField<TValueField>],
+    [ModelPropFromDataField<TKeyField>, ModelPropFromDataField<TValueField>],
+    true,
+    false,
+    false
+> {
+    static override recursive = true;
+
+    /** The key for the first position of the two-tuple */
+    key: TKeyField;
+
+    /** The field for the second position of the two-tuple */
+    value: TValueField;
+
+    constructor(
+        key: TKeyField,
+        value: TValueField,
+        options: DataFieldOptions<
+            [SourcePropFromDataField<TKeyField>, SourcePropFromDataField<TValueField>],
+            true,
+            false,
+            false
+        > = {},
+        context?: DataFieldContext,
+    ) {
+        options.required = true;
+        options.nullable = false;
+        options.initial = undefined;
+        super(options, context);
+        this.key = key;
+        this.value = value;
+    }
+
+    /** No casting is available for this field. */
+    protected _cast(value: unknown) {
+        return value;
+    }
+
+    /** Ensure that the value is a 2-tuple and each of its elements also validate. */
+    protected override _validateType(value: unknown): boolean | void | DataModelValidationFailure {
+        if (!Array.isArray(value) || value.length !== 2) throw new Error("must be a 2-tuple");
+        const keyIsValid = this.key.validate(value[0]);
+        if (keyIsValid) return keyIsValid;
+        const valueIsValid = this.value.validate(value[1]);
+        return valueIsValid;
+    }
+
+    /** Create a 2-tuple of the initialized key and value. */
+    override initialize(
+        value: unknown,
+        _model?: ConstructorOf<DataModel>,
+        options?: object,
+    ): [ModelPropFromDataField<TKeyField>, ModelPropFromDataField<TValueField>];
+    override initialize(
+        value: unknown,
+        _model?: ConstructorOf<DataModel>,
+        options?: object,
+    ): Maybe<[unknown, unknown]> {
+        if (Array.isArray(value)) {
+            return [
+                this.key.initialize(value[0], undefined, options),
+                this.value.initialize(value[1], undefined, options),
+            ] as const;
+        }
+        throw new Error("Unexpected value passed to MapEntryField initialization");
+    }
+}
+
+/** A field that initializes an array of two-tuples as a Map */
+class MapField<
+    TKeyField extends DataField,
+    TValueField extends DataField,
+    TRequired extends boolean = false,
+    TNullable extends boolean = false,
+    THasInitial extends boolean = true,
+> extends fields.ArrayField<
+    MapEntryField<TKeyField, TValueField>,
+    [SourcePropFromDataField<TKeyField>, SourcePropFromDataField<TValueField>][],
+    Map<TKeyField, TValueField>,
+    TRequired,
+    TNullable,
+    THasInitial
+> {
+    constructor(
+        key: TKeyField,
+        value: TValueField,
+        options?: ArrayFieldOptions<
+            [SourcePropFromDataField<TKeyField>, SourcePropFromDataField<TValueField>][],
+            TRequired,
+            TNullable,
+            THasInitial
+        >,
+        context?: DataFieldContext,
+    ) {
+        super(new MapEntryField(key, value), options, context);
+    }
+
+    override initialize(
+        value: JSONValue,
+        model: ConstructorOf<DataModel> | undefined,
+        options: ArrayFieldOptions<
+            [SourcePropFromDataField<TKeyField>, SourcePropFromDataField<TValueField>][],
+            TRequired,
+            TNullable,
+            THasInitial
+        >,
+    ): MaybeSchemaProp<Map<TKeyField, TValueField>, TRequired, TNullable, THasInitial>;
+    override initialize(
+        value: Maybe<[unknown, unknown][]>,
+        model?: ConstructorOf<DataModel>,
+        options?: object,
+    ): Maybe<Map<unknown, unknown>> {
+        if (R.isNullish(value)) return value;
+        if (!Array.isArray(value)) throw ErrorPF2e("Unexpected data passed to MapField initialization");
+        return new Map(super.initialize(value, model, options));
+    }
+}
+
+/** A field that always has a value of `null` */
 class NullField extends fields.DataField<null, null, true, true, true> {
     constructor() {
         super({ required: true, nullable: true, initial: null });
@@ -509,6 +631,7 @@ export {
     DataUnionField,
     LaxArrayField,
     LaxSchemaField,
+    MapField,
     NullField,
     PredicateField,
     RecordField,
