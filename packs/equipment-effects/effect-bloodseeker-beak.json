@@ -4,7 +4,7 @@
     "name": "Effect: Bloodseeker Beak",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Bloodseeker Beak], @UUID[Compendium.pf2e.equipment-srd.Item.Bloodseeker Beak (Greater)]</p>\n<p>You deal extra precision damage on your damage roll.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Bloodseeker Beak], @UUID[Compendium.pf2e.equipment-srd.Item.Bloodseeker Beak (Greater)]</p>\n<p>You deal an extra d4 precision damage on your damage roll.</p>"
         },
         "duration": {
             "expiry": null,
@@ -24,34 +24,40 @@
             {
                 "choices": [
                     {
-                        "label": "PF2E.SpecificRule.Equipment.BloodseekerBeak.Regular",
                         "predicate": [
                             {
-                                "or": [
-                                    "parent:origin:item:slug:bloodseeker-beak",
-                                    {
-                                        "nor": [
-                                            "parent:origin:item:slug:bloodseeker-beak-greater"
-                                        ]
-                                    }
-                                ]
+                                "not": "parent:origin:item:slug:bloodseeker-beak"
                             }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Bloodseeker Beak (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "not": "parent:origin:item:slug:bloodseeker-beak-greater"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Bloodseeker Beak"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "bloodseeker-beak"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "1",
+                        "predicate": [
+                            "bloodseeker-beak:bloodseeker-beak"
                         ],
                         "value": 1
                     },
                     {
-                        "label": "PF2E.SpecificRule.Equipment.BloodseekerBeak.Greater",
+                        "label": "2",
                         "predicate": [
-                            {
-                                "or": [
-                                    "parent:origin:item:slug:bloodseeker-beak-greater",
-                                    {
-                                        "nor": [
-                                            "parent:origin:item:slug:bloodseeker-beak"
-                                        ]
-                                    }
-                                ]
-                            }
+                            "bloodseeker-beak:bloodseeker-beak-greater"
                         ],
                         "value": 2
                     }
