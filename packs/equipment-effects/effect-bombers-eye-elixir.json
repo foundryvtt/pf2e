@@ -46,26 +46,22 @@
                 "rollOption": "bombers-eye-elixir"
             },
             {
-                "actorFlag": true,
-                "adjustName": false,
-                "choices": [
-                    {
-                        "label": "PF2E.SpecificRule.Numbers.One",
-                        "predicate": [
-                            "bombers-eye-elixir:bombers-eye-elixir-lesser"
-                        ],
-                        "value": 1
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Numbers.Two",
-                        "predicate": [
-                            "bombers-eye-elixir:bombers-eye-elixir-greater"
-                        ],
-                        "value": 2
-                    }
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.bombersEyeElixir",
+                "predicate": [
+                    "bombers-eye-elixir:bombers-eye-elixir-lesser"
                 ],
-                "flag": "bombersEyeElixir",
-                "key": "ChoiceSet"
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.bombersEyeElixir",
+                "predicate": [
+                    "bombers-eye-elixir:bombers-eye-elixir-greater"
+                ],
+                "value": 2
             },
             {
                 "key": "EphemeralEffect",
