@@ -22,31 +22,46 @@
         },
         "rules": [
             {
-                "actorFlag": true,
                 "adjustName": false,
                 "choices": [
                     {
-                        "label": "PF2E.SpecificRule.Equipment.BombersEyeElixir.Lesser",
                         "predicate": [
                             {
                                 "not": "parent:origin:item:slug:bombers-eye-elixir-greater"
                             }
                         ],
-                        "value": 1
+                        "value": "Compendium.pf2e.equipment-srd.Item.Bomber's Eye Elixir (Lesser)"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Equipment.BombersEyeElixir.Greater",
                         "predicate": [
                             {
                                 "not": "parent:origin:item:slug:bombers-eye-elixir-lesser"
                             }
                         ],
-                        "value": 2
+                        "value": "Compendium.pf2e.equipment-srd.Item.Bomber's Eye Elixir (Greater)"
                     }
                 ],
-                "flag": "bombersEyeElixir",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety"
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "bombers-eye-elixir"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.bombersEyeElixir",
+                "predicate": [
+                    "bombers-eye-elixir:bombers-eye-elixir-lesser"
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.bombersEyeElixir",
+                "predicate": [
+                    "bombers-eye-elixir:bombers-eye-elixir-greater"
+                ],
+                "value": 2
             },
             {
                 "key": "EphemeralEffect",

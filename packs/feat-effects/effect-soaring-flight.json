@@ -4,16 +4,16 @@
     "name": "Effect: Soaring Flight",
     "system": {
         "description": {
-            "value": "<p>To be a tengu is to be unburdened by the concerns of the world below. You grow a pair of magical wings or expand your existing ones. For 5 minutes, you gain a fly Speed equal to your land Speed or 20 feet, whichever is greater.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Soaring Flight]</p>\n<p>You gain a fly Speed of 20 feet for this movement.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": "turn-end",
             "sustained": false,
-            "unit": "minutes",
-            "value": 5
+            "unit": "rounds",
+            "value": 0
         },
         "level": {
-            "value": 9
+            "value": 5
         },
         "publication": {
             "license": "ORC",
@@ -24,7 +24,7 @@
             {
                 "key": "BaseSpeed",
                 "selector": "fly",
-                "value": "max(20,(@actor.attributes.speed.total))"
+                "value": 20
             }
         ],
         "start": {

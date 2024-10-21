@@ -9,9 +9,13 @@
         },
         "category": "snare",
         "containerId": null,
-        "damage": null,
+        "damage": {
+            "formula": "10d8",
+            "kind": "damage",
+            "type": "piercing"
+        },
         "description": {
-            "value": "<p>You arrange a spiky cage of bones, particularly tough vegetation, or other material to spring up when disturbed. The snare deals @Damage[9d8[piercing]] damage to the first creature to enter this square; that creature must attempt a @Check[reflex|dc:31] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is knocked aside by the snare's deployment, taking half damage, and is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of its next turn.</p>\n<p><strong>Failure</strong> The creature is captured by the cage, taking full damage and falling @UUID[Compendium.pf2e.conditionitems.Item.Prone]. It is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] while it remains within the cage. It can get free by @UUID[Compendium.pf2e.actionspf2e.Item.Escape]{Escaping} (DC 31) or by destroying the cage (Hardness 5, HP 30, object immunities).</p>\n<p><strong>Critical Failure</strong> As failure, but the creature takes double damage.</p>"
+            "value": "<p>You arrange a spiky cage of bones, particularly tough vegetation, or other material to spring up when disturbed. The snare deals @Damage[10d8[piercing]] damage to the first creature to enter this square; that creature must attempt a @Check[reflex|showDC:all|dc:34] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is knocked aside by the snare's deployment, takes half damage, and is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of its next turn.</p>\n<p><strong>Failure</strong> The creature is captured by the cage, taking full damage and falling @UUID[Compendium.pf2e.conditionitems.Item.Prone]. It's @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] while it remains within the cage. It can get free by [[/act escape dc=34]]{Escaping} (DC 34) or by destroying the cage (AC 30, Fort +18, Ref +24, Hardness 5, HP 30, object immunities).</p>\n<p><strong>Critical Failure</strong> As failure, but the creature takes double damage.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -31,9 +35,9 @@
             }
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "quantity": 1,
         "rules": [],
