@@ -1,0 +1,48 @@
+{
+    "_id": "sdKsB8dmIiPEHePZ",
+    "img": "icons/magic/fire/projectile-smoke-swirl-red.webp",
+    "name": "Spell Effect: Cauterize Wounds",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Cauterize Wounds]</p>\n<p>You can attempt to recover from your persistent bleed damage, with the lower DC for particularly effective assistance.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "subtract",
+                "predicate": [
+                    "item:damage:type:bleed"
+                ],
+                "priority": 150,
+                "property": "pd-recovery-dc",
+                "value": 5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
