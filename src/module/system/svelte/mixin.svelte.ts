@@ -26,7 +26,7 @@ function SvelteApplicationMixin<
         protected abstract root: svelte.Component<any>;
 
         /** State data tracked by the root component */
-        #reactiveData: object = $state({});
+        protected $state: object = $state({});
 
         /** The mounted root component, saved to be unmounted on application close */
         #mount: object = {};
@@ -45,7 +45,7 @@ function SvelteApplicationMixin<
             if (options.isFirstRender) {
                 this.#mount = svelte.mount(this.root, { target: content, props: result });
             }
-            Object.assign(this.#reactiveData, result.state);
+            Object.assign(this.$state, result.state);
         }
 
         protected override _onClose(options: ApplicationRenderOptions): void {
