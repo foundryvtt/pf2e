@@ -32,6 +32,10 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         return ["fortress-shield", "tower-shield"].includes(this.system.baseItem ?? "");
     }
 
+    get isMaterialTowerShield(): boolean {
+        return ["tower-shield"].includes(this.system.baseItem ?? "");
+    }
+
     get speedPenalty(): number {
         return this.system.speedPenalty || 0;
     }
