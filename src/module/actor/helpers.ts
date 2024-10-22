@@ -281,7 +281,7 @@ function createEnvironmentRollOptions(actor: ActorPF2e): Record<string, boolean>
 
             const environmentBehaviors = region.behaviors.filter(
                 (b): b is EnvironmentRegionBehavior<RegionDocumentPF2e<ScenePF2e>> =>
-                    b.type === "environment" && b.active,
+                    !b.disabled && b.type === "environment",
             );
             for (const behavior of environmentBehaviors) {
                 const system = behavior.system;
