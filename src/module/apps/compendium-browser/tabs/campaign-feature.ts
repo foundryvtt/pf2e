@@ -74,14 +74,14 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
         // Filters
         this.filterData.checkboxes.category.options = this.generateCheckboxOptions(KINGMAKER_CATEGORIES);
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits);
-        this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
+        this.filterData.source.options = this.generateSourceCheckboxOptions(publications);
         this.filterData.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.kingmakerTraits);
 
         console.debug("PF2e System | Compendium Browser | Finished loading feats");
     }
 
     protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
-        const { checkboxes, traits, level } = this.filterData;
+        const { checkboxes, source, traits, level } = this.filterData;
 
         const entryLevel = entry.level ?? 0;
 
@@ -98,8 +98,8 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
             return false;
         }
         // Source
-        if (checkboxes.source.selected.length) {
-            if (!checkboxes.source.selected.includes(entry.source)) return false;
+        if (source.selected.length) {
+            if (!source.selected.includes(entry.source)) return false;
         }
         // Rarity
         if (checkboxes.rarity.selected.length) {
@@ -123,12 +123,12 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
                     options: {},
                     selected: [],
                 },
-                source: {
-                    isExpanded: false,
-                    label: "PF2E.CompendiumBrowser.Filter.Source",
-                    options: {},
-                    selected: [],
-                },
+            },
+            source: {
+                isExpanded: false,
+                label: "PF2E.CompendiumBrowser.Filter.Source",
+                options: {},
+                selected: [],
             },
             traits: {
                 conjunction: "and",

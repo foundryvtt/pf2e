@@ -82,13 +82,13 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
         this.filterData.checkboxes.category.options = this.generateCheckboxOptions(
             R.pick(CONFIG.PF2E.actionCategories, ["familiar"]),
         );
-        this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
+        this.filterData.source.options = this.generateSourceCheckboxOptions(publications);
 
         console.debug("PF2e System | Compendium Browser | Finished loading actions");
     }
 
     protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
-        const { checkboxes, traits } = this.filterData;
+        const { checkboxes, source, traits } = this.filterData;
 
         // Types
         if (checkboxes.types.selected.length) {
@@ -102,8 +102,8 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
         // Traits
         if (!this.filterTraits(entry.traits, traits.selected, traits.conjunction)) return false;
         // Source
-        if (checkboxes.source.selected.length) {
-            if (!checkboxes.source.selected.includes(entry.source)) return false;
+        if (source.selected.length) {
+            if (!source.selected.includes(entry.source)) return false;
         }
         return true;
     }
@@ -123,12 +123,12 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
                     options: {},
                     selected: [],
                 },
-                source: {
-                    isExpanded: false,
-                    label: "PF2E.CompendiumBrowser.Filter.Source",
-                    options: {},
-                    selected: [],
-                },
+            },
+            source: {
+                isExpanded: false,
+                label: "PF2E.CompendiumBrowser.Filter.Source",
+                options: {},
+                selected: [],
             },
             traits: {
                 conjunction: "and",

@@ -76,8 +76,8 @@ interface ActionFilters extends BaseFilterData {
     checkboxes: {
         types: CheckboxData;
         category: CheckboxData;
-        source: CheckboxData;
     };
+    source: CheckboxData;
     traits: TraitData<AbilityTrait>;
 }
 
@@ -85,15 +85,16 @@ interface BestiaryFilters extends BaseFilterData {
     checkboxes: {
         rarity: CheckboxData;
         sizes: CheckboxData;
-        source: CheckboxData;
     };
+    source: CheckboxData;
     level: LevelData;
     traits: TraitData<CreatureTrait>;
 }
 
 interface CampaignFeatureFilters extends BaseFilterData {
-    checkboxes: Record<"category" | "rarity" | "source", CheckboxData>;
+    checkboxes: Record<"category" | "rarity", CheckboxData>;
     level: LevelData;
+    source: CheckboxData;
     traits: TraitData<KingmakerTrait>;
 }
 
@@ -102,29 +103,30 @@ interface EquipmentFilters extends BaseFilterData {
         armorTypes: CheckboxData;
         itemTypes: CheckboxData;
         rarity: CheckboxData;
-        source: CheckboxData;
         weaponTypes: CheckboxData;
     };
     ranges: {
         price: RangesInputData;
     };
     level: LevelData;
+    source: CheckboxData;
     traits: TraitData<PhysicalItemTrait>;
 }
 
 interface FeatFilters extends BaseFilterData {
-    checkboxes: Record<"category" | "skills" | "rarity" | "source", CheckboxData>;
-    traits: TraitData<FeatTrait>;
+    checkboxes: Record<"category" | "skills" | "rarity", CheckboxData>;
     level: LevelData;
+    source: CheckboxData;
+    traits: TraitData<FeatTrait>;
 }
 
 interface HazardFilters extends BaseFilterData {
     checkboxes: {
         complexity: CheckboxData;
         rarity: CheckboxData;
-        source: CheckboxData;
     };
     level: LevelData;
+    source: CheckboxData;
     traits: TraitData<HazardTrait>;
 }
 
@@ -133,12 +135,12 @@ interface SpellFilters extends BaseFilterData {
         category: CheckboxData;
         rank: CheckboxData;
         rarity: CheckboxData;
-        source: CheckboxData;
         traditions: CheckboxData;
     };
     selects: {
         timefilter: SelectData;
     };
+    source: CheckboxData;
 }
 
 type BrowserFilter =

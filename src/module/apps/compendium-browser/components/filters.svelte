@@ -12,6 +12,7 @@
         resetFilters: () => void;
     }
     const { filter = $bindable(), rerenderList, resetFilters }: FilterProps = $props();
+    let sourceSearch = $state("");
 
     function onChangeSortOrder(): void {
         filter.order.direction = filter.order.direction === "asc" ? "desc" : "asc";
@@ -116,6 +117,12 @@
         rerenderList();
     }, 250);
 
+    const onSearchSource = fu.debounce((event: Event) => {
+        if (!(event.target instanceof HTMLInputElement)) return;
+        sourceSearch = event.target.value.trim().toLocaleLowerCase(game.i18n.lang);
+        rerenderList();
+    }, 250);
+
     const mountTagify: Action<HTMLInputElement> = (node) => {
         const data = filter.traits;
 
@@ -200,6 +207,7 @@
             type="search"
             value={filter.search.text}
             oninput={onSearch}
+            spellcheck="false"
             placeholder={game.i18n.localize("PF2E.CompendiumBrowser.Filter.SearchPlaceholder")}
         />
         <div class="order-by-select">
@@ -315,6 +323,51 @@
             {/if}
         </fieldset>
     {/each}
+    {#if filter.source}
+        <fieldset class="sortcontainer">
+            <legend>
+                {game.i18n.localize("PF2E.CompendiumBrowser.Filter.Source")}
+                <button
+                    type="button"
+                    class="expand-section"
+                    onclick={() => (filter.source.isExpanded = !filter.source.isExpanded)}
+                    aria-label="expand"
+                    aria-expanded={filter.source.isExpanded}
+                >
+                    <i class="fa-solid {filter.source.isExpanded ? 'fa-chevron-down' : 'fa-chevron-right'}"></i>
+                </button>
+            </legend>
+            {#if filter.source.isExpanded}
+                <div class="checkbox-container" transition:slide>
+                    <input
+                        type="search"
+                        class="filter-sources"
+                        spellcheck="false"
+                        placeholder={game.i18n.localize("PF2E.CompendiumBrowser.Filter.FilterSources")}
+                        oninput={onSearchSource}
+                    />
+                    {#if filter.source.selected.length}
+                        <button type="button" class="clear-filter" onclick={() => onClearFilter(filter.source)}>
+                            {game.i18n.localize("PF2E.CompendiumBrowser.Filter.ClearFilter")}
+                        </button>
+                    {/if}
+                    {#each R.entries(filter.source.options) as [name, option]}
+                        {#if !sourceSearch || option.selected || option.label.toLocaleLowerCase(game.i18n.lang).includes(sourceSearch)}
+                        <label>
+                            <input
+                                type="checkbox"
+                                {name}
+                                checked={option.selected}
+                                onchange={(event) => onChangeCheckbox(event, filter.source, { name, option })}
+                            />
+                            {game.i18n.localize(option.label)}
+                        </label>
+                        {/if}
+                    {/each}
+                </div>
+            {/if}
+        </fieldset>
+    {/if}
     {#if "ranges" in filter}
         {#each R.entries(filter.ranges) as [name, range]}
             <fieldset class="sortcontainer">
@@ -494,6 +547,12 @@
             label {
                 display: flex;
                 align-items: center;
+            }
+
+            .filter-sources {
+                margin: 0.3em 0.15em 0.15em 0.25em;
+                height: 1.75em;
+                width: 98%;
             }
         }
 

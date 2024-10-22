@@ -49,10 +49,6 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
         this.initCompendiumList();
     }
 
-    override get title(): string {
-        return game.i18n.localize("PF2E.CompendiumBrowser.Title");
-    }
-
     static override DEFAULT_OPTIONS: DeepPartial<ApplicationConfiguration> = {
         id: "compendium-browser",
         classes: ["compendium-browser"],
@@ -79,6 +75,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
                 },
             ],
             resizable: true,
+            title: "PF2E.CompendiumBrowser.Title",
         },
         actions: {
             addToRollTable: () => {
@@ -367,13 +364,13 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
                 await tab.init(true);
             }
         }
-        compendiumBrowserContext.activeTabName = undefined;
+        compendiumBrowserContext.activeTabName = "";
     }
 }
 
 interface CompendiumBrowserContext {
-    /** Changing this will trigger a tab rerender. `undefined` will show the landing page. */
-    activeTabName?: ContentTabName;
+    /** Changing this will trigger a tab rerender. An empty string will show the landing page. */
+    activeTabName: ContentTabName | "";
     /** The currently rendered filter */
     activeFilter?: BrowserFilter;
     /** Changing this wil trigger a result list rerender. */
@@ -389,7 +386,7 @@ interface CompendiumBrowserContext {
 }
 // This is imported as needed by svelte components for easy access to these values
 const compendiumBrowserContext: CompendiumBrowserContext = $state({
-    activeTabName: undefined,
+    activeTabName: "",
     activeFilter: undefined,
     filterKey: fu.randomID(),
     navTabs: [],

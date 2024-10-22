@@ -133,7 +133,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         this.filterData.traits.options = this.generateMultiselectOptions(
             R.omit(CONFIG.PF2E.spellTraits, Array.from(MAGIC_TRADITIONS)),
         );
-        this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
+        this.filterData.source.options = this.generateSourceCheckboxOptions(publications);
         this.filterData.checkboxes.category.options = this.generateCheckboxOptions(
             {
                 spell: "TYPES.Item.spell",
@@ -156,7 +156,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
     }
 
     protected override filterIndexData(indexData: CompendiumBrowserIndexData): boolean {
-        const { checkboxes, traits, selects } = this.filterData;
+        const { checkboxes, source, traits, selects } = this.filterData;
 
         // Rank
         if (checkboxes.rank.selected.length > 0) {
@@ -196,8 +196,8 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         }
 
         // Source
-        if (checkboxes.source.selected.length > 0) {
-            if (!checkboxes.source.selected.includes(indexData.source)) return false;
+        if (source.selected.length > 0) {
+            if (!source.selected.includes(indexData.source)) return false;
         }
 
         return true;
@@ -230,12 +230,12 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                     options: {},
                     selected: [],
                 },
-                source: {
-                    isExpanded: false,
-                    label: "PF2E.CompendiumBrowser.Filter.Source",
-                    options: {},
-                    selected: [],
-                },
+            },
+            source: {
+                isExpanded: false,
+                label: "PF2E.CompendiumBrowser.Filter.Source",
+                options: {},
+                selected: [],
             },
             traits: {
                 conjunction: "and",

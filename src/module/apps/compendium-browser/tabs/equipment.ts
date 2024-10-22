@@ -157,13 +157,13 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
             kit: "TYPES.Item.kit",
         });
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, false);
-        this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
+        this.filterData.source.options = this.generateSourceCheckboxOptions(publications);
 
         console.debug("PF2e System | Compendium Browser | Finished loading inventory items");
     }
 
     protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
-        const { checkboxes, traits, ranges, level } = this.filterData;
+        const { checkboxes, source, traits, ranges, level } = this.filterData;
 
         // Level
         if (!(entry.level >= level.from && entry.level <= level.to)) return false;
@@ -191,7 +191,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         // Traits
         if (!this.filterTraits(entry.traits, traits.selected, traits.conjunction)) return false;
         // Source
-        if (checkboxes.source.selected.length > 0 && !checkboxes.source.selected.includes(entry.source)) {
+        if (source.selected.length > 0 && !source.selected.includes(entry.source)) {
             return false;
         }
         // Rarity
@@ -251,16 +251,16 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     options: {},
                     selected: [],
                 },
-                source: {
-                    isExpanded: false,
-                    label: "PF2E.CompendiumBrowser.Filter.Source",
-                    options: {},
-                    selected: [],
-                },
             },
             traits: {
                 conjunction: "and",
                 options: [],
+                selected: [],
+            },
+            source: {
+                isExpanded: false,
+                label: "PF2E.CompendiumBrowser.Filter.Source",
+                options: {},
                 selected: [],
             },
             order: {
