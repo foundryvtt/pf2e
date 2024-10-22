@@ -280,7 +280,7 @@ function createEnvironmentRollOptions(actor: ActorPF2e): Record<string, boolean>
             if (token.elevation < bottom || token.elevation > top) continue;
 
             const environmentBehaviors = region.behaviors.filter(
-                (b): b is EnvironmentRegionBehavior<RegionDocumentPF2e<ScenePF2e>> => b.type === "environment",
+                (b): b is EnvironmentRegionBehavior<RegionDocumentPF2e<ScenePF2e>> => b.type === "environment" && b.active,
             );
             for (const behavior of environmentBehaviors) {
                 const system = behavior.system;

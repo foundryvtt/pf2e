@@ -113,7 +113,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             .map((r) =>
                 r.behaviors.filter(
                     (b): b is EnvironmentFeatureRegionBehavior<RegionDocumentPF2e<TParent>> =>
-                        b.type === "environmentFeature" && b.system.terrain.difficult > 0,
+                        b.type === "environmentFeature" && b.active && b.system.terrain.difficult > 0,
                 ),
             )
             .flat()

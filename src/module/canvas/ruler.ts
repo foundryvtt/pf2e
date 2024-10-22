@@ -148,13 +148,13 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
                 .filter(
                     (r) =>
                         r.document.behaviors.some(
-                            (b) => !b.disabled && b.type === "environmentFeature" && b.system.terrain.difficult > 0,
+                            (b) => !b.disabled && b.type === "environmentFeature" && b.active && b.system.terrain.difficult > 0,
                         ) && token.testInsideRegion(r, toPoint),
                 )
                 .flatMap((r) =>
                     r.document.behaviors.filter(
                         (b): b is EnvironmentFeatureRegionBehavior<RegionDocumentPF2e<ScenePF2e>> =>
-                            !b.disabled && b.type === "environmentFeature" && b.system.terrain.difficult > 0,
+                            !b.disabled && b.type === "environmentFeature" && b.active && b.system.terrain.difficult > 0,
                     ),
                 );
 
