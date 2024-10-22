@@ -19,13 +19,20 @@
         },
         "rules": [
             {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "gourd-head",
+                "label": "PF2E.SpecificRule.ToggleProperty.GourdHead",
+                "toggleable": true
+            },
+            {
                 "key": "FlatModifier",
                 "label": "PF2E.SpecificRule.ToggleProperty.GourdHead",
                 "predicate": [
-                    "action:steal"
+                    "action:steal",
+                    "gourd-head"
                 ],
                 "selector": "perception-dc",
-                "slug": "gourd-head-bonus",
                 "value": 4
             }
         ],
