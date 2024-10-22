@@ -38,7 +38,9 @@ export const CanvasReady = {
                 if (game.ready) {
                     if (
                         hasSceneTerrains ||
-                        (token.document.regions ?? []).some((r) => r.behaviors.some((b) => b.type === "environment" && b.active))
+                        (token.document.regions ?? []).some((r) =>
+                            r.behaviors.some((b) => b.type === "environment" && b.active),
+                        )
                     ) {
                         token.actor?.reset();
                     }
