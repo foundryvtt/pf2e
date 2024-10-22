@@ -19,29 +19,14 @@
         },
         "rules": [
             {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "PF2E.SpecificRule.ToggleProperty.GourdHead",
-                "option": "gourd-head",
-                "toggleable": true
-            },
-            {
                 "key": "FlatModifier",
                 "label": "PF2E.SpecificRule.ToggleProperty.GourdHead",
                 "predicate": [
-                    "gourd-head"
+                    "action:steal"
                 ],
-                "selector": "perception",
+                "selector": "perception-dc",
                 "slug": "gourd-head-bonus",
-                "type": "untyped",
                 "value": 4
-            },
-            {
-                "key": "AdjustModifier",
-                "mode": "add",
-                "selector": "initiative",
-                "slug": "gourd-head-bonus",
-                "value": -4
             }
         ],
         "traits": {
