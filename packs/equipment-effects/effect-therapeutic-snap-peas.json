@@ -4,7 +4,7 @@
     "name": "Effect: Therapeutic Snap Peas",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Therapeutic Snap Peas]</p>\n<p>You gain a +2 item bonus to all saves against poisons or diseases for 1 minute.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Therapeutic Snap Peas]</p>\n<p>You gain a +2 item bonus to all saves against poisons or diseases.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -26,8 +26,8 @@
                 "predicate": [
                     {
                         "or": [
-                            "disease",
-                            "poison"
+                            "item:trait:disease",
+                            "item:trait:poison"
                         ]
                     }
                 ],
