@@ -15,6 +15,7 @@ import { ActorSheetPF2e, SheetClickActionHandlers } from "../sheet/base.ts";
 import { CreatureConfig } from "./config.ts";
 import { Language } from "./index.ts";
 import { SpellPreparationSheet } from "./spell-preparation-sheet.ts";
+import { SpellCollection } from "@item/spellcasting-entry/collection.ts";
 
 /**
  * Base class for NPC and character sheets
@@ -361,7 +362,9 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         if (item.isOfType("spell")) {
             if (!(dropItemEl && dropContainerEl)) return [];
             const entryId = dropContainerEl.dataset.containerId;
-            const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
+            const collection = this.actor.spellcasting.collections.get<SpellCollection<TActor>>(entryId, {
+                strict: true,
+            });
             const groupId = coerceToSpellGroupId(dropItemEl.dataset.groupId);
             const slotId = Number(dropItemEl.dataset.slotId);
 

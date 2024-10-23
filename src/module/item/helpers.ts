@@ -2,6 +2,7 @@ import type { ActorPF2e } from "@actor";
 import type { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { createHTMLElement, setHasElement } from "@util";
 import * as R from "remeda";
+import type { Converter } from "showdown";
 import type { ItemSourcePF2e, ItemType, RawItemChatData } from "./base/data/index.ts";
 import { ItemDescriptionData } from "./base/data/system.ts";
 import type { ItemPF2e } from "./base/document.ts";
@@ -47,7 +48,7 @@ class ItemChatData {
     htmlOptions: EnrichmentOptionsPF2e;
 
     /** A showdown markdown converter */
-    static #mdConverter: showdown.Converter | null = null;
+    static #mdConverter: Converter | null = null;
 
     constructor({ item, data, htmlOptions = {} }: ItemChatDataConstructorOptions) {
         this.item = item;
