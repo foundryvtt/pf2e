@@ -52,6 +52,7 @@ import type {
 } from "@system/statistic/index.ts";
 import { EnrichmentOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, localizer, objectHasKey, setHasElement, signedInteger, sluggify, tupleHasValue } from "@util";
+import { Duration } from "luxon";
 import * as R from "remeda";
 import { v5 as UUIDv5 } from "uuid";
 import { ActorConditions } from "./conditions.ts";
@@ -62,6 +63,7 @@ import type { ActorSourcePF2e } from "./data/index.ts";
 import { Immunity, Resistance, Weakness } from "./data/iwr.ts";
 import { ActorSizePF2e } from "./data/size.ts";
 import {
+    applyActorUpdate,
     auraAffectsActor,
     checkAreaEffects,
     createEncounterRollOptions,
@@ -75,7 +77,7 @@ import { ItemTransfer } from "./item-transfer.ts";
 import { applyStackingRules } from "./modifiers.ts";
 import type { ActorSheetPF2e } from "./sheet/base.ts";
 import type { ActorSpellcasting } from "./spellcasting.ts";
-import type { ActorType } from "./types.ts";
+import type { ActorRechargeData, ActorType } from "./types.ts";
 import {
     ACTOR_TYPES,
     CREATURE_ACTOR_TYPES,
@@ -511,6 +513,78 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
     }
 
+    /** Recharges all abilities after some time has elapsed. */
+    async recharge(options: RechargeOptions): Promise<ActorRechargeData<this>> {
+        const commitData: ActorRechargeData<this> = {
+            actorUpdates: null,
+            itemCreates: [],
+            itemUpdates: [],
+            affected: {
+                frequencies: false,
+                spellSlots: false,
+                resources: [],
+            },
+        };
+
+        const elapsed = options.duration;
+        const specificDurations = ["turn", "round", "day"];
+        for (const item of [this.itemTypes.action, this.itemTypes.feat].flat()) {
+            // This item is irrelevant if there is no frequency or its already fully charged
+            if (!item.frequency || item.frequency.value >= item.frequency.max) {
+                continue;
+            }
+
+            const per = item.frequency.per;
+
+            // Handle special per values or daily prep. These do not ever update via time elapsing normally
+            // Greater ones refresh lower ones. Daily prep isn't necessarily 24 hours, but it is at least 8 hours of rest
+            const specificPerIdx = specificDurations.indexOf(per);
+            if (specificPerIdx >= 0 || elapsed === "day") {
+                const performUpdate =
+                    specificPerIdx >= 0
+                        ? specificDurations.indexOf(elapsed) >= specificPerIdx
+                        : Duration.fromISO(per) <= Duration.fromISO("PT8H");
+                if (performUpdate) {
+                    const frequency = { value: item.frequency.max };
+                    commitData.itemUpdates.push({ _id: item.id, system: { frequency } });
+                    commitData.affected.frequencies = true;
+                }
+            }
+        }
+
+        // If this recharge is for daily prep, perform daily prep updates
+        if (elapsed === "day") {
+            const spellcastingRecharge = this.spellcasting?.recharge();
+            if (spellcastingRecharge) {
+                commitData.actorUpdates = spellcastingRecharge.actorUpdates;
+                commitData.itemUpdates.push(...spellcastingRecharge.itemUpdates);
+                commitData.affected.spellSlots = spellcastingRecharge.itemUpdates.length > 0;
+            }
+
+            // Restore special resources
+            for (const resource of Object.values(this.synthetics.resources)) {
+                const updates = await resource.update(resource.max, { save: false });
+                commitData.itemCreates.push(...updates.itemCreates);
+                commitData.itemUpdates.push(...updates.itemUpdates);
+                if (updates.itemCreates.length || updates.itemUpdates.length) {
+                    commitData.affected.resources.push(resource.slug);
+                }
+            }
+        }
+
+        // Log what resources got updated in commit data
+        const commitSystemData = commitData.actorUpdates?.system;
+        commitData.affected.resources =
+            commitSystemData && "resources" in commitSystemData ? Object.keys(commitSystemData.resources ?? {}) : [];
+
+        // Commit to the database unless commit is explicitly set to false
+        if (options.commit !== false) {
+            await applyActorUpdate(this, commitData);
+        }
+
+        return commitData;
+    }
+
     /** Don't allow the user to create in-development actor types. */
     static override createDialog<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
@@ -639,6 +713,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return super.updateDocuments(updates, operation);
     }
 
+    /* -------------------------------------------- */
+    /*  Data Preparation                            */
+    /* -------------------------------------------- */
+
     /** Set module art if available */
     protected override _initializeSource(
         source: Record<string, unknown>,
@@ -677,6 +755,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             movementTypes: {},
             multipleAttackPenalties: {},
             ephemeralEffects: {},
+            resources: {},
             rollNotes: {},
             rollSubstitutions: {},
             rollTwice: {},
@@ -698,14 +777,14 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /**
      * Never prepare data except as part of `DataModel` initialization. If embedded, don't prepare data if the parent is
      * not yet initialized. See https://github.com/foundryvtt/foundryvtt/issues/7987
+     * @todo remove in V13
      */
     override prepareData(): void {
-        if (this.initialized) return;
-
+        if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
+            return;
+        }
         // Set after data model is initialized so that `this.id` will be defined (and `this.uuid` will be complete)
         this.signature ??= UUIDv5(this.uuid, "e9fa1461-0edc-4791-826e-08633f1c6ef7"); // magic number as namespace
-
-        if (this.parent && !this.parent.initialized) return;
         this.initialized = true;
         super.prepareData();
 
@@ -944,6 +1023,17 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 const item = this.items.get(itemId);
                 await item?.update({ "system.hp.value": damage });
             }
+            return this;
+        }
+
+        // If this is a resource, update the resource instead. It may be a SpecialResource rule element.
+        const actor = token?.actor;
+        const isCreature = actor?.isOfType("creature");
+        const resourceMatch = isCreature ? /^resources\.([\w-]+)/.exec(attribute) : null;
+        if (isCreature && resourceMatch) {
+            const resource = resourceMatch[1];
+            const newValue = isDelta ? (actor.system.resources?.[resource]?.value ?? 0) + value : value;
+            await actor.updateResource(resource, newValue);
             return this;
         }
 
@@ -1883,6 +1973,12 @@ interface ActorUpdateOperation<TParent extends TokenDocumentPF2e | null> extends
 
 interface EmbeddedItemUpdateOperation<TParent extends ActorPF2e> extends DatabaseUpdateOperation<TParent> {
     checkHP?: boolean;
+}
+
+interface RechargeOptions {
+    /** How much time elapsed as a delta operation */
+    duration: "turn" | "round" | "day";
+    commit?: boolean;
 }
 
 /** A `Proxy` to to get Foundry to construct `ActorPF2e` subclasses */

@@ -25,88 +25,86 @@
                 "adjustName": false,
                 "choices": [
                     {
-                        "label": "PF2E.SpecificRule.Equipment.LifeShot.MinorOrLesser",
                         "predicate": [
                             {
                                 "or": [
                                     "parent:origin:item:slug:life-shot-minor",
-                                    "parent:origin:item:slug:life-shot-lesser",
                                     {
-                                        "nor": [
-                                            "parent:origin:item:slug:life-shot-moderate",
-                                            "parent:origin:item:slug:life-shot-greater",
-                                            "parent:origin:item:slug:life-shot-major",
-                                            "parent:origin:item:slug:life-shot-true"
-                                        ]
+                                        "not": "parent:origin:item"
                                     }
                                 ]
                             }
                         ],
-                        "value": 1
+                        "value": "Compendium.pf2e.equipment-srd.Item.Life Shot (Minor)"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Equipment.LifeShot.ModerateOrGreater",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:life-shot-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Life Shot (Lesser)"
+                    },
+                    {
                         "predicate": [
                             {
                                 "or": [
                                     "parent:origin:item:slug:life-shot-moderate",
-                                    "parent:origin:item:slug:life-shot-greater",
                                     {
-                                        "nor": [
-                                            "parent:origin:item:slug:life-shot-minor",
-                                            "parent:origin:item:slug:life-shot-lesser",
-                                            "parent:origin:item:slug:life-shot-major",
-                                            "parent:origin:item:slug:life-shot-true"
-                                        ]
+                                        "not": "parent:origin:item"
                                     }
                                 ]
                             }
                         ],
-                        "value": 2
+                        "value": "Compendium.pf2e.equipment-srd.Item.Life Shot (Moderate)"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Equipment.LifeShot.Major",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:life-shot-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Life Shot (Greater)"
+                    },
+                    {
                         "predicate": [
                             {
                                 "or": [
                                     "parent:origin:item:slug:life-shot-major",
                                     {
-                                        "nor": [
-                                            "parent:origin:item:slug:life-shot-minor",
-                                            "parent:origin:item:slug:life-shot-lesser",
-                                            "parent:origin:item:slug:life-shot-moderate",
-                                            "parent:origin:item:slug:life-shot-greater",
-                                            "parent:origin:item:slug:life-shot-true"
-                                        ]
+                                        "not": "parent:origin:item"
                                     }
                                 ]
                             }
                         ],
-                        "value": 3
+                        "value": "Compendium.pf2e.equipment-srd.Item.Life Shot (Major)"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Equipment.LifeShot.True",
                         "predicate": [
                             {
                                 "or": [
                                     "parent:origin:item:slug:life-shot-true",
                                     {
-                                        "nor": [
-                                            "parent:origin:item:slug:life-shot-minor",
-                                            "parent:origin:item:slug:life-shot-lesser",
-                                            "parent:origin:item:slug:life-shot-moderate",
-                                            "parent:origin:item:slug:life-shot-greater",
-                                            "parent:origin:item:slug:life-shot-major"
-                                        ]
+                                        "not": "parent:origin:item"
                                     }
                                 ]
                             }
                         ],
-                        "value": 4
+                        "value": "Compendium.pf2e.equipment-srd.Item.Life Shot (True)"
                     }
                 ],
-                "flag": "bonus",
-                "key": "ChoiceSet"
+                "key": "ChoiceSet",
+                "rollOption": "life-shot"
             },
             {
                 "key": "FlatModifier",
@@ -119,8 +117,44 @@
                     }
                 ],
                 "selector": "saving-throw",
+                "slug": "life-shot-bonus",
                 "type": "item",
-                "value": "@item.flags.pf2e.rulesSelections.bonus"
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "life-shot:life-shot-moderate",
+                            "life-shot:life-shot-greater"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "life-shot-bonus",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "life-shot:life-shot-major"
+                ],
+                "selector": "saving-throw",
+                "slug": "life-shot-bonus",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "life-shot:life-shot-true"
+                ],
+                "selector": "saving-throw",
+                "slug": "life-shot-bonus",
+                "value": 4
             }
         ],
         "start": {

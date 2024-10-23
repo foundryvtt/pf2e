@@ -1,8 +1,7 @@
-$faded-color: #7a7971;
-
 @import "recall-knowledge", "skills-editor";
 
 .actor.npc.sheet form {
+    --faded-border-color: #7a7971;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -131,7 +130,7 @@ $faded-color: #7a7971;
     a.empty {
         &:hover,
         &:active {
-            border-color: $faded-color;
+            border-color: var(--faded-border-color);
             color: var(--text-dark);
         }
     }

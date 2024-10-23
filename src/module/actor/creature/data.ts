@@ -14,7 +14,7 @@ import type {
 import type { ActorSizePF2e } from "@actor/data/size.ts";
 import type { DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import type { AttributeString, MovementType, SaveType, SkillSlug } from "@actor/types.ts";
-import type { LabeledNumber, Size, ValueAndMax, ZeroToThree } from "@module/data.ts";
+import type { LabeledNumber, Size, ValueAndMax, ValueAndMaybeMax, ZeroToThree } from "@module/data.ts";
 import type { ArmorClassTraceData } from "@system/statistic/index.ts";
 import type { PerceptionTraceData } from "@system/statistic/perception.ts";
 import type { CreatureActorType, CreatureTrait, Language, SenseAcuity, SenseType, SpecialVisionType } from "./types.ts";
@@ -64,10 +64,7 @@ interface CreatureLanguagesData {
 interface CreatureTraitsSource extends ActorTraitsSource<CreatureTrait> {}
 
 interface CreatureResourcesSource {
-    focus?: {
-        value: number;
-        max?: number;
-    };
+    focus?: ValueAndMaybeMax;
 }
 
 interface CreatureSystemData extends Omit<CreatureSystemSource, "attributes">, ActorSystemData {
@@ -94,7 +91,7 @@ interface CreatureSystemData extends Omit<CreatureSystemSource, "attributes">, A
     skills: Record<string, SkillData>;
 
     actions?: StrikeData[];
-    resources?: CreatureResources;
+    resources: CreatureResources;
 }
 
 type SenseData =
@@ -189,11 +186,8 @@ interface CreatureInitiativeSource {
 
 interface CreatureResources extends CreatureResourcesSource {
     /** The current number of focus points and pool size */
-    focus: {
-        value: number;
-        max: number;
-        cap: number;
-    };
+    focus?: ValueAndMax & { cap: number };
+    [key: string]: ValueAndMax | undefined;
 }
 
 enum VisionLevels {

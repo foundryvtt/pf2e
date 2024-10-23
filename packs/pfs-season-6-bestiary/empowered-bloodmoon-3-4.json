@@ -1,0 +1,259 @@
+{
+    "_id": "I5YILRzPKwr2xe8Y",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "w72xScDzGTN5XXIY",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Object Immunities (Except Spirit)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "type": [
+                            "bleed",
+                            "death-effects",
+                            "disease",
+                            "healing",
+                            "mental",
+                            "nonlethal-attacks",
+                            "poison",
+                            "vitality",
+                            "void",
+                            "doomed",
+                            "drained",
+                            "fatigued",
+                            "paralyzed",
+                            "sickened",
+                            "unconscious"
+                        ]
+                    },
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": "object-immunities"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xq5F6vFE3ZqlHhCt",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Float",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Combat begins with the creature it is attuned to</p><hr /><p><strong>Effect</strong> The blade begins to float in the air, then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SxPuxDjMqJt4qaig",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Prone to Monologuing",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If a PC uses an action to taunt Bloodmoon with a successful @Check[deception|dc:18], @Check[diplomacy|dc:18], or @Check[intimidation|dc:18] check, Bloodmoon must spend an action monologuing on the next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "T4ZgH7mxIaLbm0MA",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Naginata",
+            "sort": 0,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "mw6MjzitsKX4ga2j": {
+                        "damage": "1d8+8",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "deadly-d8",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "vvsvXKxM95y1Upkq",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Tiny",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>Bloodmoon is treated as a tiny creature with reach.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Empowered Bloodmoon (3-4)",
+    "prototypeToken": {
+        "name": "Empowered Bloodmoon"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 19
+            },
+            "emitsSound": "encounter",
+            "hardness": 11,
+            "hp": {
+                "details": "",
+                "max": 44,
+                "temp": 0,
+                "value": 44
+            },
+            "stealth": {
+                "details": "",
+                "value": 10
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "holy",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>Bloodmoon is a naginata that can act on its own provided it is attuned to at least one creature.</p>",
+            "disable": "<p>Two successful @Check[religion|dc:20|options:disable-bloodmoon] or @Check[occultism|dc:20|options:disable-bloodmoon] checks, @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (2nd rank; counteract DC 18)</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Society Scenario #6-05: Silver Bark, Golden Blades"
+            },
+            "reset": "",
+            "routine": "<p>(3 actions) Bloodmoon uses its first action to fly up to 20 feet towards an opponent. It then makes two naginata strikes, each against a different foe.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 6
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt",
+                "magical",
+                "unholy"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,47 @@
+{
+    "_id": "ww0Wu8majCej2tVF",
+    "img": "icons/consumables/meat/hock-leg-stylized.webp",
+    "name": "Effect: Glutton's Feast",
+    "system": {
+        "badge": {
+            "evaluate": true,
+            "reevaluate": null,
+            "type": "formula",
+            "value": "(@actor.flags.pf2e.gluttonsFeast)d4"
+        },
+        "description": {
+            "value": "<p>The ogre glutton gains 1d4 temporary hit points, or 2d4 following glutton's rush.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "@item.badge.value"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

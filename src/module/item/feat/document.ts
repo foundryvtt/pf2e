@@ -1,6 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import { ClassDCData } from "@actor/character/data.ts";
-import type { FeatGroup } from "@actor/character/feats.ts";
+import type { FeatGroup } from "@actor/character/feats/index.ts";
 import type { SenseData } from "@actor/creature/index.ts";
 import { ItemPF2e, type HeritagePF2e } from "@item";
 import { getActionCostRollOptions, normalizeActionChangeData, processSanctification } from "@item/ability/helpers.ts";
@@ -195,7 +195,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const senseData: SenseData[] = actor.system.perception.senses;
         const acuityValues = { precise: 2, imprecise: 1, vague: 0 };
 
-        for (const [type, data] of R.toPairs.strict(subfeatures.senses)) {
+        for (const [type, data] of R.entries(subfeatures.senses)) {
             if (senseData.some((s) => s.type === type)) continue;
 
             if (type === "darkvision" && data.special && Object.values(data.special).includes(true)) {

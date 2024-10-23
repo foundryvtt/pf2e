@@ -6,13 +6,12 @@ import prettier from "eslint-plugin-prettier";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
-export default [
-    { files: ["**/*.ts"] },
-    { ignores: ["**/dist/"] },
+export default tseslint.config(
+    { ignores: ["dist/", "packs/", "static/"] },
+    { plugins: { jest, prettier } },
     eslint.configs.recommended,
     ...tseslint.configs.recommended,
     {
-        plugins: { jest, prettier },
         languageOptions: {
             globals: {
                 ...globals.browser,
@@ -20,6 +19,7 @@ export default [
             },
             ecmaVersion: 2023,
             sourceType: "module",
+            parser: tseslint.parser,
             parserOptions: { project: "./tsconfig.json" },
         },
         rules: {
@@ -32,7 +32,7 @@ export default [
             "@typescript-eslint/await-thenable": "error",
             "@typescript-eslint/ban-ts-comment": "error",
             "@typescript-eslint/ban-types": "off",
-            "@typescript-eslint/explicit-module-boundary-types": "error",
+            "@typescript-eslint/explicit-module-boundary-types": ["error", { allowHigherOrderFunctions: true }],
             "@typescript-eslint/prefer-namespace-keyword": "off",
             "@typescript-eslint/no-empty-function": "off",
             "@typescript-eslint/no-empty-object-type": ["error", { allowInterfaces: "with-single-extends" }],
@@ -55,4 +55,4 @@ export default [
         files: ["tests/**/*"],
         rules: { "global-require": "off" },
     },
-];
+);

@@ -309,7 +309,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
     private prepareSkills() {
         const modifierAdjustments = this.synthetics.modifierAdjustments;
 
-        this.skills = R.mapToObj(R.entries.strict(CONFIG.PF2E.skills), ([skillSlug, { attribute, label }]) => {
+        this.skills = R.mapToObj(R.entries(CONFIG.PF2E.skills), ([skillSlug, { attribute, label }]) => {
             const skill = this._source.system.skills[skillSlug];
             const domains = [skillSlug, `${attribute}-based`, "skill-check", `${attribute}-skill-check`, "all"];
 

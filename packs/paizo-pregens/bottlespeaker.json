@@ -17,28 +17,28 @@
                     "uuid": "Compendium.pf2e.ancestries.Item.cdhgByGG1WtuaK73"
                 },
                 "description": {
-                    "value": "<p>You have a large gourd for a skull. Your knowledge comes from within your spirit, rather than a physical brain, and you have found a handier use for the space inside your head. You can store a collection of up to 1 Bulk of objects within your head. The DC of checks to @UUID[Compendium.pf2e.actionspf2e.Item.Steal] objects from inside your head increases by 4. Additionally, if you store only one object within your head, you can draw it effortlessly into your hand as part of another action to use the object. Drawing the item grants this other action the manipulate trait.</p>"
+                    "value": "<p>You have a large gourd for a skull, and since you don't have a physical brain, you can use the space inside your head. You can store a collection of up to 1 Bulk of objects within your head. The DC of checks to @UUID[Compendium.pf2e.actionspf2e.Item.Steal] objects from inside your head increases by 4. Additionally, if you store only one object within your head, you can draw it effortlessly into your hand as part of another action to use the object. Drawing the item grants this other action the manipulate trait.</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Lost Omens: Character Guide"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [
                     {
                         "domain": "all",
                         "key": "RollOption",
+                        "label": "PF2E.SpecificRule.ToggleProperty.GourdHead",
                         "option": "gourd-head",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
-                        "label": "PF2E.SpecificRule.ToggleProperty.GourdHead",
                         "predicate": [
+                            "action:steal",
                             "gourd-head"
                         ],
-                        "selector": "perception",
-                        "type": "untyped",
+                        "selector": "perception-dc",
                         "value": 4
                     }
                 ],
@@ -587,7 +587,7 @@
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>You splash a glob of acid that splatters your target and nearby creatures. Make a spell attack. If you hit, you deal 1d6 acid damage plus 1 splash acid damage. On a critical success, the target also takes [[/r (ceil(@item.level/2))[persistent,acid]]] damage.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The initial damage increases to 2d6, and the persistent damage increases to 2.</p>\n<p><strong>Heightened (5th)</strong> The initial damage increases to 3d6, the persistent damage increases to 3, and the splash damage increases to 2.</p>\n<p><strong>Heightened (7th)</strong> The initial damage increases to 4d6, the persistent damage increases to 4, and the splash damage increases to 3.</p>\n<p><strong>Heightened (9th)</strong> The initial damage increases to 5d6, the persistent damage increases to 5, and the splash damage increases to 4.</p>"
+                    "value": "<p>You splash a glob of acid that splatters your target and nearby creatures. Make a spell attack. If you hit, you deal 1d6 acid damage plus 1 splash acid damage. On a critical success, the target also takes @Damage[(ceil(@item.level/2))[persistent,acid]] damage.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The initial damage increases to 2d6, and the persistent damage increases to 2.</p>\n<p><strong>Heightened (5th)</strong> The initial damage increases to 3d6, the persistent damage increases to 3, and the splash damage increases to 2.</p>\n<p><strong>Heightened (7th)</strong> The initial damage increases to 4d6, the persistent damage increases to 4, and the splash damage increases to 3.</p>\n<p><strong>Heightened (9th)</strong> The initial damage increases to 5d6, the persistent damage increases to 5, and the splash damage increases to 4.</p>"
                 },
                 "duration": {
                     "sustained": false,

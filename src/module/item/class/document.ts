@@ -1,6 +1,6 @@
 import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { ClassDCData } from "@actor/character/data.ts";
-import { FeatSlotCreationData } from "@actor/character/feats.ts";
+import type { FeatSlotCreationData } from "@actor/character/feats/index.ts";
 import { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { ABCItemPF2e, FeatPF2e } from "@item";

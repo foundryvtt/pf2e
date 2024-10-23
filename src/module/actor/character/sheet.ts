@@ -3,8 +3,8 @@ import type { Sense } from "@actor/creature/sense.ts";
 import { isReallyPC } from "@actor/helpers.ts";
 import { MODIFIER_TYPES, createProficiencyModifier } from "@actor/modifiers.ts";
 import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
-import { ActorSheetDataPF2e, InventoryItem } from "@actor/sheet/data-types.ts";
-import { condenseSenses } from "@actor/sheet/helpers.ts";
+import { AbilityViewData, ActorSheetDataPF2e, InventoryItem } from "@actor/sheet/data-types.ts";
+import { condenseSenses, createAbilityViewData } from "@actor/sheet/helpers.ts";
 import { AttributeString, SaveType, SkillSlug } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import type {
@@ -19,7 +19,7 @@ import type {
 } from "@item";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { TraitToggleViewData } from "@item/ability/trait-toggles.ts";
-import { ActionCost, Frequency, ItemSourcePF2e } from "@item/base/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
 import { CoinsPF2e } from "@item/physical/coins.ts";
 import { MagicTradition } from "@item/spell/types.ts";
@@ -34,7 +34,6 @@ import { CheckDC } from "@system/degree-of-success.ts";
 import {
     ErrorPF2e,
     fontAwesomeIcon,
-    getActionGlyph,
     getActionIcon,
     htmlClosest,
     htmlQuery,
@@ -50,6 +49,7 @@ import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { CreatureSheetPF2e } from "../creature/sheet.ts";
 import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies.ts";
+import { ABCPicker } from "./apps/abc-picker/app.ts";
 import { AttributeBuilder } from "./apps/attribute-builder.ts";
 import { AutomaticBonusProgression } from "./automatic-bonus-progression.ts";
 import { CharacterConfig } from "./config.ts";
@@ -66,7 +66,7 @@ import {
 } from "./data.ts";
 import { CharacterPF2e } from "./document.ts";
 import { ElementalBlast, ElementalBlastConfig } from "./elemental-blast.ts";
-import { FeatGroup } from "./feats.ts";
+import type { FeatGroup } from "./feats/index.ts";
 import { PCSheetTabManager } from "./tab-manager.ts";
 import { CHARACTER_SHEET_TABS } from "./values.ts";
 
@@ -379,7 +379,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             fly: "feather-pointed",
             burrow: "water-ladder",
         };
-        sheetData.speeds = R.keys.strict(speedIcons).map((slug): SpeedSheetData => {
+        sheetData.speeds = R.keys(speedIcons).map((slug): SpeedSheetData => {
             const speed = this.actor.system.attributes.speed;
             const data = slug === "land" ? speed : speed.otherSpeeds.find((s) => s.type === slug);
             return {
@@ -462,17 +462,14 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 return item.system.selfEffect?.img ?? actionIcon;
             })();
 
-            const traits = item.system.traits.value;
-
-            const action: ActionSheetData = {
-                ...R.pick(item, ["id", "name", "actionCost", "frequency"]),
+            const action: CharacterAbilityViewData = {
+                ...createAbilityViewData(item),
                 img,
-                glyph: getActionGlyph(item.actionCost),
                 feat: item.isOfType("feat") ? item : null,
                 toggles: item.system.traits.toggles.getSheetData(),
-                hasEffect: !!item.system.selfEffect,
             };
 
+            const traits = item.system.traits.value;
             if (traits.includes("exploration")) {
                 const active = actor.system.exploration.includes(item.id);
                 action.exploration = { active };
@@ -585,18 +582,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         const rollInitiativeLink = htmlQuery(html, ".sidebar a[data-action=roll-initiative]");
         rollInitiativeLink?.addEventListener("mouseenter", () => {
             this.toggleInitiativeLink();
-        });
-
-        // Adjust Hero Points
-        const heroPointsPips = htmlQuery(html, "[data-action=adjust-hero-points]");
-        heroPointsPips?.addEventListener("click", async () => {
-            const newValue = Math.min(this.actor.heroPoints.value + 1, this.actor.heroPoints.max);
-            await this.actor.update({ "system.resources.heroPoints.value": newValue });
-        });
-        heroPointsPips?.addEventListener("contextmenu", async (event) => {
-            event.preventDefault();
-            const newValue = Math.max(this.actor.heroPoints.value - 1, 0);
-            await this.actor.update({ "system.resources.heroPoints.value": newValue });
         });
 
         $html.find(".adjust-item-stat").on("click contextmenu", (event) => this.#onClickAdjustItemStat(event));
@@ -743,21 +728,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         // SPELLCASTING
         const castingPanel = htmlQuery(html, ".tab[data-tab=spellcasting]");
 
-        // Focus pool pips
-        const focusPips = htmlQueryAll(castingPanel, ".focus-pool");
-        if (focusPips.length > 0) {
-            const listener = (event: Event) => {
-                const change = event.type === "click" ? 1 : -1;
-                const points = this.actor.system.resources.focus.value + change;
-                this.actor.update({ "system.resources.focus.value": points });
-            };
-
-            for (const pips of focusPips) {
-                pips.addEventListener("click", listener);
-                pips.addEventListener("contextmenu", listener);
-            }
-        }
-
         // Update all "normal" spellcasting entries
         for (const select of htmlQueryAll<HTMLSelectElement>(html, "select[data-action=update-spellcasting-rank]")) {
             select.addEventListener("change", () => {
@@ -851,6 +821,15 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         };
 
         // MAIN TAB
+
+        handlers["open-abc-picker"] = async (_event, target) => {
+            const itemType = target.dataset.itemType;
+            if (!tupleHasValue(["ancestry", "heritage", "background", "class", "deity"], itemType)) {
+                throw ErrorPF2e("Unexpected item type");
+            }
+
+            new ABCPicker({ actor: this.actor, itemType }).render({ force: true });
+        };
 
         handlers["edit-attribute-boosts"] = () => {
             const builder =
@@ -1617,12 +1596,12 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     hasNormalSpellcasting: boolean;
     tabVisibility: CharacterSheetTabVisibility;
     actions: {
-        encounter: Record<"action" | "reaction" | "free", { label: string; actions: ActionSheetData[] }>;
+        encounter: Record<"action" | "reaction" | "free", { label: string; actions: CharacterAbilityViewData[] }>;
         exploration: {
-            active: ActionSheetData[];
-            other: ActionSheetData[];
+            active: CharacterAbilityViewData[];
+            other: CharacterAbilityViewData[];
         };
-        downtime: ActionSheetData[];
+        downtime: CharacterAbilityViewData[];
     };
     feats: FeatGroup[];
     elementalBlasts: ElementalBlastSheetConfig[];
@@ -1646,19 +1625,12 @@ interface SpeedSheetData {
     breakdown: string | null;
 }
 
-interface ActionSheetData {
-    id: string;
-    name: string;
-    img: string;
-    glyph: string | null;
-    actionCost: ActionCost | null;
-    frequency: Frequency | null;
+interface CharacterAbilityViewData extends AbilityViewData {
     feat: FeatPF2e | null;
     toggles: TraitToggleViewData[];
     exploration?: {
         active: boolean;
     };
-    hasEffect: boolean;
 }
 
 interface ClassDCSheetData extends ClassDCData {

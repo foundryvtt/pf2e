@@ -13,7 +13,7 @@ import type { Coins } from "@item/physical/data.ts";
 import { detachSubitem } from "@item/physical/helpers.ts";
 import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
-import { createSelfEffectMessage } from "@module/chat-message/helpers.ts";
+import { createUseActionMessage } from "@module/chat-message/helpers.ts";
 import { createSheetTags, maintainFocusInRender } from "@module/sheet/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import type { StatisticRollParameters } from "@system/statistic/statistic.ts";
@@ -340,14 +340,14 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             "input[data-item-id][data-item-property], select[data-item-id][data-item-property]",
         );
         for (const element of itemPropertyInputs) {
-            element.addEventListener("change", (event) => {
+            element.addEventListener("change", async (event) => {
                 event.stopPropagation();
                 const { itemId, itemProperty } = element.dataset;
                 if (!itemId || !itemProperty) return;
 
                 const value = (() => {
                     const value =
-                        element instanceof HTMLInputElement && element.type === "checbox"
+                        element instanceof HTMLInputElement && element.type === "checkbox"
                             ? element.checked
                             : element.value;
                     if (typeof value === "boolean") return value;
@@ -357,7 +357,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                     return dataType === "Number" ? Number(value) || 0 : value.trim();
                 })();
 
-                this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, [itemProperty]: value }]);
+                // Perform the update. If nothing was changed, re-render so that input fields are reset
+                const updated = await this.actor.updateEmbeddedDocuments("Item", [
+                    { _id: itemId, [itemProperty]: value },
+                ]);
+                if (updated.length === 0) this.render(true);
             });
         }
 
@@ -564,7 +568,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 const itemId = htmlClosest(anchor, "[data-item-id]")?.dataset.itemId;
                 const item = this.actor.items.get(itemId, { strict: true });
                 if (item.isOfType("action", "feat")) {
-                    return createSelfEffectMessage(item, eventToRollMode(event));
+                    return createUseActionMessage(item, eventToRollMode(event));
                 }
             },
             // INVENTORY

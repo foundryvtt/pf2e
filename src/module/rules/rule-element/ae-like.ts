@@ -23,7 +23,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
             ),
             mode: new fields.StringField({
                 required: true,
-                choices: R.keys.strict(this.CHANGE_MODE_DEFAULT_PRIORITIES),
+                choices: R.keys(this.CHANGE_MODE_DEFAULT_PRIORITIES),
                 initial: undefined,
             }),
             path: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),

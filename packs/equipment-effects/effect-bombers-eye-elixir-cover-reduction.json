@@ -1,0 +1,51 @@
+{
+    "_id": "YlIESAmhjHJHGzmi",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/bombers-eye-elixir.webp",
+    "name": "Effect: Bomber's Eye Elixir Cover Reduction",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-effects.Item.Effect: Bomber's Eye Elixir]</p>\n<p>Your bonus to AC from cover is reduced.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "subtract",
+                "selector": "ac",
+                "slug": "cover",
+                "value": "@item.origin.flags.pf2e.bombersEyeElixir"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "selector": "ac",
+                "slug": "cover",
+                "value": 0
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

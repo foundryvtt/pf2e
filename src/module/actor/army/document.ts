@@ -1,4 +1,4 @@
-import { FeatGroup } from "@actor/character/feats.ts";
+import { FeatGroup } from "@actor/character/feats/index.ts";
 import { Sense } from "@actor/creature/sense.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
@@ -56,6 +56,9 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
     }
 
     override prepareData(): void {
+        if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
+            return;
+        }
         super.prepareData();
         this.kingdom?.notifyUpdate();
     }

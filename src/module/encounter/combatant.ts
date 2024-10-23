@@ -170,13 +170,16 @@ class CombatantPF2e<
         super._initialize(options);
     }
 
-    /** If embedded, don't prepare data if the parent's data model hasn't initialized all its properties */
+    /**
+     * If embedded, don't prepare data if the parent hasn't finished initializing.
+     * @todo remove in V13
+     */
     override prepareData(): void {
-        if (this.initialized) return;
-        if (!this.parent || this.parent.initialized) {
-            this.initialized = true;
-            super.prepareData();
+        if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
+            return;
         }
+        this.initialized = true;
+        super.prepareData();
     }
 
     override prepareBaseData(): void {
@@ -241,11 +244,18 @@ class CombatantPF2e<
      */
     async #performActorUpdates(event: "initiative-roll" | "turn-start"): Promise<void> {
         const actor = this.actor;
+        if (!actor) return;
+
         const actorUpdates: Record<string, unknown> = {};
-        for (const rule of actor?.rules ?? []) {
+        for (const rule of actor.rules ?? []) {
             await rule.onUpdateEncounter?.({ event, actorUpdates });
         }
-        await actor?.update(actorUpdates);
+        await actor.update(actorUpdates);
+
+        // Refresh usages of any abilities with round durations
+        if (event === "turn-start") {
+            await actor.recharge({ duration: "round" });
+        }
     }
 
     /* -------------------------------------------- */

@@ -76,7 +76,7 @@ class AbilitySystemData extends ItemSystemModel<AbilityItemPF2e, AbilitySystemSc
                         required: true,
                         nullable: false,
                         integer: true,
-                        positive: true,
+                        min: 0,
                         initial: 1,
                     }),
                     max: new fields.NumberField({

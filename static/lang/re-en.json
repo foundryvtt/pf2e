@@ -648,6 +648,9 @@
             }
         },
         "GenericLabel": {
+            "ItemVs": {
+                "Fear": "{item} vs. fear"
+            },
             "PreviousAction": {
                 "ClimbLeapStride": "Your previous action was to Climb, Leap, or Stride"
             }
@@ -748,6 +751,9 @@
                 }
             },
             "ChangeShape": {
+                "AlterationNotes": {
+                    "Unusable": "This ability is not usable in your current form."
+                },
                 "Form": {
                     "Animal": "Animal",
                     "AnimalAerial": "Aerial Animal",
@@ -836,6 +842,7 @@
                     "ObjectTiny": "Tiny Inanimate Object",
                     "Octopus": "Octopus",
                     "Oni": "Oni",
+                    "Orc": "Orc",
                     "Owlbear": "Owlbear",
                     "Plant": "Plant",
                     "PorcupineGiant": "Giant Porcupine",
@@ -849,6 +856,7 @@
                     "Spider": "Spider",
                     "Succubus": "Succubus",
                     "Tailless": "Tailless",
+                    "Tiger": "Tiger",
                     "Tree": "Tree",
                     "Unicorn": "Unicorn",
                     "Vampire": "Vampire",
@@ -1663,6 +1671,7 @@
             "RollOption": "Roll Option",
             "RollTwice": "Roll Twice",
             "Sense": "Sense",
+            "SpecialResource": "Special Resource",
             "SpecialStatistic": "Special Statistic",
             "Strike": "Strike",
             "Striking": "Striking",
@@ -3015,12 +3024,6 @@
                     "StrawberryLabel": "Strawberry",
                     "VanillaLabel": "Vanilla"
                 },
-                "ElixirOfLife": {
-                    "Major": "Major Elixir of Life",
-                    "MinorOrLesser": "Minor or Lesser Elixir of Life",
-                    "ModerateOrGreater": "Moderate or Greater Elixir of Life",
-                    "True": "True Elixir of Life"
-                },
                 "EnergizingLattice": {
                     "Note": "If your Strike fails, but doesn't critically fail, the target still takes half the @Damage[6d6[force]]{force damage}.",
                     "RollOptionLabel": "Energizing Lattice — Release energy"
@@ -3042,22 +3045,11 @@
                     "TitanicLabel": "Titanic",
                     "WyrmhideLabel": "Wyrmhide"
                 },
-                "HealersGel": {
-                    "Greater": "Greater Healer's Gel",
-                    "Lesser": "Lesser Healer's Gel",
-                    "Moderate": "Moderate Healer's Gel"
-                },
                 "HolyWater": {
                     "Note": "Can damage only creatures with the unholy trait."
                 },
                 "HumbugPocket": {
                     "ConcealAnObjectLabel": "Humbug Pocket (Conceal an Object in the Pocket)"
-                },
-                "LifeShot": {
-                    "Major": "Major Life Shot",
-                    "MinorOrLesser": "Minor or Lesser Life Shot",
-                    "ModerateOrGreater": "Moderate or Greater Life Shot",
-                    "True": "True Life Shot"
                 },
                 "LionsShield": {
                     "LionsBiteLabel": "Lion's Bite",
@@ -3078,6 +3070,11 @@
                 },
                 "PhantomShroud": {
                     "StrikeLabel": "Ghostly Hand"
+                },
+                "RhinoShot": {
+                    "CriticalSuccess": "The target must succeed at a @Check[fortitude|dc:19|name:Rhino Shot|traits:conjuration,consumable,magical|showDC:all] save or be knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}.",
+                    "Label": "Rhino Shot",
+                    "Success": "The target must critically succeed at a @Check[fortitude|dc:19|name:Rhino Shot|traits:conjuration,consumable,magical|showDC:all] save or be knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}."
                 },
                 "RobeOfTheArchmagi": {
                     "VsArcaneSpells": "{item} (vs. Arcane Spells)"
@@ -3195,8 +3192,8 @@
                     "Note": "When you Treat Wounds, you can deal @Damage[1d8[slashing]] damage to your patient just before applying the effects of the Treat Wounds. If you do, gain a +2 circumstance bonus to your Medicine check to Treat Wounds, and if you roll a success, you get a critical success instead."
                 },
                 "SolarRejuvenation": {
-                    "Ghoran": "The warmth and light of the sun gives you life. If you rest outdoors for 10 minutes during the day, you regain Hit Points equal to your @Damage[(floor(@actor.level/2)*@actor.con.mod)[healing]]{Constitution modifier × half your level}. You gain this benefit in addition to any healing from @UUID[Compendium.pf2e.actionspf2e.Item.1kGNdIIhuglAjIp9]{Treat Wounds}.",
-                    "Leshy": "If you rest outdoors for 10 minutes during the day, you regain Hit Points equal to your @Damage[(floor(@actor.level/2)*@actor.con.mod)[healing]]{Constitution modifier × half your level}. You gain this benefit in addition to any healing from @UUID[Compendium.pf2e.actionspf2e.Item.1kGNdIIhuglAjIp9]{Treat Wounds}. Leshies whose plant nourishment does not rely on photosynthesis require a similarly suitable environment. For example, fungus leshies need dark, damp environments and a pile of decaying plant matter."
+                    "Ghoran": "The warmth and light of the sun gives you life. If you rest outdoors for 10 minutes during the day, you regain Hit Points equal to your @Damage[(floor(@actor.level/2)*@actor.abilities.con.mod)[healing]]{Constitution modifier × half your level}. You gain this benefit in addition to any healing from @UUID[Compendium.pf2e.actionspf2e.Item.1kGNdIIhuglAjIp9]{Treat Wounds}.",
+                    "Leshy": "If you rest outdoors for 10 minutes during the day, you regain Hit Points equal to your @Damage[(floor(@actor.level/2)*@actor.abilities.con.mod)[healing]]{Constitution modifier × half your level}. You gain this benefit in addition to any healing from @UUID[Compendium.pf2e.actionspf2e.Item.1kGNdIIhuglAjIp9]{Treat Wounds}. Leshies whose plant nourishment does not rely on photosynthesis require a similarly suitable environment. For example, fungus leshies need dark, damp environments and a pile of decaying plant matter."
                 },
                 "ThlipitContestantDedication": {
                     "Lash": "Lash"
@@ -5128,9 +5125,11 @@
                 "Cane": "Use Cane Two-Handed",
                 "Katana": "Use Katana Two-Handed",
                 "Khakkhara": "Use Khakkhara Two-Handed",
+                "OrcSkewermaul": "Use Orc Skewermaul Two-Handed",
                 "ReinforcedStock": "Use Reinforced Stock Two-Handed",
                 "RhokaSword": "Use Rhoka Sword Two-Handed",
-                "Staff": "Use Staff Two-Handed"
+                "Staff": "Use Staff Two-Handed",
+                "Tuskblade": "Use Tuskblade Two-Handed"
             },
             "UndeadSlayer": {
                 "SlayersPresence": {

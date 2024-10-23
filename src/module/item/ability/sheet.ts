@@ -7,7 +7,7 @@ import { activateActionSheetListeners, createSelfEffectSheetData, handleSelfEffe
 
 // Gather traits to restrict to avoid trait selection noise in the selection
 // We fetch at load time to avoid propagated homebrew traits
-const originalAncestryTraits = R.keys.strict(ancestryTraits);
+const originalAncestryTraits = R.keys(ancestryTraits);
 
 class AbilitySheetPF2e extends ItemSheetPF2e<AbilityItemPF2e> {
     static override get defaultOptions(): ItemSheetOptions {

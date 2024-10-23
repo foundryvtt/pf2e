@@ -561,6 +561,7 @@ const otherConsumableTags: Record<OtherConsumableTag, string> = {
 };
 
 const otherWeaponTags: Record<OtherWeaponTag, string> = {
+    "handwraps-of-mighty-blows": "PF2E.Item.Physical.OtherTag.HandwrapsOfMightyBlows",
     improvised: "PF2E.Item.Physical.OtherTag.Improvised",
     shoddy: "PF2E.Item.Physical.OtherTag.Shoddy",
 };
@@ -773,9 +774,9 @@ const actionTraits = {
 };
 
 const effectTraits = R.omit(actionTraits, [
-    ...R.keys.strict(ancestryTraits),
-    ...R.keys.strict(classTraits),
-    ...R.keys.strict(weaponActionTraits),
+    ...R.keys(ancestryTraits),
+    ...R.keys(classTraits),
+    ...R.keys(weaponActionTraits),
     "additive",
     "additive1",
     "additive2",
