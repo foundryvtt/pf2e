@@ -27,7 +27,7 @@ function getMaterialValuationData(item: PhysicalItemPF2e): MaterialGradeData | n
           : item.isOfType("shield")
             ? item.isBuckler
                 ? MATERIAL_DATA.shield.buckler
-                : item.isTowerShield
+                : item.isMaterialTowerShield
                   ? MATERIAL_DATA.shield.towerShield
                   : MATERIAL_DATA.shield.shield
             : null;
