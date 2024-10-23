@@ -27,6 +27,9 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
                 "slots": {},
                 "slug": null,
                 "spelldc": {
@@ -37,88 +40,10 @@
                 },
                 "tradition": {
                     "value": "arcane"
-                }
+                },
+                "traits": {}
             },
             "type": "spellcastingEntry"
-        },
-        {
-            "_id": "jWo6aKJ0dpeDsVjg",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.r3NeUnsgt9mS03Sn"
-            },
-            "img": "systems/pf2e/icons/spells/shocking-grasp.webp",
-            "name": "Shocking Grasp",
-            "sort": 200000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "category": null,
-                        "formula": "4d12",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "electricity"
-                    }
-                },
-                "defense": null,
-                "description": {
-                    "value": "<p>You shroud your hands in a crackling field of lightning. Make a melee spell attack roll. On a hit, the target takes 4d12 electricity damage. If the target is wearing metal armor or is made of metal, you gain a +1 circumstance bonus to your attack roll with shocking grasp, and the target also takes [[/r (1d4+2)[persistent,electricity]]] damage on a hit. On a critical hit, double the initial damage, but not the persistent damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d12, and the persistent electricity damage increases by 1.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d12"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": {
-                    "value": "vL5RasoMgasgdDwB"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "shocking-grasp",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "primal"
-                    ],
-                    "value": [
-                        "attack",
-                        "concentrate",
-                        "electricity",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
         },
         {
             "_id": "Y9aVbKREziniQhDe",
@@ -127,7 +52,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
-            "sort": 300000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -191,7 +116,7 @@
             },
             "img": "icons/magic/acid/projectile-smoke-glowing.webp",
             "name": "Acid Splash",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -352,7 +277,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Chill Touch",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -438,7 +363,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
             "name": "Electric Arc",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -523,7 +448,7 @@
             },
             "img": "icons/magic/fire/flame-burning-earth-orange.webp",
             "name": "Produce Flame",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -604,7 +529,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -658,6 +583,87 @@
                     "value": [
                         "attack",
                         "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "qktneU9gxPtcB7TC",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.r3NeUnsgt9mS03Sn"
+            },
+            "img": "systems/pf2e/icons/spells/shocking-grasp.webp",
+            "name": "Shocking Grasp",
+            "sort": 800000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "2d12",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "electricity"
+                    }
+                },
+                "defense": null,
+                "description": {
+                    "value": "<p>You shroud your hands in a crackling field of lightning. Make a melee spell attack roll. On a hit, the target takes 2d12 electricity damage. If the target is wearing metal armor or is made of metal, you gain a +1 circumstance bonus to your attack roll with shocking grasp, and the target also takes @Damage[(1d4+((@item.level)-1))[persistent,electricity]] damage on a hit. On a critical hit, double the initial damage, but not the persistent damage.</p><hr /><p><strong>Heightened (+1)</strong> The damage increases by 1d12, and the persistent electricity damage increases by 1.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d12"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 3,
+                    "value": "vL5RasoMgasgdDwB"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "shocking-grasp",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "attack",
+                        "concentrate",
+                        "electricity",
                         "manipulate"
                     ]
                 }
