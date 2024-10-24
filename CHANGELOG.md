@@ -1,3 +1,96 @@
+## 6.5.0
+
+## System Improvements
+
+-   (Ambrose) Apply remaster theme to tables in GM Screen and Remaster Changes Journals
+-   (eryon) Add send to party button to loot sheet
+-   (stwlam) Refrain from broadcasting drag measurement of GM-hidden tokens
+-   (Supe) Make effects panel scrollable when overflowing
+-   (Supe) Recharge turn and round abilities as the encounter changes turns
+-   (Supe) Reduce remaining action uses when clicking the use button
+-   (Tikael) Allow alternative handwraps to function like Handwraps of Mighty Blows
+
+## Bug Fixes
+
+-   (Dire Weasel, Supe, stwlam) Fix missing compendium sources in several items
+-   (Stefan van Bodegraven) Fix Crash/Freeze when missing inline damage closing bracket
+-   (stwlam) Fix predication of item usage and runes in choice sets
+-   (stwlam) Fix "same-as" weapon proficiency chaining incorrectly
+-   (Supe) Fix drag/drop reordering of crafting formulas
+-   (Supe) Fix refreshing items embedded in compendium actors
+
+## Data Updates
+
+-   (Ambrose, Dire Weasel) Update more item descriptions and durations for remaster
+-   (7H3LaughingMan) Implement Monastic Weaponry's Criticial Specialization
+-   (Abbadon) Brush up multiple effects
+-   (Ambrose) Add Divine Access class feature to Oracle journal entry
+-   (Ambrose) Add Fortitude Save to Envenom Companion spell
+-   (Ambrose) Add Gelid Shard archetype to archetype journal
+-   (Ambrose) Add Volley 60 feet trait
+-   (Ambrose) Allow strike sanctification to apply to champion archetype
+-   (Ambrose) Automate "Come and Get Me"
+-   (Ambrose) Brush up select Bestiary Effects
+-   (Ambrose) Condense Antidote, Antiplague, and Blood Booster item effects
+-   (Ambrose) Fix Fire Shield
+-   (Ambrose) Redirect more Bestiary actors to Monster Core equivalents
+-   (Ambrose) Tag more feats that grant ancestral spells
+-   (Ambrose) Rewrite GM Screen journal
+-   (Ambrose) Update Grapple actions to use newer format on several items
+-   (Ambrose) Update instances of inline damage to the new format
+-   (Ambrose) Update instances of good and evil damage to Remaster terminology
+-   (CrackJackFlood) Add Spell Effect for Acid Grip
+-   (CrackJackFlood) Add more aura sizes for Bless effect.
+-   (CrackJackFlood) Add skill untrained penalty for Silvertongue Mutagen
+-   (CrackJackFlood) Add spell effect for Acid Grip
+-   (CrackJackFlood) Condense Tail Lash Effects
+-   (CrackJackFlood) Fix Soulbound Ruin statblock
+-   (Daomephsta) Fix inline checks for Paradox Engine
+-   (Dire Weasel) Add automation for Bomber's Eye Elixir, Hard to Target, Stag's Helm, and Weapon Siphon
+-   (Dire Weasel) Add template to Bloodsiphon's Death Burst
+-   (Dire Weasel) Brush up Old Thornbarker
+-   (Dire Weasel) Condense effects for Mudrock Snare
+-   (Dire Weasel) Condense effects for Treat Disease and Treat Poison
+-   (Dire Weasel) Fix Masquerade Scarf, Adamantine Body, and various item descriptions
+-   (Dire Weasel) Refresh copies of musical instruments in bestiary actors
+-   (Dire Weasel) Remove several unused effects
+-   (Dire Weasel) Update IWR for certain Rage of Elements creatures
+-   (DocSchlock) Add silver to Moonlit Spellgun
+-   (Hydrair) Fix selectors of Curse of Ancestral Meddling
+-   (Intervencion) Fix Solar Rejuvenation healing formula
+-   (rectulo) Fix level for wand of purification
+-   (reyzor1991) Add Note for Envenom Companion
+-   (reyzor1991) Change action cost from 1 to 2 Con for Rit - Spit Venom
+-   (Rigo) Add Strike failure note to Energizing Lattice effect
+-   (Rigo) Add area roll options to several inline links
+-   (Rigo) Add effect for Sixth Pillar Mastery
+-   (Rigo) Add fly speed to Winged Owlbear
+-   (Rigo) Add inline healing rolls to Vital Beacon
+-   (Rigo) Add labeled badge to Sewer Ooze's Filth Wave effect
+-   (Rigo) Automate Backfire Mantle, Blessed Swiftness, Dazzling Rosary, Dragon Throat Scale, Necrotic Cap, Wemmuth Trinket, and Pentagonal Seventh Prison
+-   (Rigo) Clean up Serene Mutagen effects
+-   (Rigo) Condense Aura of Faith effects and enable Champion's Aura by default
+-   (Rigo) Condense Elixir of Life and Healer's Gel effects and add Life Shot effect
+-   (Rigo) Condense Thermal Nimbus effects
+-   (Rigo) Fix damage type for Animal Instinct's Tyrannosaurus Tail
+-   (Rigo) Fix duration of Champion's extra damage effect
+-   (Rigo) Fix quickstrike localization
+-   (Rigo) Improve automation for Pocket Library
+-   (Rigo) Localize labels in Twitchy feat and adjust initiative modifier
+-   (Rigo) Remove and redirect condensed Dragon Breath spells
+-   (Rigo) Restrict Kashrishi's Empathic Sense to non-mindless creatures
+-   (Tikael) Automate Ogre Gluttons glutton's feast ability
+-   (Tikael) Brush up rule elements on Monstrous Peacemaker
+-   (Tikael) Fix Aldori Duelist
+-   (Tikael) Fix verbiage of Self Destruct feat for clarity
+-   (Unoblueboy) Update Fortify Shield effect
+
+## Under the Hood
+
+-   (stwlam) Convert ability items to data models
+-   (stwlam) Move source ids to _stats object
+-   (Supe) Initial implementation of SpecialResource rule element
+
 ## 6.4.1
 
 ## System Improvements
