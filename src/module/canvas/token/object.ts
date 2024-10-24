@@ -145,6 +145,37 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return this._canControl(user, event);
     }
 
+    /** Determine wether this token can see another token on the canvas. */
+    canSeeOnCanvas(token: TokenPF2e): boolean {
+        if (!token.isVisible) return false;
+        const { x: scx, y: scy } = this.center;
+        const sWidth = this.w / 4;
+        const sourcePoints: Point[] = [
+            { x: scx - sWidth, y: scy - sWidth },
+            { x: scx + sWidth, y: scy - sWidth },
+            { x: scx - sWidth, y: scy + sWidth },
+            { x: scx + sWidth, y: scy + sWidth },
+        ];
+        const { x: tcx, y: tcy } = token.center;
+        const tWidth = token.w / 4;
+        const targetPoints: Point[] = [
+            { x: tcx - tWidth, y: tcy - tWidth },
+            { x: tcx + tWidth, y: tcy - tWidth },
+            { x: tcx - tWidth, y: tcy + tWidth },
+            { x: tcx + tWidth, y: tcy + tWidth },
+        ];
+        for (const sourcePoint of sourcePoints) {
+            for (const targetPoint of targetPoints) {
+                const collision = CONFIG.Canvas.polygonBackends.sight.testCollision(sourcePoint, targetPoint, {
+                    mode: "any",
+                    type: "sight",
+                });
+                if (!collision) return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Determine whether this token can flank another—given that they have a flanking buddy on the opposite side
      * @param flankee                  The potentially flanked token
@@ -172,7 +203,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
         const reach = context.reach ?? actor.getReach({ action: "attack" });
 
-        return actor.canAttack && reach >= this.distanceTo(flankee, { reach });
+        return actor.canAttack && reach >= this.distanceTo(flankee, { reach }) && this.canSeeOnCanvas(flankee);
     }
 
     /**
