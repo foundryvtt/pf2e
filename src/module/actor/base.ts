@@ -750,6 +750,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             damageDice: { damage: [] },
             degreeOfSuccessAdjustments: {},
             dexterityModifierCaps: [],
+            itemAlterations: [],
             modifierAdjustments: { all: [], damage: [] },
             modifiers: { all: [], damage: [] },
             movementTypes: {},
