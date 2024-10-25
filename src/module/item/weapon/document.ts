@@ -476,12 +476,21 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     getAltUsages({ recurse = true } = {}): WeaponPF2e<TParent>[] {
         const meleeUsage = this.toMeleeUsage();
 
-        return [
+        const altUsages: WeaponPF2e<TParent>[] = [
             this.toThrownUsage() ?? [],
             meleeUsage ?? [],
             // Some combination weapons have a melee usage that is throwable
             recurse ? (meleeUsage?.toThrownUsage() ?? []) : [],
         ].flat();
+
+        // Apply item alterations to all alt usages
+        for (const rule of this.actor?.synthetics.itemAlterations ?? []) {
+            for (const weapon of altUsages) {
+                rule.applyAlteration({ singleItem: weapon as WeaponPF2e<NonNullable<TParent>> });
+            }
+        }
+
+        return altUsages;
     }
 
     override clone(

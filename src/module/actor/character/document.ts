@@ -44,7 +44,6 @@ import {
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers.ts";
-import type { ItemAlterationRuleElement } from "@module/rules/rule-element/item-alteration/rule-element.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { CheckCheckContext, CheckPF2e, CheckRoll } from "@system/check/index.ts";
@@ -1049,10 +1048,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
                   // No handwraps, so generate straight from source
                   const attack = new WeaponPF2e(source, { parent: this });
-                  const alterations = this.rules.filter(
-                      (r): r is ItemAlterationRuleElement => r.key === "ItemAlteration",
-                  );
-                  for (const rule of alterations) {
+                  for (const rule of this.synthetics.itemAlterations) {
                       rule.applyAlteration({ singleItem: attack });
                   }
                   return attack;

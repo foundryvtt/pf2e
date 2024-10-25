@@ -7,7 +7,6 @@ import { RawItemChatData } from "@item/base/data/index.ts";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
 import type { SpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import type { ValueAndMax } from "@module/data.ts";
-import type { ItemAlterationRuleElement } from "@module/rules/rule-element/item-alteration/index.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { ErrorPF2e, setHasElement } from "@util";
@@ -45,8 +44,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         const context = { parent: this.actor, parentItem: this };
         const spell = new ItemProxyPF2e(spellSource, context) as SpellPF2e<NonNullable<TParent>>;
 
-        const alterations = this.actor.rules.filter((r): r is ItemAlterationRuleElement => r.key === "ItemAlteration");
-        for (const alteration of alterations) {
+        for (const alteration of this.actor.synthetics.itemAlterations) {
             alteration.applyAlteration({ singleItem: spell });
         }
 
