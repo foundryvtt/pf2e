@@ -1265,12 +1265,12 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         const featTab = game.pf2e.compendiumBrowser.tabs.feat;
         const filter = await featTab.getFilterData();
-        const level = filter.sliders.level;
-        level.values.max = Math.min(maxLevel, level.values.upperLimit);
-        level.isExpanded = level.values.max !== level.values.upperLimit;
+        const level = filter.level;
+        level.to = Math.min(maxLevel, level.max);
+        level.isExpanded = level.to !== level.max;
 
-        const { category } = filter.checkboxes;
-        const { traits } = filter.multiselects;
+        const category = filter.checkboxes.category;
+        const traits = filter.traits;
 
         for (const filterCode of checkboxesFilterCodes) {
             const [filterType, ...rest] = filterCode.split("-");
@@ -1289,11 +1289,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                     traits.selected.push(fu.deepClone(trait));
                 }
             } else if (filterType === "conjunction" && (value === "and" || value === "or")) {
-                filter.multiselects.traits.conjunction = value;
+                traits.conjunction = value;
             }
         }
 
-        return featTab.open(filter);
+        return featTab.open({ filter });
     }
 
     /** Handle changing of lore and spellcasting entry proficiency-rank via dropdown */
