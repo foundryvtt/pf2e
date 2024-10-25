@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>In moments of viciousness, your curse can partially infect your prey. Whenever you critically succeed with an unarmed attack from the werecreature archetype, the target must attempt a Fortitude save against the higher of your class DC or spell DC, or become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} until the beginning of your next turn as their bones elongate and form warps. On a critical failure, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for one minute as the transformation lingers.</p>"
+            "value": "<p>In moments of viciousness, your curse can partially infect your prey. Whenever you critically succeed with an unarmed attack from the werecreature archetype, the target must attempt a @Check[fortitude|against:spell-class|showDC:all] save against the higher of your class DC or spell DC, or become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} until the beginning of your next turn as their bones elongate and form warps. On a critical failure, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for one minute as the transformation lingers.</p><hr /><p><strong>Failure</strong> The target is Clumsy 2 until the beginning of your next turn.</p>\n<p><strong>Critical Failure</strong> The target is also Clumsy 1 for one minute.</p>"
         },
         "level": {
             "value": 10
@@ -28,7 +28,74 @@
             "remaster": true,
             "title": "Pathfinder Howl of the Wild"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "or": [
+                            "change-shape:hybrid",
+                            "change-shape:animal"
+                        ]
+                    },
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:slug:jaws",
+                                    {
+                                        "or": [
+                                            "werecreature:werebear",
+                                            "werecreature:werecrocodile",
+                                            "werecreature:wererat",
+                                            "werecreature:wereshark",
+                                            "werecreature:weretiger",
+                                            "werecreature:werewolf"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:claw",
+                                    {
+                                        "or": [
+                                            "werecreature:werebear",
+                                            "werecreature:wererat",
+                                            "werecreature:weretiger"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:fangs",
+                                    "werecreature:werebat"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:tusk",
+                                    "werecreature:wereboar"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:antler",
+                                    "werecreature:weremoose"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "unarmed-attack-roll",
+                "text": "PF2E.SpecificRule.Werecreature.TouchOfLunacy.Note",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

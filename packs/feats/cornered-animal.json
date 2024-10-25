@@ -28,7 +28,35 @@
             "remaster": true,
             "title": "Pathfinder Howl of the Wild"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "cornered-animal",
+                "predicate": [
+                    {
+                        "or": [
+                            "change-shape:hybrid",
+                            "change-shape:animal"
+                        ]
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "agile"
+                    },
+                    "cornered-animal"
+                ],
+                "selector": [
+                    "unarmed-attack-roll"
+                ],
+                "value": -2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

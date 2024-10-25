@@ -30,6 +30,26 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Werecreature.FeralSenses.ChoiceSet.Grant",
+                        "predicate": [
+                            {
+                                "not": "feat:feral-senses"
+                            }
+                        ],
+                        "value": 30
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Werecreature.FeralSenses.ChoiceSet.Extend",
+                        "value": 60
+                    }
+                ],
+                "flag": "range",
+                "key": "ChoiceSet"
+            },
+            {
                 "domain": "all",
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.Werecreature.YouDontSmellRight.Label",
@@ -44,19 +64,13 @@
                 "key": "Sense",
                 "predicate": [
                     {
-                        "and": [
-                            "self:effect:change-shape-werecreature",
-                            "feat:feral-senses"
+                        "or": [
+                            "change-shape:hybrid",
+                            "change-shape:animal"
                         ]
                     }
                 ],
-                "range": 60,
-                "selector": "scent"
-            },
-            {
-                "acuity": "imprecise",
-                "key": "Sense",
-                "range": 30,
+                "range": "@item.flags.pf2e.rulesSelections.range",
                 "selector": "scent"
             },
             {

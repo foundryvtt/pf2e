@@ -31,7 +31,50 @@
             "remaster": true,
             "title": "Pathfinder Howl of the Wild"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:seek",
+                            "item:slug:search"
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Werecreature.Echolocation.Note"
+                    }
+                ]
+            },
+            {
+                "acuity": "precise",
+                "key": "Sense",
+                "predicate": [
+                    "echolocation"
+                ],
+                "range": 40,
+                "selector": "echolocation"
+            },
+            {
+                "key": "RollOption",
+                "option": "echolocation",
+                "predicate": [
+                    {
+                        "or": [
+                            "change-shape:hybrid",
+                            "change-shape:animal"
+                        ]
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

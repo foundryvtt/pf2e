@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Requirements</strong> You're in hybrid or tiger shape and your last action was a critically successful Strike with your unarmed attack.</p>\n<hr />\n<p>You attack with a feline grace as captivatingly beautiful as it is deadly. All enemies within 30 feet of the creature you critically hit must attempt at a @Check[will|against:class] save against your class DC. Enemies that fail their saves become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} and are @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] with you for 1 round. Your hostile actions don't end this fascination, but those of your allies do. Regardless of the effects of the save, the creature is immune to Fearful Symmetry for 1 hour</p>"
+            "value": "<p><strong>Requirements</strong> You're in hybrid or tiger shape and your last action was a critically successful Strike with your unarmed attack.</p>\n<hr />\n<p>You attack with a feline grace as captivatingly beautiful as it is deadly. All enemies within @Template[type:emanation|distance:30]{30 feet} of the creature you critically hit must attempt at a @Check[will|against:class] save against your class DC. Enemies that fail their saves become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} and are @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] with you for 1 round. Your hostile actions don't end this fascination, but those of your allies do. Regardless of the effects of the save, the creature is immune to Fearful Symmetry for 1 hour.</p>"
         },
         "level": {
             "value": 6
@@ -31,7 +31,28 @@
             "remaster": true,
             "title": "Pathfinder Howl of the Wild"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "or": [
+                            "change-shape:hybrid",
+                            "change-shape:animal"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "claw-attack",
+                    "jaws-attack"
+                ],
+                "text": "PF2E.SpecificRule.Werecreature.FearfulSymmetry.Note",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
