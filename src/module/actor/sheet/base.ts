@@ -61,6 +61,7 @@ import { IdentifyItemPopup } from "./popups/identify-popup.ts";
 import { ItemTransferDialog } from "./popups/item-transfer-dialog.ts";
 import { IWREditor } from "./popups/iwr-editor.ts";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup.ts";
+import { SpellCollection } from "@item/spellcasting-entry/collection.ts";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -515,7 +516,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 const itemEl = htmlClosest(anchor, "[data-item-id]");
                 const collectionId = itemEl?.dataset.entryId;
                 const collection: Collection<ItemPF2e<TActor>> = collectionId
-                    ? (actor.spellcasting?.collections.get(collectionId, { strict: true }) ?? actor.items)
+                    ? (actor.spellcasting?.collections.get<SpellCollection<TActor>>(collectionId, { strict: true }) ??
+                      actor.items)
                     : actor.items;
 
                 const itemId = itemEl?.dataset.itemId;

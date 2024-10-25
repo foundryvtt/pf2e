@@ -46,7 +46,7 @@ abstract class CreaturePF2e<
     TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null,
 > extends ActorPF2e<TParent> {
     /** A separate collection of owned spellcasting entries for convenience */
-    declare spellcasting: ActorSpellcasting<this>;
+    declare spellcasting: ActorSpellcasting<CreaturePF2e<TParent>>;
 
     declare parties: Set<PartyPF2e>;
     /** A creature always has an AC */
@@ -260,9 +260,12 @@ abstract class CreaturePF2e<
             const spell = consumable.embeddedSpell;
             if (!spell?.id) continue;
             const ability = this.spellcasting
-                .filter((e): e is SpellcastingEntry<this> => !!e.statistic && e.canCast(spell, { origin: consumable }))
+                .filter(
+                    (e): e is SpellcastingEntry<CreaturePF2e<TParent>> =>
+                        !!e.statistic && e.canCast(spell, { origin: consumable }),
+                )
                 .reduce(
-                    (best: SpellcastingEntry<this> | null, e) =>
+                    (best: SpellcastingEntry<CreaturePF2e<TParent>> | null, e) =>
                         best === null ? e : e.statistic.dc.value > best.statistic.dc.value ? e : best,
                     null,
                 );

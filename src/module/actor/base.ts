@@ -106,7 +106,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     declare armorClass: StatisticDifficultyClass<ArmorStatistic> | null;
 
     /** A separate collection of owned spellcasting entries for convenience */
-    declare spellcasting: ActorSpellcasting<this> | null;
+    declare spellcasting: ActorSpellcasting<ActorPF2e<TParent>> | null;
 
     /** Rule elements drawn from owned items */
     declare rules: RuleElementPF2e[];
