@@ -136,7 +136,7 @@ export const Ready = {
             const hasSceneEnvironments = !!game.scenes.viewed?.flags.pf2e.environmentTypes?.length;
             for (const token of game.scenes.active?.tokens ?? []) {
                 const inEnvironmentRegion = !!token.regions?.some((r) =>
-                    r.behaviors.some((b) => ["environment", "environmentFeature"].includes(b.type)),
+                    r.behaviors.some((b) => !b.disabled && ["environment", "environmentFeature"].includes(b.type)),
                 );
                 if (token.actor && (hasSceneEnvironments || inEnvironmentRegion)) {
                     inEnvironments.push(token.actor);
