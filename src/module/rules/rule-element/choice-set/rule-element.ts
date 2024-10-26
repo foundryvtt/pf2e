@@ -460,6 +460,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                         "system.ancestry",
                         "system.baseItem",
                         "system.category",
+                        "system.damage.damageType",
                         "system.group",
                         "system.level",
                         "system.maxTakable",
