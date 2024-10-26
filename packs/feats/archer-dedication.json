@@ -58,7 +58,12 @@
             {
               "key": "CriticalSpecialization",
               "predicate": [
-                "proficiency:expert",
+                {
+                    "gte": [
+                    	"item:proficiency:rank",
+                    	2
+                    ]
+                },
                 {
                   "or": [
                     "item:group:bow",
