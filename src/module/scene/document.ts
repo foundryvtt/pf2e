@@ -93,7 +93,7 @@ class ScenePF2e extends Scene {
 
     /** Check for tokens that moved into or out of difficult terrain and reset their respective actors */
     #refreshTerrainAwareness(): void {
-        if (this.regions.some((r) => r.behaviors.some((b) => b.type === "environmentFeature"))) {
+        if (this.regions.some((r) => r.behaviors.some((b) => !b.disabled && b.type === "environmentFeature"))) {
             for (const token of this.tokens.filter((t) => t.isLinked)) {
                 const rollOptionsAll = token.actor?.rollOptions.all ?? {};
                 const actorDifficultTerrain = rollOptionsAll["self:position:difficult-terrain"]
