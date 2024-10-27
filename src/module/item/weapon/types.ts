@@ -21,7 +21,7 @@ type OtherWeaponTag = "improvised" | "shoddy" | "handwraps-of-mighty-blows";
 type WeaponRangeIncrement = SetElement<typeof WEAPON_RANGES>;
 type WeaponReloadTime = "-" | "0" | "1" | "2" | "3" | "10";
 
-type StrikingRuneType = "striking" | "greaterStriking" | "majorStriking";
+type StrikingRuneType = "striking" | "greaterStriking" | "majorStriking" | "mythicStriking";
 
 type WeaponMaterialType = Exclude<PreciousMaterialType, "dragonhide" | "grisantian-pelt">;
 

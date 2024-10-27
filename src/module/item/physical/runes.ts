@@ -208,10 +208,10 @@ const FUNDAMENTAL_ARMOR_RUNE_DATA: FundamentalArmorRuneData = {
         4: {
             name: "PF2E.ArmorPotencyRune4",
             value: 4,
-            level: 18,
-            price: 20_560,
-            rarity: "common",
-            traits: [],
+            level: 20,
+            price: 70_000,
+            rarity: "rare",
+            traits: ["mythic"],
         },
     },
     resilient: {
@@ -239,6 +239,14 @@ const FUNDAMENTAL_ARMOR_RUNE_DATA: FundamentalArmorRuneData = {
             rarity: "common",
             slug: "majorResilient",
             traits: [],
+        },
+        3: {
+            name: "PF2E.ArmorMythicResilientRune",
+            level: 20,
+            price: 70_000,
+            rarity: "mythic",
+            slug: "mythicResilient",
+            traits: ["mythic"],
         },
     },
 };
@@ -282,10 +290,10 @@ const FUNDAMENTAL_WEAPON_RUNE_DATA: FundamentalWeaponRuneData = {
         4: {
             name: "PF2E.WeaponPotencyRune4",
             value: 4,
-            level: 16,
-            price: 8935,
-            rarity: "common",
-            traits: [],
+            level: 20,
+            price: 70000,
+            rarity: "rare",
+            traits: ["mythic"],
         },
     },
     // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=25
@@ -314,6 +322,14 @@ const FUNDAMENTAL_WEAPON_RUNE_DATA: FundamentalWeaponRuneData = {
             rarity: "common",
             slug: "majorStriking",
             traits: [],
+        },
+        4: {
+            name: "PF2E.Item.Weapon.Rune.Striking.Mythic",
+            level: 20,
+            price: 70_000,
+            rarity: "rare",
+            slug: "mythicStriking",
+            traits: ["mythic"],
         },
     },
 };
