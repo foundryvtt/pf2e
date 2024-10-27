@@ -369,7 +369,7 @@ class Resistance extends IWR<ResistanceType> implements ResistanceSource {
     /** Get the doubled value of this resistance if present and applicable to a given instance of damage */
     getDoubledValue(damageDescription: Set<string>): number {
         if (this.doubleVs.length === 0) return this.value;
-        const predicate = new Predicate({or: this.doubleVs.flatMap((d) => this.describe(d))});
+        const predicate = new Predicate({ or: this.doubleVs.flatMap((d) => this.describe(d)) });
         return predicate.test(damageDescription) ? this.value * 2 : this.value;
     }
 }
