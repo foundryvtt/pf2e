@@ -41,13 +41,13 @@ function activateActionSheetListeners(item: ItemPF2e & SourceWithFrequencyData, 
     });
 
     htmlQuery(html, "a[data-action=frequency-delete]")?.addEventListener("click", () => {
-        item.update({ "system.-=frequency": null });
+        item.update({ "system.frequency": null });
     });
 
     if (item.isOfType("action", "feat")) {
         htmlQuery(html, "a[data-action=delete-effect]")?.addEventListener("click", () => {
             if (item._source.system.selfEffect) {
-                item.update({ "system.-=selfEffect": null });
+                item.update({ "system.selfEffect": null });
             }
         });
     }

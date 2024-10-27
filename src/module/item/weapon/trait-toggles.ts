@@ -1,6 +1,5 @@
 import type { ActorPF2e } from "@actor";
 import type { WeaponPF2e } from "@item";
-import type { StrikeRuleElement } from "@module/rules/rule-element/strike.ts";
 import { nextDamageDieSize } from "@system/damage/helpers.ts";
 import type { DamageType } from "@system/damage/types.ts";
 import { objectHasKey, tupleHasValue } from "@util";
@@ -114,10 +113,7 @@ class WeaponTraitToggles {
         } else if (trait === "versatile" && item?.isOfType("shield")) {
             item.update({ "system.traits.integrated.versatile.selected": selected });
         } else if (trait !== "double-barrel") {
-            const rule = item?.rules.find(
-                (r): r is StrikeRuleElement => r.key === "Strike" && !r.ignored && r.slug === weapon.slug,
-            );
-            await rule?.toggleTrait({ trait, selected });
+            weapon.rule?.toggleTrait({ trait, selected });
         }
 
         return true;

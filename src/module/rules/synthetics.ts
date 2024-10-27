@@ -23,6 +23,7 @@ import type { Predicate } from "@system/predication.ts";
 import type { Statistic } from "@system/statistic/index.ts";
 import type { TokenSource } from "types/foundry/common/documents/token.d.ts";
 import type { DamageAlteration } from "./rule-element/damage-alteration/alteration.ts";
+import { ItemAlterationRuleElement } from "./rule-element/item-alteration/rule-element.ts";
 import type { Suboption } from "./rule-element/roll-option/data.ts";
 import { SpecialResourceRuleElement } from "./rule-element/special-resource.ts";
 
@@ -36,6 +37,7 @@ interface RuleElementSynthetics<TActor extends ActorPF2e = ActorPF2e> {
     damageDice: DamageDiceSynthetics;
     degreeOfSuccessAdjustments: Record<string, DegreeOfSuccessAdjustment[]>;
     dexterityModifierCaps: DexterityModifierCapData[];
+    itemAlterations: ItemAlterationRuleElement[];
     ephemeralEffects: Record<
         string,
         { target: DeferredEphemeralEffect[]; origin: DeferredEphemeralEffect[] } | undefined

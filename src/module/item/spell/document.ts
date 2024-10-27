@@ -22,7 +22,6 @@ import {
     extractModifiers,
     processDamageCategoryStacking,
 } from "@module/rules/helpers.ts";
-import type { ItemAlterationRuleElement } from "@module/rules/rule-element/item-alteration/rule-element.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import { CheckRoll } from "@system/check/index.ts";
@@ -534,9 +533,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         variant.system.traits.value = Array.from(variant.traits);
 
         // Run some additional preparation since this spell exists outside the normal data-preparation cycle
-        const rules = actor?.rules ?? [];
-        const alterations = rules.filter((r): r is ItemAlterationRuleElement => r.key === "ItemAlteration");
-        for (const alteration of alterations) {
+        for (const alteration of actor?.synthetics.itemAlterations ?? []) {
             alteration.applyAlteration({ singleItem: variant as SpellPF2e<NonNullable<TParent>> });
         }
 

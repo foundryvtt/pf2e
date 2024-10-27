@@ -315,14 +315,15 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Add effect icons from effect items and rule elements */
-    override get temporaryEffects(): ActiveEffect<this>[] {
+    override get temporaryEffects(): ActiveEffectPF2e<this>[] {
         const fromConditions = this.conditions.map((c) => ActiveEffectPF2e.fromEffect(c));
         const fromEffects = this.itemTypes.effect
             .filter((e) => e.system.tokenIcon?.show && (e.isIdentified || game.user.isGM))
             .map((e) => ActiveEffectPF2e.fromEffect(e));
+        const temporaryEffects = super.temporaryEffects as ActiveEffectPF2e<this>[];
 
         return R.uniqueBy(
-            [super.temporaryEffects, fromConditions, fromEffects, this.synthetics.tokenEffectIcons].flat(),
+            [temporaryEffects, fromConditions, fromEffects, this.synthetics.tokenEffectIcons].flat(),
             (e) => e.img,
         );
     }
@@ -750,6 +751,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             damageDice: { damage: [] },
             degreeOfSuccessAdjustments: {},
             dexterityModifierCaps: [],
+            itemAlterations: [],
             modifierAdjustments: { all: [], damage: [] },
             modifiers: { all: [], damage: [] },
             movementTypes: {},
@@ -1803,10 +1805,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     override async toggleStatusEffect(
         statusId: string,
         options?: { active?: boolean; overlay?: boolean },
-    ): Promise<boolean | void | ActiveEffect<this>> {
+    ): Promise<boolean | void | ActiveEffectPF2e<this>> {
         return setHasElement(CONDITION_SLUGS, statusId)
             ? this.toggleCondition(statusId, options)
-            : super.toggleStatusEffect(statusId, options);
+            : (super.toggleStatusEffect(statusId, options) as Promise<boolean | void | ActiveEffectPF2e<this>>);
     }
 
     /** Assess and pre-process this JSON data, ensuring it's importable and fully migrated */
