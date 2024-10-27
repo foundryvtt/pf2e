@@ -1,6 +1,6 @@
 {
     "_id": "hNBYP7FbvIBoS9CV",
-    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "img": "icons/environment/settlement/watchtower-castle-night.webp",
     "name": "Thief of Moonlight",
     "system": {
         "actionType": {
@@ -24,7 +24,39 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Epithet.Label",
+                "mergeable": true,
+                "option": "epithet",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "thief-of-moonlight"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    "divine-spark",
+                    "epithet:thief-of-moonlight"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Exemplar.Epithet.ThiefOfMoonlight.Description"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "otherTags": [
                 "exemplar-sovereignty-epithet"

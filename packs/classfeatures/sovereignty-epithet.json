@@ -1,6 +1,6 @@
 {
     "_id": "8AdMvVrcx40iaMwT",
-    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "img": "icons/commodities/treasure/token-engraved-yellow-glowing.webp",
     "name": "Sovereignty Epithet",
     "system": {
         "actionType": {
@@ -24,7 +24,22 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:tag:exemplar-sovereignty-epithet"
+                    ]
+                },
+                "flag": "sovereigntyEpithet",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.sovereigntyEpithet}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

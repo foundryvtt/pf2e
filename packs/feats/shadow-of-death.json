@@ -11,20 +11,37 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Strikes you make with your deity's favored weapon against a creature with the doomed condition have the death trait, causing the target to be instantly killed when reduced to 0 Hit Points. When killed in this way, attempts to communicate with it, return it to life, turn it into an undead, or otherwise disturb its afterlife fail unless the effect's counteract rank is higher than half your level when you killed the creature (rounded up), or originates from an artifact or a deity.</p>"
+            "value": "<p>Strikes you make with your deity's favored weapon against a creature with the @UUID[Compendium.pf2e.conditionitems.Item.Doomed] condition have the death trait, causing the target to be instantly killed when reduced to 0 Hit Points. When killed in this way, attempts to communicate with it, return it to life, turn it into an undead, or otherwise disturb its afterlife fail unless the effect's counteract rank is higher than half your level when you killed the creature (rounded up), or originates from an artifact or a deity.</p>"
         },
         "level": {
             "value": 10
         },
         "prerequisites": {
-            "value": []
+            "value": [
+                {
+                    "value": "Avenger Dedication"
+                }
+            ]
         },
         "publication": {
             "license": "ORC",
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "definition": [
+                    "item:deity-favored"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "target:condition:doomed"
+                ],
+                "property": "weapon-traits",
+                "value": "death"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

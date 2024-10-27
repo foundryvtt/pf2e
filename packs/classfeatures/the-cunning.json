@@ -1,6 +1,6 @@
 {
     "_id": "HkN5OePNW60bce77",
-    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "img": "icons/creatures/mammals/humanoid-fox-cat-archer.webp",
     "name": "The Cunning",
     "system": {
         "actionType": {
@@ -24,7 +24,45 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.deception.rank",
+                "value": 1
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Epithet.Label",
+                "mergeable": true,
+                "option": "epithet",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "the-cunning"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    "divine-spark",
+                    "epithet:the-cunning"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Exemplar.Epithet.TheCunning.Description"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "otherTags": [
                 "exemplar-root-epithet"

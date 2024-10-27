@@ -24,7 +24,28 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitHoly",
+                        "value": "holy"
+                    },
+                    {
+                        "label": "PF2E.TraitUnholy",
+                        "value": "unholy"
+                    }
+                ],
+                "flag": "sanctification",
+                "key": "ChoiceSet"
+            },
+            {
+                "add": [
+                    "{item|flags.pf2e.rulesSelections.sanctification}"
+                ],
+                "key": "ActorTraits"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

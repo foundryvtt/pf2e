@@ -24,8 +24,54 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": "flags.pf2e.exemplar.ikons",
+                "flag": "ikon",
+                "key": "ChoiceSet"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:physical-ikon:{item|flags.pf2e.rulesSelections.ikon}",
+                    "divine-spark:{item|flags.pf2e.rulesSelections.ikon}",
+                    {
+                        "not": "item:trait:thrown"
+                    }
+                ],
+                "property": "other-tags",
+                "value": "thrown-from-hurl-at-the-horizon"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:thrown-from-hurl-at-the-horizon"
+                ],
+                "property": "traits",
+                "value": "thrown-15"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "item:tag:physical-ikon:{item|flags.pf2e.rulesSelections.ikon}",
+                    "divine-spark:{item|flags.pf2e.rulesSelections.ikon}",
+                    {
+                        "not": "item:tag:thrown-from-hurl-at-the-horizon"
+                    }
+                ],
+                "selector": "ranged-strike-attack-roll",
+                "text": "PF2E.SpecificRule.Exemplar.HurlAtTheHorizon.Note",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
+            "otherTags": [
+                "weapon-ikon-feat"
+            ],
             "rarity": "common",
             "value": [
                 "exemplar",

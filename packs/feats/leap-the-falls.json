@@ -24,8 +24,33 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": "flags.pf2e.exemplar.ikons",
+                "flag": "ikon",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "divine-spark:{item|flags.pf2e.rulesSelections.ikon}"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.feats-srd.Item.Quick Jump"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "divine-spark:{item|flags.pf2e.rulesSelections.ikon}"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.feats-srd.Item.Powerful Leap"
+            }
+        ],
         "traits": {
+            "otherTags": [
+                "body-ikon-feat"
+            ],
             "rarity": "common",
             "value": [
                 "exemplar",

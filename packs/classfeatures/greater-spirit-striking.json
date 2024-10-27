@@ -1,6 +1,6 @@
 {
     "_id": "AVI5SJET99zRqfpZ",
-    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "img": "icons/skills/melee/strike-blade-hooked-white-red.webp",
     "name": "Greater Spirit Striking",
     "system": {
         "actionType": {
@@ -24,7 +24,16 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "relabel": "{item|name}",
+                "selector": "strike-damage",
+                "slug": "spirit-striking",
+                "value": 2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

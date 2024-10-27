@@ -24,8 +24,33 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": "flags.pf2e.exemplar.ikons",
+                "flag": "ikon",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "RollOption",
+                "option": "twin-stars",
+                "toggleable": true
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:usage:hands:1",
+                    "item:tag:physical-ikon:{item|flags.pf2e.rulesSelections.ikon}"
+                ],
+                "property": "traits",
+                "value": "twin"
+            }
+        ],
         "traits": {
+            "otherTags": [
+                "weapon-ikon-feat"
+            ],
             "rarity": "common",
             "value": [
                 "exemplar",

@@ -1,0 +1,48 @@
+{
+    "_id": "NDCeLFdp5eJ1VYjm",
+    "img": "icons/magic/death/skull-trio-badge-purple.webp",
+    "name": "Effect: Zealous Inevitability",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Zealous Inevitability]</p>\n<p>You take a status penalty to your saving throws against divine spells equal to your doomed value.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:divine",
+                    "item:type:spell",
+                    "self:condition:doomed"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": "-@actor.conditions.doomed.badge.value"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

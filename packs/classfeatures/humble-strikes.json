@@ -1,6 +1,6 @@
 {
     "_id": "tmTlnyVxo6zPqJvh",
-    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "img": "icons/skills/melee/sword-echo-stylized-tan.webp",
     "name": "Humble Strikes",
     "system": {
         "actionType": {
@@ -24,7 +24,18 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:category:simple",
+                    "item:equipped"
+                ],
+                "property": "damage-dice-faces"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

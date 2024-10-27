@@ -24,7 +24,31 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "emotion"
+                ],
+                "selector": "saving-throw",
+                "type": "save"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "emotion"
+                ],
+                "selector": "{item|name}",
+                "text": "{item|description}",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

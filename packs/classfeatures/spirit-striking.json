@@ -1,6 +1,6 @@
 {
     "_id": "cAuV9xgPTwZ26Nj0",
-    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "img": "icons/skills/melee/strike-blade-knife-white-red.webp",
     "name": "Spirit Striking",
     "system": {
         "actionType": {
@@ -24,7 +24,46 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "damageType": "spirit",
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            2
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "spirit-striking",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:proficiency:rank:3"
+                ],
+                "priority": 9,
+                "selector": "strike-damage",
+                "slug": "spirit-striking",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:proficiency:rank:4"
+                ],
+                "priority": 9,
+                "selector": "strike-damage",
+                "slug": "spirit-striking",
+                "value": 4
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

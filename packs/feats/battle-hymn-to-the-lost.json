@@ -4,20 +4,28 @@
     "name": "Battle Hymn to the Lost",
     "system": {
         "actionType": {
-            "value": "passive"
+            "value": "action"
         },
         "actions": {
-            "value": null
+            "value": 2
         },
         "category": "class",
         "description": {
             "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p>Your movements in combat are an artistic dirge to those spirits who could not fight to see another day. You make a Strike. Regardless of whether the Strike succeeds, spirits of warriors who died gloriously in battle surge out to attack with you. They appear in a @Template[type:cone|distance:30] if you make a melee Strike or in a @Template[type:emanation|distance:10] around your target if you made a ranged Strike. Each enemy in the area takes @Damage[2d10[untyped]] damage with a @Check[reflex|against:class|basic] save against your class DC; you choose whether the damage is bludgeoning, piercing, or slashing. At 12th level and every 4 levels thereafter, the damage increases by [[/r 1d10]].</p>\n<p>As they join the battle, the spirits call your fallen allies back to the fight. Any of your allies in the area who are dying regain Hit Points equal to the damage you rolled. This is a divine, healing, vitality effect.</p>"
         },
+        "frequency": {
+            "max": 1,
+            "per": "PT1H"
+        },
         "level": {
             "value": 8
         },
         "prerequisites": {
-            "value": []
+            "value": [
+                {
+                    "value": "of verse unbroken or peerless under heaven"
+                }
+            ]
         },
         "publication": {
             "license": "ORC",

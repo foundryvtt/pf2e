@@ -1,6 +1,6 @@
 {
     "_id": "HRtspa4zHLD5cw8v",
-    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "img": "icons/environment/settlement/castle.webp",
     "name": "The Last Ruler",
     "system": {
         "actionType": {
@@ -24,7 +24,39 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Epithet.Label",
+                "mergeable": true,
+                "option": "epithet",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "the-last-ruler"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    "divine-spark",
+                    "epithet:the-last-ruler"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Exemplar.Epithet.TheLastRuler.Description"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "otherTags": [
                 "exemplar-sovereignty-epithet"

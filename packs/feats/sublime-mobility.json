@@ -24,7 +24,28 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Climb",
+                        "value": "climb"
+                    },
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Swim",
+                        "value": "swim"
+                    }
+                ],
+                "flag": "sublimeMobility",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.MovementType"
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "{item|flags.pf2e.rulesSelections.sublimeMobility}",
+                "value": 10
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

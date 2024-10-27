@@ -1,6 +1,6 @@
 {
     "_id": "QOOwC3S41CKGkxlN",
-    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "img": "icons/skills/ranged/arrow-flying-broadhead-metal.webp",
     "name": "Vindicator",
     "system": {
         "actionType": {
@@ -24,7 +24,161 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.religion.rank",
+                "value": 1
+            },
+            {
+                "choices": {
+                    "filter": [
+                        {
+                            "or": [
+                                "item:category:deity",
+                                "item:category:pantheon"
+                            ]
+                        }
+                    ],
+                    "itemType": "deity"
+                },
+                "flag": "deity",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "not": "deity"
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Deity"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "deity"
+                    }
+                ],
+                "uuid": "{item|flags.pf2e.rulesSelections.deity}"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitHoly",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "deity:primary:sanctification:can:holy",
+                                    "deity:primary:sanctification:must:holy"
+                                ]
+                            }
+                        ],
+                        "value": "holy"
+                    },
+                    {
+                        "label": "PF2E.TraitUnholy",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "deity:primary:sanctification:can:unholy",
+                                    "deity:primary:sanctification:must:unholy"
+                                ]
+                            }
+                        ],
+                        "value": "unholy"
+                    },
+                    {
+                        "label": "PF2E.NoneOption",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "deity:primary:sanctification:must:holy",
+                                    "deity:primary:sanctification:must:unholy"
+                                ]
+                            }
+                        ],
+                        "value": "none"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "nor": [
+                            "deity:primary:sanctification:none",
+                            "sanctification:holy",
+                            "sanctification:unholy"
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Sanctification",
+                "rollOption": "sanctification",
+                "slug": "sanctification"
+            },
+            {
+                "add": [
+                    "holy"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "sanctification:holy"
+                ]
+            },
+            {
+                "add": [
+                    "unholy"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "sanctification:unholy"
+                ]
+            },
+            {
+                "fist": true,
+                "key": "Strike",
+                "predicate": [
+                    "deity:primary:favored-weapon:fist"
+                ]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.pf2e.favoredWeaponRank",
+                "predicate": [
+                    "item:slug:vindicator"
+                ],
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Deadly Simplicity"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "hunted-prey",
+                    "item:trait:divine"
+                ],
+                "selector": "spell-attack",
+                "type": "status",
+                "value": "ternary(gte(@actor.level,17),2,1)"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:hunt-prey"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Vindication Edge]"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "otherTags": [
                 "ranger-hunters-edge"

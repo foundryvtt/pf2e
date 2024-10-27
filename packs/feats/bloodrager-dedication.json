@@ -17,14 +17,40 @@
             "value": 2
         },
         "prerequisites": {
-            "value": []
+            "value": [
+                {
+                    "value": "Bloodrager"
+                }
+            ]
         },
         "publication": {
             "license": "ORC",
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitArcane",
+                        "value": "arcana"
+                    },
+                    {
+                        "label": "PF2E.TraitDivine",
+                        "value": "religion"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Tradition"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
