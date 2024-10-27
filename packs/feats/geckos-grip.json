@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You cling to walls with a preternatural grip. You gain the Combat Climber feat as a bonus feat, and if you roll a success on an Athletics check to climb, you get a critical success instead.</p><hr /><p><strong>Special</strong> If you have the cliffscale lizardfolk heritage, you instead gain a climb Speed of 15 feet.</p>"
+            "value": "<p>You cling to walls with a preternatural grip. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Combat Climber] feat as a bonus feat, and if you roll a success on an Athletics check to climb, you get a critical success instead.</p><hr /><p><strong>Special</strong> If you have the cliffscale lizardfolk heritage, you instead gain a climb Speed of 15 feet.</p>"
         },
         "level": {
             "value": 5
@@ -30,12 +30,13 @@
         },
         "rules": [
             {
-                "key": "BaseSpeed",
+                "key": "GrantItem",
                 "predicate": [
-                    "heritage:cliffscale-lizardfolk"
+                    {
+                        "not": "heritage:cliffscale-lizardfolk"
+                    }
                 ],
-                "selector": "climb",
-                "value": 15
+                "uuid": "Compendium.pf2e.feats-srd.Item.Combat Climber"
             },
             {
                 "adjustment": {
@@ -43,9 +44,20 @@
                 },
                 "key": "AdjustDegreeOfSuccess",
                 "predicate": [
-                    "action:climb"
+                    "action:climb",
+                    {
+                        "not": "heritage:cliffscale-lizardfolk"
+                    }
                 ],
                 "selector": "athletics"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "heritage:cliffscale-lizardfolk"
+                ],
+                "selector": "climb",
+                "value": 15
             }
         ],
         "traits": {
