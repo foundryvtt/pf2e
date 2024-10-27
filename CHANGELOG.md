@@ -1,3 +1,24 @@
+## 6.5.1
+
+## System Improvements
+
+-   (Rigo) Add damage type as index field for item-filter choice sets
+
+## Bug fixes
+
+-   (stwlam) Exclude PF2e Companion Compendia items from `ABCPicker` results
+-   (stwlam) Fix removing frequencies from ability sheets
+-   (Supe) Apply item alterations to weapon alt usages
+-   (Supe) Fix trait toggles on strikes overriden within the same item
+-   (Farling) Ignore disabled region behaviors when determining effect on actors
+
+## Data Updates
+
+-   (Ambrose) Add the summon trait to the GM Screen and replace broken links
+-   (Ambrose) Correct formatting in "Shake it Off" ability for Glacial Worm
+-   (Ambrose) Update skill actions to /act syntax and use new journal links
+-   (MrVauxs) Grant Critical Specialization in archer dedication
+
 ## 6.5.0
 
 ## System Improvements
@@ -5,6 +26,7 @@
 -   (Ambrose) Apply remaster theme to tables in GM Screen and Remaster Changes Journals
 -   (eryon) Add send to party button to loot sheet
 -   (stwlam) Refrain from broadcasting drag measurement of GM-hidden tokens
+-   (stwlam) Rework ancestry, heritage, class, deity picker into a new application that pulls from all compendiums
 -   (Supe) Make effects panel scrollable when overflowing
 -   (Supe) Recharge turn and round abilities as the encounter changes turns
 -   (Supe) Reduce remaining action uses when clicking the use button
@@ -88,7 +110,7 @@
 ## Under the Hood
 
 -   (stwlam) Convert ability items to data models
--   (stwlam) Move source ids to _stats object
+-   (stwlam) Move source ids to \_stats object
 -   (Supe) Initial implementation of SpecialResource rule element
 
 ## 6.4.1
@@ -294,7 +316,7 @@
 
 ### Under the Hood
 
--   (stwlam) Switch to use of `_stats.compendiumSource` instead of `flags.core.sourceId` (#16193)
+-   (stwlam) Switch to use of `_stats.compendiumSource` instead of `flags.core.sourceId`
 
 ## 6.2.3
 
