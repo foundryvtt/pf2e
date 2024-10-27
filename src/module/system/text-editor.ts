@@ -466,7 +466,7 @@ class TextEditorPF2e extends TextEditor {
                 element.appendChild(document.createTextNode(" "));
 
                 const details = document.createElement("span");
-                if (dc && showDC && Number.isNumeric(dc)) {
+                if (dc && showDC && Number.isNumeric(dc) && statistic) {
                     // (<span data-visibility="...">DC #</span> Statistic)
                     details.appendChild(document.createTextNode("("));
                     const span = document.createElement("span");
@@ -477,6 +477,10 @@ class TextEditorPF2e extends TextEditor {
                         ? ` ${ActionMacroHelpers.getSimpleCheckLabel(statistic) || statistic})`
                         : ")";
                     details.appendChild(document.createTextNode(suffix));
+                } else if (dc && showDC && Number.isNumeric(dc)) {
+                    // (<span data-visibility="...">DC #</span> Statistic)
+                    details.dataset["visibility"] = visibility;
+                    details.innerText = `(${game.i18n.format("PF2E.InlineAction.Check.DC", { dc })})`;
                 } else if (dc && showDC) {
                     // (Statistic vs Defense DC)
                     const defense = game.i18n.localize(`PF2E.Check.DC.Specific.${dc}`);
