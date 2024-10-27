@@ -82,8 +82,6 @@ abstract class IWR<TType extends IWRType> {
                 return ["check:outcome:critical-success"];
             case "custom":
                 return this.definition ?? [];
-            case "damage-from-spells":
-                return ["damage", "item:type:spell", "impulse"];
             case "disease":
                 return ["item:trait:disease"];
             case "emotion":
@@ -159,9 +157,9 @@ abstract class IWR<TType extends IWRType> {
                 const component = iwrType === "splash-damage" ? "splash" : "precision";
                 return [`damage:component:${component}`];
             }
-            case "spells": {
-                return ["damage", { or: ["item:type:spell", "item:from-spell", "impulse"] }];
-            }
+            case "spells":
+            case "damage-from-spells":
+                return ["damage", { or: ["item:type:spell", "item:from-spell", "item:trait:impulse"] }];
             case "unarmed-attacks":
                 return ["item:category:unarmed"];
             case "unholy":
