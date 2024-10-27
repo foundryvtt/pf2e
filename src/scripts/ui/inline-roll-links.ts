@@ -91,7 +91,7 @@ export class InlineRollLinks {
     static #makeRepostHtml(target: HTMLElement, defaultVisibility: string): string {
         const flavor = game.i18n.localize(target.dataset.pf2RepostFlavor ?? "");
         const showDC = target.dataset.pf2ShowDc ?? defaultVisibility;
-        return `<span data-visibility="${showDC}">${flavor}</span> ${target.outerHTML}`.trim();
+        return (flavor ? `<span data-visibility="${showDC}">${flavor}</span> ` : '') + `${target.outerHTML}`.trim();
     }
 
     static #onClickInlineAction(event: MouseEvent, link: HTMLAnchorElement | HTMLSpanElement): void {
