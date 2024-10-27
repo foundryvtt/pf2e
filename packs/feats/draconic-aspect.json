@@ -1,0 +1,130 @@
+{
+    "_id": "U38YThMudfDihnj1",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Draconic Aspect",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have an obvious draconic feature, such as sharp claws, a snout full of sharp teeth, or strong reptilian tail, that you can use offensively. You gain your choice of one of the following unarmed attacks. The attack is in the brawling group and has the listed damage die and traits.</p><ul><li><strong>Claw</strong> 1d4 slashing (agile, finesse, unarmed)</li><li><strong>Jaws</strong> 1d6 piercing (forceful, unarmed)</li><li><strong>Tail</strong> 1d6 bludgeoning (sweep, trip, unarmed)</li></ul><hr /><p><strong>Special</strong> You can select this feat only at 1st level, and you can't retrain into or out of this feat, nor can you change the type of attack you gained.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "onlyLevel1": true,
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "actorFlag": true,
+                "choices": [
+                    {
+                        "label": "PF2E.BattleForm.Attack.Claw",
+                        "value": "claw"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Jaws",
+                        "value": "jaws"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Tail",
+                        "value": "tail"
+                    }
+                ],
+                "flag": "draconicAspectStrike",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.UnarmedAttack",
+                "rollOption": "draconic-aspect"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/claw.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Claw",
+                "predicate": [
+                    "draconic-aspect:claw"
+                ],
+                "range": null,
+                "slug": "claw",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/jaws.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Jaws",
+                "predicate": [
+                    "draconic-aspect:jaws"
+                ],
+                "range": null,
+                "slug": "jaws",
+                "traits": [
+                    "forceful",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/tail.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Tail",
+                "predicate": [
+                    "draconic-aspect:tail"
+                ],
+                "range": null,
+                "slug": "tail",
+                "traits": [
+                    "sweep",
+                    "trip",
+                    "unarmed"
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dragonblood"
+            ]
+        }
+    },
+    "type": "feat"
+}

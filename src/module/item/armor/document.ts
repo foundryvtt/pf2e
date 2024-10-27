@@ -62,6 +62,7 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
                 [`category:${this.category}`]: true,
                 [`group:${this.group ?? "none"}`]: true,
                 [`base:${this.baseType}`]: !!this.baseType,
+                [`strength:${this.system.strength}`]: typeof this.system.strength === "number",
                 [`rune:potency`]: this.system.runes.potency > 0,
                 [`rune:resilient`]: this.system.runes.resilient > 0,
             })

@@ -23,7 +23,7 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
             alterations: new fields.ArrayField(new fields.EmbeddedDataField(ItemAlteration), {
                 required: false,
                 nullable: false,
-                initial: [],
+                initial: () => [],
             }),
         };
     }

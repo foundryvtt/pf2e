@@ -1,0 +1,76 @@
+{
+    "_id": "hUVedLw6mkY4e24v",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Withstand the Storm",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You would take cold, electricity, fire, poison, or sonic damage.</p><hr /><p>Your skin hardens like bark and gains the sheen of glazed clay, lessening the wild's ruinous sting against your body. You gain resistance equal to your level against the triggering damage type.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "withstand-the-storm",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "withstand-the-storm"
+                ],
+                "type": "{item|flags.pf2e.rulesSelections.withstandTheStorm}",
+                "value": "@actor.level"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "yaksha"
+            ]
+        }
+    },
+    "type": "feat"
+}

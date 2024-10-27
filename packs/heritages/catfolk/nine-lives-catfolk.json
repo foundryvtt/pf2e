@@ -10,14 +10,28 @@
             "uuid": "Compendium.pf2e.ancestries.Item.972EkpJOPv9KkQIW"
         },
         "description": {
-            "value": "<p>Your family has always seemed to bound back from disaster, not through physical hardiness or specialized skill, but from sheer luck. Other catfolk whisper that you have nine lives.</p>\n<p>If you are reduced to 0 Hit Points by a critical hit on an attack roll, you become @UUID[Compendium.pf2e.conditionitems.Item.Dying]{Dying 1} instead of dying 2.</p>"
+            "value": "<p>Your family has always seems to bounce back from disaster, not through physical hardiness or specialized skill, but from sheer luck. Other catfolk whisper that you have nine lives. While you're @UUID[Compendium.pf2e.conditionitems.Item.Dying], you don't add your dying value to the DC of your recovery checks (this means the DC is typically 10). In addition, you gain the @UUID[Compendium.pf2e.feats-srd.Item.Diehard] general feat.</p>"
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Diehard"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "subtract",
+                "path": "system.attributes.dying.recoveryDC",
+                "predicate": [
+                    "self:condition:dying"
+                ],
+                "value": "@actor.conditions.dying.badge.value"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []

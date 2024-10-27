@@ -1,0 +1,272 @@
+{
+    "_id": "r0vzF6pSDGQ44FvX",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "OsOeRciW6h44is7q",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "gnash"
+                    ]
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "AJ4WA5fHqRGqhK6C": {
+                        "damage": "1d10+5",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "OCYtPsv3fWOckHQM",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Bloodscent",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>When Searching or Seeking for creatures who have taken piercing or slashing damage in the last 24 hours, the wild dog's sense of smell is precise.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mdX3CwGRpvkhQnKY",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Gnash",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The wild dog's last action was a successful jaws Strike</p><hr /><p><strong>Effect</strong> The wild dog gnashes its teeth to deal a particularly vicious wound; the Strike's target takes @Damage[1d6[persistent,bleed]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "attack"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "x9O6fmeWhRcwsGEd",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Pack Attack",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The wild dog's Strikes deal 1d6 extra damage to creatures within reach of at least two of the wild dog's allies.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "pack-attack",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "pack-attack"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Bloodsick Wild Dog",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -1
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 18
+            },
+            "adjustment": null,
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 48,
+                "temp": 0,
+                "value": 48
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "fear-effects"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 35
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 3
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Society Scenario #6-03: Godsrain in a Godless Land"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "bloodscent",
+            "mod": 12,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 6
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 8
+            },
+            "athletics": {
+                "base": 10
+            },
+            "intimidation": {
+                "base": 10
+            },
+            "stealth": {
+                "base": 8
+            },
+            "survival": {
+                "base": 5
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "animal"
+            ]
+        }
+    },
+    "type": "npc"
+}

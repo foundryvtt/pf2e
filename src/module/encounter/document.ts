@@ -7,6 +7,7 @@ import { SkillSlug } from "@actor/types.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
 import { calculateXP } from "@scripts/macros/index.ts";
 import { ThreatRating } from "@scripts/macros/xp/index.ts";
+import { objectHasKey } from "@util";
 import * as R from "remeda";
 import type { CombatantFlags, CombatantPF2e, RolledCombatant } from "./combatant.ts";
 
@@ -97,9 +98,12 @@ class EncounterPF2e extends Combat {
         super._initialize(options);
     }
 
-    /** Prevent double data preparation */
+    /**
+     * Prevent double data preparation of child documents.
+     * @todo remove in V13
+     */
     override prepareData(): void {
-        if (this.initialized) return;
+        if (game.release.generation === 12 && this.initialized) return;
         this.initialized = true;
         super.prepareData();
     }
@@ -212,14 +216,17 @@ class EncounterPF2e extends Combat {
         if (this.turn !== null) await this.update({ turn: this.turns.findIndex((c) => c.id === currentId) });
     }
 
-    override async setInitiative(id: string, value: number): Promise<void> {
+    override async setInitiative(id: string, value: number, statistic?: string): Promise<void> {
         const combatant = this.combatants.get(id, { strict: true });
         if (combatant.actor?.isOfType("character", "npc")) {
             return this.setMultipleInitiatives([
                 {
                     id: combatant.id,
                     value,
-                    statistic: combatant.actor.system.initiative.statistic || "perception",
+                    statistic:
+                        objectHasKey(CONFIG.PF2E.skills, statistic) || statistic === "perception"
+                            ? statistic
+                            : combatant.actor.system.initiative.statistic || "perception",
                 },
             ]);
         }
@@ -302,6 +309,13 @@ class EncounterPF2e extends Combat {
                     const alreadyWent = combatant?.roundOfLastTurn === this.round;
                     if (combatant && !alreadyWent) {
                         await combatant.startTurn();
+                    }
+                }
+
+                // Update all per turn abilities by other combatants
+                for (const otherCombatant of this.combatants) {
+                    if (combatant !== otherCombatant) {
+                        otherCombatant.actor?.recharge({ duration: "turn" });
                     }
                 }
             }

@@ -1,0 +1,78 @@
+{
+    "_id": "bfDByCXIwWxX7Fiz",
+    "img": "icons/magic/symbols/mask-metal-silver-white.webp",
+    "name": "Cleft Head Marking (Lesser)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>Caution and misdirection are the hallmarks of your hold. You've encountered more travelers than most of Belkzen's holds ever see, and you need to understand how to deal with them. You're a proud member of the Cleft Head Hold or have been found worthy of wearing their mark. This tattoo is a crooked line that begins high above one eye and zigzags toward your mouth. The tattoo's grim appearance can help mask your true motivations. You gain a +1 item bonus to Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Feint].</p>\n<p><strong>Activate—Unexpected Strike</strong> <span class=\"action-glyph\">f</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You Strike a creature that has the @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] condition with a weapon attack</p><hr /><p><strong>Effect</strong> You deal an extra 1d6 precision damage to the target.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 4
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 80
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #207: The Resurrection Flood"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:feint"
+                ],
+                "selector": "deception",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "unexpected-strike",
+                "toggleable": true
+            },
+            {
+                "category": "precision",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "unexpected-strike"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "invested",
+                "magical",
+                "tattoo"
+            ]
+        },
+        "usage": {
+            "value": "tattooed-on-the-body"
+        }
+    },
+    "type": "equipment"
+}

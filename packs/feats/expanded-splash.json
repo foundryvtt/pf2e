@@ -11,40 +11,44 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You can throw bombs at just the right trajectory to create especially large and powerful explosions. When you throw an alchemical bomb and that bomb has the splash trait, you can add your Intelligence modifier to the bomb's usual splash damage, and it deals splash damage to every creature within 10 feet of the target.</p>"
+            "value": "<p>You can throw bombs at just the right trajectory to create especially large and powerful explosions. When you throw an alchemical bomb and that bomb has the splash trait, you can have the splash damage affect all creatures within 10 feet of the target instead of 5 feet. If you do, you gain a status bonus to the bomb's splash damage equal to your Intelligence modifier. If you have the bomber 5th-level field discovery, this additional damage applies even if you caused your bomb to deal splash damage equal to your Intelligence modifier instead of the normal amount, allowing your bombs to deal splash damage equal to double your Intelligence modifier.</p>"
         },
         "level": {
             "value": 10
         },
         "prerequisites": {
-            "value": [
-                {
-                    "value": "Calculated Splash"
-                }
-            ]
+            "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
+            {
+                "key": "RollOption",
+                "option": "expanded-splash",
+                "toggleable": true
+            },
             {
                 "damageCategory": "splash",
                 "key": "FlatModifier",
                 "predicate": [
-                    "item:trait:splash"
+                    "item:trait:splash",
+                    "expanded-splash"
                 ],
                 "selector": "alchemical-bomb-damage",
+                "type": "status",
                 "value": "@actor.abilities.int.mod"
             },
             {
                 "key": "Note",
                 "predicate": [
-                    "item:trait:splash"
+                    "item:trait:splash",
+                    "expanded-splash"
                 ],
                 "selector": "alchemical-bomb-damage",
-                "text": "The bomb deals splash damage to every creature within 10 feet of the target.",
+                "text": "PF2E.SpecificRule.Alchemist.ExpandedSplash.Note",
                 "title": "{item|name}"
             }
         ],

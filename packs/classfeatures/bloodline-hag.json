@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>A hag long ago cursed your family, or you are a descendant of a hag or changeling, and their accursed corruption infests your blood and soul.</p>\n<p><strong>Spell List</strong> occult</p>\n<p><strong>Bloodline Skills</strong> Deception, Occultism</p>\n<p><strong>Granted Spells</strong> cantrip @UUID[Compendium.pf2e.spells-srd.Item.Daze], 1st: @UUID[Compendium.pf2e.spells-srd.Item.Illusory Disguise], 2nd: @UUID[Compendium.pf2e.spells-srd.Item.Stupefy], 3rd: @UUID[Compendium.pf2e.spells-srd.Item.Blindness], 4th: @UUID[Compendium.pf2e.spells-srd.Item.Outcast's Curse], 5th: @UUID[Compendium.pf2e.spells-srd.Item.Mariner's Curse], 6th: @UUID[Compendium.pf2e.spells-srd.Item.Cursed Metamorphosis], 7th: @UUID[Compendium.pf2e.spells-srd.Item.Warp Mind], 8th: @UUID[Compendium.pf2e.spells-srd.Item.Spiritual Epidemic], 9th: @UUID[Compendium.pf2e.spells-srd.Item.Nature's Enmity]</p>\n<p><strong>Bloodline Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Jealous Hex], advanced: @UUID[Compendium.pf2e.spells-srd.Item.Horrific Visage], greater: @UUID[Compendium.pf2e.spells-srd.Item.You're Mine]</p>\n<p><strong>Blood Magic</strong> Spiteful curses punish your foes. You deal 2 mental damage per spell rank (basic Will save) to the first creature that deals damage to you before the end of your next turn.</p>"
+            "value": "<p>A hag long ago cursed your family, or you are a descendant of a hag or changeling, and their magic infests your blood and soul.</p>\n<p><strong>Tradition</strong> occult</p>\n<p><strong>Bloodline Skills</strong> Deception, Occultism</p>\n<p><strong>Sorcerous Gifts</strong> cantrip @UUID[Compendium.pf2e.spells-srd.Item.Daze], 1st: @UUID[Compendium.pf2e.spells-srd.Item.Illusory Disguise], 2nd: @UUID[Compendium.pf2e.spells-srd.Item.Stupefy], 3rd: @UUID[Compendium.pf2e.spells-srd.Item.Blindness], 4th: @UUID[Compendium.pf2e.spells-srd.Item.Outcast's Curse], 5th: @UUID[Compendium.pf2e.spells-srd.Item.Mariner's Curse], 6th: @UUID[Compendium.pf2e.spells-srd.Item.Cursed Metamorphosis], 7th: @UUID[Compendium.pf2e.spells-srd.Item.Warp Mind], 8th: @UUID[Compendium.pf2e.spells-srd.Item.Quandary], 9th: @UUID[Compendium.pf2e.spells-srd.Item.Phantasmagoria]</p>\n<p><strong>Bloodline Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Jealous Hex], advanced: @UUID[Compendium.pf2e.spells-srd.Item.Horrific Visage], greater: @UUID[Compendium.pf2e.spells-srd.Item.You're Mine]</p>\n<p><strong>Blood Magic—Retributive Spite</strong> Malice and acrimony take physical form around you. You deal 4 mental damage per spell rank (basic Will save) to the first creature that deals damage to you before the end of your next turn; if no creature damages you in that time, you consume that spite to gain temporary Hit Points at the beginning of your next turn equal to the spell's rank. These temporary Hit Points last until the beginning of your following turn.</p>"
         },
         "level": {
             "value": 1
@@ -20,21 +20,31 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.deception.rank",
+                "predicate": [
+                    {
+                        "not": "parent:granter:slug:crossblooded-evolution"
+                    }
+                ],
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.occultism.rank",
+                "predicate": [
+                    {
+                        "not": "parent:granter:slug:crossblooded-evolution"
+                    }
+                ],
                 "value": 1
             },
             {
@@ -42,10 +52,11 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "class:sorcerer",
+                    {
+                        "not": "parent:granter:slug:crossblooded-evolution"
+                    },
                     {
                         "or": [
-                            "item:tag:ancestral-spell",
                             {
                                 "and": [
                                     "item:trait:focus",
@@ -66,8 +77,8 @@
                                             "item:slug:mariners-curse",
                                             "item:slug:cursed-metamorphosis",
                                             "item:slug:warp-mind",
-                                            "item:slug:spiritual-epidemic",
-                                            "item:slug:natures-enmity"
+                                            "item:slug:quandary",
+                                            "item:slug:phantasmagoria"
                                         ]
                                     }
                                 ]
@@ -75,11 +86,123 @@
                         ]
                     }
                 ],
+                "priority": 121,
+                "property": "other-tags",
+                "value": "blood-magic-spell"
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
+                "mergeable": true,
+                "option": "blood-magic",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Hag",
+                        "predicate": [
+                            "class:sorcerer"
+                        ],
+                        "value": "hag"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Sorcerer.SecondBloodMagic",
+                "mergeable": true,
+                "option": "second-blood-magic",
+                "placement": "spellcasting",
+                "predicate": [
+                    {
+                        "or": [
+                            "feat:blood-ascendancy",
+                            "feat:blood-sovereignty"
+                        ]
+                    }
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Hag",
+                        "value": "hag"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    "item:tag:blood-magic-spell",
+                    {
+                        "or": [
+                            "blood-magic:hag",
+                            {
+                                "and": [
+                                    "second-blood-magic:hag",
+                                    "feat:blood-sovereignty"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "priority": 121,
                 "property": "description",
                 "value": [
                     {
+                        "divider": true,
                         "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Hag",
-                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Hag"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Hag Blood Magic]"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    "item:slug:blood-rising",
+                    {
+                        "or": [
+                            "blood-magic:hag",
+                            {
+                                "and": [
+                                    "second-blood-magic:hag",
+                                    "feat:blood-ascendancy"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Hag",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Hag"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Hag Blood Magic]"
+                    }
+                ]
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "feature:bloodline:tradition:occult",
+                "predicate": [
+                    {
+                        "not": "parent:granter:slug:crossblooded-evolution"
                     }
                 ]
             }

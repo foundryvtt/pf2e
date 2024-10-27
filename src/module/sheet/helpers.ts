@@ -32,38 +32,23 @@ function createSheetTags(
     return createSheetOptions(options, selections, { selected: true });
 }
 
-function createTagifyTraits(
-    traits: Iterable<string>,
-    { sourceTraits, record }: TagifyTraitOptions,
-): { id: string; value: string; readonly: boolean }[] {
+function createTagifyTraits(traits: Iterable<string>, { sourceTraits, record }: TagifyTraitOptions): TagifyEntry[] {
     const sourceSet = new Set(sourceTraits ?? traits);
-    const traitSlugs = [...traits];
+    const traitSlugs = new Set(traits);
     const readonlyTraits = traitSlugs.filter((t) => !sourceSet.has(t));
-    return traitSlugs
+    const hiddenTraits = sourceSet.filter((t) => !traitSlugs.has(t));
+    return [...traitSlugs, ...hiddenTraits]
         .map((slug) => {
             const label = game.i18n.localize(record?.[slug] ?? slug);
-            return { id: slug, value: label, readonly: readonlyTraits.includes(slug) };
+            return {
+                id: slug,
+                value: label,
+                readonly: readonlyTraits.has(slug),
+                // Must be undefined for tagify to work
+                hidden: !traitSlugs.has(slug) || undefined,
+            };
         })
         .sort((t1, t2) => t1.value.localeCompare(t2.value));
-}
-
-/**
- * Process tagify elements in a form, converting their data into something the pf2e system can handle.
- * This method is meant to be called in _getSubmitData().
- */
-function processTagifyInSubmitData(form: HTMLFormElement, data: Record<string, unknown>): void {
-    // Tagify has a convention (used in their codebase as well) where it prepends the input element
-    const tagifyInputElements = form.querySelectorAll<HTMLInputElement>("tags.tagify ~ input");
-    for (const inputEl of tagifyInputElements.values()) {
-        const path = inputEl.name;
-        const inputValue = data[path];
-        const selections = inputValue && typeof inputValue === "string" ? JSON.parse(inputValue) : inputValue;
-        if (Array.isArray(selections)) {
-            data[path] = selections
-                .filter((s: { id?: string; value?: string; readonly?: boolean }) => !s.readonly)
-                .map((s: { id?: string; value?: string }) => s.id ?? s.value);
-        }
-    }
 }
 
 /**
@@ -131,13 +116,19 @@ type SheetSelections = { value: (string | number)[] } | (string[] & { custom?: n
 
 interface TagifyTraitOptions {
     sourceTraits?: Iterable<string>;
-    record: Record<string, string>;
+    record?: Record<string, string>;
 }
 
-interface TraitTagifyEntry {
+interface TagifyEntry {
     id: string;
     value: string;
+    /** If true, the tag will exist in tagify but unremovable. */
     readonly: boolean;
+    /**
+     * If true, it will be hidden from tagify itself but exist in submit data.
+     * Tagify treats any value as true, even false or null.
+     */
+    hidden?: true;
 }
 
 export {
@@ -147,6 +138,5 @@ export {
     getAdjustedValue,
     getAdjustment,
     maintainFocusInRender,
-    processTagifyInSubmitData,
 };
-export type { AdjustedValue, SheetOption, SheetOptions, TraitTagifyEntry };
+export type { AdjustedValue, SheetOption, SheetOptions, TagifyEntry };

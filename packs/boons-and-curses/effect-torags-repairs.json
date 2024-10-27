@@ -1,0 +1,57 @@
+{
+    "_id": "HN5Fp1pNudfwzyx2",
+    "img": "systems/pf2e/icons/deity/Torag.webp",
+    "name": "Effect: Torag's Repairs",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.boons-and-curses.Item.Torag - Minor Boon]</p>\n<p>The item's Hardness doubles.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 0
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens: Gods & Magic"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "armor",
+                        "shield",
+                        "weapon"
+                    ]
+                },
+                "flag": "item",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Item"
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.item}",
+                "key": "ItemAlteration",
+                "mode": "multiply",
+                "property": "hardness",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

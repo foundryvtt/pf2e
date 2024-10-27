@@ -4,10 +4,8 @@
     "items": [
         {
             "_id": "1iXW88VNUJeCM0Gc",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.heritages.Item.zVf0Hlp5xG0Q7kmc"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.heritages.Item.zVf0Hlp5xG0Q7kmc"
             },
             "img": "systems/pf2e/icons/features/ancestry/skilled-heritage.webp",
             "name": "Skilled Heritage",
@@ -36,120 +34,6 @@
             "type": "heritage"
         },
         {
-            "_id": "rwfmt41wdb7wtltb",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.backgrounds.Item.Phvnfdmz4bB7jrI3"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/background.svg",
-            "name": "Barrister",
-            "sort": 0,
-            "system": {
-                "boosts": {
-                    "0": {
-                        "selected": "int",
-                        "value": [
-                            "cha",
-                            "int"
-                        ]
-                    },
-                    "1": {
-                        "selected": "str",
-                        "value": [
-                            "cha",
-                            "con",
-                            "dex",
-                            "int",
-                            "str",
-                            "wis"
-                        ]
-                    }
-                },
-                "description": {
-                    "value": "<p>Piles of legal manuals, stern teachers, and experience in the courtroom have instructed you in legal matters. You're capable of mounting a prosecution or defense in court, and you tend to keep abreast of local laws, as you never can tell when you might need to know them on short notice.</p>\n<p>Choose two ability boosts. One must be to <strong>Intelligence</strong> or <strong>Charisma</strong>, and one is a free ability boost.</p>\n<p>You're trained in the Diplomacy skill and the Legal Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Group Impression] skill feat.</p>"
-                },
-                "items": {
-                    "d4ikn": {
-                        "img": "icons/sundries/books/book-red-exclamation.webp",
-                        "level": 1,
-                        "name": "Group Impression",
-                        "uuid": "Compendium.pf2e.feats-srd.Item.Group Impression"
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "barrister",
-                "trainedSkills": {
-                    "lore": [
-                        "Legal Lore"
-                    ],
-                    "value": [
-                        "diplomacy"
-                    ]
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "background"
-        },
-        {
-            "_id": "3wkgxx2q5hdu6wvk",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.KpFetnUqTiweypZk"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Group Impression",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "skill",
-                "description": {
-                    "value": "<p>When you Make an Impression, you can compare your Diplomacy check result to the Will DCs of two targets instead of one. It's possible to get a different degree of success for each target. The number of targets increases to four if you're an expert, 10 if you're a master, and 25 if you're legendary.</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "rwfmt41wdb7wtltb",
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "trained in Diplomacy"
-                        }
-                    ]
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "group-impression",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general",
-                        "skill"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "falVVBjsHUxProcC",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Legal Lore",
@@ -170,134 +54,15 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
         {
-            "_id": "sXOOlgoZJjx8rSVO",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.lwLcUHQMOqfaNND4"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Cooperative Nature",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "ancestry",
-                "description": {
-                    "value": "<p>The short human life span lends perspective and has taught you from a young age to set aside differences and work with others to achieve greatness. You gain a +4 circumstance bonus on checks to Aid.</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "ancestry-1",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "action:aid"
-                        ],
-                        "selector": [
-                            "attack-roll",
-                            "perception-check",
-                            "saving-throw",
-                            "skill-check",
-                            "check"
-                        ],
-                        "type": "circumstance",
-                        "value": 4
-                    }
-                ],
-                "slug": "cooperative-nature",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "human"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "PHTi9vyeJECNOBPL",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.iWvpq3uDZcXvBJj8"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Known Weaknesses",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p>Whenever you @UUID[Compendium.pf2e.actionspf2e.Item.Devise a Stratagem]{Devise a Strategem}, you can also attempt a check to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] as part of that action. If you critically succeed at the Recall Knowledge check, you notice a weakness and gain a +1 circumstance bonus to your attack roll from Devise a Stratagem.</p>\n<p>If you immediately convey this information to your allies as part of the check, each ally gains a +1 circumstance bonus to their next attack roll against the subject, as long as their attack is made before the beginning of your next turn.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Known Weakness]</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "class-1",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Known Weakness (critically succeeded on Recall Knowledge)",
-                        "predicate": [
-                            "devise-a-strategem",
-                            "known-weakness"
-                        ],
-                        "selector": "attack",
-                        "type": "circumstance",
-                        "value": 1
-                    }
-                ],
-                "slug": "known-weaknesses",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "investigator"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "mm2nafqly7j9qr8i",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
             },
             "img": "icons/containers/bags/pack-leather-white-tan.webp",
             "name": "Backpack",
@@ -360,10 +125,8 @@
         },
         {
             "_id": "rmc2mtkdzo0dlmjj",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.fyYnQf1NAx9fWFaS"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.fyYnQf1NAx9fWFaS"
             },
             "img": "icons/sundries/survival/rope-wrapped-brown.webp",
             "name": "Rope",
@@ -420,10 +183,8 @@
         },
         {
             "_id": "v9jluy979ovndtbg",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.VnPh324pKwd2ZB66"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.VnPh324pKwd2ZB66"
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/waterskin.webp",
             "name": "Waterskin",
@@ -480,10 +241,8 @@
         },
         {
             "_id": "ecduhf134o0qbfyy",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.UlIxxLm71UdRgCFE"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UlIxxLm71UdRgCFE"
             },
             "img": "icons/commodities/stone/geode-raw-tan.webp",
             "name": "Flint and Steel",
@@ -540,10 +299,8 @@
         },
         {
             "_id": "9eh8zoh63revz66f",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.L9ZV076913otGtiB"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.L9ZV076913otGtiB"
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/rations.webp",
             "name": "Rations",
@@ -606,10 +363,8 @@
         },
         {
             "_id": "9yv8unpf96o1thae",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.fagzYdmfYyMQ6J77"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.fagzYdmfYyMQ6J77"
             },
             "img": "icons/containers/ammunition/quiver-simple-brown.webp",
             "name": "Bedroll",
@@ -666,10 +421,8 @@
         },
         {
             "_id": "gts4hrbv9brgv5ar",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.81aHsD27HFGnq1Nt"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.81aHsD27HFGnq1Nt"
             },
             "img": "icons/sundries/survival/soap.webp",
             "name": "Soap",
@@ -726,10 +479,8 @@
         },
         {
             "_id": "p1OuqAyz6ywydFiC",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.62nnVQvGhoVLLl2K"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.62nnVQvGhoVLLl2K"
             },
             "img": "icons/weapons/crossbows/crossbow-simple-brown.webp",
             "name": "Crossbow",
@@ -811,10 +562,8 @@
         },
         {
             "_id": "eIjXfPgIbKueKfGj",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.AITVZmakiu3RgfKo"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AITVZmakiu3RgfKo"
             },
             "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
             "name": "Bolts",
@@ -879,10 +628,8 @@
         },
         {
             "_id": "xwbmG36YxgiRaYcL",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.ewQZ0VeL38v3qFnN"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ewQZ0VeL38v3qFnN"
             },
             "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
             "name": "Studded Leather Armor",
@@ -949,10 +696,8 @@
         },
         {
             "_id": "HFa1cjhvt0EPJHza",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.VitLIpdIAmKlGb7i"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.VitLIpdIAmKlGb7i"
             },
             "img": "systems/pf2e/icons/equipment/weapons/sword-cane.webp",
             "name": "Sword Cane",
@@ -1038,10 +783,8 @@
         },
         {
             "_id": "IGLJ34ywibj3bxv4",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.5Ew82vBF9YfaiY9f"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.5Ew82vBF9YfaiY9f"
             },
             "img": "systems/pf2e/icons/equipment/treasure/currency/silver-pieces.webp",
             "name": "Silver Pieces",
@@ -1095,10 +838,8 @@
         },
         {
             "_id": "Q0gN4MExr5Dv0aik",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.M1k5QQc1qQLxzyCK"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.M1k5QQc1qQLxzyCK"
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/acid-flask.webp",
             "name": "Acid Flask (Lesser)",
@@ -1192,10 +933,8 @@
         },
         {
             "_id": "fpDhZhVsdEh1ERW2",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.8Jdw4yAzWYylGePS"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8Jdw4yAzWYylGePS"
             },
             "img": "icons/sundries/lights/torch-brown.webp",
             "name": "Torch",
@@ -1331,11 +1070,152 @@
             "type": "equipment"
         },
         {
-            "_id": "25rovrYVBA1mt2AR",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classes.Item.4wrSCyX6akmyo7Wj"
+            "_id": "Y8P9PJ076SAuQSGk",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
+            },
+            "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/human.svg",
+            "name": "Human",
+            "sort": 0,
+            "system": {
+                "additionalLanguages": {
+                    "count": 1,
+                    "custom": "",
+                    "value": []
+                },
+                "boosts": {
+                    "0": {
+                        "selected": "int",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    },
+                    "1": {
+                        "selected": "cha",
+                        "value": [
+                            "str",
+                            "dex",
+                            "con",
+                            "int",
+                            "wis",
+                            "cha"
+                        ]
+                    },
+                    "2": {
+                        "value": []
+                    }
+                },
+                "description": {
+                    "value": "<p><em>As unpredictable and varied as any of Golarion's peoples, humans have exceptional drive and the capacity to endure and expand. Though many civilizations thrived before humanity rose to prominence, humans have built some of the greatest and the most terrible societies throughout the course of history, and today they are the most populous people in the realms around the Inner Sea.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.45SK8rdbbxvEHfMn.JournalEntryPage.7pU8yM7yPMw92SY3]{Human}</em></p>"
+                },
+                "flaws": {
+                    "0": {
+                        "value": []
+                    }
+                },
+                "hp": 8,
+                "items": {},
+                "languages": {
+                    "custom": "",
+                    "value": [
+                        "common"
+                    ]
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "reach": 5,
+                "rules": [],
+                "size": "med",
+                "slug": "human",
+                "speed": 25,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "human",
+                        "humanoid"
+                    ]
+                },
+                "vision": "normal"
+            },
+            "type": "ancestry"
+        },
+        {
+            "_id": "wYVUddNb7O4WW9F2",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.xShIDyydOMkGvGNb"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/chalk.webp",
+            "name": "Chalk",
+            "sort": 200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "other",
+                "containerId": "mm2nafqly7j9qr8i",
+                "damage": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 10,
+                "rules": [],
+                "size": "med",
+                "slug": "chalk",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "rDomuNX9rnd9mB8g",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classes.Item.4wrSCyX6akmyo7Wj"
             },
             "img": "systems/pf2e/icons/classes/investigator.webp",
             "name": "Investigator",
@@ -1413,8 +1293,14 @@
                         "name": "Incredible Senses",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Perception Legend"
                     },
+                    "Kk3kL": {
+                        "img": "icons/magic/life/cross-explosion-burst-green.webp",
+                        "level": 9,
+                        "name": "Fortitude Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Fortitude Expertise"
+                    },
                     "fofuw": {
-                        "img": "systems/pf2e/icons/features/classes/on-the-case.webp",
+                        "img": "icons/sundries/flags/banner-symbol-sun-gold-red.webp",
                         "level": 1,
                         "name": "On the Case",
                         "uuid": "Compendium.pf2e.classfeatures.Item.On the Case"
@@ -1456,16 +1342,10 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Methodology"
                     },
                     "oktpj": {
-                        "img": "systems/pf2e/icons/features/classes/investigator-expertise.webp",
+                        "img": "icons/commodities/treasure/medal-ribbon-gold-blue.webp",
                         "level": 9,
                         "name": "Investigator Expertise",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Investigator Expertise"
-                    },
-                    "qfhwe": {
-                        "img": "icons/magic/life/cross-explosion-burst-green.webp",
-                        "level": 9,
-                        "name": "Great Fortitude",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Fortitude Expertise"
                     },
                     "qwerc": {
                         "img": "systems/pf2e/icons/features/classes/master-detective.webp",
@@ -1529,9 +1409,9 @@
                 },
                 "perception": 2,
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
                 },
                 "rules": [],
                 "savingThrows": {
@@ -1601,22 +1481,66 @@
             "type": "class"
         },
         {
-            "_id": "RnCcvO2I7gdL3ENe",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.uhHg9BXBiHpL5ndS"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "empiricismMethodology": {
-                            "id": "5d32biBbyhYto9pI",
-                            "onDelete": "detach"
-                        }
+            "_id": "HYlhljV6yJTkSqn3",
+            "img": "systems/pf2e/icons/default-icons/background.svg",
+            "name": "Barrister",
+            "sort": 0,
+            "system": {
+                "boosts": {
+                    "0": {
+                        "value": [
+                            "cha",
+                            "int"
+                        ]
+                    },
+                    "1": {
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
                     }
+                },
+                "description": {
+                    "value": "<p>Piles of legal manuals, stern teachers, and experience in the courtroom have instructed you in legal matters. You're capable of mounting a prosecution or defense in court, and you tend to keep abreast of local laws, as you never can tell when you might need to know them on short notice.</p>\n<p>Choose two attribute boosts. One must be to <strong>Intelligence</strong> or <strong>Charisma</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Diplomacy skill and the Legal Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Group Impression] skill feat.</p>"
+                },
+                "items": {
+                    "d4ikn": {
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
+                        "level": 1,
+                        "name": "Group Impression",
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Group Impression"
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "barrister",
+                "trainedSkills": {
+                    "lore": [
+                        "Legal Lore"
+                    ],
+                    "value": [
+                        "diplomacy"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "img": "icons/magic/symbols/question-stone-yellow.webp",
-            "name": "Methodology",
+            "type": "background"
+        },
+        {
+            "_id": "AiZ7FUjVrQvd1HVg",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Group Impression",
             "sort": 0,
             "system": {
                 "actionType": {
@@ -1625,86 +1549,43 @@
                 "actions": {
                     "value": null
                 },
-                "category": "classfeature",
+                "category": "skill",
                 "description": {
-                    "value": "<p>Your studies have made you savvy in many areas, but one in particular drew your intense interest. Choose a methodology. The methodologies are as follows:</p>\n<ul>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Alchemical Sciences Methodology]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Empiricism Methodology]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Forensic Medicine Methodology]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Interrogation Methodology]</li>\n</ul>"
+                    "value": "<p>When you @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression], you can compare your Diplomacy check result to the Will DCs of up to 10 targets you conversed with, with no penalty. The number of targets increases to 20 if you're an expert, 50 if you're a master, and 100 if you're legendary.</p>"
                 },
                 "level": {
                     "value": 1
                 },
-                "location": "25rovrYVBA1mt2AR",
+                "location": "HYlhljV6yJTkSqn3",
                 "prerequisites": {
-                    "value": []
+                    "value": [
+                        {
+                            "value": "trained in Diplomacy"
+                        }
+                    ]
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "allowedDrops": {
-                            "label": "level 1 investigator class feature",
-                            "predicate": [
-                                "item:level:1",
-                                "item:trait:investigator",
-                                "item:type:feature"
-                            ]
-                        },
-                        "choices": [
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Alchemical Sciences Methodology"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Empiricism Methodology"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Forensic Medicine Methodology"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Interrogation Methodology"
-                            }
-                        ],
-                        "flag": "methodology",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.Investigator.Methodology.Prompt",
-                        "selection": "Compendium.pf2e.classfeatures.Item.Empiricism Methodology"
-                    },
-                    {
-                        "flag": "empiricismMethodology",
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.methodology}"
-                    }
-                ],
-                "slug": "methodology",
+                "rules": [],
+                "slug": "group-impression",
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "investigator"
+                        "general",
+                        "skill"
                     ]
                 }
             },
             "type": "feat"
         },
         {
-            "_id": "hB0qA5GZbUUIM4r9",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.lgo65ldX7WkXC8Ir"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "deviseAStratagem": {
-                            "id": "Gup9OX2YNZnT8cqw",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/devise-a-stratagem.webp",
-            "name": "Devise a Stratagem",
-            "sort": 100,
+            "_id": "Cu4WkZ8hEacoVM86",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Known Weaknesses",
+            "sort": 0,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1712,30 +1593,37 @@
                 "actions": {
                     "value": null
                 },
-                "category": "classfeature",
+                "category": "class",
                 "description": {
-                    "value": "<p>You can play out a battle in your head, using brains rather than brawn to execute an attack.</p>\n<p>You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Devise a Stratagem] action.</p>"
+                    "value": "<p>Whenever you @UUID[Compendium.pf2e.actionspf2e.Item.Devise a Stratagem], you can also attempt a check to Recall Knowledge as part of that action before rolling the d20. If you critically succeed at the Recall Knowledge check, you notice a weakness and can convey the information to allies to grant each of them a +1 circumstance bonus to their next attack roll against the subject, as long as their attack is made before the beginning of your next turn. If you choose an attack stratagem, this bonus applies to that attack roll too.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Known Weakness]</p>"
                 },
                 "level": {
+                    "taken": 1,
                     "value": 1
                 },
-                "location": "25rovrYVBA1mt2AR",
+                "location": "class-1",
                 "prerequisites": {
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
                 },
                 "rules": [
                     {
-                        "flag": "deviseAStratagem",
-                        "key": "GrantItem",
-                        "uuid": "Compendium.pf2e.actionspf2e.Item.Devise a Stratagem"
+                        "key": "FlatModifier",
+                        "label": "Known Weakness (critically succeeded on Recall Knowledge)",
+                        "predicate": [
+                            "devise-a-strategem",
+                            "known-weaknesses"
+                        ],
+                        "selector": "attack",
+                        "type": "circumstance",
+                        "value": 1
                     }
                 ],
-                "slug": "devise-a-stratagem",
+                "slug": "known-weaknesses",
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -1746,27 +1634,74 @@
             "type": "feat"
         },
         {
-            "_id": "UX3oh8brMpR3hr7e",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.6FasgIXUJ1X8ekRn"
+            "_id": "CNgQj4AJUR6JU3uR",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Cooperative Nature",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
                 },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestry",
+                "description": {
+                    "value": "<p>The short human life span lends perspective and has taught you from a young age to set aside differences and work with others to achieve greatness. You gain a +4 circumstance bonus on checks to Aid.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:aid"
+                        ],
+                        "selector": "check",
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
+                "slug": "cooperative-nature",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "human"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "moH4naAAJ3WOS6sC",
+            "flags": {
                 "pf2e": {
                     "itemGrants": {
                         "clueIn": {
-                            "id": "XQcfNnVdpX243Go8",
+                            "id": "Fu4VTfPDnWfK6N22",
                             "onDelete": "detach"
                         },
                         "pursueALead": {
-                            "id": "rcShctfA3vTPiDIo",
+                            "id": "RAw8kd5uXGXHC1Sv",
                             "onDelete": "detach"
                         }
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/on-the-case.webp",
+            "img": "icons/sundries/flags/banner-symbol-sun-gold-red.webp",
             "name": "On the Case",
-            "sort": 200,
+            "sort": 0,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1781,14 +1716,14 @@
                 "level": {
                     "value": 1
                 },
-                "location": "25rovrYVBA1mt2AR",
+                "location": "rDomuNX9rnd9mB8g",
                 "prerequisites": {
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
                 },
                 "rules": [
                     {
@@ -1813,15 +1748,20 @@
             "type": "feat"
         },
         {
-            "_id": "SUj3U6TEXDyRv2Kp",
+            "_id": "eEOJUCtmxiEl2qHa",
             "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.2Fe4YZCvAr9Yf6w7"
+                "pf2e": {
+                    "itemGrants": {
+                        "empiricismMethodology": {
+                            "id": "u6PsMXLzlZTimQwX",
+                            "onDelete": "detach"
+                        }
+                    }
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/strategic-strike.webp",
-            "name": "Strategic Strike",
-            "sort": 300,
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
+            "name": "Methodology",
+            "sort": 0,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1831,69 +1771,40 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>When you strike carefully and with forethought, you deal a telling blow. When making a Strike that adds your Intelligence modifier on your attack roll due to @UUID[Compendium.pf2e.classfeatures.Item.Devise a Stratagem]{Devising a Stratagem}, you deal an additional 1d6 precision damage.</p>\n<p>As your investigator level increases, so too does the deadliness of your strategic strike. Increase the number of dice by one at 5th, 9th, 13th, and 17th levels.</p>"
+                    "value": "<p>Your studies have made you savvy in many areas, but one in particular drew your intense interest. Choose a methodology. The methodologies are as follows:</p>\n<ul>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Alchemical Sciences Methodology]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Empiricism Methodology]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Forensic Medicine Methodology]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Interrogation Methodology]</li>\n</ul>"
                 },
                 "level": {
                     "value": 1
                 },
-                "location": "25rovrYVBA1mt2AR",
+                "location": "rDomuNX9rnd9mB8g",
                 "prerequisites": {
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
                 },
                 "rules": [
                     {
-                        "category": "precision",
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "check:substitution:devise-a-stratagem"
-                        ],
-                        "selector": "strike-damage",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 4,
-                                    "value": {
-                                        "diceNumber": 1
-                                    }
-                                },
-                                {
-                                    "end": 8,
-                                    "start": 5,
-                                    "value": {
-                                        "diceNumber": 2
-                                    }
-                                },
-                                {
-                                    "end": 12,
-                                    "start": 9,
-                                    "value": {
-                                        "diceNumber": 3
-                                    }
-                                },
-                                {
-                                    "end": 16,
-                                    "start": 13,
-                                    "value": {
-                                        "diceNumber": 4
-                                    }
-                                },
-                                {
-                                    "start": 17,
-                                    "value": {
-                                        "diceNumber": 5
-                                    }
-                                }
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:tag:investigator-methodology"
                             ]
-                        }
+                        },
+                        "flag": "methodology",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Investigator.Methodology.Prompt",
+                        "selection": "Compendium.pf2e.classfeatures.Item.Empiricism Methodology"
+                    },
+                    {
+                        "flag": "empiricismMethodology",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.methodology}"
                     }
                 ],
-                "slug": "strategic-strike",
+                "slug": "methodology",
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -1904,20 +1815,19 @@
             "type": "feat"
         },
         {
-            "_id": "95h9KKKbrKVjtdvp",
+            "_id": "G3hS4w4VkgyAfWWA",
             "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.pIHjH1x0AVtiX5Tv"
-                },
                 "pf2e": {
-                    "grantedBy": {
-                        "id": "5d32biBbyhYto9pI",
-                        "onDelete": "cascade"
+                    "itemGrants": {
+                        "deviseAStratagem": {
+                            "id": "zqmQyRBTFpL29XGc",
+                            "onDelete": "detach"
+                        }
                     }
                 }
             },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "That's Odd",
+            "img": "systems/pf2e/icons/features/classes/devise-a-stratagem.webp",
+            "name": "Devise a Stratagem",
             "sort": 0,
             "system": {
                 "actionType": {
@@ -1926,24 +1836,30 @@
                 "actions": {
                     "value": null
                 },
-                "category": "class",
+                "category": "classfeature",
                 "description": {
-                    "value": "<p>When you enter a new location, such as a room or corridor, you immediately notice one thing out of the ordinary. The GM determines what it is, or whether there's nothing reasonable to pick up, skipping obvious clues that can be easily noticed without a check or specifically looking for them. You learn only that an area or object is suspicious, but not why it's suspicious.</p>\n<p>For example, if you entered a study with a large bloodstain on the ground, the bloodstain is so obviously suspicious it's evident to you already, so the GM might note that there's something suspicious about the desk drawer instead. You would then need to investigate the drawer further to find out what specifically is out of the ordinary. That's Odd doesn't reveal whether creatures are suspicious.</p>\n<p>You don't typically get any benefit when you leave and come back to a place, though if a major change has happened there and time has passed, the GM might determine that you do.</p>"
+                    "value": "<p>You can play out a battle in your head, using brains rather than brawn to execute an attack.</p>\n<p>You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Devise a Stratagem] action.</p>"
                 },
                 "level": {
                     "value": 1
                 },
-                "location": null,
+                "location": "rDomuNX9rnd9mB8g",
                 "prerequisites": {
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
                 },
-                "rules": [],
-                "slug": "thats-odd",
+                "rules": [
+                    {
+                        "flag": "deviseAStratagem",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.actionspf2e.Item.Devise a Stratagem"
+                    }
+                ],
+                "slug": "devise-a-stratagem",
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -1954,46 +1870,80 @@
             "type": "feat"
         },
         {
-            "_id": "Jl3RHxsXqsxaGvxs",
+            "_id": "RAw8kd5uXGXHC1Sv",
             "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.actionspf2e.Item.jftNJjBNxp2cleoi"
-                },
                 "pf2e": {
                     "grantedBy": {
-                        "id": "5d32biBbyhYto9pI",
+                        "id": "moH4naAAJ3WOS6sC",
                         "onDelete": "cascade"
                     }
                 }
             },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Expeditious Inspection",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Pursue a Lead",
             "sort": 0,
             "system": {
                 "actionType": {
-                    "value": "free"
+                    "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p>\n<hr />\n<p>You observe and assess your surroundings with great speed. You @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge], @UUID[Compendium.pf2e.actionspf2e.Item.Seek], or @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive].</p>"
+                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p><hr /><p>You name one detail you've identified that you think is part of a larger mystery, then spend 1 minute examining it. The detail is typically either obvious or something you've already discovered using Recall Knowledge, @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive], Gather Information, or a similar action. After the minute passes, the GM either confirms there's a larger mystery or tells you there's nothing more to learn (the detail is inconsequential or you know all the information already). If there is in fact a larger mystery at play, you can't Pursue a Lead again for 10 minutes, but you can choose to open an investigation. To do so, define the question at the heart of the mystery, such as \"Where has the priceless work of art that was supposed to hang here been taken?\" or \"Who or what killed this priest?\" Work with your GM to refine the question if need be. You can also give your investigation a name to better keep track of it (such as \"The Case of the Cheated Goblin\" or \"The Skinsaw Murders\").</p>\n<p><strong>Investigation Bonus</strong> Whenever you attempt a Perception check or skill check to attempt to get closer to answering the question at the heart of an active investigation, you gain a +1 circumstance bonus to the check. The exact checks this applies to depend on the actions you use to investigate and are determined by the GM, but checks to investigate are typically Perception checks or skill checks that use Intelligence, Wisdom, or Charisma.</p>\n<p><strong>Active Investigations</strong> You can maintain two active investigations at a time. If you Pursue another Lead after that, the case must be different from any of your current investigations (as far as you are aware), and you give up on a current investigation of your choice. Once you've given up pursuit of an investigation, you can't Pursue a Lead into it again until after the next time you make your daily preparations.</p>\n<p><strong>Solving an Investigation</strong> If you answer the question at the heart of your investigation, the GM tells you that you've done so. You don't lose the bonus or other benefits until you choose to close the investigation by Pursuing a Lead again or voluntarily Dismissing it. If what you discover points to an even larger mystery, you can work with the GM to adapt the question and name of the investigation to the new information.</p>"
                 },
                 "frequency": {
                     "max": 1,
                     "per": "PT10M"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
                 },
-                "rules": [],
-                "slug": "expeditious-inspection",
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.Investigator.PursueALead.Label",
+                        "option": "pursue-a-lead",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "pursue-a-lead",
+                            {
+                                "or": [
+                                    {
+                                        "not": "check:type:saving-throw"
+                                    },
+                                    {
+                                        "and": [
+                                            "check:type:saving-throw",
+                                            "feat:detectives-readiness"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": [
+                            "perception",
+                            "skill-check",
+                            "saving-throw"
+                        ],
+                        "slug": "pursue-a-lead",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": "pursue-a-lead",
                 "traits": {
                     "rarity": "common",
                     "value": [
+                        "concentrate",
+                        "exploration",
                         "investigator"
                     ]
                 }
@@ -2001,23 +1951,65 @@
             "type": "action"
         },
         {
-            "_id": "5d32biBbyhYto9pI",
+            "_id": "Fu4VTfPDnWfK6N22",
             "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.g3mNzNphtVxyR9Xr"
-                },
                 "pf2e": {
                     "grantedBy": {
-                        "id": "RnCcvO2I7gdL3ENe",
+                        "id": "moH4naAAJ3WOS6sC",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Clue In",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p>\n<p><strong>Trigger</strong> Another creature attempts a check that could help get you closer to answering the question at the heart of one of your active investigations.</p><hr /><p>You share information with the triggering creature. They gain a circumstance bonus to their check equal to your investigation bonus from Pursue a Lead. The GM can add any relevant traits to this reaction depending on the situation, such as auditory and linguistic if you're conveying information verbally.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Clue In]</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT10M"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [],
+                "slug": "clue-in",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "investigator"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "u6PsMXLzlZTimQwX",
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "eEOJUCtmxiEl2qHa",
                         "onDelete": "cascade"
                     },
                     "itemGrants": {
                         "expeditiousInspection": {
-                            "id": "Jl3RHxsXqsxaGvxs",
+                            "id": "FGPxb0dgfoQpEaFg",
                             "onDelete": "detach"
                         },
                         "thatsOdd": {
-                            "id": "95h9KKKbrKVjtdvp",
+                            "id": "tSUZ27v1XTM5A5nO",
                             "onDelete": "detach"
                         }
                     }
@@ -2045,9 +2037,9 @@
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
                 },
                 "rules": [
                     {
@@ -2094,6 +2086,9 @@
                 ],
                 "slug": "empiricism-methodology",
                 "traits": {
+                    "otherTags": [
+                        "investigator-methodology"
+                    ],
                     "rarity": "common",
                     "value": [
                         "investigator"
@@ -2103,14 +2098,102 @@
             "type": "feat"
         },
         {
-            "_id": "Gup9OX2YNZnT8cqw",
+            "_id": "tSUZ27v1XTM5A5nO",
             "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.actionspf2e.Item.m0f2B7G9eaaTmhFL"
-                },
                 "pf2e": {
                     "grantedBy": {
-                        "id": "hB0qA5GZbUUIM4r9",
+                        "id": "u6PsMXLzlZTimQwX",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "That's Odd",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>When you enter a new location, such as a room or corridor, you immediately notice one thing out of the ordinary. The GM determines what it is, or whether there's nothing reasonable to pick up, skipping obvious clues that can be easily noticed without a check or specifically looking for them. You learn only that an area or object is suspicious, but not why it's suspicious. For example, if you entered a study with a large bloodstain on the ground, the bloodstain is so obviously suspicious it's evident to you already, so the GM might note that there's something suspicious about the desk drawer instead. You would then need to investigate the drawer further to find out what specifically is out of the ordinary. If you wish, you can Pursue a Lead concerning this detail even if you have Pursed a Lead less than 10 minutes ago.</p>\n<p>That's Odd doesn't reveal whether creatures are suspicious. You don't typically get any benefit when you leave and come back to a place, though if a major change has happened there and time has passed, the GM might determine that you do.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [],
+                "slug": "thats-odd",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "investigator"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "FGPxb0dgfoQpEaFg",
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "u6PsMXLzlZTimQwX",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Expeditious Inspection",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p>\n<hr />\n<p>You observe and assess your surroundings with great speed. You @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge], @UUID[Compendium.pf2e.actionspf2e.Item.Seek], or @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive].</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT10M"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [],
+                "slug": "expeditious-inspection",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "investigator"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zqmQyRBTFpL29XGc",
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "G3hS4w4VkgyAfWWA",
                         "onDelete": "cascade"
                     }
                 }
@@ -2127,16 +2210,16 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p>You assess a foe's weaknesses in combat and use them to formulate a plan of attack against your enemy. Choose a creature you can see, and roll a d20. If you Strike the chosen creature later this round, you must use the result of the roll you made to Devise a Stratagem for your Strike's attack roll instead of rolling. You make this substitution only for the first Strike you make against the creature this round, not any subsequent attacks.</p>\n<p>When you make this substitution, you can also add your Intelligence modifier to your attack roll instead of your Strength or Dexterity modifier, provided your Strike uses an agile or finesse melee weapon, an agile or finesse unarmed attack, a ranged weapon (which must be agile or finesse if it's a melee weapon with the thrown trait) or @UUID[Compendium.pf2e.equipment-srd.Item.Sap].</p>\n<p>If you're aware that the creature you choose is the subject of a lead you're pursuing, you can use this ability as a free action.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p>You assess a foe's weaknesses in combat and use them to formulate a plan of attack. Choose a creature you can see. You can Devise a Stratagem as a free action if you're aware that creature could help answer the question at the heart of one of your active investigations. Roll a d20, then decide on an attack stratagem or skill stratagem.</p>\n<p><strong>Attack Stratagem</strong> If you Strike the chosen creature before the start of your next turn, you must use the result of the d20 roll for your Strike's attack roll instead of rolling. You make this substitution only for the first Strike you make against the creature this round, not any subsequent ones. When you make this substitution, you can add your Intelligence modifier to your attack roll instead of your Strength or Dexterity modifier, provided you Strike with an agile or finesse melee weapon, an agile or finesse unarmed attack, a ranged weapon (which must be agile or finesse if it's a melee weapon with the thrown trait), or a sap.</p>\n<p><strong>Skill Stratagem</strong> You can't attempt to Strike the target until the start of your next turn. You gain a +1 circumstance bonus to your next Intelligence-, Wisdom-, or Charisma-based skill check or Perception check involving the target before the start of your next turn. If you would gain your Pursue a Lead investigation bonus to such a check, that bonus increases by 1 instead of you gaining the +1 bonus listed.</p>"
                 },
                 "frequency": {
                     "max": 1,
                     "per": "round"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
                 },
                 "rules": [
                     {
@@ -2188,20 +2271,9 @@
             "type": "action"
         },
         {
-            "_id": "rcShctfA3vTPiDIo",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.actionspf2e.Item.xTK2zsWFyxSJvYbX"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "UX3oh8brMpR3hr7e",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Pursue a Lead",
+            "_id": "m5lK3BrKODEv0BCR",
+            "img": "systems/pf2e/icons/features/classes/strategic-strike.webp",
+            "name": "Strategic Strike",
             "sort": 0,
             "system": {
                 "actionType": {
@@ -2210,257 +2282,43 @@
                 "actions": {
                     "value": null
                 },
-                "category": "interaction",
+                "category": "classfeature",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p>\n<hr />\n<p>You spend 1 minute examining the details of one potential clue, designating the subject related to that clue as the target of your active investigation. This subject is typically a single creature, item, or small location (such as a room or corridor), but the GM might allow a different scope for your investigation. You don't need to know the identity, purpose, or nature of the subject, but you do need to be aware of its existence. For instance, finding a footprint is enough to investigate the creature that left it, and seeing a hasty sketch of an item or location can be enough to start your investigation of that subject.</p>\n<p>Whenever you attempt a Perception or skill check to investigate a designated subject, you gain a +1 circumstance bonus to the check. The exact checks this applies to depend on the actions you use to investigate and are determined by the GM, but checks to investigate are typically Perception checks or skill checks that use Intelligence, Wisdom or Charisma.</p>\n<p>You can maintain two active investigations at a time. If you Pursue another Lead after that, the subject must be different from any of your current investigations (or rather, they must be different as far as you know), and you give up on a current subject of your choice. Once you've given up pursuit of a subject, you can't Pursue that Lead again until after the next time you make your daily preparations.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT10M"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.Investigator.PursueALead.Label",
-                        "option": "pursue-a-lead",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "pursue-a-lead"
-                        ],
-                        "selector": [
-                            "perception",
-                            "skill-check"
-                        ],
-                        "type": "circumstance",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 8,
-                                    "value": 1
-                                },
-                                {
-                                    "start": 9,
-                                    "value": 2
-                                }
-                            ]
-                        }
-                    }
-                ],
-                "slug": "pursue-a-lead",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "exploration",
-                        "investigator"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XQcfNnVdpX243Go8",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.actionspf2e.Item.25WDi1cVUrW92sUj"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "UX3oh8brMpR3hr7e",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Clue In",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p>\n<p><strong>Trigger</strong> Another creature attempts a check to investigate a lead you're pursuing</p>\n<hr />\n<p>You share information with the triggering creature.</p>\n<p>They gain a circumstance bonus to their check equal to your circumstance bonus to checks investigating your subject from @UUID[Compendium.pf2e.actionspf2e.Item.Pursue a Lead]. The GM can add any relevant traits to this reaction depending on the situation, such as auditory and linguistic if you're conveying information verbally.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Clue In]</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT10M"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [],
-                "slug": "clue-in",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "investigator"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Y8P9PJ076SAuQSGk",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/human.svg",
-            "name": "Human",
-            "sort": 0,
-            "system": {
-                "additionalLanguages": {
-                    "count": 1,
-                    "custom": "",
-                    "value": []
-                },
-                "boosts": {
-                    "0": {
-                        "selected": "int",
-                        "value": [
-                            "cha",
-                            "con",
-                            "dex",
-                            "int",
-                            "str",
-                            "wis"
-                        ]
-                    },
-                    "1": {
-                        "selected": "cha",
-                        "value": [
-                            "str",
-                            "dex",
-                            "con",
-                            "int",
-                            "wis",
-                            "cha"
-                        ]
-                    },
-                    "2": {
-                        "value": []
-                    }
-                },
-                "description": {
-                    "value": "<p><em>As unpredictable and varied as any of Golarion's peoples, humans have exceptional drive and the capacity to endure and expand. Though many civilizations thrived before humanity rose to prominence, humans have built some of the greatest and the most terrible societies throughout the course of history, and today they are the most populous people in the realms around the Inner Sea.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.45SK8rdbbxvEHfMn.JournalEntryPage.7pU8yM7yPMw92SY3]{Human}</em></p>"
-                },
-                "flaws": {
-                    "0": {
-                        "value": []
-                    }
-                },
-                "hp": 8,
-                "items": {},
-                "languages": {
-                    "custom": "",
-                    "value": [
-                        "common"
-                    ]
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "reach": 5,
-                "rules": [],
-                "size": "med",
-                "slug": "human",
-                "speed": 25,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "human",
-                        "humanoid"
-                    ]
-                },
-                "vision": "normal"
-            },
-            "type": "ancestry"
-        },
-        {
-            "_id": "wYVUddNb7O4WW9F2",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.xShIDyydOMkGvGNb"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/chalk.webp",
-            "name": "Chalk",
-            "sort": 200000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "category": "other",
-                "containerId": "mm2nafqly7j9qr8i",
-                "damage": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
+                    "value": "<p>When you strike carefully and with forethought, you deal a telling blow. When making a Strike that adds your Intelligence modifier on your attack roll due to @UUID[Compendium.pf2e.classfeatures.Item.Devise a Stratagem]{Devising a Stratagem}, you deal an additional 1d6 precision damage.</p>\n<p>As your investigator level increases, so too does the deadliness of your strategic strike. Increase the number of dice by one at 5th, 9th, 13th, and 17th levels.</p>"
                 },
                 "level": {
-                    "value": 0
+                    "value": 1
                 },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "cp": 1
-                    }
+                "location": "rDomuNX9rnd9mB8g",
+                "prerequisites": {
+                    "value": []
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Player Core"
+                    "title": "Pathfinder Player Core 2"
                 },
-                "quantity": 10,
-                "rules": [],
-                "size": "med",
-                "slug": "chalk",
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": "floor((@actor.level+3)/4)",
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "check:substitution:devise-a-stratagem"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": "strategic-strike",
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
+                    "value": [
+                        "investigator"
+                    ]
                 }
             },
-            "type": "consumable"
+            "type": "feat"
         }
     ],
     "name": "Quinn (Level 1)",

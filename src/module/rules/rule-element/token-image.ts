@@ -1,3 +1,4 @@
+import { isImageOrVideoPath } from "@util";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, RuleElementSchema } from "./data.ts";
 import fields = foundry.data.fields;
@@ -18,13 +19,6 @@ class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema> {
                 initial: undefined,
                 label: "TOKEN.ImagePath",
             }),
-            scale: new fields.NumberField({
-                required: false,
-                nullable: true,
-                positive: true,
-                initial: null,
-                label: "Scale",
-            }),
             tint: new fields.ColorField({ label: "TOKEN.TintColor" }),
             alpha: new fields.AlphaField({
                 label: "PF2E.RuleEditor.General.Opacity",
@@ -32,6 +26,54 @@ class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema> {
                 nullable: true,
                 initial: null,
             }),
+            scale: new fields.NumberField({
+                required: false,
+                nullable: true,
+                positive: true,
+                initial: null,
+                label: "Scale",
+            }),
+            ring: new fields.SchemaField(
+                {
+                    subject: new fields.SchemaField(
+                        {
+                            texture: new fields.StringField({
+                                required: true,
+                                nullable: false,
+                                blank: false,
+                                initial: undefined,
+                                label: "TOKEN.FIELDS.ring.subject.texture.label",
+                            }),
+                            scale: new fields.NumberField({
+                                required: true,
+                                nullable: false,
+                                min: 0.8,
+                                initial: 1,
+                                label: "PF2E.RuleEditor.TokenImage.Ring.ScaleCorrection",
+                            }),
+                        },
+                        { required: true, nullable: false, initial: undefined },
+                    ),
+                    colors: new fields.SchemaField(
+                        {
+                            background: new fields.ColorField({
+                                required: false,
+                                nullable: true,
+                                initial: null,
+                                label: "TOKEN.FIELDS.ring.colors.background.label",
+                            }),
+                            ring: new fields.ColorField({
+                                required: false,
+                                nullable: true,
+                                initial: null,
+                                label: "TOKEN.FIELDS.ring.colors.ring.label",
+                            }),
+                        },
+                        { required: true, nullable: false, initial: () => ({ background: null, ring: null }) },
+                    ),
+                },
+                { required: false, nullable: false, initial: undefined },
+            ),
             animation: new fields.SchemaField(
                 {
                     duration: new fields.NumberField({
@@ -67,27 +109,34 @@ class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema> {
     }
 
     override afterPrepareData(): void {
-        const src = this.resolveValue(this.value);
-        if (!this.#srcIsValid(src)) return this.failValidation("Missing or invalid value field");
+        const src = this.resolveInjectedProperties(this.value);
+        if (!isImageOrVideoPath(src)) return this.failValidation("Missing or invalid value field");
 
         if (!this.test()) return;
 
-        const texture: { src: VideoFilePath; scaleX?: number; scaleY?: number; tint?: Maybe<Color> } = { src };
+        const texture: { src: ImageFilePath | VideoFilePath; scaleX?: number; scaleY?: number; tint?: Maybe<Color> } = {
+            src,
+        };
         if (this.scale) {
             texture.scaleX = this.scale;
             texture.scaleY = this.scale;
         }
         texture.tint = this.tint;
-
         this.actor.synthetics.tokenOverrides.texture = texture;
+
+        const subjectTexture = this.resolveInjectedProperties(this.ring?.subject.texture ?? "");
+        if (this.ring && ImageHelper.hasImageExtension(subjectTexture)) {
+            this.actor.synthetics.tokenOverrides.ring = {
+                subject: {
+                    scale: this.ring.subject.scale,
+                    texture: subjectTexture,
+                },
+                colors: { ...this.ring.colors },
+            };
+        }
+
         this.actor.synthetics.tokenOverrides.alpha = this.alpha;
         this.actor.synthetics.tokenOverrides.animation = this.animation ?? {};
-    }
-
-    #srcIsValid(src: unknown): src is VideoFilePath {
-        if (typeof src !== "string") return false;
-        const extension = /(?<=\.)[a-z0-9]{3,4}$/i.exec(src)?.at(0);
-        return !!extension && (extension in CONST.IMAGE_FILE_EXTENSIONS || extension in CONST.VIDEO_FILE_EXTENSIONS);
     }
 }
 
@@ -98,6 +147,44 @@ interface TokenImageRuleElement
 type TokenImageRuleSchema = RuleElementSchema & {
     /** An image or video path */
     value: fields.StringField<string, string, true, false, false>;
+    /** Dynamic token ring */
+    ring: fields.SchemaField<
+        {
+            subject: fields.SchemaField<
+                {
+                    texture: fields.StringField<string, string, true, false, false>;
+                    scale: fields.NumberField<number, number, true, false, true>;
+                },
+                { texture: string; scale: number },
+                { texture: string; scale: number },
+                true,
+                false,
+                false
+            >;
+            colors: fields.SchemaField<
+                {
+                    background: fields.ColorField<false, true, true>;
+                    ring: fields.ColorField<false, true, true>;
+                },
+                { background: HexColorString | null; ring: HexColorString | null },
+                { background: Color | null; ring: Color | null },
+                true,
+                false,
+                true
+            >;
+        },
+        {
+            subject: { texture: string; scale: number };
+            colors: { background: HexColorString | null; ring: HexColorString | null };
+        },
+        {
+            subject: { texture: string; scale: number };
+            colors: { background: Color | null; ring: Color | null };
+        },
+        false,
+        false,
+        false
+    >;
     /** An optional scale adjustment */
     scale: fields.NumberField<number, number, false, true, true>;
     /** An optional tint adjustment */

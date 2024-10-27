@@ -1,0 +1,55 @@
+{
+    "_id": "nk8jtjNodT15IU1N",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Fiend-Trampling Stature",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Fiends unfortunate enough to be trampled beneath your feet or rent within your grasp are swiftly granulated into bone kindling and blood powder, and the pain of your strikes prevents them from action. Whenever you critically hit a creature that's @UUID[Compendium.pf2e.conditionitems.Item.Prone], @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], or @UUID[Compendium.pf2e.conditionitems.Item.Restrained], it can't use reactions for 1 round.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "or": [
+                            "target:condition:prone",
+                            "target:condition:grabbed",
+                            "target:condition:restrained"
+                        ]
+                    }
+                ],
+                "selector": "strike-attack-roll",
+                "text": "{item|description}",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "yaksha"
+            ]
+        }
+    },
+    "type": "feat"
+}

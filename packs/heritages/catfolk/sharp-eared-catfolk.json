@@ -1,7 +1,7 @@
 {
     "_id": "NWsZ0cIeghyzk9bU",
     "folder": "rHnluMPovHqQZC1m",
-    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "img": "icons/creatures/mammals/humanoid-fox-cat-archer.webp",
     "name": "Sharp-Eared Catfolk",
     "system": {
         "ancestry": {
@@ -10,21 +10,24 @@
             "uuid": "Compendium.pf2e.ancestries.Item.972EkpJOPv9KkQIW"
         },
         "description": {
-            "value": "<p>You were born with big, expressive ears that move with your moods and perk up at any unexpected sound. You gain a +2 circumstance bonus to locate undetected creatures that you could hear within 30 feet with a Seek action.</p>\n<p>As long as you're aware of a creature via sound, once per round, your ears can help you @UUID[Compendium.pf2e.actionspf2e.Item.Point Out] the creature to all allies as a free action.</p>"
+            "value": "<p>You were born with big, expressive ears that move with your moods and perk up at any unexpected sound. You gain a +2 circumstance bonus to locate undetected creatures that you could hear within 30 feet with a @UUID[Compendium.pf2e.actionspf2e.Item.Seek] action. As long as you're aware of a creature via sound, once per round, your ears can help you @UUID[Compendium.pf2e.actionspf2e.Item.Point Out] the creature to all allies as a free action.</p>"
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens: Ancestry Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "To Seek undetected within 30 feet via hearing (Sharp-Eared Catfolk)",
                 "predicate": [
                     "action:seek",
-                    "sense:hearing",
-                    "target:within-30"
+                    {
+                        "lte": [
+                            "target:distance",
+                            30
+                        ]
+                    }
                 ],
                 "selector": "perception",
                 "type": "circumstance",

@@ -27,35 +27,17 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Emotionless (vs. emotion and fear effects)",
                 "predicate": [
                     {
                         "or": [
-                            "emotion",
-                            "fear"
+                            "item:trait:emotion",
+                            "item:trait:fear"
                         ]
                     }
                 ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "success"
-                ],
-                "predicate": [
-                    {
-                        "or": [
-                            "emotion",
-                            "fear"
-                        ]
-                    }
-                ],
-                "selector": "saving-throw",
-                "text": "When you roll a success on a save against an emotion or fear effect, you get a critical success instead.",
-                "title": "{item|name}"
             },
             {
                 "adjustment": {
@@ -65,8 +47,8 @@
                 "predicate": [
                     {
                         "or": [
-                            "emotion",
-                            "fear"
+                            "item:trait:emotion",
+                            "item:trait:fear"
                         ]
                     }
                 ],

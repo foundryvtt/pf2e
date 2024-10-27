@@ -1,0 +1,58 @@
+{
+    "_id": "rypk6QBqwz9biJuF",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Childlike Plant",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You're adept at hiding your plantlike features to pass as a human. You become trained in Deception (or another skill if you're already trained in Deception). You don't require a disguise kit when attempting Deception checks to Impersonate a human. In addition, you gain a +4 circumstance bonus to Impersonate checks to pretend that you're a human version of yourself, rather than a leshy. This bonus doesn't apply to other checks to Impersonate humans.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "chrysanthemum leshy heritage or peachchild\rleshy heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.deception.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SkillVariant.ImpersonateHumanVersion",
+                "predicate": [
+                    "action:impersonate",
+                    "impersonate-human-self"
+                ],
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "leshy"
+            ]
+        }
+    },
+    "type": "feat"
+}

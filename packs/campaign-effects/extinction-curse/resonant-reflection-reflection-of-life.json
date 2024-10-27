@@ -1,0 +1,87 @@
+{
+    "_id": "eckkKdNGlaPlAgOW",
+    "folder": "x1BXD0wU3Jn73wgS",
+    "img": "icons/magic/life/cross-explosion-burst-green.webp",
+    "name": "Resonant Reflection: Reflection of Life",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "deityboon",
+        "description": {
+            "value": "<p>You regain double the normal number of Hit Points when resting (meaning you regain double your Constitution modifier multiplied by your level). The healing you gain from long-term rest is similarly doubled. In addition, you can focus this healing energy to accelerate your body's natural healing processes even further.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You gain fast healing 3 for 1 minute. This amount of fast healing increases by 1 for every 2 levels you have beyond 5th level.</p>\n<p>@UUID[Compendium.pf2e.campaign-effects.Item.Effect: Reflection of Life (Fast Healing)]</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #151: The Show Must Go On"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.hp.recoveryMultiplier",
+                "value": 1
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:activate-resonant-reflection",
+                    "resonant:reflection-of-life"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.ResonantReflection.ReflectionOfLife.Description",
+                        "title": "PF2E.SpecificRule.ResonantReflection.ReflectionOfLife.Title"
+                    }
+                ]
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.ResonantReflection.Label",
+                "mergeable": true,
+                "option": "resonant",
+                "placement": "actions",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "reflection-of-life"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "resonant-reflection"
+                    }
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Activate Resonant Reflection"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "healing",
+                "magical"
+            ]
+        }
+    },
+    "type": "feat"
+}

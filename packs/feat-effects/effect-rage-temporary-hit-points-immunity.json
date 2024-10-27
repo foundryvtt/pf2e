@@ -1,0 +1,44 @@
+{
+    "_id": "MaepXeSHiMoWDm7u",
+    "img": "icons/skills/wounds/injury-pain-body-orange.webp",
+    "name": "Effect: Rage Temporary Hit Points Immunity",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Rage]</p>\n<p>You can't gain temporary Hit Points from using the Rage action again for 1 minute.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.rageTempHP",
+                "phase": "beforeDerived",
+                "value": 0
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

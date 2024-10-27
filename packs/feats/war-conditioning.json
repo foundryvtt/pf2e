@@ -20,9 +20,9 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens: Ancestry Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
@@ -38,23 +38,11 @@
                 ],
                 "flag": "warConditioning",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Hobgoblin.WarConditioning.Prompt",
-                "rollOption": "conditioning"
+                "prompt": "PF2E.SpecificRule.Hobgoblin.WarConditioning.Prompt"
             },
             {
                 "key": "BaseSpeed",
-                "predicate": [
-                    "conditioning:climb"
-                ],
-                "selector": "climb",
-                "value": 20
-            },
-            {
-                "key": "BaseSpeed",
-                "predicate": [
-                    "conditioning:swim"
-                ],
-                "selector": "swim",
+                "selector": "{item|flags.pf2e.rulesSelections.warConditioning}",
                 "value": 20
             }
         ],

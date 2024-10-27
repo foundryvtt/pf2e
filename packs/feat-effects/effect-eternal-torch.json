@@ -1,0 +1,75 @@
+{
+    "_id": "61qS86bjxg8HCJBY",
+    "img": "icons/sundries/lights/torch-brown-lit.webp",
+    "name": "Effect: Eternal Torch",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Eternal Torch]</p>\n<p>You create a torch-like flame. If you create a flame on a weapon, you still need to use it as an improvised weapon to attack with the flame, just as with a torch.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "key": "TokenLight",
+                "value": {
+                    "alpha": 0.25,
+                    "animation": {
+                        "intensity": 1,
+                        "speed": 2,
+                        "type": "flame"
+                    },
+                    "attenuation": 0.4,
+                    "bright": "ternary(gte(@item.origin.level,8),60,20)",
+                    "color": "#ffae3d",
+                    "dim": "ternary(gte(@item.origin.level,8),120,40)",
+                    "shadows": 0.2
+                }
+            },
+            {
+                "category": "simple",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "img": "icons/sundries/lights/torch-brown-lit.webp",
+                "key": "Strike",
+                "otherTags": [
+                    "improvised"
+                ],
+                "slug": "eternal-torch"
+            },
+            {
+                "damageType": "fire",
+                "key": "FlatModifier",
+                "selector": "{item|id}-damage",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

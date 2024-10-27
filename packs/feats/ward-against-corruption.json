@@ -20,9 +20,9 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
@@ -30,25 +30,25 @@
                 "predicate": [
                     {
                         "or": [
-                            "death",
-                            "disease",
+                            "item:trait:death",
+                            "item:trait:disease",
                             "origin:mode:undead",
                             "origin:trait:sakhil"
                         ]
                     }
                 ],
                 "selector": "saving-throw",
-                "slug": "ward-plus-one",
                 "type": "circumstance",
                 "value": 1
             },
             {
-                "key": "FlatModifier",
+                "key": "AdjustModifier",
+                "mode": "add",
                 "predicate": [
                     {
                         "or": [
-                            "disease",
-                            "death"
+                            "item:trait:disease",
+                            "item:trait:death"
                         ]
                     },
                     {
@@ -59,9 +59,8 @@
                     }
                 ],
                 "selector": "saving-throw",
-                "slug": "ward-plus-two",
-                "type": "circumstance",
-                "value": 2
+                "slug": "ward-against-corruption",
+                "value": 1
             }
         ],
         "traits": {

@@ -4,7 +4,7 @@
     "name": "Achaekek - Minor Boon",
     "system": {
         "description": {
-            "value": "<p>Once, when you would fail a Stealth check, you critically succeed instead. Achaekek typically grants this boon for an extremely consequential Stealth check that could lead to an assassination, such as one that could get you into position to kill an important target, but rarely on a Stealth check to help you escape.</p>"
+            "value": "<p>Once, when you would fail a Stealth check, you critically succeed instead.</p>\n<p>Achaekek typically grants this boon for an extremely consequential Stealth check that could lead to an assassination, such as one that could get you into position to kill an important target, but rarely on a Stealth check to help you escape.</p>"
         },
         "duration": {
             "expiry": null,
@@ -20,7 +20,18 @@
             "remaster": true,
             "title": "Pathfinder Adventure: Prey for Death"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "selector": "stealth",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}",
+                "visibility": "gm"
+            }
+        ],
         "start": {
             "initiative": null,
             "value": 0

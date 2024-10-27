@@ -4,28 +4,73 @@
     "name": "Effect: Assisting Shot",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Assisting Shot] if you hit the target.</p>\n<p>The next creature other than you to attack the same target before the start of your next turn gains a +1 circumstance bonus on their roll.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Assisting Shot]</p>\n<p>The next creature other than you to attack the same target before the start of your next turn gains a circumstance bonus to their roll.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "unlimited",
-            "value": -1
+            "unit": "rounds",
+            "value": 1
         },
         "level": {
             "value": 2
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Attack.success",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:context:check:outcome:2",
+                                    {
+                                        "not": {
+                                            "gte": [
+                                                "parent:context:check:outcome",
+                                                0
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Attack.criticalSuccess",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:context:check:outcome:3",
+                                    {
+                                        "not": {
+                                            "gte": [
+                                                "parent:context:check:outcome",
+                                                0
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 2
+                    }
+                ],
+                "flag": "bonus",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
             {
                 "key": "FlatModifier",
                 "selector": "attack",
                 "type": "circumstance",
-                "value": 1
+                "value": "{item|flags.pf2e.rulesSelections.bonus}"
             }
         ],
         "start": {

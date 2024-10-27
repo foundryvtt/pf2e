@@ -12,17 +12,7 @@
             "0": {
                 "applyMod": false,
                 "category": null,
-                "formula": "1d8",
-                "kinds": [
-                    "damage"
-                ],
-                "materials": [],
-                "type": "poison"
-            },
-            "1": {
-                "applyMod": false,
-                "category": "persistent",
-                "formula": "2",
+                "formula": "1d4",
                 "kinds": [
                     "damage"
                 ],
@@ -37,7 +27,7 @@
             }
         },
         "description": {
-            "value": "<p>You exhale a shimmering cloud of toxic breath at an enemy's face. The target takes 1d8 poison damage and 2 persistent poison damage, depending on its Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The target takes half initial and persistent damage.</p>\n<p><strong>Failure</strong> The target takes full initial and persistent damage.</p>\n<p><strong>Critical Failure</strong> The target takes double initial and persistent damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial poison damage increases by 1d8 and the persistent poison damage increases by 1.</p>"
+            "value": "<p>You exhale a shimmering cloud of toxic breath at an enemy's face. The target takes 1d4 poison damage and @Damage[(ceil(@item.level/2))d4[persistent,poison]], depending on its Fortitude save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The target takes half initial damage and no persistent damage.</p>\n<p><strong>Failure</strong> The target takes full initial and persistent damage.</p>\n<p><strong>Critical Failure</strong> The target takes double initial and persistent damage.</p><hr /><p><strong>Heightened (+2)</strong> The initial poison damage increases by 1d4, and the persistent poison damage increases by 1d4.</p>"
         },
         "duration": {
             "sustained": false,
@@ -45,8 +35,7 @@
         },
         "heightening": {
             "damage": {
-                "0": "1d8",
-                "1": "1"
+                "0": "1d4"
             },
             "interval": 2,
             "type": "interval"
@@ -55,12 +44,12 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Secrets of Magic"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "range": {
-            "value": "5 feet"
+            "value": "10 feet"
         },
         "requirements": "",
         "rules": [],
@@ -79,7 +68,6 @@
             "value": [
                 "cantrip",
                 "concentrate",
-                "inhaled",
                 "manipulate",
                 "poison"
             ]

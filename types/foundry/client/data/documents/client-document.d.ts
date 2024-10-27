@@ -1,4 +1,5 @@
-import type ApplicationV2 from "../../../client-esm/applications/api/application.d.ts";
+import type DocumentSheetV2 from "../../../client-esm/applications/api/document-sheet.d.ts";
+import type { DocumentSheetConfiguration } from "../../../client-esm/applications/api/document-sheet.d.ts";
 import type { ClientBaseScene } from "./client-base-mixes.d.ts";
 
 declare global {
@@ -8,7 +9,7 @@ declare global {
 
         get hasPlayerOwner(): boolean;
         get isOwner(): boolean;
-        get sheet(): DocumentSheet<this> | ApplicationV2;
+        get sheet(): DocumentSheet<this> | DocumentSheetV2<DocumentSheetConfiguration<this>>;
     }
 
     interface CanvasDocument extends ClientDocument {

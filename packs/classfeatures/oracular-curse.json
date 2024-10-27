@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>Drawing on multiple disparate sources of power inevitably places an incredible stress on your body, manifesting as a supernatural curse. The more revelation spells you cast, the worse the effects of your curse, but these increasingly conflicting energies can also provide you with divine benefits.</p>\n<p>The specific effects of your curse are tied to your mystery, but all curses follow the same progression. A curse continually gives you a mild but constant reminder that you carry otherworldly power. As you cast revelation spells, your curse intensifies, first to a minor effect and then to a moderate effect.</p>\n<p>Your curse progresses to its minor stage the first time you finish casting a revelation spell after your daily preparations. Once your minor curse has manifested, it remains in effect until you rest for 8 hours and again make your daily preparations. If you cast a revelation spell while your minor curse is in effect, you progress to the moderate curse effect immediately after you finish Casting the Spell. The minor effect continues to affect you, though some moderate curse effects might alter the specifics of your minor curse. At higher levels, you can cast more revelation spells, progressing your curse to its major stage and then an extreme stage; these stronger curses are cumulative with the effects of the lower stages and can alter them. When you Refocus while under the effects of your moderate or stronger curse, you reduce your curse's severity to minor in addition to regaining a Focus Point.</p>\n<p>Drawing upon your mystery's power while your curse is at its worst causes an irreconcilable conflict between you and the sources of your power. Immediately after casting a revelation spell while under the moderate effect of your curse, you are overwhelmed. While overwhelmed, you can't Cast or Sustain any revelation spells-you effectively lose access to those spells. You can still Refocus to reduce the effects of your curse and regain a Focus Point, but doing so doesn't allow you to cast further revelation spells. These effects last until you rest for 8 hours and make your daily preparations, at which point your curse returns to its basic state. At higher levels, you can grow to withstand your curse's major and even extreme effects, enabling you to cast more revelation spells without becoming overwhelmed.</p>\n<p>Your curse has the curse, divine, and necromancy traits. You can't mitigate, reduce, or remove the effects of your oracular curse by any means other than Refocusing and resting for 8 hours. For example, if your curse makes creatures concealed from you, you can't negate that concealed condition through a magic item or spell, such as true strike (though you would still benefit from the other effects of that item or spell). Likewise, remove curse and similar spells don't affect your curse at all.</p>"
+            "value": "<p>As an oracle, you can tap into the pure and unmitigated divine power of creation to supplement your spellcasting via cursebound abilities. These abilities grant you special benefits, but the backlash of letting this power into your mortal body manifests as an oracular curse. The more cursebound abilities you use, the more your curse worsens, but you might gain divine benefits even as it tightens its grip on your soul.</p>\n<p>Your oracular curse is expressed using the @UUID[Compendium.pf2e.conditionitems.Item.Cursebound] condition, a unique condition that affects only oracles. Immediately after the first time you use a cursebound ability, you become cursebound 1, and if you use a cursebound ability while you are already cursebound, you increase the value of your cursebound condition by 1 after the ability resolves. At lower levels, you can tolerate only a modest amount of divine power, and your cursebound condition can't increase beyond cursebound 2; as you grow in levels, you can open yourself to even more power and your cursebound condition can progress to 3 and finally 4. Once saturated in divine power, your soul can't absorb any more, and so you can't use a cursebound ability if you are already at your maximum cursebound condition.</p>\n<p>Your oracular curse lists the specific effects of being cursebound, which are cumulative as your curse progresses. You remain cursebound until you Refocus, which reduces your cursebound condition by 1 in addition to restoring a Focus Point. As your curse is a direct result of divine power, you cannot mitigate, reduce, or remove the effects of your curse or any ability with the cursebound trait by any means other than Refocusing. For example, if a cursebound effect makes creatures @UUID[Compendium.pf2e.conditionitems.Item.Concealed] from you, you can't negate that concealed condition through a magic item or spell, such as @UUID[Compendium.pf2e.spells-srd.Item.Sure Strike] (though you would still benefit from the other effects of that item or spell). Likewise, @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction] and similar abilities don't affect your curse at all.</p>\n<p>At 1st level, you gain a cursebound oracle feat determined by your @UUID[Compendium.pf2e.classfeatures.Item.Mystery], and you can learn additional cursebound abilities through oracle feats.</p><hr /><h3>The Cursebound Condition</h3><p>Your oracular curse is constricting around you as you receive divine punishment after drawing too deeply on your mystery's powers. Cursebound is a condition that affects only creatures with an oracular curse, and cursebound always includes a value. Your specific oracular curse imposes unique negative effects depending on your cursebound value. You can remove the cursebound condition only by Refocusing.</p>"
         },
         "level": {
             "value": 1
@@ -20,11 +20,74 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:cursebound"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "self:condition:cursebound"
+                                    },
+                                    "self:condition:cursebound:1",
+                                    {
+                                        "and": [
+                                            "self:condition:cursebound:2",
+                                            "feature:major-curse"
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "self:condition:cursebound:3",
+                                            "feature:extreme-curse"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "text": "PF2E.SpecificRule.Oracle.Cursebound.IncreaseNote"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "and": [
+                                            "self:condition:cursebound:2",
+                                            {
+                                                "not": "feature:major-curse"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "self:condition:cursebound:3",
+                                            {
+                                                "not": "feature:extreme-curse"
+                                            }
+                                        ]
+                                    },
+                                    "self:condition:cursebound:4"
+                                ]
+                            }
+                        ],
+                        "text": "PF2E.SpecificRule.Oracle.Cursebound.MaximumNote"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

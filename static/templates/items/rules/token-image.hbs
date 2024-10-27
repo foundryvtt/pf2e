@@ -1,37 +1,118 @@
-<div class="form-group">
-    <label for="{{fieldIdPrefix}}value" class="short">{{localize fields.value.label}}</label>
-    <div class="form-fields">
-        <file-picker id="{{fieldIdPrefix}}value" name="{{basePath}}.value" value="{{rule.value}}" type="imagevideo"></file-picker>
+<nav class="sheet-tabs tabs rule-tabs">
+    <h4>
+        <a data-rule-tab="basics"><i class="fa-solid fa-image-portrait"></i>
+            {{localize "PF2E.RuleEditor.General.Basics"}}</a>
+        <a data-rule-tab="ring"><i class="fa-regular fa-circle-user"></i>
+            {{localize "PF2E.RuleEditor.TokenImage.Ring.Label"}}</a>
+    </h4>
+</nav>
+
+{{! BASICS }}
+<div data-rule-tab="basics">
+    <div class="form-group">
+        <label for="{{fieldIdPrefix}}value" class="short">{{localize fields.value.label}}</label>
+        <div class="form-fields">
+            <file-picker
+                id="{{fieldIdPrefix}}value"
+                name="{{basePath}}.value"
+                value="{{rule.value}}"
+                type="imagevideo"
+            ></file-picker>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="{{fieldIdPrefix}}tint" class="short">{{localize fields.tint.label}}</label>
+        <div class="form-fields">
+            <color-picker
+                name="{{concat 'system.rules.' index '.tint'}}"
+                id="{{concat fieldIdPrefix 'tint'}}"
+                value="{{object.tint}}"
+            >
+            </color-picker>
+        </div>
+    </div>
+    <div class="form-group scale">
+        <label for="{{fieldIdPrefix}}scale" class="short">
+            {{localize fields.scale.label}}
+            <span class="units">({{localize "Ratio"}})</span>
+        </label>
+        <div class="form-fields">
+            <input type="checkbox" data-action="toggle-scale" {{checked scaleEnabled}} />
+            {{rangePicker
+                name=(concat "system.rules." index ".scale")
+                value=object.scale
+                id=(concat fieldIdPrefix "scale")
+                min="0.2"
+                max="3.0"
+                step="0.1"
+            }}
+        </div>
+    </div>
+    <div class="form-group alpha">
+        <label for="{{fieldIdPrefix}}alpha" class="short">{{localize fields.alpha.label}}</label>
+        <div class="form-fields">
+            <input type="checkbox" data-action="toggle-alpha" {{checked alphaEnabled}} />
+            {{rangePicker name=(concat "system.rules." index ".alpha") value=object.alpha min="0" max="1" step="0.05"}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="{{fieldIdPrefix}}predicate" class="short">{{localize fields.predicate.label}}</label>
+        <input
+            type="text"
+            name="system.rules.{{index}}.predicate"
+            id="{{fieldIdPrefix}}predicate"
+            value="{{json rule.predicate}}"
+            placeholder="[ ]"
+        />
     </div>
 </div>
 
-<div class="form-group">
-    <label for="{{fieldIdPrefix}}tint" class="short">{{localize fields.tint.label}}</label>
-    <div class="form-fields">
-        <color-picker name="{{concat "system.rules." index ".tint"}}" id="{{concat fieldIdPrefix "tint"}}" value="{{object.tint}}"></color-picker>
+{{! TOKEN RING }}
+<div data-rule-tab="ring">
+    <div class="form-group">
+        <label for="{{fieldIdPrefix}}ring-subject-texture" class="short">{{localize
+                fields.ring.fields.subject.fields.texture.label
+            }}</label>
+        <div class="form-fields">
+            <file-picker
+                id="{{fieldIdPrefix}}ring-subject-texture"
+                name="{{basePath}}.ring.subject.texture"
+                value="{{rule.ring.subject.texture}}"
+                type="image"
+            ></file-picker>
+        </div>
     </div>
-</div>
-
-<div class="form-group scale">
-    <label for="{{fieldIdPrefix}}scale" class="short">
-        {{localize fields.scale.label}} <span class="units">({{localize "Ratio"}})</span>
-    </label>
-    <div class="form-fields">
-        <input type="checkbox" data-action="toggle-scale" {{checked scaleEnabled}} />
-        {{rangePicker name=(concat "system.rules." index ".scale") value=object.scale id=(concat fieldIdPrefix "scale") min="0.2" max="3.0" step="0.1"}}
+    <div class="form-group">
+        <label for="{{fieldIdPrefix}}subject-scale">{{localize fields.ring.fields.subject.fields.scale.label}}</label>
+        <div class="form-fields">
+            {{rangePicker
+                name=(concat "system.rules." index ".ring.subject.scale")
+                value=object.ring.subject.scale
+                min="0.8"
+                max="3"
+                step="0.02"
+            }}
+        </div>
     </div>
-</div>
-
-
-<div class="form-group alpha">
-    <label for="{{fieldIdPrefix}}alpha" class="short">{{localize fields.alpha.label}}</label>
-    <div class="form-fields">
-        <input type="checkbox" data-action="toggle-alpha" {{checked alphaEnabled}} />
-        {{rangePicker name=(concat "system.rules." index ".alpha") value=object.alpha min="0" max="1" step="0.05"}}
+    <div class="form-group">
+        <label for="{{fieldIdPrefix}}colors-background">{{localize
+                fields.ring.fields.colors.fields.background.label
+            }}</label>
+        <div class="form-fields">
+            <color-picker
+                id="{{fieldIdPrefix}}colors-background"
+                name="{{concat 'system.rules.' index '.ring.colors.background'}}"
+                value="{{object.ring.colors.background}}"
+            ></color-picker>
+        </div>
     </div>
-</div>
-
-<div class="form-group">
-    <label for="{{fieldIdPrefix}}predicate" class="short">{{localize fields.predicate.label}}</label>
-    <input type="text" name="system.rules.{{index}}.predicate" id="{{fieldIdPrefix}}predicate" value="{{json rule.predicate}}" placeholder="[ ]" />
+    <div class="form-group">
+        <label for="{{fieldIdPrefix}}colors-ring">{{localize fields.ring.fields.colors.fields.ring.label}}</label>
+        <div class="form-fields">
+            <color-picker
+                name="{{concat 'system.rules.' index '.ring.colors.ring'}}"
+                value="{{object.ring.colors.ring}}"
+            ></color-picker>
+        </div>
+    </div>
 </div>

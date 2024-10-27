@@ -4,10 +4,8 @@
     "items": [
         {
             "_id": "Gn9g3beJBagJaKTN",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.tOhoGvmCMw4JpWcS"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tOhoGvmCMw4JpWcS"
             },
             "img": "icons/weapons/polearms/spear-flared-steel.webp",
             "name": "Spear",
@@ -92,10 +90,8 @@
         },
         {
             "_id": "jM0oK2bl62LhX9M8",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
             },
             "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
             "name": "Leather Armor",
@@ -252,10 +248,8 @@
         },
         {
             "_id": "RT6lf0UIWCyeRrNn",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy 30 feet",
@@ -339,7 +333,16 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "self:condition:deafened"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []

@@ -37,6 +37,38 @@
                     "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ArcaneCamouflage",
                     "value": "arcane-camouflage"
                 }
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:blur",
+                            "item:slug:invisiblity"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:blur",
+                            "item:slug:invisiblity"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:automaton"
             }
         ],
         "traits": {

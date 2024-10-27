@@ -87,10 +87,8 @@
         },
         {
             "_id": "vJxCPyKdG9Aaedkx",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+2 Status to All Saves vs. Magic",
@@ -115,15 +113,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "or": [
-                                    "magical",
-                                    "arcane",
-                                    "divine",
-                                    "primal",
-                                    "occult"
-                                ]
-                            }
+                            "item:magical"
                         ],
                         "selector": "saving-throw",
                         "type": "status",
@@ -258,7 +248,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The roper pulls every creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by its strands toward itself. The roper rolls a single @Check[type:athletics] check and compares the result to each @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] creature's Fortitude DC. The roper pulls each creature it succeeds against up to 25 feet closer and each creature it critically succeeds against up to 50 feet closer.</p>"
+                    "value": "<p>The roper pulls every creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by its strands toward itself. The roper rolls a single @Check[athletics] check and compares the result to each @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] creature's Fortitude DC. The roper pulls each creature it succeeds against up to 25 feet closer and each creature it critically succeeds against up to 50 feet closer.</p>"
                 },
                 "publication": {
                     "license": "OGL",

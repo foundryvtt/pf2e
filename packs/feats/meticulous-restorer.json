@@ -1,0 +1,51 @@
+{
+    "_id": "kw1N7RxV1TYywkuV",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Meticulous Restorer",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Waste not, want not; your steady eye allows you to restore craftwork quickly while conserving valuable material. You gain the Quick Repair feat. In addition, when you roll a critical failure while attempting to Repair an item, you get a failure instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Quick Repair"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "to-failure"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:repair"
+                ],
+                "selector": "crafting"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "yaksha"
+            ]
+        }
+    },
+    "type": "feat"
+}

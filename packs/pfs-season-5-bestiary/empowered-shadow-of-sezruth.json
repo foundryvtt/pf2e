@@ -46,10 +46,8 @@
         },
         {
             "_id": "YpBk5Vs8jI5dJEp6",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door",
@@ -120,10 +118,8 @@
         },
         {
             "_id": "aUIiROaFGajERdiy",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.KSAEhNfZyXMO7Z7V"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.KSAEhNfZyXMO7Z7V"
             },
             "img": "icons/creatures/slimes/slime-face-melting-green.webp",
             "name": "Outcast's Curse",
@@ -192,10 +188,8 @@
         },
         {
             "_id": "tx21vhxchyBGHxOD",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.CQb8HtQ1BPeZmu9h"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.CQb8HtQ1BPeZmu9h"
             },
             "img": "systems/pf2e/icons/spells/touch-of-idiocy.webp",
             "name": "Touch of Idiocy",
@@ -261,10 +255,8 @@
         },
         {
             "_id": "2FXH97gWlmUYljkA",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl"
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
@@ -330,10 +322,8 @@
         },
         {
             "_id": "6S6IDhHyRogz5bB7",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.2oH5IufzdESuYxat"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.2oH5IufzdESuYxat"
             },
             "img": "systems/pf2e/icons/spells/illusory-object.webp",
             "name": "Illusory Object (At Will)",
@@ -449,10 +439,8 @@
         },
         {
             "_id": "dyrhkvCX2H3pZBp9",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.4Ho2xMPEC05aSxzr"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.4Ho2xMPEC05aSxzr"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Greater Darkvision",
@@ -484,10 +472,8 @@
         },
         {
             "_id": "u0EOvM37SL9GUjJu",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy 100 feet",
@@ -522,10 +508,8 @@
         },
         {
             "_id": "zaD6IUn59EF4mqzi",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
@@ -550,15 +534,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "or": [
-                                    "magical",
-                                    "arcane",
-                                    "divine",
-                                    "primal",
-                                    "occult"
-                                ]
-                            }
+                            "item:magical"
                         ],
                         "selector": "saving-throw",
                         "type": "status",
@@ -617,7 +593,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The aghash fixes their gaze on one creature they can see within 20 feet. The creature must attempt a @Check[type:will|dc:21|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d6[mental]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature takes @Damage[4d6[mental]] damage and becomes either @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} or @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (the aghash's choice).</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[8d6[mental]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2}.</p>"
+                    "value": "<p>The aghash fixes their gaze on one creature they can see within 20 feet. The creature must attempt a @Check[will|dc:21|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d6[mental]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature takes @Damage[4d6[mental]] damage and becomes either @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} or @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (the aghash's choice).</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[8d6[mental]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -655,7 +631,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The aghash creates a temporary sandstorm in a @Template[type:emanation|distance:30] that lasts for 1 minute.</p>\n<p>Creatures within the emanation take a -4 circumstance penalty to Perception checks and must succeed at a @Check[type:fortitude|dc:18] save. On a failure, they're forced to hold their breath or else they start suffocating. A creature within the sandstorm at the end of its turn takes @Damage[1d6[slashing]] damage.</p>\n<p>Divs are immune to all effects of an aghash's sandstorm.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Sandstorm]</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The aghash creates a temporary sandstorm in a @Template[emanation|distance:30] that lasts for 1 minute.</p>\n<p>Creatures within the emanation take a -4 circumstance penalty to Perception checks and must succeed at a @Check[fortitude|dc:18] save. On a failure, they're forced to hold their breath or else they start suffocating. A creature within the sandstorm at the end of its turn takes @Damage[1d6[slashing]] damage.</p>\n<p>Divs are immune to all effects of an aghash's sandstorm.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Sandstorm]</p>"
                 },
                 "frequency": {
                     "max": 1,

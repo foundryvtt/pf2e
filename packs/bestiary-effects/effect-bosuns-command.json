@@ -1,0 +1,65 @@
+{
+    "_id": "WfiaKdXNSxC3POcs",
+    "img": "systems/pf2e/icons/spells/agitate.webp",
+    "name": "Effect: Bosun's Command",
+    "system": {
+        "description": {
+            "value": "<p>The creature gains the bosun's choice of a +2 status bonus to attack rolls or a +10 status bonus to its Speeds.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Gamemastery Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.AttackLabel",
+                        "value": {
+                            "modifier": 2,
+                            "selector": "attack"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Actor.Speed.Label",
+                        "value": {
+                            "modifier": 10,
+                            "selector": "land-speed"
+                        }
+                    }
+                ],
+                "flag": "bosunsCommand",
+                "key": "ChoiceSet",
+                "label": "PF2E.SpecificRule.Prompt.Benefit"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.bosunsCommand.selector}",
+                "type": "status",
+                "value": "@item.flags.pf2e.rulesSelections.bosunsCommand.modifer"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

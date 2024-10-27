@@ -1,0 +1,74 @@
+{
+    "_id": "5ij2nnZj4v2dx5N1",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Wayang Weapon Familiarity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You learned to fight with weapons that help you keep your distance or make the most of striking from shadows. You gain access to and familiarity with the @UUID[Compendium.pf2e.equipment-srd.Item.Blowgun], @UUID[Compendium.pf2e.equipment-srd.Item.Fighting Fan], @UUID[Compendium.pf2e.equipment-srd.Item.Kris], @UUID[Compendium.pf2e.equipment-srd.Item.Longspear], @UUID[Compendium.pf2e.equipment-srd.Item.Machete], @UUID[Compendium.pf2e.equipment-srd.Item.Sai], and @UUID[Compendium.pf2e.equipment-srd.Item.Trident]. You have familiarity with these weapons—for the purposes of proficiency, you treat any of these that are martial weapons as simple weapons and any that are advanced weapons as martial weapons.</p>\n<p>At 5th level, whenever you get a critical hit with one of these weapons, you get its critical specialization effect.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:base:fighting-fan",
+                            "item:base:machete",
+                            "item:base:sai",
+                            "item:base:trident"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialWayangWeapons",
+                "sameAs": "simple",
+                "slug": "martial-wayang-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:base:blowgun",
+                            "item:base:fighting-fan",
+                            "item:base:longspear",
+                            "item:base:machete",
+                            "item:base:sai",
+                            "item:base:trident"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "wayang"
+            ]
+        }
+    },
+    "type": "feat"
+}

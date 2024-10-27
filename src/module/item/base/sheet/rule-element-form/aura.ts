@@ -8,8 +8,9 @@ import { RuleElementForm, RuleElementFormSheetData, RuleElementFormTabData } fro
 
 class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
     override template = "systems/pf2e/templates/items/rules/aura.hbs";
+
     protected override tabs: RuleElementFormTabData = {
-        names: ["basic", "effects", "appearance"],
+        names: ["basics", "effects", "appearance"],
         displayStyle: "grid",
     };
 
@@ -133,7 +134,7 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
                 ...e,
                 item: fromUuidSync(e.uuid),
             })),
-            borderColor: border?.color === "user-color" ? userColor : border?.color?.toString() ?? null,
+            borderColor: border?.color === "user-color" ? userColor : (border?.color?.toString() ?? null),
             highlightColor: highlight.color === "user-color" ? userColor : highlight?.color?.toString(),
             saveTypes: CONFIG.PF2E.saves,
             isImageFile: isImageFilePath(this.rule.appearance?.texture?.src),

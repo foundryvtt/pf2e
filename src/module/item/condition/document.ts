@@ -104,7 +104,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     }
 
     /** Include damage type and possibly category for persistent-damage conditions */
-    override getRollOptions(prefix: string, options?: { includeGranter?: boolean }): string[] {
+    override getRollOptions(prefix = this.type, options?: { includeGranter?: boolean }): string[] {
         const rollOptions = super.getRollOptions(prefix, options);
         if (this.system.persistent) {
             const { damageType } = this.system.persistent;
@@ -188,7 +188,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         });
 
         // Append numeric badge value to condition name, set item image according to configured style
-        if (typeof this.badge?.value === "number") {
+        if (this.isEmbedded && typeof this.badge?.value === "number") {
             this.name = `${this.name} ${this.badge.value}`;
         }
         const folder = CONFIG.PF2E.statusEffects.iconDir;

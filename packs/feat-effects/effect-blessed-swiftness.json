@@ -1,0 +1,58 @@
+{
+    "_id": "bqbliPkslR5hkAcB",
+    "img": "icons/magic/movement/trail-streak-zigzag-teal.webp",
+    "name": "Effect: Blessed Swiftness",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Blessed Swiftness]</p>\n<p>You gain a +2 status bonus to all defenses against reactions triggered by your movement.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Champion.BlessedSwiftness.RollOptionLabel",
+                "option": "blessed-swiftness",
+                "toggleable": true
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "blessed-swiftness"
+                ],
+                "selector": [
+                    "ac",
+                    "fortitude",
+                    "reflex",
+                    "will"
+                ],
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

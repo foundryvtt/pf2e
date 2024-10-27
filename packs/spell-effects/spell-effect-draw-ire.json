@@ -1,0 +1,63 @@
+{
+    "_id": "0WYy3bY7HJ7TDSYD",
+    "img": "icons/skills/targeting/target-glowing-yellow.webp",
+    "name": "Spell Effect: Draw Ire",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Draw Ire]</p>\n<p>The target takes a -1 status penalty to attack rolls against creatures other than you. On a critical failure the penalty is -2.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "-1"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "-2"
+                    }
+                ],
+                "flag": "degreeOfSuccess",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "target:signature:{item|origin.signature}"
+                    }
+                ],
+                "selector": "attack",
+                "type": "status",
+                "value": "@item.flags.pf2e.rulesSelections.degreeOfSuccess"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -18,6 +18,7 @@ import { ITEM_ALTERATION_VALIDATORS } from "./schemas.ts";
 class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlterationSchema> {
     static VALID_PROPERTIES = [
         "ac-bonus",
+        "area-size",
         "badge-max",
         "badge-value",
         "bulk",
@@ -101,6 +102,18 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 this.#adjustCreatureShieldData(item);
                 return;
             }
+            case "area-size": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (!validator.isValid(data) || !data.item.system.area) return;
+                const newValue = AELikeRuleElement.getNewValue(
+                    this.mode,
+                    data.item.system.area.value,
+                    data.alteration.value,
+                );
+                const nearestFive = Math.floor(newValue / 5) * 5;
+                data.item.system.area.value = Math.max(nearestFive, 5);
+                return;
+            }
             case "badge-max": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (!validator.isValid(data)) return;
@@ -123,11 +136,11 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 const effect = data.item;
                 const badge = itemIsOfType(effect, "condition")
                     ? effect.system.value
-                    : effect.system.badge ?? { value: 0 };
+                    : (effect.system.badge ?? { value: 0 });
                 if (typeof badge.value !== "number") return;
                 const newValue = AELikeRuleElement.getNewValue(this.mode, badge.value, data.alteration.value);
-                const max = "max" in badge ? badge.max ?? Infinity : Infinity;
-                const min = "min" in badge ? badge.min ?? 0 : 0;
+                const max = "max" in badge ? (badge.max ?? Infinity) : Infinity;
+                const min = "min" in badge ? (badge.min ?? 0) : 0;
                 badge.value = Math.clamp(newValue, min, max) || 0;
                 return;
             }
@@ -371,7 +384,8 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 if (this.mode === "add") {
                     if (!traits.includes(newValue)) traits.push(newValue);
                 } else if (["subtract", "remove"].includes(this.mode)) {
-                    traits.splice(traits.indexOf(newValue), 1);
+                    const index = traits.indexOf(newValue);
+                    if (index >= 0) traits.splice(index, 1);
                 }
                 return;
             }

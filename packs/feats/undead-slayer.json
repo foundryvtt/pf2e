@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>Your knowledge of your own not-quite-living anatomy, combined with your experience in combat, helps you take down undead foes with ease. Against undead creatures, you gain a circumstance bonus to damage with weapons and unarmed attacks equal to the number of weapon damage dice for the Strike. This bonus increases to double the number of weapon damage dice if your target has the vampire trait.</p>"
+            "value": "<p>Your knowledge of your own not-quite-living anatomy, combined with your experience in combat, helps you take down undead foes with ease. Against undead creatures, you gain a circumstance bonus to damage with weapon and unarmed Strikes equal to the number of weapon damage dice for the Strike. This bonus increases to double the number of weapon damage dice if your target has the vampire trait.</p>"
         },
         "level": {
             "value": 5
@@ -20,18 +20,15 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "target:mode:undead",
-                    {
-                        "not": "target:trait:vampire"
-                    }
+                    "target:mode:undead"
                 ],
                 "selector": "strike-damage",
                 "slug": "undead-slayer",
@@ -39,14 +36,14 @@
                 "value": "@weapon.system.damage.dice"
             },
             {
-                "key": "FlatModifier",
+                "key": "AdjustModifier",
+                "mode": "multiply",
                 "predicate": [
                     "target:trait:vampire"
                 ],
                 "selector": "strike-damage",
-                "slug": "undead-slayer-vampire",
-                "type": "circumstance",
-                "value": "@weapon.system.damage.dice*2"
+                "slug": "undead-slayer",
+                "value": "2"
             },
             {
                 "domain": "all",

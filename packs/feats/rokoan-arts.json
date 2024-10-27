@@ -24,7 +24,40 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Ancestry Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:status",
+                            "item:slug:speak-with-animals"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:status",
+                            "item:slug:speak-with-animals"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:strix"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

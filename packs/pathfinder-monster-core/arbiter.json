@@ -46,12 +46,10 @@
         },
         {
             "_id": "syyUh0WOgLKpCRdF",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.pkcOby5prOausy1k"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.pkcOby5prOausy1k"
             },
-            "img": "systems/pf2e/icons/spells/read-omens.webp",
+            "img": "icons/sundries/gaming/playing-cards-black.webp",
             "name": "Read Omens",
             "sort": 200000,
             "system": {
@@ -110,10 +108,8 @@
         },
         {
             "_id": "1AVEDCYseyeJLtb8",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.aIHY2DArKFweIrpf"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.aIHY2DArKFweIrpf"
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command",
@@ -192,10 +188,8 @@
         },
         {
             "_id": "43d95EaoCTpuIvKz",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.dINQzhqGmIsqGMUY"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.dINQzhqGmIsqGMUY"
             },
             "img": "systems/pf2e/icons/spells/mending.webp",
             "name": "Mending",
@@ -276,10 +270,8 @@
         },
         {
             "_id": "41WwdI9v5RAhSNrc",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.8xRzLhwGL7Dgy3EZ"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.8xRzLhwGL7Dgy3EZ"
             },
             "img": "systems/pf2e/icons/spells/sanctuary.webp",
             "name": "Sanctuary",
@@ -339,10 +331,8 @@
         },
         {
             "_id": "YZLDodDoRJekqsfb",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.7tKkkF8eZ4iCLJtp"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.7tKkkF8eZ4iCLJtp"
             },
             "img": "icons/weapons/swords/sword-guard-purple.webp",
             "name": "Shortsword",
@@ -511,10 +501,8 @@
         },
         {
             "_id": "kayBhD4IXys5Ppt8",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
@@ -539,15 +527,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "or": [
-                                    "magical",
-                                    "arcane",
-                                    "divine",
-                                    "primal",
-                                    "occult"
-                                ]
-                            }
+                            "item:magical"
                         ],
                         "selector": "saving-throw",
                         "type": "status",
@@ -576,7 +556,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The arbiter releases an electrical burst from its body that deals @Damage[3d6[electricity]] damage to all creatures in a @Template[type:emanation|distance:10], with a @Check[type:reflex|dc:17|basic:true] save. The arbiter is then @UUID[Compendium.pf2e.conditionitems.Item.Stunned] for 24 hours.</p>"
+                    "value": "<p>The arbiter releases an electrical burst from its body that deals @Damage[3d6[electricity]] damage to all creatures in a @Template[emanation|distance:10], with a @Check[reflex|dc:17|basic] save. The arbiter is then @UUID[Compendium.pf2e.conditionitems.Item.Stunned] for 24 hours.</p>"
                 },
                 "publication": {
                     "license": "ORC",

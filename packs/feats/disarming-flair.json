@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>It's harder for your foes to regain their grip when you knock their weapon partially out of their hands.</p>\n<p>When you succeed at an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm], the circumstance bonus and penalty from Disarm last until the end of your next turn, instead of until the beginning of the target's next turn. The target can use an Interact action to adjust their grip and remove this effect.</p>\n<p>If your swashbuckler's style is gymnast and you succeed at your Athletics check to Disarm a foe, you gain @UUID[Compendium.pf2e.feat-effects.Item.Effect: Panache]{Panache}.</p>"
+            "value": "<p>You knock weapons from the hands of your foes with style. When you @UUID[Compendium.pf2e.actionspf2e.Item.Disarm], the action gains the bravado trait.</p>"
         },
         "level": {
             "value": 1
@@ -20,11 +20,19 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "item:trait:bravado",
+                "predicate": [
+                    "action:disarm"
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

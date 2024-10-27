@@ -1,0 +1,330 @@
+{
+    "_id": "6lMKIvO6McMW0FBJ",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Morphic Strike",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You can lash out with a portion of your previous self. You gain a melee unarmed Strike depending on your heritage, described below. You can use this unarmed Strike in either your humanoid form or your yaoguai form. These Strikes are in the brawling group. Like other unarmed attacks, you can improve this attack with handwraps of mighty blows.</p><ul><li><strong>Animal</strong> <span class=\"action-glyph\">1</span> claw (agile, finesse), Damage 1d6 slashing</li><li><strong>Celestial</strong> <span class=\"action-glyph\">1</span> spirit touch (magical, sanctified, spirit), Damage 1d4 spirit</li><li><strong>Elements</strong> <span class=\"action-glyph\">1</span> elemental current (magical), Damage 1d4; this ability deals the same damage type and gains the same elemental traits of the cantrip you gained from your heritage</li><li><strong>Object</strong> <span class=\"action-glyph\">1</span> striking surface (sweep), Damage 1d8 bludgeoning or slashing (chosen when you gain this feat)</li><li><strong>Vegetation</strong> <span class=\"action-glyph\">1</span> root (reach), Damage 1d6 bludgeoning</li></ul>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/claw.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Claw",
+                "predicate": [
+                    "self:heritage:born-of-animal"
+                ],
+                "slug": "claw",
+                "traits": [
+                    "unarmed",
+                    "agile",
+                    "finesse"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "spirit",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/fist.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.SpiritTouch",
+                "predicate": [
+                    "self:heritage:born-of-celestial"
+                ],
+                "slug": "spirit-touch",
+                "traits": [
+                    "unarmed",
+                    "magical",
+                    "sanctified",
+                    "spirit"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "electricity",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/fist.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.ElementalCurrent",
+                "predicate": [
+                    "born-of-elements:electric-arc"
+                ],
+                "slug": "elemental-current",
+                "traits": [
+                    "unarmed",
+                    "magical",
+                    "electricity"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "cold",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/fist.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.ElementalCurrent",
+                "predicate": [
+                    "born-of-elements:frostbite"
+                ],
+                "slug": "elemental-current",
+                "traits": [
+                    "unarmed",
+                    "magical",
+                    "cold"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "fire",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/fist.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.ElementalCurrent",
+                "predicate": [
+                    "born-of-elements:ignition"
+                ],
+                "slug": "elemental-current",
+                "traits": [
+                    "unarmed",
+                    "magical",
+                    "fire"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/fist.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.ElementalCurrent",
+                "predicate": [
+                    "born-of-elements:needle-darts"
+                ],
+                "slug": "elemental-current",
+                "traits": [
+                    "unarmed",
+                    "magical",
+                    "metal"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/fist.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.ElementalCurrent",
+                "predicate": [
+                    "born-of-elements:timber"
+                ],
+                "slug": "elemental-current",
+                "traits": [
+                    "unarmed",
+                    "magical",
+                    "wood"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/fist.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.ElementalCurrent",
+                "predicate": [
+                    "born-of-elements:scatter-scree"
+                ],
+                "slug": "elemental-current",
+                "traits": [
+                    "unarmed",
+                    "magical",
+                    "earth"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/fist.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.ElementalCurrent",
+                "predicate": [
+                    "born-of-elements:slashing-gust"
+                ],
+                "slug": "elemental-current",
+                "traits": [
+                    "unarmed",
+                    "magical",
+                    "air"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/fist.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.ElementalCurrent",
+                "predicate": [
+                    "born-of-elements:spout"
+                ],
+                "slug": "elemental-current",
+                "traits": [
+                    "unarmed",
+                    "magical",
+                    "water"
+                ]
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitBludgeoning",
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitSlashing",
+                        "value": "slashing"
+                    }
+                ],
+                "flag": "objectDamageType",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "self:heritage:born-of-item"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "{item|flags.pf2e.rulesSelections.objectDamageType}",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/fist.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.StrikingSurface",
+                "predicate": [
+                    "self:heritage:born-of-item"
+                ],
+                "slug": "striking-surface",
+                "traits": [
+                    "unarmed",
+                    "sweep"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/fist.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Root",
+                "predicate": [
+                    "self:heritage:born-of-vegetation"
+                ],
+                "slug": "root",
+                "traits": [
+                    "unarmed",
+                    "reach"
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "yaoguai"
+            ]
+        }
+    },
+    "type": "feat"
+}

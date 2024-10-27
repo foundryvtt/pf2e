@@ -248,35 +248,35 @@ function getKingdomCHGData(): KingdomCHGData {
             conquest: {
                 name: localize("Charter.conquest.Name"),
                 description: localize("Charter.conquest.Description"),
-                img: "/icons/weapons/swords/sword-guard-steel-green.webp",
+                img: "icons/weapons/swords/sword-guard-steel-green.webp",
                 boosts: ["loyalty", "free"],
                 flaw: "culture",
             },
             expansion: {
                 name: localize("Charter.expansion.Name"),
                 description: localize("Charter.expansion.Description"),
-                img: "/icons/skills/trades/woodcutting-logging-axe-stump.webp",
+                img: "icons/skills/trades/woodcutting-logging-axe-stump.webp",
                 boosts: ["culture", "free"],
                 flaw: "stability",
             },
             exploration: {
                 name: localize("Charter.exploration.Name"),
                 description: localize("Charter.exploration.Description"),
-                img: "/icons/tools/navigation/map-chart-tan.webp",
+                img: "icons/tools/navigation/map-chart-tan.webp",
                 boosts: ["stability", "free"],
                 flaw: "economy",
             },
             grant: {
                 name: localize("Charter.grant.Name"),
                 description: localize("Charter.grant.Description"),
-                img: "/icons/skills/trades/academics-merchant-scribe.webp",
+                img: "icons/skills/trades/academics-merchant-scribe.webp",
                 boosts: ["economy", "free"],
                 flaw: "loyalty",
             },
             open: {
                 name: localize("Charter.open.Name"),
                 description: localize("Charter.open.Description"),
-                img: "/icons/sundries/documents/document-sealed-brown-red.webp",
+                img: "icons/sundries/documents/document-sealed-brown-red.webp",
                 boosts: ["free"],
                 flaw: null,
             },
@@ -285,25 +285,25 @@ function getKingdomCHGData(): KingdomCHGData {
             forestOrSwamp: {
                 name: localize("Heartland.forestOrSwamp.Name"),
                 description: localize("Heartland.forestOrSwamp.Description"),
-                img: "/icons/environment/wilderness/tree-oak.webp",
+                img: "icons/environment/wilderness/tree-oak.webp",
                 boosts: ["culture"],
             },
             hillOrPlain: {
                 name: localize("Heartland.hillOrPlain.Name"),
                 description: localize("Heartland.hillOrPlain.Description"),
-                img: "/icons/environment/creatures/horses.webp",
+                img: "icons/environment/creatures/horses.webp",
                 boosts: ["loyalty"],
             },
             lakeOrRiver: {
                 name: localize("Heartland.lakeOrRiver.Name"),
                 description: localize("Heartland.lakeOrRiver.Description"),
-                img: "/icons/environment/settlement/bridge-stone.webp",
+                img: "icons/environment/settlement/bridge-stone.webp",
                 boosts: ["economy"],
             },
             mountainOrRuins: {
                 name: localize("Heartland.mountainOrRuins.Name"),
                 description: localize("Heartland.mountainOrRuins.Description"),
-                img: "/icons/environment/wilderness/cave-entrance-mountain.webp",
+                img: "icons/environment/wilderness/cave-entrance-mountain.webp",
                 boosts: ["stability"],
             },
         },
@@ -311,7 +311,7 @@ function getKingdomCHGData(): KingdomCHGData {
             despotism: {
                 name: localize("Government.despotism.Name"),
                 description: localize("Government.despotism.Description"),
-                img: "/icons/environment/settlement/pyramid.webp",
+                img: "icons/environment/settlement/pyramid.webp",
                 boosts: ["stability", "economy", "free"],
                 skills: ["intrigue", "warfare"],
                 feat: "Compendium.pf2e.kingmaker-features.Item.WGpkcIChjIk1i0q0", // Crush Dissent
@@ -319,7 +319,7 @@ function getKingdomCHGData(): KingdomCHGData {
             feudalism: {
                 name: localize("Government.feudalism.Name"),
                 description: localize("Government.feudalism.Description"),
-                img: "/icons/environment/settlement/watchtower-cliff.webp",
+                img: "icons/environment/settlement/watchtower-cliff.webp",
                 boosts: ["stability", "culture", "free"],
                 skills: ["defense", "trade"],
                 feat: "Compendium.pf2e.kingmaker-features.Item.JYY8vQxPe9AIGTvv", // Fortified Fiefs
@@ -327,7 +327,7 @@ function getKingdomCHGData(): KingdomCHGData {
             oligarchy: {
                 name: localize("Government.oligarchy.Name"),
                 description: localize("Government.oligarchy.Description"),
-                img: "/icons/environment/settlement/house-manor.webp",
+                img: "icons/environment/settlement/house-manor.webp",
                 boosts: ["loyalty", "economy", "free"],
                 skills: ["arts", "industry"],
                 feat: "Compendium.pf2e.kingmaker-features.Item.9dkyZ7r1z7loOxI7", // Insider Trading
@@ -335,7 +335,7 @@ function getKingdomCHGData(): KingdomCHGData {
             republic: {
                 name: localize("Government.republic.Name"),
                 description: localize("Government.republic.Description"),
-                img: "/icons/environment/settlement/gazebo.webp",
+                img: "icons/environment/settlement/gazebo.webp",
                 boosts: ["stability", "economy", "free"],
                 skills: ["engineering", "politics"],
                 feat: "Compendium.pf2e.kingmaker-features.Item.BChcBEZpcqMnLISC", // Pull Together
@@ -343,7 +343,7 @@ function getKingdomCHGData(): KingdomCHGData {
             thaumocracy: {
                 name: localize("Government.thaumocracy.Name"),
                 description: localize("Government.thaumocracy.Description"),
-                img: "/icons/environment/settlement/wizard-castle.webp",
+                img: "icons/environment/settlement/wizard-castle.webp",
                 boosts: ["economy", "culture", "free"],
                 skills: ["folklore", "magic"],
                 feat: "Compendium.pf2e.kingmaker-features.Item.nDDEbrWj2JouxlRw", // Practical Magic,
@@ -351,7 +351,7 @@ function getKingdomCHGData(): KingdomCHGData {
             yeomanry: {
                 name: localize("Government.yeomanry.Name"),
                 description: localize("Government.yeomanry.Description"),
-                img: "/icons/environment/settlement/house-farmland-small.webp",
+                img: "icons/environment/settlement/house-farmland-small.webp",
                 boosts: ["loyalty", "culture", "free"],
                 skills: ["agriculture", "wilderness"],
                 feat: "Compendium.pf2e.kingmaker-features.Item.WFng3pxgEAdpdy1p", // Muddle Through

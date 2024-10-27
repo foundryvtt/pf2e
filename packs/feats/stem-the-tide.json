@@ -1,0 +1,60 @@
+{
+    "_id": "aW6Fg2Nowl4oB3qP",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Stem the Tide",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You can cast @UUID[Compendium.pf2e.spells-srd.Item.Protector Tree] as a 1st-rank primal innate spell once per day. At 7th level, the spell is heightened to 2nd rank, and every 2 levels thereafter, the spell is heightened an additional spell rank.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:protector-tree",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:protector-tree",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:yaksha"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "primal",
+                "yaksha"
+            ]
+        }
+    },
+    "type": "feat"
+}

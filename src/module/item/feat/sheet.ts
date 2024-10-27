@@ -84,8 +84,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
 
     #getLanguageOptions(): LanguageOptions {
         const subfeatures = this.item.system.subfeatures;
-        const languages = R.keys
-            .strict(CONFIG.PF2E.languages)
+        const languages = R.keys(CONFIG.PF2E.languages)
             .map((slug) => ({ slug, label: game.i18n.localize(CONFIG.PF2E.languages[slug]) }))
             .sort((a, b) => a.label.localeCompare(b.label));
 
@@ -121,8 +120,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             },
             saves: {
                 group: localize("Proficiency.SavingThrow.Title"),
-                options: R.toPairs
-                    .strict(CONFIG.PF2E.saves)
+                options: R.entries(CONFIG.PF2E.saves)
                     .map(([slug, label]) => ({
                         slug,
                         label: game.i18n.localize(label),
@@ -132,8 +130,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             },
             attacks: {
                 group: localize("Proficiency.Attack.Title"),
-                options: R.toPairs
-                    .strict(CONFIG.PF2E.weaponCategories)
+                options: R.entries(CONFIG.PF2E.weaponCategories)
                     .map(([slug, categoryLabel]) => {
                         const label = tupleHasValue(WEAPON_CATEGORIES, slug)
                             ? localize(`Proficiency.Attack.${sluggify(slug, { camel: "bactrian" })}`)
@@ -148,8 +145,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             },
             defenses: {
                 group: localize("Proficiency.Defense.Title"),
-                options: R.toPairs
-                    .strict(CONFIG.PF2E.armorCategories)
+                options: R.entries(CONFIG.PF2E.armorCategories)
                     .map(([slug, categoryLabel]) => {
                         const label = tupleHasValue(ARMOR_CATEGORIES, slug)
                             ? localize(`Proficiency.Defense.${sluggify(slug, { camel: "bactrian" })}`)
@@ -164,8 +160,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             },
             classes: {
                 group: localize("ClassDC.Plural"),
-                options: R.toPairs
-                    .strict(CONFIG.PF2E.classTraits)
+                options: R.entries(CONFIG.PF2E.classTraits)
                     .map(([slug, label]) => ({
                         slug,
                         label: game.i18n.localize(label),
@@ -180,7 +175,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
     #getSenseOptions(): SenseOption[] {
         const feat = this.item;
         const selections = feat.system.subfeatures.senses;
-        const senses = R.keys.strict(CONFIG.PF2E.senses);
+        const senses = R.keys(CONFIG.PF2E.senses);
         const sensesWithUnlimitedRange: readonly string[] = SENSES_WITH_UNLIMITED_RANGE;
         return senses
             .map((slug) => {
@@ -189,8 +184,8 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
                     slug,
                     label: game.i18n.localize(CONFIG.PF2E.senses[slug]),
                     acuity: SENSES_WITH_MANDATORY_ACUITIES[slug] ?? selection?.acuity ?? "precise",
-                    range: sensesWithUnlimitedRange.includes(slug) ? null : selection?.range ?? null,
-                    special: slug === "darkvision" ? selection?.special ?? null : null,
+                    range: sensesWithUnlimitedRange.includes(slug) ? null : (selection?.range ?? null),
+                    special: slug === "darkvision" ? (selection?.special ?? null) : null,
                     canSetAcuity: !(slug in SENSES_WITH_MANDATORY_ACUITIES),
                     canSetRange: !sensesWithUnlimitedRange.includes(slug),
                     selected: !!selection,

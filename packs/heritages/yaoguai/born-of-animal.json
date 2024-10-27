@@ -1,0 +1,63 @@
+{
+    "_id": "buGlGWcCrdNxfCr4",
+    "folder": "u780Frvqdoqf5oLE",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Born of Animal",
+    "system": {
+        "ancestry": {
+            "name": "Yaoguai",
+            "slug": "yaoguai",
+            "uuid": "Compendium.pf2e.ancestries.Item.dnk0Rf7AUmyR5b8z"
+        },
+        "description": {
+            "value": "<p>You were a simple animal until the sun enlightened you.</p><ul><li><strong>Humanoid Form</strong> Animals can sense the power of your presence. You gain a +1 circumstance bonus to Intimidation checks against animals and beasts and don't take a penalty for attempting to Intimidate animals or beasts you don't share a language with.</li><li><strong>Yaoguai Form</strong> You can dash like an animal. If you have both hands free, you can increase your Speed to 30 feet as you run on all fours.</li></ul>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "change-shape:humanoid",
+                    {
+                        "or": [
+                            "target:trait:animal",
+                            "target:trait:beast"
+                        ]
+                    }
+                ],
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Automaton.HunterAutomaton.ToggleLabel",
+                "option": "on-all-fours",
+                "predicate": [
+                    "change-shape:yaoguai"
+                ],
+                "priority": 70,
+                "toggleable": true
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "on-all-fours"
+                ],
+                "selector": "land",
+                "value": 30
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "yaoguai"
+            ]
+        }
+    },
+    "type": "heritage"
+}

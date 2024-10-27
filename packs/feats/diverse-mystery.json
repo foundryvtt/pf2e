@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You have broadened your understanding of the divine and can tap into the wonders of a different mystery. Select one revelation spell from a mystery other than your own. You can choose only an initial revelation spell or an advanced revelation spell.</p>\n<p>When you cast this revelation spell, you gain the effects of the minor curse from that mystery in addition to the normal curse effects you gain from casting a revelation spell. This additional minor curse effect remains until your next daily preparations. Any ability that lets you cast a revelation spell without increasing the severity of your curse also prevents you from gaining this additional curse effect.</p>\n<p>You can't cast your chosen revelation spell if any of the following conditions are true: its mystery's curse effects directly conflict with or negate the effects of your own mystery's curse, the curse would have no effect on you (for example, removing an ability from your original mystery that you lack), or either of these criteria would be met once you finish Casting the Spell.</p>"
+            "value": "<p>You have broadened your understanding of the divine and can tap into the wonders of a different mystery. Select one revelation spell from a mystery other than your own. You can choose only an initial revelation spell or an advanced revelation spell.</p>\n<p>This spell gains the cursebound trait for you, and when you cast it, you gain the @UUID[Compendium.pf2e.conditionitems.Item.Cursebound]{Cursebound 1} effects of its mystery in addition to your normal curse effects. Any ability that lets you use a cursebound ability without increasing the severity of your curse also prevents you from gaining this additional curse effect.</p>\n<p>You can't cast your chosen revelation spell if any of the following conditions are true:</p><ul><li><p>its mystery's curse effects directly conflict with or negate the effects of your own mystery's curse,</p></li><li><p>the curse would have no effect on you (for example, removing an ability from your original mystery that you lack),</p></li><li><p>or if either of these criteria would be met once you finish Casting the Spell</p></li></ul>"
         },
         "level": {
             "value": 16
@@ -24,11 +24,234 @@
             ]
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:trait:focus",
+                        "item:trait:oracle",
+                        "item:level:1"
+                    ],
+                    "itemType": "spell",
+                    "slugsAsValues": true
+                },
+                "flag": "diverseMystery",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Spell",
+                "rollOption": "diverse-mystery"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Oracle.DiverseMystery.Toggle",
+                "option": "used-diverse-mystery",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.diverseMystery}"
+                ],
+                "property": "traits",
+                "value": "cursebound"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.diverseMystery}"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "self:condition:cursebound"
+                                    },
+                                    "self:condition:cursebound:1",
+                                    {
+                                        "and": [
+                                            "self:condition:cursebound:2",
+                                            "feature:major-curse"
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "self:condition:cursebound:3",
+                                            "feature:extreme-curse"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "text": "PF2E.SpecificRule.Oracle.Cursebound.IncreaseNote"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "and": [
+                                            "self:condition:cursebound:2",
+                                            {
+                                                "not": "feature:major-curse"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "self:condition:cursebound:3",
+                                            {
+                                                "not": "feature:extreme-curse"
+                                            }
+                                        ]
+                                    },
+                                    "self:condition:cursebound:4"
+                                ]
+                            }
+                        ],
+                        "text": "PF2E.SpecificRule.Oracle.Cursebound.MaximumNote"
+                    }
+                ]
+            },
+            {
+                "allowDuplicate": false,
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "predicate": [
+                    "diverse-mystery:ancestral-touch",
+                    "used-diverse-mystery",
+                    "self:condition:cursebound"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "diverse-mystery:weapon-trance",
+                    "used-diverse-mystery",
+                    "self:condition:cursebound"
+                ],
+                "type": "spells",
+                "value": 2
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "diverse-mystery:soul-siphon",
+                    "used-diverse-mystery",
+                    "self:condition:cursebound"
+                ],
+                "type": [
+                    "vitality",
+                    "void"
+                ],
+                "value": 2
+            },
+            {
+                "allowDuplicate": false,
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "predicate": [
+                    "diverse-mystery:spray-of-stars",
+                    "used-diverse-mystery",
+                    "self:condition:cursebound"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "diverse-mystery:spray-of-stars",
+                    "used-diverse-mystery",
+                    "self:condition:cursebound",
+                    "forced-movement"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "allowDuplicate": false,
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "persistent-damage",
+                        "value": {
+                            "damageType": "fire",
+                            "formula": "1"
+                        }
+                    }
+                ],
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "predicate": [
+                    "diverse-mystery:incendiary-aura",
+                    "used-diverse-mystery",
+                    "self:condition:cursebound"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.conditionitems.Item.Persistent Damage"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:condition:cursebound",
+                    "item:magical",
+                    "diverse-mystery:life-link",
+                    "used-diverse-mystery"
+                ],
+                "selector": "healing-received",
+                "type": "status",
+                "value": "-@actor.level"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:condition:cursebound",
+                    "diverse-mystery:brain-drain",
+                    "used-diverse-mystery"
+                ],
+                "selector": [
+                    "perception",
+                    "will"
+                ],
+                "type": "status",
+                "value": -1
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "self:condition:cursebound",
+                    "diverse-mystery:tempest-touch",
+                    "used-diverse-mystery"
+                ],
+                "type": "electricity",
+                "value": 2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

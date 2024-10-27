@@ -109,15 +109,9 @@ type ActorSchema<
     /** An object which configures ownership of this Actor */
     ownership: fields.DocumentOwnershipField;
     /** An object of optional key/value flags */
-    flags: fields.ObjectField<ActorFlags>;
+    flags: fields.ObjectField<DocumentFlags>;
     /** An object of creation and access information. */
-    _stats: fields.DocumentStatsField;
-};
-
-export type ActorFlags = DocumentFlags & {
-    core?: {
-        sourceId?: ActorUUID;
-    };
+    _stats: fields.DocumentStatsField<ActorUUID>;
 };
 
 export type ActorSource<

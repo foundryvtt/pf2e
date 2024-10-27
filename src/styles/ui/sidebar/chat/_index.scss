@@ -3,6 +3,69 @@
 .chat-message {
     @import "action", "check", "damage", "reroll";
 
+    .message-header.with-image {
+        display: grid;
+        grid-template:
+            "img name details" 1.375rem
+            "img user details" 1.125rem
+            "gap gap gap" var(--space-4)
+            "whisper whisper whisper" min-content
+            "flavor flavor flavor" 1fr
+            / 2.75rem 1fr min-content;
+
+        justify-content: stretch;
+        width: 100%;
+
+        .portrait {
+            grid-area: img;
+            padding: 0.125rem 0.125rem 0.125rem 0;
+            img {
+                border: none;
+                height: 2.25rem;
+                object-fit: contain;
+                width: 2.25rem;
+            }
+
+            &.actor-image {
+                img {
+                    object-fit: cover;
+                    object-position: top;
+                }
+            }
+        }
+
+        h4.message-sender {
+            grid-area: name;
+            color: var(--color-text-dark-primary);
+            line-height: 1;
+            font-size: var(--font-size-15);
+            font-weight: 500;
+            margin-top: auto;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user {
+            grid-area: user;
+            font-size: var(--font-size-12);
+            line-height: 1;
+            padding-top: var(--space-2);
+        }
+
+        .message-metadata {
+            grid-area: details;
+            white-space: nowrap;
+        }
+
+        .whisper-to {
+            grid-area: whisper;
+        }
+
+        .flavor-text {
+            grid-area: flavor;
+        }
+    }
+
     .message-header .flavor-text {
         .modifiers .tag[data-visibility="gm"] {
             background: var(--visibility-gm-bg);

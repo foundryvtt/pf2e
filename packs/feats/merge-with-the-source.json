@@ -28,7 +28,68 @@
             "remaster": true,
             "title": "Pathfinder Howl of the Wild"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": {
+                    "filter": [
+                        {
+                            "or": [
+                                {
+                                    "and": [
+                                        "centaur-speaker:faithspeaker",
+                                        {
+                                            "or": [
+                                                "item:slug:angel-form",
+                                                "item:slug:daemon-form",
+                                                "item:slug:demon-form",
+                                                "item:slug:devil-form"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "centaur-speaker:greenspeaker",
+                                        {
+                                            "or": [
+                                                "item:slug:elemental-form",
+                                                "item:slug:plant-form"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "itemType": "spell",
+                    "slugsAsValues": true
+                },
+                "flag": "spell",
+                "key": "ChoiceSet"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.spell}",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.spell}",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:centaur"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

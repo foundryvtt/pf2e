@@ -1,9 +1,11 @@
+@use "sass:color";
+
 &.character {
     gap: 1rem;
 
     select {
         background-color: var(--color-pf-alternate);
-        border: 1px solid darken($alt-color, 8);
+        border: 1px solid color.adjust($alt-color, $lightness: -8%);
         width: calc(100% - var(--space-6));
 
         &:disabled {

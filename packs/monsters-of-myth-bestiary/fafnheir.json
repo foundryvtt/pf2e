@@ -45,10 +45,8 @@
         },
         {
             "_id": "YyHjRdg5DUMcWFlE",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.5bTt2CvYHPvaR7QQ"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.5bTt2CvYHPvaR7QQ"
             },
             "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
             "name": "Plane Shift (At Will, Only to the First World or the Material Plane)",
@@ -111,10 +109,8 @@
         },
         {
             "_id": "96UMa0bxtKEr7yJP",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.OOELvfkTedBMlWtq"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.OOELvfkTedBMlWtq"
             },
             "img": "icons/magic/defensive/shield-barrier-deflect-gold.webp",
             "name": "Spell Turning (At Will)",
@@ -173,10 +169,8 @@
         },
         {
             "_id": "xsVGjzas0RnzcAvb",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.uqlxMQQeSGWEVjki"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.uqlxMQQeSGWEVjki"
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing (Constant)",
@@ -239,12 +233,10 @@
         },
         {
             "_id": "T6Z0YF27bUTxz0nA",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.aqRYNoSvxsVfqglH"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.aqRYNoSvxsVfqglH"
             },
-            "img": "systems/pf2e/icons/spells/freedom-of-movement.webp",
+            "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Freedom of Movement (Constant)",
             "sort": 500000,
             "system": {
@@ -490,10 +482,8 @@
         },
         {
             "_id": "1MLwFNFYnkOt5XmV",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
@@ -525,10 +515,8 @@
         },
         {
             "_id": "iMrEydMjdLAZcsJ1",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
@@ -553,15 +541,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "or": [
-                                    "magical",
-                                    "arcane",
-                                    "divine",
-                                    "primal",
-                                    "occult"
-                                ]
-                            }
+                            "item:magical"
                         ],
                         "selector": "saving-throw",
                         "type": "status",
@@ -578,10 +558,8 @@
         },
         {
             "_id": "AIDwG2gAh47TAZLN",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Regeneration 20 (Deactivated by Cold Iron)",
@@ -653,10 +631,8 @@
         },
         {
             "_id": "mY6LsNRUmIovhhik",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity (Tail Only)",
@@ -700,7 +676,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>When a creature slays Fafnheir, it becomes home to his soul, which slowly emerges from his killer's body. The creature must attempt a @Check[type:will|dc:52] save or become @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 2} (@UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} on a success, unaffected on a critical success). Unless the creature critically succeeded at the saving throw, each day the doomed value increases by 1. If the creature dies while suffering the curse of the woeful wyrd, its corpse explodes in a @Template[type:burst|distance:60] with the effect of Blasting Breath. Fafnheir is immediately returned to life in the nearest available space to the corpse with full Hit Points and no conditions. Even an indirect slaying usually still allows Fafnheir to curse the soul of his slayer through the metaphysical link between them.</p>"
+                    "value": "<p>When a creature slays Fafnheir, it becomes home to his soul, which slowly emerges from his killer's body. The creature must attempt a @Check[will|dc:52] save or become @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 2} (@UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} on a success, unaffected on a critical success). Unless the creature critically succeeded at the saving throw, each day the doomed value increases by 1. If the creature dies while suffering the curse of the woeful wyrd, its corpse explodes in a @Template[burst|distance:60] with the effect of Blasting Breath. Fafnheir is immediately returned to life in the nearest available space to the corpse with full Hit Points and no conditions. Even an indirect slaying usually still allows Fafnheir to curse the soul of his slayer through the metaphysical link between them.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -781,10 +757,8 @@
         },
         {
             "_id": "DC4cAo45NhAQcRI0",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
@@ -798,7 +772,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>90 feet. @Check[type:will|dc:45]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>90 feet. @Check[will|dc:45]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -874,7 +848,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Fafnheir exhales a cataclysmic firestorm laced with lightning and hurricane-strength winds, dealing @Damage[20d6[fire]] damage in a @Template[type:cone|distance:90] (@Check[type:reflex|dc:48|basic:true] save). Additionally, Fafnheir deals @Damage[10d6[electricity]]{10d6} additional electricity damage to one creature within the area of Blasting Breath of Fafnheir's choice, determined by the same basic Reflex save. Creatures in the area must also attempt a @Check[type:fortitude|dc:48|name:Resist Winds|traits:damaging-effect] save to resist the powerful winds and deafening thunderclaps of the breath. Creatures that fail experience the effects of @UUID[Compendium.pf2e.spells-srd.Item.Gust of Wind], affecting Large or smaller creatures as normal. Finally, creatures that fail their Fortitude save become @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 minute (permanently deafened on a critical failure).</p>"
+                    "value": "<p>Fafnheir exhales a cataclysmic firestorm laced with lightning and hurricane-strength winds, dealing @Damage[20d6[fire]] damage in a @Template[cone|distance:90] (@Check[reflex|dc:48|basic] save). Additionally, Fafnheir deals @Damage[10d6[electricity]]{10d6} additional electricity damage to one creature within the area of Blasting Breath of Fafnheir's choice, determined by the same basic Reflex save. Creatures in the area must also attempt a @Check[fortitude|dc:48|name:Resist Winds|traits:damaging-effect] save to resist the powerful winds and deafening thunderclaps of the breath. Creatures that fail experience the effects of @UUID[Compendium.pf2e.spells-srd.Item.Gust of Wind], affecting Large or smaller creatures as normal. Finally, creatures that fail their Fortitude save become @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 minute (permanently deafened on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -908,7 +882,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:48]</p>\n<p><strong>Maximum Duration</strong> 10 rounds</p>\n<p><strong>Stage 1</strong> @Damage[6d8[fire]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[6d10[fire]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[6d12[fire]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3} (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:48]</p>\n<p><strong>Maximum Duration</strong> 10 rounds</p>\n<p><strong>Stage 1</strong> @Damage[6d8[fire]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[6d10[fire]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[6d12[fire]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3} (1 round)</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -959,10 +933,8 @@
         },
         {
             "_id": "jovLZyxPZzRw1Evn",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Improved Grab",

@@ -1,0 +1,43 @@
+{
+    "_id": "FInDzRVFPfiRQl6l",
+    "img": "icons/skills/melee/maneuver-daggers-paired-orange.webp",
+    "name": "Spell Effect: Weapon Trance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Weapon Trance]</p>\n<p>Your proficiency with martial weapons is equal to your proficiency with simple weapons.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.attacks.martial.rank",
+                "value": "@actor.system.proficiencies.attacks.simple.rank"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -5,6 +5,7 @@ const CONDITION_SLUGS = new Set([
     "concealed",
     "confused",
     "controlled",
+    "cursebound",
     "dazzled",
     "deafened",
     "doomed",

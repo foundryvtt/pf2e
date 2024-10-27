@@ -69,6 +69,30 @@
                 ],
                 "property": "traits",
                 "value": "unholy"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "divine-castigation",
+                    {
+                        "or": [
+                            "self:trait:holy",
+                            "self:trait:unholy"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:slug:harm",
+                            "item:slug:heal"
+                        ]
+                    }
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "spell-damage"
+                ],
+                "value": "spirit"
             }
         ],
         "traits": {

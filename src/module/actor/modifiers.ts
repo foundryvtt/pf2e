@@ -1,5 +1,5 @@
 import type { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
-import { AttributeString } from "@actor/types.ts";
+import type { AttributeString } from "@actor/types.ts";
 import type { ItemPF2e } from "@item";
 import { ZeroToFour } from "@module/data.ts";
 import type { RollNotePF2e } from "@module/notes.ts";
@@ -7,7 +7,7 @@ import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import type { RuleElementPF2e } from "@module/rules/index.ts";
 import { DamageAlteration } from "@module/rules/rule-element/damage-alteration/alteration.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
-import { DamageCategoryUnique, DamageDieSize, DamageType } from "@system/damage/types.ts";
+import type { DamageCategoryUnique, DamageDiceFaces, DamageDieSize, DamageType } from "@system/damage/types.ts";
 import { Predicate, RawPredicate } from "@system/predication.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, signedInteger, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
@@ -193,9 +193,9 @@ class ModifierPF2e implements RawModifier {
         Object.defineProperty(this, "rule", { enumerable: false });
 
         this.damageType = objectHasKey(CONFIG.PF2E.damageTypes, params.damageType) ? params.damageType : null;
-        this.damageCategory = this.damageType === "bleed" ? "persistent" : params.damageCategory ?? null;
+        this.damageCategory = this.damageType === "bleed" ? "persistent" : (params.damageCategory ?? null);
         // Force splash damage into being critical-only or not doubling on critical hits
-        this.critical = this.damageCategory === "splash" ? !!params.critical : params.critical ?? null;
+        this.critical = this.damageCategory === "splash" ? !!params.critical : (params.critical ?? null);
 
         this.kind = ((): "bonus" | "penalty" | "modifier" => {
             if (this.modifier >= 0 && !["ability", "untyped"].includes(this.type)) {
@@ -238,7 +238,10 @@ class ModifierPF2e implements RawModifier {
     }
 
     /** Return a copy of this ModifierPF2e instance */
-    clone(data: Partial<ModifierObjectParams> = {}, options: { test?: Set<string> | string[] } = {}): ModifierPF2e {
+    clone(
+        data: Partial<ModifierObjectParams> = {},
+        options: { test?: Set<string> | string[] | null } = {},
+    ): ModifierPF2e {
         const clone = new ModifierPF2e({ ...this, modifier: this.#originalValue, rule: this.rule, ...data });
         if (options.test) clone.test(options.test);
 
@@ -365,7 +368,7 @@ function createProficiencyModifier({
         ? game.pf2e.settings.variants.pwol.modifiers
         : [0, 2, 4, 6, 8];
 
-    const addedLevel = addLevel && !pwolVariant ? level ?? actor.level : 0;
+    const addedLevel = addLevel && !pwolVariant ? (level ?? actor.level) : 0;
     const bonus = baseBonuses[rank] + addedLevel;
 
     return new ModifierPF2e({
@@ -503,7 +506,8 @@ class StatisticModifier {
         this.slug = slug;
 
         // De-duplication. Prefer higher valued, and deprioritize disabled ones
-        // This behavior is used by kingmaker to create "custom modifier types" as well special skill modifiers when rolling manually
+        // This behavior is used by kingmaker to create "custom modifier types" via slugs,
+        // as well as special skill modifiers when rolling manually
         const seen = modifiers.reduce((result: Record<string, ModifierPF2e>, modifier) => {
             const existing = result[modifier.slug];
             if (!existing?.enabled || Math.abs(modifier.modifier) > Math.abs(result[modifier.slug].modifier)) {
@@ -715,7 +719,7 @@ class DamageDicePF2e {
             : this.damageType === "bleed"
               ? "persistent"
               : null;
-        this.critical = this.category === "splash" ? !!params.critical : params.critical ?? null;
+        this.critical = this.category === "splash" ? !!params.critical : (params.critical ?? null);
 
         this.predicate =
             params.predicate instanceof Predicate ? params.predicate : new Predicate(params.predicate ?? []);
@@ -723,6 +727,11 @@ class DamageDicePF2e {
         this.enabled = params.enabled ?? this.predicate.test([]);
         this.ignored = params.ignored ?? !this.enabled;
         this.hideIfDisabled = params.hideIfDisabled ?? false;
+    }
+
+    /** The `dieSize` as a number (or null) */
+    get faces(): DamageDiceFaces | null {
+        return (Number(this.dieSize?.replace("d", "")) || null) as DamageDiceFaces | null;
     }
 
     /** Test the `predicate` against a set of roll options */
@@ -781,18 +790,19 @@ class DamageDicePF2e {
 interface RawDamageDice extends Required<DamageDiceParameters> {}
 
 export {
+    adjustModifiers,
+    applyStackingRules,
     CheckModifier,
+    createAttributeModifier,
+    createProficiencyModifier,
     DamageDicePF2e,
+    ensureProficiencyOption,
     MODIFIER_TYPES,
     ModifierPF2e,
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
-    adjustModifiers,
-    applyStackingRules,
-    createAttributeModifier,
-    createProficiencyModifier,
-    ensureProficiencyOption,
 };
+
 export type {
     DamageDiceOverride,
     DamageDiceParameters,
@@ -801,6 +811,7 @@ export type {
     DeferredValue,
     DeferredValueParams,
     ModifierAdjustment,
+    ModifierObjectParams,
     ModifierType,
     RawDamageDice,
     RawModifier,

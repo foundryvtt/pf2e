@@ -1,0 +1,177 @@
+{
+    "_id": "fGK6zJ7mWz9D5QYo",
+    "img": "icons/magic/nature/leaf-oak-wreath-glow-green.webp",
+    "name": "Spell Effect: Rapid Adaptation",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Rapid Adaptation]</p>\n<p>The target gains one of the following natural adaptations.</p><ul><li><strong>Aquatic</strong> The target gains a swim Speed equal to its land Speed. If it already had a swim Speed, it gains a +10-foot status bonus to its swim Speed.</li><li><strong>Arctic</strong> When the target rolls a success on an Acrobatics check to Balance on ice and snow, it gets a critical success instead.</li><li><strong>Desert</strong> When the target rolls a success on an Acrobatics check to Balance on sand, it gets a critical success instead.</li><li><strong>Forest</strong> The target gains scent as an imprecise sense with a range of 30 feet.</li><li><strong>Mountain</strong> When the target rolls a success on an Acrobatics check to Balance on rubble, it gets a critical success instead.</li><li><strong>Plains</strong> The target gains a +10-foot status bonus to its land Speed.</li><li><strong>Underground</strong> The target gains darkvision.</li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Terrain.Aquatic",
+                        "value": "aquatic"
+                    },
+                    {
+                        "label": "PF2E.Terrain.Arctic",
+                        "value": "arctic"
+                    },
+                    {
+                        "label": "PF2E.Terrain.Desert",
+                        "value": "desert"
+                    },
+                    {
+                        "label": "PF2E.Terrain.Forest",
+                        "value": "forest"
+                    },
+                    {
+                        "label": "PF2E.Terrain.Mountain",
+                        "value": "mountain"
+                    },
+                    {
+                        "label": "PF2E.Terrain.Plains",
+                        "value": "plains"
+                    },
+                    {
+                        "label": "PF2E.Terrain.Underground",
+                        "value": "underground"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "rapid-adaptation"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "value": "bonus"
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": "base"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": [
+                    "rapid-adaptation:aquatic"
+                ],
+                "prompt": "PF2E.SpecificRule.RapidAdaptation.Prompt",
+                "rollOption": "rapid-adaptation:swim-speed"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "rapid-adaptation:swim-speed:base"
+                ],
+                "selector": "swim",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "rapid-adaptation:swim-speed:bonus"
+                ],
+                "selector": "swim-speed",
+                "type": "status",
+                "value": 10
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "rapid-adaptation:arctic",
+                    "action:balance",
+                    {
+                        "or": [
+                            "terrain:snow",
+                            "terrain:ice"
+                        ]
+                    }
+                ],
+                "selector": "acrobatics",
+                "type": "skill"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "rapid-adaptation:desert",
+                    "action:balance",
+                    "terrain:sand"
+                ],
+                "selector": "acrobatics",
+                "type": "skill"
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    "rapid-adaptation:forest"
+                ],
+                "range": 30,
+                "selector": "scent"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "rapid-adaptation:mountain",
+                    "action:balance",
+                    "terrain:rubble"
+                ],
+                "selector": "acrobatics",
+                "type": "skill"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "rapid-adaptation:plains"
+                ],
+                "selector": "land-speed",
+                "type": "status",
+                "value": 10
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "rapid-adaptation:underground"
+                ],
+                "selector": "darkvision"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

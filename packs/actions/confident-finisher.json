@@ -11,12 +11,12 @@
         },
         "category": "offensive",
         "description": {
-            "value": "<p>You make an incredibly graceful attack, piercing your foe's defenses. Make a Strike with a weapon or unarmed attack that would apply your precise strike damage, with the following failure effect.</p>\n<hr />\n<p><strong>Failure</strong> You deal half your @UUID[Compendium.pf2e.classfeatures.Item.Precise Strike] damage to the target. This damage type is that of the weapon or unarmed attack you used for the Strike.</p>"
+            "value": "<p>You make an incredibly graceful attack, piercing your foe's defenses. Make a Strike with the following failure effect.</p><hr /><p><strong>Failure</strong> You deal half your @UUID[Compendium.pf2e.classfeatures.Item.Precise Strike] damage to the target. This damage type is that of the weapon or unarmed attack you used for the Strike.</p>"
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
@@ -58,7 +58,22 @@
                                 "and": [
                                     "feat:flying-blade",
                                     "item:thrown",
-                                    "target:range-increment:1"
+                                    {
+                                        "or": [
+                                            "target:range-increment:1",
+                                            {
+                                                "and": [
+                                                    "finisher:twirling-throw",
+                                                    {
+                                                        "lte": [
+                                                            "target:range-increment",
+                                                            3
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
                                 ]
                             }
                         ]

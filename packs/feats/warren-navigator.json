@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You're particularly good at solving mazes and navigating twists and turns. You gain the trained proficiency rank in Survival. If you would automatically become trained in Survival (from your background or class, for example), you become trained in another skill of your choice.</p>\n<p>When you @UUID[Compendium.pf2e.actionspf2e.Item.Sense Direction] or attempt a roll against a @UUID[Compendium.pf2e.spells-srd.Item.Quandary] spell, you get a result one degree of success better than you rolled. You don't take a penalty to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Direction] when you lack a compass.</p>"
+            "value": "<p>You gain the trained proficiency rank in Survival. If you would automatically become trained in Survival (from your background or class, for example), you become trained in another skill of your choice. When you @UUID[Compendium.pf2e.actionspf2e.Item.Sense Direction] or attempt a roll against a @UUID[Compendium.pf2e.spells-srd.Item.Quandary] spell, you get a result one degree of success better than you rolled. You don't take a penalty to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Direction] when you lack a compass.</p>"
         },
         "level": {
             "value": 1
@@ -20,9 +20,9 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
@@ -37,19 +37,14 @@
                 },
                 "key": "AdjustDegreeOfSuccess",
                 "predicate": [
-                    "action:sense-direction"
+                    {
+                        "or": [
+                            "action:sense-direction",
+                            "item:slug:quandary"
+                        ]
+                    }
                 ],
-                "selector": "survival",
-                "type": "skill"
-            },
-            {
-                "key": "Note",
-                "predicate": [
-                    "action:sense-direction"
-                ],
-                "selector": "survival",
-                "text": "PF2E.SpecificRule.Ratfolk.WarrenNavigator.Note",
-                "title": "{item|name}"
+                "selector": "all"
             },
             {
                 "domain": "skill-check",

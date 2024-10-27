@@ -13,7 +13,6 @@ import {
 } from "@actor/data/base.ts";
 import { ValueAndMax, ValueAndMaybeMax } from "@module/data.ts";
 import { PerceptionTraceData } from "@system/statistic/perception.ts";
-import { Alignment } from "./types.ts";
 import { ARMY_TYPES } from "./values.ts";
 
 type ArmySource = BaseActorSourcePF2e<"army", ArmySystemSource>;
@@ -54,7 +53,6 @@ interface ArmyArmorClass {
 interface ArmyTraitsSource extends Required<ActorTraitsSource<string>> {
     languages?: never;
     type: (typeof ARMY_TYPES)[number];
-    alignment: Alignment;
 }
 
 interface ArmyDetailsSource extends Required<ActorDetailsSource> {

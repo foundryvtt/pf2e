@@ -1,5 +1,5 @@
 {
-    "_id": "PmJHC91WEPwrMDNW",
+    "_id": "1qJCMbs3zcPMWDux",
     "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Know-It-All",
     "system": {
@@ -11,23 +11,62 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Having heard every rumor or story in the book, you know that if you've heard of something in the first place, you've probably heard about it at length. When you succeed at a check to Recall Knowledge, you gain additional information or context about the given topic. When you critically succeed at a check to Recall Knowledge, at the GM's discretion, you might gain even more additional information or context than normal.</p>"
+            "value": "<p><strong>Bard</strong> - When you succeed at a check to Recall Knowledge, you gain additional information or context. When you critically succeed at a check to Recall Knowledge, you get additional information or context or can ask an additional follow-up question (the GM chooses which).</p>\n<p><strong>Thaumaturge</strong> -Having heard every rumor or story in the book, you know that if you've heard of something in the first place, you've probably heard about it at length. When you succeed at a check to Recall Knowledge, you gain additional information or context about the given topic. When you critically succeed at a check to Recall Knowledge, at the GM's discretion, you might gain even more additional information or context than normal.</p>"
         },
         "level": {
             "value": 8
         },
         "prerequisites": {
-            "value": []
+            "value": [
+                {
+                    "value": "enigma muse"
+                }
+            ]
         },
         "publication": {
             "license": "ORC",
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "predicate": [
+                    "action:recall-knowledge"
+                ],
+                "selector": "skill-check",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "description",
+                "value": [
+                    {
+                        "predicate": [
+                            "class:bard"
+                        ],
+                        "text": "PF2E.SpecificRule.Feat.KnowItAll.Bard"
+                    },
+                    {
+                        "predicate": [
+                            "class:thaumaturge"
+                        ],
+                        "text": "PF2E.SpecificRule.Feat.KnowItAll.Thaumaturge"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
+                "bard",
                 "thaumaturge"
             ]
         }

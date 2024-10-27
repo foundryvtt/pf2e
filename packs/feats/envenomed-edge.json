@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>With a combination of your poison glands and herbal concoctions, you can consistently deliver venomous attacks when you hit an enemy's weak points. When you critically hit using a Strike with a weapon or unarmed attack and deal slashing or piercing damage with that Strike, you deal an additional @Damage[1d4[persistent,poison]] to your target.</p>"
+            "value": "<p>With a combination of your poison glands and herbal concoctions, you can consistently deliver venomous attacks when you hit an enemy's weak points. When you critically hit using a Strike with a weapon or unarmed attack and deal slashing or piercing damage with that Strike, you deal an additional 1d4 persistent poison damage to your target.</p>"
         },
         "level": {
             "value": 13
@@ -20,18 +20,27 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens: The Mwangi Expanse"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
+                "category": "persistent",
+                "critical": true,
+                "damageType": "poison",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:damage:type:slashing",
+                            "item:damage:type:piercing"
+                        ]
+                    }
                 ],
-                "selector": "strike-damage",
-                "text": "<p><strong>{item|name}</strong></p><p>{item|system.description.value}</p>"
+                "selector": "strike-damage"
             }
         ],
         "traits": {

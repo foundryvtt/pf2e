@@ -302,7 +302,7 @@ declare interface PointSourceAnimationConfiguration {
     /** The human-readable (localized) label for the animation */
     label?: string;
     /** The animation function that runs every frame */
-    animation?: Function;
+    animation?: (...args: unknown[]) => void;
     /** A custom illumination shader used by this animation */
     illuminationShader?: PIXI.Shader;
     /** A custom coloration shader used by this animation */

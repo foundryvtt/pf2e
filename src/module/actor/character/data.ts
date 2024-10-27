@@ -1,5 +1,4 @@
-import { CraftingEntryData } from "@actor/character/crafting/entry.ts";
-import { CraftingFormulaData } from "@actor/character/crafting/formula.ts";
+import type { CraftingAbilityData, CraftingFormulaData } from "@actor/character/crafting/index.ts";
 import {
     AbilityData,
     BaseCreatureSource,
@@ -403,17 +402,20 @@ interface VersatileWeaponOption {
 
 interface CharacterCraftingData {
     formulas: CraftingFormulaData[];
-    entries: Record<string, Partial<CraftingEntryData>>;
+    entries: Record<string, Partial<CraftingAbilityData>>;
 }
 
-interface CharacterResources extends CreatureResources {
+type CharacterResources = CreatureResources & {
     /** The current and maximum number of hero points */
     heroPoints: ValueAndMax;
+    /** The current number of focus points and pool size */
+    focus: ValueAndMax & { cap: number };
     /** The current and maximum number of invested items */
     investiture: ValueAndMax;
+    // Will be removed in a future update
     crafting: { infusedReagents: ValueAndMax };
     resolve?: ValueAndMax;
-}
+};
 
 interface CharacterPerceptionData extends CreaturePerceptionData {
     rank: ZeroToFour;

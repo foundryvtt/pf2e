@@ -1,0 +1,46 @@
+{
+    "_id": "6TGcfVyzzVHEo7ke",
+    "img": "icons/magic/acid/dissolve-arm-flesh.webp",
+    "name": "Spell Effect: Acid Grip",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Acid Grip]</p>\n<p>A creature taking persistent damage from this spell takes a –10-foot status bonus to its Speeds.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:condition:persistent-damage:acid"
+                ],
+                "selector": "all-speeds",
+                "type": "status",
+                "value": -10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

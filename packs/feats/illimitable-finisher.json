@@ -1,0 +1,58 @@
+{
+    "_id": "a5jZJPZO8RPQjqE7",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Illimitable Finisher",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You are not @UUID[Compendium.pf2e.conditionitems.Item.Fatigued].</p><hr /><p>Your strikes flow endlessly. Step and attempt a single one-action finisher. This Strike gains the bravado trait, possibly replenishing your panache; if you regain panache, you can immediately attempt another finisher as part of this action, ignoring the restriction of using actions with the attack trait after a finisher.</p>"
+        },
+        "level": {
+            "value": 20
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "self:effect:panache"
+                    }
+                ],
+                "key": "RollOption",
+                "option": "finisher:illimitable",
+                "toggleable": true
+            },
+            {
+                "domain": "attack-roll",
+                "key": "RollOption",
+                "option": "item:trait:bravado",
+                "predicate": [
+                    "finisher:illimitable"
+                ],
+                "priority": 51
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "finisher",
+                "fortune",
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

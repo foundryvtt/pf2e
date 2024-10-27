@@ -4,7 +4,7 @@
     "name": "Spell Effect: Schadenfreude (Success)",
     "system": {
         "description": {
-            "value": "<p>The creature is distracted by its amusement and takes a -1 status penalty on Perception checks and Will saves for 1 round.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Schadenfreude]</p>\n<p>The creature is distracted by its amusement and takes a -1 status penalty on Perception checks and Will saves for 1 round.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,15 +16,18 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Secrets of Magic"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "label": "Schadenfreude",
-                "selector": "perception",
+                "selector": [
+                    "perception",
+                    "will"
+                ],
                 "type": "status",
                 "value": -1
             }

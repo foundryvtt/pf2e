@@ -1,0 +1,59 @@
+{
+    "_id": "aMmQY3YvufchsXGT",
+    "img": "icons/skills/movement/arrow-upward-blue.webp",
+    "name": "Effect: Surge Forward",
+    "system": {
+        "description": {
+            "value": "<p>You take a –1 circumstance penalty to your next skill check to overcome a task during the Dreaded Downpour event. On a critical failure this penalty is –2.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Society Scenario #6-04: An Enkindled Carnival"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": -1
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": -2
+                    }
+                ],
+                "flag": "degreeOfSuccess",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "FlatModifier",
+                "removeAfterRoll": true,
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": "@item.flags.pf2e.rulesSelections.degreeOfSuccess"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

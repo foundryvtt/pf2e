@@ -1,0 +1,113 @@
+{
+    "_id": "W4lb3417rNDd9tCq",
+    "img": "systems/pf2e/icons/spells/righteous-might.webp",
+    "name": "Spell Effect: Sacred Form",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Sacred Form]</p>\n<p>You gain the following statistics and abilities.</p><ul><li><p>AC = 20 + your level. Ignore your armor's check penalty and Speed reduction.</p></li><li><p>10 temporary Hit Points.</p></li><li><p>Speed 40 feet.</p></li><li><p>Resistance 3 against physical damage.</p></li><li><p>Darkvision.</p></li><li><p>A special attack with a sacred armament, which is the only attack you can use. Your attack modifier with the sacred armament is +21, and your damage bonus is +8. The damage dice for Strikes with the weapon are 3d6 bludgeoning damage plus 1d6 spirit damage.</p></li><li><p>Athletics modifier of +23, unless your own is higher.</p></li></ul><hr /><p><strong>Heightened (8th)</strong> You instead gain AC = 21 + your level, 15 temporary Hit Points, resistance 4 against physical damage, attack modifier +28, damage bonus +15, and Athletics +29. If you're Medium or smaller, your battle form is Large, and your attacks also have 10-foot reach.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "20 + @actor.level"
+                    },
+                    "resistances": [
+                        {
+                            "type": "physical",
+                            "value": "ternary(gte(@item.level, 8), 4, 3)"
+                        }
+                    ],
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "size": "med",
+                    "skills": {
+                        "athletics": {
+                            "modifier": 23
+                        }
+                    },
+                    "speeds": {
+                        "land": 40
+                    },
+                    "strikes": {
+                        "sacred-armament": {
+                            "damage": {
+                                "dice": 3,
+                                "die": "d6",
+                                "modifier": 8
+                            },
+                            "modifier": 21
+                        }
+                    },
+                    "tempHP": 10
+                },
+                "value": {
+                    "brackets": [
+                        {
+                            "start": 8,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "21 + @actor.level"
+                                },
+                                "size": "lg",
+                                "skills": {
+                                    "athletics": {
+                                        "modifier": 29
+                                    }
+                                },
+                                "strikes": {
+                                    "sacred-armament": {
+                                        "damage": {
+                                            "modifier": 15
+                                        },
+                                        "modifier": 28,
+                                        "traits": [
+                                            "reach"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 15
+                            }
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "damageType": "spirit",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "{item|id}-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

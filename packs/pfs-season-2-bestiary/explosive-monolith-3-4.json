@@ -16,7 +16,7 @@
                 },
                 "category": null,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature other than the monolith's guardians approaches within 40 feet of the monolith</p>\n<hr />\n<p><strong>Effect</strong> the flames wreathing the monolith flare with incandescent light. The triggering creature must attempt a @Check[type:fortitude|dc:17] save.</p>\n<p>On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for one round.</p>\n<p>On a critical failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for one round, then @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for one round.</p>\n<p>The hazard rolls initiative.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature other than the monolith's guardians approaches within 40 feet of the monolith</p>\n<hr />\n<p><strong>Effect</strong> the flames wreathing the monolith flare with incandescent light. The triggering creature must attempt a @Check[fortitude|dc:17] save.</p>\n<p>On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for one round.</p>\n<p>On a critical failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for one round, then @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for one round.</p>\n<p>The hazard rolls initiative.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -66,7 +66,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>A burst of abyssal energy ignites the sap in a nearby bruorsivi, which explodes in a burst of fiery splinters.</p>",
-            "disable": "<p>@Check[type:arcana|dc:17], @Check[type:occultism|dc:17], or @Check[type:religion|dc:17] to magically alter the runes, or @Check[type:thievery|dc:20] to physically alter them. A PC that can read Abyssal or Cyclops is better able to identify key runes, gaining a +1 circumstance bonus to these check (+2 if they speak both).</span></p>\n<p>Each check requires two actions, and disabling the monolith requires three successful checks. A PC that critically succeeds earns two success. On a failed check, the attempting PC is exposed to the burning flames wreathing the monolith, taking @Damage[2d6[fire]] damage(@Check[type:reflex|dc:17|basic:true|name:Explosive Monolith]).</p>",
+            "disable": "<p>@Check[arcana|dc:17], @Check[occultism|dc:17], or @Check[religion|dc:17] to magically alter the runes, or @Check[thievery|dc:20] to physically alter them. A PC that can read Abyssal or Cyclops is better able to identify key runes, gaining a +1 circumstance bonus to these check (+2 if they speak both).</span></p>\n<p>Each check requires two actions, and disabling the monolith requires three successful checks. A PC that critically succeeds earns two success. On a failed check, the attempting PC is exposed to the burning flames wreathing the monolith, taking @Damage[2d6[fire]] damage(@Check[reflex|dc:17|basic|name:Explosive Monolith]).</p>",
             "isComplex": true,
             "level": {
                 "value": 1
@@ -77,7 +77,7 @@
                 "title": "Pathfinder Society Scenario #2-14: Lost in Flames"
             },
             "reset": "",
-            "routine": "<p>(1 action) On the hazard's turn, randomly select a PC within 40 feet of the monolith. A tree near that PC explodes in a @Template[type:burst|distance:10], dealing @Damage[1d6[piercing],1d6[fire]]{1d6 piercing damage and 1d6 fire damage}. Each creature in the area must attempt a @Check[type:reflex|dc:17|name:Explosive Monolith|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round.</p>"
+            "routine": "<p>(1 action) On the hazard's turn, randomly select a PC within 40 feet of the monolith. A tree near that PC explodes in a @Template[burst|distance:10], dealing @Damage[1d6[piercing],1d6[fire]]{1d6 piercing damage and 1d6 fire damage}. Each creature in the area must attempt a @Check[reflex|dc:17|name:Explosive Monolith|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round.</p>"
         },
         "saves": {
             "fortitude": {

@@ -1,7 +1,6 @@
 import { ActorPF2e, type CreaturePF2e } from "@actor";
 import { resetActors } from "@actor/helpers.ts";
 import { ItemType } from "@item/base/data/index.ts";
-import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { RuleElementPF2e } from "@module/rules/index.ts";
 import { RuleElementSchema } from "@module/rules/rule-element/data.ts";
 import type { UserPF2e } from "@module/user/document.ts";
@@ -195,13 +194,6 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const existing = this.system.details.members.filter((d) => this.members.some((m) => m.uuid === d.uuid));
         const members: MemberData[] = existing.filter((m) => !tupleHasValue(uuids, m.uuid));
         await this.update({ system: { details: { members } } });
-    }
-
-    /** Adds all members to combat */
-    async addToCombat(options: { combat?: EncounterPF2e } = {}): Promise<CombatantPF2e<EncounterPF2e>[]> {
-        const promises = this.members.map((a) => CombatantPF2e.fromActor(a, true, { combat: options.combat }));
-        const combatants = (await Promise.all(promises)).filter((c): c is CombatantPF2e<EncounterPF2e> => !!c);
-        return combatants;
     }
 
     override getRollOptions(domains?: string[]): string[] {

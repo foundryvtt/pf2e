@@ -4,7 +4,7 @@
     "name": "Spell Effect: Countless Eyes",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Countless Eyes].</p>\n<hr />\n<p>Eyes form across the touched creature's body, allowing it to see in all directions at once. The subject can't be flanked for the spell's duration. In addition, when the subject @UUID[Compendium.pf2e.actionspf2e.Item.Seek]{Seeks}, it can Seek in a 30-foot burst centered on itself or up to four 15-foot bursts within line of sight.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Countless Eyes].</p><hr /><p>The subject can't be flanked for the spell's duration. In addition, when the subject succeeds when Seeking, it critically succeeds instead.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,15 +16,25 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "domain": "ac",
                 "key": "RollOption",
                 "option": "self:condition:off-guard:ignore:flanking"
+            },
+            {
+                "adjusment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:seek"
+                ],
+                "selector": "perception"
             }
         ],
         "start": {

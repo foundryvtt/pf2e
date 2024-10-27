@@ -1,0 +1,54 @@
+{
+    "_id": "QrigfqVwBCGPylth",
+    "img": "systems/pf2e/icons/spells/charged-javelin.webp",
+    "name": "Spell Effect: Charged Javelin",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Charged Javelin]</p>\n<p>Creatures gain a +1 status bonus to attack rolls with metal weapons or electricity effects against the target, and the target takes a -1 status penalty to saves against electricity effects.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens: Gods & Magic"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:electricity"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "selectors": [
+                    "attack-roll"
+                ],
+                "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Charged Javelin (Attacker)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

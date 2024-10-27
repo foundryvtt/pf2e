@@ -52,3 +52,14 @@
         {{/each}}
     </dl>
 </div>
+
+{{#if @root.showCampaign}}
+    <div class="setting-section">
+        <h3>{{localize "PF2E.Item.CampaignFeature.Plural"}}</h3>
+        <dl>
+            {{#each settings.campaignFeature as |conf pack|}}
+                <label><dt><input type="checkbox" name="campaignFeature-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}} ({{conf.package}})</dd></label>
+            {{/each}}
+        </dl>
+    </div>
+{{/if}}

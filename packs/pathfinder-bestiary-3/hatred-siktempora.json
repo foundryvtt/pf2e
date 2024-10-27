@@ -43,12 +43,10 @@
         },
         {
             "_id": "fkJeFr0LCaDT6DYo",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.b5sGjGlBf58f8jn0"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.b5sGjGlBf58f8jn0"
             },
-            "img": "systems/pf2e/icons/spells/air-walk.webp",
+            "img": "icons/magic/water/wave-water-teal.webp",
             "name": "Air Walk (Constant)",
             "sort": 200000,
             "system": {
@@ -108,10 +106,8 @@
         },
         {
             "_id": "4VGaPQaNxIxXvNGE",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.zR67Rt3UMHKC5evy"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.zR67Rt3UMHKC5evy"
             },
             "img": "systems/pf2e/icons/spells/blink.webp",
             "name": "Blink",
@@ -172,10 +168,8 @@
         },
         {
             "_id": "L86Ap8gRiTU3o6rf",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door (At Will)",
@@ -293,10 +287,8 @@
         },
         {
             "_id": "yds3BWASeIlBPuQ3",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy 500 feet",
@@ -371,10 +363,8 @@
         },
         {
             "_id": "Xyy6EkOtHfPObm42",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
@@ -406,10 +396,8 @@
         },
         {
             "_id": "EYLtQQcjxfjr6MNe",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Regeneration 50 (Deactivated by Holy, Mental, Orichalcum)",
@@ -550,7 +538,18 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "dimension-of-time-lore"
+                        ],
+                        "selector": "initiative",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -603,7 +602,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The hatred siktempora has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]</p>\n<hr />\n<p><strong>Effect</strong> The hatred siktempora tightens their garrote, dealing @Damage[5d10[bludgeoning]] damage to each creature they're Grabbing. Each creature grabbed by the siktempora must attempt a @Check[type:fortitude|dc:40|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and can't breathe or speak while it remains grabbed; it must hold its breath or begin suffocating.</p>\n<p><strong>Critical Failure</strong> As failure, but double damage and the creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Restrained] and can't speak for 1 round after it's no longer grabbed.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The hatred siktempora has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]</p>\n<hr />\n<p><strong>Effect</strong> The hatred siktempora tightens their garrote, dealing @Damage[5d10[bludgeoning]] damage to each creature they're Grabbing. Each creature grabbed by the siktempora must attempt a @Check[fortitude|dc:40|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and can't breathe or speak while it remains grabbed; it must hold its breath or begin suffocating.</p>\n<p><strong>Critical Failure</strong> As failure, but double damage and the creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Restrained] and can't speak for 1 round after it's no longer grabbed.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -626,10 +625,8 @@
         },
         {
             "_id": "QP9beVsoQsi5P8A5",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Improved Grab",

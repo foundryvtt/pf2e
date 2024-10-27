@@ -47,12 +47,10 @@
         },
         {
             "_id": "d5FeArgoiP1UcUXK",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.wzctak6BxOW8xvFV"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.wzctak6BxOW8xvFV"
             },
-            "img": "systems/pf2e/icons/spells/enlarge.webp",
+            "img": "icons/magic/unholy/silhouette-evil-horned-giant.webp",
             "name": "Enlarge (Self Only)",
             "sort": 200000,
             "system": {
@@ -64,11 +62,21 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Bolstered by magical power, the target grows to size Large. Its equipment grows with it but returns to natural size if removed. The creature is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}. Its reach increases by 5 feet (or by 10 feet if it started out Tiny), and it gains a +2 status bonus to melee damage. This spell has no effect on a Large or larger creature.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Enlarge]</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The creature instead grows to size Huge. The status bonus to melee damage is +4 and the creature's reach increases by 10 feet (or 15 feet if the creature started out Tiny). The spell has no effect on a Huge or larger creature. @UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Enlarge (Heightened 4th)]</p>\n<p><strong>Heightened (6th)</strong> Choose either the 2nd-rank or 4th-rank version of this spell and apply its effects to 10 willing creatures.</p>"
+                    "value": "<p>Bolstered by magical power, the target grows to size Large. Its equipment grows with it but returns to natural size if removed. The creature is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}. Its reach increases by 5 feet (or by 10 feet if it started out Tiny), and it gains a +2 status bonus to melee damage. This spell has no effect on a Large or larger creature.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Enlarge]</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The creature instead grows to size Huge. The status bonus to melee damage is +4 and the creature's reach increases by 10 feet (or 15 feet if the creature started out Tiny). The spell has no effect on a Huge or larger creature.</p>\n<p><strong>Heightened (6th)</strong> Choose either the 2nd-rank or 4th-rank version of this spell and apply its effects to up to 10 willing creatures.</p>"
                 },
                 "duration": {
                     "sustained": false,
                     "value": "5 minutes"
+                },
+                "heightening": {
+                    "levels": {
+                        "6": {
+                            "target": {
+                                "value": "10 willing creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 2
@@ -78,18 +86,18 @@
                     "value": "wEdDGcB1okQD2PU0"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
-                    "value": "self"
+                    "value": "30 feet"
                 },
                 "requirements": "",
                 "rules": [],
                 "slug": "enlarge",
                 "target": {
-                    "value": "self"
+                    "value": "1 willing creature"
                 },
                 "time": {
                     "value": "2"
@@ -111,10 +119,8 @@
         },
         {
             "_id": "8cEimFNm1NmdUTKq",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.XXqE1eY3w3z6xJCB"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.XXqE1eY3w3z6xJCB"
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility (Self Only)",
@@ -174,10 +180,8 @@
         },
         {
             "_id": "EvwJonzelyJ6hOZo",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.FibwLZ12EIEwLGhw"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FibwLZ12EIEwLGhw"
             },
             "img": "icons/weapons/hammers/shorthammer-embossed-white.webp",
             "name": "Light Hammer",
@@ -262,10 +266,8 @@
         },
         {
             "_id": "cFgqGj40ghTHVuMt",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.ewQZ0VeL38v3qFnN"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ewQZ0VeL38v3qFnN"
             },
             "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
             "name": "Studded Leather Armor",
@@ -331,10 +333,8 @@
         },
         {
             "_id": "ySIs1z8DeU58QFuI",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.ZPY2dOaMYciIJv1Q"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ZPY2dOaMYciIJv1Q"
             },
             "img": "icons/sundries/survival/cuffs-shackles-steel.webp",
             "name": "Manacles (Poor)",
@@ -346,7 +346,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>You can manacle someone who is willing or otherwise at your mercy as an exploration activity taking 10-30 seconds depending on the creature's size and how many manacles you apply. A two-legged creature with its legs bound takes a -15-foot circumstance penalty to its Speeds, and a two-handed creature with its wrists bound has to succeed at a @Check[type:flat|dc:5] any time it uses a manipulate action or else that action fails. This DC may be higher depending on how tightly the manacles constrain the hands. A creature bound to a stationary object is immobilized. For creatures with more or fewer limbs, the GM determines what effect manacles have, if any. Freeing a creature from poor manacles requires two successful @Check[type:thievery|dc:17|traits:action:pick-a-lock] checks.</p>"
+                    "value": "<p>You can manacle someone who is willing or otherwise at your mercy as an exploration activity taking 10-30 seconds depending on the creature's size and how many manacles you apply. A two-legged creature with its legs bound takes a -15-foot circumstance penalty to its Speeds, and a two-handed creature with its wrists bound has to succeed at a @Check[flat|dc:5] any time it uses a manipulate action or else that action fails. This DC may be higher depending on how tightly the manacles constrain the hands. A creature bound to a stationary object is immobilized. For creatures with more or fewer limbs, the GM determines what effect manacles have, if any. Freeing a creature from poor manacles requires two successful @Check[thievery|dc:17|traits:action:pick-a-lock] checks.</p>"
                 },
                 "equipped": {
                     "carryType": "held",
@@ -531,10 +531,8 @@
         },
         {
             "_id": "zo75EW8njlmbeWbs",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.I0HYG0ctCLP5JRsW"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.I0HYG0ctCLP5JRsW"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Light Blindness",
@@ -566,10 +564,8 @@
         },
         {
             "_id": "ehGPcGg59UAn28oY",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+2 Status to All Saves vs. Magic",
@@ -594,15 +590,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "or": [
-                                    "magical",
-                                    "arcane",
-                                    "divine",
-                                    "primal",
-                                    "occult"
-                                ]
-                            }
+                            "item:magical"
                         ],
                         "selector": "saving-throw",
                         "type": "status",

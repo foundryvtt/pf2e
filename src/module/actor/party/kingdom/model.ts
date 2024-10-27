@@ -1,5 +1,5 @@
 import { ActorPF2e, type ArmyPF2e } from "@actor";
-import { FeatGroup } from "@actor/character/feats.ts";
+import { FeatGroup } from "@actor/character/feats/index.ts";
 import { MODIFIER_TYPES, ModifierPF2e, RawModifier, createProficiencyModifier } from "@actor/modifiers.ts";
 import { CampaignFeaturePF2e, ItemPF2e } from "@item";
 import { ItemType } from "@item/base/data/index.ts";
@@ -451,24 +451,33 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
             .fill(0)
             .map((_, idx) => idx + 1)
             .filter((idx) => idx % 2 === 0);
-        this.features = new FeatGroup(this.actor, {
-            id: "features",
-            label: "Kingdom Features",
-            level: this.level,
-        });
-        this.feats = new FeatGroup(this.actor, {
-            id: "kingdom",
-            label: "Kingdom Feats",
-            slots: [{ id: "government", label: "G" }, ...evenLevels],
-            featFilter: ["traits-kingdom"],
-            level: this.level,
-        });
-        this.bonusFeats = new FeatGroup(this.actor, {
-            id: "bonus",
-            label: "PF2E.FeatBonusHeader",
-            featFilter: ["traits-kingdom"],
-            level: this.level,
-        });
+        this.features = new FeatGroup(
+            this.actor,
+            {
+                id: "features",
+                label: "Kingdom Features",
+            },
+            { level: this.level },
+        );
+        this.feats = new FeatGroup(
+            this.actor,
+            {
+                id: "kingdom",
+                label: "Kingdom Feats",
+                slots: [{ id: "government", label: "G" }, ...evenLevels],
+                featFilter: ["traits-kingdom"],
+            },
+            { level: this.level },
+        );
+        this.bonusFeats = new FeatGroup(
+            this.actor,
+            {
+                id: "bonus",
+                label: "PF2E.FeatBonusHeader",
+                featFilter: ["traits-kingdom"],
+            },
+            { level: this.level },
+        );
 
         // Assign feats and features
         const allFeatures = this.actor.itemTypes.campaignFeature;
@@ -575,7 +584,6 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
     }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Kingdom extends ModelPropsFromSchema<KingdomSchema> {}
 
 export { Kingdom };

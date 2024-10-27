@@ -22,10 +22,8 @@ import {
     extractModifiers,
     processDamageCategoryStacking,
 } from "@module/rules/helpers.ts";
-import type { ItemAlterationRuleElement } from "@module/rules/rule-element/item-alteration/rule-element.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import type { TokenDocumentPF2e } from "@scene";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
 import { DamageModifierDialog } from "@system/damage/dialog.ts";
@@ -52,6 +50,7 @@ import {
     sluggify,
     tupleHasValue,
 } from "@util";
+import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import { SpellArea, SpellHeightenLayer, SpellOverlayType, SpellSource, SpellSystemData } from "./data.ts";
 import { createDescriptionPrepend, createSpellRankLabel, getPassiveDefenseLabel } from "./helpers.ts";
@@ -80,7 +79,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     /** The id of the override overlay that constitutes this variant */
     get variantId(): string | null {
-        return this.original ? this.appliedOverlays?.get("override") ?? null : null;
+        return this.original ? (this.appliedOverlays?.get("override") ?? null) : null;
     }
 
     /** The spell's "base" rank; that is, before heightening */
@@ -253,7 +252,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     override get uuid(): ItemUUID {
-        return this.isVariant ? this.original?.uuid ?? super.uuid : super.uuid;
+        return this.isVariant ? (this.original?.uuid ?? super.uuid) : super.uuid;
     }
 
     /** Given a slot level, compute the actual level the spell will be cast at */
@@ -534,9 +533,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         variant.system.traits.value = Array.from(variant.traits);
 
         // Run some additional preparation since this spell exists outside the normal data-preparation cycle
-        const rules = actor?.rules ?? [];
-        const alterations = rules.filter((r): r is ItemAlterationRuleElement => r.key === "ItemAlteration");
-        for (const alteration of alterations) {
+        for (const alteration of actor?.synthetics.itemAlterations ?? []) {
             alteration.applyAlteration({ singleItem: variant as SpellPF2e<NonNullable<TParent>> });
         }
 
@@ -734,6 +731,10 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             spellOptions.add(`${prefix}:frequency:limited`);
         }
 
+        if (spellcasting?.isSpontaneous && this.system.location.signature) {
+            spellOptions.add(`${prefix}:signature`);
+        }
+
         for (const damage of Object.values(this.system.damage)) {
             if (damage.type) {
                 spellOptions.add(`${prefix}:damage:${damage.type}`);
@@ -748,12 +749,17 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             }
         }
 
-        const isAreaEffect = !!this.system.area?.value;
-        if (isAreaEffect) spellOptions.add("area-effect");
+        const area = this.system.area;
+        if (area) {
+            spellOptions.add(`${prefix}:area`);
+            spellOptions.add(`${prefix}:area:type:${area.type}`);
+            spellOptions.add(`${prefix}:area:size:${area.value}`);
+            spellOptions.add("area-effect");
+        }
 
         if (this.damageKinds.has("damage")) {
             spellOptions.add("damaging-effect");
-            if (isAreaEffect) spellOptions.add("area-damage");
+            if (area) spellOptions.add("area-damage");
         }
 
         const defense = this.system.defense;

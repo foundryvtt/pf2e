@@ -26,33 +26,32 @@
         },
         "rules": [
             {
-                "domain": "all",
                 "key": "RollOption",
-                "label": "Saving or defending against hazards",
-                "option": "hazard",
+                "label": "PF2E.SpecificRule.Goblin.Twitchy.TOTMToggle",
+                "option": "origin:type:hazard",
                 "toggleable": "totm"
             },
             {
-                "domain": "all",
                 "key": "RollOption",
-                "label": "Opponent rolling Deception or Diplomacy for initiative",
-                "option": "twitchy-deception-diplomacy",
+                "label": "PF2E.SpecificRule.Goblin.Twitchy.InitiativeToggle",
+                "option": "twitchy-initiative",
                 "toggleable": true
             },
             {
                 "key": "FlatModifier",
                 "selector": "initiative",
+                "slug": "twitchy-initiative-bonus",
                 "type": "circumstance",
                 "value": 1
             },
             {
-                "key": "FlatModifier",
-                "label": "Twitchy (Opponent rolling Deception or Diplomacy)",
+                "key": "AdjustModifier",
+                "mode": "upgrade",
                 "predicate": [
-                    "twitchy-deception-diplomacy"
+                    "twitchy-initiative"
                 ],
                 "selector": "initiative",
-                "type": "circumstance",
+                "slug": "twitchy-initiative-bonus",
                 "value": 4
             },
             {
@@ -64,6 +63,7 @@
                     "ac",
                     "saving-throw"
                 ],
+                "slug": "twitchy-defense-bonus",
                 "type": "circumstance",
                 "value": 1
             }

@@ -1,0 +1,51 @@
+{
+    "_id": "Twno1jQEtPlrLOvK",
+    "img": "icons/magic/air/wind-vortex-swirl-red.webp",
+    "name": "Effect: Diverting Vortex",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Diverting Vortex]</p>\n<p>You gain a +1 status bonus to AC against ranged weapon attacks and physical ranged unarmed attacks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:ranged",
+                    {
+                        "or": [
+                            "item:type:weapon",
+                            "item:category:unarmed"
+                        ]
+                    }
+                ],
+                "selector": "ac",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

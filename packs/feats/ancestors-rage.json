@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You transform into an enormous otherworldly hyena. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Animal Form] (canine form only) once per day as a 5th-rank occult innate spell.</p>"
+            "value": "<p>You transform into an enormous, otherworldly hyena. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Animal Form] (canine form only) once per day as a 5th-rank occult innate spell.</p>"
         },
         "level": {
             "value": 13
@@ -20,11 +20,34 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens: The Mwangi Expanse"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:animal-form",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:animal-form",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:kholo"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

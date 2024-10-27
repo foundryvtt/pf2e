@@ -1,0 +1,46 @@
+{
+    "_id": "NK88lPzi3SDAT8w5",
+    "folder": "rDYWprobOO8Vf18e",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Healer Samsaran",
+    "system": {
+        "ancestry": {
+            "name": "Samsaran",
+            "slug": "samsaran",
+            "uuid": "Compendium.pf2e.ancestries.Item.l7vjMIbPAUvEIosU"
+        },
+        "description": {
+            "value": "<p>In seeking enlightenment, your past incarnations have wandered away from the ancestral homelands of Zi Ha, exploring the different nations of Tian Xia and elsewhere in Golarion. Your past incarnations had dangerous encounters while traveling, and you frequently have flashbacks to healing wounds. You become trained in Medicine. If you would automatically become trained in Medicine (from your background or class, for example), you instead become trained in a skill of your choice.</p>\n<p>When you use Medicine to @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds] on yourself, you can use your special techniques to add your level to the Hit Points you regain from the treatment.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.medicine.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:treat-wounds",
+                    "check:statistic:medicine",
+                    "origin:signature:{actor|signature}"
+                ],
+                "selector": "healing-received",
+                "value": "@actor.level"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "samsaran"
+            ]
+        }
+    },
+    "type": "heritage"
+}

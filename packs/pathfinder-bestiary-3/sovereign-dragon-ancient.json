@@ -45,10 +45,8 @@
         },
         {
             "_id": "uml11YMOYyjhGxsB",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.kOa055FIrO9Smnya"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.kOa055FIrO9Smnya"
             },
             "img": "icons/commodities/stone/paver-brick-brown.webp",
             "name": "Wall of Stone",
@@ -109,10 +107,8 @@
         },
         {
             "_id": "s5rvkV7YIW3WuIpQ",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.McnPlLFvKtQVXNcG"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.McnPlLFvKtQVXNcG"
             },
             "img": "systems/pf2e/icons/spells/shape-stone.webp",
             "name": "Shape Stone",
@@ -178,10 +174,8 @@
         },
         {
             "_id": "eWfFEEeMyPFkg5fb",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.qwlh6aDgi86U3Q7H"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.qwlh6aDgi86U3Q7H"
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion",
@@ -259,10 +253,8 @@
         },
         {
             "_id": "xkZQodLXco1BCblV",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.qwlh6aDgi86U3Q7H"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.qwlh6aDgi86U3Q7H"
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion (At Will)",
@@ -340,10 +332,8 @@
         },
         {
             "_id": "Zh5jidqsamP7xlFa",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.QnTtGCAvdWRU4spv"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.QnTtGCAvdWRU4spv"
             },
             "img": "systems/pf2e/icons/spells/detect-alignment.webp",
             "name": "Detect Alignment (At Will) (Good or Evil Only)",
@@ -551,10 +541,8 @@
         },
         {
             "_id": "t0I4vgS1D9by3wX6",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
@@ -579,15 +567,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "or": [
-                                    "magical",
-                                    "arcane",
-                                    "divine",
-                                    "primal",
-                                    "occult"
-                                ]
-                            }
+                            "item:magical"
                         ],
                         "selector": "saving-throw",
                         "type": "status",
@@ -604,10 +584,8 @@
         },
         {
             "_id": "q6bluZPiKPFzD79n",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
@@ -621,7 +599,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>90 feet. @Check[type:will|dc:41]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>90 feet. @Check[will|dc:41]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -729,7 +707,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon unleashes a roar charged with psychic energy, dealing @Damage[21d6[mental]] damage in a @Template[type:cone|distance:50] (@Check[type:will|dc:43|basic:true] save).</p>\n<p>The dragon can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon unleashes a roar charged with psychic energy, dealing @Damage[21d6[mental]] damage in a @Template[cone|distance:50] (@Check[will|dc:43|basic] save).</p>\n<p>The dragon can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -832,7 +810,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The dragon's golden armor glows with a protective golden light. The dragon gains a +2 status bonus to AC and resistance 20 to energy damage. Each enemy in a @Template[type:emanation|distance:20] must succeed at a @Check[type:fortitude|dc:43] save or be @UUID[Compendium.pf2e.conditionitems.Item.Dazzled].</p>\n<p>All these effects last until the end of the dragon's next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Gleaming Armor]</p>"
+                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The dragon's golden armor glows with a protective golden light. The dragon gains a +2 status bonus to AC and resistance 20 to energy damage. Each enemy in a @Template[emanation|distance:20] must succeed at a @Check[fortitude|dc:43] save or be @UUID[Compendium.pf2e.conditionitems.Item.Dazzled].</p>\n<p>All these effects last until the end of the dragon's next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Gleaming Armor]</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -864,10 +842,8 @@
         },
         {
             "_id": "6mHmfXwMk0MX37HC",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.OmV6E3aELvq9CkK1"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.OmV6E3aELvq9CkK1"
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Greater Constrict",
@@ -881,7 +857,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>@Damage[(4d8+11)[bludgeoning]], @Check[type:fortitude|dc:43|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
+                    "value": "<p>@Damage[(4d8+11)[bludgeoning]], @Check[fortitude|dc:43|basic]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -937,10 +913,8 @@
         },
         {
             "_id": "Dr1ESmEvHchNQHYd",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",

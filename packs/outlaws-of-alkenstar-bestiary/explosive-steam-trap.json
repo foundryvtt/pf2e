@@ -16,7 +16,7 @@
                 },
                 "category": null,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The desk switch is pressed or the trapdoor is opened</p>\n<hr />\n<p><strong>Effect</strong> The charge on the door explodes. All creatures within 10 feet take @Damage[(2d10+6)[fire],(1d10+3)[piercing]]{2d10+6 fire damage and 1d10+3 piercing damage}, and @Damage[1d6[bleed]] (@Check[type:reflex|dc:22|basic:true]). The room is filled with steam, making all creatures within the room @UUID[Compendium.pf2e.conditionitems.Item.Concealed]. The trap then rolls initiative.</p>"
+                    "value": "<p><strong>Trigger</strong> The desk switch is pressed or the trapdoor is opened</p>\n<hr />\n<p><strong>Effect</strong> The charge on the door explodes. All creatures within 10 feet take @Damage[(2d10+6)[fire],(1d10+3)[piercing]]{2d10+6 fire damage and 1d10+3 piercing damage}, and @Damage[1d6[bleed]] (@Check[reflex|dc:22|basic]). The room is filled with steam, making all creatures within the room @UUID[Compendium.pf2e.conditionitems.Item.Concealed]. The trap then rolls initiative.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -56,14 +56,14 @@
                 }
             ],
             "stealth": {
-                "details": "<p>(trained) to find the desk switch; @Check[type:perception|dc:28|traits:action:seek] (expert) to find the trapdoor and charge</p>",
+                "details": "<p>(trained) to find the desk switch; @Check[perception|dc:28|traits:action:seek] (expert) to find the trapdoor and charge</p>",
                 "value": 10
             }
         },
         "creatureType": "",
         "details": {
             "description": "<p>A black‑powder charge fastened to a trapdoor (marked with a \"T\" on the map) blows a hole in a steam tunnel, filling the room with superheated steam.</p>",
-            "disable": "<p>@Check[type:thievery|dc:18|traits:action:disable-a-device] (trained) to disarm the desk switch; @Check[type:thievery|dc:28|traits:action:disable-a-device] (expert) to disarm the trapdoor charge</p>",
+            "disable": "<p>@Check[thievery|dc:18|traits:action:disable-a-device] (trained) to disarm the desk switch; @Check[thievery|dc:28|traits:action:disable-a-device] (expert) to disarm the trapdoor charge</p>",
             "isComplex": true,
             "level": {
                 "value": 7
@@ -74,7 +74,7 @@
                 "title": "Pathfinder #179: Cradle of Quartz"
             },
             "reset": "",
-            "routine": "<p>(1 action) The trapdoor emits a jet of superheated steam. Each creature in the room must attempt a @Check[type:fortitude|dc:28] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[(1d10+3)[fire]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[(2d10+6)[fire]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[(2d10+6)[fire]] damage, is @UUID[Compendium.pf2e.conditionitems.Item.Fatigued], and is blinded for 1 round.</p>"
+            "routine": "<p>(1 action) The trapdoor emits a jet of superheated steam. Each creature in the room must attempt a @Check[fortitude|dc:28] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[(1d10+3)[fire]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[(2d10+6)[fire]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[(2d10+6)[fire]] damage, is @UUID[Compendium.pf2e.conditionitems.Item.Fatigued], and is blinded for 1 round.</p>"
         },
         "saves": {
             "fortitude": {

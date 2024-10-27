@@ -1,0 +1,59 @@
+{
+    "_id": "Un8aEKnVULYAzP5L",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "All This Will Happen Again",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You fail or critically fail a Will save against an emotion effect.</p><hr /><p>Even in the face of overwhelming tribulation, you find solace in the notion that this feeling is fleeting; all things are merely part of a never-ending cycle. Reroll the triggering saving throw with a +1 status bonus. You must use the second result, even if it's worse.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "all-this-will-happen-again",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:emotion",
+                    "all-this-will-happen-again"
+                ],
+                "selector": "will",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fortune",
+                "mental",
+                "samsaran"
+            ]
+        }
+    },
+    "type": "feat"
+}

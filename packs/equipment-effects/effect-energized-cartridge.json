@@ -1,0 +1,97 @@
+{
+    "_id": "UjXwDvLoSe9infGg",
+    "img": "systems/pf2e/icons/equipment/consumables/ammunition/energized-cartridge-fire.webp",
+    "name": "Effect: Energized Cartridge",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Energized Cartridge]</p>\n<p>The ammunition fired from the affixed weapon transforms into your choice of acid, cold, electricity, or fire, dealing damage of the appropriate energy type instead of its usual damage as well as 1d6 persistent damage of the same type on a critical hit.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        {
+                            "or": [
+                                "item:group:firearm",
+                                "item:group:crossbow"
+                            ]
+                        }
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    }
+                ],
+                "flag": "energy",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EnergyType"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "damageType": "{item|flags.pf2e.rulesSelections.energy}"
+                },
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
+            },
+            {
+                "category": "persistent",
+                "critical": true,
+                "damageType": "{item|flags.pf2e.rulesSelections.energy}",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

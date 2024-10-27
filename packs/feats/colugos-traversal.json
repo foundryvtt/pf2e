@@ -1,0 +1,70 @@
+{
+    "_id": "xlPT1vT8pkgV3iCp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Colugo's Traversal",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Forbidding valleys and sheer cliffs can't curb your vows to reunite the lost. You can cast your choice of @UUID[Compendium.pf2e.spells-srd.Item.Gentle Landing] or @UUID[Compendium.pf2e.spells-srd.Item.Jump] as a primal innate spell once per day. At 9th level, these spells are heightened to 3rd rank.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:gentle-landing",
+                            "item:slug:jump"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:gentle-landing",
+                            "item:slug:jump"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:yaksha"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "primal",
+                "yaksha"
+            ]
+        }
+    },
+    "type": "feat"
+}

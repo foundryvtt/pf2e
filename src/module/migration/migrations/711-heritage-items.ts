@@ -173,10 +173,12 @@ export class Migration711HeritageItems extends MigrationBase {
             this.#ancestrySlugs.find((s) => featureSlug.includes(s));
         const ancestryReference = this.#officialAncestries[ancestrySlug ?? ""] ?? null;
         const traits: { rarity: Rarity; value: string[] } = feature.system.traits;
-        const { flags } = feature;
 
-        if (flags.core?.sourceId) {
-            flags.core.sourceId = flags.core.sourceId.replace("ancestryfeatures", "heritages") as ItemUUID;
+        if (feature._stats.compendiumSource) {
+            feature._stats.compendiumSource = feature._stats.compendiumSource.replace(
+                "ancestryfeatures",
+                "heritages",
+            ) as ItemUUID;
         }
 
         return {

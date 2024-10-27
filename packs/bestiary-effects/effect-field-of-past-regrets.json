@@ -1,0 +1,58 @@
+{
+    "_id": "y6fibVDs9QF2vbwu",
+    "img": "icons/magic/unholy/orb-swirling-pink.webp",
+    "name": "Effect: Field of Past Regrets",
+    "system": {
+        "description": {
+            "value": "<p>PCs gain a +1 status bonus to saving throws against mental effects. Living, non-nindoru creatures gain weakness 3 to mental damage.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #197: Let the Leaves Fall"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:mental",
+                    "self:type:character"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "self:mode:living",
+                    {
+                        "not": "self:trait:nindoru"
+                    }
+                ],
+                "type": "mental",
+                "value": 3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

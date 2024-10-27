@@ -10,8 +10,7 @@ import { AuraRuleElement } from "./rule-element/aura.ts";
 import { BaseSpeedRuleElement } from "./rule-element/base-speed.ts";
 import { BattleFormRuleElement } from "./rule-element/battle-form/rule-element.ts";
 import { ChoiceSetRuleElement } from "./rule-element/choice-set/rule-element.ts";
-import { CraftingEntryRuleElement } from "./rule-element/crafting/entry.ts";
-import { CraftingFormulaRuleElement } from "./rule-element/crafting/formula.ts";
+import { CraftingAbilityRuleElement } from "./rule-element/crafting-ability.ts";
 import { CreatureSizeRuleElement } from "./rule-element/creature-size.ts";
 import { CritSpecRuleElement } from "./rule-element/crit-spec.ts";
 import { DamageAlterationRuleElement } from "./rule-element/damage-alteration/rule-element.ts";
@@ -34,6 +33,7 @@ import { RollNoteRuleElement } from "./rule-element/roll-note.ts";
 import { RollOptionRuleElement } from "./rule-element/roll-option/rule-element.ts";
 import { RollTwiceRuleElement } from "./rule-element/roll-twice.ts";
 import { SenseRuleElement } from "./rule-element/sense.ts";
+import { SpecialResourceRuleElement } from "./rule-element/special-resource.ts";
 import { SpecialStatisticRuleElement } from "./rule-element/special-statistic.ts";
 import { StrikeRuleElement } from "./rule-element/strike.ts";
 import { StrikingRuleElement } from "./rule-element/striking.ts";
@@ -61,8 +61,7 @@ class RuleElements {
         BaseSpeed: BaseSpeedRuleElement,
         BattleForm: BattleFormRuleElement,
         ChoiceSet: ChoiceSetRuleElement,
-        CraftingEntry: CraftingEntryRuleElement,
-        CraftingFormula: CraftingFormulaRuleElement,
+        CraftingAbility: CraftingAbilityRuleElement,
         CreatureSize: CreatureSizeRuleElement,
         CriticalSpecialization: CritSpecRuleElement,
         DamageAlteration: DamageAlterationRuleElement,
@@ -83,6 +82,7 @@ class RuleElements {
         RollOption: RollOptionRuleElement,
         RollTwice: RollTwiceRuleElement,
         Sense: SenseRuleElement,
+        SpecialResource: SpecialResourceRuleElement,
         SpecialStatistic: SpecialStatisticRuleElement,
         Strike: StrikeRuleElement,
         Striking: StrikingRuleElement,
@@ -144,4 +144,4 @@ type RuleElementConstructor = { schema: LaxSchemaField<RuleElementSchema> } & (n
     options: RuleElementOptions,
 ) => RuleElementPF2e);
 
-export { RuleElementOptions, RuleElementPF2e, RuleElementSource, RuleElements };
+export { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource };

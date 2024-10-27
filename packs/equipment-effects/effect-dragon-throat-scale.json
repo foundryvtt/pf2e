@@ -1,0 +1,175 @@
+{
+    "_id": "Ou8TRYpigcZZEjC2",
+    "img": "icons/commodities/leather/scales-blue.webp",
+    "name": "Effect: Dragon Throat Scale",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Dragon Throat Scale]</p>\n<p>Your <em>force barrage</em> loses the force trait and damage type, and instead it has the damage type of the breath weapon belonging to the dragon the scale came from, along with that trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:tag:acid",
+                                    {
+                                        "not": "parent:origin:item:slug:dragon-throat-scale"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:tag:cold",
+                                    {
+                                        "not": "parent:origin:item:slug:dragon-throat-scale"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:tag:electricity",
+                                    {
+                                        "not": "parent:origin:item:slug:dragon-throat-scale"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:tag:fire",
+                                    {
+                                        "not": "parent:origin:item:slug:dragon-throat-scale"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitMental",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:tag:mental",
+                                    {
+                                        "not": "parent:origin:item:slug:dragon-throat-scale"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "mental"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:tag:poison",
+                                    {
+                                        "not": "parent:origin:item:slug:dragon-throat-scale"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.TraitVoid",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:tag:void",
+                                    {
+                                        "not": "parent:origin:item:slug:dragon-throat-scale"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "void"
+                    }
+                ],
+                "flag": "dragonThroatScale",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:force-barrage"
+                ],
+                "property": "traits",
+                "value": "{item|flags.pf2e.rulesSelections.dragonThroatScale}"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:slug:force-barrage"
+                ],
+                "property": "traits",
+                "value": "force"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:force-barrage",
+                    "dice:slug:base"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "spell-damage"
+                ],
+                "value": "{item|flags.pf2e.rulesSelections.dragonThroatScale}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

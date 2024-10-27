@@ -16,7 +16,7 @@ $tertiary-color: #e9d7a1; /* compliments the primary color, usually used in comb
 $alt-color: #786452 !default; /* for all other uses */
 $alt-dark: #443730;
 $light-background-color: #f8f4f1;
-$less-light-background-color: darken($light-background-color, 10);
+$less-light-background-color: color.adjust($light-background-color, $lightness: -10%);
 $sub-color: #605856;
 
 /* Text */
@@ -43,23 +43,23 @@ $adjusted-lower: #cc3311;
 :root {
     /* Global */
     --color-pf-primary: #{$primary-color};
-    --color-pf-primary-dark: #{darken($primary-color, 5)};
-    --color-pf-primary-darker: #{darken($primary-color, 10)};
-    --color-pf-primary-light: #{lighten($primary-color, 5)};
-    --color-pf-primary-lighter: #{lighten($primary-color, 10)};
+    --color-pf-primary-dark: #{color.adjust($primary-color, $lightness: -5%)};
+    --color-pf-primary-darker: #{color.adjust($primary-color, $lightness: -10%)};
+    --color-pf-primary-light: #{color.adjust($primary-color, $lightness: 5%)};
+    --color-pf-primary-lighter: #{color.adjust($primary-color, $lightness: 10%)};
     --color-pf-alternate: #{$alt-color};
     --color-pf-alternate-dark: #{$alt-dark};
-    --color-pf-alternate-darker: #{darken($alt-dark, 10)};
-    --color-pf-alternate-light: #{lighten($alt-color, 10)};
+    --color-pf-alternate-darker: #{color.adjust($alt-dark, $lightness: -10%)};
+    --color-pf-alternate-light: #{color.adjust($alt-color, $lightness: 10%)};
     --color-pf-secondary: #{$secondary-color};
-    --color-pf-secondary-dark: #{darken($secondary-color, 10)};
-    --color-pf-secondary-light: #{lighten($secondary-color, 10)};
-    --color-pf-secondary-lighter: #{lighten($secondary-color, 20)};
+    --color-pf-secondary-dark: #{color.adjust($secondary-color, $lightness: -10%)};
+    --color-pf-secondary-light: #{color.adjust($secondary-color, $lightness: 10%)};
+    --color-pf-secondary-lighter: #{color.adjust($secondary-color, $lightness: 20%)};
     --color-pf-tertiary: #{$tertiary-color};
-    --color-pf-tertiary-dark: #{darken($tertiary-color, 10)};
-    --color-pf-tertiary-darker: #{darken($tertiary-color, 20)};
-    --color-pf-tertiary-darkest: #{darken($tertiary-color, 51)};
-    --color-pf-tertiary-light: #{lighten($tertiary-color, 10)};
+    --color-pf-tertiary-dark: #{color.adjust($tertiary-color, $lightness: -10%)};
+    --color-pf-tertiary-darker: #{color.adjust($tertiary-color, $lightness: -20%)};
+    --color-pf-tertiary-darkest: #{color.adjust($tertiary-color, $lightness: -51%)};
+    --color-pf-tertiary-light: #{color.adjust($tertiary-color, $lightness: 10%)};
     --primary: var(--color-pf-primary);
     --secondary: var(--color-pf-secondary);
     --tertiary: var(--color-pf-tertiary);
@@ -73,7 +73,7 @@ $adjusted-lower: #cc3311;
 
     // Inline links and user visibility
     --inline-link-bg: #ddd;
-    --inline-repost-bg: #{lighten(#ddd, 5%)};
+    --inline-repost-bg: #{color.adjust(#ddd, $lightness: 5%)};
     --visibility-gm-bg: #e8e8ef;
     --visibility-owner-bg: #ddebe1;
     --blind-roll: #f5eaf5;
@@ -143,25 +143,25 @@ $adjusted-lower: #cc3311;
         $damage-vitality: #ffffe0;
         $damage-void: #00001f;
         $darker: -12.5%;
-        $transparenter: 0.875;
+        $transparenter: -87.5%;
 
-        --color-bg-acid: #{transparentize($damage-acid, $transparenter)};
-        --color-bg-bleed: #{transparentize($damage-bleed, $transparenter)};
-        --color-bg-chaotic: #{transparentize($damage-chaotic, $transparenter)};
-        --color-bg-cold: #{transparentize($damage-cold, $transparenter)};
-        --color-bg-electricity: #{transparentize($damage-electricity, $transparenter)};
-        --color-bg-evil: #{transparentize($damage-evil, $transparenter)};
-        --color-bg-fire: #{transparentize($damage-fire, $transparenter)};
-        --color-bg-force: #{transparentize($damage-force, $transparenter)};
-        --color-bg-good: #{transparentize($damage-good, $transparenter)};
-        --color-bg-lawful: #{transparentize($damage-lawful, $transparenter)};
-        --color-bg-mental: #{transparentize($damage-mental, $transparenter)};
-        --color-bg-physical: #{transparentize($damage-physical, $transparenter)};
-        --color-bg-poison: #{transparentize($damage-poison, $transparenter)};
-        --color-bg-sonic: #{transparentize($damage-sonic, $transparenter)};
-        --color-bg-spirit: #{transparentize($damage-spirit, $transparenter)};
-        --color-bg-vitality: #{transparentize($damage-vitality, $transparenter)};
-        --color-bg-void: #{transparentize($damage-void, $transparenter)};
+        --color-bg-acid: #{color.scale($damage-acid, $alpha: $transparenter)};
+        --color-bg-bleed: #{color.scale($damage-bleed, $alpha: $transparenter)};
+        --color-bg-chaotic: #{color.scale($damage-chaotic, $alpha: $transparenter)};
+        --color-bg-cold: #{color.scale($damage-cold, $alpha: $transparenter)};
+        --color-bg-electricity: #{color.scale($damage-electricity, $alpha: $transparenter)};
+        --color-bg-evil: #{color.scale($damage-evil, $alpha: $transparenter)};
+        --color-bg-fire: #{color.scale($damage-fire, $alpha: $transparenter)};
+        --color-bg-force: #{color.scale($damage-force, $alpha: $transparenter)};
+        --color-bg-good: #{color.scale($damage-good, $alpha: $transparenter)};
+        --color-bg-lawful: #{color.scale($damage-lawful, $alpha: $transparenter)};
+        --color-bg-mental: #{color.scale($damage-mental, $alpha: $transparenter)};
+        --color-bg-physical: #{color.scale($damage-physical, $alpha: $transparenter)};
+        --color-bg-poison: #{color.scale($damage-poison, $alpha: $transparenter)};
+        --color-bg-sonic: #{color.scale($damage-sonic, $alpha: $transparenter)};
+        --color-bg-spirit: #{color.scale($damage-spirit, $alpha: $transparenter)};
+        --color-bg-vitality: #{color.scale($damage-vitality, $alpha: $transparenter)};
+        --color-bg-void: #{color.scale($damage-void, $alpha: $transparenter)};
 
         --color-border-acid: #{$damage-acid};
         --color-border-bleed: #{$damage-bleed};

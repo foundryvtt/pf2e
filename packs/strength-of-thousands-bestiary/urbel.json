@@ -52,10 +52,8 @@
         },
         {
             "_id": "qr0EzC70z95ajWJ7",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.1xbFBQDRs0hT5xZ9"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.1xbFBQDRs0hT5xZ9"
             },
             "img": "icons/skills/melee/shield-damaged-broken-gold.webp",
             "name": "Shatter",
@@ -133,10 +131,8 @@
         },
         {
             "_id": "iNpL2bBH6hIzKrJV",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.Wu0xFpewMKRK3HG8"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.Wu0xFpewMKRK3HG8"
             },
             "img": "systems/pf2e/icons/spells/grease.webp",
             "name": "Grease",
@@ -201,10 +197,8 @@
         },
         {
             "_id": "9POHZXcLgNaQtUjJ",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.Qw3fnUlaUbnn7ipC"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.Qw3fnUlaUbnn7ipC"
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
@@ -266,10 +260,8 @@
         },
         {
             "_id": "srZxDujQyeYuHLaE",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.r3NeUnsgt9mS03Sn"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.r3NeUnsgt9mS03Sn"
             },
             "img": "systems/pf2e/icons/spells/shocking-grasp.webp",
             "name": "Shocking Grasp",
@@ -282,6 +274,7 @@
                 "counteraction": false,
                 "damage": {
                     "0": {
+                        "applyMod": false,
                         "category": null,
                         "formula": "2d12",
                         "kinds": [
@@ -293,7 +286,7 @@
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>You shroud your hands in a crackling field of lightning. Make a melee spell attack roll. On a hit, the target takes 2d12 electricity damage. If the target is wearing metal armor or is made of metal, you gain a +1 circumstance bonus to your attack roll with shocking grasp, and the target also takes 1d4 persistent electricity damage on a hit. On a critical hit, double the initial damage, but not the persistent damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d12, and the persistent electricity damage increases by 1.</p>\n<p>[[/r (1d4+(@item.level)-1)[persistent,electricity]]]{Leveled Persistent Electricity Damage}</p>"
+                    "value": "<p>You shroud your hands in a crackling field of lightning. Make a melee spell attack roll. On a hit, the target takes 2d12 electricity damage. If the target is wearing metal armor or is made of metal, you gain a +1 circumstance bonus to your attack roll with shocking grasp, and the target also takes @Damage[(1d4+((@item.level)-1))[persistent,electricity]] damage on a hit. On a critical hit, double the initial damage, but not the persistent damage.</p><hr /><p><strong>Heightened (+1)</strong> The damage increases by 1d12, and the persistent electricity damage increases by 1.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -348,10 +341,8 @@
         },
         {
             "_id": "RwoWvci1ALJHe0jP",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.6I4YJAQUbTAqbpsI"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.6I4YJAQUbTAqbpsI"
             },
             "img": "systems/pf2e/icons/equipment/weapons/pick.webp",
             "name": "Pick",
@@ -637,7 +628,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A Medium creature within Urbel's reach leaves a square during its move action</p>\n<hr />\n<p><strong>Effect</strong> Urbel lashes out at the triggering creature's knees and tries to knock them @UUID[Compendium.pf2e.conditionitems.Item.Prone]. He attempts an @Check[type:acrobatics|defense:reflex] check against the creature's Reflex DC. On a success, the target falls and lands Prone.</p>"
+                    "value": "<p><strong>Trigger</strong> A Medium creature within Urbel's reach leaves a square during its move action</p>\n<hr />\n<p><strong>Effect</strong> Urbel lashes out at the triggering creature's knees and tries to knock them @UUID[Compendium.pf2e.conditionitems.Item.Prone]. He attempts an @Check[acrobatics|defense:reflex] check against the creature's Reflex DC. On a success, the target falls and lands Prone.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -759,10 +750,8 @@
         },
         {
             "_id": "WmPbJSiwT9lndOlq",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",

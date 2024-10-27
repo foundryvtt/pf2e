@@ -66,11 +66,13 @@ interface ActorSheetDataPF2e<TActor extends ActorPF2e> extends ActorSheetData<TA
 }
 
 interface AbilityViewData {
-    _id: string;
+    id: string;
     name: string;
+    img: string;
     traits: TraitViewData[];
     glyph: string | null;
     frequency: Frequency | null;
+    usable: boolean;
     has: {
         aura: boolean;
         deathNote: boolean;

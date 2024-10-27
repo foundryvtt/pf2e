@@ -1,0 +1,57 @@
+{
+    "_id": "N8PVMhhGgkJr41yj",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Fox Arson",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>When you critically hit with a @UUID[Compendium.pf2e.feats-srd.Item.Foxfire] Strike, the target takes an additional 1d4 persistent damage of the same type as the foxfire. You gain an item bonus to this persistent damage equal to the foxfire's item bonus to attack rolls. When the target taking persistent damage comes into physical contact with another creature (for instance, if one of its allies touches it while @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid]{Administering First Aid}), you can use a reaction to command the flame to leap to the second target, ending the persistent damage on the first creature and moving it to the second.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Foxfire"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "category": "persistent",
+                "critical": true,
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "selector": "foxfire-damage"
+            },
+            {
+                "critical": true,
+                "damageCategory": "persistent",
+                "key": "FlatModifier",
+                "selector": "foxfire-damage",
+                "value": "@weapon.system.runes.potency"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fire",
+                "kitsune"
+            ]
+        }
+    },
+    "type": "feat"
+}

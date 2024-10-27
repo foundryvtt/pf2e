@@ -4,7 +4,7 @@
     "name": "Effect: Aberrant Blood Magic",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Bloodline: Aberrant]</p>\n<p>Aberrant whispers shield one target's mind or your own, granting a +2 status bonus to Will saving throws for 1 round.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Bloodline: Aberrant]</p>\n<p>Either one target takes a –1 status penalty to Will saving throws for 1 round or you gain a +2 status bonus to Will saving throws for 1 round.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,16 +16,32 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "key": "FlatModifier",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
                 "selector": "will",
+                "slug": "aberrant-bonus",
                 "type": "status",
                 "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "self:signature:{item|origin.signature}"
+                    }
+                ],
+                "selector": "will",
+                "slug": "aberrant-penalty",
+                "type": "status",
+                "value": -1
             }
         ],
         "start": {

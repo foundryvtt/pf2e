@@ -84,7 +84,7 @@
             <h4>{{localize "PF2E.HitPointsHeader"}}</h4>
         </div>
         <div class="value">
-            <input class="current-hp" id="{{actor._id}}-hit-points" type="number"
+            <input class="current-hp" id="{{actor.id}}-hit-points" type="number"
                 name="system.attributes.hp.value" value="{{data.attributes.hp.value}}" class="current-hp"
                 data-dtype="Number" />
             <div>/ </div>
@@ -233,6 +233,11 @@
         </div>
     </div>
     {{!-- ABILITIES --}}
+    {{#if toggles.actions}}
+        <div class="toggles section-container headerless">
+            {{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles.actions}}
+        </div>
+    {{/if}}
     <div class="section-container">
         <div class="section-header">
             <h4>{{localize "PF2E.Familiar.AbilitiesLabel"}}</h4>

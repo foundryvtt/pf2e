@@ -22,15 +22,22 @@ import { BaseSpeedSynthetic } from "@module/rules/synthetics.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import { LightLevels } from "@scene/data.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { Predicate } from "@system/predication.ts";
 import { Statistic, StatisticDifficultyClass, type ArmorStatistic } from "@system/statistic/index.ts";
 import { PerceptionStatistic } from "@system/statistic/perception.ts";
 import { ErrorPF2e, localizer, setHasElement } from "@util";
+import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
-import { CreatureSpeeds, CreatureSystemData, LabeledSpeed, VisionLevel, VisionLevels } from "./data.ts";
+import {
+    CreatureResources,
+    CreatureSpeeds,
+    CreatureSystemData,
+    LabeledSpeed,
+    VisionLevel,
+    VisionLevels,
+} from "./data.ts";
 import { imposeEncumberedCondition, setImmunitiesFromTraits } from "./helpers.ts";
 import { CreatureTrait, CreatureType, CreatureUpdateOperation, GetReachParameters } from "./types.ts";
 
@@ -84,7 +91,7 @@ abstract class CreaturePF2e<
         } else {
             const attacks: { item: ItemPF2e<ActorPF2e>; ready: boolean }[] = weapon
                 ? [{ item: weapon, ready: true }]
-                : this.system.actions ?? [];
+                : (this.system.actions ?? []);
             const readyAttacks = attacks.filter((a) => a.ready);
             const traitsFromItems = readyAttacks.map((a) => new Set(a.item.system.traits?.value ?? []));
             if (traitsFromItems.length === 0) return baseReach;
@@ -240,7 +247,9 @@ abstract class CreaturePF2e<
     }
 
     override prepareData(): void {
-        if (this.initialized) return;
+        if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
+            return;
+        }
         super.prepareData();
 
         // Add spell collections from spell consumables if a matching spellcasting ability is found
@@ -394,7 +403,7 @@ abstract class CreaturePF2e<
 
         // Set labels for attributes
         if (this.system.abilities) {
-            for (const [shortForm, data] of R.entries.strict(this.system.abilities)) {
+            for (const [shortForm, data] of R.entries(this.system.abilities)) {
                 data.label = CONFIG.PF2E.abilities[shortForm];
                 data.shortLabel = `PF2E.AbilityId.${shortForm}`;
             }
@@ -614,6 +623,19 @@ abstract class CreaturePF2e<
         });
     }
 
+    /** Updates a resource. Redirects to special resources if needed */
+    async updateResource(resource: string, value: number): Promise<void> {
+        const resources = this.system.resources;
+
+        const special = this.synthetics.resources[resource];
+        if (special) {
+            await special.update(Math.clamp(value, 0, special.max));
+        } else if (!!resources?.[resource] && ["heroPoints", "focus", "resolve"].includes(resource)) {
+            value = Math.clamp(value, 0, resources[resource]?.max ?? 0);
+            await this.update({ [`system.resources.${resource}.value`]: value });
+        }
+    }
+
     prepareSpeed(movementType: "land"): this["system"]["attributes"]["speed"];
     prepareSpeed(movementType: Exclude<MovementType, "land">): (LabeledSpeed & StatisticModifier) | null;
     prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) | null;
@@ -776,6 +798,15 @@ abstract class CreaturePF2e<
             const updatedPoints = Number(focusUpdate.value ?? this.system.resources.focus?.value) || 0;
             const enforcedMax = (Number(focusUpdate.max) || this.system.resources.focus?.max) ?? 0;
             focusUpdate.value = Math.clamp(updatedPoints, 0, enforcedMax);
+        }
+
+        // Remove special resources from update data
+        if (changed.system.resources) {
+            for (const special of Object.keys(this.synthetics.resources)) {
+                if (special in changed.system.resources) {
+                    delete (changed.system.resources as CreatureResources)[special];
+                }
+            }
         }
 
         // Preserve alignment traits if not exposed

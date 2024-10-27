@@ -12,11 +12,9 @@ import path from "path";
 import * as R from "remeda";
 import "./lib/foundry-utils.ts";
 import { getFilesRecursively } from "./lib/helpers.ts";
+import type { PackEntry } from "./lib/types.ts";
 
 import { Migration913SpellSustainedText } from "@module/migration/migrations/913-spell-sustained-text.ts";
-import { Migration914MovePerceptionSenses } from "@module/migration/migrations/914-move-perception-senses.ts";
-import { Migration915MoveLanguages } from "@module/migration/migrations/915-move-languages.ts";
-import { Migration916NewPCToys } from "@module/migration/migrations/916-new-pc-toys.ts";
 import { Migration917ScrollWandSpellIds } from "@module/migration/migrations/917-scroll-wand-spell-ids.ts";
 import { Migration918DeitySkills } from "@module/migration/migrations/918-deity-skills.ts";
 import { Migration919WeaponToggleStructure } from "@module/migration/migrations/919-trait-toggle-structure.ts";
@@ -33,6 +31,7 @@ import { Migration929RemoveSkillAbbreviations } from "@module/migration/migratio
 import { Migration930ChoiceSetMedium } from "@module/migration/migrations/930-choice-set-medium.ts";
 import { Migration931ExpandREPermissions } from "@module/migration/migrations/931-expand-re-permissions.ts";
 import { Migration932NPCSystemSkills } from "@module/migration/migrations/932-npc-system-skills.ts";
+import { Migration933CraftingAbility } from "@module/migration/migrations/933-crafting-ability.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -43,9 +42,6 @@ globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
     new Migration913SpellSustainedText(),
-    new Migration914MovePerceptionSenses(),
-    new Migration915MoveLanguages(),
-    new Migration916NewPCToys(),
     new Migration917ScrollWandSpellIds(),
     new Migration918DeitySkills(),
     new Migration919WeaponToggleStructure(),
@@ -62,6 +58,7 @@ const migrations: MigrationBase[] = [
     new Migration930ChoiceSetMedium(),
     new Migration931ExpandREPermissions(),
     new Migration932NPCSystemSkills(),
+    new Migration933CraftingAbility(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");
@@ -138,6 +135,27 @@ async function getAllFiles(directory: string = packsDataPath, allEntries: string
     return allEntries;
 }
 
+/** Recursively set defaults such as flags on a document source */
+function setDefaults(source: PackEntry) {
+    source.flags ??= {};
+
+    if (isActorData(source)) {
+        for (const item of source.items) {
+            setDefaults(item);
+        }
+    } else if (isItemData(source)) {
+        if (itemIsOfType(source, "physical")) {
+            source.system.subitems ??= [];
+            for (const subItem of source.system.subitems) {
+                setDefaults(subItem);
+            }
+        }
+        if (itemIsOfType(source, "consumable") && source.system.spell) {
+            setDefaults(source.system.spell);
+        }
+    }
+}
+
 async function migrate() {
     const allEntries = await getAllFiles();
 
@@ -169,16 +187,10 @@ async function migrate() {
             | foundry.documents.MacroSource
             | foundry.documents.RollTableSource
         > => {
-            source.flags ??= {};
             try {
-                if (isActorData(source)) {
-                    for (const embedded of source.items) {
-                        embedded.flags ??= {};
-                        if (itemIsOfType(embedded, "armor", "equipment", "shield", "weapon")) {
-                            embedded.system.subitems ??= [];
-                        }
-                    }
+                setDefaults(source);
 
+                if (isActorData(source)) {
                     const update = await migrationRunner.getUpdatedActor(source, migrationRunner.migrations);
                     update.items = update.items.map((i) => fu.mergeObject({}, i, { performDeletions: true }));
 
@@ -188,9 +200,6 @@ async function migrate() {
                     return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
                 } else if (isItemData(source)) {
                     source.system.slug = sluggify(source.name);
-                    if (itemIsOfType(source, "armor", "equipment", "shield", "weapon")) {
-                        source.system.subitems ??= [];
-                    }
                     const update = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
 
                     pruneDefaults(source);
@@ -222,7 +231,7 @@ async function migrate() {
             }
         })();
 
-        if (!R.equals(source, updated)) {
+        if (!R.isDeepEqual(source, updated)) {
             console.log(`${filePath} is different. writing`);
             try {
                 await fs.writeFile(filePath, jsonStringifyOrder(updated));
@@ -247,7 +256,7 @@ function pruneDefaults(
         delete source.flags;
     }
 
-    if ("system" in source && R.isObject(source.system)) {
+    if ("system" in source && R.isPlainObject(source.system)) {
         if (deleteSlug) delete source.system.slug;
         delete source.system._migrations;
         if (source.type === "consumable" && !source.system.spell) {

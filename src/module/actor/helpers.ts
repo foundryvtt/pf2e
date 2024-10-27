@@ -1,6 +1,6 @@
 import { ActorProxyPF2e, type ActorPF2e } from "@actor";
 import type { ItemPF2e, MeleePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
-import { ActionTrait } from "@item/ability/types.ts";
+import { AbilityTrait } from "@item/ability/types.ts";
 import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
@@ -15,13 +15,13 @@ import {
 } from "@module/rules/helpers.ts";
 import type { RegionDocumentPF2e, ScenePF2e } from "@scene";
 import type { EnvironmentRegionBehavior } from "@scene/region-behavior/types.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckCheckContext, CheckPF2e, CheckRoll } from "@system/check/index.ts";
 import { DamageDamageContext, DamagePF2e } from "@system/damage/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
 import { ErrorPF2e, getActionGlyph, signedInteger, sluggify, traitSlugToObject } from "@util";
+import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import { AttackTraitHelpers } from "./creature/helpers.ts";
 import { DamageRollFunction } from "./data/base.ts";
@@ -36,7 +36,7 @@ import {
 import { NPCStrike } from "./npc/data.ts";
 import { CheckContext } from "./roll-context/check.ts";
 import { DamageContext } from "./roll-context/damage.ts";
-import { AttributeString, AuraEffectData } from "./types.ts";
+import { ActorCommitData, AttributeString, AuraEffectData } from "./types.ts";
 
 /**
  * Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors
@@ -115,7 +115,7 @@ async function migrateActorSource(source: PreCreate<ActorSourcePF2e>): Promise<A
 
     // Clear any prototype token entries explicitly set to `undefined` by upstream
     source.prototypeToken ??= {};
-    for (const [key, value] of R.entries.strict(source.prototypeToken ?? {})) {
+    for (const [key, value] of R.entries(source.prototypeToken ?? {})) {
         if (value === undefined) delete source.prototypeToken[key];
     }
 
@@ -280,7 +280,8 @@ function createEnvironmentRollOptions(actor: ActorPF2e): Record<string, boolean>
             if (token.elevation < bottom || token.elevation > top) continue;
 
             const environmentBehaviors = region.behaviors.filter(
-                (b): b is EnvironmentRegionBehavior<RegionDocumentPF2e<ScenePF2e>> => b.type === "environment",
+                (b): b is EnvironmentRegionBehavior<RegionDocumentPF2e<ScenePF2e>> =>
+                    !b.disabled && b.type === "environment",
             );
             for (const behavior of environmentBehaviors) {
                 const system = behavior.system;
@@ -443,7 +444,7 @@ function getStrikeDamageDomains(
                 test: [...actor.getRollOptions(domains), ...weapon.getRollOptions("item")],
             }).filter((m) => !m.ignored && m.type === "ability"),
         ].reduce((best, candidate) =>
-            candidate && best ? (candidate.value > best.value ? candidate : best) : candidate ?? best,
+            candidate && best ? (candidate.value > best.value ? candidate : best) : (candidate ?? best),
         );
 
         if (attributeModifier) {
@@ -479,7 +480,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     ];
 
     modifiers.push(...extractModifiers(synthetics, domains));
-    modifiers.push(...AttackTraitHelpers.createAttackModifiers({ item }));
+    modifiers.push(...AttackTraitHelpers.createAttackModifiers({ item, domains }));
 
     const attackEffects: Record<string, string | undefined> = CONFIG.PF2E.attackEffects;
     const additionalEffects = item.attackEffects.map((tag) => {
@@ -501,7 +502,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     const attackSlug = item.slug ?? sluggify(item.name);
     const statistic = new StatisticModifier(attackSlug, modifiers, initialRollOptions);
 
-    const actionTraits: ActionTrait[] = (
+    const actionTraits: AbilityTrait[] = (
         ["attack", item.baseType === "alchemical-bomb" ? "manipulate" : null] as const
     ).filter(R.isTruthy);
     const strikeAdjustments = [
@@ -763,7 +764,90 @@ function* iterateAllItems<T extends ActorPF2e>(document: T | PhysicalItemPF2e<T>
     }
 }
 
+/**
+ * Transfer a list of items between actors, stacking equivalent helpers. Temporary until a proper inventory method exists
+ * @param source the source actor
+ * @param dest the destination actor
+ * @param [itemFilterFn] an optional filter function called for each inventory item
+ */
+async function transferItemsBetweenActors(
+    source: ActorPF2e,
+    dest: ActorPF2e,
+    itemFilterFn?: (item: PhysicalItemPF2e) => boolean,
+): Promise<void> {
+    const newItems: PhysicalItemPF2e[] = [];
+    const itemUpdates = new Map<string, number>();
+    const itemsToDelete: string[] = [];
+
+    for (const item of source.inventory) {
+        if (itemFilterFn && !itemFilterFn(item)) continue;
+
+        const stackableItem = dest.inventory.findStackableItem(item);
+        if (stackableItem) {
+            const currentQuantity = itemUpdates.get(stackableItem.id) ?? stackableItem.quantity;
+            itemUpdates.set(stackableItem.id, currentQuantity + item.quantity);
+            itemsToDelete.push(item.id);
+            continue;
+        }
+
+        newItems.push(item);
+        itemsToDelete.push(item.id);
+    }
+
+    if (newItems.length > 0) {
+        const stacked = newItems.reduce((result: PhysicalItemPF2e[], item) => {
+            const stackableItem = result.find((i) => i.isStackableWith(item));
+            if (stackableItem) {
+                stackableItem.updateSource({
+                    system: {
+                        quantity: stackableItem.quantity + item.quantity,
+                    },
+                });
+            } else {
+                result.push(item);
+            }
+
+            return result;
+        }, []);
+        const sources = stacked.map((i) => i.toObject());
+
+        await dest.createEmbeddedDocuments("Item", sources, {
+            render: itemUpdates.size === 0,
+        });
+    }
+
+    if (itemUpdates.size > 0) {
+        const updates = [...itemUpdates.entries()].map(([id, quantity]) => ({
+            _id: id,
+            system: { quantity },
+        }));
+
+        await dest.updateEmbeddedDocuments("Item", updates);
+    }
+
+    if (itemsToDelete.length > 0) {
+        await source.deleteEmbeddedDocuments("Item", itemsToDelete);
+    }
+}
+
+/** Applies multiple batched updates to the actor, delaying rendering till the end */
+async function applyActorUpdate<T extends ActorPF2e>(actor: T, data: ActorCommitData<T>): Promise<void> {
+    if (data.actorUpdates) {
+        await actor.update(data.actorUpdates, { render: false });
+    }
+    if (data.itemCreates.length > 0) {
+        await actor.createEmbeddedDocuments("Item", data.itemCreates, { render: false });
+    }
+    if (data.itemUpdates.length > 0) {
+        await actor.updateEmbeddedDocuments("Item", data.itemUpdates, { render: false });
+    }
+    if (data.actorUpdates || data.itemCreates.length || data.itemUpdates.length) {
+        actor.render();
+    }
+}
+
 export {
+    applyActorUpdate,
     auraAffectsActor,
     calculateMAPs,
     calculateRangePenalty,
@@ -780,6 +864,7 @@ export {
     resetActors,
     setHitPointsRollOptions,
     strikeFromMeleeItem,
+    transferItemsBetweenActors,
     userColorForActor,
 };
 

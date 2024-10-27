@@ -41,10 +41,8 @@
         },
         {
             "_id": "gu8AAzdji5Ncm9fp",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.PEfSofHm73IT3Khc"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.PEfSofHm73IT3Khc"
             },
             "img": "systems/pf2e/icons/spells/house-of-imaginary-walls.webp",
             "name": "House of Imaginary Walls",
@@ -104,10 +102,8 @@
         },
         {
             "_id": "OeCHzilyuVehheZf",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.kF0rs9mCPvJGfAZE"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.kF0rs9mCPvJGfAZE"
             },
             "img": "systems/pf2e/icons/spells/inspire-heroics.webp",
             "name": "Inspire Heroics",
@@ -164,10 +160,8 @@
         },
         {
             "_id": "6we5q1cGiZFzYJT9",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.bH0kPuf7UKxRvi2P"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.bH0kPuf7UKxRvi2P"
             },
             "img": "systems/pf2e/icons/spells/inspire-defense.webp",
             "name": "Inspire Defense",
@@ -230,10 +224,8 @@
         },
         {
             "_id": "WWzA1BaCRsPYiwBy",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.IAjvwqgiDr3qGYxY"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.IAjvwqgiDr3qGYxY"
             },
             "img": "systems/pf2e/icons/spells/inspire-courage.webp",
             "name": "Inspire Courage",
@@ -296,10 +288,8 @@
         },
         {
             "_id": "8ZVzfBM61x0HMrkI",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.76AqNZB5xuFWxgJI"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.76AqNZB5xuFWxgJI"
             },
             "img": "icons/commodities/materials/material-feathers-violet.webp",
             "name": "Fighting Fan",
@@ -385,10 +375,8 @@
         },
         {
             "_id": "Q1qUF2gUk04aDqTP",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.rlDIbl6EQYXQpWVs"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rlDIbl6EQYXQpWVs"
             },
             "img": "systems/pf2e/icons/equipment/held-items/maestros-instrument.webp",
             "name": "Maestro's Instrument (Greater)",
@@ -400,7 +388,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>A maestro's instrument can be crafted in the form of any variety of handheld musical instrument. A greater maestro's instrument grants you a +3 item bonus to Performance checks while playing music with the instrument.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You can play the instrument to produce the effects of an 8th level (DC 38) @UUID[Compendium.pf2e.spells-srd.Item.Charm] spell.</p>\n<hr />\n<p><strong>Craft Requirements</strong> You must supply a casting of <em>charm</em> of the appropriate rank.</p>"
+                    "value": "<p>A <em>maestro's instrument</em> can be crafted in the form of any variety of handheld musical instruments. A <em>maestro's instrument</em> grants you a +3 item bonus to Performance checks while playing music with the instrument.</p><hr /><p><strong>Activate—Charming Performance</strong> <span class=\"action-glyph\">2</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You play the instrument, causing it to cast a 8th-rank @UUID[Compendium.pf2e.spells-srd.Item.Charm] spell with DC 38.</p><hr /><p><strong>Craft Requirements</strong> You must supply a casting of <em>charm</em> of the appropriate rank.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -425,15 +413,21 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
                 },
                 "quantity": 1,
                 "rules": [
                     {
+                        "domain": "performance",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.PlayingItem",
+                        "option": "playing",
+                        "toggleable": true
+                    },
+                    {
                         "key": "FlatModifier",
-                        "label": "Maestro's Instrument (playing it)",
                         "predicate": [
                             "playing"
                         ],

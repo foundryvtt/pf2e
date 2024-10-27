@@ -4,7 +4,7 @@
     "name": "Spell Effect: Sage's Curse (Failure)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Sage's Curse]</p>\n<p>The target must roll twice and use the worse result whenever attempting an Arcana, Lore, Occultism, or Society check.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Sage's Curse]</p>\n<p>The target must roll twice and use the worse result whenever attempting an Arcana, Lore, Occultism, or Society check. On a critical failure, the target treats the outcomes of all checks to Recall Knowledge as one degree of success worse than the result rolled.</p>"
         },
         "duration": {
             "expiry": null,
@@ -24,25 +24,13 @@
             {
                 "keep": "lower",
                 "key": "RollTwice",
-                "predicate": [
-                    {
-                        "or": [
-                            "check:statistic:arcana",
-                            "check:statistic:occultism",
-                            "check:statistic:society"
-                        ]
-                    }
-                ],
                 "removeAfterRoll": false,
                 "selector": [
-                    "skill-check"
+                    "arcana",
+                    "occultism",
+                    "society",
+                    "lore-skill-check"
                 ]
-            },
-            {
-                "keep": "lower",
-                "key": "RollTwice",
-                "removeAfterRoll": false,
-                "selector": "lore-skill-check"
             },
             {
                 "choices": [
@@ -60,9 +48,7 @@
             },
             {
                 "adjustment": {
-                    "criticalSuccess": "one-degree-worse",
-                    "failure": "one-degree-worse",
-                    "success": "one-degree-worse"
+                    "all": "one-degree-worse"
                 },
                 "key": "AdjustDegreeOfSuccess",
                 "predicate": [

@@ -14,7 +14,7 @@ class UserVisibilityPF2e {
         }
 
         // Process all other visibility elements according to originating document ownership
-        const { message } = options;
+        const message = options.message;
         const document = options.document ?? message?.actor ?? message?.journalEntry ?? message ?? null;
         if (document) {
             const ownerElements = visibilityElements.filter((e) => e.dataset.visibility === "owner");

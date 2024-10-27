@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You are adept at dodging roots, foliage, and other jungle obstacles. You ignore difficult terrain in forests and jungles. In addition, when you use the Acrobatics skill to Balance on narrow surfaces or uneven ground made of plant material, you aren't off-guard, and when you roll a success at one of these Acrobatics checks, you get a critical success instead.</p>"
+            "value": "<p>You are adept at dodging roots, foliage, and other jungle obstacles. You ignore difficult terrain in forests and jungles. In addition, when you use the Acrobatics skill to @UUID[Compendium.pf2e.actionspf2e.Item.Balance] on narrow surfaces or uneven ground made of plant material, you aren't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard], and when you roll a success at one of these Acrobatics checks, you get a critical success instead.</p>"
         },
         "level": {
             "value": 1
@@ -20,9 +20,9 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens: The Mwangi Expanse"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
@@ -32,15 +32,14 @@
                 "key": "AdjustDegreeOfSuccess",
                 "predicate": [
                     "action:balance",
-                    "terrain:plant"
+                    {
+                        "or": [
+                            "terrain:foliage",
+                            "terrain:forest"
+                        ]
+                    }
                 ],
                 "selector": "acrobatics"
-            },
-            {
-                "key": "Note",
-                "selector": "acrobatics",
-                "text": "When you roll a success at an Acrobatics check to Balance on narrow surfaces or uneven ground made of plant material,  get a critical success instead.",
-                "title": "{item|name}"
             }
         ],
         "traits": {

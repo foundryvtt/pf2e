@@ -1,4 +1,4 @@
-import { CraftingEntryData, CraftingFormulaData } from "@actor/character/crafting/index.ts";
+import { CraftingAbilityData, CraftingFormulaData } from "@actor/character/crafting/index.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { PhysicalItemTrait } from "@item/physical/data.ts";
@@ -103,7 +103,7 @@ interface MaybeWithOldEntries {
 
 type MaybeOldCraftingEntries = Record<string, Partial<MaybeWithActorPreparedFormulas>>;
 
-interface MaybeWithActorPreparedFormulas extends CraftingEntryData {
+interface MaybeWithActorPreparedFormulas extends CraftingAbilityData {
     actorPreparedFormulas?: ActorPreparedFormula[];
 }
 

@@ -1,0 +1,63 @@
+{
+    "_id": "rFdVYKtHsZzRCsSd",
+    "folder": "TuBpBzbE1ZRVisOU",
+    "img": "systems/pf2e/icons/features/ancestry/stickeytoe-tripkee.webp",
+    "name": "Stickytoe Tripkee",
+    "system": {
+        "ancestry": {
+            "name": "Grippli",
+            "slug": "grippli",
+            "uuid": "Compendium.pf2e.ancestries.Item.hXM5jXezIki1cMI2"
+        },
+        "description": {
+            "value": "<p>Your hands and feet exude a film that helps them adhere to surfaces. You gain a +2 circumstance bonus to your Fortitude and Reflex DC against attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm], @UUID[Compendium.pf2e.actionspf2e.Item.Shove], @UUID[Compendium.pf2e.actionspf2e.Item.Reposition], or @UUID[Compendium.pf2e.actionspf2e.Item.Trip] you. When ascending trees, vines, and other foliage, if you roll a success on the Athletics check to Climb, you get a critical success instead.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:disarm",
+                            "action:shove",
+                            "action:trip",
+                            "action:reposition"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "fortitude-dc",
+                    "reflex-dc"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:climb",
+                    {
+                        "or": [
+                            "terrain:forest",
+                            "terrain:foliage"
+                        ]
+                    }
+                ],
+                "selector": "athletics"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

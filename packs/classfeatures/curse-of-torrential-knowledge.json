@@ -1,0 +1,64 @@
+{
+    "_id": "XQjR07LkDedC7tkc",
+    "img": "icons/sundries/documents/document-symbol-circle-gold-red.webp",
+    "name": "Curse of Torrential Knowledge",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You have a link to true divine knowledge, but your mortal mind struggles to process and act on what you know. Loose materials around you, such as dust, grains of rice, and droplets of water, slowly shift to form strange runes or faint, indecipherable writing, and you sometimes speak unintelligible truths or statements in unknown languages without realizing it. You take a status penalty to Perception checks and Will saving throws equal to your @UUID[Compendium.pf2e.conditionitems.Item.Cursebound] value due to the torrential distractions of unasked-for knowledge flooding your mind. If you are cursebound 4, you additionally can't speak, use linguistic effects, or otherwise communicate with your allies, and you are @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:condition:cursebound"
+                ],
+                "selector": [
+                    "perception",
+                    "will"
+                ],
+                "type": "status",
+                "value": "-@actor.conditions.cursebound.value"
+            },
+            {
+                "allowDuplicate": false,
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "predicate": [
+                    "self:condition:cursebound:4"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "curse",
+                "divine",
+                "oracle"
+            ]
+        }
+    },
+    "type": "feat"
+}

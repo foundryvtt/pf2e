@@ -1,0 +1,172 @@
+{
+    "_id": "GPWMktaOERQIx83M",
+    "img": "systems/pf2e/icons/equipment/consumables/ammunition/life-shot.webp",
+    "name": "Effect: Life Shot",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Life Shot (Minor)], @UUID[Compendium.pf2e.equipment-srd.Item.Life Shot (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Life Shot (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Life Shot (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Life Shot (Major)], @UUID[Compendium.pf2e.equipment-srd.Item.Life Shot (True)]</p>\n<p>You gain an item bonus to saving throws against diseases and poisons.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:life-shot-minor",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Life Shot (Minor)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:life-shot-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Life Shot (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:life-shot-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Life Shot (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:life-shot-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Life Shot (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:life-shot-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Life Shot (Major)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:life-shot-true",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Life Shot (True)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "life-shot"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:disease",
+                            "item:trait:poison"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "life-shot-bonus",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "life-shot:life-shot-moderate",
+                            "life-shot:life-shot-greater"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "life-shot-bonus",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "life-shot:life-shot-major"
+                ],
+                "selector": "saving-throw",
+                "slug": "life-shot-bonus",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "life-shot:life-shot-true"
+                ],
+                "selector": "saving-throw",
+                "slug": "life-shot-bonus",
+                "value": 4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

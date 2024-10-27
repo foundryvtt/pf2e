@@ -3,7 +3,7 @@ import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
-import { ActionTrait } from "@item/ability/types.ts";
+import { AbilityTrait } from "@item/ability/types.ts";
 import { EFFECT_AREA_SHAPES } from "@item/spell/values.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import {
@@ -12,7 +12,6 @@ import {
     extractModifiers,
     processDamageCategoryStacking,
 } from "@module/rules/helpers.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { USER_VISIBILITIES, UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 import {
     createHTMLElement,
@@ -26,6 +25,7 @@ import {
     splitListString,
     tupleHasValue,
 } from "@util";
+import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import { ActionMacroHelpers } from "./action-macros/helpers.ts";
 import { DamagePF2e } from "./damage/damage.ts";
@@ -141,7 +141,7 @@ class TextEditorPF2e extends TextEditor {
             }
 
             // Retrieve item/actor from anywhere via UUID
-            const itemUuid = anchor.dataset.itemUuid;
+            const itemUuid = htmlClosest(anchor, "[data-item-uuid]")?.dataset.itemUuid;
             const itemByUUID = itemUuid && !itemUuid.startsWith("Compendium.") ? fromUuidSync(itemUuid) : null;
             if (itemByUUID instanceof ItemPF2e) {
                 return [itemByUUID.actor, itemByUUID.getRollData()];
@@ -195,7 +195,7 @@ class TextEditorPF2e extends TextEditor {
                               subtitle,
                               title: item.name,
                           })
-                        : anchor.dataset.name ?? item?.name ?? "";
+                        : (anchor.dataset.name ?? item?.name ?? "");
                 args.template.name = game.i18n.localize(name);
 
                 await DamagePF2e.roll(args.template, args.context);
@@ -452,7 +452,9 @@ class TextEditorPF2e extends TextEditor {
             element.appendChild(text);
 
             // difficulty class
-            const visibility = (params["show-dc"] || "all").trim().toLowerCase();
+            const visibility = (params["show-dc"] || (game.pf2e.settings.metagame.dcs ? "all" : "gm"))
+                .trim()
+                .toLowerCase();
             const showDC =
                 (visibility === "all" && game.pf2e.settings.metagame.dcs) ||
                 (["all", "gm"].includes(visibility) && game.user.isGM);
@@ -496,7 +498,7 @@ class TextEditorPF2e extends TextEditor {
 
         // traits
         const additionalTraits = splitListString(params["traits"] ?? "").filter(
-            (trait): trait is ActionTrait => trait in CONFIG.PF2E.actionTraits,
+            (trait): trait is AbilityTrait => trait in CONFIG.PF2E.actionTraits,
         );
         const traits = R.unique([variant?.traits ?? action.traits, additionalTraits].flat());
 
@@ -546,13 +548,19 @@ class TextEditorPF2e extends TextEditor {
         const overrideTraits = "overrideTraits" in rawParams;
         const rawTraits = splitListString(rawParams.traits ?? "");
         const traits = R.unique(overrideTraits ? rawTraits : [rawTraits, item?.system.traits.value ?? []].flat());
+        const rollerRole = tupleHasValue(["origin", "target"], rawParams.rollerRole)
+            ? rawParams.rollerRole
+            : tupleHasValue(SAVE_TYPES, type)
+              ? "target"
+              : "origin";
 
         const params: CheckLinkParams = {
             ...rawParams,
             type,
             basic,
             dc: rawParams.dc?.trim() || null,
-            defense: rawParams.defense?.trim() || null,
+            against: rawParams.against?.trim() || rawParams.defense?.trim() || null,
+            rollerRole,
             showDC,
             overrideTraits,
             traits,
@@ -663,10 +671,12 @@ class TextEditorPF2e extends TextEditor {
                 pf2Roller: params.roller || null,
                 targetOwner: params.targetOwner,
                 pf2Check: sluggify(params.type),
+                against: params.against,
+                rollerRole: params.rollerRole,
             },
         });
 
-        if (params.defense && params.dc) {
+        if (params.against && params.dc) {
             anchor.dataset.tooltip = localize("Invalid", { message: localize("Errors.DCAndDefense") });
             anchor.dataset.invalid = "";
         }
@@ -675,14 +685,13 @@ class TextEditorPF2e extends TextEditor {
             anchor.dataset.itemUuid = item.uuid;
         }
 
-        if (!["flat", "fortitude", "reflex", "will"].includes(params.type) && params.defense) {
-            anchor.dataset.pf2Defense = params.defense;
-        }
-
-        if (params.type && params.dc) {
+        if ((params.type && params.dc) || (params.rollerRole === "target" && params.against)) {
             // Let the inline roll function handle level base DCs
+            // Don't save the result if we are matching a statistic
             const checkDC = params.dc === "@self.level" ? params.dc : getCheckDC({ name, params, item, actor });
-            anchor.dataset.pf2Dc = checkDC;
+            if (!params.against) {
+                anchor.dataset.pf2Dc = checkDC;
+            }
 
             // When using fixed DCs/adjustments, parse and add them to render the real DC
             if (checkDC !== "@self.level") {
@@ -767,7 +776,7 @@ class TextEditorPF2e extends TextEditor {
         const label =
             "shortLabel" in rawParams // A "short label" will omit all damage types and categories
                 ? roll.instances.map((i) => i.head.expression).join(" + ")
-                : args.inlineLabel ?? formula;
+                : (args.inlineLabel ?? formula);
         const labelEl = createHTMLElement("span", { children: [label] });
 
         const element = createHTMLElement("a", {
@@ -831,6 +840,16 @@ function getCheckDC({
     item?: ItemPF2e | null;
     actor?: ActorPF2e | null;
 }): string {
+    // We assume that we can actually display the dc if against is provided.
+    // This function shouldn't be called otherwise.
+    if (!params.dc && params.against && actor) {
+        const rollOptions = [item?.isOfType("action", "feat") ? `origin:action:slug:${item.slug}` : null].filter(
+            R.isTruthy,
+        );
+        const statistic = actor.getStatistic(params.against)?.clone({ rollOptions });
+        return String(statistic?.dc.value ?? 0);
+    }
+
     // Retrieve the base value and identify immutability.
     // resolve() is usually a dc that we don't want to re-apply modifiers to.
     const dc = params.dc;
@@ -857,7 +876,7 @@ function getCheckDC({
     if (base && actor && !immutable) {
         const idDomain = item ? `${item.id}-inline-dc` : null;
         const slugDomain = `${sluggify(name)}-inline-dc`;
-        const domains = ["all", "inline-dc", idDomain, slugDomain].filter(R.isTruthy);
+        const domains = [params.type !== "flat" ? "all" : null, "inline-dc", idDomain, slugDomain].filter(R.isTruthy);
         const { synthetics } = actor;
         const modifier = new ModifierPF2e({
             slug: "base",
@@ -970,7 +989,7 @@ async function augmentInlineDamageRoll(
                       modifiers,
                   }
                 : null,
-            traits: traits?.filter((t): t is ActionTrait => t in CONFIG.PF2E.actionTraits) ?? [],
+            traits: traits?.filter((t): t is AbilityTrait => t in CONFIG.PF2E.actionTraits) ?? [],
         };
 
         if (!options.skipDialog) {
@@ -1031,7 +1050,8 @@ interface ConvertXMLNodeOptions {
 interface CheckLinkParams {
     type: string;
     dc?: Maybe<string>;
-    defense?: Maybe<string>;
+    against: string | null;
+    rollerRole: "origin" | "target";
     basic: boolean;
     adjustment?: string;
     traits: string[];

@@ -4,14 +4,14 @@
     "name": "Crossbow Terror",
     "system": {
         "actionType": {
-            "value": "passive"
+            "value": "action"
         },
         "actions": {
-            "value": null
+            "value": 1
         },
         "category": "class",
         "description": {
-            "value": "<p>You are a dynamo with the crossbow.</p>\n<p>You gain a +2 circumstance bonus to damage with @UUID[Compendium.pf2e.equipment-srd.Item.Crossbow]{Crossbows}.</p>\n<p>If the crossbow is a simple weapon, also increase the damage die size for your attacks made with that crossbow by one step. As normal, this damage die increase can't be combined with other abilities that alter the weapon damage die (such as the ranger feat @UUID[Compendium.pf2e.feats-srd.Item.Crossbow Ace]).</p>"
+            "value": "<p>Your skill with a crossbow strikes terror into your opponents when you threaten them with the next bolt. Interact to reload a crossbow and then attempt an Intimidation check to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize]. You gain a +2 circumstance bonus to this check if you succeeded at a @UUID[Compendium.pf2e.actionspf2e.Item.Strike] with a crossbow this turn.</p>"
         },
         "level": {
             "value": 6
@@ -24,32 +24,26 @@
             ]
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
-                "hideIfDisabled": true,
                 "key": "FlatModifier",
                 "predicate": [
-                    "item:group:crossbow"
+                    "action:demoralize",
+                    "crossbow-terror"
                 ],
-                "selector": "strike-damage",
+                "selector": "intimidation",
                 "type": "circumstance",
                 "value": 2
             },
             {
-                "key": "DamageDice",
-                "label": "Crossbow Ace",
-                "override": {
-                    "upgrade": true
-                },
-                "predicate": [
-                    "item:group:crossbow",
-                    "item:category:simple"
-                ],
-                "selector": "strike-damage"
+                "domain": "skill-check",
+                "key": "RollOption",
+                "option": "crossbow-terror",
+                "toggleable": true
             }
         ],
         "traits": {

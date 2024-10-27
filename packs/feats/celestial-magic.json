@@ -28,7 +28,52 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        {
+                            "or": [
+                                "item:slug:clear-mind",
+                                "item:slug:sure-footing",
+                                "item:slug:share-life",
+                                "item:slug:revealing-light",
+                                "item:slug:humanoid-form",
+                                "item:slug:everlight"
+                            ]
+                        }
+                    ],
+                    "itemType": "spell",
+                    "slugsAsValues": true
+                },
+                "flag": "spell",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.spell}",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.spell}",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:nephilim"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "selected": {

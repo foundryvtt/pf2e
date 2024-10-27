@@ -6,19 +6,18 @@ import type { UserPF2e } from "@module/user/index.ts";
 import { sluggify } from "@util";
 import type { AbilitySource, AbilitySystemData } from "./data.ts";
 import { getActionCostRollOptions, normalizeActionChangeData, processSanctification } from "./helpers.ts";
-import { AbilityTraitToggles } from "./trait-toggles.ts";
-import type { ActionTrait } from "./types.ts";
+import type { AbilityTrait } from "./types.ts";
 
 class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     declare range?: RangeData | null;
 
     declare isMelee?: boolean;
 
-    static override get validTraits(): Record<ActionTrait, string> {
+    static override get validTraits(): Record<AbilityTrait, string> {
         return CONFIG.PF2E.actionTraits;
     }
 
-    get traits(): Set<ActionTrait> {
+    get traits(): Set<AbilityTrait> {
         return new Set(this.system.traits.value);
     }
 
@@ -33,29 +32,11 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
     }
 
     get frequency(): Frequency | null {
-        return this.system.frequency ?? null;
-    }
-
-    override prepareBaseData(): void {
-        super.prepareBaseData();
-
-        // Initialize frequency uses if not set
-        if (this.actor && this.system.frequency) {
-            this.system.frequency.value ??= this.system.frequency.max;
-        }
-
-        this.system.traits.toggles = new AbilityTraitToggles(this);
-
-        this.system.selfEffect ??= null;
-        // Self effects are only usable with actions
-        if (this.system.actionType.value === "passive") {
-            this.system.selfEffect = null;
-        }
+        return this.system.frequency;
     }
 
     override prepareActorData(): void {
         const actor = this.actor;
-
         if (actor?.isOfType("familiar") && this.system.category === "familiar") {
             const slug = this.slug ?? sluggify(this.name);
             actor.rollOptions.all[`self:ability:${slug}`] = true;
@@ -106,11 +87,7 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
         operation: DatabaseUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        if (typeof changed.system?.category === "string") {
-            changed.system.category ||= null;
-        }
         normalizeActionChangeData(this, changed);
-
         return super._preUpdate(changed, operation, user);
     }
 }

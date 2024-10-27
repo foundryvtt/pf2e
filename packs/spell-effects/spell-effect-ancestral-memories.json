@@ -1,0 +1,61 @@
+{
+    "_id": "FlmR5n228jLHuLQG",
+    "img": "icons/commodities/treasure/puzzle-cube.webp",
+    "name": "Spell Effect: Ancestral Memories",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Ancestral Memories]</p>\n<p>You either gain a status bonus to the next spell attack roll you attempt, or an enemy takes a status penalty to the next saving throw they attempt against a spell you cast.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
+                "selector": "spell-attack-roll",
+                "slug": "ancestral-memories-bonus",
+                "type": "status",
+                "value": "ternary(gte(@item.level,8),3,ternary(gte(@item.level,5),2,1))"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "self:signature:{item|origin.signature}"
+                    },
+                    "item:type:spell",
+                    "origin:signature:{item|origin.signature}"
+                ],
+                "selector": "saving-throw",
+                "slug": "ancestral-memories-penalty",
+                "type": "status",
+                "value": "ternary(gte(@item.level,8),-3,ternary(gte(@item.level,5),-2,-1))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

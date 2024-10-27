@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>You learn a special discovery depending on your field.</p>\n<p>When using @UUID[Compendium.pf2e.classfeatures.Item.Advanced Alchemy] to make poisons during your daily preparations, you can spend one batch of @UUID[Compendium.pf2e.classfeatures.Item.Infused Reagents]{reagents} to create three poisons in any combination, instead of just two of the same poison.</p>"
+            "value": "<p>You have handled enough poisons to become inured to their effects. You gain poison resistance equal to half your level.</p>"
         },
         "level": {
             "value": 5
@@ -20,20 +20,15 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "system.crafting.entries.alchemist.fieldDiscovery",
-                "phase": "beforeDerived",
-                "value": [
-                    "item:trait:alchemical",
-                    "item:trait:poison"
-                ]
+                "key": "Resistance",
+                "type": "poison",
+                "value": "floor(@actor.level/2)"
             }
         ],
         "traits": {

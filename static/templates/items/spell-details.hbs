@@ -7,38 +7,50 @@
     {{/unless}}
 
     <div class="form-group">
-        <label>{{localize "PF2E.Item.Spell.Cast"}}</label>
-        <input type="text" name="system.time.value" value="{{data.time.value}}" />
+        <label for="{{fieldIdPrefix}}cast">{{localize "PF2E.Item.Spell.Cast"}}</label>
+        <input id="{{fieldIdPrefix}}cast" type="text" name="system.time.value" value="{{data.time.value}}" />
     </div>
 
     <div class="form-group">
-        <label>{{localize "PF2E.Item.Spell.Cost"}}</label>
-        <input type="text" name="system.cost.value" value="{{data.cost.value}}" />
+        <label for="{{fieldIdPrefix}}cost">{{localize "PF2E.Item.Spell.Cost"}}</label>
+        <input id="{{fieldIdPrefix}}cost" type="text" name="system.cost.value" value="{{data.cost.value}}" />
     </div>
 
     <div class="form-group">
-        <label>{{localize "PF2E.SpellRequirementsLabel"}}</label>
-        <input type="text" name="system.requirements" value="{{data.requirements}}" />
+        <label for="{{fieldIdPrefix}}requirements">{{localize "PF2E.SpellRequirementsLabel"}}</label>
+        <input id="{{fieldIdPrefix}}requirements" type="text" name="system.requirements" value="{{data.requirements}}" />
     </div>
 
     <div class="form-group">
-        <label>{{localize "PF2E.TraitRange"}}</label>
-        <input type="text" name="system.range.value" value="{{data.range.value}}" />
+        <label for="{{fieldIdPrefix}}range">{{localize "PF2E.TraitRange"}}</label>
+        <input id="{{fieldIdPrefix}}range" type="text" name="system.range.value" value="{{data.range.value}}" />
     </div>
 
     <div class="form-group">
-        <label>{{localize "PF2E.Area.InFeet"}}</label>
+        <label for="{{fieldIdPrefix}}area-size">{{localize "PF2E.Area.InFeet"}}</label>
         <div class="details-container-two-columns">
-            <input type="number" name="system.area.value" min="5" step="5" value="{{data.area.value}}" />
-            <select name="system.area.type">
+            <input
+                id="{{fieldIdPrefix}}area-size"
+                type="number"
+                data-property="system.area.value"
+                {{#if (gt item.area.value item._source.system.area.value)}}
+                    class="adjusted-higher"
+                {{else if (lt item.area.value item._source.system.area.value)}}
+                    class="adjusted-lower"
+                {{/if}}
+                min="5"
+                step="5"
+                value="{{data.area.value}}"
+            />
+            <select id="{{fieldIdPrefix}}area-type" name="system.area.type">
                 {{selectOptions areaShapes selected=data.area.type blank="" localize=true}}
             </select>
         </div>
     </div>
 
     <div class="form-group">
-        <label>{{localize "PF2E.SpellTargetLabel"}}</label>
-        <input type="text" name="system.target.value" value="{{data.target.value}}" />
+        <label for="{{fieldIdPrefix}}targets">{{localize "PF2E.SpellTargetLabel"}}</label>
+        <input id="{{fieldIdPrefix}}targets" type="text" name="system.target.value" value="{{data.target.value}}" />
     </div>
 
     <div class="form-group duration">
@@ -60,8 +72,8 @@
         <legend>{{localize "PF2E.Item.Spell.Ritual.Label"}}</legend>
 
         <div class="form-group">
-            <label>{{localize "PF2E.Item.Spell.Ritual.PrimaryCheck"}}</label>
-            <input type="text" name="system.ritual.primary.check" value="{{data.ritual.primary.check}}" />
+            <label for="{{fieldIdPrefix}}primary-check">{{localize "PF2E.Item.Spell.Ritual.PrimaryCheck"}}</label>
+            <input for="{{fieldIdPrefix}}primary-check" type="text" name="system.ritual.primary.check" value="{{data.ritual.primary.check}}" />
         </div>
 
         <div class="form-group">
@@ -79,16 +91,16 @@
         <legend>{{localize "PF2E.Item.Spell.Defense.Label"}}</legend>
 
         <div class="form-group">
-            <label>{{localize "PF2E.ActionTypePassive"}}</label>
-            <select data-property="system.defense.passive.statistic" data-nullable>
+            <label for="{{fieldIdPrefix}}defense-passive">{{localize "PF2E.ActionTypePassive"}}</label>
+            <select id="{{fieldIdPrefix}}defense-passive" data-property="system.defense.passive.statistic" data-nullable>
                 {{selectOptions defensePassiveOptions selected=item.system.defense.passive.statistic blank="" localize=true}}
             </select>
         </div>
 
         <div class="form-group save">
-            <label>{{localize "PF2E.SavingThrow"}}</label>
+            <label for="{{fieldIdPrefix}}save-statistic">{{localize "PF2E.SavingThrow"}}</label>
             <div class="form-fields">
-                <select name="system.defense.save.statistic">
+                <select id="{{fieldIdPrefix}}save-statistic" name="system.defense.save.statistic">
                     {{selectOptions defenseSaveOptions selected=data.defense.save.statistic blank="" localize=true}}
                 </select>
                 <label {{#unless data.defense.save.statistic}}class="disabled"{{/unless}}>

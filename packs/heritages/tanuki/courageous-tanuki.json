@@ -1,0 +1,43 @@
+{
+    "_id": "hqh4zKHYBtDE26g8",
+    "folder": "W02zcMYyeNEfvUOz",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Courageous Tanuki",
+    "system": {
+        "ancestry": {
+            "name": "Tanuki",
+            "slug": "tanuki",
+            "uuid": "Compendium.pf2e.ancestries.Item.pILFsoGsUQkVF5dZ"
+        },
+        "description": {
+            "value": "<p>Your heart beats with the courage of those who came before you, giving you the kind of bravery only a tanuki can demonstrate. Whenever you gain the fleeing condition, you also gain a +10-foot circumstance bonus to your Speeds that lasts as long as you’re fleeing. When you have the fleeing condition, instead of having to spend all your actions trying to escape, you can act normally for one action but must still spend the remainder of your actions fleeing. You also gain the @UUID[Compendium.pf2e.actionspf2e.Item.Tactical Retreat] ability.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Tactical Retreat"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:condition:fleeing"
+                ],
+                "selector": "speed",
+                "type": "circumstance",
+                "value": 10
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "tanuki"
+            ]
+        }
+    },
+    "type": "heritage"
+}

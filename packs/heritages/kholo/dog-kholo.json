@@ -1,0 +1,43 @@
+{
+    "_id": "0B0M6CUnVDkeznRv",
+    "folder": "DdQTPkbUXQDfXSys",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Dog Kholo",
+    "system": {
+        "ancestry": {
+            "name": "Kholo",
+            "slug": "gnoll",
+            "uuid": "Compendium.pf2e.ancestries.Item.vxbQ1Yw4qwgjTzqo"
+        },
+        "description": {
+            "value": "<p>You're a nimble-bodied kholo with a prehistoric, almost dog-like build. Though you typically move like a quadruped, you can still stand and fight like a biped, allowing you to use all equipment normally. If you have both hands free, you can increase your Speed to 30 feet as you run on all fours.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Automaton.HunterAutomaton.ToggleLabel",
+                "option": "on-all-fours",
+                "toggleable": true
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "on-all-fours"
+                ],
+                "selector": "land",
+                "value": 30
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

@@ -1,20 +1,20 @@
-<section class="{{cssClass}} directory flexcol" id="{{cssId}}" data-tab="{{tabName}}">
+<section class="{{cssClass}} directory flexcol" id="{{cssId}}" data-tab="{{tabName}}"{{#if isV13}} data-group="primary"{{/if}}>
     <!-- Directory Header -->
     <header class="directory-header flexcol">
         <div class="header-actions action-buttons flexrow">
             {{#if canCreateEntry}}
-            <button class="create-entry"><i class="{{sidebarIcon}}"></i> {{localize 'SIDEBAR.Create' type=label}}</button>
+            <button class="create-entry"><i class="{{sidebarIcon}}"></i> {{localize "SIDEBAR.Create" type=label}}</button>
             {{/if}}
             {{#if canCreateFolder}}
-            <button class="create-folder"><i class="{{folderIcon}}"></i> {{localize 'FOLDER.Create'}}</button>
+            <button class="create-folder"><i class="{{folderIcon}}"></i> {{localize "FOLDER.Create"}}</button>
             {{/if}}
         </div>
         <div class="header-search flexrow">
             <i class="filter fa-solid {{#if filtersActive}}fa-filter-list{{else}}fa-filter{{/if}}"></i>
             <i class="fa-solid fa-search"></i>
-            <input type="search" name="search" value="" placeholder="{{localize 'SIDEBAR.Search' types=labelPlural}}" autocomplete="off" />
+            <input type="search" name="search" value="" placeholder="{{localize "SIDEBAR.Search" types=labelPlural}}" autocomplete="off" />
             <a class="header-control toggle-sort" data-tooltip="{{localize sortTooltip}}"><i class="fa-solid {{sortIcon}}"></i></a>
-            <a class="header-control collapse-all" data-tooltip="{{localize 'FOLDER.Collapse'}}"><i class="fa-duotone fa-folder-tree"></i></a>
+            <a class="header-control collapse-all" data-tooltip="{{localize "FOLDER.Collapse"}}"><i class="fa-duotone fa-folder-tree"></i></a>
         </div>
     </header>
 

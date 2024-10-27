@@ -1,0 +1,82 @@
+{
+    "_id": "QjZ1PpYIeWh9SbmD",
+    "img": "icons/equipment/feet/boots-armored-banded-steel.webp",
+    "name": "Spell Effect: Leaden Steps",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Leaden Steps]</p>\n<p>The target is @UUID[Compendium.pf2e.conditionitems.Item.Encumbered] and has a weakness to electricity.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "leaden-steps"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Encumbered"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    {
+                        "or": [
+                            "leaden-steps:success",
+                            "leaden-steps:failure"
+                        ]
+                    }
+                ],
+                "type": "electricity",
+                "value": "1+@item.level"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "leaden-steps:critical-failure"
+                ],
+                "type": "electricity",
+                "value": "2+@item.level"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

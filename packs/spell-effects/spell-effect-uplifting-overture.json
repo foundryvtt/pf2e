@@ -1,0 +1,72 @@
+{
+    "_id": "ITErgFRfydm1xmnW",
+    "img": "systems/pf2e/icons/spells/inspire-competence.webp",
+    "name": "Spell Effect: Uplifting Overture",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Uplifting Overture]</p>\n<p>When you later use the Aid reaction, you can roll Performance instead of the normal skill check, and if you roll a failure, you get a success instead. If you are legendary in Performance, you automatically critically succeed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "uplifting-overture:origin:signature:{item|origin.signature}"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "lte": [
+                            "skill:performance:rank",
+                            3
+                        ]
+                    }
+                ],
+                "selector": "performance"
+            },
+            {
+                "adjustment": {
+                    "all": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:performance:rank",
+                            4
+                        ]
+                    }
+                ],
+                "selector": "performance"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,76 @@
+{
+    "_id": "lix0Utu4g8mQ0ZtI",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Devout Blessing",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain the blessing of the devoted class feature, choosing from the listed blessings or any other to which you have access.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Champion Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.championDedicationCount",
+                "value": 1
+            },
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "PF2E.SpecificRule.DivineAlly.AllowedDrops",
+                    "predicate": [
+                        "item:type:feature",
+                        "item:trait:champion"
+                    ]
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Blessed Armament"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Blessed Shield"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Blessed Swiftness"
+                    }
+                ],
+                "flag": "divineAlly",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.DivineAlly.Prompt"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.divineAlly}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

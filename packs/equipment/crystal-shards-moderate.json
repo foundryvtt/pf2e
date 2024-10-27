@@ -8,7 +8,7 @@
             "value": 1
         },
         "bonusDamage": {
-            "value": null
+            "value": 0
         },
         "bulk": {
             "value": 0.1
@@ -21,7 +21,7 @@
             "die": "d4"
         },
         "description": {
-            "value": "<p><strong>Usage</strong> held in 1 hand</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<hr />\n<p>This flask holds a pressurized red-brown gas flecked with bits of sublimated crystal. You gain a +1 item bonus to attack rolls. When the bomb explodes, it deals @Damage[2d4[piercing]] damage and [[/r (4[splash])[piercing]]]{4 piercing splash damage} as the mixture suddenly turns into solid crystals flying at high speeds.</p>\n<p>Surfaces in the splash area grow brittle, gleaming red crystals that crumble to dust after 1 minute. The crystals on level surfaces are @UUID[Compendium.pf2e.equipment-srd.Item.Caltrops]. The crystals on vertical surfaces can be used briefly as handholds, granting the listed item bonus to the next Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Climb] each space. The crystals in each space crumble after the creature leaves, whether Climbing or moving through the caltrops.</p>"
+            "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p><hr /><p>This flask holds a pressurized red-brown gas flecked with bits of sublimated crystal. You gain a +1 item bonus to attack rolls. When the bomb explodes, it deals @Damage[2d4[piercing]] damage and @Damage[(4[splash])[piercing]]{4 piercing splash damage} as the mixture suddenly turns into solid crystals flying at high speeds.</p>\n<p>On a hit, the target takes @Damage[1[persistent,bleed]] damage from the crystals embedded in its flesh. As long as the bleed damage persists, the target also takes a –5-foot penalty to its speed. The target can spend an Interact action to remove the crystals, reducing the DC to stop the bleeding.</p>"
         },
         "group": "bomb",
         "hardness": 0,
@@ -42,9 +42,9 @@
             }
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "quantity": 1,
         "range": 20,
@@ -54,7 +54,7 @@
         "rules": [
             {
                 "key": "Note",
-                "selector": "{item|_id}-damage",
+                "selector": "{item|id}-damage",
                 "text": "PF2E.BombNotes.CrystalShards.Moderate.success"
             }
         ],
@@ -78,6 +78,7 @@
             ]
         },
         "usage": {
+            "canBeAmmo": false,
             "value": "held-in-one-hand"
         }
     },

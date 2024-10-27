@@ -1,0 +1,51 @@
+{
+    "_id": "1WqXbwhfT1f6OrPU",
+    "img": "icons/magic/fire/barrier-wall-explosion-orange.webp",
+    "name": "Effect: Thermal Nimbus",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Thermal Nimbus]</p>\n<p>You gain cold or fire resistance.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "{item|origin.flags.pf2e.kineticist.thermalNimbus}",
+                "value": "@item.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "junction:fire:resistance",
+                    "self:effect:kinetic-aura"
+                ],
+                "type": "{item|origin.flags.pf2e.kineticist.thermalNimbus}",
+                "value": "@actor.level + @item.level"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

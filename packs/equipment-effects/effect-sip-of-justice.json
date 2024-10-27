@@ -1,0 +1,61 @@
+{
+    "_id": "czysaN0cMLJSOH4t",
+    "img": "icons/weapons/swords/greatsword-guard-gold-worn.webp",
+    "name": "Effect: Sip of Justice",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Chalice of Justice]</p>\n<p>Whenever you critically hit an unholy creature with the <em>chalice of justice</em>, the creature takes 2d6 persistent spirit damage, and it's slowed 1 for 1 round. The persistent spirit damage has the holy trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 14
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "category": "persistent",
+                "critical": true,
+                "damageType": "spirit",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:trait:unholy"
+                ],
+                "selector": "chalice-of-justice-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "target:trait:unholy"
+                ],
+                "selector": "chalice-of-justice-attack",
+                "text": "PF2E.SpecificRule.Equipment.ChaliceOfJustice.SipOfJustice.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

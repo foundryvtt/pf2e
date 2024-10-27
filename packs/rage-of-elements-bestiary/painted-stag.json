@@ -87,10 +87,8 @@
         },
         {
             "_id": "lBhRZafxOlZpxCMN",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Regeneration 10 (Deactivated by Fire)",
@@ -179,11 +177,11 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": 2
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The stag shakes the wooden plating along its body in a cacophonous clatter that sets its painted patterns dancing. All creatures within 60 feet of the painted stag who can see or hear it must attempt a @Check[type:will|dc:28] save; a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the stag takes a –4 circumstance penalty to its save. Regardless of the result of its save, each creature is temporarily immune for 1 hour.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] by the painted stag for 1 round.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2} and fascinated by the painted stag for as long as it's stunned.</p>\n<p><strong>Critical Failure</strong> As failure, except @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 4}.</p>"
+                    "value": "<p>The stag shakes the wooden plating along its body in a cacophonous clatter that sets its painted patterns dancing. All creatures within 60 feet of the painted stag who can see or hear it must attempt a @Check[will|dc:28] save; a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the stag takes a –4 circumstance penalty to its save. Regardless of the result of its save, each creature is temporarily immune for 1 hour.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] by the painted stag for 1 round.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2} and fascinated by the painted stag for as long as it's stunned.</p>\n<p><strong>Critical Failure</strong> As failure, except @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 4}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -206,10 +204,8 @@
         },
         {
             "_id": "I7iUFAIbVOIs7d2N",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
@@ -276,6 +272,20 @@
                 "temp": 0,
                 "value": 175
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -284,7 +294,17 @@
                     }
                 ],
                 "value": 45
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "axe-vulnerability",
+                    "value": 10
+                },
+                {
+                    "type": "fire",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "blurb": "",

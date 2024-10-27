@@ -1,0 +1,132 @@
+{
+    "_id": "mVgLCbZgafIylRzh",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/antiplague.webp",
+    "name": "Effect: Antiplague",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Antiplague (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Antiplague (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Antiplague (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Antiplague (Major)]</p>\n<p>You gain an item bonus to Fortitude saves against diseases.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 24
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:antiplague-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Antiplague (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:antiplague-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Antiplague (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:antiplague-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Antiplague (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:antiplague-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Antiplague (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "antiplague"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:disease"
+                ],
+                "selector": "fortitude",
+                "slug": "antiplague-bonus",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "antiplague:antiplague-moderate"
+                ],
+                "selector": "fortitude",
+                "slug": "antiplague-bonus",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "antiplague:antiplague-greater",
+                            "antiplague:antiplague-major"
+                        ]
+                    }
+                ],
+                "selector": "fortitude",
+                "slug": "antiplague-bonus",
+                "value": 4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

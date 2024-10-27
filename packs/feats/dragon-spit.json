@@ -28,7 +28,48 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Character Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": {
+                    "filter": [
+                        {
+                            "or": [
+                                "item:slug:acid-splash",
+                                "item:slug:electric-arc",
+                                "item:slug:produce-flame",
+                                "item:slug:ray-of-frost"
+                            ]
+                        }
+                    ],
+                    "itemType": "spell",
+                    "slugsAsValues": true
+                },
+                "flag": "cantrip",
+                "key": "ChoiceSet"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.cantrip}",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.cantrip}",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:human"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

@@ -5,7 +5,7 @@ import type { TokenPF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { DifficultTerrainGrade, EnvironmentFeatureRegionBehavior, RegionDocumentPF2e } from "@scene";
-import { computeSightAndDetectionForRBV } from "@scene/helpers.ts";
+import { computeSightAndDetectionForRBV, isDefaultTokenImage } from "@scene/helpers.ts";
 import { objectHasKey, sluggify } from "@util";
 import * as R from "remeda";
 import type { ScenePF2e } from "../document.ts";
@@ -113,7 +113,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             .map((r) =>
                 r.behaviors.filter(
                     (b): b is EnvironmentFeatureRegionBehavior<RegionDocumentPF2e<TParent>> =>
-                        b.type === "environmentFeature" && b.system.terrain.difficult > 0,
+                        !b.disabled && b.type === "environmentFeature" && b.system.terrain.difficult > 0,
                 ),
             )
             .flat()
@@ -191,11 +191,13 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     override getBarAttribute(barName: string, options?: { alternative?: string }): TokenResourceData | null {
         const attribute = super.getBarAttribute(barName, options);
         if (!attribute) return null;
+
         const isStaminaOrResolve =
             ["attributes.hp.sp", "resources.resolve"].includes(attribute.attribute) &&
             game.pf2e.settings.variants.stamina;
+        const isSpecialResource = /^resources\.([\w-]+)/.test(attribute.attribute);
         const isShieldHP = attribute.attribute === "attributes.shield.hp" && !!this.actor?.attributes.shield?.itemId;
-        if (isStaminaOrResolve || isShieldHP) {
+        if (isStaminaOrResolve || isSpecialResource || isShieldHP) {
             attribute.editable = true;
         }
 
@@ -208,13 +210,16 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         super._initialize(options);
     }
 
-    /** If embedded, don't prepare data if the parent's data model hasn't initialized all its properties */
+    /**
+     * If embedded, don't prepare data if the parent hasn't finished initializing.
+     * @removeme in V13
+     */
     override prepareData(): void {
-        if (this.initialized) return;
-        if (!this.parent || this.parent.initialized) {
-            this.initialized = true;
-            super.prepareData();
+        if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
+            return;
         }
+        this.initialized = true;
+        super.prepareData();
     }
 
     /** If rules-based vision is enabled, disable manually configured vision radii */
@@ -233,7 +238,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
         const autoscaleDefault = game.pf2e.settings.tokens.autoscale;
         // Autoscaling is a secondary feature of linking to actor size
-        const autoscale = linkToActorSize ? this.flags.pf2e.autoscale ?? autoscaleDefault : false;
+        const autoscale = linkToActorSize ? (this.flags.pf2e.autoscale ?? autoscaleDefault) : false;
         this.flags.pf2e = fu.mergeObject(this.flags.pf2e ?? {}, { linkToActorSize, autoscale });
 
         // Token dimensions from actor size
@@ -252,6 +257,16 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                 this.flags.pf2e.autoscale = false;
             }
             this.texture.tint = tokenOverrides.texture.tint ?? this.texture.tint;
+        }
+
+        if (tokenOverrides.ring) {
+            this.ring.enabled = true;
+            this.ring.effects ||= 1;
+            this.ring.subject = { ...tokenOverrides.ring.subject };
+            this.ring.colors = { ...tokenOverrides.ring.colors };
+            // Upstream makes some decisions by inspecting the subject texture in the source source data:
+            // Fake it for now until this can be addressed upstairs
+            this._source.ring.subject.texture ??= this.ring.subject.texture;
         }
 
         if (tokenOverrides.light) {
@@ -315,10 +330,8 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         const actor = token.actor;
         if (!actor) return;
 
-        const defaultIcons = [ActorPF2e.DEFAULT_ICON, `systems/pf2e/icons/default-icons/${actor.type}.svg`];
-
         // Always override token images if in Nath mode
-        if (game.pf2e.settings.tokens.nathMode && defaultIcons.includes(token.texture.src)) {
+        if (game.pf2e.settings.tokens.nathMode && isDefaultTokenImage(token)) {
             token.texture.src = ((): ImageFilePath | VideoFilePath => {
                 switch (actor.alliance) {
                     case "party":
@@ -326,10 +339,10 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                     case "opposition":
                         return "systems/pf2e/icons/default-icons/alternatives/nath/enemy.webp";
                     default:
-                        return token.texture.src;
+                        return token.texture.src ?? CONST.DEFAULT_TOKEN;
                 }
             })();
-        } else if (defaultIcons.some((path) => token.texture.src?.endsWith(path))) {
+        } else if (isDefaultTokenImage(token)) {
             token.texture.src = actor._source.img;
         }
     }
@@ -433,10 +446,10 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
         if (this.scene?.isView && Object.keys(tokenChanges).length > 0) {
             const tokenOverrides = this.actor?.synthetics.tokenOverrides ?? {};
-            const animation = tokenChanges.texture?.src ? tokenOverrides.animation ?? this.#lastAnimation ?? {} : {};
+            const animation = tokenChanges.texture?.src ? (tokenOverrides.animation ?? this.#lastAnimation ?? {}) : {};
             this.#lastAnimation = R.isDeepEqual(animation, this.#lastAnimation ?? {})
                 ? null
-                : tokenOverrides.animation ?? null;
+                : (tokenOverrides.animation ?? null);
             this.object?._onUpdate(tokenChanges, { broadcast: false, updates: [], animation }, game.user.id);
         }
 

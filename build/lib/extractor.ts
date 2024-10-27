@@ -11,6 +11,7 @@ import { JSDOM } from "jsdom";
 import path from "path";
 import process from "process";
 import * as R from "remeda";
+import { DocumentStatsData } from "types/foundry/common/data/fields.js";
 import systemJSON from "../../static/system.json" assert { type: "json" };
 import templateJSON from "../../static/template.json" assert { type: "json" };
 import { CompendiumPack, isActorSource, isItemSource } from "./compendium-pack.ts";
@@ -242,17 +243,6 @@ class PackExtractor {
         this.#newDocIdMap[docSource._id!] = docSource.name;
 
         const sanitized = this.#sanitizeDocument(docSource);
-        if (isActorSource(sanitized)) {
-            sanitized.items = sanitized.items.map((itemSource) => {
-                CompendiumPack.convertUUIDs(itemSource, { to: "names", map: this.#idsToNames.Item });
-                return this.#sanitizeDocument(itemSource, { isEmbedded: true });
-            });
-        }
-
-        if (isItemSource(sanitized)) {
-            CompendiumPack.convertUUIDs(sanitized, { to: "names", map: this.#idsToNames.Item });
-        }
-
         const docJSON = JSON.stringify(sanitized).replace(/@Compendium\[/g, "@UUID[Compendium.");
 
         // Link checks
@@ -311,6 +301,9 @@ class PackExtractor {
         if (!isEmbedded) {
             docSource.ownership = { default: docSource.ownership?.default ?? 0 };
             delete (docSource as Partial<typeof docSource>).sort;
+
+            // Delete stats from top level entries. Nested ones may keep compendium sources
+            delete (docSource as { _stats?: unknown })._stats;
 
             if (isItemSource(docSource)) {
                 const slug = docSource.system.slug;
@@ -406,6 +399,20 @@ class PackExtractor {
             docSource.content = cleanDescription(docSource.content);
         }
 
+        // Make an effort to also sanitize sub-documents
+        if (isActorSource(docSource)) {
+            docSource.items = docSource.items.map((i) => this.#sanitizeDocument(i, { isEmbedded: true }));
+        } else if (isItemSource(docSource)) {
+            CompendiumPack.convertUUIDs(docSource, { to: "names", map: this.#idsToNames.Item });
+            if (docSource.type === "consumable" && docSource.system.spell) {
+                docSource.system.spell = this.#sanitizeDocument(docSource.system.spell, { isEmbedded: true });
+            } else if (itemIsOfType(docSource, "physical") && docSource.system.subitems?.length) {
+                docSource.system.subitems = docSource.system.subitems.map((i) =>
+                    this.#sanitizeDocument(i, { isEmbedded: true }),
+                );
+            }
+        }
+
         return docSource;
     }
 
@@ -419,7 +426,14 @@ class PackExtractor {
                 if (docSource.folder === null) {
                     delete (docSource as { folder?: null }).folder;
                 }
-                delete (docSource as { _stats?: unknown })._stats;
+
+                // Simplify stats to compendiumSource if it exists, otherwise remove outright
+                // Should have already been pruned if its top level
+                if (docSource._stats?.compendiumSource) {
+                    docSource._stats = { compendiumSource: docSource._stats.compendiumSource } as DocumentStatsData;
+                } else {
+                    delete (docSource as { _stats?: unknown })._stats;
+                }
 
                 if ("img" in docSource && typeof docSource.img === "string") {
                     docSource.img = docSource.img.replace(
@@ -629,7 +643,7 @@ class PackExtractor {
         ];
 
         type ItemSourcesByType = { [T in ItemType]?: ItemInstances<null>[T]["_source"][] };
-        const itemsByType: ItemSourcesByType = R.groupBy(docSource.items, (i) => i.type);
+        const itemsByType = R.groupBy(docSource.items, (i) => i.type) as ItemSourcesByType;
 
         const sortedItems = itemTypes.flatMap((itemType): ItemSourcePF2e[] => {
             switch (itemType) {

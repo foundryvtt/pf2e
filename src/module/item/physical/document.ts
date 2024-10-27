@@ -91,7 +91,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
     /** The number of hands being used to hold this item */
     get handsHeld(): ZeroToTwo {
-        return this.system.equipped.carryType === "held" ? this.system.equipped.handsHeld ?? 1 : 0;
+        return this.system.equipped.carryType === "held" ? (this.system.equipped.handsHeld ?? 1) : 0;
     }
 
     /** Whether the item is currently being worn */
@@ -386,7 +386,9 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
         // Ensure that there is only one selected apex item, and all others are set to false
         if (this.system.apex) {
-            const otherApexData = this.actor.inventory.contents.flatMap((e) => (e === this ? [] : e.system.apex ?? []));
+            const otherApexData = this.actor.inventory.contents.flatMap((e) =>
+                e === this ? [] : (e.system.apex ?? []),
+            );
             if (this.system.apex.selected || (this.isInvested && otherApexData.every((d) => !d.selected))) {
                 this.system.apex.selected = true;
                 for (const data of otherApexData) {

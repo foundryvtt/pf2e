@@ -18,7 +18,7 @@ class ArmorStatistic<TActor extends ActorPF2e = ActorPF2e> extends Statistic<TAc
 
     constructor(actor: TActor, data: Omit<ArmorStatisticData, "domains" | "label" | "slug"> = {}) {
         data.rank ??= 1;
-        const attribute = actor.isOfType("creature") ? data.attribute ?? "dex" : null;
+        const attribute = actor.isOfType("creature") ? (data.attribute ?? "dex") : null;
         const domains = attribute ? ["all", `${attribute}-based`] : ["all"];
         const fullData: ArmorStatisticData = {
             ...data,

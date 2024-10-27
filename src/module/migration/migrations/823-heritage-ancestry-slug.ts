@@ -15,7 +15,7 @@ export class Migration823HeritageAncestrySlug extends MigrationBase {
         const ancestry = await fromUuid(source.system.ancestry.uuid);
         source.system.ancestry.slug =
             ancestry instanceof AncestryPF2e
-                ? ancestry.slug ?? sluggify(ancestry.name)
+                ? (ancestry.slug ?? sluggify(ancestry.name))
                 : sluggify(source.system.ancestry.name);
     }
 }

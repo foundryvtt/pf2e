@@ -1,0 +1,86 @@
+{
+    "_id": "La2ziyuLYKG0thOj",
+    "img": "icons/commodities/materials/plant-sprout-seed-brown-green.webp",
+    "name": "Effect: Clay Sphere - Weapon",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Clay Sphere], @UUID[Compendium.pf2e.equipment-srd.Item.Clay Sphere (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Clay Sphere (Major)]</p>\n<p>Strikes with the affixed weapon have the versatile bludgeoning, versatile piercing, and versatile slashing trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #202: Severed at the Root"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "versatile-b"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "versatile-p"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "versatile-s"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.claySphere.weapon",
+                "value": "{item|flags.pf2e.rulesSelections.weapon}"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Clay Sphere - Weapon Damage Increase"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

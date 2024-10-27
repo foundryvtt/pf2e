@@ -1,0 +1,117 @@
+{
+    "_id": "OIs6WPuCRh2UJTOe",
+    "img": "icons/weapons/swords/greatsword-guard-gold-worn.webp",
+    "name": "Chalice of Justice",
+    "system": {
+        "baseItem": "longsword",
+        "bonus": {
+            "value": 2
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "bulk": {
+            "value": 1
+        },
+        "category": "martial",
+        "containerId": null,
+        "damage": {
+            "damageType": "slashing",
+            "dice": 1,
+            "die": "d8"
+        },
+        "description": {
+            "value": "<p>This gleaming golden sword is a <em>+2 greater striking holy cold iron longsword</em> given only to the worthiest heroes of a holy faith. It's made of a sacred, secret alloy that makes the blade both cold iron and silver. If you're unholy, you're @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} while holding a <em>chalice of justice</em>. You can't recover from this condition while holding the weapon.</p><hr /><p><strong>Activate—Sip of Justice</strong> <span class=\"action-glyph\"><strong>1</strong></span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The pommel of the weapon transmutes into the shape of a miniature chalice. You drink deep from the chalice and regain @Damage[(@item.level)[healing]]{HP} equal to the chalice's level. If you're holy, you regain double the @Damage[(2*@item.level)[healing]]{HP}, and for 1 minute, whenever you critically hit an unholy creature with the <em>chalice of justice</em>, the creature takes @Damage[2d6[persistent,spirit]] damage, and it's @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round. The persistent spirit damage has the holy trait.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Sip of Justice]</p><hr /><p><strong>Craft Requirements</strong> You're holy.</p>"
+        },
+        "group": "sword",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 14
+        },
+        "material": {
+            "grade": "standard",
+            "type": "cold-iron"
+        },
+        "price": {
+            "value": {
+                "gp": 4500
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:id:{item|id}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "materials",
+                "value": "silver"
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 2
+                    }
+                ],
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "self:trait:unholy"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Drained"
+            }
+        ],
+        "runes": {
+            "potency": 2,
+            "property": [
+                "holy"
+            ],
+            "striking": 2
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": "standard",
+                "type": "cold-iron"
+            },
+            "runes": {
+                "potency": 2,
+                "property": [
+                    "holy"
+                ],
+                "striking": 2
+            }
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "divine",
+                "holy",
+                "versatile-p"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        }
+    },
+    "type": "weapon"
+}

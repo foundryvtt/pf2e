@@ -156,6 +156,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
             actionGlyph: getActionGlyph(this.cost ?? null) as ActionGlyph,
             callback: (result) => results.push(result),
             checkContext: (opts) => this.checkContext(opts, { modifiers, rollOptions, slug }),
+            createMessage: options.message?.create,
             difficultyClass,
             event: options.event,
             extraNotes: (selector) =>
@@ -194,7 +195,11 @@ class SingleCheckActionVariant extends BaseActionVariant {
         if (args.actor) {
             const statistic = args.actor.getStatistic(args.slug);
             if (statistic) {
-                const modifier = new StatisticModifier(args.slug, statistic.modifiers, args.rollOptions);
+                const modifiers = [
+                    ...statistic.modifiers,
+                    ...this.modifiers.map((modifier) => new ModifierPF2e(modifier)),
+                ];
+                const modifier = new StatisticModifier(args.slug, modifiers, args.rollOptions);
                 return { label: statistic.label, modifier: modifier.totalModifier, slug: args.slug };
             }
         } else {

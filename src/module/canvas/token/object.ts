@@ -599,10 +599,10 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         if (this.#isDragMeasuring) {
             // Pass along exact destination coordinates if this token is tiny
             const destination =
-                this.isTiny && event.interactionData.clones
+                this.isTiny && event.interactionData.clones?.length
                     ? R.pick(event.interactionData.clones[0], ["x", "y"])
                     : null;
-            canvas.controls.ruler.finishDragMeasurement(destination);
+            canvas.controls.ruler.finishDragMeasurement(event, destination);
             this.layer.clearPreviewContainer();
         } else {
             super._onDragLeftDrop(event);

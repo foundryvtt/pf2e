@@ -1,4 +1,3 @@
-import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RollTwiceSynthetic } from "../synthetics.ts";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, RuleElementSchema } from "./data.ts";
@@ -7,10 +6,13 @@ import { ModelPropsFromRESchema, RuleElementSchema } from "./data.ts";
 class RollTwiceRuleElement extends RuleElementPF2e<RollTwiceRuleSchema> {
     static override defineSchema(): RollTwiceRuleSchema {
         const fields = foundry.data.fields;
-
         return {
             ...super.defineSchema(),
-            selector: new fields.StringField({ required: true, blank: false }),
+            selector: new fields.ArrayField(new fields.StringField({ required: true, blank: false }), {
+                required: true,
+                nullable: false,
+                min: 1,
+            }),
             keep: new fields.StringField({ required: true, choices: ["lower", "higher"] }),
             removeAfterRoll: new fields.BooleanField({ required: false, initial: undefined }),
         };
@@ -19,12 +21,12 @@ class RollTwiceRuleElement extends RuleElementPF2e<RollTwiceRuleSchema> {
     override beforePrepareData(): void {
         if (this.ignored) return;
 
-        const synthetic: RollTwiceSynthetic = { keep: this.keep };
-        if (this.predicate) synthetic.predicate = this.predicate;
-
-        const selector = this.resolveInjectedProperties(this.selector);
-        const synthetics = (this.actor.synthetics.rollTwice[selector] ??= []);
-        synthetics.push(synthetic);
+        const predicate = this.resolveInjectedProperties(this.predicate);
+        for (const selector of this.resolveInjectedProperties(this.selector)) {
+            const synthetic: RollTwiceSynthetic = { keep: this.keep, predicate };
+            const synthetics = (this.actor.synthetics.rollTwice[selector] ??= []);
+            synthetics.push(synthetic);
+        }
     }
 
     override async afterRoll({ domains, roll, rollOptions }: RuleElementPF2e.AfterRollParams): Promise<void> {
@@ -38,7 +40,14 @@ class RollTwiceRuleElement extends RuleElementPF2e<RollTwiceRuleSchema> {
             this.removeAfterRoll ?? ((expireEffects || removeExpired) && this.item.isOfType("effect"));
 
         const rolledTwice = roll?.dice.some((d) => ["kh", "kl"].some((m) => d.modifiers.includes(m))) ?? false;
-        if (!(rolledTwice && removeAfterRoll && domains.includes(this.selector) && this.test(rollOptions))) {
+        if (
+            !(
+                rolledTwice &&
+                removeAfterRoll &&
+                this.selector.some((s) => domains.includes(s)) &&
+                this.test(rollOptions)
+            )
+        ) {
             return;
         }
 
@@ -58,11 +67,19 @@ interface RollTwiceRuleElement
     extends RuleElementPF2e<RollTwiceRuleSchema>,
         ModelPropsFromRESchema<RollTwiceRuleSchema> {}
 
+import fields = foundry.data.fields;
 type RollTwiceRuleSchema = RuleElementSchema & {
-    selector: StringField<string, string, true, false, false>;
-    keep: StringField<"higher" | "lower", "higher" | "lower", true, false, false>;
+    selector: fields.ArrayField<
+        fields.StringField<string, string, true, false, false>,
+        string[],
+        string[],
+        true,
+        false,
+        true
+    >;
+    keep: fields.StringField<"higher" | "lower", "higher" | "lower", true, false, false>;
     /** If the hosting item is an effect, remove or expire it after a matching roll is made */
-    removeAfterRoll: BooleanField<boolean, boolean, false, false, false>;
+    removeAfterRoll: fields.BooleanField<boolean, boolean, false, false, false>;
 };
 
 export { RollTwiceRuleElement };

@@ -1,0 +1,63 @@
+{
+    "_id": "xunnqCkAszIlanLF",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "No Hands, No Problem",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>After a lifetime of using temporary, ghostly limbs to manipulate objects, you hardly need real hands. You can extend your limbs to perform simple Interact actions at a range 5 feet beyond your normal range, after which your limbs contract back to their normal length. You can also cast the @UUID[Compendium.pf2e.spells-srd.Item.Telekinetic Hand] cantrip as an arcane or occult innate spell at will, which always takes the ghostlike form of <em>telekinetic hand</em> and is tethered to your body via a snaking, illusory arm. A cantrip is heightened to a spell rank equal to half your level rounded up.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "tsukumogami poppet heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:telekinetic-hand",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:telekinetic-hand",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:poppet"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "poppet"
+            ]
+        }
+    },
+    "type": "feat"
+}

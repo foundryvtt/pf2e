@@ -10,27 +10,33 @@
             "uuid": "Compendium.pf2e.ancestries.Item.piNLXUrm9iaGqD2i"
         },
         "description": {
-            "value": "<p>You come from a long line of hobgoblins who commanded goblins. You are smaller than other hobgoblins, but goblins still listen to any commands you bellow. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Group Coercion] skill feat. If you roll a success on an Intimidation check to @UUID[Compendium.pf2e.actionspf2e.Item.Coerce] a goblin (but not other creatures with the goblin trait), you get a critical success instead; if you roll a critical failure, you get a failure instead.</p>"
+            "value": "<p>You come from a long line of hobgoblins who commanded goblins. You are smaller than other hobgoblins, but goblins still listen to any commands you bellow. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Group Coercion] skill feat. If you roll a success on an Intimidation check to @UUID[Compendium.pf2e.actionspf2e.Item.Coerce] a goblin, you get a critical success instead; if you roll a critical failure, you get a failure instead.</p>"
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens: Character Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
-                "key": "Note",
-                "predicate": [
-                    "action:coerce",
-                    "target:trait:goblin"
-                ],
-                "selector": "intimidation",
-                "text": "When you roll a success on an Intimidation check to Coerce a goblin, you get a critical success instead; if you roll a critical failure, you get a failure instead.",
-                "title": "{item|name}"
-            },
-            {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.feats-srd.Item.Group Coercion"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better",
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "target:trait:goblin",
+                            "action:coerce"
+                        ]
+                    }
+                ],
+                "selector": "intimidation"
             }
         ],
         "traits": {

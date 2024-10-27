@@ -1,0 +1,61 @@
+{
+    "_id": "gf2CfXocpIQgRsCY",
+    "folder": "5LdB5OQeWNrPAk3X",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Dokkaebi Goblin",
+    "system": {
+        "ancestry": {
+            "name": "Goblin",
+            "slug": "goblin",
+            "uuid": "Compendium.pf2e.ancestries.Item.sQfjTMDaZbT9DThq"
+        },
+        "description": {
+            "value": "<p>Your ancestors mastered illusion-based magic, giving you an innate understanding of it. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Figment] as an innate occult cantrip at will. A cantrip is heightened to a spell rank equal to half your level rounded up. You also gain a +1 circumstance bonus to Will saves against illusions.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:illusion"
+                ],
+                "selector": "will",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:figment",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:figment",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:goblin"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "goblin"
+            ]
+        }
+    },
+    "type": "heritage"
+}

@@ -22,6 +22,22 @@
         },
         "rules": [
             {
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "predicate": [
+                    {
+                        "lt": [
+                            "origin:level",
+                            "self:level"
+                        ]
+                    }
+                ],
+                "selectors": [
+                    "check"
+                ],
+                "uuid": "Compendium.pf2e.boons-and-curses.Item.Effect: Grandmother Spider's Underdog"
+            },
+            {
                 "adjustment": {
                     "failure": "one-degree-worse"
                 },
@@ -29,7 +45,7 @@
                 "predicate": [
                     {
                         "lt": [
-                            "origin:level",
+                            "target:level",
                             "self:level"
                         ]
                     }

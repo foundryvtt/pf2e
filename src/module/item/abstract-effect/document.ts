@@ -35,7 +35,7 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
             const tokenDoc = fromUuidSync(tokenUUID);
             if (!(tokenDoc instanceof TokenDocumentPF2e)) return null;
             const descriptor = Object.getOwnPropertyDescriptor(tokenDoc, "delta");
-            return descriptor?.value instanceof ActorDelta ? descriptor.value.syntheticActor ?? null : null;
+            return descriptor?.value instanceof ActorDelta ? (descriptor.value.syntheticActor ?? null) : null;
         }
 
         return fromUuidSync<ActorPF2e>(originUUID);
@@ -86,9 +86,15 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
                 const originIsInitialized = !!origin?.flags?.pf2e?.rollOptions;
                 // If this effect came from another actor, get that actor's roll options as well
                 return originIsInitialized
-                    ? origin.getSelfRollOptions("origin").map((o) => `${prefix}:${o}`) ?? []
+                    ? (origin.getSelfRollOptions("origin").map((o) => `${prefix}:${o}`) ?? [])
                     : [];
             })();
+        if (originRollOptions.length > 0) {
+            originRollOptions.push(`${prefix}:origin`);
+            if (originRollOptions.some((o) => o.startsWith(`${prefix}:origin:item:`))) {
+                originRollOptions.push(`${prefix}:origin:item`);
+            }
+        }
 
         const grantingItem = this.grantedBy?.getRollOptions(`${prefix}:granter`) ?? [];
         const badge = this.badge;

@@ -1,5 +1,5 @@
 import { ActorPF2e, ArmyPF2e, CreaturePF2e, type PartyPF2e } from "@actor";
-import { FeatGroup } from "@actor/character/feats.ts";
+import type { FeatGroup } from "@actor/character/feats/index.ts";
 import { MODIFIER_TYPES } from "@actor/modifiers.ts";
 import { ActorSheetPF2e, SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
@@ -16,7 +16,6 @@ import {
     getAdjustedValue,
     getAdjustment,
 } from "@module/sheet/helpers.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { SocketMessage } from "@scripts/socket.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import {
@@ -30,6 +29,7 @@ import {
     setHasElement,
     tupleHasValue,
 } from "@util";
+import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import Sortable from "sortablejs";
 import { KingdomBuilder } from "./builder.ts";
@@ -490,7 +490,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                         (s) => s.sort,
                     );
                     siblings.splice(newIndex, 0, settlement);
-                    const updates = R.mapToObj.indexed(siblings, (s, index) => [`settlements.${s.id}.sort`, index]);
+                    const updates = R.mapToObj(siblings, (s, index) => [`settlements.${s.id}.sort`, index]);
                     this.kingdom.update(updates);
                 },
             });

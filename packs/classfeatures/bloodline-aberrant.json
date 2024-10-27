@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>Something speaks to you from beyond the stars or below the earth. Ancient and unknowable, this alien influence presses against your mind.</p>\n<p><strong>Spell List</strong> occult</p>\n<p><strong>Bloodline Skills</strong> Intimidation, Occultism</p>\n<p><strong>Granted Spells</strong> cantrip @UUID[Compendium.pf2e.spells-srd.Item.Daze], 1st: @UUID[Compendium.pf2e.spells-srd.Item.Spider Sting], 2nd: @UUID[Compendium.pf2e.spells-srd.Item.Stupefy], 3rd: @UUID[Compendium.pf2e.spells-srd.Item.Vampiric Feast], 4th: @UUID[Compendium.pf2e.spells-srd.Item.Confusion], 5th: @UUID[Compendium.pf2e.spells-srd.Item.Black Tentacles], 6th: @UUID[Compendium.pf2e.spells-srd.Item.Never Mind], 7th: @UUID[Compendium.pf2e.spells-srd.Item.Warp Mind], 8th: @UUID[Compendium.pf2e.spells-srd.Item.Uncontrollable Dance], 9th: @UUID[Compendium.pf2e.spells-srd.Item.Spirit Song]</p>\n<p><strong>Bloodline Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Tentacular Limbs], advanced: @UUID[Compendium.pf2e.spells-srd.Item.Aberrant Whispers], greater: @UUID[Compendium.pf2e.spells-srd.Item.Unusual Anatomy]</p>\n<p><strong>Blood Magic</strong> Aberrant whispers shield one target's mind or your own, granting a +2 status bonus to Will saving throws for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Aberrant Blood Magic]</p>"
+            "value": "<p>Something ancient and unknowable speaks to you from beyond the stars or below the earth.</p>\n<p><strong>Tradition</strong> occult</p>\n<p><strong>Bloodline Skills</strong> Intimidation, Occultism</p>\n<p><strong>Sorcerous Gifts</strong> cantrip: @UUID[Compendium.pf2e.spells-srd.Item.Daze]; 1st: @UUID[Compendium.pf2e.spells-srd.Item.Phantom Pain]; 2nd: @UUID[Compendium.pf2e.spells-srd.Item.Stupefy]; 3rd: @UUID[Compendium.pf2e.spells-srd.Item.Vampiric Feast]; 4th: @UUID[Compendium.pf2e.spells-srd.Item.Confusion]; 5th: @UUID[Compendium.pf2e.spells-srd.Item.Slither]; 6th: @UUID[Compendium.pf2e.spells-srd.Item.Never Mind]; 7th: @UUID[Compendium.pf2e.spells-srd.Item.Warp Mind]; 8th: @UUID[Compendium.pf2e.spells-srd.Item.Uncontrollable Dance]; 9th: @UUID[Compendium.pf2e.spells-srd.Item.Unfathomable Song]</p>\n<p><strong>Bloodline Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Tentacular Limbs]; advanced: @UUID[Compendium.pf2e.spells-srd.Item.Aberrant Whispers]; greater: @UUID[Compendium.pf2e.spells-srd.Item.Unusual Anatomy]</p>\n<p><strong>Blood Magic—Eerie Veil</strong> An ominous pall spills from your mind. Either one target takes a –1 status penalty to Will saving throws for 1 round or you gain a +2 status bonus to Will saving throws for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Aberrant Blood Magic]</p>"
         },
         "level": {
             "value": 1
@@ -20,21 +20,31 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.intimidation.rank",
+                "predicate": [
+                    {
+                        "not": "parent:granter:slug:crossblooded-evolution"
+                    }
+                ],
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.occultism.rank",
+                "predicate": [
+                    {
+                        "not": "parent:granter:slug:crossblooded-evolution"
+                    }
+                ],
                 "value": 1
             },
             {
@@ -42,10 +52,11 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "class:sorcerer",
+                    {
+                        "not": "parent:granter:slug:crossblooded-evolution"
+                    },
                     {
                         "or": [
-                            "item:tag:ancestral-spell",
                             {
                                 "and": [
                                     "item:trait:focus",
@@ -59,7 +70,7 @@
                                     "spellcasting:tradition:occult",
                                     {
                                         "or": [
-                                            "item:slug:spider-sting",
+                                            "item:slug:phantom-pain",
                                             "item:slug:stupefy",
                                             "item:slug:vampiric-feast",
                                             "item:slug:confusion",
@@ -75,14 +86,123 @@
                         ]
                     }
                 ],
+                "priority": 121,
+                "property": "other-tags",
+                "value": "blood-magic-spell"
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
+                "mergeable": true,
+                "option": "blood-magic",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Aberrant",
+                        "predicate": [
+                            "class:sorcerer"
+                        ],
+                        "value": "aberrant"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Sorcerer.SecondBloodMagic",
+                "mergeable": true,
+                "option": "second-blood-magic",
+                "placement": "spellcasting",
+                "predicate": [
+                    {
+                        "or": [
+                            "feat:blood-ascendancy",
+                            "feat:blood-sovereignty"
+                        ]
+                    }
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Aberrant",
+                        "value": "aberrant"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    "item:tag:blood-magic-spell",
+                    {
+                        "or": [
+                            "blood-magic:aberrant",
+                            {
+                                "and": [
+                                    "second-blood-magic:aberrant",
+                                    "feat:blood-sovereignty"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "priority": 121,
                 "property": "description",
                 "value": [
                     {
+                        "divider": true,
                         "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Aberrant",
-                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Aberrant"
                     },
                     {
                         "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Aberrant Blood Magic]"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    "item:slug:blood-rising",
+                    {
+                        "or": [
+                            "blood-magic:aberrant",
+                            {
+                                "and": [
+                                    "second-blood-magic:aberrant",
+                                    "feat:blood-ascendancy"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Aberrant",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Aberrant"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Aberrant Blood Magic]"
+                    }
+                ]
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "feature:bloodline:tradition:occult",
+                "predicate": [
+                    {
+                        "not": "parent:granter:slug:crossblooded-evolution"
                     }
                 ]
             }

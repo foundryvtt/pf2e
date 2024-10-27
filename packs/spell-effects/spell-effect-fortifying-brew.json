@@ -1,0 +1,82 @@
+{
+    "_id": "IhorZCrhO4dCq6n3",
+    "img": "systems/pf2e/icons/spells/heroes-feast.webp",
+    "name": "Spell Effect: Fortifying Brew",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Fortifying Brew]</p>\n<p>Each guest gains temporary Hit Points. On a critical success, guests also gain a +2 status bonus to saves against disease, fear, and poison effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 12
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": "critical-success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    }
+                ],
+                "flag": "heroesFeast",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "fortifying-brew"
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "fortifying-brew:critical-success"
+                ],
+                "value": "@item.level*4"
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "fortifying-brew:success"
+                ],
+                "value": "@item.level*2"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "fortifying-brew:critical-success",
+                    {
+                        "or": [
+                            "disease",
+                            "poison"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

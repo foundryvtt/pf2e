@@ -47,7 +47,7 @@ declare class MouseInteractionManager {
     state: number;
 
     /** Bound handlers which can be added and removed */
-    handlers: Record<string, Function>;
+    handlers: Record<string, (...args: unknown[]) => void>;
 
     /** The drag handling time */
     dragTime: number;

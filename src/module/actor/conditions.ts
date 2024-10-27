@@ -29,6 +29,10 @@ class ActorConditions<TActor extends ActorPF2e> extends DelegatedCollection<Cond
         return this.bySlug("clumsy", { active: true }).shift() ?? null;
     }
 
+    get cursebound(): ConditionPF2e<TActor> | null {
+        return this.bySlug("cursebound", { active: true }).shift() ?? null;
+    }
+
     get doomed(): ConditionPF2e<TActor> | null {
         return this.bySlug("doomed", { active: true }).shift() ?? null;
     }

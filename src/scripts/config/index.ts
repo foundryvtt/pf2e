@@ -40,7 +40,14 @@ import { Size } from "@module/data.ts";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet.ts";
 import { configFromLocalization, sluggify } from "@util";
 import * as R from "remeda";
-import { damageCategories, damageRollFlavors, damageTypes, materialDamageEffects } from "./damage.ts";
+import {
+    damageCategories,
+    damageRollFlavors,
+    damageTypes,
+    energyDamageTypes,
+    materialDamageEffects,
+    physicalDamageTypes,
+} from "./damage.ts";
 import { immunityTypes, resistanceTypes, weaknessTypes } from "./iwr.ts";
 import {
     actionTraits,
@@ -144,6 +151,7 @@ const tokenHUDConditions = {
 
 const conditionTypes: Record<ConditionSlug, string> = {
     ...tokenHUDConditions,
+    cursebound: "PF2E.ConditionTypeCursebound",
     friendly: "PF2E.ConditionTypeFriendly",
     helpful: "PF2E.ConditionTypeHelpful",
     hostile: "PF2E.ConditionTypeHostile",
@@ -384,7 +392,9 @@ export const PF2ECONFIG = {
     damageTypes,
     damageRollFlavors,
     damageCategories,
+    energyDamageTypes,
     materialDamageEffects,
+    physicalDamageTypes,
     resistanceTypes,
 
     stackGroups: {
@@ -483,6 +493,7 @@ export const PF2ECONFIG = {
         "attached-to-crossbow-or-firearm-scope": "PF2E.TraitAttachedToCrossbowOrFirearmScope",
         "attached-to-firearm": "PF2E.TraitAttachedToFirearm",
         "attached-to-firearm-scope": "PF2E.TraitAttachedToFirearmScope",
+        "attached-to-melee-weapon": "PF2E.TraitAttachedToMeleeWeapon",
         "attached-to-ships-bow": "PF2E.TraitAttachedToShipsBow",
         bonded: "PF2E.TraitBonded",
         carried: "PF2E.TraitCarried",
@@ -689,10 +700,10 @@ export const PF2ECONFIG = {
     },
 
     actionCategories: {
-        interaction: "PF2E.Item.Action.Category.Interaction",
-        defensive: "PF2E.Item.Action.Category.Defensive",
-        offensive: "PF2E.Item.Action.Category.Offensive",
-        familiar: "PF2E.Item.Action.Category.Familiar",
+        interaction: "PF2E.Item.Ability.Category.Interaction",
+        defensive: "PF2E.Item.Ability.Category.Defensive",
+        offensive: "PF2E.Item.Ability.Category.Offensive",
+        familiar: "PF2E.Item.Ability.Category.Familiar",
     },
 
     frequencies: {
@@ -857,48 +868,6 @@ export const PF2ECONFIG = {
             lootableNPCs: {
                 name: "PF2E.SETTINGS.Automation.LootableNPCs.Name",
                 hint: "PF2E.SETTINGS.Automation.LootableNPCs.Hint",
-            },
-        },
-        homebrew: {
-            creatureTraits: {
-                name: "PF2E.SETTINGS.Homebrew.CreatureTraits.Name",
-                hint: "PF2E.SETTINGS.Homebrew.CreatureTraits.Hint",
-            },
-            featTraits: {
-                name: "PF2E.SETTINGS.Homebrew.FeatTraits.Name",
-                hint: "PF2E.SETTINGS.Homebrew.FeatTraits.Hint",
-            },
-            languages: {
-                name: "PF2E.Actor.Creature.Language.Plural",
-                hint: "PF2E.SETTINGS.Homebrew.Languages.Hint",
-            },
-            spellTraits: {
-                name: "PF2E.SETTINGS.Homebrew.SpellTraits.Name",
-                hint: "PF2E.SETTINGS.Homebrew.SpellTraits.Hint",
-            },
-            weaponCategories: {
-                name: "PF2E.SETTINGS.Homebrew.WeaponCategories.Name",
-                hint: "PF2E.SETTINGS.Homebrew.WeaponCategories.Hint",
-            },
-            weaponGroups: {
-                name: "PF2E.SETTINGS.Homebrew.WeaponGroups.Name",
-                hint: "PF2E.SETTINGS.Homebrew.WeaponGroups.Hint",
-            },
-            baseWeapons: {
-                name: "PF2E.SETTINGS.Homebrew.BaseWeapons.Name",
-                hint: "PF2E.SETTINGS.Homebrew.BaseWeapons.Hint",
-            },
-            weaponTraits: {
-                name: "PF2E.SETTINGS.Homebrew.WeaponTraits.Name",
-                hint: "PF2E.SETTINGS.Homebrew.WeaponTraits.Hint",
-            },
-            equipmentTraits: {
-                name: "PF2E.SETTINGS.Homebrew.EquipmentTraits.Name",
-                hint: "PF2E.SETTINGS.Homebrew.EquipmentTraits.Hint",
-            },
-            environmentTypes: {
-                name: "PF2E.SETTINGS.Homebrew.EnvironmentTypes.Name",
-                hint: "PF2E.SETTINGS.Homebrew.EnvironmentTypes.Hint",
             },
         },
         worldClock: {

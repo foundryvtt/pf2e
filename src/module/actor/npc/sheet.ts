@@ -3,17 +3,16 @@ import { CreatureSheetPF2e, type CreatureSheetData } from "@actor/creature/sheet
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { NPCSkillsEditor } from "@actor/npc/skills-editor.ts";
 import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
+import { createAbilityViewData } from "@actor/sheet/helpers.ts";
 import { RecallKnowledgePopup } from "@actor/sheet/popups/recall-knowledge-popup.ts";
 import { MovementType } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, MOVEMENT_TYPES, SAVE_TYPES } from "@actor/values.ts";
 import { createTagifyTraits } from "@module/sheet/helpers.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { DicePF2e } from "@scripts/dice.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import type { StatisticRollParameters } from "@system/statistic/index.ts";
 import {
-    getActionGlyph,
     htmlClosest,
     htmlQuery,
     htmlQueryAll,
@@ -23,6 +22,7 @@ import {
     tagify,
     traitSlugToObject,
 } from "@util";
+import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import { NPCConfig } from "./config.ts";
 import {
@@ -174,7 +174,7 @@ class NPCSheetPF2e extends AbstractNPCSheet {
         if (this.isLootSheet || this.actor.limited) {
             const tokenSetsNameVisibility = game.pf2e.settings.tokens.nameVisibility;
             const canSeeName = !tokenSetsNameVisibility || !this.token || this.token.playersCanSeeName;
-            const actorName = canSeeName ? this.token?.name ?? this.actor.name : "";
+            const actorName = canSeeName ? (this.token?.name ?? this.actor.name) : "";
 
             if (this.actor.isDead) {
                 return `${actorName} [${game.i18n.localize("PF2E.NPC.Dead")}]`;
@@ -191,7 +191,7 @@ class NPCSheetPF2e extends AbstractNPCSheet {
         if (this.isLootSheet || this.actor.limited) {
             const tokenSetsNameVisibility = game.pf2e.settings.tokens.nameVisibility;
             const canSeeName = !tokenSetsNameVisibility || !this.token || this.token.playersCanSeeName;
-            const actorName = canSeeName ? this.token?.name ?? this.actor.name : "";
+            const actorName = canSeeName ? (this.token?.name ?? this.actor.name) : "";
 
             sheetData.actor.name = actorName;
         }
@@ -341,9 +341,8 @@ class NPCSheetPF2e extends AbstractNPCSheet {
                     })();
 
                     return {
-                        ...R.pick(item, ["name", "sort"]),
+                        ...R.pick(item, ["id", "name", "sort"]),
                         ...R.pick(attack, ["breakdown", "variants"]),
-                        _id: item.id,
                         attackType: item.isMelee ? "PF2E.NPCAttackMelee" : "PF2E.NPCAttackRanged",
                         traits,
                         effects,
@@ -370,17 +369,8 @@ class NPCSheetPF2e extends AbstractNPCSheet {
         );
 
         for (const item of abilities) {
-            const traits = item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
-            const glyph = getActionGlyph(item.actionCost);
-            const actionGroup = glyph ? "active" : "passive";
-            const frequency = item.system?.frequency || null;
-            const has = {
-                aura: item.traits.has("aura") || item.system.rules.some((r) => r.key === "Aura"),
-                deathNote: item.system.deathNote,
-                selfEffect: !!item.system.selfEffect,
-            };
-
-            actions[actionGroup].actions.push({ _id: item.id, name: item.name, glyph, traits, frequency, has });
+            const actionGroup = item.actionCost ? "active" : "passive";
+            actions[actionGroup].actions.push(createAbilityViewData(item));
         }
 
         sheetData.attacks = attacks;

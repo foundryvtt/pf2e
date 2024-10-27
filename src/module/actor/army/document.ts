@@ -1,4 +1,4 @@
-import { FeatGroup } from "@actor/character/feats.ts";
+import { FeatGroup } from "@actor/character/feats/index.ts";
 import { Sense } from "@actor/creature/sense.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
@@ -10,7 +10,6 @@ import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { extractDamageDice, extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
 import { createDamageFormula } from "@system/damage/formula.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
@@ -18,6 +17,7 @@ import type { DamageDamageContext, SimpleDamageTemplate } from "@system/damage/t
 import type { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
 import { ArmorStatistic, Statistic, StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { createHTMLElement, signedInteger, tupleHasValue } from "@util";
+import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import { ActorPF2e, type ActorUpdateOperation, type HitPointsSummary } from "../base.ts";
 import type { ArmySource, ArmySystemData } from "./data.ts";
@@ -56,6 +56,9 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
     }
 
     override prepareData(): void {
+        if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
+            return;
+        }
         super.prepareData();
         this.kingdom?.notifyUpdate();
     }

@@ -1,10 +1,16 @@
 import { RuleElementSource } from "@module/rules/index.ts";
 import type { TokenImageRuleElement } from "@module/rules/rule-element/token-image.ts";
 import { htmlQuery } from "@util";
-import { RuleElementForm, RuleElementFormSheetData } from "./base.ts";
+import * as R from "remeda";
+import { RuleElementForm, RuleElementFormSheetData, RuleElementFormTabData } from "./base.ts";
 
 class TokenImageForm extends RuleElementForm<RuleElementSource, TokenImageRuleElement> {
     override template = "systems/pf2e/templates/items/rules/token-image.hbs";
+
+    protected override tabs: RuleElementFormTabData = {
+        names: ["basics", "ring"],
+        displayStyle: "grid",
+    };
 
     override async getData(): Promise<TokenImageFormSheetData> {
         return {
@@ -32,6 +38,18 @@ class TokenImageForm extends RuleElementForm<RuleElementSource, TokenImageRuleEl
                 this.updateItem({ [fieldName]: newValue });
             });
         }
+    }
+
+    override updateObject(source: RuleElementSource & Partial<Record<string, JSONValue>>): void {
+        if (
+            R.isPlainObject(source.ring) &&
+            R.isPlainObject(source.ring.subject) &&
+            typeof source.ring.subject.texture === "string" &&
+            !source.ring.subject.texture.trim()
+        ) {
+            source.ring = null;
+        }
+        return super.updateObject(source);
     }
 }
 

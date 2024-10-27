@@ -1,0 +1,43 @@
+{
+    "_id": "W0JwZEe2uJnSGZRN",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Wild-Haired Fury",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your broken bones jut at odd angles, yet this pain only adds to your anger and prowess. You add the combined value of your @UUID[Compendium.pf2e.conditionitems.Item.Doomed] and @UUID[Compendium.pf2e.conditionitems.Item.Wounded] conditions as a circumstance bonus to damage rolls with your melee attacks (for example, if you were doomed 1 and wounded 2, you would gain a +3 circumstance bonus to your melee damage rolls).</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "melee-damage",
+                "type": "circumstance",
+                "value": "@actor.conditions.doomed.badge.value + @actor.conditions.wounded.badge.value"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "yaksha"
+            ]
+        }
+    },
+    "type": "feat"
+}

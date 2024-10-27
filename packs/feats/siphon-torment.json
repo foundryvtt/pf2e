@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>Your progenitors suffered greatly at the hands of a curse, a fate you willingly take upon yourself rather than let fall upon others. Once per day, you can cast @UUID[Compendium.pf2e.spells-srd.Item.Claim Curse] as an innate divine spell. When you do, the target creature gains temporary Hit Points equal to your level.</p>"
+            "value": "<p>Your progenitors suffered greatly at the hands of a curse, a fate you willingly take upon yourself rather than let fall upon others. Once per day, you can cast @UUID[Compendium.pf2e.spells-srd.Item.Claim Curse] as an innate divine spell. When you do, the target creature gains temporary Hit Points equal to your level.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Siphon Torment]</p>"
         },
         "level": {
             "value": 9
@@ -24,7 +24,49 @@
             "remaster": true,
             "title": "Pathfinder Howl of the Wild"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:claim-curse",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:claim-curse",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:minotaur"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:claim-curse",
+                    "spellcasting:innate"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Minotaur.SiphonTorment.Description"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Siphon Torment]"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

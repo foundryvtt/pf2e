@@ -41,10 +41,8 @@
         },
         {
             "_id": "Lxy72d7EHquxHGp8",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.qwlh6aDgi86U3Q7H"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.qwlh6aDgi86U3Q7H"
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion",
@@ -125,10 +123,8 @@
         },
         {
             "_id": "5MlwAUm4fBndqKQZ",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.IarZrgCeaiUqOuRu"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.IarZrgCeaiUqOuRu"
             },
             "img": "icons/magic/fire/flame-burning-campfire-rocks.webp",
             "name": "Wall of Fire",
@@ -210,10 +206,8 @@
         },
         {
             "_id": "PqGCHcHsWVUwGzsf",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl"
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
@@ -279,10 +273,8 @@
         },
         {
             "_id": "rVSz9CHl20Une7pD",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.OhD2Z6rIGGD5ocZA"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.OhD2Z6rIGGD5ocZA"
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
@@ -573,10 +565,8 @@
         },
         {
             "_id": "QtbetvkizVrPlsdb",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
@@ -601,15 +591,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "or": [
-                                    "magical",
-                                    "arcane",
-                                    "divine",
-                                    "primal",
-                                    "occult"
-                                ]
-                            }
+                            "item:magical"
                         ],
                         "selector": "saving-throw",
                         "type": "status",
@@ -626,10 +608,8 @@
         },
         {
             "_id": "AdsHpmWCgQto5myp",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity (Jaws Only)",
@@ -673,7 +653,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>10 feet. @Damage[6d6[fire]] damage (@Check[type:reflex|dc:42|basic:true] save)</p>"
+                    "value": "<p>10 feet. @Damage[6d6[fire]] damage (@Check[reflex|dc:42|basic] save)</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -705,10 +685,8 @@
         },
         {
             "_id": "KrTgWTUW9uB20sKT",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
@@ -722,7 +700,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>90 feet. @Check[type:will|dc:42]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>90 feet. @Check[will|dc:42]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -800,7 +778,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The manifestation of Dahak breathes a blast of dragonstorm energy that deals @Damage[5d6[acid],5d6[cold],5d6[electricity],5d6[fire],5d6[poison]]{5d6 acid, 5d6 cold, 5d6 electricity, 5d6 fire, and 5d6 poison damage} in a @Template[type:cone|distance:60] (@Check[type:reflex|dc:46|basic:true|name:Dragonstorm Breath|traits:fire,acid,cold,electricity,poison] save).</p>\n<p>It can't use Dragonstorm Breath again for [[/br 1d4 #Recharge Dragonstorm Breath]]{1d4 rounds}.</p>"
+                    "value": "<p>The manifestation of Dahak breathes a blast of dragonstorm energy that deals @Damage[5d6[acid],5d6[cold],5d6[electricity],5d6[fire],5d6[poison]]{5d6 acid, 5d6 cold, 5d6 electricity, 5d6 fire, and 5d6 poison damage} in a @Template[cone|distance:60] (@Check[reflex|dc:46|basic|name:Dragonstorm Breath|traits:fire,acid,cold,electricity,poison] save).</p>\n<p>It can't use Dragonstorm Breath again for [[/br 1d4 #Recharge Dragonstorm Breath]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",

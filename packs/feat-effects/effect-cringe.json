@@ -1,0 +1,44 @@
+{
+    "_id": "lHbTN7jk1zuER92O",
+    "img": "systems/pf2e/icons/spells/remember-the-lost.webp",
+    "name": "Effect: Cringe",
+    "system": {
+        "description": {
+            "value": "<p>You take a penalty to the strike damage equal to 2 + the origin's level.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "critical": false,
+                "key": "FlatModifier",
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": "-(2 + @actor.level)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

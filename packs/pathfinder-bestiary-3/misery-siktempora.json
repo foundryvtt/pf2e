@@ -43,12 +43,10 @@
         },
         {
             "_id": "r1Ei390nYbTkJ2Ac",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.b5sGjGlBf58f8jn0"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.b5sGjGlBf58f8jn0"
             },
-            "img": "systems/pf2e/icons/spells/air-walk.webp",
+            "img": "icons/magic/water/wave-water-teal.webp",
             "name": "Air Walk (Constant)",
             "sort": 200000,
             "system": {
@@ -108,10 +106,8 @@
         },
         {
             "_id": "kw0xs1qR8Ayr184q",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.zR67Rt3UMHKC5evy"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.zR67Rt3UMHKC5evy"
             },
             "img": "systems/pf2e/icons/spells/blink.webp",
             "name": "Blink",
@@ -172,10 +168,8 @@
         },
         {
             "_id": "x29TRtgx6HdtboNu",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door (At Will)",
@@ -246,10 +240,8 @@
         },
         {
             "_id": "rid7uiBO9dlSI1wn",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.XXqE1eY3w3z6xJCB"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.XXqE1eY3w3z6xJCB"
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
@@ -357,10 +349,8 @@
         },
         {
             "_id": "TTmqj0RzBKjYpDRC",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy 300 feet",
@@ -435,10 +425,8 @@
         },
         {
             "_id": "j6z5lXtJI1JXtP6N",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
@@ -470,10 +458,8 @@
         },
         {
             "_id": "OoyUDyw74uN0JNYI",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Regeneration 40 (Deactivated by Mental, Orichalcum, or Vitality)",
@@ -585,7 +571,18 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "dimension-of-time-lore"
+                        ],
+                        "selector": "initiative",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -608,7 +605,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The misery siktempora's last action was a claw Strike that damaged the target</p>\n<hr />\n<p><strong>Effect</strong> The misery siktempora fills the target's thoughts with abject despair. The target must attempt a @Check[type:will|dc:32] save. Regardless of outcome, the target is then immune to Inflict Misery for 1 minute.</p>\n<hr />\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}, @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 round.</p>\n<p><strong>Critical Failure</strong> As failure, but for 1 minute.</p>"
+                    "value": "<p><strong>Requirements</strong> The misery siktempora's last action was a claw Strike that damaged the target</p>\n<hr />\n<p><strong>Effect</strong> The misery siktempora fills the target's thoughts with abject despair. The target must attempt a @Check[will|dc:32] save. Regardless of outcome, the target is then immune to Inflict Misery for 1 minute.</p>\n<hr />\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}, @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 round.</p>\n<p><strong>Critical Failure</strong> As failure, but for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -642,7 +639,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The misery siktempora assails the mind of one creature within 100 feet with a wail of anguish and torment that deals @Damage[8d6[mental]] damage (@Check[type:will|dc:32|basic:true] save).</p>\n<p>On a failed save, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Confused] for the first action of its next turn (or for 1 round on a critical failure).</p>"
+                    "value": "<p>The misery siktempora assails the mind of one creature within 100 feet with a wail of anguish and torment that deals @Damage[8d6[mental]] damage (@Check[will|dc:32|basic] save).</p>\n<p>On a failed save, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Confused] for the first action of its next turn (or for 1 round on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "OGL",

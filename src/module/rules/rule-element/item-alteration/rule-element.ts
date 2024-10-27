@@ -1,12 +1,12 @@
 import type { ActorPF2e } from "@actor";
 import type { ItemPF2e, PhysicalItemPF2e } from "@item";
-import { ItemType } from "@item/base/data/index.ts";
+import type { ItemType } from "@item/base/data/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import * as R from "remeda";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { AELikeRuleElement } from "../ae-like.ts";
 import { RuleElementPF2e } from "../base.ts";
-import { ModelPropsFromRESchema, RuleElementSchema } from "../data.ts";
+import type { ModelPropsFromRESchema, RuleElementSchema } from "../data.ts";
 import { ItemAlteration, ItemAlterationSchema } from "./alteration.ts";
 
 class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema> {
@@ -87,6 +87,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
     }
 
     override onApplyActiveEffects(): void {
+        this.actor.synthetics.itemAlterations.push(this);
         if (!this.constructor.#DELAYED_PROPERTIES.includes(this.property)) {
             this.applyAlteration();
         }

@@ -1,0 +1,58 @@
+{
+    "_id": "k0NNa5Ko4XhDdBYB",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Nocturnal Senses",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your senses gain even greater clarity. While raging, if you have low-light vision you gain darkvision, and if you have scent the range of your imprecise scent increases to 60 feet.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "low-light vision or scent"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "range": 60,
+                "selector": "scent"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "selector": "darkvision"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "barbarian",
+                "rage"
+            ]
+        }
+    },
+    "type": "feat"
+}

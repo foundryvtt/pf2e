@@ -1,0 +1,76 @@
+{
+    "_id": "i86JRWsFRpfEJnZP",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Pirate Combat Training",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You're particularly skilled at wielding the weapons used traditionally by pirates. You gain either the @UUID[Compendium.pf2e.feats-srd.Item.Combat Climber] or @UUID[Compendium.pf2e.feats-srd.Item.Underwater Marauder] skill feat, even if you do not meet its prerequisites. You have familiarity with the following weapons: @UUID[Compendium.pf2e.equipment-srd.Item.Hatchet], @UUID[Compendium.pf2e.equipment-srd.Item.Rapier], @UUID[Compendium.pf2e.equipment-srd.Item.Scimitar], and @UUID[Compendium.pf2e.equipment-srd.Item.Whip]—for the purposes of proficiency, you treat any of these weapons as simple weapons. Your GM may add additional martial weapons to this list as appropriate for your world or region.</p>\n<p>At 5th level, whenever you get a critical hit with one of these weapons, you get its critical specialization effect.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Pirate Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:base:hatchet",
+                            "item:base:rapier",
+                            "item:base:scimitar",
+                            "item:base:whip"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.PirateWeapons",
+                "sameAs": "simple",
+                "slug": "pirate-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:base:hatchet",
+                            "item:base:rapier",
+                            "item:base:scimitar",
+                            "item:base:whip"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

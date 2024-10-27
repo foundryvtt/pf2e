@@ -28,7 +28,42 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Character Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:light",
+                            "item:slug:tangle-vine",
+                            "item:slug:vitality-lash"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:light",
+                            "item:slug:tangle-vine",
+                            "item:slug:vitality-lash"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:elf"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

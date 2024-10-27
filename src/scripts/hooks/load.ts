@@ -3,6 +3,7 @@ import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-prog
 import { resetActors } from "@actor/helpers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ItemProxyPF2e } from "@item";
+import { AbilitySystemData } from "@item/ability/index.ts";
 import { KitSystemData } from "@item/kit/data.ts";
 import { MeleeSystemData } from "@item/melee/data.ts";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
@@ -84,6 +85,7 @@ export const Load = {
 
         // Assign canvas layer and placeable classes
 
+        CONFIG.Item.dataModels.action = AbilitySystemData;
         CONFIG.Item.dataModels.kit = KitSystemData;
         CONFIG.Item.dataModels.melee = MeleeSystemData;
 
@@ -123,15 +125,19 @@ export const Load = {
         CONFIG.Item.typeIcons = {
             action: "fa-solid fa-person-running-fast",
             affliction: "fa-solid fa-biohazard",
+            ancestry: "fa-solid fa-person-fairy",
             armor: "fa-solid fa-shirt-long-sleeve",
+            background: "fa-solid fa-baby",
             backpack: "fa-solid fa-sack",
             book: "fa-solid fa-book",
+            class: "fa-solid fa-user-beard-bolt",
             condition: "fa-solid fa-face-zany",
             consumable: "fa-solid fa-flask-round-potion",
             deity: "fa-solid fa-hamsa",
             effect: "fa-solid fa-person-rays",
             equipment: "fa-solid fa-hat-cowboy",
             feat: "fa-solid fa-medal",
+            heritage: "fa-solid fa-wreath-laurel",
             shield: "fa-solid fa-shield-halved",
             spell: "fa-solid fa-sparkles",
             treasure: "fa-solid fa-gem",
@@ -164,7 +170,7 @@ export const Load = {
                     app.render();
                 }
             }
-            if (path.includes("effects-panel")) game.pf2e.effectPanel.render();
+            if (path.includes("system/effects")) game.pf2e.effectPanel.render();
         }
 
         // HMR for template files

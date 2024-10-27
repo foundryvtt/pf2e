@@ -1,6 +1,6 @@
 import type { ActorType } from "@actor/types.ts";
 import type { MeleePF2e, WeaponPF2e } from "@item";
-import { ActionTrait } from "@item/ability/types.ts";
+import { AbilityTrait } from "@item/ability/types.ts";
 import { RUNE_DATA, prunePropertyRunes } from "@item/physical/runes.ts";
 import { addOrUpgradeTrait } from "@item/weapon/helpers.ts";
 import { WeaponRangeIncrement } from "@item/weapon/types.ts";
@@ -36,7 +36,7 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
             ...super.defineSchema(),
             mode: new fields.StringField({
                 required: true,
-                choices: R.keys.strict(AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES),
+                choices: R.keys(AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES),
                 initial: undefined,
             }),
             property: new fields.StringField({
@@ -109,7 +109,7 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
                     };
                 case "traits":
                     return {
-                        adjustTraits: (weapon: WeaponPF2e | MeleePF2e, traits: ActionTrait[]): void => {
+                        adjustTraits: (weapon: WeaponPF2e | MeleePF2e, traits: AbilityTrait[]): void => {
                             if (!["add", "subtract", "remove"].includes(this.mode)) {
                                 return this.failValidation(
                                     'A strike adjustment of traits must be used with the "add", "subtract", or "remove" mode.',

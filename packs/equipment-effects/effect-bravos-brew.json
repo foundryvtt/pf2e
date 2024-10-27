@@ -1,0 +1,149 @@
+{
+    "_id": "eh7EqmDBDW30ShCu",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/bravos-brew.webp",
+    "name": "Effect: Bravo's Brew",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Bravo's Brew (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Bravo's Brew (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Bravo's Brew (Greater)]</p>\n<p>You gain an item bonus to Will saves. This bonus increases when attempting Will saves against fear. If you consumed a <em>greater bravo's brew</em>, when you roll a success on a save against fear, you get a critical success instead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:bravos-brew-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Bravo's Brew (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:bravos-brew-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Bravo's Brew (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:bravos-brew-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Bravo's Brew (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "bravos-brew"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "will",
+                "slug": "bravos-brew-bonus",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:fear",
+                            "bravos-brew:bravos-brew-moderate"
+                        ]
+                    }
+                ],
+                "selector": "will",
+                "slug": "bravos-brew-bonus",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "bravos-brew:bravos-brew-moderate",
+                                    "item:trait:fear"
+                                ]
+                            },
+                            "bravos-brew:bravos-brew-greater"
+                        ]
+                    }
+                ],
+                "selector": "will",
+                "slug": "bravos-brew-bonus",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:trait:fear",
+                    "bravos-brew:bravos-brew-greater"
+                ],
+                "selector": "will",
+                "slug": "bravos-brew-bonus",
+                "value": 4
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:trait:fear",
+                    "bravos-brew:bravos-brew-greater"
+                ],
+                "selector": "saving-throw"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

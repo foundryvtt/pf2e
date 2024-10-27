@@ -28,7 +28,21 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Firebrands"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "predicate": [
+                    "action:feint"
+                ],
+                "selector": "skill-check",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "uncommon",
             "value": [

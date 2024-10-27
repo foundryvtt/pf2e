@@ -1,6 +1,8 @@
 import type BaseEffectSource from "./base-effect-source.d.ts";
 import type { BaseEffectSourceData } from "./base-effect-source.d.ts";
 
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
+
 /**
  * An abstract class which extends the base PointSource to provide common functionality for rendering.
  * This class is extended by both the LightSource and VisionSource subclasses.

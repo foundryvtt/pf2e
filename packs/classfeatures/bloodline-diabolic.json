@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>Devils are evil with a silver tongue, and one of your ancestors dallied in darkness or made an infernal pact.</p>\n<p><strong>Spell List</strong> divine</p>\n<p><strong>Bloodline Skills</strong> Deception, Religion</p>\n<p><strong>Granted Spells</strong> cantrip @UUID[Compendium.pf2e.spells-srd.Item.Produce Flame], 1st: @UUID[Compendium.pf2e.spells-srd.Item.Charm], 2nd: @UUID[Compendium.pf2e.spells-srd.Item.Floating Flame], 3rd: @UUID[Compendium.pf2e.spells-srd.Item.Enthrall], 4th: @UUID[Compendium.pf2e.spells-srd.Item.Suggestion], 5th: @UUID[Compendium.pf2e.spells-srd.Item.Wave of Despair], 6th: @UUID[Compendium.pf2e.spells-srd.Item.Truesight], 7th: @UUID[Compendium.pf2e.spells-srd.Item.Divine Decree], 8th: @UUID[Compendium.pf2e.spells-srd.Item.Divine Aura], 9th: @UUID[Compendium.pf2e.spells-srd.Item.Falling Stars]</p>\n<p><strong>Bloodline Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Diabolic Edict], advanced: @UUID[Compendium.pf2e.spells-srd.Item.Embrace the Pit], greater: @UUID[Compendium.pf2e.spells-srd.Item.Hellfire Plume]</p>\n<p><strong>Blood Magic</strong> Hellfire scorches a target or fills your tongue with lies. Either a target takes 1 fire damage per spell rank (if the spell already deals initial fire damage, combine this with the spell's initial damage before determining weaknesses and resistances), or you gain a +1 status bonus to Deception checks for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Diabolic Blood Magic (Self)]</p>"
+            "value": "<p>Devils are evil with a silver tongue, and one of your ancestors dallied in darkness or made an infernal pact.</p>\n<p><strong>Spell List</strong> divine</p>\n<p><strong>Bloodline Skills</strong> Deception, Religion</p>\n<p><strong>Sorcerous Gifts</strong> cantrip @UUID[Compendium.pf2e.spells-srd.Item.Ignition], 1st: @UUID[Compendium.pf2e.spells-srd.Item.Charm], 2nd: @UUID[Compendium.pf2e.spells-srd.Item.Floating Flame], 3rd: @UUID[Compendium.pf2e.spells-srd.Item.Enthrall], 4th: @UUID[Compendium.pf2e.spells-srd.Item.Suggestion], 5th: @UUID[Compendium.pf2e.spells-srd.Item.Wave of Despair], 6th: @UUID[Compendium.pf2e.spells-srd.Item.Truesight], 7th: @UUID[Compendium.pf2e.spells-srd.Item.Divine Decree], 8th: @UUID[Compendium.pf2e.spells-srd.Item.Divine Inspiration], 9th: @UUID[Compendium.pf2e.spells-srd.Item.Falling Stars]</p>\n<p><strong>Bloodline Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Diabolic Edict], advanced: @UUID[Compendium.pf2e.spells-srd.Item.Embrace the Pit], greater: @UUID[Compendium.pf2e.spells-srd.Item.Hellfire Plume]</p>\n<p><strong>Blood Magic—Tongue of Flame</strong> Your tongue becomes laced with the fires of Hell, and you can either lash out at a foe with it or swallow it to make your lies more palatable. Either a target takes 1 fire damage per spell rank (if the spell already deals initial fire damage, combine this with the spell's initial damage before determining weaknesses and resistances), or you gain a +2 status bonus to Deception checks for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Diabolic Blood Magic (Self)]</p>"
         },
         "level": {
             "value": 1
@@ -20,21 +20,31 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.deception.rank",
+                "predicate": [
+                    {
+                        "not": "parent:granter:slug:crossblooded-evolution"
+                    }
+                ],
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.religion.rank",
+                "predicate": [
+                    {
+                        "not": "parent:granter:slug:crossblooded-evolution"
+                    }
+                ],
                 "value": 1
             },
             {
@@ -42,10 +52,11 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "class:sorcerer",
+                    {
+                        "not": "parent:granter:slug:crossblooded-evolution"
+                    },
                     {
                         "or": [
-                            "item:tag:ancestral-spell",
                             {
                                 "and": [
                                     "item:trait:focus",
@@ -66,7 +77,7 @@
                                             "item:slug:wave-of-despair",
                                             "item:slug:truesight",
                                             "item:slug:divine-decree",
-                                            "item:slug:divine-aura",
+                                            "item:slug:divine-inspiration",
                                             "item:slug:falling-stars"
                                         ]
                                     }
@@ -75,14 +86,123 @@
                         ]
                     }
                 ],
+                "priority": 121,
+                "property": "other-tags",
+                "value": "blood-magic-spell"
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
+                "mergeable": true,
+                "option": "blood-magic",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Diabolic",
+                        "predicate": [
+                            "class:sorcerer"
+                        ],
+                        "value": "diabolic"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Sorcerer.SecondBloodMagic",
+                "mergeable": true,
+                "option": "second-blood-magic",
+                "placement": "spellcasting",
+                "predicate": [
+                    {
+                        "or": [
+                            "feat:blood-ascendancy",
+                            "feat:blood-sovereignty"
+                        ]
+                    }
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Diabolic",
+                        "value": "diabolic"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    "item:tag:blood-magic-spell",
+                    {
+                        "or": [
+                            "blood-magic:diabolic",
+                            {
+                                "and": [
+                                    "second-blood-magic:diabolic",
+                                    "feat:blood-sovereignty"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "priority": 121,
                 "property": "description",
                 "value": [
                     {
+                        "divider": true,
                         "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Diabolic",
-                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Diabolic"
                     },
                     {
                         "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Diabolic Blood Magic (Self)]"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    "item:slug:blood-rising",
+                    {
+                        "or": [
+                            "blood-magic:diabolic",
+                            {
+                                "and": [
+                                    "second-blood-magic:diabolic",
+                                    "feat:blood-ascendancy"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Diabolic",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Diabolic"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Diabolic Blood Magic (Self)]"
+                    }
+                ]
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "feature:bloodline:tradition:divine",
+                "predicate": [
+                    {
+                        "not": "parent:granter:slug:crossblooded-evolution"
                     }
                 ]
             }

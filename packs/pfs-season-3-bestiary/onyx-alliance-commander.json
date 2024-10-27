@@ -4,10 +4,8 @@
     "items": [
         {
             "_id": "wik8Hiwsp6sU4yf4",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
             "name": "Dagger",
@@ -94,10 +92,8 @@
         },
         {
             "_id": "phq7x6HEyH7n7CCv",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.tH5GirEy7YB3ZgCk"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tH5GirEy7YB3ZgCk"
             },
             "img": "systems/pf2e/icons/equipment/weapons/rapier.webp",
             "name": "Rapier",
@@ -183,10 +179,8 @@
         },
         {
             "_id": "COwjrEbgDI1smBAz",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
             },
             "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
             "name": "Leather Armor",
@@ -403,10 +397,8 @@
         },
         {
             "_id": "YgX62QRpfWVSe0YH",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
@@ -531,14 +523,30 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The commander is in dim light</p>\n<hr />\n<p><strong>Effect</strong> The commander Strides. They have a +10-foot status bonus to their Speed during this Stride. The DC from shadow blending increases to 11 during this Stride, and the commander remains concealed by dim light until the end of the movement, even if they leave dim light during the Stride.</p>"
+                    "value": "<p><strong>Requirements</strong> The commander is in dim light</p>\n<hr />\n<p><strong>Effect</strong> The commander Strides. They have a +10-foot status bonus to their Speed during this Stride. The DC from shadow blending increases to @Check[flat|dc:11] during this Stride, and the commander remains @UUID[Compendium.pf2e.conditionitems.Item.Concealed] by dim light until the end of the movement, even if they leave dim light during the Stride.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "shadow-stride",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "shadow-stride"
+                        ],
+                        "selector": "land-speed",
+                        "type": "status",
+                        "value": 10
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -553,10 +561,8 @@
         },
         {
             "_id": "mWALalYwGai6ngEU",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",

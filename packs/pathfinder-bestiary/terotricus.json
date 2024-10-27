@@ -27,16 +27,12 @@
                         "damageType": "bludgeoning"
                     },
                     "h1l03e7zn3spsfbwyqgb": {
-                        "damage": "2d6",
-                        "damageType": "spirit"
-                    },
-                    "4qdwn97etif23fslz0ux": {
-                        "damage": "2d6",
+                        "damage": "4d6",
                         "damageType": "spirit"
                     }
                 },
                 "description": {
-                    "value": "<p>Either Improved Grab of Improved Push</p>"
+                    "value": "<p>Either Improved Grab or Improved Push</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -48,8 +44,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "chaotic",
-                        "evil",
                         "magical",
                         "reach-20",
                         "unholy"
@@ -86,11 +80,7 @@
                         "damageType": "poison"
                     },
                     "hyvpifbojdctsdyzqdle": {
-                        "damage": "2d6",
-                        "damageType": "spirit"
-                    },
-                    "xxy8izksk8a6wnslgpuv": {
-                        "damage": "2d6",
+                        "damage": "4d6",
                         "damageType": "spirit"
                     }
                 },
@@ -107,8 +97,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "chaotic",
-                        "evil",
                         "magical",
                         "range-increment-80",
                         "unholy"
@@ -122,10 +110,8 @@
         },
         {
             "_id": "TkDV0wPhRzYy8sii",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Tremorsense (Imprecise) 120 feet",
@@ -157,10 +143,8 @@
         },
         {
             "_id": "qSJwECMRJYL4xDUN",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
@@ -185,15 +169,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "or": [
-                                    "magical",
-                                    "arcane",
-                                    "divine",
-                                    "primal",
-                                    "occult"
-                                ]
-                            }
+                            "item:magical"
                         ],
                         "selector": "saving-throw",
                         "type": "status",
@@ -210,10 +186,8 @@
         },
         {
             "_id": "xpcbUoWx3vMpIFDi",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Regeneration 25 (Deactivated by Cold)",
@@ -309,7 +283,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> The terotricus is in a swamp or forested area.</p>\n<hr />\n<p><strong>Effect</strong> The terotricus drains nutrients from nearby trees and undergrowth while simultaneously infesting them with fungal growth. All non-magical plant life (though not plant creatures) within a @Template[type:emanation|distance:60] withers and sprouts foul mold and slimy mushrooms, removing any cover and concealment provided by trees and undergrowth. The terotricus is healed [[/r 200[healing]]]{200 Hit Points}.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> The terotricus is in a swamp or forested area.</p>\n<hr />\n<p><strong>Effect</strong> The terotricus drains nutrients from nearby trees and undergrowth while simultaneously infesting them with fungal growth. All non-magical plant life (though not plant creatures) within a @Template[emanation|distance:60] withers and sprouts foul mold and slimy mushrooms, removing any cover and concealment provided by trees and undergrowth. The terotricus is healed [[/r 200[healing]]]{200 Hit Points}.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -347,7 +321,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Plants and fungi are immune.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:40]</p>\n<hr />\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 4} and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Controlled] by the terotricus (as @UUID[Compendium.pf2e.spells-srd.Item.Dominate]; [[/br 5d8 #Duration Controlled]]{5d8 days})</p>\n<p><strong>Stage 4</strong> dead</p>"
+                    "value": "<p>Plants and fungi are immune.</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:40]</p>\n<hr />\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 4} and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Controlled] by the terotricus (as @UUID[Compendium.pf2e.spells-srd.Item.Dominate]; [[/br 5d8 #Duration Controlled]]{5d8 days})</p>\n<p><strong>Stage 4</strong> dead</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -379,7 +353,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A creature hit by a terotricus's spores must succeed at a @Check[type:reflex|dc:40] save or take a -10-foot status penalty to all its Speeds for 1 minute. On a critical failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] until it Escapes (DC 40).</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Sticky Spores]</p>"
+                    "value": "<p>A creature hit by a terotricus's spores must succeed at a @Check[reflex|dc:40] save or take a -10-foot status penalty to all its Speeds for 1 minute. On a critical failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] until it Escapes (DC 40).</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Sticky Spores]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -397,10 +371,8 @@
         },
         {
             "_id": "ZfDN0qrqMsIVdq7W",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Improved Grab",
@@ -432,10 +404,8 @@
         },
         {
             "_id": "pyVnqo4FLO0RWxrX",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.6l7e7CHQLESlI57U"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.6l7e7CHQLESlI57U"
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Improved Push 20 feet (40 feet on a Critical Hit)",

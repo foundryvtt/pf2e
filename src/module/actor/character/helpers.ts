@@ -82,7 +82,7 @@ class PCAttackTraitHelpers extends AttackTraitHelpers {
             }
         });
 
-        return [...super.createAttackModifiers({ item }), ...pcSpecificModifiers];
+        return [...super.createAttackModifiers({ item, domains }), ...pcSpecificModifiers];
     }
 }
 

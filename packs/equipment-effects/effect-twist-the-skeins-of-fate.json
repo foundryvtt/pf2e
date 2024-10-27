@@ -1,0 +1,57 @@
+{
+    "_id": "oBOYt4Aon6Po1hwa",
+    "img": "icons/equipment/head/hood-purple-mask.webp",
+    "name": "Effect: Twist the Skeins of Fate",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Prognostic Veil]</p>\n<p>The ally gains a status bonus to the saving throw or attack roll equal to the value of your @UUID[Compendium.pf2e.conditionitems.Item.Cursebound] condition.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "removeAfterRoll": "if-enabled",
+                "selector": "saving-throw",
+                "slug": "twist-the-skeins-of-fate-saving-throw",
+                "type": "status",
+                "value": "@item.origin.conditions.cursebound.value"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "parent:origin:item:slug:prognostic-veil-greater"
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": "attack-roll",
+                "slug": "twist-the-skeins-of-fate-attack-roll",
+                "type": "status",
+                "value": "@item.origin.conditions.cursebound.value"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,57 @@
+{
+    "_id": "PPdAw4msUtLgxpWI",
+    "img": "icons/commodities/flowers/bouquet-pink.webp",
+    "name": "Effect: Sakura's Sprig",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Sakura's Sprig]</p>\n<p>The affixed weapon gains the holy trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Society Scenario #6-05: Silver Bark, Golden Blades"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "sakurasSpring",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.sakurasSpring}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "holy"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

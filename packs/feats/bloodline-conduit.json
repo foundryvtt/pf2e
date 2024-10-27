@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Frequency</strong> once per minute</p>\n<hr />\n<p>Your inborn magical nature lets you redirect ambient energies to fuel your spells. If your next action is to Cast a Spell of 5th level or lower that has no duration, you don't expend the spell's slot when you cast it.</p>"
+            "value": "<p><strong>Frequency</strong> once per minute</p><hr /><p>Your inborn magical nature lets you redirect ambient energies to fuel your spells. If your next action is to Cast a Spell of 5th rank or lower that has no duration, you don't expend the spell's slot when you cast it.</p>"
         },
         "frequency": {
             "max": 1,
@@ -24,11 +24,51 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:bloodline-conduit",
+                    "item:type:spell",
+                    "item:duration:0",
+                    {
+                        "lte": [
+                            "item:rank",
+                            5
+                        ]
+                    },
+                    {
+                        "not": "cantrip"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.BloodlineConduit"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "bloodline-conduit"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

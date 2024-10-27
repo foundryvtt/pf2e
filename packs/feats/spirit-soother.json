@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You are attuned to the minute sounds and sensations of restless spirits. Even if you aren't @UUID[Compendium.pf2e.actionspf2e.Item.Search]{Searching}, you can attempt a check to find haunts that normally require you to be Searching. You still need to meet any other requirements to find the haunt.</p>"
+            "value": "<p>You are attuned to the minute sounds and sensations of restless spirits. Even if you aren't @UUID[Compendium.pf2e.actionspf2e.Item.Search]{Searching}, you can attempt a check to find haunts that normally require you to be Searching. You still need to meet any other requirements to find the haunt. You gain a +1 circumstance bonus to checks to disable haunts.</p>"
         },
         "level": {
             "value": 5
@@ -20,11 +20,21 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:trait:haunt"
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

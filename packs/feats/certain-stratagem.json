@@ -1,0 +1,51 @@
+{
+    "_id": "gyrIwJN0CTPp08em",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Certain Stratagem",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You know exactly where to strike a foe to target their weak spots. When you make a Strike that you're adding your Intelligence modifier to due to @UUID[Compendium.pf2e.actionspf2e.Item.Devise a Stratagem]{Devising a Stratagem} and miss, you deal half of your @UUID[Compendium.pf2e.classfeatures.Item.Strategic Strike] damage to the target. This damage type is that of the weapon or unarmed attack you used for the Strike.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure",
+                    "criticalFailure"
+                ],
+                "predicate": [
+                    "devise-a-stratagem:attack",
+                    "target:mark:devise-a-stratagem"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Investigator.CertainStratagem.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "investigator"
+            ]
+        }
+    },
+    "type": "feat"
+}

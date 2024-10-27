@@ -1,0 +1,67 @@
+{
+    "_id": "AO45is6WXyK9XzMl",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Arboreal Conversationalist",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Access</strong> kijimuna gnome heritage or Tian Xia origin</p><hr /><p>With your close connection to primal energies and the First World, you can communicate with trees. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Speak with Plants] as a 4th-rank innate primal spell twice per day.</p>"
+        },
+        "frequency": {
+            "max": 2,
+            "per": "day"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "kijimuna gnome heritage or at least one primal innate\rspell from a gnome heritage or feat"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:speak-with-plants",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:speak-with-plants",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:gnome"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "gnome"
+            ]
+        }
+    },
+    "type": "feat"
+}

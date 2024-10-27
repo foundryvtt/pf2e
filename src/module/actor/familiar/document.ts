@@ -41,7 +41,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
     /** Returns attribute modifier value from the master, or 0 if no attribute */
     get masterAttributeModifier(): number {
         const attribute = this.system.master.ability;
-        return attribute ? this.master?.system.abilities[attribute].mod ?? 0 : 0;
+        return attribute ? (this.master?.system.abilities[attribute].mod ?? 0) : 0;
     }
 
     /** @deprecated for internal use but not rule elements referencing it until a migration is in place. */
@@ -85,8 +85,8 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         });
 
         type PartialSystemData = DeepPartial<FamiliarSystemData> & {
-            attributes: { speed: RawSpeed; flanking: {} };
-            details: {};
+            attributes: { speed: RawSpeed; flanking: object };
+            details: object;
         };
         type RawSpeed = { value: number; otherSpeeds: LabeledSpeed[] };
 
@@ -223,7 +223,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         system.perception = fu.mergeObject(this.perception.getTraceData(), { attribute: "wis" as const });
 
         // Skills
-        this.skills = R.mapToObj(R.entries.strict(CONFIG.PF2E.skills), ([skill, { label, attribute }]) => {
+        this.skills = R.mapToObj(R.entries(CONFIG.PF2E.skills), ([skill, { label, attribute }]) => {
             const modifiers = [new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped")];
             if (["acrobatics", "stealth"].includes(skill)) {
                 modifiers.push(attributeModifier);

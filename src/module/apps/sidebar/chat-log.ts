@@ -38,7 +38,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             const { message, element: messageEl } = ChatLogPF2e.#messageFromEvent(event);
             if (!message) return;
 
-            const senderEl = message ? htmlClosest(event.target, ".message-sender") : null;
+            const senderEl = message ? htmlClosest(event.target, ".message-sender, .portrait") : null;
             if (senderEl && message) return this.#onClickSender(message, event);
 
             const button = htmlClosest(event.target, "button[data-action]");
@@ -328,7 +328,11 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         const combatant = await CombatantPF2e.fromActor(actor);
         if (!combatant) return;
         const value = message.rolls.at(0)?.total ?? 0;
-        await combatant.encounter.setInitiative(combatant.id, value);
+        await combatant.encounter.setInitiative(
+            combatant.id,
+            value,
+            message.flags.pf2e.modifierName ? String(message.flags.pf2e.modifierName) : undefined,
+        );
 
         ui.notifications.info(
             game.i18n.format("PF2E.Encounter.InitiativeSet", { actor: token.name, initiative: value }),

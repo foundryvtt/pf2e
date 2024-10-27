@@ -31,7 +31,33 @@
             "remaster": true,
             "title": "Pathfinder Howl of the Wild"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "change-shape:animal"
+                ],
+                "reach": {
+                    "override": "10"
+                },
+                "resizeEquipment": true,
+                "value": "large"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "change-shape:animal"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "melee-strike-damage",
+                "type": "status",
+                "value": 2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

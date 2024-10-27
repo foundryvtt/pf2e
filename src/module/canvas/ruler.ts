@@ -16,7 +16,7 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
     }
 
     static get hasModuleConflict(): boolean {
-        return ["elevationruler", "pf2e-ruler"].some((id) => game.modules.get(id)?.active);
+        return ["drag-ruler", "elevationruler", "pf2e-ruler"].some((id) => game.modules.get(id)?.active);
     }
 
     /** The footprint of the drag-measured token relative to the origin center */
@@ -35,18 +35,7 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
             return M.CENTER;
         }
 
-        const GT = CONST.GRID_TYPES;
-        switch (canvas.grid.type) {
-            case GT.HEXEVENQ:
-            case GT.HEXEVENR:
-                return M.LEFT_SIDE_MIDPOINT;
-            case GT.HEXODDR:
-                return M.TOP_SIDE_MIDPOINT;
-            case GT.SQUARE:
-                return M.VERTEX;
-            default:
-                return M.CENTER;
-        }
+        return M.BOTTOM_RIGHT_VERTEX;
     }
 
     get dragMeasurement(): boolean {
@@ -80,11 +69,20 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
     /**
      * @param [exactDestination] The coordinates of the dragged token preview, if any
      */
-    async finishDragMeasurement(exactDestination: Point | null = null): Promise<boolean | void> {
+    async finishDragMeasurement(
+        event: TokenPointerEvent<NonNullable<TToken>>,
+        exactDestination: Point | null = null,
+    ): Promise<boolean | void> {
         if (!this.dragMeasurement) return;
         if (this.token) {
             this.token.document.locked = this.token.document._source.locked;
             if (!this.isMeasuring) canvas.mouseInteractionManager.cancel();
+            // If snapping, adjust the token document's current position to prevent upstream from "correcting" it
+            if (!event.shiftKey) {
+                const { x, y } = this.token.getSnappedPosition();
+                this.token.document.x = x;
+                this.token.document.y = y;
+            }
             // Special consideration for tiny tokens: allow them to move within a square
             this.#exactDestination = exactDestination;
             if (exactDestination && this.token.document.width < 1) {
@@ -150,13 +148,13 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
                 .filter(
                     (r) =>
                         r.document.behaviors.some(
-                            (b) => b.type === "environmentFeature" && b.system.terrain.difficult > 0,
+                            (b) => !b.disabled && b.type === "environmentFeature" && b.system.terrain.difficult > 0,
                         ) && token.testInsideRegion(r, toPoint),
                 )
                 .flatMap((r) =>
                     r.document.behaviors.filter(
                         (b): b is EnvironmentFeatureRegionBehavior<RegionDocumentPF2e<ScenePF2e>> =>
-                            b.type === "environmentFeature" && b.system.terrain.difficult > 0,
+                            !b.disabled && b.type === "environmentFeature" && b.system.terrain.difficult > 0,
                     ),
                 );
 
@@ -238,8 +236,9 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
         return super._animateSegment(token, segment, destination);
     }
 
-    /** If measuring with a token, only broadcast during an encounter. */
+    /** If measuring with a token, broadcast if the token is not hidden and only during encounters. */
     protected override _broadcastMeasurement(): void {
+        if (this.token?.document.hidden) return;
         if (!this.dragMeasurement || game.activeTool === "ruler" || game.combat?.started) {
             return super._broadcastMeasurement();
         }

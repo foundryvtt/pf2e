@@ -1,0 +1,83 @@
+{
+    "_id": "K8vvrOgW4bGakXxm",
+    "img": "systems/pf2e/icons/spells/dragon-claws.webp",
+    "name": "Flurry of Claws",
+    "system": {
+        "area": null,
+        "cost": {
+            "value": ""
+        },
+        "counteraction": false,
+        "damage": {
+            "JC32rvRkPjO4AK13": {
+                "applyMod": false,
+                "category": null,
+                "formula": "1d8",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "slashing"
+            }
+        },
+        "defense": null,
+        "description": {
+            "value": "<p>Vicious dragon claws appear and slash at two nearby foes. Make a spell attack roll against each creature. This counts as two attacks for your multiple attack penalty, but the penalty doesn't increase until you've made both attacks. On a hit, the creatures takes 1d8 slashing plus 1d4 additional damage of a type determined by the magical tradition related to the dragon that influenced your bloodline: <strong>arcane</strong> force, <strong>divine</strong> spirit, <strong>occult</strong> mental, or <strong>primal</strong> fire.</p><hr /><p><strong>Heightened (+1)</strong> The initial damage increases by 1d8 and the additional damage increases by 1d4.</p>"
+        },
+        "duration": {
+            "sustained": false,
+            "value": ""
+        },
+        "heightening": {
+            "damage": {
+                "JC32rvRkPjO4AK13": "1d8"
+            },
+            "interval": 1,
+            "type": "interval"
+        },
+        "level": {
+            "value": 1
+        },
+        "overlays": {},
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "range": {
+            "value": "30 feet"
+        },
+        "requirements": "",
+        "rules": [
+            {
+                "damageType": "{actor|flags.pf2e.dragonBloodline.damageType}",
+                "diceNumber": "@item.level",
+                "dieSize": "d4",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "item:slug:flurry-of-claws"
+                ],
+                "selector": "spell-damage"
+            }
+        ],
+        "target": {
+            "value": "2 creatures no more than 10 feet from each other"
+        },
+        "time": {
+            "value": "2"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "traditions": [],
+            "value": [
+                "attack",
+                "concentrate",
+                "focus",
+                "manipulate",
+                "sorcerer"
+            ]
+        }
+    },
+    "type": "spell"
+}

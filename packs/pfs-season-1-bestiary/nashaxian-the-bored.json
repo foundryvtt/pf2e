@@ -50,10 +50,8 @@
         },
         {
             "_id": "vzQp77CcTBWDgbSU",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door (At Will)",
@@ -124,10 +122,8 @@
         },
         {
             "_id": "iwKOPlyYDIIeFRGk",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.30BBep9U4BDV0EgQ"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.30BBep9U4BDV0EgQ"
             },
             "img": "systems/pf2e/icons/spells/infernal-pact.webp",
             "name": "Infernal Pact",
@@ -189,10 +185,8 @@
         },
         {
             "_id": "bMcoZBMYf1UyPlBx",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.vlnzTSsRmWeSkt9O"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.vlnzTSsRmWeSkt9O"
             },
             "img": "systems/pf2e/icons/equipment/weapons/glaive.webp",
             "name": "Glaive",
@@ -436,10 +430,8 @@
         },
         {
             "_id": "exE7e9wpYPNhSBG3",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.4Ho2xMPEC05aSxzr"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.4Ho2xMPEC05aSxzr"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Greater Darkvision",
@@ -471,10 +463,8 @@
         },
         {
             "_id": "2NziEC3Np3RlOiAt",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy 100 feet",
@@ -509,10 +499,8 @@
         },
         {
             "_id": "rEKdAdNENT3SDfy2",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
@@ -537,15 +525,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "or": [
-                                    "magical",
-                                    "arcane",
-                                    "divine",
-                                    "primal",
-                                    "occult"
-                                ]
-                            }
+                            "item:magical"
                         ],
                         "selector": "saving-throw",
                         "type": "status",
@@ -604,7 +584,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:19]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 day)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:19]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 day)</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -636,7 +616,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Nashaxian's glaive Strike also deals @Damage[1d4[bleed]] that resists attempts to heal it.</p>\n<p>The flat check to stop the bleeding starts at @Check[type:flat|dc:15]. The DC is reduced to @Check[type:flat|dc:10] only if the bleeding creature or an ally successfully assists with the recovery. The DC to @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid] to a creature with an infernal wound is increased by 3.</p>\n<p>A spellcaster or item attempting to use healing magic on a creature suffering from an infernal wound must succeed at a DC 18 counteract check or the magic fails to heal the creature.</p>"
+                    "value": "<p>Nashaxian's glaive Strike also deals @Damage[1d4[bleed]] that resists attempts to heal it.</p>\n<p>The flat check to stop the bleeding starts at @Check[flat|dc:15]. The DC is reduced to @Check[flat|dc:10] only if the bleeding creature or an ally successfully assists with the recovery. The DC to @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid] to a creature with an infernal wound is increased by 3.</p>\n<p>A spellcaster or item attempting to use healing magic on a creature suffering from an infernal wound must succeed at a DC 18 counteract check or the magic fails to heal the creature.</p>"
                 },
                 "publication": {
                     "license": "OGL",

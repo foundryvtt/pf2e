@@ -45,10 +45,8 @@
         },
         {
             "_id": "nD4ZAJmbzl1VaWNB",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.IarZrgCeaiUqOuRu"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.IarZrgCeaiUqOuRu"
             },
             "img": "icons/magic/fire/flame-burning-campfire-rocks.webp",
             "name": "Wall of Fire",
@@ -126,10 +124,8 @@
         },
         {
             "_id": "L4x8NWUBWS3sBNeW",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.ynm8JIU3sc3qUMpa"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.ynm8JIU3sc3qUMpa"
             },
             "img": "icons/magic/light/torch-fire-orange.webp",
             "name": "Continual Flame",
@@ -192,10 +188,8 @@
         },
         {
             "_id": "4LDgxcjw7MqO2z6i",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl"
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
@@ -445,10 +439,8 @@
         },
         {
             "_id": "VE76RnTQLL1Y1ttf",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
@@ -473,15 +465,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "or": [
-                                    "magical",
-                                    "arcane",
-                                    "divine",
-                                    "primal",
-                                    "occult"
-                                ]
-                            }
+                            "item:magical"
                         ],
                         "selector": "saving-throw",
                         "type": "status",
@@ -558,10 +542,8 @@
         },
         {
             "_id": "iHPmzxNLB3Yqy1nG",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
@@ -575,7 +557,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>90 feet. @Check[type:will|dc:28]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>90 feet. @Check[will|dc:28]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -621,7 +603,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>10 feet. Each creature that ends its turn in the aura must succeed at a @Check[type:fortitude|dc:28] saving throw or become @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] while it remains in the aura.</p>"
+                    "value": "<p>10 feet. Each creature that ends its turn in the aura must succeed at a @Check[fortitude|dc:28] saving throw or become @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] while it remains in the aura.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -695,7 +677,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon breathes a blast of fire that explodes in a @Template[type:burst|distance:25] within 50 feet, dealing @Damage[10d6[fire]] damage (@Check[type:reflex|dc:30|basic:true] save). Creatures that fail the save also take @Damage[2d6[persistent,fire]].</p>\n<p>The dragon can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon breathes a blast of fire that explodes in a @Template[burst|distance:25] within 50 feet, dealing @Damage[10d6[fire]] damage (@Check[reflex|dc:30|basic] save). Creatures that fail the save also take @Damage[2d6[persistent,fire]].</p>\n<p>The dragon can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -786,10 +768,8 @@
         },
         {
             "_id": "KkSN8aLpddZGTcZq",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.OmV6E3aELvq9CkK1"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.OmV6E3aELvq9CkK1"
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Greater Constrict",
@@ -803,7 +783,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>@Damage[(2d8+10)[bludgeoning]], @Check[type:fortitude|dc:30|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
+                    "value": "<p>@Damage[(2d8+10)[bludgeoning]], @Check[fortitude|dc:30|basic]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -821,10 +801,8 @@
         },
         {
             "_id": "c95y554eFZ79003o",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",

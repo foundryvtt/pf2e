@@ -1,10 +1,8 @@
-import type { ActionTrait } from "@item/ability/types.ts";
+import type { AbilityTrait } from "@item/ability/types.ts";
 import type { KingmakerTrait } from "@item/campaign-feature/types.ts";
 import * as R from "remeda";
 
 const BASIC_WAR_ACTIONS_FOLDER = "Vqp8b64uH35zkncy";
-
-const ALIGNMENTS = new Set(["LG", "NG", "CG", "LN", "N", "CN", "LE", "NE", "CE"] as const);
 
 const ARMY_TYPES = ["infantry", "cavalry", "siege", "skirmisher"] as const;
 
@@ -22,7 +20,7 @@ const ARMY_STATS = {
 interface ArmyGearData {
     img: string;
     name: string;
-    traits: (KingmakerTrait | ActionTrait)[];
+    traits: (KingmakerTrait | AbilityTrait)[];
     description: string;
     price?: number;
     level?: number;
@@ -106,4 +104,4 @@ function getArmyGearData(): Record<ArmyGearType, ArmyGearData> {
     };
 }
 
-export { ALIGNMENTS, ARMY_STATS, ARMY_TYPES, BASIC_WAR_ACTIONS_FOLDER, getArmyGearData };
+export { ARMY_STATS, ARMY_TYPES, BASIC_WAR_ACTIONS_FOLDER, getArmyGearData };

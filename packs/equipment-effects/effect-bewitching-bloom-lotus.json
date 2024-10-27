@@ -1,10 +1,10 @@
 {
     "_id": "ri5qxyVViva60ilN",
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "icons/magic/symbols/arrowhead-green.webp",
     "name": "Effect: Bewitching Bloom (Lotus)",
     "system": {
         "description": {
-            "value": "<p>A glow envelops your ally as a sense of enlightened peace ripples out from within. The ally gains a +2 status bonus to Will saves against mental effects for 1 minute. This bonus increases to +3 against emotion effects.</p>"
+            "value": "<p>Grant by @UUID[Compendium.pf2e.equipment-srd.Item.Bewitching Bloom (Lotus)]</p>\n<p>You gain a +2 status bonus to Will saves against mental effects. This bonus increases to +3 against emotion effects.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -24,20 +24,23 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "mental"
+                    "item:trait:mental"
                 ],
                 "selector": "will",
+                "slug": "betwitching-bloom-lotus",
                 "type": "status",
                 "value": 2
             },
             {
-                "key": "FlatModifier",
+                "key": "AdjustModifier",
+                "mode": "add",
                 "predicate": [
-                    "emotion"
+                    "item:trait:emotion"
                 ],
                 "selector": "will",
+                "slug": "betwitching-bloom-lotus",
                 "type": "status",
-                "value": 3
+                "value": 1
             }
         ],
         "start": {
