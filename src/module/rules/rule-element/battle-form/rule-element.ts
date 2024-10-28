@@ -394,7 +394,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
             baseItem: strikeData.baseType,
             options: [slug],
             damage: { base: strikeData.damage },
-            range: { increment: strikeData.range ?? null, max: strikeData.maxRange ?? null },
+            range: strikeData.range,
             traits: strikeData.traits ?? [],
             ability: strikeData.ability,
             battleForm: true,
