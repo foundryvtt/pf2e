@@ -1,4 +1,5 @@
-import { ActorProxyPF2e } from "@actor";
+import { ActorPF2e, ActorProxyPF2e } from "@actor";
+import { ActorSizePF2e } from "@actor/data/size.ts";
 import type { ContainerPF2e, PhysicalItemPF2e } from "@item";
 import { PhysicalItemSource } from "@item/base/data/index.ts";
 import { ContainerBulkData } from "@item/container/data.ts";
@@ -42,7 +43,7 @@ function computePrice(item: PhysicalItemPF2e): CoinsPF2e {
     const afterShoddy = item.isShoddy ? afterReinforcingRune.scale(0.5) : afterReinforcingRune;
 
     /** Increase the price if it is larger than medium and not magical. */
-    return item.isMagical ? afterShoddy : afterShoddy.adjustForSize(item.size);
+    return item.system.price.sizeSensitive ? afterShoddy.adjustForSize(item.size) : afterShoddy;
 }
 
 function computeLevelRarityPrice(item: PhysicalItemPF2e): { level: number; rarity: Rarity; price: CoinsPF2e } {
@@ -253,5 +254,26 @@ async function detachSubitem(subitem: PhysicalItemPF2e, skipConfirm: boolean): P
     }
 }
 
+/** Clone an item, sizing it appropriately for the actor. For larger PCs, set the price's sensitity to false.  */
+function sizeItemForActor<TItem extends PhysicalItemPF2e>(item: TItem, actor: ActorPF2e): TItem {
+    if (item.isOfType("treasure") || !actor.isOfType("creature")) return item.clone();
+    const actorSize = new ActorSizePF2e({
+        value: actor.system.traits.naturalSize ?? actor.size,
+        smallIsMedium: true,
+    });
+    const itemSize = actorSize.value;
+    const sizeSensitive =
+        actor.isOfType("character") && actorSize.isLargerThan("med") && !item.isMagical ? false : undefined;
+    return itemSize === "med" ? item.clone() : item.clone({ system: { size: itemSize, price: { sizeSensitive } } });
+}
+
 export { coinCompendiumIds } from "./coins.ts";
-export { CoinsPF2e, computeLevelRarityPrice, detachSubitem, generateItemName, handleHPChange, prepareBulkData };
+export {
+    CoinsPF2e,
+    computeLevelRarityPrice,
+    detachSubitem,
+    generateItemName,
+    handleHPChange,
+    prepareBulkData,
+    sizeItemForActor,
+};

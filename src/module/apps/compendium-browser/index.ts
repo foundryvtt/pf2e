@@ -1,6 +1,7 @@
 import { KitPF2e, PhysicalItemPF2e } from "@item";
 import { AbilityTrait, ActionCategory } from "@item/ability/index.ts";
 import { ActionType, ItemType } from "@item/base/data/index.ts";
+import { sizeItemForActor } from "@item/physical/helpers.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/index.ts";
 import type { UserPF2e } from "@module/user/document.ts";
@@ -809,15 +810,15 @@ class CompendiumBrowser extends Application {
 
     async #takePhysicalItem(uuid: string): Promise<void> {
         const actors = getSelectedActors({ include: ["character", "loot", "npc", "party"], assignedFallback: true });
-        const item = await this.#getPhysicalItem(uuid);
-
         if (actors.length === 0) {
             ui.notifications.error(game.i18n.format("PF2E.ErrorMessage.NoTokenSelected"));
             return;
         }
+        const item = await this.#getPhysicalItem(uuid);
 
         for (const actor of actors) {
-            await actor.inventory.add(item, { stack: true });
+            const sizedItem = item.isOfType("kit") ? item.clone() : sizeItemForActor(item, actor);
+            await actor.inventory.add(sizedItem, { stack: true });
         }
 
         if (actors.length === 1 && game.user.character && actors[0] === game.user.character) {
@@ -834,23 +835,18 @@ class CompendiumBrowser extends Application {
 
     async #buyPhysicalItem(uuid: string): Promise<void> {
         const actors = getSelectedActors({ include: ["character", "loot", "npc"], assignedFallback: true });
+        if (actors.length === 0) {
+            ui.notifications.error(game.i18n.format("PF2E.ErrorMessage.NoTokenSelected"));
+            return;
+        }
         const item = await this.#getPhysicalItem(uuid);
 
-        if (actors.length === 0) {
-            if (game.user.character?.isOfType("character")) {
-                actors.push(game.user.character);
-            } else {
-                ui.notifications.error(game.i18n.format("PF2E.ErrorMessage.NoTokenSelected"));
-                return;
-            }
-        }
-
         let purchaseSuccesses = 0;
-
         for (const actor of actors) {
             if (await actor.inventory.removeCoins(item.price.value)) {
-                purchaseSuccesses = purchaseSuccesses + 1;
-                await actor.inventory.add(item, { stack: true });
+                purchaseSuccesses += 1;
+                const sizedItem = item.isOfType("kit") ? item.clone() : sizeItemForActor(item, actor);
+                await actor.inventory.add(sizedItem, { stack: true });
             }
         }
 
@@ -892,7 +888,6 @@ class CompendiumBrowser extends Application {
         if (!(item instanceof PhysicalItemPF2e || item instanceof KitPF2e)) {
             throw ErrorPF2e("Unexpected failure retrieving compendium item");
         }
-
         return item;
     }
 
