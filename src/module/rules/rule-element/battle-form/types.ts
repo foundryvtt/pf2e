@@ -63,8 +63,7 @@ interface BattleFormStrike {
     modifier: string | number;
     damage: WeaponDamage;
     ownIfHigher?: boolean;
-    range?: number | null;
-    maxRange?: number | null;
+    range?: { increment?: number | null; max?: number | null };
 }
 
 interface BattleFormStrikeQuery {
