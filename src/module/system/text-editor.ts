@@ -479,18 +479,17 @@ class TextEditorPF2e extends TextEditor {
                         details.innerText = `(${text})`;
                     } else if (statistic) {
                         // (<span data-visibility="...">DC #</span> Statistic)
-                        details.appendChild(document.createTextNode("("));
-                        const span = document.createElement("span");
-                        span.dataset["visibility"] = visibility;
-                        span.innerText = game.i18n.format("PF2E.InlineAction.Check.DC", { dc });
-                        details.appendChild(span);
-                        const suffix = statistic
+                        const span = createHTMLElement("span", {
+                            dataset: { visibility },
+                            children: [game.i18n.format("PF2E.InlineAction.Check.DC", { dc })],
+                        });
+                        const end = statistic
                             ? ` ${ActionMacroHelpers.getSimpleCheckLabel(statistic) || statistic})`
                             : ")";
-                        details.appendChild(document.createTextNode(suffix));
+                        details.append("(", span, end);
                     } else {
-                        // (<span data-visibility="...">DC #</span> Statistic)
-                        details.dataset["visibility"] = visibility;
+                        // <span data-visibility="...">(DC #)</span>
+                        details.dataset.visibility = visibility;
                         details.innerText = `(${game.i18n.format("PF2E.InlineAction.Check.DC", { dc })})`;
                     }
                 } else {
