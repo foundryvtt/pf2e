@@ -1,4 +1,5 @@
 import type DocumentSheetV2 from "../../../client-esm/applications/api/document-sheet.d.ts";
+import type { DocumentSheetConfiguration } from "../../../client-esm/applications/api/document-sheet.d.ts";
 
 declare global {
     interface DocumentSheetConfigData<TDocument extends foundry.abstract.Document>
@@ -59,7 +60,9 @@ declare global {
          * @param [options.makeDefault] Whether to make this sheet the default for provided types
          */
         static registerSheet<
-            T extends foundry.abstract.Document & { get sheet(): FormApplication<T> | DocumentSheetV2<T> },
+            T extends foundry.abstract.Document & {
+                get sheet(): FormApplication<T> | DocumentSheetV2<DocumentSheetConfiguration<T>>;
+            },
         >(
             documentClass: ConstructorOf<T>,
             scope: string,
@@ -78,7 +81,9 @@ declare global {
          * @param types             An Array of types for which this sheet should be removed
          */
         static unregisterSheet<
-            T extends foundry.abstract.Document & { get sheet(): FormApplication<T> | DocumentSheetV2<T> },
+            T extends foundry.abstract.Document & {
+                get sheet(): FormApplication<T> | DocumentSheetV2<DocumentSheetConfiguration<T>>;
+            },
         >(
             documentClass: ConstructorOf<T>,
             scope: string,
