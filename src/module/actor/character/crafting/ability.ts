@@ -8,6 +8,7 @@ import type {
 import { Predicate, RawPredicate } from "@system/predication.ts";
 import { ErrorPF2e } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
+import * as R from "remeda";
 import { CraftingFormula, PreparedFormula, PreparedFormulaData } from "./types.ts";
 
 class CraftingAbility implements CraftingAbilityData {
@@ -23,15 +24,17 @@ class CraftingAbility implements CraftingAbilityData {
     isAlchemical: boolean;
     isDailyPrep: boolean;
     isPrepared: boolean;
-    craftableItems: Predicate;
     maxSlots: number;
     fieldDiscovery: Predicate | null;
-    batchSizes: { default: number; other: { definition: Predicate; quantity: number }[] };
     fieldDiscoveryBatchSize: number;
+    batchSize: number;
     maxItemLevel: number;
 
     /** A cache of all formulas that have been loaded from their compendiums */
     #preparedFormulas: PreparedFormula[] | null = null;
+
+    /** All craftable item definitions, sorted from biggest batch to smallest batch size */
+    craftableItems: CraftableItemDefinition[];
 
     constructor(actor: CharacterPF2e, data: CraftingAbilityData) {
         this.actor = actor;
@@ -43,17 +46,10 @@ class CraftingAbility implements CraftingAbilityData {
         this.maxSlots = data.maxSlots ?? 0;
         this.maxItemLevel = data.maxItemLevel;
         this.fieldDiscovery = data.fieldDiscovery ? new Predicate(data.fieldDiscovery) : null;
-        this.batchSizes = {
-            default: data.batchSizes?.default ?? (this.isAlchemical ? 2 : 1),
-            other:
-                data.batchSizes?.other.map((o) => ({
-                    definition: new Predicate(o.definition),
-                    quantity: o.quantity,
-                })) ?? [],
-        };
+        this.batchSize = data.batchSize;
+        this.craftableItems = R.sort(data.craftableItems, (c) => c.batchSize ?? 1);
         this.fieldDiscoveryBatchSize = data.fieldDiscoveryBatchSize ?? 3;
-        this.craftableItems = new Predicate(data.craftableItems);
-        this.preparedFormulaData = data.preparedFormulaData;
+        this.preparedFormulaData = data.preparedFormulaData ?? [];
     }
 
     async getPreparedCraftingFormulas(): Promise<PreparedFormula[]> {
@@ -67,10 +63,14 @@ class CraftingAbility implements CraftingAbilityData {
 
         this.#preparedFormulas = this.preparedFormulaData.flatMap((prepData): PreparedFormula | never[] => {
             const formula = knownFormulas.find((f) => f.uuid === prepData.uuid);
+            const rollOptions = formula?.item.getRollOptions("item") ?? [];
+            const matching = formula ? this.craftableItems.find((c) => c.predicate.test(rollOptions)) : null;
+            const batchSize = matching?.batchSize ?? this.batchSize ?? 1;
             return formula
                 ? {
                       ...formula,
-                      quantity: prepData.quantity || 1,
+                      batchSize,
+                      quantity: this.isAlchemical ? prepData.quantity || 1 : batchSize,
                       expended: !!prepData.expended,
                       isSignatureItem: !!prepData.isSignatureItem,
                   }
@@ -128,6 +128,16 @@ class CraftingAbility implements CraftingAbilityData {
             return false;
         }
 
+        // Check if it meets the entry requirements
+        const rollOptions = formula.item.getRollOptions("item");
+        if (!this.craftableItems.some((c) => c.predicate.test(rollOptions))) {
+            if (warn) {
+                ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.ItemMissingTraits"));
+            }
+            return false;
+        }
+
+        // Check if it exceeds the max level we're able to output
         if (formula.item.level > this.maxItemLevel) {
             if (warn) {
                 ui.notifications.warn(
@@ -137,22 +147,13 @@ class CraftingAbility implements CraftingAbilityData {
             return false;
         }
 
-        if (!this.craftableItems.test(formula.item.getRollOptions("item"))) {
-            if (warn) {
-                ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.ItemMissingTraits"));
-            }
-            return false;
-        }
-
         return true;
     }
 
-    async unprepareFormula(index: number, itemUUID: string): Promise<void> {
+    async unprepareFormula(index: number): Promise<void> {
         const formula = this.preparedFormulaData[index];
-        if (!formula || formula.uuid !== itemUUID) return;
-
+        if (!formula) return;
         this.preparedFormulaData.splice(index, 1);
-
         return this.#updateRuleElement();
     }
 
@@ -214,8 +215,8 @@ class CraftingAbility implements CraftingAbilityData {
             return this.fieldDiscoveryBatchSize;
         }
 
-        const specialBatchSize = this.batchSizes.other.find((s) => s.definition.test(rollOptions));
-        return specialBatchSize?.quantity ?? this.batchSizes.default;
+        const matching = this.craftableItems.find((c) => c.predicate.test(rollOptions));
+        return matching?.batchSize ?? this.batchSize;
     }
 
     async #updateRuleElement(): Promise<void> {
@@ -237,9 +238,9 @@ interface CraftingAbilityData {
     isDailyPrep: boolean;
     isPrepared: boolean;
     maxSlots: number | null;
-    craftableItems: RawPredicate;
+    craftableItems: CraftableItemDefinition[];
     fieldDiscovery?: RawPredicate | null;
-    batchSizes?: { default: number; other: { definition: RawPredicate; quantity: number }[] };
+    batchSize: number;
     fieldDiscoveryBatchSize?: number;
     maxItemLevel: number;
     preparedFormulaData: PreparedFormulaData[];
@@ -256,6 +257,11 @@ interface CraftingAbilitySheetData {
     reagentCost: number;
     remainingSlots: number;
     prepared: PreparedFormula[];
+}
+
+interface CraftableItemDefinition {
+    predicate: Predicate;
+    batchSize?: number;
 }
 
 export { CraftingAbility };
