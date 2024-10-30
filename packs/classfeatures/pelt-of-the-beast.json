@@ -42,7 +42,20 @@
                 "key": "ActiveEffectLike",
                 "mode": "override",
                 "path": "flags.pf2e.exemplar.peltOfTheBeastDamage",
+                "priority": 51,
                 "value": "{item|flags.pf2e.rulesSelections.peltOfTheBeastDamage}"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.exemplar.ikons",
+                "value": {
+                    "label": "PF2E.SpecificRule.Exemplar.Ikon.PeltOfTheBeast.Label",
+                    "predicate": [
+                        "parent:tag:worn-ikon-feat"
+                    ],
+                    "value": "pelt-of-the-beast"
+                }
             },
             {
                 "key": "GrantItem",
@@ -66,6 +79,18 @@
             },
             {
                 "allowDuplicate": false,
+                "alterations": [
+                    {
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "physical-ikon"
+                    },
+                    {
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "physical-ikon:pelt-of-the-beast"
+                    }
+                ],
                 "key": "GrantItem",
                 "predicate": [
                     "pelt-of-the-beast-origin:granted"
@@ -87,26 +112,18 @@
                 ]
             },
             {
-                "itemType": "equipment",
+                "itemId": "{item|flags.pf2e.rulesSelections.existingIkon}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "physical-ikon"
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.existingIkon}",
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    {
-                        "or": [
-                            {
-                                "and": [
-                                    "pelt-of-the-beast-origin:existing",
-                                    "item:id:{item|flags.pf2e.rulesSelections.existingIkon}"
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "pelt-of-the-beast-origin:granted",
-                                    "item:granter:slug:pelt-of-the-beast"
-                                ]
-                            }
-                        ]
-                    }
+                    "pelt-of-the-beast-origin:existing"
                 ],
                 "property": "other-tags",
                 "value": "physical-ikon:pelt-of-the-beast"
@@ -114,19 +131,10 @@
             {
                 "itemType": "equipment",
                 "key": "ItemAlteration",
-                "mode": "override",
-                "predicate": [
-                    "item:tag:physical-ikon:pelt-of-the-beast"
-                ],
-                "property": "rarity",
-                "value": "unique"
-            },
-            {
-                "itemType": "equipment",
-                "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "item:tag:physical-ikon:fetching-bangles"
+                    "item:tag:physical-ikon:pelt-of-the-beast",
+                    "pelt-of-the-beast-origin:existing"
                 ],
                 "property": "description",
                 "value": [
@@ -195,6 +203,13 @@
                         "text": "PF2E.SpecificRule.Exemplar.DivineSpark.SparkTranscendence.Reminder"
                     }
                 ]
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.existingIkon}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "divine"
             }
         ],
         "traits": {

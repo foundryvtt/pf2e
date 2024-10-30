@@ -4,20 +4,28 @@
     "name": "Pandemonium Eruption",
     "system": {
         "actionType": {
-            "value": "passive"
+            "value": "action"
         },
         "actions": {
-            "value": null
+            "value": 2
         },
         "category": "ancestry",
         "description": {
-            "value": "<p><strong>Frequency</strong> once per day</p><hr /><p>You unleash the pent-up chaos within you, becoming a nexus of unbridled destruction that wreaks unfettered havoc on e veryone in your vicinity. Each creature within 15 feet of you takes 14d6 acid, electricity, or sonic damage, chosen randomly for each target. Each target receives a basic Reflex save against the higher of your class DC or spell DC, but any creature that is subjected to the type of damage for which you currently have resistance through your Proteankin lineage takes a –2 penalty to the save. Any target that critically fails the save is also @UUID[Compendium.pf2e.conditionitems.Item.Confused] until the end of their next turn.</p>"
+            "value": "<p><strong>Frequency</strong> once per day</p><hr /><p>You unleash the pent-up chaos within you, becoming a nexus of unbridled destruction that wreaks unfettered havoc on everyone in your vicinity. Each creature within 15 feet of you takes 14d6 acid, electricity, or sonic damage, chosen randomly for each target. Each target receives a <code>@Check[reflex|against:class-spell|basic]</code> save against the higher of your class DC or spell DC, but any creature that is subjected to the type of damage for which you currently have resistance through your Proteankin lineage takes a –2 penalty to the save. Any target that critically fails the save is also @UUID[Compendium.pf2e.conditionitems.Item.Confused] until the end of their next turn.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
         },
         "level": {
             "value": 17
         },
         "prerequisites": {
-            "value": []
+            "value": [
+                {
+                    "value": "Proteankin"
+                }
+            ]
         },
         "publication": {
             "license": "ORC",

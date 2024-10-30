@@ -4,10 +4,10 @@
     "name": "Piercing Doom",
     "system": {
         "actionType": {
-            "value": "passive"
+            "value": "action"
         },
         "actions": {
-            "value": null
+            "value": 2
         },
         "category": "class",
         "description": {
@@ -17,14 +17,52 @@
             "value": 8
         },
         "prerequisites": {
-            "value": []
+            "value": [
+                {
+                    "value": "Warrior of Legend Dedication"
+                }
+            ]
         },
         "publication": {
             "license": "ORC",
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": {
+                            "gte": [
+                                "self:condition:doomed",
+                                2
+                            ]
+                        }
+                    }
+                ],
+                "disabledValue": false,
+                "domain": "damage",
+                "key": "RollOption",
+                "option": "piercing-doom",
+                "toggleable": true
+            },
+            {
+                "damageType": "void",
+                "diceNumber": 1,
+                "dieSize": "d10",
+                "key": "DamageDice",
+                "predicate": [
+                    "piercing-doom",
+                    {
+                        "gte": [
+                            "self:condition:doomed",
+                            2
+                        ]
+                    }
+                ],
+                "selector": "melee-strike-damage"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

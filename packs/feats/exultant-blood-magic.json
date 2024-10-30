@@ -31,7 +31,30 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:condition:drained",
+                            2
+                        ]
+                    }
+                ],
+                "selector": "attack-spell-damage",
+                "slug": "blood-rage-spell",
+                "value": 16
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "spellcasting": {
+                    "rank": 3
+                }
+            }
+        },
         "traits": {
             "rarity": "common",
             "value": [

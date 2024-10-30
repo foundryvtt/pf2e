@@ -58,7 +58,7 @@
                 "adjustName": false,
                 "choices": [
                     {
-                        "label": "PF2E.SpecificRule.Exemplar.Ikon.PhysicalGrant",
+                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Grant",
                         "value": "granted"
                     },
                     {
@@ -77,10 +77,10 @@
                         "item:level:0",
                         "item:ranged",
                         {
-                            "not": "item:trait:consumable"
-                        },
-                        {
-                            "not": "item:magical"
+                            "nor": [
+                                "item:magical",
+                                "item:trait:consumable"
+                            ]
                         }
                     ],
                     "itemType": "weapon"
@@ -103,7 +103,10 @@
                 "choices": {
                     "ownedItems": true,
                     "predicate": [
-                        "item:ranged"
+                        "item:ranged",
+                        {
+                            "not": "item:trait:consumable"
+                        }
                     ],
                     "types": [
                         "weapon"
@@ -138,17 +141,43 @@
                     }
                 ],
                 "property": "other-tags",
+                "value": "physical-ikon"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "starshot-origin:existing",
+                                    "item:id:{item|flags.pf2e.rulesSelections.existingIkon}"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "starshot-origin:granted",
+                                    "item:granter:slug:starshot"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "other-tags",
                 "value": "physical-ikon:starshot"
             },
             {
                 "itemType": "weapon",
                 "key": "ItemAlteration",
-                "mode": "override",
+                "mode": "add",
                 "predicate": [
                     "item:tag:physical-ikon:starshot"
                 ],
-                "property": "rarity",
-                "value": "unique"
+                "priority": 121,
+                "property": "traits",
+                "value": "divine"
             },
             {
                 "itemType": "weapon",
@@ -198,9 +227,6 @@
                         "text": "PF2E.SpecificRule.Exemplar.DivineSpark.SparkTranscendence.Reminder"
                     }
                 ]
-            },
-            {
-                "key": "ActiveEffectLike"
             }
         ],
         "traits": {

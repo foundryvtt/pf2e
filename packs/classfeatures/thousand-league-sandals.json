@@ -71,6 +71,18 @@
                 "rollOption": "thousand-league-sandals-origin"
             },
             {
+                "alterations": [
+                    {
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "physical-ikon"
+                    },
+                    {
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "physical-ikon:thousand-league-sandals"
+                    }
+                ],
                 "key": "GrantItem",
                 "predicate": [
                     "thousand-league-sandals-origin:granted"
@@ -92,39 +104,18 @@
                 ]
             },
             {
-                "itemType": "equipment",
+                "itemId": "{item|flags.pf2e.rulesSelections.existingIkon}",
                 "key": "ItemAlteration",
                 "mode": "add",
-                "predicate": [
-                    {
-                        "or": [
-                            {
-                                "and": [
-                                    "thousand-league-sandals-origin:existing",
-                                    "item:id:{item|flags.pf2e.rulesSelections.existingIkon}"
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "thousand-league-sandals-origin:granted",
-                                    "item:granter:slug:thousand-league-sandals"
-                                ]
-                            }
-                        ]
-                    }
-                ],
                 "property": "other-tags",
-                "value": "physical-ikon:thousand-league-sandals"
+                "value": "physical-ikon"
             },
             {
-                "itemType": "equipment",
+                "itemId": "{item|flags.pf2e.rulesSelections.existingIkon}",
                 "key": "ItemAlteration",
-                "mode": "override",
-                "predicate": [
-                    "item:tag:physical-ikon:thousand-league-sandals"
-                ],
-                "property": "rarity",
-                "value": "unique"
+                "mode": "add",
+                "property": "other-tags",
+                "value": "physical-ikon:thousand-league-sandals"
             },
             {
                 "itemType": "equipment",
@@ -172,6 +163,13 @@
                         "text": "PF2E.SpecificRule.Exemplar.DivineSpark.SparkTranscendence.Reminder"
                     }
                 ]
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.existingIkon}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "divine"
             }
         ],
         "traits": {

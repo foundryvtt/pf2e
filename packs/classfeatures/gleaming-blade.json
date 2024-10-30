@@ -99,6 +99,9 @@
                                 "item:group:sword",
                                 "item:group:knife"
                             ]
+                        },
+                        {
+                            "not": "item:trait:consumable"
                         }
                     ],
                     "types": [
@@ -132,7 +135,10 @@
                     "filter": [
                         "item:level:0",
                         {
-                            "not": "item:magical"
+                            "nor": [
+                                "item:magical",
+                                "item:trait:consumable"
+                            ]
                         },
                         {
                             "or": [
@@ -184,17 +190,48 @@
                     }
                 ],
                 "property": "other-tags",
+                "value": "physical-ikon"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "gleaming-blade-origin:existing",
+                                    {
+                                        "or": [
+                                            "item:slug:{item|flags.pf2e.rulesSelections.existingIkonUnarmed}",
+                                            "item:id:{item|flags.pf2e.rulesSelections.existingIkonWeapon}"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "gleaming-blade-origin:granted",
+                                    "item:granter:slug:gleaming-blade"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "other-tags",
                 "value": "physical-ikon:gleaming-blade"
             },
             {
                 "itemType": "weapon",
                 "key": "ItemAlteration",
-                "mode": "override",
+                "mode": "add",
                 "predicate": [
                     "item:tag:physical-ikon:gleaming-blade"
                 ],
-                "property": "rarity",
-                "value": "unique"
+                "priority": 121,
+                "property": "traits",
+                "value": "divine"
             },
             {
                 "itemType": "weapon",

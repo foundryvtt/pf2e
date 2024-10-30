@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Usage</strong> imbued into a worn ikon</p><hr /><p>Your ikon is connected to the world of the spirits, allowing you to partially fade into their realm. The imbued ikon gains the following ability.</p>\n<p><strong>Transcendence—Skirt the Underworld</strong> <span class=\"action-glyph\">2</span> (concentrate, illusion, incapacitation, transcendence) You skirt into the world of the dead, becoming @UUID[Compendium.pf2e.conditionitems.Item.Invisible] for 1 round, then Fly up to your Speed. Each enemy adjacent to you at any point during this movement must succeed at a @Check[fortitude|against:class] save against your class DC or become @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 minute (or permanently on a critical failure). For each creature blinded by this effect, the duration of the granted invisibility extends by 1 round. Undead and other creatures with strong ties to the world of the dead, such as psychopomps, are immune to this effect.</p>"
+            "value": "<p><strong>Usage</strong> imbued into a worn ikon</p><hr /><p>Your ikon is connected to the world of the spirits, allowing you to partially fade into their realm. The imbued ikon gains the following ability.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.Skirt the Underworld] <span class=\"action-glyph\">2</span> (concentrate, illusion, incapacitation, transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.exuTl8tvVlewxVGJ inline]</p>"
         },
         "level": {
             "value": 16
@@ -24,8 +24,29 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": "flags.pf2e.exemplar.ikons",
+                "flag": "ikon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Skirt the Underworld"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "chosen-ikon:{item|flags.pf2e.rulesSelections.ikon}"
+            }
+        ],
         "traits": {
+            "otherTags": [
+                "worn-ikon-feat"
+            ],
             "rarity": "common",
             "value": [
                 "exemplar",

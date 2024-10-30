@@ -72,6 +72,18 @@
             },
             {
                 "allowDuplicate": false,
+                "alterations": [
+                    {
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "physical-ikon"
+                    },
+                    {
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "physical-ikon:horn-of-plenty"
+                    }
+                ],
                 "key": "GrantItem",
                 "predicate": [
                     "horn-of-plenty-origin:granted"
@@ -93,26 +105,18 @@
                 ]
             },
             {
-                "itemType": "backpack",
+                "itemId": "{item|flags.pf2e.rulesSelections.existingIkon}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "physical-ikon"
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.existingIkon}",
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    {
-                        "or": [
-                            {
-                                "and": [
-                                    "horn-of-plenty-origin:existing",
-                                    "item:id:{item|flags.pf2e.rulesSelections.existingIkon}"
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "horn-of-plenty-origin:granted",
-                                    "item:granter:slug:horn-of-plenty"
-                                ]
-                            }
-                        ]
-                    }
+                    "horn-of-plenty-origin:existing"
                 ],
                 "property": "other-tags",
                 "value": "physical-ikon:horn-of-plenty"
@@ -120,19 +124,10 @@
             {
                 "itemType": "backpack",
                 "key": "ItemAlteration",
-                "mode": "override",
-                "predicate": [
-                    "item:tag:physical-ikon:horn-of-plenty"
-                ],
-                "property": "rarity",
-                "value": "unique"
-            },
-            {
-                "itemType": "backpack",
-                "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "item:tag:physical-ikon:horn-of-plenty"
+                    "item:tag:physical-ikon:horn-of-plenty",
+                    "horn-of-plenty-origin:existing"
                 ],
                 "property": "description",
                 "value": [
@@ -164,6 +159,13 @@
                         "text": "PF2E.SpecificRule.Exemplar.DivineSpark.SparkTranscendence.Reminder"
                     }
                 ]
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.existingIkon}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "divine"
             }
         ],
         "traits": {

@@ -1,0 +1,42 @@
+{
+    "_id": "VfXwZXZaVq9u4GHo",
+    "img": "icons/skills/melee/strike-polearm-glowing-white.webp",
+    "name": "Stance: Spear of Doom",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Spear of Doom]</p>\n<p>Your cursed weakness is equal to your level instead of half your level.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "Weakness",
+                "type": "{actor|flags.pf2e.warriorOfLegendCursedWeakness}",
+                "value": "max(1,@actor.level)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

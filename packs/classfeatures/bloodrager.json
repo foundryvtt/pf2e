@@ -24,7 +24,92 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "self:effect:rage",
+                    {
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
+                        ]
+                    }
+                ],
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "rage",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "class:barbarian",
+                    {
+                        "gte": [
+                            "self:level",
+                            7
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "rage",
+                "value": 4
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "class:barbarian",
+                    "feature:greater-weapon-specialization"
+                ],
+                "selector": "strike-damage",
+                "slug": "rage",
+                "value": 8
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    "feature:raging-resistance"
+                ],
+                "type": [
+                    "bleed",
+                    "slashing"
+                ],
+                "value": "@actor.abilities.con.mod+3"
+            },
+            {
+                "damageType": "bleed",
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "selector": "strike-damage",
+                "value": "ternary(gte(@actor.level,13),4,ternary(gte(@actor.level,7),2,1))"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "selector": "attack-spell-damage",
+                "slug": "blood-rage-spell",
+                "value": "ternary(gte(@actor.level,13),8,ternary(gte(@actor.level,7),4,2))"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "selector": "PF2E.SpecificRule.Barbarian.Bloodrager.BloodRage",
+                "text": "PF2E.SpecificRule.Barbarian.Bloodrager.SpellMiss",
+                "title": "PF2E.SpecificRule.Barbarian.Bloodrager.BloodRage"
+            }
+        ],
         "traits": {
             "otherTags": [
                 "barbarian-instinct"

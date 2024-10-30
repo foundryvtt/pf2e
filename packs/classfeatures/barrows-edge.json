@@ -39,6 +39,18 @@
                 "toggleable": true
             },
             {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.exemplar.ikons",
+                "value": {
+                    "label": "PF2E.SpecificRule.Exemplar.Ikon.BarrowsEdge.Label",
+                    "predicate": [
+                        "parent:tag:weapon-ikon-feat"
+                    ],
+                    "value": "barrows-edge"
+                }
+            },
+            {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.actionspf2e.Item.Drink of my Foes"
             },
@@ -46,7 +58,7 @@
                 "adjustName": false,
                 "choices": [
                     {
-                        "label": "PF2E.SpecificRule.Exemplar.Ikon.PhysicalGrant",
+                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Grant",
                         "value": "granted"
                     },
                     {
@@ -63,6 +75,12 @@
                 "choices": {
                     "ownedItems": true,
                     "predicate": [
+                        "item:melee",
+                        {
+                            "not": [
+                                "item:trait:consumable"
+                            ]
+                        },
                         {
                             "or": [
                                 "item:damage:type:slashing",
@@ -85,8 +103,12 @@
                 "choices": {
                     "filter": [
                         "item:level:0",
+                        "item:melee",
                         {
-                            "not": "item:magical"
+                            "nor": [
+                                "item:magical",
+                                "item:trait:consumable"
+                            ]
                         },
                         {
                             "or": [
@@ -133,17 +155,43 @@
                     }
                 ],
                 "property": "other-tags",
+                "value": "physical-ikon"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "barrows-edge-origin:existing",
+                                    "item:id:{item|flags.pf2e.rulesSelections.existingIkon}"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "barrows-edge-origin:granted",
+                                    "item:granter:slug:barrows-edge"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "other-tags",
                 "value": "physical-ikon:barrows-edge"
             },
             {
                 "itemType": "weapon",
                 "key": "ItemAlteration",
-                "mode": "override",
+                "mode": "add",
                 "predicate": [
                     "item:tag:physical-ikon:barrows-edge"
                 ],
-                "property": "rarity",
-                "value": "unique"
+                "priority": 121,
+                "property": "traits",
+                "value": "divine"
             },
             {
                 "itemType": "weapon",
@@ -192,18 +240,6 @@
                 "selector": "weapon-damage",
                 "slug": "barrows-edge-immanence",
                 "value": 3
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "add",
-                "path": "flags.pf2e.exemplar.ikons",
-                "value": {
-                    "label": "PF2E.SpecificRule.Exemplar.Ikon.BarrowsEdge.Label",
-                    "predicate": [
-                        "parent:tag:weapon-ikon-feat"
-                    ],
-                    "value": "barrows-edge"
-                }
             },
             {
                 "itemType": "action",

@@ -24,8 +24,42 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": "flags.pf2e.exemplar.ikons",
+                "flag": "ikon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Break the Sun's Legs"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "chosen-ikon:{item|flags.pf2e.rulesSelections.ikon}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "divine-spark:{item|flags.pf2e.rulesSelections.ikon}",
+                    "item:tag:physical-ikon:{item|flags.pf2e.rulesSelections.ikon}"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Exemplar.Sunwrecker.Note",
+                "title": "PF2E.SpecificRule.Exemplar.Sunwrecker.Label"
+            }
+        ],
         "traits": {
+            "otherTags": [
+                "weapon-ikon-feat"
+            ],
             "rarity": "common",
             "value": [
                 "exemplar",

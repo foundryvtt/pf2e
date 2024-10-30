@@ -1,6 +1,6 @@
 {
     "_id": "P3rO6yeGY7YbccRG",
-    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "img": "icons/magic/symbols/circled-gem-pink.webp",
     "name": "Animistic Practice",
     "system": {
         "actionType": {
@@ -24,7 +24,23 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:tag:animistic-practice"
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "animisticPractice",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.animisticPractice}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

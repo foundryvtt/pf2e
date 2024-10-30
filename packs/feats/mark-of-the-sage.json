@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Usage</strong> imbued into a worn ikon</p><hr /><p>Your ikon gains a pin, stripe, or similar marking showing you as a master of your craft. The imbued ikon gains the following ability.</p>\n<p><strong>Transcendence—A Challenge for Heroes</strong> <span class=\"action-glyph\">2</span> (concentrate, mental, spirit, transcendence) You declare an enemy within 60 feet to be a heroic test. For 1 minute, that enemy deals an additional @Damage[10[spirit]] damage to you with each successful Strike or spell it targets you with. Whenever that enemy deals spirit damage to you, each ally who has the enemy in melee reach can attempt a Reactive Strike against it, even if the ally doesn't normally have that reaction. If an ally successfully slays the enemy with a Reactive Strike due to this effect, that ally immediately gains temporary Hit Points equal to your level, which persist for 1 minute.</p>"
+            "value": "<p><strong>Usage</strong> imbued into a worn ikon</p><hr /><p>Your ikon gains a pin, stripe, or similar marking showing you as a master of your craft. The imbued ikon gains the following ability.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.A Challenge for Heroes] <span class=\"action-glyph\">2</span> (concentrate, mental, spirit, transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.c40APnn4a7bWhtcZ inline]</p>"
         },
         "level": {
             "value": 16
@@ -24,8 +24,29 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": "flags.pf2e.exemplar.ikons",
+                "flag": "ikon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.A Challenge for Heroes"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "chosen-ikon:{item|flags.pf2e.rulesSelections.ikon}"
+            }
+        ],
         "traits": {
+            "otherTags": [
+                "worn-ikon-feat"
+            ],
             "rarity": "common",
             "value": [
                 "exemplar",

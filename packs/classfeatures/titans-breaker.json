@@ -58,7 +58,7 @@
                 "adjustName": false,
                 "choices": [
                     {
-                        "label": "PF2E.SpecificRule.Exemplar.Ikon.PhysicalGrant",
+                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Grant",
                         "value": "granted"
                     },
                     {
@@ -77,10 +77,10 @@
                         "item:level:0",
                         "item:melee",
                         {
-                            "not": "item:trait:consumable"
-                        },
-                        {
-                            "not": "item:magical"
+                            "nor": [
+                                "item:trait:consumable",
+                                "item:magical"
+                            ]
                         },
                         {
                             "or": [
@@ -136,6 +136,9 @@
                                 "item:group:club",
                                 "item:group:hammer"
                             ]
+                        },
+                        {
+                            "not": "item:trait:consumable"
                         }
                     ],
                     "types": [
@@ -191,17 +194,48 @@
                     }
                 ],
                 "property": "other-tags",
+                "value": "physical-ikon"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "titans-breaker-origin:existing",
+                                    {
+                                        "or": [
+                                            "item:slug:{item|flags.pf2e.rulesSelections.existingIkonUnarmed}",
+                                            "item:id:{item|flags.pf2e.rulesSelections.existingIkonWeapon}"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "titans-breaker-origin:granted",
+                                    "item:granter:slug:titans-breaker"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "other-tags",
                 "value": "physical-ikon:titans-breaker"
             },
             {
                 "itemType": "weapon",
                 "key": "ItemAlteration",
-                "mode": "override",
+                "mode": "add",
                 "predicate": [
                     "item:tag:physical-ikon:titans-breaker"
                 ],
-                "property": "rarity",
-                "value": "unique"
+                "priority": 121,
+                "property": "traits",
+                "value": "divine"
             },
             {
                 "itemType": "weapon",

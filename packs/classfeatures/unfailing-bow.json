@@ -58,7 +58,7 @@
                 "adjustName": false,
                 "choices": [
                     {
-                        "label": "PF2E.SpecificRule.Exemplar.Ikon.PhysicalGrant",
+                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Grant",
                         "value": "granted"
                     },
                     {
@@ -75,12 +75,17 @@
                 "choices": {
                     "filter": [
                         "item:level:0",
-                        "item:ranged",
                         {
-                            "not": "item:trait:consumable"
+                            "gte": [
+                                "item:range-increment",
+                                1
+                            ]
                         },
                         {
-                            "not": "item:magical"
+                            "nor": [
+                                "item:trait:consumable",
+                                "item:magical"
+                            ]
                         }
                     ],
                     "itemType": "weapon"
@@ -138,17 +143,43 @@
                     }
                 ],
                 "property": "other-tags",
+                "value": "physical-ikon"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "unfailing-bow-origin:existing",
+                                    "item:id:{item|flags.pf2e.rulesSelections.existingIkon}"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "unfailing-bow-origin:granted",
+                                    "item:granter:slug:unfailing-bow"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "other-tags",
                 "value": "physical-ikon:unfailing-bow"
             },
             {
                 "itemType": "weapon",
                 "key": "ItemAlteration",
-                "mode": "override",
+                "mode": "add",
                 "predicate": [
                     "item:tag:physical-ikon:unfailing-bow"
                 ],
-                "property": "rarity",
-                "value": "unique"
+                "priority": 121,
+                "property": "traits",
+                "value": "divine"
             },
             {
                 "itemType": "weapon",

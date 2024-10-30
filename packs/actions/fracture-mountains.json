@@ -20,15 +20,8 @@
         },
         "rules": [
             {
-                "disabledIf": [
-                    {
-                        "not": "divine-spark:titans-breaker"
-                    }
-                ],
-                "disabledValue": false,
                 "key": "RollOption",
                 "option": "fracture-mountains",
-                "priority": 51,
                 "toggleable": true
             },
             {
@@ -47,7 +40,8 @@
                 "diceNumber": "ternary(gte(@actor.level,18),3,ternary(gte(@actor.level,10),2,1))",
                 "key": "DamageDice",
                 "predicate": [
-                    "fracture-mountains"
+                    "fracture-mountains",
+                    "item:tag:physical-ikon:titans-breaker"
                 ],
                 "selector": "strike-damage"
             }

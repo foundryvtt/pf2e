@@ -17,14 +17,36 @@
             "value": 14
         },
         "prerequisites": {
-            "value": []
+            "value": [
+                {
+                    "value": "Warrior of Legend Dedication"
+                }
+            ]
         },
         "publication": {
             "license": "ORC",
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:type:melee",
+                            "item:type:weapon"
+                        ]
+                    },
+                    {
+                        "not": "damage:type:{actor|flags.pf2e.warriorOfLegendCursedWeakness}"
+                    }
+                ],
+                "key": "Resistance",
+                "label": "{item|name}",
+                "type": "custom",
+                "value": "floor(@actor.level/2)"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

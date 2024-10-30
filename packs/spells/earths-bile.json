@@ -12,16 +12,6 @@
         },
         "counteraction": false,
         "damage": {
-            "4WJB5fBQz5DNcpri": {
-                "applyMod": false,
-                "category": "persistent",
-                "formula": "1",
-                "kinds": [
-                    "damage"
-                ],
-                "materials": [],
-                "type": "fire"
-            },
             "INFFw4nT75jXjS4B": {
                 "applyMod": false,
                 "category": null,
@@ -50,7 +40,7 @@
             }
         },
         "description": {
-            "value": "<p>Your apparition is the will of lava and magma made manifest, the earth's molten blood unleashing devastating bursts of liquid stone and unquenchable fire at your command. When you Cast this Spell and the first time you Sustain it each round thereafter, choose an area within range. Each creature in the area takes 1d4 fire damage, 1d4 bludgeoning damage, and 1 persistent fire damage (the persistent fire damage is negated on a successful save).</p><hr /><p><strong>Heightened (+2)</strong> The fire and bludgeoning damage each increase by 1d4, and the persistent fire damage increases by 1.</p>"
+            "value": "<p>Your apparition is the will of lava and magma made manifest, the earth's molten blood unleashing devastating bursts of liquid stone and unquenchable fire at your command. When you Cast this Spell and the first time you Sustain it each round thereafter, choose an area within range. Each creature in the area takes 1d4 fire damage, 1d4 bludgeoning damage, and @Damage[(@item.rank)[persistent,fire]] damage (the persistent fire damage is negated on a successful save).</p><hr /><p><strong>Heightened (+2)</strong> The fire and bludgeoning damage each increase by 1d4, and the persistent fire damage increases by 1.</p>"
         },
         "duration": {
             "sustained": true,
@@ -58,7 +48,6 @@
         },
         "heightening": {
             "damage": {
-                "4WJB5fBQz5DNcpri": "1",
                 "INFFw4nT75jXjS4B": "1d4",
                 "Ri9pmfc1Jkvm7j0x": "1d4"
             },

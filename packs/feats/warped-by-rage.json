@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Usage</strong> imbued into a body or worn ikon</p><hr /><p>Rage courses through your body, transforming you into a beast of battle. The imbued ikon gains the following abilities.</p>\n<p><strong>Immanence</strong> You're affected by a 4th-rank enlarge spell. You can choose to forgo this effect when your body ikon becomes empowered.</p>\n<p><strong>Transcendence—Spasm of the Berserker</strong> <span class=\"action-glyph\">1</span> (transcendence) Your body warps beyond recognition into a powerful, one-eyed form. You're affected by a 4th-rank enlarge spell and a 6th-rank moon frenzy spell, which both last until the end of your next turn. You can't attempt to end the moon frenzy early.</p>\n<p>If this ikon becomes empowered again, you can extend Spasm of the Berserker's duration until the end of your next turn. While you're already affected by Spasm of the Berserker, the transcend action becomes a free action to extend its duration until the end of your next turn.</p>"
+            "value": "<p><strong>Usage</strong> imbued into a body or worn ikon</p><hr /><p>Rage courses through your body, transforming you into a beast of battle. The imbued ikon gains the following abilities.</p>\n<p><strong>Immanence</strong> You're affected by a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Enlarge] spell. You can choose to forgo this effect when your body ikon becomes empowered.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.Spasm of the Berserker] <span class=\"action-glyph\">1</span> (transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.tHHpBREXDaafK3TF inline]</p>"
         },
         "level": {
             "value": 12
@@ -24,8 +24,30 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": "flags.pf2e.exemplar.ikons",
+                "flag": "ikon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Spasm of the Berserker"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "chosen-ikon:{item|flags.pf2e.rulesSelections.ikon}"
+            }
+        ],
         "traits": {
+            "otherTags": [
+                "body-ikon-feat",
+                "worn-ikon-feat"
+            ],
             "rarity": "common",
             "value": [
                 "exemplar",

@@ -58,7 +58,7 @@
                 "adjustName": false,
                 "choices": [
                     {
-                        "label": "PF2E.SpecificRule.Exemplar.Ikon.PhysicalGrant",
+                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Grant",
                         "value": "granted"
                     },
                     {
@@ -94,7 +94,10 @@
                 "choices": {
                     "ownedItems": true,
                     "predicate": [
-                        "item:trait:free-hand"
+                        "item:trait:free-hand",
+                        {
+                            "not": "item:trait:consumable"
+                        }
                     ],
                     "types": [
                         "weapon"
@@ -127,7 +130,10 @@
                         "item:level:0",
                         "item:trait:free-hand",
                         {
-                            "not": "item:magical"
+                            "nor": [
+                                "item:magical",
+                                "item:trait:consumable"
+                            ]
                         }
                     ],
                     "itemType": "weapon"
@@ -173,17 +179,48 @@
                     }
                 ],
                 "property": "other-tags",
+                "value": "physical-ikon"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "hands-of-the-wildling-origin:existing",
+                                    {
+                                        "or": [
+                                            "item:slug:{item|flags.pf2e.rulesSelections.existingIkonUnarmed}",
+                                            "item:id:{item|flags.pf2e.rulesSelections.existingIkonWeapon}"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "hands-of-the-wildling:granted",
+                                    "item:granter:slug:hands-of-the-wildling"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "other-tags",
                 "value": "physical-ikon:hands-of-the-wildling"
             },
             {
                 "itemType": "weapon",
                 "key": "ItemAlteration",
-                "mode": "override",
+                "mode": "add",
                 "predicate": [
                     "item:tag:physical-ikon:hands-of-the-wildling"
                 ],
-                "property": "rarity",
-                "value": "unique"
+                "priority": 121,
+                "property": "traits",
+                "value": "divine"
             },
             {
                 "itemType": "weapon",

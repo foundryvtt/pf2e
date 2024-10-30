@@ -58,7 +58,7 @@
                 "adjustName": false,
                 "choices": [
                     {
-                        "label": "PF2E.SpecificRule.Exemplar.Ikon.PhysicalGrant",
+                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Grant",
                         "value": "granted"
                     },
                     {
@@ -82,6 +82,9 @@
                                 "item:group:flail",
                                 "item:group:polearm"
                             ]
+                        },
+                        {
+                            "not": "item:trait:consumable"
                         }
                     ],
                     "types": [
@@ -100,7 +103,10 @@
                     "filter": [
                         "item:level:0",
                         {
-                            "not": "item:magical"
+                            "nor": [
+                                "item:magical",
+                                "item:trait:consumable"
+                            ]
                         },
                         {
                             "or": [
@@ -149,17 +155,43 @@
                     }
                 ],
                 "property": "other-tags",
+                "value": "physical-ikon"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "mortal-harvest-origin:existing",
+                                    "item:id:{item|flags.pf2e.rulesSelections.existingIkon}"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "mortal-harvest-origin:granted",
+                                    "item:granter:slug:mortal-harvest"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "other-tags",
                 "value": "physical-ikon:mortal-harvest"
             },
             {
                 "itemType": "weapon",
                 "key": "ItemAlteration",
-                "mode": "override",
+                "mode": "add",
                 "predicate": [
                     "item:tag:physical-ikon:mortal-harvest"
                 ],
-                "property": "rarity",
-                "value": "unique"
+                "priority": 121,
+                "property": "traits",
+                "value": "divine"
             },
             {
                 "itemType": "weapon",

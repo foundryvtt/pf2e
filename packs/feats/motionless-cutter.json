@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Usage</strong> imbued into a melee weapon ikon that deals slashing damage</p><hr /><p>Your weapon is so sharp even an insect alighting upon its still blade would be severed. Your weapon ikon gains the following ability.</p>\n<p><strong>Transcendence—Sever Four Dragonfly Wings</strong> <span class=\"action-glyph\">3</span> (transcendence) Make a Strike that deals slashing damage with your weapon ikon. If that Strike is successful, you can immediately make an additional Strike against a different target within your reach. You can continue making Strikes in this manner, each against a different target, until you have made a total of four Strikes or you miss with a Strike, whichever comes first. Each attack counts toward your multiple attack penalty, but you do not increase your penalty until you have made all your attacks.</p>"
+            "value": "<p><strong>Usage</strong> imbued into a melee weapon ikon that deals slashing damage</p><hr /><p>Your weapon is so sharp even an insect alighting upon its still blade would be severed. Your weapon ikon gains the following ability.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.Sever Four Dragonfly Wings] <span class=\"action-glyph\">3</span> (transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.XFdTDDAPO7U0r4Et inline]</p>"
         },
         "level": {
             "value": 6
@@ -24,8 +24,29 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": "flags.pf2e.exemplar.ikons",
+                "flag": "ikon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Sever Four Dragonfly Wings"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "chosen-ikon:{item|flags.pf2e.rulesSelections.ikon}"
+            }
+        ],
         "traits": {
+            "otherTags": [
+                "weapon-ikon-feat"
+            ],
             "rarity": "common",
             "value": [
                 "exemplar",

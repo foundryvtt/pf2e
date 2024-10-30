@@ -23,7 +23,7 @@ type WeaponReloadTime = "-" | "0" | "1" | "2" | "3" | "10";
 
 type StrikingRuneType = "striking" | "greaterStriking" | "majorStriking" | "mythicStriking";
 
-type WeaponMaterialType = Exclude<PreciousMaterialType, "dragonhide" | "grisantian-pelt">;
+type WeaponMaterialType = Exclude<PreciousMaterialType, "dragonhide" | "grisantian-pelt" | "dreamweb">;
 
 export type {
     BaseWeaponType,

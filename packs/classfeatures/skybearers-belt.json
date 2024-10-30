@@ -71,6 +71,18 @@
                 "rollOption": "skybearers-belt-origin"
             },
             {
+                "alterations": [
+                    {
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "physical-ikon"
+                    },
+                    {
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "physical-ikon:skybearers-belt"
+                    }
+                ],
                 "key": "GrantItem",
                 "predicate": [
                     "skybearers-belt-origin:granted"
@@ -92,39 +104,18 @@
                 ]
             },
             {
-                "itemType": "equipment",
+                "itemId": "{item|flags.pf2e.rulesSelections.existingIkon}",
                 "key": "ItemAlteration",
                 "mode": "add",
-                "predicate": [
-                    {
-                        "or": [
-                            {
-                                "and": [
-                                    "skybearers-belt-origin:existing",
-                                    "item:id:{item|flags.pf2e.rulesSelections.existingIkon}"
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "skybearers-belt-origin:granted",
-                                    "item:granter:slug:skybearers-belt"
-                                ]
-                            }
-                        ]
-                    }
-                ],
                 "property": "other-tags",
-                "value": "physical-ikon:skybearers-belt"
+                "value": "physical-ikon"
             },
             {
-                "itemType": "equipment",
+                "itemId": "{item|flags.pf2e.rulesSelections.existingIkon}",
                 "key": "ItemAlteration",
-                "mode": "override",
-                "predicate": [
-                    "item:tag:physical-ikon:skybearers-belt"
-                ],
-                "property": "rarity",
-                "value": "unique"
+                "mode": "add",
+                "property": "other-tags",
+                "value": "physical-ikon:skybearers-belt"
             },
             {
                 "itemType": "equipment",
@@ -183,6 +174,13 @@
                         "text": "PF2E.SpecificRule.Exemplar.DivineSpark.SparkTranscendence.Reminder"
                     }
                 ]
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.existingIkon}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "divine"
             }
         ],
         "traits": {

@@ -1,6 +1,6 @@
 {
     "_id": "HssOCNIpcsmoeQ8T",
-    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "img": "icons/weapons/polearms/spear-flared-blue.webp",
     "name": "Warrior of Legend",
     "system": {
         "actionType": {
@@ -24,7 +24,38 @@
             "remaster": false,
             "title": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "actorFlag": true,
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitBludgeoning",
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitSlashing",
+                        "value": "slashing"
+                    },
+                    {
+                        "label": "PF2E.TraitPiercing",
+                        "value": "piercing"
+                    }
+                ],
+                "flag": "warriorOfLegendCursedWeakness",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.WarriorOfLegend.CursedWeakness.Prompt"
+            },
+            {
+                "key": "Weakness",
+                "type": "{actor|flags.pf2e.warriorOfLegendCursedWeakness}",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Diehard"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

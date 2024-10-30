@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p><strong>Usage</strong> worn headwear or belt (typically a sash)</p><hr /><p>This symbol of victory—whether a laurel worn around the head or a medal that hangs from your neck—reminds you and your allies that victory is the only acceptable outcome.</p>\n<p><strong>Immanence</strong> (aura, emotion, mental) You inspire your allies to greater glory. You and all your allies in a @Template[type:emanation|distance:15] gain a +1 status bonus to attack rolls.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.One Moment till Glory] <span class=\"action-glyph\">1</span> (concentrate, emotion, mental, transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.IEBBHnI7wWRt44KG inline]</p>"
+            "value": "<p><strong>Usage</strong> worn headwear or belt (typically a sash)</p><hr /><p>This symbol of victory—whether a laurel worn around the head or a medal that hangs from your neck—reminds you and your allies that victory is the only acceptable outcome.</p>\n<p><strong>Immanence</strong> (aura, emotion, mental) You inspire your allies to greater glory. You and all your allies in a 15-foot emanation gain a +1 status bonus to attack rolls.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.One Moment till Glory] <span class=\"action-glyph\">1</span> (concentrate, emotion, mental, transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.IEBBHnI7wWRt44KG inline]</p>"
         },
         "level": {
             "value": 1
@@ -52,7 +52,7 @@
             },
             {
                 "key": "GrantItem",
-                "uuid": "Compendium.pf2e.actionspf2e.Item.Break Free"
+                "uuid": "Compendium.pf2e.actionspf2e.Item.One Moment till Glory"
             },
             {
                 "adjustName": false,
@@ -72,11 +72,23 @@
             },
             {
                 "allowDuplicate": false,
+                "alterations": [
+                    {
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "physical-ikon"
+                    },
+                    {
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "physical-ikon:victors-wreath"
+                    }
+                ],
                 "key": "GrantItem",
                 "predicate": [
                     "victors-wreath-origin:granted"
                 ],
-                "uuid": "Compendium.pf2e.equipment-srd.Item.Bands of Imprisonment"
+                "uuid": "Compendium.pf2e.equipment-srd.Item.Victor's Wreath"
             },
             {
                 "adjustName": false,
@@ -93,39 +105,18 @@
                 ]
             },
             {
-                "itemType": "equipment",
+                "itemId": "{item|flags.pf2e.rulesSelections.existingIkon}",
                 "key": "ItemAlteration",
                 "mode": "add",
-                "predicate": [
-                    {
-                        "or": [
-                            {
-                                "and": [
-                                    "victors-wreath-origin:existing",
-                                    "item:id:{item|flags.pf2e.rulesSelections.existingIkon}"
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "victors-wreath-origin:granted",
-                                    "item:granter:slug:victors-wreath"
-                                ]
-                            }
-                        ]
-                    }
-                ],
                 "property": "other-tags",
-                "value": "physical-ikon:victors-wreath"
+                "value": "physical-ikon"
             },
             {
-                "itemType": "equipment",
+                "itemId": "{item|flags.pf2e.rulesSelections.existingIkon}",
                 "key": "ItemAlteration",
-                "mode": "override",
-                "predicate": [
-                    "item:tag:physical-ikon:victors-wreath"
-                ],
-                "property": "rarity",
-                "value": "unique"
+                "mode": "add",
+                "property": "other-tags",
+                "value": "physical-ikon:victors-wreath"
             },
             {
                 "itemType": "equipment",
@@ -152,9 +143,7 @@
                 "radius": 15,
                 "traits": [
                     "emotion",
-                    "mental",
-                    "transcendence",
-                    "concentrate"
+                    "mental"
                 ]
             },
             {
@@ -180,6 +169,13 @@
                         "text": "PF2E.SpecificRule.Exemplar.DivineSpark.SparkTranscendence.Reminder"
                     }
                 ]
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.existingIkon}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "divine"
             }
         ],
         "traits": {

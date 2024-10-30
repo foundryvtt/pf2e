@@ -643,6 +643,9 @@
             "Requirements": {
                 "Label": "Requirements"
             },
+            "Special": {
+               "Label": "Special"
+            }
             "Trigger": {
                 "Label": "Trigger"
             }
@@ -2153,6 +2156,10 @@
                     "WebNote": "<p>The spider's web attack deals no damage, but the target takes a –10-foot circumstance penalty to its Speeds for 1 round on a hit.</p><p>@UUID[Compendium.pf2e.feat-effects.Item.tCMVyxQhzYCjBQtK]</p><p>If a target is hit a second time by the same character's web attack while they have this penalty, they're instead @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{Immobilized} until they succeed at a check to @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{Escape} against your class DC.</p>",
                     "Wolf": "Wolf"
                 },
+                "Bloodrager": {
+                    "BloodRage": "Blood Rage",
+                    "SpellMiss": "Apply @Damage[ternary(gte(@actor.level,13),8,ternary(gte(@actor.level,7),4,2))] damage from Rage to that spell, even on a failure."
+                },
                 "ComeAndGetMe": {
                     "IncomingDamage": "If a creature hits you, that creature is @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} to you until the end of your next turn.",
                     "Name": "Come and Get Me",
@@ -3101,6 +3108,9 @@
                 "SerpentDagger": {
                     "Note": "When you critically succeed at an attack roll with the <em>serpent dagger</em>, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 1} unless it succeeds at a @Check[fortitude|dc:19] save."
                 },
+                "ShardOfSelfDestruction": {
+                    "Note": "You also take @Damage[1d6[bleed]] damage."
+                },
                 "SoothingToddy": {
                     "AmarettoLabel": "Amaretto",
                     "LimoncelloLabel": "Limoncello",
@@ -3130,6 +3140,16 @@
                 }
             },
             "Exemplar": {
+                "CompliantGold": {
+                    "ExtraReachToggle": "Compliant Gold — Weapon already had reach."
+                },
+                "DestinedVictory": {
+                    "Label": "Destined Victory",
+                    "Note": "Whenever an enemy successfully Strikes you with a melee weapon, you gain a +2 status bonus to your AC against the next attack from that enemy before the start of your next turn.",
+                    "OnlyYouAndI": {
+                       "Note": "Whenever the enemy misses you with a Strike, you heal @Damage[(1d8+5)[healing]] Hit Points."
+                    }
+                },
                 "DivineSpark": {
                     "Label": "Divine Spark",
                     "SparkTranscendence": {
@@ -3198,6 +3218,18 @@
                         "Description": "When you Spark Transcendence, you can choose to become electrically charged until the start of your next turn. Any creature that touches you or damages you with an unarmed attack or non-reach melee weapon while you're charged takes @Damage[1d6[electricity]] damage as lightning courses back to them."
                     }
                 },
+                "EternityIncineratingBlaze": {
+                    "BurnOutOfTime": {
+                       "Label": "Burn out of Time"
+                    },
+                    "Label": "Eternity-Incinerating Blaze"
+                    "Note": "Whenever you score a critical hit with the imbued ikon, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.3uh1r86TzbQvosxv]{Doomed 1} or increases its doomed condition by 1. If the target's maximum dying value is reduced to 0 by this ability, it immediately dies in a flash of spiritual fire that reduces its body to ash."
+                }
+                "GiftOfTheImmortalHerb": {
+                    "ShedOfTheMortalSkin": {
+                       "Label": "Shed the Mortal Skin"
+                    }
+                },
                 "Ikon": {
                     "BandsOfImprisonment": {
                        "Label": "Bands Of Imprisonment"
@@ -3238,10 +3270,12 @@
                        "RollOptionLabel": "Pelt of the Beast — Attunement"
                     },
                     "Physical": {
-                       "Existing": "Use an item in my inventory.",
+                       "Existing": "Use an existing item in my inventory.",
                        "Grant": "Grant me a new item.",
-                       "Prompt": "What item will be your ikon?"
+                       "Prompt": "What item will be your ikon?",
+                       "UnarmedOrWeapon": "Will your ikon be an unarmed attack or a weapon?"
                     },
+                    "Prompt": "Select an ikon."
                     "ScarOfTheSurvivor": {
                        "Label": "Scar of the Survivor"
                     },
@@ -3273,6 +3307,26 @@
                     "VictorsWreath": {
                        "Label": "Victor's Wreath"
                     }
+                },
+                "InfiniteBladesCelestialArrow": {
+                    "HeavenRainsAnEnding": {
+                       "Label": "Heaven Rains an Ending"
+                    },
+                    "Label": "Infinite Blades Celestial Arrow",
+                    "Note": "Whenever you successfully Strike an enemy with your weapon ikon, up to two enemies adjacent to the target take @Damage[(@item.system.damage.dice)[spirit]] damage equal to your weapon ikon's damage dice as they are struck by duplicated missiles."
+                },
+                "MatedBirdsInPairedFlight": {
+                    "Pair": "Two separate ikons.",
+                    "Prompt": "How many ikons to imbue?",
+                    "Single": "Single ikon with multiple copies."
+                },
+                "SevenColoredCosmicBridge": {
+                    "Label": "Seven-Colored Cosmic Bridge",
+                    "Note": "When you successfully Strike an enemy, you can choose to teleport to an unoccupied location within 10 feet as a free action."
+                },
+                "Sunwrecker": {
+                    "Label": "Sunwrecker",
+                    "Note": "On a successful critical hit with the weapon, the weapon casts 2nd-rank darkness centered on the target of the attack."
                 }
             },
             "ExemplaryFinisher": {
@@ -3338,6 +3392,14 @@
                 },
                 "Forager": {
                     "Note": "While using Survival to Subsist, if you roll any result worse than a success, you get a success. You can also provide for multiple creatures."
+                },
+                "IncredibleFamiliar": {
+                    "Animist": "Your connection to your apparition and your mastery of spiritual magic reach a new threshold that allows you to channel even more power into the physical form you allow it to take on as your familiar. You can select a base of six familiar or master abilities each day, instead of four.",
+                    "Thaumaturge": "By taking the best parts of each magical tradition, you've found a way to grant your familiar even more abilities than other familiars. You can select a base of six familiar or master abilities each day, instead of four.",
+                    "Witch": {
+                        "Description": "Your familiar is imbued with even more magic than other familiars. You can select a base of six familiar or master abilities each day, instead of four.",
+                        "Special": "Add the bonus familiar abilities you gain for being a witch to this amount."
+                    }
                 },
                 "IntensifiedElementStance": {
                     "RollOptionLabel": "Intensified Element Stance — Damage vs. Constructs"
@@ -4157,6 +4219,9 @@
             "Nephilim": {
                 "Pitborn": {
                     "AllowedDrops": "1st level Athletics skill feat"
+                },
+                "Proteankin": {
+                    "Resistance": "Proteankin Resistance"
                 }
             },
             "Notes": {
@@ -4506,8 +4571,11 @@
                 },
                 "HuntersEdge": {
                     "FirstAttack": "First attack on hunted prey this round",
-                    "Prompt": "Select a hunter's edge.",
-                    "Vindicator": "Vindication Edge"
+                    "Prompt": "Select a hunter's edge."
+                },
+                "Vindicator": {
+                    "Edge": "Vindication Edge",
+                    "Interrogate": "Against same religion members or undead/werecreatures pretending"
                 }
             },
             "RapidAdaptation": {
@@ -5357,6 +5425,11 @@
             },
             "WardingRune": {
                 "Prompt": "Select a school of magic other than divination."
+            },
+            "WarriorOfLegend": {
+                "CursedWeakness": {
+                    "Prompt": "Select a cursed weakness."
+                }
             },
             "Wayang": {
                 "ShadowOfTheCourtier": "Once per day, if you fail, but not critically fail, a check to Make an Impression, you can play it off as part of a performance, allowing you to reroll the check; this is a fortune effect."

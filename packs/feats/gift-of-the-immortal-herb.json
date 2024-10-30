@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Usage</strong> imbued into a body ikon</p><hr /><p>Your blood turns a divine gold, shining in moments its spilled and begetting new life. The imbued ikon gains the following effects.</p>\n<p><strong>Immanence</strong> If your divine spark remains in your body ikon for 10 continuous minutes, you regrow one damaged or ruined limb or organ.</p>\n<p><strong>Transcendence—Shed the Mortal Skin</strong> <span class=\"action-glyph\">1</span> (healing, light, transcendence, vitality) Like the serpent, that most ancient of immortals, you shed your skin, revealing a glowing divine form. If you are currently taking persistent fire or acid damage, you immediately end the effect. Until the beginning of your next turn, you shed bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. The next time you are dealt damage by an enemy before the beginning of your next turn, you shed glowing ichor in a square adjacent to you, and where it hits the earth, a glowing, thorned herb grows. A creature other than you can pluck and consume the herb with an Interact action to regain a number of Hit Points equal to half of the damage you were dealt by the attack that sprouted the herb.</p>"
+            "value": "<p><strong>Usage</strong> imbued into a body ikon</p><hr /><p>Your blood turns a divine gold, shining in moments its spilled and begetting new life. The imbued ikon gains the following effects.</p>\n<p><strong>Immanence</strong> If your divine spark remains in your body ikon for 10 continuous minutes, you regrow one damaged or ruined limb or organ.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.Shed the Mortal Skin] <span class=\"action-glyph\">1</span> (healing, light, transcendence, vitality)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.rU3CE5niG8vHc5x4 inline]</p>"
         },
         "level": {
             "value": 16
@@ -24,8 +24,29 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": "flags.pf2e.exemplar.ikons",
+                "flag": "ikon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Shed the Mortal Skin"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "chosen-ikon:{item|flags.pf2e.rulesSelections.ikon}"
+            }
+        ],
         "traits": {
+            "otherTags": [
+                "body-ikon-feat"
+            ],
             "rarity": "common",
             "value": [
                 "exemplar",
