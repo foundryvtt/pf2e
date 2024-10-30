@@ -1,0 +1,58 @@
+{
+    "_id": "lJ9j4mtNEjXoKvei",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Binding Serpents Celestial Arrow",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Usage</strong> imbued into a ranged weapon ikon, or a melee weapon ikon with the thrown trait</p><hr /><p>As you prepare to shoot your weapon, you invoke divine serpents that bind your enemies. The imbued ikon gains the following ability.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.Coiling Serpents] <span class=\"action-glyph\">2</span> (transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.mbOa48mQCqj86lVw inline]</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "choices": "flags.pf2e.exemplar.ikons",
+                "flag": "ikon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Coiling Serpents"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "chosen-ikon:{item|flags.pf2e.rulesSelections.ikon}"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "weapon-ikon-feat"
+            ],
+            "rarity": "common",
+            "value": [
+                "exemplar",
+                "ikon"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -11,37 +11,51 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You have a powerful creative drive, useful for prevarication and performance. You gain the trained proficiency rank in Deception and Performance. If you are already trained in either of these skills, you become trained in a skill of your choice in its place. You also become trained in Art Lore.</p>"
+            "value": "<p>You have a powerful creative drive that is clear to any who interact with you. You are trained in Performance. If you were already trained in Performance (from your background or class, for example), you instead become trained in a skill of your choice. You also gain the @UUID[Compendium.pf2e.feats-srd.Item.Impressive Performance] skill feat, and when you use Performance [[/act make-an-impression variant=performance]], you gain a +1 circumstance bonus to the check.</p>"
         },
         "level": {
             "value": 1
         },
         "prerequisites": {
-            "value": []
+            "value": [
+                {
+                    "value": "Proteankin"
+                }
+            ]
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens: Ancestry Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
         },
         "rules": [
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "system.skills.deception.rank",
+                "path": "system.skills.performance.rank",
                 "value": 1
             },
             {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.skills.performance.rank",
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Impressive Performance"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:make-an-impression"
+                ],
+                "selector": "performance",
+                "type": "circumstance",
                 "value": 1
             }
         ],
         "traits": {
+            "otherTags": [
+                "proteankin"
+            ],
             "rarity": "common",
             "value": [
-                "ganzi"
+                "nephilim"
             ]
         }
     },

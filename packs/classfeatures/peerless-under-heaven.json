@@ -1,0 +1,89 @@
+{
+    "_id": "1I85hvg8k1aVrj5c",
+    "img": "icons/magic/holy/projectiles-blades-salvo-yellow.webp",
+    "name": "Peerless under Heaven",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>For as long as there have been gods, they have made war, and you aim to stand atop the pile when the fighting's over. When you critically succeed on a Strike, divine skill at arms guides your weapon, granting you the critical specialization effect for the weapon group. If you already had access to the critical specialization effect for this weapon, your weapon gains the additional critical specialization effect of the @UUID[Compendium.pf2e.equipment-srd.Item.Grievous] rune.</p>\n<p>After you Spark Transcendence, your impeccable battle form strikes fear. An enemy of your choice within 30 feet must succeed at a @Check[will|against:exemplar|traits:emotion,fear,mental,visual] save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}. That creature is then temporarily immune to this effect for 10 minutes. This is an emotion, fear, mental, and visual effect.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Epithet.Label",
+                "mergeable": true,
+                "option": "epithet",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "peerless-under-heaven"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    "divine-spark",
+                    "epithet:peerless-under-heaven"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Exemplar.Epithet.PeerlessUnderHeaven.Description"
+                    }
+                ]
+            },
+            {
+                "key": "CriticalSpecialization"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Epithet.PeerlessUnderHeaven.GrievousToggle",
+                "option": "peerless-under-heaven-grievous",
+                "toggleable": true
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "peerless-under-heaven-grievous"
+                ],
+                "property": "property-runes",
+                "value": "grievous"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "exemplar-dominion-epithet"
+            ],
+            "rarity": "common",
+            "value": [
+                "exemplar"
+            ]
+        }
+    },
+    "type": "feat"
+}

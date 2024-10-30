@@ -1,0 +1,62 @@
+{
+    "_id": "dn7P5RzMZugxiWri",
+    "img": "icons/commodities/stone/paver-brick-teal.webp",
+    "name": "Effect: Raise the Walls",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Raise the Walls]</p>\n<p>You gain a +1 status bonus to AC, Reflex saves, and any save against force, spirit, vitality, or void effect.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "slug": "raise-the-walls-ac",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "check:statistic:reflex",
+                            "item:trait:force",
+                            "item:trait:spirit",
+                            "item:trait:vitality",
+                            "item:trait:void"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "raise-the-walls-saves",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

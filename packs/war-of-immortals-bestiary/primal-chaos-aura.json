@@ -1,0 +1,101 @@
+{
+    "_id": "F6qOsvcKb95dgCyA",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "mvL1ARPDkTinsFt4",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Wild Surge",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A character casts a primal spell within the hazard's area</p><hr /><p><strong>Effect</strong> Each living creature in the area gains [[/r 2d4 #Temporary Hit Points]] temporary Hit Points that last for 1 minute as life energy wells up around them, and the hazard rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "primal",
+                        "vitality"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Primal Chaos Aura",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>or @Check[perception|dc:26|traits:action:seek] to feel a tingle in the air and smell a rich, chlorophyll-green fragrance with no discernible source</p>",
+                "value": 1
+            }
+        },
+        "details": {
+            "description": "<p>Primal magic becomes unpredictable near areas where Agyra lairs, sometimes to hazardous effect.</p>",
+            "disable": "<p>@Check[nature|dc:22|name:Draw Off Excess Power] to negate the aura's effect for 1 round by temporarily drawing off the excess power and channeling it back into surrounding terrain, @Check[nature|dc:26|name:Disperse Lingering Magic] (expert) to completely disperse the lingering magic</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder War of Immortals"
+            },
+            "reset": "<p>The hazard deactivates and immediately resets if it has no targets for 1 round; it also resets if Agyra slumbers for 1 week within 100 feet.</p>",
+            "routine": "<p>(2 actions) On its initiative, the hazard gathers primal energy from the surroundings as its first action. Roll [[/gmr 1d6 #Energy Gathered]] to determine the type of energy gathered. The hazard uses its second action to replicate the associated spell (2nd rank, DC 23, spell attack modifier [[/r 1d20+15 #Spell Attack]]{+15}). The spell's target or targets are chosen randomly from creatures in the area. Any spell cast by this hazard is primal. <strong>1</strong> air (@UUID[Compendium.pf2e.spells-srd.Item.Gust of Wind]); <strong>2</strong> electricity (@UUID[Compendium.pf2e.spells-srd.Item.Thunderstrike]); <strong>3</strong> fire (@UUID[Compendium.pf2e.spells-srd.Item.Blazing Bolt]); <strong>4</strong> poison (@UUID[Compendium.pf2e.spells-srd.Item.Spider Sting]); <strong>5</strong> sonic (@UUID[Compendium.pf2e.spells-srd.Item.Shatter]); <strong>6</strong> water (@UUID[Compendium.pf2e.spells-srd.Item.Hydraulic Push])</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "kaiju",
+                "magical",
+                "mythic",
+                "primal"
+            ]
+        }
+    },
+    "type": "hazard"
+}

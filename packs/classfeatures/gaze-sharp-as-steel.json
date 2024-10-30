@@ -1,0 +1,116 @@
+{
+    "_id": "hfn5w8ZuI22vfimn",
+    "img": "icons/creatures/eyes/humanoid-single-blind.webp",
+    "name": "Gaze Sharp as Steel",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p><strong>Usage</strong> imbued in the eyes</p><hr /><p>Your eyes glint with an almost-tangible sharpness, letting you spot the tiniest swallow on the horizon or the swiftest arrow in flight.</p>\n<p><strong>Immanence</strong> Your vision sharpens and allows you to sense an enemy's attack almost as soon as it begins, granting you a +1 status bonus to Perception checks and a +2 status bonus to your AC against ranged attacks.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.A Moment Unending] <span class=\"action-glyph\">1</span> (concentrate, prediction, transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.kAwE9YqU6GH1cD7W inline]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.DivineSpark.Label",
+                "mergeable": true,
+                "option": "divine-spark",
+                "priority": 51,
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "gaze-sharp-as-steel"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.exemplar.ikons",
+                "value": {
+                    "label": "PF2E.SpecificRule.Exemplar.Ikon.GazeSharpAsSteel.Label",
+                    "predicate": [
+                        "parent:tag:body-ikon-feat"
+                    ],
+                    "value": "gaze-sharp-as-steel"
+                }
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.A Moment Unending"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "divine-spark:gaze-sharp-as-steel"
+                ],
+                "selector": "perception",
+                "slug": "gaze-sharp-as-steel-perception",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "divine-spark:gaze-sharp-as-steel",
+                    "item:ranged"
+                ],
+                "selector": "ac",
+                "slug": "gaze-sharp-as-steel-ac",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    {
+                        "or": [
+                            "item:granter:tag:chosen-ikon:gaze-sharp-as-steel",
+                            "item:slug:a-moment-unending"
+                        ]
+                    },
+                    {
+                        "not": "divine-spark:gaze-sharp-as-steel"
+                    }
+                ],
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Exemplar.DivineSpark.SparkTranscendence.Reminder"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "exemplar-body-ikon",
+                "exemplar-ikon"
+            ],
+            "rarity": "common",
+            "value": [
+                "ikon"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,84 @@
+{
+    "_id": "VTmRh5FJTxo4btKO",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Hurl At the Horizon",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Usage</strong> imbued into a thrown or melee weapon ikon</p><hr /><p>Your weapon flies from your hand as if propelled under its own power. The imbued ikon gains the following ability.</p>\n<p><strong>Immanence</strong> Your weapon gains the thrown 15 feet trait, or increases its thrown distance by 10 feet if it already has the thrown trait.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "choices": "flags.pf2e.exemplar.ikons",
+                "flag": "ikon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Prompt"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:physical-ikon:{item|flags.pf2e.rulesSelections.ikon}",
+                    "divine-spark:{item|flags.pf2e.rulesSelections.ikon}",
+                    {
+                        "not": "item:trait:thrown"
+                    }
+                ],
+                "property": "other-tags",
+                "value": "thrown-from-hurl-at-the-horizon"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:thrown-from-hurl-at-the-horizon"
+                ],
+                "property": "traits",
+                "value": "thrown-15"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "item:tag:physical-ikon:{item|flags.pf2e.rulesSelections.ikon}",
+                    "divine-spark:{item|flags.pf2e.rulesSelections.ikon}",
+                    {
+                        "not": "item:tag:thrown-from-hurl-at-the-horizon"
+                    }
+                ],
+                "selector": "ranged-strike-attack-roll",
+                "text": "PF2E.SpecificRule.Exemplar.HurlAtTheHorizon.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "weapon-ikon-feat"
+            ],
+            "rarity": "common",
+            "value": [
+                "exemplar",
+                "ikon"
+            ]
+        }
+    },
+    "type": "feat"
+}

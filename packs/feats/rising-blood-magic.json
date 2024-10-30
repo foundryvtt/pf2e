@@ -1,0 +1,59 @@
+{
+    "_id": "QRqs9NIWeh0ONRSP",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Rising Blood Magic",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>The power within your blood grows. You gain the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.DOc3Pf8wmVxanTIv#basic-spellcasting-feat]{Basic Spellcasting Feat} benefits. Each time you gain a spell slot of a new rank from the bloodrager archetype, add a common spell of the appropriate tradition and rank to your repertoire. In addition, when you Cast a Spell from your repertoire and you are at least @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}, increase the extra damage dealt by that spell from Rage by 1.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Bloodrager Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:condition:drained",
+                            1
+                        ]
+                    },
+                    {
+                        "not": "item:surging-blood-magic"
+                    }
+                ],
+                "selector": "attack-spell-damage",
+                "slug": "blood-rage-spell",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,122 @@
+{
+    "_id": "ONKUKCdsbGwhVoUb",
+    "img": "icons/commodities/currency/coin-embossed-skull-gold.webp",
+    "name": "Avenger",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Trained far from watching eyes, you use stealth, intimidation, and deadly bladework to root out threats to your church. You must select @UUID[Compendium.pf2e.feats-srd.Item.Avenger Dedication] as your 2nd-level class feat.</p>\n<p><strong>Prerequisites:</strong> You must be a rogue.</p>\n<p><strong>Avenger Adjustments:</strong> You must choose a deity to be a follower of.</p>\n<p>You are trained in Intimidation, Religion, Stealth, the divine skill granted by your racket, and a number of additional skills equal to 3 plus your Intelligence modifier, instead of your normal starting skill proficiencies.</p>\n<p>You must choose the avenger racket for your rogue's racket.</p>\n<p>You do not gain the @UUID[Compendium.pf2e.classfeatures.Item.Surprise Attack] class feature. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Hunt Prey] action.</p><h2>Avenger Racket</h2><p>Trained to be a precise but brutal weapon by the priests of your faith, you eschew complex trickery for swift and deadly efficiency. Subtlety and deception have their uses, but when a false smile fails, your blades have their own way of finding the truth.</p>\n<p>You are trained in your deity's favored weapon. Whenever you gain a class feature that grants you expert or greater proficiency with simple or martial weapons, you also gain that proficiency rank with your deity's favored weapon.</p>\n<p>You can deal sneak attack damage with your deity's favored weapon, in addition to the weapons listed in the sneak attack class feature. When you critically succeed at an attack roll using your deity's favored weapon and the target has the @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] condition, you also apply the weapon's critical specialization effect.</p>\n<p>You're trained in your deity's divine skill and medium armor; if you're already trained in your deity's divine skill, you are instead trained in another skill of your choice. You can choose Strength as your key attribute modifier. When you gain light armor expertise, you also gain expert proficiency in medium armor, and when you gain light armor mastery, you also gain master proficiency in medium armor.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.intimidation.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.religion.rank",
+                "value": 1
+            },
+            {
+                "choices": {
+                    "filter": [
+                        {
+                            "or": [
+                                "item:category:deity",
+                                "item:category:pantheon"
+                            ]
+                        }
+                    ],
+                    "itemType": "deity"
+                },
+                "flag": "deity",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "not": "deity"
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Deity"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "deity"
+                    }
+                ],
+                "uuid": "{item|flags.pf2e.rulesSelections.deity}"
+            },
+            {
+                "fist": true,
+                "key": "Strike",
+                "predicate": [
+                    "deity:primary:favored-weapon:fist"
+                ]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.pf2e.favoredWeaponRank",
+                "predicate": [
+                    "item:slug:avenger"
+                ],
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Hunt Prey"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.medium.rank",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            13
+                        ]
+                    }
+                ],
+                "value": "ternary(gte(@actor.system.proficiencies.defenses.light.rank,2),2,1)"
+            }
+        ],
+        "subfeatures": {
+            "keyOptions": [
+                "str"
+            ]
+        },
+        "traits": {
+            "otherTags": [
+                "rogue-racket"
+            ],
+            "rarity": "common",
+            "value": [
+                "rogue"
+            ]
+        }
+    },
+    "type": "feat"
+}

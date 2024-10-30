@@ -1,0 +1,124 @@
+{
+    "_id": "qwvO0B9t7LgQCVbV",
+    "img": "icons/skills/wounds/blood-cells-vessel-red-orange.webp",
+    "name": "Bloodrager",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You use the power of ingested blood to generate magical power and fuel you in combat, transforming you into a horrifyingly fearsome opponent. You must select Bloodrager Dedication as your 2nd-level class feat.</p>\n<p><strong>Prerequisites:</strong> You must be a barbarian.</p>\n<p><strong>Bloodrager Adjustments:</strong> You are trained in Athletics, Medicine, and a number of additional skills equal to 2 plus your Intelligence modifier, instead of your normal starting skill proficiencies. You must choose the bloodrager instinct for your barbarian instinct.</p><h2>Bloodrager Instinct</h2><p>Drinking the potent magical blood of supernatural creatures has changed you and awakened magical power within you, along with a grim thirst.</p>\n<p><strong>Blood Rage (Instinct Ability):</strong> When raging, your physical attacks deal extra persistent bleed damage equal to half your additional damage from Rage. When you Cast a Spell that requires a spell attack roll while raging, apply the additional damage from Rage to that spell, even on a failure.</p>\n<p><strong>Specialization Ability:</strong> When using blood rage, increase the additional damage from Rage from 2 to 4. If you have greater weapon specialization, instead increase the damage from 4 to 8.</p>\n<p><strong>Raging Resistance:</strong> You resist slashing damage and persistent bleed damage, as well as damage dealt by the creature whose blood you last drank using Harvest Blood (see below), regardless of the damage type.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "self:effect:rage",
+                    {
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
+                        ]
+                    }
+                ],
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "rage",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "class:barbarian",
+                    {
+                        "gte": [
+                            "self:level",
+                            7
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "rage",
+                "value": 4
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "class:barbarian",
+                    "feature:greater-weapon-specialization"
+                ],
+                "selector": "strike-damage",
+                "slug": "rage",
+                "value": 8
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    "feature:raging-resistance"
+                ],
+                "type": [
+                    "bleed",
+                    "slashing"
+                ],
+                "value": "@actor.abilities.con.mod+3"
+            },
+            {
+                "damageType": "bleed",
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "selector": "strike-damage",
+                "value": "ternary(gte(@actor.level,13),4,ternary(gte(@actor.level,7),2,1))"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "selector": "attack-spell-damage",
+                "slug": "blood-rage-spell",
+                "value": "ternary(gte(@actor.level,13),8,ternary(gte(@actor.level,7),4,2))"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "selector": "PF2E.SpecificRule.Barbarian.Bloodrager.BloodRage",
+                "text": "PF2E.SpecificRule.Barbarian.Bloodrager.SpellMiss",
+                "title": "PF2E.SpecificRule.Barbarian.Bloodrager.BloodRage"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "barbarian-instinct"
+            ],
+            "rarity": "common",
+            "value": [
+                "barbarian"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,67 @@
+{
+    "_id": "KR391Ltqp0d3EWg1",
+    "img": "icons/equipment/back/cloak-fur-brown.webp",
+    "name": "Effect: Survive the Wilds",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Survive the Wilds]</p>\n<p>You and all allies in a 15-foot emanation gain a +2 circumstance bonus to AC and saving throws against effects with the trait the pelt is attuned to.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Survive the Wilds"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
+                "radius": 15
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:{item|origin.flags.pf2e.exemplar.peltOfTheBeastDamage}",
+                            "origin:trait:{item|origin.flags.pf2e.exemplar.peltOfTheBeastDamage}"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
