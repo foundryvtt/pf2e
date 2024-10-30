@@ -643,6 +643,9 @@
             "Requirements": {
                 "Label": "Requirements"
             },
+            "Special": {
+               "Label": "Special"
+            },
             "Trigger": {
                 "Label": "Trigger"
             }
@@ -653,6 +656,10 @@
             },
             "PreviousAction": {
                 "ClimbLeapStride": "Your previous action was to Climb, Leap, or Stride"
+            },
+            "StrikeCount": {
+                "First": "First Strike",
+                "Second": "Second Strike"
             }
         },
         "IWR": {
@@ -1231,6 +1238,9 @@
                     "DamageType": "Animated Weapon - Damage Type",
                     "DieSize": "Animated Weapon - Die Size"
                 }
+            },
+            "WeaverOfWebs": {
+                "InBrightLight": "In Bright Light"
             },
             "YetiNightmareGuardianRage": "Nightmare Guardian Rage",
             "Zetogeki": {
@@ -2099,6 +2109,11 @@
                     "Prompt": "Select a type of energy damage."
                 }
             },
+            "Avenger": {
+                "Slay": {
+                    "Note": "If you hit, the target takes an extra @Damage[(4d6[precision])[@item.system.damage.damageType]] damage with a @Check[fortitude|against:class|basic|traits:incapacitation] save. If the target critically fails, they die."
+                }
+            },
             "AwakenedAnimal": {
                 "LateAwakener": {
                     "Prompt": "Choose an awakened animal heritage"
@@ -2140,6 +2155,10 @@
                     "Wasp": "Wasp",
                     "WebNote": "<p>The spider's web attack deals no damage, but the target takes a –10-foot circumstance penalty to its Speeds for 1 round on a hit.</p><p>@UUID[Compendium.pf2e.feat-effects.Item.tCMVyxQhzYCjBQtK]</p><p>If a target is hit a second time by the same character's web attack while they have this penalty, they're instead @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{Immobilized} until they succeed at a check to @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{Escape} against your class DC.</p>",
                     "Wolf": "Wolf"
+                },
+                "Bloodrager": {
+                    "BloodRage": "Blood Rage",
+                    "SpellMiss": "Apply @Damage[ternary(gte(@actor.level,13),8,ternary(gte(@actor.level,7),4,2))] damage from Rage to that spell, even on a failure."
                 },
                 "ComeAndGetMe": {
                     "IncomingDamage": "If a creature hits you, that creature is @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} to you until the end of your next turn.",
@@ -3034,6 +3053,9 @@
                 "FightersFork": {
                     "FluidLengthLabel": "Fighter's Fork — Fluid Length"
                 },
+                "FinalScalecloak": {
+                    "EmbodyTheStormLabel": "Final Scalecloak — Embody the Storm"
+                },
                 "FulminationFang": {
                     "LightningRodResistanceLabel": "Fulmination Fang - Lightning Rod Resistance"
                 },
@@ -3086,6 +3108,9 @@
                 "SerpentDagger": {
                     "Note": "When you critically succeed at an attack roll with the <em>serpent dagger</em>, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 1} unless it succeeds at a @Check[fortitude|dc:19] save."
                 },
+                "ShardOfSelfDestruction": {
+                    "Note": "You also take @Damage[1d6[bleed]] damage."
+                },
                 "SoothingToddy": {
                     "AmarettoLabel": "Amaretto",
                     "LimoncelloLabel": "Limoncello",
@@ -3112,6 +3137,196 @@
                 },
                 "ZuhrasGloves": {
                     "WallOfMetalLabel": "Wall of Metal is Active"
+                }
+            },
+            "Exemplar": {
+                "CompliantGold": {
+                    "ExtraReachToggle": "Compliant Gold — Weapon already had reach."
+                },
+                "DestinedVictory": {
+                    "Label": "Destined Victory",
+                    "Note": "Whenever an enemy successfully Strikes you with a melee weapon, you gain a +2 status bonus to your AC against the next attack from that enemy before the start of your next turn.",
+                    "OnlyYouAndI": {
+                       "Note": "Whenever the enemy misses you with a Strike, you heal @Damage[(1d8+5)[healing]] Hit Points."
+                    }
+                },
+                "DivineSpark": {
+                    "Label": "Divine Spark",
+                    "SparkTranscendence": {
+                       "Reminder": "To use this action, your divine spark must be empowering the chosen ikon and you must have the ikon ready to use."
+                    }
+                },
+                "EnergizedSpark": {
+                    "Label": "Energized Spark"
+                },
+                "Epithet": {
+                    "BornOfTheBonesOfTheEarth": {
+                        "CriticalSpecialization": "When you critically succeed on a Strike and the target of the critical hit is standing on a surface of earth or stone, the target is driven down and mired in the ground. The target is @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{Immobilized} and must succeed at an @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{Escape} attempt against your class DC to end the immobilization. The creature doesn't become stuck if it is incorporeal, is liquid (like a water elemental or some oozes), has a burrow speed, or could otherwise escape without effort.",
+                        "Description": "When you Spark Transcendence while standing on a surface of earth or stone, you can choose to shatter the surface in a @Template[type:emanation|distance:10], making it difficult terrain. You are not affected by this difficult terrain.",
+                        "Label": "Born of the Bones of the Earth"
+                    },
+                    "CriticalSpecializationToggle": "Use epithet critical specialization effect",
+                    "DancerInTheSeasons": {
+                        "CriticalSpecialization": "When you critically succeed on a Strike, you can Step as a free action.",
+                        "Description": "When you Spark Transcendence, you gain temporary Hit Points equal to half your level as you are reinvigorated by the changing of the seasons; these temporary Hit Points last until the start of your next turn."
+                    },
+                    "HealerOfTheWorld": {
+                        "Description": "After you Spark Transcendence, choose any number of willing or @UUID[Compendium.pf2e.conditionitems.Item.fBnFDH2MTzgFijKf]{Unconscious} creatures in a @Template[type:emanation|distance:30]. Each of these creatures that's dying loses the @UUID[Compendium.pf2e.conditionitems.Item.yZRUzMqrMmfLu0V1]{Dying} condition and remains unconscious at 0 Hit Points, and each one that isn't dying gains 10 temporary Hit Points that last until the start of your next turn. This is a healing vitality effect."
+                    },
+                    "Label": "Epithet",
+                    "OfVerseUnbroken": {
+                        "CriticalSpecialization": "When you critically succeed on a Strike, haunting melodies play around the target, making them @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1} unless they succeed on a @Check[will|against:exemplar] save against your class DC.",
+                        "Description": "When you Spark Transcendence, your divine spark releases a sublime song that harmonizes with your allies. Until the start of your next turn, any of your allies that starts their turn within 30 feet of you can hum to Sustain one of their effects that can be sustained. This is a free action triggered by the ally's turn beginning. Your song then ends, and that ally can't benefit from this ability again for 10 minutes. This is an auditory and mental effect."
+                    },
+                    "PeerlessUnderHeaven": {
+                        "Description": "After you Spark Transcendence, your impeccable battle form strikes fear. An enemy of your choice within 30 feet must succeed at a @Check[will|against:exemplar|traits:emotion,fear,mental,visual] save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{Frightened 1}. That creature is then temporarily immune to this effect for 10 minutes. This is an emotion, fear, mental, and visual effect.",
+                        "GrievousToggle": "Peerless Under Heaven — Gain Grievous Rune critical specialization"
+                    },
+                    "RestlessAsTheTide": {
+                        "CriticalSpecialization": "When you critically succeed on a Strike, water blasts the target and those nearby. This deals bludgeoning splash damage equal to the number of weapon damage dice to the target and all creatures within 10 feet of it. This effect has the water trait.",
+                        "Description": "When you Spark Transcendence, you can Step, your body carried along by a surging tide. If your transcendence affected an enemy, you can instead move that enemy 5 feet in a direction of your choice unless it succeeds at a @Check[fortitude|against:exemplar] save against your class DC. If you move an enemy who started out adjacent to you, you can Step into the space it vacated."
+                    },
+                    "TeacherOfHeroes": {
+                        "Description": "After you Spark Transcendence, you can attempt to Recall Knowledge about one enemy you can see as a free action and instantly transmit any knowledge you gain as a result to every ally within 60 feet. The first piece of knowledge you gain when Recalling Knowledge in this way is always the enemy's immunities. If the enemy has no immunities, you learn its greatest resistance; if it also possesses no resistances, you learn its greatest weakness; if it possesses none of the above, you learn its lowest saving throw."
+                    },
+                    "TheBrave": {
+                        "Description": "Your body carries you forward, allowing you to Stride up to half your Speed in a straight line toward one enemy of your choice as a free action. Once you have used this ability on a given enemy, you can't use it against that enemy again for 10 minutes."
+                    },
+                    "TheCunning": {
+                        "Description": "After you Spark Transcendence, you can @UUID[Compendium.pf2e.actionspf2e.Item.GkmbTGfg8KcgynOA]{Create a Diversion} or @UUID[Compendium.pf2e.actionspf2e.Item.QNAVeNKtHA0EUw4X]{Feint} as a free action."
+                    },
+                    "TheDeft": {
+                        "Description": "When you Spark Transcendence, you can Interact as a free action to reload or draw a weapon ikon, either directly before or directly after your transcendence action. The weapon ikon must be a ranged weapon with the reload trait or a one-handed melee weapon with the thrown trait."
+                    },
+                    "TheLastRuler": {
+                        "Description": "After you Spark Transcendence, you can exude an air of authority until the start of your next turn. If any enemy fails at an attack roll against you during this time, you can attempt an Intimidation check to [[/act demoralize]] that enemy as a free action as you rebuke it for its foolish attempt to stand against your authority."
+                    },
+                    "TheMournful": {
+                        "Description": "After you Spark Transcendence, your act resonates with bittersweet poignancy, making one enemy of your choice within 30 feet who witnessed the act @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled} as tears or memories dance in their eyes. This is an emotion and mental effect. The enemy remains dazzled until the start of your next turn, and then they are temporarily immune for 10 minutes."
+                    },
+                    "TheProud": {
+                        "Description": "After you Spark Transcendence, you can boast to one enemy within 30 feet to draw its attention; this effect has the auditory, emotion, mental, and linguistic traits. Until the start of your next turn, the target takes a –1 status penalty to attack rolls, damage rolls, and skill checks against creatures other than you, and it gains a +1 status bonus to these rolls when targeting you."
+                    },
+                    "TheRadiant": {
+                        "Description": "After you Spark Transcendence, you inspire an ally within 30 feet to push on, restoring Hit Points equal to @Damage[(2*(1+@actor.level))[healing]]{2 + double your level}; this is a mental and emotion effect. The ally is then temporarily immune for 10 minutes."
+                    },
+                    "ThiefOfMoonlight": {
+                        "Description": "After you Spark Transcendence, as a free action you can attempt a check to [[/act palm-an-object]] or to [[/act steal]] an item from an enemy within 30 feet. The relocated objects simply disappear and reappear in your hand."
+                    },
+                    "WhoseCryIsThunder": {
+                        "CriticalSpecialization": "When you critically succeed on a Strike, the target must make a @Check[fortitude|against:exemplar|traits:sonic] saving throw against your class DC. On a failure, they are knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone} and @UUID[Compendium.pf2e.conditionitems.Item.9PR9y0bi4JPKnHPR]{Deafened} for 1 minute. This is a sonic effect.",
+                        "Description": "When you Spark Transcendence, you can choose to become electrically charged until the start of your next turn. Any creature that touches you or damages you with an unarmed attack or non-reach melee weapon while you're charged takes @Damage[1d6[electricity]] damage as lightning courses back to them."
+                    }
+                },
+                "EternityIncineratingBlaze": {
+                    "BurnOutOfTime": {
+                       "Label": "Burn out of Time"
+                    },
+                    "Label": "Eternity-Incinerating Blaze",
+                    "Note": "Whenever you score a critical hit with the imbued ikon, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.3uh1r86TzbQvosxv]{Doomed 1} or increases its doomed condition by 1. If the target's maximum dying value is reduced to 0 by this ability, it immediately dies in a flash of spiritual fire that reduces its body to ash."
+                },
+                "GiftOfTheImmortalHerb": {
+                    "ShedOfTheMortalSkin": {
+                       "Label": "Shed the Mortal Skin"
+                    }
+                },
+                "Ikon": {
+                    "BandsOfImprisonment": {
+                       "Label": "Bands Of Imprisonment"
+                    },
+                    "BarrowsEdge": {
+                       "Label": "Barrow's Edge",
+                       "RollOptionLabel": "Barrows Edge — Target is below half HP"
+                    },
+                    "EyeCatchingSpot": {
+                       "Label": "Eye-Catching Spot"
+                    },
+                    "FetchingBangles": {
+                       "Label": "Fetching Bangles"
+                    },
+                    "GazeSharpAsSteel": {
+                       "Label": "Gaze Sharp as Steel"
+                    },
+                    "GleamingBlade": {
+                       "Label": "Gleaming Blade"
+                    },
+                    "HandsOfTheWildling": {
+                       "Label": "Hands of the Wildling"
+                    },
+                    "HornOfPlenty": {
+                       "Label": "Horn of Plenty"
+                    },
+                    "MirroredAegis": {
+                       "Label": "Mirrored Aegis"
+                    },
+                    "MortalHarvest": {
+                       "Label": "Mortal Harvest"
+                    },
+                    "NobleBranch": {
+                       "Label": "Noble Branch"
+                    },
+                    "PeltOfTheBeast": {
+                       "Label": "Pelt of the Beast",
+                       "RollOptionLabel": "Pelt of the Beast — Attunement"
+                    },
+                    "Physical": {
+                       "Existing": "Use an existing item in my inventory.",
+                       "Grant": "Grant me a new item.",
+                       "Prompt": "What item will be your ikon?",
+                       "UnarmedOrWeapon": "Will your ikon be an unarmed attack or a weapon?"
+                    },
+                    "Prompt": "Select an ikon.",
+                    "ScarOfTheSurvivor": {
+                       "Label": "Scar of the Survivor"
+                    },
+                    "ShadowSheath": {
+                       "Label": "Shadow Sheath",
+                       "LoadNote": "You can spend 1 minute to load this weapon into the sheath."
+                    },
+                    "SkinHardAsHorn": {
+                       "Label": "SkinHardAsHorn",
+                       "CrashAgainstMe": {
+                           "RollOptionLabel": "Crash against Me — Attacking with the clanging weapon"
+                       }
+                    },
+                    "SkybearersBelt": {
+                       "Label": "Skybearer's Belt"
+                    },
+                    "Starshot": {
+                       "Label": "Starshot"
+                    },
+                    "ThousandLeagueSandals": {
+                       "Label": "Thousand-League Sandals"
+                    },
+                    "TitansBreaker": {
+                       "Label": "Titan's Breaker"
+                    },
+                    "UnfailingBow": {
+                       "Label": "Unfailing Bow"
+                    },
+                    "VictorsWreath": {
+                       "Label": "Victor's Wreath"
+                    }
+                },
+                "InfiniteBladesCelestialArrow": {
+                    "HeavenRainsAnEnding": {
+                       "Label": "Heaven Rains an Ending"
+                    },
+                    "Label": "Infinite Blades Celestial Arrow",
+                    "Note": "Whenever you successfully Strike an enemy with your weapon ikon, up to two enemies adjacent to the target take @Damage[(@item.system.damage.dice)[spirit]] damage equal to your weapon ikon's damage dice as they are struck by duplicated missiles."
+                },
+                "MatedBirdsInPairedFlight": {
+                    "Pair": "Two separate ikons.",
+                    "Prompt": "How many ikons to imbue?",
+                    "Single": "Single ikon with multiple copies."
+                },
+                "SevenColoredCosmicBridge": {
+                    "Label": "Seven-Colored Cosmic Bridge",
+                    "Note": "When you successfully Strike an enemy, you can choose to teleport to an unoccupied location within 10 feet as a free action."
+                },
+                "Sunwrecker": {
+                    "Label": "Sunwrecker",
+                    "Note": "On a successful critical hit with the weapon, the weapon casts 2nd-rank darkness centered on the target of the attack."
                 }
             },
             "ExemplaryFinisher": {
@@ -3178,12 +3393,24 @@
                 "Forager": {
                     "Note": "While using Survival to Subsist, if you roll any result worse than a success, you get a success. You can also provide for multiple creatures."
                 },
+                "IncredibleFamiliar": {
+                    "Animist": "Your connection to your apparition and your mastery of spiritual magic reach a new threshold that allows you to channel even more power into the physical form you allow it to take on as your familiar. You can select a base of six familiar or master abilities each day, instead of four.",
+                    "Thaumaturge": "By taking the best parts of each magical tradition, you've found a way to grant your familiar even more abilities than other familiars. You can select a base of six familiar or master abilities each day, instead of four.",
+                    "Witch": {
+                        "Description": "Your familiar is imbued with even more magic than other familiars. You can select a base of six familiar or master abilities each day, instead of four.",
+                        "Special": "Add the bonus familiar abilities you gain for being a witch to this amount."
+                    }
+                },
                 "IntensifiedElementStance": {
                     "RollOptionLabel": "Intensified Element Stance — Damage vs. Constructs"
                 },
                 "KnowItAll": {
                     "Bard": "When you succeed at a check to Recall Knowledge, you gain additional information or context. When you critically succeed at a check to Recall Knowledge, you get additional information or context or can ask an additional follow-up question (the GM chooses which).",
                     "Thaumaturge": "Having heard every rumor or story in the book, you know that if you've heard of something in the first place, you've probably heard about it at length. When you succeed at a check to Recall Knowledge, you gain additional information or context about the given topic. When you critically succeed at a check to Recall Knowledge, at the GM's discretion, you might gain even more additional information or context than normal."
+                },
+                "LightningSwap": {
+                    "Exemplar": "You have practiced quickly switching between combat styles and the equipment needed for them, especially if you wield more than one weapon ikon. You Interact to stow any number of items from your hands, then draw up to two weapons or a shield and a weapon.",
+                    "Fighter": "You have practiced quickly switching between combat styles and the equipment needed for them. You Interact to stow any number of items from your hands, then draw up to two weapons or a shield and a weapon."
                 },
                 "PeerBeyond": {
                     "Note": "You can roll a Spirit Lore or Haunt Lore check for initiative if you know that an incorporeal undead or a haunt is present."
@@ -3992,6 +4219,9 @@
             "Nephilim": {
                 "Pitborn": {
                     "AllowedDrops": "1st level Athletics skill feat"
+                },
+                "Proteankin": {
+                    "Resistance": "Proteankin Resistance"
                 }
             },
             "Notes": {
@@ -4342,6 +4572,10 @@
                 "HuntersEdge": {
                     "FirstAttack": "First attack on hunted prey this round",
                     "Prompt": "Select a hunter's edge."
+                },
+                "Vindicator": {
+                    "Edge": "Vindication Edge",
+                    "Interrogate": "Against same religion members or undead/werecreatures pretending"
                 }
             },
             "RapidAdaptation": {
@@ -5191,6 +5425,11 @@
             },
             "WardingRune": {
                 "Prompt": "Select a school of magic other than divination."
+            },
+            "WarriorOfLegend": {
+                "CursedWeakness": {
+                    "Prompt": "Select a cursed weakness."
+                }
             },
             "Wayang": {
                 "ShadowOfTheCourtier": "Once per day, if you fail, but not critically fail, a check to Make an Impression, you can play it off as part of a performance, allowing you to reroll the check; this is a fortune effect."

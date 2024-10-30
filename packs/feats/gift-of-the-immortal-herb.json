@@ -1,0 +1,61 @@
+{
+    "_id": "IqaVsxjR2bsR4OU2",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Gift of the Immortal Herb",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Usage</strong> imbued into a body ikon</p><hr /><p>Your blood turns a divine gold, shining in moments its spilled and begetting new life. The imbued ikon gains the following effects.</p>\n<p><strong>Immanence</strong> If your divine spark remains in your body ikon for 10 continuous minutes, you regrow one damaged or ruined limb or organ.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.Shed the Mortal Skin] <span class=\"action-glyph\">1</span> (healing, light, transcendence, vitality)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.rU3CE5niG8vHc5x4 inline]</p>"
+        },
+        "level": {
+            "value": 16
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "choices": "flags.pf2e.exemplar.ikons",
+                "flag": "ikon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Shed the Mortal Skin"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "chosen-ikon:{item|flags.pf2e.rulesSelections.ikon}"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "body-ikon-feat"
+            ],
+            "rarity": "common",
+            "value": [
+                "exemplar",
+                "healing",
+                "ikon",
+                "light",
+                "vitality"
+            ]
+        }
+    },
+    "type": "feat"
+}

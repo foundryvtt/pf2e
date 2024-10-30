@@ -1,0 +1,74 @@
+{
+    "_id": "4bKTV1UHBP3qSjzr",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Piercing Doom",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You are @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 2} or greater.</p><hr /><p>You have grown accustomed to the curse that comes with your blessing, able to channel its effects through your attacks and forestall your own demise. Make a melee Strike; on a success, the target takes an additional @Damage[1d10[void]] damage and your doomed value is reduced by 1.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Warrior of Legend Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": {
+                            "gte": [
+                                "self:condition:doomed",
+                                2
+                            ]
+                        }
+                    }
+                ],
+                "disabledValue": false,
+                "domain": "damage",
+                "key": "RollOption",
+                "option": "piercing-doom",
+                "toggleable": true
+            },
+            {
+                "damageType": "void",
+                "diceNumber": 1,
+                "dieSize": "d10",
+                "key": "DamageDice",
+                "predicate": [
+                    "piercing-doom",
+                    {
+                        "gte": [
+                            "self:condition:doomed",
+                            2
+                        ]
+                    }
+                ],
+                "selector": "melee-strike-damage"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

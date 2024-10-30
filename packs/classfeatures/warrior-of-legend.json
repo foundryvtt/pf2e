@@ -1,0 +1,67 @@
+{
+    "_id": "HssOCNIpcsmoeQ8T",
+    "img": "icons/weapons/polearms/spear-flared-blue.webp",
+    "name": "Warrior of Legend",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You have received a blessing that will ensure your ascension to legend, and a curse that foretells your inevitable fall. You must select Warrior of Legend Dedication as your 2nd-level class feat.</p>\n<p><strong>Prerequisites:</strong> You must be a fighter.</p>\n<p><strong>Warrior of Legend Adjustments:</strong> You aren't trained in heavy armor.</p>\n<p>The armor expertise and armor mastery class features only improve your proficiency rank for light armor, medium armor, and unarmored defense. You don't gain Shield Block as a class feature. You are trained in both Acrobatics and Athletics, rather than one or the other.</p>\n<p>Choose one physical damage type, which becomes your cursed weakness: bludgeoning, piercing, or slashing. You gain weakness to this damage type equal to half your level (minimum 1).</p>\n<p>You gain Diehard as a bonus feat, but you become @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 2} whenever you take damage from your cursed weakness (unless your doomed value is already higher).</p>\n<p>Your fighter weapon mastery and weapon legend class features grant you increased proficiency in both spears and polearms, but you can't choose any other weapon group with these class features.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "actorFlag": true,
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitBludgeoning",
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitSlashing",
+                        "value": "slashing"
+                    },
+                    {
+                        "label": "PF2E.TraitPiercing",
+                        "value": "piercing"
+                    }
+                ],
+                "flag": "warriorOfLegendCursedWeakness",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.WarriorOfLegend.CursedWeakness.Prompt"
+            },
+            {
+                "key": "Weakness",
+                "type": "{actor|flags.pf2e.warriorOfLegendCursedWeakness}",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Diehard"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fighter"
+            ]
+        }
+    },
+    "type": "feat"
+}

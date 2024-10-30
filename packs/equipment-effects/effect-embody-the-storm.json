@@ -1,0 +1,54 @@
+{
+    "_id": "VGSHg5UEqgp5WhjV",
+    "img": "icons/equipment/back/cloak-collared-leaves-green.webp",
+    "name": "Effect: Embody the Storm",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Final Scalecloak]</p>\n<p>You gain a +4 status bonus to AC against ranged projectiles that are at least partly made of metal.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 20
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "domain": "ac",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.FinalScalecloak.EmbodyTheStormLabel",
+                "option": "embody-the-storm",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "embody-the-storm",
+                    "item:ranged"
+                ],
+                "selector": "ac",
+                "type": "status",
+                "value": 4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,59 @@
+{
+    "_id": "ZdPLjPFwp9JuVRFf",
+    "img": "icons/skills/melee/swords-parry-block-blue.webp",
+    "name": "Effect: Only You and I",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Only You and I]</p>\n<p>You gain a +2 circumstance bonus to attack rolls made against the exemplar. Whenever you miss the exemplar with a Strike, they heal 1d8+5 Hit Points.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:signature:{item|origin.signature}"
+                ],
+                "selector": "strike-attack-roll",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalFailure",
+                    "failure"
+                ],
+                "predicate": [
+                    "target:signature:{item|origin.signature}"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Exemplar.DestinedVictory.OnlyYouAndI.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

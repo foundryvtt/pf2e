@@ -1,0 +1,59 @@
+{
+    "_id": "zxP9xHpChl9y8wNW",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Journey of the Sky Chariot",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Usage</strong> imbued into a body ikon or worn ikon</p><hr /><p>Small wings, flaming wheels, or another signifier of flight sprout from your ikon as it gains the power to lift you from the ground. Your ikon gains the following effects.</p>\n<p><strong>Immanence</strong> Your ikon keeps you hovering even without conscious effort. You can remain in the air at the end of this turn, even if you didn't use a Fly action.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.Race the Skies] <span class=\"action-glyph\">1</span> (concentrate, transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.MrTULCUsE9naPxXg inline]</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "choices": "flags.pf2e.exemplar.ikons",
+                "flag": "ikon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Race the Skies"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "chosen-ikon:{item|flags.pf2e.rulesSelections.ikon}"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "body-ikon-feat",
+                "worn-ikon-feat"
+            ],
+            "rarity": "common",
+            "value": [
+                "exemplar",
+                "ikon"
+            ]
+        }
+    },
+    "type": "feat"
+}

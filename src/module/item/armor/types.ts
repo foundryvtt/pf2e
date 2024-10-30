@@ -6,7 +6,7 @@ type ArmorPropertyRuneType = SetElement<typeof ARMOR_PROPERTY_RUNE_TYPES>;
 type ArmorTrait = keyof typeof CONFIG.PF2E.armorTraits;
 type BaseArmorType = keyof typeof CONFIG.PF2E.baseArmorTypes;
 type OtherArmorTag = "shoddy";
-type ResilientRuneType = "" | "resilient" | "greaterResilient" | "majorResilient";
+type ResilientRuneType = "" | "resilient" | "greaterResilient" | "majorResilient" | "mythicResilient";
 
 export type {
     ArmorCategory,

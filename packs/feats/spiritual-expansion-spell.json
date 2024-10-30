@@ -1,0 +1,120 @@
+{
+    "_id": "ZH4gpcvVTAD157fn",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Spiritual Expansion Spell",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your apparitions manifest to scatter the energy of your spell. If the next action you use is to Cast a Spell that has an area of a burst, cone, or line and does not have a duration, increase the area of that spell. Add 5 feet to the radius of a burst that normally has a radius of at least 10 feet (a burst with a smaller radius is not affected). Add 5 feet to the length of a cone or line that is normally 15 feet long or smaller, and add 10 feet to the length of a larger cone or line.</p>\n<p>You can also use this feat to increase the radius of an emanation spell with a duration by 5 feet by dedicating your primary apparition to maintaining the spellshape; dedicating the apparition to the spell prevents you from using the apparition's vessel spell, apparition skills, or @UUID[Compendium.pf2e.spells-srd.Item.Avatar] form for the duration of the modified spell.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "spiritual-expansion-spell"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:duration:0",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:area:type:burst",
+                                    {
+                                        "gte": [
+                                            "item:area:size",
+                                            10
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    {
+                                        "or": [
+                                            "item:area:type:cone",
+                                            "item:area:type:line"
+                                        ]
+                                    },
+                                    {
+                                        "lte": [
+                                            "item:area:size",
+                                            15
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "spellshape:spiritual-expansion-spell"
+                ],
+                "property": "area-size",
+                "value": 5
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:duration:0",
+                    {
+                        "or": [
+                            "item:area:type:line",
+                            "item:area:type:cone"
+                        ]
+                    },
+                    {
+                        "gt": [
+                            "item:area:size",
+                            15
+                        ]
+                    },
+                    "spellshape:spiritual-expansion-spell"
+                ],
+                "priority": 119,
+                "property": "area-size",
+                "value": 10
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "animist",
+                "apparition",
+                "concentrate",
+                "spellshape"
+            ]
+        }
+    },
+    "type": "feat"
+}
