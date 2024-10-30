@@ -291,7 +291,7 @@ const FUNDAMENTAL_WEAPON_RUNE_DATA: FundamentalWeaponRuneData = {
             name: "PF2E.WeaponPotencyRune4",
             value: 4,
             level: 20,
-            price: 70000,
+            price: 70_000,
             rarity: "rare",
             traits: ["mythic"],
         },
