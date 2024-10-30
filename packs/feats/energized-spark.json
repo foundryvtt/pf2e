@@ -144,14 +144,19 @@
             {
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.Exemplar.EnergizedSpark.Label",
-                "option": "energized-spark-trait",
+                "option": "energized-spark-damage",
                 "suboptions": [
                     {
-                        "label": "PF2E.TraitAir",
+                        "label": "PF2E.TraitBludgeoning",
                         "predicate": [
-                            "energized-spark:air"
+                            {
+                                "or": [
+                                    "energized-spark:earth",
+                                    "energized-spark:water"
+                                ]
+                            }
                         ],
-                        "value": "air"
+                        "value": "bludgeoning"
                     },
                     {
                         "label": "PF2E.TraitCold",
@@ -159,13 +164,6 @@
                             "energized-spark:cold"
                         ],
                         "value": "cold"
-                    },
-                    {
-                        "label": "PF2E.TraitEarth",
-                        "predicate": [
-                            "energized-spark:earth"
-                        ],
-                        "value": "earth"
                     },
                     {
                         "label": "PF2E.TraitElectricity",
@@ -182,11 +180,11 @@
                         "value": "fire"
                     },
                     {
-                        "label": "PF2E.TraitMetal",
+                        "label": "PF2E.TraitPiercing",
                         "predicate": [
-                            "energized-spark:metal"
+                            "energized-spark:wood"
                         ],
-                        "value": "metal"
+                        "value": "piercing"
                     },
                     {
                         "label": "PF2E.TraitPoison",
@@ -194,6 +192,18 @@
                             "energized-spark:poison"
                         ],
                         "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.TraitSlashing",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "energized-spark:air",
+                                    "energized-spark:metal"
+                                ]
+                            }
+                        ],
+                        "value": "slashing"
                     },
                     {
                         "label": "PF2E.TraitSonic",
@@ -215,20 +225,6 @@
                             "energized-spark:void"
                         ],
                         "value": "void"
-                    },
-                    {
-                        "label": "PF2E.TraitWater",
-                        "predicate": [
-                            "energized-spark:water"
-                        ],
-                        "value": "water"
-                    },
-                    {
-                        "label": "PF2E.TraitWood",
-                        "predicate": [
-                            "energized-spark:wood"
-                        ],
-                        "value": "wood"
                     }
                 ],
                 "toggleable": true
@@ -239,149 +235,13 @@
                 "predicate": [
                     "damage:type:spirit",
                     "item:trait:exemplar",
-                    {
-                        "or": [
-                            "energized-spark-trait:air",
-                            "energized-spark-trait:metal"
-                        ]
-                    }
+                    "energized-spark-damage"
                 ],
                 "property": "damage-type",
                 "selectors": [
                     "inline-damage"
                 ],
-                "value": "slashing"
-            },
-            {
-                "key": "DamageAlteration",
-                "mode": "override",
-                "predicate": [
-                    "damage:type:spirit",
-                    "item:trait:exemplar",
-                    "energized-spark-trait:cold"
-                ],
-                "property": "damage-type",
-                "selectors": [
-                    "inline-damage"
-                ],
-                "value": "cold"
-            },
-            {
-                "key": "DamageAlteration",
-                "mode": "override",
-                "predicate": [
-                    "damage:type:spirit",
-                    "item:trait:exemplar",
-                    {
-                        "or": [
-                            "energized-spark-trait:earth",
-                            "energized-spark-trait:water"
-                        ]
-                    }
-                ],
-                "property": "damage-type",
-                "selectors": [
-                    "inline-damage"
-                ],
-                "value": "bludgeoning"
-            },
-            {
-                "key": "DamageAlteration",
-                "mode": "override",
-                "predicate": [
-                    "damage:type:spirit",
-                    "item:trait:exemplar",
-                    "energized-spark-trait:electricity"
-                ],
-                "property": "damage-type",
-                "selectors": [
-                    "inline-damage"
-                ],
-                "value": "electricity"
-            },
-            {
-                "key": "DamageAlteration",
-                "mode": "override",
-                "predicate": [
-                    "damage:type:spirit",
-                    "item:trait:exemplar",
-                    "energized-spark-trait:fire"
-                ],
-                "property": "damage-type",
-                "selectors": [
-                    "inline-damage"
-                ],
-                "value": "fire"
-            },
-            {
-                "key": "DamageAlteration",
-                "mode": "override",
-                "predicate": [
-                    "damage:type:spirit",
-                    "item:trait:exemplar",
-                    "energized-spark-trait:poison"
-                ],
-                "property": "damage-type",
-                "selectors": [
-                    "inline-damage"
-                ],
-                "value": "poison"
-            },
-            {
-                "key": "DamageAlteration",
-                "mode": "override",
-                "predicate": [
-                    "damage:type:spirit",
-                    "item:trait:exemplar",
-                    "energized-spark-trait:sonic"
-                ],
-                "property": "damage-type",
-                "selectors": [
-                    "inline-damage"
-                ],
-                "value": "sonic"
-            },
-            {
-                "key": "DamageAlteration",
-                "mode": "override",
-                "predicate": [
-                    "damage:type:spirit",
-                    "item:trait:exemplar",
-                    "energized-spark-trait:vitality"
-                ],
-                "property": "damage-type",
-                "selectors": [
-                    "inline-damage"
-                ],
-                "value": "vitality"
-            },
-            {
-                "key": "DamageAlteration",
-                "mode": "override",
-                "predicate": [
-                    "damage:type:spirit",
-                    "item:trait:exemplar",
-                    "energized-spark-trait:void"
-                ],
-                "property": "damage-type",
-                "selectors": [
-                    "inline-damage"
-                ],
-                "value": "void"
-            },
-            {
-                "key": "DamageAlteration",
-                "mode": "override",
-                "predicate": [
-                    "damage:type:spirit",
-                    "item:trait:exemplar",
-                    "energized-spark-trait:wood"
-                ],
-                "property": "damage-type",
-                "selectors": [
-                    "inline-damage"
-                ],
-                "value": "piercing"
+                "value": "{item|flags.pf2e.rulesSelections.energizedSparkDamage}"
             }
         ],
         "traits": {
