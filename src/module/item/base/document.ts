@@ -88,17 +88,17 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
      * Set a source ID on a dropped embedded item without a full data reset
      * This is currently necessary as of 10.291 due to system measures to prevent premature data preparation
      */
-    static override fromDropData<TDocument extends foundry.abstract.Document>(
+    static override async fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
         options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
-    static override fromDropData(
+    static override async fromDropData(
         data: object,
         options?: Record<string, unknown>,
     ): Promise<foundry.abstract.Document | undefined> {
         if ("uuid" in data && UUIDUtils.isItemUUID(data.uuid)) {
-            const item = fromUuidSync(data.uuid);
+            const item = await fromUuid(data.uuid);
             if (item instanceof ItemPF2e && item.parent && !item.sourceId) {
                 // Upstream would do this via `item.updateSource(...)`, causing a data reset
                 item._source._stats.duplicateSource = item.uuid;

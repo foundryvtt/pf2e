@@ -9,6 +9,7 @@ import {
 } from "@module/apps/sidebar/index.ts";
 import { setPerceptionModes } from "@module/canvas/perception/modes.ts";
 import { RulerPF2e } from "@module/canvas/ruler.ts";
+import { TokenConfigPF2e } from "@scene/token-document/sheet.ts";
 import { PF2ECONFIG } from "@scripts/config/index.ts";
 import { registerHandlebarsHelpers } from "@scripts/handlebars.ts";
 import { registerFonts } from "@scripts/register-fonts.ts";
@@ -38,9 +39,13 @@ export const Init = {
             CONFIG.ui.actors = ActorDirectoryPF2e;
             CONFIG.ui.items = ItemDirectoryPF2e;
             CONFIG.ui.combat = EncounterTrackerPF2e;
-            CONFIG.ui.chat = ChatLogPF2e;
             CONFIG.ui.compendium = CompendiumDirectoryPF2e;
             CONFIG.ui.hotbar = HotbarPF2e;
+
+            if (game.release.generation === 12) {
+                CONFIG.ui.chat = ChatLogPF2e;
+                CONFIG.Token.prototypeSheetClass = TokenConfigPF2e;
+            }
 
             // Set after load in case of module conflicts
             if (!RulerPF2e.hasModuleConflict) CONFIG.Canvas.rulerClass = RulerPF2e;

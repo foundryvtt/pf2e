@@ -36,7 +36,6 @@ import {
     TokenDocumentPF2e,
 } from "@scene/index.ts";
 import { ActorDeltaPF2e } from "@scene/token-document/actor-delta.ts";
-import { TokenConfigPF2e } from "@scene/token-document/sheet.ts";
 import { monkeyPatchFoundry } from "@scripts/🐵🩹.ts";
 import { CheckRoll, StrikeAttackRoll } from "@system/check/roll.ts";
 import { ClientDatabaseBackendPF2e } from "@system/client-backend.ts";
@@ -80,7 +79,6 @@ export const Load = {
         CONFIG.Tile.documentClass = TileDocumentPF2e;
         CONFIG.Token.documentClass = TokenDocumentPF2e;
         CONFIG.Token.objectClass = TokenPF2e;
-        CONFIG.Token.prototypeSheetClass = TokenConfigPF2e;
         CONFIG.User.documentClass = UserPF2e;
 
         // Assign canvas layer and placeable classes

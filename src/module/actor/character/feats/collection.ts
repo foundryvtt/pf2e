@@ -16,17 +16,17 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
 
         this.bonus = new FeatGroup(actor, {
             id: "bonus",
-            label: "PF2E.FeatBonusHeader",
+            label: "PF2E.Actor.Character.FeatSlot.BonusHeader",
         });
 
         this.createGroup({
             id: "ancestryfeature",
-            label: "PF2E.FeaturesAncestryHeader",
+            label: "PF2E.Actor.Character.FeatSlot.AncestryFeaturesHeader",
             supported: ["ancestryfeature"],
         });
         this.createGroup({
             id: "classfeature",
-            label: "PF2E.FeaturesClassHeader",
+            label: "PF2E.Actor.Character.FeatSlot.ClassFeaturesHeader",
             supported: ["classfeature"],
         });
 
@@ -39,7 +39,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
 
         this.createGroup({
             id: "ancestry",
-            label: "PF2E.FeatAncestryHeader",
+            label: "PF2E.Actor.Character.FeatSlot.AncestryHeader",
             featFilter: ancestryTraitsFilter,
             supported: ["ancestry"],
             slots: classFeatSlots?.ancestry ?? [],
@@ -64,7 +64,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
                   [`traits-${classTrait}`, "traits-dedication"];
         this.createGroup({
             id: "class",
-            label: "PF2E.FeatClassHeader",
+            label: "PF2E.Actor.Character.FeatSlot.ClassHeader",
             featFilter: classFeatFilter,
             supported: ["class"],
             slots: classFeatSlots?.class ?? [],
@@ -79,7 +79,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
         if (game.pf2e.settings.variants.fa) {
             this.createGroup({
                 id: "archetype",
-                label: "PF2E.FeatArchetypeHeader",
+                label: "PF2E.Actor.Character.FeatSlot.ArchetypeHeader",
                 supported: ["class"],
                 slots: evenLevels,
                 featFilter: this.actor.itemTypes.feat.some((f) => f.traits.has("dedication"))
@@ -98,21 +98,21 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
                 : null;
         this.createGroup({
             id: "skill",
-            label: "PF2E.FeatSkillHeader",
+            label: "PF2E.Actor.Character.FeatSlot.SkillHeader",
             supported: ["skill"],
             slots: [backgroundSkillFeats, classFeatSlots?.skill].flat().filter(R.isTruthy),
         });
 
         this.createGroup({
             id: "general",
-            label: "PF2E.FeatGeneralHeader",
+            label: "PF2E.Actor.Character.FeatSlot.GeneralHeader",
             supported: ["general", "skill"],
             slots: classFeatSlots?.general ?? [],
         });
 
         // Add campaign feats if enabled
         if (game.pf2e.settings.campaign.feats.enabled) {
-            this.createGroup({ id: "campaign", label: "PF2E.FeatCampaignHeader" });
+            this.createGroup({ id: "campaign", label: "PF2E.Actor.Character.FeatSlot.CampaignHeader" });
         }
     }
 
