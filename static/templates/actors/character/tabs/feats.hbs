@@ -3,6 +3,11 @@
         <section class="feat-section major" data-group-id="{{section.id}}">
             <header>
                 {{localize section.label}}
+                {{#with section.customLimit}}
+                    <span class="limit">
+                        ({{label}} <input type="number" name="{{concat "flags.pf2e.featLimits." section.id}}" value="{{section.limit}}" min="{{min}}" max="{{max}}" step="1"/>)
+                    </span>
+                {{/with}}
                 <div class="controls">
                     {{#if (eq section.id "bonus")}}
                         <button type="button" data-action="create-feat">
@@ -13,7 +18,6 @@
                         type="button"
                         data-action="browse-feats"
                         data-type="feat"
-                        data-filter="{{section.featFilter}},conjunction-or"
                     >
                         <i class="fa-solid fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
                     </button>
