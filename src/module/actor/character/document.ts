@@ -103,7 +103,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     declare feats: CharacterFeats<this>;
     declare pfsBoons: FeatPF2e<this>[];
-    declare deityBoonsCurses: FeatPF2e<this>[];
+    declare divineIntercessions: FeatPF2e<this>[];
 
     /** The primary class DC */
     declare classDC: Statistic | null;
@@ -958,7 +958,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     private prepareFeats(): void {
         this.pfsBoons = [];
-        this.deityBoonsCurses = [];
+        this.divineIntercessions = [];
         this.feats = new CharacterFeats(this);
 
         for (const section of game.pf2e.settings.campaign.feats.sections) {
@@ -975,7 +975,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             if (feat.category === "pfsboon") {
                 this.pfsBoons.push(feat);
             } else {
-                this.deityBoonsCurses.push(feat);
+                this.divineIntercessions.push(feat);
             }
         }
     }

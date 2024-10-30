@@ -1,6 +1,6 @@
 <script lang="ts">
-    import type { ItemPF2e } from "@item";
-    import { ErrorPF2e, htmlQuery } from "@util";
+    import { ErrorPF2e } from "@util";
+    import type { KeyboardEventHandler, MouseEventHandler } from "svelte/elements";
     import type { ABCPickerContext } from "./app.ts";
 
     const { actor, foundryApp, state: data }: ABCPickerContext = $props();
@@ -11,64 +11,63 @@
 
     let selection: string | null = $state(null);
     /** Show the confirmation button. */
-    function showConfirmation(button: HTMLButtonElement): void {
-        const row = button.closest("li");
+    const showConfirmation: MouseEventHandler<HTMLButtonElement> = (event): void => {
+        const row = event.currentTarget.closest("li");
         selection = selection === row?.dataset.uuid ? null : (row?.dataset.uuid ?? null);
-    }
+    };
 
     /** Open an item sheet to show additional details. */
-    async function viewItemSheet(uuid: ItemUUID): Promise<void> {
-        const item = await fromUuid<ItemPF2e>(uuid);
+    const viewItemSheet: MouseEventHandler<HTMLButtonElement> = async (event): Promise<void> => {
+        const uuid = event.currentTarget.closest("li")?.dataset?.uuid ?? "";
+        const item = await fromUuid(uuid);
         item?.sheet.render(true);
-    }
+    };
 
     /** Create a new embedded ABC item on the character. */
-    async function saveSelection(uuid: ItemUUID): Promise<void> {
-        const item = await fromUuid<ItemPF2e>(uuid);
-        if (!item) throw ErrorPF2e(`Unexpected error retrieving ${data.itemType}`);
-        actor.createEmbeddedDocuments("Item", [item.clone().toObject()]);
+    const saveSelection: MouseEventHandler<HTMLButtonElement> = async (event): Promise<void> => {
+        const uuid = event.currentTarget.closest("li")?.dataset?.uuid ?? "";
+        const item = await fromUuid(uuid);
+        if (!(item instanceof Item) || item.type !== data.itemType) {
+            throw ErrorPF2e(`Unexpected error retrieving ${data.itemType}`);
+        }
+        actor.createEmbeddedDocuments("Item", [{ ...item.toObject(), _id: null }]);
         foundryApp.close();
-    }
+    };
 
     /** Search list and show or hide according to match result. */
-    const searchItems = fu.debounce((query: string) => {
+    const searchItems: KeyboardEventHandler<HTMLInputElement> = (event) => debouncedSearch(event.currentTarget.value);
+    const debouncedSearch = fu.debounce((query: string) => {
         const regexp = new RegExp(RegExp.escape(query.trim()), "i");
         for (const row of foundryApp.element.getElementsByTagName("li")) {
-            row.hidden = !regexp.test(htmlQuery(row, "[data-name]")?.innerText ?? "");
+            row.hidden = !regexp.test(row.innerText ?? "");
         }
     }, 200);
 </script>
 
 <header class="search">
     <i class="fa-solid fa-search"></i>
-    <input
-        type="search"
-        spellcheck="false"
-        placeholder={searchPlaceholder}
-        onkeyup={(event) => searchItems(event.currentTarget.value)}
-    />
+    <input type="search" spellcheck="false" placeholder={searchPlaceholder} onkeyup={searchItems} />
 </header>
 
 <ul>
     {#each data.items as item}
-        <li data-uuid={item.uuid}>
+        <li class:selected={selection === item.uuid} data-uuid={item.uuid}>
             <img src={item.img} loading="lazy" alt="Class icon" />
-            <button type="button" class="flat name-source" onclick={(e) => showConfirmation(e.currentTarget)}>
-                <div class="name" data-name>{item.name}</div>
+            <button type="button" class="flat name-source" onclick={showConfirmation}>
+                <div class="name">{item.name}</div>
                 <div class="source" class:publication={item.source.publication}>{item.source.name}</div>
             </button>
             <div class="buttons">
                 <button
                     type="button"
                     class="confirm"
-                    class:selected={selection === item.uuid}
                     data-tooltip="PF2E.Actor.Character.ABCPicker.Tooltip.ConfirmSelection"
-                    onclick={() => saveSelection(item.uuid)}><i class="fa-solid fa-check"></i></button
+                    onclick={saveSelection}><i class="fa-solid fa-check"></i></button
                 >
                 <button
                     type="button"
                     data-tooltip="PF2E.Actor.Character.ABCPicker.Tooltip.ViewSheet"
-                    onclick={() => viewItemSheet(item.uuid)}><i class="fa-solid fa-info fa-fw"></i></button
+                    onclick={viewItemSheet}><i class="fa-solid fa-info fa-fw"></i></button
                 >
             </div>
         </li>
@@ -129,11 +128,6 @@
                         font-style: italic;
                     }
                 }
-
-                &:hover + .buttons button.confirm:not(.selected) {
-                    opacity: 0.33;
-                    visibility: visible;
-                }
             }
 
             .buttons {
@@ -159,13 +153,18 @@
                         &:not(:hover) {
                             color: darkgreen;
                         }
-
-                        &.selected {
-                            opacity: 1;
-                            visibility: visible;
-                        }
                     }
                 }
+            }
+
+            &:hover:not(.selected) button.confirm {
+                opacity: 0.33;
+                visibility: visible;
+            }
+
+            &.selected button.confirm {
+                opacity: 1;
+                visibility: visible;
             }
         }
     }

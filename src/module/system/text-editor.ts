@@ -466,28 +466,33 @@ class TextEditorPF2e extends TextEditor {
                 element.appendChild(document.createTextNode(" "));
 
                 const details = document.createElement("span");
-                if (dc && showDC && Number.isNumeric(dc)) {
-                    // (<span data-visibility="...">DC #</span> Statistic)
-                    details.appendChild(document.createTextNode("("));
-                    const span = document.createElement("span");
-                    span.dataset["visibility"] = visibility;
-                    span.innerText = game.i18n.format("PF2E.InlineAction.Check.DC", { dc });
-                    details.appendChild(span);
-                    const suffix = statistic
-                        ? ` ${ActionMacroHelpers.getSimpleCheckLabel(statistic) || statistic})`
-                        : ")";
-                    details.appendChild(document.createTextNode(suffix));
-                } else if (dc && showDC) {
-                    // (Statistic vs Defense DC)
-                    const defense = game.i18n.localize(`PF2E.Check.DC.Specific.${dc}`);
-                    const text = statistic
-                        ? game.i18n.format("PF2E.InlineAction.Check.StatisticVsDefense", {
-                              defense,
-                              statistic: ActionMacroHelpers.getSimpleCheckLabel(statistic) || statistic,
-                          })
-                        : game.i18n.format("PF2E.InlineAction.Check.VsDefense", { defense });
-                    details.innerText = `(${text})`;
-                } else if (statistic) {
+                if (dc && showDC) {
+                    if (!Number.isNumeric(dc)) {
+                        // (Statistic vs Defense DC)
+                        const defense = game.i18n.localize(`PF2E.Check.DC.Specific.${dc}`);
+                        const text = statistic
+                            ? game.i18n.format("PF2E.InlineAction.Check.StatisticVsDefense", {
+                                  defense,
+                                  statistic: ActionMacroHelpers.getSimpleCheckLabel(statistic) || statistic,
+                              })
+                            : game.i18n.format("PF2E.InlineAction.Check.VsDefense", { defense });
+                        details.innerText = `(${text})`;
+                    } else if (statistic) {
+                        // (<span data-visibility="...">DC #</span> Statistic)
+                        const span = createHTMLElement("span", {
+                            dataset: { visibility },
+                            children: [game.i18n.format("PF2E.InlineAction.Check.DC", { dc })],
+                        });
+                        const end = statistic
+                            ? ` ${ActionMacroHelpers.getSimpleCheckLabel(statistic) || statistic})`
+                            : ")";
+                        details.append("(", span, end);
+                    } else {
+                        // <span data-visibility="...">(DC #)</span>
+                        details.dataset.visibility = visibility;
+                        details.innerText = `(${game.i18n.format("PF2E.InlineAction.Check.DC", { dc })})`;
+                    }
+                } else {
                     // (Statistic)
                     const text = ActionMacroHelpers.getSimpleCheckLabel(statistic) || statistic;
                     details.innerText = `(${text})`;

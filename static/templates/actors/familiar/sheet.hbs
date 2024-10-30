@@ -8,20 +8,22 @@
 
         <div class="header-content">
             <div class="charname">
-                <input class="charname-value" name="name" type="text" value="{{actor.name}}"
+                <input name="name" type="text" value="{{actor.name}}"
                     placeholder="{{localize "TYPES.Actor.familiar"}}" spellcheck="false" />
-                <label class="familiar-title">{{localize "TYPES.Actor.familiar"}}</label>
-                {{#if data.master.id}}
-                    <label class="familiar-title"> {{data.details.level.value}}</label>
+                <span>{{localize "TYPES.Actor.familiar"}}</span>
+                {{#if master.id}}
+                    <span> {{data.details.level.value}}</span>
                 {{/if}}
             </div>
             <div class="sub-header">
-                <div class="traits">
+                <ul class="tags paizo-style">
                     {{#each traits as |trait|}}
-                        <span data-trait="{{trait.value}}" data-tooltip="{{trait.description}}">{{localize trait.label}}</span>
+                        <li class="tag" data-trait="{{trait.value}}" data-tooltip="{{trait.description}}">
+                            {{~localize trait.label~}}
+                        </li>
                     {{/each}}
-                    <span>{{localize size}}</span>
-                </div>
+                    <li class="tag size">{{localize size}}</li>
+                </ul>
                 <div>
                     <label for="{{document.uuid}}-master"><strong>{{localize "PF2E.Familiar.Master"}}</strong></label>
                     <select id="{{document.uuid}}-master" name="system.master.id">

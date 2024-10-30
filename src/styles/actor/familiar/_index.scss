@@ -2,14 +2,11 @@
     @import "../red-action-boxes";
 
     form {
-        background: url("/assets/sheet/background.webp");
-        background-repeat: repeat-x, no-repeat;
-        background-size: cover;
-        background-attachment: local;
+        background: url("/assets/sheet/background.webp") repeat-x local top/cover;
         display: flex;
         flex-direction: column;
         height: 100%;
-        padding: 4px 6px 0;
+        padding: var(--space-4) var(--space-6) 0;
 
         & > hr {
             width: 100%;
@@ -62,46 +59,39 @@
             flex-direction: column;
             border-radius: 0;
             flex-grow: 1;
-            margin-left: 10px;
+            margin-left: var(--space-10);
 
             .charname {
-                display: flex;
-                flex-direction: row;
-                font-family: var(--sans-serif-condensed);
-                font-size: 1.75rem;
-                font-weight: 700;
-                width: 100%;
-                flex-wrap: nowrap;
                 align-items: baseline;
-                text-transform: capitalize;
-                gap: 0.25em;
+                display: flex;
+                flex-flow: row nowrap;
+                font: 700 var(--font-size-28) var(--sans-serif-condensed);
+                gap: var(--space-4);
+                width: 100%;
 
                 input {
-                    font-weight: bold;
-                    width: calc(100% - 6px);
                     border-bottom: 1px solid #d3ccbc;
-                    text-transform: capitalize;
-                    padding: 0;
-                    margin-right: 5px;
-                    font-variant: small-caps;
                     color: #323232;
+                    font-variant: small-caps;
+                    font-weight: bold;
+                    height: initial;
+                    padding: 0 var(--space-4);
+
                     &::placeholder {
                         filter: opacity(0.5);
                         color: #1c1c1c;
                     }
+
                     &:focus {
                         border-bottom: 1px solid #644f33;
+
                         &::placeholder {
                             color: transparent;
                         }
                     }
                 }
 
-                .charname-value {
-                    flex: 1 1;
-                }
-
-                .familiar-title {
+                span {
                     flex: 0 1;
                     text-align: right;
                     margin-right: 0.1em;
@@ -110,10 +100,13 @@
             }
 
             .sub-header {
+                align-items: center;
                 display: flex;
-                margin-bottom: 10px;
-                .traits {
-                    flex: 1;
+                justify-content: space-between;
+                margin-bottom: var(--space-8);
+
+                ul.tags {
+                    margin-top: var(--space-4);
                 }
             }
 
