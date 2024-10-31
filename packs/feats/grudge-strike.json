@@ -45,23 +45,22 @@
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "predicate": [
-                    "grudge-strike",
-                    {
-                        "not": "target:negative-healing"
-                    }
+                    "grudge-strike"
                 ],
                 "selector": "strike-damage"
             },
             {
-                "damageType": "vitality",
-                "diceNumber": 2,
-                "dieSize": "d6",
-                "key": "DamageDice",
+                "key": "DamageAlteration",
+                "mode": "override",
                 "predicate": [
-                    "grudge-strike",
+                    "dice:slug:grudge-strike",
                     "target:negative-healing"
                 ],
-                "selector": "strike-damage"
+                "property": "damage-type",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "value": "vitality"
             }
         ],
         "traits": {
