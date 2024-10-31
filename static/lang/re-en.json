@@ -2037,6 +2037,11 @@
                 "ExplorersClothing": "Animal Skin w/ Explorer's Clothing",
                 "MageArmor": "Animal Skin w/ Mage Armor"
             },
+            "Animist": {
+                "ChanneledProtection": {
+                    "Prompt": "Was the required spell at least 7th rank?"
+                }
+            },
             "AquaticCombat": {
                 "FireNote": "You can't cast fire spells or use actions with the fire trait underwater.",
                 "RangedNote": "Ranged attacks that deal bludgeoning or slashing damage automatically miss if the attacker or target is underwater, and piercing ranged attacks made by an underwater creature or against an underwater target have their range increments halved."
@@ -3230,6 +3235,9 @@
                        "Label": "Shed the Mortal Skin"
                     }
                 },
+                "HurlAtTheHorizon": {
+                    "Note": "The weapon's thrown distance is increased by 10 feet."
+                },
                 "Ikon": {
                     "BandsOfImprisonment": {
                        "Label": "Bands Of Imprisonment"
@@ -3313,11 +3321,14 @@
                        "Label": "Heaven Rains an Ending"
                     },
                     "Label": "Infinite Blades Celestial Arrow",
-                    "Note": "Whenever you successfully Strike an enemy with your weapon ikon, up to two enemies adjacent to the target take @Damage[(@item.system.damage.dice)[spirit]] damage equal to your weapon ikon's damage dice as they are struck by duplicated missiles."
+                    "Note": "Whenever you successfully Strike an enemy with your weapon ikon, up to two enemies adjacent to the target take @Damage[@item.system.damage.dice@item.system.damage.die[spirit]] damage as they are struck by duplicated missiles."
                 },
                 "MatedBirdsInPairedFlight": {
                     "Pair": "Two separate ikons.",
                     "Prompt": "How many ikons to imbue?",
+                    "RejoinInFlight": {
+                        "RollOptionLabel": "Rejoin in Flight — Additional weapon damage die"
+                    },
                     "Single": "Single ikon with multiple copies."
                 },
                 "SevenColoredCosmicBridge": {
