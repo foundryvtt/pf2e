@@ -24,7 +24,46 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "grudge-strike",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "grudge-strike"
+                ],
+                "selector": "strike-attack-roll",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "damageType": "void",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "grudge-strike",
+                    {
+                        "not": "target:negative-healing"
+                    }
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "damageType": "vitality",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "grudge-strike",
+                    "target:negative-healing"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
