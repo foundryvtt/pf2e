@@ -234,12 +234,39 @@
                 "mode": "override",
                 "predicate": [
                     "damage:type:spirit",
-                    "item:trait:exemplar",
-                    "energized-spark-damage"
+                    "energized-spark-damage",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:type:feat",
+                                    "item:trait:exemplar"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:type:action",
+                                    "item:trait:transcendence"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "action:strike",
+                                    {
+                                        "or": [
+                                            "dice:tag:exemplar-damage",
+                                            "modifier:tag:exemplar-damage"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
                 ],
                 "property": "damage-type",
                 "selectors": [
-                    "inline-damage"
+                    "inline-damage",
+                    "strike-damage"
                 ],
                 "value": "{item|flags.pf2e.rulesSelections.energizedSparkDamage}"
             }
