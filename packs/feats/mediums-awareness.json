@@ -28,7 +28,12 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "action:seek"
+                    {
+                        "or": [
+                            "action:seek",
+                            "check:type:initiative"
+                        ]
+                    }
                 ],
                 "selector": "perception",
                 "type": "status",
