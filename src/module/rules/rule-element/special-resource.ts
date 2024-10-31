@@ -95,8 +95,9 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
 
         if (this.itemUUID) {
             // For pre creation, we don't really know the true priority. Assume it is the better between this and existing
+            const key = sluggify(this.slug, { camel: "dromedary" });
             const thisMax = Number(this.resolveValue(this.max));
-            this.max = Math.floor(Math.max(thisMax, this.actor.system.resources[this.slug]?.max ?? 0));
+            this.max = Math.floor(Math.max(thisMax, this.actor.system.resources[key]?.max ?? 0));
 
             const uuid = this.resolveInjectedProperties(this.itemUUID);
             const itemExists = this.actor.items.some((i) => i.sourceId === uuid);
@@ -116,15 +117,16 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
 
         // Keep a record of the resource for blacklisting and redirection purposes
         // Also prepare a basic version for active effect like modification
+        const key = sluggify(this.slug, { camel: "dromedary" });
         this.max = Number(this.resolveValue(this.max));
-        if (!(this.slug in this.actor.synthetics.resources)) {
-            this.actor.synthetics.resources[this.slug] = this;
-            this.actor.system.resources[this.slug] = fu.mergeObject(this.actor.system.resources[this.slug] ?? {}, {
+        if (!(key in this.actor.synthetics.resources)) {
+            this.actor.synthetics.resources[key] = this;
+            this.actor.system.resources[key] = fu.mergeObject(this.actor.system.resources[key] ?? {}, {
                 value: 0,
                 max: this.max,
             });
         } else {
-            const existing = this.actor.system.resources[this.slug];
+            const existing = this.actor.system.resources[key];
             if (existing) {
                 this.max = existing.max = Math.floor(Math.max(this.max, existing.max ?? 0));
             }
@@ -135,7 +137,7 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
     override beforePrepareData(): void {
         if (this.ignored) return;
 
-        const existing = this.actor.system.resources[this.slug];
+        const existing = this.actor.system.resources[sluggify(this.slug, { camel: "dromedary" })];
         if (existing) {
             const max = Math.floor(existing.max ?? 0);
             this.max = existing.max = max;
