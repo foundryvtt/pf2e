@@ -24,7 +24,22 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:seek",
+                            "check:type:initiative"
+                        ]
+                    }
+                ],
+                "selector": "perception",
+                "type": "status",
+                "value": "ternary(gte(@actor.level,20),4,ternary(gte(@actor.level,12),3,2))"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
