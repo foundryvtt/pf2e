@@ -1,0 +1,56 @@
+{
+    "_id": "K2hqRFjGMX0GCIUi",
+    "img": "icons/magic/life/heart-shadow-red.webp",
+    "name": "Effect: Roaring Heart",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Roaring Heart]</p>\n<p>You gain temporary Hit Points.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.One",
+                        "value": 0.5
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Two",
+                        "value": 1
+                    }
+                ],
+                "flag": "roaringHeart",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Animist.RoaringHeart.Prompt"
+            },
+            {
+                "key": "TempHP",
+                "value": "floor(@item.origin.level*@item.flags.pf2e.rulesSelections.roaringHeart)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
