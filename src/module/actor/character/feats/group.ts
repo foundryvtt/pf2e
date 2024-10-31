@@ -1,8 +1,8 @@
 import type { ActorPF2e } from "@actor";
 import type { FeatPF2e, HeritagePF2e, ItemPF2e } from "@item";
-import type { FeatOrFeatureCategory } from "@item/feat/index.ts";
-import { sluggify, tupleHasValue } from "@util/misc.ts";
-import type { FeatGroupData, FeatLike, FeatSlot } from "./types.ts";
+import { FeatOrFeatureCategory } from "@item/feat/types.ts";
+import { tupleHasValue } from "@util/misc.ts";
+import type { FeatBrowserFilterProps, FeatGroupData, FeatLike, FeatSlot } from "./types.ts";
 
 class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = FeatPF2e> {
     actor: TActor;
@@ -12,45 +12,76 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
     feats: (FeatSlot<TItem> | FeatNotSlot<TItem>)[] = [];
     /** Whether the feats are slotted by level or free-form */
     slotted = false;
-    /** Will move to sheet data later */
-    featFilter: string[];
 
     /** Feat Types that are supported */
     supported: FeatOrFeatureCategory[] = [];
 
+    filter: FeatBrowserFilterProps;
+
     /** Lookup for the slots themselves */
     slots: Record<string, FeatSlot<TItem> | undefined> = {};
 
-    /** This groups level for the purpose of showing feats. Usually equal to actor level */
+    /** This groups display's limit. Usually equal to actor level */
+    limit: number;
+
+    /** This group's level. If slotted, it is equal to the highest leveled slot. */
     level: number;
 
-    constructor(actor: TActor, data: FeatGroupData, options: { level?: number } = {}) {
+    /** Data used to create this group. Used for certain uses that isn't exposed to API */
+    #data: FeatGroupData;
+
+    customLimit: {
+        label: string;
+        min: number;
+        max: number;
+    } | null;
+
+    constructor(actor: TActor, data: FeatGroupData, options: FeatGroupOptions = {}) {
+        this.#data = data;
         this.actor = actor;
         this.id = data.id;
         this.label = data.label;
-        this.level = options.level ?? actor.level;
         this.supported = data.supported ?? [];
-        this.featFilter = Array.from(
-            new Set([this.supported.map((s) => `category-${s}`), data.featFilter ?? []].flat()),
-        );
+        this.filter = data.filter ?? {};
+        this.customLimit = data.customLimit ?? null;
+        if (this.customLimit && actor.isOfType("character")) {
+            const { min, max } = this.customLimit;
+            this.limit = Math.clamp(options.limit ?? actor.flags.pf2e.featLimits[this.id] ?? 0, min, max);
+            actor.flags.pf2e.featLimits[this.id] = this.limit;
+        } else {
+            this.limit = options.limit ?? actor.level;
+        }
 
         if (data.slots) {
+            this.level = 0;
             this.slotted = true;
-            for (const slotOption of data.slots) {
-                const slotData =
-                    typeof slotOption === "number"
-                        ? { id: `${this.id}-${slotOption}`, level: slotOption, label: slotOption.toString() }
-                        : typeof slotOption === "string"
-                          ? { id: `${this.id}-${sluggify(slotOption)}`, level: null, label: slotOption }
-                          : slotOption;
-                if (typeof slotData.level === "number" && slotData.level > this.level) {
+            for (const slotData of data.slots) {
+                const slotObject =
+                    typeof slotData === "object"
+                        ? slotData
+                        : { id: `${this.id}-${slotData}`, level: Number(slotData), label: slotData.toString() };
+
+                // Skip the slot if its over the limit
+                if (typeof slotObject.level === "number" && (slotObject.tier ?? slotObject.level) > this.limit) {
                     continue;
                 }
 
-                const slot = { ...slotData, level: slotData.level ?? null, children: [] };
+                const slot: FeatSlot<TItem> = {
+                    ...slotObject,
+                    id: slotObject.id ?? `${this.id}-${slotObject.level}`,
+                    label: game.i18n.localize(String(slotObject.label ?? slotObject.level)),
+                    level: slotObject.level ?? null,
+                    placeholder: slotObject.placeholder ?? data.placeholder ?? "PF2E.EmptySlot",
+                    children: [],
+                };
                 this.feats.push(slot);
                 this.slots[slot.id] = slot;
+                if (typeof slot.level === "number") {
+                    this.level = Math.max(this.level, slot.level);
+                }
             }
+        } else {
+            this.level = actor.level;
         }
     }
 
@@ -100,6 +131,7 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
         });
     }
 
+    /** Returns true if this feat is a valid type for the group */
     isFeatValid(feat: TItem): boolean {
         return this.supported.length === 0 || tupleHasValue(this.supported, feat.category);
     }
@@ -148,10 +180,30 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
 
         return changed;
     }
+
+    /** Handles any post assignment post-processing */
+    postProcess(): void {
+        if (this.#data.sorted && !this.slotted) {
+            this.feats.sort((a, b) => (a.feat?.level || 0) - (b.feat?.level || 0));
+        }
+
+        // If requires initial, remove all empty slots if the first one isn't filled
+        // We also override the main filter with that slot's filter so the browse is for the empty slot
+        if (this.slotted && this.#data.requiresInitial && !this.feats.at(0)?.feat) {
+            this.feats = this.feats.filter((f, idx) => idx === 0 || !!f.feat);
+            this.filter = this.feats[0].filter ?? this.filter;
+        }
+    }
+}
+
+interface FeatGroupOptions {
+    /** The "rank" to limit visibility to. By default it is actor level */
+    limit?: number;
 }
 
 interface FeatNotSlot<T extends FeatLike = FeatPF2e> {
     feat: T;
+    filter?: never;
     children: FeatSlot<FeatLike | HeritagePF2e>[];
 }
 

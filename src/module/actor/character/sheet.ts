@@ -1225,39 +1225,41 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
     /** Contextually search the feats tab of the Compendium Browser */
     async #onClickBrowseFeats(element: HTMLElement): Promise<void> {
-        const maxLevel = Number(element.dataset.level) || this.actor.level;
-        const checkboxesFilterCodes = (element.dataset.filter ?? "")
-            .split(",")
-            .filter((s) => !!s)
-            .map((s) => s.trim());
+        // Get group and slot and then the relevant filter values
+        const groupId = htmlClosest(element, "[data-group-id]")?.dataset.groupId;
+        const featGroup =
+            groupId === "bonus" ? this.actor.feats.bonus : this.actor.feats.get(groupId, { strict: true });
+        const slot = featGroup.slots[htmlClosest(element, "[data-slot-id]")?.dataset.slotId ?? ""];
+        const featFilters = slot?.filter ?? featGroup.filter;
 
+        const maxLevel = Number(element.dataset.level) || featGroup.level;
         const featTab = game.pf2e.compendiumBrowser.tabs.feat;
         const filter = await featTab.getFilterData();
+        filter.multiselects.traits.conjunction = featFilters?.conjunction ?? "or";
+
+        // Assign levels
         const level = filter.sliders.level;
         level.values.max = Math.min(maxLevel, level.values.upperLimit);
         level.isExpanded = level.values.max !== level.values.upperLimit;
 
-        const { category } = filter.checkboxes;
-        const { traits } = filter.multiselects;
+        // Assign categories
+        const category = filter.checkboxes.category;
+        for (const value of featFilters.categories ?? featGroup.supported ?? []) {
+            category.isExpanded = true;
+            category.options[value].selected = true;
+            category.selected.push(value);
+        }
 
-        for (const filterCode of checkboxesFilterCodes) {
-            const [filterType, ...rest] = filterCode.split("-");
-            const value = rest.join("-"); // The value may also include hyphens
-
-            if (!(filterType && value)) {
-                throw ErrorPF2e(`Invalid filter value for opening the compendium browser: "${filterCode}"`);
-            }
-            if (filterType === "category" && value in category.options) {
-                category.isExpanded = true;
-                category.options[value].selected = true;
-                category.selected.push(value);
-            } else if (filterType === "traits") {
-                const trait = traits.options.find((t) => t.value === value);
-                if (trait) {
-                    traits.selected.push(fu.deepClone(trait));
-                }
-            } else if (filterType === "conjunction" && (value === "and" || value === "or")) {
-                filter.multiselects.traits.conjunction = value;
+        // Assign traits
+        const traits = filter.multiselects.traits;
+        const filterTraits = [
+            (featFilters?.traits ?? []).map((trait) => ({ trait, not: false })),
+            (featFilters?.omitTraits ?? []).map((trait) => ({ trait, not: true })),
+        ].flat();
+        for (const { trait, not } of filterTraits) {
+            const data = traits.options.find((t) => t.value === trait);
+            if (data) {
+                traits.selected.push({ ...fu.deepClone(data), not });
             }
         }
 

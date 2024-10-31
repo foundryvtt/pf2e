@@ -765,7 +765,7 @@ class DamageDicePF2e {
             this.damageType
                 ? [`${damageKind}:type:${this.damageType}`, `dice:${damageKind}:type:${this.damageType}`]
                 : [],
-            this.tags.flatMap((t) => [`${damageKind}:tag:${t}`, `dice:${damageKind}:tag:${t}`]),
+            this.tags.flatMap((t) => [`${damageKind}:tag:${t}`, `dice:tag:${t}`]),
         ].flat();
     }
 

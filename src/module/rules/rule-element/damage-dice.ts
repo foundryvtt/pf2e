@@ -138,6 +138,7 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
                     category: this.category,
                     damageType,
                     predicate: this.predicate,
+                    tags: this.tags,
                     override: fu.deepClone(this.override),
                     enabled: testPassed,
                     hideIfDisabled: this.hideIfDisabled,
