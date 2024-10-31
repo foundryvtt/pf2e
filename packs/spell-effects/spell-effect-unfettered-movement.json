@@ -1,0 +1,45 @@
+{
+    "_id": "CdAyAiMGESvgNQtz",
+    "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
+    "name": "Spell Effect: Unfettered Movement",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Unfettered Movement]</p>\n<p>You ignore circumstance penalties to your Speed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "penalty:type:circumstance"
+                ],
+                "selector": "land-speed",
+                "suppress": true
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
