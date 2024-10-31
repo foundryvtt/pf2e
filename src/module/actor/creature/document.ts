@@ -27,7 +27,7 @@ import { CheckDC } from "@system/degree-of-success.ts";
 import { Predicate } from "@system/predication.ts";
 import { Statistic, StatisticDifficultyClass, type ArmorStatistic } from "@system/statistic/index.ts";
 import { PerceptionStatistic } from "@system/statistic/perception.ts";
-import { ErrorPF2e, localizer, setHasElement } from "@util";
+import { ErrorPF2e, localizer, setHasElement, sluggify } from "@util";
 import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import {
@@ -623,10 +623,14 @@ abstract class CreaturePF2e<
         });
     }
 
-    /** Updates a resource. Redirects to special resources if needed */
+    /**
+     * Updates a resource. Redirects to special resources if needed.
+     * Accepts resource slugs in both kebab and dromedary, to handle token updates and direct ones.
+     */
     async updateResource(resource: string, value: number): Promise<void> {
         const resources = this.system.resources;
 
+        resource = sluggify(resource, { camel: "dromedary" });
         const special = this.synthetics.resources[resource];
         if (special) {
             await special.update(Math.clamp(value, 0, special.max));
