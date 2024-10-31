@@ -58,6 +58,38 @@
                 "adjustName": false,
                 "choices": [
                     {
+                        "label": "PF2E.WeaponTypeUnarmed",
+                        "value": "unarmed"
+                    },
+                    {
+                        "label": "TYPES.Item.weapon",
+                        "value": "weapon"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Physical.UnarmedOrWeapon",
+                "rollOption": "titans-breaker"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Ikon.UnarmedIkonToggle",
+                "mergeable": true,
+                "option": "unarmed-ikon",
+                "predicate": [
+                    "titans-breaker:unarmed"
+                ],
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "titans-breaker"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
                         "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Grant",
                         "value": "granted"
                     },
@@ -67,6 +99,9 @@
                     }
                 ],
                 "key": "ChoiceSet",
+                "predicate": [
+                    "titans-breaker:weapon"
+                ],
                 "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Prompt",
                 "rollOption": "titans-breaker-origin"
             },
@@ -107,25 +142,6 @@
             },
             {
                 "adjustName": false,
-                "choices": [
-                    {
-                        "label": "PF2E.WeaponTypeUnarmed",
-                        "value": "unarmed"
-                    },
-                    {
-                        "label": "TYPES.Item.weapon",
-                        "value": "weapon"
-                    }
-                ],
-                "key": "ChoiceSet",
-                "predicate": [
-                    "titans-breaker-origin:existing"
-                ],
-                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Physical.UnarmedOrWeapon",
-                "rollOption": "titans-breaker-origin:existing"
-            },
-            {
-                "adjustName": false,
                 "choices": {
                     "ownedItems": true,
                     "predicate": [
@@ -145,25 +161,10 @@
                         "weapon"
                     ]
                 },
-                "flag": "existingIkonWeapon",
+                "flag": "existingIkon",
                 "key": "ChoiceSet",
                 "predicate": [
-                    "titans-breaker-origin:existing:weapon"
-                ]
-            },
-            {
-                "adjustName": false,
-                "choices": {
-                    "predicate": [
-                        "item:damage:type:bludgeoning",
-                        "item:melee"
-                    ],
-                    "unarmedAttacks": true
-                },
-                "flag": "existingIkonUnarmed",
-                "key": "ChoiceSet",
-                "predicate": [
-                    "titans-breaker-origin:existing:unarmed"
+                    "titans-breaker-origin:existing"
                 ]
             },
             {
@@ -175,13 +176,15 @@
                         "or": [
                             {
                                 "and": [
+                                    "titans-breaker:unarmed",
+                                    "unarmed-ikon:titans-breaker",
+                                    "item:category:unarmed"
+                                ]
+                            },
+                            {
+                                "and": [
                                     "titans-breaker-origin:existing",
-                                    {
-                                        "or": [
-                                            "item:slug:{item|flags.pf2e.rulesSelections.existingIkonUnarmed}",
-                                            "item:id:{item|flags.pf2e.rulesSelections.existingIkonWeapon}"
-                                        ]
-                                    }
+                                    "item:id:{item|flags.pf2e.rulesSelections.existingIkon}"
                                 ]
                             },
                             {
@@ -205,13 +208,15 @@
                         "or": [
                             {
                                 "and": [
+                                    "titans-breaker:unarmed",
+                                    "unarmed-ikon:titans-breaker",
+                                    "item:category:unarmed"
+                                ]
+                            },
+                            {
+                                "and": [
                                     "titans-breaker-origin:existing",
-                                    {
-                                        "or": [
-                                            "item:slug:{item|flags.pf2e.rulesSelections.existingIkonUnarmed}",
-                                            "item:id:{item|flags.pf2e.rulesSelections.existingIkonWeapon}"
-                                        ]
-                                    }
+                                    "item:id:{item|flags.pf2e.rulesSelections.existingIkon}"
                                 ]
                             },
                             {
