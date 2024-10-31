@@ -174,7 +174,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 const key = anchor.dataset.id;
                 if (key) {
                     const values = { [`${baseKey}.damage.-=${key}`]: null };
-                    if (!overlayData) {
+                    if (!overlayData && this.item._source.system.heightening) {
                         values[`${baseKey}.heightening.damage.-=${key}`] = null;
                     }
                     this.item.update(values);
