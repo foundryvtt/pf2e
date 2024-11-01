@@ -4,7 +4,7 @@
     "name": "Effect: Thurible of Revelation",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Thurible of Revelation (Lesser)]</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Thurible of Revelation (Lesser)]</p>\n<p>You gain a +1 item bonus to Religion checks and any critical failure you roll when you Decipher Writing of a religious nature is a failure instead.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,9 +16,9 @@
             "value": 3
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
         },
         "rules": [
             {
@@ -26,6 +26,16 @@
                 "selector": "religion",
                 "type": "item",
                 "value": 1
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:decipher-writing"
+                ],
+                "selector": "religion"
             }
         ],
         "start": {
