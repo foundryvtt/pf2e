@@ -31,8 +31,16 @@
         "rules": [
             {
                 "key": "BaseSpeed",
-                "type": "climb",
+                "selector": "climb",
                 "value": 10
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "feat:scuttle-up"
+                ],
+                "selector": "climb",
+                "value": "@actor.attributes.speed.total"
             }
         ],
         "traits": {
