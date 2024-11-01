@@ -58,22 +58,6 @@
                 "adjustName": false,
                 "choices": [
                     {
-                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Grant",
-                        "value": "granted"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Existing",
-                        "value": "existing"
-                    }
-                ],
-                "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Prompt",
-                "rollOption": "gleaming-blade-origin"
-            },
-            {
-                "adjustName": false,
-                "choices": [
-                    {
                         "label": "PF2E.WeaponTypeUnarmed",
                         "value": "unarmed"
                     },
@@ -83,11 +67,43 @@
                     }
                 ],
                 "key": "ChoiceSet",
-                "predicate": [
-                    "gleaming-blade-origin:existing"
-                ],
                 "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Physical.UnarmedOrWeapon",
-                "rollOption": "gleaming-blade-origin:existing"
+                "rollOption": "gleaming-blade"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Ikon.UnarmedIkonToggle",
+                "mergeable": true,
+                "option": "unarmed-ikon",
+                "predicate": [
+                    "gleaming-blade:unarmed"
+                ],
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "gleaming-blade"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Grant",
+                        "value": "granted"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Existing",
+                        "value": "existing"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": [
+                    "gleaming-blade:weapon"
+                ],
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Prompt",
+                "rollOption": "gleaming-blade-origin"
             },
             {
                 "adjustName": false,
@@ -108,26 +124,12 @@
                         "weapon"
                     ]
                 },
-                "flag": "existingIkonWeapon",
+                "flag": "existingIkon",
                 "key": "ChoiceSet",
                 "predicate": [
-                    "gleaming-blade-origin:existing:weapon"
-                ]
-            },
-            {
-                "adjustName": false,
-                "choices": {
-                    "predicate": [
-                        "item:damage:type:slashing",
-                        "item:melee"
-                    ],
-                    "unarmedAttacks": true
-                },
-                "flag": "existingIkonUnarmed",
-                "key": "ChoiceSet",
-                "predicate": [
-                    "gleaming-blade-origin:existing:unarmed"
-                ]
+                    "gleaming-blade-origin:existing"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "adjustName": false,
@@ -153,7 +155,8 @@
                 "key": "ChoiceSet",
                 "predicate": [
                     "gleaming-blade-origin:granted"
-                ]
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "key": "GrantItem",
@@ -171,13 +174,15 @@
                         "or": [
                             {
                                 "and": [
+                                    "gleaming-blade:unarmed",
+                                    "unarmed-ikon:gleaming-blade",
+                                    "item:category:unarmed"
+                                ]
+                            },
+                            {
+                                "and": [
                                     "gleaming-blade-origin:existing",
-                                    {
-                                        "or": [
-                                            "item:slug:{item|flags.pf2e.rulesSelections.existingIkonUnarmed}",
-                                            "item:id:{item|flags.pf2e.rulesSelections.existingIkonWeapon}"
-                                        ]
-                                    }
+                                    "item:id:{item|flags.pf2e.rulesSelections.existingIkon}"
                                 ]
                             },
                             {
@@ -201,13 +206,15 @@
                         "or": [
                             {
                                 "and": [
+                                    "gleaming-blade:unarmed",
+                                    "unarmed-ikon:gleaming-blade",
+                                    "item:category:unarmed"
+                                ]
+                            },
+                            {
+                                "and": [
                                     "gleaming-blade-origin:existing",
-                                    {
-                                        "or": [
-                                            "item:slug:{item|flags.pf2e.rulesSelections.existingIkonUnarmed}",
-                                            "item:id:{item|flags.pf2e.rulesSelections.existingIkonWeapon}"
-                                        ]
-                                    }
+                                    "item:id:{item|flags.pf2e.rulesSelections.existingIkon}"
                                 ]
                             },
                             {

@@ -1,3 +1,28 @@
+## 6.6.1
+
+### Bugfixes
+
+-	(Supe) Fix browsing mythic callings when one isn't set
+
+### Data Updates
+
+-	(Ambrose) Convert Rewrite Fate into an action that is granted by Mythic Callings
+-	(Ambrose) Fix text on Avenger Class Archetype Journal Entry
+-	(Ambrose) Incorporate errata for War of the Immortals
+-	(Ambrose) Update additional Equipment Effects descriptions and icons
+-	(Dire Weasel) Add effects for Arcane Explosion and Diadem of Divine Radiance
+-	(Dire Weasel) Update some War of Immortal nephilim feats
+-	(Nythz) Link War of Immortals class archetype dedications to their respective journal pages
+-	(Rigo) Add effect for Fly on Shadowed Wings and inline healing for Spirit's Sacrifice
+-	(Rigo) Add martial proficiency upgrade to Embodiment of Battle
+-	(Rigo) Add missing divine spark predicate to Victor's Wreath immanence
+-	(Rigo) Add missing traits to Ears That Hear the Truth
+-	(Rigo) Automate Roaring Heart and Medium's Awareness
+-	(Rigo) Fix Embed UUID on Thousand League Sandals
+-	(Rigo) Fix Fracture Mountain's immanence damage adjustment
+-	(Rigo) Use toggle to tag unarmed attack as a weapon ikon
+-	(Supe) Make mythic variant rule hint more descriptive in settings
+
 ## 6.6.0
 
 ### Highlights

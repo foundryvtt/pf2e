@@ -53,7 +53,6 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
         }
 
         if (data.slots) {
-            this.level = 0;
             this.slotted = true;
             for (const slotData of data.slots) {
                 const slotObject =
@@ -76,13 +75,11 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
                 };
                 this.feats.push(slot);
                 this.slots[slot.id] = slot;
-                if (typeof slot.level === "number") {
-                    this.level = Math.max(this.level, slot.level);
-                }
             }
-        } else {
-            this.level = actor.level;
         }
+
+        const slotLevels = this.feats.map((f) => f.level).filter((l): l is number => typeof l === "number");
+        this.level = slotLevels.length === 0 ? actor.level : Math.max(...slotLevels);
     }
 
     /** Is this category slotted and without any empty slots */
@@ -204,6 +201,7 @@ interface FeatGroupOptions {
 interface FeatNotSlot<T extends FeatLike = FeatPF2e> {
     feat: T;
     filter?: never;
+    level?: never;
     children: FeatSlot<FeatLike | HeritagePF2e>[];
 }
 

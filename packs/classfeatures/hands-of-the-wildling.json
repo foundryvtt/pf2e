@@ -58,22 +58,6 @@
                 "adjustName": false,
                 "choices": [
                     {
-                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Grant",
-                        "value": "granted"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Existing",
-                        "value": "existing"
-                    }
-                ],
-                "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Prompt",
-                "rollOption": "hands-of-the-wildling-origin"
-            },
-            {
-                "adjustName": false,
-                "choices": [
-                    {
                         "label": "PF2E.WeaponTypeUnarmed",
                         "value": "unarmed"
                     },
@@ -83,11 +67,43 @@
                     }
                 ],
                 "key": "ChoiceSet",
-                "predicate": [
-                    "hands-of-the-wildling-origin:existing"
-                ],
                 "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Physical.UnarmedOrWeapon",
-                "rollOption": "hands-of-the-wildling-origin:existing"
+                "rollOption": "hands-of-the-wildling"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Ikon.UnarmedIkonToggle",
+                "mergeable": true,
+                "option": "unarmed-ikon",
+                "predicate": [
+                    "hands-of-the-wildling:unarmed"
+                ],
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "hands-of-the-wildling"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Grant",
+                        "value": "granted"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Existing",
+                        "value": "existing"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": [
+                    "hands-of-the-wildling:weapon"
+                ],
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Prompt",
+                "rollOption": "hands-of-the-wildling-origin"
             },
             {
                 "adjustName": false,
@@ -103,25 +119,12 @@
                         "weapon"
                     ]
                 },
-                "flag": "existingIkonWeapon",
+                "flag": "existingIkon",
                 "key": "ChoiceSet",
                 "predicate": [
-                    "hands-of-the-wildling-origin:existing:weapon"
-                ]
-            },
-            {
-                "adjustName": false,
-                "choices": {
-                    "predicate": [
-                        "item:melee"
-                    ],
-                    "unarmedAttacks": true
-                },
-                "flag": "existingIkonUnarmed",
-                "key": "ChoiceSet",
-                "predicate": [
-                    "hands-of-the-wildling-origin:existing:unarmed"
-                ]
+                    "hands-of-the-wildling-origin:existing"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "adjustName": false,
@@ -142,7 +145,8 @@
                 "key": "ChoiceSet",
                 "predicate": [
                     "hands-of-the-wildling-origin:granted"
-                ]
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "key": "GrantItem",
@@ -160,18 +164,20 @@
                         "or": [
                             {
                                 "and": [
-                                    "hands-of-the-wildling-origin:existing",
-                                    {
-                                        "or": [
-                                            "item:slug:{item|flags.pf2e.rulesSelections.existingIkonUnarmed}",
-                                            "item:id:{item|flags.pf2e.rulesSelections.existingIkonWeapon}"
-                                        ]
-                                    }
+                                    "hands-of-the-wildling:unarmed",
+                                    "unarmed-ikon:hands-of-the-wildling",
+                                    "item:category:unarmed"
                                 ]
                             },
                             {
                                 "and": [
-                                    "hands-of-the-wildling:granted",
+                                    "hands-of-the-wildling-origin:existing",
+                                    "item:id:{item|flags.pf2e.rulesSelections.existingIkon}"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "hands-of-the-wildling-origin:granted",
                                     "item:granter:slug:hands-of-the-wildling"
                                 ]
                             }
@@ -190,18 +196,20 @@
                         "or": [
                             {
                                 "and": [
-                                    "hands-of-the-wildling-origin:existing",
-                                    {
-                                        "or": [
-                                            "item:slug:{item|flags.pf2e.rulesSelections.existingIkonUnarmed}",
-                                            "item:id:{item|flags.pf2e.rulesSelections.existingIkonWeapon}"
-                                        ]
-                                    }
+                                    "hands-of-the-wildling:unarmed",
+                                    "unarmed-ikon:hands-of-the-wildling",
+                                    "item:category:unarmed"
                                 ]
                             },
                             {
                                 "and": [
-                                    "hands-of-the-wildling:granted",
+                                    "hands-of-the-wildling-origin:existing",
+                                    "item:id:{item|flags.pf2e.rulesSelections.existingIkon}"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "hands-of-the-wildling-origin:granted",
                                     "item:granter:slug:hands-of-the-wildling"
                                 ]
                             }
