@@ -2,15 +2,9 @@ import type { ActorType, CharacterPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { PredicateField, SlugField } from "@system/schema-data-fields.ts";
 import { sluggify } from "@util";
-import type {
-    ArrayField,
-    BooleanField,
-    DocumentUUIDField,
-    NumberField,
-    SchemaField,
-} from "types/foundry/common/data/fields.d.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
+import fields = foundry.data.fields;
 
 /**
  * @category RuleElement
@@ -23,7 +17,6 @@ class CraftingAbilityRuleElement extends RuleElementPF2e<CraftingAbilityRuleSche
     }
 
     static override defineSchema(): CraftingAbilityRuleSchema {
-        const fields = foundry.data.fields;
         const quantityField = (): QuantityField =>
             new fields.NumberField({
                 required: true,
@@ -51,7 +44,7 @@ class CraftingAbilityRuleElement extends RuleElementPF2e<CraftingAbilityRuleSche
                 { initial: (d) => ({ default: d.isAlchemical ? 2 : 1, other: [] }) },
             ),
             maxItemLevel: new ResolvableValueField({ required: false, nullable: false }),
-            maxSlots: new fields.NumberField({ required: false, nullable: false, initial: undefined }),
+            maxSlots: new fields.NumberField({ required: true, nullable: true, min: 0, integer: true, initial: null }),
             craftableItems: new PredicateField(),
             prepared: new fields.ArrayField(
                 new fields.SchemaField(
@@ -80,7 +73,7 @@ class CraftingAbilityRuleElement extends RuleElementPF2e<CraftingAbilityRuleSche
             isPrepared: this.isPrepared,
             batchSizes: this.batchSizes,
             craftableItems: this.craftableItems,
-            maxItemLevel: this.maxItemLevel !== undefined ? Number(this.resolveValue(this.maxItemLevel)) : null,
+            maxItemLevel: Number(this.resolveValue(this.maxItemLevel)) || this.actor.level,
             maxSlots: this.maxSlots,
             preparedFormulaData: this.prepared,
         };
@@ -101,26 +94,26 @@ interface CraftingAbilityRuleElement
 
 type CraftingAbilityRuleSchema = Omit<RuleElementSchema, "slug"> & {
     slug: SlugField<true, false, false>;
-    isAlchemical: BooleanField<boolean, boolean, false, false, true>;
-    isDailyPrep: BooleanField<boolean, boolean, false, false, true>;
-    isPrepared: BooleanField<boolean, boolean, false, false, true>;
-    batchSizes: SchemaField<{
+    isAlchemical: fields.BooleanField<boolean, boolean, false, false, true>;
+    isDailyPrep: fields.BooleanField<boolean, boolean, false, false, true>;
+    isPrepared: fields.BooleanField<boolean, boolean, false, false, true>;
+    batchSizes: fields.SchemaField<{
         default: QuantityField;
-        other: ArrayField<SchemaField<{ quantity: QuantityField; definition: PredicateField }>>;
+        other: fields.ArrayField<fields.SchemaField<{ quantity: QuantityField; definition: PredicateField }>>;
     }>;
     maxItemLevel: ResolvableValueField<false, false, true>;
-    maxSlots: NumberField<number, number, false, false, false>;
+    maxSlots: fields.NumberField<number, number, true, true, true>;
     craftableItems: PredicateField;
-    prepared: ArrayField<SchemaField<PreparedFormulaSchema>>;
+    prepared: fields.ArrayField<fields.SchemaField<PreparedFormulaSchema>>;
 };
 
-type QuantityField = NumberField<number, number, true, false, true>;
+type QuantityField = fields.NumberField<number, number, true, false, true>;
 
 type PreparedFormulaSchema = {
-    uuid: DocumentUUIDField<ItemUUID, true, false, false>;
-    quantity: NumberField<number, number, false, false, false>;
-    expended: BooleanField<boolean, boolean, false, false, false>;
-    isSignatureItem: BooleanField<boolean, boolean, false, false, false>;
+    uuid: fields.DocumentUUIDField<ItemUUID, true, false, false>;
+    quantity: fields.NumberField<number, number, false, false, false>;
+    expended: fields.BooleanField<boolean, boolean, false, false, false>;
+    isSignatureItem: fields.BooleanField<boolean, boolean, false, false, false>;
 };
 
 type CraftingAbilityRuleData = Omit<SourceFromSchema<CraftingAbilityRuleSchema>, "preparedFormulas"> & {
