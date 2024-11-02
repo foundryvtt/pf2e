@@ -1,9 +1,4 @@
-import {
-    GenericIdentifyDCs,
-    IdentifyAlchemyDCs,
-    IdentifyMagicDCs,
-    getItemIdentificationDCs,
-} from "@item/identification.ts";
+import { IdentifyAlchemyDCs, IdentifyMagicDCs, getItemIdentificationDCs } from "@item/identification.ts";
 import type { PhysicalItemPF2e } from "@item/physical/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import * as R from "remeda";
@@ -75,5 +70,5 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
 
 interface IdentifyPopupData extends FormApplicationData {
     isMagic: boolean;
-    dcs: GenericIdentifyDCs | IdentifyMagicDCs | IdentifyAlchemyDCs;
+    dcs: IdentifyMagicDCs | IdentifyAlchemyDCs;
 }
