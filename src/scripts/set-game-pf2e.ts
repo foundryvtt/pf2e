@@ -114,6 +114,7 @@ export const SetGamePF2e = {
                     sections: game.settings.get("pf2e", "campaignFeatSections"),
                 },
                 languages: game.settings.get("pf2e", "homebrew.languageRarities"),
+                mythic: game.settings.get("pf2e", "mythic"),
             },
             critFumble: {
                 buttons: game.settings.get("pf2e", "critFumbleButtons"),

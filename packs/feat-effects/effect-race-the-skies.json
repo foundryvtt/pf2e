@@ -1,0 +1,42 @@
+{
+    "_id": "RLA7eqF2wjUPS2mf",
+    "img": "icons/creatures/birds/birds-flock-fly-yellow.webp",
+    "name": "Effect: Race the Skies",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Race the Skies]</p>\n<p>You gain a fly Speed equal to your Speed or 20 feet, whichever is greater.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": "max(20,@actor.attributes.speed.total)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

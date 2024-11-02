@@ -9,35 +9,27 @@ import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./t
 export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
-        fu.mergeObject(options, {
+        return {
+            ...options,
             classes: [...options.classes, "hazard"],
             scrollY: ["section.content"],
             width: 700,
             height: 680,
-        });
-        return options;
-    }
-
-    override get template(): string {
-        return "systems/pf2e/templates/actors/hazard/sheet.hbs";
+            template: "systems/pf2e/templates/actors/hazard/sheet.hbs",
+        };
     }
 
     override get title(): string {
-        if (this.editing) {
-            return game.i18n.format("PF2E.Actor.Hazard.TitleEdit", { name: super.title });
-        }
-
-        return super.title;
+        return this.editing ? game.i18n.format("PF2E.Actor.Hazard.TitleEdit", { name: super.title }) : super.title;
     }
 
     get editing(): boolean {
-        return this.options.editable && !!this.actor.getFlag("pf2e", "editHazard.value");
+        return this.isEditable && !!this.actor.getFlag("pf2e", "editHazard.value");
     }
 
     override async getData(options?: ActorSheetOptions): Promise<HazardSheetData> {
         const sheetData = await super.getData(options);
 
-        sheetData.actor.flags.editHazard ??= { value: false };
         const system = sheetData.data;
         const actor = this.actor;
 

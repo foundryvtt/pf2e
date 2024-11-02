@@ -1,0 +1,129 @@
+{
+    "_id": "GyvVXuL0fDaNsa93",
+    "img": "icons/creatures/magical/construct-golem-stone-blue.webp",
+    "name": "Skin Hard as Horn",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p><strong>Usage</strong> imbued in the skin</p><hr /><p>Tempered in your spirit, your very skin is as a suit of armor, though a single location on your body remains unprotected, a curse and a challenge within your legend. During your daily preparations, you can strike your skin lightly with an object that deals bludgeoning, slashing or piecing damage to habituate your skin against this type of injury, attuning the ikon to that damage type.</p>\n<p><strong>Immanence</strong> When your skin houses your divine spark, you gain resistance to the attuned damage type equal to half your level. This resistance doesn't apply against critical hits, which successfully find your unprotected spot.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.Crash against Me] <span class=\"action-glyph\">1</span> (transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.Cu7P7NB3XH67mi1N inline]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.DivineSpark.Label",
+                "mergeable": true,
+                "option": "divine-spark",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "skin-hard-as-horn"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.exemplar.ikons",
+                "value": {
+                    "label": "PF2E.SpecificRule.Exemplar.Ikon.SkinHardAsHorn.Label",
+                    "predicate": [
+                        "parent:tag:body-ikon-feat"
+                    ],
+                    "value": "skin-hard-as-horn"
+                }
+            },
+            {
+                "alwaysActive": true,
+                "disabledIf": [
+                    {
+                        "not": "divine-spark:skin-hard-as-horn"
+                    }
+                ],
+                "flag": "skinHardAsHorn",
+                "key": "RollOption",
+                "option": "skin-hard-as-horn",
+                "priority": 51,
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitBludgeoning",
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitPiercing",
+                        "value": "piercing"
+                    },
+                    {
+                        "label": "PF2E.TraitSlashing",
+                        "value": "slashing"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "divine-spark:skin-hard-as-horn"
+                ],
+                "type": "{item|flags.pf2e.rulesSelections.skinHardAsHorn}",
+                "value": "floor(@actor.level/2)"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Crash against Me"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    {
+                        "or": [
+                            "item:granter:tag:chosen-ikon:skin-hard-as-horn",
+                            "item:slug:crash-against-me"
+                        ]
+                    },
+                    {
+                        "not": "divine-spark:skin-hard-as-horn"
+                    }
+                ],
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Exemplar.DivineSpark.SparkTranscendence.Reminder"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "exemplar-body-ikon",
+                "exemplar-ikon"
+            ],
+            "rarity": "common",
+            "value": [
+                "ikon"
+            ]
+        }
+    },
+    "type": "feat"
+}

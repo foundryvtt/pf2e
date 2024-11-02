@@ -1,0 +1,114 @@
+{
+    "_id": "ViXWZMvWWYkVj0cQ",
+    "img": "icons/magic/water/wave-water-rolling-blue.webp",
+    "name": "Restless as the Tide",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your dominion is over the ocean, the great source and ultimate taker of lives. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Energized Spark] feat for your choice of water or cold. When you critically succeed on a Strike, water blasts the target and those nearby. This deals bludgeoning splash damage equal to the number of weapon damage dice to the target and all creatures within 10 feet of it. This effect has the water trait.</p>\n<p>When you Spark Transcendence, you can Step, your body carried along by a surging tide. If your transcendence affected an enemy, you can instead move that enemy 5 feet in a direction of your choice unless it succeeds at a @Check[fortitude|against:exemplar] save against your class DC. If you move an enemy who started out adjacent to you, you can Step into the space it vacated.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "value": "water"
+                    }
+                ],
+                "flag": "energizedSpark",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "GrantItem",
+                "preselectChoices": {
+                    "energizedSpark": "{item|flags.pf2e.rulesSelections.energizedSpark}"
+                },
+                "uuid": "Compendium.pf2e.feats-srd.Item.Energized Spark"
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Epithet.Label",
+                "mergeable": true,
+                "option": "epithet",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "restless-as-the-tide"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    "divine-spark",
+                    "epithet:restless-as-the-tide"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Exemplar.Epithet.RestlessAsTheTide.Description"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Epithet.CriticalSpecializationToggle",
+                "option": "epithet-critical-specialization",
+                "priority": 51,
+                "toggleable": true
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "epithet-critical-specialization"
+                ]
+            },
+            {
+                "alternate": true,
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "epithet-critical-specialization"
+                ],
+                "text": "PF2E.SpecificRule.Exemplar.Epithet.RestlessAsTheTide.CriticalSpecialization"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "exemplar-dominion-epithet"
+            ],
+            "rarity": "common",
+            "value": [
+                "exemplar"
+            ]
+        }
+    },
+    "type": "feat"
+}

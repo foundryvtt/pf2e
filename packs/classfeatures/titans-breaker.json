@@ -1,0 +1,312 @@
+{
+    "_id": "jpS7wcMnBXK1rS4J",
+    "img": "icons/skills/melee/strike-hammer-destructive-blue.webp",
+    "name": "Titan's Breaker",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p><strong>Usage</strong> any melee weapon in the club, hammer, or axe group, or any your melee unarmed Strikes that deals bludgeoning damage</p><hr /><p>You wield a weapon whose blows shatter mountains with ease.</p>\n<p><strong>Immanence</strong> The titan's breaker deals 2 additional spirit damage per weapon damage die to creatures it Strikes. Constructs and objects are not immune to this spirit damage, and this spirit damage automatically bypasses an amount of their Hardness equal to your level.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.Fracture Mountains] <span class=\"action-glyph\">1</span> (spirit, transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.Ei4T4aQx0a5EdBhm inline]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.DivineSpark.Label",
+                "mergeable": true,
+                "option": "divine-spark",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "titans-breaker"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.exemplar.ikons",
+                "value": {
+                    "label": "PF2E.SpecificRule.Exemplar.Ikon.TitansBreaker.Label",
+                    "predicate": [
+                        "parent:tag:weapon-ikon-feat"
+                    ],
+                    "value": "titans-breaker"
+                }
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Fracture Mountains"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.WeaponTypeUnarmed",
+                        "value": "unarmed"
+                    },
+                    {
+                        "label": "TYPES.Item.weapon",
+                        "value": "weapon"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Physical.UnarmedOrWeapon",
+                "rollOption": "titans-breaker"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Ikon.UnarmedIkonToggle",
+                "mergeable": true,
+                "option": "unarmed-ikon",
+                "predicate": [
+                    "titans-breaker:unarmed"
+                ],
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "titans-breaker"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Grant",
+                        "value": "granted"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Existing",
+                        "value": "existing"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": [
+                    "titans-breaker:weapon"
+                ],
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Prompt",
+                "rollOption": "titans-breaker-origin"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:level:0",
+                        "item:melee",
+                        {
+                            "nor": [
+                                "item:trait:consumable",
+                                "item:magical"
+                            ]
+                        },
+                        {
+                            "or": [
+                                "item:group:axe",
+                                "item:group:club",
+                                "item:group:hammer"
+                            ]
+                        }
+                    ],
+                    "itemType": "weapon"
+                },
+                "flag": "grantedIkon",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "titans-breaker-origin:granted"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "titans-breaker-origin:granted"
+                ],
+                "uuid": "{item|flags.pf2e.rulesSelections.grantedIkon}"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:melee",
+                        {
+                            "or": [
+                                "item:group:axe",
+                                "item:group:club",
+                                "item:group:hammer"
+                            ]
+                        },
+                        {
+                            "not": "item:trait:consumable"
+                        }
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "existingIkon",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "titans-breaker-origin:existing"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "titans-breaker:unarmed",
+                                    "unarmed-ikon:titans-breaker",
+                                    "item:category:unarmed"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "titans-breaker-origin:existing",
+                                    "item:id:{item|flags.pf2e.rulesSelections.existingIkon}"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "titans-breaker-origin:granted",
+                                    "item:granter:slug:titans-breaker"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "other-tags",
+                "value": "physical-ikon"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "titans-breaker:unarmed",
+                                    "unarmed-ikon:titans-breaker",
+                                    "item:category:unarmed"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "titans-breaker-origin:existing",
+                                    "item:id:{item|flags.pf2e.rulesSelections.existingIkon}"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "titans-breaker-origin:granted",
+                                    "item:granter:slug:titans-breaker"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "other-tags",
+                "value": "physical-ikon:titans-breaker"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:physical-ikon:titans-breaker"
+                ],
+                "priority": 121,
+                "property": "traits",
+                "value": "divine"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:physical-ikon:titans-breaker"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "@Embed[Compendium.pf2e.classfeatures.Item.jpS7wcMnBXK1rS4J inline]"
+                    }
+                ]
+            },
+            {
+                "damageType": "spirit",
+                "key": "FlatModifier",
+                "predicate": [
+                    "divine-spark:titans-breaker",
+                    "item:tag:physical-ikon:titans-breaker"
+                ],
+                "selector": "strike-damage",
+                "slug": "titans-breaker-immanence",
+                "tags": [
+                    "exemplar"
+                ],
+                "value": "2*@weapon.system.damage.dice"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    {
+                        "or": [
+                            "item:granter:tag:chosen-ikon:titans-breaket",
+                            "item:slug:fracture-mountains"
+                        ]
+                    },
+                    {
+                        "not": "divine-spark:titans-breaker"
+                    }
+                ],
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Exemplar.DivineSpark.SparkTranscendence.Reminder"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "exemplar-ikon",
+                "exemplar-weapon-ikon"
+            ],
+            "rarity": "common",
+            "value": [
+                "ikon"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -2,9 +2,14 @@ import { DeferredValueParams, MODIFIER_TYPES, ModifierPF2e, ModifierType } from 
 import { AttributeString } from "@actor/types.ts";
 import { damageCategoriesUnique } from "@scripts/config/damage.ts";
 import { DamageCategoryUnique } from "@system/damage/types.ts";
-import { DataUnionField, PredicateField, StrictBooleanField, StrictStringField } from "@system/schema-data-fields.ts";
+import {
+    DataUnionField,
+    PredicateField,
+    SlugField,
+    StrictBooleanField,
+    StrictStringField,
+} from "@system/schema-data-fields.ts";
 import { objectHasKey, sluggify } from "@util";
-import type { ArrayField, BooleanField, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import {
     ModelPropsFromRESchema,
@@ -13,6 +18,7 @@ import {
     RuleElementSource,
     RuleValue,
 } from "./data.ts";
+import fields = foundry.data.fields;
 
 /**
  * Apply a constant modifier (or penalty/bonus) to a statistic or usage thereof
@@ -64,8 +70,6 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
     }
 
     static override defineSchema(): FlatModifierSchema {
-        const fields = foundry.data.fields;
-
         return {
             ...super.defineSchema(),
             selector: new fields.ArrayField(
@@ -92,6 +96,10 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
             }),
             critical: new fields.BooleanField({ required: false, nullable: true, initial: null }),
             value: new ResolvableValueField({ required: false, nullable: false, initial: undefined }),
+            tags: new fields.ArrayField(new SlugField({ required: true, nullable: false, initial: undefined }), {
+                required: false,
+                nullable: false,
+            }),
             removeAfterRoll: new DataUnionField(
                 [
                     new StrictStringField<"if-enabled", "if-enabled">({
@@ -162,6 +170,7 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
                     damageType,
                     damageCategory: this.damageCategory,
                     critical: this.critical,
+                    tags: this.tags,
                     hideIfDisabled: this.hideIfDisabled,
                     source: this.item.uuid,
                 });
@@ -197,27 +206,36 @@ interface FlatModifierRuleElement
 
 type FlatModifierSchema = RuleElementSchema & {
     /** All domains to add a modifier to */
-    selector: ArrayField<StringField<string, string, true, false, false>, string[], string[], true, false, false>;
+    selector: fields.ArrayField<
+        fields.StringField<string, string, true, false, false>,
+        string[],
+        string[],
+        true,
+        false,
+        false
+    >;
     /** The modifier (or bonus/penalty) type */
-    type: StringField<ModifierType, ModifierType, true, false, true>;
+    type: fields.StringField<ModifierType, ModifierType, true, false, true>;
     /** If this is an ability modifier, the ability score it modifies */
-    ability: StringField<AttributeString, AttributeString, false, false, false>;
+    ability: fields.StringField<AttributeString, AttributeString, false, false, false>;
     /** Hide this modifier from breakdown tooltips if it is disabled */
-    min: NumberField<number, number, false, false, false>;
-    max: NumberField<number, number, false, false, false>;
-    hideIfDisabled: BooleanField;
+    min: fields.NumberField<number, number, false, false, false>;
+    max: fields.NumberField<number, number, false, false, false>;
+    hideIfDisabled: fields.BooleanField;
     /** Whether to use this bonus/penalty/modifier even if it isn't the greatest magnitude */
-    force: BooleanField;
+    force: fields.BooleanField;
     /** Whether this modifier comes from equipment or an equipment effect */
-    fromEquipment: BooleanField;
+    fromEquipment: fields.BooleanField;
     /** If a damage modifier, a damage type */
-    damageType: StringField<string, string, false, true, false>;
+    damageType: fields.StringField<string, string, false, true, false>;
     /** If a damage modifier, a special category */
-    damageCategory: StringField<DamageCategoryUnique, DamageCategoryUnique, false, false, false>;
+    damageCategory: fields.StringField<DamageCategoryUnique, DamageCategoryUnique, false, false, false>;
     /** If a damage modifier, whether it applies given the presence or absence of a critically successful attack roll */
-    critical: BooleanField<boolean, boolean, false, true, true>;
+    critical: fields.BooleanField<boolean, boolean, false, true, true>;
     /** The numeric value of the modifier */
     value: ResolvableValueField<false, false, false>;
+    /** A list of tags associated with this modifier */
+    tags: fields.ArrayField<SlugField<true, false, false>, string[], string[], false, false, true>;
     /**
      * Remove the parent item (must be an effect) after a roll:
      * The value may be a boolean, "if-enabled", or a predicate to be tested against the roll options from the roll.

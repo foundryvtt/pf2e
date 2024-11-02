@@ -8,7 +8,15 @@ import { coerceToSpellGroupId, spellSlotGroupIdToNumber } from "@item/spellcasti
 import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { OneToTen, ZeroToFour, goesToEleven } from "@module/data.ts";
-import { ErrorPF2e, createHTMLElement, fontAwesomeIcon, htmlClosest, htmlQueryAll, tupleHasValue } from "@util";
+import {
+    ErrorPF2e,
+    createHTMLElement,
+    fontAwesomeIcon,
+    htmlClosest,
+    htmlQueryAll,
+    sluggify,
+    tupleHasValue,
+} from "@util";
 import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import { ActorSheetPF2e, SheetClickActionHandlers } from "../sheet/base.ts";
@@ -105,7 +113,9 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             const listener = (event: Event) => {
                 const resources = this.actor.system.resources;
                 const resource = htmlClosest(event.target, "[data-resource]")?.dataset.resource;
-                if (!resource || !resources || !(resource in resources)) return;
+                if (!resource || !resources || !(sluggify(resource, { camel: "dromedary" }) in resources)) {
+                    return;
+                }
 
                 const current = resources[resource]?.value ?? 0;
                 const change = event.type === "click" ? 1 : -1;
@@ -123,7 +133,9 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         for (const element of resourceInputs) {
             const resources = this.actor.system.resources;
             const resource = element.dataset.resource;
-            if (!resource || !resources || !(resource in resources)) continue;
+            if (!resource || !resources || !(sluggify(resource, { camel: "dromedary" }) in resources)) {
+                return;
+            }
 
             element.addEventListener("change", () => {
                 this.actor.updateResource(resource, Number(element.value));

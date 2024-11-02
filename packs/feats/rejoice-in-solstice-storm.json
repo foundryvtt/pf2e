@@ -1,0 +1,47 @@
+{
+    "_id": "LFS9M737RCt0Jq8r",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Rejoice in Solstice Storm",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p>You hold your arms out, and the fury of the seasons comes to your jubilant embrace. A storm spirals out from you, dealing 5d8 damage (see below) to each creature in a @Template[type:emanation|distance:30], with a @Check[reflex|against:exemplar|basic|options:area-effect] save against your class DC. At 10th level and every 2 levels thereafter, the damage increases by 1d8.</p>\n<p>The emanation is quartered into four non-overlapping cones, each of a different season, which must be arranged clockwise from spring, to summer, to fall, to winter. Each cone has different traits, damage type, and a different effect to a creature that critically fails its saving throw; a creature large enough to be in multiple seasons can choose which it is affected by.</p><ul><li><strong>Spring</strong> (electricity) Spring lightning deals @Damage[(ceil((1+@actor.level)/2))d8[electricity]|options:area-damage|traits:electricity]{electricity damage}. Creatures who critically fail are left numb, becoming @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} until the end of their next turn.</li><li><strong>Summer</strong> (water) A summer monsoon deals @Damage[(ceil((1+@actor.level)/2))d8[bludgeoning]|options:area-damage|traits:water]{bludgeoning damage}. Creatures who critically fail are knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] by hurricane winds.</li><li><strong>Fall</strong> (emotion, mental, wood) Falling leaves deal @Damage[(ceil((1+@actor.level)/2))d8[slashing]|options:area-damage|traits:emotion,mental,wood]{slashing damage}. Creatures who critically fail are gripped by melancholy, becoming @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of their next turn.</li><li><strong>Winter</strong> (cold) A blizzard deals @Damage[(ceil((1+@actor.level)/2))d8[cold]|options:area-damage|traits:cold]{cold damage}. Creatures who critically fail are @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} until the end of their next turn as the cold numbs their senses.</li></ul>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "PT1H"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "whose cry is thunder or dancer in the seasons"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "concentrate",
+                "divine",
+                "exemplar",
+                "manipulate"
+            ]
+        }
+    },
+    "type": "feat"
+}

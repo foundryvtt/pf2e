@@ -1,0 +1,284 @@
+{
+    "_id": "LfgeEJgJdA8WAKV8",
+    "img": "icons/weapons/swords/sword-hooked.webp",
+    "name": "Barrow's Edge",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p><strong>Usage</strong> melee weapon that deals slashing or piercing damage</p><hr /><p>This blade subtly rattles in its scabbard, as if it wants to be unsheathed so it can consume violence.</p>\n<p><strong>Immanence</strong> The barrow's edge deals 1 additional spirit damage per weapon damage die to a creature it Strikes. If the creature is below half its maximum Hit Points, the weapon deals 3 additional spirit damage per weapon damage dice instead. Barrow's edge rattles more strongly when an enemy below half its maximum Hit Points is within the weapon's reach to let you know a foe is verging closer to death.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.Drink of my Foes] <span class=\"action-glyph\">1</span> (healing, transcendence, vitality)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.vZwa0PZLQvm3X5ME inline]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.DivineSpark.Label",
+                "mergeable": true,
+                "option": "divine-spark",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "barrows-edge"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.exemplar.ikons",
+                "value": {
+                    "label": "PF2E.SpecificRule.Exemplar.Ikon.BarrowsEdge.Label",
+                    "predicate": [
+                        "parent:tag:weapon-ikon-feat"
+                    ],
+                    "value": "barrows-edge"
+                }
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Drink of my Foes"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Grant",
+                        "value": "granted"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Existing",
+                        "value": "existing"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Prompt",
+                "rollOption": "barrows-edge-origin"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:melee",
+                        {
+                            "not": [
+                                "item:trait:consumable"
+                            ]
+                        },
+                        {
+                            "or": [
+                                "item:damage:type:slashing",
+                                "item:damage:type:piercing"
+                            ]
+                        }
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "existingIkon",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "barrows-edge-origin:existing"
+                ]
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:level:0",
+                        "item:melee",
+                        {
+                            "nor": [
+                                "item:magical",
+                                "item:trait:consumable"
+                            ]
+                        },
+                        {
+                            "or": [
+                                "item:damage:type:piercing",
+                                "item:damage:type:slashing"
+                            ]
+                        }
+                    ],
+                    "itemType": "weapon"
+                },
+                "flag": "grantedIkon",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "barrows-edge-origin:granted"
+                ]
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "barrows-edge-origin:granted"
+                ],
+                "uuid": "{item|flags.pf2e.rulesSelections.grantedIkon}"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "barrows-edge-origin:existing",
+                                    "item:id:{item|flags.pf2e.rulesSelections.existingIkon}"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "barrows-edge-origin:granted",
+                                    "item:granter:slug:barrows-edge"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "other-tags",
+                "value": "physical-ikon"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "barrows-edge-origin:existing",
+                                    "item:id:{item|flags.pf2e.rulesSelections.existingIkon}"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "barrows-edge-origin:granted",
+                                    "item:granter:slug:barrows-edge"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "other-tags",
+                "value": "physical-ikon:barrows-edge"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:physical-ikon:barrows-edge"
+                ],
+                "priority": 121,
+                "property": "traits",
+                "value": "divine"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:physical-ikon:barrows-edge"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "@Embed[Compendium.pf2e.classfeatures.Item.LfgeEJgJdA8WAKV8 inline]"
+                    }
+                ]
+            },
+            {
+                "damageType": "spirit",
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:tag:physical-ikon:barrows-edge",
+                    "divine-spark:barrows-edge"
+                ],
+                "selector": "weapon-damage",
+                "slug": "barrows-edge-immanence",
+                "tags": [
+                    "exemplar"
+                ],
+                "value": "@weapon.system.damage.dice"
+            },
+            {
+                "disabledIf": [
+                    {
+                        "not": "divine-spark:barrows-edge"
+                    }
+                ],
+                "disabledValue": false,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Ikon.BarrowsEdge.RollOptionLabel",
+                "option": "barrows-edge:target-below-half",
+                "priority": 51,
+                "toggleable": true
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "predicate": [
+                    "barrows-edge:target-below-half"
+                ],
+                "selector": "weapon-damage",
+                "slug": "barrows-edge-immanence",
+                "value": 3
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    {
+                        "or": [
+                            "item:granter:tag:chosen-ikon:barrows-edge",
+                            "item:slug:drink-of-my-foes"
+                        ]
+                    },
+                    {
+                        "not": "divine-spark:barrows-edge"
+                    }
+                ],
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Exemplar.DivineSpark.SparkTranscendence.Reminder"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "exemplar-ikon",
+                "exemplar-weapon-ikon"
+            ],
+            "rarity": "common",
+            "value": [
+                "ikon"
+            ]
+        }
+    },
+    "type": "feat"
+}

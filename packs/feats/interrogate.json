@@ -1,0 +1,59 @@
+{
+    "_id": "uFxUj8OgX04w5MXp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Interrogate",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You ask questions you know will be answered. Ask a question of a non-allied creature that you can see and have been conversing with. Attempt an Intimidation check against the creature's Will DC; if the creature is a member of the same religion as you, or is an undead or werecreature pretending to be a member of your faith, you get a +2 circumstance bonus on this check. The creature is then temporarily immune for 1 hour.</p><hr /><p><strong>Critical Success</strong> The target must directly answer your question. It doesn't have to answer truthfully, but you gain a +4 circumstance bonus to your Perception DC if the creature attempts to Lie to you.</p>\n<p><strong>Success</strong> As critical success, but the circumstance bonus is +2.</p>\n<p><strong>Failure</strong> The target can refuse to answer you and becomes unfriendly if they weren't already unfriendly or hostile.</p>\n<p><strong>Critical Failure</strong> The target refuses to answer you and becomes hostile if they weren't already. You can't use Interrogate on the target again for 24 hours.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Ranger.Vindicator.Interrogate",
+                "option": "interrogate",
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "interrogate"
+                ],
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "auditory",
+                "concentrate",
+                "linguistic",
+                "mental"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,55 @@
+{
+    "_id": "jp1oRa3wEHT7hKBX",
+    "img": "icons/skills/wounds/blood-cells-vessel-red.webp",
+    "name": "Effect: Harvest Blood",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Harvest Blood]</p>\n<p>You gain temporary Hit Points equal to your Constitution modifier, and gain a +1 circumstance bonus to saving throws against that creature's spells.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "@actor.abilities.con.mod"
+            },
+            {
+                "key": "TokenMark",
+                "slug": "harvest-blood"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:type:spell",
+                    "origin:mark:harvest-blood"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

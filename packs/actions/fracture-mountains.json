@@ -1,0 +1,60 @@
+{
+    "_id": "Ei4T4aQx0a5EdBhm",
+    "img": "systems/pf2e/icons/actions/TwoActions.webp",
+    "name": "Fracture Mountains",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": null,
+        "description": {
+            "value": "<p>Your spirit is so dense it takes on tangible force. Make a melee Strike with the @UUID[Compendium.pf2e.classfeatures.Item.Titan's Breaker]. This counts as two attacks when calculating your multiple attack penalty. If this Strike hits, your additional spirit damage from the ikon's immanence increases to 4 plus an extra die of weapon damage.</p>\n<p>If you're at least 10th level, it's increased to 6 spirit damage and two extra dice, and if you're at least 18th level, it's increased to 8 spirit damage and three extra dice.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "fracture-mountains",
+                "toggleable": true
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "predicate": [
+                    "fracture-mountains"
+                ],
+                "relabel": "{item|name}",
+                "selector": "strike-damage",
+                "slug": "titans-breaker-immanence",
+                "value": 2
+            },
+            {
+                "damageType": "spirit",
+                "diceNumber": "ternary(gte(@actor.level,18),3,ternary(gte(@actor.level,10),2,1))",
+                "key": "DamageDice",
+                "predicate": [
+                    "fracture-mountains",
+                    "item:tag:physical-ikon:titans-breaker"
+                ],
+                "selector": "strike-damage",
+                "tags": [
+                    "exemplar"
+                ]
+            }
+        ],
+        "traits": {
+            "value": [
+                "spirit",
+                "transcendence"
+            ]
+        }
+    },
+    "type": "action"
+}

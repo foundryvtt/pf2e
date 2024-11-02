@@ -1,0 +1,54 @@
+{
+    "_id": "laAcB3bauWQxxdAo",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Medium's Awareness",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your apparitions watch over you. You gain a +2 status bonus to Perception checks made to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] and when using Perception for your initiative roll. At 12th level, this status bonus increases to +3, and at 20th level, to +4.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:seek",
+                            "check:type:initiative"
+                        ]
+                    }
+                ],
+                "selector": "perception",
+                "type": "status",
+                "value": "ternary(gte(@actor.level,20),4,ternary(gte(@actor.level,12),3,2))"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "animist",
+                "apparition",
+                "divine",
+                "wandering"
+            ]
+        }
+    },
+    "type": "feat"
+}

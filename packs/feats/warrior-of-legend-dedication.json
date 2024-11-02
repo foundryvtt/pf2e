@@ -1,0 +1,79 @@
+{
+    "_id": "Mkzi1UwdU4zbV3w1",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Warrior of Legend Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You have been given a powerful blessing of battle that is also your cursed doom. As long as you aren't wearing heavy armor or wielding a shield, spears and polearms you wield gain the parry trait. If the weapon already has the parry trait, increase the bonus when parrying to +2. In addition, you deal an additional amount of damage equal to your @UUID[Compendium.pf2e.conditionitems.Item.Doomed] value with weapons in the spear and polearm groups. This damage is the same type as the required weapon.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.61SHt571HJFGZ9Bl]{Warrior of Legend}</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:group:polearm",
+                            "item:group:spear"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "nor": [
+                            "armor:category:heavy",
+                            "self:shield:equipped"
+                        ]
+                    }
+                ],
+                "property": "weapon-traits",
+                "value": "parry"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:condition:doomed",
+                    {
+                        "nor": [
+                            "armor:category:heavy",
+                            "self:shield:equipped"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "polearm-weapon-group-damage",
+                    "spear-weapon-group-damage"
+                ],
+                "value": "@actor.conditions.doomed.badge.value"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "class",
+                "dedication",
+                "uncommon"
+            ]
+        }
+    },
+    "type": "feat"
+}

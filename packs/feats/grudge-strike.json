@@ -1,0 +1,77 @@
+{
+    "_id": "ii7aCMN4WPQo3N3l",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Grudge Strike",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> Your attuned apparition grants Heraldry Lore or Underworld Lore as an apparition skill.</p><hr /><p>You channel the spiritual power of spiteful grudges. Make a melee Strike against a creature within your reach. You gain a +2 circumstance bonus to your attack roll and deal an additional @Damage[2d6[void]] damage to the target; if the target is undead or otherwise has void healing, this Strike instead deals an additional @Damage[2d6[vitality]] damage. This ability gains the vitality trait if it deals vitality damage, or the void trait if it deals void damage.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "grudge-strike",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "grudge-strike"
+                ],
+                "selector": "strike-attack-roll",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "damageType": "void",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "grudge-strike"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "dice:slug:grudge-strike",
+                    "target:negative-healing"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "value": "vitality"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "animist",
+                "apparition",
+                "divine",
+                "wandering"
+            ]
+        }
+    },
+    "type": "feat"
+}

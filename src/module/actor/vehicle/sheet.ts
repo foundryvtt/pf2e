@@ -28,7 +28,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
         };
 
-        for (const item of this.actor.itemTypes.action.sort((a, b) => a.sort - b.sort)) {
+        for (const item of this.actor.itemTypes.action.toSorted((a, b) => a.sort - b.sort)) {
             const actionType = item.actionCost?.type ?? "free";
             actions[actionType].actions.push({
                 ...createAbilityViewData(item),

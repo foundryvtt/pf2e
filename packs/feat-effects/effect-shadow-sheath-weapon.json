@@ -1,0 +1,133 @@
+{
+    "_id": "je3lgJso1WmyC81w",
+    "img": "icons/containers/bags/pouch-leather-silver-grey.webp",
+    "name": "Effect: Shadow Sheath Weapon",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Shadow Sheath]</p>\n<p>You load a weapon into the sheath.</p>\n<p><strong>Immanence</strong> Your Strikes with the weapon deal 2 additional spirit damage per weapon damage die, which increases to 3 per die if the target is off-guard.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        {
+                            "or": [
+                                "item:bulk:negligible",
+                                "item:bulk:light"
+                            ]
+                        },
+                        "item:usage:hands:1",
+                        "item:trait:thrown"
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "shadowSheathWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "RollOption",
+                "option": "self:effect:shadow-sheath-weapon"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                "option": "target:condition:off-guard",
+                "toggleable": "totm"
+            },
+            {
+                "damageType": "spirit",
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "divine-spark:shadow-sheath",
+                    {
+                        "not": "target:condition:off-guard"
+                    }
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.shadowSheathWeapon}-damage",
+                "slug": "shadow-sheath-damage",
+                "tags": [
+                    "exemplar"
+                ],
+                "value": "2*@weapon.system.damage.dice"
+            },
+            {
+                "damageType": "spirit",
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "divine-spark:shadow-sheath",
+                    "target:condition:off-guard"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.shadowSheathWeapon}-damage",
+                "slug": "shadow-sheath-off-guard-damage",
+                "tags": [
+                    "exemplar"
+                ],
+                "value": "3*@weapon.system.damage.dice"
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.shadowSheathWeapon}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "physical-ikon"
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.shadowSheathWeapon}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "physical-ikon:shadow-sheath"
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.shadowSheathWeapon}",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Exemplar.Ikon.ShadowSheath.Label",
+                "mode": "add",
+                "property": "description",
+                "value": [
+                    {
+                        "text": "@Embed[Compendium.pf2e.classfeatures.Item.ktgzHtKoeUZ5H8KA inline]"
+                    }
+                ]
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.shadowSheathWeapon}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "divine"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

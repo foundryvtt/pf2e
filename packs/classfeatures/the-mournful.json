@@ -1,0 +1,77 @@
+{
+    "_id": "t74H8o9zHFx43Bdg",
+    "img": "icons/environment/settlement/graveyard-tombstone-night.webp",
+    "name": "The Mournful",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>To be a hero is to endure countless hardships and stand where others have fallen, shouldering dreams and destinies in their stead. Though this weight may reach your eyes, you bear this burden so that those under you can live smiling. You are trained in Diplomacy. After you Spark Transcendence, your act resonates with bittersweet poignancy, making one enemy of your choice within 30 feet who witnessed the act @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] as tears or memories dance in their eyes. This is an emotion and mental effect. The enemy remains dazzled until the start of your next turn, and then they are temporarily immune for 10 minutes.</p>"
+        },
+        "level": {
+            "value": 3
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.diplomacy.rank",
+                "value": 1
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Epithet.Label",
+                "mergeable": true,
+                "option": "epithet",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "the-mournful"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    "divine-spark",
+                    "epithet:the-mournful"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Exemplar.Epithet.TheMournful.Description"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "exemplar-root-epithet"
+            ],
+            "rarity": "common",
+            "value": [
+                "exemplar"
+            ]
+        }
+    },
+    "type": "feat"
+}

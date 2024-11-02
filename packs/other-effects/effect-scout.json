@@ -1,0 +1,48 @@
+{
+    "_id": "EMqGwUi3VMhCjTlF",
+    "img": "systems/pf2e/icons/equipment/adventuring-gear/spyglass.webp",
+    "name": "Effect: Scout",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Scout]</p>\n<p>You gain a +1 circumstance bonus to your initiative roll.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "removeAfterRoll": [
+                    "check:type:initiative"
+                ],
+                "selector": "initiative",
+                "slug": "scouting-bonus",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

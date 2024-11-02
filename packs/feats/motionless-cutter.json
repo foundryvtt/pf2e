@@ -1,0 +1,58 @@
+{
+    "_id": "W2nSF326oSkAaDjw",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Motionless Cutter",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Usage</strong> imbued into a melee weapon ikon that deals slashing damage</p><hr /><p>Your weapon is so sharp even an insect alighting upon its still blade would be severed. Your weapon ikon gains the following ability.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.Sever Four Dragonfly Wings] <span class=\"action-glyph\">3</span> (transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.XFdTDDAPO7U0r4Et inline]</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "choices": "flags.pf2e.exemplar.ikons",
+                "flag": "ikon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Sever Four Dragonfly Wings"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "chosen-ikon:{item|flags.pf2e.rulesSelections.ikon}"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "weapon-ikon-feat"
+            ],
+            "rarity": "common",
+            "value": [
+                "exemplar",
+                "ikon"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,135 @@
+{
+    "_id": "Fs2SIKBTUOFuyAVS",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "q9e86796VNlfO0AO",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Static Shock",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature approaches within 10 feet of the hazard's center</p><hr /><p><strong>Effect</strong> Electricity wells up from the ground and nearby material. Each creature in the hazard's area must attempt a @Check[fortitude|dc:33] save, and the hazard then rolls initiative. A character wearing metal armor or wielding a metal shield or weapon of at least 1 Bulk treats the result of their saving throw as one step worse.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} for 2 rounds.</p>\n<p><strong>Critical Failure</strong> The creature is clumsy 2 for 4 rounds and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "electricity"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "N1D8hURJDHF5lxLa",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Lightning Bolt",
+            "sort": 0,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "nx5Ru6SDJCdVIMkR": {
+                        "damage": "2d12+15",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "range-increment-120"
+                    ]
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Lightning's Dance",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(expert) or @Check[perception|dc:33] (master) to notice sparks dancing around normally non-conductive surfaces</p>",
+                "value": 10
+            }
+        },
+        "details": {
+            "description": "<p>Electricity suffuses an area where Agyra has used her lightning breath multiple times.</p>",
+            "disable": "<p>@Check[crafting|dc:35|name:Fashion Makeshift Lightning Rod] (master) to fashion a makeshift lightning rod, @Check[nature|dc:33|name:Dissipate Electrical Charge] (expert) to dissipate the electrical charge harmlessly into the air.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 11
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder War of Immortals"
+            },
+            "reset": "<p>The hazard deactivates and immediately resets if has no targets for 1 round; it also resets if Agyra uses her lightning breath multiple times in a single combat in the area.</p>",
+            "routine": "<p>(2 actions) Bolts of lightning flash out. The hazard makes two lightning bolt Strikes at two different creatures within 120 feet of the hazard's center. If only one creature is in range, the hazard makes only one Strike.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "kaiju",
+                "mythic",
+                "primal"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,52 @@
+{
+    "_id": "C1SVTVEwhKpqSs6B",
+    "img": "icons/skills/melee/weapons-crossed-swords-teal.webp",
+    "name": "Effect: Apparition's Enhancement",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Apparition's Enhancement]</p>\n<p>One wielded weapon or unarmed attack you have deals an extra 1d6 spirit damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "attacks": true
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "damageType": "spirit",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

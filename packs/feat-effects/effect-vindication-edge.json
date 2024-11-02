@@ -1,0 +1,46 @@
+{
+    "_id": "3wA2IOyZXjFssheT",
+    "img": "icons/skills/ranged/arrow-flying-broadhead-metal.webp",
+    "name": "Effect: Vindication Edge",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Vindicator]</p>\n<p>You take a –1 status penalty to their saving throws against divine spells.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:divine"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": "ternary(gte(@item.origin.level,17),-2,-1)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

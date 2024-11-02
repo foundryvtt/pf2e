@@ -1,0 +1,70 @@
+{
+    "_id": "6xWX8Ey5ShAyj1HO",
+    "img": "systems/pf2e/icons/actions/TwoActions.webp",
+    "name": "Flowing Spirit Strike",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": null,
+        "description": {
+            "value": "<p>Make two Strikes with the gleaming blade, each against the same target and using your current multiple attack penalty. If the @UUID[Compendium.pf2e.classfeatures.Item.Gleaming Blade] doesn't have the agile trait, the second Strike takes a –2 penalty. If both attacks hit, you combine their damage, which is all dealt as spirit damage.</p>\n<p>You add any precision damage only once. Combine the damage from both Strikes and apply resistances and weaknesses only once. This counts as two attacks when calculating your multiple attack penalty.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "flowing-spirit-strike",
+                "suboptions": [
+                    {
+                        "label": "PF2E.GenericLabel.StrikeCount.First",
+                        "value": "first-strike"
+                    },
+                    {
+                        "label": "PF2E.GenericLabel.StrikeCount.Second",
+                        "value": "second-strike"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "flowing-spirit-strike",
+                    "item:tag:physical-ikon:gleaming-blade"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "value": "spirit"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "flowing-spirit-strike:second-strike",
+                    {
+                        "not": "agile"
+                    }
+                ],
+                "selector": "attack",
+                "value": -2
+            }
+        ],
+        "traits": {
+            "value": [
+                "spirit",
+                "transcendence"
+            ]
+        }
+    },
+    "type": "action"
+}

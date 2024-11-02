@@ -1,0 +1,49 @@
+{
+    "_id": "ZL5o9c4jV5fRwTGR",
+    "img": "systems/pf2e/icons/actions/TwoActions.webp",
+    "name": "Break Free",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": null,
+        "description": {
+            "value": "<p>You can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] with a +2 status bonus on your check, then Stride up to twice your Speed in a straight line, and finally make a melee Strike. If you don't need to Escape or you can't move or choose not to, you still take the other actions listed.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "break-free",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:escape",
+                    "break-free"
+                ],
+                "selector": [
+                    "athletics",
+                    "acrobatics",
+                    "unarmed-attack-roll"
+                ],
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "value": [
+                "transcendence"
+            ]
+        }
+    },
+    "type": "action"
+}

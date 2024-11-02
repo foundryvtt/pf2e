@@ -1,10 +1,70 @@
+## 6.6.1
+
+### Bugfixes
+
+-	(Supe) Fix browsing mythic callings when one isn't set
+
+### Data Updates
+
+-	(Ambrose) Convert Rewrite Fate into an action that is granted by Mythic Callings
+-	(Ambrose) Fix text on Avenger Class Archetype Journal Entry
+-	(Ambrose) Incorporate errata for War of the Immortals
+-	(Ambrose) Update additional Equipment Effects descriptions and icons
+-	(Dire Weasel) Add effects for Arcane Explosion and Diadem of Divine Radiance
+-	(Dire Weasel) Update some War of Immortal nephilim feats
+-	(Nythz) Link War of Immortals class archetype dedications to their respective journal pages
+-	(Rigo) Add effect for Fly on Shadowed Wings and inline healing for Spirit's Sacrifice
+-	(Rigo) Add martial proficiency upgrade to Embodiment of Battle
+-	(Rigo) Add missing divine spark predicate to Victor's Wreath immanence
+-	(Rigo) Add missing traits to Ears That Hear the Truth
+-	(Rigo) Automate Roaring Heart and Medium's Awareness
+-	(Rigo) Fix Embed UUID on Thousand League Sandals
+-	(Rigo) Fix Fracture Mountain's immanence damage adjustment
+-	(Rigo) Use toggle to tag unarmed attack as a weapon ikon
+-	(Supe) Make mythic variant rule hint more descriptive in settings
+
+## 6.6.0
+
+### Highlights
+
+-   (Ambrose, Dire Weasel, Mecha Maya, Rigo, SpartanCPA, Tikael) Add content from War of Immortals
+-   (Supe) Add support for mythic feat slots
+
+### System Improvements
+
+-   (Farling) Improve display of `/act` in chat for secret rolls
+-   (stwlam) Add support for tagging modifiers and damage dice
+-   (stwlam) Search publication sources in addition to item names in ABC Picker
+
+### Bugfixes
+
+-   (stwlam) Fix creation of ranged battle-form strikes
+-   (stwlam) Fix dropping compendium actors' spells from preparation sheets
+-   (Supe) Fix removing spell damage from corrupting heightening data
+-   (websterguy) Fix "double vs" resistance requiring all entries to be true
+
+### Data Updates
+
+-   (Abaddon) Fix Targets section Champions Sacrifice stat block
+-   (Abaddon) Fix wrestler dedication prerequisites
+-   (Ambrose) Add Electromagnetic Dispersal and precision damage immunity to Nanoshard Swarm actor
+-   (Ambrose) Add missing additional feats to Sniping Duo dedication journal entry
+-   (Ambrose) Update Contact, Ingested, Inhaled and Injury trait descriptions to match Pathfinder GM Core
+-   (Ambrose) Update Fresh Produce feat requirements to match Player Core 2 update
+-   (Ambrose) Update usage on several items to match Pathfinder GM Core
+-   (Dire Weasel) Fix prerequisites of Dangle and Shed Tail
+-   (Dire Weasel) improve automation of Gecko's Grip
+-   (DocSchlock) Fix typo in Elemental Wayfinder (Water)
+-   (Rigo) Remove condensed witch-specific Incredible Familiar
+-   (websterguy) Fix Diplomat's Badge slug collision
+
 ## 6.5.1
 
-## System Improvements
+### System Improvements
 
 -   (Rigo) Add damage type as index field for item-filter choice sets
 
-## Bug fixes
+### Bugfixes
 
 -   (stwlam) Exclude PF2e Companion Compendia items from `ABCPicker` results
 -   (stwlam) Fix removing frequencies from ability sheets
@@ -12,7 +72,7 @@
 -   (Supe) Fix trait toggles on strikes overriden within the same item
 -   (Farling) Ignore disabled region behaviors when determining effect on actors
 
-## Data Updates
+### Data Updates
 
 -   (Ambrose) Add the summon trait to the GM Screen and replace broken links
 -   (Ambrose) Correct formatting in "Shake it Off" ability for Glacial Worm
@@ -21,7 +81,7 @@
 
 ## 6.5.0
 
-## System Improvements
+### System Improvements
 
 -   (Ambrose) Apply remaster theme to tables in GM Screen and Remaster Changes Journals
 -   (eryon) Add send to party button to loot sheet
@@ -32,7 +92,7 @@
 -   (Supe) Reduce remaining action uses when clicking the use button
 -   (Tikael) Allow alternative handwraps to function like Handwraps of Mighty Blows
 
-## Bug Fixes
+### Bugfixes
 
 -   (Dire Weasel, Supe, stwlam) Fix missing compendium sources in several items
 -   (Stefan van Bodegraven) Fix Crash/Freeze when missing inline damage closing bracket
@@ -41,7 +101,7 @@
 -   (Supe) Fix drag/drop reordering of crafting formulas
 -   (Supe) Fix refreshing items embedded in compendium actors
 
-## Data Updates
+### Data Updates
 
 -   (Ambrose, Dire Weasel) Update more item descriptions and durations for remaster
 -   (7H3LaughingMan) Implement Monastic Weaponry's Criticial Specialization
@@ -107,7 +167,7 @@
 -   (Tikael) Fix verbiage of Self Destruct feat for clarity
 -   (Unoblueboy) Update Fortify Shield effect
 
-## Under the Hood
+### Under the Hood
 
 -   (stwlam) Convert ability items to data models
 -   (stwlam) Move source ids to \_stats object
@@ -115,12 +175,12 @@
 
 ## 6.4.1
 
-## System Improvements
+### System Improvements
 
 -   (Codas) Improve performance of actor roll option retrieval
 -   (DocSchlock) Add roll option toggle support to NPC spells and familiars
 
-## Bug Fixes
+### Bugfixes
 
 -   (Abrault) Fix untrained bonus in Trick Magic Item
 -   (DocSchlock) Fix permanently hidden Campaign Features in Compendium Browser
@@ -130,7 +190,7 @@
 -   (Supe) Fix updating frequencies in NPC and vehicle sheet
 -   (Supe) Fix temporarily removed actor and item traits from being permanently removed when opening and closing the sheet
 
-## Data Updates
+### Data Updates
 
 -   (Ambrose, Dire Weasel) Assign and replace icons for multiple items
 -   (Ambrose) Automate the Dire Growth Werecreature feat
@@ -166,7 +226,7 @@
 -   (Tikael) Automate shield augmentations
 -   (websterguy) Remove erroneous attack bonus from Starlit Transformation
 
-## Under the Hood
+### Under the Hood
 
 -   (stwlam) Add relative ally and enemy target and origin roll options
 -   (Supe) Include distance roll option for all checks

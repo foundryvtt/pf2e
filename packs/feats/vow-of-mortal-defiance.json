@@ -1,0 +1,63 @@
+{
+    "_id": "KFM6XeDnQoYQsIM5",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Vow of Mortal Defiance",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Having seen the wreckage left by the gods and their servitors as they play in their great war of good and evil, you've come to the only reasonable conclusion: they all must be cut from their silken thrones.</p>\n<p>You swear a vow to defeat one creature within 60 feet that has the holy or unholy trait. The first time each round that you deal damage to that creature, you deal an additional 1d6 spirit damage.</p>\n<p>You can't use Vow of Mortal Defiance again until you or the target is defeated, flees, or the encounter ends.</p><hr /><p><strong>Special</strong> If you take this feat, you can't become sanctified with the holy or unholy trait. Retraining out of this feat typically requires a major change of philosophy.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "You are not sanctified with the holy or unholy trait"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "vow-of-mortal-defiance",
+                "toggleable": true
+            },
+            {
+                "damageType": "spirit",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "vow-of-mortal-defiance"
+                ],
+                "selector": "damage",
+                "tags": [
+                    "exemplar"
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "auditory",
+                "concentrate",
+                "exemplar",
+                "linguistic",
+                "mental"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,57 @@
+{
+    "_id": "qV9sAyHN90uYu4OO",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Sanctified Soul",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've drawn a line in the sand in the cosmic struggle between good and evil and chosen a side. You gain either the holy trait or the unholy trait. All your exemplar abilities that deal spirit damage gain the sanctified trait, allowing you to apply your holy or unholy trait to them to better affect your chosen enemies.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitHoly",
+                        "value": "holy"
+                    },
+                    {
+                        "label": "PF2E.TraitUnholy",
+                        "value": "unholy"
+                    }
+                ],
+                "flag": "sanctification",
+                "key": "ChoiceSet"
+            },
+            {
+                "add": [
+                    "{item|flags.pf2e.rulesSelections.sanctification}"
+                ],
+                "key": "ActorTraits"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "exemplar"
+            ]
+        }
+    },
+    "type": "feat"
+}

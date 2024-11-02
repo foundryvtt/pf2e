@@ -1,4 +1,5 @@
-import { isObject, sluggify } from "@util";
+import { sluggify } from "@util";
+import * as R from "remeda";
 import { ContentTabName } from "../data.ts";
 import { CompendiumBrowser } from "../index.ts";
 import { CompendiumBrowserTab } from "./base.ts";
@@ -64,7 +65,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
 
                     // Accommodate deprecated featType objects
                     const featType: unknown = featData.system.featType;
-                    if (isObject(featType) && "value" in featType && typeof featType.value === "string") {
+                    if (R.isPlainObject(featType) && "value" in featType && typeof featType.value === "string") {
                         featData.system.category = featType.value;
                         delete featData.system.featType;
                     }

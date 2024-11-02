@@ -1,0 +1,46 @@
+{
+    "_id": "pUXV4sks4p9Jc8Wb",
+    "img": "icons/sundries/flags/banner-sword-blue.webp",
+    "name": "Effect: A Challenge for Heroes",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.A Challenge for Heroes]</p>\n<p>You deal an additional 10 spirit damage to the exemplar with each successful Strike.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "damageType": "spirit",
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:origin:{item|origin.signature}"
+                ],
+                "selector": "strike-damage",
+                "value": 10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

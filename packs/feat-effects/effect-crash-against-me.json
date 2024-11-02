@@ -1,0 +1,57 @@
+{
+    "_id": "sEWwGSuXxcTl020D",
+    "img": "icons/skills/melee/sword-damaged-broken-orange.webp",
+    "name": "Effect: Crash against Me",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Crash against Me]</p>\n<p>You are off-guard and take a –2 circumstance penalty to attacks with the clanging weapon.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Ikon.SkinHardAsHorn.CrashAgainstMe.RollOptionLabel",
+                "option": "crash-against-me",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "crash-against-me"
+                ],
+                "selector": "strike-attack-roll",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

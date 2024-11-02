@@ -11,7 +11,7 @@ import type {
     PhysicalSystemSource,
     UsageDetails,
 } from "@item/physical/index.ts";
-import { ZeroToFour, ZeroToThree } from "@module/data.ts";
+import { ZeroToFour } from "@module/data.ts";
 import { DamageDieSize, DamageType } from "@system/damage/index.ts";
 import type { WeaponTraitToggles } from "./trait-toggles.ts";
 import type {
@@ -144,7 +144,7 @@ interface WeaponMaterialSource extends ItemMaterialSource {
 
 type WeaponRuneSource = {
     potency: ZeroToFour;
-    striking: ZeroToThree;
+    striking: ZeroToFour;
     property: WeaponPropertyRuneType[];
 };
 

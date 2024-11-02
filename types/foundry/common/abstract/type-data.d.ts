@@ -60,7 +60,7 @@ import type * as abstract from "./module.d.ts";
  * }
  * ```
  */
-export default class TypeDataModel<
+export default abstract class TypeDataModel<
     TParent extends abstract.DataModel | null,
     TSchema extends DataSchema,
 > extends abstract.DataModel<TParent, TSchema> {

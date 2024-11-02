@@ -3,7 +3,7 @@ import type { Sense } from "@actor/creature/sense.ts";
 import { isReallyPC } from "@actor/helpers.ts";
 import { MODIFIER_TYPES, createProficiencyModifier } from "@actor/modifiers.ts";
 import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
-import { AbilityViewData, ActorSheetDataPF2e, InventoryItem } from "@actor/sheet/data-types.ts";
+import { AbilityViewData, InventoryItem } from "@actor/sheet/data-types.ts";
 import { condenseSenses, createAbilityViewData } from "@actor/sheet/helpers.ts";
 import { AttributeString, SaveType, SkillSlug } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
@@ -14,7 +14,6 @@ import type {
     DeityPF2e,
     FeatPF2e,
     HeritagePF2e,
-    LorePF2e,
     PhysicalItemPF2e,
 } from "@item";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
@@ -189,7 +188,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         // Indicate whether the PC has all attribute boosts allocated
         sheetData.attributeBoostsAllocated = ((): boolean => {
-            const { build } = sheetData.data;
+            const build = actor.system.build;
             if (build.attributes.manual || !isReallyPC(actor)) {
                 return true;
             }
@@ -394,37 +393,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         // Return data for rendering
         return sheetData;
-    }
-
-    /** Organize and classify Items for Character sheets */
-    override async prepareItems(sheetData: ActorSheetDataPF2e<CharacterPF2e>): Promise<void> {
-        const actorData = sheetData.actor;
-
-        // Skills
-        const lores: LorePF2e<TActor>[] = [];
-
-        for (const itemData of sheetData.items) {
-            // Lore Skills
-            if (itemData.type === "lore") {
-                itemData.system.icon = this.getProficiencyIcon((itemData.system.proficient || {}).value);
-                itemData.system.hover = CONFIG.PF2E.proficiencyLevels[(itemData.system.proficient || {}).value];
-
-                const rank = itemData.system.proficient?.value || 0;
-                const proficiency = createProficiencyModifier({ actor: this.actor, rank, domains: [] }).modifier;
-                const modifier = actorData.system.abilities.int.mod;
-                const itemBonus = Number((itemData.system.item || {}).value || 0);
-                itemData.system.itemBonus = itemBonus;
-                itemData.system.value = modifier + proficiency + itemBonus;
-                itemData.system.breakdown = `int modifier(${modifier}) + proficiency(${proficiency}) + item bonus(${itemBonus})`;
-
-                lores.push(itemData);
-            }
-        }
-
-        // Assign and return
-        actorData.pfsBoons = this.actor.pfsBoons;
-        actorData.deityBoonsCurses = this.actor.deityBoonsCurses;
-        actorData.lores = lores;
     }
 
     /** Prepares all ability-type items that create an action in the sheet */
@@ -1257,39 +1225,41 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
     /** Contextually search the feats tab of the Compendium Browser */
     async #onClickBrowseFeats(element: HTMLElement): Promise<void> {
-        const maxLevel = Number(element.dataset.level) || this.actor.level;
-        const checkboxesFilterCodes = (element.dataset.filter ?? "")
-            .split(",")
-            .filter((s) => !!s)
-            .map((s) => s.trim());
+        // Get group and slot and then the relevant filter values
+        const groupId = htmlClosest(element, "[data-group-id]")?.dataset.groupId;
+        const featGroup =
+            groupId === "bonus" ? this.actor.feats.bonus : this.actor.feats.get(groupId, { strict: true });
+        const slot = featGroup.slots[htmlClosest(element, "[data-slot-id]")?.dataset.slotId ?? ""];
+        const featFilters = slot?.filter ?? featGroup.filter;
 
+        const maxLevel = Number(element.dataset.level) || featGroup.level;
         const featTab = game.pf2e.compendiumBrowser.tabs.feat;
         const filter = await featTab.getFilterData();
+        filter.multiselects.traits.conjunction = featFilters?.conjunction ?? "or";
+
+        // Assign levels
         const level = filter.sliders.level;
         level.values.max = Math.min(maxLevel, level.values.upperLimit);
         level.isExpanded = level.values.max !== level.values.upperLimit;
 
-        const { category } = filter.checkboxes;
-        const { traits } = filter.multiselects;
+        // Assign categories
+        const category = filter.checkboxes.category;
+        for (const value of featFilters.categories ?? featGroup.supported ?? []) {
+            category.isExpanded = true;
+            category.options[value].selected = true;
+            category.selected.push(value);
+        }
 
-        for (const filterCode of checkboxesFilterCodes) {
-            const [filterType, ...rest] = filterCode.split("-");
-            const value = rest.join("-"); // The value may also include hyphens
-
-            if (!(filterType && value)) {
-                throw ErrorPF2e(`Invalid filter value for opening the compendium browser: "${filterCode}"`);
-            }
-            if (filterType === "category" && value in category.options) {
-                category.isExpanded = true;
-                category.options[value].selected = true;
-                category.selected.push(value);
-            } else if (filterType === "traits") {
-                const trait = traits.options.find((t) => t.value === value);
-                if (trait) {
-                    traits.selected.push(fu.deepClone(trait));
-                }
-            } else if (filterType === "conjunction" && (value === "and" || value === "or")) {
-                filter.multiselects.traits.conjunction = value;
+        // Assign traits
+        const traits = filter.multiselects.traits;
+        const filterTraits = [
+            (featFilters?.traits ?? []).map((trait) => ({ trait, not: false })),
+            (featFilters?.omitTraits ?? []).map((trait) => ({ trait, not: true })),
+        ].flat();
+        for (const { trait, not } of filterTraits) {
+            const data = traits.options.find((t) => t.value === trait);
+            if (data) {
+                traits.selected.push({ ...fu.deepClone(data), not });
             }
         }
 
