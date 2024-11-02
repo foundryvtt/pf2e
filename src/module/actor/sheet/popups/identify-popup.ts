@@ -30,7 +30,6 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
         return {
             ...(await super.getData()),
             isMagic: item.isMagical,
-            isAlchemical: item.isAlchemical,
             dcs: this.dcs,
         };
     }
@@ -76,6 +75,5 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
 
 interface IdentifyPopupData extends FormApplicationData {
     isMagic: boolean;
-    isAlchemical: boolean;
     dcs: GenericIdentifyDCs | IdentifyMagicDCs | IdentifyAlchemyDCs;
 }
