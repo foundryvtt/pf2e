@@ -41,7 +41,7 @@ class CraftingAbility implements CraftingAbilityData {
         this.isDailyPrep = data.isDailyPrep;
         this.isPrepared = data.isPrepared;
         this.maxSlots = data.maxSlots ?? 0;
-        this.maxItemLevel = data.maxItemLevel ?? this.actor.level;
+        this.maxItemLevel = data.maxItemLevel;
         this.fieldDiscovery = data.fieldDiscovery ? new Predicate(data.fieldDiscovery) : null;
         this.batchSizes = {
             default: data.batchSizes?.default ?? (this.isAlchemical ? 2 : 1),
@@ -53,7 +53,7 @@ class CraftingAbility implements CraftingAbilityData {
         };
         this.fieldDiscoveryBatchSize = data.fieldDiscoveryBatchSize ?? 3;
         this.craftableItems = new Predicate(data.craftableItems);
-        this.preparedFormulaData = data.preparedFormulaData ?? [];
+        this.preparedFormulaData = data.preparedFormulaData;
     }
 
     async getPreparedCraftingFormulas(): Promise<PreparedFormula[]> {
@@ -241,13 +241,13 @@ interface CraftingAbilityData {
     isAlchemical: boolean;
     isDailyPrep: boolean;
     isPrepared: boolean;
-    maxSlots?: number;
+    maxSlots: number | null;
     craftableItems: RawPredicate;
     fieldDiscovery?: RawPredicate | null;
     batchSizes?: { default: number; other: { definition: RawPredicate; quantity: number }[] };
     fieldDiscoveryBatchSize?: number;
-    maxItemLevel?: number | null;
-    preparedFormulaData?: PreparedFormulaData[];
+    maxItemLevel: number;
+    preparedFormulaData: PreparedFormulaData[];
 }
 
 interface CraftingAbilitySheetData {
