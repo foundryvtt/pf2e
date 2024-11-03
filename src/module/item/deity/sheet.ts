@@ -85,21 +85,6 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
         const clericSpells = htmlQuery(html, ".cleric-spells");
         if (!clericSpells) return;
 
-        // View one of the spells
-        for (const link of htmlQueryAll(clericSpells, "a[data-action=view-spell]")) {
-            link.addEventListener("click", async (): Promise<void> => {
-                const uuid = htmlClosest(link, "li")?.dataset.uuid ?? "";
-                const spell = await fromUuid(uuid);
-                if (!(spell instanceof SpellPF2e)) {
-                    this.render(false);
-                    ui.notifications.error(`A spell with the UUID "${uuid}" no longer exists`);
-                    return;
-                }
-
-                spell.sheet.render(true);
-            });
-        }
-
         // Remove a stored spell reference
         for (const link of htmlQueryAll(clericSpells, "a[data-action=remove-spell]")) {
             link.addEventListener("click", async (): Promise<void> => {

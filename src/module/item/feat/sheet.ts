@@ -11,6 +11,7 @@ import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/s
 import type { FeatPF2e } from "@item/feat/document.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { OneToFour } from "@module/data.ts";
+import { getItemFromDragEvent } from "@module/sheet/helpers.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import {
     ErrorPF2e,
@@ -23,6 +24,7 @@ import {
     tagify,
     tupleHasValue,
 } from "@util";
+import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { featCanHaveKeyOptions } from "./helpers.ts";
 
@@ -79,6 +81,9 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             selfEffect: createSelfEffectSheetData(sheetData.data.selfEffect),
             senses: this.#getSenseOptions(),
             showPrerequisites,
+            suppressedFeatures: (await UUIDUtils.fromUUIDs(this.item.system.subfeatures.suppressedFeatures)).map((f) =>
+                R.pick(f, ["uuid", "name", "img"]),
+            ),
         };
     }
 
@@ -223,6 +228,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         this.#activateLanguagesListeners(html);
         this.#activateProficienciesListeners(html);
         this.#activateSensesListeners(html);
+        this.#activateSuppressedFeaturesListeners(html);
     }
 
     #activateLanguagesListeners(html: HTMLElement): void {
@@ -340,8 +346,41 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         });
     }
 
+    #activateSuppressedFeaturesListeners(html: HTMLElement) {
+        // Remove a stored spell reference
+        for (const link of htmlQueryAll(html, "a[data-action=remove-suppressed-feature]")) {
+            link.addEventListener("click", async (): Promise<void> => {
+                const uuidToRemove = htmlClosest(link, "li")?.dataset.uuid;
+                const newFeatures = this.item._source.system.subfeatures?.suppressedFeatures?.filter(
+                    (uuid) => uuid !== uuidToRemove,
+                );
+                await this.item.update({ "system.subfeatures.suppressedFeatures": newFeatures ?? [] });
+            });
+        }
+    }
+
     override async _onDrop(event: DragEvent): Promise<void> {
-        return handleSelfEffectDrop(this, event);
+        if (!this.isEditable) return;
+
+        const item = await getItemFromDragEvent(event);
+        if (!item) return;
+
+        if (await handleSelfEffectDrop(this, item)) return;
+        if (
+            item.isOfType("feat") &&
+            item.category === "classfeature" &&
+            item.sourceId &&
+            item.sourceId !== this.item.sourceId
+        ) {
+            const feats = this.item._source.system.subfeatures?.suppressedFeatures ?? [];
+            if (!feats.includes(item.sourceId)) {
+                const newFeatures = [...feats, item.sourceId];
+                await this.item.update({ "system.subfeatures.suppressedFeatures": newFeatures });
+            }
+            return;
+        }
+
+        throw ErrorPF2e("Invalid item drop");
     }
 
     protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
@@ -401,6 +440,7 @@ interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     selfEffect: SelfEffectReference | null;
     senses: SenseOption[];
     showPrerequisites: boolean;
+    suppressedFeatures: { uuid: string; name: string; img: string }[];
 }
 
 interface LanguageOptions {

@@ -1,4 +1,4 @@
-import type { ItemPF2e } from "@item";
+import { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { Rarity } from "@module/data.ts";
 import { RuleElements, RuleElementSource } from "@module/rules/index.ts";
@@ -565,6 +565,21 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             } else {
                 refreshAnchor.dataset.tooltip = "PF2E.Item.RefreshFromCompendium.Tooltip.Enabled";
             }
+        }
+
+        // View a referenced item
+        for (const link of htmlQueryAll(html, "a[data-action=view-item]")) {
+            link.addEventListener("click", async (): Promise<void> => {
+                const uuid = htmlClosest(link, "li")?.dataset.uuid ?? "";
+                const item = await fromUuid(uuid);
+                if (!(item instanceof ItemPF2e)) {
+                    this.render(false);
+                    ui.notifications.error(`An item with the UUID "${uuid}" no longer exists`);
+                    return;
+                }
+
+                item.sheet.render(true);
+            });
         }
     }
 

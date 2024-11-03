@@ -453,6 +453,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
      * modifiers according to them.
      */
     override prepareDataFromItems(): void {
+        // Set up feat hierarchies first, so that we know who is a parent of whom later
+        for (const feat of this.itemTypes.feat) {
+            feat.establishHierarchy();
+        }
+
         super.prepareDataFromItems();
         this.prepareBuildData();
     }

@@ -7,18 +7,21 @@ import { getActionCostRollOptions, normalizeActionChangeData, processSanctificat
 import { AbilityTraitToggles } from "@item/ability/trait-toggles.ts";
 import { ActionCost, Frequency, RawItemChatData } from "@item/base/data/index.ts";
 import { Rarity } from "@module/data.ts";
-import { RuleElementSource } from "@module/rules/index.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "@module/rules/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
 import * as R from "remeda";
 import { FeatSource, FeatSubfeatures, FeatSystemData } from "./data.ts";
-import { featCanHaveKeyOptions } from "./helpers.ts";
+import { featCanHaveKeyOptions, suppressFeats } from "./helpers.ts";
 import { FeatOrFeatureCategory, FeatTrait } from "./types.ts";
 import { FEATURE_CATEGORIES, FEAT_CATEGORIES } from "./values.ts";
 
 class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     declare group: FeatGroup | null;
     declare grants: (FeatPF2e<ActorPF2e> | HeritagePF2e<ActorPF2e>)[];
+
+    /** If suppressed, this feature should not be assigned to any feat category nor create rule elements */
+    declare suppressed: boolean;
 
     static override get validTraits(): Record<FeatTrait, string> {
         return CONFIG.PF2E.featTraits;
@@ -77,6 +80,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         this.group = null;
         this.system.level.taken ??= null;
+        this.suppressed = false;
 
         // Handle legacy data with empty-string locations
         this.system.location ||= null;
@@ -130,6 +134,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 languages: { granted: [], slots: 0 },
                 proficiencies: {},
                 senses: {},
+                suppressedFeatures: [],
             } satisfies FeatSubfeatures,
             this.system.subfeatures ?? {},
         );
@@ -147,6 +152,9 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             throw ErrorPF2e("Feats much be embedded in PC-type actors");
         }
 
+        // Exit early if the feat is being suppressed
+        if (this.suppressed) return;
+
         // Set a self roll option for this feat(ure)
         const prefix = this.isFeature ? "feature" : "feat";
         const slug = this.slug ?? sluggify(this.name);
@@ -154,7 +162,9 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         // Process subfeatures
         const subfeatures = this.system.subfeatures;
-        if (!featCanHaveKeyOptions(this)) subfeatures.keyOptions = [];
+        if (!featCanHaveKeyOptions(this)) {
+            subfeatures.keyOptions = [];
+        }
 
         // Key attribute options
         if (subfeatures.keyOptions.length > 0) {
@@ -267,7 +277,8 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
     }
 
-    override prepareSiblingData(): void {
+    /** Assigns the grants of this item based on the given item. */
+    establishHierarchy(): void {
         this.grants = Object.values(this.flags.pf2e.itemGrants).flatMap((grant) => {
             const item = this.actor?.items.get(grant.id);
             return (item?.isOfType("feat") && !item.system.location) || item?.isOfType("heritage") ? [item] : [];
@@ -277,8 +288,27 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
     }
 
+    override prepareSiblingData(): void {
+        if (!this.actor) return;
+
+        const subfeatures = this.system.subfeatures;
+        if (!featCanHaveKeyOptions(this)) {
+            subfeatures.suppressedFeatures = [];
+        } else if (subfeatures.suppressedFeatures.length) {
+            const uuids: string[] = subfeatures.suppressedFeatures;
+            const feats = this.actor.itemTypes.feat.filter((f) => uuids.includes(f.sourceId ?? ""));
+            suppressFeats(feats);
+        }
+    }
+
     override onPrepareSynthetics(this: FeatPF2e<ActorPF2e>): void {
         processSanctification(this);
+    }
+
+    /** Overriden to not create rule elements when suppressed */
+    override prepareRuleElements(options?: Omit<RuleElementOptions, "parent">): RuleElementPF2e[] {
+        if (this.suppressed) return [];
+        return super.prepareRuleElements(options);
     }
 
     override async getChatData(
