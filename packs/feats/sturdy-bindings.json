@@ -11,7 +11,7 @@
         },
         "category": "bonus",
         "description": {
-            "value": "<p>Your grapples are incredibly reliable. When you roll a critical failure on a check to Grapple a target, you get a failure instead. In addition, when a creature you have grabbed rolls a failure on its check to Escape, it gets a critical failure instead, and if it rolls a critical success, it gets a success instead.</p>"
+            "value": "<p>Your grapples are incredibly reliable. When you roll a critical failure on a check to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] a target, you get a failure instead. In addition, when a creature you have grabbed rolls a failure on its check to @UUID[Compendium.pf2e.actionspf2e.Item.Escape], it gets a critical failure instead, and if it rolls a critical success, it gets a success instead.</p>"
         },
         "level": {
             "value": 0
@@ -28,7 +28,18 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Character Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:grapple"
+                ],
+                "selector": "skill-check"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []

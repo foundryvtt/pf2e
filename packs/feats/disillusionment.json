@@ -28,7 +28,35 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Character Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better",
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:dream",
+                            "item:trait:illusion"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better",
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:disbelieve"
+                ],
+                "selector": "perception"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []
