@@ -3,7 +3,7 @@ import { ItemPF2e } from "@item";
 import { ActionCost, FrequencySource } from "@item/base/data/system.ts";
 import type { FeatSheetPF2e } from "@item/feat/sheet.ts";
 import { RangeData } from "@item/types.ts";
-import { ErrorPF2e, htmlQuery, isImageFilePath } from "@util";
+import { htmlQuery, isImageFilePath } from "@util";
 import * as R from "remeda";
 import type { AbilitySystemData, SelfEffectReference } from "./data.ts";
 import type { AbilitySheetPF2e } from "./sheet.ts";
@@ -87,23 +87,14 @@ interface SelfEffectSheetReference extends SelfEffectReference {
     pack: string | null;
 }
 
-/** Save data from an effect item dropped on an ability or feat sheet. */
-async function handleSelfEffectDrop(sheet: AbilitySheetPF2e | FeatSheetPF2e, event: DragEvent): Promise<void> {
+/** Save data from an effect item dropped on an ability or feat sheet. Returns true if handled */
+async function handleSelfEffectDrop(sheet: AbilitySheetPF2e | FeatSheetPF2e, item: ItemPF2e): Promise<boolean> {
     if (!sheet.isEditable || sheet.item.system.actionType.value === "passive") {
-        return;
+        return false;
     }
-    const item = await (async (): Promise<ItemPF2e | null> => {
-        try {
-            const dataString = event.dataTransfer?.getData("text/plain");
-            const dropData = JSON.parse(dataString ?? "");
-            return (await ItemPF2e.fromDropData(dropData)) ?? null;
-        } catch {
-            return null;
-        }
-    })();
-    if (!item?.isOfType("effect")) throw ErrorPF2e("Invalid item drop");
-
+    if (!item?.isOfType("effect")) return false;
     await sheet.item.update({ "system.selfEffect": { uuid: item.uuid, name: item.name } });
+    return true;
 }
 
 function createActionRangeLabel(range: Maybe<RangeData>): string | null {

@@ -1,3 +1,4 @@
+import type { ActorPF2e } from "@actor";
 import type { FeatPF2e } from "./document.ts";
 
 /**
@@ -14,4 +15,12 @@ function featCanHaveKeyOptions(feat: FeatPF2e): boolean {
     return !grantedBy || (grantedBy.isOfType("feat") && grantedBy.category === "classfeature");
 }
 
-export { featCanHaveKeyOptions };
+/** Recursively suppresses a feat and its granted feats */
+function suppressFeats(feats: FeatPF2e[]): void {
+    for (const feat of feats) {
+        feat.suppressed = true;
+        suppressFeats(feat.grants.filter((i): i is FeatPF2e<ActorPF2e> => i.isOfType("feat")));
+    }
+}
+
+export { featCanHaveKeyOptions, suppressFeats };

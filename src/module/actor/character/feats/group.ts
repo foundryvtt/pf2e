@@ -94,7 +94,7 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
                 ? (feat.system.level.taken?.toString() ?? "")
                 : (feat.system.location ?? "");
         const slot: FeatSlot<TItem> | undefined = this.slots[slotId];
-        if (!slot && this.slotted) return false;
+        if ((!slot && this.slotted) || feat.suppressed) return false;
 
         if (slot?.feat) {
             console.debug(`PF2e System | Multiple feats with same index: ${feat.name}, ${slot.feat.name}`);

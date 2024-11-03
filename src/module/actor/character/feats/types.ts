@@ -14,6 +14,7 @@ interface FeatLike<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
     system: ItemSystemData & {
         location: string | null;
     };
+    suppressed?: boolean;
 }
 
 /** Data that defines how a feat group is structured */
