@@ -37,40 +37,59 @@ class DamageAlteration {
         const change = rule.resolveValue?.(rule.value, null, { resolvables }) ?? rule.value;
         if (rule.ignored) return null;
 
-        if (rule.property === "damage-type" && setHasElement(DAMAGE_TYPES, change)) {
-            return change;
-        }
-
-        if (rule.property === "dice-number" && "diceNumber" in damage && typeof change === "number") {
-            return Math.clamp(
-                Math.floor(AELikeRuleElement.getNewValue(rule.mode, damage.diceNumber ?? 0, change)),
-                0,
-                99,
-            );
-        }
-
-        if (rule.property === "dice-faces") {
-            if (!("dieSize" in damage) || !damage.dieSize) {
+        switch (rule.property) {
+            case "damage-type":
+                return setHasElement(DAMAGE_TYPES, change) ? change : null;
+            case "dice-number":
+                return "diceNumber" in damage && typeof change === "number"
+                    ? Math.clamp(
+                          Math.floor(AELikeRuleElement.getNewValue(rule.mode, damage.diceNumber ?? 0, change)),
+                          0,
+                          99,
+                      )
+                    : null;
+            case "dice-faces": {
+                if (!("dieSize" in damage) || !damage.dieSize) {
+                    return null;
+                }
+                const currentFaces = damageDieSizeToFaces(damage.dieSize);
+                if (rule.mode === "downgrade") {
+                    return tupleHasValue(DAMAGE_DICE_FACES, change) && change <= currentFaces
+                        ? change
+                        : Number(nextDamageDieSize({ downgrade: damage.dieSize }).replace("d", ""));
+                }
+                if (rule.mode === "upgrade") {
+                    return tupleHasValue(DAMAGE_DICE_FACES, change) && change >= currentFaces
+                        ? change
+                        : Number(nextDamageDieSize({ upgrade: damage.dieSize }).replace("d", ""));
+                }
+                if (rule.mode === "override" && tupleHasValue(DAMAGE_DICE_FACES, change)) {
+                    return change;
+                }
                 return null;
             }
-
-            const currentFaces = damageDieSizeToFaces(damage.dieSize);
-            if (rule.mode === "downgrade") {
-                return tupleHasValue(DAMAGE_DICE_FACES, change) && change <= currentFaces
-                    ? change
-                    : Number(nextDamageDieSize({ downgrade: damage.dieSize }).replace("d", ""));
-            }
-            if (rule.mode === "upgrade") {
-                return tupleHasValue(DAMAGE_DICE_FACES, change) && change >= currentFaces
-                    ? change
-                    : Number(nextDamageDieSize({ upgrade: damage.dieSize }).replace("d", ""));
-            }
-            if (rule.mode === "override" && tupleHasValue(DAMAGE_DICE_FACES, change)) {
-                return change;
+            case "tags": {
+                const changes = Array.isArray(change) ? change : [change];
+                const tags = damage.tags ?? [];
+                switch (rule.mode) {
+                    case "add":
+                        tags.push(...changes);
+                        return tags;
+                    case "remove":
+                    case "subtract": {
+                        for (const tag of changes) {
+                            const index = tags.indexOf(tag);
+                            if (index > -1) tags.splice(index, 1);
+                        }
+                        return tags;
+                    }
+                    case "override":
+                        return changes;
+                    default:
+                        return null;
+                }
             }
         }
-
-        return null;
     }
 
     applyTo<TDamage extends DamageDicePF2e | ModifierPF2e>(
@@ -80,13 +99,11 @@ class DamageAlteration {
         const rule = this.#rule;
         if (rule.ignored) return damage;
 
-        // If this is a modifier or purely an override dice, skip
+        // If this is a modifier (and the property is for dice) or purely an override dice, skip
         const isModifier = "value" in damage && ["dice-faces", "dice-number"].includes(this.property);
         const isOverrideDice =
             !("value" in damage) && !damage.damageType && !damage.diceNumber && !damage.dieSize && damage.override;
-        if (isModifier || isOverrideDice) {
-            return damage;
-        }
+        if (isModifier || isOverrideDice) return damage;
 
         const parent = rule.parent ?? { getRollOptions: () => [] };
         const predicate = rule.predicate ?? new Predicate();
@@ -97,11 +114,11 @@ class DamageAlteration {
 
         const value = (this.value = this.getNewValue(damage, options.item));
 
-        if (typeof value === "string") {
+        if (rule.property === "tags" && Array.isArray(value)) {
+            damage.tags = value;
+        } else if (typeof value === "string") {
             damage.damageType = value;
-        }
-
-        if (this.property === "dice-faces" && "dieSize" in damage && tupleHasValue(DAMAGE_DICE_FACES, value)) {
+        } else if (this.property === "dice-faces" && "dieSize" in damage && tupleHasValue(DAMAGE_DICE_FACES, value)) {
             const stringValue = `d${value}` as const;
             // Ensure that weapon damage isn't being upgraded multiple times
             if (
@@ -114,9 +131,7 @@ class DamageAlteration {
                 options.item.flags.pf2e.damageFacesUpgraded = true;
             }
             damage.dieSize = stringValue;
-        }
-
-        if (this.property === "dice-number" && "diceNumber" in damage && typeof value === "number") {
+        } else if (this.property === "dice-number" && "diceNumber" in damage && typeof value === "number") {
             damage.diceNumber = value;
         }
 
