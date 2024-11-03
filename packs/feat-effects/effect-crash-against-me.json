@@ -1,10 +1,10 @@
 {
-    "_id": "sEWwGSuXxcTl020D",
+    "_id": "ogzkGtUR9vMt47ts",
     "img": "icons/skills/melee/sword-damaged-broken-orange.webp",
     "name": "Effect: Crash against Me",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Crash against Me]</p>\n<p>You are off-guard and take a –2 circumstance penalty to attacks with the clanging weapon.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Crash against Me]</p>\n<p>You have resistance equal to your level to the chosen damage type.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,24 +22,48 @@
         },
         "rules": [
             {
-                "inMemoryOnly": true,
-                "key": "GrantItem",
-                "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
-            },
-            {
-                "key": "RollOption",
-                "label": "PF2E.SpecificRule.Exemplar.Ikon.SkinHardAsHorn.CrashAgainstMe.RollOptionLabel",
-                "option": "crash-against-me",
-                "toggleable": true
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "crash-against-me"
+                "choices": [
+                    {
+                        "label": "PF2E.TraitBludgeoning",
+                        "predicate": [
+                            "skin-hard-as-horn:bludgeoning"
+                        ],
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitPiercing",
+                        "predicate": [
+                            "skin-hard-as-horn:piercing"
+                        ],
+                        "value": "piercing"
+                    },
+                    {
+                        "label": "PF2E.TraitSlashing",
+                        "predicate": [
+                            "skin-hard-as-horn:slashing"
+                        ],
+                        "value": "slashing"
+                    }
                 ],
-                "selector": "strike-attack-roll",
-                "type": "circumstance",
-                "value": -2
+                "flag": "resistance",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.resistance}",
+                "value": "@actor.level"
+            },
+            {
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "item:damage:type:{item|flags.pf2e.rulesSelections.resistance}"
+                ],
+                "selectors": [
+                    "strike-attack-roll",
+                    "strike-damage"
+                ],
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Crash against Me (Note)"
             }
         ],
         "start": {
