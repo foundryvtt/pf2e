@@ -1,0 +1,117 @@
+{
+    "_id": "YUj20zJ4bNAoc0nJ",
+    "img": "icons/consumables/potions/potion-flash-open-blue.webp",
+    "name": "Effect: Chromatic Jellyfish Oil",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Chromatic Jellyfish Oil (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Chromatic Jellyfish Oil (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Chromatic Jellyfish Oil (Greater)]</p>\n<p>You gain resistance to precision damage and extra damage from critical hits.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:chromatic-jellyfish-oil-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Chromatic Jellyfish Oil (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:chromatic-jellyfish-oil-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Chromatic Jellyfish Oil (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:chromatic-jellyfish-oil-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Chromatic Jellyfish Oil (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "chromatic-jellyfish-oil"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "chromatic-jellyfish-oil:chromatic-jellyfish-oil-lesser"
+                ],
+                "type": [
+                    "critical-hits",
+                    "precision"
+                ],
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "chromatic-jellyfish-oil:chromatic-jellyfish-oil-moderate"
+                ],
+                "type": [
+                    "critical-hits",
+                    "precision"
+                ],
+                "value": 10
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "chromatic-jellyfish-oil:chromatic-jellyfish-oil-greater"
+                ],
+                "type": [
+                    "critical-hits",
+                    "precision"
+                ],
+                "value": 15
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
