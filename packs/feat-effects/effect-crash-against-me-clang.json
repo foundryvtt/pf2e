@@ -27,17 +27,16 @@
                 "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
             },
             {
-                "key": "RollOption",
-                "label": "PF2E.SpecificRule.Exemplar.Ikon.SkinHardAsHorn.CrashAgainstMe.RollOptionLabel",
-                "option": "crash-against-me",
-                "toggleable": true
+                "choices": {
+                    "attacks": true
+                },
+                "flag": "clangingWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "key": "FlatModifier",
-                "predicate": [
-                    "crash-against-me"
-                ],
-                "selector": "strike-attack-roll",
+                "selector": "{item|flags.pf2e.rulesSelections.clangingWeapon}-attack-roll",
                 "type": "circumstance",
                 "value": -2
             }
