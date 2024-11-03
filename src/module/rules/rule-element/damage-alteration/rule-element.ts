@@ -44,7 +44,7 @@ class DamageAlterationRuleElement extends RuleElementPF2e<DamageAlterationSchema
             property: new fields.StringField({
                 required: true,
                 nullable: false,
-                choices: ["damage-type", "dice-faces", "dice-number"],
+                choices: ["damage-type", "dice-faces", "dice-number", "tags"],
             }),
             value: new ResolvableValueField({ required: true, nullable: true, initial: null }),
             relabel: new fields.StringField({ required: false, blank: false, nullable: true, initial: null }),
