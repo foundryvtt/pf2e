@@ -123,6 +123,7 @@ interface BaseDamageData {
     modifier?: number;
     category: DamageCategoryUnique | null;
     materials?: MaterialDamageEffect[];
+    tags?: string[];
 }
 
 interface WeaponBaseDamageData extends BaseDamageData {
