@@ -28,6 +28,20 @@
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.feats-srd.Item.Relinquish Control"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.resources.focus.max",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            9
+                        ]
+                    }
+                ],
+                "value": "@actor.flags.pf2e.animist.numberOfApparitions"
             }
         ],
         "traits": {
