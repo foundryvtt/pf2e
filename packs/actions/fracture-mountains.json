@@ -26,14 +26,14 @@
             },
             {
                 "key": "AdjustModifier",
-                "mode": "multiply",
+                "mode": "override",
                 "predicate": [
                     "fracture-mountains"
                 ],
                 "relabel": "{item|name}",
                 "selector": "strike-damage",
                 "slug": "titans-breaker-immanence",
-                "value": 2
+                "value": "ternary(gte(@actor.level,18),8,ternary(gte(@actor.level,10),6,4))"
             },
             {
                 "damageType": "spirit",
