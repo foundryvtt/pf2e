@@ -887,6 +887,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         for (const item of this.items) {
             item.prepareSiblingData?.();
+        }
+
+        for (const item of this.items) {
             item.prepareActorData?.();
         }
 

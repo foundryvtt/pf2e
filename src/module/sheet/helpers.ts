@@ -1,3 +1,4 @@
+import { ItemPF2e } from "@item";
 import { htmlClosest, htmlQuery, sortLabeledRecord } from "@util";
 import * as R from "remeda";
 
@@ -104,6 +105,16 @@ async function maintainFocusInRender(sheet: Application, renderLogic: () => Prom
     }
 }
 
+async function getItemFromDragEvent(event: DragEvent): Promise<ItemPF2e | null> {
+    try {
+        const dataString = event.dataTransfer?.getData("text/plain");
+        const dropData = JSON.parse(dataString ?? "");
+        return (await ItemPF2e.fromDropData(dropData)) ?? null;
+    } catch {
+        return null;
+    }
+}
+
 interface SheetOption {
     value: string;
     label: string;
@@ -137,6 +148,7 @@ export {
     createTagifyTraits,
     getAdjustedValue,
     getAdjustment,
+    getItemFromDragEvent,
     maintainFocusInRender,
 };
 export type { AdjustedValue, SheetOption, SheetOptions, TagifyEntry };
