@@ -6,7 +6,7 @@ import type { TokenPF2e } from "./token/object.ts";
 
 class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Ruler<TToken, UserPF2e> {
     static override get canMeasure(): boolean {
-        return this.#dragMeasurement ? game.activeTool === "ruler" : super.canMeasure;
+        return super.canMeasure;
     }
 
     /** Whether drag measurement is enabled */
