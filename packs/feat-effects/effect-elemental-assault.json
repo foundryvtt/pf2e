@@ -81,7 +81,9 @@
                     }
                 ],
                 "flag": "element",
-                "key": "ChoiceSet"
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType",
+                "rollOption": "elemental-assault"
             },
             {
                 "damageType": "{item|flags.pf2e.rulesSelections.element}",
@@ -89,6 +91,42 @@
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "selector": "strike-damage"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "elemental-assault:electricity"
+                ],
+                "property": "weapon-traits",
+                "value": "air"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "elemental-assault:bludgeoning"
+                ],
+                "property": "weapon-traits",
+                "value": "earth"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "elemental-assault:fire"
+                ],
+                "property": "weapon-traits",
+                "value": "fire"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "elemental-assault:water"
+                ],
+                "property": "weapon-traits",
+                "value": "cold"
             }
         ],
         "start": {
