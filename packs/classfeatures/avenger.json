@@ -79,34 +79,43 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "flags.pf2e.favoredWeaponRank",
-                "predicate": [
-                    "item:slug:avenger"
-                ],
-                "value": 1
-            },
-            {
-                "key": "GrantItem",
-                "uuid": "Compendium.pf2e.actionspf2e.Item.Hunt Prey"
+                "value": "@actor.system.proficiencies.attacks.simple.rank"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.proficiencies.defenses.medium.rank",
+                "value": "@actor.system.proficiencies.defenses.light.rank"
+            },
+            {
+                "category": "precision",
+                "diceNumber": "@actor.flags.pf2e.sneakAttackDamage.number",
+                "dieSize": "d{actor|flags.pf2e.sneakAttackDamage.faces}",
+                "key": "DamageDice",
+                "label": "PF2E.SpecificRule.SneakAttack",
                 "predicate": [
-                    {
-                        "gte": [
-                            "self:level",
-                            13
-                        ]
-                    }
+                    "target:condition:off-guard",
+                    "item:deity-favored"
                 ],
-                "value": "ternary(gte(@actor.system.proficiencies.defenses.light.rank,2),2,1)"
+                "selector": "strike-damage"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "item:deity-favored",
+                    "target:condition:off-guard"
+                ]
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Hunt Prey"
             }
         ],
         "subfeatures": {
             "keyOptions": [
                 "str"
             ],
+            "proficiencies": {},
             "suppressedFeatures": [
                 "Compendium.pf2e.classfeatures.Item.w6rMqmGzhUahdnA7"
             ]
