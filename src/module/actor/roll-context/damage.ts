@@ -47,7 +47,7 @@ class DamageContext<
                 const paramsItemSlug = item.slug ?? sluggify(item.name);
                 const messageItemSlug = messageItem.slug ?? sluggify(messageItem.name);
 
-                return !!(
+                return (
                     paramsItemSlug === messageItemSlug &&
                     item.uuid === messageItem.uuid &&
                     item.isMelee === messageItem.isMelee
