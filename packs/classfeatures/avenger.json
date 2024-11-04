@@ -38,6 +38,10 @@
                 "value": 1
             },
             {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Hunt Prey"
+            },
+            {
                 "choices": {
                     "filter": [
                         {
@@ -88,18 +92,6 @@
                 "value": "@actor.system.proficiencies.defenses.light.rank"
             },
             {
-                "category": "precision",
-                "diceNumber": "@actor.flags.pf2e.sneakAttackDamage.number",
-                "dieSize": "d{actor|flags.pf2e.sneakAttackDamage.faces}",
-                "key": "DamageDice",
-                "label": "PF2E.SpecificRule.SneakAttack",
-                "predicate": [
-                    "target:condition:off-guard",
-                    "item:deity-favored"
-                ],
-                "selector": "strike-damage"
-            },
-            {
                 "key": "CriticalSpecialization",
                 "predicate": [
                     "item:deity-favored",
@@ -107,8 +99,14 @@
                 ]
             },
             {
-                "key": "GrantItem",
-                "uuid": "Compendium.pf2e.actionspf2e.Item.Hunt Prey"
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:deity-favored"
+                ],
+                "property": "other-tags",
+                "value": "sneak-attack"
             }
         ],
         "subfeatures": {
