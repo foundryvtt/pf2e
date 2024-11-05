@@ -1,0 +1,72 @@
+{
+    "_id": "3JDumHt2R62HFQFI",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Seven-Colored Cosmic Bridge",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Usage</strong> imbued into a melee weapon ikon</p><hr /><p>Your divine spark shines in a riot of shimmering colors, capable of carrying you through the world as fast as light itself. The imbued ikon gains the following abilities.</p>\n<p><strong>Immanence</strong> (light, teleportation) Your weapon scatters rainbow-colored light across nearby surroundings, each a possible destination. When you successfully Strike an enemy, you can choose to teleport to an unoccupied location within 10 feet as a free action.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.Fleeting Arc through Heaven and Earth] <span class=\"action-glyph\">3</span> (light, spirit, teleportation, transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.ObFY26oKlreyVIUm inline]</p>"
+        },
+        "level": {
+            "value": 18
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "choices": "flags.pf2e.exemplar.ikons",
+                "flag": "ikon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Fleeting Arc through Heaven and Earth"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "chosen-ikon:{item|flags.pf2e.rulesSelections.ikon}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "divine-spark:{item|flags.pf2e.rulesSelections.ikon}",
+                    "item:tag:physical-ikon:{item|flags.pf2e.rulesSelections.ikon}"
+                ],
+                "selector": "melee-strike-attack-roll",
+                "text": "PF2E.SpecificRule.Exemplar.SevenColoredCosmicBridge.Note",
+                "title": "PF2E.SpecificRule.Exemplar.SevenColoredCosmicBridge.Label"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "weapon-ikon-feat"
+            ],
+            "rarity": "common",
+            "value": [
+                "exemplar",
+                "ikon"
+            ]
+        }
+    },
+    "type": "feat"
+}

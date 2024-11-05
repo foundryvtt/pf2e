@@ -58,6 +58,8 @@ type CharacterFlags = ActorFlagsPF2e & {
         sheetTabs: CharacterSheetTabVisibility;
         /** Whether the basic unarmed attack is shown on the Actions tab */
         showBasicUnarmed: boolean;
+        /** The limit for each feat group that supports a custom limit. */
+        featLimits: Record<string, number>;
     };
 };
 
@@ -402,7 +404,7 @@ interface VersatileWeaponOption {
 
 interface CharacterCraftingData {
     formulas: CraftingFormulaData[];
-    entries: Record<string, Partial<CraftingAbilityData>>;
+    entries: Record<string, CraftingAbilityData>;
 }
 
 type CharacterResources = CreatureResources & {

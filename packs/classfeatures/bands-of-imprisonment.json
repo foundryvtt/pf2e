@@ -1,0 +1,203 @@
+{
+    "_id": "N1hWQx0IuKWjZ2dn",
+    "img": "icons/equipment/wrist/bracer-engraved-leather-black.webp",
+    "name": "Bands of Imprisonment",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p><strong>Usage</strong> worn anklets, bracers, or circlet (often a headband)</p><hr /><p>These weighted bands don't enhance your power—rather, they keep your strength in check, honing your discipline.</p>\n<p><strong>Immanence</strong> The bands of imprisonment tighten, keeping your mind sharp. You gain a +1 status bonus to Will saving throws and resistance to mental damage equal to half your level.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.Break Free] <span class=\"action-glyph\">2</span> (transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.ZL5o9c4jV5fRwTGR inline]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.DivineSpark.Label",
+                "mergeable": true,
+                "option": "divine-spark",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "bands-of-imprisonment"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Break Free"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.exemplar.ikons",
+                "value": {
+                    "label": "PF2E.SpecificRule.Exemplar.Ikon.BandsOfImprisonment.Label",
+                    "predicate": [
+                        "parent:tag:worn-ikon-feat"
+                    ],
+                    "value": "bands-of-imprisonment"
+                }
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Grant",
+                        "value": "granted"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Existing",
+                        "value": "existing"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Prompt",
+                "rollOption": "bands-of-imprisonment-origin"
+            },
+            {
+                "allowDuplicate": false,
+                "alterations": [
+                    {
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "physical-ikon"
+                    },
+                    {
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "physical-ikon:bands-of-imprisonment"
+                    }
+                ],
+                "key": "GrantItem",
+                "predicate": [
+                    "bands-of-imprisonment-origin:granted"
+                ],
+                "uuid": "Compendium.pf2e.equipment-srd.Item.Bands of Imprisonment"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "equipment"
+                    ]
+                },
+                "flag": "existingIkon",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "bands-of-imprisonment-origin:existing"
+                ]
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.existingIkon}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "physical-ikon"
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.existingIkon}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "bands-of-imprisonment-origin:existing"
+                ],
+                "property": "other-tags",
+                "value": "physical-ikon:bands-of-imprisonment"
+            },
+            {
+                "itemType": "equipment",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:physical-ikon:bands-of-imprisonment",
+                    "bands-of-imprisonment-origin:existing",
+                    {
+                        "not": "item:slug:bands-of-imprisonment"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "@Embed[Compendium.pf2e.classfeatures.Item.N1hWQx0IuKWjZ2dn inline]"
+                    }
+                ]
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "divine-spark:bands-of-imprisonment"
+                ],
+                "type": "mental",
+                "value": "floor(@actor.level/2)"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "divine-spark:bands-of-imprisonment"
+                ],
+                "selector": "will",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    {
+                        "or": [
+                            "item:granter:tag:chosen-ikon:bands-of-imprisonment",
+                            "item:slug:break-free"
+                        ]
+                    },
+                    {
+                        "not": "divine-spark:bands-of-imprisonment"
+                    }
+                ],
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Exemplar.DivineSpark.SparkTranscendence.Reminder"
+                    }
+                ]
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.existingIkon}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "divine"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "exemplar-ikon",
+                "exemplar-worn-ikon"
+            ],
+            "rarity": "common",
+            "value": [
+                "ikon"
+            ]
+        }
+    },
+    "type": "feat"
+}

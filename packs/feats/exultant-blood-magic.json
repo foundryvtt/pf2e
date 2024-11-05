@@ -1,0 +1,66 @@
+{
+    "_id": "Iqlv8dQHGweSNW7V",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Exultant Blood Magic",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>The magic in your blood sings an exultant song of battle. You gain the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.DOc3Pf8wmVxanTIv#master-spellcasting-feat]{master spellcasting} benefits. Increase the spell slots you gain from the bloodrager archetype feats by 1 for each spell rank. In addition, when you Cast a Spell from your repertoire and you are at least @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}, double the extra damage dealt by that spell from Rage instead.</p>"
+        },
+        "level": {
+            "value": 18
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Surging Blood Magic"
+                },
+                {
+                    "value": "legendary in Arcana or Religion, depending on your chosen tradition"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:condition:drained",
+                            2
+                        ]
+                    }
+                ],
+                "selector": "attack-spell-damage",
+                "slug": "blood-rage-spell",
+                "value": 16
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "spellcasting": {
+                    "rank": 3
+                }
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

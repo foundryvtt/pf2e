@@ -1,0 +1,85 @@
+{
+    "_id": "HMbpWNqksPhaxDHM",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Compliant Gold",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Usage</strong> imbued into a melee weapon ikon</p><hr /><p>You can command your weapon to shrink or grow, for convenience or power. Even when your ikon is not empowered, you can shrink it to a miniature size (with negligible Bulk) and keep it tucked behind an ear, in your hair, or in a similar discreet location. You can shrink your weapon or regrow it to its normal size as part of drawing it, putting it away, swapping it, or picking it up.</p>\n<p><strong>Immanence</strong> Your ikon gains the reach trait. If it already had the reach trait, it instead increases your reach by an additional 10 feet, instead of the usual additional 5 feet.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.Topple the Pillar of Heaven] <span class=\"action-glyph\">2</span> (transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.Ypwa9HIw7uXdt25D inline]</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "choices": "flags.pf2e.exemplar.ikons",
+                "flag": "ikon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Topple the Pillar of Heaven"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "chosen-ikon:{item|flags.pf2e.rulesSelections.ikon}"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:physical-ikon:{item|flags.pf2e.rulesSelections.ikon}",
+                    "divine-spark:{item|flags.pf2e.rulesSelections.ikon}"
+                ],
+                "property": "traits",
+                "value": "reach"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.CompliantGold.ExtraReachToggle",
+                "option": "compliant-gold-extra-reach",
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.reach.base",
+                "phase": "afterDerived",
+                "predicate": [
+                    "compliant-gold-extra-reach"
+                ],
+                "value": 10
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "weapon-ikon-feat"
+            ],
+            "rarity": "common",
+            "value": [
+                "exemplar",
+                "ikon"
+            ]
+        }
+    },
+    "type": "feat"
+}

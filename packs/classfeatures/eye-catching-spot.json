@@ -1,0 +1,103 @@
+{
+    "_id": "Em5gwwyVHql9cSW2",
+    "img": "icons/magic/control/mouth-smile-deception-purple.webp",
+    "name": "Eye-Catching Spot",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p><strong>Usage</strong> imbued on the face</p><hr /><p>A fetching beauty spot under an eye or a smile as warm as the sun distracts foes and captures hearts alike.</p>\n<p><strong>Immanence</strong> (mental, visual) Your beauty becomes supernaturally enhanced, distracting foes and imposing a –1 circumstance penalty to melee attack rolls against you.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.Captivating Charm] <span class=\"action-glyph\">1</span> (concentrate, emotion, mental, transcendence, visual)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.jTfJzj1yfmPLsxmj inline]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.DivineSpark.Label",
+                "mergeable": true,
+                "option": "divine-spark",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "eye-catching-spot"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.exemplar.ikons",
+                "value": {
+                    "label": "PF2E.SpecificRule.Exemplar.Ikon.EyeCatchingSpot.Label",
+                    "predicate": [
+                        "parent:tag:body-ikon-feat"
+                    ],
+                    "value": "eye-catching-spot"
+                }
+            },
+            {
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "divine-spark:eye-catching-spot"
+                ],
+                "selectors": "melee-attack-roll",
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Eye-Catching Spot"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Captivating Charm"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    {
+                        "or": [
+                            "item:granter:tag:chosen-ikon:eye-catching-spot",
+                            "item:slug:captivating-charm"
+                        ]
+                    },
+                    {
+                        "not": "divine-spark:eye-catching-spot"
+                    }
+                ],
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Exemplar.DivineSpark.SparkTranscendence.Reminder"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "exemplar-body-ikon",
+                "exemplar-ikon"
+            ],
+            "rarity": "common",
+            "value": [
+                "ikon"
+            ]
+        }
+    },
+    "type": "feat"
+}

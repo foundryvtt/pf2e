@@ -1,0 +1,60 @@
+{
+    "_id": "qsvtm35vkbB4wdUr",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Warped by Rage",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Usage</strong> imbued into a body or worn ikon</p><hr /><p>Rage courses through your body, transforming you into a beast of battle. The imbued ikon gains the following abilities.</p>\n<p><strong>Immanence</strong> You're affected by a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Enlarge] spell. You can choose to forgo this effect when your body ikon becomes empowered.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.Spasm of the Berserker] <span class=\"action-glyph\">1</span> (transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.tHHpBREXDaafK3TF inline]</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "choices": "flags.pf2e.exemplar.ikons",
+                "flag": "ikon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Spasm of the Berserker"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "chosen-ikon:{item|flags.pf2e.rulesSelections.ikon}"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "body-ikon-feat",
+                "worn-ikon-feat"
+            ],
+            "rarity": "common",
+            "value": [
+                "exemplar",
+                "ikon",
+                "morph"
+            ]
+        }
+    },
+    "type": "feat"
+}

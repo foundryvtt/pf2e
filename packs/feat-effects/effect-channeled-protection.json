@@ -1,0 +1,70 @@
+{
+    "_id": "UookwOq46zEokGOM",
+    "img": "icons/magic/defensive/barrier-shield-dome-deflect-blue.webp",
+    "name": "Effect: Channeled Protection",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Channeled Protection]</p>\n<p>You gain a status bonus to your AC and to your Reflex saving throws.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "item:origin:level",
+                                    13
+                                ]
+                            }
+                        ],
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": 1
+                    }
+                ],
+                "flag": "bonus",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Animist.ChanneledProtection.Prompt"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "ac",
+                    "reflex"
+                ],
+                "type": "status",
+                "value": "@item.flags.pf2e.rulesSelections.bonus"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

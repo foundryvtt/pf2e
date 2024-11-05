@@ -1,0 +1,83 @@
+{
+    "_id": "qvWmW5JWpVBDyGqe",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Exemplar Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>A spark of inherent divine power has lit itself within you. You become trained in martial weapons. You gain one ikon, the ability to use the ikon's immanence and transcendence actions and effects, and the @UUID[Compendium.pf2e.actionspf2e.Item.Shift Immanence] action. Because you have only a single ikon, when you Spark Transcendence, your divine spark recedes back to the depths of your soul and must be recalled with Shift Immanence to re-empower your ikon. You become trained in exemplar class DC.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Strength +2 or Dexterity +2"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.exemplar.archetypeFeatCount",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.classfeatures.Item.Divine Spark and Ikons"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.AbilityStr",
+                        "value": "str"
+                    },
+                    {
+                        "label": "PF2E.AbilityDex",
+                        "value": "dex"
+                    }
+                ],
+                "flag": "attribute",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.ClassDCAbilityScore"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.classDCs.exemplar.attribute",
+                "value": "{item|flags.pf2e.rulesSelections.attribute}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "exemplar": {
+                    "attribute": null,
+                    "rank": 1
+                }
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "archetype",
+                "dedication",
+                "multiclass"
+            ]
+        }
+    },
+    "type": "feat"
+}

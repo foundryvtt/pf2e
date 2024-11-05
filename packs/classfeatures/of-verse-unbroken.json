@@ -1,0 +1,114 @@
+{
+    "_id": "RieSRew9aMGvaGhz",
+    "img": "icons/skills/trades/music-notes-sound-blue.webp",
+    "name": "Of Verse Unbroken",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Though you are a warrior, you respect the power of song, oratory, and other arts, knowing it is these forces that make fights worth fighting. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Energized Spark] feat for your choice of sonic or vitality. When you critically succeed on a Strike, haunting melodies play around the target, making them @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} unless they succeed on a @Check[will|against:exemplar] save against your class DC.</p>\n<p>When you Spark Transcendence, your divine spark releases a sublime song that harmonizes with your allies. Until the start of your next turn, any of your allies that starts their turn within 30 feet of you can hum to Sustain one of their effects that can be sustained. This is a free action triggered by the ally's turn beginning. Your song then ends, and that ally can't benefit from this ability again for 10 minutes. This is an auditory and mental effect.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    },
+                    {
+                        "label": "PF2E.TraitVitality",
+                        "value": "vitality"
+                    }
+                ],
+                "flag": "energizedSpark",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "GrantItem",
+                "preselectChoices": {
+                    "energizedSpark": "{item|flags.pf2e.rulesSelections.energizedSpark}"
+                },
+                "uuid": "Compendium.pf2e.feats-srd.Item.Energized Spark"
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Epithet.Label",
+                "mergeable": true,
+                "option": "epithet",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "of-verse-unbroken"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    "divine-spark",
+                    "epithet:of-verse-unbroken"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Exemplar.Epithet.OfVerseUnbroken.Description"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Epithet.CriticalSpecializationToggle",
+                "option": "epithet-critical-specialization",
+                "priority": 51,
+                "toggleable": true
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "epithet-critical-specialization"
+                ]
+            },
+            {
+                "alternate": true,
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "epithet-critical-specialization"
+                ],
+                "text": "PF2E.SpecificRule.Exemplar.Epithet.BornOfTheBonesOfTheEarth.CriticalSpecialization"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "exemplar-dominion-epithet"
+            ],
+            "rarity": "common",
+            "value": [
+                "exemplar"
+            ]
+        }
+    },
+    "type": "feat"
+}

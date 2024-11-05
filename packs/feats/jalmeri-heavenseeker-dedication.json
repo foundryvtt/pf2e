@@ -30,8 +30,36 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:trait:monk",
+                        "item:level:1"
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "feat:qi-spells"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Feat"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "feat:qi-spells"
+                ],
+                "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+            },
+            {
                 "allowDuplicate": false,
                 "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "feat:qi-spells"
+                    }
+                ],
                 "uuid": "Compendium.pf2e.feats-srd.Item.Qi Spells"
             }
         ],

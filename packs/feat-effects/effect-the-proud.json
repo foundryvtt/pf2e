@@ -1,0 +1,68 @@
+{
+    "_id": "2JnREGOAqZCZPfdK",
+    "img": "icons/magic/control/buff-strength-muscle-damage-orange.webp",
+    "name": "Effect: The Proud",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.The Proud]</p>\n<p>You take a –1 status penalty to attack rolls, damage rolls, and skill checks against creatures other than the exemplar, and a +1 status bonus to these rolls when targeting the exemplar.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "target:signature:{item|origin.signature}"
+                    }
+                ],
+                "selector": [
+                    "attack-roll",
+                    "damage",
+                    "skill-check"
+                ],
+                "slug": "the-proud-modifier",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:signature:{item|origin.signature}"
+                ],
+                "selector": [
+                    "attack-roll",
+                    "damage",
+                    "skill-check"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

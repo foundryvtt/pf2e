@@ -1,0 +1,114 @@
+{
+    "_id": "pgqhlWAJ18FXaHeO",
+    "img": "icons/magic/lightning/bolt-strike-wide-white.webp",
+    "name": "Whose Cry is Thunder",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>The sky overhead is yours to command as lightning strikes your soul. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Energized Spark] feat for your choice of electricity or sonic. When you critically succeed on a Strike, a thunderclap booms! The target must make a @Check[fortitude|against:exemplar|traits:sonic] saving throw against your class DC. On a failure, they are knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] and @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 minute. This is a sonic effect.</p>\n<p>When you Spark Transcendence, you can choose to become electrically charged until the start of your next turn. Any creature that touches you or damages you with an unarmed attack or non-reach melee weapon while you're charged takes @Damage[1d6[electricity]] damage as lightning courses back to them.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "energizedSpark",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "GrantItem",
+                "preselectChoices": {
+                    "energizedSpark": "{item|flags.pf2e.rulesSelections.energizedSpark}"
+                },
+                "uuid": "Compendium.pf2e.feats-srd.Item.Energized Spark"
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Epithet.Label",
+                "mergeable": true,
+                "option": "epithet",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "whose-cry-is-thunder"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    "divine-spark",
+                    "epithet:whose-cry-is-thunder"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Exemplar.Epithet.WhoseCryIsThunder.Description"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Epithet.CriticalSpecializationToggle",
+                "option": "epithet-critical-specialization",
+                "priority": 51,
+                "toggleable": true
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "epithet-critical-specialization"
+                ]
+            },
+            {
+                "alternate": true,
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "epithet-critical-specialization"
+                ],
+                "text": "PF2E.SpecificRule.Exemplar.Epithet.WhoseCryIsThunder.CriticalSpecialization"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "exemplar-dominion-epithet"
+            ],
+            "rarity": "common",
+            "value": [
+                "exemplar"
+            ]
+        }
+    },
+    "type": "feat"
+}

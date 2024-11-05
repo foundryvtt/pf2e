@@ -1,0 +1,92 @@
+{
+    "_id": "Joy1e6pdqx6fN9mH",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Incredible Familiar",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Thaumaturge</strong> By taking the best parts of each magical tradition, you've found a way to grant your familiar even more abilities than other familiars.</p>\n<p><strong>Witch</strong> Your familiar is imbued with even more magic than other familiars.</p><hr /><p>You can select a base of six familiar or master abilities each day, instead of four.</p>\n<p><strong>Special</strong> Add the bonus familiar abilities you gain for being a witch to this amount.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Enhanced Familiar"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.attributes.familiarAbilities.value",
+                "priority": 9,
+                "value": 6
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "description",
+                "value": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "class:thaumaturge",
+                                    "feat:thaumaturge-dedication"
+                                ]
+                            }
+                        ],
+                        "text": "PF2E.SpecificRule.Feat.IncredibleFamiliar.Thaumaturge"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "class:witch",
+                                    "feat:witch-dedication"
+                                ]
+                            }
+                        ],
+                        "text": "PF2E.SpecificRule.Feat.IncredibleFamiliar.Witch.Description"
+                    },
+                    {
+                        "divider": true,
+                        "predicate": [
+                            {
+                                "or": [
+                                    "class:witch",
+                                    "feat:witch-dedication"
+                                ]
+                            }
+                        ],
+                        "text": "PF2E.SpecificRule.Feat.IncredibleFamiliar.Witch.Special",
+                        "title": "PF2E.FeatDescription.Special.Label"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "thaumaturge",
+                "witch"
+            ]
+        }
+    },
+    "type": "feat"
+}

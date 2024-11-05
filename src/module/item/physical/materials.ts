@@ -245,6 +245,19 @@ const WEAPON_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "rare",
         },
     },
+    sloughstone: {
+        low: null,
+        standard: {
+            level: 8,
+            price: 3500,
+            rarity: "rare",
+        },
+        high: {
+            level: 16,
+            price: 6000,
+            rarity: "rare",
+        },
+    },
     "sovereign-steel": {
         low: null,
         standard: {
@@ -355,6 +368,19 @@ const ARMOR_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             level: 19,
             price: 32000,
             rarity: "uncommon",
+        },
+    },
+    dreamweb: {
+        low: null,
+        standard: {
+            level: 5,
+            price: 150,
+            rarity: "rare",
+        },
+        high: {
+            level: 14,
+            price: 3000,
+            rarity: "rare",
         },
     },
     duskwood: {

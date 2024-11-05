@@ -330,7 +330,12 @@ class CompendiumPack {
     ): void {
         const convertOptions = { to: to === "ids" ? "id" : "name", map } as const;
 
-        // Convert UUIDs found in places particular to certain item types
+        if (itemIsOfType(source, "feat") && source.system.subfeatures?.suppressedFeatures) {
+            source.system.subfeatures.suppressedFeatures = source.system.subfeatures.suppressedFeatures.map((r) =>
+                CompendiumPack.convertUUID(r, convertOptions),
+            );
+        }
+
         if (itemIsOfType(source, "feat", "action") && source.system.selfEffect) {
             source.system.selfEffect.uuid = CompendiumPack.convertUUID(source.system.selfEffect.uuid, convertOptions);
         } else if (itemIsOfType(source, "ancestry", "background", "class", "kit")) {

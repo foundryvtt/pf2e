@@ -165,6 +165,7 @@ class WeaponDamagePF2e {
                 slug,
                 label,
                 modifier: splashDamage,
+                damageType: baseDamage.damageType,
                 damageCategory: "splash",
             });
             modifiers.push(modifier);
@@ -370,6 +371,18 @@ class WeaponDamagePF2e {
                     ignored: true,
                 }),
             );
+        }
+
+        // Tearing trait
+        if (weaponTraits.some((t) => t === "tearing")) {
+            const modifier = new ModifierPF2e({
+                label: CONFIG.PF2E.weaponTraits.tearing,
+                slug: "tearing",
+                modifier: strikingDice > 1 ? 2 : 1,
+                damageType: "bleed",
+                damageCategory: "persistent",
+            });
+            modifiers.push(modifier);
         }
 
         // Twin trait

@@ -1,0 +1,110 @@
+{
+    "_id": "HAe6Z2Zr4XWklhgx",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "6mJensA5MorOvpQq",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Gathering Mist",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature approaches within 50 feet of a dormant boneburst</p><hr /><p><strong>Effect</strong> The boneburst awakens, roiling up from the ground, and rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Boneburst",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 33
+            },
+            "emitsSound": "encounter",
+            "hardness": 20,
+            "hp": {
+                "details": "(BT 45)",
+                "max": 90,
+                "temp": 0,
+                "value": 90
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "object-immunities"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master) to notice that clouds of debris are coalescing into swirling, faceless shapes held together by rust-red fog and spectral, dripping clots of gore</p>",
+                "value": 28
+            }
+        },
+        "details": {
+            "description": "<p>A low howl rises from the ground, gathering strength as scraps of ancient armor, bone fragments, and clumps of earth rise into the air. Crimson vapor holds the faceless shape together, never coalescing into an identifiable form, but merely writhing through ever-changing images of torment and destruction.</p>",
+            "disable": "<p>@Check[occultism|dc:38|name:Negate Psychic Resonances] (master) to temporarily negate the psychic resonances around each fragment, causing the agglomeration to fall apart, or @Check[religion|dc:33|name:Interrupt Unholy Power] (expert) to temporarily interrupt Verex-That-Was's unholy power with divine energy from another source. If a boneburst takes 40 points of damage from a single source and it isn't destroyed, it is rendered dormant for 1 round.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 14
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder War of Immortals"
+            },
+            "reset": "<p>If the boneburst spends 5 consecutive rounds without coalescing around a living creature, it falls dormant, sinking back into the earth. After it falls dormant or is disabled, the boneburst gathers energy over the course of the next hour, after which it can be triggered again.</p>",
+            "routine": "<p>(2 actions) An awakened boneburst occupies a @Template[square|distance:20]; it is reduced to a @Template[square|distance:10] when it reaches its BT. It can occupy the same space as other creatures, but not other bonebursts. On its initiative, the boneburst Flies up to 30 feet toward the nearest living creature as its first action. As its second action, the boneburst then coalesces around any living creature within its space, invisible shards of bone tearing at their flesh. Each living creature in its space takes @Damage[(2d10+18)[slashing],1d10[spirit]|options:area-damage]{2d10+18 slashing damage and 1d10 spirit damage} (@Check[reflex|dc:35|basic|options:area-effect] save). If no living creatures are within its space, the boneburst can use its second action to Fly up to 30 feet.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 30
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 28
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "unholy"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -4,11 +4,13 @@
  */
 export const CLASS_TRAITS = new Set([
     "alchemist",
+    "animist",
     "barbarian",
     "bard",
     "champion",
     "cleric",
     "druid",
+    "exemplar",
     "fighter",
     "gunslinger",
     "kineticist",

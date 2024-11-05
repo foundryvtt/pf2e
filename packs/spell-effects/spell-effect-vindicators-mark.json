@@ -1,0 +1,49 @@
+{
+    "_id": "zdyelSV3S2ZFHsT4",
+    "img": "icons/magic/perception/eye-ringed-glow-angry-large-teal.webp",
+    "name": "Spell Effect: Vindicator's Mark",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Vindicator's Mark]</p>\n<p>Your marked target takes additional damage from all your weapon or unarmed attacks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "vindicators-mark"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:vindicators-mark"
+                ],
+                "selector": "strike-damage",
+                "value": "ceil(@item.level/2)+1"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

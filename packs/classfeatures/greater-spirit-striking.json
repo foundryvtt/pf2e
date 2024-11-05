@@ -1,0 +1,45 @@
+{
+    "_id": "AVI5SJET99zRqfpZ",
+    "img": "icons/skills/melee/strike-blade-hooked-white-red.webp",
+    "name": "Greater Spirit Striking",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your additional damage from spirit striking increases to 4 with weapons and unarmed attacks in which you're an expert, 6 if you're a master, and 8 if you're legendary.</p>"
+        },
+        "level": {
+            "value": 15
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "relabel": "{item|name}",
+                "selector": "strike-damage",
+                "slug": "spirit-striking",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "exemplar"
+            ]
+        }
+    },
+    "type": "feat"
+}

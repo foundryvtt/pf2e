@@ -1,0 +1,63 @@
+{
+    "_id": "pJaJUmTrQkXW2s9G",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Twin Stars",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Usage</strong> imbued into a one-handed weapon ikon</p><hr /><p>Your divine spark embodies a primordial duality, and your ikon splits itself accordingly into two corresponding halves. You can use an Interact action to split the imbued ikon into two copies of itself, which both gain the twin trait; these copies are identical except for one mirrored feature, such as a sun motif on one and a moon motif on another. You can use this ability again to fuse the two halves back into their original form. As these are both manifestations of the same object, your divine spark empowers the two halves as if they were a single ikon.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "choices": "flags.pf2e.exemplar.ikons",
+                "flag": "ikon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Prompt"
+            },
+            {
+                "key": "RollOption",
+                "option": "twin-stars",
+                "toggleable": true
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:usage:hands:1",
+                    "item:tag:physical-ikon:{item|flags.pf2e.rulesSelections.ikon}"
+                ],
+                "property": "traits",
+                "value": "twin"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "weapon-ikon-feat"
+            ],
+            "rarity": "common",
+            "value": [
+                "exemplar",
+                "ikon"
+            ]
+        }
+    },
+    "type": "feat"
+}

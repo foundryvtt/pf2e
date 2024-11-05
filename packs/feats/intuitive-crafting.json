@@ -11,18 +11,22 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>Your affinity with process and order makes you a natural artisan. You gain the trained proficiency rank in Crafting (or another skill of your choice, if you're already trained in Crafting). You gain the @UUID[Compendium.pf2e.feats-srd.Item.Specialty Crafting] skill feat in a specialty of your choice.</p>\n<hr />\n<p><em>Note: If you are already trained in the skill provided by this feat, you need to manually select an alternative skill.</em></p>"
+            "value": "<p>Your affinity with process and order makes you a natural artisan. You are trained in Crafting. If you were already trained in Crafting, you instead gain the @UUID[Compendium.pf2e.feats-srd.Item.Specialty Crafting] skill feat in a specialty of your choice; if you have both, you instead become trained in a skill of your choice. In addition, when you critically fail to Repair an item, you get a failure instead.</p><hr /><p><em>Note: If you were already trained in Crafting, you need to manually add the Specialty Crafting feat or select an alternative skill.</em></p>"
         },
         "level": {
             "value": 1
         },
         "prerequisites": {
-            "value": []
+            "value": [
+                {
+                    "value": "Aeonbound"
+                }
+            ]
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens: Ancestry Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
         },
         "rules": [
             {
@@ -32,14 +36,20 @@
                 "value": 1
             },
             {
-                "key": "GrantItem",
-                "uuid": "Compendium.pf2e.feats-srd.Item.Specialty Crafting"
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:repair"
+                ],
+                "selector": "crafting"
             }
         ],
         "traits": {
             "rarity": "common",
             "value": [
-                "aphorite"
+                "nephilim"
             ]
         }
     },

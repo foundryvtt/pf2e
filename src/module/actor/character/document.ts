@@ -252,6 +252,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             flags.pf2e.sheetTabs ?? {},
         );
         flags.pf2e.showBasicUnarmed ??= true;
+        flags.pf2e.featLimits ??= {};
 
         // Build selections: boosts and skill trainings
         const isGradual = game.pf2e.settings.variants.gab;
@@ -452,6 +453,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
      * modifiers according to them.
      */
     override prepareDataFromItems(): void {
+        // Set up feat hierarchies first, so that we know who is a parent of whom later
+        for (const feat of this.itemTypes.feat) {
+            feat.establishHierarchy();
+        }
+
         super.prepareDataFromItems();
         this.prepareBuildData();
     }

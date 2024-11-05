@@ -457,7 +457,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
                 id: "features",
                 label: "Kingdom Features",
             },
-            { level: this.level },
+            { limit: this.level },
         );
         this.feats = new FeatGroup(
             this.actor,
@@ -465,18 +465,22 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
                 id: "kingdom",
                 label: "Kingdom Feats",
                 slots: [{ id: "government", label: "G" }, ...evenLevels],
-                featFilter: ["traits-kingdom"],
+                filter: {
+                    traits: ["kingdom"],
+                },
             },
-            { level: this.level },
+            { limit: this.level },
         );
         this.bonusFeats = new FeatGroup(
             this.actor,
             {
                 id: "bonus",
                 label: "PF2E.FeatBonusHeader",
-                featFilter: ["traits-kingdom"],
+                filter: {
+                    traits: ["kingdom"],
+                },
             },
-            { level: this.level },
+            { limit: this.level },
         );
 
         // Assign feats and features

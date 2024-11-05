@@ -81,12 +81,13 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         });
     }
 
+    /** @todo fixme for V13 */
     constructor(actor: TActor, options?: Partial<ActorSheetOptions>) {
         super(actor, options);
 
         // On initial opening, adjust width according to `fontSize` setting
         const baseWidth = this.options.width;
-        if (typeof baseWidth === "number") {
+        if (game.release.generation === 12 && typeof baseWidth === "number") {
             const calculatedWidth = (baseWidth * game.settings.get("core", "fontSize")) / 5;
             this.position.width &&= Math.floor(Math.clamp(calculatedWidth, 0.75 * baseWidth, 1024));
         }
