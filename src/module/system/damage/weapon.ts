@@ -165,6 +165,7 @@ class WeaponDamagePF2e {
                 slug,
                 label,
                 modifier: splashDamage,
+                damageType: baseDamage.damageType,
                 damageCategory: "splash",
             });
             modifiers.push(modifier);
