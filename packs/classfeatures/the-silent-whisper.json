@@ -184,21 +184,13 @@
                 "key": "DamageAlteration",
                 "mode": "upgrade",
                 "predicate": [
-                    "item:slug:daze",
-                    "item:tag:amped"
-                ],
-                "property": "dice-faces",
-                "selectors": [
-                    "spell-damage"
-                ],
-                "value": 10
-            },
-            {
-                "key": "DamageAlteration",
-                "mode": "upgrade",
-                "predicate": [
-                    "item:slug:shatter-mind",
-                    "item:tag:amped"
+                    "item:tag:amped",
+                    {
+                        "or": [
+                            "item:slug:daze",
+                            "item:slug:shatter-mind"
+                        ]
+                    }
                 ],
                 "property": "dice-faces",
                 "selectors": [
