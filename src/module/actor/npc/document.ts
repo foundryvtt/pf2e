@@ -122,9 +122,14 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             return { value: adjusted };
         })();
         attributes.classOrSpellDC = { value: attributes.classDC.value };
-
         this.system.spellcasting = fu.mergeObject({ rituals: { dc: 0 } }, this.system.spellcasting);
-        this.system.resources.focus = fu.mergeObject({ value: 0, max: 0, cap: 3 }, this.system.resources.focus);
+
+        const resources = this.system.resources;
+        resources.focus = fu.mergeObject({ value: 0, max: 0, cap: 3 }, resources.focus);
+        resources.mythicPoints = {
+            value: resources.mythicPoints?.value ?? 3,
+            max: this.traits.has("mythic") ? 3 : 0,
+        };
     }
 
     override prepareDerivedData(): void {

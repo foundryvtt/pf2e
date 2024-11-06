@@ -26,7 +26,7 @@ import { SpellcastingSheetData } from "@item/spellcasting-entry/types.ts";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/types.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
-import { ZeroToFour } from "@module/data.ts";
+import { LabeledValueAndMax, ZeroToFour } from "@module/data.ts";
 import { craft } from "@system/action-macros/crafting/craft.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
@@ -180,11 +180,13 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         sheetData.class = actor.class;
         sheetData.deity = actor.deity;
 
-        // Update hero points label
-        sheetData.data.resources.heroPoints.hover = game.i18n.format(
-            actor.heroPoints.value === 1 ? "PF2E.HeroPointRatio.One" : "PF2E.HeroPointRatio.Many",
-            actor.heroPoints,
-        );
+        // Header resource pip. Show mythic points instead if available
+        const resources = this.actor.system.resources;
+        const headerResource = this.actor.getResource(resources.mythicPoints.max > 0 ? "mythic-points" : "hero-points");
+        sheetData.headerResource = {
+            ...headerResource,
+            icon: headerResource?.slug === "mythic-points" ? "fa-circle-m" : "fa-hospital-symbol",
+        };
 
         // Indicate whether the PC has all attribute boosts allocated
         sheetData.attributeBoostsAllocated = ((): boolean => {
@@ -1489,12 +1491,6 @@ type CharacterSystemSheetData = CharacterSystemData & {
             singleOption: boolean;
         };
     };
-    resources: {
-        heroPoints: {
-            icon: string;
-            hover: string;
-        };
-    };
     saves: Record<
         SaveType,
         CharacterSaveData & {
@@ -1556,6 +1552,8 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     hasStamina: boolean;
     /** This actor has actual containers for stowing, rather than just containers serving as a UI convenience */
     hasRealContainers: boolean;
+    /** The resource to display in the header, usually hero points */
+    headerResource: LabeledValueAndMax & { slug: string; icon: string };
     languages: LanguageSheetData[];
     magicTraditions: Record<MagicTradition, string>;
     martialProficiencies: Record<"attacks" | "defenses", Record<string, MartialProficiency>>;

@@ -1,6 +1,6 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
 import { HitPointsSummary } from "@actor/base.ts";
-import { Language } from "@actor/creature/index.ts";
+import { Language, ResourceData } from "@actor/creature/index.ts";
 import { isReallyPC } from "@actor/helpers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e } from "@actor/sheet/data-types.ts";
@@ -11,7 +11,7 @@ import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { Bulk } from "@item/physical/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
-import { ValueAndMax, ZeroToFour } from "@module/data.ts";
+import { ZeroToFour } from "@module/data.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { SocketMessage } from "@scripts/socket.ts";
 import { SettingsMenuOptions } from "@system/settings/menu.ts";
@@ -139,11 +139,12 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                       : actor.isOfType("npc")
                         ? actor.system.details.blurb.trim() || null
                         : null;
-            const heroPoints =
-                actor.isOfType("character") && isReallyPC(actor) ? actor.system.resources.heroPoints : null;
             const activities = actor.isOfType("character")
                 ? actor.system.exploration.map((id) => actor.items.get(id)).filter(R.isTruthy)
                 : [];
+
+            const mythicPoints = actor.getResource("mythic-points");
+            const heroPoints = isReallyPC(actor) ? actor.getResource("hero-points") : null;
 
             return {
                 actor,
@@ -155,7 +156,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     .map((s) => ({ slug: s.slug, mod: s.mod, label: s.label, rank: s.rank })),
                 genderPronouns,
                 blurb,
-                heroPoints,
+                resource: mythicPoints?.max ? mythicPoints : heroPoints,
                 owner: actor.isOwner,
                 observer,
                 limited: observer || actor.limited,
@@ -333,18 +334,21 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 });
             }
 
-            if (actor?.isOfType("character") && actor.canUserModify(game.user, "update")) {
-                const heroPointsPips = htmlQuery(memberElem, "a[data-action=adjust-hero-points]");
-                const { heroPoints } = actor;
-                heroPointsPips?.addEventListener("click", async () => {
-                    const newValue = Math.min(heroPoints.value + 1, heroPoints.max);
-                    await actor.update({ "system.resources.heroPoints.value": newValue });
-                });
-                heroPointsPips?.addEventListener("contextmenu", async (event) => {
-                    event.preventDefault();
-                    const newValue = Math.max(heroPoints.value - 1, 0);
-                    await actor.update({ "system.resources.heroPoints.value": newValue });
-                });
+            if (actor?.canUserModify(game.user, "update")) {
+                const pips = htmlQuery(memberElem, "a[data-action=adjust-member-resource]");
+                const slug = pips?.dataset.resource ?? "";
+                const resource = actor.getResource(slug);
+                if (resource && pips) {
+                    pips.addEventListener("click", async () => {
+                        const newValue = Math.min(resource.value + 1, resource.max);
+                        await actor.updateResource(slug, newValue);
+                    });
+                    pips.addEventListener("contextmenu", async (event) => {
+                        event.preventDefault();
+                        const newValue = Math.max(resource.value - 1, 0);
+                        await actor.updateResource(slug, newValue);
+                    });
+                }
             }
         }
 
@@ -554,7 +558,7 @@ interface MemberBreakdown {
     actor: ActorPF2e;
     genderPronouns: string | null;
     blurb: string | null;
-    heroPoints: ValueAndMax | null;
+    resource: ResourceData | null;
     hasBulk: boolean;
     bestSkills: SkillData[];
 
