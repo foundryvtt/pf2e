@@ -168,27 +168,35 @@
                 ]
             },
             {
-                "key": "DamageDice",
-                "override": {
-                    "diceNumber": "2 * ceil(@spell.rank / 2) - 1",
-                    "dieSize": "d10"
-                },
+                "key": "DamageAlteration",
+                "mode": "upgrade",
                 "predicate": [
                     "item:slug:daze",
                     "item:tag:amped"
                 ],
-                "selector": "spell-damage"
+                "property": "dice-number",
+                "selectors": [
+                    "spell-damage"
+                ],
+                "value": "2 * ceil(@spell.rank / 2) - 1"
             },
             {
-                "key": "DamageDice",
-                "override": {
-                    "dieSize": "d10"
-                },
+                "key": "DamageAlteration",
+                "mode": "upgrade",
                 "predicate": [
-                    "item:slug:shatter-mind",
-                    "item:tag:amped"
+                    "item:tag:amped",
+                    {
+                        "or": [
+                            "item:slug:daze",
+                            "item:slug:shatter-mind"
+                        ]
+                    }
                 ],
-                "selector": "spell-damage"
+                "property": "dice-faces",
+                "selectors": [
+                    "spell-damage"
+                ],
+                "value": 10
             },
             {
                 "key": "ActiveEffectLike",
