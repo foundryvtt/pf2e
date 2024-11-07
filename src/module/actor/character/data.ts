@@ -417,6 +417,7 @@ type CharacterResources = CreatureResources & {
     // Will be removed in a future update
     crafting: { infusedReagents: ValueAndMax };
     resolve?: ValueAndMax;
+    mythicPoints: ValueAndMax;
 };
 
 interface CharacterPerceptionData extends CreaturePerceptionData {

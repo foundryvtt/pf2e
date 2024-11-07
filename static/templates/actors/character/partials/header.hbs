@@ -3,18 +3,29 @@
         <h1 class="char-name">
             <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF2E.CharacterNamePlaceholder"}}" spellcheck="false" />
         </h1>
-        <div class="dots">
-            <span class="label">{{localize "PF2E.HeroPointsLabel"}}</span>
-            <span data-action="adjust-resource" data-resource="heroPoints" data-tooltip="{{data.resources.heroPoints.hover}}">
-                {{#times data.resources.heroPoints.max}}
-                    {{#if (gt @root.data.resources.heroPoints.value this)}}
-                        <i class="fa-solid fa-hospital-symbol"></i>
-                    {{else}}
-                        <i class="fa-regular fa-circle"></i>
-                    {{/if}}
-                {{/times}}
-            </span>
-        </div>
+        {{#with headerResource as |resource|}}
+            <div class="dots">
+                <span class="label">{{localize label}}</span>
+                <span
+                    data-action="adjust-resource"
+                    data-resource="{{resource.slug}}"
+                    data-tooltip="{{localize
+                        'PF2E.Actor.ResourceRatio'
+                        value=resource.value
+                        max=resource.max
+                        resource=(localize resource.label)
+                    }}"
+                >
+                    {{#times resource.max as |idx|}}
+                        {{#if (gt resource.value idx)}}
+                            <i class="fa-solid {{resource.icon}}"></i>
+                        {{else}}
+                            <i class="fa-regular fa-circle"></i>
+                        {{/if}}
+                    {{/times}}
+                </span>
+            </div>
+        {{/with}}
     </section>
     <section class="char-level">
         <div class="level">

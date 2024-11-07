@@ -74,6 +74,11 @@ abstract class AbstractNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
             record: CONFIG.PF2E.creatureTraits,
         });
 
+        const mythicResource = this.actor.getResource("mythic-points");
+        if (mythicResource?.max) {
+            sheetData.specialResources.unshift(mythicResource);
+        }
+
         return sheetData as NPCSheetData;
     }
 
