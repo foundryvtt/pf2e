@@ -32,18 +32,9 @@
                 "isDailyPrep": true,
                 "key": "CraftingAbility",
                 "label": "PF2E.SpecificRule.Thaumaturge.TalismanEsoterica",
+                "maxItemLevel": "floor(@actor.level / 2)",
                 "maxSlots": 2,
                 "slug": "talisman-esoterica"
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.crafting.entries.talismanEsoterica.maxItemLevel",
-                "phase": "beforeDerived",
-                "predicate": [
-                    "crafting:entry:talisman-esoterica"
-                ],
-                "value": "floor(@actor.level / 2)"
             }
         ],
         "traits": {

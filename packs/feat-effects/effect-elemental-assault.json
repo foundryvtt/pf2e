@@ -4,7 +4,7 @@
     "name": "Effect: Elemental Assault",
     "system": {
         "description": {
-            "value": "<p>You shroud your arms and held weapons in elemental magic. Choose one element. Until the end of your next turn, your Strikes deal an additional 1d6 damage of the indicated type and have the trait corresponding to the element: electricity for air, bludgeoning for earth, fire for fire, or cold for water.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Elemental Assault]</p>\n<p>Your Strikes deal an additional 1d6 damage of the indicated type and have the trait corresponding to the element: electricity for air, bludgeoning for earth, fire for fire, or cold for water.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -81,7 +81,9 @@
                     }
                 ],
                 "flag": "element",
-                "key": "ChoiceSet"
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType",
+                "rollOption": "elemental-assault"
             },
             {
                 "damageType": "{item|flags.pf2e.rulesSelections.element}",
@@ -89,6 +91,42 @@
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "selector": "strike-damage"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "elemental-assault:electricity"
+                ],
+                "property": "weapon-traits",
+                "value": "air"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "elemental-assault:bludgeoning"
+                ],
+                "property": "weapon-traits",
+                "value": "earth"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "elemental-assault:fire"
+                ],
+                "property": "weapon-traits",
+                "value": "fire"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "elemental-assault:water"
+                ],
+                "property": "weapon-traits",
+                "value": "cold"
             }
         ],
         "start": {

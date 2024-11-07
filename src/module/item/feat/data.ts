@@ -80,6 +80,7 @@ interface FeatSubfeatures {
     languages: LanguagesSubfeature;
     proficiencies: { [K in IncreasableProficiency]?: { rank: OneToFour; attribute?: AttributeString | null } };
     senses: { [K in SenseType]?: SenseSubfeature };
+    suppressedFeatures: ItemUUID[];
 }
 
 interface LanguagesSubfeature {

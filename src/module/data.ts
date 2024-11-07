@@ -15,18 +15,14 @@ interface ValuesList<T extends string = string> {
     value: T[];
 }
 
-/** Generic { value, label, type } type used in various places in actor/items types. */
-interface LabeledValue {
+interface LabeledValueAndMax extends ValueAndMax {
     label: string;
-    value: number | string;
-    type: string;
 }
 
-interface LabeledString extends LabeledValue {
-    value: string;
-}
-interface LabeledNumber extends LabeledValue {
+interface LabeledNumber {
+    label: string;
     value: number;
+    type: string;
 }
 
 interface TypeAndValue<TType extends string> {
@@ -142,12 +138,11 @@ type EnfolderableDocumentPF2e =
     | ItemPF2e<null>
     | Exclude<EnfolderableDocument, Actor<null> | Item<null>>;
 
-export { RARITIES, SIZES, SIZE_SLUGS, goesToEleven };
+export { goesToEleven, RARITIES, SIZE_SLUGS, SIZES };
 export type {
     EnfolderableDocumentPF2e,
     LabeledNumber,
-    LabeledString,
-    LabeledValue,
+    LabeledValueAndMax,
     MigrationRecord,
     OneToFive,
     OneToFour,

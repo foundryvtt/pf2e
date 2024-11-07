@@ -1,6 +1,8 @@
 import type { AbilityItemPF2e } from "@item/ability/document.ts";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
+import { getItemFromDragEvent } from "@module/sheet/helpers.ts";
 import { ancestryTraits } from "@scripts/config/traits.ts";
+import { ErrorPF2e } from "@util";
 import * as R from "remeda";
 import type { AbilitySystemSchema, SelfEffectReference } from "./data.ts";
 import { activateActionSheetListeners, createSelfEffectSheetData, handleSelfEffectDrop } from "./helpers.ts";
@@ -60,7 +62,12 @@ class AbilitySheetPF2e extends ItemSheetPF2e<AbilityItemPF2e> {
     }
 
     override async _onDrop(event: DragEvent): Promise<void> {
-        return handleSelfEffectDrop(this, event);
+        const item = await getItemFromDragEvent(event);
+        if (!item) return;
+
+        if (!(await handleSelfEffectDrop(this, item))) {
+            throw ErrorPF2e("Invalid item drop");
+        }
     }
 }
 

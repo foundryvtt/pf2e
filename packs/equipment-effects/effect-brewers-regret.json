@@ -4,7 +4,7 @@
     "name": "Effect: Brewer's Regret",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Brewer's Regret]</p>\n<p>You gain a +2 item bonus to saves against death and void effects.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Brewer's Regret], @UUID[Compendium.pf2e.equipment-srd.Item.Brewer's Regret (Greater)]</p>\n<p>You gain an item bonus to saves against death and void effects.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -22,6 +22,40 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:brewers-regret",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Brewer's Regret"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:brewers-regret-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Brewer's Regret (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "brewers-regret"
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
                     {
@@ -32,8 +66,20 @@
                     }
                 ],
                 "selector": "saving-throw",
+                "slug": "brewers-regret-bonus",
                 "type": "item",
                 "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "brewers-regret:brewers-regret-greater"
+                ],
+                "selector": "saving-throw",
+                "slug": "brewers-regret-bonus",
+                "type": "item",
+                "value": 3
             }
         ],
         "start": {

@@ -17,14 +17,42 @@
             "value": 4
         },
         "prerequisites": {
-            "value": []
+            "value": [
+                {
+                    "value": "Animist Dedication"
+                }
+            ]
         },
         "publication": {
             "license": "ORC",
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:category:class",
+                        "item:trait:animist",
+                        {
+                            "lte": [
+                                "item:level",
+                                2
+                            ]
+                        }
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "spiritualAwakening",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.spiritualAwakening}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

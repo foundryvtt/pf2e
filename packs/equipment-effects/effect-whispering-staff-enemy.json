@@ -4,7 +4,7 @@
     "name": "Effect: Whispering Staff (Enemy)",
     "system": {
         "description": {
-            "value": "<p>Through the staff's strange whispering, you gain a glimpse into the mind and desires of one creature you can see within 30 feet. Until the end of your next turn, that creature is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to you and takes a –2 circumstance penalty to saving throws against your spells.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Whispering Staff]</p>\n<p>You take a –2 circumstance penalty to saving throws against the origin's spells.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -23,15 +23,11 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Whispering Staff",
                 "predicate": [
-                    "origin"
+                    "item:type:spell",
+                    "origin:signature:{item|origin.signature}"
                 ],
-                "selector": [
-                    "fortitude",
-                    "reflex",
-                    "will"
-                ],
+                "selector": "saving-throw",
                 "type": "circumstance",
                 "value": -2
             }
