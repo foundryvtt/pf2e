@@ -7,7 +7,7 @@
             "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Cloak of Elvenkind]</p>\n<p>You gain a +1 item bonus to Stealth checks.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -22,10 +22,56 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:cloak-of-elvenkind",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Cloak of Elvenkind"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:cloak-of-elvenkind-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Cloak of Elvenkind (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "cloak-of-elvenkind"
+            },
+            {
                 "key": "FlatModifier",
                 "selector": "stealth",
+                "slug": "cloak-of-elvenkind-bonus",
                 "type": "item",
                 "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "cloak-of-elvenkind:cloak-of-elvenkind-greater"
+                ],
+                "selector": "stealth",
+                "slug": "cloak-of-elvenkind-bonus",
+                "type": "item",
+                "value": 2
             }
         ],
         "start": {
