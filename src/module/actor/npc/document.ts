@@ -394,10 +394,12 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 visible: statistic.proficient,
             });
 
-            // Recalculate displayed variant modifiers
+            // Recalculate displayed variant modifiers, accounting for already enabled ones
+            const enabledVariantMod =
+                statistic.check.modifiers.find((m) => m.slug === "variant" && m.enabled)?.modifier ?? 0;
             data.special ??= [];
             for (const variant of data.special) {
-                variant.mod = variant.base + (statistic.check.mod - baseData.base);
+                variant.mod = variant.base + (statistic.check.mod - baseData.base - enabledVariantMod);
             }
 
             return [key, data];
