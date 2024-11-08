@@ -1,0 +1,51 @@
+{
+    "_id": "QlgqJXCQkpCzpJZG",
+    "img": "icons/equipment/chest/breastplate-scale-grey.webp",
+    "name": "Effect: Partial Armor",
+    "system": {
+        "description": {
+            "value": "<p>Ephemeral effect</p>\n<p>Strikes made with ranged or reach weapons gain a +1 circumstance bonus to attack rolls against Marguk.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #208: Hoof, Cinder, and Storm"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:ranged",
+                            "item:trait:reach"
+                        ]
+                    }
+                ],
+                "selector": "strike-attack-roll",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
