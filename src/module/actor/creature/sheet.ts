@@ -21,7 +21,7 @@ import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import { ActorSheetPF2e, SheetClickActionHandlers } from "../sheet/base.ts";
 import { CreatureConfig } from "./config.ts";
-import { Language } from "./index.ts";
+import { Language, ResourceData } from "./index.ts";
 import { SpellPreparationSheet } from "./spell-preparation-sheet.ts";
 
 /**
@@ -111,15 +111,13 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         const resourcePips = htmlQueryAll(html, "[data-action=adjust-resource]:not(input)");
         if (resourcePips.length > 0) {
             const listener = (event: Event) => {
-                const resources = this.actor.system.resources;
-                const resource = htmlClosest(event.target, "[data-resource]")?.dataset.resource;
-                if (!resource || !resources || !(sluggify(resource, { camel: "dromedary" }) in resources)) {
-                    return;
+                const resourceSlug = htmlClosest(event.target, "[data-resource]")?.dataset.resource ?? "";
+                const resource = this.actor.getResource(resourceSlug);
+                if (resource) {
+                    const current = resource.value;
+                    const change = event.type === "click" ? 1 : -1;
+                    this.actor.updateResource(resourceSlug, current + change);
                 }
-
-                const current = resources[resource]?.value ?? 0;
-                const change = event.type === "click" ? 1 : -1;
-                this.actor.updateResource(resource, current + change);
             };
 
             for (const pips of resourcePips) {
@@ -520,12 +518,7 @@ interface CreatureSheetData<TActor extends CreaturePF2e> extends ActorSheetDataP
         remainingDying: number;
         remainingWounded: number;
     };
-    specialResources: {
-        slug: string;
-        label: string;
-        value: number;
-        max: number;
-    }[];
+    specialResources: ResourceData[];
 }
 
 export { CreatureSheetPF2e, type CreatureSheetData };

@@ -1,5 +1,6 @@
 import type { ActorType, CreaturePF2e } from "@actor";
 import type { CharacterResources } from "@actor/character/data.ts";
+import { CORE_RESOURCES } from "@actor/character/values.ts";
 import { applyActorUpdate } from "@actor/helpers.ts";
 import type { ActorCommitData } from "@actor/types.ts";
 import { PhysicalItemPF2e } from "@item";
@@ -10,14 +11,7 @@ import { createBatchRuleElementUpdate } from "../helpers.ts";
 import { type RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ResolvableValueField, type RuleElementSchema, type RuleElementSource } from "./data.ts";
 
-const INVALID_RESOURCES: (keyof CharacterResources)[] = [
-    "crafting",
-    "focus",
-    "heroPoints",
-    "investiture",
-    "infusedReagents",
-    "resolve",
-];
+const INVALID_RESOURCES: (keyof CharacterResources)[] = [...CORE_RESOURCES, "crafting", "infusedReagents"];
 
 class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> {
     protected static override validActorTypes: ActorType[] = ["character"];
