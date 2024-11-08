@@ -93,14 +93,29 @@
                 },
                 "frequency": {
                     "max": 3,
-                    "per": "day"
+                    "per": "day",
+                    "value": 3
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "extraneous-flesh",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Immunity",
+                        "predicate": [
+                            "extraneous-flesh"
+                        ],
+                        "type": "critical-hits"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
