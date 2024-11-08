@@ -32,7 +32,24 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Ancestry Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "fortify-shield",
+                "toggleable": true
+            },
+            {
+                "itemType": "shield",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "fortify-shield"
+                ],
+                "property": "hardness",
+                "value": "@actor.level"
+            }
+        ],
         "selfEffect": {
             "name": "Effect: Fortify Shield",
             "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Fortify Shield"
