@@ -22,7 +22,9 @@
             </tbody>
         </table>
     {{else}}
-        <h1>{{localize "PF2E.identification.IdentifyAlchemyDCs"}}</h1>
+        <h1>
+            {{localize (ifThen isAlchemical "PF2E.identification.IdentifyAlchemyDCs" "PF2E.identification.IdentifyGenericDCs")}}
+        </h1>
         <table>
             <tbody>
                 <tr data-skill="crafting" data-dc="{{dcs.crafting}}">
