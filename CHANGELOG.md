@@ -1,27 +1,95 @@
+## 6.6.2
+
+### System Improvements
+
+-   (In3luki) Show color coded degree of success in chat damage messages
+-   (Supe) Add ability for features to suppress/disable other features
+-   (Supe) Add implementation of mythic points
+
+### Bugfixes
+
+-   (In3luki) Fix retrieval of prior Strike attack roll when rolling damage
+-   (stwlam) Fix processing of concussive trait in damage application
+-   (Supe) Fix NPC variant skill labels not accounting for already enabled variants
+-   (Tikael) Fix missing spaces in `@Embedd` prerequisites
+-   (websterguy) Fix issue with PFS boons not displaying on character sheet
+
+### Data Updates
+
+-   (Abaddon) Add spell variants for flurry of claws and rename old spell effect
+-   (Abaddon) Fix Xulgath Leader's Weakening Strike
+-   (Abaddon) Fix publication sources in several War of Immortals items
+-   (Abaddon) Add healing roll to Lifelink
+-   (Ambrose) Add dedicated spell effect to Enlarge Companion and brush up Enlarge spell effect
+-   (Ambrose) Add prerequisites to Animist Dedication feats and update select Archetype journal entries to use `@Embed`
+-   (Ambrose) Change Eternal Legend Dedication to be a class feat
+-   (Ambrose) Complete the missing Tian Xia Character Guide Archetypes in the Archetypes Journal
+-   (Ambrose) Consolidate Brewer's Regret, Cloak of Elvenkind, and Chromatic Jellyfish Oil effects
+-   (Ambrose) Correct Thunder God's Fan prerequisite to match Player Core 2
+-   (Ambrose) Update Triumph of the Tusk backgrounds to use Remaster terminology
+-   (Ambrose) Update Cytillesh Oil damage rolls to match Player Core 2
+-   (Ambrose) Localize Cursebound condition
+-   (Dire Weasel) Add automation for Bhanyada's Extraneous Flesh
+-   (Dire Weasel) Fix resistances and weaknesses for Bhanyada Behemoth
+-   (Dire Weasel) Add automation for The Bigger They Are
+-   (Dire Weasel) Add effect for Safe Passage
+-   (Dire Weasel) Add Wither Away and fix Virulent Strike
+-   (Dire Weasel) Fix Jin Li's inline damage roll
+-   (Dire Weasel) Fix persistent damage and range for Earth's Bile
+-   (Dire Weasel) Add effects for Absorb Shock and Electric Surge
+-   (joeparis) Update 1st- through 7th-level rollable tables
+-   (jaybrueder) Fix immunities of Animated Armor
+-   (kromko) Replace some NPCs Reactive Strike action with the one from the Bestiary Ability Glossary (#17257)
+-   (rectulo) Change Sakura's Sprig to use Remaster terminology
+-   (rectulo) Fix a typo in description of Come and Get Me
+-   (reyzor) Add Game Hunter (Target) effect
+-   (Rigo) Fix Marshal Dedication skill Choice Set values
+-   (Rigo) Add base weapon type to Fighting Stick
+-   (Rigo) Add missing concentrate and manipulate traits to Phoenix Ward
+-   (Rigo) Add missing implementation of WoI multiclass archetypes
+-   (Rigo) Correct Fracture Mountains immanence damage adjustment
+-   (Rigo) Correct level of Avalanche Strike in Marshal archetype journal page
+-   (Rigo) Fix predicate on Barrow's Edge existing weapon choice set
+-   (Rigo) Implement Crash Against Me's resistance and add notes on triggering attacks
+-   (Rigo) Localize Quick Climb and Quick Swim notes and fix calculation of the latter's value
+-   (Rigo) Predicate Unleash Psyche's bonus on `psi-cantrip` tag
+-   (Rigo) Refactor Sneak Attack to be tag-based and add missing Avenger features
+-   (Rigo) Suppress Surprise Attack and Shield Block from Avenger and Warrior of Legend archetypes
+-   (Rigo) Tag Flowing Spirit Strike damage allowing Energized Spark's alteration
+-   (Rigo) Update conscious mind Damage Dice overrides to Damage Alteration
+-   (Rigo) Add spell effect for Runic Weapon
+-   (stwlam) Set max item crafting level in Talisman Esoterica feat
+-   (Tikael) Automate Monk Expertise spellcasting upgrade
+-   (Tikael) Fix action cost of Nymph's Grace focus spell
+-   (Tikael) Fix ancestry slugs on Kholo and Tripkee heritages
+-   (Tikael) Fix Assurance grant of Farmhand background
+-   (TMun) Update Add Licensing Terms (#17261)
+-   (Trent) Add effects for Albatross Curse
+
 ## 6.6.1
 
 ### Bugfixes
 
--	(Supe) Fix browsing mythic callings when one isn't set
+-   (Supe) Fix browsing mythic callings when one isn't set
 
 ### Data Updates
 
--	(Ambrose) Convert Rewrite Fate into an action that is granted by Mythic Callings
--	(Ambrose) Fix text on Avenger Class Archetype Journal Entry
--	(Ambrose) Incorporate errata for War of the Immortals
--	(Ambrose) Update additional Equipment Effects descriptions and icons
--	(Dire Weasel) Add effects for Arcane Explosion and Diadem of Divine Radiance
--	(Dire Weasel) Update some War of Immortal nephilim feats
--	(Nythz) Link War of Immortals class archetype dedications to their respective journal pages
--	(Rigo) Add effect for Fly on Shadowed Wings and inline healing for Spirit's Sacrifice
--	(Rigo) Add martial proficiency upgrade to Embodiment of Battle
--	(Rigo) Add missing divine spark predicate to Victor's Wreath immanence
--	(Rigo) Add missing traits to Ears That Hear the Truth
--	(Rigo) Automate Roaring Heart and Medium's Awareness
--	(Rigo) Fix Embed UUID on Thousand League Sandals
--	(Rigo) Fix Fracture Mountain's immanence damage adjustment
--	(Rigo) Use toggle to tag unarmed attack as a weapon ikon
--	(Supe) Make mythic variant rule hint more descriptive in settings
+-   (Ambrose) Convert Rewrite Fate into an action that is granted by Mythic Callings
+-   (Ambrose) Fix text on Avenger Class Archetype Journal Entry
+-   (Ambrose) Incorporate errata for War of the Immortals
+-   (Ambrose) Update additional Equipment Effects descriptions and icons
+-   (Dire Weasel) Add effects for Arcane Explosion and Diadem of Divine Radiance
+-   (Dire Weasel) Update some War of Immortal nephilim feats
+-   (Nythz) Link War of Immortals class archetype dedications to their respective journal pages
+-   (Rigo) Add effect for Fly on Shadowed Wings and inline healing for Spirit's Sacrifice
+-   (Rigo) Add martial proficiency upgrade to Embodiment of Battle
+-   (Rigo) Add missing divine spark predicate to Victor's Wreath immanence
+-   (Rigo) Add missing traits to Ears That Hear the Truth
+-   (Rigo) Automate Roaring Heart and Medium's Awareness
+-   (Rigo) Fix Embed UUID on Thousand League Sandals
+-   (Rigo) Fix Fracture Mountain's immanence damage adjustment
+-   (Rigo) Use toggle to tag unarmed attack as a weapon ikon
+-   (Supe) Make mythic variant rule hint more descriptive in settings
 
 ## 6.6.0
 
