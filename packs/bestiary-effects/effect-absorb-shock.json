@@ -1,0 +1,55 @@
+{
+    "_id": "LWXdHlZQ2mttrp6R",
+    "img": "icons/magic/lightning/bolt-forked-large-green.webp",
+    "name": "Effect: Absorb Shock",
+    "system": {
+        "description": {
+            "value": "<p>The stormdrinker gains 10 temporary HP, is quickened, and increases the reach of its vine Strikes by 5 feet.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #201: Pactbreaker"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": 10
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Quickened"
+            },
+            {
+                "definition": [
+                    "item:slug:vine"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "reach-15"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
