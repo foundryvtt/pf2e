@@ -22,8 +22,22 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.WeaponTypeUnarmed",
+                        "value": "unarmed"
+                    },
+                    {
+                        "label": "TYPES.Item.weapon",
+                        "value": "weapon"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "runic-impression"
+            },
+            {
                 "choices": {
-                    "includeHandwraps": true,
                     "ownedItems": true,
                     "types": [
                         "weapon"
@@ -31,6 +45,9 @@
                 },
                 "flag": "weapon",
                 "key": "ChoiceSet",
+                "predicate": [
+                    "runic-impression:weapon"
+                ],
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
@@ -141,8 +158,26 @@
                 "key": "ChoiceSet"
             },
             {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                ],
                 "key": "AdjustStrike",
                 "mode": "add",
+                "predicate": [
+                    "runic-impression:weapon"
+                ],
+                "property": "property-runes",
+                "value": "{item|flags.pf2e.rulesSelections.rune}"
+            },
+            {
+                "definition": [
+                    "item:category:unarmed"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "runic-impression:unarmed"
+                ],
                 "property": "property-runes",
                 "value": "{item|flags.pf2e.rulesSelections.rune}"
             }
