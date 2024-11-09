@@ -79,6 +79,18 @@
                 }
             }
 
+            .formula-header.empty {
+                align-items: center;
+                display: flex;
+                justify-content: space-between;
+                min-height: 2em;
+                h4 {
+                    margin: 0;
+                    opacity: 0.8;
+                    padding-left: var(--space-6);
+                }
+            }
+
             li.formula-level-header,
             li.formula-item {
                 display: grid;
@@ -94,6 +106,15 @@
                 border-left: 1px solid var(--sub);
                 border-right: 1px solid var(--sub);
                 cursor: default;
+
+                &.empty {
+                    align-items: center;
+                    display: flex;
+                    min-height: 2em;
+                    opacity: 0.85;
+                    padding-left: 2.25rem;
+                    white-space: nowrap;
+                }
 
                 &:nth-child(odd) {
                     background-color: rgba($alt-color, 0.1);
@@ -240,22 +261,6 @@
 
             li.formula-level-header.infused-reagents {
                 height: 1.75rem;
-            }
-
-            .empty {
-                align-items: center;
-                display: flex;
-                justify-content: space-between;
-                min-height: 2em;
-
-                > h4 {
-                    margin: 0;
-                    opacity: 0.75;
-                }
-
-                > * {
-                    white-space: nowrap;
-                }
             }
         }
     }
