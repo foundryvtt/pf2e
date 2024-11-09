@@ -26,13 +26,10 @@
         },
         "rules": [
             {
-                "category": "precision",
-                "diceNumber": "@actor.flags.pf2e.sneakAttackDamage.number",
-                "dieSize": "d{actor|flags.pf2e.sneakAttackDamage.faces}",
-                "key": "DamageDice",
-                "label": "PF2E.SpecificRule.SneakAttack",
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
                 "predicate": [
-                    "target:condition:off-guard",
                     {
                         "or": [
                             {
@@ -63,23 +60,10 @@
                                 ]
                             }
                         ]
-                    },
-                    {
-                        "nor": [
-                            {
-                                "and": [
-                                    "item:ranged",
-                                    {
-                                        "not": "item:thrown-melee"
-                                    }
-                                ]
-                            },
-                            "item:trait:agile",
-                            "item:trait:finesse"
-                        ]
                     }
                 ],
-                "selector": "strike-damage"
+                "property": "other-tags",
+                "value": "sneak-attack"
             },
             {
                 "key": "ActiveEffectLike",

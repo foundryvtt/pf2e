@@ -38,6 +38,10 @@
                 "value": 1
             },
             {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Hunt Prey"
+            },
+            {
                 "choices": {
                     "filter": [
                         {
@@ -79,28 +83,31 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "flags.pf2e.favoredWeaponRank",
-                "predicate": [
-                    "item:slug:avenger"
-                ],
-                "value": 1
-            },
-            {
-                "key": "GrantItem",
-                "uuid": "Compendium.pf2e.actionspf2e.Item.Hunt Prey"
+                "value": "@actor.system.proficiencies.attacks.simple.rank"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.proficiencies.defenses.medium.rank",
+                "value": "@actor.system.proficiencies.defenses.light.rank"
+            },
+            {
+                "key": "CriticalSpecialization",
                 "predicate": [
-                    {
-                        "gte": [
-                            "self:level",
-                            13
-                        ]
-                    }
+                    "item:deity-favored",
+                    "target:condition:off-guard"
+                ]
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:deity-favored",
+                    "hunted-prey"
                 ],
-                "value": "ternary(gte(@actor.system.proficiencies.defenses.light.rank,2),2,1)"
+                "property": "other-tags",
+                "value": "sneak-attack"
             }
         ],
         "subfeatures": {

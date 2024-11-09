@@ -31,67 +31,11 @@
         "rules": [
             {
                 "category": "precision",
+                "diceNumber": "ternary(gte(@actor.level,14),ternary(gte(@actor.flags.pf2e.sneakAttackDamage.number,3),2,1),1)",
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "predicate": [
-                    "class:rogue",
-                    {
-                        "or": [
-                            "item:trait:agile",
-                            "item:trait:finesse",
-                            {
-                                "and": [
-                                    "item:ranged",
-                                    {
-                                        "not": "item:thrown-melee"
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        "not": "target:condition:off-guard"
-                    }
-                ],
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 13,
-                            "value": {
-                                "diceNumber": 1
-                            }
-                        },
-                        {
-                            "start": 14,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "category": "precision",
-                "diceNumber": 1,
-                "dieSize": "d6",
-                "key": "DamageDice",
-                "predicate": [
-                    "feat:rogue-dedication",
-                    {
-                        "or": [
-                            "item:trait:agile",
-                            "item:trait:finesse",
-                            {
-                                "and": [
-                                    "item:ranged",
-                                    {
-                                        "not": "item:thrown-melee"
-                                    }
-                                ]
-                            }
-                        ]
-                    },
+                    "item:tag:sneak-attack",
                     {
                         "not": "target:condition:off-guard"
                     }

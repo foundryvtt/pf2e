@@ -30,30 +30,21 @@
         },
         "rules": [
             {
-                "category": "precision",
-                "diceNumber": 1,
-                "dieSize": "d6",
-                "key": "DamageDice",
-                "predicate": [
-                    "target:condition:off-guard",
-                    {
-                        "or": [
-                            "item:trait:agile",
-                            "item:trait:finesse",
-                            {
-                                "and": [
-                                    "item:ranged",
-                                    {
-                                        "not": "item:thrown-melee"
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ],
-                "selector": "strike-damage"
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.sneakAttackDamage.number",
+                "priority": 49,
+                "value": 1
             },
             {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.sneakAttackDamage.faces",
+                "priority": 49,
+                "value": 6
+            },
+            {
+                "allowDuplicate": false,
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.classfeatures.Item.Sneak Attack"
             },
