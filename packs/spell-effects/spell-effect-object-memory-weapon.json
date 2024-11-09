@@ -28,28 +28,18 @@
                         "weapon"
                     ]
                 },
-                "flag": "spellEffectObjectMemoryWeapon",
+                "flag": "weapon",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
-                "ability": "str",
-                "key": "FixedProficiency",
-                "selector": "{item|flags.pf2e.rulesSelections.spellEffectObjectMemoryWeapon}-attack",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "start": 1,
-                            "value": "2 + @actor.level"
-                        },
-                        {
-                            "start": 6,
-                            "value": "4 + @actor.level"
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.ObjectMemory",
+                "slug": "object-memory",
+                "value": "ternary(lt(@item.level, 6), 1, 2)"
             }
         ],
         "start": {
