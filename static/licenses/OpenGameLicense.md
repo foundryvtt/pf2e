@@ -116,15 +116,6 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 * Treasure Vault
     * Pathfinder Treasure Vault © 2023, Paizo Inc.; Authors: Michael Sayre, Mark Seifter, Kendra Leigh Speedling, Logan Bonner, Dan Cascone, Jessica Catalan, Kim Frandsen, Andrew Geels, Steven Hammond, Sen H.H.S., Joshua Kim, Dustin Knight, Luis Loza, Jacob W. Michaels, Matt Morris, Dave Nelson, Stephen Radney-McFarland, Jessica Redekop, Andrew Stoeckle, Mari Tokuda, and Andrew White.
 
-* Rage of Elements
-	* Pathfinder Rage of Elements © 2023, Paizo Inc.; Authors: Logan Bonner, Jason Bulmahn, James Case, Jessica Catalan, Andrew D. Geels, Sen H.H.S., Patrick Hurley, Jason Keeley, Luis Loza, Mark Moreland, Jonathan Morgantini, AJ Neuro, Jessica Redekop, Solomon St. John, Michael Sayre, Mark Seifter, Shahreena Shahrani, Shay Snow, Levi Steadman, Mari Tokuda, Ruvaid Virk, Andrew White, and Linda Zayas-Palmer.
-
-* Howl of the Wild
-	* Pathfinder Howl of the Wild © 2023, Paizo Inc.; Authors: Kate Baker, Rigby Bendele, Chris Bissette, Jeremy Blum, Logan Bonner, Dan Cascone, James Case, Jessica Catalan, Brite Cheney, Rue Dickey, Caryn DiMarco, Matthew Fu, Leo Glass, Steven Hammond, Patrick Hurley, Michelle Y. Kim, Dustin Knight, Kendra Leigh Speedling, Christiana Lewis, Jessie "Aki" Lo, Luis Loza, Letterio Mammoliti, Jonathan "Ryomasa" Mendoza, Quinn Murphy, Dave Nelson, Mikhail Rekun, Kai Revius, Ember Rose, Simone D. Sallé, Michael Sayre, Shay Snow, Levi Steadman, Kyle Tam, Ruvaid Virk, and Andrew White.
-
-* War of Immortals
-	* Pathfinder War of Immortals © 2024 Paizo Inc., Authors: James Case, Liane Merciel, and Michael Sayre. Additional writing by Jessica Catalan, Matt Chapmond, Steven Hammond, Steven T. Helt, Brent Holtsberry, Jason Keeley, Michelle Y. Kim, Luis Loza, Erik Mona, AJ Neuro, Joaquin Kyle “Makapatag” Saavedra, Tony Saunders, Andrew Stoeckle, Greg A. Vaughan, and Ruvaid Virk.
-
 * Adventures and Adventure Paths
     *  Pathfinder Adventure: The Fall of Plaguestone © 2019, Paizo Inc.; Author: Jason Bulmahn.
     *  Pathfinder Adventure: The Slithering © 2020, Paizo Inc.; Author: Ron Lundeen.
@@ -226,27 +217,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	*  Pathfinder Adventure Path #199: To Bloom below the Web © 2024, Paizo Inc.; Author: Liane Merciel.
 	
 	*  Pathfinder Adventure Path #200: The Seven Dooms of Sandpoint © 2024, Paizo Inc.; Author: James Jacobs.
-	
-	*  Wardens of Wildwood Player's Guide © 2024, Paizo Inc.; Author: John Compton and Michelle Y. Kim.
-	*  Pathfinder Adventure Path #201: Pactbreaker © 2024, Paizo Inc.; Author: Andrew White.
-	*  Pathfinder Adventure Path #202: Severed at the Root © 2024, Paizo Inc.; Author: Jessica Catalan, John Compton, and Alexi Greer.
-	*  Pathfinder Adventure Path #203: Shepherd of Decay © 2024, Paizo Inc.; Author: Mike Kimmel with John Compton
-	
-	*  Curtain Call Player's Guide © 2024, Paizo Inc.; Author: James Jacobs.	
-	*  Pathfinder Adventure Path #204: Stage Fright © 2024, Paizo Inc.; Author: Richard Pett, with Rue Dickey, Katrina Hennessy, and Isis Wozniakowska.
-	*  Pathfinder Adventure Path #205: Singer, Stalker, Skinsaw Man © 2024, Paizo Inc.; Author: Kendra Leigh Speedling, with Minty Belmont, Chesley Oxendine, and Isabelle Thorne.	
-	*  Pathfinder Adventure Path #206: Bring the House Down © 2024, Paizo Inc.; Author: Sen H. H. S.
-	
-	*  Triumph of the Tusk Player's Guide © 2024, Paizo Inc.; Author: John Compton and Michelle Y. Kim.
-	*  Pathfinder Adventure Path #207: The Resurrection Flood © 2024, Paizo Inc.; Author: Brian Duckwitz, with John Compton.
-	*  Pathfinder Adventure Path #208: Hoof, Cinder, and Storm © 2024, Paizo Inc.; Author: David Schwartz and Shay Snow.
-	*  Pathfinder Adventure Path #209: Destroyer’s Doom © 2024, Paizo Inc.; Author: Kendra Leigh Speedling, with John Compton, Michelle Y. Kim, and Genevieve Rudat Olejnik.
-	
-	*  Spore War Player's Guide © 2025, Paizo Inc.; Author: TBD.	
-	*  Pathfinder Adventure Path #210: Whispers in the Dirt © 2025, Paizo Inc.; Author: Jason Buhlman.	
-	*  Pathfinder Adventure Path #211: The Secret of Deathstalk Tower © 2025, Paizo Inc.; Author: James Jacobs, Linda Zayas-Palmer, and Aoife Ester.
-	*  Pathfinder Adventure Path #212: A Voice in the Blight © 2025, Paizo Inc.; Author: Rigby Bendele.
-	
+		
 * Society
     * Pathfinder Society Quest #1: The Sandstone Secret © 2019, Paizo Inc.; Author: Linda Zayas-Palmer.
     * Pathfinder Society Quest #2: Unforgiving Fire © 2019, Paizo Inc.; Author: Leo Glass.
@@ -267,10 +238,6 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	* Pathfinder Society Quest #17: Escorting a Mirage © 2024, Paizo Inc.; Author: Glen Parnell.
 	* Pathfinder Society Quest #18: Student Exchange © 2024, Paizo Inc.; Author: Jackson Wood.
 	* Pathfinder Society Quest #19: The Elsewhere Feast © 2024, Paizo Inc.; Author: Mark Malcolm.
-	* Pathfinder Society Quest #20: The Dacilane Academy's Show Must Go On © 2024, Paizo Inc.; Author: Lucas Servideo.
-	* Pathfinder Society Quest #21: Infernal Infiltration © 2024, Paizo Inc.; Author: Shan Wolf.
-	* Pathfinder Society Quest #22: Friends in Need © 2024, Paizo Inc.; Author: Elizabeth V. Nold.
-	* Pathfinder Society Quest #23: Lacking Respect © 2025, Paizo Inc.; Author: Jay Scott.
 
     * Pathfinder Society Bounty #1: The Whitefang Wyrm © 2020, Paizo Inc.; Author: Michael Sayre
     * Pathfinder Society Bounty #2: Blood of the Beautiful © 2020, Paizo Inc.; Author: Thurston Hillman
@@ -414,21 +381,6 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	* Pathfinder Society Scenario #5-19: Demonic Afterparty © 2024, Paizo Inc.; Author: Michelle Y. Kim
 	* Pathfinder Society Scenario #5-20: The Rakshasa's Court © 2024, Paizo Inc.; Author: Erin Roberts
 	
-	* Pathfinder Society Scenario #6-00: Salt of the Ocean © 2024, Paizo Inc.; Author: Rigby Bendele and Jacob W. Michaels
-	* Pathfinder Society Intro: Year of Immortal Influence © 2024, Paizo Inc.; Author: Rigby Bendele
-	* Pathfinder Society Scenario #6-02: Rain Falls on the Mountain of Sea and Sky © 2024, Paizo Inc.; Author: Luis Loza
-	* Pathfinder Society Scenario #6-03: Godsrain in a Godless Land © 2024, Paizo Inc.; Author: Solomon St. John
-	* Pathfinder Society Scenario #6-04: An Enkindled Carnival © 2024, Paizo Inc.; Author: Mike Kimmel
-	* Pathfinder Society Scenario #6-05: Silver Bark, Golden Blades © 2024, Paizo Inc.; Author: Hilary Moon Murphy
-	* Pathfinder Society Scenario #6-06: Rotten Apples © 2024, Paizo Inc.; Author: Josh Foster
-	* Pathfinder Society Scenario #6-07: A God Falls Where Magic Fails © 2024, Paizo Inc.; Author: Michael Sayre
-	* Pathfinder Society Scenario #6-08: Upon Wheels and Rime © 2024, Paizo Inc.; Author: Dave Nelson
-	* Pathfinder Society Scenario #6-09: Of Myths and Legends © 2025, Paizo Inc.; Author: Linda Zayas-Palmer
-	* Pathfinder Society Scenario #6-10: Once in Whispers © 2025, Paizo Inc.; Author: Chris Bissette
-	* Pathfinder Society Scenario #6-11: The Godsrain and the Dragon © 2025, Paizo Inc.; Author: James Case
-	* Pathfinder Society Scenario #6-12: The Burning of Greensteeples © 2025, Paizo Inc.; Author: Joseph Blomquist
-	* Pathfinder Society Scenario #6-13: All That Glitters © 2025, Paizo Inc.; Author: Genevieve Olejnik
-	
     * Pathfinder Society Guide to Play (Second Edition) © 2020, The Organized Play Foundation
 
 * Lost Omens
@@ -461,10 +413,6 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Lost Omens Impossible Lands © 2022, Paizo Inc.; Authors: Mariam Ahmad, Saif Ansari, Alexandria Bustion, Basheer Ghouse, Michelle Jones, TJ Kahn, Matt Morris, Dave Nelson, Shiv Ramdas, Mikhail Rekun, Michael Sayre, Tan Shao Han, Ruvaid Virk, Jabari Weathers, and Brian Yaksha.
     * Pathfinder Lost Omens Firebrands © 2023, Paizo Inc.; Authors: James Beck, Rigby Bendele, Jessica Catalan, Dana Ebert, Joan Hong, Sen H.H.S., Aaron Lascano, Luis Loza, Ron Lundeen, Stephanie Lundeen, Matt Morris, Jessica Redekop, Erin Roberts, and Shahreena Shahrani.
     * Pathfinder Lost Omens Highhelm © 2023, Paizo Inc.; Authors: Dan Cascone, Caryn DiMarco, Dana Ebert, Sen H.H.S., Michelle Jones, Stephanie Lundeen, Liane Merciel, Matt Morris, Dave Nelson, Nathan Reinecke, Mikhail Rekun, Erin Roberts, Owen K.C. Stephens, Andrew White, and Shan Wolf.
-	* Pathfinder Lost Omens Tian Xia World Guide © 2024, Paizo Inc.; Authors: Eren Ahn, Jeremy Blum, Alyx Bui, James Case, Banana Chan, Connie Chang, Rick Chia, Hans Chun, Theta Chun, Hiromi Cota, Dana Ebert, Basheer Ghouse, John Godek III, Sen H.H.S., Joan Hong, Michelle Jones, Joshua Kim, Daniel Kwan, Dash Kwiatkowski, Jacky Leung, Jesse J. Leung, Monte Lin, Luis Loza, Adam Ma, Liane Merciel, Ashley Moni, Kevin Thien Vu Long Nguyen, Andrew Quon, Danita Rambo, K Arsenault Rivera, Christopher Rondeau, Joaquin Kyle “Makapatag” Saavedra, Kienna Shaw, Philip Shen, Tan Shao Han, Mari Tokuda, Ruvaid Virk, Viditya Voleti, Grady Wang, Emma Yasui, and Jay Zhang
-	* Pathfinder Lost Omens Tian Xia Character Guide © 2024, Paizo Inc.; Authors: Eren Ahn, Jeremy Blum, Logan Bonner, Alyx Bui, James Case, Banana Chan, Rick Chia, Hiromi Cota, Dana Ebert, Eleanor Ferron, Basheer Ghouse, John Godek III, Sen H.H.S., Joan Hong, Daniel Kwan, Jacky Leung, Jesse J. Leung, Monte Lin, Jessie “Aki” Lo, Adam Ma, Ashley Moni, Collette Quach, Christopher Rondeau, Joaquin Kyle “Makapatag” Saavedra, Michael Sayre, Shahreena Shahrani, Kienna Shaw, Philip Shen, Tan Shao Han, Mari Tokuda, Ruvaid Virk, Viditya Voleti, Grady Wang, and Jay Zhang
-	* Pathfinder Lost Omens Divine Mysteries © 2024, Paizo Inc.; Authors: Misha Bushyager, Jessica Catalan, Carlos Cisco, Rue Dickey, Brian Duckwitz, Aoife Ester, Eleanor Ferron, Ivis K. Flanagan, Tomas Gimenez Rioja, Leo Glass, Alastor Guzman, Thurston Hillman, Laura Lynn Horst, James Jacobs, Jason Keeley, Michelle Y. Kim, Monte Lin, Luis Loza, Stephanie Lundeen, Poorna M., Adam Ma, Jacob W. Michaels, Jaime Reyes Mondragon, Zac Moran, Jon Morgantini, Matt Morris, Morgan Nuncio, Kevin Thien Vu Long Nguyen, Daniel “Drakoniques” Oleh, Pam Punzalan, Jessica Redekop, Erin Roberts, quinn b. rodriguez, Michael Sayre, Mark Seifter, Austin Taylor, Isis Wozniakowska, and Sebastian Yue
-	* Pathfinder Lost Omens Rival Academies © 2025, Paizo Inc.; Authors: Sharang Biswas, Jeremy Blum, Carlos Cisco, Aoife Ester, Laura Lynn Horst, Andrew Mullen, Kendra Leigh Speedling, Stephanie Lundeen, Mahpiya, Collette Quach, Mikhail Rekun, Erin Roberts, Navaar Seik-Jackson, Shahreena Shahrani, Gina Susanna, Tan Shao Han, Esther Wallace, and Landon Winkler.
 
 *  Free Adventures
     *  Pathfinder Torment and Legacy: A Pathfinder Second Edition Demo Adventure © 2019, Paizo Inc.; Author: Stephen Radney-MacFarland
@@ -472,7 +420,6 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Free RPG Day Adventure 2021: Threshold of Knowledge © 2021, Paizo Inc.; Author: Ron Lundeen, Jabari Weathers
     *  Pathfinder Free RPG Day Adventure 2022: A Fistful of Flowers © 2022, Paizo Inc.; Author: Eleanor Ferron, Linda Zayas-Palmer
     *  Pathfinder Free RPG Day Adventure 2023: A Few Flowers More © 2023, Paizo Inc.; Author: Linda Zayas-Palmer.
-    *  Pathfinder Free RPG Day Adventure 2024: The Great Toy Heist © 2024, Paizo Inc.; Author: Jason Keeley.
 
 *  One Shots
     *  Pathfinder One-Shot #1: Sundered Waves © 2021, Paizo Inc.; Author: Jason Bulmahn
@@ -492,8 +439,6 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	*  Pathfinder Harrow Deck © 2023, Paizo Inc.; Author: TBD
 
 *  Paizo Blog
-	*  Fine-tuning Ancestries © 2023, Paizo Inc.; Author: Jason Bulmahn.
-	*  Apex of Power © 2023, Paizo Inc.; Author: Jason Bulmahn.
     *  Kineticist Playtest Analysis © 2022, Paizo Inc.; Author: Logan Bonner; Illustrator: Wayne Reynolds.
 	*  No-Prep Character: Gristleburst © 2021, Paizo Inc.; Author: Ron Lundeen; Illustrator: Valeria Dryzhak.
     *  No-Prep Character: Duhgik © 2021, Paizo Inc.; Author: Vanessa Hoskins; Illustrator: Dominik Derow.
