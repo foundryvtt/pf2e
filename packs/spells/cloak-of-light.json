@@ -12,25 +12,31 @@
             "gftav8gvt4i3mqj6": {
                 "applyMod": false,
                 "category": null,
-                "formula": "2d4",
+                "formula": "4d6",
                 "kinds": [
+                    "damage",
                     "healing"
                 ],
                 "materials": [],
-                "type": "untyped"
+                "type": "vitality"
             }
         },
-        "defense": null,
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "fortitude"
+            }
+        },
         "description": {
-            "value": "<p>You surround yourself in holy light that restores the living and rebuffs undead. You glow with bright light in a 30-foot radius and dim light to the next 30 feet.</p>\n<p>Living creatures that begin their turn adjacent to you recover 2d4 Hit Points. Undead creatures that begin their turn adjacent to you take @Damage[(floor(@item.level/2)*2)d4[vitality]] damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The healing increases by 1d4, and the damage to undead increases by 2d4.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Cloak of Light]</p>"
+            "value": "<p>You surround yourself in holy light that restores the living and rebuffs undead. You glow with bright light in a 30-foot radius and dim light to the next 30 feet. Living creatures that begin their turn adjacent to you recover 4d6 Hit Points. Undead creatures that begin their turn adjacent to you take 4d6 vitality damage (basic Fortitude save).</p><hr /><p><strong>Heightened (+2)</strong> The healing increases by 2d6, and the damage to undead increases by 2d6.</p>"
         },
         "duration": {
             "sustained": true,
-            "value": "5 rounds"
+            "value": "1 minute"
         },
         "heightening": {
             "damage": {
-                "gftav8gvt4i3mqj6": "1d4"
+                "gftav8gvt4i3mqj6": "2d6"
             },
             "interval": 2,
             "type": "interval"
@@ -39,9 +45,9 @@
             "value": 4
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder #172: Secrets of the Temple-City"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Divine Mysteries"
         },
         "range": {
             "value": ""
@@ -55,7 +61,7 @@
             "value": "2"
         },
         "traits": {
-            "rarity": "uncommon",
+            "rarity": "common",
             "traditions": [
                 "divine",
                 "primal"

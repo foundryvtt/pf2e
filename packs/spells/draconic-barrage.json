@@ -1,6 +1,6 @@
 {
     "_id": "S6Kkk15MWGqzC00a",
-    "img": "icons/magic/fire/blast-jet-stream-embers-red.webp",
+    "img": "icons/creatures/reptiles/dragon-winged-blue.webp",
     "name": "Draconic Barrage",
     "system": {
         "area": null,
@@ -12,7 +12,7 @@
             "0": {
                 "applyMod": true,
                 "category": null,
-                "formula": "1d6",
+                "formula": "2d4",
                 "kinds": [
                     "damage"
                 ],
@@ -20,9 +20,14 @@
                 "type": "untyped"
             }
         },
-        "defense": null,
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "reflex"
+            }
+        },
         "description": {
-            "value": "<p>You shape energy into one incorporeal tiny dragon (or serpentine creature) that flits around you. The specific dragon is random; roll [[/r 1d6 #dragon]] on the table below for each dragon evoked to determine which type of dragon you create. While the spell persists, you can command one of your dragons to spit a missile of energy at a creature within 60 feet by using a single action, which has the concentrate trait. This is a ranged Strike that uses your spell attack bonus and deals 1d6 damage plus your spellcasting ability modifier, with the damage type depending on the dragon. A dragon's breath Strike uses and contributes to your multiple attack penalty. Once a dragon has used its breath Strike, it winks out of existence; when you have no dragons remaining, the spell ends.</p>\n<h2>Draconic Barrage</h2>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>d6</th>\n<th>Dragon</th>\n<th>Breath Strike type</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>Copper or Black</td>\n<td>Acid</td>\n</tr>\n<tr>\n<td>2</td>\n<td>Silver or White</td>\n<td>Cold</td>\n</tr>\n<tr>\n<td>3</td>\n<td>Bronze or Blue</td>\n<td>Electricity</td>\n</tr>\n<tr>\n<td>4</td>\n<td>Brass, Gold, or Red</td>\n<td>Fire</td>\n</tr>\n<tr>\n<td>5</td>\n<td>Green</td>\n<td>Poison</td>\n</tr>\n<tr>\n<td>6</td>\n<td>Your choice of dragon</td>\n<td>As the dragon</td>\n</tr>\n</tbody>\n</table>\n<hr />\n<p><strong>Heightened (+1)</strong> You shape 1 additional dragon, and the Strike damage increases by 1d6.</p>"
+            "value": "<p>You shape energy into a small group of tiny dragons (or other serpentine creatures) that flit around you. Choose fire, force, mental, or spirit damage when you Cast the Spell. For the duration of the spell, your Strikes with weapons or unarmed attacks deal 1 additional damage of the chosen type, as the dragons add their energy to your attacks. You can Sustain the spell to change the damage type.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Draconic Barrage]</p>\n<p>In addition, you can Sustain the spell to have the dragons fly off to bombard a creature within 60 feet. That creature takes 2d4 damage of the chosen type (basic Reflex save). Once the dragons have been used in this way, they wink out of existence and the spell ends.</p><hr /><p><strong>Heightened (+1)</strong> The additional amount of damage from the dragons increases by 1 and the damage dealt by the dragons' bombardment increases by 2d4.</p>"
         },
         "duration": {
             "sustained": false,
@@ -30,7 +35,7 @@
         },
         "heightening": {
             "damage": {
-                "0": "1d6"
+                "0": "2d4"
             },
             "interval": 1,
             "type": "interval"
@@ -38,82 +43,11 @@
         "level": {
             "value": 1
         },
-        "overlays": {
-            "2RYHI6B2d3bYdGef": {
-                "_id": "2RYHI6B2d3bYdGef",
-                "name": "Draconic Barrage (Brass, Gold or Red)",
-                "overlayType": "override",
-                "sort": 4,
-                "system": {
-                    "damage": {
-                        "0": {
-                            "category": null,
-                            "type": "fire"
-                        }
-                    }
-                }
-            },
-            "5MawTOj4zVMHKh9X": {
-                "_id": "5MawTOj4zVMHKh9X",
-                "name": "Draconic Barrage (Green)",
-                "overlayType": "override",
-                "sort": 5,
-                "system": {
-                    "damage": {
-                        "0": {
-                            "category": null,
-                            "type": "poison"
-                        }
-                    }
-                }
-            },
-            "80ACW9UKLrzhdjXr": {
-                "_id": "80ACW9UKLrzhdjXr",
-                "name": "Draconic Barrage (Silver or White)",
-                "overlayType": "override",
-                "sort": 2,
-                "system": {
-                    "damage": {
-                        "0": {
-                            "category": null,
-                            "type": "cold"
-                        }
-                    }
-                }
-            },
-            "ZC6PDu5xXDtAX76l": {
-                "_id": "ZC6PDu5xXDtAX76l",
-                "name": "Draconic Barrage (Copper or Black)",
-                "overlayType": "override",
-                "sort": 1,
-                "system": {
-                    "damage": {
-                        "0": {
-                            "category": null,
-                            "type": "acid"
-                        }
-                    }
-                }
-            },
-            "v5WFvNr31I6yRv35": {
-                "_id": "v5WFvNr31I6yRv35",
-                "name": "Draconic Barrage (Bronze or Blue)",
-                "overlayType": "override",
-                "sort": 3,
-                "system": {
-                    "damage": {
-                        "0": {
-                            "category": null,
-                            "type": "electricity"
-                        }
-                    }
-                }
-            }
-        },
+        "overlays": {},
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens: Gods & Magic"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Divine Mysteries"
         },
         "range": {
             "value": ""
@@ -127,10 +61,9 @@
             "value": "2"
         },
         "traits": {
-            "rarity": "common",
+            "rarity": "uncommon",
             "traditions": [],
             "value": [
-                "attack",
                 "cleric",
                 "concentrate",
                 "focus",
