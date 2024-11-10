@@ -151,6 +151,39 @@
         }
     }
 
+    &.resources {
+        ol {
+            list-style: none;
+            margin: 0;
+            padding: 0 var(--space-5) 0 0;
+            width: 100%;
+
+            li.special-resource {
+                align-items: center;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                .label {
+                    flex: 1;
+                }
+
+                input {
+                    width: 3.5ch;
+                    text-align: end;
+                    margin-right: var(--space-2);
+                }
+
+                .pips {
+                    cursor: pointer;
+                    display: flex;
+                    gap: var(--space-1);
+                    font-size: 0.95em;
+                }
+            }
+        }
+    }
+
     &.saves {
         gap: var(--space-4);
 

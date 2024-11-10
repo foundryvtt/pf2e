@@ -82,13 +82,7 @@ class CraftingAbility implements CraftingAbilityData {
     async getSheetData(): Promise<CraftingAbilitySheetData> {
         const preparedCraftingFormulas = await this.getPreparedCraftingFormulas();
         const prepared = [...preparedCraftingFormulas];
-        if (this.maxSlots > 0) {
-            const fill = this.maxSlots - prepared.length;
-            if (fill > 0) {
-                const nulls = new Array(fill).fill(null);
-                prepared.push(...nulls);
-            }
-        }
+        const remainingSlots = Math.max(0, this.maxSlots - prepared.length);
         return {
             label: this.label,
             slug: this.slug,
@@ -99,6 +93,7 @@ class CraftingAbility implements CraftingAbilityData {
             maxSlots: this.maxSlots,
             reagentCost: await this.calculateReagentCost(),
             prepared,
+            remainingSlots,
         };
     }
 
@@ -259,7 +254,8 @@ interface CraftingAbilitySheetData {
     maxSlots: number;
     maxItemLevel: number;
     reagentCost: number;
-    prepared: (PreparedFormula | null)[];
+    remainingSlots: number;
+    prepared: PreparedFormula[];
 }
 
 export { CraftingAbility };

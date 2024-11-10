@@ -1,0 +1,51 @@
+{
+    "_id": "ImGkGl9OeK1zyxYJ",
+    "img": "icons/equipment/chest/vest-leather-tattered-white.webp",
+    "name": "Effect: Shift Scales",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Zetogeki Hide Armor]</p>\n<p>You gain resistance 5 to bludgeoning, piercing, and slashing damage, but your Speeds are reduced by 10 feet (minimum 5 feet).</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #208: Hoof, Cinder, and Storm"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": [
+                    "bludgeoning",
+                    "piercing",
+                    "slashing"
+                ],
+                "value": 5
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "all-speeds",
+                "value": -10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

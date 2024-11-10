@@ -248,6 +248,7 @@ const speedTypes = R.mapToObj(MOVEMENT_TYPES, (t) => [
 const featCategories: Record<FeatOrFeatureCategory, string> = {
     ancestry: "PF2E.Item.Feat.Category.Ancestry",
     ancestryfeature: "PF2E.Item.Feat.Category.AncestryFeature",
+    calling: "PF2E.Item.Feat.Category.Calling",
     class: "PF2E.Item.Feat.Category.Class",
     classfeature: "PF2E.Item.Feat.Category.ClassFeature",
     skill: "PF2E.Item.Feat.Category.Skill",
