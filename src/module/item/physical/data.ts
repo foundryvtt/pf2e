@@ -158,11 +158,12 @@ type Coins = {
 interface PartialPrice {
     value: Coins;
     per?: number;
+    /** Whether the price adjusts according to its size */
+    sizeSensitive?: boolean;
 }
 
-interface Price extends PartialPrice {
+interface Price extends Required<PartialPrice> {
     value: CoinsPF2e;
-    per: number;
 }
 
 export type {

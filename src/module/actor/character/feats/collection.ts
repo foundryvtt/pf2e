@@ -125,7 +125,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
                         label: "PF2E.Actor.Character.FeatSlot.MythicCallingShort",
                         placeholder: "PF2E.Actor.Character.FeatSlot.MythicCallingPlaceholder",
                         filter: {
-                            traits: ["calling"],
+                            categories: ["calling"],
                         },
                     },
                     ...[2, 4, 6, 8, 10, 12, 14, 16, 18, 20].map((level, idx): FeatSlotData => {

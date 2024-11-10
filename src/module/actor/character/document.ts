@@ -365,9 +365,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         };
         system.proficiencies.spellcasting ??= { rank: 0 };
 
-        // Resources
+        // Resources (Mythic points replace hero points if the character is mythic)
         const { resources } = this.system;
-        resources.heroPoints.max = 3;
+        const isMythic =
+            game.pf2e.settings.campaign.mythic !== "disabled" &&
+            this.itemTypes.feat.some((f) => f.category === "calling");
+        resources.heroPoints.max = isMythic ? 0 : 3;
         resources.investiture = { value: 0, max: 10 };
         resources.focus = {
             value: resources.focus?.value || 0,
@@ -376,9 +379,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         };
         resources.crafting = fu.mergeObject({ infusedReagents: { value: 0, max: 0 } }, resources.crafting ?? {});
         resources.crafting.infusedReagents.max = 0;
-        const isMythic =
-            game.pf2e.settings.campaign.mythic !== "disabled" &&
-            this.itemTypes.feat.some((f) => f.system.traits.value.includes("calling"));
         resources.mythicPoints = { value: resources.mythicPoints?.value ?? 0, max: isMythic ? 3 : 0 };
 
         // Size

@@ -19,9 +19,8 @@ class TreasurePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
     /** Set non-coinage treasure price from its numeric value and denomination */
     override prepareBaseData(): void {
         super.prepareBaseData();
-        if (this.isCoinage) {
-            this.system.size = "med";
-        }
+        this.system.price.sizeSensitive = false;
+        if (this.isCoinage) this.system.size = "med";
     }
 
     override async getChatData(
