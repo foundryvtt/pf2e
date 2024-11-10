@@ -467,12 +467,17 @@ class PackExtractor {
                                 img: ImageFilePath;
                                 prototypeToken: DeepPartial<foundry.data.PrototypeTokenSource>;
                             } = docSource;
+                            const ringSetting = docSource.prototypeToken.ring;
                             withToken.prototypeToken = { name: docSource.prototypeToken.name };
                             // Iconics have special tokens
                             if (withToken.img?.includes("iconics")) {
                                 withToken.prototypeToken.texture = {
                                     src: withToken.img.replace("Full", "") as ImageFilePath,
                                 };
+                            }
+                            // If using dynamic ring, preserve enabled status and subject texture
+                            if (ringSetting?.enabled) {
+                                withToken.prototypeToken.ring = R.pick(ringSetting, ["enabled", "subject"]);
                             }
                         }
 
