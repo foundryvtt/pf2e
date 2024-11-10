@@ -10,7 +10,7 @@ import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import type { Coins } from "@item/physical/data.ts";
-import { detachSubitem } from "@item/physical/helpers.ts";
+import { detachSubitem, sizeItemForActor } from "@item/physical/helpers.ts";
 import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { createUseActionMessage } from "@module/chat-message/helpers.ts";
@@ -1086,7 +1086,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             return [item];
         }
 
-        if (itemIsOfType(itemSource, "physical")) {
+        if (item.isOfType("physical") && itemIsOfType(itemSource, "physical")) {
             const containerId = htmlClosest(event.target, "li[data-is-container]")?.dataset.itemId?.trim() || null;
             const container = this.actor.itemTypes.backpack.find((container) => container.id === containerId);
             if (container) {
@@ -1096,9 +1096,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 itemSource.system.equipped.carryType = "worn";
             }
             // If the item is from a compendium, adjust the size to be appropriate to the creature's
-            if (data?.uuid?.startsWith("Compendium") && itemSource.type !== "treasure" && actor.isOfType("creature")) {
-                const sourceSize = actor.system.traits?.naturalSize ?? actor.size;
-                itemSource.system.size = sourceSize === "sm" ? "med" : sourceSize;
+            if (data?.uuid?.startsWith("Compendium.") || event.dataTransfer?.types.includes("from-browser")) {
+                itemSource.system = sizeItemForActor(item, actor)._source.system;
             }
         }
 
