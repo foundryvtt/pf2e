@@ -361,6 +361,16 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         return Array.from(rollOptions);
     }
 
+    protected override embedHTMLString(_config: DocumentHTMLEmbedConfig, _options: EnrichmentOptions): string {
+        const list = this.system.prerequisites?.value?.map((item) => item.value).join(", ") ?? "";
+        return (
+            (list
+                ? `<p><strong>${game.i18n.localize("PF2E.FeatPrereqLabel")}</strong> ${list}</p>` +
+                  (_config.hr === false ? "" : "<hr>")
+                : "") + this.description
+        );
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
@@ -402,16 +412,24 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         normalizeActionChangeData(this, changed);
 
         // Ensure onlyLevel1 and takeMultiple are consistent
+        const category = changed.system.category ?? this._source.system.category;
         const traits = changed.system.traits?.value;
-        if (setHasElement(FEATURE_CATEGORIES, changed.system.category ?? this.category)) {
+        if (setHasElement(FEATURE_CATEGORIES, category)) {
+            // Ensure onlyLevel1 and takeMultiple are consistent
             changed.system.onlyLevel1 = false;
             changed.system.maxTakable = 1;
-
-            if (this.category !== "ancestry" && Array.isArray(traits)) {
-                traits.findSplice((t) => t === "lineage");
+            if (changed.system.category === "calling" && Array.isArray(traits)) {
+                if (!traits.includes("calling")) traits.push("calling");
+                if (!traits.includes("mythic")) traits.push("mythic");
+                traits.sort();
             }
-        } else if ((Array.isArray(traits) && traits.includes("lineage")) || changed.system?.onlyLevel1) {
-            fu.mergeObject(changed, { system: { maxTakable: 1 } });
+        } else if (setHasElement(FEAT_CATEGORIES, category) && Array.isArray(traits)) {
+            if (traits.includes("calling")) traits.splice(traits.indexOf("calling"), 1);
+            if (category !== "ancestry" && traits.includes("lineage")) {
+                traits.splice(traits.indexOf("lineage"), 1);
+            } else if (traits.includes("lineage") || changed.system?.onlyLevel1) {
+                fu.mergeObject(changed, { system: { maxTakable: 1 } });
+            }
         }
 
         return super._preUpdate(changed, operation, user);
@@ -443,16 +461,6 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             const formatParams = { ...actorItemNames, maxTakable, timesTaken };
             ui.notifications.warn(game.i18n.format("PF2E.Item.Feat.Warning.TakenMoreThanMax", formatParams));
         }
-    }
-
-    protected override embedHTMLString(_config: DocumentHTMLEmbedConfig, _options: EnrichmentOptions): string {
-        const list = this.system.prerequisites?.value?.map((item) => item.value).join(", ") ?? "";
-        return (
-            (list
-                ? `<p><strong>${game.i18n.localize("PF2E.FeatPrereqLabel")}</strong> ${list}</p>` +
-                  (_config.hr === false ? "" : "<hr>")
-                : "") + this.description
-        );
     }
 }
 

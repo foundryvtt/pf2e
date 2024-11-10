@@ -38,7 +38,9 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
     }
 
     override get validTraits(): Record<string, string> {
-        return CONFIG.PF2E.featTraits;
+        return this.item.category === "calling"
+            ? R.omit(CONFIG.PF2E.featTraits, ["calling", "class"])
+            : CONFIG.PF2E.featTraits;
     }
 
     override async getData(options?: Partial<ItemSheetOptions>): Promise<FeatSheetData> {
