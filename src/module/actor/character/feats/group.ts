@@ -43,6 +43,7 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
         this.label = data.label;
         this.supported = data.supported ?? [];
         this.filter = data.filter ?? {};
+        this.filter.categories ??= this.supported;
         this.customLimit = data.customLimit ?? null;
         if (this.customLimit && actor.isOfType("character")) {
             const { min, max } = this.customLimit;
@@ -65,6 +66,7 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
                     continue;
                 }
 
+                // Create the slot and set some defaults
                 const slot: FeatSlot<TItem> = {
                     ...slotObject,
                     id: slotObject.id ?? `${this.id}-${slotObject.level}`,
@@ -73,6 +75,10 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
                     placeholder: slotObject.placeholder ?? data.placeholder ?? "PF2E.EmptySlot",
                     children: [],
                 };
+                if (slot.filter) {
+                    slot.filter.categories ??= this.supported;
+                }
+
                 this.feats.push(slot);
                 this.slots[slot.id] = slot;
             }

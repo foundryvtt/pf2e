@@ -134,6 +134,8 @@ class CompendiumBrowser extends Application {
             "pf2e.classfeatures": true,
             "pf2e.feats-srd": true,
             "pf2e.spells-srd": true,
+            "pf2e.boons-and-curses": true,
+            "pf2e.pathfinder-society-boons": true,
             "pf2e.kingmaker-features": true,
         };
 

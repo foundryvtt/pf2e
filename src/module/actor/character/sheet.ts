@@ -65,7 +65,7 @@ import {
 } from "./data.ts";
 import { CharacterPF2e } from "./document.ts";
 import { ElementalBlast, ElementalBlastConfig } from "./elemental-blast.ts";
-import type { FeatGroup } from "./feats/index.ts";
+import type { FeatBrowserFilterProps, FeatGroup } from "./feats/index.ts";
 import { PCSheetTabManager } from "./tab-manager.ts";
 import { CHARACTER_SHEET_TABS } from "./values.ts";
 
@@ -1228,25 +1228,36 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     /** Contextually search the feats tab of the Compendium Browser */
     async #onClickBrowseFeats(element: HTMLElement): Promise<void> {
         // Get group and slot and then the relevant filter values
-        const groupId = htmlClosest(element, "[data-group-id]")?.dataset.groupId;
-        const featGroup =
-            groupId === "bonus" ? this.actor.feats.bonus : this.actor.feats.get(groupId, { strict: true });
-        const slot = featGroup.slots[htmlClosest(element, "[data-slot-id]")?.dataset.slotId ?? ""];
-        const featFilters = slot?.filter ?? featGroup.filter;
+        // If this is for a not-feat-group, we create a custom filter
+        const { featFilters, maxLevel } = ((): { featFilters: FeatBrowserFilterProps; maxLevel?: number } => {
+            const groupId = htmlClosest(element, "[data-group-id]")?.dataset.groupId;
+            if (groupId === "pfs") {
+                return { featFilters: { categories: ["pfsboon"] }, maxLevel: this.actor.level };
+            } else if (groupId === "intercession") {
+                return { featFilters: { categories: ["deityboon", "curse"] } };
+            }
 
-        const maxLevel = Number(element.dataset.level) || featGroup.level;
+            const dataSetLevel = Number(element.dataset.level);
+            const featGroup =
+                groupId === "bonus" ? this.actor.feats.bonus : this.actor.feats.get(groupId, { strict: true });
+            const slot = featGroup.slots[htmlClosest(element, "[data-slot-id]")?.dataset.slotId ?? ""];
+            return { featFilters: slot?.filter ?? featGroup.filter, maxLevel: dataSetLevel || featGroup.level };
+        })();
+
         const featTab = game.pf2e.compendiumBrowser.tabs.feat;
         const filter = await featTab.getFilterData();
         filter.multiselects.traits.conjunction = featFilters?.conjunction ?? "or";
 
         // Assign levels
-        const level = filter.sliders.level;
-        level.values.max = Math.min(maxLevel, level.values.upperLimit);
-        level.isExpanded = level.values.max !== level.values.upperLimit;
+        if (typeof maxLevel === "number") {
+            const level = filter.sliders.level;
+            level.values.max = Math.min(maxLevel, level.values.upperLimit);
+            level.isExpanded = level.values.max !== level.values.upperLimit;
+        }
 
         // Assign categories
         const category = filter.checkboxes.category;
-        for (const value of featFilters.categories ?? featGroup.supported ?? []) {
+        for (const value of featFilters.categories ?? []) {
             category.isExpanded = true;
             category.options[value].selected = true;
             category.selected.push(value);
