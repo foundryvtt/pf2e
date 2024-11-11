@@ -1,29 +1,29 @@
-import { ActorPF2e, type ArmyPF2e } from "@actor";
+import { ActorPF2e, type ArmyPF2e, type PartyPF2e } from "@actor";
 import { FeatGroup } from "@actor/character/feats/index.ts";
 import { MODIFIER_TYPES, ModifierPF2e, RawModifier, createProficiencyModifier } from "@actor/modifiers.ts";
 import { CampaignFeaturePF2e, ItemPF2e } from "@item";
-import { ItemType } from "@item/base/data/index.ts";
+import type { ItemType } from "@item/base/data/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
-import { ZeroToFour } from "@module/data.ts";
+import type { ZeroToFour } from "@module/data.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, createHTMLElement, fontAwesomeIcon, objectHasKey, setHasElement } from "@util";
 import * as R from "remeda";
-import type { PartyPF2e } from "../document.ts";
+import { PartySystemData } from "../data.ts";
 import { PartyCampaign } from "../types.ts";
 import { KingdomBuilder } from "./builder.ts";
 import { calculateKingdomCollectionData, importDocuments, resolveKingdomBoosts } from "./helpers.ts";
-import { KINGDOM_SCHEMA } from "./schema.ts";
-import { KingdomSheetPF2e } from "./sheet.ts";
 import {
     KingdomCHG,
     KingdomCharter,
+    KingdomData,
     KingdomGovernment,
-    KingdomNationType,
     KingdomSchema,
-    KingdomSkill,
     KingdomSource,
-} from "./types.ts";
+    defineKingdomSchema,
+} from "./schema.ts";
+import { KingdomSheetPF2e } from "./sheet.ts";
+import type { KingdomNationType, KingdomSkill } from "./types.ts";
 import {
     CONTROL_DC_BY_LEVEL,
     KINGDOM_ABILITIES,
@@ -38,11 +38,10 @@ import {
     KINGDOM_SKILL_LABELS,
     VACANCY_PENALTIES,
 } from "./values.ts";
-
-const { DataModel } = foundry.abstract;
+import DataModel = foundry.abstract.DataModel;
 
 /** Model for the Kingmaker campaign data type, which represents a Kingdom */
-class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampaign {
+class Kingdom extends DataModel<PartySystemData, KingdomSchema> implements PartyCampaign {
     declare nationType: KingdomNationType;
     declare features: FeatGroup<PartyPF2e, CampaignFeaturePF2e>;
     declare feats: FeatGroup<PartyPF2e, CampaignFeaturePF2e>;
@@ -52,11 +51,11 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
     declare armies: ArmyPF2e[];
 
     static override defineSchema(): KingdomSchema {
-        return KINGDOM_SCHEMA;
+        return defineKingdomSchema();
     }
 
     get actor(): PartyPF2e {
-        return this.parent;
+        return this.parent.parent;
     }
 
     get extraItemTypes(): ItemType[] {
@@ -358,7 +357,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
         }
 
         // Compute commodity max values
-        for (const [type, value] of Object.entries(this.resources.commodities)) {
+        for (const [type, value] of R.entries(this.resources.commodities)) {
             const settlementStorage = R.sumBy(settlements, (s) => s.storage[type]);
             value.max = sizeData.storage + settlementStorage;
         }
@@ -588,6 +587,6 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
     }
 }
 
-interface Kingdom extends ModelPropsFromSchema<KingdomSchema> {}
+interface Kingdom extends DataModel<PartySystemData, KingdomSchema>, KingdomData {}
 
 export { Kingdom };
