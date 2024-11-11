@@ -5,6 +5,5 @@ import "./grid-highlight.d.ts";
 import "./object-hud.d.ts";
 import "./point-source/index.d.ts";
 import "./precise-text.d.ts";
-import "./quadtree.d.ts";
 import "./ray/index.d.ts";
 import "./resize-handle.d.ts";
