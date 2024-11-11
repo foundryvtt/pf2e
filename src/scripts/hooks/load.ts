@@ -2,6 +2,7 @@ import { ActorProxyPF2e } from "@actor";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
 import { FamiliarSystemData } from "@actor/familiar/data.ts";
 import { resetActors } from "@actor/helpers.ts";
+import { LootSystemData } from "@actor/loot/data.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ItemProxyPF2e } from "@item";
 import { AbilitySystemData } from "@item/ability/index.ts";
@@ -84,6 +85,7 @@ export const Load = {
 
         // Actor system data models
         CONFIG.Actor.dataModels.familiar = FamiliarSystemData;
+        CONFIG.Actor.dataModels.loot = LootSystemData;
 
         // Item system data models
         CONFIG.Item.dataModels.action = AbilitySystemData;

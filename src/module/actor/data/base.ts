@@ -36,7 +36,7 @@ type ActorFlagsPF2e = DocumentFlags & {
 
 type ActorSystemSource = {
     details?: ActorDetailsSource;
-    attributes: ActorAttributesSource;
+    attributes?: ActorAttributesSource;
     traits?: ActorTraitsSource<string>;
 
     /** A record of this actor's current world schema version as well a log of the last migration to occur */
@@ -88,16 +88,18 @@ interface ActorAttributes extends ActorAttributesSource {
         broken: boolean;
         itemId: string | null;
     };
-    flanking: {
-        /** Whether the actor can flank at all */
-        canFlank: boolean;
-        /** Given the actor can flank, the conditions under which it can do so without an ally opposite the target */
-        canGangUp: GangUpCircumstance[];
-        /** Whether the actor can be flanked at all */
-        flankable: boolean;
-        /** Given the actor is flankable, whether it is off-guard when flanked */
-        offGuardable: OffGuardableCircumstance;
-    };
+    flanking: FlankingData;
+}
+
+interface FlankingData {
+    /** Whether the actor can flank at all */
+    canFlank: boolean;
+    /** Given the actor can flank, the conditions under which it can do so without an ally opposite the target */
+    canGangUp: GangUpCircumstance[];
+    /** Whether the actor can be flanked at all */
+    flankable: boolean;
+    /** Given the actor is flankable, whether it is off-guard when flanked */
+    offGuardable: OffGuardableCircumstance;
 }
 
 interface ActorHitPoints extends Required<BaseHitPointsSource> {
@@ -307,6 +309,7 @@ export type {
     BaseActorSourcePF2e,
     BaseHitPointsSource,
     DamageRollFunction,
+    FlankingData,
     GangUpCircumstance,
     HitPointsStatistic,
     InitiativeData,

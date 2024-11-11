@@ -58,6 +58,7 @@ export class Migration882SpellDataReorganization extends MigrationBase {
                 .filter(R.isTruthy)
                 .sort();
         }
+        if (!source.system.attributes) return;
 
         source.system.attributes.immunities = source.system.attributes.immunities?.filter(
             (i) => !this.#SCHOOL_TRAITS.has(i.type),
