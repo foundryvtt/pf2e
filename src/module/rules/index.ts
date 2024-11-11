@@ -18,7 +18,6 @@ import { DamageDiceRuleElement } from "./rule-element/damage-dice.ts";
 import { DexterityModifierCapRuleElement } from "./rule-element/dexterity-modifier-cap.ts";
 import { EphemeralEffectRuleElement } from "./rule-element/ephemeral-effect.ts";
 import { FastHealingRuleElement } from "./rule-element/fast-healing.ts";
-import { FixedProficiencyRuleElement } from "./rule-element/fixed-proficiency.ts";
 import { FlatModifierRuleElement } from "./rule-element/flat-modifier.ts";
 import { GrantItemRuleElement } from "./rule-element/grant-item/rule-element.ts";
 import type { RuleElementOptions, RuleElementSchema, RuleElementSource } from "./rule-element/index.ts";
@@ -69,7 +68,6 @@ class RuleElements {
         DexterityModifierCap: DexterityModifierCapRuleElement,
         EphemeralEffect: EphemeralEffectRuleElement,
         FastHealing: FastHealingRuleElement,
-        FixedProficiency: FixedProficiencyRuleElement,
         FlatModifier: FlatModifierRuleElement,
         GrantItem: GrantItemRuleElement,
         Immunity: ImmunityRuleElement,
@@ -144,4 +142,4 @@ type RuleElementConstructor = { schema: LaxSchemaField<RuleElementSchema> } & (n
     options: RuleElementOptions,
 ) => RuleElementPF2e);
 
-export { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource };
+export { RuleElementOptions, RuleElementPF2e, RuleElementSource, RuleElements };

@@ -281,6 +281,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         // Normalize and fill price data
         this.system.price.value = new CoinsPF2e(this.system.temporary ? {} : this.system.price.value);
         this.system.price.per = Math.max(1, this.system.price.per ?? 1);
+        this.system.price.sizeSensitive ??= true;
 
         // Fill out usage and equipped status
         this.system.usage = getUsageDetails(this.system.usage?.value ?? "carried");
@@ -350,6 +351,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         };
 
         // Compute level, rarity, and price from factors like runes, precious material, shoddiness, and size
+        if (this.isMagical) this.system.price.sizeSensitive = false;
         const { level, rarity, price } = computeLevelRarityPrice(this);
         this.system.level.value = level;
         this.system.traits.rarity = rarity;

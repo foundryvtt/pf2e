@@ -1,0 +1,49 @@
+{
+    "_id": "SWngTPtwUi0aOHcH",
+    "img": "icons/magic/fire/elemental-fire-humanoid.webp",
+    "name": "Effect: Lunar Blaze",
+    "system": {
+        "description": {
+            "value": "<p>Diskah becomes immune to fire damage and her melee Strikes deal an additional 1d6 persistent fire damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #208: Hoof, Cinder, and Storm"
+        },
+        "rules": [
+            {
+                "key": "Immunity",
+                "type": "fire"
+            },
+            {
+                "category": "persistent",
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "melee-strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

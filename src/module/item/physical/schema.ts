@@ -1,11 +1,10 @@
-import type { NumberField, SchemaField } from "types/foundry/common/data/fields.d.ts";
 import { CoinsPF2e } from "./coins.ts";
+import type { Price } from "./index.ts";
+import fields = foundry.data.fields;
 
-const fields = foundry.data.fields;
-
-class PriceField extends fields.SchemaField<PriceSchema> {
+class PriceField extends fields.SchemaField<PriceSchema, SourceFromSchema<PriceSchema>, Price> {
     constructor() {
-        const denominationField = (): NumberField<number, number, false, false, false> =>
+        const denominationField = (): fields.NumberField<number, number, false, false, false> =>
             new fields.NumberField({ required: false, nullable: false, initial: undefined });
         super(
             {
@@ -28,6 +27,7 @@ class PriceField extends fields.SchemaField<PriceSchema> {
                     integer: true,
                     initial: 1,
                 }),
+                sizeSensitive: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
             },
             {
                 required: true,
@@ -40,35 +40,33 @@ class PriceField extends fields.SchemaField<PriceSchema> {
                         pp: undefined,
                     },
                     per: 1,
+                    sizeSensitive: undefined,
                 }),
             },
         );
     }
 
-    override initialize(source: SourceFromSchema<PriceSchema>): PriceData {
+    override initialize(source: SourceFromSchema<PriceSchema>): Price {
         const initialized = super.initialize(source);
         initialized.value = new CoinsPF2e(initialized.value);
+        initialized.sizeSensitive ??= false;
         return initialized;
     }
 }
 
-type CoinsField = SchemaField<CoinsSchema, SourceFromSchema<CoinsSchema>, CoinsPF2e, true, false, true>;
+type CoinsField = fields.SchemaField<CoinsSchema, SourceFromSchema<CoinsSchema>, CoinsPF2e, true, false, true>;
 
 type CoinsSchema = {
-    cp: NumberField<number, number, false, false, false>;
-    sp: NumberField<number, number, false, false, false>;
-    gp: NumberField<number, number, false, false, false>;
-    pp: NumberField<number, number, false, false, false>;
+    cp: fields.NumberField<number, number, false, false, false>;
+    sp: fields.NumberField<number, number, false, false, false>;
+    gp: fields.NumberField<number, number, false, false, false>;
+    pp: fields.NumberField<number, number, false, false, false>;
 };
 
 type PriceSchema = {
     value: CoinsField;
-    per: NumberField<number, number, true, false, true>;
-};
-
-type PriceData = {
-    value: CoinsPF2e;
-    per: number;
+    per: fields.NumberField<number, number, true, false, true>;
+    sizeSensitive: fields.BooleanField<boolean, boolean, false, false, false>;
 };
 
 export { PriceField };

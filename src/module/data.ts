@@ -1,5 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
+import type * as fields from "../../types/foundry/common/data/fields.d.ts";
 
 /** The size property of creatures and equipment */
 const SIZES = ["tiny", "sm", "med", "lg", "huge", "grg"] as const;
@@ -15,18 +16,14 @@ interface ValuesList<T extends string = string> {
     value: T[];
 }
 
-/** Generic { value, label, type } type used in various places in actor/items types. */
-interface LabeledValue {
+interface LabeledValueAndMax extends ValueAndMax {
     label: string;
-    value: number | string;
-    type: string;
 }
 
-interface LabeledString extends LabeledValue {
-    value: string;
-}
-interface LabeledNumber extends LabeledValue {
+interface LabeledNumber {
+    label: string;
     value: number;
+    type: string;
 }
 
 interface TypeAndValue<TType extends string> {
@@ -72,14 +69,23 @@ interface NewDocumentMigrationRecord {
     previous: null;
 }
 
-interface MigratedDocumentMigrationRecord {
-    version: number | null;
-    previous: {
-        schema: number | null;
-        system: string | null;
-        foundry: string | null;
-    } | null;
-}
+type MigrationDataField = fields.SchemaField<{
+    version: fields.NumberField<number, number, true, true, true>;
+    previous: fields.SchemaField<
+        {
+            foundry: fields.StringField<string, string, true, true, true>;
+            system: fields.StringField<string, string, true, true, true>;
+            schema: fields.NumberField<number, number, true, true, true>;
+        },
+        { foundry: string | null; system: string | null; schema: number | null },
+        { foundry: string | null; system: string | null; schema: number | null },
+        true,
+        true,
+        true
+    >;
+}>;
+
+type MigratedDocumentMigrationRecord = fields.SourcePropFromDataField<MigrationDataField>;
 
 type MigrationRecord = NewDocumentMigrationRecord | MigratedDocumentMigrationRecord;
 
@@ -146,8 +152,8 @@ export { RARITIES, SIZES, SIZE_SLUGS, goesToEleven };
 export type {
     EnfolderableDocumentPF2e,
     LabeledNumber,
-    LabeledString,
-    LabeledValue,
+    LabeledValueAndMax,
+    MigrationDataField,
     MigrationRecord,
     OneToFive,
     OneToFour,

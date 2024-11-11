@@ -1,5 +1,6 @@
 import { ActorPF2e, type PartyPF2e } from "@actor";
 import { HitPointsSummary } from "@actor/base.ts";
+import { CORE_RESOURCES } from "@actor/character/values.ts";
 import { CreatureSource } from "@actor/data/index.ts";
 import { MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import { ActorSpellcasting } from "@actor/spellcasting.ts";
@@ -27,7 +28,7 @@ import { CheckDC } from "@system/degree-of-success.ts";
 import { Predicate } from "@system/predication.ts";
 import { Statistic, StatisticDifficultyClass, type ArmorStatistic } from "@system/statistic/index.ts";
 import { PerceptionStatistic } from "@system/statistic/perception.ts";
-import { ErrorPF2e, localizer, setHasElement, sluggify } from "@util";
+import { ErrorPF2e, localizer, setHasElement, sluggify, tupleHasValue } from "@util";
 import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import {
@@ -39,7 +40,7 @@ import {
     VisionLevels,
 } from "./data.ts";
 import { imposeEncumberedCondition, setImmunitiesFromTraits } from "./helpers.ts";
-import { CreatureTrait, CreatureType, CreatureUpdateOperation, GetReachParameters } from "./types.ts";
+import { CreatureTrait, CreatureType, CreatureUpdateOperation, GetReachParameters, ResourceData } from "./types.ts";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 abstract class CreaturePF2e<
@@ -448,10 +449,16 @@ abstract class CreaturePF2e<
             status.value = Math.min(condition?.value ?? 0, status.max);
         }
 
-        if (this.system.resources?.focus) {
-            const { focus } = this.system.resources;
-            focus.max = Math.clamp(Math.floor(focus.max), 0, focus.cap) || 0;
-            focus.value = Math.clamp(Math.floor(focus.value), 0, focus.max) || 0;
+        // Clamp certain core resources
+        const resources = this.system.resources;
+        if (resources.focus) {
+            resources.focus.max = Math.floor(Math.clamp(resources.focus.max, 0, resources.focus.cap)) || 0;
+        }
+        for (const key of ["heroPoints", "mythicPoints", "focus"]) {
+            const resource = resources[key];
+            if (resource) {
+                resource.value = Math.floor(Math.clamp(resource.value, 0, resource.max)) || 0;
+            }
         }
 
         // Disallow creatures not in either alliance to flank
@@ -623,20 +630,35 @@ abstract class CreaturePF2e<
         });
     }
 
+    /** Returns a resource by slug or by key */
+    getResource(resource: string): ResourceData | null {
+        const slug = sluggify(resource);
+        const key = sluggify(resource, { camel: "dromedary" });
+        const data = this.system.resources[key];
+        if (!data) return null;
+
+        const label = tupleHasValue(CORE_RESOURCES, slug)
+            ? game.i18n.localize(`PF2E.Actor.Resource.${key.capitalize()}`)
+            : (this.synthetics.resources[key]?.label ?? key.capitalize());
+        return { ...data, slug, label };
+    }
+
     /**
      * Updates a resource. Redirects to special resources if needed.
      * Accepts resource slugs in both kebab and dromedary, to handle token updates and direct ones.
      */
     async updateResource(resource: string, value: number): Promise<void> {
-        const resources = this.system.resources;
+        const slug = sluggify(resource);
+        const key = sluggify(resource, { camel: "dromedary" });
+        if (key === "investiture") return;
 
-        resource = sluggify(resource, { camel: "dromedary" });
-        const special = this.synthetics.resources[resource];
+        const resources = this.system.resources;
+        const special = this.synthetics.resources[key];
         if (special) {
             await special.update(Math.clamp(value, 0, special.max));
-        } else if (!!resources?.[resource] && ["heroPoints", "focus", "resolve"].includes(resource)) {
-            value = Math.clamp(value, 0, resources[resource]?.max ?? 0);
-            await this.update({ [`system.resources.${resource}.value`]: value });
+        } else if (!!resources?.[key] && tupleHasValue(CORE_RESOURCES, slug)) {
+            value = Math.clamp(value, 0, resources[key]?.max ?? 0);
+            await this.update({ [`system.resources.${key}.value`]: value });
         }
     }
 

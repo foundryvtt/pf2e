@@ -51,12 +51,10 @@
                 "toggleable": "totm"
             },
             {
-                "category": "precision",
-                "diceNumber": "@actor.flags.pf2e.sneakAttackDamage.number",
-                "dieSize": "d{actor|flags.pf2e.sneakAttackDamage.faces}",
-                "key": "DamageDice",
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
                 "predicate": [
-                    "target:condition:off-guard",
                     {
                         "or": [
                             "item:trait:agile",
@@ -71,6 +69,18 @@
                             }
                         ]
                     }
+                ],
+                "property": "other-tags",
+                "value": "sneak-attack"
+            },
+            {
+                "category": "precision",
+                "diceNumber": "@actor.flags.pf2e.sneakAttackDamage.number",
+                "dieSize": "d{actor|flags.pf2e.sneakAttackDamage.faces}",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:tag:sneak-attack",
+                    "target:condition:off-guard"
                 ],
                 "selector": "strike-damage"
             }

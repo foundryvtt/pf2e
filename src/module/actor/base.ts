@@ -175,7 +175,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** The recorded schema version of this actor, updated after each data migration */
     get schemaVersion(): number | null {
-        return Number(this.system._migration?.version ?? this.system.schema?.version) || null;
+        const legacyValue = R.isPlainObject(this._source.system.schema)
+            ? Number(this._source.system.schema.version) || null
+            : null;
+        return Number(this._source.system._migration?.version) || legacyValue;
     }
 
     /** Get an active GM or, failing that, a player who can update this actor */

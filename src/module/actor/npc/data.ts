@@ -259,6 +259,7 @@ interface NPCSpeeds extends CreatureSpeeds {
 interface NPCResources extends CreatureResources {
     /** The current number of focus points and pool size */
     focus: ValueAndMax & { cap: number };
+    mythicPoints: ValueAndMax;
 }
 
 export type {

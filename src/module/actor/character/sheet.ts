@@ -26,7 +26,7 @@ import { SpellcastingSheetData } from "@item/spellcasting-entry/types.ts";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/types.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
-import { ZeroToFour } from "@module/data.ts";
+import { LabeledValueAndMax, ZeroToFour } from "@module/data.ts";
 import { craft } from "@system/action-macros/crafting/craft.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
@@ -65,7 +65,7 @@ import {
 } from "./data.ts";
 import { CharacterPF2e } from "./document.ts";
 import { ElementalBlast, ElementalBlastConfig } from "./elemental-blast.ts";
-import type { FeatGroup } from "./feats/index.ts";
+import type { FeatBrowserFilterProps, FeatGroup } from "./feats/index.ts";
 import { PCSheetTabManager } from "./tab-manager.ts";
 import { CHARACTER_SHEET_TABS } from "./values.ts";
 
@@ -180,11 +180,13 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         sheetData.class = actor.class;
         sheetData.deity = actor.deity;
 
-        // Update hero points label
-        sheetData.data.resources.heroPoints.hover = game.i18n.format(
-            actor.heroPoints.value === 1 ? "PF2E.HeroPointRatio.One" : "PF2E.HeroPointRatio.Many",
-            actor.heroPoints,
-        );
+        // Header resource pip. Show mythic points instead if available
+        const resources = this.actor.system.resources;
+        const headerResource = this.actor.getResource(resources.mythicPoints.max > 0 ? "mythic-points" : "hero-points");
+        sheetData.headerResource = {
+            ...headerResource,
+            icon: headerResource?.slug === "mythic-points" ? "fa-circle-m" : "fa-hospital-symbol",
+        };
 
         // Indicate whether the PC has all attribute boosts allocated
         sheetData.attributeBoostsAllocated = ((): boolean => {
@@ -1226,25 +1228,36 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     /** Contextually search the feats tab of the Compendium Browser */
     async #onClickBrowseFeats(element: HTMLElement): Promise<void> {
         // Get group and slot and then the relevant filter values
-        const groupId = htmlClosest(element, "[data-group-id]")?.dataset.groupId;
-        const featGroup =
-            groupId === "bonus" ? this.actor.feats.bonus : this.actor.feats.get(groupId, { strict: true });
-        const slot = featGroup.slots[htmlClosest(element, "[data-slot-id]")?.dataset.slotId ?? ""];
-        const featFilters = slot?.filter ?? featGroup.filter;
+        // If this is for a not-feat-group, we create a custom filter
+        const { featFilters, maxLevel } = ((): { featFilters: FeatBrowserFilterProps; maxLevel?: number } => {
+            const groupId = htmlClosest(element, "[data-group-id]")?.dataset.groupId;
+            if (groupId === "pfs") {
+                return { featFilters: { categories: ["pfsboon"] }, maxLevel: this.actor.level };
+            } else if (groupId === "intercession") {
+                return { featFilters: { categories: ["deityboon", "curse"] } };
+            }
 
-        const maxLevel = Number(element.dataset.level) || featGroup.level;
+            const dataSetLevel = Number(element.dataset.level);
+            const featGroup =
+                groupId === "bonus" ? this.actor.feats.bonus : this.actor.feats.get(groupId, { strict: true });
+            const slot = featGroup.slots[htmlClosest(element, "[data-slot-id]")?.dataset.slotId ?? ""];
+            return { featFilters: slot?.filter ?? featGroup.filter, maxLevel: dataSetLevel || featGroup.level };
+        })();
+
         const featTab = game.pf2e.compendiumBrowser.tabs.feat;
         const filter = await featTab.getFilterData();
         filter.multiselects.traits.conjunction = featFilters?.conjunction ?? "or";
 
         // Assign levels
-        const level = filter.sliders.level;
-        level.values.max = Math.min(maxLevel, level.values.upperLimit);
-        level.isExpanded = level.values.max !== level.values.upperLimit;
+        if (typeof maxLevel === "number") {
+            const level = filter.sliders.level;
+            level.values.max = Math.min(maxLevel, level.values.upperLimit);
+            level.isExpanded = level.values.max !== level.values.upperLimit;
+        }
 
         // Assign categories
         const category = filter.checkboxes.category;
-        for (const value of featFilters.categories ?? featGroup.supported ?? []) {
+        for (const value of featFilters.categories ?? []) {
             category.isExpanded = true;
             category.options[value].selected = true;
             category.selected.push(value);
@@ -1489,12 +1502,6 @@ type CharacterSystemSheetData = CharacterSystemData & {
             singleOption: boolean;
         };
     };
-    resources: {
-        heroPoints: {
-            icon: string;
-            hover: string;
-        };
-    };
     saves: Record<
         SaveType,
         CharacterSaveData & {
@@ -1556,6 +1563,8 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     hasStamina: boolean;
     /** This actor has actual containers for stowing, rather than just containers serving as a UI convenience */
     hasRealContainers: boolean;
+    /** The resource to display in the header, usually hero points */
+    headerResource: LabeledValueAndMax & { slug: string; icon: string };
     languages: LanguageSheetData[];
     magicTraditions: Record<MagicTradition, string>;
     martialProficiencies: Record<"attacks" | "defenses", Record<string, MartialProficiency>>;

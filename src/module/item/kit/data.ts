@@ -1,5 +1,5 @@
 import type { KitPF2e } from "@item";
-import { ItemSystemModel, ItemSystemSchema } from "@item/base/data/schema.ts";
+import { ItemSystemModel, ItemSystemSchema } from "@item/base/data/model.ts";
 import type { BaseItemSourcePF2e, ItemSystemSource } from "@item/base/data/system.ts";
 import type { ClassTrait } from "@item/class/types.ts";
 import { PriceField } from "@item/physical/schema.ts";
@@ -18,8 +18,6 @@ class KitEntriesField extends RecordField<
      * @param depth The recursion depth of this field:must be between 0 and 2
      */
     constructor(depth = 0) {
-        const fields = foundry.data.fields;
-
         type KitEntryValueSchema = {
             uuid: fields.DocumentUUIDField<ItemUUID, true, false, false>;
             img: fields.FilePathField<ImageFilePath, ImageFilePath, true, false, false>;

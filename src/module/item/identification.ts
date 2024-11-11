@@ -32,7 +32,6 @@ function getDcRarity(item: PhysicalItemPF2e): Rarity {
 
 type IdentifyMagicDCs = Record<MagicSkill, number>;
 type IdentifyAlchemyDCs = { crafting: number };
-type GenericIdentifyDCs = { dc: number };
 
 function getIdentifyMagicDCs(
     item: PhysicalItemPF2e,
@@ -63,7 +62,7 @@ interface IdentifyItemOptions extends DCOptions {
 function getItemIdentificationDCs(
     item: PhysicalItemPF2e,
     { pwol = false, notMatchingTraditionModifier }: IdentifyItemOptions,
-): GenericIdentifyDCs | IdentifyMagicDCs | IdentifyAlchemyDCs {
+): IdentifyMagicDCs | IdentifyAlchemyDCs {
     const baseDC = calculateDC(item.level, { pwol });
     const rarity = getDcRarity(item);
     const dc = adjustDCByRarity(baseDC, rarity);
@@ -133,4 +132,4 @@ function getUnidentifiedPlaceholderImage(item: PhysicalItemPF2e): string {
 }
 
 export { getItemIdentificationDCs, getUnidentifiedPlaceholderImage };
-export type { GenericIdentifyDCs, IdentifyAlchemyDCs, IdentifyMagicDCs };
+export type { IdentifyAlchemyDCs, IdentifyMagicDCs };

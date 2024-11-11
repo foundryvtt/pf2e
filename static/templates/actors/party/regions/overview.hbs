@@ -76,17 +76,17 @@
                             {{/if}}
                         </div>
                     {{~/if}}
-                    {{#if member.heroPoints}}
-                        <a class="hero-points{{#unless member.owner}} readonly{{/unless}}" data-action="adjust-hero-points">
-                            {{#times member.heroPoints.max ~}}
-                                {{#if (gt member.heroPoints.value this)}}
+                    {{#with member.resource as |resource|}}
+                        <a class="resource{{#unless member.owner}} readonly{{/unless}}" data-action="adjust-member-resource" data-resource="{{resource.slug}}">
+                            {{#times resource.max as |idx|~}}
+                                {{#if (gt resource.value idx)}}
                                     <img src="systems/pf2e/dice/basic/heads.webp" />
                                 {{else}}
                                     <span class="empty"></span>
                                 {{/if}}
                             {{~/times}}
                         </a>
-                    {{/if}}
+                    {{/with}}
                 </header>
 
                 <div class="main-stats">
