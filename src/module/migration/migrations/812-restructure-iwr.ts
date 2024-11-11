@@ -15,7 +15,7 @@ export class Migration812RestructureIWR extends MigrationBase {
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         const traits: MaybeWithOldIWRData | undefined = source.system.traits;
         if (!traits || source.type === "familiar") return;
-        const { attributes } = source.system;
+        const attributes = source.system.attributes;
 
         if ("ci" in traits) {
             if (!("game" in globalThis)) delete traits.ci;
@@ -28,6 +28,7 @@ export class Migration812RestructureIWR extends MigrationBase {
             traits["-=di"] = null;
 
             if (
+                attributes &&
                 R.isPlainObject(oldData) &&
                 "value" in oldData &&
                 Array.isArray(oldData.value) &&
@@ -62,7 +63,7 @@ export class Migration812RestructureIWR extends MigrationBase {
                     return weakness;
                 });
 
-                if (weaknesses.length > 0) attributes.weaknesses = weaknesses;
+                if (attributes && weaknesses.length > 0) attributes.weaknesses = weaknesses;
             }
         }
 
@@ -91,7 +92,7 @@ export class Migration812RestructureIWR extends MigrationBase {
                     return resistance;
                 });
 
-                if (resistances.length > 0) attributes.resistances = resistances;
+                if (attributes && resistances.length > 0) attributes.resistances = resistances;
             }
         }
     }
