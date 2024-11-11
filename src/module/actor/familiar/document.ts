@@ -14,7 +14,7 @@ import type { TokenDocumentPF2e } from "@scene";
 import { Predicate } from "@system/predication.ts";
 import { ArmorStatistic, HitPointsStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
 import * as R from "remeda";
-import { FamiliarSource, FamiliarSystemData } from "./data.ts";
+import type { FamiliarSource, FamiliarSystemData } from "./data.ts";
 
 class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
     /** The familiar's attack statistic, for the rare occasion it must make an attack roll */
@@ -29,7 +29,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         // The Actors world collection needs to be initialized for data preparation
         if (!game.ready || !this.system.master.id) return null;
 
-        const master = game.actors.get(this.system.master.id ?? "");
+        const master = game.actors.get(this.system.master.id);
         if (master?.isOfType("character")) {
             master.familiar ??= this;
             return master;

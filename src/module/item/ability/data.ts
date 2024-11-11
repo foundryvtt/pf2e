@@ -1,4 +1,4 @@
-import { ItemSystemModel, ItemSystemSchema } from "@item/base/data/schema.ts";
+import { ItemSystemModel, ItemSystemSchema } from "@item/base/data/model.ts";
 import type { ActionType, BaseItemSourcePF2e, FrequencyInterval, ItemSystemSource } from "@item/base/data/system.ts";
 import type { OneToThree } from "@module/data.ts";
 import { LaxArrayField, SlugField } from "@system/schema-data-fields.ts";
@@ -22,7 +22,6 @@ class AbilitySystemData extends ItemSystemModel<AbilityItemPF2e, AbilitySystemSc
     declare deathNote: boolean;
 
     static override defineSchema(): AbilitySystemSchema {
-        const fields = foundry.data.fields;
         const traitChoices: Record<AbilityTrait, string> = CONFIG.PF2E.actionTraits;
         const abilityTypes: Record<ActionType, string> = CONFIG.PF2E.actionTypes;
         const categories: Record<ActionCategory, string> = CONFIG.PF2E.actionCategories;

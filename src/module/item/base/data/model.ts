@@ -1,15 +1,15 @@
-import { RuleElementSource } from "@module/rules/index.ts";
+import type { MigrationDataField } from "@module/data.ts";
+import type { RuleElementSource } from "@module/rules/index.ts";
 import { SlugField } from "@system/schema-data-fields.ts";
 import type {
     ArrayField,
     BooleanField,
-    NumberField,
     ObjectField,
     SchemaField,
     StringField,
 } from "types/foundry/common/data/fields.d.ts";
 import type { ItemPF2e } from "../document.ts";
-import { ItemDescriptionData } from "./system.ts";
+import type { ItemDescriptionData } from "./system.ts";
 
 abstract class ItemSystemModel<TParent extends ItemPF2e, TSchema extends ItemSystemSchema> extends foundry.abstract
     .TypeDataModel<TParent, TSchema> {
@@ -100,21 +100,7 @@ type ItemSystemSchema = {
     traits: SchemaField<{
         otherTags: ArrayField<SlugField<true, false, false>, string[], string[], true, false, true>;
     }>;
-    _migration: SchemaField<{
-        version: NumberField<number, number, true, true, true>;
-        previous: SchemaField<
-            {
-                foundry: StringField<string, string, true, true, true>;
-                system: StringField<string, string, true, true, true>;
-                schema: NumberField<number, number, true, true, true>;
-            },
-            { foundry: string | null; system: string | null; schema: number | null },
-            { foundry: string | null; system: string | null; schema: number | null },
-            true,
-            true,
-            true
-        >;
-    }>;
+    _migration: MigrationDataField;
 };
 
 export { ItemSystemModel, type ItemSystemSchema };
