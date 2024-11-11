@@ -16,6 +16,7 @@
         "level": {
             "value": 6
         },
+        "maxTakable": 2,
         "prerequisites": {
             "value": [
                 {
@@ -31,7 +32,14 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.crafting.entries.advancedAlchemy.maxSlots",
+                "value": "4 + (2 * @item.timesTaken)"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
