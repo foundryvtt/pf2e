@@ -106,16 +106,15 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         options.editable = this.isEditable;
         options.sheetConfig &&=
             Object.values(CONFIG.Actor.sheetClasses[this.actor.type]).filter((c) => c.canConfigure).length > 1;
+        const actor = this.actor;
 
-        for (const item of [...this.actor.itemTypes.action, ...this.actor.itemTypes.feat]) {
+        for (const item of [...actor.itemTypes.action, ...this.actor.itemTypes.feat]) {
             if (item.system.selfEffect) {
                 item.system.selfEffect.img ??= fromUuidSync(item.system.selfEffect.uuid)?.img ?? null;
             }
         }
 
-        // The Actor and its Items
-        const actorData = this.actor.toObject(false);
-
+        const actorData = { ...actor, _id: this.actor.id, system: fu.deepClone({ ...actor.system }) };
         // Alphabetize displayed IWR
         const iwrKeys = ["immunities", "weaknesses", "resistances"] as const;
         const attributes: Record<(typeof iwrKeys)[number], { label: string }[]> = actorData.system.attributes;
@@ -124,15 +123,15 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         // Calculate financial and total wealth
-        const coins = this.actor.inventory.coins;
+        const coins = actor.inventory.coins;
         const totalCoinage = ActorSheetPF2e.coinsToSheetData(coins);
         const totalCoinageGold = (coins.copperValue / 100).toFixed(2);
 
-        const totalWealth = this.actor.inventory.totalWealth;
+        const totalWealth = actor.inventory.totalWealth;
         const totalWealthGold = (totalWealth.copperValue / 100).toFixed(2);
 
         const traitsMap = ((): Record<string, string> => {
-            switch (this.actor.type) {
+            switch (actor.type) {
                 case "hazard":
                     return CONFIG.PF2E.hazardTraits;
                 case "vehicle":
@@ -144,7 +143,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         // Consolidate toggles from across domains and regroup by sheet placement
         const toggles = R.groupBy(
-            Object.values(this.actor.synthetics.toggles).flatMap((domain) => Object.values(domain)),
+            Object.values(actor.synthetics.toggles).flatMap((domain) => Object.values(domain)),
             (t) => t.placement,
         );
 
@@ -159,7 +158,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             inventory: this.prepareInventory(),
             isLootSheet: this.isLootSheet,
             isTargetFlatFooted: !!this.actor.rollOptions.all["target:condition:off-guard"],
-            items: actorData.items,
+            items: [], // No longer used but part of type signature
             limited: this.actor.limited,
             options,
             owner: this.actor.isOwner,
@@ -200,10 +199,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             { label: game.i18n.localize("PF2E.Item.Container.Plural"), types: ["backpack"], items: [] },
         ];
 
-        const actor = this.actor;
+        const actor = this.actor.clone({}, { keepId: true });
         for (const item of actor.inventory.contents.sort((a, b) => (a.sort || 0) - (b.sort || 0))) {
             if (item.isInContainer) continue;
-            sections.find((s) => s.types.includes(item.type))?.items.push(this.prepareInventoryItem(item));
+            const section = sections.find((s) => s.types.includes(item.type));
+            section?.items.push(this.prepareInventoryItem(item));
         }
 
         return {
@@ -220,9 +220,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     protected prepareInventoryItem(item: PhysicalItemPF2e): InventoryItem {
         const editable = game.user.isGM || item.isIdentified;
-        const heldItems = item.isOfType("backpack")
-            ? item.contents.map((i) => this.prepareInventoryItem(i))
-            : undefined;
+        const heldItems = item.isOfType("backpack") ? item.contents.map((i) => this.prepareInventoryItem(i)) : null;
         heldItems?.sort((a, b) => (a.item.sort || 0) - (b.item.sort || 0));
 
         const actor = this.actor;
