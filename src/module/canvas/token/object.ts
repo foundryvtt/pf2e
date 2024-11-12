@@ -637,7 +637,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     ): void {
         super._onUpdate(changed, operation, userId);
 
-        if (changed.width) {
+        if (changed.width || changed.flags?.pf2e?.linkToActorSize !== undefined) {
             if (this.animation) {
                 this.animation.then(() => {
                     this.auras.reset();

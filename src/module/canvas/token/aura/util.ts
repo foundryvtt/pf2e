@@ -3,8 +3,9 @@ import { measureDistanceCuboid } from "@module/canvas/helpers.ts";
 import { TokenDocumentPF2e } from "@scene";
 import type BaseEffectSource from "types/foundry/client-esm/canvas/sources/base-effect-source.d.ts";
 import type { TokenPF2e } from "../index.ts";
+import type { AuraRenderer } from "./renderer.ts";
 
-export function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {
+function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {
     if (!canvas.ready) return [];
     const squareWidth = canvas.dimensions.size;
     const rowCount = Math.ceil(data.bounds.width / squareWidth);
@@ -28,12 +29,31 @@ export function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {
     };
 
     const topLeftSquare = new EffectAreaSquare(data.bounds.x, data.bounds.y, squareWidth, squareWidth);
-    const collisionType =
-        data.traits?.includes("visual") && !data.traits.includes("auditory")
-            ? "sight"
-            : data.traits?.includes("auditory") && !data.traits.includes("visual")
-              ? "sound"
-              : "move";
+    const tokenBounds = data.token.mechanicalBounds;
+    const testPolygons = data.polygons ?? createTestPolygons(data);
+
+    return emptyVector
+        .reduce(
+            (squares: EffectAreaSquare[][]) => {
+                const lastSquare = squares.at(-1)?.at(-1) ?? { x: NaN, y: NaN };
+                const column = genColumn(
+                    new EffectAreaSquare(lastSquare.x + squareWidth, topLeftSquare.y, squareWidth, squareWidth),
+                );
+                squares.push(column);
+                return squares;
+            },
+            [genColumn(topLeftSquare)],
+        )
+        .flat()
+        .filter((s) => measureDistanceCuboid(tokenBounds, s) <= data.radius)
+        .map((square) => {
+            square.active = testPolygons.some((c) => c.contains(square.center.x, square.center.y));
+            return square;
+        });
+}
+
+function createTestPolygons(data: GetAreaSquaresParams): ClockwiseSweepPolygon[] {
+    const collisionType = data.restrictionType ?? getAuraRestrictionType(data);
 
     const tokenBounds = data.token.mechanicalBounds;
     const tokenCenter = data.token.center;
@@ -61,37 +81,30 @@ export function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {
         return new PointSource({ object: tokenObject });
     })();
 
-    const tokenCenterPolygons = tokenCenters.map((c) =>
+    return tokenCenters.map((c) =>
         CONFIG.Canvas.polygonBackends[collisionType].create(c, {
             type: collisionType,
             source: pointSource,
             boundaryShape: [data.bounds],
         }),
     );
+}
 
-    return emptyVector
-        .reduce(
-            (squares: EffectAreaSquare[][]) => {
-                const lastSquare = squares.at(-1)?.at(-1) ?? { x: NaN, y: NaN };
-                const column = genColumn(
-                    new EffectAreaSquare(lastSquare.x + squareWidth, topLeftSquare.y, squareWidth, squareWidth),
-                );
-                squares.push(column);
-                return squares;
-            },
-            [genColumn(topLeftSquare)],
-        )
-        .flat()
-        .filter((s) => measureDistanceCuboid(tokenBounds, s) <= data.radius)
-        .map((square) => {
-            square.active = tokenCenterPolygons.some((c) => c.contains(square.center.x, square.center.y));
-            return square;
-        });
+function getAuraRestrictionType(data: GetAreaSquaresParams): AuraRenderer["restrictionType"] {
+    return data.traits?.includes("visual") && !data.traits.includes("auditory")
+        ? "sight"
+        : data.traits?.includes("auditory") && !data.traits.includes("visual")
+          ? "sound"
+          : "move";
 }
 
 interface GetAreaSquaresParams {
     bounds: PIXI.Rectangle;
+    polygons?: ClockwiseSweepPolygon[];
+    restrictionType?: AuraRenderer["restrictionType"];
     radius: number;
     token: TokenPF2e | TokenDocumentPF2e;
     traits?: string[];
 }
+
+export { createTestPolygons, getAreaSquares, getAuraRestrictionType };
