@@ -1066,7 +1066,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const content = `<p class="hint">${question}</p>`;
             const title = game.i18n.localize("PF2E.CraftingTab.UnprepareFormulaDialogTitle");
             if (event.ctrlKey || (await Dialog.confirm({ title, content }))) {
-                return ability.unprepareFormula(Number(index), uuid);
+                return ability.unprepareFormula(Number(index));
             }
         };
 
