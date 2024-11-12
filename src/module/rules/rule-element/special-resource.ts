@@ -17,7 +17,7 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
     protected static override validActorTypes: ActorType[] = ["character"];
 
     constructor(source: SpecialResourceSource, options: RuleElementOptions) {
-        super({ priority: 19, ...source }, options);
+        super({ priority: 18, ...source }, options);
         if (this.invalid) return;
 
         this.slug ??= this.item.slug ?? sluggify(this.item.name);
