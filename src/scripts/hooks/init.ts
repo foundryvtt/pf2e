@@ -143,7 +143,7 @@ export const Init = {
             });
 
             CONFIG.TextEditor.enrichers.push({
-                pattern: /\[\[\/(act) (?<slug>[-a-z]+)(\s+)?(?<options>[^\]]+)*]](?:{(?<label>[^}]+)})?/g,
+                pattern: /\[\[\/(act)\s+(?<slug>[-a-z]+)\s*(?<options>[^\]]+)?\]\](?:{(?<label>[^}]+)})?/g,
                 enricher: (match, options) => game.pf2e.TextEditor.enrichString(match, options),
             });
 
