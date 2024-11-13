@@ -8,10 +8,7 @@ import type { TokenDocumentPF2e } from "@scene/index.ts";
 import type { Statistic } from "@system/statistic/index.ts";
 import { tupleHasValue } from "@util";
 import * as R from "remeda";
-import type { DataModelValidationOptions } from "types/foundry/common/abstract/data.d.ts";
-import { MemberData, PartySource, PartySystemData } from "./data.ts";
-import { InvalidCampaign } from "./invalid-campaign.ts";
-import { Kingdom } from "./kingdom/index.ts";
+import { PartySource, PartySystemData } from "./data.ts";
 import { PartySheetRenderOptions } from "./sheet.ts";
 import { PartyCampaign, PartyUpdateOperation } from "./types.ts";
 
@@ -19,7 +16,10 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     override armorClass = null;
 
     declare members: CreaturePF2e[];
-    declare campaign: PartyCampaign | null;
+
+    get campaign(): PartyCampaign | null {
+        return this.system.campaign ?? null;
+    }
 
     get active(): boolean {
         return game.actors.party === this;
@@ -46,37 +46,9 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         );
     }
 
-    /** Our bond is unbreakable */
+    /** Our bond is unbreakable. */
     override isAffectedBy(): false {
         return false;
-    }
-
-    /** Override validation to defer certain properties to the campaign model */
-    override validate(options?: DataModelValidationOptions): boolean {
-        if (!super.validate(options)) return false;
-
-        const changes: DeepPartial<PartySource> = options?.changes ?? {};
-        if (changes.system?.campaign) {
-            const campaignValid = this.campaign?.validate({ ...options, changes: changes.system.campaign });
-            if (!campaignValid) return false;
-        }
-
-        return true;
-    }
-
-    override updateSource(
-        data?: Record<string, unknown>,
-        options?: DocumentSourceUpdateContext,
-    ): DeepPartial<this["_source"]> {
-        if (!this.campaign) return super.updateSource(data, options);
-
-        // Note: inner data must be handled *before* outer data, otherwise it'll fail
-        const expanded: DeepPartial<PartySource> = fu.expandObject(data ?? {});
-        const campaignDiff = expanded?.system?.campaign
-            ? this.campaign.updateSource(expanded.system.campaign, options)
-            : {};
-        const diff = super.updateSource(data, options);
-        return R.isEmpty(campaignDiff) ? diff : fu.mergeObject(diff, campaignDiff);
     }
 
     /** Only prepare rule elements for non-physical items (in case campaign items exist) */
@@ -97,7 +69,8 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     override prepareBaseData(): void {
         // Provide base structure for parent method
         this.system.details.level = { value: 0 };
-
+        const partialSystem: DeepPartial<PartySystemData> = this.system;
+        partialSystem.attributes = {};
         super.prepareBaseData();
 
         // Fetch members, and update their parties if this isn't a clone
@@ -118,36 +91,6 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
               ? "opposition"
               : null;
 
-        // Bind campaign data, though only kingmaker is supported (and hardcoded).
-        // This will need to be expanded to allow modules to add to the list
-        const campaignType = game.settings.get("pf2e", "campaignType");
-        if (campaignType !== "none") {
-            const typeMatches = this.system.campaign?.type === campaignType;
-            if (this.system.campaign && !typeMatches) {
-                this.campaign = new InvalidCampaign(this, { campaignType, reason: "mismatch" });
-            } else {
-                // Wrap in a try catch in case data preparation fails
-                try {
-                    if (this.campaign?.type !== campaignType) {
-                        this.campaign = new Kingdom(fu.deepClone(this._source.system.campaign), { parent: this });
-                    } else {
-                        // System data models are normally cleaned with partial: false, allowing certain defaults to be set
-                        // We fake such an update here so that elements like settlements can function
-                        Kingdom.cleanData(this.campaign._source);
-                        this.campaign.reset();
-                    }
-
-                    this.campaign.prepareBaseData?.();
-                    this.system.campaign = this.campaign;
-                } catch (err) {
-                    console.error(err);
-                    this.campaign = new InvalidCampaign(this, { campaignType, reason: "error" });
-                }
-            }
-        } else {
-            this.campaign = null;
-        }
-
         // Filler until put into use for encounter metrics
         const partyLevel = Math.round(
             R.meanBy(
@@ -156,6 +99,8 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             ),
         );
         this.system.details.level.value = partyLevel;
+
+        this.system.campaign?.prepareBaseData();
     }
 
     override prepareDerivedData(): void {
@@ -167,7 +112,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         this.attributes.speed = { total: travelSpeed };
 
         this.prepareSynthetics();
-        this.campaign?.prepareDerivedData?.();
+        this.campaign?.prepareDerivedData();
     }
 
     async addMembers(...membersToAdd: CreaturePF2e[]): Promise<void> {
@@ -183,7 +128,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             await member.update({ folder: null, ...allianceUpdate });
         }
 
-        const members: MemberData[] = [...existing, ...newMembers.map((m) => ({ uuid: m.uuid }))];
+        const members = [...existing, ...newMembers.map((m) => ({ uuid: m.uuid }))];
         await this.update({ system: { details: { members } } });
 
         await resetActors(newMembers);
@@ -192,7 +137,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     async removeMembers(...remove: (ActorUUID | CreaturePF2e)[]): Promise<void> {
         const uuids = remove.map((d) => (typeof d === "string" ? d : d.uuid));
         const existing = this.system.details.members.filter((d) => this.members.some((m) => m.uuid === d.uuid));
-        const members: MemberData[] = existing.filter((m) => !tupleHasValue(uuids, m.uuid));
+        const members = existing.filter((m) => !tupleHasValue(uuids, m.uuid));
         await this.update({ system: { details: { members } } });
     }
 
@@ -250,18 +195,20 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     ): Promise<boolean | void> {
         // Prevent party actors from being dragged to folders
         changed.folder = null;
+        if (!changed.system) return super._preUpdate(changed, options, user);
 
         const members = this.members;
-        const newMemberUUIDs = changed?.system?.details?.members?.map((m) => m?.uuid);
+        const newMemberUUIDs = changed.system.details?.members?.map((m) => m?.uuid);
         if (newMemberUUIDs) {
             const deletedMembers = members.filter((m) => m?.uuid && !newMemberUUIDs.includes(m.uuid));
             options.removedMembers = deletedMembers.map((m) => m.uuid);
         }
 
         // Ensure the party campaign type is properly set if any data gets updated
-        if (changed.system?.campaign && this.campaign && this.campaign.type !== "invalid") {
-            changed.system.campaign.type = this.campaign.type;
-            this.campaign._preUpdate?.(changed.system.campaign);
+        const campaign = this.system._source.campaign;
+        if (campaign && changed.system.campaign && changed.system.campaign.type !== campaign.type) {
+            changed.system.campaign.type = campaign.type;
+            this.campaign?._preUpdate?.(changed.system.campaign);
         }
 
         return super._preUpdate(changed, options, user);

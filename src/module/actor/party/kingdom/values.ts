@@ -1,11 +1,9 @@
 import { ModifierAdjustment, RawModifier } from "@actor/modifiers.ts";
 import { localizer } from "@util";
 import * as R from "remeda";
+import { KingdomCharter, KingdomGovernment, KingdomHeartland } from "./schema.ts";
 import {
     KingdomAbility,
-    KingdomCHG,
-    KingdomCharter,
-    KingdomGovernment,
     KingdomLeadershipRole,
     KingdomNationType,
     KingdomSettlementType,
@@ -235,9 +233,9 @@ const VACANCY_PENALTIES: Record<KingdomLeadershipRole, () => VacancyPenalty> = {
 };
 
 interface KingdomCHGData {
-    charter: Record<string, KingdomCharter | undefined>;
-    heartland: Record<string, KingdomCHG | undefined>;
-    government: Record<string, KingdomGovernment | undefined>;
+    charter: Record<string, Omit<KingdomCharter, "id"> | undefined>;
+    heartland: Record<string, Omit<KingdomHeartland, "id"> | undefined>;
+    government: Record<string, Omit<KingdomGovernment, "id"> | undefined>;
 }
 
 /** Returns every single possible charter, heartland, and government */

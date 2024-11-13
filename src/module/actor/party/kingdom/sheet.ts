@@ -35,13 +35,13 @@ import Sortable from "sortablejs";
 import { KingdomBuilder } from "./builder.ts";
 import { calculateKingdomCollectionData } from "./helpers.ts";
 import { Kingdom } from "./model.ts";
-import {
+import type {
     KingdomAbilityData,
     KingdomData,
     KingdomLeadershipData,
     KingdomSettlementData,
     KingdomSource,
-} from "./types.ts";
+} from "./schema.ts";
 import {
     KINGDOM_ABILITIES,
     KINGDOM_ABILITY_LABELS,

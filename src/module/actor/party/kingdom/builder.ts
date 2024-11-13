@@ -5,8 +5,9 @@ import * as R from "remeda";
 import type { PartyPF2e } from "../document.ts";
 import { resolveKingdomBoosts } from "./helpers.ts";
 import type { Kingdom } from "./model.ts";
+import { KingdomCHG } from "./schema.ts";
 import { KingdomSheetPF2e } from "./sheet.ts";
-import type { KingdomAbility, KingdomCHG } from "./types.ts";
+import type { KingdomAbility } from "./types.ts";
 import {
     KINGDOM_ABILITIES,
     KINGDOM_ABILITY_LABELS,
