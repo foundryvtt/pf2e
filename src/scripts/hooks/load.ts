@@ -1,4 +1,5 @@
 import { ActorProxyPF2e } from "@actor";
+import { ArmySystemData } from "@actor/army/data.ts";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
 import { FamiliarSystemData } from "@actor/familiar/data.ts";
 import { resetActors } from "@actor/helpers.ts";
@@ -84,6 +85,7 @@ export const Load = {
         CONFIG.User.documentClass = UserPF2e;
 
         // Actor system data models
+        CONFIG.Actor.dataModels.army = ArmySystemData;
         CONFIG.Actor.dataModels.familiar = FamiliarSystemData;
         CONFIG.Actor.dataModels.loot = LootSystemData;
 

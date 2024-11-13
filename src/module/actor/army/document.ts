@@ -55,6 +55,10 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         return ARMY_STATS.maxTactics[this.level];
     }
 
+    get strongSave(): "maneuver" | "morale" {
+        return this.system.saves.maneuver >= this.system.saves.morale ? "maneuver" : "morale";
+    }
+
     override prepareData(): void {
         if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
             return;
@@ -66,13 +70,9 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        // Set certain properties to their default values if omitted
-        this.system.ac.value ??= this._source.system.ac.value ??= ARMY_STATS.ac[this.level];
-        this.system.scouting ??= this._source.system.scouting ??= ARMY_STATS.scouting[this.level];
-
         this.system.details.level.value = Math.clamp(this.system.details.level.value, 1, 20);
         this.system.resources.potions.max = 3;
-        this.system.saves.strongSave = this.system.saves.maneuver >= this.system.saves.morale ? "maneuver" : "morale";
+        this.system.resources.ammunition.max = 5;
         this.system.perception = { senses: [] };
 
         this.system.details.alliance = this.hasPlayerOwner ? "party" : "opposition";
@@ -158,7 +158,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         // Add statistics for saving throws
         // Note: Kingmaker refers to these as both a type of save (high/low save) but also as "maneuver check"
         for (const saveType of ["maneuver", "morale"] as const) {
-            const table = this.system.saves.strongSave === saveType ? ARMY_STATS.strongSave : ARMY_STATS.weakSave;
+            const table = this.strongSave === saveType ? ARMY_STATS.strongSave : ARMY_STATS.weakSave;
             const baseValue = table[this.level];
             const adjustment = this.system.saves[saveType] - baseValue;
 
@@ -386,7 +386,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         newLevel = Math.clamp(newLevel, 1, 20);
         const currentLevel = this.system.details.level.value;
 
-        const strongSave = this.system.saves.strongSave;
+        const strongSave = this.strongSave;
         const strongSaveDifference = ARMY_STATS.strongSave[newLevel] - ARMY_STATS.strongSave[currentLevel];
         const weakSaveDifference = ARMY_STATS.weakSave[newLevel] - ARMY_STATS.weakSave[currentLevel];
 
