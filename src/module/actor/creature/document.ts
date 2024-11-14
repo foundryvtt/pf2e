@@ -297,6 +297,7 @@ abstract class CreaturePF2e<
         this.flags.pf2e.rollOptions.all["self:creature"] = true;
 
         this.system.perception = fu.mergeObject({ attribute: "wis", senses: [] }, this.system.perception);
+        this.system.resources ??= {};
 
         const attributes = this.system.attributes;
         attributes.ac = fu.mergeObject({ attribute: "dex" }, attributes.ac);
