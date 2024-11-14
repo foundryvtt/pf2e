@@ -68,18 +68,19 @@ class CharacterCrafting {
     }
 
     async performDailyCrafting(): Promise<void> {
+        const actor = this.actor;
         const entries = this.abilities.filter((e) => e.isDailyPrep);
         const alchemicalEntries = entries.filter((e) => e.isAlchemical);
         const reagentCost = (await Promise.all(alchemicalEntries.map((e) => e.calculateReagentCost()))).reduce(
             (sum, cost) => sum + cost,
             0,
         );
-        const reagentValue = (this.actor.system.resources.crafting.infusedReagents.value || 0) - reagentCost;
+        const reagentValue = (actor.system.resources.crafting.infusedReagents.value || 0) - reagentCost;
         if (reagentValue < 0) {
             ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MissingReagents"));
             return;
         } else {
-            await this.actor.update({ "system.resources.crafting.infusedReagents.value": reagentValue });
+            await actor.update({ "system.resources.crafting.infusedReagents.value": reagentValue });
             const key = reagentCost === 0 ? "ZeroConsumed" : reagentCost === 1 ? "OneConsumed" : "NConsumed";
             ui.notifications.info(
                 game.i18n.format(`PF2E.Actor.Character.Crafting.Daily.Complete.${key}`, { quantity: reagentCost }),
@@ -87,10 +88,13 @@ class CharacterCrafting {
         }
 
         // Remove infused/temp items
-        for (const item of this.actor.inventory) {
-            if (item.system.temporary) await item.delete();
+        const itemsToDelete = this.actor.inventory.filter((i) => i.system.temporary).map((i) => i.id);
+        if (itemsToDelete.length) {
+            await actor.deleteEmbeddedDocuments("Item", itemsToDelete);
         }
 
+        // Assemble the items we need to create, grouped by uuid
+        const itemsToAdd: PreCreate<PhysicalItemSource>[] = [];
         for (const entry of entries) {
             for (const formula of await entry.getPreparedCraftingFormulas()) {
                 const itemSource: PhysicalItemSource = formula.item.toObject();
@@ -98,11 +102,15 @@ class CharacterCrafting {
                 itemSource.system.temporary = true;
                 itemSource.system.size = this.actor.ancestry?.size === "tiny" ? "tiny" : "med";
 
-                if (entry.isAlchemical && itemIsOfType(itemSource, "consumable", "equipment", "weapon")) {
+                if (formula.item.isAlchemical && itemIsOfType(itemSource, "consumable", "equipment", "weapon")) {
                     itemSource.system.traits.value.push("infused");
                 }
-                await this.actor.addToInventory(itemSource);
+                itemsToAdd.push(itemSource);
             }
+        }
+
+        if (itemsToAdd.length) {
+            actor.inventory.add(itemsToAdd, { stack: true });
         }
     }
 }
