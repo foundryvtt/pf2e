@@ -4,6 +4,7 @@ import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-prog
 import { FamiliarSystemData } from "@actor/familiar/data.ts";
 import { resetActors } from "@actor/helpers.ts";
 import { LootSystemData } from "@actor/loot/data.ts";
+import { PartySystemData } from "@actor/party/data.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ItemProxyPF2e } from "@item";
 import { AbilitySystemData } from "@item/ability/index.ts";
@@ -88,6 +89,7 @@ export const Load = {
         CONFIG.Actor.dataModels.army = ArmySystemData;
         CONFIG.Actor.dataModels.familiar = FamiliarSystemData;
         CONFIG.Actor.dataModels.loot = LootSystemData;
+        CONFIG.Actor.dataModels.party = PartySystemData;
 
         // Item system data models
         CONFIG.Item.dataModels.action = AbilitySystemData;
