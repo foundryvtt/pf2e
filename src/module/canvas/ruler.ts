@@ -268,8 +268,8 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
             if (this.isDragMeasuring && game.activeTool === "ruler") {
                 return this._endMeasurement();
             }
-            return super._onMouseUp(event);
         }
+        return super._onMouseUp(event);
     }
 
     /** Prevent behavior from movement keys (typically Space) if token drag measurement is enabled. */
