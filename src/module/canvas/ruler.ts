@@ -265,9 +265,6 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
             event.ctrlKey = false;
             event.metaKey = false;
             if (game.activeTool === "ruler") return this._endMeasurement();
-            if (this.isDragMeasuring && game.activeTool === "ruler") {
-                return this._endMeasurement();
-            }
         }
         return super._onMouseUp(event);
     }
