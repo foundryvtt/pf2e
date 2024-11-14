@@ -1,4 +1,5 @@
 import type { CharacterPF2e } from "@actor";
+import { ResourceData } from "@actor/creature/index.ts";
 import type { ItemPF2e } from "@item";
 import { createBatchRuleElementUpdate } from "@module/rules/helpers.ts";
 import type {
@@ -6,8 +7,6 @@ import type {
     CraftingAbilityRuleSource,
 } from "@module/rules/rule-element/crafting-ability.ts";
 import { Predicate, RawPredicate } from "@system/predication.ts";
-import { ErrorPF2e } from "@util";
-import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { CraftingFormula, PreparedFormula, PreparedFormulaData } from "./types.ts";
 
@@ -16,6 +15,7 @@ class CraftingAbility implements CraftingAbilityData {
     label: string;
 
     slug: string;
+    resource: string | null;
 
     /** This crafting ability's parent actor */
     actor: CharacterPF2e;
@@ -39,6 +39,7 @@ class CraftingAbility implements CraftingAbilityData {
     constructor(actor: CharacterPF2e, data: CraftingAbilityData) {
         this.actor = actor;
         this.slug = data.slug;
+        this.resource = data.resource;
         this.label = data.label;
         this.isAlchemical = data.isAlchemical;
         this.isDailyPrep = data.isDailyPrep;
@@ -50,6 +51,12 @@ class CraftingAbility implements CraftingAbilityData {
         this.craftableItems = R.sort(data.craftableItems, (c) => c.batchSize ?? 1);
         this.fieldDiscoveryBatchSize = data.fieldDiscoveryBatchSize ?? 3;
         this.preparedFormulaData = data.preparedFormulaData ?? [];
+
+        // Temporary compatibility hack until the big migration
+        if (this.isAlchemical) {
+            this.resource = "infused-reagents";
+            this.isDailyPrep = true;
+        }
     }
 
     async getPreparedCraftingFormulas(): Promise<PreparedFormula[]> {
@@ -70,7 +77,7 @@ class CraftingAbility implements CraftingAbilityData {
                 ? {
                       ...formula,
                       batchSize,
-                      quantity: this.isAlchemical ? prepData.quantity || 1 : batchSize,
+                      quantity: this.resource ? prepData.quantity || 1 : batchSize,
                       expended: !!prepData.expended,
                       isSignatureItem: !!prepData.isSignatureItem,
                   }
@@ -83,6 +90,7 @@ class CraftingAbility implements CraftingAbilityData {
         const preparedCraftingFormulas = await this.getPreparedCraftingFormulas();
         const prepared = [...preparedCraftingFormulas];
         const remainingSlots = Math.max(0, this.maxSlots - prepared.length);
+
         return {
             label: this.label,
             slug: this.slug,
@@ -90,16 +98,16 @@ class CraftingAbility implements CraftingAbilityData {
             isPrepared: this.isPrepared,
             isDailyPrep: this.isDailyPrep,
             maxItemLevel: this.maxItemLevel,
+            resource: this.resource ? this.actor.getResource(this.resource) : null,
+            resourceCost: await this.calculateResourceCost(),
             maxSlots: this.maxSlots,
-            reagentCost: await this.calculateReagentCost(),
             prepared,
             remainingSlots,
         };
     }
 
-    /** Computes reagent cost. Will go away once updated to PC2 */
-    async calculateReagentCost(): Promise<number> {
-        if (!this.isAlchemical) return 0;
+    async calculateResourceCost(): Promise<number> {
+        if (!this.resource) return 0;
 
         const preparedCraftingFormulas = await this.getPreparedCraftingFormulas();
         const values = await Promise.all(
@@ -113,7 +121,7 @@ class CraftingAbility implements CraftingAbilityData {
 
         const quantity = await this.#batchSizeFor(formula);
         const existing = this.preparedFormulaData.find((f) => f.uuid === formula.uuid);
-        if (existing && this.isAlchemical) {
+        if (existing && this.resource) {
             existing.quantity = quantity;
         } else {
             this.preparedFormulaData.push({ uuid: formula.uuid, quantity });
@@ -157,14 +165,12 @@ class CraftingAbility implements CraftingAbilityData {
         return this.#updateRuleElement();
     }
 
-    async setFormulaQuantity(index: number, itemUUID: string, value: "increase" | "decrease" | number): Promise<void> {
-        if (!UUIDUtils.isItemUUID(itemUUID)) {
-            throw ErrorPF2e(`invalid item UUID: ${itemUUID}`);
-        }
+    async setFormulaQuantity(index: number, value: "increase" | "decrease" | number): Promise<void> {
         const data = this.preparedFormulaData[index];
-        if (data?.uuid !== itemUUID) return;
-        const item = this.fieldDiscovery ? await fromUuid<ItemPF2e>(itemUUID) : null;
+        if (!data) return;
+
         const currentQuantity = data.quantity ?? 0;
+        const item = this.fieldDiscovery ? await fromUuid<ItemPF2e>(data.uuid) : null;
         const adjustment = this.fieldDiscovery?.test(item?.getRollOptions("item") ?? [])
             ? 1
             : await this.#batchSizeFor(data);
@@ -194,7 +200,6 @@ class CraftingAbility implements CraftingAbilityData {
 
         return this.setFormulaQuantity(
             this.preparedFormulaData.indexOf(data),
-            itemUUID,
             data.quantity ?? (await this.#batchSizeFor(data)),
         );
     }
@@ -233,6 +238,7 @@ class CraftingAbility implements CraftingAbilityData {
 
 interface CraftingAbilityData {
     slug: string;
+    resource: string | null;
     label: string;
     isAlchemical: boolean;
     isDailyPrep: boolean;
@@ -254,7 +260,8 @@ interface CraftingAbilitySheetData {
     isDailyPrep: boolean;
     maxSlots: number;
     maxItemLevel: number;
-    reagentCost: number;
+    resource: ResourceData | null;
+    resourceCost: number;
     remainingSlots: number;
     prepared: PreparedFormula[];
 }

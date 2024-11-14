@@ -1,6 +1,6 @@
 import type { ActorType, CharacterPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { PredicateField, SlugField } from "@system/schema-data-fields.ts";
+import { PredicateField } from "@system/schema-data-fields.ts";
 import { sluggify } from "@util";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
@@ -14,12 +14,24 @@ class CraftingAbilityRuleElement extends RuleElementPF2e<CraftingAbilityRuleSche
 
     constructor(data: CraftingAbilityRuleSource, options: RuleElementOptions) {
         super({ priority: 19, ...data }, options);
+
+        // Default slug to resource if provided
+        if (!this.slug && !this.resource) {
+            this.failValidation("Either a resource or a slug is required");
+        } else if (this.resource) {
+            this.slug ??= this.resource;
+        }
+
+        // Max slots acts as a pseudo resource and is incompatible with resource
+        if (this.maxSlots && this.resource) {
+            this.failValidation("Only one of resource or maxSlots is allowed");
+        }
     }
 
     static override defineSchema(): CraftingAbilityRuleSchema {
         return {
             ...super.defineSchema(),
-            slug: new SlugField({ required: true, nullable: false, initial: undefined }),
+            resource: new fields.StringField({ required: false, nullable: true, blank: false, initial: null }),
             isAlchemical: new fields.BooleanField(),
             isDailyPrep: new fields.BooleanField(),
             isPrepared: new fields.BooleanField(),
@@ -83,6 +95,7 @@ class CraftingAbilityRuleElement extends RuleElementPF2e<CraftingAbilityRuleSche
         } else {
             this.actor.system.crafting.entries[key] = {
                 slug,
+                resource: this.resource,
                 label: this.label,
                 isAlchemical: this.isAlchemical,
                 isDailyPrep: this.isDailyPrep,
@@ -112,8 +125,8 @@ interface CraftingAbilityRuleElement
     get actor(): CharacterPF2e;
 }
 
-type CraftingAbilityRuleSchema = Omit<RuleElementSchema, "slug"> & {
-    slug: SlugField<true, false, false>;
+type CraftingAbilityRuleSchema = RuleElementSchema & {
+    resource: fields.StringField<string, string, false, true, true>;
     isAlchemical: fields.BooleanField<boolean, boolean, false, false, true>;
     isDailyPrep: fields.BooleanField<boolean, boolean, false, false, true>;
     isPrepared: fields.BooleanField<boolean, boolean, false, false, true>;
@@ -144,6 +157,7 @@ type CraftingAbilityRuleData = Omit<SourceFromSchema<CraftingAbilityRuleSchema>,
 };
 
 interface CraftingAbilityRuleSource extends RuleElementSource {
+    resource?: unknown;
     batchSizes?: unknown;
     isAlchemical?: unknown;
     isDailyPrep?: unknown;

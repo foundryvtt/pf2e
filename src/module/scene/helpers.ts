@@ -54,7 +54,7 @@ function computeSightAndDetectionForRBV(token: TokenDocumentPF2e | PrototypeToke
     if (!actor?.isOfType("creature")) return;
 
     // Reset detection modes if using rules-based vision
-    const hasVision = !!actor.perception?.hasVision;
+    const hasVision = actor.perception.hasVision;
     const lightPerception: DetectionModeEntry = { id: "lightPerception", enabled: hasVision, range: null };
     const basicSight: DetectionModeEntry = { id: "basicSight", enabled: hasVision, range: 0 };
     token.detectionModes = [lightPerception, basicSight];
