@@ -1896,7 +1896,7 @@ interface CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocument
     readonly _source: CharacterSource;
     system: CharacterSystemData;
 
-    getResource(resource: "hero-points" | "mythic-points" | "focus" | "investiture"): ResourceData;
+    getResource(resource: "hero-points" | "mythic-points" | "focus" | "investiture" | "infused-reagents"): ResourceData;
     getResource(resource: string): ResourceData | null;
 }
 

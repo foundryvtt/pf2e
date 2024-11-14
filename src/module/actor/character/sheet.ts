@@ -1,4 +1,4 @@
-import { CreatureSheetData, Language } from "@actor/creature/index.ts";
+import { CreatureSheetData, Language, ResourceData } from "@actor/creature/index.ts";
 import type { Sense } from "@actor/creature/sense.ts";
 import { isReallyPC } from "@actor/helpers.ts";
 import { MODIFIER_TYPES, createProficiencyModifier } from "@actor/modifiers.ts";
@@ -473,8 +473,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             prepared: [],
             alchemical: {
                 entries: [],
-                totalReagentCost: 0,
-                infusedReagents: actor.system.resources.crafting.infusedReagents,
+                resource: actor.getResource("infused-reagents"),
+                resourceCost: 0,
             },
         };
 
@@ -482,7 +482,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const sheetData = await entry.getSheetData();
             if (entry.isAlchemical) {
                 craftingEntries.alchemical.entries.push(sheetData);
-                craftingEntries.alchemical.totalReagentCost += (await entry.calculateReagentCost()) || 0;
+                craftingEntries.alchemical.resourceCost += (await entry.calculateResourceCost()) || 0;
             } else {
                 craftingEntries.prepared.push(sheetData);
             }
@@ -736,8 +736,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const quantity = htmlQuery<HTMLInputElement>(element, "input[data-craft-quantity]");
             quantity?.addEventListener("change", async (event) => {
                 const row = htmlClosest(event?.target, "li");
-                const uuid = row?.dataset.itemUuid ?? "";
-                const formula = this.#knownFormulas[uuid];
+                const formula = this.#knownFormulas[row?.dataset.itemUuid ?? ""];
                 const minBatchSize = formula.item.system.price.per;
                 const newValue = Number(quantity.value) || minBatchSize;
                 if (newValue < 1) return;
@@ -746,7 +745,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 if (slug) {
                     const ability = this.actor.crafting.abilities.get(slug, { strict: true });
                     const index = element.dataset.itemIndex;
-                    return ability.setFormulaQuantity(Number(index), uuid, newValue);
+                    return ability.setFormulaQuantity(Number(index), newValue);
                 }
                 this.#formulaQuantities[formula.uuid] = Math.max(newValue, minBatchSize);
                 this.render();
@@ -1093,10 +1092,9 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         const adjustCraftQuantity = async (_: MouseEvent, anchor: HTMLElement) => {
             const row = htmlClosest(anchor, "li");
             const quantityInput = htmlQuery<HTMLInputElement>(row, "input[data-craft-quantity]");
-            const uuid = row?.dataset.itemUuid;
-            if (!row || !quantityInput || !uuid) return;
+            const formula = this.#knownFormulas[row?.dataset.itemUuid ?? ""];
+            if (!row || !quantityInput || !formula) return;
 
-            const formula = this.#knownFormulas[uuid];
             const index = row.dataset.itemIndex;
             const slug = row.dataset.ability;
             const currentQuantity = Number(quantityInput.value) || 0;
@@ -1104,7 +1102,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             if (index && slug) {
                 const ability = this.actor.crafting.abilities.get(slug, { strict: true });
                 const direction = anchor.dataset.action === "increase-craft-quantity" ? "increase" : "decrease";
-                return ability.setFormulaQuantity(Number(index), uuid ?? "", direction);
+                return ability.setFormulaQuantity(Number(index), direction);
             }
 
             const minBatchSize = formula.item.price.per;
@@ -1528,11 +1526,8 @@ interface CraftingSheetData {
         prepared: CraftingAbilitySheetData[];
         alchemical: {
             entries: CraftingAbilitySheetData[];
-            totalReagentCost: number;
-            infusedReagents: {
-                value: number;
-                max: number;
-            };
+            resource: ResourceData;
+            resourceCost: number;
         };
     };
 }
