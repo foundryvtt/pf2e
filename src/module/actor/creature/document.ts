@@ -634,6 +634,17 @@ abstract class CreaturePF2e<
     getResource(resource: string): ResourceData | null {
         const slug = sluggify(resource);
         const key = sluggify(resource, { camel: "dromedary" });
+
+        // Temporary compatibility hack until the big migration
+        if (slug === "infused-reagents" && this.isOfType("character")) {
+            const data = this.system.resources.crafting.infusedReagents;
+            return {
+                ...data,
+                slug,
+                label: "PF2E.CraftingTab.Alchemical.InfusedReagents",
+            };
+        }
+
         const data = this.system.resources[key];
         if (!data) return null;
 
@@ -651,6 +662,13 @@ abstract class CreaturePF2e<
         const slug = sluggify(resource);
         const key = sluggify(resource, { camel: "dromedary" });
         if (key === "investiture") return;
+
+        // Temporary compatibility hack until the big migration
+        if (slug === "infused-reagents" && this.isOfType("character")) {
+            value = Math.clamp(value, 0, this.system.resources.crafting.infusedReagents.max);
+            await this.update({ [`system.resources.crafting.infusedReagents.value`]: value });
+            return;
+        }
 
         const resources = this.system.resources;
         const special = this.synthetics.resources[key];
