@@ -70,7 +70,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     get #isDragMeasuring(): boolean {
         const ruler = canvas.controls.ruler;
-        return ruler.dragMeasurement && ruler.isMeasuring && ruler.token === this;
+        return !!ruler.isDragMeasuring && ruler.token === this;
     }
 
     /** Increase center-to-center point tolerance to be more compliant with 2e rules */
@@ -556,8 +556,9 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     protected override _canDrag(user: UserPF2e, event?: TokenPointerEvent<this>): boolean {
         if (super._canDrag(user, event)) return true;
+        if (!this.controlled || event?.ctrlKey || event?.metaKey) return false;
         const setting = game.pf2e.settings.dragMeasurement;
-        return this.controlled && (setting === "always" || (setting === "encounters" && !!game.combat?.active));
+        return setting === "always" || (setting === "encounters" && !!game.combat?.active);
     }
 
     /** Prevent players from controlling an NPC when it's lootable */
