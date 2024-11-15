@@ -4,7 +4,7 @@
     "name": "Effect: Heaven's Thunder",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Heaven's Thunder]</p>\n<p>Your unarmed attacks and any monk weapons you wield deal additional electricity and sonic damage; the amount of each damage type is equal to the number of damage dice for the weapon or unarmed attack.</p>\n<p>If you also know the <em>ki blast</em> ki spell, you can choose to deal either electricity or sonic damage with the spell instead of force while this effect is active (<em>ki blast</em> loses the force trait and gains the electricity or sonic trait instead).</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Heaven's Thunder]</p>\n<p>Your unarmed attacks and any monk weapons you wield deal additional electricity and sonic damage; the amount of each damage type is equal to the number of damage dice for the weapon or unarmed attack.</p>\n<p>If you also know the <em>qi blast</em> ki spell, you can choose to deal either electricity or sonic damage with the spell instead of force while this effect is active (<em>qi blast</em> loses the force trait and gains the electricity or sonic trait instead).</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -50,6 +50,58 @@
                 "selector": "strike-damage",
                 "slug": "heavens-thunder-sonic",
                 "value": "@weapon.system.damage.dice"
+            },
+            {
+                "alwaysActive": true,
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Heaven's Thunder",
+                "option": "heavens-thunder",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:qi-blast"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "spell-damage",
+                    "inline-damage"
+                ],
+                "value": "{item|flags.pf2e.rulesSelections.heavensThunder}"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:slug:qi-blast"
+                ],
+                "property": "traits",
+                "value": "force"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:qi-blast"
+                ],
+                "property": "traits",
+                "value": "{item|flags.pf2e.rulesSelections.heavensThunder}"
             }
         ],
         "start": {
