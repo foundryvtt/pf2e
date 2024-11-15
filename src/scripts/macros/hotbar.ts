@@ -22,7 +22,7 @@ export async function rollItemMacro(itemId: string, event: Event | null = null):
         return null;
     }
 
-    if (item.isOfType("action", "feat")) {
+    if (item.isOfType("action", "feat") && (item.system.selfEffect || item.system.frequency)) {
         return createUseActionMessage(item);
     }
 
