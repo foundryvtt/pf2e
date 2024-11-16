@@ -122,7 +122,64 @@
             "value": ""
         },
         "requirements": "",
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Monk.QiSpells.HeavensThunder.RollOptionLabel",
+                "option": "heavens-thunder",
+                "placement": "spellcasting",
+                "predicate": [
+                    "self:effect:heavens-thunder"
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:effect-heavens-thunder",
+                    "item:slug:qi-blast"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "spell-damage"
+                ],
+                "value": "{item|flags.pf2e.rulesSelections.heavensThunder}"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "heavens-thunder",
+                    "item:slug:qi-blast"
+                ],
+                "property": "traits",
+                "value": "force"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:qi-blast",
+                    "heavens-thunder"
+                ],
+                "property": "traits",
+                "value": "{item|flags.pf2e.rulesSelections.heavensThunder}"
+            }
+        ],
         "target": {
             "value": ""
         },

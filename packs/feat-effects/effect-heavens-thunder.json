@@ -50,56 +50,6 @@
                 "selector": "strike-damage",
                 "slug": "heavens-thunder-sonic",
                 "value": "@weapon.system.damage.dice"
-            },
-            {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "PF2E.SpecificRule.Monk.QiSpells.HeavensThunder.RollOptionLabel",
-                "option": "heavens-thunder",
-                "placement": "spellcasting",
-                "suboptions": [
-                    {
-                        "label": "PF2E.TraitElectricity",
-                        "value": "electricity"
-                    },
-                    {
-                        "label": "PF2E.TraitSonic",
-                        "value": "sonic"
-                    }
-                ],
-                "toggleable": true
-            },
-            {
-                "key": "DamageAlteration",
-                "mode": "override",
-                "predicate": [
-                    "item:slug:qi-blast"
-                ],
-                "property": "damage-type",
-                "selectors": [
-                    "spell-damage"
-                ],
-                "value": "{item|flags.pf2e.rulesSelections.heavensThunder}"
-            },
-            {
-                "itemType": "spell",
-                "key": "ItemAlteration",
-                "mode": "remove",
-                "predicate": [
-                    "item:slug:qi-blast"
-                ],
-                "property": "traits",
-                "value": "force"
-            },
-            {
-                "itemType": "spell",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "item:slug:qi-blast"
-                ],
-                "property": "traits",
-                "value": "{item|flags.pf2e.rulesSelections.heavensThunder}"
             }
         ],
         "start": {
