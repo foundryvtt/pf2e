@@ -148,32 +148,29 @@
                 "key": "DamageAlteration",
                 "mode": "override",
                 "predicate": [
-                    "heavens-thunder",
-                    "item:slug:qi-blast"
+                    "heavens-thunder"
                 ],
                 "property": "damage-type",
                 "selectors": [
-                    "spell-damage"
+                    "{item|id}-damage"
                 ],
                 "value": "{item|flags.pf2e.rulesSelections.heavensThunder}"
             },
             {
-                "itemType": "spell",
+                "itemId": "{item|id}",
                 "key": "ItemAlteration",
                 "mode": "remove",
                 "predicate": [
-                    "heavens-thunder",
-                    "item:slug:qi-blast"
+                    "heavens-thunder"
                 ],
                 "property": "traits",
                 "value": "force"
             },
             {
-                "itemType": "spell",
+                "itemId": "{item|id}",
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "item:slug:qi-blast",
                     "heavens-thunder"
                 ],
                 "property": "traits",
