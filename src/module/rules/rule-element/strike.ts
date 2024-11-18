@@ -23,6 +23,7 @@ import type {
 } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
+import { ZeroToFour } from "@module/data.ts";
 
 /**
  * Create an ephemeral strike on an actor
@@ -135,6 +136,14 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                     data.fist ? StrikeRuleElement.#defaultFistIcon : "systems/pf2e/icons/default-icons/melee.svg",
             }),
             attackModifier: new fields.NumberField({ integer: true, positive: true, nullable: true, initial: null }),
+            attackItemBonus: new fields.NumberField({
+                integer: true,
+                positive: true,
+                nullable: true,
+                initial: null,
+                min: 0,
+                max: 4,
+            }),
             replaceAll: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
             replaceBasicUnarmed: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
             battleForm: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
@@ -279,7 +288,11 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                     },
                 },
                 options: { value: this.options },
-                runes: this.category === "unarmed" ? (unarmedRunes ?? {}) : {},
+                runes: this.attackItemBonus
+                    ? { potency: this.attackItemBonus as ZeroToFour }
+                    : this.category === "unarmed"
+                      ? (unarmedRunes ?? {})
+                      : {},
                 usage: { value: "held-in-one-hand" },
                 equipped: {
                     carryType: "held",
@@ -352,6 +365,10 @@ type StrikeSchema = RuleElementSchema & {
      * Also causes the damage to not be recalculated when converting the resulting weapon to an NPC attack
      */
     attackModifier: NumberField<number, number, false, true, true>;
+    /**
+     * An attack bonus, meant to be used in place of potency runes for abilities that grant such bonuses
+     */
+    attackItemBonus: NumberField<number, number, false, true, true>;
     range: SchemaField<
         {
             increment: NumberField<number, number, false, true, true>;
