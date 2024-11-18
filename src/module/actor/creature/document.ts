@@ -20,6 +20,7 @@ import { Rarity, SIZES, SIZE_SLUGS, ZeroToFour, ZeroToTwo } from "@module/data.t
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractModifiers } from "@module/rules/helpers.ts";
 import { BaseSpeedSynthetic } from "@module/rules/synthetics.ts";
+import { eventToRollParams } from "@module/sheet/helpers.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import { LightLevels } from "@scene/data.ts";
@@ -29,7 +30,6 @@ import { Predicate } from "@system/predication.ts";
 import { Statistic, StatisticDifficultyClass, type ArmorStatistic } from "@system/statistic/index.ts";
 import { PerceptionStatistic } from "@system/statistic/perception.ts";
 import { ErrorPF2e, localizer, setHasElement, sluggify, tupleHasValue } from "@util";
-import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import {
     CreatureResources,

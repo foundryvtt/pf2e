@@ -14,7 +14,7 @@ import { detachSubitem, sizeItemForActor } from "@item/physical/helpers.ts";
 import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { createUseActionMessage } from "@module/chat-message/helpers.ts";
-import { createSheetTags, maintainFocusInRender } from "@module/sheet/helpers.ts";
+import { createSheetTags, eventToRollMode, eventToRollParams, maintainFocusInRender } from "@module/sheet/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import type { StatisticRollParameters } from "@system/statistic/statistic.ts";
 import {
@@ -42,7 +42,6 @@ import {
     signedInteger,
     tupleHasValue,
 } from "@util";
-import { eventToRollMode, eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import Sortable from "sortablejs";
 import { ActorSizePF2e } from "../data/size.ts";

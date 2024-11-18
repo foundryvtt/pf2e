@@ -1,9 +1,9 @@
 import type { ActorPF2e } from "@actor";
 import { AbstractEffectPF2e, AfflictionPF2e, ConditionPF2e, EffectPF2e } from "@item";
 import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
+import { createTooltipListener } from "@module/sheet/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { createHTMLElement, ErrorPF2e, htmlQuery, htmlQueryAll } from "@util";
-import { createTooltipListener } from "@util/sheet.ts";
 
 export class EffectsPanel extends Application {
     private get token(): TokenDocumentPF2e | null {
