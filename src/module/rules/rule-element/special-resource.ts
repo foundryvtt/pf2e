@@ -6,10 +6,10 @@ import type { ActorCommitData } from "@actor/types.ts";
 import { PhysicalItemPF2e } from "@item";
 import type { PhysicalItemSource } from "@item/base/data/index.ts";
 import { sluggify } from "@util";
-import type { NumberField, StringField } from "types/foundry/common/data/fields.js";
 import { createBatchRuleElementUpdate } from "../helpers.ts";
-import { type RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import { RuleElementPF2e, type RuleElementOptions } from "./base.ts";
 import { ResolvableValueField, type RuleElementSchema, type RuleElementSource } from "./data.ts";
+import fields = foundry.data.fields;
 
 const INVALID_RESOURCES: (keyof CharacterResources)[] = [...CORE_RESOURCES, "crafting", "infusedReagents"];
 
@@ -27,16 +27,16 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
     }
 
     static override defineSchema(): SpecialResourceSchema {
-        const fields = foundry.data.fields;
         return {
             ...super.defineSchema(),
             value: new fields.NumberField({ required: false, nullable: false, initial: undefined }),
             max: new ResolvableValueField({ required: true, nullable: false }),
-            itemUUID: new fields.StringField({
+            itemUUID: new fields.DocumentUUIDField({
                 required: false,
                 nullable: false,
                 blank: false,
                 initial: undefined,
+                type: "Item",
                 label: "PF2E.UUID.Label",
             }),
         };
@@ -54,14 +54,13 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
 
         if (this.itemUUID) {
             // Find an existing item to update or create a new one
-            const uuid = this.resolveInjectedProperties(this.itemUUID);
-            const existing = this.actor.items.find((i) => i.sourceId === uuid);
+            const existing = this.actor.items.find((i) => i.sourceId === this.itemUUID);
             if (existing) {
                 if (existing.isOfType("physical") && existing.quantity !== value) {
                     data.itemUpdates.push({ _id: existing.id, system: { quantity: value } });
                 }
             } else {
-                const source = await this.#createItem(uuid);
+                const source = await this.#createItem(this.itemUUID);
                 if (source) {
                     source.system.quantity = value;
                     data.itemCreates.push(source);
@@ -178,11 +177,11 @@ type SpecialResourceSource = RuleElementSource & {
 
 type SpecialResourceSchema = RuleElementSchema & {
     /** Current value. If not set, defaults to null */
-    value: NumberField<number, number, false, false>;
+    value: fields.NumberField<number, number, false, false>;
     /** The maximum value attainable for this resource. */
     max: ResolvableValueField<true, false>;
     /** If this represents a physical resource, the UUID of the item to create */
-    itemUUID: StringField<string, string, false, false, false>;
+    itemUUID: fields.DocumentUUIDField<ItemUUID, false, false, false>;
 };
 
 export { SpecialResourceRuleElement };
