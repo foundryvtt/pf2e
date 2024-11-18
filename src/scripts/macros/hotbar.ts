@@ -7,6 +7,7 @@ import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { createUseActionMessage } from "@module/chat-message/helpers.ts";
 import { MacroPF2e } from "@module/macro.ts";
 import { objectHasKey } from "@util";
+import { eventToRollMode } from "@util/sheet.ts";
 
 /**
  * Create a Macro from an Item drop.
@@ -23,7 +24,7 @@ export async function rollItemMacro(itemId: string, event: Event | null = null):
     }
 
     if (item.isOfType("action", "feat")) {
-        return createUseActionMessage(item);
+        return createUseActionMessage(item, eventToRollMode(event));
     }
 
     // Trigger the item roll
