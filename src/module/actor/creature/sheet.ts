@@ -53,9 +53,9 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
                 remainingDying: Math.max(actor.attributes.dying.max - actor.attributes.dying.value),
                 remainingWounded: Math.max(actor.attributes.wounded.max - actor.attributes.wounded.value),
             },
-            specialResources: Object.values(this.actor.synthetics.resources)
-                .filter((r) => !r.itemUUID)
-                .map((r) => R.pick(r, ["slug", "label", "value", "max"])),
+            specialResources: Object.values(this.actor.synthetics.resources).map((r) =>
+                R.pick(r, ["slug", "label", "value", "max"]),
+            ),
         };
     }
 

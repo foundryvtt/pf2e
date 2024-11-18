@@ -30,7 +30,6 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
         const fields = foundry.data.fields;
         return {
             ...super.defineSchema(),
-            initial: new fields.NumberField({ required: false, nullable: false, initial: undefined }),
             value: new fields.NumberField({ required: false, nullable: false, initial: undefined }),
             max: new ResolvableValueField({ required: true, nullable: false }),
             itemUUID: new fields.StringField({
@@ -135,10 +134,7 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
         if (existing) {
             const max = Math.floor(existing.max ?? 0);
             this.max = existing.max = max;
-
-            const initial = this.initial ?? existing.max;
-            const value = Math.min(this.value ?? initial, max);
-            this.value = existing.value = value;
+            this.value = existing.value = Math.min(this.value ?? max, max);
         } else {
             this.failValidation(`Missing resource system data for resource ${this.slug}`);
         }
@@ -181,8 +177,6 @@ type SpecialResourceSource = RuleElementSource & {
 };
 
 type SpecialResourceSchema = RuleElementSchema & {
-    /** The initial value of this resource. Defaults to max if there is a max, otherwise 0 */
-    initial: NumberField<number, number, false, false>;
     /** Current value. If not set, defaults to null */
     value: NumberField<number, number, false, false>;
     /** The maximum value attainable for this resource. */
