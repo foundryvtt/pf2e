@@ -16,15 +16,6 @@ async function createUseActionMessage(
     item: AbilityItemPF2e<ActorPF2e> | FeatPF2e<ActorPF2e>,
     rollMode: RollMode | "roll" = "roll",
 ): Promise<ChatMessagePF2e | null> {
-    if (!item.system.selfEffect && !item.system.frequency) {
-        throw ErrorPF2e(
-            [
-                "Only actions with self-applied effects can be passed to `ActorPF2e#useAction`.",
-                "Support will be expanded at a later time.",
-            ].join(" "),
-        );
-    }
-
     const { actor, actionCost } = item;
     const token = actor.getActiveTokens(true, true).shift() ?? null;
 
@@ -36,7 +27,7 @@ async function createUseActionMessage(
 
     // If there is no self effect, show a regular message
     if (!item.system.selfEffect) {
-        return (await item.toMessage()) ?? null;
+        return (await item.toMessage(null, { rollMode })) ?? null;
     }
 
     const speaker = ChatMessagePF2e.getSpeaker({ actor, token });
