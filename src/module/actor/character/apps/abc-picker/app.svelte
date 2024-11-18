@@ -57,6 +57,11 @@
                 <div class="name">{item.name}</div>
                 <div class="source" class:publication={item.source.publication}>{item.source.name}</div>
             </button>
+            {#if item.rarity}
+                <div class="tags paizo-style">
+                    <span class="tag rarity {item.rarity.slug}">{item.rarity.label}</span>
+                </div>
+            {/if}
             <div class="buttons">
                 <button
                     type="button"
@@ -96,24 +101,29 @@
         overflow: hidden scroll;
         padding: var(--space-4) 0;
 
-        & > li {
+        > li {
+            display: grid;
             align-items: center;
             border-top: 1px solid var(--color-border);
-            display: flex;
-            gap: var(--space-8);
+            column-gap: var(--space-8);
+            grid-template:
+                "icon name-source rarity" auto
+                "icon name-source buttons" auto / 3rem auto 5rem;
             margin: 0;
-            padding: var(--space-3) var(--space-6);
+            padding: var(--space-1) var(--space-6) var(--space-4);
 
             img {
-                color: pointer;
                 border: none;
+                grid-area: icon;
                 height: 3rem;
+                width: 3rem;
             }
 
             button.name-source {
                 display: flex;
                 flex-flow: column nowrap;
-                flex-grow: 1;
+                grid-area: name-source;
+                height: unset;
                 justify-content: center;
 
                 .name {
@@ -133,8 +143,9 @@
             .buttons {
                 align-items: center;
                 display: flex;
-                gap: var(--space-2);
                 flex-flow: row nowrap;
+                gap: var(--space-2);
+                grid-area: buttons;
                 justify-content: end;
 
                 button {
@@ -157,8 +168,15 @@
                 }
             }
 
+            .tags {
+                font-size: var(--font-size-9);
+                grid-area: rarity;
+                justify-content: end;
+            }
+
             &:hover:not(.selected) button.confirm {
                 opacity: 0.33;
+                pointer-events: none;
                 visibility: visible;
             }
 
