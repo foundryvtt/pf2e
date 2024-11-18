@@ -4,7 +4,7 @@
     "name": "Effect: Renewed Vigor",
     "system": {
         "description": {
-            "value": "<p>You gain temporary Hit Points equal to half your level plus your Constitution modifier. If you made an attack action this turn, increase the number of temporary Hit Points to your level plus your Constitution modifier.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Renewed Vigor]</p>\n<p>You gain temporary Hit Points equal to half your level plus your Constitution modifier. If you made an attack action this turn, increase the number of temporary Hit Points to your level plus your Constitution modifier.</p>"
         },
         "duration": {
             "expiry": null,
@@ -22,11 +22,27 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Attack.success",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Attack.criticalSuccess",
+                        "value": 1
+                    }
+                ],
+                "flag": "outcome",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
+            {
                 "key": "TempHP",
                 "predicate": [
                     "self:effect:rage"
                 ],
-                "value": "floor(@actor.level) + @actor.abilities.con.mod"
+                "value": "floor(@actor.level/@item.flags.pf2e.rulesSelections.outcome) + @actor.abilities.con.mod"
             }
         ],
         "start": {
