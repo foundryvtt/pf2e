@@ -4,8 +4,8 @@ import { CreatureSheetPF2e } from "@actor/creature/sheet.ts";
 import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { AbilityViewData } from "@actor/sheet/data-types.ts";
 import { createAbilityViewData } from "@actor/sheet/helpers.ts";
+import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { StatisticTraceData } from "@system/statistic/index.ts";
-import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import type { FamiliarPF2e } from "./document.ts";
 
