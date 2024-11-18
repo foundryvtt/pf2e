@@ -7,7 +7,7 @@ import { MagicTradition, SpellTrait } from "@item/spell/types.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_TYPES } from "@system/damage/values.ts";
-import { isObject, setHasElement, tupleHasValue } from "@util";
+import { tupleHasValue } from "@util";
 import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
@@ -96,7 +96,7 @@ export class Migration882SpellDataReorganization extends MigrationBase {
         const system: MaybeOldSpellSystemSource = source.system ?? {};
 
         // Flatten traditions object
-        if (isObject(system.traditions) && "value" in system.traditions && Array.isArray(system.traditions.value)) {
+        if (R.isPlainObject(system.traditions) && Array.isArray(system.traditions.value)) {
             system.traits = this.#ensureTraitsPresence(system);
             system.traits.traditions = [...system.traditions.value].sort();
         }
@@ -109,7 +109,7 @@ export class Migration882SpellDataReorganization extends MigrationBase {
         }
 
         // Remove `components`, adding to traits as necessary
-        if (isObject(system.components)) {
+        if (R.isPlainObject(system.components)) {
             if (system.components.verbal) {
                 const traits = (system.traits = this.#ensureTraitsPresence(system));
                 traits.value.push("concentrate");
@@ -122,7 +122,7 @@ export class Migration882SpellDataReorganization extends MigrationBase {
         if ("components" in system) system["-=components"] = null;
 
         // Move `materials` to `requirements`
-        if (isObject(system.materials) && typeof system.materials.value === "string") {
+        if (R.isPlainObject(system.materials) && typeof system.materials.value === "string") {
             system.requirements = system.materials.value;
         } else if (topLevel) {
             system.requirements ||= "";
@@ -133,7 +133,7 @@ export class Migration882SpellDataReorganization extends MigrationBase {
         if (topLevel) {
             system.duration = {
                 value: system.duration?.value ?? "",
-                sustained: isObject(system.sustained)
+                sustained: R.isPlainObject(system.sustained)
                     ? !!system.sustained.value || system.duration?.value?.includes("sustained") || false
                     : (system.duration?.sustained ?? false),
             };
@@ -141,7 +141,7 @@ export class Migration882SpellDataReorganization extends MigrationBase {
         if ("sustained" in system) system["-=sustained"] = null;
 
         // Shorten `hasCounteractCheck.value` to `counteraction`
-        if (isObject(system.hasCounteractCheck)) {
+        if (R.isPlainObject(system.hasCounteractCheck)) {
             system.counteraction = !!system.hasCounteractCheck.value;
         } else if (topLevel) {
             system.counteraction ??= false;
@@ -152,7 +152,7 @@ export class Migration882SpellDataReorganization extends MigrationBase {
 
         // Replace `save` with `defense`
         if (
-            isObject(system.save) &&
+            R.isPlainObject(system.save) &&
             typeof system.save?.value === "string" &&
             tupleHasValue(SAVE_TYPES, system.save.value)
         ) {
@@ -166,7 +166,7 @@ export class Migration882SpellDataReorganization extends MigrationBase {
 
         // Flatten `damage` object
         const oldSpellDamage = fu.deepClone(system.damage);
-        if (isObject(oldSpellDamage) && R.isPlainObject(oldSpellDamage?.value)) {
+        if (R.isPlainObject(oldSpellDamage) && R.isPlainObject(oldSpellDamage?.value)) {
             system.damage = {};
             for (const [key, partial] of Object.entries(oldSpellDamage?.value)) {
                 if (topLevel && ["lay-on-hands", "touch-of-corruption"].includes(source.system?.slug ?? "")) {
@@ -179,7 +179,7 @@ export class Migration882SpellDataReorganization extends MigrationBase {
                     : topLevel
                       ? "untyped"
                       : undefined;
-                const damageCategory = setHasElement(DAMAGE_CATEGORIES_UNIQUE, typeData.subtype)
+                const damageCategory = tupleHasValue(DAMAGE_CATEGORIES_UNIQUE, typeData.subtype)
                     ? typeData.subtype
                     : topLevel
                       ? null
@@ -195,25 +195,25 @@ export class Migration882SpellDataReorganization extends MigrationBase {
 
             const damageWithDeletions: Record<string, unknown> = system.damage;
             for (const [key, oldValue] of Object.entries(oldSpellDamage)) {
-                if (key === "value" || !isObject(oldValue)) damageWithDeletions[`-=${key}`] = null;
+                if (key === "value" || !R.isPlainObject(oldValue)) damageWithDeletions[`-=${key}`] = null;
             }
         }
 
         // Remove `spellType`, adding to damage kinds if healing
-        if (isObject(system.spellType)) {
+        if (R.isPlainObject(system.spellType)) {
             if (system.spellType.value === "attack" && !system.traits?.value?.includes("attack")) {
                 const traits = (system.traits = this.#ensureTraitsPresence(system));
                 traits.value.push("attack");
             } else if (system.spellType.value === "heal") {
                 for (const [key, damagePartial] of Object.entries(system.damage ?? {})) {
-                    if (key !== "value" && isObject(damagePartial)) {
+                    if (key !== "value" && R.isPlainObject(damagePartial)) {
                         damagePartial.kinds = ["healing"];
                     }
                 }
             }
 
             for (const [key, damagePartial] of Object.entries(system.damage ?? {})) {
-                if (key !== "value" && isObject(damagePartial)) {
+                if (key !== "value" && R.isPlainObject(damagePartial)) {
                     damagePartial.kinds ??= ["damage"];
                 }
             }
@@ -221,16 +221,18 @@ export class Migration882SpellDataReorganization extends MigrationBase {
         if ("spellType" in system) system["-=spellType"] = null;
 
         // Remove `category`, setting up ritual data if necessary
-        if (isObject(system.category) && "value" in system.category && system.category.value === "ritual") {
+        if (R.isPlainObject(system.category) && "value" in system.category && system.category.value === "ritual") {
             const primaryCheck =
-                isObject(system.primarycheck) && typeof system.primarycheck.value === "string"
+                R.isPlainObject(system.primarycheck) && typeof system.primarycheck.value === "string"
                     ? system.primarycheck.value.trim()
                     : "";
             const secondaryChecks =
-                isObject(system.secondarycheck) && typeof system.secondarycheck.value === "string"
+                R.isPlainObject(system.secondarycheck) && typeof system.secondarycheck.value === "string"
                     ? system.secondarycheck.value.trim()
                     : "";
-            const secondaryCasters = isObject(system.secondarycasters) ? Number(system.secondarycasters.value) || 0 : 0;
+            const secondaryCasters = R.isPlainObject(system.secondarycasters)
+                ? Number(system.secondarycasters.value) || 0
+                : 0;
             system.ritual = {
                 primary: { check: primaryCheck },
                 secondary: { checks: secondaryChecks, casters: secondaryCasters },
@@ -248,7 +250,7 @@ export class Migration882SpellDataReorganization extends MigrationBase {
         }
 
         // Repeat for heightening and overlays
-        if (isObject(system.heightening) && system.heightening.type === "fixed") {
+        if (R.isPlainObject(system.heightening) && system.heightening.type === "fixed") {
             for (const spellPartial of Object.values(system.heightening.levels ?? {})) {
                 await this.updateItem({ name: source.name, type: "spell", system: spellPartial }, actorSource, {
                     topLevel: false,

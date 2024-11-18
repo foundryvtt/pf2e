@@ -13,7 +13,7 @@ const ENERGY_DAMAGE_TYPES = [
 ] as const;
 
 /** A set of mutually exclusive damage categories */
-const DAMAGE_CATEGORIES_UNIQUE = new Set(["persistent", "precision", "splash"] as const);
+const DAMAGE_CATEGORIES_UNIQUE = ["persistent", "precision", "splash"] as const;
 
 /** All damage modifications that only affect IWR (like materials) */
 const MATERIAL_DAMAGE_EFFECTS = new Set([
