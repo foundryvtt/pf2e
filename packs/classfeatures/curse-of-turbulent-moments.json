@@ -43,16 +43,23 @@
                 ],
                 "selector": "ac",
                 "type": "status",
-                "value": "-@actor.level*@actor.conditions.cursebound.value"
+                "value": "-@actor.conditions.cursebound.value"
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
                     "self:condition:cursebound",
-                    "time-curse-defend-against"
+                    {
+                        "or": [
+                            "time-curse-defend-against",
+                            "inflicts:fatigued",
+                            "inflicts:slowed"
+                        ]
+                    }
                 ],
                 "selector": "saving-throw",
-                "value": "-@actor.level*@actor.conditions.cursebound.value"
+                "type": "status",
+                "value": "-@actor.conditions.cursebound.value"
             }
         ],
         "traits": {

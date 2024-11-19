@@ -1,6 +1,6 @@
 {
     "_id": "5QVUaQGT1FSkFOYP",
-    "img": "icons/magic/nature/tree-animated-strike.webp",
+    "img": "icons/magic/nature/tree-spirit-black.webp",
     "name": "Curse of Inevitable Rot",
     "system": {
         "actionType": {
@@ -42,7 +42,7 @@
                     {
                         "or": [
                             "item:trait:poison",
-                            "item:trait:acid"
+                            "item:trait:disease"
                         ]
                     },
                     {
@@ -55,22 +55,6 @@
                 "selector": "saving-throw",
                 "type": "status",
                 "value": "ternary(gte(@actor.conditions.cursebound.value,4),-2,-1)"
-            },
-            {
-                "affects": "origin",
-                "key": "EphemeralEffect",
-                "predicate": [
-                    {
-                        "gte": [
-                            "self:condition:cursebound",
-                            2
-                        ]
-                    }
-                ],
-                "selectors": [
-                    "skill-check"
-                ],
-                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Curse of Inevitable Rot"
             }
         ],
         "traits": {

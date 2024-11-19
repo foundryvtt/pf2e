@@ -1,0 +1,77 @@
+{
+    "_id": "Fms3IfhXqHiKAxlC",
+    "img": "icons/creatures/magical/spirit-mischief-fire-blue.webp",
+    "name": "Spell Effect: Entreat Spirit",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Entreat Spirit]</p>\n<p>You gain a status bonus to an Intelligence-, Wisdom-, or Charisma-based skill, and to saving throws against curse, death, emotion, and fear effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Divine Mysteries"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.AbilityCha",
+                        "value": "cha"
+                    },
+                    {
+                        "label": "PF2E.AbilityInt",
+                        "value": "int"
+                    },
+                    {
+                        "label": "PF2E.AbilityWis",
+                        "value": "wis"
+                    }
+                ],
+                "flag": "attribute",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:curse",
+                            "item:trait:death",
+                            "item:trait:emotion",
+                            "item:trait:fear",
+                            {
+                                "not": "check:type:saving-throw"
+                            }
+                        ]
+                    }
+                ],
+                "selector": [
+                    "saving-throw",
+                    "{item|flags.pf2e.rulesSelections.attribute}-skill-check"
+                ],
+                "type": "status",
+                "value": "ternary(gte(@item.rank,8),3,ternary(gte(@item.rank,4),2,1))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

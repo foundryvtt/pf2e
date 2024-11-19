@@ -28,16 +28,6 @@
                 ],
                 "materials": [],
                 "type": "poison"
-            },
-            "Tr0XIZoOrNT2Dod9": {
-                "applyMod": false,
-                "category": null,
-                "formula": "1",
-                "kinds": [
-                    "damage"
-                ],
-                "materials": [],
-                "type": "bleed"
             }
         },
         "defense": {
@@ -47,7 +37,7 @@
             }
         },
         "description": {
-            "value": "<p>Weeping sores open on the target as you expose it to decay, dealing 1d4 void damage and 1d4 poison damage plus 1 persistent bleed damage. The target must attempt a Fortitude save.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half the initial damage and no persistent bleed damage.</p>\n<p><strong>Failure</strong> The target takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double initial damage and double persistent bleed damage.</p><hr /><p><strong>Heightened (+2)</strong> The void damage and poison damage each increase</p>"
+            "value": "<p>Weeping sores open on the target as you expose it to decay, dealing 1d4 void damage and 1d4 poison damage plus @Damage[(ceil(@item.rank / 2))[bleed]]{persistent bleed} damage. The target must attempt a Fortitude save.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half the initial damage and no persistent bleed damage.</p>\n<p><strong>Failure</strong> The target takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double initial damage and double persistent bleed damage.</p><hr /><p><strong>Heightened (+2)</strong> The void damage and poison damage each increase</p>"
         },
         "duration": {
             "sustained": false,
@@ -56,8 +46,7 @@
         "heightening": {
             "damage": {
                 "5e13Bmfh1lyUsnsZ": "1d4",
-                "KvRk6TYR4MxpkyHs": "1d4",
-                "Tr0XIZoOrNT2Dod9": "2"
+                "KvRk6TYR4MxpkyHs": "1d4"
             },
             "interval": 2,
             "type": "interval"
