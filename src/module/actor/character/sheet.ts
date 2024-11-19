@@ -969,7 +969,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             if (this.actor.flags.pf2e.quickAlchemy) {
                 const reagentValue = this.actor.system.resources.crafting.infusedReagents.value - 1;
                 if (reagentValue < 0) {
-                    ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MissingReagents"));
+                    ui.notifications.warn("PF2E.Actor.Character.Crafting.MissingResource", { localize: true });
                     return;
                 }
                 await this.actor.update(
@@ -1066,26 +1066,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const title = game.i18n.localize("PF2E.CraftingTab.UnprepareFormulaDialogTitle");
             if (event.ctrlKey || (await Dialog.confirm({ title, content }))) {
                 return ability.unprepareFormula(Number(index));
-            }
-        };
-
-        handlers["quick-add-formula"] = async (event) => {
-            const uuid = htmlClosest(event?.target, "li")?.dataset.itemUuid;
-            if (!UUIDUtils.isItemUUID(uuid)) throw ErrorPF2e(`Invalid UUID: ${uuid}`);
-
-            const craftingFormulas = await this.actor.crafting.getFormulas();
-            const formula = craftingFormulas.find((f) => f.uuid === uuid);
-            if (!formula) return;
-
-            const validAbilities = this.actor.crafting.abilities.filter(
-                (e) => !!e.slug && e.checkEntryRequirements(formula, { warn: false }),
-            );
-            for (const ability of validAbilities) {
-                await ability.prepareFormula(formula);
-            }
-
-            if (validAbilities.length === 0) {
-                ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.NoEligibleEntry"));
             }
         };
 
