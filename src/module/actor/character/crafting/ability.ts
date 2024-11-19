@@ -1,6 +1,6 @@
 import type { CharacterPF2e } from "@actor";
 import { ResourceData } from "@actor/creature/index.ts";
-import type { ItemPF2e } from "@item";
+import type { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { createBatchRuleElementUpdate } from "@module/rules/helpers.ts";
 import type {
     CraftingAbilityRuleData,
@@ -56,6 +56,7 @@ class CraftingAbility implements CraftingAbilityData {
         if (this.isAlchemical) {
             this.resource = "infused-reagents";
             this.isDailyPrep = true;
+            this.isPrepared = true;
         }
     }
 
@@ -117,7 +118,14 @@ class CraftingAbility implements CraftingAbilityData {
     }
 
     async prepareFormula(formula: CraftingFormula): Promise<void> {
-        this.checkEntryRequirements(formula);
+        if (!this.resource && this.preparedFormulaData.length >= this.maxSlots) {
+            ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MaxSlots"));
+            return;
+        }
+
+        if (!this.canCraft(formula.item)) {
+            return;
+        }
 
         const quantity = await this.#batchSizeFor(formula);
         const existing = this.preparedFormulaData.find((f) => f.uuid === formula.uuid);
@@ -130,14 +138,9 @@ class CraftingAbility implements CraftingAbilityData {
         return this.#updateRuleElement();
     }
 
-    checkEntryRequirements(formula: CraftingFormula, { warn = true } = {}): boolean {
-        if (!!this.maxSlots && this.preparedFormulaData.length >= this.maxSlots) {
-            if (warn) ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MaxSlots"));
-            return false;
-        }
-
-        // Check if it meets the entry requirements
-        const rollOptions = formula.item.getRollOptions("item");
+    /** Returns true if the item can be created by this ability, which requires it to pass predication and be of sufficient level */
+    canCraft(item: PhysicalItemPF2e, { warn = true } = {}): boolean {
+        const rollOptions = item.getRollOptions("item");
         if (!this.craftableItems.some((c) => c.predicate.test(rollOptions))) {
             if (warn) {
                 ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.ItemMissingTraits"));
@@ -145,8 +148,7 @@ class CraftingAbility implements CraftingAbilityData {
             return false;
         }
 
-        // Check if it exceeds the max level we're able to output
-        if (formula.item.level > this.maxItemLevel) {
+        if (item.level > this.maxItemLevel) {
             if (warn) {
                 ui.notifications.warn(
                     game.i18n.format("PF2E.CraftingTab.Alerts.MaxItemLevel", { level: this.maxItemLevel }),
