@@ -13,12 +13,12 @@ import {
     extractModifierAdjustments,
     extractRollSubstitutions,
 } from "@module/rules/helpers.ts";
+import { eventToRollParams } from "@module/sheet/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import { CheckPF2e, CheckType } from "@system/check/index.ts";
 import type { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import { CheckDCReference, Statistic } from "@system/statistic/index.ts";
 import { sluggify } from "@util";
-import { eventToRollParams } from "@util/sheet.ts";
 import { getSelectedActors } from "@util/token-actor-utils.ts";
 import * as R from "remeda";
 import type {

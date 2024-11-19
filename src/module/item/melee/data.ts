@@ -1,5 +1,5 @@
 import type { MeleePF2e } from "@item";
-import { ItemSystemModel, ItemSystemSchema } from "@item/base/data/schema.ts";
+import { ItemSystemModel, ItemSystemSchema } from "@item/base/data/model.ts";
 import type {
     BaseItemSourcePF2e,
     ItemFlagsPF2e,
@@ -31,7 +31,6 @@ class MeleeSystemData extends ItemSystemModel<MeleePF2e, NPCAttackSystemSchema> 
     declare runes: { property: WeaponPropertyRuneType[] };
 
     static override defineSchema(): NPCAttackSystemSchema {
-        const fields = foundry.data.fields;
         const traitChoices: Record<NPCAttackTrait, string> = CONFIG.PF2E.npcAttackTraits;
 
         return {

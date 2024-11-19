@@ -7,7 +7,7 @@ import { createAbilityViewData } from "@actor/sheet/helpers.ts";
 import { RecallKnowledgePopup } from "@actor/sheet/popups/recall-knowledge-popup.ts";
 import { MovementType } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, MOVEMENT_TYPES, SAVE_TYPES } from "@actor/values.ts";
-import { createTagifyTraits } from "@module/sheet/helpers.ts";
+import { createTagifyTraits, eventToRollParams } from "@module/sheet/helpers.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { DicePF2e } from "@scripts/dice.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
@@ -22,7 +22,6 @@ import {
     tagify,
     traitSlugToObject,
 } from "@util";
-import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import { NPCConfig } from "./config.ts";
 import {

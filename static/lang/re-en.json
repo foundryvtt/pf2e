@@ -1907,6 +1907,9 @@
             "AdoptedAncestry": {
                 "Prompt": "Select a common ancestry."
             },
+            "AdvancedAlchemy": {
+                "Label": "Advanced Alchemy"
+            },
             "AdvancedGeneralTraining": {
                 "Prompt": "Select a 7th-level or lower general feat."
             },
@@ -2320,7 +2323,7 @@
                     "Description": "Your powerful sense of wonderment can be infectious and distracting.",
                     "Fallout": "You become @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} until you Settle your Emotions.",
                     "Fervor": "When you cast a spell, choose one creature that was hit by your spell attack roll or that failed its saving throw, if any. That creature becomes fascinated with you until the end of its next turn. It's then temporarily immune to this fervor effect for 1 hour. Spell: @UUID[Compendium.pf2e.spells-srd.Item.0qaqksrGGDj74HXE]{Revealing Light}",
-                    "Focus": "@UUID[Compendium.pf2e.spells-srd.Item.zul5cBTfr7NXHBZf]{Dazzling Flash (doesn't require a religious symbol)",
+                    "Focus": "@UUID[Compendium.pf2e.spells-srd.Item.zul5cBTfr7NXHBZf]{Dazzling Flash} (doesn't require a religious symbol)",
                     "Label": "Awe",
                     "Trigger": "You or an ally within 30 feet critically succeeds on an attack roll against an enemy's AC or a skill check against one of an enemy's DCs."
                 },
@@ -2340,7 +2343,7 @@
                     "Fervor": "You don't take the status penalty from the frightened condition to your spell DCs or spell attack bonus. Instead, you gain a status bonus to spell attack rolls equal to the penalty you would've taken, and your foes take the same status penalty to their saving throws against your spells. Any other statistic takes the status penalty as normal. Spell: @UUID[Compendium.pf2e.spells-srd.Item.4koZzrnMXhhosn0D]{Fear}",
                     "Focus": "@UUID[Compendium.pf2e.spells-srd.Item.DU5daB09xwfE1y38]{Waking Nightmare}",
                     "Label": "Fear",
-                    "Trigger": "You let your fear fuel you, rather than consume you, but it burns your endurance."
+                    "Trigger": "An enemy makes you @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{Frightened}."
                 },
                 "Hatred": {
                     "Activation": "You can Step or Stride. You must end this movement closer to your emotional focus.",
@@ -3117,9 +3120,9 @@
                     "StrikeLabel": "Ghostly Hand"
                 },
                 "RhinoShot": {
-                    "CriticalSuccess": "The target must succeed at a @Check[fortitude|dc:19|name:Rhino Shot|traits:conjuration,consumable,magical|showDC:all] save or be knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}.",
+                    "CriticalSuccess": "The target must critically succeed at a @Check[fortitude|dc:19|name:Rhino Shot|traits:conjuration,consumable,magical|showDC:all] save or be knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}.",
                     "Label": "Rhino Shot",
-                    "Success": "The target must critically succeed at a @Check[fortitude|dc:19|name:Rhino Shot|traits:conjuration,consumable,magical|showDC:all] save or be knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}."
+                    "Success": "The target must succeed at a @Check[fortitude|dc:19|name:Rhino Shot|traits:conjuration,consumable,magical|showDC:all] save or be knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}."
                 },
                 "RobeOfTheArchmagi": {
                     "VsArcaneSpells": "{item} (vs. Arcane Spells)"
@@ -3491,6 +3494,7 @@
                     "bow": "Advanced Bows",
                     "brawling": "Advanced Brawling",
                     "club": "Advanced Clubs",
+                    "crossbow": "Advanced Crossbows",
                     "dart": "Advanced Darts",
                     "firearm": "Advanced Firearms",
                     "flail": "Advanced Flails",
@@ -3509,6 +3513,7 @@
                     "bow": "Simple & Martial Bows",
                     "brawling": "Simple & Martial Brawling",
                     "club": "Simple & Martial Clubs",
+                    "crossbow": "Simple & Martial Crossbows",
                     "dart": "Simple & Martial Darts",
                     "firearm": "Simple & Martial Firearms",
                     "flail": "Simple & Martial Flails",
@@ -3999,6 +4004,13 @@
                     "Note": "Each of your successful saving throws against a disease reduces its stage by 2, or by 1 for a virulent disease. Each critical success against an ongoing disease reduces its stage by 3, or by 2 for a virulent disease."
                 }
             },
+            "LostInTheCrowd": {
+              "CrowdSize": {
+                "Ten": "At least 10 creatures",
+                "Hundred": "At least 100 creatures"
+              },
+              "Prompt": "Select a crowd size."  
+            },
             "MagicalExperiment": {
                 "EnhancedSenses": "Enhanced Senses",
                 "ResistantSkin": "Resistant Skin",
@@ -4066,6 +4078,7 @@
                     "bow": "Advanced Bows",
                     "brawling": "Advanced Brawling",
                     "club": "Advanced Clubs",
+                    "crossbow": "Advanced Crossbows",
                     "dart": "Advanced Darts",
                     "firearm": "Advanced Firearms",
                     "flail": "Advanced Flails",
@@ -4118,6 +4131,7 @@
                     "bow": "Martial Bows",
                     "brawling": "Martial Brawling",
                     "club": "Martial Clubs",
+                    "crossbow": "Martial Crossbows",
                     "dart": "Martial Darts",
                     "firearm": "Martial Firearms",
                     "flail": "Martial Flails",
@@ -4195,6 +4209,11 @@
                 "OneInchPunch": {
                     "ThreeActionLabel": "One Inch Punch (Three Actions)",
                     "TwoActionLabel": "One Inch Punch (Two Actions)"
+                },
+                "QiSpells": {
+                    "HeavensThunder": {
+                        "RollOptionLabel": "Heaven's Thunder — Qi Blast"
+                    }
                 },
                 "StunningFist": {
                     "Note": "The target must succeed at a @Check[fortitude|against:monk|name:Monk|traits:incapacitation|overrideTraits:true] save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 3} on a critical failure)."

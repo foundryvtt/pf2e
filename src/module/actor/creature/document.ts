@@ -20,6 +20,7 @@ import { Rarity, SIZES, SIZE_SLUGS, ZeroToFour, ZeroToTwo } from "@module/data.t
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractModifiers } from "@module/rules/helpers.ts";
 import { BaseSpeedSynthetic } from "@module/rules/synthetics.ts";
+import { eventToRollParams } from "@module/sheet/helpers.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import { LightLevels } from "@scene/data.ts";
@@ -29,7 +30,6 @@ import { Predicate } from "@system/predication.ts";
 import { Statistic, StatisticDifficultyClass, type ArmorStatistic } from "@system/statistic/index.ts";
 import { PerceptionStatistic } from "@system/statistic/perception.ts";
 import { ErrorPF2e, localizer, setHasElement, sluggify, tupleHasValue } from "@util";
-import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import {
     CreatureResources,
@@ -297,6 +297,7 @@ abstract class CreaturePF2e<
         this.flags.pf2e.rollOptions.all["self:creature"] = true;
 
         this.system.perception = fu.mergeObject({ attribute: "wis", senses: [] }, this.system.perception);
+        this.system.resources ??= {};
 
         const attributes = this.system.attributes;
         attributes.ac = fu.mergeObject({ attribute: "dex" }, attributes.ac);
@@ -634,6 +635,17 @@ abstract class CreaturePF2e<
     getResource(resource: string): ResourceData | null {
         const slug = sluggify(resource);
         const key = sluggify(resource, { camel: "dromedary" });
+
+        // Temporary compatibility hack until the big migration
+        if (slug === "infused-reagents" && this.isOfType("character")) {
+            const data = this.system.resources.crafting.infusedReagents;
+            return {
+                ...data,
+                slug,
+                label: "PF2E.CraftingTab.Alchemical.InfusedReagents",
+            };
+        }
+
         const data = this.system.resources[key];
         if (!data) return null;
 
@@ -651,6 +663,13 @@ abstract class CreaturePF2e<
         const slug = sluggify(resource);
         const key = sluggify(resource, { camel: "dromedary" });
         if (key === "investiture") return;
+
+        // Temporary compatibility hack until the big migration
+        if (slug === "infused-reagents" && this.isOfType("character")) {
+            value = Math.clamp(value, 0, this.system.resources.crafting.infusedReagents.max);
+            await this.update({ [`system.resources.crafting.infusedReagents.value`]: value });
+            return;
+        }
 
         const resources = this.system.resources;
         const special = this.synthetics.resources[key];

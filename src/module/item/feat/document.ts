@@ -75,6 +75,14 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         return this.system.maxTakable;
     }
 
+    /** Returns the number of times this feat was taken, limited by maxTakable */
+    get timesTaken(): number {
+        // if performance becomes a concern, we can accumulate in actor flags for O(N)
+        const slug = this.slug ?? sluggify(this.name);
+        const matchingFeats = this.actor?.itemTypes.feat.filter((f) => f.category === this.category && f.slug === slug);
+        return Math.min(matchingFeats?.length ?? 0, this.maxTakable);
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
 

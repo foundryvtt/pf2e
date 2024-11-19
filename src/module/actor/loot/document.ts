@@ -71,6 +71,13 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         await Promise.allSettled(promises);
     }
 
+    /** Set base emphemeral data for later updating by derived-data preparation. */
+    override prepareBaseData(): void {
+        const system: DeepPartial<LootSystemData> = this.system;
+        system.attributes = {};
+        super.prepareBaseData();
+    }
+
     /** Never process rules elements on loot actors */
     override prepareDerivedData(): void {
         this.rules = [];

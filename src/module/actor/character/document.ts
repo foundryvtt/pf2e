@@ -44,6 +44,7 @@ import {
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers.ts";
+import { eventToRollParams } from "@module/sheet/helpers.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { CheckCheckContext, CheckPF2e, CheckRoll } from "@system/check/index.ts";
@@ -55,7 +56,6 @@ import { Predicate } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls.ts";
 import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, setHasElement, signedInteger, sluggify, traitSlugToObject } from "@util";
-import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import { CharacterCrafting, CraftingFormula } from "./crafting/index.ts";
 import {
@@ -1896,7 +1896,7 @@ interface CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocument
     readonly _source: CharacterSource;
     system: CharacterSystemData;
 
-    getResource(resource: "hero-points" | "mythic-points" | "focus" | "investiture"): ResourceData;
+    getResource(resource: "hero-points" | "mythic-points" | "focus" | "investiture" | "infused-reagents"): ResourceData;
     getResource(resource: string): ResourceData | null;
 }
 

@@ -2,7 +2,7 @@ import type { ActorPF2e } from "@actor";
 import { DamageDicePF2e, ModifierPF2e, RawDamageDice, adjustModifiers } from "@actor/modifiers.ts";
 import type { ItemPF2e } from "@item";
 import { extractDamageAlterations, extractModifierAdjustments } from "@module/rules/helpers.ts";
-import { ErrorPF2e, fontAwesomeIcon, setHasElement, signedInteger, tupleHasValue } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, signedInteger, tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { Die, NumericTerm, RollTerm } from "types/foundry/client-esm/dice/terms/module.d.ts";
 import { combinePartialTerms } from "./formula.ts";
@@ -193,7 +193,7 @@ function extractBaseDamage(roll: DamageRoll): BaseDamageData[] {
         { category = null }: { category?: DamageCategoryUnique | null } = {},
     ): DamagePartialWithCategory[] {
         // If this expression introduces a category, override it when recursing
-        category = setHasElement(DAMAGE_CATEGORIES_UNIQUE, expression.options.flavor)
+        category = tupleHasValue(DAMAGE_CATEGORIES_UNIQUE, expression.options.flavor)
             ? expression.options.flavor
             : category;
 
@@ -252,7 +252,7 @@ function extractBaseDamage(roll: DamageRoll): BaseDamageData[] {
     }
 
     return roll.instances.flatMap((instance): BaseDamageData[] => {
-        const category = setHasElement(DAMAGE_CATEGORIES_UNIQUE, instance.category) ? instance.category : null;
+        const category = tupleHasValue(DAMAGE_CATEGORIES_UNIQUE, instance.category) ? instance.category : null;
         const terms = recursiveExtractTerms(instance.head, { category });
         return Object.values(R.groupBy(terms, (t) => t.category ?? "")).map((terms) => {
             const category = instance.persistent ? "persistent" : terms[0].category;

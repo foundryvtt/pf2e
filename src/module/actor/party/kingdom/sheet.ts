@@ -13,6 +13,7 @@ import {
     SheetOption,
     SheetOptions,
     createSheetTags,
+    eventToRollParams,
     getAdjustedValue,
     getAdjustment,
 } from "@module/sheet/helpers.ts";
@@ -29,19 +30,18 @@ import {
     setHasElement,
     tupleHasValue,
 } from "@util";
-import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import Sortable from "sortablejs";
 import { KingdomBuilder } from "./builder.ts";
 import { calculateKingdomCollectionData } from "./helpers.ts";
 import { Kingdom } from "./model.ts";
-import {
+import type {
     KingdomAbilityData,
     KingdomData,
     KingdomLeadershipData,
     KingdomSettlementData,
     KingdomSource,
-} from "./types.ts";
+} from "./schema.ts";
 import {
     KINGDOM_ABILITIES,
     KINGDOM_ABILITY_LABELS,

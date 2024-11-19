@@ -23,13 +23,13 @@ import {
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers.ts";
+import { eventToRollParams } from "@module/sheet/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import { CheckPF2e, CheckRollCallback } from "@system/check/check.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 import { CheckCheckContext, CheckType, RollTwiceOption } from "@system/check/types.ts";
 import { CheckDC, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success.ts";
 import { ErrorPF2e, isObject, signedInteger, sluggify } from "@util";
-import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import { BaseStatistic } from "./base.ts";
 import {

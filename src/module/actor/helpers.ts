@@ -13,6 +13,7 @@ import {
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers.ts";
+import { eventToRollParams } from "@module/sheet/helpers.ts";
 import type { RegionDocumentPF2e, ScenePF2e } from "@scene";
 import type { EnvironmentRegionBehavior } from "@scene/region-behavior/types.ts";
 import { CheckCheckContext, CheckPF2e, CheckRoll } from "@system/check/index.ts";
@@ -21,7 +22,6 @@ import { DamageRoll } from "@system/damage/roll.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
 import { ErrorPF2e, getActionGlyph, signedInteger, sluggify, traitSlugToObject } from "@util";
-import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import { AttackTraitHelpers } from "./creature/helpers.ts";
 import { DamageRollFunction } from "./data/base.ts";
@@ -831,17 +831,20 @@ async function transferItemsBetweenActors(
 }
 
 /** Applies multiple batched updates to the actor, delaying rendering till the end */
-async function applyActorUpdate<T extends ActorPF2e>(actor: T, data: ActorCommitData<T>): Promise<void> {
+async function applyActorUpdate<T extends ActorPF2e>(actor: T, data: Partial<ActorCommitData<T>>): Promise<void> {
+    const itemCreates = data.itemCreates ?? [];
+    const itemUpdates = data.itemUpdates ?? [];
+
     if (data.actorUpdates) {
         await actor.update(data.actorUpdates, { render: false });
     }
-    if (data.itemCreates.length > 0) {
-        await actor.createEmbeddedDocuments("Item", data.itemCreates, { render: false });
+    if (itemCreates.length > 0) {
+        await actor.createEmbeddedDocuments("Item", itemCreates, { render: false });
     }
-    if (data.itemUpdates.length > 0) {
-        await actor.updateEmbeddedDocuments("Item", data.itemUpdates, { render: false });
+    if (itemUpdates.length > 0) {
+        await actor.updateEmbeddedDocuments("Item", itemUpdates, { render: false });
     }
-    if (data.actorUpdates || data.itemCreates.length || data.itemUpdates.length) {
+    if (data.actorUpdates || itemCreates.length || itemUpdates.length) {
         actor.render();
     }
 }

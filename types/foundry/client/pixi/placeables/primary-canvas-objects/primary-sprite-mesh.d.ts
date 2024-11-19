@@ -1,4 +1,4 @@
-import { PrimaryOccludableObjectMixin } from "./primary-occludable-object.ts";
+import type { PrimaryOccludableObjectMixin } from "./primary-occludable-object.d.ts";
 
 /**
  * A basic PCO sprite mesh which is handling occlusion and depth.
@@ -8,16 +8,11 @@ import { PrimaryOccludableObjectMixin } from "./primary-occludable-object.ts";
  * @param [options.name]        The name of this sprite.
  * @param [options.object]      Any object that owns this sprite.
  */
-/* eslint-disable @typescript-eslint/no-unused-expressions, no-unused-expressions */
 export class PrimarySpriteMesh extends PrimaryOccludableObjectMixin(SpriteMesh) {
     constructor(
         options: { texture?: PIXI.Texture; name?: string | null; object?: object },
         shaderClass: typeof PrimaryBaseSamplerShader,
-    ) {
-        options;
-        shaderClass;
-        super(options.texture, shaderClass);
-    }
+    );
 
     declare object: object | null;
 
@@ -37,17 +32,13 @@ export class PrimarySpriteMesh extends PrimaryOccludableObjectMixin(SpriteMesh) 
     /*  PIXI Events                                 */
     /* -------------------------------------------- */
 
-    protected override _onTextureUpdate(): void {}
+    protected override _onTextureUpdate(): void;
 
     /* -------------------------------------------- */
     /*  Helper Methods                              */
     /* -------------------------------------------- */
 
-    override setShaderClass(shaderClass: typeof PrimaryBaseSamplerShader): void {
-        shaderClass;
-    }
-
-    /* -------------------------------------------- */
+    override setShaderClass(shaderClass: typeof PrimaryBaseSamplerShader): void;
 
     /**
      * An all-in-one helper method: Resizing the PCO according to desired dimensions and options.
@@ -85,49 +76,35 @@ export class PrimarySpriteMesh extends PrimaryOccludableObjectMixin(SpriteMesh) 
             scaleX?: number;
             scaleY?: number;
         },
-    ): void {
-        baseWidth;
-        baseHeight;
-        options;
-    }
+    ): void;
 
     /* -------------------------------------------- */
     /*  Methods                                     */
     /* -------------------------------------------- */
 
-    protected override _updateBatchData(): void {}
+    protected override _updateBatchData(): void;
 
-    protected override _calculateCanvasBounds(): void {}
+    protected override _calculateCanvasBounds(): void;
 
     /**
      * Is the given point in canvas space contained in this object?
      * @param point                   The point in canvas space
      * @param [textureAlphaThreshold] The minimum texture alpha required for containment
      */
-    override containsCanvasPoint(point: PIXI.IPointData, textureAlphaThreshold?: number): boolean {
-        point;
-        textureAlphaThreshold;
-        return true;
-    }
+    override containsCanvasPoint(point: PIXI.IPointData, textureAlphaThreshold?: number): boolean;
 
     /**
      * Is the given point in world space contained in this object?
      * @param point                   The point in world space
      * @param [textureAlphaThreshold] The minimum texture alpha required for containment
      */
-    override containsPoint(point: PIXI.IPointData, textureAlphaThreshold?: number): boolean {
-        point;
-        textureAlphaThreshold;
-        return true;
-    }
+    override containsPoint(point: PIXI.IPointData, textureAlphaThreshold?: number): boolean;
 
     /* -------------------------------------------- */
     /*  Rendering Methods                           */
     /* -------------------------------------------- */
 
-    override renderDepthData(renderer: PIXI.Renderer): void {
-        renderer;
-    }
+    override renderDepthData(renderer: PIXI.Renderer): void;
 
     /* -------------------------------------------- */
 
@@ -137,7 +114,5 @@ export class PrimarySpriteMesh extends PrimaryOccludableObjectMixin(SpriteMesh) 
      * @param renderer The renderer
      * @internal
      */
-    _renderVoid(renderer: PIXI.Renderer): void {
-        renderer;
-    }
+    _renderVoid(renderer: PIXI.Renderer): void;
 }

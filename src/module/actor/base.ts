@@ -175,7 +175,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** The recorded schema version of this actor, updated after each data migration */
     get schemaVersion(): number | null {
-        return Number(this.system._migration?.version ?? this.system.schema?.version) || null;
+        const legacyValue = R.isPlainObject(this._source.system.schema)
+            ? Number(this._source.system.schema.version) || null
+            : null;
+        return Number(this._source.system._migration?.version) || legacyValue;
     }
 
     /** Get an active GM or, failing that, a player who can update this actor */
@@ -1845,7 +1848,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         if (isFullReplace) return super._preUpdate(changed, operation, user);
 
         // Always announce HP changes for player-owned actors as floaty text (via `damageTaken` option)
-        const currentHP = this._source.system.attributes.hp?.value;
+        const currentHP = this._source.system.attributes?.hp?.value;
         const updatedHP = changed.system?.attributes?.hp?.value ?? currentHP;
         if (!operation.damageTaken && this.hasPlayerOwner && currentHP && updatedHP && updatedHP !== currentHP) {
             const damageTaken = -1 * (updatedHP - currentHP);

@@ -14,7 +14,7 @@ import type { TokenDocumentPF2e } from "@scene";
 import { Predicate } from "@system/predication.ts";
 import { ArmorStatistic, HitPointsStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
 import * as R from "remeda";
-import { FamiliarSource, FamiliarSystemData } from "./data.ts";
+import type { FamiliarSource, FamiliarSystemData } from "./data.ts";
 
 class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
     /** The familiar's attack statistic, for the rare occasion it must make an attack roll */
@@ -29,7 +29,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         // The Actors world collection needs to be initialized for data preparation
         if (!game.ready || !this.system.master.id) return null;
 
-        const master = game.actors.get(this.system.master.id ?? "");
+        const master = game.actors.get(this.system.master.id);
         if (master?.isOfType("character")) {
             master.familiar ??= this;
             return master;
@@ -67,7 +67,6 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             languages: { value: [], details: "" },
             level: { value: 0 },
         };
-
         this.system.traits = {
             value: ["minion"],
             rarity: "common",
@@ -118,7 +117,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             will: {},
         };
 
-        const { master } = this;
+        const master = this.master;
         this.system.details.level.value = master?.level ?? 0;
         this.rollOptions.all[`self:level:${this.level}`] = true;
         system.details.alliance = master?.alliance ?? "party";
@@ -194,8 +193,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             },
             {} as Record<SaveType, Statistic>,
         );
-
-        this.system.saves = SAVE_TYPES.reduce(
+        system.saves = SAVE_TYPES.reduce(
             (partial, saveType) => ({ ...partial, [saveType]: this.saves[saveType].getTraceData() }),
             {} as CreatureSaves,
         );
@@ -207,8 +205,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             modifiers: [new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped")],
             check: { type: "attack-roll" },
         });
-
-        this.system.attack = this.attackStatistic.getTraceData();
+        system.attack = this.attackStatistic.getTraceData();
 
         // Perception
         this.perception = new PerceptionStatistic(this, {

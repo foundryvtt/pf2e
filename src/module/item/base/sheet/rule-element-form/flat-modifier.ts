@@ -1,6 +1,7 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { MODIFIER_TYPES, ModifierType } from "@actor/modifiers.ts";
 import type { FlatModifierRuleElement, FlatModifierSource } from "@module/rules/rule-element/flat-modifier.ts";
+import type { DamageCategoryUnique } from "@system/damage/types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 import { htmlQuery, tupleHasValue } from "@util";
 import * as R from "remeda";
@@ -44,7 +45,7 @@ class FlatModifierForm extends RuleElementForm<FlatModifierSource, FlatModifierR
             selectorIsArray: Array.isArray(this.rule.selector),
             abilities: CONFIG.PF2E.abilities,
             types,
-            damageCategories: R.pick(CONFIG.PF2E.damageCategories, Array.from(DAMAGE_CATEGORIES_UNIQUE)),
+            damageCategories: R.pick(CONFIG.PF2E.damageCategories, DAMAGE_CATEGORIES_UNIQUE),
             isDamage: this.isDamage,
             criticalOptions: [
                 { value: "false", label: "PF2E.RuleEditor.General.CriticalBehavior.false" },
@@ -73,9 +74,9 @@ class FlatModifierForm extends RuleElementForm<FlatModifierSource, FlatModifierR
 
 interface FlatModifierFormSheetData extends RuleElementFormSheetData<FlatModifierSource, FlatModifierRuleElement> {
     selectorIsArray: boolean;
-    abilities: ConfigPF2e["PF2E"]["abilities"];
+    abilities: typeof CONFIG.PF2E.abilities;
     types: Record<ModifierType, string>;
-    damageCategories: Pick<ConfigPF2e["PF2E"]["damageCategories"], "persistent" | "precision" | "splash">;
+    damageCategories: Record<DamageCategoryUnique, string>;
     isDamage: boolean;
     criticalOptions: FormSelectOption[];
 }

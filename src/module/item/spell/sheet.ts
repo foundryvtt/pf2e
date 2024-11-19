@@ -109,7 +109,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             variants,
             isVariant: this.item.isVariant,
             damageTypes: sortStringRecord(CONFIG.PF2E.damageTypes),
-            damageSubtypes: R.pick(CONFIG.PF2E.damageCategories, [...DAMAGE_CATEGORIES_UNIQUE]),
+            damageSubtypes: R.pick(CONFIG.PF2E.damageCategories, DAMAGE_CATEGORIES_UNIQUE),
             damageKinds,
             materials: CONFIG.PF2E.materialDamageEffects,
             heightenIntervals: R.range(1, 5).map((i) => ({

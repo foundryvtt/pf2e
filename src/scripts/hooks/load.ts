@@ -1,6 +1,10 @@
 import { ActorProxyPF2e } from "@actor";
+import { ArmySystemData } from "@actor/army/data.ts";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
+import { FamiliarSystemData } from "@actor/familiar/data.ts";
 import { resetActors } from "@actor/helpers.ts";
+import { LootSystemData } from "@actor/loot/data.ts";
+import { PartySystemData } from "@actor/party/data.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ItemProxyPF2e } from "@item";
 import { AbilitySystemData } from "@item/ability/index.ts";
@@ -81,12 +85,18 @@ export const Load = {
         CONFIG.Token.objectClass = TokenPF2e;
         CONFIG.User.documentClass = UserPF2e;
 
-        // Assign canvas layer and placeable classes
+        // Actor system data models
+        CONFIG.Actor.dataModels.army = ArmySystemData;
+        CONFIG.Actor.dataModels.familiar = FamiliarSystemData;
+        CONFIG.Actor.dataModels.loot = LootSystemData;
+        CONFIG.Actor.dataModels.party = PartySystemData;
 
+        // Item system data models
         CONFIG.Item.dataModels.action = AbilitySystemData;
         CONFIG.Item.dataModels.kit = KitSystemData;
         CONFIG.Item.dataModels.melee = MeleeSystemData;
 
+        // Assign canvas layer and placeable classes
         CONFIG.Canvas.darknessColor = 0x2d2d52; // Lightness increased by ~0.4/10 (Munsell value)
         CONFIG.Canvas.exploredColor = 0x262626; // Increased from 0 (black)
         CONFIG.Canvas.groups.effects.groupClass = EffectsCanvasGroupPF2e;

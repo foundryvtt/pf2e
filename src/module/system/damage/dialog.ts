@@ -195,9 +195,7 @@ class DamageModifierDialog extends Application {
             ),
             isCritical: this.isCritical,
             damageTypes: sortStringRecord(CONFIG.PF2E.damageTypes),
-            damageSubtypes: sortStringRecord(
-                R.pick(CONFIG.PF2E.damageCategories, Array.from(DAMAGE_CATEGORIES_UNIQUE)),
-            ),
+            damageSubtypes: sortStringRecord(R.pick(CONFIG.PF2E.damageCategories, DAMAGE_CATEGORIES_UNIQUE)),
             rollModes: CONFIG.Dice.rollModes,
             rollMode: this.context?.rollMode ?? game.settings.get("core", "rollMode"),
             showDamageDialogs: game.user.settings.showDamageDialogs,

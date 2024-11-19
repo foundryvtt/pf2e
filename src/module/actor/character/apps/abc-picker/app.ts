@@ -1,6 +1,7 @@
-import { CharacterPF2e } from "@actor";
-import type { ItemPF2e } from "@item";
+import type { CharacterPF2e } from "@actor";
+import type { ABCItemPF2e, DeityPF2e, ItemPF2e } from "@item";
 import type { ItemType } from "@item/base/data/index.ts";
+import { Rarity } from "@module/data.ts";
 import { SvelteApplicationMixin, SvelteApplicationRenderContext } from "@system/svelte/mixin.svelte.ts";
 import { sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
@@ -20,6 +21,7 @@ interface ABCItemRef {
     name: string;
     img: ImageFilePath;
     uuid: ItemUUID;
+    rarity?: { slug: Rarity; label: string };
     source: {
         name: string;
         /** Whether the source comes from an item's publication data or is simply the providing module */
@@ -72,7 +74,7 @@ class ABCPicker extends SvelteApplicationMixin<
         );
 
         const items = [...worldItems, ...packItems]
-            .filter((item): item is ItemPF2e<null> => {
+            .filter((item): item is ABCItemPF2e<null> | DeityPF2e<null> => {
                 if (item.type !== itemType || item.parent) return false;
                 if (item.pack?.startsWith("pf2e-animal-companions.")) return false;
                 if (item.isOfType("heritage")) {
@@ -94,13 +96,23 @@ class ABCPicker extends SvelteApplicationMixin<
             return { name, publication: false };
         };
 
-        return items.map(
-            (i): ABCItemRef => ({
-                ...R.pick(i, ["name", "img", "uuid"]),
-                source: resolveSource(i),
+        const rarities: Record<string, string> = {
+            uncommon: game.i18n.localize(CONFIG.PF2E.rarityTraits.uncommon),
+            rare: game.i18n.localize(CONFIG.PF2E.rarityTraits.rare),
+            unique: game.i18n.localize(CONFIG.PF2E.rarityTraits.unique),
+        };
+
+        return items.map((item) => {
+            const ref: ABCItemRef = {
+                ...R.pick(item, ["name", "img", "uuid"]),
+                source: resolveSource(item),
                 hidden: false,
-            }),
-        );
+            };
+            if ("rarity" in item && item.rarity !== "common") {
+                ref.rarity = { slug: item.rarity, label: rarities[item.rarity] };
+            }
+            return ref;
+        });
     }
 
     protected override async _prepareContext(): Promise<ABCPickerContext> {

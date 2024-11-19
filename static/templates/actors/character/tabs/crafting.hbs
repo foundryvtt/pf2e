@@ -20,27 +20,7 @@
             <li class="crafting-entry item-container" data-container-type="craftingEntryGroup">
                 <div class="action-header">{{localize "PF2E.CraftingTab.Alchemical.AdvancedAlchemy"}}</div>
                 <ol class="directory-list item-list formula-list">
-                    <li class="formula-level-header formula-header infused-reagents">
-                        <div class="level-name reagent-cost">
-                            <h3>{{localize "PF2E.CraftingTab.Alchemical.TotalCost"}}:</h3>
-                            <div class="formula-number">{{crafting.abilities.alchemical.totalReagentCost}}</div>
-                        </div>
-
-                        <div class="level-name reagent-resource">
-                            <h3>{{localize "PF2E.CraftingTab.Alchemical.InfusedReagents"}}:</h3>
-                            <input
-                                class="formula-number"
-                                type="number"
-                                name="system.resources.crafting.infusedReagents.value"
-                                value="{{crafting.abilities.alchemical.infusedReagents.value}}"
-                                placeholder="0"
-                            />
-                            <h3>/</h3>
-                            <div class="formula-number">
-                                {{crafting.abilities.alchemical.infusedReagents.max}}
-                            </div>
-                        </div>
-                    </li>
+                    {{> resourceRow resource=crafting.abilities.alchemical.resource resourceCost=crafting.abilities.alchemical.resourceCost}}
                     {{#each crafting.abilities.alchemical.entries as |ability|}}
                         <li class="crafting-entry item-container alchemical-entry" data-container-type="craftingEntry" data-ability="{{ability.slug}}">
                             <div class="action-header alchemical-title">{{ability.label}}</div>
@@ -49,7 +29,7 @@
                                 <li class="formula-level-header formula-header">
                                     <div class="level-name reagent-cost">
                                         <h3>{{localize "PF2E.CraftingTab.Alchemical.ReagentCost"}}:</h3>
-                                        <span class="formula-number">{{ability.reagentCost}}</span>
+                                        <span class="formula-number">{{ability.resourceCost}}</span>
                                     </div>
 
                                     <div class="level-name aa-level">
@@ -79,12 +59,19 @@
                     <span class="level">{{localize "PF2E.LevelN" level=ability.maxItemLevel}}</span>
                 </div>
                 <ol class="directory-list item-list formula-list">
+                    {{#if ability.resource}}
+                        {{> resourceRow resource=ability.resource resourceCost=ability.resourceCost}}
+                    {{/if}}
                     {{#each ability.prepared as |formula|}}
                         {{> preparedFormula ability=ability formula=formula}}
                     {{/each}}
                     {{#if remainingSlots}}
                         <li class="formula-item empty">
                             {{localize "PF2E.Actor.Character.Crafting.RemainingSlots" remaining=remainingSlots}}
+                        </li>
+                    {{else if (and ability.resource (not ability.prepared.length))}}
+                        <li class="formula-header empty">
+                            <h4>{{localize "PF2E.FormulaListEmpty"}}</h4>
                         </li>
                     {{/if}}
                 </ol>
@@ -140,12 +127,6 @@
 
                             {{#if @root.editable}}
                                 <div class="item-controls">
-                                    {{#if (or @root.crafting.abilities.alchemical.entries.length @root.crafting.abilities.prepared.length)}}
-                                        <a
-                                            data-action="quick-add-formula"
-                                            data-tooltip="PF2E.CraftingTab.QuickAddTitle"
-                                        ><i class="fa-solid fa-fw fa-arrow-up-from-bracket"></i></a>
-                                    {{/if}}
                                     <a
                                         data-action="craft-item"
                                         data-tooltip="PF2E.CraftItemTitle"
@@ -175,6 +156,31 @@
     </ol>
 </div>
 
+{{#*inline "resourceRow"}}
+    <li class="formula-level-header formula-header infused-reagents">
+        <div class="level-name reagent-cost">
+            <h3>{{localize "PF2E.CraftingTab.Alchemical.TotalCost"}}:</h3>
+            <div class="formula-number">{{resourceCost}}</div>
+        </div>
+
+        <div class="level-name reagent-resource">
+            <h3>{{localize resource.label}}:</h3>
+            <input
+                class="formula-number"
+                type="number"
+                data-action="adjust-resource"
+                data-resource="{{resource.slug}}"
+                value="{{resource.value}}"
+                placeholder="0"
+            />
+            <h3>/</h3>
+            <div class="formula-number">
+                {{resource.max}}
+            </div>
+        </div>
+    </li>
+{{/inline}}
+
 {{#*inline "preparedFormula"}}
     <li
         class="item formula-item"
@@ -195,10 +201,12 @@
         <div class="dc"></div>
         <div class="cost"></div>
         <div class="quantity">
-            {{#if ability.isAlchemical}}
+            {{#if ability.resource}}
                 <a class="adjust decrease" data-action="decrease-craft-quantity">&ndash;</a>
                 <input type="number" class="formula-number" data-craft-quantity value="{{formula.quantity}}" />
                 <a class="adjust increase" data-action="increase-craft-quantity">+</a>
+            {{else}}
+                {{localize "PF2E.Actor.Character.Crafting.BatchQuantity" quantity=formula.quantity}}
             {{/if}}
         </div>
 

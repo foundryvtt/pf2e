@@ -1,4 +1,4 @@
-import { CreatureSheetData, Language } from "@actor/creature/index.ts";
+import { CreatureSheetData, Language, ResourceData } from "@actor/creature/index.ts";
 import type { Sense } from "@actor/creature/sense.ts";
 import { isReallyPC } from "@actor/helpers.ts";
 import { MODIFIER_TYPES, createProficiencyModifier } from "@actor/modifiers.ts";
@@ -27,6 +27,7 @@ import { BaseWeaponType, WeaponGroup } from "@item/weapon/types.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { LabeledValueAndMax, ZeroToFour } from "@module/data.ts";
+import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { craft } from "@system/action-macros/crafting/craft.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
@@ -43,7 +44,6 @@ import {
     sortLabeledRecord,
     tupleHasValue,
 } from "@util";
-import { eventToRollParams } from "@util/sheet.ts";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { CreatureSheetPF2e } from "../creature/sheet.ts";
@@ -473,8 +473,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             prepared: [],
             alchemical: {
                 entries: [],
-                totalReagentCost: 0,
-                infusedReagents: actor.system.resources.crafting.infusedReagents,
+                resource: actor.getResource("infused-reagents"),
+                resourceCost: 0,
             },
         };
 
@@ -482,7 +482,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const sheetData = await entry.getSheetData();
             if (entry.isAlchemical) {
                 craftingEntries.alchemical.entries.push(sheetData);
-                craftingEntries.alchemical.totalReagentCost += (await entry.calculateReagentCost()) || 0;
+                craftingEntries.alchemical.resourceCost += (await entry.calculateResourceCost()) || 0;
             } else {
                 craftingEntries.prepared.push(sheetData);
             }
@@ -736,8 +736,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const quantity = htmlQuery<HTMLInputElement>(element, "input[data-craft-quantity]");
             quantity?.addEventListener("change", async (event) => {
                 const row = htmlClosest(event?.target, "li");
-                const uuid = row?.dataset.itemUuid ?? "";
-                const formula = this.#knownFormulas[uuid];
+                const formula = this.#knownFormulas[row?.dataset.itemUuid ?? ""];
                 const minBatchSize = formula.item.system.price.per;
                 const newValue = Number(quantity.value) || minBatchSize;
                 if (newValue < 1) return;
@@ -746,7 +745,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 if (slug) {
                     const ability = this.actor.crafting.abilities.get(slug, { strict: true });
                     const index = element.dataset.itemIndex;
-                    return ability.setFormulaQuantity(Number(index), uuid, newValue);
+                    return ability.setFormulaQuantity(Number(index), newValue);
                 }
                 this.#formulaQuantities[formula.uuid] = Math.max(newValue, minBatchSize);
                 this.render();
@@ -970,7 +969,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             if (this.actor.flags.pf2e.quickAlchemy) {
                 const reagentValue = this.actor.system.resources.crafting.infusedReagents.value - 1;
                 if (reagentValue < 0) {
-                    ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MissingReagents"));
+                    ui.notifications.warn("PF2E.Actor.Character.Crafting.MissingResource", { localize: true });
                     return;
                 }
                 await this.actor.update(
@@ -1066,37 +1065,16 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const content = `<p class="hint">${question}</p>`;
             const title = game.i18n.localize("PF2E.CraftingTab.UnprepareFormulaDialogTitle");
             if (event.ctrlKey || (await Dialog.confirm({ title, content }))) {
-                return ability.unprepareFormula(Number(index), uuid);
-            }
-        };
-
-        handlers["quick-add-formula"] = async (event) => {
-            const uuid = htmlClosest(event?.target, "li")?.dataset.itemUuid;
-            if (!UUIDUtils.isItemUUID(uuid)) throw ErrorPF2e(`Invalid UUID: ${uuid}`);
-
-            const craftingFormulas = await this.actor.crafting.getFormulas();
-            const formula = craftingFormulas.find((f) => f.uuid === uuid);
-            if (!formula) return;
-
-            const validAbilities = this.actor.crafting.abilities.filter(
-                (e) => !!e.slug && e.checkEntryRequirements(formula, { warn: false }),
-            );
-            for (const ability of validAbilities) {
-                await ability.prepareFormula(formula);
-            }
-
-            if (validAbilities.length === 0) {
-                ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.NoEligibleEntry"));
+                return ability.unprepareFormula(Number(index));
             }
         };
 
         const adjustCraftQuantity = async (_: MouseEvent, anchor: HTMLElement) => {
             const row = htmlClosest(anchor, "li");
             const quantityInput = htmlQuery<HTMLInputElement>(row, "input[data-craft-quantity]");
-            const uuid = row?.dataset.itemUuid;
-            if (!row || !quantityInput || !uuid) return;
+            const formula = this.#knownFormulas[row?.dataset.itemUuid ?? ""];
+            if (!row || !quantityInput || !formula) return;
 
-            const formula = this.#knownFormulas[uuid];
             const index = row.dataset.itemIndex;
             const slug = row.dataset.ability;
             const currentQuantity = Number(quantityInput.value) || 0;
@@ -1104,7 +1082,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             if (index && slug) {
                 const ability = this.actor.crafting.abilities.get(slug, { strict: true });
                 const direction = anchor.dataset.action === "increase-craft-quantity" ? "increase" : "decrease";
-                return ability.setFormulaQuantity(Number(index), uuid ?? "", direction);
+                return ability.setFormulaQuantity(Number(index), direction);
             }
 
             const minBatchSize = formula.item.price.per;
@@ -1528,11 +1506,8 @@ interface CraftingSheetData {
         prepared: CraftingAbilitySheetData[];
         alchemical: {
             entries: CraftingAbilitySheetData[];
-            totalReagentCost: number;
-            infusedReagents: {
-                value: number;
-                max: number;
-            };
+            resource: ResourceData;
+            resourceCost: number;
         };
     };
 }
