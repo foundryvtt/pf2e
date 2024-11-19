@@ -6,6 +6,7 @@ import { EffectTrait } from "@item/abstract-effect/types.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { createUseActionMessage } from "@module/chat-message/helpers.ts";
 import { MacroPF2e } from "@module/macro.ts";
+import { eventToRollMode } from "@module/sheet/helpers.ts";
 import { objectHasKey } from "@util";
 
 /**
@@ -23,7 +24,7 @@ export async function rollItemMacro(itemId: string, event: Event | null = null):
     }
 
     if (item.isOfType("action", "feat")) {
-        return createUseActionMessage(item);
+        return createUseActionMessage(item, eventToRollMode(event));
     }
 
     // Trigger the item roll

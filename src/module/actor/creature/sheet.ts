@@ -8,8 +8,8 @@ import { coerceToSpellGroupId, spellSlotGroupIdToNumber } from "@item/spellcasti
 import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { OneToTen, ZeroToFour, goesToEleven } from "@module/data.ts";
+import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, createHTMLElement, fontAwesomeIcon, htmlClosest, htmlQueryAll, tupleHasValue } from "@util";
-import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import { ActorSheetPF2e, SheetClickActionHandlers } from "../sheet/base.ts";
 import { CreatureConfig } from "./config.ts";
@@ -53,9 +53,9 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
                 remainingDying: Math.max(actor.attributes.dying.max - actor.attributes.dying.value),
                 remainingWounded: Math.max(actor.attributes.wounded.max - actor.attributes.wounded.value),
             },
-            specialResources: Object.values(this.actor.synthetics.resources)
-                .filter((r) => !r.itemUUID)
-                .map((r) => R.pick(r, ["slug", "label", "value", "max"])),
+            specialResources: Object.values(this.actor.synthetics.resources).map((r) =>
+                R.pick(r, ["slug", "label", "value", "max"]),
+            ),
         };
     }
 

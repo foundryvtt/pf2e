@@ -1799,6 +1799,12 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                 },
                 {
                     outcome: ["criticalSuccess"],
+                    predicate: ["item:group:crossbow"],
+                    title: "PF2E.WeaponPropertyRune.grievous.Name",
+                    text: "PF2E.WeaponPropertyRune.grievous.Note.Crossbow",
+                },
+                {
+                    outcome: ["criticalSuccess"],
                     predicate: ["item:group:flail"],
                     title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Flail",

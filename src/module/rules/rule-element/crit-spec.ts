@@ -39,7 +39,7 @@ class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
                     category: new fields.StringField({
                         required: false,
                         nullable: true,
-                        choices: Array.from(DAMAGE_CATEGORIES_UNIQUE),
+                        choices: DAMAGE_CATEGORIES_UNIQUE,
                         initial: null,
                     }),
                 },

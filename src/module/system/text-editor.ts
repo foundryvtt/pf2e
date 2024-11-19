@@ -12,6 +12,7 @@ import {
     extractModifiers,
     processDamageCategoryStacking,
 } from "@module/rules/helpers.ts";
+import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { USER_VISIBILITIES, UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 import {
     createHTMLElement,
@@ -25,7 +26,6 @@ import {
     splitListString,
     tupleHasValue,
 } from "@util";
-import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import { ActionMacroHelpers } from "./action-macros/helpers.ts";
 import { DamagePF2e } from "./damage/damage.ts";

@@ -160,7 +160,11 @@ function extractDegreeOfSuccessAdjustments(
     synthetics: Pick<RuleElementSynthetics, "degreeOfSuccessAdjustments">,
     selectors: string[],
 ): DegreeOfSuccessAdjustment[] {
-    return Object.values(R.pick(synthetics.degreeOfSuccessAdjustments, selectors)).flat();
+    return selectors.reduce((adjustments: DegreeOfSuccessAdjustment[], selector) => {
+        const forSelector = synthetics.degreeOfSuccessAdjustments[selector] ?? [];
+        adjustments.push(...forSelector);
+        return adjustments;
+    }, []);
 }
 
 function isBracketedValue(value: unknown): value is BracketedValue {

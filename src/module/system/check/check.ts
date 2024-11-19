@@ -8,6 +8,7 @@ import { ActorTokenFlag, ChatMessageSourcePF2e, CheckContextChatFlag } from "@mo
 import { isCheckContextFlag } from "@module/chat-message/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { RollNotePF2e } from "@module/notes.ts";
+import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { TokenDocumentPF2e, type ScenePF2e } from "@scene";
 import { treatWoundsMacroCallback } from "@scripts/macros/treat-wounds.ts";
 import { StatisticDifficultyClass } from "@system/statistic/index.ts";
@@ -22,7 +23,6 @@ import {
     sluggify,
     traitSlugToObject,
 } from "@util";
-import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import type { Die } from "types/foundry/client-esm/dice/terms/die.d.ts";
 import {
