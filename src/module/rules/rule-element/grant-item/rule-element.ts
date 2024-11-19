@@ -1,7 +1,7 @@
 import type { ActorPF2e, ActorType } from "@actor";
 import { ConditionPF2e, ItemPF2e, ItemProxyPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { ItemGrantDeleteAction } from "@item/base/data/system.ts";
+import type { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { ItemGrantDeleteAction, ItemSourceFlagsPF2e } from "@item/base/data/system.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { SlugField, StrictArrayField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, isObject, setHasElement, sluggify, tupleHasValue } from "@util";
@@ -85,6 +85,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
                 initial: true,
                 label: "PF2E.RuleEditor.GrantItem.AllowDuplicate",
             }),
+            nestUnderGranter: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
             alterations: new StrictArrayField(new fields.EmbeddedDataField(ItemAlteration)),
             track: new fields.BooleanField(),
         };
@@ -294,7 +295,10 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
 
     /** Set flags on granting and grantee items to indicate relationship between the two */
     #setGrantFlags(granter: PreCreate<ItemSourcePF2e>, grantee: ItemSourcePF2e | ItemPF2e<ActorPF2e>): void {
-        const flags = fu.mergeObject(granter.flags ?? {}, { pf2e: { itemGrants: {} } });
+        const flags: ItemSourceFlagsPF2e & { pf2e: { itemGrants: Record<string, object> } } = fu.mergeObject(
+            granter.flags ?? {},
+            { pf2e: { itemGrants: {} } },
+        );
         if (!this.flag) throw ErrorPF2e("Unexpected failure looking up RE flag key");
         flags.pf2e.itemGrants[this.flag] = {
             // The granting item records the granted item's ID in an array at `flags.pf2e.itemGrants`
@@ -303,6 +307,9 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
             // Default to "detach" (do nothing).
             onDelete: this.onDeleteActions?.grantee ?? "detach",
         };
+        if (granter.type === "feat" && grantee.type === "feat" && this.nestUnderGranter === false) {
+            flags.pf2e.itemGrants[this.flag].nested = this.nestUnderGranter;
+        }
 
         // The granted item records its granting item's ID at `flags.pf2e.grantedBy`
         const grantedBy = {
