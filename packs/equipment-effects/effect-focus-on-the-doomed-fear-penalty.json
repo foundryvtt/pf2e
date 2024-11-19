@@ -49,25 +49,33 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "item:trait:fear",
+                    "item:trait:fear"
+                ],
+                "selector": "saving-throw",
+                "slug": "focus-on-the-doomed-fear",
+                "type": "item",
+                "value": -1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
                     {
                         "not": "parent:origin:item"
                     }
                 ],
                 "selector": "saving-throw",
-                "slug": "focus-on-the-doomed-no-origin",
-                "type": "item",
+                "slug": "focus-on-the-doomed-fear",
                 "value": "@item.flags.pf2e.rulesSelections.penalty"
             },
             {
-                "key": "FlatModifier",
+                "key": "AdjustModifier",
+                "mode": "override",
                 "predicate": [
-                    "item:trait:fear",
                     "parent:origin:item"
                 ],
                 "selector": "saving-throw",
-                "slug": "focus-on-the-doomed-origin",
-                "type": "item",
+                "slug": "focus-on-the-doomed-fear",
                 "value": "-@item.origin.flags.pf2e.assassinsBracersBonus"
             }
         ],
