@@ -281,8 +281,9 @@
                     "value": null
                 },
                 "category": "defensive",
+                "deathNote": true,
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per year</p><hr /><p><strong>Effect</strong> When Agyra dies, her corpse crackles and sparks with electrical energy. Any creature that touches Agyra's body within 1 hour of her death takes @Damage[11d6[electricity]] damage (basic @Check[reflex|dc:43] save). After being dead for 1 minute, Agyra is immediately resurrected in the same place, at full health, with all abilities fully restored. She normally takes advantage of this rebirth to flee to safety, using Thunderous Departure to retreat. If Agyra has already died and been reborn in the same year, she remains permanently dead upon being slain a second time.</p>"
+                    "value": "<p><strong>Frequency</strong> once per year</p><hr /><p><strong>Effect</strong> When Agyra dies, her corpse crackles and sparks with electrical energy. Any creature that touches Agyra's body within 1 hour of her death takes @Damage[11d6[electricity]] damage (@Check[reflex|dc:43|basic] save). After being dead for 1 minute, Agyra is immediately resurrected in the same place, at full health, with all abilities fully restored. She normally takes advantage of this rebirth to flee to safety, using Thunderous Departure to retreat. If Agyra has already died and been reborn in the same year, she remains permanently dead upon being slain a second time.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -460,7 +461,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Agyra exhales a line of electricity from each of her two heads. Each line is 120 feet long and 10 feet wide, and the two lines may be pointed in different directions. A creature in a line takes @Damage[22d6[electricity]] damage (basic @Check[reflex|dc:44] save). On a failed save, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for [[/gmr 1d4 #rounds]]{1d4 rounds}. A creature can be affected only once by a line, even if they are in an overlapping area. A character slain by Agyra's Lightning Breath remains electrified for [[/gmr 2d4 #rounds]]{2d4 rounds} after death. A creature touching such a corpse takes @Damage[3d6[electricity]] damage (no save). Agyra can't use Lightning Breath for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>Agyra exhales a line of electricity from each of her two heads. Each line is @Template[line|distance:120|width:10]{120 feet long and 10 feet wide}, and the two lines may be pointed in different directions. A creature in a line takes @Damage[22d6[electricity]|options:area-damage] damage (@Check[reflex|dc:44|basic|options:area-effect] save). On a failed save, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for [[/gmr 1d4 #rounds]]{1d4 rounds}. A creature can be affected only once by a line, even if they are in an overlapping area. A character slain by Agyra's Lightning Breath remains electrified for [[/gmr 2d4 #rounds]]{2d4 rounds} after death. A creature touching such a corpse takes @Damage[3d6[electricity]] damage (no save). Agyra can't use Lightning Breath for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -587,7 +588,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> Agyra Flies in a straight line at incredible speed, moving at least 120 feet but up to 1 mile. This movement doesn't provoke reactions. Her departure leaves behind a thunderous sonic boom, creating a @Template[type:burst|distance:100] centered on her point of departure. All creatures in the area take @Damage[15d10[sonic]] damage (basic @Check[fortitude|dc:46] save). A creature who fails is also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone], and a creature who critically fails is knocked prone and @UUID[Compendium.pf2e.conditionitems.Item.Deafened] permanently.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> Agyra Flies in a straight line at incredible speed, moving at least 120 feet but up to 1 mile. This movement doesn't provoke reactions. Her departure leaves behind a thunderous sonic boom, creating a @Template[type:burst|distance:100] centered on her point of departure. All creatures in the area take @Damage[15d10[sonic]|options:area-damage] damage (@Check[fortitude|dc:46|basic|options:area-effect] save). A creature who fails is also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone], and a creature who critically fails is knocked prone and @UUID[Compendium.pf2e.conditionitems.Item.Deafened] permanently.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -696,7 +697,7 @@
         "details": {
             "blurb": "",
             "languages": {
-                "details": "(can’t speak any language)",
+                "details": "(can't speak any language)",
                 "value": [
                     "tien"
                 ]

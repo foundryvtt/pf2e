@@ -19,7 +19,7 @@ class CharacterCrafting {
 
         // Assemble all abilities. We check if label exists as a simple validation due to potential AELike tinkering
         const abilities = Object.values(actor.system.crafting.entries)
-            .filter((d): d is CraftingAbilityData => !!d?.label && !!d.slug)
+            .filter((d): d is CraftingAbilityData => !!d?.label && !!d.slug && d.craftableItems.length > 0)
             .map((d): [string, CraftingAbility] => [d.slug, new CraftingAbility(this.actor, d)]);
         this.abilities = new Collection(abilities);
     }
@@ -112,10 +112,11 @@ class CharacterCrafting {
                 itemSource.system.quantity = formula.quantity;
                 itemSource.system.temporary = true;
                 itemSource.system.size = this.actor.ancestry?.size === "tiny" ? "tiny" : "med";
-
                 if (formula.item.isAlchemical && itemIsOfType(itemSource, "consumable", "equipment", "weapon")) {
                     itemSource.system.traits.value.push("infused");
+                    itemSource.system.traits.value.sort(); // required for stack matching
                 }
+
                 itemsToAdd.push(itemSource);
             }
         }

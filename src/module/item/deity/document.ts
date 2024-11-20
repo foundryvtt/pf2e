@@ -4,10 +4,10 @@ import { ItemPF2e } from "@item";
 import { BaseWeaponType } from "@item/weapon/types.ts";
 import { ZeroToFour } from "@module/data.ts";
 import { objectHasKey, sluggify } from "@util";
-import { DeitySource, DeitySystemData } from "./data.ts";
+import { DeityCategory, DeitySource, DeitySystemData } from "./data.ts";
 
 class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
-    get category(): "deity" | "pantheon" | "philosophy" {
+    get category(): DeityCategory {
         return this.system.category;
     }
 
@@ -24,16 +24,6 @@ class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         if (!this.system.sanctification?.modal) {
             this.system.sanctification = null;
         }
-
-        if (this.category === "philosophy") {
-            this.system.attribute = [];
-            this.system.domains = { primary: [], alternate: [] };
-            this.system.font = [];
-            this.system.sanctification = null;
-            this.system.skill = [];
-            this.system.spells = {};
-            this.system.weapons = [];
-        }
     }
 
     override prepareActorData(this: DeityPF2e<ActorPF2e>): void {
@@ -45,7 +35,7 @@ class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         this.actor.deity = this as DeityPF2e<CharacterPF2e>;
 
-        const { deities } = this.actor.system.details;
+        const deities = this.actor.system.details.deities;
         const systemData = this.system;
         deities.primary = {
             skill: fu.deepClone(systemData.skill),

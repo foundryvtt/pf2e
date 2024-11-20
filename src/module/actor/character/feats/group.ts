@@ -2,6 +2,7 @@ import type { ActorPF2e } from "@actor";
 import type { FeatPF2e, HeritagePF2e, ItemPF2e } from "@item";
 import { FeatOrFeatureCategory } from "@item/feat/types.ts";
 import { tupleHasValue } from "@util/misc.ts";
+import * as R from "remeda";
 import type { FeatBrowserFilterProps, FeatGroupData, FeatLike, FeatSlot } from "./types.ts";
 
 class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = FeatPF2e> {
@@ -122,16 +123,19 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
 
     #getChildSlots(feat: Maybe<ItemPF2e>): FeatSlot<FeatPF2e<ActorPF2e> | HeritagePF2e<ActorPF2e>>[] {
         if (!feat?.isOfType("feat")) return [];
+        const grantsById = R.mapKeys(feat.flags.pf2e.itemGrants, (_, g) => g.id);
 
-        return feat.grants.map((grant): FeatSlot<FeatPF2e<ActorPF2e> | HeritagePF2e<ActorPF2e>> => {
-            return {
-                id: grant.id,
-                label: null,
-                level: grant.system.level?.taken ?? null,
-                feat: grant,
-                children: this.#getChildSlots(grant),
-            };
-        });
+        return feat.grants
+            .filter((g) => grantsById[g.id]?.nested !== false)
+            .map((grant): FeatSlot<FeatPF2e<ActorPF2e> | HeritagePF2e<ActorPF2e>> => {
+                return {
+                    id: grant.id,
+                    label: null,
+                    level: grant.system.level?.taken ?? null,
+                    feat: grant,
+                    children: this.#getChildSlots(grant),
+                };
+            });
     }
 
     /** Returns true if this feat is a valid type for the group */

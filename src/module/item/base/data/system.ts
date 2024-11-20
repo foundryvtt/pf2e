@@ -44,7 +44,7 @@ interface OtherTagsOnly {
 interface ItemFlagsPF2e extends DocumentFlags {
     pf2e: {
         rulesSelections: Record<string, string | number | object | null>;
-        itemGrants: Record<string, ItemGrantData>;
+        itemGrants: Record<string, ItemGranterData>;
         grantedBy: ItemGrantData | null;
         [key: string]: unknown;
     };
@@ -53,13 +53,11 @@ interface ItemFlagsPF2e extends DocumentFlags {
 interface ItemSourceFlagsPF2e extends DocumentFlags {
     pf2e?: {
         rulesSelections?: Record<string, string | number | object>;
-        itemGrants?: Record<string, ItemGrantSource>;
+        itemGrants?: Record<string, ItemGranterSource>;
         grantedBy?: ItemGrantSource | null;
         [key: string]: unknown;
     };
 }
-
-type ItemGrantData = Required<ItemGrantSource>;
 
 interface ItemGrantSource {
     /** The ID of a granting or granted item */
@@ -67,6 +65,15 @@ interface ItemGrantSource {
     /** The action taken when the user attempts to delete the item referenced by `id` */
     onDelete?: ItemGrantDeleteAction;
 }
+
+type ItemGrantData = Required<ItemGrantSource>;
+
+interface ItemGranterSource extends ItemGrantSource {
+    /** Is this granted item visually nested under its granter: only applies to feats and features */
+    nested?: boolean | null;
+}
+
+interface ItemGranterData extends Required<ItemGranterSource> {}
 
 type ItemGrantDeleteAction = "cascade" | "detach" | "restrict";
 
@@ -142,6 +149,7 @@ export type {
     ItemGrantDeleteAction,
     ItemGrantSource,
     ItemSchemaPF2e,
+    ItemSourceFlagsPF2e,
     ItemSystemData,
     ItemSystemSource,
     ItemTrait,
