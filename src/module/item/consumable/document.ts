@@ -79,7 +79,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         rollOptions: Record<string, unknown> = {},
     ): Promise<RawItemChatData> {
         const traits = this.traitChatData(CONFIG.PF2E.consumableTraits);
-        const [category, isUsable] = this.isIdentified
+        const [category, isUsableItemType] = this.isIdentified
             ? [game.i18n.localize(CONFIG.PF2E.consumableCategories[this.category]), true]
             : [
                   this.generateUnidentifiedName({ typeOnly: true }),
@@ -95,7 +95,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             properties:
                 this.isIdentified && this.uses.max > 1 ? [`${this.uses.value}/${this.uses.max} ${usesLabel}`] : [],
             category,
-            isUsable: fromFormula ? false : isUsable,
+            isUsable: isUsableItemType && !fromFormula && this.parent && this.parent.items.get(this.id),
         });
     }
 

@@ -1,4 +1,5 @@
-import { ItemPF2e } from "@item";
+import { ActorPF2e } from "@actor";
+import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { htmlClosest, htmlQuery, sortLabeledRecord } from "@util";
 import * as R from "remeda";
 
@@ -147,6 +148,18 @@ function eventToRollMode(event: Maybe<Event>): RollMode | "roll" {
     return game.user.isGM ? "gmroll" : "blindroll";
 }
 
+/** Given a uuid, loads the item and sends it to chat, potentially recontextualizing it with a given actor */
+async function sendItemToChat(itemUuid: ItemUUID, options: { event?: Event; actor?: ActorPF2e }): Promise<void> {
+    const itemLoaded = await fromUuid<ItemPF2e>(itemUuid);
+    if (!itemLoaded) return;
+
+    const item =
+        options.actor && itemLoaded.actor?.uuid !== options.actor.uuid
+            ? new ItemProxyPF2e(itemLoaded.toObject(), { parent: options.actor })
+            : itemLoaded;
+    item.toMessage(options.event);
+}
+
 /** Creates a listener that can be used to create tooltips with dynamic content */
 function createTooltipListener(
     element: HTMLElement,
@@ -229,5 +242,6 @@ export {
     getAdjustment,
     getItemFromDragEvent,
     maintainFocusInRender,
+    sendItemToChat,
 };
 export type { AdjustedValue, SheetOption, SheetOptions, TagifyEntry };

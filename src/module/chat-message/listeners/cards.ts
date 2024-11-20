@@ -231,7 +231,7 @@ class ChatCards {
                             const locKey = "PF2E.Item.Ability.SelfAppliedEffect.Applied";
                             const statement = game.i18n.format(locKey, { effect: anchor.outerHTML });
                             span.innerHTML = statement;
-                            buttons.replaceChildren(span);
+                            htmlQuery(buttons, "button[data-action=apply-effect]")?.replaceWith(span);
                             await message.update({ content: parsedMessageContent.innerHTML });
                         }
                     }

@@ -1,10 +1,10 @@
 import type { ActorPF2e } from "@actor";
+import { FormulaPicker } from "@actor/character/apps/formula-picker/app.ts";
 import { AbilityItemPF2e, FeatPF2e } from "@item";
 import { extractEphemeralEffects } from "@module/rules/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { ErrorPF2e, getActionGlyph, htmlQuery, htmlQueryAll, traitSlugToObject, tupleHasValue } from "@util";
-import type { ChatMessageFlags } from "types/foundry/common/documents/chat-message.d.ts";
-import { ChatContextFlag, CheckContextChatFlag } from "./data.ts";
+import { ChatContextFlag, ChatMessageFlagsPF2e, CheckContextChatFlag } from "./data.ts";
 import { ChatMessagePF2e } from "./document.ts";
 
 function isCheckContextFlag(flag?: ChatContextFlag): flag is CheckContextChatFlag {
@@ -25,8 +25,20 @@ async function createUseActionMessage(
         await item.update({ "system.frequency.value": newValue });
     }
 
-    // If there is no self effect, show a regular message
-    if (!item.system.selfEffect) {
+    // If this is a crafting action, prompt for the item we want to craft and then craft it
+    const craftingAbility = item.crafting;
+    const isCraftingAction = !!craftingAbility && actor.isOfType("character");
+    const consumeResources = isCraftingAction && !!actor.getResource(craftingAbility.resource ?? "")?.value;
+    const craftedItem = await (async () => {
+        if (!isCraftingAction) return null;
+        const picker = new FormulaPicker({ actor, item, ability: craftingAbility });
+        const selection = await picker.resolveSelection();
+        return selection ? craftingAbility.craft(selection, { consume: consumeResources }) : null;
+    })();
+    if (!craftedItem && isCraftingAction) return null;
+
+    // If there is no self effect nor crafted item, show a regular message
+    if (!item.system.selfEffect && !craftedItem) {
         return (await item.toMessage(null, { rollMode })) ?? null;
     }
 
@@ -48,17 +60,23 @@ async function createUseActionMessage(
 
         return tempDiv.innerText.slice(0, previewLength);
     })();
-    const description = {
-        full: descriptionPreview && descriptionPreview.length < previewLength ? item.description : null,
-        preview: descriptionPreview,
-    };
-    const content = await renderTemplate("systems/pf2e/templates/chat/action/self-effect.hbs", {
+    const content = await renderTemplate("systems/pf2e/templates/chat/action/collapsed.hbs", {
         actor: item.actor,
-        description,
+        description: {
+            full: descriptionPreview && descriptionPreview.length < previewLength ? item.description : null,
+            preview: descriptionPreview,
+        },
+        selfEffect: !!item.system.selfEffect,
+        craftedItem: craftedItem?.toAnchor({ attrs: { draggable: "true" } }).outerHTML,
+        withoutResources: craftedItem && !consumeResources,
     });
-    const flags: ChatMessageFlags = { pf2e: { context: { type: "self-effect", item: item.id } } };
-    const messageData = ChatMessagePF2e.applyRollMode({ speaker, flavor, content, flags }, rollMode);
+    const flags: { pf2e: ChatMessageFlagsPF2e["pf2e"] } = { pf2e: {} };
+    if (item.system.selfEffect) {
+        flags.pf2e.context = { type: "self-effect", item: item.id };
+    }
 
+    // Create the message
+    const messageData = ChatMessagePF2e.applyRollMode({ speaker, flavor, content, flags }, rollMode);
     return (await ChatMessagePF2e.create(messageData)) ?? null;
 }
 

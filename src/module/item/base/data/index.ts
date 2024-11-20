@@ -23,7 +23,7 @@ import type { SpellSource } from "@item/spell/data.ts";
 import type { SpellcastingEntrySource } from "@item/spellcasting-entry/data.ts";
 import type { TreasureSource } from "@item/treasure/data.ts";
 import type { WeaponSource } from "@item/weapon/data.ts";
-import type { PROFICIENCY_RANKS } from "@module/data.ts";
+import type { PROFICIENCY_RANKS, Rarity } from "@module/data.ts";
 import { ItemDescriptionData } from "./system.ts";
 
 type ProficiencyRank = (typeof PROFICIENCY_RANKS)[number];
@@ -82,6 +82,11 @@ type MagicItemSource = Exclude<PhysicalItemSource, ConsumableSource | TreasureSo
 interface RawItemChatData {
     [key: string]: unknown;
     description: ItemDescriptionData;
+    rarity?: {
+        slug: Rarity;
+        label: string;
+        description: string;
+    } | null;
     traits?: TraitChatData[];
     properties?: string[];
 }
@@ -129,8 +134,8 @@ export type {
     ProficiencyRank,
     RawItemChatData,
     ShieldSource,
-    SpellSource,
     SpellcastingEntrySource,
+    SpellSource,
     TraitChatData,
     TreasureSource,
     WeaponSource,
