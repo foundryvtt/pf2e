@@ -125,7 +125,7 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
         }
     }
 
-    /** Finish initializing the special resource, flooring values and assigning the value */
+    /** Finish initializing the special resource, flooring values and assigning the value. If its from an item, use as the source of truth */
     override beforePrepareData(): void {
         if (this.ignored) return;
 
@@ -133,7 +133,10 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
         if (existing) {
             const max = Math.floor(existing.max ?? 0);
             this.max = existing.max = max;
-            this.value = existing.value = Math.min(this.value ?? max, max);
+            const rawValue = this.itemUUID
+                ? (this.actor.inventory.find((i) => i.sourceId === this.itemUUID)?.quantity ?? 0)
+                : this.value;
+            this.value = existing.value = Math.min(rawValue ?? max, max);
         } else {
             this.failValidation(`Missing resource system data for resource ${this.slug}`);
         }
