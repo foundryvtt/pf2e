@@ -38,19 +38,14 @@
                     {
                         "label": "PF2E.Actor.Character.Proficiency.Defense.LightShort",
                         "predicate": [
-                            "defense:light:rank:0"
-                        ],
-                        "value": "light"
-                    },
-                    {
-                        "label": "PF2E.Actor.Character.Proficiency.Defense.MediumShort",
-                        "predicate": [
-                            "defense:medium:rank:0",
                             {
-                                "not": "defense:light:rank:0"
+                                "or": [
+                                    "defense:light:rank:0",
+                                    "defense:medium:rank:0"
+                                ]
                             }
                         ],
-                        "value": "medium"
+                        "value": "light-and-medium"
                     },
                     {
                         "label": "PF2E.Actor.Character.Proficiency.Defense.HeavyShort",
@@ -65,8 +60,8 @@
                         "value": "heavy"
                     }
                 ],
-                "flag": "armor",
-                "key": "ChoiceSet"
+                "key": "ChoiceSet",
+                "rollOption": "champion-dedication"
             },
             {
                 "adjustName": false,
@@ -115,34 +110,27 @@
                 "mode": "upgrade",
                 "path": "system.proficiencies.defenses.light.rank",
                 "predicate": [
-                    {
-                        "gte": [
-                            "self:level",
-                            13
-                        ]
-                    }
+                    "champion-dedication:light-and-medium"
                 ],
-                "value": "ternary(gte(@actor.system.proficiencies.defenses.unarmored.rank,2),2,1)"
+                "value": "max(@actor.system.proficiencies.defenses.medium.rank,ternary(gte(@actor.level,13),min(@actor.system.proficiencies.defenses.unarmored.rank,2),1))"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.proficiencies.defenses.medium.rank",
                 "predicate": [
-                    {
-                        "gte": [
-                            "self:level",
-                            13
-                        ]
-                    }
+                    "champion-dedication:light-and-medium"
                 ],
-                "value": "ternary(gte(@actor.system.proficiencies.defenses.unarmored.rank,2),2,1)"
+                "value": "max(@actor.system.proficiencies.defenses.light.rank,ternary(gte(@actor.level,13),min(@actor.system.proficiencies.defenses.unarmored.rank,2),1))"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "system.proficiencies.defenses.{item|flags.pf2e.rulesSelections.armor}.rank",
-                "value": "ternary(gte(@actor.system.proficiencies.defenses.unarmored.rank,2),2,1)"
+                "path": "system.proficiencies.defenses.heavy.rank",
+                "predicate": [
+                    "champion-dedication:heavy"
+                ],
+                "value": "max(@actor.system.proficiencies.defenses.light.rank,@actor.system.proficiencies.defenses.medium.rank,ternary(gte(@actor.level,13),min(@actor.system.proficiencies.defenses.unarmored.rank,2),1))"
             }
         ],
         "subfeatures": {
