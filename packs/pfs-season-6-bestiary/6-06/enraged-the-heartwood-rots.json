@@ -344,7 +344,27 @@
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "exceptions": [
+                            {
+                                "definition": [
+                                    "item:magical",
+                                    {
+                                        "or": [
+                                            "damage:material:dawnsilver",
+                                            "damage:material:silver"
+                                        ]
+                                    }
+                                ],
+                                "label": "PF2E.IWR.Custom.MagicalSilver"
+                            }
+                        ],
+                        "key": "Resistance",
+                        "type": "physical",
+                        "value": 7
+                    }
+                ],
                 "slug": "vampire-basic-vampire-vulnerabilities",
                 "traits": {
                     "value": []
@@ -408,7 +428,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                    "value": "<p>Snapping flytrap with jaws +15 for 1d8+9 piercing</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -458,6 +478,7 @@
                 "traits": {
                     "value": [
                         "concentrate",
+                        "divine",
                         "polymorph"
                     ]
                 }
@@ -571,60 +592,13 @@
             "type": "action"
         },
         {
-            "_id": "1jREnmv7xdTiRRHp",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The Heartwood Rots deals 1d6 extra precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "j3zFcnZmGbzphWgX",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.Nnl5wg6smOzieTop"
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Turn to Mist",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -668,7 +642,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 1700000,
+            "sort": 1600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -689,6 +663,38 @@
                 "slug": "grab",
                 "traits": {
                     "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kztyfqilO3cN1BeS",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Children of the Night",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The vampire’s presence brings forth creatures of the night to do the master’s bidding. These typically include rat swarms, bat swarms, and wolves but can include other creatures. The vampire can give telepathic orders to these creatures as long as they’re within 100 feet, but they can’t communicate back.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "mental"
+                    ]
                 }
             },
             "type": "action"
@@ -747,15 +753,7 @@
                     "type": "sleep"
                 }
             ],
-            "resistances": [
-                {
-                    "exceptions": [
-                        "silver"
-                    ],
-                    "type": "physical",
-                    "value": 5
-                }
-            ],
+            "resistances": [],
             "speed": {
                 "otherSpeeds": [
                     {

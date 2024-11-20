@@ -1,5 +1,5 @@
 {
-    "_id": "ixPuh9vPLklQNjLw",
+    "_id": "59X4JpNNQTOg2Fsp",
     "folder": "gBehFuPoHRgwfbLw",
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
@@ -33,8 +33,8 @@
                 "slots": {},
                 "slug": null,
                 "spelldc": {
-                    "dc": 17,
-                    "value": 9
+                    "dc": 19,
+                    "value": 11
                 },
                 "tradition": {
                     "value": "primal"
@@ -116,11 +116,11 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 11
+                    "value": 14
                 },
                 "damageRolls": {
                     "p36zyj2o94q5m2av6t6a": {
-                        "damage": "1d8+3",
+                        "damage": "1d10+5",
                         "damageType": "piercing"
                     }
                 },
@@ -154,11 +154,11 @@
                     ]
                 },
                 "bonus": {
-                    "value": 11
+                    "value": 14
                 },
                 "damageRolls": {
                     "5gyt9361vlgk0oa54i93": {
-                        "damage": "1d6+3",
+                        "damage": "1d8+5",
                         "damageType": "slashing"
                     }
                 },
@@ -193,11 +193,11 @@
                     ]
                 },
                 "bonus": {
-                    "value": 11
+                    "value": 14
                 },
                 "damageRolls": {
                     "oKTW3GkTUR8u3KJo": {
-                        "damage": "1d6+3",
+                        "damage": "1d8+5",
                         "damageType": "bludgeoning"
                     }
                 },
@@ -304,7 +304,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>10 feet, @Check[fortitude|dc:17]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Stench]</p>"
+                    "value": "<p>10 feet, @Check[fortitude|dc:19]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Stench]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -454,7 +454,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[will|dc:20]</p>\n<p><strong>Stage 1</strong> carrier with no ill effects (1 day)</p>\n<p><strong>Stage 2</strong> @Damage[2d6[void]|immutable] damage and the target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} until it consumes raw meat (1 day)</p>\n<p><strong>Stage 3</strong> as stage 2</p>\n<p><strong>Stage 4</strong> as stage 2 unless the target has consumed raw meat in the past 24 hours, then it takes @Damage[4d6[void]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} until it consumes raw meat</p>\n<p><strong>Stage 5</strong> if the creature has eaten raw meat in the past 24 hours, it dies and rises as a ghoul, if not, it returns to stage 4</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[will|dc:22]</p>\n<p><strong>Stage 1</strong> carrier with no ill effects (1 day)</p>\n<p><strong>Stage 2</strong> @Damage[2d6[void]|immutable] damage and the target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} until it consumes raw meat (1 day)</p>\n<p><strong>Stage 3</strong> as stage 2</p>\n<p><strong>Stage 4</strong> as stage 2 unless the target has consumed raw meat in the past 24 hours, then it takes @Damage[4d6[void]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} until it consumes raw meat</p>\n<p><strong>Stage 5</strong> if the creature has eaten raw meat in the past 24 hours, it dies and rises as a ghoul, if not, it returns to stage 4</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -555,7 +555,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A leshy ghoul can unleash a cloud of spores that irritates the eyes and throats of non-fungus creatures in a @Template[type:emanation|distance:15]. Each creature must succeed at a @Check[fortitude|dc:17] save or take @Damage[1[persistent,poison]] damage. A creature has its vision reduced as long as the persistent damage continues and can see only within 20 feet.</p>"
+                    "value": "<p>A leshy ghoul can unleash a cloud of spores that irritates the eyes and throats of non-fungus creatures in a @Template[type:emanation|distance:15]. Each creature must succeed at a @Check[fortitude|dc:19] save or take @Damage[1[persistent,poison]] damage. A creature has its vision reduced as long as the persistent damage continues and can see only within 20 feet.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -666,7 +666,10 @@
             "type": "action"
         }
     ],
-    "name": "Leshy Ghoul",
+    "name": "Dread Leshy Ghoul",
+    "prototypeToken": {
+        "name": "Leshy Ghoul"
+    },
     "system": {
         "abilities": {
             "cha": {
@@ -676,22 +679,22 @@
                 "mod": 2
             },
             "dex": {
-                "mod": 4
+                "mod": 6
             },
             "int": {
                 "mod": -1
             },
             "str": {
-                "mod": 2
+                "mod": 3
             },
             "wis": {
-                "mod": 2
+                "mod": 3
             }
         },
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 20
+                "value": 23
             },
             "adjustment": null,
             "allSaves": {
@@ -699,9 +702,9 @@
             },
             "hp": {
                 "details": "void healing",
-                "max": 30,
+                "max": 52,
                 "temp": 0,
-                "value": 30
+                "value": 52
             },
             "immunities": [
                 {
@@ -742,7 +745,7 @@
         "details": {
             "blurb": "",
             "languages": {
-                "details": "speak with plants (fungi only)",
+                "details": "Speak with plants fungi only",
                 "value": [
                     "common",
                     "fey",
@@ -750,7 +753,7 @@
                 ]
             },
             "level": {
-                "value": 3
+                "value": 5
             },
             "privateNotes": "",
             "publicNotes": "<p>Few creatures are more ubiquitous to sinister locations such as lonely graveyards and ruined crypts than the flesh-eating undead known as ghouls.</p>",
@@ -765,7 +768,7 @@
         },
         "perception": {
             "details": "",
-            "mod": 7,
+            "mod": 10,
             "senses": [
                 {
                     "type": "darkvision"
@@ -776,32 +779,32 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 9
+                "value": 12
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 11
+                "value": 14
             },
             "will": {
                 "saveDetail": "",
-                "value": 7
+                "value": 10
             }
         },
         "skills": {
             "athletics": {
-                "base": 7,
+                "base": 10,
                 "special": []
             },
             "nature": {
-                "base": 7,
+                "base": 10,
                 "special": []
             },
             "stealth": {
-                "base": 9,
+                "base": 12,
                 "special": []
             },
             "survival": {
-                "base": 10,
+                "base": 13,
                 "note": "Grave Knowledge",
                 "special": []
             }
