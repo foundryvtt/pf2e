@@ -26,6 +26,10 @@ class CraftingAbilityRuleElement extends RuleElementPF2e<CraftingAbilityRuleSche
         if (this.maxSlots && this.resource) {
             this.failValidation("Only one of resource or maxSlots is allowed");
         }
+
+        if (this.isAlchemical) {
+            this.isPrepared = true;
+        }
     }
 
     static override defineSchema(): CraftingAbilityRuleSchema {
@@ -104,7 +108,7 @@ class CraftingAbilityRuleElement extends RuleElementPF2e<CraftingAbilityRuleSche
                 craftableItems: [
                     { predicate: this.craftableItems },
                     ...this.batchSizes.other.map((o) => ({ predicate: o.definition, batchSize: o.quantity })),
-                ],
+                ].filter((i) => i.predicate.length),
                 maxItemLevel: maxItemLevel || this.actor.level,
                 maxSlots,
                 preparedFormulaData: this.prepared,

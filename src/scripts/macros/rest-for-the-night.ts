@@ -112,6 +112,7 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
         if (recharges.actorUpdates?.system?.resources) {
             actorUpdates.resources = fu.mergeObject(actorUpdates.resources, recharges.actorUpdates.system.resources);
         }
+        itemCreates.push(...recharges.itemCreates);
         itemUpdates.push(...recharges.itemUpdates);
 
         // Stamina points
