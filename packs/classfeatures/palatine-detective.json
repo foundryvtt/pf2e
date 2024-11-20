@@ -1,0 +1,73 @@
+{
+    "_id": "ppGGpc3Iv2NpAhys",
+    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "name": "Palatine Detective",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Whether at the invitation of a senior member of the Esoteric Order of the Palatine Eye, after going through a rigorous sorting process, or by a twist of fate, you recently underwent a secret ritual involving <em>The Lost Gospels of Tabris</em> that granted you a greater understanding of both the divine and the occult. Not even you are certain of the origin or purpose of the forces that have granted you these abilities, but you know the key to answering that question and expanding your power lies hidden behind the cryptic words of the many ancient texts still waiting to be discovered and examined. If you choose this class archetype, you must select Palatine Detective Dedication as your 2nd-level class feat.</p>\n<p><strong>Prerequisites:</strong> You must be an investigator. You are affiliated with the Esoteric Order of the Palatine Eye.</p>\n<p><strong>Palatine Detective Adjustments:</strong> Instead of choosing a methodology from others available to the investigator class, you have the esoterica methodology (see below).</p>\n<p><strong>Additional Feats:</strong> <strong>6th</strong> @UUID[Compendium.pf2e.feats-srd.Item.Cast Out], @UUID[Compendium.pf2e.feats-srd.Item.Thaumaturgic Ritualist].</p><h2>Esoterica Methodology</h2><p>You become trained in Occultism or Religion, and you gain the @UUID[Compendium.pf2e.feats-srd.Item.Quick Identification] skill feat. In addition, choose one common cantrip from the divine spell list and one common cantrip from the occult spell list. You can cast those spells as innate spells at will. You become trained in the spell attack modifier and spell DCs statistics. Intelligence is your spellcasting attribute.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Divine Mysteries"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Occultism",
+                        "value": "occultism"
+                    },
+                    {
+                        "label": "PF2E.Skill.Religion",
+                        "value": "religion"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Quick Identification"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "spellcasting": {
+                    "rank": 1
+                }
+            }
+        },
+        "traits": {
+            "otherTags": [
+                "investigator-methodology"
+            ],
+            "rarity": "common",
+            "value": [
+                "investigator"
+            ]
+        }
+    },
+    "type": "feat"
+}

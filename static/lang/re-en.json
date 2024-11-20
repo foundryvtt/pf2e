@@ -678,6 +678,7 @@
                 "BludgeoningPiercingSlashing": "bludgeoning, piercing and slashing damage",
                 "ColdIronBludgeoning": "cold iron bludgeoning",
                 "CrystalHazards": "crystal hazards",
+                "DamageFromSwornCreatures": "damage from sworn creature kind",
                 "DraconicBreathWeapons": "draconic breath weapons",
                 "EnemyStrikes": "enemy Strikes",
                 "HolyBludgeoningPiercingSlashing": "holy bludgeoning, piercing and slashing damage",
@@ -1294,7 +1295,8 @@
                 "ToggleLabel": "All targets of Heal are living creatures"
             },
             "Time": {
-                "ACLabel": "Defending against reactions or free actions while moving"
+                "ACLabel": "Defending against reactions or free actions while moving",
+                "DefendAgainstLabel": "Curse of Turbulent Moments — Defense penalty"
             }
         },
         "PersistentDamage": {
@@ -2421,7 +2423,14 @@
                 "DivineSmite": {
                     "Label": "Divine Smite"
                 },
-                "EvilDamage": "Spirit Damage",
+                "ExaltedGreatness": {
+                    "Grandeur": "Any _revealing light_ created by your Flash of Grandeur lasts for 1 minute.",
+                    "Iniquity": "The damage dealt to enemies other than the triggering creatures increases by @Damage[(ternary(gte(@actor.level,19),6,ternary(gte(@actor.level,16),5,ternary(gte(@actor.level,12),4,ternary(gte(@actor.level,9),3,ternary(gte(@actor.level,5),2,1))))))[spirit]] damage (apply this after you halve the damage).",
+                    "Justice": "The penalty for allies from your exalted reaction is –2 instead of –5.",
+                    "Liberation": "You and all affected allies can attempt to break free, not just the triggering ally.",
+                    "Obedience": "The damage dealt to creatures other than the triggering creature who refuse to drop @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone} increases to half the damage the triggering creature would take (roll the damage only once for all affected creatures).",
+                    "Redemption": "The resistance granted by your exalted reaction is not reduced."
+                },
                 "ExaltedReaction": {
                     "Desecration": "Each enemy in your champion's aura takes a –1 status penalty to attack rolls against you until the start of your next turn. @UUID[Compendium.pf2e.feat-effects.Item.Ef63SlxSKlZmHosM]{Effect: Exalted Reaction (Desecrator)}",
                     "Grandeur": "In addition to the enemy affected by Flash of Grandeur, each other enemy in your champion's aura is affected by the revealing light spell for 1 round.",
@@ -2431,6 +2440,7 @@
                     "Obedience": "Each enemy in your champion's aura other than the triggering creature must also either drop @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone} or take mental damage (each enemy chooses). These creatures take only minimum damage (typically @Damage[ternary(gte(@actor.level,19),6,ternary(gte(@actor.level,16),5,ternary(gte(@actor.level,12),4,ternary(gte(@actor.level,11),3)[mental]]), and the effects they take can't be adjusted by anything that changes your Iron Command. For instance, the Iron Repercussions feat couldn't turn the damage into persistent mental damage for creatures other than the triggering creature.",
                     "Redemption": "If the enemy refuses, you can choose to grant the resistance to yourself and all allies in your champion's aura, including the triggering ally. If you do, the resistance is reduced by 2 for all @UUID[Compendium.pf2e.feat-effects.Item.GFLiTESBmoyQ3sLx]{Effect: Exalted Reaction (Redemption)}"
                 },
+                "EvilDamage": "Spirit Damage",
                 "GreaterSecurity": {
                     "Description": "While the companion shield is in effect, if your shield is raised, the ally with the companion shield gets the same bonus to AC your shield grants, and you can trigger Shield Block if that ally would meet the trigger. This uses your shield's statistics and applies damage to your shield.",
                     "RollOptionLabel": "Greater Security — Champion has their shield raised"
@@ -2453,6 +2463,9 @@
                     }
                 },
                 "NegativeDamage": "Void Damage",
+                "OathOfTheSlayer": {
+                    "RollOptionLabel": "Oath of the Slayer — Double additional damage"
+                },
                 "OngoingSelfishness": {
                     "Description": "After you use Selfish Shield, you gain resistance to all further damage from the triggering enemy until the end of the turn on which you used the reaction. This resistance is equal to half your Selfish Shield resistance. @UUID[Compendium.pf2e.feat-effects.Item.seOQfjfjrDyK6rCo]{Effect: Ongoing Selfishness}"
                 },
@@ -4212,6 +4225,11 @@
                     "Note": "If the attack succeeds, you knock the target @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}."
                 }
             },
+            "MortalHerald": {
+                "DivinePresence": {
+                    "OffGuardToggle": "Divine Presence — Make target Off-Guard"
+                }
+            },
             "MountainStance": {
                 "BracersOfArmor": "Mountain Stance w/ Bracers of Armor",
                 "ExplorersClothing": "Mountain Stance w/ Explorer's Clothing",
@@ -4670,6 +4688,14 @@
                     "Title": "Reflection of Water"
                 }
             },
+            "RivethunInvoker": {
+                "InvokeOffense": {
+                    "Label": "Invoke Offense"
+                },
+                "OneWithTheSpirits": {
+                    "Label": "One with the Spirits — Deal spirit damage"
+                }
+            },
             "Rogue": {
                 "Debilitation": {
                     "Bloody": {
@@ -5121,10 +5147,18 @@
                 "GustingSpell": "If the next action you use is to Cast a Spell with the air or electricity trait, you can Fly up to 10 feet before or after the spell is cast.",
                 "Harmonize": "If your next action is to cast a composition, it becomes a harmonized composition. Unlike a normal composition, a harmonized composition doesn't end if you cast another composition, and you can cast another composition on the same turn as a harmonized one. Casting another harmonized composition ends any harmonized composition you already have in effect.",
                 "HealingTransformation": "Your polymorph spell also restores @Damage[(@item.rank)d6[healing]] to that creature. This is a healing effect.",
+                "HeraldicProclamation": "All allies within 30 feet gain @Damage[(2*@item.rank)[healing,vitality]|shortLabel] Hit Points, and all enemies within 30 feet take @Damage[(2*@item.rank)[spirit]|traits:sanctified] damage with a @Check[will|basic] save against your spell DC.",
                 "HeroicRecovery": "The target gains three bonuses until the end of its next turn: a +5-foot status bonus to its Speed, a +1 status bonus to attack rolls, and a +1 status bonus to damage rolls. In addition, if the target is Prone, it can immediately Stand as a free action that doesn't trigger reactions.",
                 "InTune": "If your next action is casting a composition spell with an emanation area, its area spreads from a willing ally of your choice within 60 feet instead of you. If you have Directed Audience, you can have that cone originate from the ally instead.",
                 "InterweaveDispel": "If your next action is to cast a single-target spell against an enemy, and you either hit the enemy with the spell attack roll or the enemy fails its saving throw, you can cast @UUID[Compendium.pf2e.spells-srd.Item.9HpwDN4MYQJnW0LG]{Dispel Magic} on the enemy as a free action, expending a spell slot as normal and targeting one spell effect affecting the enemy.",
                 "IntoTheFuture": "If your next action is to Cast a Spell that takes 1 or 2 actions to cast, the spell's effects occur 1 round later, at the beginning of your next turn, rather than immediately. Targets and choices about the spell must be determined when the spell is cast, and requirements, such as line of sight and line of effect, must be valid both when the spell is cast and when its effects occur. Consequences for the action of Casting the Spell itself, such as an Attack of Opportunity reaction or ending a foe's @UUID[Compendium.pf2e.conditionitems.Item.AdPVz7rbaVSRxHFg]{Fascinated} condition by taking a hostile action, aren't delayed.",
+                "KaleidoscopicEntreaty": {
+                    "Description": "If your next action is to cast @UUID[Compendium.pf2e.spells-srd.Item.Yph1UqZU8vMc9bJG]{Entreat Spirit}, you can cause that spirit to unleash a brilliant display of color, light, and sound in a @Template[type:emanation|distance:10] centered on you. Each creature in the area must attempt a @Check[fortitude|against:class-spell] save against your class DC or spell DC with the following results.",
+                    "CriticalFailure": "The creature is @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} for 1 round and dazzled for 1 minute.",
+                    "CriticalSuccess": "The creature is unaffected.",
+                    "Failure": "The creature is dazzled for 1 minute.",
+                    "Success": "The creature is @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled} for 1 round."
+                },
                 "KnowledgeOfShapes": "You use @UUID[Compendium.pf2e.feats-srd.Item.BWomK7EVY0WXxWgh]{Reach Spell} or @UUID[Compendium.pf2e.feats-srd.Item.FoWO4RnHRwfEIC7Q]{Widen Spell} as a free action.",
                 "LeyLineConduit": "If your next action is to Cast a Spell of 5th rank or lower that has no duration, you don't expend the prepared spell as you cast it.",
                 "Martyr": "You lose @Damage[(@item.rank)d8] Hit Points, which can't be reduced or mitigated in any way, and your ally regains an equal number of Hit Points. @UUID[Compendium.pf2e.feat-effects.Item.7ogytOgDmh4h2g5d]{Effect: Heroic Recovery}",
@@ -5597,6 +5631,26 @@
                         "StalkingNight": {
                             "Description": "When you Cast or Sustain a hex, and your familiar is adjacent to an enemy to which it's @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealed}, @UUID[Compendium.pf2e.conditionitems.Item.iU0fEDdBp3rXpTMC]{Hidden}, or undetected, the enemy becomes @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{Frightened 1}.",
                             "Title": "Familiar of Stalking Night"
+                        },
+                        "BolsteringAid": {
+                            "Description":"Your familiar knows all manner of tricks that can help! When you Cast or Sustain a hex, and your familiar is adjacent to an ally, that ally gains a +2 status bonus to the next non-attack skill check that ally attempts before the start of your next turn.",
+                            "Title": "Familiar of Bolstering Aid"
+                        },
+                        "EnticingNegotiation": {
+                            "Description":"When you Cast or Sustain a hex and your familiar is within 10 feet of an enemy, the enemy becomes @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} until the start of your next turn. Your familiar can only distract a single enemy per round in this way.",
+                            "Title": "Familiar of Enticing Negotiation"
+                        },
+                        "ObscuringSnowfall": {
+                            "Description":"When you Cast or Sustain a hex, you can cause clinging snow to fall in a @Template[type:burst|distance:5] centered on a square of your familiar's space. This snowfall remains until the start of your next turn, and enemies that enter these squares during that period are @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled} until the start of your next turn.",
+                            "Title": "Familiar of Obscuring Snowfall"
+                        },
+                        "PairedPerplexity": {
+                            "Description":"When you Cast or Sustain a hex, your familiar seems to double and be in two places at once. One creature you choose within 20 feet of it is @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1} until the start of your next turn; this is a visual effect.",
+                            "Title": "Familiar of Paired Perplexity"
+                        },
+                        "SwarmsHeart": {
+                            "Description":"When you Cast or Sustain a hex, the insects swarm to protect you and your allies. Until the start of your next turn, your familiar grants concealment to you or any ally while sharing the same space.",
+                            "Title": "Familiar of Swarm's Heart"
                         }
                     },
                     "Prompt": "Select a patron."
