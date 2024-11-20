@@ -19,7 +19,7 @@ class CharacterCrafting {
 
         // Assemble all abilities. We check if label exists as a simple validation due to potential AELike tinkering
         const abilities = Object.values(actor.system.crafting.entries)
-            .filter((d): d is CraftingAbilityData => !!d?.label && !!d.slug && !!d.craftableItems.length)
+            .filter((d): d is CraftingAbilityData => !!d?.label && !!d.slug && d.craftableItems.length > 0)
             .map((d): [string, CraftingAbility] => [d.slug, new CraftingAbility(this.actor, d)]);
         this.abilities = new Collection(abilities);
     }
