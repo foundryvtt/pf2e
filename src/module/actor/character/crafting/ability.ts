@@ -1,6 +1,7 @@
 import type { CharacterPF2e } from "@actor";
 import { ResourceData } from "@actor/creature/index.ts";
-import type { ItemPF2e, PhysicalItemPF2e } from "@item";
+import { ItemPF2e, PhysicalItemPF2e } from "@item";
+import { itemIsOfType } from "@item/helpers.ts";
 import { createBatchRuleElementUpdate } from "@module/rules/helpers.ts";
 import type {
     CraftingAbilityRuleData,
@@ -187,10 +188,9 @@ class CraftingAbility implements CraftingAbilityData {
         return this.#updateRuleElement();
     }
 
-    async toggleFormulaExpended(index: number, itemUUID: string): Promise<void> {
+    async toggleFormulaExpended(index: number, value?: boolean): Promise<void> {
         const data = this.preparedFormulaData[index];
-        if (data?.uuid !== itemUUID) return;
-        data.expended = !data.expended;
+        data.expended = value ?? !data.expended;
 
         return this.#updateRuleElement();
     }
@@ -209,6 +209,83 @@ class CraftingAbility implements CraftingAbilityData {
     async updateFormulas(formulas: PreparedFormulaData[]): Promise<void> {
         this.preparedFormulaData = formulas;
         return this.#updateRuleElement();
+    }
+
+    async craft(
+        itemOrUUIDOrIndex: PhysicalItemPF2e | ItemUUID | number,
+        { consume = true }: { consume?: boolean } = {},
+    ): Promise<PhysicalItemPF2e | null> {
+        // Resolve item and possible index from the given parameter. If an index is given, its a prepared formula
+        const preparedFormulas = await this.getPreparedCraftingFormulas();
+        const [item, index] = await (async (): Promise<[PhysicalItemPF2e | null, number]> => {
+            if (typeof itemOrUUIDOrIndex === "number") {
+                return [preparedFormulas[itemOrUUIDOrIndex].item, itemOrUUIDOrIndex];
+            }
+
+            const item = typeof itemOrUUIDOrIndex === "string" ? await fromUuid(itemOrUUIDOrIndex) : itemOrUUIDOrIndex;
+            if (!(item instanceof PhysicalItemPF2e)) return [null, -1];
+
+            if (this.isPrepared) {
+                // determine what index this item could possibly be. Prioritize not expended
+                const validIndex = preparedFormulas.findIndex((f) => f.item.uuid === item.uuid && !f.expended);
+                const index =
+                    validIndex < 0 ? preparedFormulas.findIndex((f) => f.item.uuid === item.uuid) : validIndex;
+                return [item, index];
+            } else {
+                return [item, -1];
+            }
+        })();
+        if (!item) return null;
+
+        // Set the slot to expended if this is a prepared entry
+        if (this.isPrepared && consume) {
+            if (!this.preparedFormulaData[index] || this.preparedFormulaData[index].expended) {
+                ui.notifications.warn("PF2E.CraftingTab.Alerts.FormulaExpended", { localize: true });
+                return null;
+            }
+            await this.toggleFormulaExpended(index);
+        }
+
+        const rollOptions = item.getRollOptions("item");
+        const matching = this.craftableItems.find((c) => c.predicate.test(rollOptions));
+        const batchSize = matching?.batchSize ?? this.batchSize;
+
+        // Consume a special resource if we need to
+        if (this.resource && consume) {
+            const resource = this.actor.getResource(this.resource ?? "");
+            const value = resource?.value ?? 0;
+            if (!value) {
+                ui.notifications.warn("PF2E.Actor.Character.Crafting.MissingResource", { localize: true });
+                return null;
+            } else {
+                await this.actor.updateResource(this.resource, value - 1);
+            }
+        }
+
+        // Snares operate under entirely different rules, so we can't really craft them at this time
+        if (item.system.traits.value.includes("snare")) {
+            return null;
+        }
+
+        // Create the item source, and apply necessary temporary item modifications
+        const itemSource = item.toObject(true);
+        itemSource.system.quantity = batchSize;
+        itemSource.system.temporary = true;
+        itemSource.system.size = this.actor.ancestry?.size === "tiny" ? "tiny" : "med";
+        if (item.isAlchemical && itemIsOfType(itemSource, "consumable", "equipment", "weapon")) {
+            itemSource.system.traits.value.push("infused");
+            itemSource.system.traits.value.sort(); // required for stack matching
+        }
+
+        // Create the item or update an existing one, then return it
+        const stackable = this.actor.inventory.findStackableItem(itemSource);
+        if (stackable) {
+            stackable.update({ "system.quantity": stackable.quantity + batchSize });
+            return stackable;
+        } else {
+            const created = await this.actor.createEmbeddedDocuments("Item", [itemSource]);
+            return (created[0] ?? null) as PhysicalItemPF2e<CharacterPF2e> | null;
+        }
     }
 
     async #batchSizeFor(data: CraftingFormula | PreparedFormulaData): Promise<number> {
