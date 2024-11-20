@@ -27,7 +27,7 @@ class CraftingAbilityRuleElement extends RuleElementPF2e<CraftingAbilityRuleSche
             this.failValidation("Only one of resource or maxSlots is allowed");
         }
 
-        if (this.isAlchemical) {
+        if (this.isAlchemical || this.isDailyPrep) {
             this.isPrepared = true;
         }
     }
@@ -86,9 +86,13 @@ class CraftingAbilityRuleElement extends RuleElementPF2e<CraftingAbilityRuleSche
         const maxItemLevel = Number(this.resolveValue(this.maxItemLevel));
         const existing = this.actor.system.crafting.entries[key];
         if (existing) {
-            existing.label = this.label;
+            // Labels default to item name, don't override if its the default
+            if (this.label !== this.item.name) {
+                existing.label = this.label;
+            }
+
             existing.craftableItems ??= [];
-            if (this.craftableItems) {
+            if (this.craftableItems.length > 0) {
                 existing.craftableItems.push({ predicate: this.craftableItems });
             }
             existing.batchSize = Math.max(existing.batchSize, this.batchSizes?.default || 1);
