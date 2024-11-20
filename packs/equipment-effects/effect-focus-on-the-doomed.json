@@ -1,0 +1,56 @@
+{
+    "_id": "AFwm9Q3R3WT0rw5z",
+    "img": "icons/equipment/wrist/bracer-red-silver.webp",
+    "name": "Effect: Focus on the Doomed",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Assassin's Bracers (Type I)], @UUID[Compendium.pf2e.equipment-srd.Item.Assassin's Bracers (Type II)], @UUID[Compendium.pf2e.equipment-srd.Item.Assassin's Bracers (Type III)]</p>\n<p>You gain an item bonus to attempts to Feint or Demoralize the designated creature.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure: Prey for Death"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "focus-on-the-doomed"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:focus-on-the-doomed",
+                    {
+                        "or": [
+                            "action:demoralize",
+                            "action:feint"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "type": "item",
+                "value": "@item.origin.flags.pf2e.assassinsBracersBonus"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
