@@ -1,0 +1,62 @@
+{
+    "_id": "Hmj1N4JkqQHIxb7i",
+    "img": "icons/magic/fire/projectile-bolt-zigzag-orange.webp",
+    "name": "Effect: Brimstone Blessing",
+    "system": {
+        "description": {
+            "value": "<p>The trident deals an extra 2d6 fire damage, gains the unholy trait, and gains the effects of a returning rune.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Society Scenario #6-07: A God Falls Where Magic Fails"
+        },
+        "rules": [
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:trident"
+                ],
+                "property": "traits",
+                "value": "unholy"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:trident"
+                ],
+                "property": "property-runes",
+                "value": "returning"
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

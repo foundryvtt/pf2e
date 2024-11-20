@@ -1,0 +1,211 @@
+{
+    "_id": "5vxVxeTTGf7Qrru1",
+    "folder": "gBehFuPoHRgwfbLw",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Q8fRtaowwoXz5Udk",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Void Infused",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The foul font can take vitality damage, even though its an object and would normally be immune</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oGEI93A7aTk684J9",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spew Foulness",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> One or more creatures touches the water within 10 feet of the foul font</p><hr /><p><strong>Effect</strong> The font fires off a Void Geyser, causing a rain of foul water. The font then rolls for initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "unholy",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "68hj5oeowEXvhU6E",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Void Geyser",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The font shoots its foul brown sludge into the air, and it rains down upon all creatures within 15 feet that aren't completely submerged. Each of those creatures takes @Damage[5d6[void]] damage (@Check[reflex|dc:22|basic] save). In addition, those that take damage from the font must make a @Check[fortitude|dc:22] save.</p><hr /><p><strong>Critical Success</strong> The target cannot be sickened by the font for 1 minute.</p>\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "unholy",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3jB5anOxpqBOYDQ5",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Foul Waters",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Any creature that is submerged downstream (east) is automatically exposed to Spew Foulness at the start of its turn or when it enters those waters, except the damage is reduced with a @Check[fortitude|dc:22|basic] save instead of Reflex.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Void Font",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 22
+            },
+            "emitsSound": "encounter",
+            "hardness": 12,
+            "hp": {
+                "details": "",
+                "max": 53,
+                "temp": 0,
+                "value": 53
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 13
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "vitality",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>The font is hidden just under the water's surface. It spews foul brown sludge into the pristine waters, leaving them reeking and polluted as they move downstream. It can be reached without swimming, but not without getting wet.</p>",
+            "disable": "<p>@Check[nature|dc:20] (trained) to draw upon the suppressed Primal energies of this place to cleanse the font, @Check[religion|dc:26] (expert) to suppress the void energies, @Check[thievery|dc:23] to undo the magic sigils allowing the font to operate; two total successes are required to disable the font.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Society Scenario #6-06: Rotten Apples"
+            },
+            "reset": "<p>The void font deactivates 1 minute after all creatures leave the area but resets immediately thereafter.</p>",
+            "routine": "<p>The void font uses its actions each turn to spew a single void geyser.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 15
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap",
+                "unholy",
+                "void"
+            ]
+        }
+    },
+    "type": "hazard"
+}
