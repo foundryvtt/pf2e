@@ -567,7 +567,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
             // Restore special resources
             for (const resource of Object.values(this.synthetics.resources)) {
-                const updates = await resource.update(resource.max, { save: false });
+                const updates = await resource.update(resource.max, { save: false, checkLevel: true });
                 commitData.itemCreates.push(...updates.itemCreates);
                 commitData.itemUpdates.push(...updates.itemUpdates);
                 if (updates.itemCreates.length || updates.itemUpdates.length) {

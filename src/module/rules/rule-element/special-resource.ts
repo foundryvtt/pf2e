@@ -24,6 +24,10 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
         if (INVALID_RESOURCES.includes(this.slug)) {
             this.failValidation("slug: invalid value");
         }
+
+        if (this.level !== null && !this.itemUUID) {
+            this.failValidation("level can only be set if itemUUID is set");
+        }
     }
 
     static override defineSchema(): SpecialResourceSchema {
@@ -39,13 +43,17 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
                 type: "Item",
                 label: "PF2E.UUID.Label",
             }),
+            level: new ResolvableValueField({ required: false, nullable: true, initial: null }),
         };
     }
 
     /** Updates the remaining number of this resource. Where it updates depends on the type */
-    async update(value: number, options: { save: false }): Promise<ActorCommitData>;
-    async update(value: number, options?: { save?: true }): Promise<void>;
-    async update(value: number, { save = true }: { save?: boolean } = {}): Promise<void | ActorCommitData> {
+    async update(value: number, options: { save: false; checkLevel?: boolean }): Promise<ActorCommitData>;
+    async update(value: number, options?: { save?: true; checkLevel?: boolean }): Promise<void>;
+    async update(
+        value: number,
+        { save = true, checkLevel = false }: { save?: boolean; checkLevel?: boolean } = {},
+    ): Promise<void | ActorCommitData> {
         const data: ActorCommitData<CreaturePF2e> = {
             actorUpdates: null,
             itemCreates: [],
@@ -55,12 +63,18 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
         if (this.itemUUID) {
             // Find an existing item to update or create a new one
             const existing = this.actor.items.find((i) => i.sourceId === this.itemUUID);
-            if (existing) {
-                if (existing.isOfType("physical") && existing.quantity !== value) {
-                    data.itemUpdates.push({ _id: existing.id, system: { quantity: value } });
+            const level = checkLevel && this.level !== null ? Number(this.resolveValue(this.level)) : null;
+            if (
+                existing?.isOfType("physical") &&
+                (existing.quantity !== value || (level !== null && level !== existing.level))
+            ) {
+                const update = { _id: existing.id, system: { quantity: value } };
+                if (level !== null) {
+                    update.system = fu.mergeObject(update.system, { level: { value: level } });
                 }
-            } else {
-                const source = await this.#createItem(this.itemUUID);
+                data.itemUpdates.push(update);
+            } else if (!existing) {
+                const source = await this.#createItem(this.itemUUID, level);
                 if (source) {
                     source.system.quantity = value;
                     data.itemCreates.push(source);
@@ -92,10 +106,13 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
             this.max = Math.floor(Math.max(thisMax, this.actor.system.resources[key]?.max ?? 0));
 
             const uuid = this.resolveInjectedProperties(this.itemUUID);
-            const itemExists = this.actor.items.some((i) => i.sourceId === uuid);
-            if (!itemExists && uuid) {
-                const source = await this.#createItem(uuid);
+            const level = this.level === null ? null : Number(this.resolveValue(this.level));
+            const existingItem = this.actor.items.find((i) => i.sourceId === uuid);
+            if (!existingItem && uuid) {
+                const source = await this.#createItem(uuid, level);
                 if (source) args.pendingItems.push(source);
+            } else if (typeof level === "number") {
+                await existingItem?.update({ "system.level.value": level });
             }
         }
     }
@@ -142,7 +159,7 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
         }
     }
 
-    async #createItem(uuid: string): Promise<PhysicalItemSource | null> {
+    async #createItem(uuid: string, level: number | null): Promise<PhysicalItemSource | null> {
         const grantedItem: ClientDocument | null = await (async () => {
             try {
                 return (await fromUuid(uuid))?.clone() ?? null;
@@ -157,6 +174,9 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
             const grantedSource = grantedItem.toObject();
             grantedSource._id = fu.randomID();
             grantedSource.system.quantity = this.max;
+            if (typeof level === "number") {
+                grantedSource.system.level.value = level;
+            }
             return grantedSource;
         } else {
             this.failValidation("itemUUID must refer to a physical item");
@@ -176,6 +196,8 @@ interface SpecialResourceRuleElement
 type SpecialResourceSource = RuleElementSource & {
     value?: unknown;
     max?: unknown;
+    itemUUID?: unknown;
+    level?: unknown;
 };
 
 type SpecialResourceSchema = RuleElementSchema & {
@@ -185,6 +207,8 @@ type SpecialResourceSchema = RuleElementSchema & {
     max: ResolvableValueField<true, false>;
     /** If this represents a physical resource, the UUID of the item to create */
     itemUUID: fields.DocumentUUIDField<ItemUUID, false, false, false>;
+    /** If itemUUID exists, determines the level of the granted item */
+    level: ResolvableValueField<false, true, true>;
 };
 
 export { SpecialResourceRuleElement };
