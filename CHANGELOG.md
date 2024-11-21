@@ -1,3 +1,65 @@
+## 6.7.0
+
+### Highlights
+
+-   (Ambrose, Rigo, Tikael) Add content from Lost Omens Divine Mysteries
+
+### System Improvements
+
+-   (Codas) Improve aura rendering performance
+-   (stwlam) Add configurability of whether a granted feat/feature should be visually nested
+-   (stwlam) Add Covenant category to deity items, allow devotee benefits for philosophies
+-   (stwlam) Allow standard CTRL-measurement while drag measurement is enabled
+-   (stwlam) Show rarity in ABC picker options
+-   (Supe) Implement remaster styled Advanced Alchemy for alchemy-related archetypes
+
+### Bugfixes
+
+-   (Drental) Fix Grievous rune for Crossbows, localize simple and martial crossbow proficiencies
+-   (Idle) Fix recall knowledge DCs not showing in item identification dialog for non-alchemical, non-magical items
+-   (Idle) Fix Trick Magic Item popup labels
+-   (In3luki) Fix `RulerPF2e#_onMouseUp` not working for normal (non-drag) measurements
+-   (Supe) Create item when using the craft item button on a prepared entry
+-   (Supe) Fix browsing Divine Intercessions and PFS Boons
+-   (Supe) Fix item macros for actions without Use buttons and support modifier keys
+-   (Supe) Fix reroll using a hero point erroneously displaying for a mythic character
+-   (stwlam) Expand min/max of item alterations of hardness
+
+### Data Updates
+
+-   (Ambrose) Add Automation for Qi Blast under Heaven's Thunder effect
+-   (Ambrose) Add missing thievery check to Repelling Surge hazard
+-   (Ambrose) Convert additional instances of inline damage to the new format
+-   (Ambrose) Fix malformed RE in Monk Expertise Class Feature
+-   (Ambrose) Remove redundant Item Alteration Description RE from Megavolt
+-   (Ambrose) Update Revitalizing Finisher Temporary HP formula
+-   (Dire Weasel) Add effects for Assassin's Bracers
+-   (Dire Weasel) Brush up automation for some Grey Gardeners feats
+-   (Drental) Fix DC of Divine Revulsion for Redcap Cavalry
+-   (Drental) Fix greater composer staff item bonus to performance
+-   (joeparis) Update Major Art Objects and 8th- through 20th-level item rollable tables
+-   (kromko) Fix /act enricher regex to prevent catastrophic backtracking
+-   (kromko) Fix Disrupt Opposed Magic requirements formatting
+-   (kromko) Fix minor RE localization errors
+-   (kromko) Fix Zombie's Plague-Ridden description
+-   (Rigo) Add action cost to Wing Buffet
+-   (Rigo) Add Marked for Death's roll option to its Sneak Attack damage predicate
+-   (Rigo) Add some missing localization strings for LO:DM
+-   (Rigo) Adjust Armor Proficiency Choice Set to not be ignored
+-   (Rigo) Condense Endemic Herb effects and update Herbalist journal
+-   (Rigo) Correct Spectral Advance spell rank
+-   (Rigo) Fix armor scaling of Champion and Sentinel dedications
+-   (Rigo) Fix Obedience's Exalted Reaction predicate
+-   (Rigo) Grant Pet feat with Animist's Spirit Familiar
+-   (Rigo) Replace selector with domain in Swashbuckler styles' bravado Roll Option
+-   (Rigo) Update Avenger and Spelldrinker's description to errata
+-   (Rigo) Update Bon Mot penalty value to resolve as a number
+-   (Supe) Fix Nahoa and Samo prototype tokens
+-   (Tikael) Add content Pathfinder #208: Hoof, Cinder, and Storm
+-   (Tikael) Add content for PFS scenarios #6-06 and #6-07
+-   (Tikael) Fix action cost of Spear Dancer
+-   (Tikael) Fix fast healing on Bandersnatch
+
 ## 6.6.2
 
 ### System Improvements
@@ -37,8 +99,8 @@
 -   (Dire Weasel) Fix Jin Li's inline damage roll
 -   (Dire Weasel) Fix persistent damage and range for Earth's Bile
 -   (Dire Weasel) Add effects for Absorb Shock and Electric Surge
--   (joeparis) Update 1st- through 7th-level rollable tables
 -   (jaybrueder) Fix immunities of Animated Armor
+-   (joeparis) Update 1st- through 7th-level rollable tables
 -   (kromko) Replace some NPCs Reactive Strike action with the one from the Bestiary Ability Glossary (#17257)
 -   (rectulo) Change Sakura's Sprig to use Remaster terminology
 -   (rectulo) Fix a typo in description of Come and Get Me
