@@ -4,7 +4,7 @@
     "name": "Effect: Resounding Bravery",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Resounding Bravery] if you critically succeed at a Will save against a foe's ability.</p>\n<p>You gain a +1 status bonus to saves and a number of temporary Hit Points equal to half your level for 1 minute.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Resounding Bravery]</p>\n<p>You gain a +1 status bonus to saves and a number of temporary Hit Points equal to half your level. On a Critical Success, you gain a +2 status bonus to saves and a number of temporary Hit Points equal to your level</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,20 +16,41 @@
             "value": 8
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
+            {
+                "adjustName": true,
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": {
+                            "savingThrow": 2,
+                            "tempHp": 1
+                        }
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": {
+                            "savingThrow": 1,
+                            "tempHp": 2
+                        }
+                    }
+                ],
+                "flag": "degreeOfSuccess",
+                "key": "ChoiceSet"
+            },
             {
                 "key": "FlatModifier",
                 "selector": "saving-throw",
                 "type": "status",
-                "value": 1
+                "value": "{item|flags.pf2e.rulesSelections.degreeOfSuccess.savingThrow}"
             },
             {
                 "key": "TempHP",
-                "value": "floor(@actor.level / 2)"
+                "value": "floor(@actor.level /{item|flags.pf2e.rulesSelections.degreeOfSuccess.tempHp})"
             }
         ],
         "start": {
