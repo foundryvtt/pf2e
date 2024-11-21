@@ -831,7 +831,11 @@ async function transferItemsBetweenActors(
 }
 
 /** Applies multiple batched updates to the actor, delaying rendering till the end */
-async function applyActorUpdate<T extends ActorPF2e>(actor: T, data: Partial<ActorCommitData<T>>): Promise<void> {
+async function applyActorUpdate<T extends ActorPF2e>(
+    actor: T,
+    data: Partial<ActorCommitData<T>>,
+    { render = true }: { render?: boolean } = {},
+): Promise<void> {
     const itemCreates = data.itemCreates ?? [];
     const itemUpdates = data.itemUpdates ?? [];
 
@@ -844,7 +848,9 @@ async function applyActorUpdate<T extends ActorPF2e>(actor: T, data: Partial<Act
     if (itemUpdates.length > 0) {
         await actor.updateEmbeddedDocuments("Item", itemUpdates, { render: false });
     }
-    if (data.actorUpdates || itemCreates.length || itemUpdates.length) {
+
+    const changed = data.actorUpdates || itemCreates.length || itemUpdates.length;
+    if (render && changed) {
         actor.render();
     }
 }
