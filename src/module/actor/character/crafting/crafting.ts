@@ -99,7 +99,12 @@ class CharacterCrafting {
         }
 
         // Remove infused/temp items
-        const itemsToDelete = this.actor.inventory.filter((i) => i.system.temporary).map((i) => i.id);
+        const specialResourceItems = Object.values(actor.synthetics.resources)
+            .map((r) => r.itemUUID)
+            .filter((i) => !!i);
+        const itemsToDelete = this.actor.inventory
+            .filter((i) => i.system.temporary && (!i.sourceId || !specialResourceItems.includes(i.sourceId)))
+            .map((i) => i.id);
         if (itemsToDelete.length) {
             await actor.deleteEmbeddedDocuments("Item", itemsToDelete);
         }
@@ -108,6 +113,8 @@ class CharacterCrafting {
         const itemsToAdd: PreCreate<PhysicalItemSource>[] = [];
         for (const ability of abilities) {
             for (const formula of await ability.getPreparedCraftingFormulas()) {
+                if (formula.expended) continue;
+
                 const itemSource: PhysicalItemSource = formula.item.toObject();
                 itemSource.system.quantity = formula.quantity;
                 itemSource.system.temporary = true;
@@ -122,6 +129,7 @@ class CharacterCrafting {
         }
         if (itemsToAdd.length) {
             actor.inventory.add(itemsToAdd, { stack: true });
+            ui.notifications.info("PF2E.Actor.Character.Crafting.Daily.Complete", { localize: true });
         }
     }
 }
