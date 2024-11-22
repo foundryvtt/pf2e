@@ -449,10 +449,13 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     /* -------------------------------------------- */
 
     /**
-     * To prevent (or delay) console spam, will send out a deprecation notice in a later release
      * @deprecated
      */
     getSpellData(): Promise<SpellcastingSheetData> {
+        foundry.utils.logCompatibilityWarning(
+            "SpellcastingEntryPF2e#getSpellData() is deprecated. Use SpellcastingEntryPF2e#getSheetData() instead.",
+            { since: "6.7.1", until: "7.0.0" },
+        );
         return this.getSheetData();
     }
 }
