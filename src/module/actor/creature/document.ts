@@ -659,7 +659,7 @@ abstract class CreaturePF2e<
      * Updates a resource. Redirects to special resources if needed.
      * Accepts resource slugs in both kebab and dromedary, to handle token updates and direct ones.
      */
-    async updateResource(resource: string, value: number): Promise<void> {
+    async updateResource(resource: string, value: number, { render }: { render?: boolean } = {}): Promise<void> {
         const slug = sluggify(resource);
         const key = sluggify(resource, { camel: "dromedary" });
         if (key === "investiture") return;
@@ -674,10 +674,10 @@ abstract class CreaturePF2e<
         const resources = this.system.resources;
         const special = this.synthetics.resources[key];
         if (special) {
-            await special.update(Math.clamp(value, 0, special.max));
+            await special.update(Math.clamp(value, 0, special.max), { render });
         } else if (!!resources?.[key] && tupleHasValue(CORE_RESOURCES, slug)) {
             value = Math.clamp(value, 0, resources[key]?.max ?? 0);
-            await this.update({ [`system.resources.${key}.value`]: value });
+            await this.update({ [`system.resources.${key}.value`]: value }, { render });
         }
     }
 

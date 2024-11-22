@@ -498,6 +498,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             noCost: flags.freeCrafting,
             hasQuickAlchemy,
             hasDailyCrafting: this.actor.crafting.abilities.some((a) => a.isDailyPrep || a.isAlchemical),
+            dailyCraftingComplete: !!this.actor.flags.pf2e.dailyCraftingComplete,
             abilities: craftingEntries,
             knownFormulas: R.groupBy(
                 formulas.map((f) => ({
@@ -1033,7 +1034,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         };
 
         handlers["perform-daily-crafting"] = () => {
-            return this.actor.performDailyCrafting();
+            return this.actor.crafting.performDailyCrafting();
+        };
+
+        handlers["reset-daily-crafting"] = () => {
+            return this.actor.crafting.resetDailyCrafting();
         };
 
         handlers["delete-formula"] = async (event) => {
@@ -1505,6 +1510,7 @@ interface CraftingSheetData {
     noCost: boolean;
     hasQuickAlchemy: boolean;
     hasDailyCrafting: boolean;
+    dailyCraftingComplete: boolean;
     knownFormulas: Record<number, FormulaSheetData[]>;
     abilities: {
         prepared: CraftingAbilitySheetData[];

@@ -1,15 +1,22 @@
 import type { CharacterPF2e } from "@actor";
 import { ResourceData } from "@actor/creature/index.ts";
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
+import { PhysicalItemSource } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { createBatchRuleElementUpdate } from "@module/rules/helpers.ts";
 import type {
     CraftingAbilityRuleData,
     CraftingAbilityRuleSource,
 } from "@module/rules/rule-element/crafting-ability.ts";
-import { Predicate, RawPredicate } from "@system/predication.ts";
+import { Predicate } from "@system/predication.ts";
 import * as R from "remeda";
-import { CraftingFormula, PreparedFormula, PreparedFormulaData } from "./types.ts";
+import type {
+    CraftableItemDefinition,
+    CraftingAbilityData,
+    CraftingFormula,
+    PreparedFormula,
+    PreparedFormulaData,
+} from "./types.ts";
 
 class CraftingAbility implements CraftingAbilityData {
     /** A label for this crafting entry to display on sheets */
@@ -206,9 +213,13 @@ class CraftingAbility implements CraftingAbilityData {
         );
     }
 
-    async updateFormulas(formulas: PreparedFormulaData[]): Promise<void> {
+    async updateFormulas(
+        formulas: PreparedFormulaData[],
+        operation?: Partial<DatabaseUpdateOperation<CharacterPF2e>> | undefined,
+    ): Promise<void> {
         this.preparedFormulaData = formulas;
-        return this.#updateRuleElement();
+        this.#preparedFormulas = null;
+        return this.#updateRuleElement(operation);
     }
 
     async craft(
@@ -288,6 +299,37 @@ class CraftingAbility implements CraftingAbilityData {
         }
     }
 
+    /** Returns what items should be created by this ability during daily preparation, and what the resource expenditure should be */
+    async calculateDailyCrafting(): Promise<DailyCraftingResult> {
+        if (!this.isDailyPrep) {
+            return { items: [], resource: null };
+        }
+
+        const prepared = await this.getPreparedCraftingFormulas();
+        return {
+            items: prepared
+                .filter((f) => !f.expended)
+                .map((formula) => {
+                    const itemSource: PhysicalItemSource = formula.item.toObject();
+                    itemSource.system.quantity = formula.quantity;
+                    itemSource.system.temporary = true;
+                    itemSource.system.size = this.actor.ancestry?.size === "tiny" ? "tiny" : "med";
+                    if (formula.item.isAlchemical && itemIsOfType(itemSource, "consumable", "equipment", "weapon")) {
+                        itemSource.system.traits.value.push("infused");
+                        itemSource.system.traits.value.sort(); // required for stack matching
+                    }
+
+                    return itemSource;
+                }),
+            resource: this.resource
+                ? {
+                      slug: this.resource,
+                      cost: await this.calculateResourceCost(),
+                  }
+                : null,
+        };
+    }
+
     async #batchSizeFor(data: CraftingFormula | PreparedFormulaData): Promise<number> {
         const knownFormulas = await this.actor.crafting.getFormulas();
         const formula = knownFormulas.find((f) => f.item.uuid === data.uuid);
@@ -303,32 +345,16 @@ class CraftingAbility implements CraftingAbilityData {
         return matching?.batchSize ?? this.batchSize;
     }
 
-    async #updateRuleElement(): Promise<void> {
+    async #updateRuleElement(operation?: Partial<DatabaseUpdateOperation<CharacterPF2e>> | undefined): Promise<void> {
         const rules = this.actor.rules.filter(
             (r: CraftingAbilityRuleSource): r is CraftingAbilityRuleData =>
                 r.key === "CraftingAbility" && r.slug === this.slug,
         );
         const itemUpdates = createBatchRuleElementUpdate(rules, { prepared: this.preparedFormulaData });
         if (itemUpdates.length) {
-            await this.actor.updateEmbeddedDocuments("Item", itemUpdates);
+            await this.actor.updateEmbeddedDocuments("Item", itemUpdates, operation);
         }
     }
-}
-
-interface CraftingAbilityData {
-    slug: string;
-    resource: string | null;
-    label: string;
-    isAlchemical: boolean;
-    isDailyPrep: boolean;
-    isPrepared: boolean;
-    maxSlots: number | null;
-    craftableItems: CraftableItemDefinition[];
-    fieldDiscovery?: RawPredicate | null;
-    batchSize: number;
-    fieldDiscoveryBatchSize?: number;
-    maxItemLevel: number;
-    preparedFormulaData: PreparedFormulaData[];
 }
 
 interface CraftingAbilitySheetData {
@@ -345,10 +371,10 @@ interface CraftingAbilitySheetData {
     prepared: PreparedFormula[];
 }
 
-interface CraftableItemDefinition {
-    predicate: Predicate;
-    batchSize?: number;
+interface DailyCraftingResult {
+    items: PreCreate<PhysicalItemSource>[];
+    resource: { slug: string; cost: number } | null;
 }
 
 export { CraftingAbility };
-export type { CraftingAbilityData, CraftingAbilitySheetData, PreparedFormulaData };
+export type { CraftingAbilitySheetData, PreparedFormulaData };
