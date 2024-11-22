@@ -57,7 +57,7 @@ import { AttackRollParams, DamageRollParams, RollParameters } from "@system/roll
 import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, setHasElement, signedInteger, sluggify, traitSlugToObject } from "@util";
 import * as R from "remeda";
-import { CharacterCrafting, CraftingFormula } from "./crafting/index.ts";
+import { CharacterCrafting } from "./crafting/index.ts";
 import {
     BaseWeaponProficiencyKey,
     CharacterAbilities,
@@ -191,16 +191,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
 
         return this.classDCs[slug] ?? super.getStatistic(slug);
-    }
-
-    /** Will be deprecated/removed after PC2 alchemist is complete */
-    async getCraftingFormulas(): Promise<CraftingFormula[]> {
-        return this.crafting.getFormulas();
-    }
-
-    /** Will be deprecated/removed after PC2 alchemist is complete */
-    async performDailyCrafting(): Promise<void> {
-        return this.crafting.performDailyCrafting();
     }
 
     protected override _initialize(options?: Record<string, unknown>): void {

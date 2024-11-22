@@ -209,6 +209,25 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
         await this.actor.inventory.addCoins(coins);
     }
 
+    /** Deletes all temporary items, skipping those that are associated with a special resource */
+    async deleteTemporaryItems(
+        operation?: Partial<DatabaseDeleteOperation<TActor>> | undefined,
+    ): Promise<PhysicalItemPF2e<TActor>[]> {
+        const actor = this.actor;
+        const specialResourceItems = Object.values(actor.synthetics.resources)
+            .map((r) => r.itemUUID)
+            .filter((i) => !!i);
+        const itemsToDelete = this.actor.inventory
+            .filter((i) => i.system.temporary && (!i.sourceId || !specialResourceItems.includes(i.sourceId)))
+            .map((i) => i.id);
+        if (itemsToDelete.length) {
+            const deletedItems = await actor.deleteEmbeddedDocuments("Item", itemsToDelete, operation);
+            return deletedItems as PhysicalItemPF2e<TActor>[];
+        }
+
+        return [];
+    }
+
     /** Adds one or more items to this inventory without removing from its original location */
     async add(
         itemOrItems:

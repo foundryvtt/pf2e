@@ -107,6 +107,12 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
             statements.push(localize("Message.InfusedReagents"));
         }
 
+        // Remove all temporary items from the actor's inventory
+        const deletedTempItems = await actor.inventory.deleteTemporaryItems({ render: false });
+        if (deletedTempItems.length) {
+            statements.push(localize("Message.TemporaryItems"));
+        }
+
         // Perform all built in actor recharges, such as spellcasting and frequencies
         const recharges = await actor.recharge({ duration: "day", commit: false });
         if (recharges.actorUpdates?.system?.resources) {
@@ -129,19 +135,10 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
             }
         }
 
-        // Collect temporary crafted items to remove. Skip those that are a special resource
-        const specialResourceItems = Object.values(actor.synthetics.resources)
-            .map((r) => r.itemUUID)
-            .filter((i) => !!i);
-        const temporaryItems = actor.inventory
-            .filter((i) => i.isTemporary && (!i.sourceId || !specialResourceItems.includes(i.sourceId)))
-            .map((i) => i.id);
-        const removeTempItems = temporaryItems.length > 0;
-
         // Updated actor with the sweet fruits of rest
         const hasActorUpdates = Object.keys({ ...actorUpdates.attributes, ...actorUpdates.resources }).length > 0;
-        if (hasActorUpdates) {
-            await actor.update({ system: actorUpdates }, { render: false });
+        if (hasActorUpdates || actor.flags.pf2e.dailyCraftingComplete) {
+            await actor.update({ "flags.pf2e.dailyCraftingComplete": false, system: actorUpdates }, { render: false });
         }
 
         if (itemCreates.length > 0) {
@@ -152,13 +149,20 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
             await actor.updateEmbeddedDocuments("Item", itemUpdates, { render: false });
         }
 
-        if (removeTempItems) {
-            await actor.deleteEmbeddedDocuments("Item", temporaryItems, { render: false });
-            statements.push(localize("Message.TemporaryItems"));
-        }
-
         if (recharges.affected.frequencies) {
             statements.push(localize("Message.Frequencies"));
+        }
+
+        // Unexpend slots of all crafting abilities. Perform after previous updates to avoid update conflicts
+        const abilitiesToReset = actor.crafting.abilities.filter(
+            (a) => a.isDailyPrep && a.preparedFormulaData.some((f) => f.expended),
+        );
+        if (abilitiesToReset.length > 0) {
+            for (const ability of abilitiesToReset) {
+                const formulas = ability.preparedFormulaData.map((f) => ({ ...f, expended: false }));
+                await ability.updateFormulas(formulas, { render: false });
+            }
+            statements.push(localize("Message.CraftingSlots"));
         }
 
         for (const resource of recharges.affected.resources) {

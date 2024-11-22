@@ -49,10 +49,14 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
 
     /** Updates the remaining number of this resource. Where it updates depends on the type */
     async update(value: number, options: { save: false; checkLevel?: boolean }): Promise<ActorCommitData>;
-    async update(value: number, options?: { save?: true; checkLevel?: boolean }): Promise<void>;
+    async update(value: number, options?: { save?: true; render?: boolean; checkLevel?: boolean }): Promise<void>;
     async update(
         value: number,
-        { save = true, checkLevel = false }: { save?: boolean; checkLevel?: boolean } = {},
+        {
+            save = true,
+            render = true,
+            checkLevel = false,
+        }: { save?: boolean; render?: boolean; checkLevel?: boolean } = {},
     ): Promise<void | ActorCommitData> {
         const data: ActorCommitData<CreaturePF2e> = {
             actorUpdates: null,
@@ -89,7 +93,7 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
         }
 
         if (save) {
-            await applyActorUpdate(this.actor, data);
+            await applyActorUpdate(this.actor, data, { render });
         } else {
             return data;
         }
