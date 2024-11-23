@@ -53,6 +53,10 @@ async function createDescriptionPrepend(
     const formatArgs = {
         traditions,
         cast: spell.actionGlyph ? null : spell.system.time.value || null,
+        cost: spell.system.cost.value?.trim() || null,
+        secondaryCasters: spell.system.ritual?.secondary.casters || null,
+        primaryCheck: spell.system.ritual?.primary.check?.trim() || null,
+        secondaryChecks: spell.system.ritual?.secondary.checks.trim() || null,
         range: spell.system.range.value.trim() || null,
         targets: spell.system.target.value.trim() || null,
         area: spell.area?.label ?? null,
