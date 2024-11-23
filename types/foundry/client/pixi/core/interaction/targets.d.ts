@@ -11,17 +11,22 @@ declare global {
 
         /**
          * Return the Token IDs which are user targets
-         * @type {string[]}
          */
         get ids(): string[];
 
-        /** @override */
+        /**
+         * @override
+         */
         add(token: TToken): this;
 
-        /** @override */
+        /**
+         * @override
+         */
         clear(): void;
 
-        /** @override */
+        /**
+         * @override
+         */
         delete(token: TToken): boolean;
     }
 }
