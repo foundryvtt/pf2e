@@ -67,7 +67,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>harmed by <em>cold</em> and <em>vitality</em> (@Damage[5d10], @Damage[2d8] from areas or persistent damage); healed by <em>void</em> (area @Damage[2d8[healing]] Hit Points); slowed by <em>earth</em></p><hr /><p>A golem is immune to spells and magical abilities other than its own, but each type of golem is affected by a few types of magic in special ways. These exceptions are listed in shortened form in the golem's stat block, with the full rules appearing here. If an entry lists multiple types (such as \"cold and water\"), either type of spell can affect the golem.</p><ul><li><strong>Harmed By</strong> Any magic of this type that targets the golem causes it to take the listed amount of damage (this damage has no type) instead of the usual effect. If the golem starts its turn in an area of magic of this type or is affected by a persistent effect of the appropriate type, it takes the damage listed in the parenthetical.</li><li><strong>Healed By</strong> Any magic of this type that targets the golem makes the golem lose the slowed condition and gain HP equal to half the damage the spell would have dealt. If the golem starts its turn in an area of this type of magic, it gains the HP listed in the parenthetical.</li><li><strong>Slowed By</strong> Any magic of this type that targets the golem causes it to be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for [[/r 2d6 #rounds]]{2d6 rounds} instead of the usual effect. If the golem starts its turn in an area of this type of magic, it's slowed 1 for that round.</li><li><strong>Vulnerable To</strong> Each golem is vulnerable to one or more specific spells, with the effects described in its stat block.</li></ul>"
+                    "value": "<p>Harmed by cold and vitality (@Damage[5d10[untyped]], @Damage[2d8[untyped]] from areas or persistent damage); healed by void (area @Damage[2d8[healing]] HP); slowed by earth</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.GolemAntimagic]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -159,7 +159,27 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "vulnerable-to-stone-to-flesh",
+                        "toggleable": true
+                    },
+                    {
+                        "exceptions": [
+                            "adamantine"
+                        ],
+                        "key": "Resistance",
+                        "predicate": [
+                            {
+                                "not": "vulnerable-to-stone-to-flesh"
+                            }
+                        ],
+                        "type": "physical",
+                        "value": 10
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -212,7 +232,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The golem hits a slowed creature.</p>\n<hr />\n<p><strong>Effect</strong> The creature must succeed at a @Check[fortitude|dc:34] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} on a critical failure) as the golem's lazurite leeches vital energies and causes wounds to rot.</p>"
+                    "value": "<p><strong>Trigger</strong> The golem hits a @UUID[Compendium.pf2e.conditionitems.Item.Slowed] creature.</p>\n<hr />\n<p><strong>Effect</strong> The creature must succeed at a @Check[fortitude|dc:34] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} on a critical failure) as the golem's lazurite leeches vital energies and causes wounds to rot.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -242,7 +262,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Each creature in a @Template[emanation|distance:10] must succeed at a @Check[fortitude|dc:32] save or take @Damage[1d6[persistent,void]] damage and be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 minute as their flesh and bones temporarily atrophy. The golem can't use Necrotic Pulse again for [[/br 1d4 #Recharge Necrotic Pulse]]{1d4 rounds}.</p>"
+                    "value": "<p>Each creature in a @Template[emanation|distance:10] must succeed at a @Check[fortitude|dc:32] save or take @Damage[1d6[persistent,void]] damage and be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 minute as their flesh and bones temporarily atrophy. The golem can't use Necrotic Pulse again for [[/gmr 1d4 #Recharge Necrotic Pulse]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -306,15 +326,6 @@
                 },
                 {
                     "type": "magic"
-                }
-            ],
-            "resistances": [
-                {
-                    "exceptions": [
-                        "adamantine"
-                    ],
-                    "type": "physical",
-                    "value": 10
                 }
             ],
             "speed": {
