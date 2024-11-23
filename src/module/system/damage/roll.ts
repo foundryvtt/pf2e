@@ -490,10 +490,6 @@ class DamageInstance extends AbstractDamageRoll {
 
     /** Return 0 for persistent damage and 1 if normal damage 0 or less */
     protected override _evaluateTotal(): number {
-        const total = super._evaluateTotal();
-        if (!this.persistent && total <= 0) {
-            return 1;
-        }
         return this.persistent && !this.options.evaluatePersistent ? 0 : super._evaluateTotal();
     }
 
@@ -614,7 +610,6 @@ class DamageInstance extends AbstractDamageRoll {
                 result.hidden = true;
             }
         }
-        this._total = this._evaluateTotal();
         return this as Rolled<this>;
     }
 }
