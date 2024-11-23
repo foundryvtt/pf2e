@@ -37,14 +37,26 @@
                 "mode": "add",
                 "path": "flags.pf2e.monkDedicationCount",
                 "value": 1
+            },
+            {
+                "choices": {
+                    "config": "saves",
+                    "predicate": [
+                        "save:{choice|value}:rank:2"
+                    ]
+                },
+                "flag": "save",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.saves.{item|flags.pf2e.rulesSelections.save}.rank",
+                "value": 3
             }
         ],
         "subfeatures": {
-            "proficiencies": {
-                "fortitude": {
-                    "rank": 3
-                }
-            }
+            "proficiencies": {}
         },
         "traits": {
             "rarity": "common",
