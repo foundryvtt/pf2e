@@ -488,7 +488,7 @@ class DamageInstance extends AbstractDamageRoll {
         return DAMAGE_TYPE_ICONS[this.type];
     }
 
-    /** Return 0 for persistent damage and 1 if normal damage 0 or less */
+    /** Return 0 for persistent damage */
     protected override _evaluateTotal(): number {
         return this.persistent && !this.options.evaluatePersistent ? 0 : super._evaluateTotal();
     }
@@ -610,6 +610,7 @@ class DamageInstance extends AbstractDamageRoll {
                 result.hidden = true;
             }
         }
+        
         return this as Rolled<this>;
     }
 }
