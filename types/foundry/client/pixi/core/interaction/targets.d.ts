@@ -14,19 +14,10 @@ declare global {
          */
         get ids(): string[];
 
-        /**
-         * @override
-         */
-        add(token: TToken): this;
+        override add(token: TToken): this;
 
-        /**
-         * @override
-         */
-        clear(): void;
+        override clear(): void;
 
-        /**
-         * @override
-         */
-        delete(token: TToken): boolean;
+        override delete(token: TToken): boolean;
     }
 }
