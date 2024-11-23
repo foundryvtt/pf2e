@@ -2,7 +2,7 @@ import type { CharacterPF2e } from "@actor";
 import type { ABCItemPF2e, DeityPF2e, ItemPF2e } from "@item";
 import type { ItemType } from "@item/base/data/index.ts";
 import { Rarity } from "@module/data.ts";
-import { SvelteApplicationMixin, SvelteApplicationRenderContext } from "@system/svelte/mixin.svelte.ts";
+import { SvelteApplicationMixin, type SvelteApplicationRenderContext } from "@module/sheet/mixin.svelte.ts";
 import { sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
