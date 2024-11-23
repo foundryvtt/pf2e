@@ -271,7 +271,8 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
         });
 
     const adjustment = applications.reduce((sum, a) => sum + a.adjustment, 0);
-    const finalDamage = Math.max(roll.total + adjustment, 0);
+    // check that roll damage is atleast 1 if it is not reduced 
+    const finalDamage = roll.total <= 0 && adjustment >= 0 ? 1 + adjustment : Math.max(roll.total + adjustment, 0);
 
     return { finalDamage, applications, persistent };
 }
