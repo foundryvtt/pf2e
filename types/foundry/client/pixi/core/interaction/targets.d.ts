@@ -3,7 +3,6 @@ export {};
 declare global {
     /**
      * A subclass of Set which manages the Token ids which the User has targeted.
-     * @extends {Set}
      * @see User#targets
      */
     class UserTargets<TToken extends Token> extends Set<TToken> {
