@@ -606,18 +606,29 @@
                 "counteraction": false,
                 "damage": {
                     "0": {
-                        "applyMod": true,
+                        "applyMod": false,
                         "category": null,
-                        "formula": "1d6",
+                        "formula": "2d6",
                         "kinds": [
                             "damage"
                         ],
+                        "materials": [],
                         "type": "untyped"
+                    },
+                    "3Pz4NTLXD2rzKgf4": {
+                        "applyMod": false,
+                        "category": "persistent",
+                        "formula": "2",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "bleed"
                     }
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>You temporarily morph your limb into a clawed appendage. Make a melee spell attack roll against your target's AC. If you hit, you deal your choice of slashing or piercing damage equal to 1d6 plus your spellcasting ability modifier. On a critical success, you deal double damage plus [[/r (@item.level)d4[bleed]]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6 and the persistent bleed damage on a critical increases by 1d4.</p>"
+                    "value": "<p>You temporarily morph your limb into a clawed appendage. Make a melee spell attack roll against your target's AC. If you hit, you deal your choice of 2d6 slashing damage or 2d6 piercing damage, plus 2 persistent bleed damage. On a critical success, you deal double damage and double bleed damage.</p><hr /><p><strong>Heightened (+1)</strong> The damage increases by 1d6 and the persistent bleed damage increases by 1.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -625,7 +636,8 @@
                 },
                 "heightening": {
                     "damage": {
-                        "0": "1d6"
+                        "0": "1d6",
+                        "3Pz4NTLXD2rzKgf4": "1"
                     },
                     "interval": 1,
                     "type": "interval"
@@ -638,7 +650,6 @@
                 },
                 "overlays": {
                     "URQWpedXx9fB1fR7": {
-                        "_id": "URQWpedXx9fB1fR7",
                         "name": "Gouging Claw (Piercing)",
                         "overlayType": "override",
                         "sort": 1,
@@ -646,9 +657,13 @@
                             "damage": {
                                 "0": {
                                     "category": null,
+                                    "kinds": [
+                                        "damage"
+                                    ],
                                     "type": "piercing"
                                 }
-                            }
+                            },
+                            "defense": null
                         }
                     },
                     "wQHuRGaDDW2MemlK": {
@@ -660,16 +675,20 @@
                             "damage": {
                                 "0": {
                                     "category": null,
+                                    "kinds": [
+                                        "damage"
+                                    ],
                                     "type": "slashing"
                                 }
-                            }
+                            },
+                            "defense": null
                         }
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Secrets of Magic"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "touch"
