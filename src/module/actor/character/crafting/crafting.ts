@@ -1,11 +1,10 @@
 import { ItemPF2e, type PhysicalItemPF2e } from "@item";
-import type { PhysicalItemSource } from "@item/base/data/index.ts";
-import { itemIsOfType } from "@item/helpers.ts";
 import { calculateDC } from "@module/dc.ts";
 import { UUIDUtils } from "@util/uuid.ts";
+import * as R from "remeda";
 import type { CharacterPF2e } from "../document.ts";
-import { CraftingAbility, type CraftingAbilityData } from "./ability.ts";
-import { CraftingFormula } from "./types.ts";
+import { CraftingAbility } from "./ability.ts";
+import type { CraftingAbilityData, CraftingFormula } from "./types.ts";
 
 /** Caches and performs operations on elements related to crafting */
 class CharacterCrafting {
@@ -67,19 +66,63 @@ class CharacterCrafting {
         return result;
     }
 
+    /** Removes all infused items and un-expends all prepared items */
+    async resetDailyCrafting(): Promise<void> {
+        const actor = this.actor;
+
+        // Delete temporary items, and determine what got deleted
+        const deletedItems = await this.actor.inventory.deleteTemporaryItems({ render: false });
+
+        // Un-expend all crafted formulas.
+        const abilitiesToReset = this.abilities.filter(
+            (a) => a.isDailyPrep && a.preparedFormulaData.some((f) => f.expended),
+        );
+        for (const ability of abilitiesToReset) {
+            const formulas = ability.preparedFormulaData.map((f) => ({ ...f, expended: false }));
+            await ability.updateFormulas(formulas, { render: false });
+        }
+
+        // Restore all resources associated with the entries, if any
+        const resourcesToRestore = R.unique(abilitiesToReset.map((a) => a.resource).filter((r): r is string => !!r));
+        for (const slug of resourcesToRestore) {
+            const resource = actor.getResource(slug);
+            if (resource) {
+                await actor.updateResource(slug, resource.max, { render: false });
+            }
+        }
+
+        // Update the actor's flags to not be set to complete
+        const wasDailyCraftingComplete = actor.flags.pf2e.dailyCraftingComplete;
+        await actor.update({ "flags.pf2e.dailyCraftingComplete": false }, { render: false });
+
+        // Re-render any actor sheets if anything changed
+        if (
+            deletedItems.length > 0 ||
+            abilitiesToReset.length > 0 ||
+            resourcesToRestore.length > 0 ||
+            wasDailyCraftingComplete
+        ) {
+            actor.render();
+        }
+    }
+
     async performDailyCrafting(): Promise<void> {
         const actor = this.actor;
         const abilities = this.abilities.filter((e) => e.isDailyPrep);
+        const results = await Promise.all(abilities.map((a) => a.calculateDailyCrafting()));
+        const itemsToAdd = results.flatMap((r) => r.items);
+        if (itemsToAdd.length === 0) {
+            return;
+        }
 
         // Compute total resource cost by resource
-        const resourceCosts: Record<string, number> = {};
-        for (const ability of abilities) {
-            if (ability.resource) {
-                const cost = await ability.calculateResourceCost();
-                resourceCosts[ability.resource] ??= 0;
-                resourceCosts[ability.resource] += cost;
+        const resourceCosts = results.reduce((costs: Record<string, number>, result) => {
+            if (result.resource) {
+                costs[result.resource.slug] ??= 0;
+                costs[result.resource.slug] += result.resource.cost;
             }
-        }
+            return costs;
+        }, {});
 
         // Validate if resources are sufficient and compute new resource values
         const resourceUpdates: Record<string, number> = {};
@@ -95,42 +138,19 @@ class CharacterCrafting {
 
         // Perform resource updates
         for (const [slug, value] of Object.entries(resourceUpdates)) {
-            await actor.updateResource(slug, value);
+            await actor.updateResource(slug, value, { render: false });
         }
 
-        // Remove infused/temp items
-        const specialResourceItems = Object.values(actor.synthetics.resources)
-            .map((r) => r.itemUUID)
-            .filter((i) => !!i);
-        const itemsToDelete = this.actor.inventory
-            .filter((i) => i.system.temporary && (!i.sourceId || !specialResourceItems.includes(i.sourceId)))
-            .map((i) => i.id);
-        if (itemsToDelete.length) {
-            await actor.deleteEmbeddedDocuments("Item", itemsToDelete);
-        }
-
-        // Assemble the items we need to create, grouped by uuid, then add the items
-        const itemsToAdd: PreCreate<PhysicalItemSource>[] = [];
+        // Expend all crafted formulas.
         for (const ability of abilities) {
-            for (const formula of await ability.getPreparedCraftingFormulas()) {
-                if (formula.expended) continue;
-
-                const itemSource: PhysicalItemSource = formula.item.toObject();
-                itemSource.system.quantity = formula.quantity;
-                itemSource.system.temporary = true;
-                itemSource.system.size = this.actor.ancestry?.size === "tiny" ? "tiny" : "med";
-                if (formula.item.isAlchemical && itemIsOfType(itemSource, "consumable", "equipment", "weapon")) {
-                    itemSource.system.traits.value.push("infused");
-                    itemSource.system.traits.value.sort(); // required for stack matching
-                }
-
-                itemsToAdd.push(itemSource);
-            }
+            const formulas = ability.preparedFormulaData.map((f) => ({ ...f, expended: true }));
+            await ability.updateFormulas(formulas, { render: false });
         }
-        if (itemsToAdd.length) {
-            actor.inventory.add(itemsToAdd, { stack: true });
-            ui.notifications.info("PF2E.Actor.Character.Crafting.Daily.Complete", { localize: true });
-        }
+
+        // Add the items. There will always be items to add if it go to here, and that will trigger the re-render
+        await actor.update({ "flags.pf2e.dailyCraftingComplete": true }, { render: false });
+        await actor.inventory.add(itemsToAdd, { stack: true });
+        ui.notifications.info("PF2E.Actor.Character.Crafting.Daily.Complete", { localize: true });
     }
 }
 

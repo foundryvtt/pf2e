@@ -42,10 +42,10 @@ function SvelteApplicationMixin<
             content: HTMLElement,
             options: ApplicationRenderOptions,
         ): void {
-            if (options.isFirstRender) {
-                this.#mount = svelte.mount(this.root, { target: content, props: result });
-            }
             Object.assign(this.$state, result.state);
+            if (options.isFirstRender) {
+                this.#mount = svelte.mount(this.root, { target: content, props: { ...result, state: this.$state } });
+            }
         }
 
         protected override _onClose(options: ApplicationRenderOptions): void {
