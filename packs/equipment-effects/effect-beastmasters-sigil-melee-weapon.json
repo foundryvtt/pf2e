@@ -4,10 +4,10 @@
     "name": "Effect: Beastmaster's Sigil - Melee Weapon",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Beastmaster's Sigil]</p>\n<p>The <em>sigil</em> grants you a +1 item bonus to Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Trip].</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Beastmaster's Sigil], @UUID[Compendium.pf2e.equipment-srd.Item.Beastmaster's Sigil (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Beastmaster's Sigil (Major)]</p>\n<p>You gain an item bonus to Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Trip].</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -22,13 +22,71 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:beastmasters-sigil",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Beastmaster's Sigil"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:beastmasters-sigil-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Beastmaster's Sigil (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:beastmasters-sigil-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Beastmaster's Sigil (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "beastmasters-sigil"
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
                     "action:trip"
                 ],
                 "selector": "athletics",
+                "slug": "sigil-bonus-weapon",
                 "type": "item",
                 "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "beastmasters-sigil:beastmasters-sigil-major"
+                ],
+                "selector": "skill-check",
+                "slug": "sigil-bonus-weapon",
+                "value": 2
             }
         ],
         "start": {
