@@ -9,6 +9,9 @@ import { RuleElementForm, RuleElementFormSheetData, RuleElementFormTabData } fro
 class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
     override template = "systems/pf2e/templates/items/rules/aura.hbs";
 
+    /** Active tagify instances. Have to be cleaned up to avoid memory leaks */
+    #tagifyInstances: Tagify<Record<"id" | "value", string>>[] = [];
+
     protected override tabs: RuleElementFormTabData = {
         names: ["basics", "effects", "appearance"],
         displayStyle: "grid",
@@ -35,7 +38,7 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
         const traitsElement = htmlQuery<HTMLTagifyTagsElement>(html, "tagify-tags.tagify-traits");
         if (traitsElement) {
             const whitelist = { ...CONFIG.PF2E.spellTraits, ...CONFIG.PF2E.actionTraits };
-            tagify(traitsElement, { whitelist, enforceWhitelist: false });
+            this.#tagifyInstances.push(tagify(traitsElement, { whitelist, enforceWhitelist: false }));
         }
 
         for (const eventsElement of htmlQueryAll<HTMLTagifyTagsElement>(html, "tagify-tags.tagify-events")) {
@@ -44,7 +47,12 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
                 ["turn-start", game.i18n.localize("PF2E.RuleEditor.Aura.Effects.EventsOptions.TurnStart")],
                 ["turn-end", game.i18n.localize("PF2E.RuleEditor.Aura.Effects.EventsOptions.TurnEnd")],
             ].sort((a, b) => a[1].localeCompare(b[1], game.i18n.lang));
-            tagify(eventsElement, { whitelist: R.mapToObj(whitelist, (w) => [w[0], w[1]]), enforceWhitelist: true });
+            this.#tagifyInstances.push(
+                tagify(eventsElement, {
+                    whitelist: R.mapToObj(whitelist, (w) => [w[0], w[1]]),
+                    enforceWhitelist: true,
+                }),
+            );
         }
 
         for (const element of htmlQueryAll(html, "a[data-action=remove-effect]")) {
@@ -117,6 +125,12 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
                 }
             });
         }
+    }
+
+    protected override _resetListeners(): void {
+        super._resetListeners();
+        this.#tagifyInstances.forEach((tagified) => tagified.destroy());
+        this.#tagifyInstances = [];
     }
 
     override async getData(): Promise<AuraSheetData> {

@@ -9,6 +9,10 @@ import { RuleElementForm, RuleElementFormSheetData } from "./base.ts";
 
 class FastHealingForm extends RuleElementForm<FastHealingSource, FastHealingRuleElement> {
     override template = "systems/pf2e/templates/items/rules/fast-healing.hbs";
+
+    /** Active tagify instances. Have to be cleaned up to avoid memory leaks */
+    #tagifyInstances: Tagify<Record<"id" | "value", string>>[] = [];
+
     override activateListeners(html: HTMLElement): void {
         super.activateListeners(html);
 
@@ -16,8 +20,14 @@ class FastHealingForm extends RuleElementForm<FastHealingSource, FastHealingRule
         const selectorElement = htmlQuery<HTMLTagifyTagsElement>(html, "tagify-tags.deactivated-by");
         if (selectorElement) {
             const whitelist = CONFIG.PF2E.weaknessTypes;
-            tagify(selectorElement, { whitelist, enforceWhitelist: false });
+            this.#tagifyInstances.push(tagify(selectorElement, { whitelist, enforceWhitelist: false }));
         }
+    }
+
+    protected override _resetListeners(): void {
+        super._resetListeners();
+        this.#tagifyInstances.forEach((tagified) => tagified.destroy());
+        this.#tagifyInstances = [];
     }
 
     override async getData(): Promise<FastHealingSheetData> {

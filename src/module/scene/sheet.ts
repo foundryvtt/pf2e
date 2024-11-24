@@ -7,6 +7,9 @@ import * as R from "remeda";
 import type { ScenePF2e } from "./document.ts";
 
 export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TDocument> {
+    /** Active tagify instances. Have to be cleaned up to avoid memory leaks */
+    #tagifyInstances: (Tagify<Record<"id" | "value", string>> | null)[] = [];
+
     get scene(): TDocument {
         return this.document;
     }
@@ -62,6 +65,7 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+        this._resetListeners();
         const html = $html[0];
 
         // Open world automation settings
@@ -74,12 +78,19 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
             }
         });
 
-        tagify(htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="flags.pf2e.environmentTypes"]'), {
-            whitelist: CONFIG.PF2E.environmentTypes,
-            enforceWhitelist: true,
-        });
+        this.#tagifyInstances.push(
+            tagify(htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="flags.pf2e.environmentTypes"]'), {
+                whitelist: CONFIG.PF2E.environmentTypes,
+                enforceWhitelist: true,
+            }),
+        );
 
         this.#activateRBVListeners(html);
+    }
+
+    protected _resetListeners(): void {
+        this.#tagifyInstances.forEach((tagifyInstance) => tagifyInstance?.destroy());
+        this.#tagifyInstances = [];
     }
 
     /** Hide Global Illumination settings when rules-based vision is enabled. */
@@ -158,5 +169,10 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
         }
         // Rerender scene region legend to update the scene terrain tags
         canvas.scene?.apps["region-legend"]?.render();
+    }
+
+    override async close(options?: { force?: boolean | undefined }): Promise<void> {
+        this._resetListeners();
+        return super.close(options);
     }
 }

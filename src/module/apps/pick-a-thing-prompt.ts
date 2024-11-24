@@ -85,6 +85,7 @@ abstract class PickAThingPrompt<TItem extends ItemPF2e, TThing extends string | 
         const select = htmlQuery<HTMLInputElement>(html, "input[data-tagify-select]");
         if (!select) return;
 
+        this.selectMenu?.destroy();
         this.selectMenu = new Tagify(select, {
             enforceWhitelist: true,
             keepInvalidTags: false,
@@ -109,6 +110,8 @@ abstract class PickAThingPrompt<TItem extends ItemPF2e, TThing extends string | 
         for (const element of htmlQueryAll(this.element[0], "button, select")) {
             element.style.pointerEvents = "none";
         }
+        this.selectMenu?.destroy();
+        this.selectMenu = undefined;
         this.#resolve?.(this.selection);
 
         return super.close(options);

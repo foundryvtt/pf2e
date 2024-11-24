@@ -1,12 +1,13 @@
 import type { CharacterPF2e } from "./document.ts";
 
 export class PCSheetTabManager {
+    #tooltipsterElement: JQuery | null = null;
     constructor(
         public actor: CharacterPF2e,
         public link: HTMLAnchorElement,
     ) {
         renderTemplate("systems/pf2e/templates/actors/character/manage-tabs.hbs").then((template) => {
-            $(this.link).tooltipster({
+            this.#tooltipsterElement = $(this.link).tooltipster({
                 content: template,
                 contentAsHTML: true,
                 delay: 250,
@@ -22,8 +23,8 @@ export class PCSheetTabManager {
         });
     }
 
-    static initialize(actor: CharacterPF2e, link: HTMLAnchorElement): void {
-        new this(actor, link);
+    static initialize(actor: CharacterPF2e, link: HTMLAnchorElement): PCSheetTabManager {
+        return new this(actor, link);
     }
 
     /** Set each checkbox to be checked according to its corresponding tab visibility */
@@ -83,5 +84,9 @@ export class PCSheetTabManager {
                 tab.classList.add("hidden");
             }
         }
+    }
+
+    async destroy(): Promise<void> {
+        this.#tooltipsterElement?.tooltipster("destroy");
     }
 }

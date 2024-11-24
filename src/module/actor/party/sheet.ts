@@ -26,6 +26,9 @@ interface PartySheetRenderOptions extends ActorSheetRenderOptionsPF2e {
 class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     currentSummaryView = "languages";
 
+    /** Elements with registered $.tooltipster instances. Have to be cleaned up to avoid memory leaks */
+    #tooltipsterElements: JQuery[] = [];
+
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
 
@@ -359,7 +362,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             const titleLabel = game.i18n.localize("PF2E.Actor.Party.MembersLabel");
             const title = createHTMLElement("strong", { children: [titleLabel] });
             const content = createHTMLElement("span", { children: [title, members] });
-            $(languageTag).tooltipster({ content });
+            this.#tooltipsterElements.push($(languageTag).tooltipster({ content }));
         }
 
         // Mouseover summary skill tooltips to show all actor modifiers
@@ -376,7 +379,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             });
 
             const content = createHTMLElement("div", { children: labels });
-            $(skillTag).tooltipster({ content });
+            this.#tooltipsterElements.push($(skillTag).tooltipster({ content }));
         }
 
         // Mouseover tooltip for exploration activities
@@ -390,14 +393,16 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     classes: ["item-summary"],
                     innerHTML: await TextEditor.enrichHTML(document.description, { rollData }),
                 });
-                $(activityElem).tooltipster({
-                    contentAsHTML: true,
-                    content,
-                    interactive: true,
-                    maxWidth: 500,
-                    side: "right",
-                    theme: "crb-hover",
-                });
+                this.#tooltipsterElements.push(
+                    $(activityElem).tooltipster({
+                        contentAsHTML: true,
+                        content,
+                        interactive: true,
+                        maxWidth: 500,
+                        side: "right",
+                        theme: "crb-hover",
+                    }),
+                );
             })();
         }
 
@@ -417,6 +422,12 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         htmlQuery(html, "[data-action=prompt]")?.addEventListener("click", () => {
             game.pf2e.gm.checkPrompt({ actors: this.actor.members });
         });
+    }
+
+    protected override _resetListeners(): void {
+        super._resetListeners();
+        this.#tooltipsterElements.forEach((element) => element.tooltipster("destroy"));
+        this.#tooltipsterElements = [];
     }
 
     /** Overriden to prevent inclusion of campaign-only item types. Those should get added to their own sheet */
@@ -481,6 +492,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     }
 
     override render(force?: boolean, options?: PartySheetRenderOptions): this {
+        this._resetListeners();
         if (options?.actors) {
             this.getData().then(async (data) => {
                 this._saveScrollPositions(this.element);

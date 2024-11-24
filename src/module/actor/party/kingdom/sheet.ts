@@ -67,6 +67,12 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
     #editingSettlements: Record<string, boolean> = {};
 
+    /** Elements with registered $.tooltipster instances. Have to be cleaned up to avoid memory leaks */
+    #tooltipsterElements: JQuery[] = [];
+
+    /** Active sortable instances. Have to be cleaned up to avoid memory leaks */
+    #sortables: Sortable[] = [];
+
     constructor(actor: PartyPF2e, options?: Partial<ActorSheetOptions>) {
         super(actor, options);
     }
@@ -278,6 +284,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
     override activateListeners($html: JQuery<HTMLElement>): void {
         super.activateListeners($html);
+        this._resetListeners();
         const html = $html[0];
 
         // If a settlement name needs to be focused (such as when a new list item is created), do so
@@ -333,12 +340,14 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             if (vacantEl) {
                 const lines = vacantEl.title.split(/;\s*/).map((l) => createHTMLElement("li", { children: [l] }));
                 const content = createHTMLElement("ul", { children: lines });
-                $(vacantEl).tooltipster({
-                    content,
-                    contentAsHTML: true,
-                    side: "right",
-                    theme: "crb-hover",
-                });
+                this.#tooltipsterElements.push(
+                    $(vacantEl).tooltipster({
+                        content,
+                        contentAsHTML: true,
+                        side: "right",
+                        theme: "crb-hover",
+                    }),
+                );
             }
         }
 
@@ -374,16 +383,20 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             this.filterActions(filterButton.dataset.slug ?? null);
         });
 
-        $html.find("[data-tooltip-content]").tooltipster({
-            trigger: "click",
-            arrow: false,
-            contentAsHTML: true,
-            debug: BUILD_MODE === "development",
-            interactive: true,
-            side: ["right", "bottom"],
-            theme: "crb-hover",
-            minWidth: 120,
-        });
+        const tooltipContentEl = $html.find("[data-tooltip-content]");
+        if (tooltipContentEl[0])
+            this.#tooltipsterElements.push(
+                tooltipContentEl.tooltipster({
+                    trigger: "click",
+                    arrow: false,
+                    contentAsHTML: true,
+                    debug: BUILD_MODE === "development",
+                    interactive: true,
+                    side: ["right", "bottom"],
+                    theme: "crb-hover",
+                    minWidth: 120,
+                }),
+            );
 
         // Handle adding and inputting custom user submitted modifiers
         for (const customModifierEl of htmlQueryAll(html, ".modifiers-tooltip")) {
@@ -471,7 +484,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         // Sort settlements
         const settlementList = htmlQuery(html, ".settlement-list");
         if (settlementList) {
-            Sortable.create(settlementList, {
+            const sortable = Sortable.create(settlementList, {
                 ...SORTABLE_BASE_OPTIONS,
                 handle: ".drag-handle",
                 onEnd: (event) => {
@@ -494,7 +507,16 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     this.kingdom.update(updates);
                 },
             });
+            this.#sortables.push(sortable);
         }
+    }
+
+    protected override _resetListeners(): void {
+        super._resetListeners();
+        this.#tooltipsterElements.forEach((element) => element.tooltipster("destroy"));
+        this.#tooltipsterElements = [];
+        this.#sortables.forEach((sortable) => sortable.destroy());
+        this.#sortables = [];
     }
 
     protected override activateClickListener(html: HTMLElement): SheetClickActionHandlers {
@@ -717,6 +739,11 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         }
 
         return this.kingdom.update(data);
+    }
+
+    override close(options?: { force?: boolean } | undefined): Promise<void> {
+        this._resetListeners();
+        return super.close(options);
     }
 }
 

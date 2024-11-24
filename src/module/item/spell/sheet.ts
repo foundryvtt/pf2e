@@ -41,6 +41,9 @@ const spellOverridable: Partial<Record<keyof SpellSystemData, string>> = {
 };
 
 export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
+    /** Active tagify instances. Have to be cleaned up to avoid memory leaks */
+    #tagifyInstances: (Tagify<Record<"id" | "value", string>> | null)[] = [];
+
     static override get defaultOptions(): ItemSheetOptions {
         return {
             ...super.defaultOptions,
@@ -148,9 +151,11 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             if (levelInput) levelInput.readOnly = true;
         }
 
-        tagify(htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.traditions"]'), {
-            whitelist: CONFIG.PF2E.magicTraditions,
-        });
+        this.#tagifyInstances.push(
+            tagify(htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.traditions"]'), {
+                whitelist: CONFIG.PF2E.magicTraditions,
+            }),
+        );
 
         for (const anchor of htmlQueryAll(html, "a[data-action=add-damage-partial]")) {
             anchor.addEventListener("click", () => {
@@ -328,6 +333,12 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                     : { primary: { check: "" }, secondary: { checks: "", casters: 0 } },
             });
         });
+    }
+
+    protected override _resetListeners(): void {
+        super._resetListeners();
+        this.#tagifyInstances.forEach((tagifyInstance) => tagifyInstance?.destroy());
+        this.#tagifyInstances = [];
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {

@@ -37,6 +37,11 @@ import { CodeMirror } from "./codemirror.ts";
 import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-element-form/index.ts";
 
 class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOptions> {
+    #sortables: Sortable[] = [];
+
+    /** Active tagify instances. Have to be cleaned up to avoid memory leaks */
+    #tagifyInstances: (Tagify<Record<"id" | "value", string>> | null)[] = [];
+
     constructor(item: TItem, options: Partial<ItemSheetOptions> = {}) {
         super(item, options);
         this.options.classes.push(this.item.type);
@@ -94,6 +99,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             Object.values(CONFIG.Item.sheetClasses[this.item.type]).filter((c) => c.canConfigure).length > 1;
 
         const { item } = this;
+        this._destroyRuleElementForms();
         this.#createRuleElementForms();
 
         // Enrich content
@@ -196,7 +202,9 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             const existing =
                 previousForms.find((f) => R.isDeepEqual(f.rule, rule) && f.constructor.name === FormClass.name) ?? null;
             if (existing) {
-                previousForms.splice(previousForms.indexOf(existing), 1);
+                previousForms
+                    .splice(previousForms.indexOf(existing), 1)
+                    .forEach((ruleElementForm) => ruleElementForm.destroy());
             }
             return { options, FormClass, existing };
         });
@@ -299,6 +307,8 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
     }
 
     override async close(options?: { force?: boolean }): Promise<void> {
+        this._resetListeners();
+        this._destroyRuleElementForms();
         this.#editingRuleElementIndex = null;
         return super.close(options);
     }
@@ -468,6 +478,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         const traitsPrepend = html.querySelector<HTMLTemplateElement>(".traits-extra");
         if (validTraits !== null && tagElement) {
             const tags = tagify(tagElement, { whitelist: validTraits });
+            this.#tagifyInstances.push(tags);
             if (traitsPrepend) {
                 tags.DOM.scope.prepend(traitsPrepend.content);
             }
@@ -477,9 +488,11 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         }
 
         // Tagify other-tags input if present
-        tagify(htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.otherTags"]'), {
-            maxTags: 6,
-        });
+        this.#tagifyInstances.push(
+            tagify(htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.otherTags"]'), {
+                maxTags: 6,
+            }),
+        );
 
         // Handle select and input elements that show modified prepared values until focused
         const modifiedPropertyFields = htmlQueryAll<HTMLSelectElement | HTMLInputElement>(html, "[data-property]");
@@ -527,7 +540,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         // Allow drag/drop sorting of rule elements
         const rules = htmlQuery(html, ".rule-element-forms");
         if (rules) {
-            Sortable.create(rules, {
+            const sortable = Sortable.create(rules, {
                 ...SORTABLE_BASE_OPTIONS,
                 handle: ".drag-handle",
                 onEnd: async (event) => {
@@ -551,6 +564,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
                     }
                 },
             });
+            this.#sortables.push(sortable);
         }
 
         const refreshAnchor = htmlQuery(html.closest("div.item.sheet"), "a.refresh-from-compendium");
@@ -581,6 +595,13 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
                 item.sheet.render(true);
             });
         }
+    }
+
+    protected _resetListeners(): void {
+        this.#sortables.forEach((sortable) => sortable.destroy());
+        this.#sortables = [];
+        this.#tagifyInstances.forEach((tagifyInstance) => tagifyInstance?.destroy());
+        this.#tagifyInstances = [];
     }
 
     /** Add button to refresh from compendium if setting is enabled. */
@@ -640,6 +661,15 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         return super._updateObject(event, fu.flattenObject(expanded));
     }
 
+    /**
+     * call destroy handler on rule elements. Has to be separated from _resetListeners because
+     * by the time _replaceHTML is called, the new rule elements have already been assigned and
+     * the old ruleElementForms cannot be accessed anymore
+     */
+    protected _destroyRuleElementForms(): void {
+        this.#ruleElementForms.forEach((ruleElementForm) => ruleElementForm.destroy());
+    }
+
     /** Overriden _render to maintain focus on tagify elements */
     protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
         await maintainFocusInRender(this, () => super._render(force, options));
@@ -653,6 +683,15 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             }
             this.#rulesLastScrollTop = null;
         }
+    }
+
+    protected override _replaceHTML(
+        element: JQuery,
+        html: JQuery | HTMLElement,
+        options: Record<string, unknown>,
+    ): void {
+        this._resetListeners();
+        super._replaceHTML(element, html, options);
     }
 }
 

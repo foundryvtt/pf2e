@@ -29,6 +29,9 @@ import * as R from "remeda";
 import { featCanHaveKeyOptions } from "./helpers.ts";
 
 class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
+    /** Active tagify instances. Have to be cleaned up to avoid memory leaks */
+    #tagifyInstances: (Tagify<Record<"id" | "value", string>> | null)[] = [];
+
     static override get defaultOptions(): ItemSheetOptions {
         return {
             ...super.defaultOptions,
@@ -214,8 +217,10 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         const getInput = (name: string): HTMLTagifyTagsElement | null =>
             htmlQuery<HTMLTagifyTagsElement>(html, `tagify-tags[name="${name}"]`);
 
-        tagify(getInput("system.prerequisites.value"), { maxTags: 6, delimiters: ";" });
-        tagify(getInput("system.subfeatures.keyOptions"), { whitelist: CONFIG.PF2E.abilities, maxTags: 3 });
+        this.#tagifyInstances.push(tagify(getInput("system.prerequisites.value"), { maxTags: 6, delimiters: ";" }));
+        this.#tagifyInstances.push(
+            tagify(getInput("system.subfeatures.keyOptions"), { whitelist: CONFIG.PF2E.abilities, maxTags: 3 }),
+        );
 
         // Disable the "add subfeature" anchor unless a corresponding option is selected
         const unselectedOptionsSelects = htmlQueryAll<HTMLSelectElement>(html, "select[data-unselected-options]");
@@ -231,6 +236,12 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         this.#activateProficienciesListeners(html);
         this.#activateSensesListeners(html);
         this.#activateSuppressedFeaturesListeners(html);
+    }
+
+    protected override _resetListeners(): void {
+        super._resetListeners();
+        this.#tagifyInstances.forEach((tagifyInstance) => tagifyInstance?.destroy());
+        this.#tagifyInstances = [];
     }
 
     #activateLanguagesListeners(html: HTMLElement): void {

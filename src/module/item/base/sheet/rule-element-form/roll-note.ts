@@ -8,6 +8,9 @@ import { RuleElementForm, RuleElementFormSheetData } from "./base.ts";
 class RollNoteForm extends RuleElementForm<NoteRESource, RollNoteRuleElement> {
     override template = "systems/pf2e/templates/items/rules/note.hbs";
 
+    /** Active tagify instances. Have to be cleaned up to avoid memory leaks */
+    #tagifyInstances: (Tagify<Record<"id" | "value", string>> | null)[] = [];
+
     override async getData(): Promise<RollNoteFormSheetData> {
         return {
             ...(await super.getData()),
@@ -25,7 +28,13 @@ class RollNoteForm extends RuleElementForm<NoteRESource, RollNoteRuleElement> {
             this.updateItem({ selector: newValue });
         });
         const optionsEl = htmlQuery<HTMLTagifyTagsElement>(html, "tagify-tags.outcomes");
-        tagify(optionsEl, { whitelist: [...DEGREE_OF_SUCCESS_STRINGS], maxTags: 3 });
+        this.#tagifyInstances.push(tagify(optionsEl, { whitelist: [...DEGREE_OF_SUCCESS_STRINGS], maxTags: 3 }));
+    }
+
+    protected override _resetListeners(): void {
+        super._resetListeners();
+        this.#tagifyInstances.forEach((tagified) => tagified?.destroy());
+        this.#tagifyInstances = [];
     }
 
     override updateObject(ruleData: Partial<Record<string, JSONValue>>): void {
