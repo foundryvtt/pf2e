@@ -30,7 +30,7 @@
                     },
                     {
                         "img": "icons/creatures/fish/fish-shark-swimming.webp",
-                        "label": "PF2E.SpecificRule.AnimalForm.Shark",
+                        "label": "PF2E.NPCAbility.ChangeShape.Form.Shark",
                         "predicate": [
                             {
                                 "gte": [
@@ -53,6 +53,36 @@
                             }
                         ],
                         "value": "water-elemental"
+                    },
+                    {
+                        "img": "icons/environment/creatures/bug-worm-toothed-grey.webp",
+                        "label": "PF2E.NPCAbility.ChangeShape.Form.CaveWorm",
+                        "predicate": [
+                            "feat:monstrous-inclinations",
+                            "feature:lurker-in-devouring-dark",
+                            {
+                                "gte": [
+                                    "parent:level",
+                                    8
+                                ]
+                            }
+                        ],
+                        "value": "cave-worm"
+                    },
+                    {
+                        "img": "icons/creatures/reptiles/serpent-horned-green.webp",
+                        "label": "PF2E.NPCAbility.ChangeShape.Form.SeaSerpent",
+                        "predicate": [
+                            "feat:monstrous-inclinations",
+                            "feature:lurker-in-devouring-dark",
+                            {
+                                "gte": [
+                                    "parent:level",
+                                    8
+                                ]
+                            }
+                        ],
+                        "value": "sea-serpent"
                     }
                 ],
                 "key": "ChoiceSet",
@@ -345,6 +375,272 @@
                                     }
                                 },
                                 "tempHP": 20
+                            }
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "immunities": [
+                        {
+                            "type": "immobilized"
+                        }
+                    ],
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "speeds": {
+                        "burrow": 30,
+                        "land": 40,
+                        "swim": 20
+                    },
+                    "strikes": {
+                        "body": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 2,
+                                "die": "d8",
+                                "modifier": 20
+                            },
+                            "traits": [
+                                "unarmed",
+                                "reach-10"
+                            ]
+                        },
+                        "jaws": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d12",
+                                "modifier": 20
+                            },
+                            "traits": [
+                                "unarmed",
+                                "reach-10"
+                            ]
+                        },
+                        "stinger": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d8",
+                                "modifier": 15
+                            },
+                            "traits": [
+                                "unarmed",
+                                "reach-10",
+                                "agile"
+                            ]
+                        }
+                    },
+                    "traits": [
+                        "animal"
+                    ]
+                },
+                "predicate": [
+                    "devouring-dark-form:cave-worm"
+                ],
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "start": 8,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "20 + @actor.level"
+                                },
+                                "size": "huge",
+                                "skills": {
+                                    "athletics": {
+                                        "modifier": 30
+                                    }
+                                },
+                                "strikes": {
+                                    "body": {
+                                        "modifier": 28
+                                    },
+                                    "jaws": {
+                                        "modifier": 28
+                                    },
+                                    "stinger": {
+                                        "modifier": 28
+                                    }
+                                },
+                                "tempHP": 20
+                            }
+                        },
+                        {
+                            "start": 9,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "22 + @actor.level"
+                                },
+                                "size": "huge",
+                                "skills": {
+                                    "athletics": {
+                                        "modifier": 33
+                                    }
+                                },
+                                "strikes": {
+                                    "body": {
+                                        "damage": {
+                                            "dice": 3
+                                        },
+                                        "modifier": 31,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-10"
+                                        ]
+                                    },
+                                    "jaws": {
+                                        "damage": {
+                                            "dice": 3
+                                        },
+                                        "modifier": 31,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-10"
+                                        ]
+                                    },
+                                    "stinger": {
+                                        "damage": {
+                                            "dice": 3
+                                        },
+                                        "modifier": 31,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-10",
+                                            "agile"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 25
+                            }
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "category": "persistent",
+                "damageType": "poison",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "devouring-dark-form:cave-worm"
+                ],
+                "selector": "stinger-damage"
+            },
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "speeds": {
+                        "land": 20,
+                        "swim": 90
+                    },
+                    "strikes": {
+                        "jaws": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d12",
+                                "modifier": 20
+                            },
+                            "traits": [
+                                "unarmed",
+                                "reach-15"
+                            ]
+                        },
+                        "tail": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 2,
+                                "die": "d8",
+                                "modifier": 20
+                            },
+                            "traits": [
+                                "unarmed",
+                                "reach-25"
+                            ]
+                        }
+                    },
+                    "traits": [
+                        "animal"
+                    ]
+                },
+                "predicate": [
+                    "devouring-dark-form:sea-serpent"
+                ],
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "start": 8,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "20 + @actor.level"
+                                },
+                                "size": "huge",
+                                "skills": {
+                                    "athletics": {
+                                        "modifier": 30
+                                    }
+                                },
+                                "strikes": {
+                                    "jaws": {
+                                        "modifier": 28
+                                    },
+                                    "tail": {
+                                        "modifier": 28
+                                    }
+                                },
+                                "tempHP": 20
+                            }
+                        },
+                        {
+                            "start": 9,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "22 + @actor.level"
+                                },
+                                "size": "huge",
+                                "skills": {
+                                    "athletics": {
+                                        "modifier": 33
+                                    }
+                                },
+                                "strikes": {
+                                    "jaws": {
+                                        "damage": {
+                                            "dice": 3
+                                        },
+                                        "modifier": 31
+                                    },
+                                    "tail": {
+                                        "damage": {
+                                            "dice": 3
+                                        },
+                                        "modifier": 31
+                                    }
+                                },
+                                "tempHP": 25
                             }
                         }
                     ],
