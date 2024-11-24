@@ -12,7 +12,9 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "value": [
+                        "grab"
+                    ]
                 },
                 "bonus": {
                     "value": 21
@@ -249,7 +251,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The statue carries a wide brazier full of hot coals. To make flaming coal Strikes or use Burn Alive, the statue must have the brazier held in one hand or otherwise have it within reach. Instead of targeting the statue with an attack, a creature can target the brazier directly. The brazier has the same AC and saves as the statue. Dealing 15 cold damage to the brazier or dousing it with at least 2 gallons of water extinguishes the coals. This prevents the statue from using Burn Alive and causes its ranged attacks to no longer deal @Damage[(2d8+2)[fire]] damage.</p>"
+                    "value": "<p>The statue carries a wide brazier full of hot coals. To make flaming coal Strikes or use Burn Alive, the statue must have the brazier held in one hand or otherwise have it within reach. Instead of targeting the statue with an attack, a creature can target the brazier directly. The brazier has the same AC and saves as the statue. Dealing 15 cold damage to the brazier or dousing it with at least 2 gallons of water extinguishes the coals. This prevents the statue from using Burn Alive and causes its ranged attacks to no longer deal 2d8+2 fire damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -262,7 +264,8 @@
                         "key": "RollOption",
                         "label": "PF2E.NPCAbility.GiantAnimatedStatueBrazier",
                         "option": "brazier",
-                        "toggleable": true
+                        "toggleable": true,
+                        "value": true
                     },
                     {
                         "damageType": "fire",
@@ -275,12 +278,12 @@
                         "selector": "flaming-coal-damage"
                     },
                     {
+                        "damageType": "fire",
                         "key": "FlatModifier",
                         "predicate": [
-                            "brazier",
-                            "ranged"
+                            "brazier"
                         ],
-                        "selector": "strike-damage",
+                        "selector": "flaming-coal-damage",
                         "value": 2
                     }
                 ],
@@ -306,7 +309,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The statue grinds a creature it has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] into the red-hot coals of its brazier. The target takes @Damage[3d8[fire]] damage and @Damage[1d8[persistent,fire]] damage.</p>"
+                    "value": "<p>The statue grinds a creature it has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] into the red-hot coals of its brazier. The target takes @Damage[(3d8+2)[fire],1d8[persistent,fire]] damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -392,7 +395,7 @@
                 "value": 10
             },
             "hp": {
-                "details": "",
+                "details": "fast healing 5",
                 "max": 90,
                 "temp": 0,
                 "value": 90

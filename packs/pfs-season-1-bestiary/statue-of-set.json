@@ -66,10 +66,6 @@
                     "hl2wkmnxchw8jijc5ntr": {
                         "damage": "2d6+4",
                         "damageType": "bludgeoning"
-                    },
-                    "w9cmiagj5rqcxhr76f60": {
-                        "damage": "2d8",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -97,54 +93,10 @@
             "type": "melee"
         },
         {
-            "_id": "Y5o3gFf5JPkOt7XK",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Flaming Coal (Brazier Extinguished)",
-            "sort": 300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "ic8i09fev9fnyjwi3zg2": {
-                        "damage": "2d6+4",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "range-increment-80"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "7Rg3TQGFjt5uWzLw",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Construct Armor (Hardness 10)",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -220,7 +172,7 @@
             "_id": "WPghLMZPRFiy5n4O",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Brazier",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -237,7 +189,26 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.GiantAnimatedStatueBrazier",
+                        "option": "brazier",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "damageType": "fire",
+                        "diceNumber": 2,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "brazier"
+                        ],
+                        "selector": "flaming-coal-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -250,7 +221,7 @@
             "_id": "HeOOQ9BnUPuR38pL",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Burn Alive",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -260,7 +231,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The statue grinds a creature it has grabbed into the red-hot coals of its brazier. The target takes @Damage[3d6[fire]] damage and @Damage[1d8[persistent,fire]] damage</p>"
+                    "value": "<p>The statue grinds a creature it has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] into the red-hot coals of its brazier. The target takes @Damage[3d6[fire],1d8[persistent,fire]] damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -285,7 +256,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
