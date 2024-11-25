@@ -8,7 +8,9 @@ import type { TokenDocumentPF2e } from "@scene/index.ts";
 import type { Statistic } from "@system/statistic/index.ts";
 import { tupleHasValue } from "@util";
 import * as R from "remeda";
+import type { DataModelValidationOptions } from "types/foundry/common/abstract/data.d.ts";
 import { PartySource, PartySystemData } from "./data.ts";
+import { Kingdom } from "./kingdom/model.ts";
 import { PartySheetRenderOptions } from "./sheet.ts";
 import { PartyCampaign, PartyUpdateOperation } from "./types.ts";
 
@@ -17,9 +19,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     declare members: CreaturePF2e[];
 
-    get campaign(): PartyCampaign | null {
-        return this.system.campaign ?? null;
-    }
+    declare campaign: PartyCampaign | null;
 
     get active(): boolean {
         return game.actors.party === this;
@@ -51,6 +51,29 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return false;
     }
 
+    /** Override validation to defer certain properties to the campaign model */
+    override validate(options?: DataModelValidationOptions): boolean {
+        if (!super.validate(options)) return false;
+
+        const changes: DeepPartial<PartySource> = options?.changes ?? {};
+        if (changes.system?.campaign) {
+            const campaignValid = this.campaign?.validate({ ...options, changes: changes.system.campaign });
+            if (!campaignValid) return false;
+        }
+
+        return true;
+    }
+
+    override updateSource(
+        data?: Record<string, unknown>,
+        options?: DocumentSourceUpdateContext,
+    ): DeepPartial<this["_source"]> {
+        if (!this.campaign) return super.updateSource(data, options);
+        const expanded: DeepPartial<PartySource> = fu.expandObject(data ?? {});
+        if (expanded.system?.campaign) this.campaign.updateSource(expanded.system.campaign, options);
+        return super.updateSource(data, options);
+    }
+
     /** Only prepare rule elements for non-physical items (in case campaign items exist) */
     protected override prepareRuleElements(): RuleElementPF2e<RuleElementSchema>[] {
         return this.items.contents
@@ -58,12 +81,6 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             .flatMap((item) => item.prepareRuleElements())
             .filter((rule) => !rule.ignored)
             .sort((elementA, elementB) => elementA.priority - elementB.priority);
-    }
-
-    /** Make `system.campaign` non-enumerable to prevent `TokenDocument.getTrackedAttributes` from recursing into it. */
-    protected override _initialize(options?: Record<string, unknown> | undefined): void {
-        super._initialize(options);
-        Object.defineProperty(this.system, "campaign", { writable: true, enumerable: false });
     }
 
     override prepareBaseData(): void {
@@ -100,7 +117,16 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         );
         this.system.details.level.value = partyLevel;
 
-        this.system.campaign?.prepareBaseData();
+        if (game.pf2e.settings.campaign.type === "kingmaker" && !this.campaign) {
+            Object.defineProperty(this, "campaign", {
+                value: new Kingdom(this.system._source.campaign ?? {}, { parent: this.system }),
+                writable: true,
+                enumerable: false,
+            });
+        } else if (!game.pf2e.settings.campaign.type) {
+            this.campaign = null;
+        }
+        this.campaign?.prepareBaseData();
     }
 
     override prepareDerivedData(): void {
