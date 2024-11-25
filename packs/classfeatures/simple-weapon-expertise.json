@@ -24,7 +24,26 @@
             "remaster": false,
             "title": "Pathfinder Secrets of Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.ClassFeatures.SimpleWeaponExpertise.{actor|class.slug}.Description"
+                    }
+                ]
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "{actor|class.slug}"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {
                 "simple": {
