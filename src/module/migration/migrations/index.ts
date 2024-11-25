@@ -233,3 +233,4 @@ export { Migration931ExpandREPermissions } from "./931-expand-re-permissions.ts"
 export { Migration932NPCSystemSkills } from "./932-npc-system-skills.ts";
 export { Migration933CraftingAbility } from "./933-crafting-ability.ts";
 export { Migration934MythicCallingCategory } from "./934-mythic-calling-category.ts";
+export { Migration935DeityIconPaths } from "./935-deity-icon-paths.ts";
