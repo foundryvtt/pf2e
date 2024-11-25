@@ -586,14 +586,47 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Corax lunges toward a foe and makes a Strike with his greataxe, increasing his reach by 5 feet for that Strike. If he hits, the target must succeed at a @Check[fortitude|dc:19] save to avoid being knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] (and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} on a critical failure).</p>"
+                    "value": "<p>Corax lunges toward a foe and makes a Strike with his greataxe, increasing his reach by 5 feet for that Strike. If he hits, the target must succeed at a @Check[fortitude|dc:19|options:inflicts:prone] save to avoid being knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] (and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "felling-blow",
+                        "toggleable": true
+                    },
+                    {
+                        "definition": [
+                            "item:slug:greataxe"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "felling-blow"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "reach"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            "felling-blow"
+                        ],
+                        "selector": "greataxe-attack",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

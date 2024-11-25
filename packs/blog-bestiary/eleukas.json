@@ -607,7 +607,26 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "lunge",
+                        "toggleable": true
+                    },
+                    {
+                        "definition": [
+                            "item:melee"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "lunge"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "reach"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

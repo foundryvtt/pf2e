@@ -104,6 +104,8 @@ export const SetGamePF2e = {
             variantRules: { AutomaticBonusProgression },
         };
         game.pf2e = fu.mergeObject(game.pf2e ?? {}, initSafe);
+
+        const campaignType = game.settings.get("pf2e", "campaignType");
         game.pf2e.settings = {
             automation: {
                 flanking: game.settings.get("pf2e", "automation.flankingDetection"),
@@ -115,6 +117,7 @@ export const SetGamePF2e = {
                 },
                 languages: game.settings.get("pf2e", "homebrew.languageRarities"),
                 mythic: game.settings.get("pf2e", "mythic"),
+                type: campaignType === "none" ? null : campaignType,
             },
             critFumble: {
                 buttons: game.settings.get("pf2e", "critFumbleButtons"),

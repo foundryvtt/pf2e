@@ -76,7 +76,8 @@ class HomebrewElements extends SettingsMenuPF2e {
             choices: R.mapToObj(["none", "kingmaker"], (key) => [key, `PF2E.SETTINGS.CampaignType.Choices.${key}`]),
             type: String,
             tab: "campaign",
-            onChange: async () => {
+            onChange: async (value) => {
+                game.pf2e.settings.campaign.type = value === "none" ? null : String(value);
                 await resetActors(game.actors.filter((a) => a.isOfType("party")));
                 ui.sidebar.render();
             },
