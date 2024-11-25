@@ -390,7 +390,42 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "lunge",
+                        "toggleable": true
+                    },
+                    {
+                        "definition": [
+                            "item:melee",
+                            {
+                                "not": "item:trait:reach"
+                            }
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "lunge"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "reach"
+                    },
+                    {
+                        "definition": [
+                            "item:melee",
+                            "item:trait:reach-10"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "lunge"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "reach-15"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
