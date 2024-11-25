@@ -295,7 +295,7 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": "scythe",
+                "slug": "rotcarver-scythe",
                 "traits": {
                     "value": [
                         "deadly-d10",
@@ -387,7 +387,26 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "lunge",
+                        "toggleable": true
+                    },
+                    {
+                        "definition": [
+                            "item:slug:rotcarver-scythe"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "lunge"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "reach"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
