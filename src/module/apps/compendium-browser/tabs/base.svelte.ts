@@ -3,7 +3,7 @@ import { ErrorPF2e, htmlQuery, sluggify } from "@util";
 import MiniSearch from "minisearch";
 import * as R from "remeda";
 import type { TableResultSource } from "types/foundry/common/documents/table-result.d.ts";
-import { CompendiumBrowser, CompendiumBrowserOpenTabOptions } from "../browser.svelte.ts";
+import { CompendiumBrowser, CompendiumBrowserOpenTabOptions } from "../browser.ts";
 import { BrowserTabs, ContentTabName } from "../data.ts";
 import type { BrowserFilter, CheckboxOptions, CompendiumBrowserIndexData, RangesInputData, TraitData } from "./data.ts";
 

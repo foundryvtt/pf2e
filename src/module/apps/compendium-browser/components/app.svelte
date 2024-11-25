@@ -1,10 +1,12 @@
 <script lang="ts">
     import { tupleHasValue } from "@util";
     import BrowserTab from "./browser-tab.svelte";
-    import { compendiumBrowserContext as context } from "../browser.svelte.ts";
+    import type { CompendiumBrowserContext } from "../browser.ts";
 
     const browser = game.pf2e.compendiumBrowser;
     const tabs = $derived(browser.tabsArray.filter((t) => t.visible));
+    const props: CompendiumBrowserContext = $props();
+    const state = props.state;
 
     async function onClickNav(event: MouseEvent & { currentTarget: EventTarget }): Promise<void> {
         if (!(event.target instanceof HTMLElement)) return;
@@ -12,8 +14,8 @@
         if (tupleHasValue(browser.dataTabsList, clickedTab)) {
             browser.activeTab = browser.tabs[clickedTab];
             await browser.activeTab.init();
-            context.activeFilter = browser.activeTab.filterData;
-            context.activeTabName = clickedTab;
+            state.activeFilter = browser.activeTab.filterData;
+            state.activeTabName = clickedTab;
         }
     }
 </script>
@@ -24,7 +26,7 @@
             <button
                 type="button"
                 onclick={onClickNav}
-                class:active={context.activeTabName === tab.tabName}
+                class:active={state.activeTabName === tab.tabName}
                 data-tab-name={tab.tabName}
             >
                 {tab.label}
@@ -32,17 +34,35 @@
         {/each}
     </nav>
 {/if}
-{#if !context.activeTabName}
+{#if !state.activeTabName}
     <div class="browser-tab" data-tooltip-class="pf2e">
         <div class="landing-page">{game.i18n.localize("PF2E.CompendiumBrowser.Hint")}</div>
     </div>
 {:else}
-    {#key context.activeTabName}
-        <BrowserTab activeTabName={context.activeTabName} />
+    {#key state.activeTabName}
+        <BrowserTab {state} />
     {/key}
 {/if}
 
 <style lang="scss">
+    :global {
+        .compendium-browser {
+            --color-result-list-odd: rgba(0, 0, 0, 0.12);
+            --input-text-color: var(--color-dark-2);
+
+            .window-content {
+                padding: 0.5em;
+            }
+        }
+
+        .theme-dark .compendium-browser {
+            --secondary: var(--color-cool-5);
+            --color-result-list-odd: var(--color-dark-2);
+            --color-select-option-bg: var(--color-cool-5);
+            --input-text-color: var(--color-light-3);
+        }
+    }
+
     nav {
         flex: 0;
         width: 100%;

@@ -1,10 +1,11 @@
 <script lang="ts">
     import * as R from "remeda";
+    import Traits from "./traits/traits.svelte";
     import { slide } from "svelte/transition";
-    import { htmlClosest } from "@util/dom.ts";
-    import Tagify from "@yaireo/tagify";
     import type { Action } from "svelte/action";
     import type { BrowserFilter, CheckboxData, CheckboxOption, LevelData, RangesInputData } from "../tabs/data.ts";
+    import type { TraitOption } from "./traits/types.ts";
+    import { htmlClosest, htmlQuery } from "@util";
 
     interface FilterProps {
         filter: BrowserFilter;
@@ -111,6 +112,26 @@
         rerenderList();
     }
 
+    function onChangeTraits(selected: TraitOption[]): void {
+        filter.traits.selected = selected;
+        rerenderList();
+    }
+
+    function onClickNot(event: MouseEvent, clicked: TraitOption): void {
+        const selected = filter.traits.selected.find((o) => o.value === clicked.value);
+        if (!selected) return;
+        selected.not = !selected.not;
+
+        const element = htmlQuery(htmlClosest(event.currentTarget, ".sv-item--container"), ".sv-item--content");
+        if (selected.not) {
+            element?.classList.add("not");
+        } else {
+            element?.classList.remove("not");
+        }
+
+        rerenderList();
+    }
+
     const onSearch = fu.debounce((event: Event) => {
         if (!(event.target instanceof HTMLInputElement)) return;
         filter.search.text = event.target.value.trim();
@@ -122,82 +143,6 @@
         sourceSearch = event.target.value.trim().toLocaleLowerCase(game.i18n.lang);
         rerenderList();
     }, 250);
-
-    const mountTagify: Action<HTMLInputElement> = (node) => {
-        const data = filter.traits;
-
-        const tagify = new Tagify(node, {
-            enforceWhitelist: true,
-            keepInvalidTags: false,
-            editTags: false,
-            tagTextProp: "label",
-            dropdown: {
-                enabled: 0,
-                fuzzySearch: false,
-                mapValueTo: "label",
-                maxItems: data.options.length,
-                searchKeys: ["label"],
-            },
-            whitelist: data.options,
-            transformTag(tagData) {
-                const selected = data.selected.find((s) => s.value === tagData.value);
-                if (selected?.not) {
-                    (tagData as unknown as { class: string }).class = "conjunction-not";
-                }
-            },
-            templates: {
-                tag(tagData, _tagify) {
-                    return `<tag title="${tagData.value}"
-                            contenteditable="false"
-                            spellcheck="false"
-                            tabIndex="${this.settings.a11y.focusableTags ? 0 : -1}"
-                            class="${this.settings.classNames.tag} ${"class" in tagData ? tagData.class : ""}"
-                            ${this.getAttributes(tagData)}
-                        >
-                        <x title="" class="${this.settings.classNames.tagX}" role="button" aria-label="remove tag"></x>
-                        <div>
-                            <span class="${this.settings.classNames.tagText}">${tagData.value}</span>
-                        </div>
-                        <a class="conjunction-not-button" data-action="toggle-not"><i class="fa-solid fa-ban fa-2xs"></i></a>
-                    </tag>`;
-                },
-            },
-        });
-
-        tagify.on("click", (event) => {
-            const target = event.detail.event.target;
-            if (!(target instanceof HTMLElement)) return;
-            const action = htmlClosest(target, "[data-action]")?.dataset?.action;
-            if (action === "toggle-not") {
-                const value = event.detail.data.value;
-                const selected = data.selected.find((s) => s.value === value);
-                if (selected) {
-                    selected.not = !selected.not;
-                    rerenderList();
-                }
-            }
-        });
-        tagify.on("change", (event) => {
-            const selections: unknown = JSON.parse(event.detail.value || "[]");
-            const isValid =
-                Array.isArray(selections) &&
-                selections.every(
-                    (s: object | undefined): s is { value: string; label: string } =>
-                        typeof s === "object" && "value" in s && typeof s["value"] === "string",
-                );
-
-            if (isValid) {
-                data.selected = selections;
-                rerenderList();
-            }
-        });
-
-        return {
-            destroy() {
-                tagify.destroy();
-            },
-        };
-    };
 </script>
 
 <div class="control-area">
@@ -258,11 +203,16 @@
     </div>
     <fieldset class="sortcontainer">
         <legend>{game.i18n.localize("PF2E.Traits")}</legend>
-        <input
-            class="tags paizo-style"
-            name="trait-tags"
-            value={JSON.stringify(filter.traits.selected)}
-            use:mountTagify
+        <Traits
+            options={filter.traits.options}
+            multiple
+            closeAfterSelect
+            clearable
+            creatable={false}
+            selection={traits}
+            onChange={onChangeTraits}
+            placeholder={game.i18n.localize("PF2E.SelectLabel")}
+            value={filter.traits.selected.map((s) => s.value)}
         />
         <div class="filter-conjunction">
             <label>
@@ -436,6 +386,40 @@
     </div>
 {/snippet}
 
+{#snippet traits(options: TraitOption[], itemAction: Action<HTMLElement, TraitOption>)}
+    {#each options as opt (opt.value)}
+        <div class="sv-item--container">
+            <div class="sv-item--wrap in-selection is-multi">
+                <div class="sv-item--content">{opt.label}</div>
+            </div>
+            <button
+                class="sv-item--btn"
+                tabindex="-1"
+                type="button"
+                aria-label="not option"
+                data-action="not"
+                onclick={(event) => onClickNot(event, opt)}
+            >
+                <i class="fa-solid fa-ban fa-2xs"></i>
+            </button>
+            <button
+                class="sv-item--btn"
+                tabindex="-1"
+                type="button"
+                aria-label="deslect"
+                data-action="deselect"
+                use:itemAction={opt}
+            >
+                <svg height="16" width="16" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+                    <path
+                        d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                    ></path>
+                </svg>
+            </button>
+        </div>
+    {/each}
+{/snippet}
+
 <style lang="scss">
     .control-area {
         overflow-y: auto;
@@ -557,6 +541,19 @@
                 select {
                     width: 45%;
                 }
+            }
+        }
+
+        .sv-item--content.not {
+            text-decoration: line-through;
+        }
+
+        .sv-item--btn {
+            min-width: 16px;
+
+            i {
+                margin-right: unset;
+                color: var(--color-text-trait);
             }
         }
     }

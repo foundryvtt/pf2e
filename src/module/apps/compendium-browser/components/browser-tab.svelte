@@ -1,14 +1,15 @@
 <script lang="ts">
     import { untrack } from "svelte";
-    import type { CompendiumBrowserContext } from "../browser.svelte.ts";
     import Filters from "./filters.svelte";
     import ResultList from "./result-list.svelte";
-    import { compendiumBrowserContext as context, CompendiumBrowser } from "../browser.svelte.ts";
+    import { type CompendiumBrowserState, CompendiumBrowser } from "../browser.ts";
     import { ErrorPF2e } from "@util";
 
-    type BrowserTabProps = Pick<CompendiumBrowserContext, "activeTabName">;
+    type BrowserTabProps = { state: CompendiumBrowserState };
 
-    let { activeTabName }: BrowserTabProps = $props();
+    const props: BrowserTabProps = $props();
+    const state = props.state;
+    const activeTabName = state.activeTabName;
     if (!activeTabName) {
         throw ErrorPF2e(`Invalid tab name: "${activeTabName}"!`);
     }
@@ -19,35 +20,35 @@
     }
 
     function rerenderList(): void {
-        untrack(() => (context.results.length = 0));
-        context.resultListKey = fu.randomID();
+        untrack(() => (state.results.length = 0));
+        state.resultListKey = fu.randomID();
     }
 
     function resetFilters(): void {
-        context.activeFilter = fu.deepClone(tab.defaultFilterData);
+        state.activeFilter = fu.deepClone(tab.defaultFilterData);
         rerenderList();
     }
 
     function loadMore(): void {
-        if (!context.activeFilter) return;
-        tab.filterData = context.activeFilter;
-        if (context.resultLimit === CompendiumBrowser.RESULT_LIMIT) {
-            context.results = tab.getIndexData(0, CompendiumBrowser.RESULT_LIMIT);
-            context.resultLimit = 2 * CompendiumBrowser.RESULT_LIMIT;
+        if (!state.activeFilter) return;
+        tab.filterData = state.activeFilter;
+        if (state.resultLimit === CompendiumBrowser.RESULT_LIMIT) {
+            state.results = tab.getIndexData(0, CompendiumBrowser.RESULT_LIMIT);
+            state.resultLimit = 2 * CompendiumBrowser.RESULT_LIMIT;
             return;
         }
-        const next = tab.currentIndex.slice(context.resultLimit, context.resultLimit + CompendiumBrowser.RESULT_LIMIT);
-        context.resultLimit += CompendiumBrowser.RESULT_LIMIT;
-        context.results.push(...next);
+        const next = tab.currentIndex.slice(state.resultLimit, state.resultLimit + CompendiumBrowser.RESULT_LIMIT);
+        state.resultLimit += CompendiumBrowser.RESULT_LIMIT;
+        state.results.push(...next);
     }
 </script>
 
 <div class="browser-tab" data-tab-name={activeTabName} data-tooltip-class="pf2e">
-    {#key context.filterKey}
-        <Filters bind:filter={context.activeFilter!} {rerenderList} {resetFilters} />
+    {#key state.filterKey}
+        <Filters bind:filter={state.activeFilter!} {rerenderList} {resetFilters} />
     {/key}
-    {#key context.resultListKey}
-        <ResultList {loadMore} />
+    {#key state.resultListKey}
+        <ResultList {state} {loadMore} />
     {/key}
 </div>
 

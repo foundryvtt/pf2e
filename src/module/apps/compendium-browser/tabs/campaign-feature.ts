@@ -1,6 +1,6 @@
 import { KINGMAKER_CATEGORIES } from "@item/campaign-feature/values.ts";
 import { sluggify } from "@util";
-import { CompendiumBrowser } from "../browser.svelte.ts";
+import { CompendiumBrowser } from "../browser.ts";
 import { ContentTabName } from "../data.ts";
 import { CompendiumBrowserTab } from "./base.svelte.ts";
 import { CampaignFeatureFilters, CompendiumBrowserIndexData } from "./data.ts";

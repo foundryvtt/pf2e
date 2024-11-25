@@ -1,6 +1,6 @@
 import { sluggify } from "@util";
 import * as R from "remeda";
-import { CompendiumBrowser } from "../browser.svelte.ts";
+import { CompendiumBrowser } from "../browser.ts";
 import { ContentTabName } from "../data.ts";
 import { CompendiumBrowserTab } from "./base.svelte.ts";
 import { CompendiumBrowserIndexData, FeatFilters, TraitData } from "./data.ts";

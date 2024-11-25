@@ -2,12 +2,14 @@
     import { ErrorPF2e, htmlClosest } from "@util";
     import { sizeItemForActor } from "@item/physical/helpers.ts";
     import { getSelectedActors } from "@util/token-actor-utils.ts";
-    import { compendiumBrowserContext as context } from "../browser.svelte.ts";
     import type { Rarity } from "@module/data.ts";
     import type { CompendiumBrowserIndexData } from "../tabs/data.ts";
     import type { KitPF2e, PhysicalItemPF2e } from "@item";
+    import type { ContentTabName } from "../data.ts";
 
-    const { entry }: { entry: CompendiumBrowserIndexData } = $props();
+    const props: { activeTabName: ContentTabName | ""; entry: CompendiumBrowserIndexData } = $props();
+    const entry = props.entry;
+    const activeTabName = props.activeTabName;
 
     async function onClickButton(uuid: string, action: "buy-item" | "open-sheet" | "take-item"): Promise<void> {
         switch (action) {
@@ -24,7 +26,7 @@
     }
 
     /** Set drag data and lower opacity of the application window to reveal any tokens */
-    function ondragstart(event: DragEvent): void {
+    function onDragStart(event: DragEvent, uuid: string): void {
         event.stopPropagation();
         const item = htmlClosest(event.target, "li");
         const browser = game.pf2e.compendiumBrowser;
@@ -40,8 +42,8 @@
         event.dataTransfer.setData(
             "text/plain",
             JSON.stringify({
-                type: item.dataset.type,
-                uuid: item.dataset.entryUuid,
+                type: fu.parseUuid(uuid).documentType,
+                uuid: uuid,
             }),
         );
 
@@ -152,7 +154,7 @@
     }
 </script>
 
-<li draggable="true" data-entry-uuid={entry.uuid} {ondragstart}>
+<li draggable="true" ondragstart={(event) => onDragStart(event, entry.uuid)}>
     <div class="image">
         <img src={entry.img} alt={entry.name} loading="lazy" />
     </div>
@@ -182,7 +184,7 @@
             <span data-tooltip="PF2E.Item.Spell.Rank.Label">{entry.rank}</span>
         </div>
     {/if}
-    {#if context.activeTabName === "equipment"}
+    {#if activeTabName === "equipment"}
         <button
             class="equipment-action flat"
             aria-label="take item"

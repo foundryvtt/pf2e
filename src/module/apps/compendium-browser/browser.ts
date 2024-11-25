@@ -21,17 +21,18 @@ import * as browserTabs from "./tabs/index.ts";
 const foundryApp = foundry.applications.api;
 
 class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2) {
-    settings: CompendiumBrowserSettings;
-    dataTabsList = ["action", "bestiary", "campaignFeature", "equipment", "feat", "hazard", "spell"] as const;
-    tabs: BrowserTabs;
-    tabsArray: BrowserTab[];
-    packLoader = new PackLoader();
-    root = App;
-
     /** The amount of rendered result items for initial loading and per load operation */
     static RESULT_LIMIT = 100;
 
+    protected declare $state: CompendiumBrowserState;
+    root = App;
+
     activeTab?: BrowserTab;
+    dataTabsList = ["action", "bestiary", "campaignFeature", "equipment", "feat", "hazard", "spell"] as const;
+    packLoader = new PackLoader();
+    settings: CompendiumBrowserSettings;
+    tabs: BrowserTabs;
+    tabsArray: BrowserTab[];
 
     constructor(options: Partial<ApplicationConfiguration> = {}) {
         super(options);
@@ -123,6 +124,19 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
         return controls;
     }
 
+    protected override async _prepareContext(_options: ApplicationRenderOptions): Promise<CompendiumBrowserContext> {
+        return {
+            state: {
+                activeTabName: "",
+                activeFilter: undefined,
+                filterKey: fu.randomID(),
+                results: [],
+                resultLimit: CompendiumBrowser.RESULT_LIMIT,
+                resultListKey: fu.randomID(),
+            },
+        };
+    }
+
     #setVisibleTabs(visible?: ContentTabName[]): void {
         const isGM = game.user.isGM;
         const showCampaign = game.settings.get("pf2e", "campaignType") !== "none";
@@ -139,13 +153,12 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
     }
 
     #renderParts(parts: ("filter" | "resultList")[]): void {
-        const props = compendiumBrowserContext;
         if (parts.includes("filter")) {
-            props.filterKey = fu.randomID();
+            this.$state.filterKey = fu.randomID();
         }
         if (parts.includes("resultList")) {
-            untrack(() => (props.results.length = 0));
-            props.resultListKey = fu.randomID();
+            untrack(() => (this.$state.results.length = 0));
+            this.$state.resultListKey = fu.randomID();
         }
     }
 
@@ -167,7 +180,6 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
         if (!this.rendered) {
             await this.render({ force: true });
         }
-        const props = compendiumBrowserContext;
 
         if (options?.hideNavigation) {
             this.#setVisibleTabs([]);
@@ -184,13 +196,14 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
             this.#setVisibleTabs();
         }
 
-        props.activeFilter = options?.filter ?? this.activeTab.filterData;
-        if (props.activeTabName === tabName && this.rendered) {
-            props.resultLimit = CompendiumBrowser.RESULT_LIMIT;
-            untrack(() => (props.results = []));
+        const state = this.$state;
+        state.activeFilter = options?.filter ?? this.activeTab.filterData;
+        if (state.activeTabName === tabName && this.rendered) {
+            state.resultLimit = CompendiumBrowser.RESULT_LIMIT;
+            untrack(() => (state.results = []));
             this.#renderParts(["filter", "resultList"]);
         } else {
-            props.activeTabName = tabName;
+            state.activeTabName = tabName;
         }
 
         this.bringToFront();
@@ -357,11 +370,15 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
                 await tab.init(true);
             }
         }
-        compendiumBrowserContext.activeTabName = "";
+        this.$state.activeTabName = "";
     }
 }
 
 interface CompendiumBrowserContext {
+    state: CompendiumBrowserState;
+}
+
+interface CompendiumBrowserState {
     /** Changing this will trigger a tab rerender. An empty string will show the landing page. */
     activeTabName: ContentTabName | "";
     /** The currently rendered filter */
@@ -375,17 +392,8 @@ interface CompendiumBrowserContext {
     /** Changing this wil trigger a result list rerender. */
     resultListKey: string;
 }
-// This is imported as needed by svelte components for easy access to these values
-const compendiumBrowserContext: CompendiumBrowserContext = $state({
-    activeTabName: "",
-    activeFilter: undefined,
-    filterKey: fu.randomID(),
-    results: [],
-    resultLimit: CompendiumBrowser.RESULT_LIMIT,
-    resultListKey: fu.randomID(),
-});
 
-type CompendiumBrowserSettings = Omit<TabData<Record<string, PackInfo | undefined>>, "settings">;
+type CompendiumBrowserSettings = TabData<Record<string, PackInfo | undefined>>;
 
 type CompendiumBrowserSourcesList = Record<string, SourceInfo | undefined>;
 interface CompendiumBrowserSources {
@@ -404,10 +412,11 @@ interface CompendiumBrowserOpenTabOptions {
     showTabs?: ContentTabName[];
 }
 
-export { CompendiumBrowser, compendiumBrowserContext };
+export { CompendiumBrowser };
 export type {
     CompendiumBrowserContext,
     CompendiumBrowserOpenTabOptions,
     CompendiumBrowserSettings,
     CompendiumBrowserSources,
+    CompendiumBrowserState,
 };

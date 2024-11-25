@@ -1,13 +1,13 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import ResultItem from "./result-item.svelte";
-    import { compendiumBrowserContext as context, CompendiumBrowser } from "../browser.svelte.ts";
+    import { CompendiumBrowser, type CompendiumBrowserState } from "../browser.ts";
 
-    let { loadMore }: { loadMore: () => void } = $props();
+    const { state, loadMore }: { state: CompendiumBrowserState; loadMore: () => void } = $props();
 
     onMount(() => {
         // Load initial results
-        context.resultLimit = CompendiumBrowser.RESULT_LIMIT;
+        state.resultLimit = CompendiumBrowser.RESULT_LIMIT;
         loadMore();
     });
 
@@ -20,8 +20,8 @@
 </script>
 
 <ul class="result-list" {onscroll}>
-    {#each context.results as entry (entry.uuid)}
-        <ResultItem {entry} />
+    {#each state.results as entry (entry.uuid)}
+        <ResultItem activeTabName={state.activeTabName} {entry} />
     {/each}
 </ul>
 
