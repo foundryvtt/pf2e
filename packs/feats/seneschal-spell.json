@@ -32,7 +32,42 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "seneschal-spell"
+                    }
+                ],
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:seneschal-spell"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.FeatDescription.Frequency.OncePerHour",
+                        "title": "PF2E.Frequency.Label"
+                    },
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Spellshape.SeneschalSpell"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
