@@ -222,7 +222,12 @@ function defineKingdomSchema(): KingdomSchema {
             ],
             { required: false, nullable: false, initial: false },
         ),
-        name: new fields.StringField<string, string, true, false>({ required: true, nullable: false, initial: "" }),
+        name: new fields.StringField<string, string, true, false>({
+            required: true,
+            nullable: false,
+            blank: false,
+            initial: () => game.i18n.localize("PF2E.TraitKingdom"),
+        }),
         img: new fields.FilePathField<ImageFilePath, ImageFilePath, true, false>({
             categories: ["IMAGE"],
             required: true,

@@ -139,6 +139,7 @@ interface GamePF2e
                 };
                 languages: LanguageSettings;
                 mythic: "disabled" | "enabled" | "variant-tiers";
+                type: string | null;
             };
             critFumble: {
                 buttons: boolean;
