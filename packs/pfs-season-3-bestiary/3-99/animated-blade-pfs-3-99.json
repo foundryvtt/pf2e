@@ -1,0 +1,242 @@
+{
+    "_id": "ZzH4EqJtWIhaNWSv",
+    "folder": "nAAfKIo2HmWCy621",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "LZHCbWNQ57sgBM3H",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shortsword",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 6
+                },
+                "damageRolls": {
+                    "agsaypjs60siq33rqbd8": {
+                        "damage": "1d6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "vHQU57j0RAokYrP2",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Construct Armor (Hardness 2)",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Like normal objects, an animated blade has Hardness. This Hardness reduces any damage it takes by an amount equal to the Hardness. Once an animated blade is reduced to less than half its Hit Points, or immediately upon being damaged by a critical hit, its construct armor breaks and its Armor Class is reduced to 13.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.ConstructArmor.CriticalHit",
+                        "option": "construct-armor",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "construct-armor",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "ac",
+                        "value": -2
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hardness.value",
+                        "phase": "afterDerived",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "construct-armor",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 0
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Animated Blade (PFS 3-99)",
+    "prototypeToken": {
+        "name": "Animated Blade"
+    },
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -5
+            },
+            "con": {
+                "mod": 1
+            },
+            "dex": {
+                "mod": 0
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 0
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "13 when broken",
+                "value": 15
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hardness": {
+                "value": 2
+            },
+            "hp": {
+                "details": "",
+                "max": 7,
+                "temp": 0,
+                "value": 7
+            },
+            "immunities": [],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 30
+                    }
+                ],
+                "value": 0
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": -1
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder Society Special #3-99: Fate in the Future"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 3,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 4
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 5
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 3
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 5
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "construct",
+                "mindless"
+            ]
+        }
+    },
+    "type": "npc"
+}
