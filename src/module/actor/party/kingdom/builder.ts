@@ -62,11 +62,6 @@ class KingdomBuilder extends FormApplication<Kingdom> {
         } satisfies SocketMessage);
     }
 
-    constructor(kingdom: Kingdom) {
-        super(kingdom);
-        kingdom.actor.apps[this.appId] = this;
-    }
-
     override get id(): string {
         return `kingdom-builder-${this.actor.id}`;
     }
@@ -352,6 +347,7 @@ class KingdomBuilder extends FormApplication<Kingdom> {
         }
 
         await super._render(force, options);
+        this.kingdom.actor.apps[this.appId] ??= this;
         if (options?.tab) {
             this._tabs.at(0)?.activate(options.tab, { triggerCallback: true });
         }

@@ -81,12 +81,12 @@ class Kingdom extends DataModel<PartySystemData, KingdomSchema> implements Party
     /** Creates sidebar buttons to inject into the chat message sidebar */
     createSidebarButtons(): HTMLElement[] {
         // Do not show kingdom to party members until building starts or it becomes activated.
-        if (!this.active && !game.user.isGM) return [];
+        if (!game.user.isGM || game.pf2e.settings.campaign.type !== "kingmaker") return [];
 
         const hoverIcon = this.active === "building" ? "wrench" : !this.active ? "plus" : null;
         const icon = createHTMLElement("a", {
             classes: ["create-button"],
-            children: [fontAwesomeIcon("crown"), hoverIcon ? fontAwesomeIcon(hoverIcon) : null].filter(R.isTruthy),
+            children: [fontAwesomeIcon("crown"), hoverIcon ? fontAwesomeIcon(hoverIcon) : null].filter(R.isNonNull),
             dataset: {
                 tooltip: game.i18n.localize(
                     `PF2E.Kingmaker.SIDEBAR.${this.active === true ? "OpenSheet" : "CreateKingdom"}`,
