@@ -1,6 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
-import type * as fields from "../../types/foundry/common/data/fields.d.ts";
+import type * as fields from "types/foundry/common/data/fields.d.ts";
 
 /** The size property of creatures and equipment */
 const SIZES = ["tiny", "sm", "med", "lg", "huge", "grg"] as const;
