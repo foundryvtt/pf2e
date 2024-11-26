@@ -392,7 +392,7 @@ function isImageFilePath(path: unknown): path is ImageFilePath {
 }
 
 /** Does the parameter look like a video file path? */
-function isVideoFilePath(path: unknown): path is ImageFilePath {
+function isVideoFilePath(path: unknown): path is VideoFilePath {
     return typeof path === "string" && VideoHelper.hasVideoExtension(path);
 }
 
