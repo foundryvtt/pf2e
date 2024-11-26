@@ -11,6 +11,7 @@ import {
     PredicateField,
     StrictArrayField,
     StrictBooleanField,
+    StrictNumberField,
     StrictObjectField,
     StrictStringField,
 } from "@system/schema-data-fields.ts";
@@ -44,9 +45,6 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     /** Whether this choice set consists of items */
     containsItems = false;
 
-    /** The user's selection from among the options in `choices`, or otherwise `null` */
-    selection: string | number | object | null = null;
-
     constructor(data: ChoiceSetSource, options: RuleElementOptions) {
         super(data, options);
 
@@ -56,10 +54,6 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         if (this.invalid) return;
 
         this.flag = this.#setDefaultFlag(this);
-        this.selection =
-            typeof data.selection === "string" || typeof data.selection === "number" || R.isPlainObject(data.selection)
-                ? data.selection
-                : null;
 
         if (R.isObjectType(this.choices) && !Array.isArray(this.choices) && !("filter" in this.choices)) {
             this.choices.predicate = new Predicate(this.choices.predicate ?? []);
@@ -144,6 +138,22 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
             actorFlag: new fields.BooleanField({ required: false }),
             rollOption: new fields.StringField({ required: false, blank: false, nullable: true, initial: null }),
             allowNoSelection: new StrictBooleanField({ required: false, nullable: false, initial: undefined }),
+            selection: new DataUnionField(
+                [
+                    new StrictStringField<string, string, true, true, false>({
+                        required: true,
+                        nullable: true,
+                        initial: undefined,
+                    }),
+                    new StrictNumberField<number, number, true, true, false>({
+                        required: true,
+                        nullable: true,
+                        initial: undefined,
+                    }),
+                    new StrictObjectField({ required: true, nullable: true, initial: undefined }),
+                ],
+                { required: true, nullable: true, initial: null },
+            ),
         };
     }
 

@@ -6,6 +6,7 @@ import type {
     PredicateField,
     StrictArrayField,
     StrictBooleanField,
+    StrictNumberField,
     StrictObjectField,
     StrictStringField,
 } from "@system/schema-data-fields.ts";
@@ -57,6 +58,15 @@ type ChoiceSetSchema = RuleElementSchema & {
     >;
     /** Allow the user to make no selection without suppressing all other rule elements on the parent item */
     allowNoSelection: StrictBooleanField<false, false, false>;
+    /** The user's selection from among the options in `choices`, or otherwise `null` */
+    selection: DataUnionField<
+        | StrictStringField<string, string, true, true, false>
+        | StrictNumberField<number, number, true, true, false>
+        | StrictObjectField<object, object, true, true, false>,
+        true,
+        true,
+        true
+    >;
 };
 
 type AllowedDropsSchema = {
