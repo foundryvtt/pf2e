@@ -1314,13 +1314,17 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     /**
-     * Overridden _replaceHtml to reset event listeners.
-     * It would be nicer to have the `this.resetListeners()` call in
-     * activateListeners, but tooltipster hase to be cleaned up and that library
-     * throws errors when trying to clean up elements that have been
-     * `$(element).remove` from the dom. Sadly, even when it is removed, some references
-     * are still beeing retained, leaking memory. This is why the base call to
-     * `resetListeners` is just before the old html is being replaced with the new.
+     * Overridden _replaceHTML to reset event listeners.
+     * It would be nicer to have the resetListeners call in activateListeners,
+     * but tooltipster instances have to be cleaned up before the registered html
+     * elements are removed from the dom, as the library throws errors when trying
+     * to call the destroy method otherwise. Even though the library throws errors
+     * when trying to destroy an instance that has been detached from the main
+     * document, some references are still registered internally which leads to the
+     * whole detached element tree (the whole actor sheet) being retained in memory
+     * indefinitely.
+     * This is why `resetListeners` has to be called just before the old html is
+     * replaced.
      */
     protected override _replaceHTML(
         element: JQuery,
