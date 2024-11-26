@@ -424,12 +424,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
 
         actor.system.actions = actor
             .prepareStrikes({ includeBasicUnarmed: this.ownUnarmed })
-            .filter(
-                (a) =>
-                    (a.slug && a.slug in strikes) ||
-                    a.item.flags.pf2e.battleForm ||
-                    (this.ownUnarmed && a.item.category === "unarmed"),
-            );
+            .filter((a) => a.item.flags.pf2e.battleForm || (this.ownUnarmed && a.item.category === "unarmed"));
         const strikeActions = actor.system.actions.flatMap((s): CharacterStrike[] => [s, ...s.altUsages]);
 
         for (const action of strikeActions) {
