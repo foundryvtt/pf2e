@@ -1,3 +1,51 @@
+## 6.7.1
+
+### System Improvements
+
+-   (stwlam) Remove need for second confirmation click in ABC picker
+-   (Supe) Include ritual stats such as cost and primary/secondary checks in description
+-   (Supe) Expend prepared formulas when daily crafting and add a reset button
+
+### Bugfixes
+
+-   (stwlam) Restore visibility of initial kingdom creation process
+
+## Data Updates
+
+-   (Abaddon) Fix Calistria source
+-   (Ambrose) Add deity updates from the Pathfinder Divine Mysteries Web Supplement
+-   (Ambrose) Add grapple and trip `/act` actions to NPC Monster localization
+-   (Ambrose) Condense Beastmaster's Sigil Spellheart effects
+-   (Ambrose) Remove duplicate Findeladlara deity item
+-   (Ambrose) Update Awaken Entropy spell variants
+-   (Ambrose) Update class and archetype journal entries
+-   (Ambrose) Update descriptions for multiple feat effects and monk stances
+-   (Ambrose) Update Flourishing Fist range on Primal Warden of Zibik
+-   (Ambrose) Update instances of inline damage to `@Damage`
+-   (Dire Weasel) Add automation for NPC Felling Blow and Lunge
+-   (Dire Weasel) Add effect for Devouring Dark Form and some fulus
+-   (Dire Weasel) Coalesce damage for Burn Alive
+-   (Dire Weasel) Fix broken embed link in Razmiran Priest journal
+-   (Dire Weasel) Fix penalty type for Vulnerable to Prone
+-   (Dire Weasel) Fix some missing compendiumSources for items on Curtain Call actors
+-   (Dire Weasel) Update description of golem effects and localize golem antimagic
+-   (kromko) Fix Guillotine Golem antimagic damage value
+-   (kromko) Fix some spell descriptions
+-   (Rigo) Add area roll options to Frozen Lava and Eternal Eruption
+-   (Rigo) Add effect for Mortalis Coin
+-   (Rigo) Add focus points with Third and Fourth apparition class features
+-   (Rigo) Add saving throw choices to Perfection's Path
+-   (Rigo) Add Telepathic Union feat
+-   (Rigo) Automate and clean up some Seneschal Witch features
+-   (Rigo) Correct Trudd's divine sanctification
+-   (Rigo) Limit Deadly Aspect to the Strike granted by Draconic Aspect
+-   (SpartanCPA, stwlam) Update deity icons
+-   (Tikael) Sort remaining PFS actors into folders
+
+### Under the Hood
+-   (Supe) Add compatibility warning for SpellcastingEntryPF2e#getSpellData() (until 7.0.0)
+-   (Supe) Remove deprecated properties from actor and item getRollData()
+
 ## 6.7.0
 
 ### Highlights
