@@ -4,16 +4,16 @@
     "name": "Spell Effect: Extract Poison",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Extract Poison]</p>\n<p>With the lightest touch, you can siphon the poison from an object and save it for your own later use, making an assassin's blade or politician's wine less deadly while you become all the more so. Attempt a counteract check against one poison you're aware of on or in an object you touch. If you successfully counteract the poison, you negate the object's toxicity and transfer the poison into a weapon you are holding, coating the weapon with a simple but powerful poison. On your next successful attack with that weapon before the end of your next turn, you add 1d6 poison damage per level of the poison you counteracted. On a critically failed attack roll, you lose the extracted poison from your weapon as normal.</p>\n<hr />\n<p><em>Note: Set the level of this effect to the level of extracted poison to get the correct damage.</em></p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Extract Poison]</p>\n<p>You add 1d6 poison damage per level of the poison you counteracted to the chosen weapon's Strike damage.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
         },
         "level": {
-            "value": 1
+            "value": 2
         },
         "publication": {
             "license": "OGL",
@@ -22,154 +22,38 @@
         },
         "rules": [
             {
-                "damageType": "poison",
-                "dieSize": "d6",
-                "key": "DamageDice",
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
+                "adjustName": false,
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
                         {
-                            "end": 1,
-                            "start": 1,
-                            "value": {
-                                "diceNumber": 1
-                            }
-                        },
-                        {
-                            "end": 2,
-                            "start": 2,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        },
-                        {
-                            "end": 3,
-                            "start": 3,
-                            "value": {
-                                "diceNumber": 3
-                            }
-                        },
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": {
-                                "diceNumber": 4
-                            }
-                        },
-                        {
-                            "end": 5,
-                            "start": 5,
-                            "value": {
-                                "diceNumber": 5
-                            }
-                        },
-                        {
-                            "end": 6,
-                            "start": 6,
-                            "value": {
-                                "diceNumber": 6
-                            }
-                        },
-                        {
-                            "end": 7,
-                            "start": 7,
-                            "value": {
-                                "diceNumber": 7
-                            }
-                        },
-                        {
-                            "end": 8,
-                            "start": 8,
-                            "value": {
-                                "diceNumber": 8
-                            }
-                        },
-                        {
-                            "end": 9,
-                            "start": 9,
-                            "value": {
-                                "diceNumber": 9
-                            }
-                        },
-                        {
-                            "end": 10,
-                            "start": 10,
-                            "value": {
-                                "diceNumber": 10
-                            }
-                        },
-                        {
-                            "end": 11,
-                            "start": 11,
-                            "value": {
-                                "diceNumber": 11
-                            }
-                        },
-                        {
-                            "end": 12,
-                            "start": 12,
-                            "value": {
-                                "diceNumber": 12
-                            }
-                        },
-                        {
-                            "end": 13,
-                            "start": 13,
-                            "value": {
-                                "diceNumber": 13
-                            }
-                        },
-                        {
-                            "end": 14,
-                            "start": 14,
-                            "value": {
-                                "diceNumber": 14
-                            }
-                        },
-                        {
-                            "end": 15,
-                            "start": 15,
-                            "value": {
-                                "diceNumber": 15
-                            }
-                        },
-                        {
-                            "end": 16,
-                            "start": 16,
-                            "value": {
-                                "diceNumber": 16
-                            }
-                        },
-                        {
-                            "end": 17,
-                            "start": 17,
-                            "value": {
-                                "diceNumber": 17
-                            }
-                        },
-                        {
-                            "end": 18,
-                            "start": 18,
-                            "value": {
-                                "diceNumber": 18
-                            }
-                        },
-                        {
-                            "end": 19,
-                            "start": 19,
-                            "value": {
-                                "diceNumber": 19
-                            }
-                        },
-                        {
-                            "start": 20,
-                            "value": {
-                                "diceNumber": 20
-                            }
+                            "gte": [
+                                "item:hands-held",
+                                1
+                            ]
                         }
                     ],
-                    "field": "item|system.level.value"
-                }
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet"
+            },
+            {
+                "choices": {
+                    "config": "levels"
+                },
+                "flag": "level",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Level"
+            },
+            {
+                "damageType": "poison",
+                "diceNumber": "@item.flags.pf2e.rulesSelections.level",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
             }
         ],
         "start": {

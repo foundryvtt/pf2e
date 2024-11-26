@@ -30,33 +30,9 @@
                         "speed": 2,
                         "type": "pulse"
                     },
-                    "bright": {
-                        "brackets": [
-                            {
-                                "end": 3,
-                                "value": 20
-                            },
-                            {
-                                "start": 4,
-                                "value": 60
-                            }
-                        ],
-                        "field": "item|system.level.value"
-                    },
+                    "bright": "ternary(gte(@item.level,4),60,20)",
                     "color": "#e7f3f1",
-                    "dim": {
-                        "brackets": [
-                            {
-                                "end": 3,
-                                "value": 40
-                            },
-                            {
-                                "start": 4,
-                                "value": 120
-                            }
-                        ],
-                        "field": "item|system.level.value"
-                    }
+                    "dim": "ternary(gte(@item.level,4),120,40)"
                 }
             }
         ],
