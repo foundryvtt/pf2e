@@ -58,7 +58,12 @@ export class Migration897ClearLayOnHandsDamage extends MigrationBase {
                             },
                         },
                         defense: { passive: null, save: { basic: true, statistic: "fortitude" } },
-                        heightening: { damage: { "37YW4ZGhxx7Y2mdI": "1d6" }, interval: 1, type: "interval" },
+                        heightening: {
+                            damage: { "37YW4ZGhxx7Y2mdI": "1d6" },
+                            interval: 1,
+                            type: "interval",
+                            area: 0,
+                        },
                     },
                 },
                 uLuOg62dVyxvbW66: {
@@ -76,7 +81,12 @@ export class Migration897ClearLayOnHandsDamage extends MigrationBase {
                                 type: "vitality",
                             },
                         },
-                        heightening: { damage: { b39tbePoPlJSzLku: "6" }, interval: 1, type: "interval" },
+                        heightening: {
+                            damage: { b39tbePoPlJSzLku: "6" },
+                            interval: 1,
+                            type: "interval",
+                            area: 0,
+                        },
                     },
                 },
             };
@@ -98,7 +108,12 @@ export class Migration897ClearLayOnHandsDamage extends MigrationBase {
                             },
                         },
                         defense: { passive: null, save: { basic: true, statistic: "fortitude" } },
-                        heightening: { damage: { Esn7klJ9WRsIFnrE: "1d6" }, interval: 1, type: "interval" },
+                        heightening: {
+                            damage: { Esn7klJ9WRsIFnrE: "1d6" },
+                            interval: 1,
+                            type: "interval",
+                            area: 0,
+                        },
                     },
                 },
                 gHIOzknAtexc6GUE: {
@@ -116,7 +131,12 @@ export class Migration897ClearLayOnHandsDamage extends MigrationBase {
                                 type: "untyped",
                             },
                         },
-                        heightening: { damage: { cM137DAlBX1LcWAX: "6" }, interval: 1, type: "interval" },
+                        heightening: {
+                            damage: { cM137DAlBX1LcWAX: "6" },
+                            interval: 1,
+                            type: "interval",
+                            area: 0,
+                        },
                     },
                 },
             };

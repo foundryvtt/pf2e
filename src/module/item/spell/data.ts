@@ -79,6 +79,7 @@ type SpellPassiveDefense = "ac" | `${SaveType}-dc`;
 interface SpellHeighteningInterval {
     type: "interval";
     interval: number;
+    area: number;
     damage: Record<string, string>;
 }
 
@@ -134,8 +135,8 @@ export type {
     SpellArea,
     SpellDamage,
     SpellDamageSource,
-    SpellHeightenLayer,
     SpellHeighteningInterval,
+    SpellHeightenLayer,
     SpellOverlay,
     SpellOverlayOverride,
     SpellOverlayType,

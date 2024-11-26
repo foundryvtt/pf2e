@@ -53,7 +53,12 @@ import {
 } from "@util";
 import * as R from "remeda";
 import { SpellArea, SpellHeightenLayer, SpellOverlayType, SpellSource, SpellSystemData } from "./data.ts";
-import { createDescriptionPrepend, createSpellRankLabel, getPassiveDefenseLabel } from "./helpers.ts";
+import {
+    createDescriptionPrepend,
+    createSpellAreaLabel,
+    createSpellRankLabel,
+    getPassiveDefenseLabel,
+} from "./helpers.ts";
 import { SpellOverlayCollection } from "./overlay.ts";
 import { EffectAreaShape, MagicTradition, SpellTrait } from "./types.ts";
 
@@ -222,28 +227,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const areaData = this.system.area;
         if (!areaData) return null;
 
-        const formatString = "PF2E.Item.Spell.Area";
-        const shape = game.i18n.localize(`PF2E.Area.Shape.${areaData.type}`);
-
-        // Handle special cases of very large areas
-        const largeAreaLabel = {
-            1320: "PF2E.Area.Size.Quarter",
-            2640: "PF2E.Area.Size.Half",
-            5280: "1",
-        }[areaData.value];
-        if (largeAreaLabel) {
-            const size = game.i18n.localize(largeAreaLabel);
-            const unit = game.i18n.localize("PF2E.Area.Size.Mile");
-            const label = game.i18n.format(formatString, { shape, size, unit, units: unit });
-            return { ...areaData, label };
-        }
-
-        const size = Number(areaData.value);
-        const unit = game.i18n.localize("PF2E.Foot.Label");
-        const units = game.i18n.localize("PF2E.Foot.Plural");
-        const label = game.i18n.format(formatString, { shape, size, unit, units });
-
-        return { ...areaData, label };
+        return { ...areaData, label: createSpellAreaLabel(areaData) };
     }
 
     /** Whether the "damage" roll of this spell deals damage or heals (or both, depending on the target) */
@@ -308,10 +292,10 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             const heightening = this.system.heightening;
             if (heightening?.type === "interval" && heightening.interval) {
                 const scalingFormula = heightening.damage[id];
-                const partCount = Math.floor((castRank - this.baseRank) / heightening.interval);
-                if (scalingFormula && partCount > 0) {
+                const timesHeightened = Math.floor((castRank - this.baseRank) / heightening.interval);
+                if (scalingFormula && timesHeightened > 0) {
                     const scalingTerms = parseTermsFromSimpleFormula(scalingFormula, { rollData });
-                    for (let i = 0; i < partCount; i++) {
+                    for (let i = 0; i < timesHeightened; i++) {
                         terms.push(...fu.deepClone(scalingTerms));
                     }
                 }
@@ -665,15 +649,25 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             }
         }
 
-        if (this.system.heightening?.type === "fixed") {
-            for (const heighten of Object.values(this.system.heightening.levels)) {
+        const heightening = this.system.heightening;
+        if (heightening?.type === "fixed") {
+            for (const heighten of Object.values(heightening.levels)) {
                 for (const partial of Object.values(heighten.damage ?? {}).filter(R.isTruthy)) {
                     partial.formula = partial.formula?.trim() || "0";
                 }
             }
-        } else if (this.system.heightening?.type === "interval") {
-            for (const key of Object.keys(this.system.heightening.damage ?? {})) {
-                this.system.heightening.damage[key] = this.system.heightening.damage[key]?.trim() || "0";
+        } else if (heightening?.type === "interval") {
+            // Sanitize data. Actual heightening occurs in getDamage()
+            heightening.area ??= 0;
+            for (const key of Object.keys(heightening.damage ?? {})) {
+                heightening.damage[key] = heightening.damage[key]?.trim() || "0";
+            }
+
+            // Apply other properties
+            const castRank = this.rank;
+            const timesHeightened = Math.floor((castRank - this.baseRank) / heightening.interval);
+            if (timesHeightened > 0 && this.system.area && heightening.area) {
+                this.system.area.value += heightening.area * timesHeightened;
             }
         }
 

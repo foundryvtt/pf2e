@@ -171,7 +171,7 @@
 {{/if}}
 
 <fieldset class="heightening">
-    <legend>Heightening</legend>
+    <legend>{{localize "PF2E.Item.Spell.Heightening"}}</legend>
 
     {{#if canHeighten}}
         <div class="form-group add">
@@ -204,6 +204,13 @@
                 {{selectOptions heightenIntervals selected=data.heightening.interval localize=true}}
             </select>
         </div>
+
+        {{#if item._source.system.area.value}}
+            <div class="form-group">
+                <label>{{localize "PF2E.Area.InFeet"}}</label>
+                <input type="text" name="system.heightening.area" value="{{data.heightening.area}}" />
+            </div>
+        {{/if}}
 
         {{#each data.damage as |partial idx|}}
             <div class="form-group">
