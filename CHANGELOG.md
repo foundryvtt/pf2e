@@ -39,7 +39,7 @@
 -   (Rigo) Automate and clean up some Seneschal Witch features
 -   (Rigo) Correct Trudd's divine sanctification
 -   (Rigo) Limit Deadly Aspect to the Strike granted by Draconic Aspect
--   (stwlam) Update deity icons
+-   (SpartanCPA, stwlam) Update deity icons
 -   (Tikael) Sort remaining PFS actors into folders
 
 ### Under the Hood
