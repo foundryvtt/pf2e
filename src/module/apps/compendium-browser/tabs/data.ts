@@ -152,6 +152,8 @@ type BrowserFilter =
     | HazardFilters
     | SpellFilters;
 
+type BrowserFilterData = CheckboxData | LevelData | SelectData | RangesInputData | TraitData;
+
 type CompendiumBrowserIndexData = Omit<CompendiumIndexData, "_id"> & Partial<SearchResult>;
 
 interface RenderResultListOptions {
@@ -165,6 +167,7 @@ export type {
     BaseFilterData,
     BestiaryFilters,
     BrowserFilter,
+    BrowserFilterData,
     CampaignFeatureFilters,
     CheckboxData,
     CheckboxOption,
@@ -176,6 +179,7 @@ export type {
     LevelData,
     RangesInputData,
     RenderResultListOptions,
+    SelectData,
     SpellFilters,
     TraitData,
 };

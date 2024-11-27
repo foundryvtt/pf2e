@@ -1,6 +1,40 @@
 <script lang="ts">
     import Svelecte from "svelecte";
-    import type { SvelecteI18n, TraitsProps } from "./types.ts";
+    import type { Snippet } from "svelte";
+    import type { Action } from "svelte/action";
+    import type { TraitData } from "../../../tabs/data.ts";
+
+    type TraitOption = TraitData["options"][number];
+
+    interface TraitsProps {
+        closeAfterSelect?: boolean;
+        clearable?: boolean;
+        creatable?: boolean;
+        multiple?: boolean;
+        options: TraitOption[];
+        placeholder?: string;
+        selection?: Snippet<[TraitOption[], Action<HTMLElement, TraitOption>]>;
+        value?: string[];
+
+        onChange?: (selection: TraitOption[]) => void;
+    }
+
+    interface SvelecteI18n {
+        empty: string;
+        nomatch: string;
+        max: (max: number) => string;
+        fetchBefore: string;
+        fetchQuery: (minQuery: number, inputLength: number) => string;
+        fetchInit: string;
+        fetchEmpty: string;
+        collapsedSelection: (count: number) => string;
+        createRowLabel: (value: string) => string;
+        aria_selected: (opts: string[]) => string;
+        aria_listActive: (opt: TraitOption, labelField: string, resultCount: number) => string;
+        aria_inputFocused: () => string;
+        aria_label: string;
+        aria_describedby: string;
+    }
 
     const props: TraitsProps = $props();
     const i18n: Partial<SvelecteI18n> = {
@@ -9,12 +43,12 @@
     };
 </script>
 
-<div class="pf2e-traits">
-    <Svelecte class="pf2e-traits" {...props} {i18n} />
+<div class="traits-select">
+    <Svelecte {...props} {i18n} />
 </div>
 
 <style lang="scss">
-    .pf2e-traits {
+    .traits-select {
         display: flex;
         margin-bottom: 0.25em;
     }

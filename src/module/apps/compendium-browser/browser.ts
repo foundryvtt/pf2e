@@ -128,7 +128,6 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
         return {
             state: {
                 activeTabName: "",
-                activeFilter: undefined,
                 filterKey: fu.randomID(),
                 results: [],
                 resultLimit: CompendiumBrowser.RESULT_LIMIT,
@@ -152,7 +151,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
         }
     }
 
-    #renderParts(parts: ("filter" | "resultList")[]): void {
+    renderParts(...parts: ("filter" | "resultList")[]): void {
         if (parts.includes("filter")) {
             this.$state.filterKey = fu.randomID();
         }
@@ -201,7 +200,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
         if (state.activeTabName === tabName && this.rendered) {
             state.resultLimit = CompendiumBrowser.RESULT_LIMIT;
             untrack(() => (state.results = []));
-            this.#renderParts(["filter", "resultList"]);
+            this.renderParts("filter", "resultList");
         } else {
             state.activeTabName = tabName;
         }

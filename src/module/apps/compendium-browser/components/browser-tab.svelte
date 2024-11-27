@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { untrack } from "svelte";
     import Filters from "./filters.svelte";
     import ResultList from "./result-list.svelte";
     import { type CompendiumBrowserState, CompendiumBrowser } from "../browser.ts";
@@ -19,14 +18,9 @@
         throw ErrorPF2e(`Invalid tab "${activeTabName}"!`);
     }
 
-    function rerenderList(): void {
-        untrack(() => (state.results.length = 0));
-        state.resultListKey = fu.randomID();
-    }
-
     function resetFilters(): void {
         state.activeFilter = fu.deepClone(tab.defaultFilterData);
-        rerenderList();
+        browser.renderParts("filter", "resultList");
     }
 
     function loadMore(): void {
@@ -45,7 +39,7 @@
 
 <div class="browser-tab" data-tab-name={activeTabName} data-tooltip-class="pf2e">
     {#key state.filterKey}
-        <Filters bind:filter={state.activeFilter!} {rerenderList} {resetFilters} />
+        <Filters bind:filter={state.activeFilter!} {resetFilters} />
     {/key}
     {#key state.resultListKey}
         <ResultList {state} {loadMore} />
