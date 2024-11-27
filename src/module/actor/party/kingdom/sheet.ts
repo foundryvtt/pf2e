@@ -67,12 +67,6 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
     #editingSettlements: Record<string, boolean> = {};
 
-    /** Elements with registered $.tooltipster instances. Have to be cleaned up to avoid memory leaks */
-    #tooltipsterElements: JQuery[] = [];
-
-    /** Active sortable instances. Have to be cleaned up to avoid memory leaks */
-    #sortables: Sortable[] = [];
-
     constructor(actor: PartyPF2e, options?: Partial<ActorSheetOptions>) {
         super(actor, options);
     }
@@ -340,7 +334,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             if (vacantEl) {
                 const lines = vacantEl.title.split(/;\s*/).map((l) => createHTMLElement("li", { children: [l] }));
                 const content = createHTMLElement("ul", { children: lines });
-                this.#tooltipsterElements.push(
+                this.tooltipsterElements.push(
                     $(vacantEl).tooltipster({
                         content,
                         contentAsHTML: true,
@@ -383,10 +377,10 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             this.filterActions(filterButton.dataset.slug ?? null);
         });
 
-        const tooltipContentEl = $html.find("[data-tooltip-content]");
-        if (tooltipContentEl[0])
-            this.#tooltipsterElements.push(
-                tooltipContentEl.tooltipster({
+        const $tooltipContent = $html.find("[data-tooltip-content]");
+        if ($tooltipContent.length > 0)
+            this.tooltipsterElements.push(
+                $tooltipContent.tooltipster({
                     trigger: "click",
                     arrow: false,
                     contentAsHTML: true,
@@ -507,16 +501,8 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     this.kingdom.update(updates);
                 },
             });
-            this.#sortables.push(sortable);
+            this.destroyables.push(sortable);
         }
-    }
-
-    protected override _resetListeners(): void {
-        super._resetListeners();
-        this.#tooltipsterElements.forEach((element) => element.tooltipster("destroy"));
-        this.#tooltipsterElements = [];
-        this.#sortables.forEach((sortable) => sortable.destroy());
-        this.#sortables = [];
     }
 
     protected override activateClickListener(html: HTMLElement): SheetClickActionHandlers {

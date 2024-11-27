@@ -5,12 +5,8 @@ import { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import { htmlClosest, htmlQuery, tagify, traitSlugToObject } from "@util";
 import type { HazardPF2e } from "./document.ts";
 import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./types.ts";
-import type Tagify from "@yaireo/tagify";
 
 export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
-    /** Active tagify instances. Have to be cleaned up to avoid memory leaks */
-    #tagifyInstances: Tagify<Record<"id" | "value", string>>[] = [];
-
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         return {
@@ -136,18 +132,12 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         const traitsEl = htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.value"]');
         if (traitsEl) {
             const tags = tagify(traitsEl, { whitelist: CONFIG.PF2E.hazardTraits });
-            this.#tagifyInstances.push(tags);
+            this.destroyables.push(tags);
             const traitsPrepend = html.querySelector<HTMLTemplateElement>(".traits-extra");
             if (traitsPrepend) {
                 tags.DOM.scope.prepend(traitsPrepend.content);
             }
         }
-    }
-
-    protected override _resetListeners(): void {
-        super._resetListeners();
-        this.#tagifyInstances.forEach((tagified) => tagified.destroy());
-        this.#tagifyInstances = [];
     }
 
     protected override activateClickListener(html: HTMLElement): SheetClickActionHandlers {

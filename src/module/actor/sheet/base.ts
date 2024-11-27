@@ -95,8 +95,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     /** Implementation used to handle the toggling and rendering of item summaries */
     itemRenderer: ItemSummaryRenderer<TActor, ActorSheetPF2e<TActor>> = new ItemSummaryRenderer(this);
 
-    /** Active sortable instances. Have to be cleaned up to avoid memory leaks */
-    #sortables: Sortable[] = [];
+    /** Active destroyable resources. Have to be cleaned up to avoid memory leaks */
+    protected destroyables: { destroy(): void }[] = [];
+
+    /** Elements with registered $.tooltipster instances. Have to be cleaned up to avoid memory leaks */
+    protected tooltipsterElements: JQuery[] = [];
 
     /** Is this sheet one in which the actor is not owned by the user, but the user can still take and deposit items? */
     get isLootSheet(): boolean {
@@ -284,7 +287,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         })();
         this.#activateInventoryDragDrop(inventoryPanel);
 
-        // // Everything below here is only needed if the sheet is editable
+        // Everything below here is only needed if the sheet is editable
         if (!this.options.editable) return;
 
         // Handlers for number inputs of properties subject to modification by AE-like rules elements
@@ -466,8 +469,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     protected _resetListeners(): void {
-        this.#sortables.forEach((sortable) => sortable.destroy());
-        this.#sortables = [];
+        this.destroyables.forEach((sortable) => sortable.destroy());
+        this.destroyables = [];
+        this.tooltipsterElements.forEach((element) => element.tooltipster("destroy"));
+        this.tooltipsterElements = [];
     }
 
     /** Sheet-wide click listeners for elements selectable as `a[data-action]` */
@@ -701,7 +706,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 onEnd: (event) => this.#onDropInventoryItem(event),
             };
 
-            this.#sortables.push(new Sortable(list, options));
+            this.destroyables.push(new Sortable(list, options));
         }
     }
 

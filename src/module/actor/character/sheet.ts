@@ -79,12 +79,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     /** Non-persisted tweaks to formula data */
     #formulaQuantities: Record<string, number> = {};
 
-    /** PC Sheet Tab manager instance. Must be destroyed to avoid memory leaks  */
-    #tabManager: PCSheetTabManager | null = null;
-
-    /** Elements with registered $.tooltipster instances. Have to be cleaned up to avoid memory leaks */
-    #tooltipsterElements: JQuery[] = [];
-
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         options.classes = [...options.classes, "character"];
@@ -691,7 +685,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const side = hoverEl.dataset.tooltipSide
                 ?.split(",")
                 ?.filter((t): t is (typeof allSides)[number] => tupleHasValue(allSides, t)) ?? ["right", "bottom"];
-            this.#tooltipsterElements.push(
+            this.tooltipsterElements.push(
                 $(hoverEl).tooltipster({
                     trigger: "click",
                     arrow: false,
@@ -770,14 +764,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
     }
 
-    protected override _resetListeners(): void {
-        super._resetListeners();
-        this.#tabManager?.destroy();
-        this.#tabManager = null;
-        this.#tooltipsterElements.forEach((element) => element.tooltipster("destroy"));
-        this.#tooltipsterElements = [];
-    }
-
     /** Activate listeners of main sheet navigation section */
     #activateNavListeners(html: HTMLElement): void {
         const sheetNavigation = htmlQuery(html, "nav.sheet-navigation");
@@ -791,7 +777,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         navTitleArea.innerText = game.i18n.localize(activeTab.dataset.tooltip ?? "");
         const manageTabsAnchor = htmlQuery<HTMLAnchorElement>(sheetNavigation, ":scope > a[data-action=manage-tabs]");
         if (manageTabsAnchor) {
-            this.#tabManager = PCSheetTabManager.initialize(this.actor, manageTabsAnchor);
+            this.destroyables.push(PCSheetTabManager.initialize(this.actor, manageTabsAnchor));
         }
 
         sheetNavigation.addEventListener("click", (event) => {

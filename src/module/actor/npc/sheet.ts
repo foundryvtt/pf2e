@@ -37,9 +37,6 @@ import {
 abstract class AbstractNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
     protected readonly actorConfigClass = NPCConfig;
 
-    /** Active tagify instances. Have to be cleaned up to avoid memory leaks */
-    #tagifyInstances: (Tagify<Record<"id" | "value", string>> | null)[] = [];
-
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         options.classes.push("pf2e", "npc");
@@ -112,13 +109,8 @@ abstract class AbstractNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
 
         // Tagify the traits selection
         const traitsEl = htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.value"]');
-        this.#tagifyInstances.push(tagify(traitsEl, { whitelist: CONFIG.PF2E.creatureTraits }));
-    }
-
-    protected override _resetListeners(): void {
-        super._resetListeners();
-        this.#tagifyInstances.forEach((tagifyInstance) => tagifyInstance?.destroy());
-        this.#tagifyInstances = [];
+        const tags = tagify(traitsEl, { whitelist: CONFIG.PF2E.creatureTraits });
+        if (tags) this.destroyables.push(tags);
     }
 
     protected override activateClickListener(html: HTMLElement): SheetClickActionHandlers {
