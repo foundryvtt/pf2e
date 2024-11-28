@@ -9,9 +9,6 @@ import * as R from "remeda";
 import { DEITY_SANCTIFICATIONS } from "./values.ts";
 
 export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
-    /** Active tagify instances. Have to be cleaned up to avoid memory leaks */
-    #tagifyInstances: (Tagify<Record<"id" | "value", string>> | null)[] = [];
-
     static override get defaultOptions(): ItemSheetOptions {
         return {
             ...super.defaultOptions,
@@ -73,21 +70,22 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
         const getInput = (name: string): HTMLTagifyTagsElement | null =>
             htmlQuery<HTMLTagifyTagsElement>(html, `tagify-tags[name="${name}"]`);
 
-        this.#tagifyInstances.push(
+        this.ensureDestroyableCleanup(
             tagify(getInput("system.attribute"), { whitelist: CONFIG.PF2E.abilities, maxTags: 2 }),
         );
 
-        this.#tagifyInstances.push(tagify(getInput("system.skill"), { whitelist: CONFIG.PF2E.skills, maxTags: 2 }));
+        this.ensureDestroyableCleanup(tagify(getInput("system.skill"), { whitelist: CONFIG.PF2E.skills, maxTags: 2 }));
 
-        this.#tagifyInstances.push(
+        this.ensureDestroyableCleanup(
             tagify(getInput("system.weapons"), { whitelist: CONFIG.PF2E.baseWeaponTypes, maxTags: 2 }),
         );
 
         const domainWhitelist = R.omitBy(CONFIG.PF2E.deityDomains, (_v, k) => k.endsWith("-apocryphal"));
-        this.#tagifyInstances.push(
+        this.ensureDestroyableCleanup(
             tagify(getInput("system.domains.primary"), { whitelist: domainWhitelist, maxTags: 6 }),
         );
-        this.#tagifyInstances.push(
+
+        this.ensureDestroyableCleanup(
             tagify(getInput("system.domains.alternate"), { whitelist: domainWhitelist, maxTags: 6 }),
         );
 
@@ -130,12 +128,6 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
                 }
             });
         }
-    }
-
-    protected override _resetListeners(): void {
-        super._resetListeners();
-        this.#tagifyInstances.forEach((tagifyInstance) => tagifyInstance?.destroy());
-        this.#tagifyInstances = [];
     }
 
     override async _onDrop(event: DragEvent): Promise<void> {

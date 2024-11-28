@@ -96,10 +96,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     itemRenderer: ItemSummaryRenderer<TActor, ActorSheetPF2e<TActor>> = new ItemSummaryRenderer(this);
 
     /** Active destroyable resources. Have to be cleaned up to avoid memory leaks */
-    protected destroyables: { destroy(): void }[] = [];
+    #destroyables: { destroy(): void }[] = [];
 
     /** Elements with registered $.tooltipster instances. Have to be cleaned up to avoid memory leaks */
-    protected tooltipsterElements: JQuery[] = [];
+    #tooltipsterElements: JQuery[] = [];
 
     /** Is this sheet one in which the actor is not owned by the user, but the user can still take and deposit items? */
     get isLootSheet(): boolean {
@@ -468,11 +468,19 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
     }
 
-    protected _resetListeners(): void {
-        this.destroyables.forEach((sortable) => sortable.destroy());
-        this.destroyables = [];
-        this.tooltipsterElements.forEach((element) => element.tooltipster("destroy"));
-        this.tooltipsterElements = [];
+    protected ensureDestroyableCleanup(destroyable: { destroy(): void } | null): void {
+        if (destroyable) this.#destroyables.push(destroyable);
+    }
+
+    protected ensureTooltipsterCleanup(element: JQuery): void {
+        this.#tooltipsterElements.push(element);
+    }
+
+    protected resetListeners(): void {
+        this.#destroyables.forEach((sortable) => sortable.destroy());
+        this.#destroyables = [];
+        this.#tooltipsterElements.forEach((element) => element.tooltipster("destroy"));
+        this.#tooltipsterElements = [];
     }
 
     /** Sheet-wide click listeners for elements selectable as `a[data-action]` */
@@ -706,7 +714,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 onEnd: (event) => this.#onDropInventoryItem(event),
             };
 
-            this.destroyables.push(new Sortable(list, options));
+            this.#destroyables.push(new Sortable(list, options));
         }
     }
 
@@ -1336,7 +1344,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         html: JQuery | HTMLElement,
         options: Record<string, unknown>,
     ): void {
-        this._resetListeners();
+        this.resetListeners();
         super._replaceHTML(element, html, options);
     }
 
@@ -1370,7 +1378,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     override async close(options?: { force?: boolean }): Promise<void> {
-        this._resetListeners();
+        this.resetListeners();
         return super.close(options);
     }
 }

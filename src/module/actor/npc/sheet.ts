@@ -109,8 +109,7 @@ abstract class AbstractNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
 
         // Tagify the traits selection
         const traitsEl = htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.value"]');
-        const tags = tagify(traitsEl, { whitelist: CONFIG.PF2E.creatureTraits });
-        if (tags) this.destroyables.push(tags);
+        this.ensureDestroyableCleanup(tagify(traitsEl, { whitelist: CONFIG.PF2E.creatureTraits }));
     }
 
     protected override activateClickListener(html: HTMLElement): SheetClickActionHandlers {

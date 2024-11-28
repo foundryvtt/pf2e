@@ -17,7 +17,7 @@ class FastHealingForm extends RuleElementForm<FastHealingSource, FastHealingRule
         const selectorElement = htmlQuery<HTMLTagifyTagsElement>(html, "tagify-tags.deactivated-by");
         if (selectorElement) {
             const whitelist = CONFIG.PF2E.weaknessTypes;
-            this.destroyables.push(tagify(selectorElement, { whitelist, enforceWhitelist: false }));
+            this.ensureDestroyableCleanup(tagify(selectorElement, { whitelist, enforceWhitelist: false }));
         }
     }
 

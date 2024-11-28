@@ -37,7 +37,7 @@ class RuleElementForm<
     #activeTab: Maybe<string> = null;
 
     /** Active tagify instances. Have to be cleaned up to avoid memory leaks */
-    destroyables: { destroy(): void }[] = [];
+    #destroyables: { destroy(): void }[] = [];
 
     /** Base proprety path for the contained rule */
     get basePath(): string {
@@ -200,13 +200,13 @@ class RuleElementForm<
     }
 
     activateListeners(html: HTMLElement): void {
-        this._resetListeners();
+        this.resetListeners();
         this.element = html;
 
         // Tagify selectors lists
         const selectorElement = htmlQuery<HTMLTagifyTagsElement>(html, "tagify-tags.selector-list");
         const tags = tagify(selectorElement);
-        if (tags) this.destroyables.push(tags);
+        if (tags) this.#destroyables.push(tags);
 
         // Add event listener for priority. This exists because normal form submission won't work for text-area forms
         const priorityInput = htmlQuery<HTMLInputElement>(html, ".rule-element-header .priority input");
@@ -271,9 +271,13 @@ class RuleElementForm<
         }
     }
 
-    protected _resetListeners(): void {
-        this.destroyables.forEach((tagified) => tagified?.destroy());
-        this.destroyables = [];
+    protected ensureDestroyableCleanup(destroyable: { destroy(): void } | null): void {
+        if (destroyable) this.#destroyables.push(destroyable);
+    }
+
+    protected resetListeners(): void {
+        this.#destroyables.forEach((tagified) => tagified?.destroy());
+        this.#destroyables = [];
     }
 
     protected async onDrop(event: DragEvent, _element: HTMLElement): Promise<ItemPF2e | null> {
@@ -346,7 +350,7 @@ class RuleElementForm<
      * rule element is removed from the DOM, for example destroying tagify instances, etc.
      */
     destroy(): void {
-        this._resetListeners();
+        this.resetListeners();
     }
 }
 

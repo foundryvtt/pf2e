@@ -685,7 +685,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const side = hoverEl.dataset.tooltipSide
                 ?.split(",")
                 ?.filter((t): t is (typeof allSides)[number] => tupleHasValue(allSides, t)) ?? ["right", "bottom"];
-            this.tooltipsterElements.push(
+            this.ensureTooltipsterCleanup(
                 $(hoverEl).tooltipster({
                     trigger: "click",
                     arrow: false,
@@ -777,7 +777,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         navTitleArea.innerText = game.i18n.localize(activeTab.dataset.tooltip ?? "");
         const manageTabsAnchor = htmlQuery<HTMLAnchorElement>(sheetNavigation, ":scope > a[data-action=manage-tabs]");
         if (manageTabsAnchor) {
-            this.destroyables.push(PCSheetTabManager.initialize(this.actor, manageTabsAnchor));
+            this.ensureDestroyableCleanup(PCSheetTabManager.initialize(this.actor, manageTabsAnchor));
         }
 
         sheetNavigation.addEventListener("click", (event) => {

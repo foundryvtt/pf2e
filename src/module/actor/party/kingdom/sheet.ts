@@ -278,7 +278,6 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
     override activateListeners($html: JQuery<HTMLElement>): void {
         super.activateListeners($html);
-        this._resetListeners();
         const html = $html[0];
 
         // If a settlement name needs to be focused (such as when a new list item is created), do so
@@ -334,7 +333,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             if (vacantEl) {
                 const lines = vacantEl.title.split(/;\s*/).map((l) => createHTMLElement("li", { children: [l] }));
                 const content = createHTMLElement("ul", { children: lines });
-                this.tooltipsterElements.push(
+                this.ensureTooltipsterCleanup(
                     $(vacantEl).tooltipster({
                         content,
                         contentAsHTML: true,
@@ -379,7 +378,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
         const $tooltipContent = $html.find("[data-tooltip-content]");
         if ($tooltipContent.length > 0)
-            this.tooltipsterElements.push(
+            this.ensureTooltipsterCleanup(
                 $tooltipContent.tooltipster({
                     trigger: "click",
                     arrow: false,
@@ -478,30 +477,31 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         // Sort settlements
         const settlementList = htmlQuery(html, ".settlement-list");
         if (settlementList) {
-            const sortable = Sortable.create(settlementList, {
-                ...SORTABLE_BASE_OPTIONS,
-                handle: ".drag-handle",
-                onEnd: (event) => {
-                    const settlements = this.kingdom.settlements as Record<string, KingdomSettlementData>;
-                    const settlementsWithIds = Object.entries(settlements).map(([id, value]) => ({ id, ...value }));
-                    const settlement = settlementsWithIds.find((s) => s.id === event.item.dataset.settlementId);
-                    const newIndex = event.newDraggableIndex;
-                    if (!settlement || newIndex === undefined) {
-                        this.render();
-                        return;
-                    }
+            this.ensureDestroyableCleanup(
+                Sortable.create(settlementList, {
+                    ...SORTABLE_BASE_OPTIONS,
+                    handle: ".drag-handle",
+                    onEnd: (event) => {
+                        const settlements = this.kingdom.settlements as Record<string, KingdomSettlementData>;
+                        const settlementsWithIds = Object.entries(settlements).map(([id, value]) => ({ id, ...value }));
+                        const settlement = settlementsWithIds.find((s) => s.id === event.item.dataset.settlementId);
+                        const newIndex = event.newDraggableIndex;
+                        if (!settlement || newIndex === undefined) {
+                            this.render();
+                            return;
+                        }
 
-                    // Perform the resort and update
-                    const siblings = R.sortBy(
-                        settlementsWithIds.filter((s) => s !== settlement),
-                        (s) => s.sort,
-                    );
-                    siblings.splice(newIndex, 0, settlement);
-                    const updates = R.mapToObj(siblings, (s, index) => [`settlements.${s.id}.sort`, index]);
-                    this.kingdom.update(updates);
-                },
-            });
-            this.destroyables.push(sortable);
+                        // Perform the resort and update
+                        const siblings = R.sortBy(
+                            settlementsWithIds.filter((s) => s !== settlement),
+                            (s) => s.sort,
+                        );
+                        siblings.splice(newIndex, 0, settlement);
+                        const updates = R.mapToObj(siblings, (s, index) => [`settlements.${s.id}.sort`, index]);
+                        this.kingdom.update(updates);
+                    },
+                }),
+            );
         }
     }
 
@@ -725,11 +725,6 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         }
 
         return this.kingdom.update(data);
-    }
-
-    override close(options?: { force?: boolean } | undefined): Promise<void> {
-        this._resetListeners();
-        return super.close(options);
     }
 }
 

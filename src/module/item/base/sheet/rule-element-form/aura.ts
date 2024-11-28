@@ -35,7 +35,7 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
         const traitsElement = htmlQuery<HTMLTagifyTagsElement>(html, "tagify-tags.tagify-traits");
         if (traitsElement) {
             const whitelist = { ...CONFIG.PF2E.spellTraits, ...CONFIG.PF2E.actionTraits };
-            this.destroyables.push(tagify(traitsElement, { whitelist, enforceWhitelist: false }));
+            this.ensureDestroyableCleanup(tagify(traitsElement, { whitelist, enforceWhitelist: false }));
         }
 
         for (const eventsElement of htmlQueryAll<HTMLTagifyTagsElement>(html, "tagify-tags.tagify-events")) {
@@ -44,7 +44,7 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
                 ["turn-start", game.i18n.localize("PF2E.RuleEditor.Aura.Effects.EventsOptions.TurnStart")],
                 ["turn-end", game.i18n.localize("PF2E.RuleEditor.Aura.Effects.EventsOptions.TurnEnd")],
             ].sort((a, b) => a[1].localeCompare(b[1], game.i18n.lang));
-            this.destroyables.push(
+            this.ensureDestroyableCleanup(
                 tagify(eventsElement, {
                     whitelist: R.mapToObj(whitelist, (w) => [w[0], w[1]]),
                     enforceWhitelist: true,

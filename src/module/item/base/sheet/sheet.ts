@@ -37,10 +37,11 @@ import { CodeMirror } from "./codemirror.ts";
 import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-element-form/index.ts";
 
 class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOptions> {
-    #sortables: Sortable[] = [];
+    /** Active destroyable resources. Have to be cleaned up to avoid memory leaks */
+    #destroyables: { destroy(): void }[] = [];
 
     /** Active tagify instances. Have to be cleaned up to avoid memory leaks */
-    #tagifyInstances: (Tagify<Record<"id" | "value", string>> | null)[] = [];
+    #tooltipsterElements: JQuery[] = [];
 
     constructor(item: TItem, options: Partial<ItemSheetOptions> = {}) {
         super(item, options);
@@ -478,7 +479,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         const traitsPrepend = html.querySelector<HTMLTemplateElement>(".traits-extra");
         if (validTraits !== null && tagElement) {
             const tags = tagify(tagElement, { whitelist: validTraits });
-            this.#tagifyInstances.push(tags);
+            this.ensureDestroyableCleanup(tags);
             if (traitsPrepend) {
                 tags.DOM.scope.prepend(traitsPrepend.content);
             }
@@ -488,7 +489,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         }
 
         // Tagify other-tags input if present
-        this.#tagifyInstances.push(
+        this.ensureDestroyableCleanup(
             tagify(htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.otherTags"]'), {
                 maxTags: 6,
             }),
@@ -540,31 +541,32 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         // Allow drag/drop sorting of rule elements
         const rules = htmlQuery(html, ".rule-element-forms");
         if (rules) {
-            const sortable = Sortable.create(rules, {
-                ...SORTABLE_BASE_OPTIONS,
-                handle: ".drag-handle",
-                onEnd: async (event) => {
-                    const currentIndex = event.oldDraggableIndex;
-                    const newIndex = event.newDraggableIndex;
-                    if (currentIndex === undefined || newIndex === undefined) {
-                        this.render();
-                        return;
-                    }
+            this.ensureDestroyableCleanup(
+                Sortable.create(rules, {
+                    ...SORTABLE_BASE_OPTIONS,
+                    handle: ".drag-handle",
+                    onEnd: async (event) => {
+                        const currentIndex = event.oldDraggableIndex;
+                        const newIndex = event.newDraggableIndex;
+                        if (currentIndex === undefined || newIndex === undefined) {
+                            this.render();
+                            return;
+                        }
 
-                    // Update rules. If the update returns undefined, there was no change, and we need to re-render manually
-                    const rules = this.item.toObject().system.rules;
-                    const movingRule = rules.at(currentIndex);
-                    if (movingRule && newIndex <= rules.length) {
-                        rules.splice(currentIndex, 1);
-                        rules.splice(newIndex, 0, movingRule);
-                        const result = await this.item.update({ "system.rules": rules });
-                        if (!result) this.render();
-                    } else {
-                        this.render();
-                    }
-                },
-            });
-            this.#sortables.push(sortable);
+                        // Update rules. If the update returns undefined, there was no change, and we need to re-render manually
+                        const rules = this.item.toObject().system.rules;
+                        const movingRule = rules.at(currentIndex);
+                        if (movingRule && newIndex <= rules.length) {
+                            rules.splice(currentIndex, 1);
+                            rules.splice(newIndex, 0, movingRule);
+                            const result = await this.item.update({ "system.rules": rules });
+                            if (!result) this.render();
+                        } else {
+                            this.render();
+                        }
+                    },
+                }),
+            );
         }
 
         const refreshAnchor = htmlQuery(html.closest("div.item.sheet"), "a.refresh-from-compendium");
@@ -596,12 +598,18 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             });
         }
     }
+    protected ensureDestroyableCleanup(destroyable: { destroy(): void } | null): void {
+        if (destroyable) this.#destroyables.push(destroyable);
+    }
+    protected ensureTooltipsterCleanup(element: JQuery): void {
+        this.#tooltipsterElements.push(element);
+    }
 
     protected _resetListeners(): void {
-        this.#sortables.forEach((sortable) => sortable.destroy());
-        this.#sortables = [];
-        this.#tagifyInstances.forEach((tagifyInstance) => tagifyInstance?.destroy());
-        this.#tagifyInstances = [];
+        this.#destroyables.forEach((destroyable) => destroyable.destroy());
+        this.#destroyables = [];
+        this.#tooltipsterElements.forEach((element) => element.tooltipster("destroy"));
+        this.#tooltipsterElements = [];
     }
 
     /** Add button to refresh from compendium if setting is enabled. */

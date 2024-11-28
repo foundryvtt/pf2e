@@ -6,9 +6,6 @@ import type { CampaignFeaturePF2e } from "./document.ts";
 import { KINGMAKER_CATEGORIES } from "./values.ts";
 
 class CampaignFeatureSheetPF2e extends ItemSheetPF2e<CampaignFeaturePF2e> {
-    /** Active tagify instances. Have to be cleaned up to avoid memory leaks */
-    #tagifyInstances: Tagify<Record<"id" | "value", string>>[] = [];
-
     static override get defaultOptions(): ItemSheetOptions {
         return { ...super.defaultOptions, hasSidebar: true };
     }
@@ -40,18 +37,12 @@ class CampaignFeatureSheetPF2e extends ItemSheetPF2e<CampaignFeaturePF2e> {
 
         const prerequisites = htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.prerequisites.value"]');
         if (prerequisites) {
-            this.#tagifyInstances.push(
+            this.ensureDestroyableCleanup(
                 tagify(prerequisites, {
                     editTags: 1,
                 }),
             );
         }
-    }
-
-    protected override _resetListeners(): void {
-        super._resetListeners();
-        this.#tagifyInstances.forEach((tagified) => tagified.destroy());
-        this.#tagifyInstances = [];
     }
 
     protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {

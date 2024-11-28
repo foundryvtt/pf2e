@@ -6,7 +6,9 @@ class ActorTraitsForm extends RuleElementForm {
     override activateListeners(html: HTMLElement): void {
         super.activateListeners(html);
         for (const input of htmlQueryAll<HTMLInputElement>(html, "input.pf2e-tagify")) {
-            this.destroyables.push(tagify(input, { whitelist: CONFIG.PF2E.creatureTraits, enforceWhitelist: false }));
+            this.ensureDestroyableCleanup(
+                tagify(input, { whitelist: CONFIG.PF2E.creatureTraits, enforceWhitelist: false }),
+            );
         }
     }
 }
