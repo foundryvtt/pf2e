@@ -714,7 +714,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 onEnd: (event) => this.#onDropInventoryItem(event),
             };
 
-            this.#destroyables.push(new Sortable(list, options));
+            this.ensureDestroyableCleanup(new Sortable(list, options));
         }
     }
 
