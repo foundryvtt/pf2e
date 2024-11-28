@@ -56,7 +56,7 @@ class CraftingAbility implements CraftingAbilityData {
         this.maxItemLevel = data.maxItemLevel;
         this.fieldDiscovery = data.fieldDiscovery ? new Predicate(data.fieldDiscovery) : null;
         this.batchSize = data.batchSize;
-        this.craftableItems = R.sort(data.craftableItems, (c) => c.batchSize ?? 1);
+        this.craftableItems = R.sortBy(data.craftableItems, [(c) => c.batchSize ?? 1, "desc"]);
         this.fieldDiscoveryBatchSize = data.fieldDiscoveryBatchSize ?? 3;
         this.preparedFormulaData = data.preparedFormulaData ?? [];
 
@@ -86,7 +86,7 @@ class CraftingAbility implements CraftingAbilityData {
                 ? {
                       ...formula,
                       batchSize,
-                      quantity: this.resource ? prepData.quantity || 1 : batchSize,
+                      quantity: this.resource ? Math.ceil((prepData.quantity || 1) / batchSize) * batchSize : batchSize,
                       expended: !!prepData.expended,
                       isSignatureItem: !!prepData.isSignatureItem,
                   }
