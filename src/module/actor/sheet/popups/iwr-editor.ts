@@ -148,7 +148,7 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
     }
 
     override activateListeners($html: JQuery): void {
-        this._resetListeners();
+        this.#resetListeners();
         const html = $html[0];
 
         for (const input of htmlQueryAll<HTMLInputElement>(html, "input[type=text]")) {
@@ -183,13 +183,13 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
         }
     }
 
-    _resetListeners(): void {
+    #resetListeners(): void {
         this.#tagifyInstances.forEach((tagified) => tagified.destroy());
         this.#tagifyInstances = [];
     }
 
     override async close(options?: { force?: boolean | undefined }): Promise<void> {
-        this._resetListeners();
+        this.#resetListeners();
         return super.close(options);
     }
 }

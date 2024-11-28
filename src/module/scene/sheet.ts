@@ -65,7 +65,7 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-        this._resetListeners();
+        this.resetListeners();
         const html = $html[0];
 
         // Open world automation settings
@@ -88,7 +88,7 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
         this.#activateRBVListeners(html);
     }
 
-    protected _resetListeners(): void {
+    protected resetListeners(): void {
         this.#tagifyInstances.forEach((tagifyInstance) => tagifyInstance?.destroy());
         this.#tagifyInstances = [];
     }
@@ -172,7 +172,7 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
     }
 
     override async close(options?: { force?: boolean | undefined }): Promise<void> {
-        this._resetListeners();
+        this.resetListeners();
         return super.close(options);
     }
 }

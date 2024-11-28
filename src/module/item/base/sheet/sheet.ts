@@ -308,7 +308,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
     }
 
     override async close(options?: { force?: boolean }): Promise<void> {
-        this._resetListeners();
+        this.resetListeners();
         this._destroyRuleElementForms();
         this.#editingRuleElementIndex = null;
         return super.close(options);
@@ -605,7 +605,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         this.#tooltipsterElements.push(element);
     }
 
-    protected _resetListeners(): void {
+    protected resetListeners(): void {
         this.#destroyables.forEach((destroyable) => destroyable.destroy());
         this.#destroyables = [];
         this.#tooltipsterElements.forEach((element) => element.tooltipster("destroy"));
@@ -670,7 +670,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
     }
 
     /**
-     * call destroy handler on rule elements. Has to be separated from _resetListeners because
+     * call destroy handler on rule elements. Has to be separated from resetListeners because
      * by the time _replaceHTML is called, the new rule elements have already been assigned and
      * the old ruleElementForms cannot be accessed anymore
      */
@@ -698,7 +698,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         html: JQuery | HTMLElement,
         options: Record<string, unknown>,
     ): void {
-        this._resetListeners();
+        this.resetListeners();
         super._replaceHTML(element, html, options);
     }
 }

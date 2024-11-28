@@ -65,7 +65,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
 
     /** Make the combatants sortable */
     override activateListeners($html: JQuery): void {
-        this._resetListeners();
+        this.#resetListeners();
         const html = $html[0];
         const tracker = htmlQuery(html, "#combat-tracker");
         if (!tracker) throw ErrorPF2e("No tracker found");
@@ -191,7 +191,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
         super.activateListeners($html);
     }
 
-    protected _resetListeners(): void {
+    #resetListeners(): void {
         this.#sortables.forEach((sortable) => sortable.destroy());
         this.#sortables = [];
     }
@@ -422,7 +422,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
     }
 
     override async close(options?: { force?: boolean }): Promise<void> {
-        this._resetListeners();
+        this.#resetListeners();
         return super.close(options);
     }
 }

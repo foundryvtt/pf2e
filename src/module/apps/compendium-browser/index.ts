@@ -106,7 +106,7 @@ class CompendiumBrowser extends Application {
         for (const tab of Object.values(this.tabs)) {
             tab.filterData.search.text = "";
         }
-        this._resetListeners();
+        this.resetListeners();
         await super.close(options);
     }
 
@@ -318,7 +318,7 @@ class CompendiumBrowser extends Application {
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-        this._resetListeners();
+        this.resetListeners();
         const html = $html[0];
         const activeTabName = this.activeTab;
 
@@ -742,7 +742,7 @@ class CompendiumBrowser extends Application {
         this.#renderResultList({ list });
     }
 
-    _resetListeners(): void {
+    resetListeners(): void {
         this.#tagifyInstances.forEach((tagified) => tagified.destroy());
         this.#tagifyInstances = [];
     }

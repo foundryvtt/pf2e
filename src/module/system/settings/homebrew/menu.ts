@@ -149,7 +149,7 @@ class HomebrewElements extends SettingsMenuPF2e {
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-        this._resetListeners();
+        this.resetListeners();
         const html = $html[0];
 
         // Handle all changes for traits
@@ -206,7 +206,7 @@ class HomebrewElements extends SettingsMenuPF2e {
         this.languagesManager.activateListeners(html);
     }
 
-    protected _resetListeners(): void {
+    protected resetListeners(): void {
         this.languagesManager?.resetListeners();
         this.#tagifyInstances.forEach((tagifyInstance) => tagifyInstance?.destroy());
         this.#tagifyInstances = [];
@@ -391,7 +391,7 @@ class HomebrewElements extends SettingsMenuPF2e {
     }
 
     override async close(options?: { force?: boolean } | undefined): Promise<void> {
-        this._resetListeners();
+        this.resetListeners();
         return super.close(options);
     }
 }

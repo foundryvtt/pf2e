@@ -86,7 +86,7 @@ export class PCSheetTabManager {
         }
     }
 
-    async destroy(): Promise<void> {
+    destroy(): void {
         this.#tooltipsterElement?.tooltipster("destroy");
     }
 }
