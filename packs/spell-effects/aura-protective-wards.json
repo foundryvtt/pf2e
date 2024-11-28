@@ -1,7 +1,7 @@
 {
     "_id": "5p3bKvWsJgo83FS1",
     "img": "systems/pf2e/icons/spells/protective-ward.webp",
-    "name": "Aura: Protective Ward",
+    "name": "Aura: Protective Wards",
     "system": {
         "badge": {
             "labels": [
@@ -12,11 +12,12 @@
                 "25 ft",
                 "30 ft"
             ],
+            "loop": false,
             "type": "counter",
             "value": 1
         },
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Protective Wards]</p>\n<p>You emanate a shimmering aura of protective magic. You and any allies in the area gain a +1 status bonus to AC. Each time you @UUID[Compendium.pf2e.actionspf2e.Item.Sustain]{Sustain the Spell}, the emanation's radius increases by 5 feet, to a maximum of 30 feet.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Protective Wards]</p>\n<p>You and any allies in the area gain a +1 status bonus to AC. Each time you Sustain the spell, the emanation's radius increases by 5 feet, to a maximum of 30 feet.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -37,10 +38,7 @@
                 "effects": [
                     {
                         "affects": "allies",
-                        "events": [
-                            "enter"
-                        ],
-                        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Protective Ward"
+                        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Protective Wards"
                     }
                 ],
                 "key": "Aura",
