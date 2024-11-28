@@ -1,7 +1,7 @@
 {
     "_id": "K8T5OYXjmniOvhmA",
     "img": "icons/weapons/staves/staff-winged-red.webp",
-    "name": "Wand of Mercy (7th-level)",
+    "name": "Wand of Mercy (7th-rank)",
     "system": {
         "baseItem": null,
         "bulk": {
@@ -34,7 +34,31 @@
             "title": "Pathfinder Treasure Vault"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "wand-of-mercy",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:rank:7",
+                    "wand-of-mercy",
+                    {
+                        "nor": [
+                            "item:trait:death",
+                            "item:trait:void"
+                        ]
+                    }
+                ],
+                "property": "traits",
+                "value": "nonlethal"
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "common",

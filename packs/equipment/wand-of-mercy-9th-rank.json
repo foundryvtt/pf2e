@@ -1,7 +1,7 @@
 {
-    "_id": "vSiePW2xIEOmXB0H",
+    "_id": "LSf18TMRtHV6SMs9",
     "img": "icons/weapons/staves/staff-winged-red.webp",
-    "name": "Wand of Mercy (1st-level)",
+    "name": "Wand of Mercy (9th-rank)",
     "system": {
         "baseItem": null,
         "bulk": {
@@ -17,7 +17,7 @@
             "value": 0
         },
         "level": {
-            "value": 4
+            "value": 20
         },
         "material": {
             "grade": null,
@@ -25,7 +25,7 @@
         },
         "price": {
             "value": {
-                "gp": 75
+                "gp": 52000
             }
         },
         "publication": {
@@ -34,7 +34,31 @@
             "title": "Pathfinder Treasure Vault"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "wand-of-mercy",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:rank:9",
+                    "wand-of-mercy",
+                    {
+                        "nor": [
+                            "item:trait:death",
+                            "item:trait:void"
+                        ]
+                    }
+                ],
+                "property": "traits",
+                "value": "nonlethal"
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "common",

@@ -26,26 +26,6 @@
         },
         "rules": [
             {
-                "itemType": "spell",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "spellshape:nonlethal-spell",
-                    {
-                        "nor": [
-                            "item:trait:death",
-                            "item:trait:void"
-                        ]
-                    }
-                ],
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Spellshape.NonLethal"
-                    }
-                ]
-            },
-            {
                 "key": "RollOption",
                 "label": "PF2E.TraitSpellshape",
                 "mergeable": true,
@@ -58,6 +38,22 @@
                     }
                 ],
                 "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:nonlethal-spell",
+                    {
+                        "nor": [
+                            "item:trait:death",
+                            "item:trait:void"
+                        ]
+                    }
+                ],
+                "property": "traits",
+                "value": "nonlethal"
             }
         ],
         "traits": {
