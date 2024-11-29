@@ -24,7 +24,23 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "arc-of-destruction",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "arc-of-destruction",
+                    "item:ranged"
+                ],
+                "selector": "ac",
+                "type": "status",
+                "value": 4
+            }
+        ],
         "traits": {
             "rarity": "uncommon",
             "value": [
