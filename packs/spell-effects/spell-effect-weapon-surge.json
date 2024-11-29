@@ -4,7 +4,7 @@
     "name": "Spell Effect: Weapon Surge",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Weapon Surge]</p>\n<p>On your next Strike with the weapon before the start of your next turn, you gain a +1 status bonus to the attack roll, the weapon deals additional spirit damage, and the Strike gains the sanctified trait.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Weapon Surge]</p>\n<p>You choose a weapon you're wielding. On your next Strike with that weapon, you gain a +1 status bonus to the attack roll and the weapon deals additional spirit damage, and the Strike gains the sanctified trait.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -23,21 +23,21 @@
         "rules": [
             {
                 "choices": {
-                    "ownedItems": true,
+                    "attacks": true,
                     "predicate": [
+                        {
+                            "not": "item:trait:unarmed"
+                        },
                         "item:equipped"
-                    ],
-                    "types": [
-                        "weapon"
                     ]
                 },
-                "flag": "spellEffectWeaponSurge",
+                "flag": "weapon",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "key": "FlatModifier",
-                "selector": "{item|flags.pf2e.rulesSelections.spellEffectWeaponSurge}-attack",
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-attack",
                 "type": "status",
                 "value": 1
             },
@@ -46,11 +46,11 @@
                 "diceNumber": "ternary(gte(@item.level,9),3,ternary(gte(@item.level,5),2,1))",
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "selector": "{item|flags.pf2e.rulesSelections.spellEffectWeaponSurge}-damage"
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
             },
             {
                 "definition": [
-                    "item:id:{item|flags.pf2e.rulesSelections.spellEffectWeaponSurge}"
+                    "item:slug:{item|flags.pf2e.rulesSelections.weapon}"
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",

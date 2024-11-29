@@ -4,7 +4,7 @@
     "name": "Spell Effect: Serrate",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Serrate]</p>\n<p>Strikes with the target weapon deal additional slashing damage until the start of your next turn.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Serrate]</p>\n<p>You deal additional slashing damage with the chosen weapon.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -23,12 +23,14 @@
         "rules": [
             {
                 "choices": {
-                    "ownedItems": true,
-                    "types": [
-                        "weapon"
+                    "attacks": true,
+                    "predicate": [
+                        {
+                            "not": "item:trait:unarmed"
+                        }
                     ]
                 },
-                "flag": "serrateWeapon",
+                "flag": "weapon",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
@@ -37,7 +39,7 @@
                 "diceNumber": "ceil(@item.level/2)",
                 "dieSize": "d4",
                 "key": "DamageDice",
-                "selector": "{item|flags.pf2e.rulesSelections.serrateWeapon}-damage"
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
             }
         ],
         "start": {

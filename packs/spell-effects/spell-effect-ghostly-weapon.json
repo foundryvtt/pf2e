@@ -23,18 +23,20 @@
         "rules": [
             {
                 "choices": {
-                    "ownedItems": true,
-                    "types": [
-                        "weapon"
+                    "attacks": true,
+                    "predicate": [
+                        {
+                            "not": "item:trait:unarmed"
+                        }
                     ]
                 },
-                "flag": "spellEffectGhostlyWeapon",
+                "flag": "weapon",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "definition": [
-                    "item:id:{item|flags.pf2e.rulesSelections.spellEffectGhostlyWeapon}"
+                    "item:slug:{item|flags.pf2e.rulesSelections.weapon}"
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",
@@ -43,7 +45,7 @@
             },
             {
                 "definition": [
-                    "item:id:{item|flags.pf2e.rulesSelections.spellEffectGhostlyWeapon}"
+                    "item:slug:{item|flags.pf2e.rulesSelections.weapon}"
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",
