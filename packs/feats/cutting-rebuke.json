@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>If words could kill, the poet might rule the world. Your words can. You gain the Bon Mot skill feat . You can spend a Mythic Point when rolling the Diplomacy check for @UUID[Compendium.pf2e.feats-srd.Item.Bon Mot] to attempt the check at mythic proficiency. If the check succeeds, you can also deal mental damage equal to your level to the target (double on a critical success).</p>"
+            "value": "<p>If words could kill, the poet might rule the world. Your words can. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Bon Mot] skill feat . You can spend a Mythic Point when rolling the Diplomacy check for Bon Mot to attempt the check at mythic proficiency. If the check succeeds, you can also deal @Damage[(floor(@actor.level))[mental]]{mental damage equal to your level} to the target (double on a critical success).</p>"
         },
         "level": {
             "value": 4
@@ -28,7 +28,12 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Bon Mot"
+            }
+        ],
         "traits": {
             "rarity": "uncommon",
             "value": [
