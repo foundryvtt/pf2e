@@ -1109,7 +1109,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     /** Prepare a strike action from a weapon */
     private prepareStrike(
-        weapon: WeaponPF2e<this>,
+        weapon: WeaponPF2e<CharacterPF2e>,
         { categories, handsReallyFree, ammos = [] }: PrepareStrikeOptions,
     ): CharacterStrike {
         const synthetics = this.synthetics;
@@ -1664,7 +1664,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         return flavor;
     }
 
-    consumeAmmo(weapon: WeaponPF2e<this>, params: RollParameters): boolean {
+    consumeAmmo(weapon: WeaponPF2e<CharacterPF2e>, params: RollParameters): boolean {
         const ammo = weapon.ammo;
         if (!ammo) {
             return true;

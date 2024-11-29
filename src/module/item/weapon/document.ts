@@ -205,7 +205,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         );
     }
 
-    override isStackableWith(item: PhysicalItemPF2e<TParent>): boolean {
+    override isStackableWith(item: PhysicalItemPF2e): boolean {
         if (this.category === "unarmed" || !item.isOfType("weapon") || item.category === "unarmed") {
             return false;
         }
