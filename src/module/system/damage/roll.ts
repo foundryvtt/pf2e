@@ -5,6 +5,7 @@ import { RollDataPF2e } from "@system/rolls.ts";
 import { ErrorPF2e, fontAwesomeIcon, tupleHasValue } from "@util";
 import type Peggy from "peggy";
 import * as R from "remeda";
+import type { RollParseNode } from "types/foundry/client-esm/dice/_types.d.mts";
 import type { DiceTerm, RollTerm } from "types/foundry/client-esm/dice/terms/module.d.ts";
 import { DamageCategorization, deepFindTerms, renderComponentDamage, simplifyTerm } from "./helpers.ts";
 import { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie } from "./terms.ts";
@@ -201,8 +202,12 @@ class DamageRoll extends AbstractDamageRoll {
     }
 
     /** Increase total to 1 if evaluating to 0 or less */
-    protected override _evaluateTotal(): number {
-        const total = super._evaluateTotal();
+    protected override async _evaluateASTAsync(
+        node: RollParseNode | RollTerm,
+        options?: EvaluateRollParams,
+    ): Promise<string | number> {
+        const total = await super._evaluateASTAsync(node, options);
+        if (typeof total !== "number") return total;
         if (this.instances.some((i) => !i.persistent || this.options.evaluatePersistent) && total <= 0) {
             this.options.increasedFrom = total;
             // Send alteration to top of call stack since the Roll is currently updating itself
@@ -274,7 +279,7 @@ class DamageRoll extends AbstractDamageRoll {
     }
 
     override alter(multiplier: number, addend: number, { multiplyNumeric = true } = {}): this {
-        const { instances } = this;
+        const instances = this.instances;
         if (!this._evaluated || instances.length === 0) {
             return super.alter(multiplier, addend, { multiplyNumeric });
         } else if (multiplier === 1 && addend === 0) {
@@ -454,8 +459,9 @@ class DamageInstance extends AbstractDamageRoll {
     }
 
     override get total(): number | undefined {
-        const maybeNumber = this.persistent && !this.options.evaluatePersistent ? 0 : super.total;
-        return typeof maybeNumber === "number" ? Math.floor(maybeNumber) : maybeNumber;
+        if (this.persistent && !this.options.evaluatePersistent) return 0;
+        const maybeNumber = super.total;
+        return typeof maybeNumber === "number" ? Math.max(Math.floor(maybeNumber), 0) : maybeNumber;
     }
 
     get minimumValue(): number {
