@@ -1017,6 +1017,7 @@ const armorTraits = {
     flexible: "PF2E.TraitFlexible",
     healing: "PF2E.TraitHealing",
     hindering: "PF2E.TraitHindering",
+    illusion: "PF2E.TraitIllusion",
     inscribed: "PF2E.TraitInscribed",
     intelligent: "PF2E.TraitIntelligent",
     invested: "PF2E.TraitInvested",
