@@ -4,7 +4,7 @@
     "name": "Spell Effect: Blood Vendetta (Failure)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Blood Vendetta]</p>\n<p>Until the bleeding stops, the target has weakness 1 to piercing and slashing damage.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Blood Vendetta]</p>\n<p>You gain weakness 1 to piercing and slashing damage until the bleeding stops.</p>"
         },
         "duration": {
             "expiry": null,
@@ -23,6 +23,9 @@
         "rules": [
             {
                 "key": "Weakness",
+                "predicate": [
+                    "self:condition:persistent-damage:bleed"
+                ],
                 "type": [
                     "piercing",
                     "slashing"

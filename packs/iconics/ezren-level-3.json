@@ -106,7 +106,7 @@
                 },
                 "category": "skill",
                 "description": {
-                    "value": "<p>You can Earn Income using Diplomacy, spending your days hunting for bargains and reselling at a profit. You can also spend time specifically sniffing out a great bargain on an item; this works as if you were using Earn Income with Diplomacy, except instead of gaining money, you purchase the item at a discount equal to the money you would have gained, gaining the item for free if your earned income equals or exceeds its cost. Finally, if you select Bargain Hunter during character creation at 1st level, you start play with an additional 2 gp.</p>"
+                    "value": "<p>You can @UUID[Compendium.pf2e.actionspf2e.Item.Earn Income] using Diplomacy, spending your days hunting for bargains and reselling at a profit. You can also spend time specifically sniffing out a great bargain on an item; this works as if you were using Earn Income with Diplomacy, except instead of gaining money, you purchase the item at a discount equal to the money you would have gained, gaining the item for free if your earned income equals or exceeds its cost. Finally, if you select Bargain Hunter during character creation at 1st level, you start play with an additional 2 gp.</p>"
                 },
                 "level": {
                     "taken": 1,
@@ -121,9 +121,9 @@
                     ]
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [],
                 "slug": "bargain-hunter",
@@ -165,9 +165,9 @@
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [
                     {
@@ -2228,7 +2228,88 @@
                     "remaster": true,
                     "title": "Pathfinder Player Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.TraitSpellshape",
+                        "mergeable": true,
+                        "option": "spellshape",
+                        "placement": "spellcasting",
+                        "suboptions": [
+                            {
+                                "label": "{item|name}",
+                                "value": "widen-spell"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:duration:0",
+                            {
+                                "or": [
+                                    {
+                                        "and": [
+                                            "item:area:type:burst",
+                                            {
+                                                "gte": [
+                                                    "item:area:size",
+                                                    10
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            {
+                                                "or": [
+                                                    "item:area:type:cone",
+                                                    "item:area:type:line"
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "item:area:size",
+                                                    15
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            "spellshape:widen-spell"
+                        ],
+                        "property": "area-size",
+                        "value": 5
+                    },
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:duration:0",
+                            {
+                                "or": [
+                                    "item:area:type:line",
+                                    "item:area:type:cone"
+                                ]
+                            },
+                            {
+                                "gt": [
+                                    "item:area:size",
+                                    15
+                                ]
+                            },
+                            "spellshape:widen-spell"
+                        ],
+                        "priority": 119,
+                        "property": "area-size",
+                        "value": 10
+                    }
+                ],
                 "slug": "widen-spell",
                 "traits": {
                     "rarity": "common",
@@ -2364,7 +2445,36 @@
                     "remaster": true,
                     "title": "Pathfinder Player Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "spellshape:reach-spell"
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "PF2E.SpecificRule.Spellshape.ReachSpell"
+                            }
+                        ]
+                    },
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.TraitSpellshape",
+                        "mergeable": true,
+                        "option": "spellshape",
+                        "placement": "spellcasting",
+                        "suboptions": [
+                            {
+                                "label": "{item|name}",
+                                "value": "reach-spell"
+                            }
+                        ],
+                        "toggleable": true
+                    }
+                ],
                 "slug": "reach-spell",
                 "traits": {
                     "rarity": "common",
@@ -2776,7 +2886,42 @@
                     "remaster": true,
                     "title": "Pathfinder Player Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "spellshape:nonlethal-spell",
+                            {
+                                "nor": [
+                                    "item:trait:death",
+                                    "item:trait:void"
+                                ]
+                            }
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "PF2E.SpecificRule.Spellshape.NonLethal"
+                            }
+                        ]
+                    },
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.TraitSpellshape",
+                        "mergeable": true,
+                        "option": "spellshape",
+                        "placement": "spellcasting",
+                        "suboptions": [
+                            {
+                                "label": "{item|name}",
+                                "value": "nonlethal-spell"
+                            }
+                        ],
+                        "toggleable": true
+                    }
+                ],
                 "slug": "nonlethal-spell",
                 "traits": {
                     "rarity": "common",

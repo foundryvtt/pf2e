@@ -728,7 +728,36 @@
                     "remaster": true,
                     "title": "Pathfinder Player Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "spellshape:reach-spell"
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "PF2E.SpecificRule.Spellshape.ReachSpell"
+                            }
+                        ]
+                    },
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.TraitSpellshape",
+                        "mergeable": true,
+                        "option": "spellshape",
+                        "placement": "spellcasting",
+                        "suboptions": [
+                            {
+                                "label": "{item|name}",
+                                "value": "reach-spell"
+                            }
+                        ],
+                        "toggleable": true
+                    }
+                ],
                 "slug": "reach-spell",
                 "traits": {
                     "rarity": "common",
@@ -865,7 +894,88 @@
                     "remaster": true,
                     "title": "Pathfinder Player Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.TraitSpellshape",
+                        "mergeable": true,
+                        "option": "spellshape",
+                        "placement": "spellcasting",
+                        "suboptions": [
+                            {
+                                "label": "{item|name}",
+                                "value": "widen-spell"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:duration:0",
+                            {
+                                "or": [
+                                    {
+                                        "and": [
+                                            "item:area:type:burst",
+                                            {
+                                                "gte": [
+                                                    "item:area:size",
+                                                    10
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            {
+                                                "or": [
+                                                    "item:area:type:cone",
+                                                    "item:area:type:line"
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "item:area:size",
+                                                    15
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            "spellshape:widen-spell"
+                        ],
+                        "property": "area-size",
+                        "value": 5
+                    },
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:duration:0",
+                            {
+                                "or": [
+                                    "item:area:type:line",
+                                    "item:area:type:cone"
+                                ]
+                            },
+                            {
+                                "gt": [
+                                    "item:area:size",
+                                    15
+                                ]
+                            },
+                            "spellshape:widen-spell"
+                        ],
+                        "priority": 119,
+                        "property": "area-size",
+                        "value": 10
+                    }
+                ],
                 "slug": "widen-spell",
                 "traits": {
                     "rarity": "common",
@@ -2946,7 +3056,7 @@
                     "type": "untyped"
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain @Damage[1d6[healing]] Hit Points and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life]</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p><hr /><p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain @Damage[1d6[healing]] Hit Points and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life]</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -3019,7 +3129,7 @@
                     "type": "untyped"
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain @Damage[1d6[healing]] Hit Points and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life]</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p><hr /><p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain @Damage[1d6[healing]] Hit Points and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life]</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
