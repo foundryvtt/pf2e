@@ -4,10 +4,10 @@
     "name": "Effect: Clandestine Cloak",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Clandestine Cloak]</p>\n<p>You gain a +1 item bonus to Stealth checks and to Deception checks to Impersonate a forgettable background character, such as a servant, but also taking a -1 item penalty to Diplomacy and Intimidation checks.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Clandestine Cloak], @UUID[Compendium.pf2e.equipment-srd.Item.Clandestine Cloak (Greater)]</p>\n<p>You gain an item bonus to Stealth checks and to Deception checks to Impersonate a forgettable background character, such as a servant, but also taking a -1 item penalty to Diplomacy and Intimidation checks.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -22,17 +22,53 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:clandestine-cloak",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Clandestine Cloak"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:clandestine-cloak-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Clandestine Cloak (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "clandestine-cloak"
+            },
+            {
                 "key": "FlatModifier",
                 "selector": "stealth",
+                "slug": "clandestine-cloak-stealth",
                 "type": "item",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "impersonate"
+                    "action:impersonate"
                 ],
                 "selector": "deception",
+                "slug": "clandestine-cloak-deception",
                 "type": "item",
                 "value": 1
             },
@@ -44,6 +80,26 @@
                 ],
                 "type": "item",
                 "value": -1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "clandestine-cloak:clandestine-cloak-greater"
+                ],
+                "selector": "skill-check",
+                "slug": "clandestine-cloak-deception",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "clandestine-cloak:clandestine-cloak-greater"
+                ],
+                "selector": "skill-check",
+                "slug": "clandestine-cloak-stealth",
+                "value": 2
             }
         ],
         "start": {
