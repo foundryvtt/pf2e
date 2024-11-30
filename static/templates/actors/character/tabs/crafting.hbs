@@ -98,11 +98,11 @@
             <div class="action-header">{{localize "PF2E.FormulaKnownTitle"}}</div>
             <ol class="directory-list item-list formula-list">
                 {{!-- Add section for each formula level --}}
-                {{#each crafting.knownFormulas}}
+                {{#each crafting.knownFormulas as |section|}}
                     <li class="formula-level-header formula-header"
-                      data-item-type="formulaLevel" data-level="{{this.level}}">
+                      data-item-type="formulaLevel" data-level="{{section.level}}">
                         <div class="level-name flexrow">
-                            <h3>{{localize "PF2E.LevelN" level=this.level}}</h3>
+                            <h3>{{localize "PF2E.LevelN" level=section.level}}</h3>
                         </div>
 
                         <div class="formula-dc-header">{{localize "PF2E.CraftDCTitle"}}</div>
@@ -113,12 +113,12 @@
                             <div class="item-controls">
                                 <a data-action="browse-equipment"
                                   data-tooltip="PF2E.OpenInventoryBrowser"
-                                  data-level="{{this.level}}"><i class="fa-solid fa-fw fa-search"></i></a>
+                                  data-level="{{section.level}}"><i class="fa-solid fa-fw fa-search"></i></a>
                             </div>
                         {{/if}}
                     </li>
                     {{!-- Add formula items for each formula level --}}
-                    {{#each this.formulas as |formula i|}}
+                    {{#each section.formulas as |formula i|}}
                         <li class="item formula-item"
                           data-formula-lvl="{{this.lvl}}" data-item-uuid="{{formula.uuid}}" data-is-formula>
                             <div class="item-name">
@@ -159,7 +159,7 @@
                             <h4>{{localize "PF2E.FormulaListEmpty"}}</h4>
                             <button type="button" class="blue"
                               data-action="browse-equipment"
-                              data-level="{{this.level}}">
+                              data-level="{{section.level}}">
                                 <i class="fa-solid fa-fw fa-search"></i>{{localize "PF2E.OpenInventoryBrowser"}}
                             </a>
                         </li>
