@@ -11,6 +11,8 @@ import { CreatureSource } from "./data/index.ts";
 import { ActorCommitData } from "./types.ts";
 
 export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollection<BaseSpellcastingEntry<TActor>> {
+    actor: TActor;
+
     /** The base casting proficiency, off of which spellcasting builds */
     declare base: Statistic;
 
@@ -20,11 +22,9 @@ export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollec
     /** Cache of trick magic item entries */
     #trickEntries: Record<string, BaseSpellcastingEntry<TActor> | undefined> = {};
 
-    constructor(
-        public readonly actor: TActor,
-        entries: BaseSpellcastingEntry<TActor>[],
-    ) {
+    constructor(actor: TActor, entries: BaseSpellcastingEntry<TActor>[]) {
         super(entries.map((entry) => [entry.id, entry]));
+        this.actor = actor;
 
         for (const entry of entries) {
             if (entry.spells) this.collections.set(entry.spells.id, entry.spells);

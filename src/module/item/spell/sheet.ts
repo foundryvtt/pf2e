@@ -189,6 +189,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 type: "interval",
                 interval: 1,
                 damage: R.mapToObj(Object.keys(this.item.system.damage), (key) => [key, "0"]),
+                area: 0,
             };
             this.item.update({ [`${baseKey}.heightening`]: data });
         });

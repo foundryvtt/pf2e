@@ -1,5 +1,5 @@
 import { localizer } from "@util";
-import type { SpellPF2e } from "./index.ts";
+import type { SpellArea, SpellPF2e } from "./index.ts";
 
 function createSpellRankLabel(spell: SpellPF2e, castRank?: number): string {
     const typeLabel = spell.isCantrip
@@ -11,6 +11,28 @@ function createSpellRankLabel(spell: SpellPF2e, castRank?: number): string {
             : game.i18n.localize("TYPES.Item.spell");
 
     return castRank ? game.i18n.format("PF2E.ItemLevel", { type: typeLabel, level: castRank }) : typeLabel;
+}
+
+function createSpellAreaLabel(areaData: SpellArea): string {
+    const formatString = "PF2E.Item.Spell.Area";
+    const shape = game.i18n.localize(`PF2E.Area.Shape.${areaData.type}`);
+
+    // Handle special cases of very large areas
+    const largeAreaLabel = {
+        1320: "PF2E.Area.Size.Quarter",
+        2640: "PF2E.Area.Size.Half",
+        5280: "1",
+    }[areaData.value];
+    if (largeAreaLabel) {
+        const size = game.i18n.localize(largeAreaLabel);
+        const unit = game.i18n.localize("PF2E.Area.Size.Mile");
+        return game.i18n.format(formatString, { shape, size, unit, units: unit });
+    }
+
+    const size = Number(areaData.value);
+    const unit = game.i18n.localize("PF2E.Foot.Label");
+    const units = game.i18n.localize("PF2E.Foot.Plural");
+    return game.i18n.format(formatString, { shape, size, unit, units });
 }
 
 async function createDescriptionPrepend(
@@ -49,6 +71,13 @@ async function createDescriptionPrepend(
         return textDuration || null;
     })();
 
+    const areaLabel = (() => {
+        const label = spell.area?.label;
+        if (!label) return null;
+        const baseLabel = spell._source.system.area ? createSpellAreaLabel(spell._source.system.area) : label;
+        return { label, baseLabel };
+    })();
+
     const templatePath = "systems/pf2e/templates/items/partials/spell-description-prepend.hbs";
     const formatArgs = {
         traditions,
@@ -59,7 +88,7 @@ async function createDescriptionPrepend(
         secondaryChecks: spell.system.ritual?.secondary.checks.trim() || null,
         range: spell.system.range.value.trim() || null,
         targets: spell.system.target.value.trim() || null,
-        area: spell.area?.label ?? null,
+        area: areaLabel,
         defense: defenseLabel,
         duration: durationLabel,
     };
@@ -86,4 +115,4 @@ function getPassiveDefenseLabel(statistic: string, { localize = false } = {}): s
     return label && localize ? game.i18n.localize(label) : label;
 }
 
-export { createDescriptionPrepend, createSpellRankLabel, getPassiveDefenseLabel };
+export { createDescriptionPrepend, createSpellAreaLabel, createSpellRankLabel, getPassiveDefenseLabel };

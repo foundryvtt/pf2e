@@ -1,0 +1,204 @@
+{
+    "_id": "GL7h5fHutJenlGUj",
+    "folder": "3O6k1txqxiBSM0Kb",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "3aXtfllto5jsVjdl",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Long Gun",
+            "sort": 0,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "gXecUIxa95ozc6Dj": {
+                        "damage": "1d6+3",
+                        "damageType": "force"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ftk9TjfdDSp5AGBC",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Repel Boarders!",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> One or more creatures steps onto the <em>Whippoorwill's</em> wreckage</p><hr /><p><strong>Effect</strong> Singe makes a long gun Strike against a random creature in the area, uses Lookout's Warning, and then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": "object-immunities"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "W6HziHJswyCLwCFX",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Lookout's Warning",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Singe lets out one of the following cries, in order (repeating from the top, if necessary). Everyone in the haunt's area must attempt a @Check[will|dc:17] save. On a success, the creature is unaffected; on a critical success, it also gains a +2 circumstance bonus on its next save vs. Lookout's Warning. Other effects depend on the specific cry below.</p><ul><li><strong>Thar She Blows:</strong> \"Captain, look! A huge whale! It's coming toward us—fast!\" On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] for 1 round, looking for the whale; on a critical failure it's fascinated for 1 minute, and the condition doesn't end if Singe makes a Strike on an ally or uses Lookout's Warning.</li><li><strong>No Quarter:</strong> \"It's coming around again! It's relentless! Brace for impact!\" On a failure, the creature is tossed off balance; it is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round. On a critical failure, it's also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</li><li><strong>Shark Bait:</strong> \"Captain, it's hopeless! It's going to destroy the ship!\" On a failure, a sense of doom fills the creature, which becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}. On a critical failure, the fear is overwhelming, and it becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</li><li><strong>Going Down with the Ship:</strong> \"Get below, captain, and secure the Forked Key! I'll try to give you time!\" On a failure, the creature must spend one action putting an item it is holding away; if it is not holding anything, it is @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for one action. On a critical failure, it must spend three actions in a combination of putting away any items it is holding and fleeing.</li></ul>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Singe (1-2)",
+    "prototypeToken": {
+        "name": "Singe"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 13
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 25,
+                "temp": 0,
+                "value": 25
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "spirit",
+                        "vitality"
+                    ],
+                    "type": "all-damage",
+                    "value": 3
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 7
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "vitality",
+                    "value": 3
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>Singe's spirit lingers in the <em>Whippoorwill's</em> crow's nest, where it calls out warnings and shoots intruders.</p>",
+            "disable": "<p>@Check[pathfinder-society-lore|dc:17] (trained) to persuade Singe that you are Pathfinders or @Check[religion|dc:17](trained) to perform rites to lay Singe to rest; two total successes are required to disable the haunt</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Society Scenario #6-00: Salt of the Ocean"
+            },
+            "reset": "<p>The haunt deactivates 1 minute after all creatures leave the area but resets immediately thereafter.</p>",
+            "routine": "<p><span class=\"action-glyph\">d</span> Singe uses its first action(s) to make a long gun Strike against a random creature in the area. It uses its final action for Lookout's Warning. If the PCs successfully use Pathfinder Society Lore to Disable the haunt, Singe loses an action to make a long gun Strike.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 4
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 7
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 10
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

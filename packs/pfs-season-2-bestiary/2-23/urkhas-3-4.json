@@ -1,0 +1,364 @@
+{
+    "_id": "f4tnLJMEjq9IUMNZ",
+    "folder": "nFjIbqIQQwtOPCVg",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "2rAKighB6Ywhk5s3",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shock",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "jtguda2tjozvfz78bzs3": {
+                        "damage": "2d4+2",
+                        "damageType": "electricity"
+                    },
+                    "ik9zfoegvrpi5pyy0rlh": {
+                        "damage": "1d4",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "electricity",
+                        "magical",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "wChn2PEw9GYziq2n",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Glow",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>20 feet. Urkhas is itself naturally invisible, but glows with a violet light, casting bright light in the aura and making it visible.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            {
+                                "not": "go-dark"
+                            }
+                        ],
+                        "value": {
+                            "alpha": 0.2,
+                            "animation": {
+                                "intensity": 1,
+                                "speed": 3,
+                                "type": "pulse"
+                            },
+                            "bright": 20,
+                            "color": "#ddc4ff"
+                        }
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "light"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3Eksrmh390T4SrP7",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Magic Immunity",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Urkhas is immune to all spells except @UUID[Compendium.pf2e.spells-srd.Item.Faerie Fire], @UUID[Compendium.pf2e.spells-srd.Item.Revealing Light], @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage], @UUID[Compendium.pf2e.spells-srd.Item.Quandary], and spells with the good trait.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "F8xpT7h5a5ZviXU5",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Feed on Fear",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> An enemy is being affected by a fear effect or @UUID[Compendium.pf2e.conditionitems.Item.Dying] within 15 feet of the will-o'-wisp.</p><hr /><p><strong>Effect</strong> Urkhas feeds on the creature's terror. It regains @Damage[1d4[healing]] Hit Points, and if it has Gone Dark, its glow reignites.</p>\n<p>Urkhas can take this action only once per round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "USCoVo5LJNs12zB4",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Go Dark",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Urkhas extinguishes its glow, becoming @UUID[Compendium.pf2e.conditionitems.Item.Invisible]. It can end this effect with another use of this action. If it uses its shock attack while invisible, the arc of electricity lets any observer determine its location, making the Urkhas only @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to all observers until it moves.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "go-dark",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.ConditionTypeInvisible",
+                                "value": "Compendium.pf2e.conditionitems.Item.Invisible"
+                            },
+                            {
+                                "label": "PF2E.ConditionTypeHidden",
+                                "value": "Compendium.pf2e.conditionitems.Item.Hidden"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "go-dark"
+                        ],
+                        "uuid": "{item|flags.pf2e.rulesSelections.goDark}"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Urkhas (3-4)",
+    "prototypeToken": {
+        "name": "Urkhas"
+    },
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 1
+            },
+            "con": {
+                "mod": -1
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": 1
+            },
+            "str": {
+                "mod": -5
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 21
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 26,
+                "temp": 0,
+                "value": 26
+            },
+            "immunities": [
+                {
+                    "type": "magic"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 50
+                    }
+                ],
+                "value": 0
+            },
+            "weaknesses": [
+                {
+                    "type": "holy",
+                    "value": 4
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "common"
+                ]
+            },
+            "level": {
+                "value": 3
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder Society Scenario #2-23: An Agent's Obligation"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 11,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 6
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 9
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 13
+            },
+            "deception": {
+                "base": 8
+            },
+            "intimidation": {
+                "base": 8
+            },
+            "stealth": {
+                "base": 11
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "aberration",
+                "air",
+                "evil",
+                "fiend",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

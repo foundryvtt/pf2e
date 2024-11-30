@@ -51,7 +51,10 @@
         {{/if}}
         {{#if area}}
             <span>
-                <strong>{{localize "PF2E.Area.Label"}}</strong> {{area}}
+                <strong>{{localize "PF2E.Area.Label"}}</strong>
+                <span {{#unless (eq area.label area.baseLabel)}}class="adjusted" data-tooltip="{{localize "PF2E.Item.Spell.BaseValue" value=area.baseLabel}}"{{/unless}}>
+                    {{area.label}}
+                </span>
             </span>
         {{/if}}
         {{#if targets}}

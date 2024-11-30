@@ -638,6 +638,7 @@
         },
         "FeatDescription": {
             "Frequency": {
+                "OncePerHour": "once per hour",
                 "OncePerTurn": "once per turn"
             },
             "Requirements": {
@@ -1516,7 +1517,7 @@
             },
             "Poison1d4": {
                 "criticalSuccess": "@Damage[(2*1d4)[persistent,poison]]",
-                "success": "@Damage[1d4[persistent,poison]]]"
+                "success": "@Damage[1d4[persistent,poison]]"
             },
             "Poison1d6": {
                 "criticalSuccess": "@Damage[(2*1d6)[persistent,poison]]",
@@ -2259,6 +2260,12 @@
             "BlessingOfDefiance": {
                 "Prompt": "Choose one saving throw."
             },
+            "BlinkCharge": {
+                "Note": {
+                    "CriticalFailure": "On a critical failure, the Strike deals no damage and you take @Damage[(ceil((@actor.flags.pf2e.blinkCharge - 4)/2))d8[force]] damage.",
+                    "Failure": "On a failure, the Strike deals no damage, but the target takes @Damage[(ceil((@actor.flags.pf2e.blinkCharge - 4)/2))d8[force]] damage."
+                }
+            },
             "BloodlettingKukri": {
                 "Note": "If the target didn't already have persistent bleed damage when you scored the critical hit, you also gain [[/r 1d8]] temporary Hit Points."
             },
@@ -2542,6 +2549,23 @@
                         "Description": "Your physique has grown hardy in your adventures. Your proficiency rank for Fortitude saves increases to expert."
                     }
                 },
+                "Juggernaut": {
+                    "barbarian": {
+                        "Description": "Your body is accustomed to physical hardship and resistant to ailments. Your proficiency rank for Fortitude saves increases to master. When you roll a success on a Fortitude save, you get a critical success instead."
+                    },
+                    "gunslinger": {
+                        "Description": "Your body has become accustomed to physical hazards and resistant to ailments. Your proficiency rank for Fortitude saves increases to master. When you roll a success on a Fortitude save, you get a critical success instead."
+                    },
+                    "inventor": {
+                        "Description": "Your body is accustomed to physical hardship and resistant to ailments. Your proficiency rank for Fortitude saves increases to master. When you roll a success on a Fortitude save, you get a critical success instead."
+                    },
+                    "magus": {
+                        "Description": "Your body is accustomed to physical hardship and resistant to a wide range of ailments. Your proficiency rank for Fortitude saves increases to master. When you roll a success on a Fortitude save, you get a critical success instead."
+                    },
+                    "thaumaturge": {
+                        "Description": "Your body is accustomed to physical hardship and resistant to ailments. Your proficiency rank for Fortitude saves increases to master. When you roll a success on a Fortitude save, you get a critical success instead."
+                    }
+                },
                 "PerceptionMastery": {
                     "barbarian": {
                         "Description": "Your instinct heightens each of your senses further. Your proficiency rank for Perception increases to master."
@@ -2568,6 +2592,56 @@
                     },
                     "summoner":  {
                         "Description": "Training and magic improved your weapon technique. Your proficiency rank for simple weapons and unarmed attacks increases to expert."
+                    }
+                },
+                "Spellcaster": {
+                    "animist": {
+                        "Expert": "The magic of the spirits flows freely through you. Your proficiency ranks for spell attack modifier and spell DC increase to expert.",
+                        "Legendary": "You are a near-perfect channel for the magical energies of the realms beyond. Your proficiency ranks for spell attack modifier and spell DC increase to legendary.",
+                        "Master": "Your affinity with the apparitions you bond to has further enhanced the potency of your magic. Your proficiency ranks for spell attack modifier and spell DC increase to master."
+                    },
+                    "bard": {
+                        "Expert": "Your magical techniques grow stronger. Your proficiency ranks for spell attack modifiers and spell DCs increase to expert.",
+                        "Legendary": "Your command of magic is the stuff of legends. Your proficiency ranks for spell attack modifiers and spell DCs increase to legendary.",
+                        "Master": "You pluck the threads of magic like the strings of a harp. Your proficiency ranks for spell attack modifiers and spell DCs increase to master."
+                    },
+                    "druid": {
+                        "Expert": "Your command of primal forces has deepened, empowering your spells. Your proficiency ranks for spell attack modifier and spell DC increase to expert.",
+                         "Legendary": "You have developed an unparalleled rapport with the magic of nature. Your proficiency ranks for spell attack modifier and spell DC increase to legendary.",
+                        "Master": "Primal magic answers your command. Your proficiency ranks for spell attack modifier and spell DC increase to master."
+                    },
+                    "magus": {
+                        "Expert": "Your fundamental understanding of magic improves, making your spells harder to resist. Your proficiency ranks for arcane spell attack rolls and spell DCs increase to expert.",
+                        "Master": "You fortify your spells with masterful prowess. Your proficiency ranks for arcane spell attack rolls and spell DCs increase to master."
+                    },
+                    "oracle": {
+                        "Expert": "The intricacy of your divine power has grown clearer over time. Your proficiency ranks for divine spell attack rolls and spell DCs increase to expert.",
+                        "Legendary": "You can harness divine power at a level few others can match. Your proficiency ranks for divine spell attack rolls and spell DCs increase to legendary.",
+                        "Master": "You truly understand the deep and complex divine power within your mystery. Your proficiency ranks for divine spell attack rolls and spell DCs increase to master."
+                    },
+                    "psychic": {
+                        "Expert": "Self-reflection has brought you greater knowledge of yourself and, with it, psychic power. Your proficiency ranks for occult spell attack rolls and spell DCs increase to expert.",
+                        "Legendary": "As your training reaches its peak, you understand not just your own mind, but the collective unconscious from which all psychic power stems. Your proficiency ranks for occult spell attack rolls and spell DCs increase to legendary.",
+                        "Master": "You've gained access to the deepest corners of your own mind. Your proficiency ranks for occult spell attack rolls and spell DCs increase to master."
+                    },
+                    "sorcerer": {
+                        "Expert": "Your inherent magic responds easily and powerfully to your command. Your proficiency ranks for spell attack rolls and spell DCs for spells of your bloodline's tradition increase to expert.",
+                        "Legendary": "You demonstrate prodigious talent for spellcasting. Your proficiency ranks for spell attack rolls and spell DCs for spells of your bloodline's tradition increase to legendary.",
+                        "Master": "You have achieved mastery over the magic in your blood. Your proficiency ranks for spell attack rolls and spell DCs for spells of your bloodline's tradition increase to master."
+                    },
+                    "summoner": {
+                        "Expert": "As your connection to your eidolon deepens, the power of your spells increases. Your proficiency ranks for spell attack rolls and spell DCs for spells of your eidolon's tradition increase to expert.",
+                        "Master": "Your connection to your eidolon is strong enough to grant you mastery over associated spells. Your proficiency ranks for spell attack rolls and spell DCs for spells of your eidolon's tradition increase to master."
+                    },
+                    "witch": {
+                        "Expert": "You've learned to better control the power your patron has granted you. Your proficiency ranks for spell attack modifier and spell DC increase to expert.",
+                        "Legendary": "You've perfected your command of the magic your patron provides. Your proficiency ranks for spell attack modifier and spell DC increase to legendary.",
+                        "Master": "You've achieved mastery over your patron's magic. Your proficiency ranks for spell attack modifier and spell DC increase to master."                        
+                    },
+                    "wizard": {
+                        "Expert": "Extended practice of the arcane has improved your capabilities. Your proficiency ranks for spell attack modifier and spell DC increase to expert.",
+                        "Legendary": "You are a consummate spellcaster, blending both arcane theory and practical spellcraft. Your proficiency ranks for spell attack modifier and spell DC increase to legendary.",
+                        "Master": "You command superlative spellcasting ability. Your proficiency ranks for spell attack modifier and spell DC increase to master."
                     }
                 },
                 "SpellRepertoire": {
@@ -2624,6 +2698,9 @@
                     },
                     "oracle": {
                         "Description": "You've dedicated yourself to learning the intricacies of your weapons. Your proficiency ranks for simple weapons, martial weapons, and unarmed attacks increase to expert."
+                    },
+                    "psychic": {
+                        "Description": "Training and magic have improved your weapon technique. Your proficiency rank for simple weapons and unarmed attacks increases to expert."
                     },
                     "sorcerer": {
                         "Description": "You've improved your combat skill. Your proficiency ranks for simple weapons and unarmed attacks increase to expert."
@@ -5240,6 +5317,7 @@
                 "SafeguardSpell": "If the next action you take is to Cast a Spell with an area, you aren't affected by the spell even if you are within the area.",
                 "ScintillatingSpell": "If your next action is to Cast a Spell that doesn't have the darkness trait, has no duration, and requires creatures to attempt a Reflex save, the spell explodes in a spray of scintillating lights, in addition to its other effects. Each creature that failed its Reflex save against the spell is @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled} for 1 round, and those who critically failed are instead @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} for 1 round.",
                 "SecondaryDetonationArray": "If your next action is to Cast a Spell that deals damage, has no duration, and affects an area, a glowing magic circle appears in a @Template[burst|distance:5] within that area. At the beginning of your next turn, the circle detonates, dealing @Damage[(@item.level)d6[force]] damage to all creatures within the circle, with a @Check[reflex|against:spell]. If the spell dealt a different type of damage, the circle deals @Damage[(@item.level)d6[@actor.flags.pf2e.spellshape.arrayDamage]]{this type of damage instead} (or one type of your choice if the spell could deal multiple types of damage)",
+                "SeneschalSpell": "If your next action is to Cast a Spell and your charge is within 30 feet, you can have the spell originate from your charge instead. That creature can use their reaction to roughly complete the spell's incantation, which gives the spell the subtle trait for you (but not for them) as the manifestation appears solely around your charge.",
                 "SnowdriftSpell": "Select one creature affected by the spell on the ground. Each square on the ground under or adjacent to the creature fills with ankle-deep snow. Those squares are difficult terrain until the beginning of your next turn. A creature can Interact to clear a square of snow, and the snow in a square melts if that square is exposed to a fire effect.",
                 "SowSpell": "If your next action is to Cast a Spell using 1 action or 2 actions, the spell instead plants itself in an adjacent square. You must make all decisions regarding the spell at the time you cast it. Within the next 10 minutes, you can direct your sown spell to sprout and produce the spell's effects as a reaction, which is triggered when a creature enters the sown spell's space or a square adjacent to it. You can have only one sown spell at a time, and if you don't trigger the spell within 10 minutes, it dissipates and the spell is lost. A creature can notice the sown spell with a successful Perception check against your spell DC.",
                 "SpellShroud": "If your next action is to Cast a Spell that targets you, you surround yourself in a @Template[emanation|distance:15] of dense magical mist that lasts until the start of your next turn. All creatures within the cloud become @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealed}, and all creatures outside the cloud are concealed to creatures within it.",

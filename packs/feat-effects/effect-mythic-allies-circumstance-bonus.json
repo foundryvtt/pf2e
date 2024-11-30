@@ -1,0 +1,45 @@
+{
+    "_id": "SX5csPb38vTBjHOb",
+    "img": "icons/creatures/magical/spirit-undead-ghost-blue.webp",
+    "name": "Effect: Mythic Allies (Circumstance Bonus)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Mythic Allies]</p>\n<p>You gain a +4 circumstance bonus to your next attack roll.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "removeAfterRoll": "if-enabled",
+                "selector": "attack-roll",
+                "slug": "mythic-allies-circumstance",
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

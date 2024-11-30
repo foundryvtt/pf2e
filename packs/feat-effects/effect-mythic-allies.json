@@ -1,0 +1,57 @@
+{
+    "_id": "X22o74v8rk7ySnzX",
+    "img": "icons/creatures/magical/spirit-undead-ghost-blue.webp",
+    "name": "Effect: Mythic Allies",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Mythic Allies]</p>\n<p>You gain a +2 status bonus to your attack rolls, defenses, and a number of additional Hit Points equal to the origin's level. The next Strike you make gains a +4 circumstance bonus to the attack roll.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "ac",
+                    "saving-throw",
+                    "attack-roll"
+                ],
+                "slug": "mythic-allies-status",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "hp",
+                "value": "@item.origin.level"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Mythic Allies (Circumstance Bonus)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

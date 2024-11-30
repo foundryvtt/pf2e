@@ -512,7 +512,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 const actor = this.actor;
                 const itemEl = htmlClosest(anchor, "[data-item-id]");
                 const collectionId = itemEl?.dataset.entryId;
-                const collection: Collection<ItemPF2e<TActor>> = collectionId
+                const collection: { get: Collection<ItemPF2e>["get"] } = collectionId
                     ? (actor.spellcasting?.collections.get(collectionId, { strict: true }) ?? actor.items)
                     : actor.items;
 

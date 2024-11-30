@@ -1,0 +1,81 @@
+{
+    "_id": "lUL4nvIVYqFOwxAZ",
+    "img": "icons/magic/sonic/projectile-shock-wave-blue.webp",
+    "name": "Spell Effect: Blink Charge",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Blink Charge]</p>\n<p>Your Strike deals extra force damage, depending on the result of your Strike.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:equipped"
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet"
+            },
+            {
+                "damageType": "force",
+                "diceNumber": "ceil((@item.level - 2)/2)",
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.blinkCharge",
+                "value": "@item.level"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-attack",
+                "text": "PF2E.SpecificRule.BlinkCharge.Note.Failure",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalFailure"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-attack",
+                "text": "PF2E.SpecificRule.BlinkCharge.Note.CriticalFailure",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
