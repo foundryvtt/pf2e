@@ -69,12 +69,20 @@ import { ElementalBlast, ElementalBlastConfig } from "./elemental-blast.ts";
 import type { FeatBrowserFilterProps, FeatGroup } from "./feats/index.ts";
 import { PCSheetTabManager } from "./tab-manager.ts";
 import { CHARACTER_SHEET_TABS } from "./values.ts";
+import MiniSearch from "minisearch";
 
 class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e<TActor> {
     protected readonly actorConfigClass = CharacterConfig;
 
     /** A cache of this PC's known formulas, for use by sheet callbacks */
     #knownFormulas: Record<string, CraftingFormula> = {};
+
+    #formulaSearchEngine = new MiniSearch<Pick<PhysicalItemPF2e, "id" | "name">>({
+        fields: ["name"],
+        idField: "id",
+        processTerm: (t) => (t.length > 1 ? t.toLocaleLowerCase(game.i18n.lang) : null),
+        searchOptions: { combineWith: "AND", prefix: true },
+    });
 
     /** Non-persisted tweaks to formula data */
     #formulaQuantities: Record<string, number> = {};
@@ -96,6 +104,9 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 initial: "known-spells",
             },
         ];
+
+        options.filters = [{ inputSelector: "input[type=search]", contentSelector: ".known-formulas ol.formula-list" }];
+
         return options;
     }
 
@@ -494,6 +505,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         const formulas = await actor.crafting.getFormulas();
         this.#knownFormulas = R.mapToObj(formulas, (f) => [f.uuid, f]);
 
+        this.#formulaSearchEngine.removeAll();
+
+        const formulasForSearch = formulas.map((f) => ({ id: f.uuid, name: f.item.name }));
+        this.#formulaSearchEngine.addAll(formulasForSearch);
+
         return {
             noCost: flags.freeCrafting,
             hasQuickAlchemy,
@@ -511,6 +527,21 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 (f) => f.item.level,
             ),
         };
+    }
+
+    /** Filter formulas by search query */
+    protected override _onSearchFilter(
+        _event: KeyboardEvent,
+        query: string,
+        _rgx: RegExp,
+        html: HTMLElement | null,
+    ): void {
+        const matches: Set<string> =
+            query.length > 1 ? new Set(this.#formulaSearchEngine.search(query).map((s) => s.id)) : new Set();
+        console.log(matches);
+        for (const row of htmlQueryAll(html, "li.formula-item[data-item-uuid]")) {
+            row.hidden = query.length > 1 && !matches.has(row.dataset.itemUuid ?? "");
+        }
     }
 
     protected override prepareInventoryItem(item: PhysicalItemPF2e): InventoryItem {
