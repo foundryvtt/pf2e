@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Your attacks bring with them echoes of previous battles, calling the unquiet victims of your most brutal acts to savage your opponents. Make a Strike. If this Strike hits, you deal additional void damage equal to your key attribute modifier to the target and all enemies within 30 feet. If your attack is a critical hit, you deal twice as much damage instead, and the target of your Strike takes persistent void damage equal to your key attribute modifier as your fallen foes attempt to drag the target into oblivion with them. This Strike counts as two attacks for calculating your multiple attack penalty.</p>"
+            "value": "<p><strong>Frequency</strong> once per 10 minutes</p><hr /><p>Your attacks bring with them echoes of previous battles, calling the unquiet victims of your most brutal acts to savage your opponents. Make a Strike. If this Strike hits, you deal additional void damage equal to your key attribute modifier to the target and all enemies within 30 feet. If your attack is a critical hit, you deal twice as much damage instead, and the target of your Strike takes persistent void damage equal to your key attribute modifier as your fallen foes attempt to drag the target into oblivion with them. This Strike counts as two attacks for calculating your multiple attack penalty.</p>"
         },
         "frequency": {
             "max": 1,
@@ -32,11 +32,45 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.historyOfViolence",
+                "value": "floor(@actor.system.abilities.{actor|class.system.keyAbility.selected}.mod)"
+            },
+            {
+                "key": "RollOption",
+                "option": "history-of-violence",
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "history-of-violence"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.ApocalypseRider.HistoryOfViolence.Note",
+                "title": "{item|name}"
+            },
+            {
+                "critical": true,
+                "damageCategory": "persistent",
+                "damageType": "void",
+                "key": "FlatModifier",
+                "predicate": [
+                    "history-of-violence"
+                ],
+                "selector": "strike-damage",
+                "slug": "history-of-violence-persistent",
+                "value": "@actor.flags.pf2e.historyOfViolence"
+            }
+        ],
         "traits": {
-            "otherTags": [
-                "apocalypse-rider-dedication"
-            ],
             "rarity": "common",
             "value": [
                 "mythic",

@@ -28,11 +28,71 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "jousting-mount",
+                "toggleable": true
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:usage:hands:2",
+                    "jousting-mount",
+                    "item:damage:die:faces:6",
+                    {
+                        "not": "item:trait:jousting-d6"
+                    }
+                ],
+                "property": "traits",
+                "value": "jousting-d4"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:usage:hands:2",
+                    "jousting-mount",
+                    "item:damage:die:faces:8",
+                    {
+                        "not": "item:trait:jousting-d8"
+                    }
+                ],
+                "property": "traits",
+                "value": "jousting-d6"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:usage:hands:2",
+                    "jousting-mount",
+                    "item:damage:die:faces:10",
+                    {
+                        "not": "item:trait:jousting-d10"
+                    }
+                ],
+                "property": "traits",
+                "value": "jousting-d8"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:usage:hands:2",
+                    "jousting-mount",
+                    "item:damage:die:faces:12"
+                ],
+                "property": "traits",
+                "value": "jousting-d10"
+            }
+        ],
         "traits": {
-            "otherTags": [
-                "apocalypse-rider-dedication"
-            ],
             "rarity": "uncommon",
             "value": [
                 "mythic"

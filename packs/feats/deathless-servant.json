@@ -28,11 +28,18 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:condition:wounded"
+                ],
+                "selector": "ac",
+                "type": "status",
+                "value": "@actor.conditions.wounded.value"
+            }
+        ],
         "traits": {
-            "otherTags": [
-                "apocalypse-rider-dedication"
-            ],
             "rarity": "common",
             "value": [
                 "healing",
