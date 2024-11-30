@@ -32,44 +32,7 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.historyOfViolence",
-                "value": "floor(@actor.system.abilities.{actor|class.system.keyAbility.selected}.mod)"
-            },
-            {
-                "key": "RollOption",
-                "option": "history-of-violence",
-                "toggleable": true
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "success",
-                    "criticalSuccess"
-                ],
-                "predicate": [
-                    "history-of-violence"
-                ],
-                "selector": "strike-attack-roll",
-                "text": "PF2E.SpecificRule.ApocalypseRider.HistoryOfViolence.Note",
-                "title": "{item|name}"
-            },
-            {
-                "critical": true,
-                "damageCategory": "persistent",
-                "damageType": "void",
-                "key": "FlatModifier",
-                "predicate": [
-                    "history-of-violence"
-                ],
-                "selector": "strike-damage",
-                "slug": "history-of-violence-persistent",
-                "value": "@actor.flags.pf2e.historyOfViolence"
-            }
-        ],
+        "rules": [],
         "traits": {
             "rarity": "common",
             "value": [
