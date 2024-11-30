@@ -60,7 +60,7 @@ export function registerKeybindings(): void {
 
     // Defer to the GM Vision module if enabled
     if (!game.modules.get("gm-vision")?.active) {
-        game.keybindings.register("pf2e", "gm-vision", {
+        game.keybindings.register("pf2e", "gmVision", {
             name: "PF2E.Keybinding.GMVision.Label",
             hint: "PF2E.Keybinding.GMVision.Hint",
             editable: [{ key: "KeyG", modifiers: ["Control"] }],
@@ -72,8 +72,8 @@ export function registerKeybindings(): void {
             onUp: (): boolean => {
                 if (ui.controls.control?.name === "lighting") {
                     // Ensure the toggle in lighting controls continues to reflect the current status
-                    const toggle = ui.controls.control.tools.find((t) => t.name === "gm-vision");
-                    toggle?.onClick?.(); // Does the same as below
+                    const toggle = ui.controls.control.tools.gmVision;
+                    toggle?.onChange?.(new PointerEvent("click"), !game.pf2e.settings.gmVision); // Does the same as below
                 } else {
                     game.settings.set("pf2e", "gmVision", !game.settings.get("pf2e", "gmVision"));
                 }

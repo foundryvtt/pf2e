@@ -15,6 +15,16 @@ export default function HandlebarsApplicationMixin<TBase extends AbstractConstru
             return {};
         }
 
+        protected override _configureRenderOptions(options: HandlebarsRenderOptions): void {
+            options;
+        }
+
+        /** Allow subclasses to dynamically configure render parts. */
+        protected _configureRenderParts(options: HandlebarsRenderOptions): Record<string, HandlebarsTemplatePart> {
+            options;
+            return {};
+        }
+
         /**
          * Render each configured application part using Handlebars templates.
          * @param context        Context data for the render operation
@@ -41,9 +51,14 @@ export default function HandlebarsApplicationMixin<TBase extends AbstractConstru
          * @param context      Shared context provided by _prepareContext
          * @returns Context data for a specific part
          */
-        protected async _preparePartContext(partId: string, context: object): Promise<object> {
+        protected async _preparePartContext(
+            partId: string,
+            context: object,
+            options: HandlebarsRenderOptions,
+        ): Promise<object> {
             partId;
             context;
+            options;
             return {};
         }
 

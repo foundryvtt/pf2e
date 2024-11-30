@@ -1,29 +1,29 @@
 import { ItemPF2e } from "@item";
 import { MacroPF2e } from "@module/macro.ts";
 import { createActionMacro, createToggleEffectMacro } from "@scripts/macros/hotbar.ts";
-import { ErrorPF2e, htmlClosest, isObject } from "@util";
+import { ErrorPF2e } from "@util";
+import * as R from "remeda";
+import type Hotbar from "types/foundry/client-esm/applications/ui/hotbar.d.mts";
 
-class HotbarPF2e extends Hotbar<MacroPF2e> {
-    /** Handle macro creation from non-macros */
-    override async _onDrop(event: DragEvent): Promise<void> {
-        const li = htmlClosest(event.target, ".macro");
-        const slot = Number(li?.dataset.slot) || null;
-        if (!slot) return;
+export class HotbarDrop {
+    static listen(): void {
+        Hooks.on("hotbarDrop", (_hotbar: Hotbar<Macro>, data: HotbarDropData, slot): false | void => {
+            // A melee item dropped on the hotbar is to instead generate an action macro
+            if (data.type === "Item" && data.itemType === "melee" && typeof data.index === "number") {
+                data.type = "Action";
+            }
 
-        const data: HotbarDropData = TextEditor.getDragEventData(event);
-        if (!["Item", "RollOption", "Action"].includes(data.type ?? "")) {
-            return super._onDrop(event);
-        }
-        if (Hooks.call("hotbarDrop", this, data, slot) === false) return;
+            if (typeof data.type === "string" && ["Action", "Item", "RollOptions"].includes(data.type)) {
+                HotbarDrop.#processHotbarDrop(data, Number(slot));
+                return false;
+            }
+        });
+    }
 
-        // A melee item dropped on the hotbar is to instead generate an action macro
-        if (data.type === "Item" && data.itemType === "melee" && typeof data.index === "number") {
-            data.type = "Action";
-        }
-
+    static async #processHotbarDrop(data: HotbarDropData, slot: number) {
         switch (data.type) {
             case "Item": {
-                const itemId = data.id ?? (isObject<{ _id?: unknown }>(data.data) ? data.data._id : null);
+                const itemId = data.id ?? (R.isPlainObject(data.data) ? data.data._id : null);
                 const uuid = data.uuid;
 
                 const prefix =
@@ -41,7 +41,7 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
                     ui.notifications.error("PF2E.Macro.NoCompendiumItem", { localize: true });
                     return;
                 } else {
-                    return HotbarPF2e.#createItemMacro(item, slot);
+                    return HotbarDrop.#createItemMacro(item, slot);
                 }
             }
             case "RollOption": {
@@ -50,7 +50,7 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
                     throw ErrorPF2e("Unexpected error during macro creation");
                 }
                 if (!this.#hasRollOptionData(data)) return;
-                return HotbarPF2e.#createRollOptionToggleMacro({ ...data, item }, slot);
+                return HotbarDrop.#createRollOptionToggleMacro({ ...data, item }, slot);
             }
             case "Action": {
                 if (typeof data.index !== "number" && !data.elementTrait) return;
@@ -64,7 +64,7 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
         }
     }
 
-    #hasRollOptionData(data: Record<string, unknown>): data is RollOptionData {
+    static #hasRollOptionData(data: Record<string, unknown>): data is RollOptionData {
         const { label, domain, option } = data;
         return (
             typeof label === "string" &&
@@ -109,13 +109,13 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
         const { item, domain, option } = data;
         const command = `const item = fromUuidSync("${item.uuid}");
 if (!(item instanceof Item && item.isEmbedded && item.isOwner)) {
-    ui.notifications.error("PF2E.MacroActionNoActorError", { localize: true });
+ui.notifications.error("PF2E.MacroActionNoActorError", { localize: true });
 }
 const result = await item.actor.toggleRollOption("${domain}", "${option}", "${item.id}");
 const state = game.i18n.localize(result ? "PF2E.Macro.OptionToggle.On" : "PF2E.Macro.OptionToggle.Off");
 const message = game.i18n.format("PF2E.Macro.OptionToggle.Notification", { toggle: "${escapedName}", state });
 if (typeof result === "boolean") {
-    ui.notifications.info(message);
+ui.notifications.info(message);
 }`;
 
         const toggleMacro =
@@ -148,5 +148,3 @@ type RollOptionData = {
     domain: string;
     option: string;
 };
-
-export { HotbarPF2e };

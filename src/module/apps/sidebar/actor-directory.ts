@@ -2,67 +2,60 @@ import { ActorPF2e, CreaturePF2e, PartyPF2e } from "@actor";
 import { CREATURE_ACTOR_TYPES } from "@actor/values.ts";
 import { fontAwesomeIcon, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 import * as R from "remeda";
+import type { HandlebarsRenderOptions } from "types/foundry/client-esm/applications/api/handlebars-application.ts";
+import type { DocumentDirectoryConfiguration } from "types/foundry/client-esm/applications/sidebar/document-directory.d.mts";
 
 /** Extend ActorDirectory to show more information */
-class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
-    static override entryPartial = "systems/pf2e/templates/sidebar/actor-document-partial.hbs";
+class ActorDirectoryPF2e extends foundry.applications.sidebar.tabs.ActorDirectory<ActorPF2e<null>> {
+    static override _entryPartial = "systems/pf2e/templates/sidebar/actor-document-partial.hbs";
 
     /** Any additional "folder like" elements (such as parties) that are maintained separately */
     #extraFolders: Record<string, boolean> = {};
 
-    /** Whether this application has been rendered at least once */
-    #renderedOnce = false;
-
     /** If we are currently dragging a party. Needed because dragenter/dragover doesn't contain the drag source. */
     #draggingParty = false;
 
-    static override get defaultOptions(): SidebarDirectoryOptions {
-        const options = super.defaultOptions;
-        options.renderUpdateKeys.push(
+    static override DEFAULT_OPTIONS: Partial<DocumentDirectoryConfiguration> = {
+        renderUpdateKeys: [
             "system.details.level.value",
             "system.attributes.adjustment",
             "system.details.members",
             "system.campaign.type",
-        );
-        return options;
-    }
+        ],
+    };
 
-    override async getData(): Promise<object> {
+    override async _prepareContext(options: HandlebarsRenderOptions): Promise<object> {
         const activeParty = game.actors.party;
 
-        if (!this.#renderedOnce) {
-            if (activeParty && game.settings.get("pf2e", "activePartyFolderState")) {
-                this.#extraFolders[activeParty.id] = true;
-            }
-            this.#renderedOnce = true;
+        if (!options.isFirstRender && activeParty && game.settings.get("pf2e", "activePartyFolderState")) {
+            this.#extraFolders[activeParty.id] = true;
         }
 
         const parties = R.sortBy(
-            this.documents.filter((a): a is PartyPF2e<null> => a.isOfType("party") && a !== activeParty),
+            this.collection.filter((a): a is PartyPF2e<null> => a.isOfType("party") && a !== activeParty),
             (p) => p.sort,
         );
 
-        return {
-            ...(await super.getData()),
+        return Object.assign(await super._prepareContext(options), {
             activeParty,
             parties,
             placePartiesInSubfolder: parties.length > 1,
             extraFolders: this.#extraFolders,
-        };
+        });
     }
 
     saveActivePartyFolderState(): void {
         game.settings.set("pf2e", "activePartyFolderState", this.#extraFolders[game.actors.party?.id ?? ""] ?? true);
     }
 
-    override activateListeners($html: JQuery<HTMLElement>): void {
-        super.activateListeners($html);
-        const html = $html[0];
+    override async _onRender(context: object, options: HandlebarsRenderOptions): Promise<void> {
+        await super._onRender(context, options);
+        const html = this.element;
 
         // Strip actor level from actors we lack proper observer permission for
         for (const element of htmlQueryAll(html, "li.directory-item.actor")) {
-            const actor = game.actors.get(element.dataset.documentId ?? "");
-            if (!actor?.testUserPermission(game.user, "OBSERVER")) {
+            const actor = game.actors.get(element.dataset.entryId, { strict: true });
+            if (!actor.testUserPermission(game.user, "OBSERVER")) {
                 element.querySelector("span.actor-level")?.remove();
             }
         }
@@ -85,7 +78,7 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
                     event.stopPropagation();
                     this.#extraFolders[entryId] = folderEl.classList.contains("collapsed");
                     folderEl.classList.toggle("collapsed", !this.#extraFolders[entryId]);
-                    if (this.popOut) this.setPosition();
+                    if (this.isPopout) this.setPosition();
 
                     this.saveActivePartyFolderState();
                 }
@@ -242,33 +235,35 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
     }
 
     /** Inject parties without having to alter a core template */
-    protected override async _renderInner(data: object): Promise<JQuery> {
-        const $element = await super._renderInner(data);
+    protected override async _renderHTML(
+        context: object,
+        options: HandlebarsRenderOptions,
+    ): Promise<Record<string, HTMLElement>> {
+        const parts = await super._renderHTML(context, options);
+        const directory = parts.directory;
 
         // Add parties to sidebar (if any exist)
         if (game.actors.some((a) => a.isOfType("party"))) {
-            const partyHTML = await renderTemplate("systems/pf2e/templates/sidebar/party-document-partial.hbs", data);
-            $element.find(".directory-list").prepend(partyHTML);
+            const partyHTML = await renderTemplate(
+                "systems/pf2e/templates/sidebar/party-document-partial.hbs",
+                context,
+            );
+            directory.querySelector(".directory-list")?.prepend(partyHTML);
 
             // Inject any additional data for specific party implementations
-            for (const header of htmlQueryAll($element.get(0), ".party")) {
+            for (const header of htmlQueryAll(directory, ".party")) {
                 const party = game.actors.get(header.dataset.documentId ?? "");
                 const sidebarButtons = party?.isOfType("party") ? (party.campaign?.createSidebarButtons?.() ?? []) : [];
                 header.querySelector("header h3")?.after(...sidebarButtons);
             }
         }
 
-        return $element;
+        return parts;
     }
 
-    protected override _contextMenu($html: JQuery<HTMLElement>): void {
-        super._contextMenu($html);
-        ContextMenu.create(this, $html, ".party .party-header", this._getPartyContextOptions());
-    }
-
-    protected override _getEntryContextOptions(): EntryContextOption[] {
-        const options = super._getEntryContextOptions();
-        options.push({
+    protected override _getEntryContextOptions(): ContextMenuEntry[] {
+        const entries = super._getEntryContextOptions();
+        entries.push({
             name: "PF2E.Actor.Party.Sidebar.RemoveMember",
             icon: fontAwesomeIcon("bus").outerHTML,
             condition: ($li) => $li.closest(".party").length > 0 && !$li.closest(".party-header").length,
@@ -283,17 +278,7 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
             },
         });
 
-        return options;
-    }
-
-    protected _getPartyContextOptions(): EntryContextOption[] {
-        const allOptions = super._getEntryContextOptions();
-        const relevantNames = ["SIDEBAR.CharArt", "SIDEBAR.TokenArt", "OWNERSHIP.Configure", "SIDEBAR.Delete"];
-        const relevantOptions = allOptions.filter((o) => relevantNames.includes(o.name));
-        if (relevantOptions.length !== relevantNames.length) {
-            console.error("PF2E System | Failed to extract all sidebar options from the base options");
-        }
-        return relevantOptions;
+        return entries;
     }
 
     /** Append a button to open the bestiary browser for GMs */

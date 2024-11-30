@@ -8,6 +8,7 @@ import type {
 } from "../client-esm/canvas/sources/module.ts";
 import type { TokenRingConfig } from "../client-esm/canvas/tokens/module.ts";
 import type * as terms from "../client-esm/dice/terms/module.d.ts";
+import { ActiveEffectSource } from "../common/documents/active-effect.js";
 import abstract = foundry.abstract;
 import data = foundry.data;
 
@@ -23,7 +24,7 @@ declare global {
         TCombatant extends Combatant<TCombat | null, TTokenDocument | null>,
         TCombatTracker extends CombatTracker<TCombat | null>,
         TCompendiumDirectory extends CompendiumDirectory,
-        THotbar extends Hotbar,
+        THotbar extends foundry.applications.ui.Hotbar<TMacro>,
         TItem extends Item<TActor | null>,
         TMacro extends Macro,
         TMeasuredTemplateDocument extends MeasuredTemplateDocument<TScene | null>,
@@ -695,7 +696,7 @@ declare global {
         defaultFontFamily: string;
 
         /** An array of status effect icons which can be applied to Tokens */
-        statusEffects: StatusEffect[];
+        statusEffects: StatusEffectConfig[];
 
         /** A mapping of status effect IDs which provide some additional mechanical integration. */
         specialStatusEffects: {
@@ -741,11 +742,11 @@ declare global {
         };
 
         ui: {
-            actors: ConstructorOf<ActorDirectory<Actor<null>>>;
+            actors: ConstructorOf<foundry.applications.sidebar.tabs.ActorDirectory<Actor<null>>>;
             chat: ConstructorOf<TChatLog>;
             combat: ConstructorOf<TCombatTracker>;
             compendium: ConstructorOf<TCompendiumDirectory>;
-            controls: typeof SceneControls;
+            controls: typeof foundry.applications.ui.SceneControls;
             hotbar: ConstructorOf<THotbar>;
             items: ConstructorOf<ItemDirectory<Item<null>>>;
             // journal: typeof JournalDirectory;
@@ -753,7 +754,7 @@ declare global {
             menu: typeof MainMenu;
             nav: typeof SceneNavigation;
             notifications: typeof Notifications;
-            pause: typeof Pause;
+            pause: typeof foundry.applications.ui.GamePause;
             players: typeof PlayerList;
             // playlists: typeof PlaylistDirectory;
             // scenes: typeof SceneDirectory;
@@ -765,20 +766,20 @@ declare global {
     }
 
     interface ControlIconsConfig {
-        combat: ImageFilePath | VideoFilePath;
-        visibility: ImageFilePath | VideoFilePath;
-        effects: ImageFilePath | VideoFilePath;
-        lock: ImageFilePath | VideoFilePath;
-        up: ImageFilePath | VideoFilePath;
-        down: ImageFilePath | VideoFilePath;
-        defeated: ImageFilePath | VideoFilePath;
-        [key: string]: ImageFilePath | VideoFilePath | undefined;
+        combat: ImageFilePath;
+        visibility: ImageFilePath;
+        effects: ImageFilePath;
+        lock: ImageFilePath;
+        up: ImageFilePath;
+        down: ImageFilePath;
+        defeated: ImageFilePath;
+        [key: string]: ImageFilePath | undefined;
     }
 
-    interface StatusEffect {
+    interface StatusEffectConfig extends Partial<ActiveEffectSource> {
         id: string;
         name: string;
-        img: ImageFilePath | VideoFilePath;
+        img: ImageFilePath;
     }
 
     interface FontFamilyDefinition {

@@ -1,4 +1,3 @@
-import "./actor-directory.d.ts";
 import "./chat-log.d.ts";
 import "./combat-tracker.d.ts";
 import "./compendium-directory.d.ts";

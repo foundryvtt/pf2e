@@ -3,7 +3,7 @@
  * @param data An array of data objects from which to create document instances
  */
 declare abstract class DocumentCollection<TDocument extends foundry.abstract.Document> extends Collection<TDocument> {
-    constructor();
+    constructor(data: TDocument["_source"]);
 
     /** An Array of application references which will be automatically updated when the collection content changes */
     apps: Application[];
@@ -20,6 +20,9 @@ declare abstract class DocumentCollection<TDocument extends foundry.abstract.Doc
 
     /** A reference to the named Document class which is contained within this DocumentCollection. */
     abstract get documentName(): string | null;
+
+    /** The base Document type which is contained within this DocumentCollection */
+    static documentName: string;
 
     /* -------------------------------------------- */
     /*  Collection Methods                          */

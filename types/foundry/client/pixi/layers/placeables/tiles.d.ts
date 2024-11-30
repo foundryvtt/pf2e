@@ -10,7 +10,7 @@ declare class TilesLayer<TObject extends Tile> extends PlaceablesLayer<TObject> 
 
     override get hookName(): string;
 
-    override get hud(): TileHUD<TObject>;
+    override get hud(): foundry.applications.hud.TileHUD;
 
     get tiles(): TObject[];
 

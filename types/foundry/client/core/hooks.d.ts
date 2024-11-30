@@ -1,6 +1,10 @@
 import type ApplicationV2 from "../../client-esm/applications/api/application.d.ts";
+import type TokenHUD from "../../client-esm/applications/hud/token-hud.d.mts";
+import type ActorDirectory from "../../client-esm/applications/sidebar/tabs/actor-directory.d.mts";
+import type Hotbar from "../../client-esm/applications/ui/hotbar.d.mts";
+import type SceneControls from "../../client-esm/applications/ui/scene-controls.d.mts";
+import type { SceneControl } from "../../client-esm/applications/ui/scene-controls.d.mts";
 
-export {};
 declare global {
     type HookCallback<P extends unknown[]> = (...args: P) => boolean | void | Promise<boolean | void>;
     type HookParameters<H extends string, C extends unknown[]> = [hook: H, callback: HookCallback<C>];
@@ -17,8 +21,8 @@ declare global {
     type HookParamsDeleteCombat = HookParameters<"deleteCombat", [Combat, { [key: string]: unknown }, string]>;
     type HookParamsDropCanvasData = HookParameters<"dropCanvasData", [Canvas, DropCanvasData]>;
     type HookParamsGetChatLogEntryContext = HookParameters<"getChatLogEntryContext", [JQuery, EntryContextOption[]]>;
-    type HookParamsGetSceneControlButtons = HookParameters<"getSceneControlButtons", [SceneControl[]]>;
-    type HookParamsHotbarDrop = HookParameters<"hotbarDrop", [Hotbar, unknown, string]>;
+    type HookParamsGetSceneControlButtons = HookParameters<"getSceneControlButtons", [Record<string, SceneControl>]>;
+    type HookParamsHotbarDrop = HookParameters<"hotbarDrop", [Hotbar<Macro>, DropCanvasData, string]>;
     type HookParamsLightingRefresh = HookParameters<"lightingRefresh", [LightingLayer]>;
     type HookParamsPreCreateItem = HookParameters<
         "preCreateItem",
@@ -40,7 +44,9 @@ declare global {
     >;
     type HookParamsRender<T extends Application | ApplicationV2, N extends string> = HookParameters<
         `render${N}`,
-        T extends Application ? [T, JQuery, Awaited<ReturnType<T["getData"]>>] : [T, HTMLElement]
+        T extends Application
+            ? [T, JQuery, Awaited<ReturnType<T["getData"]>>]
+            : [T, HTMLElement, T extends ApplicationV2<infer _First, infer _Second, infer U> ? U : never]
     >;
     type HookParamsRenderChatMessage = HookParameters<
         "renderChatMessage",

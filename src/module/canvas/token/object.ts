@@ -626,7 +626,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         super._onApplyStatusEffect(statusId, active);
 
         if (["undetected", "unnoticed"].includes(statusId)) {
-            canvas.perception.update({ refreshVision: true, refreshLighting: true }, true);
+            canvas.perception.update({ refreshVision: true, refreshLighting: true });
         }
     }
 

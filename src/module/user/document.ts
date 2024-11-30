@@ -62,7 +62,7 @@ class UserPF2e extends User<ActorPF2e<null>> {
         }
         if (keys.includes("flags.pf2e.settings.monochromeDarkvision") && canvas.ready) {
             canvas.scene?.reset();
-            canvas.perception.update({ initializeVision: true, refreshLighting: true }, true);
+            canvas.perception.update({ initializeVision: true, refreshLighting: true });
         }
     }
 }

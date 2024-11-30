@@ -127,7 +127,7 @@ type SpellOverlayType = SpellOverlay["overlayType"];
 interface RitualData {
     /** Details of the primary check for the ritual */
     primary: { check: string };
-    /** Details of the secondary check(s) for the ritual and maximum number of casters */
+    /** Details of the secondary check(s) for the ritual and minimum number of casters */
     secondary: { checks: string; casters: number };
 }
 
@@ -135,8 +135,8 @@ export type {
     SpellArea,
     SpellDamage,
     SpellDamageSource,
-    SpellHeighteningInterval,
     SpellHeightenLayer,
+    SpellHeighteningInterval,
     SpellOverlay,
     SpellOverlayOverride,
     SpellOverlayType,

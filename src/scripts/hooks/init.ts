@@ -1,5 +1,4 @@
 import { MystifiedTraits } from "@item/base/data/values.ts";
-import { HotbarPF2e } from "@module/apps/hotbar.ts";
 import {
     ActorDirectoryPF2e,
     ChatLogPF2e,
@@ -19,6 +18,8 @@ import { SetGamePF2e } from "@scripts/set-game-pf2e.ts";
 import { registerSettings } from "@system/settings/index.ts";
 import { htmlQueryAll } from "@util";
 import * as R from "remeda";
+import type { SchemaField } from "types/foundry/common/data/fields.d.ts";
+import { ActorSchema } from "types/foundry/common/documents/actor.js";
 
 export const Init = {
     listen: (): void => {
@@ -40,7 +41,6 @@ export const Init = {
             CONFIG.ui.items = ItemDirectoryPF2e;
             CONFIG.ui.combat = EncounterTrackerPF2e;
             CONFIG.ui.compendium = CompendiumDirectoryPF2e;
-            CONFIG.ui.hotbar = HotbarPF2e;
 
             if (game.release.generation === 12) {
                 CONFIG.ui.chat = ChatLogPF2e;
@@ -162,6 +162,13 @@ export const Init = {
 
             // Create and populate initial game.pf2e interface
             SetGamePF2e.onInit();
+
+            // Set Hover by Owner and rotation locked in PrototypeToken schema initial values
+            const prototypeFields = (foundry.documents.BaseActor.schema as SchemaField<ActorSchema>).fields
+                .prototypeToken.fields;
+            prototypeFields.displayName.initial = CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;
+            prototypeFields.displayBars.initial = CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;
+            prototypeFields.lockRotation.initial = true;
 
             // Disable tagify style sheets from modules
             for (const element of htmlQueryAll(document.head, "link[rel=stylesheet]")) {

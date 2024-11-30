@@ -11,6 +11,7 @@ import type {
 export default abstract class ApplicationV2<
     TConfig extends ApplicationConfiguration = ApplicationConfiguration,
     TRenderOptions extends ApplicationRenderOptions = ApplicationRenderOptions,
+    TRenderContext extends object = object,
 > {
     constructor(options?: DeepPartial<TConfig>);
 
@@ -19,7 +20,7 @@ export default abstract class ApplicationV2<
      * Any DEFAULT_OPTIONS of super-classes further upstream of the BASE_APPLICATION are ignored.
      * Hook events for super-classes further upstream of the BASE_APPLICATION are not dispatched.
      */
-    static BASE_APPLICATION: ApplicationV2;
+    static BASE_APPLICATION: AbstractConstructorOf<ApplicationV2>;
 
     static DEFAULT_OPTIONS: DeepPartial<ApplicationConfiguration>;
 
@@ -123,7 +124,7 @@ export default abstract class ApplicationV2<
      *                      ApplicationV1#render signature.
      * @returns A Promise which resolves to the rendered Application instance
      */
-    render(options?: boolean | TRenderOptions, _options?: TRenderOptions): Promise<ApplicationV2>;
+    render(options?: boolean | TRenderOptions, _options?: RenderOptions): Promise<ApplicationV2>;
 
     /**
      * Modify the provided options passed to a render request.
@@ -136,7 +137,7 @@ export default abstract class ApplicationV2<
      * @param options  Options which configure application rendering behavior
      * @returns Context data for the render operation
      */
-    protected _prepareContext(options: TRenderOptions): Promise<object>;
+    protected _prepareContext(options: TRenderOptions): Promise<TRenderContext>;
 
     /**
      * Configure the array of header control menu options
@@ -181,10 +182,9 @@ export default abstract class ApplicationV2<
     /**
      * Insert the application HTML element into the DOM.
      * Subclasses may override this method to customize how the application is inserted.
-     * @param element                 The element to insert
-     * @returns The inserted element
+     * @param element The element to insert
      */
-    protected _insertElement(element: HTMLElement): HTMLElement;
+    protected _insertElement(element: HTMLElement): void;
 
     /* -------------------------------------------- */
     /*  Closing                                     */
@@ -307,7 +307,7 @@ export default abstract class ApplicationV2<
      * @param context      Prepared context data
      * @param options      Provided render options
      */
-    protected _onRender(context: object, options: TRenderOptions): void;
+    protected _onRender(context: object, options: TRenderOptions): Promise<void>;
 
     /**
      * Actions performed before closing the Application.

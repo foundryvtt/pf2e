@@ -287,11 +287,17 @@ export function registerSettings(): void {
             game.pf2e.settings.gmVision = !!value;
             const color = value ? CONFIG.PF2E.Canvas.darkness.gmVision : CONFIG.PF2E.Canvas.darkness.default;
             CONFIG.Canvas.darknessColor = color;
-            if (ui.controls && canvas.activeLayer) {
-                ui.controls.initialize({ layer: canvas.activeLayer.constructor.layerOptions.name });
-            }
+            if (canvas.activeLayer) ui.controls.render({ reset: true });
             canvas.environment.initialize();
-            canvas.perception.update({ initializeVision: true }, true);
+            for (const token of canvas.tokens.placeables) {
+                token.initializeVisionSource();
+            }
+            canvas.perception.update({
+                refreshLighting: true,
+                refreshVision: true,
+                refreshSounds: true,
+                refreshOcclusion: true,
+            });
         },
     });
 

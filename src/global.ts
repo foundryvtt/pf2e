@@ -16,7 +16,6 @@ import type {
     CompendiumBrowserSources,
 } from "@module/apps/compendium-browser/browser.ts";
 import type { EffectsPanel } from "@module/apps/effects-panel.ts";
-import type { HotbarPF2e } from "@module/apps/hotbar.ts";
 import type { LicenseViewer } from "@module/apps/license-viewer/app.ts";
 import type {
     ActorDirectoryPF2e,
@@ -71,6 +70,7 @@ import type {
 import type { TextEditorPF2e } from "@system/text-editor.ts";
 import type { sluggify } from "@util";
 import type EnJSON from "static/lang/en.json";
+import type Hotbar from "types/foundry/client-esm/applications/ui/hotbar.d.mts";
 
 interface GamePF2e
     extends Game<
@@ -203,7 +203,7 @@ type ConfiguredConfig = Config<
     CombatantPF2e<EncounterPF2e | null, TokenDocumentPF2e>,
     EncounterTrackerPF2e<EncounterPF2e | null>,
     CompendiumDirectoryPF2e,
-    HotbarPF2e,
+    Hotbar<MacroPF2e>,
     ItemPF2e,
     MacroPF2e,
     MeasuredTemplateDocumentPF2e,
@@ -244,7 +244,7 @@ declare global {
             ChatLogPF2e,
             CompendiumDirectoryPF2e,
             EncounterTrackerPF2e<EncounterPF2e | null>,
-            HotbarPF2e
+            Hotbar<MacroPF2e>
         >;
 
         // Add functions to the `Math` namespace for use in `Roll` formulas

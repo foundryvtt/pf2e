@@ -1,50 +1,52 @@
 import { SceneDarknessAdjuster } from "@module/apps/scene-darkness-adjuster.ts";
+import type { SceneControlTool } from "types/foundry/client-esm/applications/ui/scene-controls.d.mts";
 
 /** Insert system tool buttons to the control bar */
 export const GetSceneControlButtons = {
     listen: (): void => {
         Hooks.on("getSceneControlButtons", (controls) => {
             // World Clock
-            const tokenTools = controls.find((c) => c.name === "token")?.tools;
-            tokenTools?.push({
-                name: "worldclock",
-                title: "CONTROLS.WorldClock",
-                icon: "fa-solid fa-clock",
-                button: true,
-                visible:
-                    game.settings.get("pf2e", "worldClock.showClockButton") &&
-                    (game.user.isGM || game.settings.get("pf2e", "worldClock.playersCanView")),
-                onClick: () => {
-                    if (game.pf2e.worldClock.rendered) {
-                        game.pf2e.worldClock.close({ force: true });
-                    } else {
-                        game.pf2e.worldClock.render(true);
-                    }
-                },
-            });
+            const tokenTools = controls.tokens?.tools;
+            if (tokenTools) {
+                tokenTools.worldClock = {
+                    name: "worldClock",
+                    title: "CONTROLS.WorldClock",
+                    icon: "fa-solid fa-clock",
+                    order: Object.keys(tokenTools).length,
+                    button: true,
+                    visible:
+                        game.settings.get("pf2e", "worldClock.showClockButton") &&
+                        (game.user.isGM || game.settings.get("pf2e", "worldClock.playersCanView")),
+                    onChange: () => {
+                        if (game.pf2e.worldClock.rendered) {
+                            game.pf2e.worldClock.close({ force: true });
+                        } else {
+                            game.pf2e.worldClock.render(true);
+                        }
+                    },
+                };
+            }
 
-            const lightingControls = controls.find((c) => c.name === "lighting");
+            const lightingControls = controls.lighting;
             const lightingTools = lightingControls?.tools;
-            const dayTool = lightingTools?.find((tool) => tool.name === "day");
+            const dayTool = lightingTools?.day;
             if (!(lightingControls && lightingTools && dayTool)) return;
 
             // Indicate GM vision is on
-            if (game.pf2e.settings.gmVision && game.user.isGM) {
-                lightingControls.icon = "fa-solid fa-lightbulb-cfl-on gm-vision";
-            }
+            lightingControls.icon =
+                game.pf2e.settings.gmVision && game.user.isGM
+                    ? "fa-solid fa-lightbulb-cfl-on gm-vision"
+                    : "fa-solid fa-lightbulb";
 
-            // Scene Darkness Adjuster
-            if (lightingControls.visible && SceneDarknessAdjuster.instance.rendered) {
-                SceneDarknessAdjuster.instance.close({ force: true });
-            }
             const adjusterTool: SceneControlTool = {
-                name: "darkness-adjuster",
+                name: "darknessAdjuster",
                 title: "CONTROLS.AdjustSceneDarkness",
                 icon: "fa-solid fa-adjust",
+                order: dayTool.order,
                 visible: game.user.isGM && game.pf2e.settings.rbv,
                 toggle: true,
                 active: false,
-                onClick: (): void => {
+                onChange: (): void => {
                     const adjuster = SceneDarknessAdjuster.instance;
                     if (adjuster.rendered) {
                         adjuster.close({ force: true });
@@ -55,26 +57,25 @@ export const GetSceneControlButtons = {
             };
 
             // GM Vision
-            const gmVisionTool = ((): SceneControlTool | null => {
-                const binding = game.keybindings.actions.get("pf2e.gm-vision")?.editable?.[0];
-                if (!(binding && game.user.isGM)) return null;
-
+            const gmVisionTool = ((): SceneControlTool => {
+                const binding = game.keybindings.actions.get("pf2e.gmVision")?.editable?.[0];
                 const gmVisionLabel = game.i18n.localize("PF2E.Keybinding.GMVision.Label");
-                const bindingLabel = KeybindingsConfig._humanizeBinding(binding);
-                const gmVisionIcon = (active = game.settings.get("pf2e", "gmVision")): string =>
+                const bindingLabel = binding ? KeybindingsConfig._humanizeBinding(binding) : "";
+                const gmVisionIcon = (active = game.pf2e.settings.gmVision): string =>
                     active ? "fa-solid fa-lightbulb-cfl-on" : "fa-solid fa-lightbulb-cfl";
 
                 return {
-                    name: "gm-vision",
+                    name: "gmVision",
                     title: `${gmVisionLabel} [${bindingLabel}]`,
                     icon: gmVisionIcon(),
-                    visible: game.user.isGM,
+                    order: dayTool.order + 1,
+                    visible: !!binding && game.user.isGM,
                     toggle: true,
-                    active: game.settings.get("pf2e", "gmVision"),
-                    onClick: (): void => {
-                        const newStatus = !game.settings.get("pf2e", "gmVision");
+                    active: game.pf2e.settings.gmVision,
+                    onChange: (): void => {
+                        const newStatus = !game.pf2e.settings.gmVision;
                         game.settings.set("pf2e", "gmVision", newStatus);
-                        const toggle = ui.controls.control?.tools.find((t) => t.name === "gm-vision");
+                        const toggle = ui.controls.control?.tools.gmVision;
                         if (toggle) {
                             toggle.active = newStatus;
                             toggle.icon = gmVisionIcon(newStatus);
@@ -84,8 +85,13 @@ export const GetSceneControlButtons = {
                 };
             })();
 
-            const tools = [adjusterTool, gmVisionTool ?? []].flat();
-            lightingTools.splice(lightingTools?.indexOf(dayTool), 0, ...tools);
+            const newTools = [adjusterTool, gmVisionTool ?? []].flat();
+            for (const tool of Object.values(lightingTools).filter((t) => t.order >= dayTool.order)) {
+                tool.order += newTools.length;
+            }
+            for (const tool of newTools) {
+                lightingTools[tool.name] = tool;
+            }
         });
     },
 };

@@ -1,8 +1,12 @@
 @use "sass:color";
 @import "darkness-adjuster", "sheet", "token-config";
 
-#controls ol.control-tools > li:has(> i.gm-vision) {
+#scene-controls li button.gm-vision {
     $gm-vision: #d1ccff;
-    background: rgba(color.adjust($gm-vision, $lightness: -30%), 0.3);
-    color: #{color.adjust($gm-vision, $lightness: 5%)};
+    --control-bg-color: #{rgba(color.adjust($gm-vision, $lightness: -30%), 0.3)};
+    --control-icon-color: #{color.adjust($gm-vision, $lightness: 5%)};
+
+    &:not([aria-pressed="true"]) {
+        --control-border-color: #{color.adjust($gm-vision, $lightness: -20%)};
+    }
 }

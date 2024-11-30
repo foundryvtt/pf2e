@@ -97,7 +97,6 @@ export const Load = {
         CONFIG.Item.dataModels.melee = MeleeSystemData;
 
         // Assign canvas layer and placeable classes
-        CONFIG.Canvas.darknessColor = 0x2d2d52; // Lightness increased by ~0.4/10 (Munsell value)
         CONFIG.Canvas.exploredColor = 0x262626; // Increased from 0 (black)
         CONFIG.Canvas.groups.effects.groupClass = EffectsCanvasGroupPF2e;
         CONFIG.Canvas.groups.environment.groupClass = EnvironmentCanvasGroupPF2e;

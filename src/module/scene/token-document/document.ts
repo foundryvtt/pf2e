@@ -365,11 +365,11 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         if (actor.isOfType("vehicle")) {
             // Vehicles can have unequal dimensions
             const dimensions = actor.getTokenDimensions();
-            token.width = dimensions.width;
-            token.height = dimensions.height;
+            token.width = token._source.width = dimensions.width;
+            token.height = token._source.height = dimensions.height;
         } else {
-            token.width = size;
-            token.height = size;
+            token.width = token._source.width = size;
+            token.height = token._source.height = size;
 
             if (game.pf2e.settings.tokens.autoscale && token.flags.pf2e.autoscale !== false) {
                 const absoluteScale = actor.size === "sm" ? 0.8 : 1;
@@ -435,7 +435,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             !!this.scene?.isView &&
             this.sight.enabled &&
             Object.keys(fu.flattenObject(actorUpdates)).some((k) => k.startsWith("system.perception.senses"));
-        if (initializeVision) canvas.perception.update({ initializeVision }, true);
+        if (initializeVision) canvas.perception.update({ initializeVision });
 
         const preUpdate = this.toObject(false);
         const preUpdateAuras = Array.from(this.auras.values()).map((a) => R.omit(a, ["appearance", "token"]));

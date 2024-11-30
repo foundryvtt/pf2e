@@ -12,18 +12,18 @@ import "./tour.d.ts";
 
 declare global {
     interface FoundryUI<
-        TActorDirectory extends ActorDirectory<Actor<null>>,
+        TActorDirectory extends foundry.applications.sidebar.tabs.ActorDirectory<Actor<null>>,
         TItemDirectory extends ItemDirectory<Item<null>>,
         TChatLog extends ChatLog,
         TCompendiumDirectory extends CompendiumDirectory,
         TCombatTracker extends CombatTracker<Combat | null>,
-        THotbar extends Hotbar,
+        THotbar extends foundry.applications.ui.Hotbar<Macro>,
     > {
         actors: TActorDirectory;
         chat: TChatLog;
         combat: TCombatTracker;
         compendium: TCompendiumDirectory;
-        controls: SceneControls;
+        controls: foundry.applications.ui.SceneControls;
         items: TItemDirectory;
         notifications: Notifications;
         settings: Settings;

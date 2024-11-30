@@ -1,4 +1,4 @@
-export {};
+import type BasePlaceableHUD from "../../../../client-esm/applications/hud/placeable-hud.d.mts";
 
 declare global {
     /**
@@ -48,7 +48,7 @@ declare global {
         static get placeableClass(): ConstructorOf<PlaceableObject>;
 
         /** If objects on this PlaceableLayer have a HUD UI, provide a reference to its instance */
-        get hud(): BasePlaceableHUD<TObject> | null;
+        get hud(): BasePlaceableHUD | null;
 
         /** A convenience method for accessing the placeable object instances contained in this layer */
         get placeables(): TObject[];

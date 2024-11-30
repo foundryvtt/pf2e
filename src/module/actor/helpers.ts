@@ -74,7 +74,7 @@ async function resetActors(actors?: Iterable<ActorPF2e>, options: ResetActorsRen
         for (const scene of scenes) {
             scene.reset();
             if (scene.isView) {
-                canvas.perception.update({ initializeVision: true }, true);
+                canvas.perception.update({ initializeVision: true });
             }
         }
     }
@@ -112,18 +112,11 @@ async function migrateActorSource(source: PreCreate<ActorSourcePF2e>): Promise<A
         source.system?._migration?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION,
         ...(source.items ?? []).map((i) => i?.system?._migration?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION),
     );
-    const tokenDefaults = fu.deepClone(game.settings.get("core", "defaultToken"));
 
-    // Clear any prototype token entries explicitly set to `undefined` by upstream
-    source.prototypeToken ??= {};
-    for (const [key, value] of R.entries(source.prototypeToken ?? {})) {
-        if (value === undefined) delete source.prototypeToken[key];
-    }
-
-    const actor = new ActorProxyPF2e(fu.mergeObject({ prototypeToken: tokenDefaults }, source));
+    const actor = new ActorProxyPF2e(fu.deepClone(source));
     await MigrationRunner.ensureSchemaVersion(actor, MigrationList.constructFromVersion(lowestSchemaVersion));
 
-    return actor.toObject();
+    return fu.deepClone(actor._source);
 }
 
 /** Review `removeOnExit` aura effects and remove any that no longer apply */
