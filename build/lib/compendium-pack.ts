@@ -349,6 +349,11 @@ class CompendiumPack {
                     }
                 }
             }
+        } else if (itemIsOfType(source, "deity")) {
+            const spells = source.system.spells;
+            for (const key in spells) {
+                spells[key] = CompendiumPack.convertUUID(spells[key], convertOptions);
+            }
         }
 
         source.system.rules = source.system.rules.map((r) =>
