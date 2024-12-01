@@ -1,3 +1,51 @@
+## 6.7.2
+
+### System Improvements
+
+-   (pendragont) Show higher level learned formulas before lower leveled ones
+-   (Supe) Add support for spell area heightening
+-   (Supe) Remove selection hover from kingdom builder to avoid confusion with active
+
+### Bugfixes
+
+-   (stwlam) Fix players not being to open the kingdom sheet
+-   (stwlam) Fix safeguard in `DamageRoll` ensuring minimum of 1 damage
+-   (stwlam) Prevent affliction SVG icon from causing Firefox to catch on fire
+-   (Supe) Fix batch size for crafting mundane ammo with munitions crafter
+
+### Data Updates
+
+-   (Abbadon) Remove slashing surge from vault builder
+-   (Aidan Smith, stwlam) Fix artifacts from deity icons
+-   (Ambrose) Add Embeds and Localizations to the Class and Archetype journals
+-   (Ambrose) Add folders to Deities Compendium
+-   (Ambrose) Add Mythic Griffon to War of Immortals bestiary
+-   (Ambrose) Add Scattering Shout mythic feat
+-   (Ambrose) Clean up and remove flavor text from multiple spell effect descriptions
+-   (Ambrose) Condense Clockwork Goggle Effects and Psychic Weapon Expertise
+-   (Ambrose) Convert additional instances of inline damage to `@Damage`
+-   (Ambrose) Fix localization path for Advanced Alchemy label in Herbalist Dedication
+-   (Ambrose) Localize Juggernaut and Expert/Master/Legendary Class Features
+-   (Ambrose) Refresh Mark of the Mantis Pregen actors and PC1/PC2 spellcaster iconics
+-   (Ambrose) Update additional deity descriptions with details from web supplement
+-   (Rigo) Update Aivarin and Droomar to be versatile heritages
+-   (Dire Weasel) Update Rotting Aura description and effects
+-   (KaitoKuroba) Include Strike REs with battleForm: true to battle forms
+-   (kromko) Fix Mystery Conduit RE-added spell description
+-   (kromko) Fix Witch class journal Witch Lessons embed
+-   (Mose) Fix missing drawback on Effect: Fury Cocktail (Moderate)
+-   (Rigo) Add effect for Mythic Allies, Sotired Companion, Godspeed, and Unending Subsistence
+-   (Rigo) Add inline healing to Call From Death's Door and Binds that Tie
+-   (Rigo) Add interval area heightening on spells
+-   (Rigo) Add missing area data to Reverse Gravity
+-   (Rigo) Add spell effect for Blink Charge
+-   (Rigo) Condense Lay on Hands spell effect
+-   (Rigo) Fix level of Winged Warrior Dedication in archetypes journal
+-   (Rigo) Grant Bon Mot with Cutting Rebuke and add inline damage
+-   (Rigo) Refresh Nahoa's class features
+-   (Rigo) Update catalyst trait description to remaster and add illusion trait to armor
+-   (Supe) Remove non-functional crafting ability from alchemist dedication
+
 ## 6.7.1
 
 ### System Improvements
@@ -10,7 +58,7 @@
 
 -   (stwlam) Restore visibility of initial kingdom creation process
 
-## Data Updates
+### Data Updates
 
 -   (Abaddon) Fix Calistria source
 -   (Ambrose) Add deity updates from the Pathfinder Divine Mysteries Web Supplement
