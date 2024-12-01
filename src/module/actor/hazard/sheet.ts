@@ -132,6 +132,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         const traitsEl = htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.value"]');
         if (traitsEl) {
             const tags = tagify(traitsEl, { whitelist: CONFIG.PF2E.hazardTraits });
+            this.ensureDestroyableCleanup(tags);
             const traitsPrepend = html.querySelector<HTMLTemplateElement>(".traits-extra");
             if (traitsPrepend) {
                 tags.DOM.scope.prepend(traitsPrepend.content);

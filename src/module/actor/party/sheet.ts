@@ -359,7 +359,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             const titleLabel = game.i18n.localize("PF2E.Actor.Party.MembersLabel");
             const title = createHTMLElement("strong", { children: [titleLabel] });
             const content = createHTMLElement("span", { children: [title, members] });
-            $(languageTag).tooltipster({ content });
+            this.ensureTooltipsterCleanup($(languageTag).tooltipster({ content }));
         }
 
         // Mouseover summary skill tooltips to show all actor modifiers
@@ -376,7 +376,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             });
 
             const content = createHTMLElement("div", { children: labels });
-            $(skillTag).tooltipster({ content });
+            this.ensureTooltipsterCleanup($(skillTag).tooltipster({ content }));
         }
 
         // Mouseover tooltip for exploration activities
@@ -390,14 +390,16 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     classes: ["item-summary"],
                     innerHTML: await TextEditor.enrichHTML(document.description, { rollData }),
                 });
-                $(activityElem).tooltipster({
-                    contentAsHTML: true,
-                    content,
-                    interactive: true,
-                    maxWidth: 500,
-                    side: "right",
-                    theme: "crb-hover",
-                });
+                this.ensureTooltipsterCleanup(
+                    $(activityElem).tooltipster({
+                        contentAsHTML: true,
+                        content,
+                        interactive: true,
+                        maxWidth: 500,
+                        side: "right",
+                        theme: "crb-hover",
+                    }),
+                );
             })();
         }
 
@@ -481,6 +483,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     }
 
     override render(force?: boolean, options?: PartySheetRenderOptions): this {
+        this.resetListeners();
         if (options?.actors) {
             this.getData().then(async (data) => {
                 this._saveScrollPositions(this.element);

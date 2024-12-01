@@ -9,6 +9,9 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
 
     types: Record<string, string>;
 
+    /** Active tagify instances. Have to be cleaned up to avoid memory leaks */
+    #tagifyInstances: Tagify<Record<"id" | "value", string>>[] = [];
+
     constructor(actor: TActor, options: IWREditorConstructorOptions) {
         super(actor, options);
 
@@ -145,10 +148,11 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
     }
 
     override activateListeners($html: JQuery): void {
+        this.#resetListeners();
         const html = $html[0];
 
         for (const input of htmlQueryAll<HTMLInputElement>(html, "input[type=text]")) {
-            tagify(input, { whitelist: this.types, maxTags: 6 });
+            this.#tagifyInstances.push(tagify(input, { whitelist: this.types, maxTags: 6 }));
         }
 
         htmlQuery(html, "a[data-action=add]")?.addEventListener("click", (event) => {
@@ -177,6 +181,16 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
                 this.#updateIWR();
             });
         }
+    }
+
+    #resetListeners(): void {
+        this.#tagifyInstances.forEach((tagified) => tagified.destroy());
+        this.#tagifyInstances = [];
+    }
+
+    override async close(options?: { force?: boolean | undefined }): Promise<void> {
+        this.#resetListeners();
+        return super.close(options);
     }
 }
 

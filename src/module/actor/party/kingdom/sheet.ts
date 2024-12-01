@@ -333,12 +333,14 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             if (vacantEl) {
                 const lines = vacantEl.title.split(/;\s*/).map((l) => createHTMLElement("li", { children: [l] }));
                 const content = createHTMLElement("ul", { children: lines });
-                $(vacantEl).tooltipster({
-                    content,
-                    contentAsHTML: true,
-                    side: "right",
-                    theme: "crb-hover",
-                });
+                this.ensureTooltipsterCleanup(
+                    $(vacantEl).tooltipster({
+                        content,
+                        contentAsHTML: true,
+                        side: "right",
+                        theme: "crb-hover",
+                    }),
+                );
             }
         }
 
@@ -374,16 +376,20 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             this.filterActions(filterButton.dataset.slug ?? null);
         });
 
-        $html.find("[data-tooltip-content]").tooltipster({
-            trigger: "click",
-            arrow: false,
-            contentAsHTML: true,
-            debug: BUILD_MODE === "development",
-            interactive: true,
-            side: ["right", "bottom"],
-            theme: "crb-hover",
-            minWidth: 120,
-        });
+        const $tooltipContent = $html.find("[data-tooltip-content]");
+        if ($tooltipContent.length > 0)
+            this.ensureTooltipsterCleanup(
+                $tooltipContent.tooltipster({
+                    trigger: "click",
+                    arrow: false,
+                    contentAsHTML: true,
+                    debug: BUILD_MODE === "development",
+                    interactive: true,
+                    side: ["right", "bottom"],
+                    theme: "crb-hover",
+                    minWidth: 120,
+                }),
+            );
 
         // Handle adding and inputting custom user submitted modifiers
         for (const customModifierEl of htmlQueryAll(html, ".modifiers-tooltip")) {
@@ -471,29 +477,31 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         // Sort settlements
         const settlementList = htmlQuery(html, ".settlement-list");
         if (settlementList) {
-            Sortable.create(settlementList, {
-                ...SORTABLE_BASE_OPTIONS,
-                handle: ".drag-handle",
-                onEnd: (event) => {
-                    const settlements = this.kingdom.settlements as Record<string, KingdomSettlementData>;
-                    const settlementsWithIds = Object.entries(settlements).map(([id, value]) => ({ id, ...value }));
-                    const settlement = settlementsWithIds.find((s) => s.id === event.item.dataset.settlementId);
-                    const newIndex = event.newDraggableIndex;
-                    if (!settlement || newIndex === undefined) {
-                        this.render();
-                        return;
-                    }
+            this.ensureDestroyableCleanup(
+                Sortable.create(settlementList, {
+                    ...SORTABLE_BASE_OPTIONS,
+                    handle: ".drag-handle",
+                    onEnd: (event) => {
+                        const settlements = this.kingdom.settlements as Record<string, KingdomSettlementData>;
+                        const settlementsWithIds = Object.entries(settlements).map(([id, value]) => ({ id, ...value }));
+                        const settlement = settlementsWithIds.find((s) => s.id === event.item.dataset.settlementId);
+                        const newIndex = event.newDraggableIndex;
+                        if (!settlement || newIndex === undefined) {
+                            this.render();
+                            return;
+                        }
 
-                    // Perform the resort and update
-                    const siblings = R.sortBy(
-                        settlementsWithIds.filter((s) => s !== settlement),
-                        (s) => s.sort,
-                    );
-                    siblings.splice(newIndex, 0, settlement);
-                    const updates = R.mapToObj(siblings, (s, index) => [`settlements.${s.id}.sort`, index]);
-                    this.kingdom.update(updates);
-                },
-            });
+                        // Perform the resort and update
+                        const siblings = R.sortBy(
+                            settlementsWithIds.filter((s) => s !== settlement),
+                            (s) => s.sort,
+                        );
+                        siblings.splice(newIndex, 0, settlement);
+                        const updates = R.mapToObj(siblings, (s, index) => [`settlements.${s.id}.sort`, index]);
+                        this.kingdom.update(updates);
+                    },
+                }),
+            );
         }
     }
 

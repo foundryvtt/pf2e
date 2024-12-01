@@ -31,6 +31,9 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
     #actions?: Record<string, string>;
     #lores?: Record<string, string>;
 
+    /** Active tagify instances. Have to be cleaned up to avoid memory leaks */
+    #tagifyInstances: (Tagify<Record<"id" | "value", string>> | null)[] = [];
+
     static override get defaultOptions(): ApplicationOptions {
         return {
             ...super.defaultOptions,
@@ -87,23 +90,23 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
             ...R.mapValues(CONFIG.PF2E.skills, (s) => s.label),
             perception: "PF2E.PerceptionLabel",
         };
-        tagify(skillEl, { whitelist: skills });
+        this.#tagifyInstances.push(tagify(skillEl, { whitelist: skills }));
 
         const saveEl = html.querySelector<HTMLInputElement>("input#check-prompt-saves");
-        tagify(saveEl, { whitelist: CONFIG.PF2E.saves });
+        this.#tagifyInstances.push(tagify(saveEl, { whitelist: CONFIG.PF2E.saves }));
 
         const loreEl = html.querySelector<HTMLInputElement>("input#check-prompt-lores");
         const loreOptions = R.isEmpty(this.#lores || {}) ? {} : { whitelist: this.#lores };
-        tagify(loreEl, loreOptions);
+        this.#tagifyInstances.push(tagify(loreEl, loreOptions));
 
         const actionEl = html.querySelector<HTMLInputElement>("input#check-prompt-actions");
         const actionOptions = R.isEmpty(this.#actions || {})
             ? {}
             : { whitelist: this.#actions, enforceWhitelist: false };
-        tagify(actionEl, actionOptions);
+        this.#tagifyInstances.push(tagify(actionEl, actionOptions));
 
         const traitEl = html.querySelector<HTMLInputElement>("input#check-prompt-traits");
-        tagify(traitEl, { whitelist: CONFIG.PF2E.actionTraits, enforceWhitelist: false });
+        this.#tagifyInstances.push(tagify(traitEl, { whitelist: CONFIG.PF2E.actionTraits, enforceWhitelist: false }));
 
         // Show or hide Roll Options
         html.querySelector("div.form-group a.add-roll-options")?.addEventListener("click", () => {
@@ -119,6 +122,11 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
         htmlQuery(html, "[data-action=cancel]")?.addEventListener("click", async () => {
             this.close();
         });
+    }
+
+    #resetListeners(): void {
+        this.#tagifyInstances.forEach((tagified) => tagified?.destroy());
+        this.#tagifyInstances = [];
     }
 
     #generatePrompt(): void {
@@ -211,6 +219,20 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
             .concat(...extras)
             .filter((p) => p);
         return `<p>@Check[${parts.join("|")}]</p>`;
+    }
+
+    protected override _replaceHTML(
+        element: JQuery,
+        html: JQuery | HTMLElement,
+        options: Record<string, unknown>,
+    ): void {
+        this.#resetListeners();
+        super._replaceHTML(element, html, options);
+    }
+
+    override async close(options?: { force?: boolean } | undefined): Promise<void> {
+        this.#resetListeners();
+        return super.close(options);
     }
 }
 

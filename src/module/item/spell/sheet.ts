@@ -148,9 +148,11 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             if (levelInput) levelInput.readOnly = true;
         }
 
-        tagify(htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.traditions"]'), {
-            whitelist: CONFIG.PF2E.magicTraditions,
-        });
+        this.ensureDestroyableCleanup(
+            tagify(htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.traditions"]'), {
+                whitelist: CONFIG.PF2E.magicTraditions,
+            }),
+        );
 
         for (const anchor of htmlQueryAll(html, "a[data-action=add-damage-partial]")) {
             anchor.addEventListener("click", () => {
