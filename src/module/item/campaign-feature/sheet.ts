@@ -37,9 +37,11 @@ class CampaignFeatureSheetPF2e extends ItemSheetPF2e<CampaignFeaturePF2e> {
 
         const prerequisites = htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.prerequisites.value"]');
         if (prerequisites) {
-            tagify(prerequisites, {
-                editTags: 1,
-            });
+            this.ensureDestroyableCleanup(
+                tagify(prerequisites, {
+                    editTags: 1,
+                }),
+            );
         }
     }
 

@@ -690,16 +690,18 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const side = hoverEl.dataset.tooltipSide
                 ?.split(",")
                 ?.filter((t): t is (typeof allSides)[number] => tupleHasValue(allSides, t)) ?? ["right", "bottom"];
-            $(hoverEl).tooltipster({
-                trigger: "click",
-                arrow: false,
-                contentAsHTML: true,
-                debug: BUILD_MODE === "development",
-                interactive: true,
-                side,
-                theme: "crb-hover",
-                minWidth: 120,
-            });
+            this.ensureTooltipsterCleanup(
+                $(hoverEl).tooltipster({
+                    trigger: "click",
+                    arrow: false,
+                    contentAsHTML: true,
+                    debug: BUILD_MODE === "development",
+                    interactive: true,
+                    side,
+                    theme: "crb-hover",
+                    minWidth: 120,
+                }),
+            );
         }
 
         // SPELLCASTING
@@ -779,7 +781,9 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         navTitleArea.innerText = game.i18n.localize(activeTab.dataset.tooltip ?? "");
         const manageTabsAnchor = htmlQuery<HTMLAnchorElement>(sheetNavigation, ":scope > a[data-action=manage-tabs]");
-        if (manageTabsAnchor) PCSheetTabManager.initialize(this.actor, manageTabsAnchor);
+        if (manageTabsAnchor) {
+            this.ensureDestroyableCleanup(PCSheetTabManager.initialize(this.actor, manageTabsAnchor));
+        }
 
         sheetNavigation.addEventListener("click", (event) => {
             const anchor = htmlClosest(event.target, "a[data-tab]");

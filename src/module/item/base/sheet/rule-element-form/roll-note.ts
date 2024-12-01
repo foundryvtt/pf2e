@@ -25,7 +25,8 @@ class RollNoteForm extends RuleElementForm<NoteRESource, RollNoteRuleElement> {
             this.updateItem({ selector: newValue });
         });
         const optionsEl = htmlQuery<HTMLTagifyTagsElement>(html, "tagify-tags.outcomes");
-        tagify(optionsEl, { whitelist: [...DEGREE_OF_SUCCESS_STRINGS], maxTags: 3 });
+        const tags = tagify(optionsEl, { whitelist: [...DEGREE_OF_SUCCESS_STRINGS], maxTags: 3 });
+        if (tags) this.ensureDestroyableCleanup(tags);
     }
 
     override updateObject(ruleData: Partial<Record<string, JSONValue>>): void {
