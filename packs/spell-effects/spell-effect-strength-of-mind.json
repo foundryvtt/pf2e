@@ -1,0 +1,63 @@
+{
+    "_id": "pW1jauNjZ1owaciQ",
+    "img": "icons/magic/perception/eye-ringed-green.webp",
+    "name": "Spell Effect: Strength of Mind",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Strength of Mind]</p>\n<p>You gain a +1 status bonus to saving throws against mental effects and against effects that hinder movement (including those that reduce Speed or apply the @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] conditions). This bonus increases to +2 if the source of the effect has the fear trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #209: Destroyer's Doom"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "itemtrait:mental",
+                            "inflicts:grabbed",
+                            "inflicts:immobilized",
+                            "inflicts:restrained"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:fear"
+                ],
+                "selector": "saving-throw",
+                "slug": "spell-effect-strength-of-mind",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
