@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p><strong>Oracle, Sorcerer, Wizard</strong> Magical power has improved your body's resiliency. Your proficiency rank for Fortitude saves increases to expert.</p>\n<hr />\n<p><strong>Witch</strong> Your patron's power boosts your physical resiliency. Your proficiency rank for Fortitude saves increases to expert.</p>"
+            "value": "<p><strong>Oracle, Sorcerer, Wizard</strong> Magical power has improved your body's resiliency. Your proficiency rank for Fortitude saves increases to expert.</p>\n<p><strong>Witch</strong> Your patron's power boosts your physical resiliency. Your proficiency rank for Fortitude saves increases to expert.</p>"
         },
         "level": {
             "value": 5
@@ -24,7 +24,26 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.ClassFeatures.MagicalFortitude.{actor|class.slug}.Description"
+                    }
+                ]
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "{actor|class.slug}"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {
                 "fortitude": {
