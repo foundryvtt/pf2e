@@ -493,6 +493,20 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         // These formulas include any modified batch size.
         const formulas = await actor.crafting.getFormulas();
         this.#knownFormulas = R.mapToObj(formulas, (f) => [f.uuid, f]);
+        const sheetFormulas = formulas.map((f) => ({
+            uuid: f.uuid,
+            item: f.item,
+            dc: f.dc,
+            batchSize: this.#formulaQuantities[f.uuid] ?? f.batchSize,
+            cost: CoinsPF2e.fromPrice(f.item.price, this.#formulaQuantities[f.uuid] ?? f.batchSize),
+        }));
+        const knownFormulas = R.pipe(
+            sheetFormulas,
+            R.groupBy((f) => f.item.level),
+            R.entries(),
+            R.reverse(),
+            R.map((f) => ({ level: f[0], formulas: f[1] })),
+        );
 
         return {
             noCost: flags.freeCrafting,
@@ -500,16 +514,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             hasDailyCrafting: this.actor.crafting.abilities.some((a) => a.isDailyPrep || a.isAlchemical),
             dailyCraftingComplete: !!this.actor.flags.pf2e.dailyCraftingComplete,
             abilities: craftingEntries,
-            knownFormulas: R.groupBy(
-                formulas.map((f) => ({
-                    uuid: f.uuid,
-                    item: f.item,
-                    dc: f.dc,
-                    batchSize: this.#formulaQuantities[f.uuid] ?? f.batchSize,
-                    cost: CoinsPF2e.fromPrice(f.item.price, this.#formulaQuantities[f.uuid] ?? f.batchSize),
-                })),
-                (f) => f.item.level,
-            ),
+            knownFormulas: knownFormulas,
         };
     }
 
@@ -1506,12 +1511,17 @@ interface FormulaSheetData {
     cost: CoinsPF2e;
 }
 
+interface FormulaByLevel {
+    level: string;
+    formulas: FormulaSheetData[];
+}
+
 interface CraftingSheetData {
     noCost: boolean;
     hasQuickAlchemy: boolean;
     hasDailyCrafting: boolean;
     dailyCraftingComplete: boolean;
-    knownFormulas: Record<number, FormulaSheetData[]>;
+    knownFormulas: FormulaByLevel[];
     abilities: {
         prepared: CraftingAbilitySheetData[];
         alchemical: {
