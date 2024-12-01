@@ -1,6 +1,5 @@
 <script lang="ts">
     import { slide } from "svelte/transition";
-    import ClearFilterButton from "./partials/clear-filter-button.svelte";
     import type { RangesInputData } from "../../tabs/data.ts";
 
     const props: { name: string; range: RangesInputData } = $props();
@@ -22,7 +21,6 @@
 </script>
 
 <div class="ranges-container" transition:slide>
-    <ClearFilterButton data={range} options={{ enabled: range.changed, name: props.name }} />
     <div class="inputs">
         <input
             type="text"

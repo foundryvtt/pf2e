@@ -1,8 +1,17 @@
 <script lang="ts">
+    import ClearFilterButton from "./partials/clear-filter-button.svelte";
     import type { Snippet } from "svelte";
+    import type { CheckboxData, RangesInputData, LevelData } from "../../tabs/data.ts";
 
     interface Props {
         children: Snippet;
+        clearButton?: {
+            data: CheckboxData | RangesInputData | LevelData;
+            options: {
+                name?: string;
+                visible: boolean;
+            };
+        };
         isExpanded?: boolean;
         label: string;
     }
@@ -25,6 +34,9 @@
             </button>
         {:else}
             {game.i18n.localize(props.label)}
+        {/if}
+        {#if props.clearButton}
+            <ClearFilterButton data={props.clearButton.data} options={props.clearButton.options} />
         {/if}
     </legend>
     {#if isExpanded === undefined || isExpanded}

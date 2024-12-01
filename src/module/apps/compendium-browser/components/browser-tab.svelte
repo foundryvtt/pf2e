@@ -39,7 +39,11 @@
 
 <div class="browser-tab" data-tab-name={activeTabName} data-tooltip-class="pf2e">
     {#key state.filterKey}
-        <Filters bind:filter={state.activeFilter!} {resetFilters} />
+        {#if state.activeFilter}
+            <Filters bind:filter={state.activeFilter} {resetFilters} />
+        {:else}
+            <span>Invalid Filter State</span>
+        {/if}
     {/key}
     {#key state.resultListKey}
         <ResultList {state} {loadMore} />

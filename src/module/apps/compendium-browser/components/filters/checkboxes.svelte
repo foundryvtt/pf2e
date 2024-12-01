@@ -1,7 +1,6 @@
 <script lang="ts">
     import * as R from "remeda";
     import { slide } from "svelte/transition";
-    import ClearFilterButton from "./partials/clear-filter-button.svelte";
     import type { CheckboxData, CheckboxOption } from "../../tabs/data.ts";
 
     const props: { checkbox: CheckboxData; searchable?: boolean } = $props();
@@ -26,12 +25,10 @@
     const onSearchSource = fu.debounce((event: Event) => {
         if (!(event.target instanceof HTMLInputElement)) return;
         searchTerm = event.target.value.trim().toLocaleLowerCase(game.i18n.lang);
-        browser.renderParts("resultList");
     }, 250);
 </script>
 
 <div class="checkbox-container" transition:slide>
-    <ClearFilterButton data={checkbox} options={{ enabled: checkbox.selected.length > 0 }} />
     {#if props.searchable}
         <input
             type="search"

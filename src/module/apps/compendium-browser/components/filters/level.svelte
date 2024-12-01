@@ -1,6 +1,5 @@
 <script lang="ts">
     import * as R from "remeda";
-    import ClearFilterButton from "./partials/clear-filter-button.svelte";
     import { slide } from "svelte/transition";
     import type { LevelData } from "../../tabs/data.ts";
 
@@ -30,7 +29,6 @@
 </script>
 
 <div class="levels-container" transition:slide>
-    <ClearFilterButton data={level} options={{ enabled: level.changed }} />
     <div class="inputs">
         <select name="from" value={level.from} onchange={onChangeLevel}>
             {#each R.range(level.min, level.max + 1) as n}

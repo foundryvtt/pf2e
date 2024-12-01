@@ -88,6 +88,15 @@
 
             .sv-control {
                 cursor: text;
+
+                .sv-buttons {
+                    .sv-btn-separator {
+                        display: none;
+                    }
+                    button[data-action="toggle"] {
+                        display: none;
+                    }
+                }
             }
 
             .sv-item--container {
@@ -112,7 +121,7 @@
                 border-width: 0;
                 background-color: var(--sv-item-btn-bg);
                 border-radius: unset;
-                padding: 0 0.1em;
+                padding: 0 var(--space-1);
 
                 &:hover {
                     background-color: #c77777;

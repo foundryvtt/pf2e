@@ -4,7 +4,7 @@
     interface Props {
         data: CheckboxData | RangesInputData | LevelData;
         options: {
-            enabled: boolean;
+            visible: boolean;
             name?: string;
         };
     }
@@ -20,30 +20,31 @@
             data.from = data.min;
             data.to = data.max;
             data.changed = false;
-        } else if ("values" in data && name) {
+        } else if ("values" in data && options.name) {
             const activeTab = game.pf2e.compendiumBrowser.activeTab;
             if (!activeTab) return;
-            data.values = activeTab.parseRangeFilterInput(name, data.defaultMin, data.defaultMax);
+            data.values = activeTab.parseRangeFilterInput(options.name, data.defaultMin, data.defaultMax);
             data.changed = false;
         }
         game.pf2e.compendiumBrowser.renderParts("resultList");
     }
 </script>
 
-<div class="clear-filter">
-    <button type="button" disabled={!options.enabled} onclick={onClearFilter}>
+{#if options.visible}
+    <button type="button" class="clear-filter" onclick={onClearFilter}>
         {game.i18n.localize("PF2E.CompendiumBrowser.Filter.ClearFilter")}
     </button>
-</div>
+{/if}
 
 <style lang="scss">
-    div.clear-filter {
-        display: flex;
-        justify-content: flex-end;
-
-        button {
-            line-height: 1.5em;
-            width: fit-content;
+    button.clear-filter {
+        &:not(:hover) {
+            background-color: var(--background);
         }
+        line-height: 1.5em;
+        position: absolute;
+        right: var(--space-10);
+        top: var(--space-1);
+        width: auto;
     }
 </style>

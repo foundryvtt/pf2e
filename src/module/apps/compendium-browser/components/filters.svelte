@@ -100,24 +100,40 @@
         <Traits traits={filter.traits} />
     </FilterContainer>
     {#each R.values(filter.checkboxes) as checkbox}
-        <FilterContainer isExpanded={checkbox.isExpanded} label={checkbox.label}>
+        <FilterContainer
+            isExpanded={checkbox.isExpanded}
+            clearButton={{ data: checkbox, options: { visible: checkbox.selected.length > 0 } }}
+            label={checkbox.label}
+        >
             <Checkboxes {checkbox} />
         </FilterContainer>
     {/each}
     {#if filter.source}
-        <FilterContainer isExpanded={filter.source.isExpanded} label="PF2E.CompendiumBrowser.Filter.Source">
+        <FilterContainer
+            isExpanded={filter.source.isExpanded}
+            clearButton={{ data: filter.source, options: { visible: filter.source.selected.length > 0 } }}
+            label="PF2E.CompendiumBrowser.Filter.Source"
+        >
             <Checkboxes checkbox={filter.source} searchable />
         </FilterContainer>
     {/if}
     {#if "ranges" in filter}
         {#each R.entries(filter.ranges) as [name, range]}
-            <FilterContainer isExpanded={range.isExpanded} label={range.label}>
+            <FilterContainer
+                isExpanded={range.isExpanded}
+                clearButton={{ data: range, options: { visible: range.changed, name } }}
+                label={range.label}
+            >
                 <Ranges {range} {name} />
             </FilterContainer>
         {/each}
     {/if}
     {#if "level" in filter}
-        <FilterContainer isExpanded={filter.level.isExpanded} label="PF2E.CompendiumBrowser.Filter.Levels">
+        <FilterContainer
+            isExpanded={filter.level.isExpanded}
+            clearButton={{ data: filter.level, options: { visible: filter.level.changed } }}
+            label="PF2E.CompendiumBrowser.Filter.Levels"
+        >
             <Level level={filter.level} />
         </FilterContainer>
     {/if}

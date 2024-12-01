@@ -117,7 +117,7 @@
     }
 
     .sv-item--btn {
-        min-width: 16px;
+        min-width: 11px;
 
         i {
             margin-right: unset;
