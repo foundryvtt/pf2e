@@ -126,6 +126,8 @@
 <style lang="scss">
     .control-area {
         overflow-y: auto;
+        padding-right: var(--space-4);
+        scrollbar-gutter: stable;
     }
 
     .headercontainer {

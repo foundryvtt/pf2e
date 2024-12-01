@@ -25,7 +25,7 @@
             level.to = value;
         }
         level.changed = level.from !== level.min || level.to !== level.max;
-        game.pf2e.compendiumBrowser.renderParts(["resultList"]);
+        game.pf2e.compendiumBrowser.renderParts("resultList");
     }
 </script>
 

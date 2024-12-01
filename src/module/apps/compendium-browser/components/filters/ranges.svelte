@@ -17,7 +17,7 @@
             range.values = activeTab.parseRangeFilterInput(props.name, range.values.inputMin, elValue);
         }
         range.changed = true;
-        game.pf2e.compendiumBrowser.renderParts(["resultList"]);
+        game.pf2e.compendiumBrowser.renderParts("resultList");
     }
 </script>
 

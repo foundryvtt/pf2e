@@ -20,8 +20,8 @@
                 aria-label="expand"
                 aria-expanded={isExpanded}
             >
+                <i class="fa-solid fa-fw {isExpanded ? 'fa-chevron-down' : 'fa-chevron-up'}"></i>
                 {game.i18n.localize(props.label)}
-                <i class="fa-solid {isExpanded ? 'fa-chevron-down' : 'fa-chevron-up'}"></i>
             </button>
         {:else}
             {game.i18n.localize(props.label)}
@@ -58,8 +58,9 @@
                 }
 
                 i {
-                    margin-right: unset;
-                    margin-left: 0.25em;
+                    font-size: 0.8em;
+                    margin-right: 0.25em;
+                    margin-left: unset;
                 }
             }
         }
