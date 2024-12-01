@@ -4,7 +4,7 @@
     "name": "Effect: Clay Sphere - Armor",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Clay Sphere]</p>\n<p>You gain resistance 2 to precision damage and a +1 item bonus to saving throws against effects with the morph or polymorph traits.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Clay Sphere], @UUID[Compendium.pf2e.equipment-srd.Item.Clay Sphere (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Clay Sphere (Major)]</p>\n<p>You gain resistance to precision damage and an item bonus to saving throws against effects with the morph or polymorph traits.</p>"
         },
         "duration": {
             "expiry": null,
@@ -22,9 +22,75 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:clay-sphere",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Clay Sphere"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:item:slug:clay-sphere-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Clay Sphere (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:clay-sphere-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Clay Sphere (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "clay-sphere"
+            },
+            {
                 "key": "Resistance",
+                "predicate": [
+                    "clay-sphere:clay-sphere"
+                ],
                 "type": "precision",
                 "value": 2
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "clay-sphere:clay-sphere-greater"
+                ],
+                "type": "precision",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "clay-sphere:clay-sphere-major"
+                ],
+                "type": "precision",
+                "value": 10
             },
             {
                 "key": "FlatModifier",
@@ -37,8 +103,29 @@
                     }
                 ],
                 "selector": "saving-throw",
+                "slug": "clay-sphere-bonus",
                 "type": "item",
                 "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "clay-sphere:clay-sphere-greater"
+                ],
+                "selector": "saving-throw",
+                "slug": "clay-sphere-bonus",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "clay-sphere:clay-sphere-major"
+                ],
+                "selector": "saving-throw",
+                "slug": "clay-sphere-bonus",
+                "value": 3
             }
         ],
         "start": {
