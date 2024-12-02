@@ -1,4 +1,5 @@
 import type { ActorPF2e } from "@actor";
+import type { CraftingAbility } from "@actor/character/crafting/ability.ts";
 import { ClassDCData } from "@actor/character/data.ts";
 import type { FeatGroup } from "@actor/character/feats/index.ts";
 import type { SenseData } from "@actor/creature/index.ts";
@@ -19,6 +20,9 @@ import { FEATURE_CATEGORIES, FEAT_CATEGORIES } from "./values.ts";
 class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     declare group: FeatGroup | null;
     declare grants: (FeatPF2e<ActorPF2e> | HeritagePF2e<ActorPF2e>)[];
+
+    /** If this ability can craft, what is the crafting ability */
+    declare crafting: CraftingAbility | null;
 
     /** If suppressed, this feature should not be assigned to any feat category nor create rule elements */
     declare suppressed: boolean;
@@ -89,6 +93,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         this.group = null;
         this.system.level.taken ??= null;
         this.suppressed = false;
+        this.crafting = null;
 
         // Handle legacy data with empty-string locations
         this.system.location ||= null;

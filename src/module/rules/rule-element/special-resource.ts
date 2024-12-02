@@ -68,6 +68,7 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
             // Find an existing item to update or create a new one
             const existing = this.actor.items.find((i) => i.sourceId === this.itemUUID);
             const level = checkLevel && this.level !== null ? Number(this.resolveValue(this.level)) : null;
+
             if (
                 existing?.isOfType("physical") &&
                 (existing.quantity !== value || (level !== null && level !== existing.level))

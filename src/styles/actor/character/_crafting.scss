@@ -36,7 +36,7 @@
         border: none;
 
         &.item-container {
-            margin-bottom: 0.5em;
+            margin-bottom: var(--space-6);
         }
 
         &.alchemical-entry {
@@ -44,6 +44,31 @@
 
             &:last-child {
                 margin-bottom: 0.5em;
+            }
+        }
+
+        &.spontaneous {
+            border: 1px solid var(--color-pf-alternate);
+            background-color: rgba($sub-color, 0.25);
+            align-items: center;
+            justify-content: start;
+            font-family: var(--sans-serif);
+            padding: var(--space-5);
+            margin-bottom: var(--space-6);
+
+            .name {
+                font-weight: 500;
+                flex: 1;
+            }
+
+            .resource {
+                align-items: center;
+                display: flex;
+                gap: var(--space-2);
+            }
+
+            button {
+                margin-left: var(--space-8);
             }
         }
 
@@ -62,6 +87,17 @@
                 font-size: var(--font-size-14);
                 height: 1.5rem;
             }
+        }
+
+        input.formula-number {
+            background: var(--color-pf-alternate);
+            height: unset;
+            border-radius: 3px;
+            border: 1px solid var(--sub);
+            color: var(--text-light);
+            font: var(--font-size-12) var(--sans-serif);
+            text-align: center;
+            width: 2em;
         }
 
         ol.formula-list {
@@ -156,17 +192,6 @@
 
                     .formula-number {
                         text-align: center;
-                    }
-
-                    input.formula-number {
-                        background: var(--color-pf-alternate);
-                        height: unset;
-                        border-radius: 3px;
-                        border: 1px solid var(--sub);
-                        color: var(--text-light);
-                        font: var(--font-size-12) var(--sans-serif);
-                        text-align: center;
-                        width: 2em;
                     }
                 }
 

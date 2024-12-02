@@ -1,4 +1,5 @@
 import type { ActorPF2e } from "@actor";
+import type { CraftingAbility } from "@actor/character/crafting/ability.ts";
 import { ItemPF2e } from "@item";
 import type { ActionCost, Frequency, RawItemChatData } from "@item/base/data/index.ts";
 import type { RangeData } from "@item/types.ts";
@@ -12,6 +13,9 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
     declare range?: RangeData | null;
 
     declare isMelee?: boolean;
+
+    /** If this ability can craft, what is the crafting ability */
+    declare crafting?: CraftingAbility | null;
 
     static override get validTraits(): Record<AbilityTrait, string> {
         return CONFIG.PF2E.actionTraits;
@@ -33,6 +37,11 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
 
     get frequency(): Frequency | null {
         return this.system.frequency;
+    }
+
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+        this.crafting = null;
     }
 
     override prepareActorData(): void {

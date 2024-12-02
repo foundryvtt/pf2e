@@ -450,7 +450,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         return this.processChatData(htmlOptions, data);
     }
 
-    protected traitChatData(
+    traitChatData(
         dictionary: Record<string, string | undefined> = this.constructor.validTraits,
         traits = this.system.traits.value ?? [],
     ): TraitChatData[] {
