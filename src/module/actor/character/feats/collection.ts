@@ -111,7 +111,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
                 customLimit:
                     mythicSetting === "variant-tiers"
                         ? {
-                              label: "Tier",
+                              label: "PF2E.Actor.Character.FeatSlot.MythicTier",
                               min: 0,
                               max: 10,
                           }
