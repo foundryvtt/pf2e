@@ -1,0 +1,55 @@
+{
+    "_id": "d0TYadetRJvNb2Au",
+    "img": "icons/magic/death/projectile-skull-fire-orange-red.webp",
+    "name": "Effect: Steal Death",
+    "system": {
+        "badge": {
+            "min": 5,
+            "type": "counter",
+            "value": 5
+        },
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Steal Death]</p>\n<p>You gain fast healing as long as you and your apocalypse mount are within 10 feet of each other. If you use Steal Death again, your fast healing increases by 1.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 16
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.ApocalypseRider.StealDeath.RollOptionLabel",
+                "option": "steal-death",
+                "toggleable": true
+            },
+            {
+                "key": "FastHealing",
+                "predicate": [
+                    "steal-death"
+                ],
+                "value": "@item.badge.value"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
