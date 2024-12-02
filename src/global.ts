@@ -145,7 +145,6 @@ interface GamePF2e
                 buttons: boolean;
                 cards: boolean;
             };
-            dragMeasurement: "always" | "encounters" | "never";
             /** Encumbrance automation */
             encumbrance: boolean;
             gmVision: boolean;
