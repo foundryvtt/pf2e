@@ -4,7 +4,7 @@
     "name": "Effect: Called Foe",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.journals.JournalEntry.BSp4LUSaOmUyjBko.JournalEntryPage.spzRl5CS4vnvcrm5]{Called Foe}</p>\n<p>Designate a foe that you can see. You gain a +2 status bonus to attack rolls made against that foe, but you take a -4 status penalty to attack rolls made against any other creature. This lasts until the end of your next turn or until you critically hit the designated foe, whichever comes first.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.journals.JournalEntry.BSp4LUSaOmUyjBko.JournalEntryPage.spzRl5CS4vnvcrm5]{Called Foe}</p>\n<p>Designate a foe. You gain a +2 status bonus to attack rolls made against that foe, but you take a –4 status penalty to attack rolls made against any other creature.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -26,28 +26,20 @@
                 "slug": "called-foe"
             },
             {
-                "hideIfDisabled": true,
                 "key": "FlatModifier",
+                "selector": "attack-roll",
+                "type": "status",
+                "value": -4
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
                 "predicate": [
                     "target:mark:called-foe"
                 ],
                 "selector": "attack-roll",
-                "slug": "called-foe-bonus",
-                "type": "status",
+                "slug": "called-foe",
                 "value": 2
-            },
-            {
-                "hideIfDisabled": true,
-                "key": "FlatModifier",
-                "predicate": [
-                    {
-                        "not": "target:mark:called-foe"
-                    }
-                ],
-                "selector": "attack-roll",
-                "slug": "called-foe-penalty",
-                "type": "status",
-                "value": -4
             },
             {
                 "key": "Note",
