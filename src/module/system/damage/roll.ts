@@ -6,7 +6,7 @@ import { ErrorPF2e, fontAwesomeIcon, tupleHasValue } from "@util";
 import type Peggy from "peggy";
 import * as R from "remeda";
 import type { RollParseNode } from "types/foundry/client-esm/dice/_types.d.mts";
-import type { DiceTerm, RollTerm } from "types/foundry/client-esm/dice/terms/module.d.ts";
+import type { DiceTerm, RollTerm } from "types/foundry/client-esm/dice/terms/_module.d.mts";
 import { DamageCategorization, deepFindTerms, renderComponentDamage, simplifyTerm } from "./helpers.ts";
 import { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie } from "./terms.ts";
 import { DamageCategory, DamageIRBypassData, DamageTemplate, DamageType, MaterialDamageEffect } from "./types.ts";

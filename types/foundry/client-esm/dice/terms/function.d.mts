@@ -1,5 +1,5 @@
-import type { DiceTerm } from "./dice-term.d.ts";
-import type { RollTerm } from "./roll-term.d.ts";
+import { DiceTerm } from "./dice.mjs";
+import { RollTerm } from "./term.mjs";
 
 export class FunctionTerm<TFunctionName extends MathFunctionName = MathFunctionName> extends RollTerm<
     FunctionTermData<TFunctionName>
@@ -20,7 +20,7 @@ export class FunctionTerm<TFunctionName extends MathFunctionName = MathFunctionN
 
     override isIntermediate: true;
 
-    static override SERIALIZE_ATTRIBUTES: ["fn", "terms"];
+    static override SERIALIZE_ATTRIBUTES: ["fn", "terms", "rolls", "result"];
 
     /* -------------------------------------------- */
     /*  Math Term Attributes                        */
@@ -33,17 +33,14 @@ export class FunctionTerm<TFunctionName extends MathFunctionName = MathFunctionN
 
     override get expression(): `${MathFunctionName}(${string})`;
 
+    /** The function this term represents. */
+    get function(): RollFunction;
+
+    override get isDeterministic(): boolean;
+
     /* -------------------------------------------- */
     /*  Math Term Methods                           */
     /* -------------------------------------------- */
-
-    protected override _evaluateSync({
-        minimize,
-        maximize,
-    }?: {
-        minimize?: boolean;
-        maximize?: boolean;
-    }): Evaluated<this>;
 
     protected override _evaluate({
         minimize,
@@ -52,6 +49,24 @@ export class FunctionTerm<TFunctionName extends MathFunctionName = MathFunctionN
         minimize?: boolean;
         maximize?: boolean;
     }): Promise<Evaluated<this>>;
+
+    /** Evaluate this function when it contains any non-deterministic sub-terms. */
+    protected _evaluateAsync({
+        minimize,
+        maximize,
+    }?: {
+        minimize?: boolean;
+        maximize?: boolean;
+    }): Promise<Evaluated<this>>;
+
+    /** Evaluate this function when it contains only deterministic sub-terms. */
+    protected override _evaluateSync({
+        minimize,
+        maximize,
+    }?: {
+        minimize?: boolean;
+        maximize?: boolean;
+    }): Evaluated<this>;
 }
 
 declare global {

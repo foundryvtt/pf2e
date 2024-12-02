@@ -4,7 +4,7 @@ import type { ItemPF2e } from "@item";
 import { extractDamageAlterations, extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { ErrorPF2e, fontAwesomeIcon, signedInteger, tupleHasValue } from "@util";
 import * as R from "remeda";
-import type { Die, NumericTerm, RollTerm } from "types/foundry/client-esm/dice/terms/module.d.ts";
+import type { Die, NumericTerm, RollTerm } from "types/foundry/client-esm/dice/terms/_module.d.mts";
 import { combinePartialTerms } from "./formula.ts";
 import { DamageInstance, DamageRoll } from "./roll.ts";
 import { ArithmeticExpression, Grouping, IntermediateDie } from "./terms.ts";

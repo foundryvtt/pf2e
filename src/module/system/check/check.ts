@@ -24,7 +24,7 @@ import {
     traitSlugToObject,
 } from "@util";
 import * as R from "remeda";
-import type { Die } from "types/foundry/client-esm/dice/terms/die.d.ts";
+import type { Die } from "types/foundry/client-esm/dice/terms/die.d.mts";
 import {
     DEGREE_OF_SUCCESS_STRINGS,
     DegreeAdjustmentsRecord,

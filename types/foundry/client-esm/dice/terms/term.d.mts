@@ -1,3 +1,5 @@
+import { RollParseNode } from "../_types.mjs";
+
 /**
  * An abstract class which represents a single token that can be used as part of a Roll formula.
  * Every portion of a Roll formula is parsed into a subclass of RollTerm in order for the Roll to be fully evaluated.
@@ -80,6 +82,13 @@ export abstract class RollTerm<TTermData extends RollTermData = RollTermData> {
      * @return The constructed RollTerm
      */
     static fromData<TTerm extends RollTerm>(this: AbstractConstructorOf<TTerm>, data: TermDataOf<TTerm>): TTerm;
+
+    /**
+     * Construct a RollTerm from parser information.
+     * @param {RollParseNode} node  The node.
+     * @returns {RollTerm}
+     */
+    static fromParseNode<TTerm extends RollTerm>(node: RollParseNode): TTerm;
 
     /**
      * Define term-specific logic for how a de-serialized data object is restored as a functional RollTerm
