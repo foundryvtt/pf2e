@@ -8,6 +8,7 @@ import { RuleElementSource } from "@module/rules/index.ts";
 import { isObject, recursiveReplaceString, setHasElement, sluggify, tupleHasValue } from "@util/misc.ts";
 import fs from "fs";
 import path from "path";
+import * as R from "remeda";
 import type { DocumentStatsData, DocumentStatsSchema } from "types/foundry/common/data/fields.d.ts";
 import systemJSON from "../../static/system.json";
 import coreIconsJSON from "../core-icons.json";
@@ -348,6 +349,11 @@ class CompendiumPack {
                         subentry.uuid = CompendiumPack.convertUUID(subentry.uuid, convertOptions);
                     }
                 }
+            }
+        } else if (itemIsOfType(source, "deity")) {
+            const spells = source.system.spells;
+            for (const [key, spell] of R.entries(spells)) {
+                spells[key] = CompendiumPack.convertUUID(spell, convertOptions);
             }
         }
 

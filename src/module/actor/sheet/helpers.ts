@@ -69,7 +69,7 @@ function createAbilityViewData(item: AbilityItemPF2e | FeatPF2e): AbilityViewDat
     return {
         ...R.pick(item, ["id", "img", "name", "actionCost", "frequency"]),
         glyph: getActionGlyph(item.actionCost),
-        usable: !!item.system.selfEffect || !!item.system?.frequency,
+        usable: !!item.system.selfEffect || !!item.system?.frequency || !!item.crafting,
         traits: item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),
         has: {
             aura: item.traits.has("aura") || item.system.rules.some((r) => r.key === "Aura"),

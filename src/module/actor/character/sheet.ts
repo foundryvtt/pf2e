@@ -51,6 +51,7 @@ import { CreatureSheetPF2e } from "../creature/sheet.ts";
 import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies.ts";
 import { ABCPicker } from "./apps/abc-picker/app.ts";
 import { AttributeBuilder } from "./apps/attribute-builder.ts";
+import { FormulaPicker } from "./apps/formula-picker/app.ts";
 import { AutomaticBonusProgression } from "./automatic-bonus-progression.ts";
 import { CharacterConfig } from "./config.ts";
 import type { CraftingAbilitySheetData } from "./crafting/ability.ts";
@@ -470,25 +471,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             actor.rollOptions.all["feature:quick-alchemy"] || actor.rollOptions.all["feat:quick-alchemy"]
         );
 
-        const craftingEntries: CraftingSheetData["abilities"] = {
-            prepared: [],
-            alchemical: {
-                entries: [],
-                resource: actor.getResource("infused-reagents"),
-                resourceCost: 0,
-            },
-        };
-
-        for (const entry of this.actor.crafting.abilities) {
-            const sheetData = await entry.getSheetData();
-            if (entry.isAlchemical) {
-                craftingEntries.alchemical.entries.push(sheetData);
-                craftingEntries.alchemical.resourceCost += (await entry.calculateResourceCost()) || 0;
-            } else {
-                craftingEntries.prepared.push(sheetData);
-            }
-        }
-
         // Set up the cache of known formulas on the actor for use on sheet events
         // These formulas include any modified batch size.
         const formulas = await actor.crafting.getFormulas();
@@ -508,13 +490,24 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             R.map((f) => ({ level: f[0], formulas: f[1] })),
         );
 
+        const abilities = this.actor.crafting.abilities;
+        const sheetData = await Promise.all(abilities.map((e) => e.getSheetData()));
+
         return {
             noCost: flags.freeCrafting,
             hasQuickAlchemy,
             hasDailyCrafting: this.actor.crafting.abilities.some((a) => a.isDailyPrep || a.isAlchemical),
             dailyCraftingComplete: !!this.actor.flags.pf2e.dailyCraftingComplete,
-            abilities: craftingEntries,
-            knownFormulas: knownFormulas,
+            abilities: {
+                spontaneous: sheetData.filter((s) => !s.isPrepared),
+                prepared: sheetData.filter((s) => !s.isAlchemical && s.isPrepared),
+                alchemical: {
+                    entries: sheetData.filter((s) => s.isAlchemical),
+                    resource: actor.getResource("infused-reagents"),
+                    resourceCost: sheetData.filter((s) => s.isAlchemical).reduce((sum, a) => sum + a.resourceCost, 0),
+                },
+            },
+            knownFormulas,
         };
     }
 
@@ -951,20 +944,24 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         handlers["craft-item"] = async (event, anchor) => {
             const row = htmlClosest(anchor, "li");
-            const quantityInput = htmlQuery<HTMLInputElement>(row, "input[data-craft-quantity]");
-            const uuid = row?.dataset.itemUuid;
-            if (!row || !uuid) return;
-            if (!UUIDUtils.isItemUUID(uuid)) throw ErrorPF2e(`Invalid UUID: ${uuid}`);
-
-            const quantity = Number(quantityInput?.value) || 1;
-            const formula = this.#knownFormulas[uuid];
-            if (!formula) return;
+            if (!row) return;
 
             // Handle ability crafting first if we're crafting for an ability
             const ability = this.actor.crafting.abilities.get(row.dataset.ability ?? "");
             if (ability) {
-                const craftParam = ability.isPrepared && row.dataset.itemIndex ? Number(row.dataset.itemIndex) : null;
-                const item = craftParam !== null ? await ability.craft(craftParam) : null;
+                const craftParam = await (async () => {
+                    if (ability.isPrepared) return row.dataset.itemIndex ? Number(row.dataset.itemIndex) : null;
+
+                    if (ability.resource) {
+                        const picker = new FormulaPicker({ actor: this.actor, ability });
+                        return await picker.resolveSelection();
+                    }
+
+                    return null;
+                })();
+
+                const consume = !ability.resource || !!this.actor.getResource(ability.resource)?.value;
+                const item = craftParam !== null ? await ability.craft(craftParam, { consume }) : null;
                 if (item) {
                     await ChatMessagePF2e.create({
                         author: game.user.id,
@@ -979,6 +976,14 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
                 return;
             }
+
+            // Determine what item and how much we're crafting
+            const uuid = row.dataset.itemUuid;
+            if (!UUIDUtils.isItemUUID(uuid)) throw ErrorPF2e(`Invalid UUID: ${uuid}`);
+            const quantityInput = htmlQuery<HTMLInputElement>(row, "input[data-craft-quantity]");
+            const quantity = Number(quantityInput?.value) || 1;
+            const formula = this.#knownFormulas[uuid];
+            if (!formula) return;
 
             if (this.actor.flags.pf2e.quickAlchemy) {
                 const reagentValue = this.actor.system.resources.crafting.infusedReagents.value - 1;
@@ -1527,6 +1532,7 @@ interface CraftingSheetData {
     dailyCraftingComplete: boolean;
     knownFormulas: FormulaByLevel[];
     abilities: {
+        spontaneous: CraftingAbilitySheetData[];
         prepared: CraftingAbilitySheetData[];
         alchemical: {
             entries: CraftingAbilitySheetData[];

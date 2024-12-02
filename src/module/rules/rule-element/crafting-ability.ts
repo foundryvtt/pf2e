@@ -122,6 +122,18 @@ class CraftingAbilityRuleElement extends RuleElementPF2e<CraftingAbilityRuleSche
             this.actor.rollOptions.all[`crafting:entry:${slug}`] = true;
         }
     }
+
+    /** Attach the crafting ability to the feat or ability if not prepared */
+    override afterPrepareData(): void {
+        if (this.ignored) return;
+
+        if (!this.isPrepared && this.item.isOfType("feat", "action") && this.item.actionCost) {
+            const ability = this.actor.crafting.abilities.get(this.slug);
+            if (ability && ability.craftableItems.length) {
+                this.item.crafting = ability;
+            }
+        }
+    }
 }
 
 interface CraftingAbilityRuleElement

@@ -1,0 +1,67 @@
+{
+    "_id": "iYHNKt2eailYxNXc",
+    "img": "icons/creatures/unholy/demon-fire-horned-winged-roar.webp",
+    "name": "Effect: Lord of the Fiends",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Lord of the Fiends]</p>\n<p>Whenever you roll a success on a Deception, Diplomacy, or Intimidation check against a fiend, you get a critical success instead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 14
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "target:trait:fiend"
+                ],
+                "selector": "deception"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "target:trait:fiend"
+                ],
+                "selector": "diplomacy"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "target:trait:fiend"
+                ],
+                "selector": "intimidation"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

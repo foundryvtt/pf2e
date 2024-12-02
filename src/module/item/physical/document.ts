@@ -645,7 +645,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     }
 
     /** Include mystification-related rendering instructions for views that will display this data. */
-    protected override traitChatData(dictionary: Record<string, string>): TraitChatData[] {
+    override traitChatData(dictionary?: Record<string, string>): TraitChatData[] {
         const traitData = super.traitChatData(dictionary);
         for (const trait of traitData) {
             trait.mystified = !this.isIdentified && MystifiedTraits.has(trait.value);

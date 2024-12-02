@@ -679,14 +679,17 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             const handler = handlers[actionTarget?.dataset.action ?? ""];
             if (handler && actionTarget) {
                 event.stopImmediatePropagation();
+
                 // Temporarily remove the listener to ignore unintentional double clicks
                 html.removeEventListener("click", sheetHandler);
+                setTimeout(() => {
+                    html.addEventListener("click", sheetHandler);
+                }, 50);
+
                 try {
                     await handler(event, actionTarget);
                 } catch (error) {
                     console.error(error);
-                } finally {
-                    html.addEventListener("click", sheetHandler);
                 }
             }
         };
