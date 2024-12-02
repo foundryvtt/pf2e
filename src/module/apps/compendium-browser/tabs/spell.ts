@@ -9,7 +9,7 @@ import { CompendiumBrowserIndexData, SpellFilters } from "./data.ts";
 export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "spell";
     tabLabel = "PF2E.Item.Spell.Plural";
-    filterData: SpellFilters;
+    declare filterData: SpellFilters;
 
     /* MiniSearch */
     override searchFields = ["name", "originalName"];

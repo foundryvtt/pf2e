@@ -26,7 +26,6 @@
             data.values = activeTab.parseRangeFilterInput(options.name, data.defaultMin, data.defaultMax);
             data.changed = false;
         }
-        game.pf2e.compendiumBrowser.renderParts("resultList");
     }
 </script>
 

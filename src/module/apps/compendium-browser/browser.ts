@@ -5,7 +5,6 @@ import { BaseSpellcastingEntry } from "@item/spellcasting-entry/index.ts";
 import { SvelteApplicationMixin } from "@module/sheet/mixin.svelte.ts";
 import { ErrorPF2e, setHasElement } from "@util";
 import * as R from "remeda";
-import { untrack } from "svelte";
 import type {
     ApplicationConfiguration,
     ApplicationHeaderControlsEntry,
@@ -15,7 +14,7 @@ import App from "./components/app.svelte";
 import { BrowserTab, BrowserTabs, ContentTabName, PackInfo, SourceInfo, TabData, TabName } from "./data.ts";
 import { PackLoader } from "./loader.ts";
 import { CompendiumBrowserSettingsApp } from "./settings.ts";
-import { BrowserFilter, CompendiumBrowserIndexData } from "./tabs/data.ts";
+import { BrowserFilter } from "./tabs/data.ts";
 import * as browserTabs from "./tabs/index.ts";
 
 const foundryApp = foundry.applications.api;
@@ -27,7 +26,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
     protected declare $state: CompendiumBrowserState;
     root = App;
 
-    activeTab?: BrowserTab;
+    activeTab: BrowserTab;
     dataTabsList = ["action", "bestiary", "campaignFeature", "equipment", "feat", "hazard", "spell"] as const;
     packLoader = new PackLoader();
     settings: CompendiumBrowserSettings;
@@ -48,6 +47,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
             spell: new browserTabs.Spells(this),
         };
         this.tabsArray = R.values(this.tabs);
+        this.activeTab = this.tabs.action;
 
         this.initCompendiumList();
     }
@@ -128,10 +128,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
         return {
             state: {
                 activeTabName: "",
-                filterKey: fu.randomID(),
-                results: [],
-                resultLimit: CompendiumBrowser.RESULT_LIMIT,
-                resultListKey: fu.randomID(),
+                resultList: document.createElement("ul"), // This is required to make the value bindable
             },
         };
     }
@@ -151,14 +148,9 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
         }
     }
 
-    renderParts(...parts: ("filter" | "resultList")[]): void {
-        if (parts.includes("filter")) {
-            this.$state.filterKey = fu.randomID();
-        }
-        if (parts.includes("resultList")) {
-            untrack(() => (this.$state.results.length = 0));
-            this.$state.resultListKey = fu.randomID();
-        }
+    resetListElement(): void {
+        this.activeTab.resultLimit = CompendiumBrowser.RESULT_LIMIT;
+        this.$state.resultList.scrollTo({ top: 0, behavior: "instant" });
     }
 
     async openTab(tabName: TabName, options?: CompendiumBrowserOpenTabOptions): Promise<void> {
@@ -171,8 +163,11 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
         if (this.activeTab.isGMOnly && !game.user.isGM) {
             throw ErrorPF2e("Tried to open GM-only browser tab!");
         }
-        if (options?.filter && !this.activeTab.isInitialized) {
-            throw ErrorPF2e("Tried to pass filter data to an uninitialized tab!");
+        if (options?.filter) {
+            if (!this.activeTab.isInitialized) {
+                throw ErrorPF2e("Tried to pass filter data to an uninitialized tab!");
+            }
+            this.activeTab.filterData = options.filter;
         }
         await this.activeTab.init();
 
@@ -194,16 +189,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
         } else {
             this.#setVisibleTabs();
         }
-
-        const state = this.$state;
-        state.activeFilter = options?.filter ?? this.activeTab.filterData;
-        if (state.activeTabName === tabName && this.rendered) {
-            state.resultLimit = CompendiumBrowser.RESULT_LIMIT;
-            untrack(() => (state.results = []));
-            this.renderParts("filter", "resultList");
-        } else {
-            state.activeTabName = tabName;
-        }
+        this.$state.activeTabName = tabName;
 
         this.bringToFront();
     }
@@ -378,18 +364,10 @@ interface CompendiumBrowserContext {
 }
 
 interface CompendiumBrowserState {
-    /** Changing this will trigger a tab rerender. An empty string will show the landing page. */
+    /** Changing this will trigger a tab rerender. An empty string will show the landing page */
     activeTabName: ContentTabName | "";
-    /** The currently rendered filter */
-    activeFilter?: BrowserFilter;
-    /** Changing this will trigger a filter rerender. */
-    filterKey: string;
-    /** The currently rendered result items */
-    results: CompendiumBrowserIndexData[];
-    /** The maximum amount of rendered result items */
-    resultLimit: number;
-    /** Changing this wil trigger a result list rerender. */
-    resultListKey: string;
+    /** The result list HTML element */
+    resultList: HTMLUListElement;
 }
 
 type CompendiumBrowserSettings = TabData<Record<string, PackInfo | undefined>>;

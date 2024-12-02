@@ -8,7 +8,7 @@ import { CampaignFeatureFilters, CompendiumBrowserIndexData } from "./data.ts";
 export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "campaignFeature";
     tabLabel = "PF2E.CompendiumBrowser.TabCampaign";
-    filterData: CampaignFeatureFilters;
+    declare filterData: CampaignFeatureFilters;
 
     /* MiniSearch */
     override searchFields = ["name", "originalName"];

@@ -6,8 +6,7 @@
     interface Props {
         level: LevelData;
     }
-    const props: Props = $props();
-    let level = $state(props.level);
+    const { level = $bindable() }: Props = $props();
 
     function onChangeLevel(event: Event & { currentTarget: HTMLSelectElement }) {
         const name = event.currentTarget.name;
@@ -24,7 +23,6 @@
             level.to = value;
         }
         level.changed = level.from !== level.min || level.to !== level.max;
-        game.pf2e.compendiumBrowser.renderParts("resultList");
     }
 </script>
 

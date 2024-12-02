@@ -2,8 +2,7 @@
     import { slide } from "svelte/transition";
     import type { RangesInputData } from "../../tabs/data.ts";
 
-    const props: { name: string; range: RangesInputData } = $props();
-    let range = $state(props.range);
+    const { name, range = $bindable() }: { name: string; range: RangesInputData } = $props();
 
     function onChangeRange(event: Event & { currentTarget: HTMLInputElement }): void {
         const activeTab = game.pf2e.compendiumBrowser.activeTab;
@@ -11,12 +10,11 @@
         const elName = event.currentTarget.name;
         const elValue = event.currentTarget.value;
         if (elName === "lowerBound") {
-            range.values = activeTab.parseRangeFilterInput(props.name, elValue, range.values.inputMax);
+            range.values = activeTab.parseRangeFilterInput(name, elValue, range.values.inputMax);
         } else if (elName === "upperBound") {
-            range.values = activeTab.parseRangeFilterInput(props.name, range.values.inputMin, elValue);
+            range.values = activeTab.parseRangeFilterInput(name, range.values.inputMin, elValue);
         }
         range.changed = true;
-        game.pf2e.compendiumBrowser.renderParts("resultList");
     }
 </script>
 
@@ -53,8 +51,7 @@
             justify-content: space-between;
             margin-top: 0.5em;
 
-            input,
-            select {
+            input {
                 width: 45%;
             }
         }

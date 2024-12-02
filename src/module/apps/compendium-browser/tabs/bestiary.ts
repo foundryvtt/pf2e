@@ -7,7 +7,7 @@ import { BestiaryFilters, CompendiumBrowserIndexData } from "./data.ts";
 export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "bestiary";
     tabLabel = "PF2E.CompendiumBrowser.TabBestiary";
-    filterData: BestiaryFilters;
+    declare filterData: BestiaryFilters;
     override isGMOnly = true;
 
     protected index = [

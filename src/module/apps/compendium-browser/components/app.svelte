@@ -14,7 +14,6 @@
         if (tupleHasValue(browser.dataTabsList, clickedTab)) {
             browser.activeTab = browser.tabs[clickedTab];
             await browser.activeTab.init();
-            state.activeFilter = browser.activeTab.filterData;
             state.activeTabName = clickedTab;
         }
     }
@@ -39,9 +38,7 @@
         <div class="landing-page">{game.i18n.localize("PF2E.CompendiumBrowser.Hint")}</div>
     </div>
 {:else}
-    {#key state.activeTabName}
-        <BrowserTab {state} />
-    {/key}
+    <BrowserTab bind:activeTabName={state.activeTabName} {state} />
 {/if}
 
 <style lang="scss">

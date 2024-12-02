@@ -10,7 +10,7 @@ import { CompendiumBrowserIndexData, EquipmentFilters, RangesInputData } from ".
 export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "equipment";
     tabLabel = "TYPES.Item.equipment";
-    filterData: EquipmentFilters;
+    declare filterData: EquipmentFilters;
 
     /* MiniSearch */
     override searchFields = ["name", "originalName"];

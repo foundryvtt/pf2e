@@ -3,9 +3,7 @@
     import { slide } from "svelte/transition";
     import type { CheckboxData, CheckboxOption } from "../../tabs/data.ts";
 
-    const props: { checkbox: CheckboxData; searchable?: boolean } = $props();
-    const checkbox = props.checkbox;
-    const browser = game.pf2e.compendiumBrowser;
+    const { checkbox = $bindable(), searchable }: { checkbox: CheckboxData; searchable?: boolean } = $props();
     let searchTerm = $state("");
 
     function onChangeCheckbox(
@@ -19,7 +17,6 @@
             checkbox.selected = checkbox.selected.filter((name) => name !== data.name);
         }
         data.option.selected = checked;
-        browser.renderParts("resultList");
     }
 
     const onSearchSource = fu.debounce((event: Event) => {
@@ -29,7 +26,7 @@
 </script>
 
 <div class="checkbox-container" transition:slide>
-    {#if props.searchable}
+    {#if searchable}
         <input
             type="search"
             class="filter-sources"
@@ -39,7 +36,7 @@
         />
     {/if}
     {#each R.entries(checkbox.options) as [name, option]}
-        {#if !props.searchable || !searchTerm || option.selected || option.label
+        {#if !searchable || !searchTerm || option.selected || option.label
                 .toLocaleLowerCase(game.i18n.lang)
                 .includes(searchTerm)}
             <label>

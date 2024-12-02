@@ -9,20 +9,16 @@
     interface Props {
         traits: TraitData;
     }
-    const props: Props = $props();
-    const traits = props.traits;
-    const browser = game.pf2e.compendiumBrowser;
+    const { traits = $bindable() }: Props = $props();
 
     function onChangeConjunction(event: Event & { currentTarget: HTMLInputElement }): void {
         const value = event.currentTarget.value;
         if (value !== "and" && value !== "or") return;
         traits.conjunction = value;
-        browser.renderParts("resultList");
     }
 
     function onChangeTraits(selected: TraitOption[]): void {
         traits.selected = selected;
-        browser.renderParts("resultList");
     }
 
     function onClickNot(event: MouseEvent, index: number): void {
@@ -36,8 +32,6 @@
         } else {
             element?.classList.remove("not");
         }
-
-        browser.renderParts("resultList");
     }
 </script>
 

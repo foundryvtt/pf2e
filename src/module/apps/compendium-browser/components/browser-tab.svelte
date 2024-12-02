@@ -1,53 +1,39 @@
 <script lang="ts">
     import Filters from "./filters.svelte";
-    import ResultList from "./result-list.svelte";
-    import { type CompendiumBrowserState, CompendiumBrowser } from "../browser.ts";
+    import ResultItem from "./result-item.svelte";
     import { ErrorPF2e } from "@util";
+    import { CompendiumBrowser, type CompendiumBrowserState } from "../browser.ts";
+    import type { ContentTabName } from "../data.ts";
 
-    type BrowserTabProps = { state: CompendiumBrowserState };
+    type BrowserTabProps = { activeTabName: ContentTabName; state: CompendiumBrowserState };
 
-    const props: BrowserTabProps = $props();
-    const state = props.state;
-    const activeTabName = state.activeTabName;
+    const { activeTabName = $bindable(), ...props }: BrowserTabProps = $props();
     if (!activeTabName) {
         throw ErrorPF2e(`Invalid tab name: "${activeTabName}"!`);
     }
     const browser = game.pf2e.compendiumBrowser;
-    const tab = browser.tabs[activeTabName];
-    if (!tab) {
-        throw ErrorPF2e(`Invalid tab "${activeTabName}"!`);
-    }
+    const tab = $derived(browser.tabs[activeTabName]);
 
     function resetFilters(): void {
-        state.activeFilter = fu.deepClone(tab.defaultFilterData);
-        browser.renderParts("filter", "resultList");
+        tab.resetFilters();
     }
 
-    function loadMore(): void {
-        if (!state.activeFilter) return;
-        tab.filterData = state.activeFilter;
-        if (state.resultLimit === CompendiumBrowser.RESULT_LIMIT) {
-            state.results = tab.getIndexData(0, CompendiumBrowser.RESULT_LIMIT);
-            state.resultLimit = 2 * CompendiumBrowser.RESULT_LIMIT;
-            return;
+    function onscroll(): void {
+        if (!activeTabName) return;
+        const resultList = props.state.resultList;
+        if (resultList.scrollTop + resultList.clientHeight >= resultList.scrollHeight - 5) {
+            tab.resultLimit += CompendiumBrowser.RESULT_LIMIT;
         }
-        const next = tab.currentIndex.slice(state.resultLimit, state.resultLimit + CompendiumBrowser.RESULT_LIMIT);
-        state.resultLimit += CompendiumBrowser.RESULT_LIMIT;
-        state.results.push(...next);
     }
 </script>
 
 <div class="browser-tab" data-tab-name={activeTabName} data-tooltip-class="pf2e">
-    {#key state.filterKey}
-        {#if state.activeFilter}
-            <Filters bind:filter={state.activeFilter} {resetFilters} />
-        {:else}
-            <span>Invalid Filter State</span>
-        {/if}
-    {/key}
-    {#key state.resultListKey}
-        <ResultList {state} {loadMore} />
-    {/key}
+    <Filters bind:filter={tab.filterData} {resetFilters} />
+    <ul class="result-list" {onscroll} bind:this={props.state.resultList}>
+        {#each tab.results.slice(0, tab.resultLimit) as entry (entry.uuid)}
+            <ResultItem {activeTabName} {entry} />
+        {/each}
+    </ul>
 </div>
 
 <style lang="scss">
@@ -56,5 +42,15 @@
         grid-template-columns: 19em auto;
         min-height: 9em;
         height: 100%;
+
+        ul.result-list {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            margin: 5px 0 0 0;
+            padding: 0;
+            width: 100%;
+            overflow: visible scroll;
+        }
     }
 </style>

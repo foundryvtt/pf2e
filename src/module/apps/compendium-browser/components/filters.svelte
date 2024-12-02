@@ -2,21 +2,19 @@
     import * as R from "remeda";
     import FilterContainer from "./filters/filter-container.svelte";
     import Traits from "./filters/traits.svelte";
-    import type { BrowserFilter } from "../tabs/data.ts";
     import Level from "./filters/level.svelte";
     import Ranges from "./filters/ranges.svelte";
     import Checkboxes from "./filters/checkboxes.svelte";
+    import type { BrowserFilter } from "../tabs/data.ts";
 
     interface FilterProps {
         filter: BrowserFilter;
         resetFilters: () => void;
     }
     const { filter = $bindable(), resetFilters }: FilterProps = $props();
-    const browser = game.pf2e.compendiumBrowser;
 
     function onChangeSortOrder(): void {
         filter.order.direction = filter.order.direction === "asc" ? "desc" : "asc";
-        browser.renderParts("resultList");
     }
 
     function onChangeSortValue(event: Event & { currentTarget: HTMLSelectElement }): void {
@@ -26,13 +24,11 @@
         if (!data) return;
         filter.order.type = data.type;
         filter.order.direction = "asc";
-        browser.renderParts("resultList");
     }
 
     const onSearch = fu.debounce((event: Event) => {
         if (!(event.target instanceof HTMLInputElement)) return;
         filter.search.text = event.target.value.trim();
-        browser.renderParts("resultList");
     }, 250);
 </script>
 
@@ -43,6 +39,7 @@
             type="search"
             value={filter.search.text}
             oninput={onSearch}
+            autocomplete="off"
             spellcheck="false"
             placeholder={game.i18n.localize("PF2E.CompendiumBrowser.Filter.SearchPlaceholder")}
         />
@@ -77,11 +74,7 @@
                     <label>
                         {game.i18n.localize(data.label)}:
                         <div class="select-container">
-                            <select
-                                bind:value={filter.selects[key].selected}
-                                onchange={() => browser.renderParts("resultList")}
-                                data-key={key}
-                            >
+                            <select bind:value={filter.selects[key].selected} data-key={key}>
                                 <option value="">-</option>
                                 {#each R.entries(data.options) as [key, label]}
                                     <option value={key}>{game.i18n.localize(label)}</option>
@@ -97,15 +90,15 @@
         </button>
     </div>
     <FilterContainer label="PF2E.Traits">
-        <Traits traits={filter.traits} />
+        <Traits bind:traits={filter.traits} />
     </FilterContainer>
-    {#each R.values(filter.checkboxes) as checkbox}
+    {#each Object.entries(filter.checkboxes) as [key, checkbox]}
         <FilterContainer
             isExpanded={checkbox.isExpanded}
             clearButton={{ data: checkbox, options: { visible: checkbox.selected.length > 0 } }}
             label={checkbox.label}
         >
-            <Checkboxes {checkbox} />
+            <Checkboxes bind:checkbox={filter.checkboxes[key as keyof BrowserFilter["checkboxes"]]} />
         </FilterContainer>
     {/each}
     {#if filter.source}
@@ -114,7 +107,7 @@
             clearButton={{ data: filter.source, options: { visible: filter.source.selected.length > 0 } }}
             label="PF2E.CompendiumBrowser.Filter.Source"
         >
-            <Checkboxes checkbox={filter.source} searchable />
+            <Checkboxes bind:checkbox={filter.source} searchable />
         </FilterContainer>
     {/if}
     {#if "ranges" in filter}
@@ -124,7 +117,7 @@
                 clearButton={{ data: range, options: { visible: range.changed, name } }}
                 label={range.label}
             >
-                <Ranges {range} {name} />
+                <Ranges bind:range={filter.ranges[name]} {name} />
             </FilterContainer>
         {/each}
     {/if}
@@ -134,7 +127,7 @@
             clearButton={{ data: filter.level, options: { visible: filter.level.changed } }}
             label="PF2E.CompendiumBrowser.Filter.Levels"
         >
-            <Level level={filter.level} />
+            <Level bind:level={filter.level} />
         </FilterContainer>
     {/if}
 </div>

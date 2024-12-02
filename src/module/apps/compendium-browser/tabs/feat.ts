@@ -8,7 +8,7 @@ import { CompendiumBrowserIndexData, FeatFilters, TraitData } from "./data.ts";
 export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "feat";
     tabLabel = "PF2E.CompendiumBrowser.TabFeat";
-    filterData: FeatFilters;
+    declare filterData: FeatFilters;
 
     /* MiniSearch */
     override searchFields = ["name", "originalName"];
