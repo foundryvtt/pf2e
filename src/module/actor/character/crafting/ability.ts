@@ -82,11 +82,13 @@ class CraftingAbility implements CraftingAbilityData {
             const rollOptions = formula?.item.getRollOptions("item") ?? [];
             const matching = formula ? this.craftableItems.find((c) => c.predicate.test(rollOptions)) : null;
             const batchSize = matching?.batchSize ?? this.batchSize ?? 1;
+            const batches = Math.ceil((prepData.quantity || 1) / batchSize);
             return formula
                 ? {
                       ...formula,
                       batchSize,
-                      quantity: this.resource ? Math.ceil((prepData.quantity || 1) / batchSize) * batchSize : batchSize,
+                      batches,
+                      quantity: batches * batchSize,
                       expended: !!prepData.expended,
                       isSignatureItem: !!prepData.isSignatureItem,
                   }
@@ -98,7 +100,8 @@ class CraftingAbility implements CraftingAbilityData {
     async getSheetData(): Promise<CraftingAbilitySheetData> {
         const preparedCraftingFormulas = await this.getPreparedCraftingFormulas();
         const prepared = [...preparedCraftingFormulas];
-        const remainingSlots = Math.max(0, this.maxSlots - prepared.length);
+        const consumed = prepared.reduce((sum, p) => sum + p.batches, 0);
+        const remainingSlots = Math.max(0, this.maxSlots - consumed);
 
         return {
             label: this.label,
@@ -106,6 +109,7 @@ class CraftingAbility implements CraftingAbilityData {
             isAlchemical: this.isAlchemical,
             isPrepared: this.isPrepared,
             isDailyPrep: this.isDailyPrep,
+            insufficient: this.maxSlots > 0 && consumed > this.maxSlots,
             maxItemLevel: this.maxItemLevel,
             resource: this.resource ? this.actor.getResource(this.resource) : null,
             resourceCost: await this.calculateResourceCost(),
@@ -123,27 +127,6 @@ class CraftingAbility implements CraftingAbilityData {
             preparedCraftingFormulas.map(async (f) => f.quantity / (await this.#batchSizeFor(f))),
         );
         return Math.ceil(values.reduce((total, part) => total + part, 0));
-    }
-
-    async prepareFormula(formula: CraftingFormula): Promise<void> {
-        if (!this.resource && this.preparedFormulaData.length >= this.maxSlots) {
-            ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MaxSlots"));
-            return;
-        }
-
-        if (!this.canCraft(formula.item)) {
-            return;
-        }
-
-        const quantity = await this.#batchSizeFor(formula);
-        const existing = this.preparedFormulaData.find((f) => f.uuid === formula.uuid);
-        if (existing && this.resource) {
-            existing.quantity = quantity;
-        } else {
-            this.preparedFormulaData.push({ uuid: formula.uuid, quantity });
-        }
-
-        return this.#updateRuleElement();
     }
 
     /** Returns true if the item can be created by this ability, which requires it to pass predication and be of sufficient level */
@@ -168,6 +151,29 @@ class CraftingAbility implements CraftingAbilityData {
         return true;
     }
 
+    async prepareFormula(formula: CraftingFormula): Promise<void> {
+        const prepared = await this.getPreparedCraftingFormulas();
+        const consumed = prepared.reduce((sum, p) => sum + p.batches, 0);
+        if (!this.resource && consumed >= this.maxSlots) {
+            ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MaxSlots"));
+            return;
+        }
+
+        if (!this.canCraft(formula.item)) {
+            return;
+        }
+
+        const quantity = await this.#batchSizeFor(formula);
+        const existingIdx = this.preparedFormulaData.findIndex((f) => f.uuid === formula.uuid);
+        if (existingIdx > -1 && (this.resource || this.isDailyPrep)) {
+            return this.setFormulaQuantity(existingIdx, "increase");
+        } else {
+            this.preparedFormulaData.push({ uuid: formula.uuid, quantity });
+        }
+
+        return this.#updateRuleElement();
+    }
+
     async unprepareFormula(index: number): Promise<void> {
         const formula = this.preparedFormulaData[index];
         if (!formula) return;
@@ -178,6 +184,15 @@ class CraftingAbility implements CraftingAbilityData {
     async setFormulaQuantity(index: number, value: "increase" | "decrease" | number): Promise<void> {
         const data = this.preparedFormulaData[index];
         if (!data) return;
+
+        // Make sure we can increase first
+        if (value === "increase" || (typeof value === "number" && value > 0)) {
+            const prepared = await this.getPreparedCraftingFormulas();
+            const consumed = prepared.reduce((sum, p) => sum + p.batches, 0);
+            if (this.maxSlots && consumed >= this.maxSlots) {
+                return;
+            }
+        }
 
         const currentQuantity = data.quantity ?? 0;
         const item = this.fieldDiscovery ? await fromUuid<ItemPF2e>(data.uuid) : null;
@@ -302,10 +317,12 @@ class CraftingAbility implements CraftingAbilityData {
     /** Returns what items should be created by this ability during daily preparation, and what the resource expenditure should be */
     async calculateDailyCrafting(): Promise<DailyCraftingResult> {
         if (!this.isDailyPrep) {
-            return { items: [], resource: null };
+            return { items: [], resource: null, insufficient: false };
         }
 
         const prepared = await this.getPreparedCraftingFormulas();
+        const consumed = prepared.reduce((sum, p) => sum + p.batches, 0);
+
         return {
             items: prepared
                 .filter((f) => !f.expended)
@@ -327,6 +344,7 @@ class CraftingAbility implements CraftingAbilityData {
                       cost: await this.calculateResourceCost(),
                   }
                 : null,
+            insufficient: this.maxSlots > 0 && consumed > this.maxSlots,
         };
     }
 
@@ -363,6 +381,8 @@ interface CraftingAbilitySheetData {
     isAlchemical: boolean;
     isPrepared: boolean;
     isDailyPrep: boolean;
+    /** This is true if we do not have sufficient slots or resources to craft this ability */
+    insufficient: boolean;
     maxSlots: number;
     maxItemLevel: number;
     resource: ResourceData | null;
@@ -374,6 +394,8 @@ interface CraftingAbilitySheetData {
 interface DailyCraftingResult {
     items: PreCreate<PhysicalItemSource>[];
     resource: { slug: string; cost: number } | null;
+    /** True if this item is internally insufficient. It does not compare with other crafting abilties */
+    insufficient: boolean;
 }
 
 export { CraftingAbility };
