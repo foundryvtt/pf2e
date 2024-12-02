@@ -49,7 +49,34 @@
         "reload": {
             "value": "-"
         },
-        "rules": [],
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "selector": "{item|id}-attack",
+                "type": "item",
+                "value": "ternary(gte(@item.level,18),3,ternary(gte(@item.level,12),2,1))"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "dice:slug:base"
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "{item|id}-damage"
+                ],
+                "value": "ternary(gte(@item.level,18),4,ternary(gte(@item.level,12),3,ternary(gte(@item.level,4),2,1)))"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "selector": "{item|id}-damage",
+                "slug": "splash",
+                "value": "ternary(gte(@item.level,18),4,ternary(gte(@item.level,12),3,ternary(gte(@item.level,4),2,1)))"
+            }
+        ],
         "runes": {
             "potency": 0,
             "property": [],
