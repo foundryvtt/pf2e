@@ -1,0 +1,44 @@
+{
+    "_id": "cSH9aXM0hQlF5pgp",
+    "img": "icons/magic/lightning/bolt-strike-embers-teal.webp",
+    "name": "Effect: Drain Realm",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Drain Realm]</p>\n<p>Your Strikes deal an additional 1d8 damage of your realm's damage type.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "damageType": "{actor|flags.pf2e.realmDamage}",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "selector": "strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
