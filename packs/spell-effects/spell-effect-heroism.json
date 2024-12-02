@@ -4,7 +4,7 @@
     "name": "Spell Effect: Heroism",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Heroism]</p>\n<p>Tapping into your inner heroism, you get a +1 status bonus to attack rolls, Perception checks, saving throws, and skill checks.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Heroism]</p>\n<p>You gain a status bonus to attack rolls, Perception checks, saving throws, and skill checks.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -30,25 +30,7 @@
                     "perception"
                 ],
                 "type": "status",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "start": 3,
-                            "value": 1
-                        },
-                        {
-                            "end": 8,
-                            "start": 6,
-                            "value": 2
-                        },
-                        {
-                            "start": 9,
-                            "value": 3
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
+                "value": "ternary(gte(@item.level,9),3,ternary(gte(@item.level,6),2,1))"
             }
         ],
         "start": {
