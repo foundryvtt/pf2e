@@ -28,6 +28,39 @@
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.actionspf2e.Item.Manifest Realm"
+            },
+            {
+                "actorFlag": true,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "value": "poison"
+                    }
+                ],
+                "flag": "realmDamage",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.realmDamage}",
+                "value": "floor(@actor.level / 2)"
             }
         ],
         "traits": {
