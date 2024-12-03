@@ -78,7 +78,12 @@
         {{#each crafting.abilities.prepared as |ability i|}}
             <li class="crafting-entry item-container item" data-container-type="craftingEntry" data-ability="{{ability.slug}}">
                 <div class="action-header">
-                    <h3 class="item-name hide-container-toggle title">{{ability.label}}</h3>
+                    <h3 class="item-name hide-container-toggle title">
+                        {{ability.label}}
+                        {{#if ability.insufficient}}
+                            <i class="fa-solid fa-warning" data-tooltip="PF2E.Actor.Character.Crafting.MissingResource"></i>
+                        {{/if}}
+                    </h3>
                     <span class="level">{{localize "PF2E.LevelN" level=ability.maxItemLevel}}</span>
                 </div>
                 <ol class="directory-list item-list formula-list">
@@ -232,7 +237,7 @@
         <div class="dc"></div>
         <div class="cost"></div>
         <div class="quantity">
-            {{#if ability.resource}}
+            {{#if (or ability.resource ability.isDailyPrep)}}
                 <a class="adjust decrease" data-action="decrease-craft-quantity">&ndash;</a>
                 <input type="number" data-craft-quantity value="{{formula.quantity}}" />
                 <a class="adjust increase" data-action="increase-craft-quantity">+</a>

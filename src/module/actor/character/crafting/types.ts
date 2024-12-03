@@ -20,7 +20,10 @@ interface CraftingFormula extends CraftingFormulaData {
 }
 
 /** A formula prepared in a crafting ability whose item has been loaded */
-type PreparedFormula = Required<PreparedFormulaData> & CraftingFormula;
+interface PreparedFormula extends Required<PreparedFormulaData>, CraftingFormula {
+    /** The number of batches of this item being created. This is quantity divided by batch size */
+    batches: number;
+}
 
 interface CraftingAbilityData {
     slug: string;

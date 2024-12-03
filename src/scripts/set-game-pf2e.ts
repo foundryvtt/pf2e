@@ -3,7 +3,7 @@ import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-prog
 import { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import { CheckModifier, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { CoinsPF2e, generateItemName } from "@item/physical/helpers.ts";
-import { CompendiumBrowser } from "@module/apps/compendium-browser/index.ts";
+import { CompendiumBrowser } from "@module/apps/compendium-browser/browser.ts";
 import { EffectsPanel } from "@module/apps/effects-panel.ts";
 import { LicenseViewer } from "@module/apps/license-viewer/app.ts";
 import { WorldClock } from "@module/apps/world-clock/index.ts";

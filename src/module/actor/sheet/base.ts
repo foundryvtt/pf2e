@@ -832,9 +832,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             .split(",")
             .map((s) => s.trim())
             .filter((s) => !!s);
+        const levelString = element.dataset.level;
         const tab = game.pf2e.compendiumBrowser.tabs.equipment;
         const filter = await tab.getFilterData();
-        const { checkboxes } = filter;
+        const checkboxes = filter.checkboxes;
 
         for (const itemType of checkboxesFilterCodes) {
             const checkbox = checkboxes.itemTypes;
@@ -845,7 +846,17 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             }
         }
 
-        tab.open(filter);
+        if (levelString) {
+            const level = filter.level;
+            const newValue = Math.clamp(Number(levelString), level.min, level.max);
+            if (!Number.isNaN(newValue)) {
+                level.from = newValue;
+                level.to = newValue;
+            }
+            level.isExpanded = true;
+        }
+
+        tab.open({ filter });
     }
 
     protected override _canDragStart(selector: string): boolean {
