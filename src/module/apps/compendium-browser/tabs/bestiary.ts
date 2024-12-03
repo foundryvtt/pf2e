@@ -8,7 +8,6 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "bestiary";
     tabLabel = "PF2E.CompendiumBrowser.TabBestiary";
     declare filterData: BestiaryFilters;
-    override isGMOnly = true;
 
     protected index = [
         "img",
@@ -27,6 +26,10 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
 
         // Set the filterData object of this tab
         this.filterData = this.prepareFilterData();
+    }
+
+    override get isGMOnly(): boolean {
+        return true;
     }
 
     protected override async loadData(): Promise<void> {

@@ -25,6 +25,13 @@
             tab.resultLimit += CompendiumBrowser.RESULT_LIMIT;
         }
     }
+
+    $effect(() => {
+        if (tab.isGMOnly && !game.user.isGM) {
+            props.state.activeTabName = "";
+            console.error("PF2e System | This browser tab is flagged as GM-only!");
+        }
+    });
 </script>
 
 <div class="browser-tab" data-tab-name={activeTabName} data-tooltip-class="pf2e">
