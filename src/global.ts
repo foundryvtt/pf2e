@@ -14,7 +14,7 @@ import type {
     CompendiumBrowser,
     CompendiumBrowserSettings,
     CompendiumBrowserSources,
-} from "@module/apps/compendium-browser/index.ts";
+} from "@module/apps/compendium-browser/browser.ts";
 import type { EffectsPanel } from "@module/apps/effects-panel.ts";
 import type { HotbarPF2e } from "@module/apps/hotbar.ts";
 import type { LicenseViewer } from "@module/apps/license-viewer/app.ts";

@@ -3,39 +3,44 @@ import { ErrorPF2e, htmlQuery, sluggify } from "@util";
 import MiniSearch from "minisearch";
 import * as R from "remeda";
 import type { TableResultSource } from "types/foundry/common/documents/table-result.d.ts";
+import { CompendiumBrowser, CompendiumBrowserOpenTabOptions } from "../browser.ts";
 import { BrowserTabs, ContentTabName } from "../data.ts";
-import { CompendiumBrowser } from "../index.ts";
-import {
-    BrowserFilter,
-    CheckboxOptions,
-    CompendiumBrowserIndexData,
-    MultiselectData,
-    RangesInputData,
-} from "./data.ts";
+import type { BrowserFilter, CheckboxOptions, CompendiumBrowserIndexData, RangesInputData, TraitData } from "./data.ts";
 
 export abstract class CompendiumBrowserTab {
     /** A reference to the parent CompendiumBrowser */
     protected browser: CompendiumBrowser;
     /** The filter schema for this tab; The tabs filters are rendered based on this.*/
-    abstract filterData: BrowserFilter;
+    filterData?: BrowserFilter = $state();
+    /** Current results. These are automatically refreshed when the filter changes */
+    results: CompendiumBrowserIndexData[] = $derived.by(() => {
+        if (!this.filterData) return [];
+        this.browser.resetListElement();
+        const searchText = SearchFilter.cleanQuery(this.filterData.search.text);
+        if (searchText) {
+            const searchResult = this.searchEngine.search(searchText);
+            return this.sortResult(searchResult.filter(this.filterIndexData.bind(this)));
+        }
+        return this.sortResult(this.indexData.filter(this.filterIndexData.bind(this)));
+    });
+    /** The maximum number of items shown in the result list element */
+    resultLimit = $state(CompendiumBrowser.RESULT_LIMIT);
     /** An unmodified copy of this.filterData */
     declare defaultFilterData: this["filterData"];
     /** The full CompendiumIndex of this tab */
     protected indexData: CompendiumBrowserIndexData[] = [];
-    /** The filtered CompendiumIndex */
-    protected currentIndex: CompendiumBrowserIndexData[] = [];
     /** Is this tab initialized? */
     isInitialized = false;
     /** The total count of items in the currently filtered index */
     totalItemCount = 0;
-    /** The initial display limit for this tab; Scrolling is currently hardcoded to +100 */
-    scrollLimit = 100;
     /** The name of this tab */
     abstract tabName: ContentTabName;
-    /** A DOMParser instance */
-    #domParser = new DOMParser();
-    /** The path to the result list template of this tab */
-    abstract templatePath: string;
+    /** The label for this tab. Can be a translation string */
+    protected abstract tabLabel: string;
+    /** Whether this tab is visible in the browser */
+    visible = $state(true);
+    /** Whether this tab is only visible to a GM */
+    isGMOnly = false;
     /** Minisearch */
     declare searchEngine: MiniSearch<CompendiumBrowserIndexData>;
     /** Names of the document fields to be indexed. */
@@ -47,12 +52,19 @@ export abstract class CompendiumBrowserTab {
     /** Maximum size to create a roll table from as a sanity check, erring towards still too large. */
     #MAX_TABLE_SIZE = 1000;
 
+    /** The localized label for this tab */
+    get label(): string {
+        return game.i18n.localize(this.tabLabel);
+    }
+
     constructor(browser: CompendiumBrowser) {
         this.browser = browser;
     }
 
     /** Initialize this tab */
-    async init(): Promise<void> {
+    async init(force?: boolean): Promise<void> {
+        if (this.isInitialized && !force) return;
+
         // Load the index and populate filter data
         await this.loadData();
 
@@ -93,32 +105,11 @@ export abstract class CompendiumBrowserTab {
     /** Open this tab
      * @param filter An optional initial filter for this tab
      */
-    async open(filter?: BrowserFilter): Promise<void> {
-        if (filter) {
-            if (!this.isInitialized) {
-                throw ErrorPF2e(`Tried to pass an initial filter to uninitialized tab "${this.tabName}"`);
-            }
-            this.filterData = filter;
+    async open(options?: CompendiumBrowserOpenTabOptions): Promise<void> {
+        if (options?.filter && !this.isInitialized) {
+            throw ErrorPF2e("Tried to pass filter data to an uninitialized tab!");
         }
-        return this.browser.loadTab(this.tabName);
-    }
-
-    /** Filter indexData and return slice based on current scrollLimit */
-    getIndexData(start: number): CompendiumBrowserIndexData[] {
-        if (!this.isInitialized) {
-            throw ErrorPF2e(`Compendium Browser Tab "${this.tabName}" is not initialized!`);
-        }
-
-        this.currentIndex = (() => {
-            const searchText = SearchFilter.cleanQuery(this.filterData.search.text);
-            if (searchText) {
-                const searchResult = this.searchEngine.search(searchText);
-                return this.sortResult(searchResult.filter(this.filterIndexData.bind(this)));
-            }
-            return this.sortResult(this.indexData.filter(this.filterIndexData.bind(this)));
-        })();
-        this.totalItemCount = this.currentIndex.length;
-        return this.currentIndex.slice(start, this.scrollLimit);
+        return this.browser.openTab(this.tabName, options);
     }
 
     /** Returns a clean copy of the filterData for this tab. Initializes the tab if necessary. */
@@ -151,8 +142,8 @@ export abstract class CompendiumBrowserTab {
 
     protected filterTraits(
         traits: string[],
-        selected: MultiselectData["selected"],
-        condition: MultiselectData["conjunction"],
+        selected: TraitData["selected"],
+        condition: TraitData["conjunction"],
     ): boolean {
         const selectedTraits = selected.filter((s) => !s.not).map((s) => s.value);
         const notTraits = selected.filter((t) => t.not).map((s) => s.value);
@@ -169,26 +160,10 @@ export abstract class CompendiumBrowserTab {
         return true;
     }
 
-    async renderResults(start: number): Promise<HTMLLIElement[]> {
-        if (!this.templatePath) {
-            throw ErrorPF2e(`Tab "${this.tabName}" has no valid template path.`);
-        }
-        const indexData = this.getIndexData(start);
-        const liElements: HTMLLIElement[] = [];
-        for (const entry of indexData) {
-            const htmlString = await renderTemplate(this.templatePath, {
-                entry,
-                filterData: this.filterData,
-            });
-            const html = this.#domParser.parseFromString(htmlString, "text/html");
-            liElements.push(html.body.firstElementChild as HTMLLIElement);
-        }
-        return liElements;
-    }
-
     /** Sort result array by name, level or price */
     protected sortResult(result: CompendiumBrowserIndexData[]): CompendiumBrowserIndexData[] {
-        const { order } = this.filterData;
+        if (!this.filterData) return [];
+        const order = this.filterData.order;
         const lang = game.i18n.lang;
         const sorted = result.sort((entryA, entryB) => {
             switch (order.by) {
@@ -298,7 +273,7 @@ export abstract class CompendiumBrowserTab {
         initial?: number;
         weight?: number;
     }): Partial<TableResultSource>[] {
-        return this.currentIndex
+        return this.results
             .map((e, i): Partial<TableResultSource> | null => {
                 const data = fromUuidSync(e.uuid);
                 if (!data?.pack || !data._id || !("name" in data)) return null;
@@ -322,10 +297,10 @@ export abstract class CompendiumBrowserTab {
             throw ErrorPF2e(`Compendium Browser Tab "${this.tabName}" is not initialized!`);
         }
 
-        if (this.currentIndex.length > this.#MAX_TABLE_SIZE) {
+        if (this.results.length > this.#MAX_TABLE_SIZE) {
             ui.notifications.warn(
                 game.i18n.format("PF2E.CompendiumBrowser.RollTable.TooManyResults", {
-                    size: this.currentIndex.length,
+                    size: this.results.length,
                     maxSize: this.#MAX_TABLE_SIZE,
                 }),
             );
@@ -333,7 +308,7 @@ export abstract class CompendiumBrowserTab {
         }
 
         const content = await renderTemplate("systems/pf2e/templates/compendium-browser/roll-table-dialog.hbs", {
-            count: this.currentIndex.length,
+            count: this.results.length,
         });
         Dialog.confirm({
             content,
@@ -360,10 +335,10 @@ export abstract class CompendiumBrowserTab {
             throw ErrorPF2e(`Compendium Browser Tab "${this.tabName}" is not initialized!`);
         }
 
-        if (this.currentIndex.length > this.#MAX_TABLE_SIZE) {
+        if (this.results.length > this.#MAX_TABLE_SIZE) {
             ui.notifications.warn(
                 game.i18n.format("PF2E.CompendiumBrowser.RollTable.TooManyResults", {
-                    size: this.currentIndex.length,
+                    size: this.results.length,
                     maxSize: this.#MAX_TABLE_SIZE,
                 }),
             );
@@ -371,7 +346,7 @@ export abstract class CompendiumBrowserTab {
         }
 
         const content = await renderTemplate("systems/pf2e/templates/compendium-browser/roll-table-dialog.hbs", {
-            count: this.currentIndex.length,
+            count: this.results.length,
             rollTables: game.tables.contents,
         });
         Dialog.confirm({
