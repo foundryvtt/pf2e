@@ -562,6 +562,7 @@ const otherArmorTags: Record<OtherArmorTag, string> = {
 };
 
 const otherConsumableTags: Record<OtherConsumableTag, string> = {
+    "alchemical-tool": "PF2E.Item.Physical.OtherTag.AlchemicalTool",
     herbal: "PF2E.Item.Physical.OtherTag.Herbal",
 };
 
