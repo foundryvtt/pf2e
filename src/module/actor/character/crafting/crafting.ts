@@ -115,6 +115,12 @@ class CharacterCrafting {
             return;
         }
 
+        // If any of our results is insufficient on its own, return early
+        if (results.some((r) => r.insufficient)) {
+            ui.notifications.warn("PF2E.Actor.Character.Crafting.MissingResource", { localize: true });
+            return;
+        }
+
         // Compute total resource cost by resource
         const resourceCosts = results.reduce((costs: Record<string, number>, result) => {
             if (result.resource) {
