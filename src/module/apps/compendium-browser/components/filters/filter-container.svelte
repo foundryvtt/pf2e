@@ -24,13 +24,13 @@
         {#if "isExpanded" in props}
             <button
                 type="button"
-                class="expand-section"
+                class="flat expand-section"
                 onclick={() => (isExpanded = !isExpanded)}
                 aria-label="expand"
                 aria-expanded={isExpanded}
             >
                 <i class="fa-solid fa-fw {isExpanded ? 'fa-chevron-down' : 'fa-chevron-up'}"></i>
-                {game.i18n.localize(props.label)}
+                <span>{game.i18n.localize(props.label)}</span>
             </button>
         {:else}
             {game.i18n.localize(props.label)}
@@ -47,27 +47,25 @@
 <style lang="scss">
     fieldset {
         border: 1px solid #bbb;
-        margin-top: var(--space-4);
+        margin: var(--space-8) var(--space-2);
         border-radius: var(--space-5);
         padding: var(--space-6);
         position: relative;
 
         legend {
             display: flex;
-            height: 1.5em;
+            height: 1.25em;
+            line-height: 1.25em;
             font-size: 1.25em;
-            margin-bottom: var(--space-2);
 
             button.expand-section {
+                align-items: center;
                 border: unset;
                 background: unset;
-                padding: var(--space-2);
-                width: fit-content;
+                display: flex;
                 font-size: inherit;
-
-                &:hover {
-                    color: var(--button-text-color);
-                }
+                padding: 0 var(--space-2);
+                width: fit-content;
 
                 i {
                     font-size: 0.8em;
