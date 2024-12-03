@@ -150,7 +150,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
 
     resetListElement(): void {
         this.activeTab.resultLimit = CompendiumBrowser.RESULT_LIMIT;
-        this.$state.resultList.scrollTo({ top: 0, behavior: "instant" });
+        this.$state.resultList?.scrollTo({ top: 0, behavior: "instant" });
     }
 
     async openTab(tabName: TabName, options?: CompendiumBrowserOpenTabOptions): Promise<void> {

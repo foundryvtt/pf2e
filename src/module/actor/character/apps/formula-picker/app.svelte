@@ -66,7 +66,11 @@
                         <span>{formula.item.name}</span>
                         <ItemTraits traits={formula.item.traits} rarity={formula.item.rarity} />
                     </div>
-                    <button onclick={() => confirmSelection(formula.item.uuid)} data-tooltip="Confirm">
+                    <button
+                        onclick={() => confirmSelection(formula.item.uuid)}
+                        aria-labelledby="tooltip"
+                        data-tooltip="Confirm"
+                    >
                         <i class="fa-solid fa-fw fa-check"></i>
                     </button>
                     <ItemSummary

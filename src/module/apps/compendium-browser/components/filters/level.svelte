@@ -53,7 +53,6 @@
             justify-content: space-between;
             margin-top: 0.5em;
 
-            input,
             select {
                 width: 45%;
             }

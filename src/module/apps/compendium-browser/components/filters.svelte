@@ -53,18 +53,10 @@
                         {/each}
                     </select>
                     <button onclick={onChangeSortOrder} aria-labelledby="sort-order" type="button" class="order-button">
-                        {#if filter.order.type === "alpha"}
-                            {#if filter.order.direction === "asc"}
-                                <i class="fa-solid fa-sort-alpha-up"></i>
-                            {:else}
-                                <i class="fa-solid fa-sort-alpha-down-alt"></i>
-                            {/if}
-                        {:else if filter.order.type === "numeric"}
-                            {#if filter.order.direction === "asc"}
-                                <i class="fa-solid fa-sort-numeric-up"></i>
-                            {:else}
-                                <i class="fa-solid fa-sort-numeric-down-alt"></i>
-                            {/if}
+                        {#if filter.order.direction === "asc"}
+                            <i class="fa-solid fa-sort-{filter.order.type}-up"></i>
+                        {:else}
+                            <i class="fa-solid fa-sort-{filter.order.type}-down-alt"></i>
                         {/if}
                     </button>
                 </div>

@@ -39,8 +39,6 @@ export abstract class CompendiumBrowserTab {
     protected abstract tabLabel: string;
     /** Whether this tab is visible in the browser */
     visible = $state(true);
-    /** Whether this tab is only visible to a GM */
-    isGMOnly = false;
     /** Minisearch */
     declare searchEngine: MiniSearch<CompendiumBrowserIndexData>;
     /** Names of the document fields to be indexed. */
@@ -55,6 +53,11 @@ export abstract class CompendiumBrowserTab {
     /** The localized label for this tab */
     get label(): string {
         return game.i18n.localize(this.tabLabel);
+    }
+
+    /** Whether this tab is only visible to a GM */
+    get isGMOnly(): boolean {
+        return false;
     }
 
     constructor(browser: CompendiumBrowser) {
