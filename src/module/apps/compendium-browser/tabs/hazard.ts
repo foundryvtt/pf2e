@@ -8,7 +8,6 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "hazard";
     tabLabel = "PF2E.Actor.Hazard.Plural";
     declare filterData: HazardFilters;
-    override isGMOnly = true;
 
     /* MiniSearch */
     override searchFields = ["name", "originalName"];
@@ -21,6 +20,10 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
 
         // Set the filterData object of this tab
         this.filterData = this.prepareFilterData();
+    }
+
+    override get isGMOnly(): boolean {
+        return true;
     }
 
     protected override async loadData(): Promise<void> {
