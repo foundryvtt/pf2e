@@ -184,26 +184,28 @@ class CheckPF2e {
         const allowInteractive = context.rollMode !== "blindroll";
         const roll = await new CheckRoll(`${dice}${totalModifierPart}`, {}, options).evaluate({ allowInteractive });
 
+        // Collect the check specific options. These only exist for DoS Adjustments and notes
+        const naturalTotal = roll.dice
+            .map((d) => d.results.find((r) => r.active && !r.discarded)?.result ?? null)
+            .find(R.isTruthy);
+        const postRollOptions = [
+            `check:total:${roll.total}`,
+            `check:total:natural:${naturalTotal}`,
+            // @todo migrate me
+            // backwards compatibility
+            `check:roll:total:natural:${naturalTotal}`,
+        ];
+        if (context.dc) {
+            postRollOptions.push(`check:total:delta:${roll.total - context.dc.value}`);
+        }
+
         // Combine all degree of success adjustments into a single record. Some may be overridden, but that should be
         // rare--and there are no rules for selecting among multiple adjustments.
         const dosAdjustments = ((): DegreeAdjustmentsRecord => {
             if (!context.dc) return {};
 
-            const naturalTotal = roll.dice
-                .map((d) => d.results.find((r) => r.active && !r.discarded)?.result ?? null)
-                .filter(R.isTruthy)
-                .shift();
-
             // Include tentative results in case an adjustment is predicated on it
-            const temporaryRollOptions = new Set([
-                ...rollOptions,
-                `check:total:${roll.total}`,
-                `check:total:natural:${naturalTotal}`,
-                `check:total:delta:${roll.total - context.dc.value}`,
-                // @todo migrate me
-                // backward compatibility
-                `check:roll:total:natural:${naturalTotal}`,
-            ]);
+            const temporaryRollOptions = new Set([...postRollOptions, ...rollOptions]);
 
             return (
                 context.dosAdjustments
@@ -230,7 +232,13 @@ class CheckPF2e {
             context.notes
                 ?.map((n) => (n instanceof RollNotePF2e ? n : new RollNotePF2e(n)))
                 .filter((note) => {
-                    if (!note.predicate.test([...rollOptions, ...(note.rule?.item.getRollOptions("parent") ?? [])])) {
+                    if (
+                        !note.predicate.test([
+                            ...rollOptions,
+                            ...postRollOptions,
+                            ...(note.rule?.item.getRollOptions("parent") ?? []),
+                        ])
+                    ) {
                         return false;
                     }
                     if (!context.dc || note.outcome.length === 0) {
@@ -283,6 +291,9 @@ class CheckPF2e {
                 ? { actor: context.target.actor.uuid, token: context.target.token?.uuid }
                 : null,
             options: Array.from(rollOptions).sort(),
+            contextualOptions: {
+                postRoll: postRollOptions,
+            },
             notes: notes.map((n) => n.toObject()),
             rollMode: context.rollMode,
             rollTwice: context.rollTwice ?? false,
