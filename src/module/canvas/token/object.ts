@@ -495,8 +495,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
             const currentRotation = this.document.rotation;
             const rotationAngle = this.x <= this.document.x ? 360 : -360;
             options.ontick = (_frame, data) => {
-                // Temporarily unlock rotation
-                this.document.lockRotation = false;
                 if (!attributeAdded && data.attributes.length > 0) {
                     const duration = (data.duration ?? 1000) / 1000;
                     data.attributes.push({
@@ -512,9 +510,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         }
 
         await super.animate(updateData, options);
-
-        // Restore `lockRotation` to source value in case it was unlocked for spin animation
-        this.document.lockRotation = this.document._source.lockRotation;
     }
 
     /** Obscure the token's sprite if a hearing or tremorsense detection filter is applied to it */

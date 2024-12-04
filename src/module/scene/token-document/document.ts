@@ -370,14 +370,13 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         } else {
             token.width = token._source.width = size;
             token.height = token._source.height = size;
-
-            if (game.pf2e.settings.tokens.autoscale && token.flags.pf2e.autoscale !== false) {
-                const absoluteScale = actor.size === "sm" ? 0.8 : 1;
-                const mirrorX = token.texture.scaleX < 0 ? -1 : 1;
-                token.texture.scaleX = mirrorX * absoluteScale;
-                const mirrorY = token.texture.scaleY < 0 ? -1 : 1;
-                token.texture.scaleY = mirrorY * absoluteScale;
-            }
+            // if (game.pf2e.settings.tokens.autoscale && token.flags.pf2e.autoscale !== false) {
+            //     const absoluteScale = actor.size === "sm" ? 0.8 : 1;
+            //     const mirrorX = token.texture.scaleX < 0 ? -1 : 1;
+            //     token.texture.scaleX = mirrorX * absoluteScale;
+            //     const mirrorY = token.texture.scaleY < 0 ? -1 : 1;
+            //     token.texture.scaleY = mirrorY * absoluteScale;
+            // }
         }
     }
 
