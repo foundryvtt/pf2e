@@ -5,12 +5,12 @@ import type { TokenPF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { DifficultTerrainGrade, EnvironmentFeatureRegionBehavior, RegionDocumentPF2e } from "@scene";
-import { computeSightAndDetectionForRBV, isDefaultTokenImage } from "@scene/helpers.ts";
+import { isDefaultTokenImage } from "@scene/helpers.ts";
 import { objectHasKey, sluggify } from "@util";
 import * as R from "remeda";
 import type { ScenePF2e } from "../document.ts";
 import { TokenAura } from "./aura/index.ts";
-import { TokenFlagsPF2e } from "./data.ts";
+import { DetectionModeEntry, TokenFlagsPF2e } from "./data.ts";
 import type { TokenConfigPF2e } from "./sheet.ts";
 
 class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
@@ -292,10 +292,52 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     /** Set vision and detection modes based on actor data */
     protected override _prepareDetectionModes(): void {
-        if (this.scene && this.rulesBasedVision) {
-            computeSightAndDetectionForRBV(this);
-        } else {
-            super._prepareDetectionModes();
+        const { actor, scene } = this;
+        if (!scene?.rulesBasedVision || !actor?.isOfType("creature")) return super._prepareDetectionModes();
+
+        // Reset detection modes if using rules-based vision
+        const hasVision = actor.perception.hasVision;
+        const lightPerception: DetectionModeEntry = { id: "lightPerception", enabled: hasVision, range: Infinity };
+        const basicSight: DetectionModeEntry = { id: "basicSight", enabled: hasVision, range: 0 };
+        this.detectionModes = [lightPerception, basicSight];
+
+        // Reset sight defaults and set vision mode.
+        // Unlike detection modes, there can only be one, and it decides how the player is currently seeing.
+        const visionMode = actor.hasDarkvision ? "darkvision" : "basic";
+        this.sight.attenuation = 0.1;
+        this.sight.brightness = 0;
+        this.sight.contrast = 0;
+        this.sight.range = 0;
+        this.sight.saturation = 0;
+        this.sight.visionMode = visionMode;
+
+        const visionModeDefaults = CONFIG.Canvas.visionModes[visionMode].vision.defaults;
+        this.sight.brightness = visionModeDefaults.brightness ?? 0;
+        this.sight.saturation = visionModeDefaults.saturation ?? 0;
+
+        // Update basic sight and adjust saturation based on darkvision or light levels
+        if (visionMode === "darkvision") {
+            this.sight.range = basicSight.range = Infinity;
+
+            if (actor.isOfType("character") && actor.flags.pf2e.colorDarkvision) {
+                this.sight.saturation = 1;
+            } else if (!game.user.settings.monochromeDarkvision) {
+                this.sight.saturation = 0;
+            }
+        }
+
+        if (actor.perception.senses.has("see-invisibility")) {
+            this.detectionModes.push({ id: "seeInvisibility", enabled: true, range: Infinity });
+        }
+
+        const tremorsense = actor.perception.senses.get("tremorsense");
+        if (tremorsense) {
+            this.detectionModes.push({ id: "feelTremor", enabled: true, range: tremorsense.range });
+        }
+
+        if (!actor.hasCondition("deafened")) {
+            const range = scene?.flags.pf2e.hearingRange ?? Infinity;
+            this.detectionModes.push({ id: "hearing", enabled: true, range });
         }
     }
 

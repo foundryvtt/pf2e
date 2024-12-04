@@ -1,8 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
-import { computeSightAndDetectionForRBV } from "@scene/helpers.ts";
 import { ErrorPF2e, fontAwesomeIcon, htmlQuery } from "@util";
-import * as R from "remeda";
 import type { TokenDocumentPF2e } from "./index.ts";
 
 class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<TDocument> {
@@ -36,18 +34,6 @@ class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<T
 
     override async getData(options?: DocumentSheetOptions): Promise<TokenConfigDataPF2e<TDocument>> {
         const data = await super.getData(options);
-
-        // If RBV is enabled, override will-be-disabled inputs with prepared values for transparency.
-        // If this is a prototype token, also compute sight and detection modes to reflect what will occur when placed
-        if (this.rulesBasedVision) {
-            if (this.isPrototype) {
-                computeSightAndDetectionForRBV(this.token);
-            }
-            fu.mergeObject(data, {
-                object: fu.expandObject(R.mapToObj(this.#sightInputNames, (n) => [n, fu.getProperty(this.token, n)])),
-            });
-        }
-
         return {
             ...data,
             sizeLinkable: !!this.actor && SIZE_LINKABLE_ACTOR_TYPES.has(this.actor.type),
