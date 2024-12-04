@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Your Calling has driven you to perform mortal deeds that will result in your ascension to the ranks of celestials. You're headstrong and determined and hardly waver in your resolve; once per hour, you can roll twice and use the higher result on a Will saving throw. If you ever become @UUID[Compendium.pf2e.conditionitems.Item.Confused], rather than attack wildly, you become stubbornly immobile, wasting all your actions until the condition ends.</p>\n<p>Additionally, you emanate a nimbus of light. You shed bright light in a 30-foot radius (and dim light to the next 30 feet). You can suppress or reestablish this light as a single action that has the concentrate trait. As long as your nimbus is active, all allies in the area of your nimbus gain a +1 status bonus to saves against fear. You gain the Bless Ally action.</p>"
+            "value": "<p>Your Calling has driven you to perform mortal deeds that will result in your ascension to the ranks of celestials. You're headstrong and determined and hardly waver in your resolve; once per hour, you can roll twice and use the higher result on a Will saving throw. If you ever become @UUID[Compendium.pf2e.conditionitems.Item.Confused], rather than attack wildly, you become stubbornly immobile, wasting all your actions until the condition ends.</p>\n<p>Additionally, you emanate a nimbus of light. You shed bright light in a 30-foot radius (and dim light to the next 30 feet). You can suppress or reestablish this light as a single action that has the concentrate trait. As long as your nimbus is active, all allies in the area of your nimbus gain a +1 status bonus to saves against fear. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Bless Ally] action.</p>"
         },
         "level": {
             "value": 12
@@ -24,7 +24,64 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.AscendedCelestial.Dedication.NimbusToggle",
+                "option": "ascended-celestial-nimbus",
+                "toggleable": true
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.AscendedCelestial.Dedication.RollTwiceToggle",
+                "option": "ascended-celestial-will",
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.champion.aura",
+                "value": 30
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "includesSelf": false,
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Ascended Celestial Nimbus"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "ascended-celestial-nimbus"
+                ],
+                "radius": "@actor.flags.pf2e.ascendedCelestial.aura",
+                "slug": "ascended-celestial-nimbus"
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "ascended-celestial-nimbus"
+                ],
+                "value": {
+                    "alpha": 0.2,
+                    "animation": {
+                        "type": "starlight"
+                    },
+                    "bright": "@actor.flags.pf2e.ascendedCelestial.aura",
+                    "color": "#ffc629",
+                    "dim": "2*@actor.flags.pf2e.ascendedCelestial.aura"
+                }
+            },
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    "ascended-celestial-will"
+                ],
+                "selector": "will"
+            }
+        ],
         "traits": {
             "rarity": "uncommon",
             "value": [
