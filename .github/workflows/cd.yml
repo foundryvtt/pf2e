@@ -31,6 +31,7 @@ jobs:
       - name: Update Manifest
         run: |
           SYSTEM_VERSION=$(grep -oP '(?<="version": ")[^"]+' dist/system.json | tr -d '\n')
+          perl -pi -E "s|latest/download/system\\.json|download/$SYSTEM_VERSION/system.json|" dist/system.json
           perl -pi -E "s|latest/download/pf2e\\.zip|download/$SYSTEM_VERSION/pf2e.zip|" dist/system.json
           echo "systemVersion=$SYSTEM_VERSION" >> $GITHUB_ENV
 
@@ -51,7 +52,7 @@ jobs:
           name: ${{ env.systemVersion }}
           allowUpdates: false
           draft: false
-          prerelease: false
+          prerelease: true
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: "./dist/system.json,./dist/pf2e.zip,./json-assets/json-assets.zip"
           tag: ${{ env.systemVersion }}
