@@ -30,15 +30,25 @@
         },
         "rules": [
             {
+                "disabledIf": [
+                    {
+                        "not": "ascended-celestial-nimbus"
+                    }
+                ],
+                "disabledValue": false,
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.AscendedCelestial.AegisForTheInnocent.HalveAuraToggle",
                 "option": "aegis-for-the-innocent-halve-aura",
+                "priority": 51,
                 "toggleable": true
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "downgrade",
                 "path": "flags.pf2e.ascendedCelestial.aura",
+                "predicate": [
+                    "aegis-for-the-innocent-halve-aura"
+                ],
                 "priority": 51,
                 "value": 15
             }

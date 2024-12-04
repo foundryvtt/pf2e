@@ -117,9 +117,28 @@
                     },
                     "item:melee"
                 ],
-                "selector": "damage-taken",
-                "text": "PF2E.SpecificRule.AscendedCelestial.ScouringSpark.DamageTakenNote",
+                "selector": "damage-received",
+                "text": "PF2E.SpecificRule.AscendedCelestial.ScouringSpark.DamageReceivedNote",
                 "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "self:effect:channel-divine-spark",
+                    {
+                        "not": "item:trait:reach"
+                    },
+                    "item:melee",
+                    {
+                        "or": [
+                            "origin:trait:aberration",
+                            "origin:trait:fiend",
+                            "origin:trait:undead"
+                        ]
+                    }
+                ],
+                "selector": "damage-received",
+                "text": "PF2E.SpecificRule.AscendedCelestial.ScouringSpark.DoubleDamageNote"
             }
         ],
         "traits": {
