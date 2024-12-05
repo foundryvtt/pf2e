@@ -459,10 +459,17 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             ? new Set([...origin.actor.getRollOptions(), ...this.getSelfRollOptions("target")])
             : new Set([]);
 
-        for (const data of aura.effects.filter((e) => e.predicate.test(rollOptions))) {
-            if (this.itemTypes.effect.some((e) => e.sourceId === data.uuid)) {
-                continue;
-            }
+        const parentOptionsCache: Record<string, string[]> = {};
+        for (const data of aura.effects) {
+            // First check if we already have the effect. If so, skip
+            const alreadyHasEffect = this.itemTypes.effect.some((e) => e.sourceId === data.uuid);
+            if (alreadyHasEffect) continue;
+
+            // Test predication including parent roll options
+            const parentOptions =
+                parentOptionsCache[data.parent.uuid] ??
+                (parentOptionsCache[data.parent.uuid] = data.parent.getRollOptions("parent") ?? []);
+            if (!data.predicate.test([...rollOptions, ...parentOptions])) continue;
 
             if (auraAffectsActor(data, origin.actor, this)) {
                 const effect = await fromUuid(data.uuid);

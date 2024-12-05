@@ -341,7 +341,9 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
     #processEffects(): AuraEffectData[] {
         return this.effects.map((e) => ({
             ...e,
+            parent: this.item,
             uuid: this.resolveInjectedProperties(e.uuid),
+            predicate: this.resolveInjectedProperties(e.predicate),
             save: null,
         }));
     }
