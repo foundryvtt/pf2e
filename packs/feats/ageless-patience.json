@@ -26,6 +26,12 @@
         },
         "rules": [
             {
+                "domain": "check",
+                "key": "RollOption",
+                "option": "ageless-patience",
+                "toggleable": true
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
                     "ageless-patience"
@@ -38,27 +44,41 @@
                 "value": 2
             },
             {
-                "domain": "all",
-                "key": "RollOption",
-                "option": "ageless-patience",
-                "toggleable": true
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "ageless-patience",
+                    "check:total:natural:1",
+                    {
+                        "gte": [
+                            "check:total:delta",
+                            -9
+                        ]
+                    }
+                ],
+                "selector": "skill-check"
             },
             {
                 "key": "Note",
                 "predicate": [
-                    "ageless-patience"
+                    "ageless-patience",
+                    "check:total:natural:1",
+                    {
+                        "not": {
+                            "gte": [
+                                "check:total",
+                                "check:total:delta"
+                            ]
+                        }
+                    }
                 ],
-                "selector": "perception",
-                "text": "You don't treat a natural 1 as worse than usual on perception checks; you get a critical failure only if your result is 10 lower than the DC.",
-                "title": "{item|name}"
-            },
-            {
-                "key": "Note",
-                "predicate": [
-                    "ageless-patience"
+                "selector": [
+                    "perception",
+                    "skill-check"
                 ],
-                "selector": "skill-check",
-                "text": "You don't treat a natural 1 as worse than usual on skill checks; you get a critical failure only if your result is 10 lower than the DC.",
+                "text": "PF2E.SpecificRule.Elf.AgelessPatience.Note",
                 "title": "{item|name}"
             }
         ],
