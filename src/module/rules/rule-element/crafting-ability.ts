@@ -82,7 +82,7 @@ class CraftingAbilityRuleElement extends RuleElementPF2e<CraftingAbilityRuleSche
 
         const slug = this.resolveInjectedProperties(this.slug);
         const key = sluggify(slug, { camel: "dromedary" });
-        const maxSlots = this.maxSlots !== undefined ? Number(this.resolveValue(this.maxSlots)) : null;
+        const maxSlots = this.maxSlots !== undefined ? Math.floor(Number(this.resolveValue(this.maxSlots))) : null;
         const maxItemLevel = Number(this.resolveValue(this.maxItemLevel));
         const existing = this.actor.system.crafting.entries[key];
         if (existing) {
