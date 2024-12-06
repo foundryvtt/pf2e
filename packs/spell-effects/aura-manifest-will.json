@@ -4,7 +4,7 @@
     "name": "Aura: Manifest Will",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Manifest Will]</p>\n<p>You emanate a 10-ft aura.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Manifest Will]</p>\n<p>You emanate a 10-ft aura. If you have the @UUID[Compendium.pf2e.feats-srd.Item.Multifaceted Will] feat, you can choose any tradition. You and your allies gain a +1 status bonus to saves against spells with that tradition trait.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -45,7 +45,8 @@
                 "key": "ChoiceSet",
                 "predicate": [
                     "parent:origin:item:tag:multifaceted-will"
-                ]
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Tradition"
             },
             {
                 "effects": [
