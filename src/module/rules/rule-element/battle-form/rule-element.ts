@@ -2,7 +2,7 @@ import type { ActorType, CharacterPF2e } from "@actor";
 import { CharacterStrike } from "@actor/character/data.ts";
 import { SENSE_TYPES } from "@actor/creature/values.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
-import { DamageDicePF2e, ModifierPF2e, StatisticModifier, applyStackingRules } from "@actor/modifiers.ts";
+import { DamageDicePF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { MOVEMENT_TYPES } from "@actor/values.ts";
 import { WeaponPF2e } from "@item";
 import { RollNotePF2e } from "@module/notes.ts";
@@ -429,11 +429,15 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
 
         for (const action of strikeActions) {
             const strike = (strikes[action.slug ?? ""] ?? null) as BattleFormStrike | null;
+            
+            const applicableModifiers = action.modifiers
+                .filter((m) => (m.enabled && this.#filterModifier(m)))
+                .reduce((partialSum, m) => partialSum + m.modifier, 0);
 
             if (
                 !this.ownUnarmed &&
                 strike &&
-                ((Number(this.resolveValue(strike.modifier)) + this.#getApplicableModifiersAsNumber(action.modifiers)) >= action.totalModifier || !strike.ownIfHigher)
+                ((Number(this.resolveValue(strike.modifier)) + applicableModifiers) >= action.totalModifier || !strike.ownIfHigher)
             ) {
                 // The battle form's static attack-roll modifier is >= the character's unarmed attack modifier:
                 // replace inapplicable attack-roll modifiers with the battle form's
@@ -478,17 +482,6 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         if (statistic instanceof StatisticModifier) {
             statistic.calculateTotal();
         }
-    }
-
-    #getApplicableModifiersAsNumber(modifiers: ModifierPF2e[]): number {
-        const applicableModifiers = modifiers
-                .filter((m) => (this.#filterModifier(m)));
-                console.log(applicableModifiers);
-            applyStackingRules(applicableModifiers);
-            return applicableModifiers
-                .filter((m) => m.enabled)
-                .flatMap((m) => m.modifier)
-                .reduce((partialSum, m) => partialSum + m, 0);
     }
 
     #filterModifier(modifier: ModifierPF2e) {
