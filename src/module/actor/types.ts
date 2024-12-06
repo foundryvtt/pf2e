@@ -67,6 +67,7 @@ interface AuraData {
 
 interface AuraEffectData {
     uuid: string;
+    parent: ItemPF2e;
     affects: "allies" | "enemies" | "all";
     events: ("enter" | "turn-start" | "turn-end")[];
     save: {
