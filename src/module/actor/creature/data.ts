@@ -148,7 +148,7 @@ interface CreatureAttributes extends ActorAttributes {
     /** The current dying level (and maximum) for this creature. */
     dying: ValueAndMax & { recoveryDC: number };
     /** The current wounded level (and maximum) for this creature. */
-    wounded: ValueAndMax;
+    wounded: ValueAndMaybeMax;
     /** The current doomed level (and maximum) for this creature. */
     doomed: ValueAndMax;
 

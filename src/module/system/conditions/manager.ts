@@ -76,7 +76,7 @@ export class ConditionManager {
                 await condition.delete();
             } else if (actor?.isOfType("creature")) {
                 // Cap the value if a capped condition
-                const cappedConditions = ["dying", "wounded", "doomed"] as const;
+                const cappedConditions = ["dying", "doomed"] as const;
                 if (tupleHasValue(cappedConditions, condition.slug)) {
                     value = Math.min(value, actor.attributes[condition.slug].max);
                 }
