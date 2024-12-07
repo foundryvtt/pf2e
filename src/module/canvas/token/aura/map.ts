@@ -1,5 +1,7 @@
+import * as R from "remeda";
 import { TokenPF2e } from "../object.ts";
 import { AuraRenderer } from "./renderer.ts";
+import { createTestPolygons } from "./util.ts";
 
 export class AuraRenderers extends Map<string, AuraRenderer> {
     readonly token: TokenPF2e;
@@ -77,15 +79,46 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
         }
 
         if (showBordersHighlights && (this.token.hover || this.token.layer.highlightObjects)) {
-            const { highlightId } = this;
+            const highlightId = this.highlightId;
             const highlight =
                 canvas.interface.grid.highlightLayers[highlightId] ??
                 canvas.interface.grid.addHighlightLayer(highlightId);
             highlight.clear();
-            for (const aura of this.values()) {
+            // Reuse the largest aura's polygons for multiple auras
+            if (this.size > 1) {
+                const testPolygons = this.#createGroupedPolygons();
+                for (const aura of this.values()) {
+                    const polygons = testPolygons[aura.restrictionType];
+                    if (polygons.length > 0) {
+                        aura.polygons = polygons;
+                    }
+                }
+            }
+            // Always draw highlight from largest to smallest radius
+            for (const aura of [...this.values()].sort((a, b) => a.radius - b.radius)) {
                 aura.highlight();
             }
         }
+    }
+
+    /** Create test polygons for the largest aura grouped by wall restriction type */
+    #createGroupedPolygons(): TestPolygons {
+        const polygons: TestPolygons = {
+            move: [],
+            sight: [],
+            sound: [],
+        };
+        const grouped = R.groupBy(
+            [...this.values()].sort((a, b) => a.radius - b.radius),
+            (r) => r.restrictionType,
+        );
+        for (const [type, renderers] of R.entries(grouped)) {
+            if (polygons[type].length > 0) continue;
+            const renderer = renderers.at(0);
+            if (!renderer) continue;
+            polygons[type] = createTestPolygons(renderer);
+        }
+        return polygons;
     }
 
     /** Deallocate the aura's GPU memory before removing from map */
@@ -118,3 +151,5 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
         canvas.interface.grid.destroyHighlightLayer(this.highlightId);
     }
 }
+
+type TestPolygons = Record<AuraRenderer["restrictionType"], ClockwiseSweepPolygon[]>;
