@@ -512,33 +512,37 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "predicate": [
-                            "check:total:natural:19"
-                        ],
-                        "selector": "attack",
-                        "text": "PF2E.AttackEffects.IncreasedCriticalChance",
-                        "title": "{item|name}",
-                        "visibility": "gm"
-                    },
-                    {
                         "adjustment": {
-                            "success": "one-degree-better"
+                            "success": "to-critical-success"
                         },
                         "key": "AdjustDegreeOfSuccess",
                         "predicate": [
                             "check:total:natural:19",
                             {
-                                "or": [
-                                    "item:damage:type:slashing",
-                                    "item:damage:type:piercing"
+                                "gte": [
+                                    "check:total:delta",
+                                    0
                                 ]
                             }
                         ],
-                        "selector": "{item|_id}-attack"
+                        "selector": "strike-attack-roll"
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "check:total:natural:19",
+                            {
+                                "not": {
+                                    "gte": [
+                                        "check:total",
+                                        "check:total:delta"
+                                    ]
+                                }
+                            }
+                        ],
+                        "selector": "strike-attack-roll",
+                        "text": "{item|description}",
+                        "title": "{item|name}"
                     }
                 ],
                 "slug": null,

@@ -267,7 +267,41 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "adjustment": {
+                            "success": "to-critical-success"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "check:total:natural:19",
+                            {
+                                "gte": [
+                                    "check:total:delta",
+                                    0
+                                ]
+                            }
+                        ],
+                        "selector": "strike-attack-roll"
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "check:total:natural:19",
+                            {
+                                "not": {
+                                    "gte": [
+                                        "check:total",
+                                        "check:total:delta"
+                                    ]
+                                }
+                            }
+                        ],
+                        "selector": "strike-attack-roll",
+                        "text": "{item|description}",
+                        "title": "{item|name}"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
