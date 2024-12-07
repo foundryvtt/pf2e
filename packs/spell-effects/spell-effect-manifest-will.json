@@ -1,0 +1,113 @@
+{
+    "_id": "Vd72sGiTl7Pq8iQv",
+    "img": "icons/magic/symbols/star-rising-purple.webp",
+    "name": "Spell Effect: Manifest Will",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Manifest Will]</p>\n<p>The effect depends on the patron's tradition.</p><ul><li><strong>Arcane</strong> You gain weakness to spell damage.</li><li><strong>Divine</strong> You gain temporary Hit Points.</li><li><strong>Primal</strong> You have a –10-foot status penalty to all its Speeds.</li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitArcane",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:spellcasting:tradition:arcane",
+                                    "parent:origin:item:tag:multifaceted-will"
+                                ]
+                            }
+                        ],
+                        "value": "arcane"
+                    },
+                    {
+                        "label": "PF2E.TraitDivine",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:spellcasting:tradition:divine",
+                                    "parent:origin:item:tag:multifaceted-will"
+                                ]
+                            }
+                        ],
+                        "value": "divine"
+                    },
+                    {
+                        "label": "PF2E.TraitPrimal",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:spellcasting:tradition:primal",
+                                    "parent:origin:item:tag:multifaceted-will"
+                                ]
+                            }
+                        ],
+                        "value": "primal"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Tradition",
+                "rollOption": "manifest-will"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "manifest-will:arcane"
+                ],
+                "type": "spells",
+                "value": "@item.level"
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "manifest-will:divine"
+                ],
+                "value": "2*@item.level"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "manifest-will:primal"
+                ],
+                "selector": "all-speeds",
+                "type": "status",
+                "value": -10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

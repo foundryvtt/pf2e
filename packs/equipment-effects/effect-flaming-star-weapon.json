@@ -4,7 +4,7 @@
     "name": "Effect: Flaming Star - Weapon",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Flaming Star]</p>\n<p>After you cast a fire spell by Activating the <em>star</em>, your Strikes with the weapon deal an additional 1d4 fire damage until the end of your next turn.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Flaming Star], @UUID[Compendium.pf2e.equipment-srd.Item.Flaming Star (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Flaming Star (Major)]</p>\n<p>Your Strikes with the weapon deal an additional die of fire damage.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -22,6 +22,53 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:flaming-star",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Flaming Star"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:flaming-star-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Flaming Star (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:flaming-star-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Flaming Star (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "flaming-star"
+            },
+            {
                 "choices": {
                     "includeHandwraps": true,
                     "ownedItems": true,
@@ -37,7 +84,33 @@
                 "damageType": "fire",
                 "diceNumber": 1,
                 "dieSize": "d4",
+                "hideIfDisabled": true,
                 "key": "DamageDice",
+                "predicate": [
+                    "flaming-star:flaming-star"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectFlamingStarWeapon}-damage"
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "flaming-star:flaming-star-greater"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectFlamingStarWeapon}-damage"
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "flaming-star:flaming-star-major"
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.effectFlamingStarWeapon}-damage"
             }
         ],
