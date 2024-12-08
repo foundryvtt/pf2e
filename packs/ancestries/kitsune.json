@@ -95,15 +95,20 @@
                 "label": "PF2E.NPCAbility.ChangeShape.Label",
                 "mergeable": true,
                 "option": "change-shape",
-                "predicate": [
-                    {
-                        "not": "non-tailless-form"
-                    }
-                ],
                 "suboptions": [
                     {
                         "label": "PF2E.NPCAbility.ChangeShape.Form.Tailless",
+                        "predicate": [
+                            "kitsune:shapes:tailless"
+                        ],
                         "value": "tailless"
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.ChangeShape.Form.Fox",
+                        "predicate": [
+                            "kitsune:shapes:fox"
+                        ],
+                        "value": "fox"
                     }
                 ],
                 "toggleable": true
