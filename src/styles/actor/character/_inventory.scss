@@ -5,7 +5,33 @@
         padding-right: 0.1rem;
     }
 
-    .wealth {
-        margin-bottom: 0.5rem;
+    header.inventory-header {
+        align-items: stretch;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: var(--space-8);
+        gap: var(--space-8);
+        .search {
+            align-items: center;
+            display: flex;
+            position: relative;
+            flex: 1;
+
+            &::before {
+                content: "\f002";
+                color: var(--input-text-color);
+                font-family: var(--fa6);
+                font-weight: bold;
+                position: absolute;
+                left: 0.5rem;
+            }
+            input {
+                border: 1px solid var(--color-pf-alternate);
+                background-color: rgba(28, 28, 28, 0.1);
+                padding-left: 1.75rem;
+                height: 1.625rem;
+                line-height: 1.625rem;
+            }
+        }
     }
 }
