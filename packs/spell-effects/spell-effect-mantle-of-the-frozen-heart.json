@@ -98,11 +98,12 @@
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.SpellEffectMantle.FrozenHeart.Label.IceGlideSurface",
                 "option": "ice-glide-active",
-                "predicate": [
+                "disabledIf": [
                     {
-                        "or": [
+                        "nor": [
                             "frozen-heart-first:ice-glide", 
-                            "frozen-heart-second:ice-glide"]
+                            "frozen-heart-second:ice-glide"
+                        ]
                     }
                 ],
                 "toggleable": true
