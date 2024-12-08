@@ -428,17 +428,13 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         const strikeActions = actor.system.actions.flatMap((s): CharacterStrike[] => [s, ...s.altUsages]);
 
         for (const action of strikeActions) {
-            const strike = (strikes[action.slug ?? ""] ?? null) as BattleFormStrike | null;
-            const applicableModifiers = action.modifiers
+            const strike = strikes[action.slug ?? ""];
+            if (!strike) continue;
+            const addend = action.modifiers
                 .filter((m) => m.enabled && this.#filterModifier(m))
-                .reduce((partialSum, m) => partialSum + m.modifier, 0);
-
-            if (
-                !this.ownUnarmed &&
-                strike &&
-                (Number(this.resolveValue(strike.modifier)) + applicableModifiers >= action.totalModifier ||
-                    !strike.ownIfHigher)
-            ) {
+                .reduce((sum, m) => sum + m.modifier, 0);
+            const formModifier = Number(this.resolveValue(strike.modifier)) + addend;
+            if (!this.ownUnarmed && (formModifier >= action.totalModifier || !strike.ownIfHigher)) {
                 // The battle form's static attack-roll modifier is >= the character's unarmed attack modifier:
                 // replace inapplicable attack-roll modifiers with the battle form's
                 this.#suppressModifiers(action);
