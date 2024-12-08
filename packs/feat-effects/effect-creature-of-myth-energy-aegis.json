@@ -1,0 +1,58 @@
+{
+    "_id": "dZxFehDfiKu3M8GT",
+    "img": "icons/magic/fire/flame-burning-hand-white.webp",
+    "name": "Effect: Creature of Myth (Energy Aegis)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Creature of Myth]</p>\n<p>You become immune to the chosen damage type, and you gain a +1 status bonus to AC and saves that originate from creatures with the chosen trait and to effects and spells with the chosen trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 18
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "Immunity",
+                "type": "{item|origin.flags.pf2e.creatureOfMythDamageType}"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "origin:trait:{item|origin.flags.pf2e.creatureOfMythDamageType}",
+                            "item:trait:{item|origin.flags.pf2e.creatureOfMythDamageType}"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
