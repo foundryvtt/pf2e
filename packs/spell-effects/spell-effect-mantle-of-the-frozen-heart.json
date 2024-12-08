@@ -94,6 +94,20 @@
                 "toggleable": true
             },
             {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SpellEffectMantle.FrozenHeart.Label.IceGlideSurface",
+                "option": "ice-glide-active",
+                "predicate": [
+                    {
+                        "or": [
+                            "frozen-heart-first:ice-glide", 
+                            "frozen-heart-second:ice-glide"]
+                    }
+                ],
+                "toggleable": true
+            },
+            {
                 "key": "Resistance",
                 "predicate": [
                     {
@@ -109,12 +123,7 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    {
-                        "or": [
-                            "frozen-heart-first:ice-glide",
-                            "frozen-heart-second:ice-glide"
-                        ]
-                    }
+                    "ice-glide-active"
                 ],
                 "selector": "land-speed",
                 "type": "status",
