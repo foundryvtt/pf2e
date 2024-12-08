@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You make a point of always having a few toxins near at hand—you never know when some arsenic or the like might prove useful. You gain the advanced alchemy benefits. You can use advanced alchemy to create four alchemical poison consumables each day. You remember alchemical poison formulas and don't need a formula book for them.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.HvbDEgCsLbzuMRiR]{Poisoner}</p>"
+            "value": "<p>You make a point of always having a few toxins near at hand—you never know when some arsenic or the like might prove useful. You gain the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.Jkl5KOZih7MoMqAJ#advanced-alchemy-benefits]{advanced alchemy benefits}. You can use advanced alchemy to create four alchemical poison consumables each day. You remember alchemical poison formulas and don't need a formula book for them.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.HvbDEgCsLbzuMRiR]{Poisoner}</p>"
         },
         "level": {
             "value": 2
@@ -32,20 +32,14 @@
             {
                 "craftableItems": [
                     "item:trait:alchemical",
+                    "item:trait:consumable",
                     "item:trait:poison"
                 ],
-                "isAlchemical": true,
                 "isDailyPrep": true,
                 "key": "CraftingAbility",
-                "label": "PF2E.SpecificRule.DedicationCraftingEntry.Poisoner",
-                "maxItemLevel": 1,
-                "slug": "poisoner"
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.resources.crafting.infusedReagents.max",
-                "value": "@actor.level"
+                "label": "PF2E.SpecificRule.Alchemist.AdvancedAlchemy",
+                "maxSlots": 4,
+                "slug": "advanced-alchemy"
             },
             {
                 "key": "GrantItem",
