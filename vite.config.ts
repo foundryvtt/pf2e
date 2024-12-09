@@ -3,6 +3,7 @@ import { svelte as sveltePlugin } from "@sveltejs/vite-plugin-svelte";
 import { execSync } from "child_process";
 import esbuild from "esbuild";
 import fs from "fs-extra";
+import Glob from "glob";
 import path from "path";
 import Peggy from "peggy";
 import * as Vite from "vite";
@@ -25,10 +26,14 @@ function getUuidRedirects(): Record<CompendiumUUID, CompendiumUUID> {
     for (const [from, to] of Object.entries<string>(redirectJSON)) {
         const [, , pack, documentType, name] = to.split(".", 5);
         const packDir = systemJSON.packs.find((p) => p.type === documentType && p.name === pack)?.path;
-        if (!packDir) throw new Error(`Failure looking up pack JSON for ${to}`);
-        const docJSON = JSON.parse(
-            fs.readFileSync(path.resolve(__dirname, `${packDir}/${sluggify(name)}.json`), "utf-8"),
-        );
+        const dirPath = path.resolve(__dirname, packDir ?? "");
+        const filename = `${sluggify(name)}.json`;
+        const jsonPath = fs.existsSync(path.resolve(dirPath, filename))
+            ? path.resolve(dirPath, filename)
+            : Glob.sync(path.resolve(dirPath, "**", filename)).at(0);
+        if (!jsonPath) throw new Error(`Failure looking up pack JSON for ${to}`);
+        console.log(jsonPath);
+        const docJSON = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
         const id = docJSON._id;
         if (!id) throw new Error(`No UUID redirect match found for ${documentType} ${name} in ${pack}`);
         redirectJSON[from] = `Compendium.pf2e.${pack}.${documentType}.${id}`;
