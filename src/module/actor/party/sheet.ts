@@ -187,7 +187,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         const members = this.actor.members;
         if (members.length === 0) return null;
 
-        // Get all member languages. If the common language is taken, replace with common (does nothing unless the party is strange)
+        // Get all member languages. If the common language is taken, replace with "common" explicitly
         const commonLanguage = game.pf2e.settings.campaign.languages.commonLanguage;
         const allLanguages = new Set(members.flatMap((m) => m.system.details.languages?.value ?? []));
         if (commonLanguage && allLanguages.delete(commonLanguage)) {
@@ -231,7 +231,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                         actors: this.#getActorsThatUnderstand(language),
                     }),
                 ),
-                (l) => l.label,
+                (l) => (l.slug === "common" ? "" : l.label),
             ),
             skills: R.sortBy(
                 Object.entries(CONFIG.PF2E.skills).map(([slug, { label }]): SkillData => {
