@@ -1,6 +1,6 @@
-import { ActionCost } from "@item/base/data/system.ts";
+import type { ActionCost } from "@item/base/data/system.ts";
 import * as R from "remeda";
-import Sortable from "sortablejs";
+import type Sortable from "sortablejs";
 
 /**
  * Given an array and a key function, create a map where the key is the value that

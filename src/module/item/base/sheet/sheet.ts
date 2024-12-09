@@ -27,22 +27,16 @@ import {
     sluggify,
     SORTABLE_BASE_OPTIONS,
     sortStringRecord,
-    tagify,
     tupleHasValue,
 } from "@util";
+import { createSortable } from "@util/destroyables.ts";
+import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
-import Sortable from "sortablejs";
 import type * as TinyMCE from "tinymce";
 import { CodeMirror } from "./codemirror.ts";
 import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-element-form/index.ts";
 
 class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOptions> {
-    /** Active destroyable resources. Have to be cleaned up to avoid memory leaks */
-    #destroyables: { destroy(): void }[] = [];
-
-    /** Active tagify instances. Have to be cleaned up to avoid memory leaks */
-    #tooltipsterElements: JQuery[] = [];
-
     constructor(item: TItem, options: Partial<ItemSheetOptions> = {}) {
         super(item, options);
         this.options.classes.push(this.item.type);
@@ -100,7 +94,6 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             Object.values(CONFIG.Item.sheetClasses[this.item.type]).filter((c) => c.canConfigure).length > 1;
 
         const { item } = this;
-        this._destroyRuleElementForms();
         this.#createRuleElementForms();
 
         // Enrich content
@@ -203,9 +196,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             const existing =
                 previousForms.find((f) => R.isDeepEqual(f.rule, rule) && f.constructor.name === FormClass.name) ?? null;
             if (existing) {
-                previousForms
-                    .splice(previousForms.indexOf(existing), 1)
-                    .forEach((ruleElementForm) => ruleElementForm.destroy());
+                previousForms.splice(previousForms.indexOf(existing), 1);
             }
             return { options, FormClass, existing };
         });
@@ -308,8 +299,6 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
     }
 
     override async close(options?: { force?: boolean }): Promise<void> {
-        this.resetListeners();
-        this._destroyRuleElementForms();
         this.#editingRuleElementIndex = null;
         return super.close(options);
     }
@@ -481,7 +470,6 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         const traitsPrepend = html.querySelector<HTMLTemplateElement>(".traits-extra");
         if (validTraits !== null && tagElement) {
             const tags = tagify(tagElement, { whitelist: validTraits });
-            this.ensureDestroyableCleanup(tags);
             if (traitsPrepend) {
                 tags.DOM.scope.prepend(traitsPrepend.content);
             }
@@ -491,11 +479,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         }
 
         // Tagify other-tags input if present
-        this.ensureDestroyableCleanup(
-            tagify(htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.otherTags"]'), {
-                maxTags: 6,
-            }),
-        );
+        tagify(htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.otherTags"]'), { maxTags: 6 });
 
         // Handle select and input elements that show modified prepared values until focused
         const modifiedPropertyFields = htmlQueryAll<HTMLSelectElement | HTMLInputElement>(html, "[data-property]");
@@ -543,32 +527,30 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         // Allow drag/drop sorting of rule elements
         const rules = htmlQuery(html, ".rule-element-forms");
         if (rules) {
-            this.ensureDestroyableCleanup(
-                Sortable.create(rules, {
-                    ...SORTABLE_BASE_OPTIONS,
-                    handle: ".drag-handle",
-                    onEnd: async (event) => {
-                        const currentIndex = event.oldDraggableIndex;
-                        const newIndex = event.newDraggableIndex;
-                        if (currentIndex === undefined || newIndex === undefined) {
-                            this.render();
-                            return;
-                        }
+            createSortable(rules, {
+                ...SORTABLE_BASE_OPTIONS,
+                handle: ".drag-handle",
+                onEnd: async (event) => {
+                    const currentIndex = event.oldDraggableIndex;
+                    const newIndex = event.newDraggableIndex;
+                    if (currentIndex === undefined || newIndex === undefined) {
+                        this.render();
+                        return;
+                    }
 
-                        // Update rules. If the update returns undefined, there was no change, and we need to re-render manually
-                        const rules = this.item.toObject().system.rules;
-                        const movingRule = rules.at(currentIndex);
-                        if (movingRule && newIndex <= rules.length) {
-                            rules.splice(currentIndex, 1);
-                            rules.splice(newIndex, 0, movingRule);
-                            const result = await this.item.update({ "system.rules": rules });
-                            if (!result) this.render();
-                        } else {
-                            this.render();
-                        }
-                    },
-                }),
-            );
+                    // Update rules. If the update returns undefined, there was no change, and we need to re-render manually
+                    const rules = this.item.toObject().system.rules;
+                    const movingRule = rules.at(currentIndex);
+                    if (movingRule && newIndex <= rules.length) {
+                        rules.splice(currentIndex, 1);
+                        rules.splice(newIndex, 0, movingRule);
+                        const result = await this.item.update({ "system.rules": rules });
+                        if (!result) this.render();
+                    } else {
+                        this.render();
+                    }
+                },
+            });
         }
 
         const refreshAnchor = htmlQuery(html.closest("div.item.sheet"), "a.refresh-from-compendium");
@@ -599,19 +581,6 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
                 item.sheet.render(true);
             });
         }
-    }
-    protected ensureDestroyableCleanup(destroyable: { destroy(): void } | null): void {
-        if (destroyable) this.#destroyables.push(destroyable);
-    }
-    protected ensureTooltipsterCleanup(element: JQuery): void {
-        this.#tooltipsterElements.push(element);
-    }
-
-    protected resetListeners(): void {
-        this.#destroyables.forEach((destroyable) => destroyable.destroy());
-        this.#destroyables = [];
-        this.#tooltipsterElements.forEach((element) => element.tooltipster("destroy"));
-        this.#tooltipsterElements = [];
     }
 
     /** Add button to refresh from compendium if setting is enabled. */
@@ -671,15 +640,6 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         return super._updateObject(event, fu.flattenObject(expanded));
     }
 
-    /**
-     * call destroy handler on rule elements. Has to be separated from resetListeners because
-     * by the time _replaceHTML is called, the new rule elements have already been assigned and
-     * the old ruleElementForms cannot be accessed anymore
-     */
-    protected _destroyRuleElementForms(): void {
-        this.#ruleElementForms.forEach((ruleElementForm) => ruleElementForm.destroy());
-    }
-
     /** Overriden _render to maintain focus on tagify elements */
     protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
         await maintainFocusInRender(this, () => super._render(force, options));
@@ -693,15 +653,6 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             }
             this.#rulesLastScrollTop = null;
         }
-    }
-
-    protected override _replaceHTML(
-        element: JQuery,
-        html: JQuery | HTMLElement,
-        options: Record<string, unknown>,
-    ): void {
-        this.resetListeners();
-        super._replaceHTML(element, html, options);
     }
 }
 

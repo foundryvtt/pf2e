@@ -15,9 +15,9 @@ import {
     objectHasKey,
     ordinalString,
     sortStringRecord,
-    tagify,
     tupleHasValue,
 } from "@util";
+import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
 import { createDescriptionPrepend, createSpellRankLabel } from "./helpers.ts";
 import type {
@@ -148,11 +148,9 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             if (levelInput) levelInput.readOnly = true;
         }
 
-        this.ensureDestroyableCleanup(
-            tagify(htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.traditions"]'), {
-                whitelist: CONFIG.PF2E.magicTraditions,
-            }),
-        );
+        tagify(htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.traditions"]'), {
+            whitelist: CONFIG.PF2E.magicTraditions,
+        });
 
         for (const anchor of htmlQueryAll(html, "a[data-action=add-damage-partial]")) {
             anchor.addEventListener("click", () => {

@@ -4,7 +4,8 @@ import { AbilityItemPF2e, FeatPF2e, PhysicalItemPF2e } from "@item";
 import { Bulk } from "@item/physical/bulk.ts";
 import { SpellSource } from "@item/spell/index.ts";
 import { coerceToSpellGroupId } from "@item/spellcasting-entry/helpers.ts";
-import { ErrorPF2e, getActionGlyph, ordinalString, traitSlugToObject } from "@util";
+import { ErrorPF2e, getActionGlyph, ordinalString } from "@util";
+import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
 import { AbilityViewData } from "./data-types.ts";
 

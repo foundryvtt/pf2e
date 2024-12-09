@@ -4,12 +4,12 @@ import type {
     FastHealingType,
 } from "@module/rules/rule-element/fast-healing.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
-import { htmlQuery, tagify } from "@util";
+import { htmlQuery } from "@util/dom.ts";
+import { tagify } from "@util/tags.ts";
 import { RuleElementForm, RuleElementFormSheetData } from "./base.ts";
 
 class FastHealingForm extends RuleElementForm<FastHealingSource, FastHealingRuleElement> {
     override template = "systems/pf2e/templates/items/rules/fast-healing.hbs";
-
     override activateListeners(html: HTMLElement): void {
         super.activateListeners(html);
 
@@ -17,7 +17,7 @@ class FastHealingForm extends RuleElementForm<FastHealingSource, FastHealingRule
         const selectorElement = htmlQuery<HTMLTagifyTagsElement>(html, "tagify-tags.deactivated-by");
         if (selectorElement) {
             const whitelist = CONFIG.PF2E.weaknessTypes;
-            this.ensureDestroyableCleanup(tagify(selectorElement, { whitelist, enforceWhitelist: false }));
+            tagify(selectorElement, { whitelist, enforceWhitelist: false });
         }
     }
 

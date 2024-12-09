@@ -16,6 +16,7 @@ import { SheetOptions, createSheetTags, eventToRollParams } from "@module/sheet/
 import { SocketMessage } from "@scripts/socket.ts";
 import { SettingsMenuOptions } from "@system/settings/menu.ts";
 import { createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, signedInteger } from "@util";
+import { createTooltipster } from "@util/destroyables.ts";
 import * as R from "remeda";
 import { PartyPF2e } from "./document.ts";
 
@@ -359,7 +360,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             const titleLabel = game.i18n.localize("PF2E.Actor.Party.MembersLabel");
             const title = createHTMLElement("strong", { children: [titleLabel] });
             const content = createHTMLElement("span", { children: [title, members] });
-            this.ensureTooltipsterCleanup($(languageTag).tooltipster({ content }));
+            createTooltipster(languageTag, { content });
         }
 
         // Mouseover summary skill tooltips to show all actor modifiers
@@ -375,8 +376,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 return row;
             });
 
-            const content = createHTMLElement("div", { children: labels });
-            this.ensureTooltipsterCleanup($(skillTag).tooltipster({ content }));
+            createTooltipster(skillTag, { content: createHTMLElement("div", { children: labels }) });
         }
 
         // Mouseover tooltip for exploration activities
@@ -390,16 +390,14 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     classes: ["item-summary"],
                     innerHTML: await TextEditor.enrichHTML(document.description, { rollData }),
                 });
-                this.ensureTooltipsterCleanup(
-                    $(activityElem).tooltipster({
-                        contentAsHTML: true,
-                        content,
-                        interactive: true,
-                        maxWidth: 500,
-                        side: "right",
-                        theme: "crb-hover",
-                    }),
-                );
+                createTooltipster(activityElem, {
+                    contentAsHTML: true,
+                    content,
+                    interactive: true,
+                    maxWidth: 500,
+                    side: "right",
+                    theme: "crb-hover",
+                });
             })();
         }
 
@@ -483,7 +481,6 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     }
 
     override render(force?: boolean, options?: PartySheetRenderOptions): this {
-        this.resetListeners();
         if (options?.actors) {
             this.getData().then(async (data) => {
                 this._saveScrollPositions(this.element);

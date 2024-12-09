@@ -1,16 +1,14 @@
 import type { ActorPF2e } from "@actor";
 import { Immunity, IWRSource, Resistance, Weakness } from "@actor/data/iwr.ts";
 import { ImmunityType, IWRType, ResistanceType, WeaknessType } from "@actor/types.ts";
-import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, tagify } from "@util";
+import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
+import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
 
 class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREditorOptions> {
     category: ListCategory;
 
     types: Record<string, string>;
-
-    /** Active tagify instances. Have to be cleaned up to avoid memory leaks */
-    #tagifyInstances: Tagify<Record<"id" | "value", string>>[] = [];
 
     constructor(actor: TActor, options: IWREditorConstructorOptions) {
         super(actor, options);
@@ -148,11 +146,10 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
     }
 
     override activateListeners($html: JQuery): void {
-        this.#resetListeners();
         const html = $html[0];
 
         for (const input of htmlQueryAll<HTMLInputElement>(html, "input[type=text]")) {
-            this.#tagifyInstances.push(tagify(input, { whitelist: this.types, maxTags: 6 }));
+            tagify(input, { whitelist: this.types, maxTags: 6 });
         }
 
         htmlQuery(html, "a[data-action=add]")?.addEventListener("click", (event) => {
@@ -181,16 +178,6 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
                 this.#updateIWR();
             });
         }
-    }
-
-    #resetListeners(): void {
-        this.#tagifyInstances.forEach((tagified) => tagified.destroy());
-        this.#tagifyInstances = [];
-    }
-
-    override async close(options?: { force?: boolean | undefined }): Promise<void> {
-        this.#resetListeners();
-        return super.close(options);
     }
 }
 

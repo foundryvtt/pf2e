@@ -21,8 +21,8 @@ import {
     parseHTML,
     signedInteger,
     sluggify,
-    traitSlugToObject,
 } from "@util";
+import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
 import type { Die } from "types/foundry/client-esm/dice/terms/die.d.ts";
 import {
