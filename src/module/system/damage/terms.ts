@@ -1,5 +1,11 @@
 import * as R from "remeda";
-import type { DiceTerm, Die, FunctionTerm, PoolTerm, RollTerm } from "types/foundry/client-esm/dice/terms/module.d.ts";
+import type {
+    DiceTerm,
+    Die,
+    FunctionTerm,
+    PoolTerm,
+    RollTerm,
+} from "types/foundry/client-esm/dice/terms/_module.d.mts";
 import { isSystemDamageTerm, isUnsimplifableArithmetic, renderComponentDamage, simplifyTerm } from "./helpers.ts";
 import { DamageInstance } from "./roll.ts";
 

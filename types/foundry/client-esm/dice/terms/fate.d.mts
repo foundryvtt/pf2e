@@ -1,4 +1,4 @@
-import type { DiceTerm } from "./dice-term.d.ts";
+import { DiceTerm } from "./dice.mjs";
 
 /**
  * Define a three-sided Fate/Fudge dice term that can be used as part of a Roll formula
@@ -8,6 +8,17 @@ export class FateDie extends DiceTerm {
     constructor(termData: DiceTermData);
 
     static override DENOMINATION: "f";
+
+    static override MODIFIERS: {
+        r: "reroll";
+        rr: "rerollRecursive";
+        k: "keep";
+        kh: "keep";
+        kl: "keep";
+        d: "drop";
+        dh: "drop";
+        dl: "drop";
+    };
 
     override roll({ minimize, maximize }?: { minimize?: boolean; maximize?: boolean }): DiceTermResult;
 
