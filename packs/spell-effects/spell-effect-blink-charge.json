@@ -23,16 +23,17 @@
         "rules": [
             {
                 "choices": {
-                    "ownedItems": true,
+                    "attacks": true,
                     "predicate": [
-                        "item:equipped"
-                    ],
-                    "types": [
-                        "weapon"
+                        "item:equipped",
+                        {
+                            "not": "item:trait:unarmed"
+                        }
                     ]
                 },
                 "flag": "weapon",
-                "key": "ChoiceSet"
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "damageType": "force",

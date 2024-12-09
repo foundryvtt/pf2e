@@ -4,7 +4,7 @@
     "name": "Spell Effect: Object Memory (Weapon)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Object Memory].</p>\n<p>If you touch a weapon, your proficiency rank with that weapon temporarily increases to trained (if it is not already higher).</p>\n<hr />\n<p><strong>Heightened (6th)</strong> Your proficiency rank increases to expert instead of trained.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Object Memory].</p>\n<p>Your proficiency rank with the chosen weapon increases.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -23,9 +23,11 @@
         "rules": [
             {
                 "choices": {
-                    "ownedItems": true,
-                    "types": [
-                        "weapon"
+                    "attacks": true,
+                    "predicate": [
+                        {
+                            "not": "item:trait:unarmed"
+                        }
                     ]
                 },
                 "flag": "weapon",
@@ -34,12 +36,12 @@
             },
             {
                 "definition": [
-                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                    "item:slug:{item|flags.pf2e.rulesSelections.weapon}"
                 ],
                 "key": "MartialProficiency",
                 "label": "PF2E.SpecificRule.ObjectMemory",
                 "slug": "object-memory",
-                "value": "ternary(lt(@item.level, 6), 1, 2)"
+                "value": "ternary(lt(@item.level,6),1,2)"
             }
         ],
         "start": {
