@@ -1010,6 +1010,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             }
         };
 
+        handlers["toggle-free-crafting"] = async () => {
+            const freeCrafting = !this.actor.flags.pf2e.freeCrafting;
+            this.actor.update({ "flags.pf2e.freeCrafting": freeCrafting });
+        };
+
         handlers["craft-item"] = async (event, anchor) => {
             const row = htmlClosest(anchor, "li");
             if (!row) return;
