@@ -3,7 +3,8 @@ import { ItemPF2e, SpellPF2e, type DeityPF2e } from "@item";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
-import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, tagify } from "@util";
+import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
+import { tagify } from "@util/tags.ts";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { DEITY_SANCTIFICATIONS } from "./values.ts";
@@ -70,24 +71,15 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
         const getInput = (name: string): HTMLTagifyTagsElement | null =>
             htmlQuery<HTMLTagifyTagsElement>(html, `tagify-tags[name="${name}"]`);
 
-        this.ensureDestroyableCleanup(
-            tagify(getInput("system.attribute"), { whitelist: CONFIG.PF2E.abilities, maxTags: 2 }),
-        );
+        tagify(getInput("system.attribute"), { whitelist: CONFIG.PF2E.abilities, maxTags: 2 });
 
-        this.ensureDestroyableCleanup(tagify(getInput("system.skill"), { whitelist: CONFIG.PF2E.skills, maxTags: 2 }));
+        tagify(getInput("system.skill"), { whitelist: CONFIG.PF2E.skills, maxTags: 2 });
 
-        this.ensureDestroyableCleanup(
-            tagify(getInput("system.weapons"), { whitelist: CONFIG.PF2E.baseWeaponTypes, maxTags: 2 }),
-        );
+        tagify(getInput("system.weapons"), { whitelist: CONFIG.PF2E.baseWeaponTypes, maxTags: 2 });
 
         const domainWhitelist = R.omitBy(CONFIG.PF2E.deityDomains, (_v, k) => k.endsWith("-apocryphal"));
-        this.ensureDestroyableCleanup(
-            tagify(getInput("system.domains.primary"), { whitelist: domainWhitelist, maxTags: 6 }),
-        );
-
-        this.ensureDestroyableCleanup(
-            tagify(getInput("system.domains.alternate"), { whitelist: domainWhitelist, maxTags: 6 }),
-        );
+        tagify(getInput("system.domains.primary"), { whitelist: domainWhitelist, maxTags: 6 });
+        tagify(getInput("system.domains.alternate"), { whitelist: domainWhitelist, maxTags: 6 });
 
         const clericSpells = htmlQuery(html, ".cleric-spells");
         if (!clericSpells) return;

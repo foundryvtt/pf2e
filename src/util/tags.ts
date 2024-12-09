@@ -1,6 +1,7 @@
 import { TraitViewData } from "@actor/data/base.ts";
-import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
+import { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import Tagify, { TagifySettings } from "@yaireo/tagify";
+import { DestroyableManager } from "./destroyables.ts";
 import { objectHasKey } from "./misc.ts";
 
 function traitSlugToObject(trait: string, dictionary: Record<string, string | undefined>): TraitViewData {
@@ -46,15 +47,8 @@ function tagify(
         delimiters = ",",
     }: TagifyOptions = {},
 ): Tagify<TagRecord> | null {
-    // Avoid importing the HTMLTagifyTagsElement class for an instanceof check which breaks pack building
-    const isTagifyTagsElement = (element: HTMLElement | null): element is HTMLTagifyTagsElement => {
-        return element?.tagName.toLowerCase() === "tagify-tags";
-    };
-
-    const input = isTagifyTagsElement(element) ? element.input : element;
-    if (!input) {
-        return null;
-    }
+    const input = element instanceof HTMLTagifyTagsElement ? element.input : element;
+    if (!input) return null;
 
     const whitelistTransformed = whitelist ? transformWhitelist(whitelist) : [];
     const maxItems = whitelist ? Object.keys(whitelistTransformed).length : undefined;
@@ -73,6 +67,8 @@ function tagify(
         delimiters,
         whitelist: whitelistTransformed,
     });
+
+    DestroyableManager.instance.observe(tagify);
 
     // Add the name to the tags html as an indicator for refreshing
     if (input.name) {

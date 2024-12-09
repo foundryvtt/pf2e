@@ -11,6 +11,7 @@ import {
     sluggify,
     tupleHasValue,
 } from "@util";
+import { createSortable } from "@util/destroyables.ts";
 import * as R from "remeda";
 import Sortable from "sortablejs";
 import { HomebrewTag, LanguageNotCommon, LanguageSettings, LanguageSettingsSheetData } from "./data.ts";
@@ -23,9 +24,6 @@ export class LanguagesManager {
 
     /** A separate list of module-provided languages */
     moduleLanguages: LanguageNotCommon[];
-
-    /** Active sortable instances. Have to be cleaned up to avoid memory leaks */
-    #sortables: Sortable[] = [];
 
     constructor(menu: HomebrewElements) {
         this.menu = menu;
@@ -77,14 +75,13 @@ export class LanguagesManager {
         });
 
         for (const list of htmlQueryAll(html, "ul[data-languages]")) {
-            const sortable = new Sortable(list, {
+            createSortable(list, {
                 ...SORTABLE_BASE_OPTIONS,
                 group: "languages",
                 sort: false,
                 swapThreshold: 1,
-                onEnd: (event) => this.#onDropLanguage(event),
+                onEnd: this.#onDropLanguage.bind(this),
             });
-            this.#sortables.push(sortable);
         }
 
         const rarities: readonly string[] = LANGUAGE_RARITIES;
@@ -98,11 +95,6 @@ export class LanguagesManager {
             labelEl.innerHTML = localize(sluggify(rarity, { camel: "bactrian" }));
             game.pf2e.TextEditor.convertXMLNode(labelEl, "rarity", { classes: ["tag", "rarity", rarity] });
         }
-    }
-
-    resetListeners(): void {
-        this.#sortables.forEach((sortable) => sortable.destroy());
-        this.#sortables = [];
     }
 
     #isValidLanguage(language: string | undefined): language is LanguageNotCommon {

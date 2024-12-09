@@ -24,7 +24,7 @@ export const Ready = {
                 return;
             }
 
-            /** Once the entire VTT framework is initialized, check to see if we should perform a data migration */
+            // Once the entire VTT framework is initialized, check to see if we should perform a data migration
             console.log("PF2e System | Starting Pathfinder 2nd Edition System");
             console.debug(`PF2e System | Build mode: ${BUILD_MODE}`);
 

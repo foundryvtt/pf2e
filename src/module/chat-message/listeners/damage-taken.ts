@@ -1,5 +1,6 @@
 import { IWRApplication } from "@system/damage/iwr.ts";
 import { htmlQuery } from "@util";
+import { createTooltipster } from "@util/destroyables.ts";
 import { ChatMessagePF2e } from "../document.ts";
 
 export const DamageTaken = {
@@ -40,7 +41,7 @@ export const DamageTaken = {
         })();
 
         if (iwrApplications) {
-            $(iwrInfo).tooltipster({
+            createTooltipster(iwrInfo, {
                 theme: "crb-hover",
                 maxWidth: 400,
                 content: await renderTemplate("systems/pf2e/templates/chat/damage/iwr-breakdown.hbs", {

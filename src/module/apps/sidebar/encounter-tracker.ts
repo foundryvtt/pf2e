@@ -13,13 +13,11 @@ import {
     localizer,
     parseHTML,
 } from "@util";
-import Sortable, { SortableEvent } from "sortablejs";
+import { createSortable } from "@util/destroyables.ts";
+import type { default as Sortable, SortableEvent } from "sortablejs";
 
 export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> extends CombatTracker<TEncounter> {
     declare sortable: Sortable;
-
-    /** Active sortable instances. Have to be cleaned up to avoid memory leaks */
-    #sortables: Sortable[] = [];
 
     /** Show encounter analysis data if obtainable */
     protected override async _renderInner(data: object, options: RenderOptions): Promise<JQuery> {
@@ -65,7 +63,6 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
 
     /** Make the combatants sortable */
     override activateListeners($html: JQuery): void {
-        this.#resetListeners();
         const html = $html[0];
         const tracker = htmlQuery(html, "#combat-tracker");
         if (!tracker) throw ErrorPF2e("No tracker found");
@@ -169,7 +166,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
 
         // Defer to Combat Enhancements module if in use
         if (game.user.isGM && !game.modules.get("combat-enhancements")?.active) {
-            const sortable = Sortable.create(tracker, {
+            createSortable(tracker, {
                 animation: 200,
                 dataIdAttr: "data-combatant-id",
                 direction: "vertical",
@@ -180,7 +177,6 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
                 onEnd: (event) => this.adjustFinalOrder(event),
                 onUpdate: (event) => this.#onDropCombatant(event),
             });
-            this.#sortables.push(sortable);
 
             for (const row of combatantRows) {
                 row.classList.add("gm-draggable");
@@ -189,11 +185,6 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
 
         trackerPlaceholder.replaceWith(tracker);
         super.activateListeners($html);
-    }
-
-    #resetListeners(): void {
-        this.#sortables.forEach((sortable) => sortable.destroy());
-        this.#sortables = [];
     }
 
     /** Refresh the list of users targeting a combatant's token as well as the active state of the target toggle */
@@ -419,10 +410,5 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
             .map((row) => row.getAttribute("data-combatant-id") ?? "")
             .map((id) => combat.combatants.get(id, { strict: true }))
             .filter((c): c is RolledCombatant<NonNullable<TEncounter>> => typeof c.initiative === "number");
-    }
-
-    override async close(options?: { force?: boolean }): Promise<void> {
-        this.#resetListeners();
-        return super.close(options);
     }
 }

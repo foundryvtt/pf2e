@@ -55,7 +55,8 @@ import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { Predicate } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls.ts";
 import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
-import { ErrorPF2e, setHasElement, signedInteger, sluggify, traitSlugToObject } from "@util";
+import { ErrorPF2e, setHasElement, signedInteger, sluggify } from "@util/misc.ts";
+import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
 import { CharacterCrafting } from "./crafting/index.ts";
 import {

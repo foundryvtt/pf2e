@@ -390,7 +390,12 @@ function randomID(length = 16): string {
     return r.map((i) => chars[i]).join("");
 }
 
+abstract class AbstractFormInputElement {}
+
 const f = (global.foundry = {
+    applications: {
+        elements: { AbstractFormInputElement },
+    },
     utils: {
         deepClone,
         diffObject,

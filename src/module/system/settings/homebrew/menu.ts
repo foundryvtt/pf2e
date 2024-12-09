@@ -5,6 +5,7 @@ import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunner } from "@module/migration/runner/index.ts";
 import { LanguageSelector } from "@system/tag-selector/languages.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, localizer, objectHasKey, sluggify } from "@util";
+import { DestroyableManager } from "@util/destroyables.ts";
 import Tagify from "@yaireo/tagify";
 import "@yaireo/tagify/dist/tagify.css";
 import * as R from "remeda";
@@ -30,9 +31,6 @@ class HomebrewElements extends SettingsMenuPF2e {
 
     /** Whether this is the first time the homebrew tags will have been injected into CONFIG and actor derived data */
     #initialRefresh = true;
-
-    /** Active tagify instances. Have to be cleaned up to avoid memory leaks */
-    #tagifyInstances: (Tagify | null)[] = [];
 
     declare languagesManager: LanguagesManager;
 
@@ -150,7 +148,6 @@ class HomebrewElements extends SettingsMenuPF2e {
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-        this.resetListeners();
         const html = $html[0];
 
         // Handle all changes for traits
@@ -160,33 +157,32 @@ class HomebrewElements extends SettingsMenuPF2e {
             if (!input) throw ErrorPF2e("Unexpected error preparing form");
             const localize = localizer("PF2E.SETTINGS.Homebrew");
 
-            this.#tagifyInstances.push(
-                new Tagify(input, {
-                    editTags: 1,
-                    hooks: {
-                        beforeRemoveTag: (tags): Promise<void> => {
-                            if (tags.some((t) => reservedTerms.has(sluggify(t.data.value)))) {
-                                return Promise.resolve();
-                            }
-
-                            const response: Promise<unknown> = (async () => {
-                                const content = localize("ConfirmDelete.Message", { element: tags[0].data.value });
-                                return await Dialog.confirm({
-                                    title: localize("ConfirmDelete.Title"),
-                                    content: `<p>${content}</p>`,
-                                });
-                            })();
-                            return (async () => ((await response) ? Promise.resolve() : Promise.reject()))();
-                        },
-                    },
-                    validate: (data) => !reservedTerms.has(sluggify(data.value)),
-                    transformTag: (data) => {
-                        if (reservedTerms.has(sluggify(data.value))) {
-                            ui.notifications.error(localize("ReservedTerm", { term: data.value }));
+            const tagify = new Tagify(input, {
+                editTags: 1,
+                hooks: {
+                    beforeRemoveTag: (tags): Promise<void> => {
+                        if (tags.some((t) => reservedTerms.has(sluggify(t.data.value)))) {
+                            return Promise.resolve();
                         }
+
+                        const response: Promise<unknown> = (async () => {
+                            const content = localize("ConfirmDelete.Message", { element: tags[0].data.value });
+                            return await Dialog.confirm({
+                                title: localize("ConfirmDelete.Title"),
+                                content: `<p>${content}</p>`,
+                            });
+                        })();
+                        return (async () => ((await response) ? Promise.resolve() : Promise.reject()))();
                     },
-                }),
-            );
+                },
+                validate: (data) => !reservedTerms.has(sluggify(data.value)),
+                transformTag: (data) => {
+                    if (reservedTerms.has(sluggify(data.value))) {
+                        ui.notifications.error(localize("ReservedTerm", { term: data.value }));
+                    }
+                },
+            });
+            DestroyableManager.instance.observe(tagify);
         }
 
         htmlQuery(html, "[data-action=damage-add]")?.addEventListener("click", async () => {
@@ -205,12 +201,6 @@ class HomebrewElements extends SettingsMenuPF2e {
         }
 
         this.languagesManager.activateListeners(html);
-    }
-
-    protected resetListeners(): void {
-        this.languagesManager?.resetListeners();
-        this.#tagifyInstances.forEach((tagifyInstance) => tagifyInstance?.destroy());
-        this.#tagifyInstances = [];
     }
 
     override async getData(): Promise<HomebrewElementsSheetData> {
@@ -389,11 +379,6 @@ class HomebrewElements extends SettingsMenuPF2e {
                 record[element.id] = element.value;
             }
         }
-    }
-
-    override async close(options?: { force?: boolean } | undefined): Promise<void> {
-        this.resetListeners();
-        return super.close(options);
     }
 }
 

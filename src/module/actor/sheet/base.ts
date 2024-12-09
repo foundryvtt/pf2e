@@ -42,6 +42,7 @@ import {
     signedInteger,
     tupleHasValue,
 } from "@util";
+import { createSortable } from "@util/destroyables.ts";
 import * as R from "remeda";
 import Sortable from "sortablejs";
 import { ActorSizePF2e } from "../data/size.ts";
@@ -94,12 +95,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     /** Implementation used to handle the toggling and rendering of item summaries */
     itemRenderer: ItemSummaryRenderer<TActor, ActorSheetPF2e<TActor>> = new ItemSummaryRenderer(this);
-
-    /** Active destroyable resources. Have to be cleaned up to avoid memory leaks */
-    #destroyables: { destroy(): void }[] = [];
-
-    /** Elements with registered $.tooltipster instances. Have to be cleaned up to avoid memory leaks */
-    #tooltipsterElements: JQuery[] = [];
 
     /** Is this sheet one in which the actor is not owned by the user, but the user can still take and deposit items? */
     get isLootSheet(): boolean {
@@ -468,21 +463,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
     }
 
-    protected ensureDestroyableCleanup(destroyable: { destroy(): void } | null): void {
-        if (destroyable) this.#destroyables.push(destroyable);
-    }
-
-    protected ensureTooltipsterCleanup(element: JQuery): void {
-        this.#tooltipsterElements.push(element);
-    }
-
-    protected resetListeners(): void {
-        this.#destroyables.forEach((sortable) => sortable.destroy());
-        this.#destroyables = [];
-        this.#tooltipsterElements.forEach((element) => element.tooltipster("destroy"));
-        this.#tooltipsterElements = [];
-    }
-
     /** Sheet-wide click listeners for elements selectable as `a[data-action]` */
     protected activateClickListener(html: HTMLElement): SheetClickActionHandlers {
         const inventoryItemFromDOM = (event: MouseEvent): PhysicalItemPF2e<TActor> => {
@@ -717,7 +697,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 onEnd: (event) => this.#onDropInventoryItem(event),
             };
 
-            this.ensureDestroyableCleanup(new Sortable(list, options));
+            createSortable(list, options);
         }
     }
 
@@ -1340,28 +1320,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
     }
 
-    /**
-     * Overridden _replaceHTML to reset event listeners.
-     * It would be nicer to have the resetListeners call in activateListeners,
-     * but tooltipster instances have to be cleaned up before the registered html
-     * elements are removed from the dom, as the library throws errors when trying
-     * to call the destroy method otherwise. Even though the library throws errors
-     * when trying to destroy an instance that has been detached from the main
-     * document, some references are still registered internally which leads to the
-     * whole detached element tree (the whole actor sheet) being retained in memory
-     * indefinitely.
-     * This is why `resetListeners` has to be called just before the old html is
-     * replaced.
-     */
-    protected override _replaceHTML(
-        element: JQuery,
-        html: JQuery | HTMLElement,
-        options: Record<string, unknown>,
-    ): void {
-        this.resetListeners();
-        super._replaceHTML(element, html, options);
-    }
-
     protected override _getSubmitData(updateData?: Record<string, unknown>): Record<string, unknown> {
         const data = super._getSubmitData(updateData);
 
@@ -1389,11 +1347,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             compact: true,
         });
         return plugins;
-    }
-
-    override async close(options?: { force?: boolean }): Promise<void> {
-        this.resetListeners();
-        return super.close(options);
     }
 }
 
