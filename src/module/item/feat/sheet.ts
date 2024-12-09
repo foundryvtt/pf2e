@@ -21,16 +21,14 @@ import {
     localizer,
     objectHasKey,
     sluggify,
-    tagify,
     tupleHasValue,
 } from "@util";
+import { tagify } from "@util/tags.ts";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { featCanHaveKeyOptions } from "./helpers.ts";
 
 class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
-    /** Active tagify instances. Have to be cleaned up to avoid memory leaks */
-
     static override get defaultOptions(): ItemSheetOptions {
         return {
             ...super.defaultOptions,
@@ -216,10 +214,8 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         const getInput = (name: string): HTMLTagifyTagsElement | null =>
             htmlQuery<HTMLTagifyTagsElement>(html, `tagify-tags[name="${name}"]`);
 
-        this.ensureDestroyableCleanup(tagify(getInput("system.prerequisites.value"), { maxTags: 6, delimiters: ";" }));
-        this.ensureDestroyableCleanup(
-            tagify(getInput("system.subfeatures.keyOptions"), { whitelist: CONFIG.PF2E.abilities, maxTags: 3 }),
-        );
+        tagify(getInput("system.prerequisites.value"), { maxTags: 6, delimiters: ";" });
+        tagify(getInput("system.subfeatures.keyOptions"), { whitelist: CONFIG.PF2E.abilities, maxTags: 3 });
 
         // Disable the "add subfeature" anchor unless a corresponding option is selected
         const unselectedOptionsSelects = htmlQueryAll<HTMLSelectElement>(html, "select[data-unselected-options]");

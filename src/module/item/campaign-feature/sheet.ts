@@ -1,7 +1,8 @@
 import { activateActionSheetListeners } from "@item/ability/helpers.ts";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
-import { htmlQuery, tagify } from "@util";
+import { htmlQuery } from "@util/dom.ts";
+import { tagify } from "@util/tags.ts";
 import type { CampaignFeaturePF2e } from "./document.ts";
 import { KINGMAKER_CATEGORIES } from "./values.ts";
 
@@ -36,13 +37,7 @@ class CampaignFeatureSheetPF2e extends ItemSheetPF2e<CampaignFeaturePF2e> {
         activateActionSheetListeners(this.item, html);
 
         const prerequisites = htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.prerequisites.value"]');
-        if (prerequisites) {
-            this.ensureDestroyableCleanup(
-                tagify(prerequisites, {
-                    editTags: 1,
-                }),
-            );
-        }
+        if (prerequisites) tagify(prerequisites, { editTags: 1 });
     }
 
     protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {

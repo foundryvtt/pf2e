@@ -1,10 +1,10 @@
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e, MeleeSource } from "@item/base/data/index.ts";
+import type { ItemSourcePF2e, MeleeSource } from "@item/base/data/index.ts";
 import { FEAT_OR_FEATURE_CATEGORIES } from "@item/feat/values.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { SIZES } from "@module/data.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
-import { RuleElementSource } from "@module/rules/index.ts";
+import type { RuleElementSource } from "@module/rules/index.ts";
 import { isObject, recursiveReplaceString, setHasElement, sluggify, tupleHasValue } from "@util/misc.ts";
 import fs from "fs";
 import path from "path";

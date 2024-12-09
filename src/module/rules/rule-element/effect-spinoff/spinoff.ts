@@ -4,7 +4,8 @@ import { EffectPF2e, type PhysicalItemPF2e } from "@item";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import type { EffectSource } from "@item/effect/data.ts";
 import type { PhysicalItemTrait } from "@item/physical/types.ts";
-import { getActionGlyph, traitSlugToObject } from "@util";
+import { getActionGlyph } from "@util/misc.ts";
+import { traitSlugToObject } from "@util/tags.ts";
 import type { EffectSpinoffRuleElement } from "./rule-element.ts";
 
 class EffectSpinoff {

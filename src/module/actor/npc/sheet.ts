@@ -12,16 +12,8 @@ import type { UserPF2e } from "@module/user/document.ts";
 import { DicePF2e } from "@scripts/dice.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import type { StatisticRollParameters } from "@system/statistic/index.ts";
-import {
-    htmlClosest,
-    htmlQuery,
-    htmlQueryAll,
-    localizeList,
-    setHasElement,
-    sortLabeledRecord,
-    tagify,
-    traitSlugToObject,
-} from "@util";
+import { htmlClosest, htmlQuery, htmlQueryAll, localizeList, setHasElement, sortLabeledRecord } from "@util";
+import { tagify, traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
 import { NPCConfig } from "./config.ts";
 import {
@@ -109,7 +101,7 @@ abstract class AbstractNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
 
         // Tagify the traits selection
         const traitsEl = htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.value"]');
-        this.ensureDestroyableCleanup(tagify(traitsEl, { whitelist: CONFIG.PF2E.creatureTraits }));
+        tagify(traitsEl, { whitelist: CONFIG.PF2E.creatureTraits });
     }
 
     protected override activateClickListener(html: HTMLElement): SheetClickActionHandlers {

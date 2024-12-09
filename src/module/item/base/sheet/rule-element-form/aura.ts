@@ -2,7 +2,8 @@ import { userColorForActor } from "@actor/helpers.ts";
 import type { ItemPF2e } from "@item";
 import type { AuraRuleElement, AuraRuleElementSchema } from "@module/rules/rule-element/aura.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
-import { htmlClosest, htmlQuery, htmlQueryAll, isImageFilePath, tagify } from "@util";
+import { htmlClosest, htmlQuery, htmlQueryAll, isImageFilePath } from "@util";
+import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
 import { RuleElementForm, RuleElementFormSheetData, RuleElementFormTabData } from "./base.ts";
 
@@ -35,7 +36,7 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
         const traitsElement = htmlQuery<HTMLTagifyTagsElement>(html, "tagify-tags.tagify-traits");
         if (traitsElement) {
             const whitelist = { ...CONFIG.PF2E.spellTraits, ...CONFIG.PF2E.actionTraits };
-            this.ensureDestroyableCleanup(tagify(traitsElement, { whitelist, enforceWhitelist: false }));
+            tagify(traitsElement, { whitelist, enforceWhitelist: false });
         }
 
         for (const eventsElement of htmlQueryAll<HTMLTagifyTagsElement>(html, "tagify-tags.tagify-events")) {
@@ -44,12 +45,7 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
                 ["turn-start", game.i18n.localize("PF2E.RuleEditor.Aura.Effects.EventsOptions.TurnStart")],
                 ["turn-end", game.i18n.localize("PF2E.RuleEditor.Aura.Effects.EventsOptions.TurnEnd")],
             ].sort((a, b) => a[1].localeCompare(b[1], game.i18n.lang));
-            this.ensureDestroyableCleanup(
-                tagify(eventsElement, {
-                    whitelist: R.mapToObj(whitelist, (w) => [w[0], w[1]]),
-                    enforceWhitelist: true,
-                }),
-            );
+            tagify(eventsElement, { whitelist: R.mapToObj(whitelist, (w) => [w[0], w[1]]), enforceWhitelist: true });
         }
 
         for (const element of htmlQueryAll(html, "a[data-action=remove-effect]")) {
