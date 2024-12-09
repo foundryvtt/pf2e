@@ -1,9 +1,9 @@
 import { CreatureSheetData, Language, ResourceData } from "@actor/creature/index.ts";
 import type { Sense } from "@actor/creature/sense.ts";
-import { isReallyPC } from "@actor/helpers.ts";
+import { isReallyPC, iterateAllItems } from "@actor/helpers.ts";
 import { MODIFIER_TYPES, createProficiencyModifier } from "@actor/modifiers.ts";
 import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
-import { AbilityViewData, InventoryItem } from "@actor/sheet/data-types.ts";
+import { AbilityViewData, InventoryItem, SheetInventory } from "@actor/sheet/data-types.ts";
 import { condenseSenses, createAbilityViewData } from "@actor/sheet/helpers.ts";
 import { AttributeString, SaveType, SkillSlug } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
@@ -46,6 +46,7 @@ import {
     tupleHasValue,
 } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
+import MiniSearch from "minisearch";
 import * as R from "remeda";
 import { CreatureSheetPF2e } from "../creature/sheet.ts";
 import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies.ts";
@@ -80,6 +81,13 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     /** Non-persisted tweaks to formula data */
     #formulaQuantities: Record<string, number> = {};
 
+    #inventorySearchEngine = new MiniSearch<Pick<PhysicalItemPF2e<TActor>, "id" | "name">>({
+        fields: ["name"],
+        idField: "id",
+        processTerm: (t) => (t.length > 1 ? t.toLocaleLowerCase(game.i18n.lang) : null),
+        searchOptions: { combineWith: "AND", prefix: true },
+    });
+
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         options.classes = [...options.classes, "character"];
@@ -87,6 +95,9 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         options.height = 750;
         options.scrollY.push(".tab[data-tab=spellcasting] > [data-panels]", ".tab.active .tab-content");
         options.dragDrop.push({ dragSelector: "ol[data-strikes] > li, ol[data-elemental-blasts] > li" });
+        options.filters = [
+            { inputSelector: "[data-tab=inventory] input[type=search]", contentSelector: "section.inventory-list" },
+        ];
         options.tabs = [
             { navSelector: "nav.sheet-navigation", contentSelector: ".sheet-content", initial: "character" },
             { navSelector: "nav.actions-nav", contentSelector: ".actions-panels", initial: "encounter" },
@@ -511,6 +522,57 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         };
     }
 
+    protected override _onSearchFilter(
+        event: KeyboardEvent,
+        query: string,
+        rgx: RegExp,
+        html: HTMLElement | null,
+    ): void {
+        super._onSearchFilter(event, query, rgx, html);
+
+        // Gets all parents, including containers and parent items
+        const getAllParents = (item: PhysicalItemPF2e): PhysicalItemPF2e[] => {
+            const parents = [item.container, item.parentItem].filter((i): i is PhysicalItemPF2e => !!i);
+            return [...parents, ...parents.flatMap((p) => getAllParents(p))];
+        };
+
+        // Gets all children, including container contents and sub items
+        const getAllChildren = (item: PhysicalItemPF2e): PhysicalItemPF2e[] => {
+            const contents = [...(item.isOfType("backpack") ? item.contents : []), ...item.subitems];
+            return [...contents, ...contents.flatMap((c) => getAllChildren(c))];
+        };
+
+        const matches = (() => {
+            // If inventory, also include all parents and all children in result set. Due to subitems, we can't use actor.items
+            if (html?.classList.contains("inventory-list") && query.length > 1) {
+                const baseMatches = this.#inventorySearchEngine.search(query).map((s) => String(s.id));
+                const allItems = [...iterateAllItems(this.actor)];
+                const itemsById = R.mapToObj(
+                    allItems.filter((i): i is PhysicalItemPF2e<TActor> => i.isOfType("physical")),
+                    (i) => [i.id, i],
+                );
+                const baseItems = baseMatches.map((id) => itemsById[id]).filter((i) => !!i);
+                const parentMatches = baseItems.flatMap((i) => getAllParents(i)).map((i) => i.id);
+                const childMatches = baseItems.flatMap((i) => getAllChildren(i)).map((i) => i.id);
+
+                return new Set([baseMatches, parentMatches, childMatches].flat());
+            }
+
+            return null;
+        })();
+
+        for (const row of htmlQueryAll(html, "li[data-item-id]")) {
+            row.hidden = matches !== null && !matches.has(row.dataset.itemId ?? "");
+        }
+    }
+
+    protected override prepareInventory(): SheetInventory {
+        const items = [...iterateAllItems(this.actor)].filter((i) => i.isOfType("physical"));
+        this.#inventorySearchEngine.removeAll();
+        this.#inventorySearchEngine.addAll(items.map((i) => R.pick(i, ["id", "name"])));
+        return super.prepareInventory();
+    }
+
     protected override prepareInventoryItem(item: PhysicalItemPF2e): InventoryItem {
         const data = super.prepareInventoryItem(item);
         data.isInvestable = !item.isStowed && item.isIdentified && item.isInvested !== null;
@@ -759,6 +821,12 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             htmlQuery(spellcastingCollectionEl, "[data-action=spell-attack]")?.addEventListener("click", (event) => {
                 entry?.statistic?.check.roll(eventToRollParams(event, { type: "check" }));
             });
+        }
+
+        // Work around search filter flashing on re-render
+        for (const filter of this._searchFilters) {
+            const rgx = new RegExp(RegExp.escape(filter.query), "i");
+            this._onSearchFilter(new KeyboardEvent("input"), filter.query, rgx, filter._content);
         }
     }
 
