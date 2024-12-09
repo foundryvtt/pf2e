@@ -1,5 +1,6 @@
-import type { DiceTerm } from "./dice-term.d.ts";
-import type { RollTerm } from "./roll-term.d.ts";
+import { DiceTerm } from "./dice.mjs";
+import { RollParseNode } from "../_types.mjs";
+import { RollTerm } from "./term.mjs";
 
 /**
  * A dice pool represents a set of Roll expressions which are collectively modified to compute an effective total
@@ -53,6 +54,9 @@ export class PoolTerm<TData extends PoolTermData = PoolTermData> extends RollTer
     /** A regular expression pattern used to identify the closing of a dice pool expression. */
     static CLOSE_REGEXP: RegExp;
 
+    /** A regular expression pattern used to match the entirety of a DicePool expression. */
+    static REGEXP: RegExp;
+
     static override SERIALIZE_ATTRIBUTES: ["terms", "modifiers", "rolls", "results"];
 
     /* -------------------------------------------- */
@@ -69,7 +73,7 @@ export class PoolTerm<TData extends PoolTermData = PoolTermData> extends RollTer
     /** Return an array of rolled values which are still active within the PoolTerm */
     get values(): number[];
 
-    /* -------------------------------------------- */
+    override get isDeterministic(): boolean;
 
     /**
      * Alter the DiceTerm by adding or multiplying the number of dice which are rolled
@@ -78,9 +82,13 @@ export class PoolTerm<TData extends PoolTermData = PoolTermData> extends RollTer
      */
     alter(...args: unknown[]): this[];
 
-    protected override _evaluateSync({ minimize, maximize }?: Omit<EvaluateRollParams, "async">): Evaluated<this>;
-
     protected override _evaluate({ minimize, maximize }?: Omit<EvaluateRollParams, "async">): Promise<Evaluated<this>>;
+
+    /** Evaluate this pool term when it contains any non-deterministic sub-terms. */
+    protected _evaluateAsync({ minimize, maximize }?: Omit<EvaluateRollParams, "async">): Promise<Evaluated<this>>;
+
+    /** Evaluate this pool term when it contains only deterministic sub-terms. */
+    protected override _evaluateSync({ minimize, maximize }?: Omit<EvaluateRollParams, "async">): Evaluated<this>;
 
     /**
      * Use the same logic as for the DiceTerm to avoid duplication
@@ -103,6 +111,8 @@ export class PoolTerm<TData extends PoolTermData = PoolTermData> extends RollTer
         data: D,
     ): T;
 
+    override toJSON(): TData;
+
     /**
      * Given a string formula, create and return an evaluated PoolTerm object
      * @param formula   The string formula to parse
@@ -121,6 +131,8 @@ export class PoolTerm<TData extends PoolTermData = PoolTermData> extends RollTer
      * @returns The constructed PoolTerm comprised of the provided rolls
      */
     static fromRolls<TTerm extends PoolTerm>(this: ConstructorOf<TTerm>, rolls?: Roll[]): TTerm;
+
+    static override fromParseNode<TTerm extends RollTerm>(node: RollParseNode): TTerm;
 
     /* -------------------------------------------- */
     /*  Modifiers                                   */
