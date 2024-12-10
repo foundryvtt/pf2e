@@ -5,7 +5,7 @@
     import HoverIconButton from "@module/sheet/components/hover-icon-button.svelte";
     import { sendItemToChat } from "@module/sheet/helpers.ts";
 
-    const { state: data, actor, searchEngine, confirmSelection }: FormulaPickerContext = $props();
+    const { state: data, actor, ability, searchEngine, onSelect, onDeselect }: FormulaPickerContext = $props();
     const openStates: Record<string, boolean> = $state({});
     let queryText = $state("");
 
@@ -25,13 +25,7 @@
 </script>
 
 <header class="sheet-header">
-    <p class="hint">
-        {game.i18n.format("PF2E.Actor.Character.Crafting.Action.Hint", {
-            resource: data.resource?.label ?? "",
-            value: data.resource?.value ?? "",
-            max: data.resource?.max ?? "",
-        })}
-    </p>
+    <p class="hint">{data.prompt}</p>
     <div class="search">
         <input
             type="search"
@@ -40,7 +34,7 @@
             placeholder={game.i18n.localize("PF2E.Actor.Character.Crafting.Search")}
         />
     </div>
-    {#if !data.resource?.value}
+    {#if !ability.isPrepared && !data.resource?.value}
         <p class="notification warning">{game.i18n.localize("PF2E.Actor.Character.Crafting.MissingResource")}</p>
     {/if}
 </header>
@@ -67,9 +61,10 @@
                         <ItemTraits traits={formula.item.traits} rarity={formula.item.rarity} />
                     </div>
                     <button
-                        onclick={() => confirmSelection(formula.item.uuid)}
+                        class:bright={formula.selected}
+                        onclick={() => (formula.selected ? onDeselect(formula.item.uuid) : onSelect(formula.item.uuid))}
                         aria-labelledby="tooltip"
-                        data-tooltip="Confirm"
+                        data-tooltip={formula.selected ? "Cancel" : "Confirm"}
                     >
                         <i class="fa-solid fa-fw fa-check"></i>
                     </button>
@@ -161,6 +156,14 @@
             margin-top: var(--space-4);
             i {
                 margin: 0;
+            }
+
+            /** Style as a remove button if mousing over an active one */
+            &.bright:hover {
+                background-color: var(--color-level-error);
+                i::before {
+                    content: "\f00d";
+                }
             }
         }
 

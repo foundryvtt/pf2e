@@ -57,7 +57,7 @@ import * as R from "remeda";
 import { v5 as UUIDv5 } from "uuid";
 import { ActorConditions } from "./conditions.ts";
 import { Abilities, VisionLevel, VisionLevels } from "./creature/data.ts";
-import { GetReachParameters, ModeOfBeing } from "./creature/types.ts";
+import type { GetReachParameters, ModeOfBeing, ResourceData } from "./creature/types.ts";
 import { ActorFlagsPF2e, ActorSystemData, ActorTraitsData, PrototypeTokenPF2e, RollOptionFlags } from "./data/base.ts";
 import type { ActorSourcePF2e } from "./data/index.ts";
 import { Immunity, Resistance, Weakness } from "./data/iwr.ts";
@@ -411,6 +411,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
 
         return this.synthetics.statistics.get(slug) ?? null;
+    }
+
+    /** Returns a resource by slug or by key */
+    getResource(_resource: string): ResourceData | null {
+        return null;
     }
 
     /** Get roll options from this actor's effects, traits, and other properties */

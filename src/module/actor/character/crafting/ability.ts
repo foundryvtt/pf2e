@@ -19,33 +19,35 @@ import type {
 } from "./types.ts";
 
 class CraftingAbility implements CraftingAbilityData {
-    /** A label for this crafting entry to display on sheets */
-    label: string;
-
-    slug: string;
-    resource: string | null;
-
     /** This crafting ability's parent actor */
     actor: CharacterPF2e;
+    declare slug: string;
 
-    preparedFormulaData: PreparedFormulaData[];
-    isAlchemical: boolean;
-    isDailyPrep: boolean;
-    isPrepared: boolean;
-    maxSlots: number;
-    fieldDiscovery: Predicate | null;
-    fieldDiscoveryBatchSize: number;
-    batchSize: number;
-    maxItemLevel: number;
+    /** A label for this crafting entry to display on sheets */
+    declare label: string;
+    declare resource: string | null;
+    declare preparedFormulaData: PreparedFormulaData[];
+    declare isAlchemical: boolean;
+    declare isDailyPrep: boolean;
+    declare isPrepared: boolean;
+    declare maxSlots: number;
+    declare fieldDiscovery: Predicate | null;
+    declare fieldDiscoveryBatchSize: number;
+    declare batchSize: number;
+    declare maxItemLevel: number;
+
+    /** All craftable item definitions, sorted from biggest batch to smallest batch size */
+    declare craftableItems: CraftableItemDefinition[];
 
     /** A cache of all formulas that have been loaded from their compendiums */
     #preparedFormulas: PreparedFormula[] | null = null;
 
-    /** All craftable item definitions, sorted from biggest batch to smallest batch size */
-    craftableItems: CraftableItemDefinition[];
-
-    constructor(actor: CharacterPF2e, data: CraftingAbilityData) {
+    constructor(actor: CharacterPF2e) {
         this.actor = actor;
+    }
+
+    /** Initializes this crafting ability with data. Call during actor data preparation. */
+    initialize(data: CraftingAbilityData): void {
         this.slug = data.slug;
         this.resource = data.resource;
         this.label = data.label;
@@ -59,6 +61,7 @@ class CraftingAbility implements CraftingAbilityData {
         this.craftableItems = R.sortBy(data.craftableItems, [(c) => c.batchSize ?? 1, "desc"]);
         this.fieldDiscoveryBatchSize = data.fieldDiscoveryBatchSize ?? 3;
         this.preparedFormulaData = data.preparedFormulaData ?? [];
+        this.#preparedFormulas = null;
 
         // Temporary compatibility hack until the big migration
         if (this.isAlchemical) {
@@ -174,7 +177,11 @@ class CraftingAbility implements CraftingAbilityData {
         return this.#updateRuleElement();
     }
 
-    async unprepareFormula(index: number): Promise<void> {
+    async unprepareFormula(indexOrUuid: number | ItemUUID): Promise<void> {
+        const index =
+            typeof indexOrUuid === "number"
+                ? indexOrUuid
+                : this.preparedFormulaData.findIndex((d) => d.uuid === indexOrUuid);
         const formula = this.preparedFormulaData[index];
         if (!formula) return;
         this.preparedFormulaData.splice(index, 1);

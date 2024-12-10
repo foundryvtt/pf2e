@@ -89,7 +89,10 @@
                     {{/each}}
                     {{#if remainingSlots}}
                         <li class="formula-item empty">
-                            {{localize "PF2E.Actor.Character.Crafting.RemainingSlots" remaining=remainingSlots}}
+                            <a data-action="prepare-formula">
+                                <i class="fa-solid fa-plus"></i>
+                                {{localize "PF2E.Actor.Character.Crafting.RemainingSlots" remaining=remainingSlots}}
+                            </a>
                         </li>
                     {{else if (and ability.resource (not ability.prepared.length))}}
                         <li class="formula-header empty">
