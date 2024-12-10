@@ -479,9 +479,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     async #prepareCrafting(): Promise<CraftingSheetData> {
         const actor = this.actor;
         const flags = actor.flags.pf2e;
-        const hasQuickAlchemy = !!(
-            actor.rollOptions.all["feature:quick-alchemy"] || actor.rollOptions.all["feat:quick-alchemy"]
-        );
 
         // Set up the cache of known formulas on the actor for use on sheet events
         // These formulas include any modified batch size.
@@ -507,7 +504,9 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         return {
             noCost: flags.freeCrafting,
-            hasQuickAlchemy,
+            hasQuickAlchemy:
+                abilities.some((a) => a.isAlchemical) &&
+                !!(actor.rollOptions.all["feature:quick-alchemy"] || actor.rollOptions.all["feat:quick-alchemy"]),
             hasDailyCrafting: this.actor.crafting.abilities.some((a) => a.isDailyPrep || a.isAlchemical),
             dailyCraftingComplete: !!this.actor.flags.pf2e.dailyCraftingComplete,
             abilities: {
