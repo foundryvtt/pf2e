@@ -479,9 +479,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     async #prepareCrafting(): Promise<CraftingSheetData> {
         const actor = this.actor;
         const flags = actor.flags.pf2e;
-        const hasQuickAlchemy = !!(
-            actor.rollOptions.all["feature:quick-alchemy"] || actor.rollOptions.all["feat:quick-alchemy"]
-        );
 
         // Set up the cache of known formulas on the actor for use on sheet events
         // These formulas include any modified batch size.
@@ -507,7 +504,9 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         return {
             noCost: flags.freeCrafting,
-            hasQuickAlchemy,
+            hasQuickAlchemy:
+                abilities.some((a) => a.isAlchemical) &&
+                !!(actor.rollOptions.all["feature:quick-alchemy"] || actor.rollOptions.all["feat:quick-alchemy"]),
             hasDailyCrafting: this.actor.crafting.abilities.some((a) => a.isDailyPrep || a.isAlchemical),
             dailyCraftingComplete: !!this.actor.flags.pf2e.dailyCraftingComplete,
             abilities: {
@@ -1010,6 +1009,29 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         handlers["toggle-free-crafting"] = async () => {
             const freeCrafting = !this.actor.flags.pf2e.freeCrafting;
             this.actor.update({ "flags.pf2e.freeCrafting": freeCrafting });
+        };
+
+        handlers["prepare-formula"] = (_, anchor) => {
+            const abilitySlug = htmlClosest(anchor, "[data-ability]")?.dataset.ability;
+            const ability = this.actor.crafting.abilities.get(abilitySlug ?? "", { strict: true });
+
+            new FormulaPicker({
+                actor: this.actor,
+                ability,
+                prompt: game.i18n.localize("PF2E.Actor.Character.Crafting.PrepareHint"),
+                getSelected: () => {
+                    return R.unique(ability.preparedFormulaData.map((d) => d.uuid));
+                },
+                onSelect: (uuid: ItemUUID, { formulas }) => {
+                    const formula = formulas.find((f) => f.uuid === uuid);
+                    if (formula) {
+                        ability.prepareFormula(formula);
+                    }
+                },
+                onDeselect: (uuid: ItemUUID) => {
+                    ability.unprepareFormula(uuid);
+                },
+            }).render(true);
         };
 
         handlers["craft-item"] = async (event, anchor) => {

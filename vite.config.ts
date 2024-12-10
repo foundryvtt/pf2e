@@ -32,7 +32,6 @@ function getUuidRedirects(): Record<CompendiumUUID, CompendiumUUID> {
             ? path.resolve(dirPath, filename)
             : Glob.sync(path.resolve(dirPath, "**", filename)).at(0);
         if (!jsonPath) throw new Error(`Failure looking up pack JSON for ${to}`);
-        console.log(jsonPath);
         const docJSON = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
         const id = docJSON._id;
         if (!id) throw new Error(`No UUID redirect match found for ${documentType} ${name} in ${pack}`);

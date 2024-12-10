@@ -24,6 +24,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
     static RESULT_LIMIT = 100;
 
     protected declare $state: CompendiumBrowserState;
+
     root = App;
 
     activeTab: BrowserTab;
@@ -60,6 +61,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
             height: 700,
         },
         window: {
+            icon: "fa-solid fa-atlas",
             controls: [
                 {
                     action: "openSettings",
