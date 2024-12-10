@@ -9,18 +9,35 @@ import type { CraftingAbilityData, CraftingFormula } from "./types.ts";
 /** Caches and performs operations on elements related to crafting */
 class CharacterCrafting {
     actor: CharacterPF2e;
-    abilities: Collection<CraftingAbility>;
+    abilities = new Collection<CraftingAbility>();
 
     #formulas: CraftingFormula[] | null = null;
 
     constructor(actor: CharacterPF2e) {
         this.actor = actor;
+    }
+
+    /** Initializes the crafting data. Must be called every data preparation */
+    initialize(): void {
+        this.#formulas = null;
 
         // Assemble all abilities. We check if label exists as a simple validation due to potential AELike tinkering
-        const abilities = Object.values(actor.system.crafting.entries)
-            .filter((d): d is CraftingAbilityData => !!d?.label && !!d.slug && d.craftableItems.length > 0)
-            .map((d): [string, CraftingAbility] => [d.slug, new CraftingAbility(this.actor, d)]);
-        this.abilities = new Collection(abilities);
+        const abilityData = Object.values(this.actor.system.crafting.entries).filter(
+            (d): d is CraftingAbilityData => !!d?.label && !!d.slug && d.craftableItems.length > 0,
+        );
+
+        // Add or update abilities
+        const abilities: CraftingAbility[] = [];
+        for (const data of abilityData) {
+            const ability = this.abilities.get(data.slug) ?? new CraftingAbility(this.actor);
+            ability.initialize(data);
+            abilities.push(ability);
+        }
+
+        this.abilities.clear();
+        for (const ability of abilities) {
+            this.abilities.set(ability.slug, ability);
+        }
     }
 
     /**

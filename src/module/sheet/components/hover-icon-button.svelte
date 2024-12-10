@@ -1,4 +1,6 @@
 <script lang="ts">
+    import type { HTMLButtonAttributes } from "svelte/elements";
+
     interface HoverIconProps extends HTMLButtonAttributes {
         src: string;
         icon: string;

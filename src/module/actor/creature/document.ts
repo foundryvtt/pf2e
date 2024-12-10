@@ -632,7 +632,7 @@ abstract class CreaturePF2e<
     }
 
     /** Returns a resource by slug or by key */
-    getResource(resource: string): ResourceData | null {
+    override getResource(resource: string): ResourceData | null {
         const slug = sluggify(resource);
         const key = sluggify(resource, { camel: "dromedary" });
 

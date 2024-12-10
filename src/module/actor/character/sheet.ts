@@ -1011,6 +1011,29 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             this.actor.update({ "flags.pf2e.freeCrafting": freeCrafting });
         };
 
+        handlers["prepare-formula"] = (_, anchor) => {
+            const abilitySlug = htmlClosest(anchor, "[data-ability]")?.dataset.ability;
+            const ability = this.actor.crafting.abilities.get(abilitySlug ?? "", { strict: true });
+
+            new FormulaPicker({
+                actor: this.actor,
+                ability,
+                prompt: game.i18n.localize("PF2E.Actor.Character.Crafting.PrepareHint"),
+                getSelected: () => {
+                    return R.unique(ability.preparedFormulaData.map((d) => d.uuid));
+                },
+                onSelect: (uuid: ItemUUID, { formulas }) => {
+                    const formula = formulas.find((f) => f.uuid === uuid);
+                    if (formula) {
+                        ability.prepareFormula(formula);
+                    }
+                },
+                onDeselect: (uuid: ItemUUID) => {
+                    ability.unprepareFormula(uuid);
+                },
+            }).render(true);
+        };
+
         handlers["craft-item"] = async (event, anchor) => {
             const row = htmlClosest(anchor, "li");
             if (!row) return;

@@ -458,7 +458,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
-        this.crafting = new CharacterCrafting(this);
+        // Create the crafting sub-object, and ensure the instance is maintained between data preparations
+        this.crafting ??= new CharacterCrafting(this);
+        this.crafting.initialize();
 
         imposeOversizedWeaponCondition(this);
         game.pf2e.variantRules.AutomaticBonusProgression.concatModifiers(this);

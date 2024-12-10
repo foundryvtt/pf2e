@@ -1,5 +1,6 @@
 import { ActorPF2e } from "@actor/base.ts";
 import type { CraftingAbility } from "@actor/character/crafting/ability.ts";
+import { CraftingFormula } from "@actor/character/crafting/types.ts";
 import { CharacterPF2e } from "@actor/character/document.ts";
 import { ResourceData } from "@actor/creature/index.ts";
 import { AbilityItemPF2e, FeatPF2e, PhysicalItemPF2e } from "@item";
@@ -15,7 +16,11 @@ import Root from "./app.svelte";
 interface FormulaPickerConfiguration extends ApplicationConfiguration {
     actor: CharacterPF2e;
     ability: CraftingAbility;
+    prompt: string;
     item?: FeatPF2e | AbilityItemPF2e;
+    getSelected?: () => ItemUUID[];
+    onSelect: SelectFunction;
+    onDeselect: SelectFunction;
 }
 
 /** Creates a formula picker dialog that resolves with the selected item */
@@ -33,6 +38,8 @@ class FormulaPicker extends SvelteApplicationMixin<
             contentClasses: ["standard-form", "compact"],
             resizable: true,
         },
+        onSelect: (): void => {},
+        onDeselect: (): void => {},
     };
 
     declare options: FormulaPickerConfiguration;
@@ -49,6 +56,10 @@ class FormulaPicker extends SvelteApplicationMixin<
     });
 
     selection: PhysicalItemPF2e | null = null;
+
+    constructor(options: Partial<FormulaPickerConfiguration>) {
+        super(options);
+    }
 
     override get title(): string {
         return this.options.item?.name ?? this.options.ability.label;
@@ -75,25 +86,35 @@ class FormulaPicker extends SvelteApplicationMixin<
 
     protected override async _prepareContext(): Promise<FormulaPickerContext> {
         const actor = this.options.actor;
-        const crafting = this.options.ability;
-        const resource = actor.getResource(crafting.resource ?? "");
+        const ability = this.options.ability;
+        const resource = actor.getResource(ability.resource ?? "");
+        const selected = this.options.getSelected?.() ?? [];
 
-        const formulas = (await actor.crafting.getFormulas()).filter((f) => crafting.canCraft(f.item, { warn: false }));
+        const formulas = (await actor.crafting.getFormulas()).filter((f) => ability.canCraft(f.item, { warn: false }));
         this.#searchEngine.removeAll();
         this.#searchEngine.addAll(formulas.map((f) => R.pick(f.item, ["id", "name"])));
 
         return {
             foundryApp: this,
             actor,
-            confirmSelection: async (uuid) => {
-                const item = formulas.find((f) => f.item.uuid === uuid)?.item;
-                this.selection = item ?? null;
-                this.close();
+            ability,
+            onSelect: (uuid: ItemUUID) => {
+                if (this.#resolve) {
+                    const item = formulas.find((f) => f.item.uuid === uuid)?.item;
+                    this.selection = item ?? null;
+                    this.close();
+                }
+
+                this.options.onSelect(uuid, { formulas });
+            },
+            onDeselect: (uuid: ItemUUID) => {
+                this.options.onDeselect(uuid, { formulas });
             },
             searchEngine: this.#searchEngine,
             state: {
-                name: this.options.item?.name ?? crafting.label,
+                name: this.options.item?.name ?? ability.label,
                 resource,
+                prompt: this.options.prompt,
                 sections: R.pipe(
                     formulas.map((f) => ({
                         item: {
@@ -104,6 +125,7 @@ class FormulaPicker extends SvelteApplicationMixin<
                             traits: f.item.traitChatData(),
                         },
                         batchSize: f.batchSize,
+                        selected: selected.includes(f.item.uuid),
                     })),
                     R.groupBy((f) => f.item.level || 0),
                     R.entries(),
@@ -117,11 +139,14 @@ class FormulaPicker extends SvelteApplicationMixin<
 
 interface FormulaPickerContext extends SvelteApplicationRenderContext {
     actor: ActorPF2e;
-    confirmSelection: (uuid: string) => void;
+    ability: CraftingAbility;
+    onSelect: (uuid: ItemUUID) => void;
+    onDeselect: (uuid: ItemUUID) => void;
     searchEngine: MiniSearch<Pick<PhysicalItemPF2e, "id" | "name">>;
     state: {
         name: string;
         resource: ResourceData | null;
+        prompt: string;
         sections: FormulaSection[];
     };
 }
@@ -129,12 +154,13 @@ interface FormulaPickerContext extends SvelteApplicationRenderContext {
 interface FormulaSection {
     level: number;
     formulas: {
-        item: BasicItemViewData;
+        item: FormulaViewData;
         batchSize: number;
+        selected: boolean;
     }[];
 }
 
-interface BasicItemViewData {
+interface FormulaViewData {
     id: string;
     uuid: ItemUUID;
     type: ItemType;
@@ -144,6 +170,8 @@ interface BasicItemViewData {
     level: number | null;
     rarity: Rarity | null;
 }
+
+type SelectFunction = (uuid: ItemUUID, options: { formulas: CraftingFormula[] }) => void;
 
 export { FormulaPicker };
 export type { FormulaPickerContext };
