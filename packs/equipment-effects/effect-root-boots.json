@@ -1,0 +1,53 @@
+{
+    "_id": "T2eCVO5lN8cNMzyq",
+    "img": "icons/equipment/feet/boots-collared-simple-leather.webp",
+    "name": "Effect: Root Boots",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Root Boots]</p>\n<p>You gain a 20-foot climb Speed on trees and other wooden surfaces.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #197: Let the Leaves Fall"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.RootBoots.WoodenSurfaceLabel",
+                "option": "root-boots-wooden-surface",
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "root-boots-wooden-surface"
+                ],
+                "selector": "climb",
+                "value": 20
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
