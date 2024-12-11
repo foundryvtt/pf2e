@@ -5,9 +5,9 @@ import { TreasurePF2e } from "@item";
 import { SIZES, Size } from "@module/data.ts";
 import { RecordField } from "@system/schema-data-fields.ts";
 import { tupleHasValue } from "@util";
-import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
+import fields = foundry.data.fields;
 
 /**
  * @category RuleElement
@@ -25,8 +25,6 @@ class CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSchema> {
     }
 
     static override defineSchema(): CreatureSizeRuleSchema {
-        const fields = foundry.data.fields;
-
         return {
             ...super.defineSchema(),
             value: new ResolvableValueField({ required: true, nullable: false }),
@@ -170,15 +168,15 @@ interface CreatureSizeRuleElement
 type CreatureSizeRuleSchema = RuleElementSchema & {
     value: ResolvableValueField<true, false, true>;
     reach: RecordField<
-        StringField<"add" | "upgrade" | "override", "add" | "upgrade" | "override", true, false, false>,
+        fields.StringField<"add" | "upgrade" | "override", "add" | "upgrade" | "override", true, false, false>,
         ResolvableValueField<true, false, false>,
         false,
         false,
         false
     >;
-    resizeEquipment: BooleanField<boolean, boolean, false, false, false>;
-    minimumSize: StringField<Size, Size, false, false, false>;
-    maximumSize: StringField<Size, Size, false, false, false>;
+    resizeEquipment: fields.BooleanField<boolean, boolean, false, false, false>;
+    minimumSize: fields.StringField<Size, Size, false, false, false>;
+    maximumSize: fields.StringField<Size, Size, false, false, false>;
 };
 
 export { CreatureSizeRuleElement };

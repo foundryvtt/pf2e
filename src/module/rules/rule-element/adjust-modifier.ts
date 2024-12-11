@@ -4,10 +4,10 @@ import { Predicate } from "@system/predication.ts";
 import { StrictArrayField } from "@system/schema-data-fields.ts";
 import { objectHasKey } from "@util";
 import * as R from "remeda";
-import type { ArrayField, BooleanField, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { AELikeChangeMode, AELikeRuleElement } from "./ae-like.ts";
 import { ModelPropsFromRESchema, ResolvableValueField } from "./data.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import fields = foundry.data.fields;
 
 /** Adjust the value of a modifier, change its damage type (in case of damage modifiers) or suppress it entirely */
 class AdjustModifierRuleElement extends RuleElementPF2e<AdjustModifierSchema> {
@@ -27,8 +27,6 @@ class AdjustModifierRuleElement extends RuleElementPF2e<AdjustModifierSchema> {
     }
 
     static override defineSchema(): AdjustModifierSchema {
-        const fields = foundry.data.fields;
-
         const baseSchema = super.defineSchema();
         const PRIORITIES: Record<string, number | undefined> = AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES;
         baseSchema.priority.initial = (d) => PRIORITIES[String(d.mode)] ?? 50;
@@ -131,16 +129,16 @@ interface AdjustModifierRuleElement
 }
 
 type AdjustModifierSchema = RuleElementSchema & {
-    mode: StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
+    mode: fields.StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
     /** An optional relabeling of the adjusted modifier */
-    relabel: StringField<string, string, false, true, true>;
-    selector: StringField<string, string, false, false, false>;
-    selectors: ArrayField<StringField<string, string, true, false, false>>;
-    damageType: StringField<string, string, false, true, true>;
+    relabel: fields.StringField<string, string, false, true, true>;
+    selector: fields.StringField<string, string, false, false, false>;
+    selectors: fields.ArrayField<fields.StringField<string, string, true, false, false>>;
+    damageType: fields.StringField<string, string, false, true, true>;
     /** Rather than changing a modifier's value, ignore it entirely */
-    suppress: BooleanField<boolean, boolean, false, false, true>;
+    suppress: fields.BooleanField<boolean, boolean, false, false, true>;
     /** The maximum number of times this adjustment can be applied */
-    maxApplications: NumberField<number, number, false, true, true>;
+    maxApplications: fields.NumberField<number, number, false, true, true>;
     value: ResolvableValueField<false, true, true>;
 };
 

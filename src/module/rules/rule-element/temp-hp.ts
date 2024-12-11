@@ -1,10 +1,9 @@
 import type { ActorType } from "@actor/types.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
-import { StrictSchemaField } from "@system/schema-data-fields.ts";
-import { isObject } from "@util";
-import type { BooleanField, SchemaField } from "types/foundry/common/data/fields.d.ts";
+import * as R from "remeda";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
+import fields = foundry.data.fields;
 
 /**
  * @category RuleElement
@@ -13,23 +12,15 @@ class TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema> {
     static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
 
     static override defineSchema(): TempHPRuleSchema {
-        const fields = foundry.data.fields;
-
         return {
             ...super.defineSchema(),
             value: new ResolvableValueField({ required: true, nullable: false }),
-            events: new StrictSchemaField(
-                {
-                    onCreate: new fields.BooleanField({ required: false, nullable: false }),
-                    onTurnStart: new fields.BooleanField({ required: false, nullable: false }),
-                },
+            events: new fields.SchemaField(
+                { onCreate: new fields.BooleanField(), onTurnStart: new fields.BooleanField() },
                 {
                     required: true,
                     nullable: false,
-                    initial: {
-                        onCreate: true,
-                        onTurnStart: false,
-                    },
+                    initial: { onCreate: true, onTurnStart: false },
                 },
             ),
         };
@@ -103,7 +94,7 @@ class TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema> {
         if (fu.getProperty(updatedActorData, "system.attributes.hp.tempsource") === this.item.id) {
             fu.mergeObject(actorUpdates, { "system.attributes.hp.temp": 0 });
             const hpData = fu.getProperty(actorUpdates, "system.attributes.hp");
-            if (isObject<{ "-=tempsource": unknown }>(hpData)) {
+            if (R.isPlainObject(hpData)) {
                 hpData["-=tempsource"] = null;
             }
         }
@@ -128,16 +119,16 @@ interface TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema>, ModelProp
 
 type TempHPEventsSchema = {
     /** Whether the temporary hit points are immediately applied */
-    onCreate: BooleanField<boolean, boolean, false, false, false>;
+    onCreate: fields.BooleanField;
     /** Whether the temporary hit points renew each round */
-    onTurnStart: BooleanField<boolean, boolean, false, false, false>;
+    onTurnStart: fields.BooleanField;
 };
 
 type TempHPRuleSchema = RuleElementSchema & {
     /** The quantity of temporary hit points to add */
     value: ResolvableValueField<true, false, false>;
     /** World events in which temporary HP is added or renewed */
-    events: SchemaField<
+    events: fields.SchemaField<
         TempHPEventsSchema,
         SourceFromSchema<TempHPEventsSchema>,
         ModelPropsFromSchema<TempHPEventsSchema>,

@@ -81,6 +81,8 @@ async function createUseActionMessage(
     const flags: { pf2e: ChatMessageFlagsPF2e["pf2e"] } = { pf2e: {} };
     if (item.system.selfEffect) {
         flags.pf2e.context = { type: "self-effect", item: item.id };
+    } else {
+        flags.pf2e.origin = item.getOriginData();
     }
 
     // Create the message

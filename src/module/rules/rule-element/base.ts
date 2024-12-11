@@ -94,7 +94,6 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 
     static override defineSchema(): RuleElementSchema {
         const fields = foundry.data.fields;
-
         return {
             key: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
             slug: new SlugField({ required: true, nullable: true, label: "PF2E.RuleEditor.General.Slug" }),

@@ -9,7 +9,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>The soles of these plain leather boots look like coils of flattened roots. The boots allow for full-foot flexibility despite their sturdy make and smell faintly of evergreen trees. While worn and invested, your footsteps sound like rustling leaves, granting you a +1 item bonus to Stealth checks in a forest or wooded area.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The small roots extending from the soles of these boots allow you to move freely and easily across wood. For 10 minutes, you gain a 20-foot climb Speed on trees and other wooden surfaces, and you don't need to use your hands to climb.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">r</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You're standing on earth, and something attempts to move you against your will</p>\n<p><strong>Effect</strong> The roots extend from your boots to grip the ground, granting you a +4 item bonus to your Fortitude DC against effects that attempt to move you, such as @UUID[Compendium.pf2e.actionspf2e.Item.Shove] or Pull.</p>"
+            "value": "<p>The soles of these plain leather boots look like coils of flattened roots. The boots allow for full-foot flexibility despite their sturdy make and smell faintly of evergreen trees. While worn and invested, your footsteps sound like rustling leaves, granting you a +1 item bonus to Stealth checks in a forest or wooded area.</p><hr /><p><strong>Activate</strong> <span class=\"action-glyph\">1</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The small roots extending from the soles of these boots allow you to move freely and easily across wood. For 10 minutes, you gain a 20-foot climb Speed on trees and other wooden surfaces, and you don't need to use your hands to climb.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Root Boots]</p><hr /><p><strong>Activate</strong> <span class=\"action-glyph\">r</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You're standing on earth, and something attempts to move you against your will</p>\n<p><strong>Effect</strong> The roots extend from your boots to grip the ground, granting you a +4 item bonus to your Fortitude DC against effects that attempt to move you, such as @UUID[Compendium.pf2e.actionspf2e.Item.Shove] or Pull.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -43,6 +43,30 @@
                 "selector": "stealth",
                 "type": "item",
                 "value": 1
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.RootBoots.GripGround",
+                "option": "root-boots-grip-ground",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "root-boots-grip-ground",
+                    {
+                        "or": [
+                            "action:pull",
+                            "action:reposition",
+                            "action:shove",
+                            "inflicts:forced-movement"
+                        ]
+                    }
+                ],
+                "selector": "fortitude-dc",
+                "type": "item",
+                "value": 4
             }
         ],
         "size": "med",

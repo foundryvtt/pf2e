@@ -9,8 +9,6 @@ import fields = foundry.data.fields;
  */
 class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema> {
     static override defineSchema(): TokenImageRuleSchema {
-        const fields = foundry.data.fields;
-
         return {
             ...super.defineSchema(),
             value: new fields.StringField({

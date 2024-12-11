@@ -3,14 +3,13 @@ import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { BooleanField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
+import fields = foundry.data.fields;
 
 /** Reduce current hit points without applying damage */
 class LoseHitPointsRuleElement extends RuleElementPF2e<LoseHitPointsRuleSchema> {
     static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
     static override defineSchema(): LoseHitPointsRuleSchema {
-        const fields = foundry.data.fields;
-
         return {
             ...super.defineSchema(),
             value: new ResolvableValueField({ required: true, initial: undefined }),
@@ -66,7 +65,7 @@ interface LoseHitPointsRuleElement
 type LoseHitPointsRuleSchema = RuleElementSchema & {
     value: ResolvableValueField<true, false, false>;
     /** Whether the lost hit points are recoverable while the parent item is present on the actor */
-    recoverable: BooleanField<boolean, boolean, false>;
+    recoverable: fields.BooleanField<boolean, boolean, false>;
     /**
      * Lost hitpoints should reevaluate on item update, with the parent actor losing the difference in HP between the
      * new and old values.
