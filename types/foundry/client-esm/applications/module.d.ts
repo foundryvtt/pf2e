@@ -1,6 +1,7 @@
 import type ApplicationV2 from "./api/application.d.ts";
 
 export * as api from "./api/module.ts";
+export * as dice from "./dice/_module.mts";
 export * as elements from "./elements/module.ts";
 export * as fields from "./forms/fields.ts";
 export * as sheets from "./sheets/module.ts";

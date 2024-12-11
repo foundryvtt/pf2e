@@ -1,10 +1,20 @@
-import type { RollTerm } from "./roll-term.d.ts";
+import { RollTerm } from "./term.mjs";
 
 /** A type of RollTerm used to denote and perform an arithmetic operation. */
 export class OperatorTerm extends RollTerm<OperatorTermData> {
     constructor({ operator, options }: OperatorTermData);
 
+    /** The term's operator value. */
     operator: ArithmeticOperator;
+
+    /** An object of operators with their precedence values. */
+    static PRECEDENCE: {
+        "+": 10;
+        "-": 10;
+        "*": 20;
+        "/": 20;
+        "%": 20;
+    };
 
     /** An array of operators which represent arithmetic operations */
     static OPERATORS: ["+", "-", "*", "/"];
