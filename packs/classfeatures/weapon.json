@@ -35,10 +35,7 @@
                     "filter": [
                         "item:usage:hands:1",
                         {
-                            "nor": [
-                                "item:trait:consumable",
-                                "item:magical"
-                            ]
+                            "not": "item:trait:consumable"
                         }
                     ],
                     "itemType": "weapon"
@@ -48,13 +45,6 @@
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
-                "alterations": [
-                    {
-                        "mode": "override",
-                        "property": "rarity",
-                        "value": "unique"
-                    }
-                ],
                 "flag": "weaponImplement",
                 "key": "GrantItem",
                 "track": true,
@@ -82,7 +72,7 @@
                 "value": [
                     {
                         "divider": true,
-                        "text": "PF2E.SpecificRule.Thaumaturge.Implement.Description.Weapon"
+                        "text": "@Embed[Compendium.pf2e.classfeatures.Item.YiDkrwaxiF7Gao7y inline]"
                     }
                 ]
             }
