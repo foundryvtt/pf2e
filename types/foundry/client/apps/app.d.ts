@@ -393,8 +393,8 @@ declare global {
     }
 
     interface ApplicationPosition {
-        width?: Maybe<number>;
-        height?: Maybe<string | number>;
+        width?: number | "auto";
+        height?: number | "auto";
         left?: Maybe<number>;
         top?: Maybe<number>;
         scale?: Maybe<number>;
