@@ -2,10 +2,10 @@ import type { ActorType, CreaturePF2e } from "@actor";
 import type { MovementType } from "@actor/types.ts";
 import { MOVEMENT_TYPES } from "@actor/values.ts";
 import { tupleHasValue } from "@util";
-import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import type { BaseSpeedSynthetic, DeferredMovementType } from "../synthetics.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
+import fields = foundry.data.fields;
 
 /**
  * @category RuleElement
@@ -25,8 +25,6 @@ class BaseSpeedRuleElement extends RuleElementPF2e<BaseSpeedRuleSchema> {
     }
 
     static override defineSchema(): BaseSpeedRuleSchema {
-        const fields = foundry.data.fields;
-
         return {
             ...super.defineSchema(),
             selector: new fields.StringField({ required: true, blank: false, initial: undefined }),
@@ -73,7 +71,7 @@ interface BaseSpeedRuleElement
 }
 
 type BaseSpeedRuleSchema = RuleElementSchema & {
-    selector: StringField<string, string, true, false, false>;
+    selector: fields.StringField<string, string, true, false, false>;
     value: ResolvableValueField<true, false, true>;
 };
 

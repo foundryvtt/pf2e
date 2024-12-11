@@ -2,9 +2,9 @@ import type { ActorType } from "@actor/types.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { localizeList, objectHasKey } from "@util";
-import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
+import fields = foundry.data.fields;
 
 /**
  * Rule element to implement fast healing and regeneration.
@@ -15,7 +15,6 @@ class FastHealingRuleElement extends RuleElementPF2e<FastHealingRuleSchema> {
     static override validActorTypes: ActorType[] = ["army", "character", "npc", "familiar"];
 
     static override defineSchema(): FastHealingRuleSchema {
-        const fields = foundry.data.fields;
         return {
             ...super.defineSchema(),
             value: new ResolvableValueField({ required: true, nullable: false }),
@@ -91,9 +90,16 @@ class FastHealingRuleElement extends RuleElementPF2e<FastHealingRuleSchema> {
 
 type FastHealingRuleSchema = RuleElementSchema & {
     value: ResolvableValueField<true, false, false>;
-    type: StringField<FastHealingType, FastHealingType, false, false, true>;
-    details: StringField<string, string, false, true, true>;
-    deactivatedBy: ArrayField<StringField<string, string, true, false, false>, string[], string[], false, false, false>;
+    type: fields.StringField<FastHealingType, FastHealingType, false, false, true>;
+    details: fields.StringField<string, string, false, true, true>;
+    deactivatedBy: fields.ArrayField<
+        fields.StringField<string, string, true, false, false>,
+        string[],
+        string[],
+        false,
+        false,
+        false
+    >;
 };
 
 interface FastHealingRuleElement

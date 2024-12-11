@@ -2,16 +2,14 @@ import { DeferredValueParams } from "@actor/modifiers.ts";
 import { ItemPF2e } from "@item";
 import { ConditionSource, EffectSource } from "@item/base/data/index.ts";
 import { UUIDUtils } from "@util/uuid.ts";
-import type { ArrayField, BooleanField, EmbeddedDataField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, RuleElementSchema } from "./data.ts";
 import { ItemAlteration } from "./item-alteration/alteration.ts";
+import fields = foundry.data.fields;
 
 /** An effect that applies ephemerally during a single action, such as a strike */
 class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> {
     static override defineSchema(): EphemeralEffectSchema {
-        const fields = foundry.data.fields;
-
         return {
             ...super.defineSchema(),
             affects: new fields.StringField({ required: true, choices: ["target", "origin"], initial: "target" }),
@@ -100,11 +98,11 @@ interface EphemeralEffectRuleElement
         ModelPropsFromRESchema<EphemeralEffectSchema> {}
 
 type EphemeralEffectSchema = RuleElementSchema & {
-    affects: StringField<"target" | "origin", "target" | "origin", true, false, true>;
-    selectors: ArrayField<StringField<string, string, true, false, false>>;
-    uuid: StringField<string, string, true, false, false>;
-    adjustName: BooleanField<boolean, boolean, true, false, true>;
-    alterations: ArrayField<EmbeddedDataField<ItemAlteration>>;
+    affects: fields.StringField<"target" | "origin", "target" | "origin", true, false, true>;
+    selectors: fields.ArrayField<fields.StringField<string, string, true, false, false>>;
+    uuid: fields.StringField<string, string, true, false, false>;
+    adjustName: fields.BooleanField<boolean, boolean, true, false, true>;
+    alterations: fields.ArrayField<fields.EmbeddedDataField<ItemAlteration>>;
 };
 
 export { EphemeralEffectRuleElement };

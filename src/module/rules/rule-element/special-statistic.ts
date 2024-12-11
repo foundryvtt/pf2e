@@ -9,17 +9,15 @@ import { PredicateField, SlugField } from "@system/schema-data-fields.ts";
 import { Statistic, StatisticData } from "@system/statistic/index.ts";
 import { tupleHasValue } from "@util";
 import * as R from "remeda";
-import type { NumberField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementPF2e } from "../index.ts";
 import type { RuleElementSchema } from "./data.ts";
+import fields = foundry.data.fields;
 
 /** Create a special-purpose statistic for use in checks and as a DC */
 class SpecialStatisticRuleElement extends RuleElementPF2e<SpecialStatisticSchema> {
     static override validActorTypes = ["character", "npc"] satisfies ("character" | "npc")[];
 
     static override defineSchema(): SpecialStatisticSchema {
-        const fields = foundry.data.fields;
-
         return {
             ...super.defineSchema(),
             slug: new SlugField({
@@ -136,17 +134,17 @@ interface SpecialStatisticRuleElement
 }
 
 type SpecialStatisticSchema = RuleElementSchema & {
-    type: StringField<StatisticType, StatisticType, true, false, true>;
+    type: fields.StringField<StatisticType, StatisticType, true, false, true>;
     /** A base statistic from which to extend */
-    extends: StringField<string, string, true, true, true>;
+    extends: fields.StringField<string, string, true, true, true>;
     /** An attribute to associate with the statistic */
-    attribute: StringField<AttributeString, AttributeString, false, true, true>;
+    attribute: fields.StringField<AttributeString, AttributeString, false, true, true>;
     /** A base modifier for use with NPC special statistics: separate check and DC values may also be specified. */
-    baseModifier: SchemaField<
+    baseModifier: fields.SchemaField<
         {
-            mod: NumberField<number, number, false, true, true>;
-            check: NumberField<number, number, false, true, true>;
-            dc: NumberField<number, number, false, true, true>;
+            mod: fields.NumberField<number, number, false, true, true>;
+            check: fields.NumberField<number, number, false, true, true>;
+            dc: fields.NumberField<number, number, false, true, true>;
         },
         { mod: number | null; check: number | null; dc: number | null },
         { mod: number | null; check: number | null; dc: number | null },
@@ -154,7 +152,7 @@ type SpecialStatisticSchema = RuleElementSchema & {
         true,
         true
     >;
-    itemCasting: SchemaField<
+    itemCasting: fields.SchemaField<
         ItemCastingSchema,
         { predicate: RawPredicate; tradition: MagicTradition | null },
         { predicate: Predicate; tradition: MagicTradition | null },
@@ -166,7 +164,7 @@ type SpecialStatisticSchema = RuleElementSchema & {
 
 type ItemCastingSchema = {
     predicate: PredicateField<true, false, false>;
-    tradition: StringField<MagicTradition, MagicTradition, false, true, true>;
+    tradition: fields.StringField<MagicTradition, MagicTradition, false, true, true>;
 };
 
 type StatisticType = "simple" | "check" | "attack-roll";

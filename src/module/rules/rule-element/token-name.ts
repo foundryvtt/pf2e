@@ -1,5 +1,6 @@
 import { RuleElementPF2e } from "./base.ts";
-import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
+import { ModelPropsFromRESchema, RuleElementSchema } from "./data.ts";
+import fields = foundry.data.fields;
 
 /**
  * Change the name representing an actor's token
@@ -9,17 +10,13 @@ class TokenNameRuleElement extends RuleElementPF2e<TokenNameRuleSchema> {
     static override defineSchema(): TokenNameRuleSchema {
         return {
             ...super.defineSchema(),
-            value: new ResolvableValueField({ required: true }),
+            value: new fields.StringField({ required: true, nullable: false, blank: false }),
         };
     }
 
     override afterPrepareData(): void {
-        const name = this.resolveValue(this.value);
-        if (typeof name !== "string") return this.failValidation("value must resolve to a string");
-
         if (!this.test()) return;
-
-        this.actor.synthetics.tokenOverrides.name = name;
+        this.actor.synthetics.tokenOverrides.name = this.resolveInjectedProperties(this.value);
     }
 }
 
@@ -28,7 +25,7 @@ interface TokenNameRuleElement
         ModelPropsFromRESchema<TokenNameRuleSchema> {}
 
 type TokenNameRuleSchema = RuleElementSchema & {
-    value: ResolvableValueField<true, false, false>;
+    value: fields.StringField<string, string, true, false, false>;
 };
 
 export { TokenNameRuleElement };

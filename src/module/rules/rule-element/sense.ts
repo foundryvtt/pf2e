@@ -7,9 +7,9 @@ import {
     SENSE_TYPES,
 } from "@actor/creature/values.ts";
 import { tupleHasValue } from "@util";
-import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
+import fields = foundry.data.fields;
 
 /**
  * @category RuleElement
@@ -18,8 +18,6 @@ class SenseRuleElement extends RuleElementPF2e<SenseRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
     static override defineSchema(): SenseRuleSchema {
-        const fields = foundry.data.fields;
-
         return {
             ...super.defineSchema(),
             selector: new fields.StringField({ required: true, nullable: false, choices: [...SENSE_TYPES] }),
@@ -58,9 +56,9 @@ interface SenseRuleElement extends RuleElementPF2e<SenseRuleSchema>, ModelPropsF
 }
 
 type SenseRuleSchema = RuleElementSchema & {
-    selector: StringField<SenseType, SenseType, true, false, false>;
-    force: BooleanField<boolean, boolean, false, false, true>;
-    acuity: StringField<SenseAcuity, SenseAcuity, false, false, true>;
+    selector: fields.StringField<SenseType, SenseType, true, false, false>;
+    force: fields.BooleanField<boolean, boolean, false, false, true>;
+    acuity: fields.StringField<SenseAcuity, SenseAcuity, false, false, true>;
     range: ResolvableValueField<false, false, false>;
 };
 
