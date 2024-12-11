@@ -1,11 +1,11 @@
 import { RollTwiceSynthetic } from "../synthetics.ts";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, RuleElementSchema } from "./data.ts";
+import fields = foundry.data.fields;
 
 /** Roll Twice and keep either the higher or lower result */
 class RollTwiceRuleElement extends RuleElementPF2e<RollTwiceRuleSchema> {
     static override defineSchema(): RollTwiceRuleSchema {
-        const fields = foundry.data.fields;
         return {
             ...super.defineSchema(),
             selector: new fields.ArrayField(new fields.StringField({ required: true, blank: false }), {
@@ -67,7 +67,6 @@ interface RollTwiceRuleElement
     extends RuleElementPF2e<RollTwiceRuleSchema>,
         ModelPropsFromRESchema<RollTwiceRuleSchema> {}
 
-import fields = foundry.data.fields;
 type RollTwiceRuleSchema = RuleElementSchema & {
     selector: fields.ArrayField<
         fields.StringField<string, string, true, false, false>,

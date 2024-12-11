@@ -3,17 +3,15 @@ import { DAMAGE_DICE_FACES, DAMAGE_TYPES } from "@system/damage/values.ts";
 import { StrictArrayField } from "@system/schema-data-fields.ts";
 import { sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
-import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { AELikeRuleElement, type AELikeChangeMode } from "../ae-like.ts";
 import type { ModelPropsFromRESchema, RuleElementSchema } from "../data.ts";
 import { ResolvableValueField, RuleElementPF2e } from "../index.ts";
 import { DamageAlteration } from "./alteration.ts";
+import fields = foundry.data.fields;
 
 /** Alter certain aspects of individual components (modifiers and dice) of a damage roll. */
 class DamageAlterationRuleElement extends RuleElementPF2e<DamageAlterationSchema> {
     static override defineSchema(): DamageAlterationSchema {
-        const fields = foundry.data.fields;
-
         return {
             ...super.defineSchema(),
             selectors: new StrictArrayField(
@@ -113,12 +111,12 @@ interface DamageAlterationRuleElement
 type DamageAlterationProperty = "dice-faces" | "dice-number" | "damage-type" | "tags";
 
 type DamageAlterationSchema = RuleElementSchema & {
-    selectors: StrictArrayField<StringField<string, string, true, false, false>>;
-    mode: StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
-    property: StringField<DamageAlterationProperty, DamageAlterationProperty, true, false, false>;
+    selectors: StrictArrayField<fields.StringField<string, string, true, false, false>>;
+    mode: fields.StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
+    property: fields.StringField<DamageAlterationProperty, DamageAlterationProperty, true, false, false>;
     value: ResolvableValueField<true, true, true>;
     /** An optional relabeling of the altered unit of damage */
-    relabel: StringField<string, string, false, true, true>;
+    relabel: fields.StringField<string, string, false, true, true>;
 };
 
 type DamageAlterationValue = DamageType | number | string[];

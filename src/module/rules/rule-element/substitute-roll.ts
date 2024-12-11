@@ -1,8 +1,8 @@
-import { DataUnionField, PredicateField, StrictBooleanField, StrictStringField } from "@system/schema-data-fields.ts";
+import { DataUnionField, PredicateField, StrictBooleanField } from "@system/schema-data-fields.ts";
 import { sluggify } from "@util";
-import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
+import fields = foundry.data.fields;
 
 /** Substitute a pre-determined result for a check's D20 roll */
 class SubstituteRollRuleElement extends RuleElementPF2e<SubstituteRollSchema> {
@@ -15,8 +15,6 @@ class SubstituteRollRuleElement extends RuleElementPF2e<SubstituteRollSchema> {
     }
 
     static override defineSchema(): SubstituteRollSchema {
-        const fields = foundry.data.fields;
-
         return {
             ...super.defineSchema(),
             selector: new fields.StringField({ required: true, blank: false, initial: "check" }),
@@ -30,7 +28,7 @@ class SubstituteRollRuleElement extends RuleElementPF2e<SubstituteRollSchema> {
             }),
             removeAfterRoll: new DataUnionField(
                 [
-                    new StrictStringField<"if-enabled", "if-enabled">({
+                    new fields.StringField<"if-enabled", "if-enabled">({
                         required: false,
                         nullable: false,
                         choices: ["if-enabled"],
@@ -92,16 +90,16 @@ interface SubstituteRollRuleElement
         ModelPropsFromRESchema<SubstituteRollSchema> {}
 
 type SubstituteRollSchema = RuleElementSchema & {
-    selector: StringField<string, string, true, false, true>;
+    selector: fields.StringField<string, string, true, false, true>;
     value: ResolvableValueField<true, false, false>;
-    required: BooleanField<boolean, boolean, false, false, true>;
-    effectType: StringField<"fortune" | "misfortune", "fortune" | "misfortune", true, false, true>;
+    required: fields.BooleanField<boolean, boolean, false, false, true>;
+    effectType: fields.StringField<"fortune" | "misfortune", "fortune" | "misfortune", true, false, true>;
     /**
      * Remove the parent item (must be an effect) after a roll:
      * The value may be a boolean, "if-enabled", or a predicate to be tested against the roll options from the roll.
      */
     removeAfterRoll: DataUnionField<
-        StrictStringField<"if-enabled"> | StrictBooleanField | PredicateField<false, false, false>,
+        fields.StringField<"if-enabled"> | StrictBooleanField | PredicateField<false, false, false>,
         false,
         false,
         true
