@@ -33,7 +33,7 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.crafting.entries.advancedAlchemy.maxSlots",
-                "value": "ternary(gte(@actor.level,16),10,8) + @actor.system.abilities.int.mod"
+                "value": "floor(ternary(gte(@actor.level,16),10,8) + @actor.system.abilities.int.mod)"
             }
         ],
         "traits": {
