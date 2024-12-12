@@ -1,3 +1,4 @@
+import { htmlQueryAll } from "@util";
 import * as svelte from "svelte";
 import type {
     ApplicationConfiguration,
@@ -28,8 +29,41 @@ function SvelteApplicationMixin<
         /** State data tracked by the root component */
         protected $state: object = $state({});
 
+        protected $tabGroups: Record<string, string> = $state({});
+
         /** The mounted root component, saved to be unmounted on application close */
         #mount: object = {};
+
+        override changeTab(tab: string, group: string, { force = false, updatePosition = true } = {}) {
+            if (!tab || !group) throw new Error("You must pass both the tab and tab group identifier");
+            if (this.tabGroups[group] === tab && !force) return; // No change necessary
+
+            // Change the active tab element's CSS classes.
+            // Because this is a svelte sheet and we may want more control,
+            // this is optional and will not crash the sheet like the super method.
+            const tabElement = this.element.querySelector(`.tabs > [data-group="${group}"][data-tab="${tab}"]`);
+            if (tabElement) {
+                // Update tab navigation
+                for (const t of htmlQueryAll(this.element, `.tabs > [data-group="${group}"]`)) {
+                    t.classList.toggle("active", t.dataset.tab === tab);
+                }
+
+                // Update tab contents
+                for (const section of htmlQueryAll(this.element, `.tab[data-group="${group}"]`)) {
+                    section.classList.toggle("active", section.dataset.tab === tab);
+                }
+            }
+
+            // Update the tab group. This will trigger a svelte re-render if its looking for it
+            this.tabGroups[group] = tab;
+
+            // Update automatic width or height
+            if (!updatePosition) return;
+            const positionUpdate: { width?: string; height?: string } = {};
+            if (this.options.position.width === "auto") positionUpdate.width = "auto";
+            if (this.options.position.height === "auto") positionUpdate.height = "auto";
+            if (!foundry.utils.isEmpty(positionUpdate)) this.setPosition(positionUpdate);
+        }
 
         protected override async _renderHTML(
             context: SvelteApplicationRenderContext,
@@ -44,6 +78,13 @@ function SvelteApplicationMixin<
         ): void {
             Object.assign(this.$state, result.state);
             if (options.isFirstRender) {
+                // Replace tabGroups with getter/setter that goes through $tabGroups
+                Object.assign(this.$tabGroups, this.tabGroups);
+                Object.defineProperty(this, "tabGroups", {
+                    get: () => this.$tabGroups,
+                    set: (value) => Object.assign(this.$tabGroups, value),
+                });
+
                 this.#mount = svelte.mount(this.root, { target: content, props: { ...result, state: this.$state } });
             }
         }
