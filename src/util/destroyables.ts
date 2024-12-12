@@ -2,6 +2,8 @@ import Sortable from "sortablejs";
 import { ErrorPF2e } from "./misc.ts";
 
 class DestroyableManager {
+    #bodyObserver: MutationObserver;
+
     #appObservers = new Map<Node, MutationObserverContext>();
 
     declare static instance: DestroyableManager;
@@ -18,7 +20,10 @@ class DestroyableManager {
         DestroyableManager.instance ??= new DestroyableManager();
     }
 
-    constructor() {}
+    constructor() {
+        this.#bodyObserver = new MutationObserver(this.#onMutateBody.bind(this));
+        this.#bodyObserver.observe(document.body, DestroyableManager.#OBSERVE_OPTIONS);
+    }
 
     observe(destroyable: Destroyable): void {
         const destroyableEl =
@@ -43,16 +48,15 @@ class DestroyableManager {
             contextKey: contentEl,
             elements: new Set([{ node: destroyableEl, destroyable }]),
         };
-        const observer = new MutationObserver(this.#onMutate(context));
+        const observer = new MutationObserver(this.#onMutateContent(context));
         context.observer = observer;
 
         this.#appObservers.set(contentEl, context);
 
         observer.observe(contentEl, DestroyableManager.#OBSERVE_OPTIONS);
-        observer.observe(document.body, DestroyableManager.#OBSERVE_OPTIONS);
     }
 
-    #onMutate(context: MutationObserverContext): (mutations: MutationRecord[]) => void {
+    #onMutateContent(context: MutationObserverContext): (mutations: MutationRecord[]) => void {
         return (mutations: MutationRecord[]) => {
             for (const mutation of mutations) {
                 for (const removedNode of mutation.removedNodes) {
@@ -74,6 +78,26 @@ class DestroyableManager {
                 }
             }
         };
+    }
+
+    #onMutateBody(mutations: MutationRecord[]) {
+        for (const mutation of mutations) {
+            for (const removedNode of mutation.removedNodes) {
+                for (const [node, context] of this.#appObservers.entries()) {
+                    if (!removedNode.contains(node)) {
+                        continue;
+                    }
+                    for (const element of context.elements) {
+                        element.destroyable.destroy();
+                    }
+                    if (context.observer) {
+                        context.observer.disconnect();
+                    }
+                    this.#appObservers.delete(node);
+                    context.observer = null;
+                }
+            }
+        }
     }
 }
 
