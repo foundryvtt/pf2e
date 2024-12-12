@@ -66,6 +66,22 @@ function tagify(
         editTags,
         delimiters,
         whitelist: whitelistTransformed,
+        templates: {
+            tag(tagData: TagRecord) {
+                // Default template without title to prevent the default tag tooltip from showing.
+                return `<tag 
+                    contenteditable='false' 
+                    spellcheck='false' 
+                    tabIndex="${this.settings.a11y.focusableTags ? 0 : -1}"
+                    class="${this.settings.classNames.tag}"
+                    ${this.getAttributes(tagData)}> 
+                        <x title='' class="${this.settings.classNames.tagX}" role='button' aria-label='remove tag'></x>
+                        <div>
+                            <span class="${this.settings.classNames.tagText}">${tagData[this.settings.tagTextProp] || tagData.value}</span>
+                        </div>
+                    </tag>`;
+            },
+        },
     });
 
     DestroyableManager.instance.observe(tagify);
