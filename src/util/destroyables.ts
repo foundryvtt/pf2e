@@ -34,16 +34,14 @@ class DestroyableManager {
 
         let context = this.#appObservers.get(contentEl);
         if (context) {
-            context.elements.push(destroyableEl, contentEl);
-            context.destroyables.push(destroyable);
+            context.elements.add({ node: destroyableEl, destroyable });
             return;
         }
 
         context = {
             observer: null,
             contextKey: contentEl,
-            elements: [destroyableEl],
-            destroyables: [destroyable],
+            elements: new Set([{ node: destroyableEl, destroyable }]),
         };
         const observer = new MutationObserver(this.#onMutate(context));
         context.observer = observer;
@@ -57,20 +55,22 @@ class DestroyableManager {
     #onMutate(context: MutationObserverContext): (mutations: MutationRecord[]) => void {
         return (mutations: MutationRecord[]) => {
             for (const mutation of mutations) {
-                for (const element of mutation.removedNodes) {
-                    if (!context.elements.some((contextElement) => element.contains(contextElement))) {
-                        continue;
+                for (const removedNode of mutation.removedNodes) {
+                    for (const element of context.elements) {
+                        if (removedNode.contains(element.node)) {
+                            element.destroyable.destroy();
+                            context.elements.delete(element);
+                        }
                     }
-                    for (const destroyable of context.destroyables) {
-                        destroyable.destroy();
+                    if (context.elements.size > 0) {
+                        continue;
                     }
                     if (context.observer) {
                         context.observer.disconnect();
                     }
                     this.#appObservers.delete(context.contextKey);
                     context.observer = null;
-                    context.destroyables = [];
-                    context.elements = [];
+                    return;
                 }
             }
         };
@@ -80,8 +80,7 @@ class DestroyableManager {
 interface MutationObserverContext {
     observer: MutationObserver | null;
     contextKey: Node;
-    elements: Node[];
-    destroyables: Destroyable[];
+    elements: Set<{ node: Node; destroyable: Destroyable }>;
 }
 
 type Destroyable = Tagify<{ id: string; value: string }> | Tagify<Tagify.TagData> | Sortable | TooltipsterTarget;
