@@ -1,0 +1,46 @@
+{
+    "_id": "QjIiY4ofmhCspUJb",
+    "img": "icons/commodities/biological/eye-lizard-green.webp",
+    "name": "Effect: Pierce the Eye",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Pierce the Eye]</p>\n<p>You take a –2 circumstance penalty to Medicine checks to Administer First Aid to stop the bleeding.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 16
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:administer-first-aid:stop-bleeding"
+                ],
+                "selector": "medicine",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

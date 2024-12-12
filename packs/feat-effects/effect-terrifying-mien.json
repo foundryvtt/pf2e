@@ -1,0 +1,58 @@
+{
+    "_id": "9p4Ieqw6qAkhc4m3",
+    "img": "icons/equipment/shield/targe-steel-blue.webp",
+    "name": "Effect: Terrifying Mien",
+    "system": {
+        "badge": {
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Terrifying Mien]</p>\n<p>You gain resistance against bludgeoning, piercing, and slashing damage against Strikes made by creatures with the frightened condition. This resistance is equal to four times the value of that creature's frightened condition.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 16
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "origin:action:slug:strike",
+                    "origin:condition:frightened",
+                    {
+                        "or": [
+                            "damage:type:bludgeoning",
+                            "damage:type:piercing",
+                            "damage:type:slashing"
+                        ]
+                    }
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.BludgeoningPiercingSlashingFromFrightenedStrikes",
+                "type": "custom",
+                "value": "4*@item.badge.value"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

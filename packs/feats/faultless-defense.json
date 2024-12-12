@@ -28,11 +28,22 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "faultless-defense",
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "faultless-defense"
+                ],
+                "type": "all-damage",
+                "value": "floor(@actor.level / 2)"
+            }
+        ],
         "traits": {
-            "otherTags": [
-                "eternal-legend-dedication"
-            ],
             "rarity": "common",
             "value": [
                 "mythic"
