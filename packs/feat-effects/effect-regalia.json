@@ -4,7 +4,7 @@
     "name": "Effect: Regalia",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Regalia]</p>\n<p>You gain a status bonus to saving throws against fear.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Regalia]</p>\n<p>You gain a +1 status bonus to saving throws against fear. If the origin has Regalia as an adept implement, this status bonus applies to mental effects, and you gain a status bonus to damage rolls.</p>\n<p>If the origin has Regalia as a paragon implement, you aren't off-guard from being flanked unless the origin is flanked, and the status penalty you take from being clumsy, enfeebled, frightened, sickened, or stupefied is reduced by 1, unless they are effected by the same condition.</p>"
         },
         "duration": {
             "expiry": null,
@@ -71,11 +71,51 @@
                     "parent:tag:paragon-benefit",
                     {
                         "or": [
-                            "penalty:slug:clumsy",
-                            "penalty:slug:enfeebled",
-                            "penalty:slug:frightened",
-                            "penalty:slug:sickened",
-                            "penalty:slug:stupefied"
+                            {
+                                "and": [
+                                    "penalty:slug:clumsy",
+                                    "self:condition:clumsy",
+                                    {
+                                        "not": "parent:origin:condition:clumsy"
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "penalty:slug:enfeebled",
+                                    "self:condition:enfeebled",
+                                    {
+                                        "not": "parent:origin:condition:enfeebled"
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "penalty:slug:frightened",
+                                    "self:condition:frightened",
+                                    {
+                                        "not": "parent:origin:condition:frightened"
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "penalty:slug:sickened",
+                                    "self:condition:sickened",
+                                    {
+                                        "not": "parent:origin:condition:sickened"
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "penalty:slug:stupefied",
+                                    "self:condition:stupefied",
+                                    {
+                                        "not": "parent:origin:condition:stupefied"
+                                    }
+                                ]
+                            }
                         ]
                     }
                 ],
