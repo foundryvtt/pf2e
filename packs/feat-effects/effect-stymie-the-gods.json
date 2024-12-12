@@ -1,0 +1,81 @@
+{
+    "_id": "1bnJJb4hsnMOw9cQ",
+    "img": "icons/commodities/treasure/dreamcatcher-brown.webp",
+    "name": "Effect: Stymie the Gods",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Stymie the Gods]</p>\n<p>You gain a status bonus to AC and to saving throws against divine spells, as well as the spells, Strikes, and abilities of extraplanar creatures.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 3
+        },
+        "level": {
+            "value": 18
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "value": 4
+                    }
+                ],
+                "flag": "bonus",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Mythic.PointSpentPrompt"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Godling.StymieTheGods.BonusToggle",
+                "option": "stymie-the-gods:extraplanar-creature",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:type:spell",
+                                    "spellcasting:tradition:divine"
+                                ]
+                            },
+                            "stymie-the-gods:extraplanar-creature"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": "@item.flags.pf2e.rulesSelections.bonus"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
