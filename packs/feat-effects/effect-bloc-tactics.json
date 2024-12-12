@@ -1,0 +1,79 @@
+{
+    "_id": "Eu3hA5BrHX9u9Bjc",
+    "img": "icons/equipment/head/hood-purple-mask.webp",
+    "name": "Effect: Bloc Tactics",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Bloc Tactics]</p>\n<p>You gain a +4 status bonus to Deception checks to prevent others from seeing through your disguise, and you can add your level even if untrained. Additionally, you also gain a +3 status bonus to saving throws against smoke, fumes, and inhaled substances.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 14
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "domain": "check",
+                "key": "RollOption",
+                "option": "bloc-tactics",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "bloc-tactics"
+                ],
+                "selector": "deception",
+                "slug": "bloc-tactics-status",
+                "type": "status",
+                "value": 4
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "bloc-tactics",
+                    "proficiency:untrained"
+                ],
+                "selector": "deception",
+                "slug": "bloc-tactics-proficiency",
+                "type": "proficiency",
+                "value": "@actor.level"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "bloc-tactics",
+                            "item:trait:inhaled"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
