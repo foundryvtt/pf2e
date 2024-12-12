@@ -232,6 +232,7 @@ interface TagifyEntry {
      * Tagify treats any value as true, even false or null.
      */
     hidden?: true;
+    "data-tooltip"?: string;
 }
 
 export {
