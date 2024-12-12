@@ -140,7 +140,25 @@ class CompendiumBrowserSettingsApp extends foundryApp.HandlebarsApplicationMixin
         const browser = game.pf2e.compendiumBrowser;
         for (const [name, settings] of Object.entries(browser.settings)) {
             if (objectHasKey(this.#tabSettings, name)) {
-                this.#tabSettings[name]!.settings = settings;
+                const duplicates = new Set<string>();
+                const seen = new Set<string>();
+                // Find multiple entries for the same module
+                for (const setting of Object.values(settings)) {
+                    if (!setting || setting.package === "pf2e") continue;
+                    if (seen.has(setting.package)) {
+                        duplicates.add(setting.package);
+                        continue;
+                    }
+                    seen.add(setting.package);
+                }
+                // Show the full pack id if a module has multiple packs in the same category
+                for (const setting of Object.values(settings)) {
+                    if (!setting || setting.package === "pf2e") continue;
+                    if (duplicates.has(setting.package)) {
+                        setting.showFullId = true;
+                    }
+                }
+                this.#tabSettings[name].settings = settings;
             } else {
                 console.warn(`Unknown Compendium Browser setting "${name}"!`);
             }
@@ -160,17 +178,13 @@ class CompendiumBrowserSettingsApp extends foundryApp.HandlebarsApplicationMixin
     ): Promise<void> {
         const browser = game.pf2e.compendiumBrowser;
         const settings = browser.settings;
-        const getFormValue = (key: string): boolean => {
-            const value = formData.get(key);
-            if (value === "true") {
-                return true;
-            }
-            return false;
+        const getCheckboxValue = (key: string): boolean => {
+            return formData.get(key) === "true";
         };
 
         for (const [t, packs] of Object.entries(settings) as [string, { [key: string]: PackInfo }][]) {
             for (const [key, pack] of Object.entries(packs) as [string, PackInfo][]) {
-                pack.load = getFormValue(`${t}-${key}`);
+                pack.load = getCheckboxValue(`${t}-${key}`);
             }
         }
         await game.settings.set("pf2e", "compendiumBrowserPacks", settings);
@@ -180,12 +194,12 @@ class CompendiumBrowserSettingsApp extends foundryApp.HandlebarsApplicationMixin
                 delete browser.packLoader.sourcesSettings.sources[key]; // just to make sure we clean up
                 continue;
             }
-            source.load = getFormValue(`source-${key}`);
+            source.load = getCheckboxValue(`source-${key}`);
         }
 
-        browser.packLoader.sourcesSettings.showEmptySources = getFormValue("show-empty-sources");
-        browser.packLoader.sourcesSettings.showUnknownSources = getFormValue("show-unknown-sources");
-        browser.packLoader.sourcesSettings.ignoreAsGM = getFormValue("ignore-as-gm");
+        browser.packLoader.sourcesSettings.showEmptySources = getCheckboxValue("show-empty-sources");
+        browser.packLoader.sourcesSettings.showUnknownSources = getCheckboxValue("show-unknown-sources");
+        browser.packLoader.sourcesSettings.ignoreAsGM = getCheckboxValue("ignore-as-gm");
         await game.settings.set("pf2e", "compendiumBrowserSources", browser.packLoader.sourcesSettings);
 
         await browser.resetInitializedTabs();

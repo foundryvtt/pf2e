@@ -30,14 +30,13 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
     activeTab: BrowserTab;
     dataTabsList = ["action", "bestiary", "campaignFeature", "equipment", "feat", "hazard", "spell"] as const;
     packLoader = new PackLoader();
-    settings: CompendiumBrowserSettings;
+    declare settings: CompendiumBrowserSettings;
     tabs: BrowserTabs;
     tabsArray: BrowserTab[];
 
     constructor(options: Partial<ApplicationConfiguration> = {}) {
         super(options);
 
-        this.settings = game.settings.get("pf2e", "compendiumBrowserPacks");
         this.tabs = {
             action: new browserTabs.Actions(this),
             bestiary: new browserTabs.Bestiary(this),
@@ -264,7 +263,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
     }
 
     initCompendiumList(): void {
-        const settings: Omit<TabData<Record<string, PackInfo | undefined>>, "settings"> = {
+        const settings: TabData<Record<string, PackInfo | undefined>> = {
             action: {},
             bestiary: {},
             campaignFeature: {},
@@ -272,20 +271,6 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
             equipment: {},
             feat: {},
             spell: {},
-        };
-
-        // NPCs and Hazards are all loaded by default, other packs can be set here.
-        const loadDefault: Record<string, boolean | undefined> = {
-            bestiary: true,
-            hazard: true,
-            "pf2e.actionspf2e": true,
-            "pf2e.familiar-abilities": true,
-            "pf2e.equipment-srd": true,
-            "pf2e.ancestryfeatures": true,
-            "pf2e.classfeatures": true,
-            "pf2e.feats-srd": true,
-            "pf2e.spells-srd": true,
-            "pf2e.kingmaker-features": true,
         };
 
         const browsableTypes = new Set([
@@ -299,7 +284,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
             ...PHYSICAL_ITEM_TYPES,
         ] as const);
         type BrowsableType = SetElement<typeof browsableTypes>;
-        const typeToTab = new Map<ItemType | "hazard" | "npc", Exclude<TabName, "settings">>([
+        const typeToTab = new Map<ItemType | "hazard" | "npc", TabName>([
             ["action", "action"],
             ["campaignFeature", "campaignFeature"],
             ["feat", "feat"],
@@ -310,6 +295,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
             ...Array.from(PHYSICAL_ITEM_TYPES).map((t): [ItemType, "equipment"] => [t, "equipment"]),
         ]);
 
+        const userSettings = game.settings.get("pf2e", "compendiumBrowserPacks");
         for (const pack of game.packs) {
             const tabNames = R.unique(
                 R.unique(pack.index.map((entry) => entry.type))
@@ -318,12 +304,8 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
             );
 
             for (const tabName of tabNames) {
-                const load =
-                    this.settings[tabName]?.[pack.collection]?.load ??
-                    loadDefault[tabName] ??
-                    !!loadDefault[pack.collection];
-                settings[tabName]![pack.collection] = {
-                    load,
+                settings[tabName][pack.collection] = {
+                    load: userSettings[tabName]?.[pack.collection]?.load !== false,
                     name: pack.metadata.label,
                     package: pack.metadata.packageName,
                 };
@@ -332,9 +314,10 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2)
 
         for (const tab of this.dataTabsList) {
             settings[tab] = Object.fromEntries(
-                Object.entries(settings[tab]!).sort(([_collectionA, dataA], [_collectionB, dataB]) => {
-                    return (dataA?.name ?? "") > (dataB?.name ?? "") ? 1 : -1;
-                }),
+                Object.entries(settings[tab]).sort(
+                    ([_collectionA, dataA], [_collectionB, dataB]) =>
+                        dataA?.name.localeCompare(dataB?.name ?? "", game.i18n.lang) ?? 1,
+                ),
             );
         }
 
