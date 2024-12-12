@@ -26,7 +26,17 @@
         },
         "rules": [
             {
+                "allowDuplicate": false,
                 "key": "GrantItem",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:thaumaturge",
+                            "feat:implement-initiate"
+                        ]
+                    }
+                ],
+                "reevaluateOnUpdate": true,
                 "uuid": "Compendium.pf2e.actionspf2e.Item.Implement's Interruption"
             },
             {
@@ -75,6 +85,26 @@
                         "text": "@Embed[Compendium.pf2e.classfeatures.Item.YiDkrwaxiF7Gao7y inline]"
                     }
                 ]
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "item:id:{item|flags.pf2e.itemGrants.weaponImplement.id}",
+                    "feature:thaumaturge-weapon-expertise"
+                ]
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "predicate": [
+                    "implements-interruption",
+                    "parent:tag:thaumaturge-implement-adept"
+                ],
+                "selector": "{item|flags.pf2e.itemGrants.weaponImplement.id}-attack",
+                "text": "PF2E.SpecificRule.Thaumaturge.Implement.Weapon.Adept.Note",
+                "title": "PF2E.SpecificRule.Thaumaturge.Implement.Adept.Label"
             }
         ],
         "traits": {
