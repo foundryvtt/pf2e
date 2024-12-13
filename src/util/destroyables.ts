@@ -33,9 +33,7 @@ class DestroyableManager {
                   ? destroyable.elementOrigin()
                   : destroyable.DOM.input;
         const contentEl = destroyableEl?.closest(".app, .application")?.querySelector(".window-content");
-        if (!contentEl && !destroyableEl.closest(".chat-message"))
-            return console.warn(ErrorPF2e("No application element found").message);
-        if (!contentEl) return;
+        if (!contentEl) return console.warn(ErrorPF2e("No application element found").message);
 
         let context = this.#appObservers.get(contentEl);
         if (context) {
