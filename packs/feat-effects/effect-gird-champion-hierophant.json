@@ -1,0 +1,58 @@
+{
+    "_id": "3K8fNQKjmrHU8dzi",
+    "img": "icons/weapons/swords/sword-winged-pink.webp",
+    "name": "Effect: Gird Champion (Hierophant)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Gird Champion]</p>\n<p>You treat the origin's favored weapon as a simple weapon for the purposes of proficiency, you gain the critical specialization effect of that weapon and deal 1d6 additional damage with Strikes made with it.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 16
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:base:{item|origin.flags.pf2e.godlingWeapon}"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.Weapon.Base.{item|origin.flags.pf2e.godlingWeapon}",
+                "sameAs": "simple"
+            },
+            {
+                "damageType": "{item|origin.flags.pf2e.godlingDomainDamage}",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "{item|origin.flags.pf2e.godlingWeapon}-damage"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "item:base:{item|origin.flags.pf2e.godlingWeapon}"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

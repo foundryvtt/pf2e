@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Your will manifests into divine weapons to protect and arm your followers. When you gain this feat, choose one type of weapon with special significance to you, such as a longsword or a sickle. This becomes your favored weapon. You and your hierophant both treat this weapon as a simple weapon for the purposes of proficiency. You and your hierophant gain the critical specialization effect of your favored weapon and deal an additional @Damage[1d6[spirit]] damage with Strikes made with your favored weapon. If one of your current domain spells can deal a type of damage other than spirit, you can choose to match this damage type (for instance, wreathing your weapon in sacred ashes that deal fire damage if you have the fire domain).</p>"
+            "value": "<p>Your will manifests into divine weapons to protect and arm your followers. When you gain this feat, choose one type of weapon with special significance to you, such as a longsword or a sickle. This becomes your favored weapon. You and your hierophant both treat this weapon as a simple weapon for the purposes of proficiency. You and your hierophant gain the critical specialization effect of your favored weapon and deal an additional 1d6 spirit damage with Strikes made with your favored weapon. If one of your current domain spells can deal a type of damage other than spirit, you can choose to match this damage type (for instance, wreathing your weapon in sacred ashes that deal fire damage if you have the fire domain).</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Gird Champion (Hierophant)]</p>"
         },
         "level": {
             "value": 16
@@ -28,11 +28,40 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "actorFlag": true,
+                "adjustName": false,
+                "choices": {
+                    "config": "baseWeaponTypes"
+                },
+                "flag": "godlingWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "definition": [
+                    "item:base:{actor|flags.pf2e.godlingWeapon}"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.Weapon.Base.{actor|flags.pf2e.godlingWeapon}",
+                "sameAs": "simple"
+            },
+            {
+                "damageType": "{actor|flags.pf2e.godlingDomainDamage}",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "{actor|flags.pf2e.godlingWeapon}-damage"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "item:base:{actor|flags.pf2e.godlingWeapon}"
+                ]
+            }
+        ],
         "traits": {
-            "otherTags": [
-                "godling-dedication"
-            ],
             "rarity": "rare",
             "value": [
                 "mythic"
