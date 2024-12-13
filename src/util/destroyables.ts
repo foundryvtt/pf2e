@@ -29,8 +29,8 @@ class DestroyableManager {
         const destroyableEl =
             destroyable instanceof Sortable
                 ? destroyable.el
-                : destroyable instanceof TooltipsterTarget
-                  ? destroyable.element
+                : "elementOrigin" in destroyable
+                  ? destroyable.elementOrigin()
                   : destroyable.DOM.input;
         const contentEl = destroyableEl?.closest(".app, .application")?.querySelector(".window-content");
         if (!contentEl && !destroyableEl.closest(".chat-message"))
@@ -107,25 +107,12 @@ interface MutationObserverContext {
     elements: Set<{ node: Node; destroyable: Destroyable }>;
 }
 
-type Destroyable = Tagify<{ id: string; value: string }> | Tagify<Tagify.TagData> | Sortable | TooltipsterTarget;
-
-class TooltipsterTarget {
-    $element: JQuery;
-    instance: Destroyable;
-
-    constructor($element: JQuery, instance: Destroyable) {
-        this.$element = $element;
-        this.instance = instance;
-    }
-
-    get element(): HTMLElement {
-        return this.$element[0];
-    }
-
-    destroy(): void {
-        this.instance.destroy();
-    }
+interface Tooltipster {
+    destroy(): void;
+    elementOrigin(): HTMLElement;
 }
+
+type Destroyable = Tagify<{ id: string; value: string }> | Tagify<Tagify.TagData> | Sortable | Tooltipster;
 
 function createSortable(list: HTMLElement, options: Sortable.Options): Sortable {
     const sortable = new Sortable(list, options);
@@ -149,7 +136,7 @@ function createTooltipster(target: HTMLElement, options: JQueryTooltipster.ITool
         return $tooltipsterEl;
     }
     // create wrapper of instance and tooltipster element for cleanup after element has been removed from DOM
-    DestroyableManager.instance.observe(new TooltipsterTarget($tooltipsterEl, tooltipsterInstance));
+    DestroyableManager.instance.observe(tooltipsterInstance);
     return $tooltipsterEl;
 }
 
