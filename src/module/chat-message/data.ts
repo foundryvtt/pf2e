@@ -129,7 +129,7 @@ interface SelfEffectContextFlag {
 
 interface DamageTakenContextFlag {
     type: "damage-taken";
-    domains?: never;
+    domains?: string[];
     options?: string[];
     outcome?: never;
 }
