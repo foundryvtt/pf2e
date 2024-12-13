@@ -105,12 +105,11 @@ interface MutationObserverContext {
     elements: Set<{ node: Node; destroyable: Destroyable }>;
 }
 
-interface Tooltipster {
-    destroy(): void;
-    elementOrigin(): HTMLElement;
-}
-
-type Destroyable = Tagify<{ id: string; value: string }> | Tagify<Tagify.TagData> | Sortable | Tooltipster;
+type Destroyable =
+    | Tagify<{ id: string; value: string }>
+    | Tagify<Tagify.TagData>
+    | Sortable
+    | JQueryTooltipster.ITooltipsterInstance;
 
 function createSortable(list: HTMLElement, options: Sortable.Options): Sortable {
     const sortable = new Sortable(list, options);
@@ -119,23 +118,9 @@ function createSortable(list: HTMLElement, options: Sortable.Options): Sortable 
 }
 
 function createTooltipster(target: HTMLElement, options: JQueryTooltipster.ITooltipsterOptions): JQuery {
-    const $element = $(target);
-    const $tooltipsterEl = $element.tooltipster(options);
-    // get tooltipster namespace key
-    const tooltipsterNs: string | undefined = $tooltipsterEl.data("tooltipster-ns")?.[0];
-    if (!tooltipsterNs) {
-        console.warn(ErrorPF2e("No tooltipster namespace found").message);
-        return $tooltipsterEl;
-    }
-    // get internal tooltipster instance
-    const tooltipsterInstance: Destroyable | undefined = $tooltipsterEl.data(tooltipsterNs);
-    if (!tooltipsterInstance) {
-        console.warn(ErrorPF2e("No tooltipster instance found").message);
-        return $tooltipsterEl;
-    }
-    // create wrapper of instance and tooltipster element for cleanup after element has been removed from DOM
-    DestroyableManager.instance.observe(tooltipsterInstance);
-    return $tooltipsterEl;
+    const $element = $(target).tooltipster(options);
+    DestroyableManager.instance.observe($element.tooltipster("instance"));
+    return $element;
 }
 
 export { DestroyableManager, createSortable, createTooltipster };
