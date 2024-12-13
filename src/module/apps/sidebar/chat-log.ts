@@ -9,7 +9,6 @@ import { CheckPF2e } from "@system/check/index.ts";
 import { looksLikeDamageRoll } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { fontAwesomeIcon, htmlClosest, htmlQuery, objectHasKey } from "@util";
-import { createTooltipster } from "@util/destroyables.ts";
 import type { ChatMessageSource } from "types/foundry/common/documents/chat-message.d.ts";
 
 class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
@@ -210,7 +209,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
 
         // Add a tooltipster instance to the shield button if needed.
         if (!shieldButton.classList.contains("tooltipstered")) {
-            createTooltipster(shieldButton, {
+            const $shieldButton = $(shieldButton).tooltipster({
                 animation: "fade",
                 trigger: "click",
                 arrow: false,
@@ -292,7 +291,8 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
 
                     return $(contentEl);
                 },
-            }).tooltipster("open");
+            });
+            $shieldButton.tooltipster("open");
         }
     }
 
