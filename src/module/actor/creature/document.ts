@@ -653,11 +653,11 @@ abstract class CreaturePF2e<
         return { ...data, slug, label };
     }
 
-    /**
-     * Updates a resource. Redirects to special resources if needed.
-     * Accepts resource slugs in both kebab and dromedary, to handle token updates and direct ones.
-     */
-    async updateResource(resource: string, value: number, { render }: { render?: boolean } = {}): Promise<void> {
+    override async updateResource(
+        resource: string,
+        value: number,
+        { render }: { render?: boolean } = {},
+    ): Promise<void> {
         const slug = sluggify(resource);
         const key = sluggify(resource, { camel: "dromedary" });
         if (key === "investiture") return;
