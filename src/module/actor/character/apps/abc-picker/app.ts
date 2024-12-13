@@ -2,7 +2,11 @@ import type { CharacterPF2e } from "@actor";
 import type { ABCItemPF2e, DeityPF2e, ItemPF2e } from "@item";
 import type { ItemType } from "@item/base/data/index.ts";
 import { Rarity } from "@module/data.ts";
-import { SvelteApplicationMixin, type SvelteApplicationRenderContext } from "@module/sheet/mixin.svelte.ts";
+import {
+    BaseSvelteState,
+    SvelteApplicationMixin,
+    type SvelteApplicationRenderContext,
+} from "@module/sheet/mixin.svelte.ts";
 import { sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
@@ -32,8 +36,7 @@ interface ABCItemRef {
 
 interface ABCPickerContext extends SvelteApplicationRenderContext {
     actor: CharacterPF2e;
-    foundryApp: ABCPicker;
-    state: { prompt: string; itemType: AhBCDType; items: ABCItemRef[] };
+    state: BaseSvelteState & { prompt: string; itemType: AhBCDType; items: ABCItemRef[] };
 }
 
 /** A `Compendium`-like application for presenting A(H)BCD options for a character */
@@ -116,11 +119,13 @@ class ABCPicker extends SvelteApplicationMixin<
     }
 
     protected override async _prepareContext(): Promise<ABCPickerContext> {
+        const base = await super._prepareContext();
         const itemType = this.options.itemType;
         return {
+            ...base,
             actor: this.options.actor,
-            foundryApp: this,
             state: {
+                ...base.state,
                 prompt: game.i18n.localize(`PF2E.Actor.Character.ABCPicker.Prompt.${itemType}`),
                 itemType,
                 items: await this.#gatherItems(),

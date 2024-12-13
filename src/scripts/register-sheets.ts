@@ -5,6 +5,7 @@ import { HazardSheetPF2e } from "@actor/hazard/sheet.ts";
 import { LootSheetPF2e } from "@actor/loot/sheet.ts";
 import { NPCSheetPF2e, SimpleNPCSheet } from "@actor/npc/sheet.ts";
 import { PartySheetPF2e } from "@actor/party/sheet.ts";
+import { PartySheetV2 } from "@actor/party/sheet/index.ts";
 import { VehicleSheetPF2e } from "@actor/vehicle/sheet.ts";
 import { AbilitySheetPF2e } from "@item/ability/sheet.ts";
 import { AfflictionSheetPF2e } from "@item/affliction/sheet.ts";
@@ -101,8 +102,14 @@ export function registerSheets(): void {
     // Party
     Actors.registerSheet("pf2e", PartySheetPF2e, {
         types: ["party"],
-        label: game.i18n.format(sheetLabel, { type: localizeType("party") }),
+        label: "Party Sheet Original",
         makeDefault: true,
+    });
+
+    // Party
+    Actors.registerSheet("pf2e", PartySheetV2, {
+        types: ["party"],
+        label: game.i18n.format(sheetLabel, { type: localizeType("party") }),
     });
 
     // Army

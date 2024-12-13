@@ -6,9 +6,15 @@ import type {
 } from "types/foundry/client-esm/applications/_types.d.ts";
 import type ApplicationV2 from "types/foundry/client-esm/applications/api/application.d.ts";
 
+interface BaseSvelteState {
+    tabGroups: Record<string, string>;
+    user: { isGM: boolean };
+    editable: boolean | null;
+}
+
 interface SvelteApplicationRenderContext {
     /** State data tracked by the root component: objects herein must be plain object. */
-    state: object;
+    state: BaseSvelteState;
     /** This application instance */
     foundryApp: SvelteApplication;
 }
@@ -31,6 +37,15 @@ function SvelteApplicationMixin<
         /** The mounted root component, saved to be unmounted on application close */
         #mount: object = {};
 
+        override changeTab(tab: string, group: string, { force = false } = {}) {
+            if (!tab || !group) throw new Error("You must pass both the tab and tab group identifier");
+            if (this.tabGroups[group] === tab && !force) return; // No change necessary
+
+            // Update the tab group and trigger a re-render
+            this.tabGroups[group] = tab;
+            this.render(false);
+        }
+
         protected override async _renderHTML(
             context: SvelteApplicationRenderContext,
         ): Promise<ApplicationRenderContext> {
@@ -44,13 +59,31 @@ function SvelteApplicationMixin<
         ): void {
             Object.assign(this.$state, result.state);
             if (options.isFirstRender) {
-                this.#mount = svelte.mount(this.root, { target: content, props: { ...result, state: this.$state } });
+                this.#mount = svelte.mount(this.root, {
+                    target: content,
+                    context: new Map<string, unknown>([
+                        ["foundryApp", this],
+                        ["state", this.$state],
+                    ]),
+                    props: { ...result, state: this.$state },
+                });
             }
         }
 
         protected override _onClose(options: ApplicationRenderOptions): void {
             super._onClose(options);
             svelte.unmount(this.#mount);
+        }
+
+        protected override async _prepareContext(): Promise<SvelteApplicationRenderContext> {
+            return {
+                foundryApp: this,
+                state: {
+                    tabGroups: this.tabGroups,
+                    user: { isGM: game.user.isGM },
+                    editable: this instanceof DocumentSheet ? this.isEditable : null,
+                },
+            };
         }
     }
 
@@ -59,4 +92,4 @@ function SvelteApplicationMixin<
 
 type SvelteApplication = InstanceType<ReturnType<typeof SvelteApplicationMixin>>;
 
-export { SvelteApplicationMixin, type SvelteApplicationRenderContext };
+export { SvelteApplicationMixin, type BaseSvelteState, type SvelteApplicationRenderContext };
