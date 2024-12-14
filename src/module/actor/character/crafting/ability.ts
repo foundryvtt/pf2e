@@ -54,7 +54,7 @@ class CraftingAbility implements CraftingAbilityData {
         this.isAlchemical = data.isAlchemical;
         this.isDailyPrep = data.isDailyPrep;
         this.isPrepared = data.isPrepared;
-        this.maxSlots = data.maxSlots ?? 0;
+        this.maxSlots = Math.floor(data.maxSlots ?? 0);
         this.maxItemLevel = data.maxItemLevel;
         this.fieldDiscovery = data.fieldDiscovery ? new Predicate(data.fieldDiscovery) : null;
         this.batchSize = data.batchSize;

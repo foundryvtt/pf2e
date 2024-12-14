@@ -1428,6 +1428,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     appliedDamage,
                     context: {
                         type: "damage-taken",
+                        domains: [domain],
                         options: Array.from(rollOptions),
                     },
                     origin: item?.getOriginData(),

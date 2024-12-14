@@ -4,9 +4,7 @@ import { ErrorPF2e } from "./misc.ts";
 class DestroyableManager {
     #bodyObserver: MutationObserver;
 
-    #appObservers = new Map<Node, MutationObserver>();
-
-    #destroyables = new Map<Node, Destroyable[]>();
+    #appObservers = new Map<Node, MutationObserverContext>();
 
     declare static instance: DestroyableManager;
 
@@ -23,61 +21,95 @@ class DestroyableManager {
     }
 
     constructor() {
-        this.#bodyObserver = new MutationObserver(this.#onMutate.bind(this));
+        this.#bodyObserver = new MutationObserver(this.#onMutateBody.bind(this));
         this.#bodyObserver.observe(document.body, DestroyableManager.#OBSERVE_OPTIONS);
     }
 
     observe(destroyable: Destroyable): void {
-        const contentEl =
+        const destroyableEl =
             destroyable instanceof Sortable
-                ? destroyable.el.closest(".app, .application")?.querySelector(".window-content")
-                : destroyable instanceof TooltipsterTarget
-                  ? destroyable.element
-                  : destroyable.DOM.input.closest(".app, .application")?.querySelector(".window-content");
+                ? destroyable.el
+                : "elementOrigin" in destroyable
+                  ? destroyable.elementOrigin()
+                  : destroyable.DOM.input;
+        const contentEl = destroyableEl?.closest(".app, .application")?.querySelector(".window-content");
         if (!contentEl) return console.warn(ErrorPF2e("No application element found").message);
 
-        const destroyables = this.#destroyables.get(contentEl) ?? [];
-        destroyables.push(destroyable);
-        this.#destroyables.set(contentEl, destroyables);
-
-        if (!this.#appObservers.has(contentEl)) {
-            const observer = new MutationObserver(this.#onMutate.bind(this));
-            observer.observe(contentEl, DestroyableManager.#OBSERVE_OPTIONS);
-            this.#appObservers.set(contentEl, observer);
+        let context = this.#appObservers.get(contentEl);
+        if (context) {
+            context.elements.add({ node: destroyableEl, destroyable });
+            return;
         }
+
+        context = {
+            observer: null,
+            contextKey: contentEl,
+            elements: new Set([{ node: destroyableEl, destroyable }]),
+        };
+        const observer = new MutationObserver(this.#onMutateContent(context));
+        context.observer = observer;
+
+        this.#appObservers.set(contentEl, context);
+
+        observer.observe(contentEl, DestroyableManager.#OBSERVE_OPTIONS);
     }
 
-    /** Destroy destroyable instances in closed applications and replaced window content. */
-    #onMutate(mutations: MutationRecord[]): void {
-        for (const mutation of mutations) {
-            for (const element of mutation.removedNodes) {
-                for (const destroyable of this.#destroyables.get(element) ?? []) {
-                    destroyable.destroy();
+    #onMutateContent(context: MutationObserverContext): (mutations: MutationRecord[]) => void {
+        return (mutations: MutationRecord[]) => {
+            for (const mutation of mutations) {
+                for (const removedNode of mutation.removedNodes) {
+                    for (const element of context.elements) {
+                        if (removedNode.contains(element.node)) {
+                            element.destroyable.destroy();
+                            context.elements.delete(element);
+                        }
+                    }
+                    if (context.elements.size > 0) {
+                        continue;
+                    }
+                    if (context.observer) {
+                        context.observer.disconnect();
+                    }
+                    this.#appObservers.delete(context.contextKey);
+                    context.observer = null;
+                    return;
                 }
-                this.#destroyables.delete(element);
-                this.#appObservers.delete(element);
+            }
+        };
+    }
+
+    #onMutateBody(mutations: MutationRecord[]) {
+        for (const mutation of mutations) {
+            for (const removedNode of mutation.removedNodes) {
+                for (const [node, context] of this.#appObservers.entries()) {
+                    if (!removedNode.contains(node)) {
+                        continue;
+                    }
+                    for (const element of context.elements) {
+                        element.destroyable.destroy();
+                    }
+                    if (context.observer) {
+                        context.observer.disconnect();
+                    }
+                    this.#appObservers.delete(node);
+                    context.observer = null;
+                }
             }
         }
     }
 }
 
-type Destroyable = Tagify<{ id: string; value: string }> | Tagify<Tagify.TagData> | Sortable | TooltipsterTarget;
-
-class TooltipsterTarget {
-    $element: JQuery;
-
-    constructor($element: JQuery) {
-        this.$element = $element;
-    }
-
-    get element(): HTMLElement {
-        return this.$element[0];
-    }
-
-    destroy(): void {
-        this.$element.tooltipster("destroy");
-    }
+interface MutationObserverContext {
+    observer: MutationObserver | null;
+    contextKey: Node;
+    elements: Set<{ node: Node; destroyable: Destroyable }>;
 }
+
+type Destroyable =
+    | Tagify<{ id: string; value: string }>
+    | Tagify<Tagify.TagData>
+    | Sortable
+    | JQueryTooltipster.ITooltipsterInstance;
 
 function createSortable(list: HTMLElement, options: Sortable.Options): Sortable {
     const sortable = new Sortable(list, options);
@@ -86,9 +118,9 @@ function createSortable(list: HTMLElement, options: Sortable.Options): Sortable 
 }
 
 function createTooltipster(target: HTMLElement, options: JQueryTooltipster.ITooltipsterOptions): JQuery {
-    const $element = $(target);
-    DestroyableManager.instance.observe(new TooltipsterTarget($element));
-    return $element.tooltipster(options);
+    const $element = $(target).tooltipster(options);
+    DestroyableManager.instance.observe($element.tooltipster("instance"));
+    return $element;
 }
 
 export { DestroyableManager, createSortable, createTooltipster };
