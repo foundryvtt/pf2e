@@ -1,10 +1,10 @@
 {
-    "_id": "lHbTN7jk1zuER92O",
-    "img": "systems/pf2e/icons/spells/remember-the-lost.webp",
-    "name": "Effect: Cringe",
+    "_id": "EpvyTaklBQAOr1eT",
+    "img": "icons/skills/melee/sword-damaged-broken-glow-red.webp",
+    "name": "Effect: Disarm (Bonus)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Cringe] via Ephemeral Effect</p>\n<p>You take a circumstance penalty to the Strike's damage equal to 2 + the origin's level.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] via Ephemeral Effect.</p>\n<p>You gain a +2 circumstance bonus to Disarm.</p>"
         },
         "duration": {
             "expiry": null,
@@ -18,15 +18,18 @@
         "publication": {
             "license": "ORC",
             "remaster": true,
-            "title": "Pathfinder Player Core 2"
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
-                "critical": false,
                 "key": "FlatModifier",
-                "selector": "strike-damage",
+                "label": "PF2E.SpecificRule.Disarm.WeakenedGraspBonusLabel",
+                "predicate": [
+                    "action:disarm"
+                ],
+                "selector": "skill-check",
                 "type": "circumstance",
-                "value": "-(2 + @item.origin.level)"
+                "value": 2
             }
         ],
         "start": {
@@ -37,6 +40,7 @@
             "show": true
         },
         "traits": {
+            "rarity": "common",
             "value": []
         }
     },

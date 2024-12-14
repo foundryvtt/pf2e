@@ -26,7 +26,17 @@
         },
         "rules": [
             {
+                "allowDuplicate": false,
                 "key": "GrantItem",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:thaumaturge",
+                            "feat:implement-initiate"
+                        ]
+                    }
+                ],
+                "reevaluateOnUpdate": true,
                 "uuid": "Compendium.pf2e.actionspf2e.Item.Fling Magic"
             },
             {
