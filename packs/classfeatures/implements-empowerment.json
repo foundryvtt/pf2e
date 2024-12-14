@@ -26,9 +26,15 @@
         },
         "rules": [
             {
-                "domain": "all",
+                "disabledIf": [
+                    {
+                        "not": "implement-held"
+                    }
+                ],
+                "disabledValue": false,
                 "key": "RollOption",
                 "option": "implements-empowerment",
+                "priority": 51,
                 "toggleable": true
             },
             {
