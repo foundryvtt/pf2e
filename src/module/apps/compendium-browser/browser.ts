@@ -17,9 +17,7 @@ import { CompendiumBrowserSettingsApp } from "./settings.ts";
 import { BrowserFilter } from "./tabs/data.ts";
 import * as browserTabs from "./tabs/index.ts";
 
-const foundryApp = foundry.applications.api;
-
-class CompendiumBrowser extends SvelteApplicationMixin(foundryApp.ApplicationV2) {
+class CompendiumBrowser extends SvelteApplicationMixin(foundry.applications.api.ApplicationV2) {
     /** The amount of rendered result items for initial loading and per load operation */
     static RESULT_LIMIT = 100;
 
