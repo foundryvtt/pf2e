@@ -1,10 +1,10 @@
 {
-    "_id": "z3ATL8DcRVrT0Uzt",
+    "_id": "PuDS0DEq0CnaSIFV",
     "img": "icons/skills/melee/sword-damaged-broken-glow-red.webp",
     "name": "Effect: Disarm (Success)",
     "system": {
         "description": {
-            "value": "<p>Granted by a successful @UUID[Compendium.pf2e.actionspf2e.Item.Disarm]</p>\n<p>You have a weakened grasp on an item. Further attempts to Disarm the item gain a +2 circumstance bonus, and you take a –2 circumstance penalty to attacks with the item or other checks requiring a firm grasp on the item. You can end the effect by Interacting to change your grip on the item; otherwise, it lasts as long as you hold the item.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Disarm]</p>\n<p>You take a –2 circumstance penalty to attacks using the targeted item. Further attempts to Disarm you gain a +2 circumstance bonus.</p>"
         },
         "duration": {
             "expiry": null,
@@ -42,13 +42,10 @@
                 "value": -2
             },
             {
-                "key": "FlatModifier",
-                "predicate": [
-                    "action:disarm"
-                ],
-                "selector": "reflex-dc",
-                "type": "circumstance",
-                "value": -2
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "selectors": "skill-check",
+                "uuid": "Compendium.pf2e.other-effects.Item.Effect: Disarm (Bonus)"
             }
         ],
         "start": {
