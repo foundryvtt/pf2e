@@ -30,7 +30,7 @@ function transformWhitelist(whitelist: WhitelistData) {
               .sort((a, b) => a.value.localeCompare(b.value, game.i18n.lang));
 }
 
-function getTagifyTagTemplate(tagify: Tagify<TagRecord>,tagData: TagRecord) {
+function getTagifyTagTemplate(tagify: Tagify<TagRecord>, tagData: TagRecord): string {
     return `<tag 
         contenteditable='false' 
         spellcheck='false' 
@@ -41,7 +41,7 @@ function getTagifyTagTemplate(tagify: Tagify<TagRecord>,tagData: TagRecord) {
         <div>
             <span class="${tagify.settings.classNames.tagText}">${tagData[tagify.settings.tagTextProp] || tagData.value}</span>
         </div>
-    </tag>`
+    </tag>`;
 }
 
 /** Create a tagify select menu out of a JSON input element */
@@ -83,7 +83,7 @@ function tagify(
         templates: {
             tag(tagData: TagRecord) {
                 // Default template without title to prevent the default tag tooltip from showing.
-                return getTagifyTagTemplate(this,tagData);
+                return getTagifyTagTemplate(this, tagData);
             },
         },
     });
