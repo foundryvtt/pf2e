@@ -1,0 +1,51 @@
+{
+    "_id": "qzQo3qETndgRZKcO",
+    "img": "systems/pf2e/icons/features/classes/amulet.webp",
+    "name": "Effect: Amulet's Abeyance (Adept)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Amulet's Abeyance]</p>\n<p>You choose one damage type dealt by the triggering attack and gain resistance against that damage type.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "config": "damageTypes"
+                },
+                "flag": "damageType",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Thaumaturge.Implement.Amulet.Adept.Prompt"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.damageType}",
+                "value": "ternary(gte(@item.origin.level,15),10,5)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
