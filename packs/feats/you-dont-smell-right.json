@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You can sniff out fellow werecreatures and master impersonators alike. You gain scent as an imprecise sense with a range of 30 feet or extend the range of your scent by 30 feet. When a creature that's transformed into another form or is Impersonating a specific creature passes within range of your scent ability, the GM rolls a secret Perception check for you to realize that the creature is transformed, even if you didn't spend an action to @UUID[Compendium.pf2e.actionspf2e.Item.Seek]. When you actively Seek a creature within range of your scent, you gain a +2 circumstance bonus to your Perception check to determine if it's disguised.</p>"
+            "value": "<p>You can sniff out fellow werecreatures and master impersonators alike. You gain scent as an imprecise sense with a range of 30 feet or extend the range of your scent by 30 feet. When a creature that's transformed into another form or is @UUID[Compendium.pf2e.actionspf2e.Item.Impersonate]{Impersonating} a specific creature passes within range of your scent ability, the GM rolls a secret @Check[perception|traits:secret] check for you to realize that the creature is transformed, even if you didn't spend an action to @UUID[Compendium.pf2e.actionspf2e.Item.Seek]. When you actively Seek a creature within range of your scent, you gain a +2 circumstance bonus to your Perception check to determine if it's disguised.</p>"
         },
         "level": {
             "value": 8
@@ -35,7 +35,12 @@
                 "label": "PF2E.SpecificRule.Werecreature.YouDontSmellRight.Label",
                 "option": "seek-disguise",
                 "predicate": [
-                    "self:effect:change-shape-werecreature"
+                    {
+                        "or": [
+                            "change-shape:animal",
+                            "change-shape:hybrid"
+                        ]
+                    }
                 ],
                 "toggleable": true
             },
@@ -43,10 +48,11 @@
                 "acuity": "imprecise",
                 "key": "Sense",
                 "predicate": [
+                    "feat:feral-senses",
                     {
-                        "and": [
-                            "self:effect:change-shape-werecreature",
-                            "feat:feral-senses"
+                        "or": [
+                            "change-shape:animal",
+                            "change-shape:hybrid"
                         ]
                     }
                 ],

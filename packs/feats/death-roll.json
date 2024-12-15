@@ -31,7 +31,25 @@
             "remaster": true,
             "title": "Pathfinder Howl of the Wild"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "attack-roll",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Werecreature.Werecrocodile.DeathRoll.ToggleLabel",
+                "option": "death-roll",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "death-roll",
+                    "target:condition:grabbed"
+                ],
+                "selector": "jaws-attack",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
