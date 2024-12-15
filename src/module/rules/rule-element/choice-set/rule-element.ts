@@ -491,7 +491,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
 
         // Exclude any feat of which the character already has its maximum number and return final list
         const existing: Map<string, number> = new Map();
-        for (const feat of this.actor.itemTypes.feat) {
+        const actor = this.actor;
+        for (const feat of actor.itemTypes.feat) {
             const slug = feat.slug ?? sluggify(feat.name);
             existing.set(slug, (existing.get(slug) ?? 0) + 1);
         }
@@ -501,7 +502,14 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         }
 
         return filteredItems
-            .filter((i) => (i.isOfType("feat") ? (existing.get(i.slug ?? sluggify(i.name)) ?? 0) < i.maxTakable : true))
+            .filter((item) => {
+                const slug = item.slug ?? sluggify(item.name);
+                if (item.isOfType("feat")) return (existing.get(slug) ?? 0) < item.maxTakable;
+                if (item.isOfType("heritage")) {
+                    return !actor.itemTypes.heritage.some((h) => (h.slug ?? sluggify(h.name)) === slug);
+                }
+                return true;
+            })
             .map((f) => ({
                 value: choices.slugsAsValues ? (f.slug ?? sluggify(f.name)) : f.uuid,
                 label: f.name,
