@@ -30,6 +30,20 @@ function transformWhitelist(whitelist: WhitelistData) {
               .sort((a, b) => a.value.localeCompare(b.value, game.i18n.lang));
 }
 
+function getTagifyTagTemplate(tagify: Tagify<TagRecord>,tagData: TagRecord) {
+    return `<tag 
+        contenteditable='false' 
+        spellcheck='false' 
+        tabIndex="${tagify.settings.a11y.focusableTags ? 0 : -1}"
+        class="${tagify.settings.classNames.tag}"
+        ${tagify.getAttributes(tagData)}> 
+        <x title='' class="${tagify.settings.classNames.tagX}" role='button' aria-label='remove tag'></x>
+        <div>
+            <span class="${tagify.settings.classNames.tagText}">${tagData[tagify.settings.tagTextProp] || tagData.value}</span>
+        </div>
+    </tag>`
+}
+
 /** Create a tagify select menu out of a JSON input element */
 function tagify(element: HTMLInputElement, options?: TagifyOptions): Tagify<TagRecord>;
 function tagify(element: HTMLTagifyTagsElement, options?: TagifyOptions): Tagify<TagRecord>;
@@ -69,17 +83,7 @@ function tagify(
         templates: {
             tag(tagData: TagRecord) {
                 // Default template without title to prevent the default tag tooltip from showing.
-                return `<tag 
-                    contenteditable='false' 
-                    spellcheck='false' 
-                    tabIndex="${this.settings.a11y.focusableTags ? 0 : -1}"
-                    class="${this.settings.classNames.tag}"
-                    ${this.getAttributes(tagData)}> 
-                        <x title='' class="${this.settings.classNames.tagX}" role='button' aria-label='remove tag'></x>
-                        <div>
-                            <span class="${this.settings.classNames.tagText}">${tagData[this.settings.tagTextProp] || tagData.value}</span>
-                        </div>
-                    </tag>`;
+                return getTagifyTagTemplate(this,tagData);
             },
         },
     });
