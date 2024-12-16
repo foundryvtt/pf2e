@@ -28,46 +28,41 @@
             {
                 "allowDuplicate": false,
                 "key": "GrantItem",
-                "predicate": [
-                    {
-                        "or": [
-                            "class:thaumaturge",
-                            "feat:implement-initiate"
-                        ]
-                    }
-                ],
-                "reevaluateOnUpdate": true,
-                "uuid": "Compendium.pf2e.actionspf2e.Item.Drink from the Chalice"
-            },
-            {
-                "allowDuplicate": false,
-                "key": "GrantItem",
                 "uuid": "Compendium.pf2e.equipment-srd.Item.Chalice Implement"
             },
             {
-                "key": "Note",
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.thaumaturge.initiateBenefit",
                 "predicate": [
-                    {
-                        "or": [
-                            {
-                                "and": [
-                                    "origin:enemy",
-                                    "check:outcome:critical-success",
-                                    {
-                                        "or": [
-                                            "item:damage:type:piercing",
-                                            "item:damage:type:slashing"
-                                        ]
-                                    }
-                                ]
-                            },
-                            "item:damage:type:bleed"
-                        ]
-                    }
+                    "feat:thaumaturge-dedication"
                 ],
-                "selector": "damage-received",
-                "text": "PF2E.SpecificRule.Thaumaturge.Implement.Chalice.Adept.Note",
-                "title": "{item|name}"
+                "value": "Compendium.pf2e.classfeatures.Item.Initiate Benefit (Chalice)"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "class:thaumaturge"
+                ],
+                "uuid": "Compendium.pf2e.classfeatures.Item.Initiate Benefit (Chalice)"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.thaumaturge.adeptChoices",
+                "predicate": [
+                    "class:thaumaturge"
+                ],
+                "priority": 20,
+                "value": {
+                    "label": "{item|name}",
+                    "predicate": [
+                        {
+                            "not": "feature:adept-benefit-chalice"
+                        }
+                    ],
+                    "value": "Compendium.pf2e.classfeatures.Item.Adept Benefit (Chalice)"
+                }
             }
         ],
         "traits": {
