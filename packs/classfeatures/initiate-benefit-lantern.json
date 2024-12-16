@@ -1,0 +1,84 @@
+{
+    "_id": "tBI15UqeQH7PLzAK",
+    "img": "icons/sundries/lights/lantern-iron-lit-yellow.webp",
+    "name": "Initiate Benefit (Lantern)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>While you hold your lantern, its burning light leaves secrets no place to hide. You can light or extinguish your lantern as a free action once each turn with nothing but a thought, which has the concentrate trait. The lantern shines bright light out to 20 feet and dim light out 20 feet further; this has the evocation, light, and magical traits (the counteract rank against magical darkness is equal to half your level rounded up).</p>\n<p>The lantern's magical light attempts to reveal the unseen. You and your allies in the lantern's area of bright light gain a +1 status bonus to visual Perception checks to notice anything that is also within the bright light, and a +1 status bonus to checks to Recall Knowledge against creatures within the bright light, as the light exposes their true natures. During exploration, even if you aren't Searching, the GM rolls a secret check for you to find traps, environmental hazards, haunts, and secrets (such as secret doors). The GM rolls each time a given hazard or secret comes within 20 feet of you and within the lantern's bright light. These effects have the divination, magical, and revelation traits.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "implement:lantern:equipped"
+                    }
+                ],
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Thaumaturge.Implement.Lantern.LightToggle",
+                "option": "light-lantern-implement",
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.thaumaturge.lantern",
+                "value": 20
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "light-lantern-implement"
+                ],
+                "value": {
+                    "alpha": 0.2,
+                    "animation": {
+                        "intensity": 2,
+                        "speed": 3,
+                        "type": "pulse"
+                    },
+                    "bright": "@actor.flags.pf2e.thaumaturge.lantern",
+                    "color": "#fff285",
+                    "dim": "2*@actor.flags.pf2e.thaumaturge.lantern"
+                }
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Lantern"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "light-lantern-implement"
+                ],
+                "radius": "@actor.flags.pf2e.thaumaturge.lantern"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "thaumaturge"
+            ]
+        }
+    },
+    "type": "feat"
+}
