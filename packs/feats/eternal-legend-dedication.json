@@ -24,67 +24,7 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [
-            {
-                "alwaysActive": true,
-                "domain": "check",
-                "key": "RollOption",
-                "option": "eternal-legend-dedication",
-                "suboptions": [
-                    {
-                        "label": "PF2E.ConditionTypeClumsy",
-                        "value": "clumsy"
-                    },
-                    {
-                        "label": "PF2E.ConditionTypeDrained",
-                        "value": "drained"
-                    },
-                    {
-                        "label": "PF2E.ConditionTypeEnfeebled",
-                        "value": "enfeebled"
-                    }
-                ],
-                "toggleable": true
-            },
-            {
-                "key": "RollOption",
-                "label": "PF2E.SpecificRule.EternalLegend.Dedication.AdjustmentToggle",
-                "option": "eternal-legend-dedication-adjustment",
-                "toggleable": true
-            },
-            {
-                "adjustment": {
-                    "success": "one-degree-better"
-                },
-                "key": "AdjustDegreeOfSuccess",
-                "predicate": [
-                    {
-                        "or": [
-                            "eternal-legend-dedication-adjustment",
-                            {
-                                "and": [
-                                    "inflicts:clumsy",
-                                    "eternal-legend-dedication:clumsy"
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "inflicts:drained",
-                                    "eternal-legend-dedication:drained"
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "inflicts:enfeebled",
-                                    "eternal-legend-dedication:enfeebled"
-                                ]
-                            }
-                        ]
-                    }  
-                ],
-                "selector": "check"
-            }
-        ],
+        "rules": [],
         "traits": {
             "rarity": "uncommon",
             "value": [
