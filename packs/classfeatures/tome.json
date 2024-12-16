@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>Tome implements embody lost knowledge and otherworldly insights. While a weathered book is most common, tome implements can have as many different form factors as there are ways to store knowledge, from carved clay tablets to bundles of knotted cords. Tome implements are associated with the harrow suit of books and the astrological signs of the stargazer and the underworld dragon.</p>\n<h3><strong>Initiate Benefit</strong></h3>\n<p>While you hold your tome, lines of text appear on the open pages, revealing useful information. While you hold your tome, you gain a +1 circumstance bonus to all skill checks to Recall Knowledge.</p>\n<p>During your daily preparations, you can gain the trained proficiency rank in two skills of your choice until you prepare again. You retain the benefit as long as the tome is on your person, even if you aren't holding it. At 3rd level, you're an expert in one of the skills and trained in the other, and at 5th level, you're an expert in both skills. Since these proficiencies are temporary, you can't use them as a prerequisite for a skill increase or a permanent character option like a feat.</p>\n<h3><strong>Adept Benefit</strong></h3>\n<p>In addition to the initiate benefits, your tome inscribes insights into creatures that you can use to strike them down. While holding your tome, at the start of your turn each round, attempt a check to Recall Knowledge about a creature of your choice that you're observing. If this check succeeds, you gain a +1 circumstance bonus to your next attack roll against that creature before the start of your next turn.</p>\n<p>When you gain temporary skill proficiencies during your daily preparations, one is at expert proficiency and the other at master proficiency. At 9th level, you have master proficiency in both.</p>\n<h3><strong>Intensify Vulnerability</strong></h3>\n<p>Your tome's power not only reads a creature's present but even records its future actions. When you use Intensify Vulnerability, roll a d20 and set the result aside. At any time until the start of your next turn, you can use the d20 result you set aside for an attack roll to Strike the target of your Exploit Vulnerability, instead of rolling a new d20; this is a fortune effect.</p>\n<h3><strong>Paragon Benefit</strong></h3>\n<p>In addition to the other benefits, your tome's information alerts you to ambushes and attacks from your foes. While holding your tome, you can always roll a skill check for initiative against creatures or haunts using Esoteric Lore. If you do, you gain a +3 circumstance bonus to your initiative roll.</p>\n<p>The initiate benefit's circumstance bonus to Recall Knowledge from holding your tome increases from +1 to +2. When you succeed at the Recall Knowledge check granted by the tome's adept benefit, the bonus applies to all attack rolls you make before the start of your next turn, not just your next one. Lastly, when you gain temporary skill proficiencies, both are legendary.</p>"
+            "value": "<p>Tome implements embody lost knowledge and otherworldly insights. While a weathered book is most common, tome implements can have as many different form factors as there are ways to store knowledge, from carved clay tablets to bundles of knotted cords. Tome implements are associated with the harrow suit of books and the astrological signs of the stargazer and the underworld dragon.</p><h3><strong>Initiate Benefit</strong></h3><p>While you hold your tome, lines of text appear on the open pages, revealing useful information. While you hold your tome, you gain a +1 circumstance bonus to all skill checks to Recall Knowledge.</p>\n<p>During your daily preparations, you can gain the trained proficiency rank in two skills of your choice until you prepare again. You retain the benefit as long as the tome is on your person, even if you aren't holding it. At 3rd level, you're an expert in one of the skills and trained in the other, and at 5th level, you're an expert in both skills. Since these proficiencies are temporary, you can't use them as a prerequisite for a skill increase or a permanent character option like a feat.</p><h3><strong>Adept Benefit</strong></h3><p>In addition to the initiate benefits, your tome inscribes insights into creatures that you can use to strike them down. While holding your tome, at the start of your turn each round, attempt a check to Recall Knowledge about a creature of your choice that you're observing. If this check succeeds, you gain a +1 circumstance bonus to your next attack roll against that creature before the start of your next turn.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Tome Adept Benefit]</p>\n<p>When you gain temporary skill proficiencies during your daily preparations, one is at expert proficiency and the other at master proficiency. At 9th level, you have master proficiency in both.</p><h3><strong>Intensify Vulnerability</strong></h3><p>Your tome's power not only reads a creature's present but even records its future actions. When you use Intensify Vulnerability, roll a d20 and set the result aside. At any time until the start of your next turn, you can use the d20 result you set aside for an attack roll to Strike the target of your Exploit Vulnerability, instead of rolling a new d20; this is a fortune effect.</p><h3><strong>Paragon Benefit</strong></h3><p>In addition to the other benefits, your tome's information alerts you to ambushes and attacks from your foes. While holding your tome, you can always roll a skill check for initiative against creatures or haunts using Esoteric Lore. If you do, you gain a +3 circumstance bonus to your initiative roll.</p>\n<p>The initiate benefit's circumstance bonus to Recall Knowledge from holding your tome increases from +1 to +2. When you succeed at the Recall Knowledge check granted by the tome's adept benefit, the bonus applies to all attack rolls you make before the start of your next turn, not just your next one. Lastly, when you gain temporary skill proficiencies, both are legendary.</p>"
         },
         "level": {
             "value": 1
@@ -29,6 +29,1893 @@
                 "allowDuplicate": false,
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.equipment-srd.Item.Tome Implement"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:recall-knowledge",
+                    "implement:tome:equipped",
+                    {
+                        "or": [
+                            "class:thaumaturge",
+                            "feat:implement-initiate"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "slug": "tome-recall-knowledge",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "parent:tag:thaumaturge-implement-paragon"
+                ],
+                "selector": "skill-check",
+                "slug": "tome-recall-knowledge",
+                "value": 2
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Thaumaturge.Implement.Tome.FirstSkillDropdown",
+                "option": "first-tome-skill",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:thaumaturge",
+                            "feat:implement-initiate"
+                        ]
+                    }
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.Skill.Acrobatics",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "skill:acrobatics:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    3
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:acrobatics:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:acrobatics:rank",
+                                                    2
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:acrobatics:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "acrobatics"
+                    },
+                    {
+                        "label": "PF2E.Skill.Arcana",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "skill:arcana:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    3
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:arcana:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:arcana:rank",
+                                                    2
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:arcana:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "arcana"
+                    },
+                    {
+                        "label": "PF2E.Skill.Athletics",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "skill:athletics:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    3
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:athletics:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:athletics:rank",
+                                                    2
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:athletics:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "athletics"
+                    },
+                    {
+                        "label": "PF2E.Skill.Crafting",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "skill:crafting:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    3
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:crafting:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:crafting:rank",
+                                                    2
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:crafting:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "crafting"
+                    },
+                    {
+                        "label": "PF2E.Skill.Deception",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "skill:deception:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    3
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:deception:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:deception:rank",
+                                                    2
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:deception:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "deception"
+                    },
+                    {
+                        "label": "PF2E.Skill.Diplomacy",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "skill:diplomacy:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    3
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:diplomacy:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:diplomacy:rank",
+                                                    2
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:diplomacy:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "diplomacy"
+                    },
+                    {
+                        "label": "PF2E.Skill.Intimidation",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "skill:intimidation:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    3
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:intimidation:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:intimidation:rank",
+                                                    2
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:intimidation:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "intimidation"
+                    },
+                    {
+                        "label": "PF2E.Skill.Medicine",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "skill:medicine:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    3
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:medicine:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:medicine:rank",
+                                                    2
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:medicine:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "medicine"
+                    },
+                    {
+                        "label": "PF2E.Skill.Nature",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "skill:nature:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    3
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:nature:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:nature:rank",
+                                                    2
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:nature:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "nature"
+                    },
+                    {
+                        "label": "PF2E.Skill.Occultism",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "skill:occultism:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    3
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:occultism:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:occultism:rank",
+                                                    2
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:occultism:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "occultism"
+                    },
+                    {
+                        "label": "PF2E.Skill.Performance",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "skill:performance:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    3
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:performance:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:performance:rank",
+                                                    2
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:performance:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "performance"
+                    },
+                    {
+                        "label": "PF2E.Skill.Religion",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "skill:religion:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    3
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:religion:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:religion:rank",
+                                                    2
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:religion:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "religion"
+                    },
+                    {
+                        "label": "PF2E.Skill.Society",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "skill:society:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    3
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:society:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:society:rank",
+                                                    2
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:society:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "society"
+                    },
+                    {
+                        "label": "PF2E.Skill.Stealth",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "skill:stealth:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    3
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:stealth:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:stealth:rank",
+                                                    2
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:stealth:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "stealth"
+                    },
+                    {
+                        "label": "PF2E.Skill.Survival",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "skill:survival:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    3
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:survival:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:survival:rank",
+                                                    2
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:survival:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "survival"
+                    },
+                    {
+                        "label": "PF2E.Skill.Thievery",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "skill:thievery:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    3
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:thievery:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:thievery:rank",
+                                                    2
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:thievery:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "thievery"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Thaumaturge.Implement.Tome.SecondSkillDropdown",
+                "option": "second-tome-skill",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:thaumaturge",
+                            "feat:implement-initiate"
+                        ]
+                    }
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.Skill.Acrobatics",
+                        "predicate": [
+                            {
+                                "not": "first-tome-skill:acrobatics"
+                            },
+                            {
+                                "or": [
+                                    "skill:acrobatics:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    5
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:acrobatics:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:acrobatics:rank",
+                                                    2
+                                                ]
+                                            },
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    9
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:acrobatics:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "acrobatics"
+                    },
+                    {
+                        "label": "PF2E.Skill.Arcana",
+                        "predicate": [
+                            {
+                                "not": "first-tome-skill:arcana"
+                            },
+                            {
+                                "or": [
+                                    "skill:arcana:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    5
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:arcana:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:arcana:rank",
+                                                    2
+                                                ]
+                                            },
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    9
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:arcana:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "arcana"
+                    },
+                    {
+                        "label": "PF2E.Skill.Athletics",
+                        "predicate": [
+                            {
+                                "not": "first-tome-skill:athletics"
+                            },
+                            {
+                                "or": [
+                                    "skill:athletics:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    5
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:athletics:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:athletics:rank",
+                                                    2
+                                                ]
+                                            },
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    9
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:athletics:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "athletics"
+                    },
+                    {
+                        "label": "PF2E.Skill.Crafting",
+                        "predicate": [
+                            {
+                                "not": "first-tome-skill:crafting"
+                            },
+                            {
+                                "or": [
+                                    "skill:crafting:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    5
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:crafting:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:crafting:rank",
+                                                    2
+                                                ]
+                                            },
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    9
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:crafting:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "crafting"
+                    },
+                    {
+                        "label": "PF2E.Skill.Deception",
+                        "predicate": [
+                            {
+                                "not": "first-tome-skill:deception"
+                            },
+                            {
+                                "or": [
+                                    "skill:deception:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    5
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:deception:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:deception:rank",
+                                                    2
+                                                ]
+                                            },
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    9
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:deception:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "deception"
+                    },
+                    {
+                        "label": "PF2E.Skill.Diplomacy",
+                        "predicate": [
+                            {
+                                "not": "first-tome-skill:diplomacy"
+                            },
+                            {
+                                "or": [
+                                    "skill:diplomacy:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    5
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:diplomacy:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:diplomacy:rank",
+                                                    2
+                                                ]
+                                            },
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    9
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:diplomacy:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "diplomacy"
+                    },
+                    {
+                        "label": "PF2E.Skill.Intimidation",
+                        "predicate": [
+                            {
+                                "not": "first-tome-skill:intimidation"
+                            },
+                            {
+                                "or": [
+                                    "skill:intimidation:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    5
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:intimidation:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:intimidation:rank",
+                                                    2
+                                                ]
+                                            },
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    9
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:intimidation:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "intimidation"
+                    },
+                    {
+                        "label": "PF2E.Skill.Medicine",
+                        "predicate": [
+                            {
+                                "not": "first-tome-skill:medicine"
+                            },
+                            {
+                                "or": [
+                                    "skill:medicine:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    5
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:medicine:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:medicine:rank",
+                                                    2
+                                                ]
+                                            },
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    9
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:medicine:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "medicine"
+                    },
+                    {
+                        "label": "PF2E.Skill.Nature",
+                        "predicate": [
+                            {
+                                "not": "first-tome-skill:nature"
+                            },
+                            {
+                                "or": [
+                                    "skill:nature:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    5
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:nature:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:nature:rank",
+                                                    2
+                                                ]
+                                            },
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    9
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:nature:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "nature"
+                    },
+                    {
+                        "label": "PF2E.Skill.Occultism",
+                        "predicate": [
+                            {
+                                "not": "first-tome-skill:occultism"
+                            },
+                            {
+                                "or": [
+                                    "skill:occultism:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    5
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:occultism:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:occultism:rank",
+                                                    2
+                                                ]
+                                            },
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    9
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:occultism:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "occultism"
+                    },
+                    {
+                        "label": "PF2E.Skill.Performance",
+                        "predicate": [
+                            {
+                                "not": "first-tome-skill:performance"
+                            },
+                            {
+                                "or": [
+                                    "skill:performance:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    5
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:performance:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:performance:rank",
+                                                    2
+                                                ]
+                                            },
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    9
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:performance:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "performance"
+                    },
+                    {
+                        "label": "PF2E.Skill.Religion",
+                        "predicate": [
+                            {
+                                "not": "first-tome-skill:religion"
+                            },
+                            {
+                                "or": [
+                                    "skill:religion:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    5
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:religion:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:religion:rank",
+                                                    2
+                                                ]
+                                            },
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    9
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:religion:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "religion"
+                    },
+                    {
+                        "label": "PF2E.Skill.Society",
+                        "predicate": [
+                            {
+                                "not": "first-tome-skill:society"
+                            },
+                            {
+                                "or": [
+                                    "skill:society:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    5
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:society:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:society:rank",
+                                                    2
+                                                ]
+                                            },
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    9
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:society:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "society"
+                    },
+                    {
+                        "label": "PF2E.Skill.Stealth",
+                        "predicate": [
+                            {
+                                "not": "first-tome-skill:stealth"
+                            },
+                            {
+                                "or": [
+                                    "skill:stealth:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    5
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:stealth:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:stealth:rank",
+                                                    2
+                                                ]
+                                            },
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    9
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:stealth:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "stealth"
+                    },
+                    {
+                        "label": "PF2E.Skill.Survival",
+                        "predicate": [
+                            {
+                                "not": "first-tome-skill:survival"
+                            },
+                            {
+                                "or": [
+                                    "skill:survival:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    5
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:survival:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:survival:rank",
+                                                    2
+                                                ]
+                                            },
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    9
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:survival:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "survival"
+                    },
+                    {
+                        "label": "PF2E.Skill.Thievery",
+                        "predicate": [
+                            {
+                                "not": "first-tome-skill:thievery"
+                            },
+                            {
+                                "or": [
+                                    "skill:thievery:rank:0",
+                                    {
+                                        "and": [
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    5
+                                                ]
+                                            },
+                                            {
+                                                "lte": [
+                                                    "skill:thievery:rank",
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-adept",
+                                            {
+                                                "lte": [
+                                                    "skill:thievery:rank",
+                                                    2
+                                                ]
+                                            },
+                                            {
+                                                "gte": [
+                                                    "self:level",
+                                                    9
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "parent:tag:thaumaturge-implement-paragon",
+                                            {
+                                                "lte": [
+                                                    "skill:thievery:rank",
+                                                    3
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "thievery"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.firstTomeSkill}.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:thaumaturge",
+                            "feat:implement-initiate"
+                        ]
+                    }
+                ],
+                "priority": 50,
+                "value": "ternary(gte(@actor.level,3),2,1)"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.firstTomeSkill}.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    "parent:tag:thaumaturge-implement-adept"
+                ],
+                "priority": 50,
+                "value": 3
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.firstTomeSkill}.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    "parent:tag:thaumaturge-implement-paragon"
+                ],
+                "priority": 50,
+                "value": 4
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.secondTomeSkill}.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:thaumaturge",
+                            "feat:implement-initiate"
+                        ]
+                    }
+                ],
+                "priority": 50,
+                "value": "ternary(gte(@actor.level,5),2,1)"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.secondTomeSkill}.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    "parent:tag:thaumaturge-implement-adept",
+                    {
+                        "gte": [
+                            "self:level",
+                            9
+                        ]
+                    }
+                ],
+                "priority": 50,
+                "value": 3
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.secondTomeSkill}.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    "parent:tag:thaumaturge-implement-paragon"
+                ],
+                "priority": 50,
+                "value": 4
+            },
+            {
+                "key": "RollOption",
+                "option": "implement-adept:tome",
+                "predicate": [
+                    "parent:tag:thaumaturge-implement-adept"
+                ],
+                "priority": 121
+            },
+            {
+                "domain": "initiative",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Thaumaturge.Implement.Tome.Paragon.InitiativeToggle",
+                "option": "paragon-tome-initiative",
+                "predicate": [
+                    "parent:tag:thaumaturge-implement-paragon"
+                ],
+                "priority": 121,
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Thaumaturge.Implement.Tome.Paragon.InitiativeBonusLabel",
+                "predicate": [
+                    "paragon-tome-initiative",
+                    "check:statistic:base:esoteric-lore"
+                ],
+                "selector": "initiative",
+                "type": "circumstance",
+                "value": 3
             }
         ],
         "traits": {

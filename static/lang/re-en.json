@@ -684,6 +684,7 @@
                 "EnemyStrikes": "enemy Strikes",
                 "HolyBludgeoningPiercingSlashing": "holy bludgeoning, piercing and slashing damage",
                 "ImpulseFireFrom": "impulse fire from {origin}",
+                "IncorporealCreatures": "incorporeal creatures",
                 "IngestedPoisons": "ingested poisons",
                 "MagicalBludgeoning": "magical bludgeoning",
                 "MagicalColdIron": "magical cold iron",
@@ -2387,6 +2388,17 @@
                 "Cooldown": "Your eidolon then can't use their Breath Weapon again for the next [[/r 1d4 #rounds]]{1d4 rounds}.",
                 "Scaling": "At 3rd level and every 2 levels thereafter, the damage increases by 1d6."
             },
+            "BrokenChain": {
+                "ReleaseMe": {
+                    "BonusToggle": "Release Me! — Apply melee Strike bonus"
+                },
+                "UltimatumOfLiberation": {
+                    "BonusIncreaseToggle": "Ultimatum of Liberation — Increase save bonus to +3"
+                },
+                "YouCantKillAnIdea": {
+                    "IdeaformToggle": "Become an ideaform"
+                }
+            },
             "CapeOfJustice": {
                 "Toggle": "Target is your designated offender"
             },
@@ -3010,6 +3022,9 @@
                     "AttackNote": "Your fangs Strike deals an additional @Damage[1d4[bleed]] on a critical hit."
                 }
             },
+            "Disarm": {
+                "WeakenedGraspBonusLabel": "Disarm (vs. weakened grasp)"
+            },
             "DivineAlly": {
                 "AllowedDrops": "champion class feature",
                 "Prompt": "Select a divine ally."
@@ -3343,6 +3358,9 @@
                 },
                 "MaskOfTheMantis": {
                     "VernaisIreLabel": "Vernai's Ire"
+                },
+                "MindsLightCirclet": {
+                    "LightToggle": "Mind's Light Circlet — You have at least 1 Focus Point"
                 },
                 "NosoiCharm": {
                     "PerformanceLabel": "Nosoi Charm (Play an instrument, orate or sing)",
@@ -4796,6 +4814,7 @@
                         "Base": "Your telepathic message allows you to coordinate your actions while you pass on information. The target of the message can immediately spend its reaction to Step or Stride.",
                         "Heightened": "The target of the message can choose to @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{Shove}, Strike, or @UUID[Compendium.pf2e.actionspf2e.Item.ge56Lu1xXVFYUnLP]{Trip} with its reaction instead."
                     },
+                    "MindsLightCirclet": "You transfer some of the magical luminescence from the mind's light circlet to one of the creatures. Choose a creature targeted by the spell or in its area. Until the start of your next turn, that creature sheds bright light in a 20-foot radius (and dim light to the next 20 feet) and can't be @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealed}. If the creature is @UUID[Compendium.pf2e.conditionitems.Item.zJxUflt9np0q4yML]{Invisible}, it's concealed while alight, rather than being @UUID[Compendium.pf2e.conditionitems.Item.VRSef5y1LmL2Hkjf]{Undetected}.",
                     "OmnidirectionalScan": {
                         "Base": "Your scans are so minute that you can project your foe's likely strengths and weaknesses. You learn which of the target enemy's saving throws is highest and which is lowest, and you and all allies within 30 feet gain a +1 circumstance bonus to attacks and damage against the creature.",
                         "BaseTwo": "If you take the Aid reaction you prepared for and succeed at your roll, these bonuses increase to +2 on the attack you're Aiding. On a critical success, they increase to +3, or to +4 if you have legendary proficiency in spell attack rolls."
@@ -5695,15 +5714,41 @@
             },
             "Thaumaturge": {
                 "Implement": {
-                    "Amulet": "Amulet",
-                    "Bell": "Bell",
-                    "Chalice": "Chalice",
-                    "Lantern": "Lantern",
-                    "Mirror": "Mirror",
-                    "Regalia": "Regalia",
-                    "Tome": "Tome",
-                    "Wand": "Wand",
-                    "Weapon": "Weapon"
+                    "Adept": {
+                        "Label": "Implement Adept"
+                    },
+                    "Amulet": {
+                        "Adept": {
+                            "Description": "When you use Amulet's Abeyance, you or your ally chooses one type of damage dealt by the triggering attack and gains resistance 5 against that damage type until the start of your next turn. At 15th level, this lingering resistance increases from 5 to 10.",
+                            "Prompt": "Select a damage type dealt by the triggering attack."
+                        }
+                    },
+                    "Chalice": {
+                        "Adept": {
+                            "Note": "If you or an ally within 30 feet takes piercing or slashing damage from a foe's critical hit or takes persistent bleed damage, Drinking from the Chalice before the end of your next turn grants that injured creature greater restoration to make up for its lost vitality. On a sip, the temporary Hit Points granted to the creature increase to 2 + your Charisma modifier + your level. When drained, the chalice heals the creature 5 Hit Points for each level you have. @UUID[Compendium.pf2e.feat-effects.Item.Sq558879cgEc1lGC]{Effect: Chalice Adept Benefit (Self)}"
+                        }
+                    },
+                    "Lantern": {
+                        "BonusToggle": "Target is within the lantern's bright light",
+                        "LightToggle": "Light lantern implement"
+                    },
+                    "Prompt": "Select an implement.",
+                    "Regalia": {
+                        "UnflankableToggle": "Regalia owner is being flanked."
+                    },
+                    "Tome": {
+                        "FirstSkillDropdown": "Tome — First skill",
+                        "Paragon": {
+                            "InitiativeBonusLabel": "Tome (Paragon)",
+                            "InitiativeToggle": "Tome — Initiative vs. creatures or haunts"
+                        },
+                        "SecondSkillDropdown": "Tome — Second skill"
+                    },
+                    "Weapon": {
+                        "Adept": {
+                            "Note": "You deal @Damage[1[@item.system.damage.damageType]] damage, possibly applying any bonus damage due to the target's weakness."
+                        }
+                    }
                 },
                 "TalismanEsoterica": "Talisman Esoterica"
             },
@@ -5838,6 +5883,9 @@
                     "Label": "Wereboar"
                 },
                 "Werecrocodile": {
+                    "DeathRoll": {
+                        "ToggleLabel": "Death Roll — In Water"
+                    },
                     "Description": "You gain a 25ft speed and a 15ft swim speed, and a 1d8 piercing jaws unarmed attack with the grapple trait. You can hold your breath for 2 hours in animal or hybrid form.",
                     "Label": "Werecrocodile"
                 },
@@ -5862,7 +5910,7 @@
                     "Label": "Werewolf"
                 },
                 "YouDontSmellRight": {
-                    "Label": "Seek to determine if a creature is disguised."
+                    "Label": "Seek to determine if a creature is disguised"
                 }
             },
             "WingedWarrior": {

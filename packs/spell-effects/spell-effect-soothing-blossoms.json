@@ -4,7 +4,7 @@
     "name": "Spell Effect: Soothing Blossoms",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Soothing Blossoms]</p>\n<p>When any creature in the area rolls a successful save against a poison or disease effect, it gets a critical success instead.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Soothing Blossoms]</p>\n<p>When you roll a successful save against a poison or disease effect, you get a critical success instead.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -29,8 +29,8 @@
                 "predicate": [
                     {
                         "or": [
-                            "poison",
-                            "disease"
+                            "item:trait:poison",
+                            "item:trait:disease"
                         ]
                     }
                 ],

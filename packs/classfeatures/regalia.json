@@ -29,6 +29,109 @@
                 "allowDuplicate": false,
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.equipment-srd.Item.Regalia Implement"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "implement:regalia:equipped"
+                ],
+                "selector": [
+                    "deception",
+                    "diplomacy",
+                    "intimidation"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "predicate": [
+                            {
+                                "not": "parent:tag:thaumaturge-implement-adept"
+                            }
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Regalia"
+                    },
+                    {
+                        "affects": "allies",
+                        "alterations": [
+                            {
+                                "mode": "add",
+                                "property": "other-tags",
+                                "value": "adept-benefit"
+                            }
+                        ],
+                        "predicate": [
+                            "parent:tag:thaumaturge-implement-adept",
+                            {
+                                "not": "parent:tag:thaumaturge-implement-paragon"
+                            }
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Regalia"
+                    },
+                    {
+                        "affects": "allies",
+                        "alterations": [
+                            {
+                                "mode": "add",
+                                "property": "other-tags",
+                                "value": "adept-benefit"
+                            },
+                            {
+                                "mode": "add",
+                                "property": "other-tags",
+                                "value": "paragon-benefit"
+                            }
+                        ],
+                        "predicate": [
+                            "parent:tag:thaumaturge-implement-paragon"
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Regalia"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "implement:regalia:equipped"
+                ],
+                "radius": 15,
+                "traits": [
+                    "emotion",
+                    "visual",
+                    "mental"
+                ]
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "parent:tag:thaumaturge-implement-adept"
+                ],
+                "selectors": [
+                    "deception",
+                    "diplomacy",
+                    "intimidation"
+                ],
+                "slug": "regalia",
+                "value": 2
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "to-failure"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "parent:tag:thaumaturge-implement-paragon",
+                    {
+                        "or": [
+                            "action:coerce",
+                            "action:make-an-impression",
+                            "action:request"
+                        ]
+                    }
+                ],
+                "selector": "skill-check"
             }
         ],
         "traits": {
