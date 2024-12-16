@@ -30,7 +30,10 @@ import type {
 } from "./types.ts";
 
 class ActionMacroHelpers {
-    static resolveStat(stat: string): {
+    static resolveStat(
+        stat: string,
+        actor: ActorPF2e,
+    ): {
         checkType: CheckType;
         property: string;
         stat: string;
@@ -54,11 +57,14 @@ class ActionMacroHelpers {
             default: {
                 const slug = sluggify(stat);
                 const property = `skills.${slug}`;
+                const subtitle = `PF2E.ActionsCheck.${stat}`;
                 return {
                     checkType: "skill-check",
                     property,
                     stat,
-                    subtitle: `PF2E.ActionsCheck.${stat}`,
+                    subtitle: game.i18n.has(subtitle)
+                        ? subtitle
+                        : game.i18n.format("PF2E.ActionsCheck.x", { type: actor.skills?.[stat]?.label ?? null }),
                 };
             }
         }
@@ -68,7 +74,7 @@ class ActionMacroHelpers {
         options: CheckContextOptions<ItemType>,
         data: CheckContextData<ItemType>,
     ): CheckMacroContext<ItemType> | undefined {
-        const { checkType: type, property, stat: slug, subtitle } = this.resolveStat(data.slug);
+        const { checkType: type, property, stat: slug, subtitle } = this.resolveStat(data.slug, options.actor);
         const statistic =
             options.actor.getStatistic(data.slug) ?? (fu.getProperty(options.actor, property) as StrikeData);
         if (!statistic) {
