@@ -56,14 +56,16 @@
                             "damage": {
                                 "damageType": "slashing",
                                 "dice": 2,
-                                "die": "d6"
+                                "die": "d6",
+                                "modifier": 12
                             },
                             "img": "icons/commodities/biological/hand-gnarled-purple.webp",
                             "modifier": 21,
                             "traits": [
+                                "agile",
                                 "reach-10",
                                 "unarmed",
-                                "agile"
+                                "unholy"
                             ]
                         },
                         "composite-longbow": {
@@ -73,15 +75,21 @@
                             "damage": {
                                 "damageType": "piercing",
                                 "dice": 2,
-                                "die": "d8"
+                                "die": "d8",
+                                "modifier": 12
                             },
                             "group": "bow",
                             "img": "icons/weapons/bows/bow-recurve-black.webp",
                             "label": "PF2E.Weapon.Base.composite-longbow",
                             "modifier": 21,
-                            "range": 100,
+                            "range": {
+                                "increment": 100
+                            },
                             "traits": [
                                 "deadly-d10",
+                                "magical",
+                                "propulsive",
+                                "unholy",
                                 "volley-30"
                             ]
                         },
@@ -93,13 +101,15 @@
                                 "damageType": "piercing",
                                 "dice": 2,
                                 "die": "d10",
-                                "modifier": 10
+                                "modifier": 12
                             },
                             "img": "icons/commodities/bones/skull-bird-tan.webp",
                             "modifier": 21,
                             "traits": [
+                                "magical",
+                                "reach-10",
                                 "unarmed",
-                                "reach-10"
+                                "unholy"
                             ]
                         }
                     },
@@ -117,21 +127,14 @@
                 "predicate": [
                     {
                         "or": [
-                            "death",
-                            "disease"
+                            "item:trait:death",
+                            "item:trait:disease"
                         ]
                     }
                 ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 2
-            },
-            {
-                "damageType": "spirit",
-                "diceNumber": 1,
-                "dieSize": "d6",
-                "key": "DamageDice",
-                "selector": "strike-damage"
             }
         ],
         "start": {

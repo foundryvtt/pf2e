@@ -114,8 +114,15 @@
                 },
                 "rules": [
                     {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "option": "death-roll",
+                        "toggleable": true
+                    },
+                    {
                         "key": "FlatModifier",
                         "predicate": [
+                            "death-roll",
                             "target:condition:grabbed"
                         ],
                         "selector": "jaws-attack",
