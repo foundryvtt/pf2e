@@ -29,45 +29,40 @@
                 "choices": [
                     {
                         "label": "PF2E.Actor.Speed.Type.Land",
-                        "value": {
-                            "increase": 10,
-                            "type": "land"
-                        }
+                        "value": "land"
                     },
                     {
                         "label": "PF2E.Actor.Speed.Type.Fly",
-                        "value": {
-                            "increase": 5,
-                            "type": "fly"
-                        }
+                        "value": "fly"
                     },
                     {
                         "label": "PF2E.Actor.Speed.Type.Swim",
-                        "value": {
-                            "increase": 5,
-                            "type": "swim"
-                        }
+                        "value": "swim"
                     },
                     {
                         "label": "PF2E.Actor.Speed.Type.Climb",
-                        "value": {
-                            "increase": 5,
-                            "type": "climb"
-                        }
+                        "value": "climb"
                     }
                 ],
-                "flag": "speedType",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.Speed"
-            },
-            {
-                "key": "RollOption",
-                "option": "speed-type:{item|flags.pf2e.rulesSelections.speedType.type}"
+                "prompt": "PF2E.SpecificRule.Prompt.Speed",
+                "rollOption": "speed-type"
             },
             {
                 "key": "FlatModifier",
                 "selector": "speed",
-                "value": "{item|flags.pf2e.rulesSelections.speedType.increase}"
+                "slug": "speed-bonus",
+                "value": 5
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "speed-type:land"
+                ],
+                "selector": "speed",
+                "slug": "speed-bonus",
+                "value": 10
             },
             {
                 "key": "BaseSpeed",
@@ -81,8 +76,8 @@
                         ]
                     }
                 ],
-                "selector": "{item|flags.pf2e.rulesSelections.speedType.type}",
-                "value": "(@actor.attributes.speed.value + 5)"
+                "selector": "{item|flags.pf2e.rulesSelections.animalSwiftness}",
+                "value": "@actor.attributes.speed.total"
             }
         ],
         "traits": {
