@@ -45,7 +45,7 @@
                     }
                 ],
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.Speed",
+                "prompt": "PF2E.SpecificRule.Prompt.MovementType",
                 "rollOption": "animal-swiftness"
             },
             {
@@ -58,7 +58,7 @@
                 "key": "AdjustModifier",
                 "mode": "upgrade",
                 "predicate": [
-                    "speed-type:land"
+                    "animal-swiftness:land"
                 ],
                 "selector": "speed",
                 "slug": "speed-bonus",
@@ -69,11 +69,7 @@
                 "predicate": [
                     "change-shape:hybrid",
                     {
-                        "or": [
-                            "speed-type:fly",
-                            "speed-type:climb",
-                            "speed-type:swim"
-                        ]
+                        "not": "animal-swiftness:land"
                     }
                 ],
                 "selector": "{item|flags.pf2e.rulesSelections.animalSwiftness}",
