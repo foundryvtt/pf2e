@@ -98,27 +98,19 @@
             },
             {
                 "key": "FlatModifier",
-                "label": "PF2E.BattleForm.DevilForm.LevalochFortitudeAgainstShoveLabel",
+                "label": "PF2E.BattleForm.DevilForm.LevalochSavesAgainstMoveAllLabel"
                 "predicate": [
-                    "action:shove",
                     {
-                        "not": "resist-move"
+                        "or": [
+                            "action:shove",
+                            "resist-move"
+                        ]
                     }
-                ],
-                "selector": "fortitude",
-                "type": "circumstance",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.BattleForm.DevilForm.LevalochSavesAgainstMoveLabel",
-                "predicate": [
-                    "resist-move"
                 ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 2
-            },
+            }
             {
                 "category": "precision",
                 "diceNumber": 2,
