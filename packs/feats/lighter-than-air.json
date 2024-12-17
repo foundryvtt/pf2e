@@ -28,7 +28,34 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:condition:cursebound",
+                            1
+                        ]
+                    }
+                ],
+                "selector": "fly",
+                "value": "max(20,@actor.attributes.speed.total)"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:condition:cursebound",
+                            3
+                        ]
+                    }
+                ],
+                "selector": "fly-speed",
+                "value": 10
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
