@@ -24,7 +24,71 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Ancestry Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Land",
+                        "value": {
+                            "increase": 10,
+                            "type": "land"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Fly",
+                        "value": {
+                            "increase": 5,
+                            "type": "fly"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Swim",
+                        "value": {
+                            "increase": 5,
+                            "type": "swim"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Climb",
+                        "value": {
+                            "increase": 5,
+                            "type": "climb"
+                        }
+                    }
+                ],
+                "flag": "speedType",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Speed",
+                "selection": {
+                    "increase": 5,
+                    "type": "fly"
+                }
+            },
+            {
+                "key": "RollOption",
+                "option": "speed-type:{item|flags.pf2e.rulesSelections.speedType.type}"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "speed",
+                "value": "{item|flags.pf2e.rulesSelections.speedType.increase}"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "change-shape:hybrid",
+                    {
+                        "or": [
+                            "speed-type:fly",
+                            "speed-type:climb",
+                            "speed-type:swim"
+                        ]
+                    }
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.speedType.type}",
+                "value": "(@actor.attributes.speed.value + 5)"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
