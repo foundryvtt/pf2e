@@ -37,30 +37,7 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.resources.investiture.max",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4.5,
-                            "start": 4,
-                            "value": 14
-                        },
-                        {
-                            "end": 5.5,
-                            "start": 5,
-                            "value": 16
-                        },
-                        {
-                            "end": 6.5,
-                            "start": 6,
-                            "value": 18
-                        },
-                        {
-                            "start": 7,
-                            "value": 20
-                        }
-                    ],
-                    "field": "system.abilities.cha.mod"
-                }
+                "value": "ternary(gte(@actor.system.abilities.cha.mod,7),20,ternary(gte(@actor.system.abilities.cha.mod,6),18,ternary(gte(@actor.system.abilities.cha.mod,5),16,ternary(gte(@actor.system.abilities.cha.mod,4),14,12))))"
             }
         ],
         "traits": {
