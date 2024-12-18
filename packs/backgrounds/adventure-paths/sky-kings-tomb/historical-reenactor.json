@@ -1,0 +1,80 @@
+{
+    "_id": "2zYdTia5t7w6J2ey",
+    "folder": "VU1vkm9fUFmtzF2X",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Historical Reenactor",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "cha",
+                    "str"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>To Clan Tolorr, history shouldn't be dry and boring; it deserves to be engaging and made relevant to the living. You couldn't agree more! Whether it's your hobby or career, you've developed a reputation for translating the past into the present through demonstrations, period performances, acting out famous events, donning replica armor, and other feats of living history—filling in a few historical blanks if it makes a better show. Having learned of your passion, Clan Tolorr has sponsored your visit to Highhelm so that you can learn from each other. It's a wonderful opportunity, and Tolorr puppetry arts, storytelling, props, and historical rigor are the stuff of legends. Already, you've begun researching dwarven history so that you're prepared for whatever lies ahead.</p>\n<p>Choose two attribute boosts. One must be to <strong>Strength</strong> or <strong>Charisma</strong>, and one is a free attribute boost.</p>\n<p>You're trained in either the Performance skill or the Society skill, and you're trained in the Dwarf Lore skill. If you selected Performance, you gain the @UUID[Compendium.pf2e.feats-srd.Item.Impressive Performance] skill feat. If you chose Society, you gain the @UUID[Compendium.pf2e.feats-srd.Item.Dubious Knowledge] skill feat.</p>\n<p><strong>Connection:</strong> Bulgra Veldollow, a matriarch in Clan Tolorr and accomplished puppeteer</p>\n<p><strong>Reputation Points:</strong> +0</p>"
+        },
+        "items": {},
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Sky King's Tomb Player's Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Performance",
+                        "value": {
+                            "feat": "Compendium.pf2e.feats-srd.Item.Impressive Performance",
+                            "skill": "performance"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Skill.Society",
+                        "value": {
+                            "feat": "Compendium.pf2e.feats-srd.Item.Dubious Knowledge",
+                            "skill": "society"
+                        }
+                    }
+                ],
+                "flag": "historicalReenactor",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.historicalReenactor.skill}.rank",
+                "value": 1
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.historicalReenactor.feat}"
+            }
+        ],
+        "trainedSkills": {
+            "lore": [
+                "Dwarf Lore"
+            ],
+            "value": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "background"
+}
