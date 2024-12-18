@@ -1,0 +1,66 @@
+{
+    "_id": "PYyJjl5EEXs0IswY",
+    "img": "icons/skills/targeting/crosshair-triple-strike-orange.webp",
+    "name": "Effect: Hunt the Razer's Pawn",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +2 circumstance bonus to Perception checks to Seek or Sense the Motive of the marked creature. This creature takes a –1 circumstance penalty to saving throws against spells or effects you create. This penalty increases to –2 against effects that have the holy trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Spore War Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "hunt-the-razers-pawn"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:hunt-the-razers-pawn",
+                    {
+                        "or": [
+                            "action:seek",
+                            "action:sense-motive"
+                        ]
+                    }
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "target:mark:hunt-the-razers-pawn"
+                ],
+                "selectors": [
+                    "saving-throw"
+                ],
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Hunt the Razer's Pawn (Ephemeral)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
