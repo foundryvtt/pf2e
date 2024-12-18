@@ -32,7 +32,27 @@
             "remaster": true,
             "title": "Pathfinder Howl of the Wild"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "take-flight",
+                "predicate": [
+                    {
+                        "not": "feat:full-flight"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "take-flight"
+                ],
+                "selector": "fly",
+                "value": 15
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
