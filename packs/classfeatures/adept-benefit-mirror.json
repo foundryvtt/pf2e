@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>Your mirror self shatters into punishing shards when damaged. While Mirror's Reflection is in effect, when an enemy adjacent to one of your spaces damages you, that version of you explodes into mirror shards. This ends Mirror's Reflection (establishing the remaining version of you as the real one) and deals slashing damage to all creatures in a @Template[emanation|distance:5] around where your mirror self was. The damage is equal to 2 + half your level or the damage of the triggering attack, whichever is lower. You're immune to this damage.</p>"
+            "value": "<p>Your mirror self shatters into punishing shards when damaged. While Mirror's Reflection is in effect, when an enemy adjacent to one of your spaces damages you, that version of you explodes into mirror shards. This ends Mirror's Reflection (establishing the remaining version of you as the real one) and deals slashing damage to all creatures in a @Template[emanation|distance:5] around where your mirror self was. The damage is equal to @Damage[(2 + floor(@actor.level / 2))[slashing]|options:area-damage]{2 + half your level} or the damage of the triggering attack, whichever is lower. You're immune to this damage.</p>"
         },
         "level": {
             "value": 7
