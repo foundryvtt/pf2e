@@ -26,21 +26,6 @@
                 "choices": [
                     {
                         "label": "PF2E.TraitChaotic",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "deity:primary:alignment:cn",
-                                    "deity:primary:alignment:cg",
-                                    "deity:primary:alignment:ce",
-                                    {
-                                        "and": [
-                                            "self:type:npc",
-                                            "self:trait:chaotic"
-                                        ]
-                                    }
-                                ]
-                            }
-                        ],
                         "value": {
                             "chosen": "chaotic",
                             "opposite": "lawful"
@@ -48,21 +33,6 @@
                     },
                     {
                         "label": "PF2E.TraitEvil",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "deity:primary:alignment:ce",
-                                    "deity:primary:alignment:ne",
-                                    "deity:primary:alignment:le",
-                                    {
-                                        "and": [
-                                            "self:type:npc",
-                                            "self:trait:evil"
-                                        ]
-                                    }
-                                ]
-                            }
-                        ],
                         "value": {
                             "chosen": "evil",
                             "opposite": "good"
@@ -70,21 +40,6 @@
                     },
                     {
                         "label": "PF2E.TraitGood",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "deity:primary:alignment:cg",
-                                    "deity:primary:alignment:ng",
-                                    "deity:primary:alignment:lg",
-                                    {
-                                        "and": [
-                                            "self:type:npc",
-                                            "self:trait:good"
-                                        ]
-                                    }
-                                ]
-                            }
-                        ],
                         "value": {
                             "chosen": "good",
                             "opposite": "evil"
@@ -92,21 +47,6 @@
                     },
                     {
                         "label": "PF2E.TraitLawful",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "deity:primary:alignment:le",
-                                    "deity:primary:alignment:ln",
-                                    "deity:primary:alignment:lg",
-                                    {
-                                        "and": [
-                                            "self:type:npc",
-                                            "self:trait:lawful"
-                                        ]
-                                    }
-                                ]
-                            }
-                        ],
                         "value": {
                             "chosen": "lawful",
                             "opposite": "chaotic"
@@ -115,21 +55,6 @@
                 ],
                 "flag": "alignment",
                 "key": "ChoiceSet",
-                "predicate": [
-                    {
-                        "or": [
-                            {
-                                "and": [
-                                    {
-                                        "not": "deity:primary:alignment:n"
-                                    },
-                                    "deity"
-                                ]
-                            },
-                            "self:type:npc"
-                        ]
-                    }
-                ],
                 "prompt": "PF2E.SpecificRule.Prompt.Alignment"
             },
             {
