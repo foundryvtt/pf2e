@@ -44,24 +44,24 @@
         <header>{game.i18n.format("PF2E.LevelN", { level: section.level })}</header>
         <ol class="items-list">
             {#each section.formulas as formula (formula.item.id)}
-                <li class="item">
+                <li class="item" class:selected={formula.selected}>
                     <HoverIconButton
                         class="item-image"
                         src={formula.item.img}
                         icon="fa-solid fa-message"
                         onclick={(event) => sendItemToChat(formula.item.uuid, { event, actor })}
                     />
-                    <div
-                        role="none"
-                        class="name"
+                    <button
+                        class="name flat"
                         data-rarity={formula.item.rarity}
                         onclick={() => (openStates[formula.item.uuid] = !openStates[formula.item.uuid])}
                     >
                         <span>{formula.item.name}</span>
                         <ItemTraits traits={formula.item.traits} rarity={formula.item.rarity} />
-                    </div>
+                    </button>
                     <button
-                        class:bright={formula.selected}
+                        class="select"
+                        class:selected={formula.selected}
                         onclick={() => (formula.selected ? onDeselect(formula.item.uuid) : onSelect(formula.item.uuid))}
                         aria-labelledby="tooltip"
                         data-tooltip={formula.selected ? "Cancel" : "Confirm"}
@@ -126,6 +126,10 @@
         padding: var(--space-4) 0;
         margin: 0;
 
+        &.selected .name > span {
+            font-style: italic;
+        }
+
         > :global(.item-image) {
             --image-size: 2.125rem;
             margin-right: var(--space-4);
@@ -150,19 +154,26 @@
             }
         }
 
-        > button {
+        > button.select {
             width: 1.75rem;
             height: 1.75rem;
             margin-top: var(--space-4);
+            transition: all 0.25s ease-in-out;
+
             i {
                 margin: 0;
             }
 
-            /** Style as a remove button if mousing over an active one */
-            &.bright:hover {
-                background-color: var(--color-level-error);
-                i::before {
-                    content: "\f00d";
+            &.selected {
+                --button-background-color: var(--color-warm-1);
+                --button-border-color: var(--color-cool-5);
+                --button-text-color: var(--color-cool-5);
+                /** Style as a remove button if mousing over an active one */
+                &:hover {
+                    background-color: var(--color-level-error);
+                    i::before {
+                        content: "\f00d";
+                    }
                 }
             }
         }
