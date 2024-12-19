@@ -4,7 +4,7 @@ import { TokenAuraData } from "@scene/token-document/aura/index.ts";
 import { isVideoFilePath } from "@util";
 import type { EffectAreaSquare } from "../../effect-area-square.ts";
 import type { TokenPF2e } from "../index.ts";
-import { getAreaSquares } from "./util.ts";
+import { getAreaSquares, getAuraRestrictionType } from "./util.ts";
 
 /** Visual rendering of auras emanated by a token's actor */
 class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
@@ -32,6 +32,12 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
 
     textureContainer: PIXI.Graphics | null = null;
 
+    /** An optional set of predefined polygons used to test square inclusion */
+    polygons?: ClockwiseSweepPolygon[];
+
+    /** The wall restriction type used for this aura */
+    restrictionType: Exclude<WallRestrictionType, "light">;
+
     constructor(params: AuraRendererParams) {
         super();
 
@@ -42,6 +48,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         this.radiusPixels =
             0.5 * this.token.mechanicalBounds.width + (this.radius / canvas.dimensions.distance) * canvas.grid.size;
         this.traits = params.traits;
+        this.restrictionType = getAuraRestrictionType(this);
         this.addChild(this.border);
     }
 
