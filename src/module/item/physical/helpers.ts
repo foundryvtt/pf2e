@@ -9,7 +9,7 @@ import { ErrorPF2e, createHTMLElement, localizer } from "@util";
 import * as R from "remeda";
 import { Bulk, STACK_DEFINITIONS } from "./bulk.ts";
 import { CoinsPF2e } from "./coins.ts";
-import { BulkData } from "./data.ts";
+import { BulkData, EquippedData } from "./data.ts";
 import { getMaterialValuationData } from "./materials.ts";
 import { RUNE_DATA, getRuneValuationData } from "./runes.ts";
 
@@ -267,12 +267,23 @@ function sizeItemForActor<TItem extends PhysicalItemPF2e>(item: TItem, actor: Ac
     return itemSize === "med" ? item.clone() : item.clone({ system: { size: itemSize, price: { sizeSensitive } } });
 }
 
+/** Returns the default equip status for this item, called in order to "reset" the equip status */
+function getDefaultEquipStatus(item: PhysicalItemPF2e): EquippedData {
+    const equipStatus: EquippedData = { carryType: "worn" };
+    const isSlottedItem = item.system.usage.type === "worn" && !!item.system.usage.where;
+    if (isSlottedItem && item.actor?.isOfType("character")) {
+        equipStatus.inSlot = false;
+    }
+    return equipStatus;
+}
+
 export { coinCompendiumIds } from "./coins.ts";
 export {
     CoinsPF2e,
     computeLevelRarityPrice,
     detachSubitem,
     generateItemName,
+    getDefaultEquipStatus,
     handleHPChange,
     prepareBulkData,
     sizeItemForActor,

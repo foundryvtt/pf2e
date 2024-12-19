@@ -246,7 +246,7 @@ class CraftingAbility implements CraftingAbilityData {
 
     async craft(
         itemOrUUIDOrIndex: PhysicalItemPF2e | ItemUUID | number,
-        { consume = true }: { consume?: boolean } = {},
+        { consume = true, destination }: CraftParameters = {},
     ): Promise<PhysicalItemPF2e | null> {
         // Resolve item and possible index from the given parameter. If an index is given, its a prepared formula
         const preparedFormulas = await this.getPreparedCraftingFormulas();
@@ -308,6 +308,9 @@ class CraftingAbility implements CraftingAbilityData {
         if (item.isAlchemical && itemIsOfType(itemSource, "consumable", "equipment", "weapon")) {
             itemSource.system.traits.value.push("infused");
             itemSource.system.traits.value.sort(); // required for stack matching
+        }
+        if (destination === "hand") {
+            itemSource.system.equipped = { carryType: "held", handsHeld: 1 };
         }
 
         // Create the item or update an existing one, then return it
@@ -403,6 +406,13 @@ interface DailyCraftingResult {
     resource: { slug: string; cost: number } | null;
     /** True if this item is internally insufficient. It does not compare with other crafting abilties */
     insufficient: boolean;
+}
+
+interface CraftParameters {
+    /** If set to true, will craft by consuming the required resource */
+    consume?: boolean;
+    /* The destination to place the newly created item. */
+    destination?: "hand";
 }
 
 export { CraftingAbility };
