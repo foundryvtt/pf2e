@@ -9,6 +9,7 @@ import {
 } from "@actor/modifiers.ts";
 import { ItemPF2e } from "@item";
 import { ConditionSource, EffectSource, ItemSourcePF2e } from "@item/base/data/index.ts";
+import { PickableThing } from "@module/apps/pick-a-thing-prompt.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { BaseDamageData } from "@system/damage/index.ts";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
@@ -241,6 +242,31 @@ function createBatchRuleElementUpdate(
     return itemUpdates;
 }
 
+function processChoicesFromData(data: unknown): PickableThing<string>[] {
+    if (Array.isArray(data)) {
+        if (!data.every((c) => R.isPlainObject(c) && typeof c.value === "string")) {
+            return [];
+        }
+
+        return data;
+    }
+
+    // If this is an object with all string values or all string labels, optionally run the top level filter predicate
+    if (R.isObjectType(data)) {
+        const entries = Object.entries(data);
+        if (!entries.every(([_, c]) => typeof (R.isPlainObject(c) ? c.label : c) === "string")) {
+            return [];
+        }
+
+        return entries.map(([key, entryValue]) => {
+            const choice = typeof entryValue === "string" ? { label: entryValue } : entryValue;
+            return { ...choice, label: String(choice.label), value: key };
+        });
+    }
+
+    return [];
+}
+
 export {
     createBatchRuleElementUpdate,
     extractDamageAlterations,
@@ -253,6 +279,7 @@ export {
     extractRollSubstitutions,
     extractRollTwice,
     isBracketedValue,
+    processChoicesFromData,
     processDamageCategoryStacking,
     processPreUpdateActorHooks,
 };
