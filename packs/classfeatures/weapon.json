@@ -27,11 +27,23 @@
         "rules": [
             {
                 "adjustName": false,
+                "allowedDrops": {
+                    "label": "PF2E.SpecificRule.AllowedDrops.OneHandedWeapon",
+                    "predicate": [
+                        "item:usage:hands:1",
+                        {
+                            "not": "item:trait:consumable"
+                        }
+                    ]
+                },
                 "choices": {
                     "filter": [
                         "item:usage:hands:1",
                         {
-                            "not": "item:trait:consumable"
+                            "nor": [
+                                "item:magical",
+                                "item:trait:consumable"
+                            ]
                         }
                     ],
                     "itemType": "weapon"
