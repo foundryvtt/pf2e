@@ -35,40 +35,18 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "vs. death and void (Ka stone)",
+                "label": "PF2E.SpecificRule.Equipment.KaStone",
                 "predicate": [
                     {
                         "or": [
-                            "death",
-                            "void"
+                            "item:trait:death",
+                            "item:trait:void"
                         ]
                     }
                 ],
                 "selector": "saving-throw",
                 "type": "item",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 7,
-                            "start": 1,
-                            "value": 1
-                        },
-                        {
-                            "end": 13,
-                            "start": 8,
-                            "value": 2
-                        },
-                        {
-                            "end": 19,
-                            "start": 14,
-                            "value": 3
-                        },
-                        {
-                            "start": 20,
-                            "value": 4
-                        }
-                    ]
-                }
+                "value": "ternary(gte(@actor.level,20),4,ternary(gte(@actor.level,14),3, ternary(gte(@actor.level,8),2,1)))"
             }
         ],
         "size": "med",
