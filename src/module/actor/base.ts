@@ -21,6 +21,7 @@ import type { EffectFlags, EffectSource } from "@item/effect/data.ts";
 import { createDisintegrateEffect } from "@item/effect/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { CoinsPF2e } from "@item/physical/coins.ts";
+import { getDefaultEquipStatus } from "@item/physical/helpers.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
@@ -1568,11 +1569,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         const newItemData = item.toObject();
         newItemData.system.quantity = quantity;
-        newItemData.system.equipped.carryType = "worn";
-        if ("invested" in newItemData.system.equipped) {
-            newItemData.system.equipped.invested = item.traits.has("invested") ? false : null;
-        }
-
+        newItemData.system.equipped = getDefaultEquipStatus(item);
         return targetActor.addToInventory(newItemData, container, newStack);
     }
 

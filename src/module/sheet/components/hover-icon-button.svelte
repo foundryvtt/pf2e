@@ -15,7 +15,8 @@
 </button>
 
 <style>
-    button {
+    /** Increase specificity until layer support */
+    button.flat {
         --image-size: 2rem;
 
         position: relative;
