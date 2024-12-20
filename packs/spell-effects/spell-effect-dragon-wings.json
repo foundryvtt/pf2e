@@ -1,10 +1,10 @@
 {
-    "_id": "V7jAnItnVqtfCAKt",
+    "_id": "jy4edd6pvJvJgOSP",
     "img": "icons/creatures/abilities/wing-batlike-red-pink.webp",
-    "name": "Spell Effect: Dragon Wings (60 Feet)",
+    "name": "Spell Effect: Dragon Wings",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Dragon Wings]</p>\n<p>You gain a 60 foot fly Speed.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Dragon Wings]</p>\n<p>You gain a fly Speed equal to your Speed or 60 feet, whichever is greater.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -24,7 +24,7 @@
             {
                 "key": "BaseSpeed",
                 "selector": "fly",
-                "value": 60
+                "value": "max(60,@actor.attributes.speed.total)"
             }
         ],
         "start": {
