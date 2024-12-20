@@ -1,3 +1,120 @@
+## 6.8.0
+
+### Highlights
+
+-   (Supe, Rigo) Update Alchemist to remaster rules. You'll need to drag the class in again for the new version.
+-   (In3luki) Convert CompendiumBrowser to ApplicationV2 and a new rendering framework for better performance
+-   (Rigo) Add basic support for physical implement items for Thaumaturge. Due to a current limitation, if rebuilt from level 0, advancement should be done in steps: from level 0 to 5, from 5 to 15, and from 15 to 20, as certain selections need to be made to inform future ones.
+
+### System Improvements
+
+-   (ceejii) Show skill replacements before medicine in treat wounds dialog
+-   (In3luki) Load all available compendium packs by default in the Compendium Browser
+-   (stwlam) Exclude already-possessed heritages in heritage choice sets
+-   (Supe) Add formula picker to prepared crafting abilities such as advanced alchemy
+-   (Supe) Add search filter to inventory and adjust invested styling
+-   (Supe) Bind newly created item macros to the actor that owns that item for linked actors
+-   (Supe) Show common language first in party sheet
+-   (Supe) Support updating the quantity of individual items in prepared crafting abilities such as Advanced Alchemy
+-   (Supe) Update design of known formulas in the crafting tab
+
+### Bugfixes
+
+-   (Codas, stwlam) Fix memory leaks present in many sheets
+-   (Supe) Fix chat token images blocking saves posted to chat
+-   (Supe) Fix transfer quantities of 4 digits or more overflowing in the transfer item dialog
+
+### Data Updates
+
+-   (Ambrose, Rigo, Tikael) Incorporate Fall 2024 Errata
+-   (7H3LaughingMan) Talon Stance now uses Talon image
+-   (Abaddon) Add prerequisites to harrower feats
+-   (Abaddon) Fix waterlogged source
+-   (Alexander Youngblood) Include applicable bonuses and penalties in battle form unarmed modifier comparison
+-   (Ambrose) Add automation to Lighter than Air Oracle feat
+-   (Ambrose) Add Howl of the Wild feats to Beastmaster Dedication Journal entry
+-   (Ambrose) Add Infectious Melody spell effect variants
+-   (Ambrose) Add localized notes to Wild Witch's Armaments feat
+-   (Ambrose) Add note item alteration to Uplifting Winds druid feat
+-   (Ambrose) Brush up additional Spell Effect descriptions
+-   (Ambrose) Condense Animal Swiftness, Clay Sphere, Desolation Locket, Dragon's Blood Pudding, Dragon Turtle Scale, Exsanguinating Ammunition, Flaming Star, Ghost Planchette, and Mantle of the Frozen Heart spell effects
+-   (Ambrose) Correct Spirit Striking localization in Exemplar Class journal entry
+-   (Ambrose) Correct Talos Gadgeteer's gadget inventory selection
+-   (Ambrose) Localize Magical Fortitude class feature text and update description text for Arcane Thesis and Mystery class features
+-   (Ambrose) Redirect Aphorite and Ganzi versatile heritages to Nephilim
+-   (Ambrose) Remove effects from Eye of the Unseen
+-   (Ambrose) Update automation for Ancestry flight-granting feats
+-   (Ambrose) Update Domains journals and add Oracle Mysteries
+-   (Ambrose) Update Gale Blast heightening to match Player Core 2
+-   (Ambrose) Update multiple archetype journal entries and add more embeds
+-   (Ambrose) Update multiple deities and their descriptions
+-   (Ambrose) Update multiple Spell Effect descriptions
+-   (Ambrose) Update rule elements on Ka Stone and Expeditious Advance
+-   (Anase Skyrider) Correct Greatpick and Pilgrim's Token price
+-   (CaptainWonders) Fix Kashrishi climbing feats
+-   (Dire Weasel) Add damage to Gust of Wind
+-   (Dire Weasel) Add inline links to Cat's Eye Elixir
+-   (Dire Weasel) Convert UUIDs for deity spells
+-   (Dire Weasel) Fix action cost of Steal Face
+-   (Dire Weasel) Fix description formatting for Shadow Leap
+-   (Dire Weasel) Refresh copies of Black Tentacles
+-   (Dire Weasel) Update automation of SoG Pilgrimage Gifts
+-   (Dire Weasel) Update automation of Werecreature, Wild Mimic, and Zephyr Guard archetypes
+-   (Intervencion) Fix typo on Rhysaphin's Greater Flameheart Weapon
+-   (kromko) Fix Sublime Breath Feigned Strike strike name
+-   (kromko) Fix Wisp Chain variants descriptions
+-   (kromko) Make alternate mythic rules tier label localizable
+-   (kromko) Remove trailing whitespace in many pack entries
+-   (kromko) Rename Hellknight Signifier to Signifer in feat prerequisites
+-   (kromko) Replace Blast Resistance Note RE with DoS adjustment, Remove Tide Hardened Note RE
+-   (Manuel Hegner) Alter versatile vial traits with bomber class feature
+-   (Manuel Hegner) Fix pillow shield ac bonus
+-   (Marius) Update Fresh Ingredients feat
+-   (rectulo) Fix librarian staff greater description
+-   (reyzor1991) Add Left-Hand Blood Effect
+-   (Rigo) Add alchemical tool and alchemical food consumable tags
+-   (Rigo) Add alternate amp and effect for Mind's Light Circlet
+-   (Rigo) Add area heightening to Thunderburst
+-   (Rigo) Add automation for multiple thaumaturge implements
+-   (Rigo) Add condition links to Curse of Turbulent Moments
+-   (Rigo) Add crane wing attack penalty to Crane Flutter
+-   (Rigo) Add effect for Extra Alchemy familiar ability
+-   (Rigo) Add effect for Instructive Strike and automate Implement's Flight
+-   (Rigo) Add effects for Manifest Will and Multifaceted Will
+-   (Rigo) Add Ephemeral Effect for Disarm's bonus to further attempts
+-   (Rigo) Add implement benefits as separate class features
+-   (Rigo) Add missing roll option to Skybearer's Belt and Twin Star's predicates
+-   (Rigo) Add spell effect for Swear Oath
+-   (Rigo) Allow 3rd rank revelation spells to be chosen for Diverse Mystery
+-   (Rigo) Allow Class Might effect to select any attribute
+-   (Rigo) Automate Alchemical Sciences Investigator alchemy and tag alchemical tools
+-   (Rigo) Automate several mythic destiny feats
+-   (Rigo) Automate several Wandering Chef feats including quick and advanced alchemy
+-   (Rigo) Grant implement with Thaumaturge Dedication
+-   (Rigo) Hide disabled Bloody Debilitation dice in Debilitating Strike feature
+-   (Rigo) Implement natural 19 DoS adjustments on some monsters
+-   (Rigo) Move Quick-Tempered effects to its Note
+-   (Rigo) Move versatile vials scaling to physical item rather than the feature
+-   (Rigo) Remove unlocalised label from Furious Footfalls
+-   (Rigo) Replace brackets with ternaries from several spell effects
+-   (Rigo) Use AdjustDegreeOfSuccess rule element on Ageless Patience and localize its Note
+-   (Rigo) Use origin level instead of actor level on Cringe's effect
+-   (Tikael) Add content from Spore War Player's Guide
+-   (Tikael) Add missing PFS 6 Quests folder
+-   (Tikael) Add wilderness label for Fresh Ingredients
+-   (Tikael) Fix Divine Vessel spell effects
+-   (Tikael) Make Biographical Eye inline immutable
+-   (TMun) Add NPCs from PFS Quest 20, 21, and 22 actors
+
+### Under the Hood
+
+-   (Supe) Add description for damage and modifier roll options in the roll inspector
+-   (Supe) Add support for aura effect resolvables and parent options
+-   (Supe) Show post roll options in the roll inspector
+-   (Supe) Show selectors when inspecting damage taken messages
+-   (Supe) Support ephemeral effects for most checks
+-   (Supe) Support uuid when using game.pf2e.rollItemMacro()
+
 ## 6.7.2
 
 ### System Improvements
