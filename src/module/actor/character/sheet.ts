@@ -1041,17 +1041,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             // Handle ability crafting first if we're crafting for an ability
             const ability = this.actor.crafting.abilities.get(row.dataset.ability ?? "");
             if (ability) {
-                const craftParam = await (async () => {
-                    if (ability.isPrepared) return row.dataset.itemIndex ? Number(row.dataset.itemIndex) : null;
-
-                    if (ability.resource) {
-                        const picker = new FormulaPicker({ actor: this.actor, ability });
-                        return await picker.resolveSelection();
-                    }
-
-                    return null;
-                })();
-
+                const craftParam = ability.isPrepared && row.dataset.itemIndex ? Number(row.dataset.itemIndex) : null;
                 const consume = !ability.resource || !!this.actor.getResource(ability.resource)?.value;
                 const item = craftParam !== null ? await ability.craft(craftParam, { consume }) : null;
                 if (item) {

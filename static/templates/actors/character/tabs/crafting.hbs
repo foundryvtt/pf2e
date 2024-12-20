@@ -10,29 +10,6 @@
         </div>
     {{/if}}
     <ol class="directory-list item-list crafting-entry-list">
-        {{#each crafting.abilities.spontaneous as |ability i|}}
-            <li class="crafting-entry formula-header spontaneous" data-ability="{{ability.slug}}">
-                <div class="name">
-                    {{ability.label}}
-                </div>
-                <div class="resource">
-                    <span>{{localize resource.label}}:</span>
-                    <input
-                        class="formula-number"
-                        type="number"
-                        data-action="adjust-resource"
-                        data-resource="{{resource.slug}}"
-                        value="{{resource.value}}"
-                        placeholder="0"
-                    />
-                    <span>/</span>
-                    <div class="formula-number">
-                        {{resource.max}}
-                    </div>
-                </div>
-                <button type="button" class="blue" data-action="craft-item"><i class="fa-solid fa-hammer"></i> Craft</button>
-            </li>
-        {{/each}}
         {{#if crafting.abilities.alchemical.entries}}
             <li class="crafting-entry item-container" data-container-type="craftingEntryGroup">
                 <div class="action-header">{{localize "PF2E.CraftingTab.Alchemical.AdvancedAlchemy"}}</div>
