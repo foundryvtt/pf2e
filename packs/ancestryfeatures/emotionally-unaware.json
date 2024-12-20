@@ -27,19 +27,20 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Emotionally Unaware (to Sense Motive)",
                 "predicate": [
-                    "action:sense-motive"
+                    {
+                        "or": [
+                            {
+                                "not": "check:statistic:perception"
+                            },
+                            "action:sense-motive"
+                        ]
+                    }
                 ],
-                "selector": "perception",
-                "type": "circumstance",
-                "value": -1
-            },
-            {
-                "key": "FlatModifier",
                 "selector": [
                     "diplomacy",
-                    "performance"
+                    "performance",
+                    "perception"
                 ],
                 "type": "circumstance",
                 "value": -1
