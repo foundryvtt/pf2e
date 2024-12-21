@@ -161,7 +161,7 @@
                         <button type="button" class="craft blue" data-action="craft-item">
                             {{#if @root.actor.flags.pf2e.freeCrafting}}
                                 <i class="fa-solid fa-plus"></i>
-                                Create
+                                {{localize "PF2E.Actor.Character.Crafting.Create"}}
                             {{else}}
                                 <i class="fa-solid fa-hammer"></i>
                                 {{localize "PF2E.CraftItemTitle"}}
@@ -251,12 +251,14 @@
                         data-tooltip="PF2E.CraftingTab.Alchemical.ToggleSignatureItem"
                     ><i class="fa-{{#if formula.isSignatureItem}}solid{{else}}regular{{/if}} fa-star"></i></a>
                 {{else if ability.isPrepared}}
-                    <a
-                        data-action="craft-item"
-                        data-free="true"
-                        data-prepared="true"
-                        data-tooltip="PF2E.CraftItemTitle"
-                    ><i class="fa-solid fa-hammer"></i></a>
+                    {{#unless formula.expended}}
+                        <a
+                            data-action="craft-item"
+                            data-free="true"
+                            data-prepared="true"
+                            data-tooltip="PF2E.CraftItemTitle"
+                        ><i class="fa-solid fa-hammer"></i></a>
+                    {{/unless}}
                     <a
                         data-action="toggle-formula-expended"
                         data-tooltip="PF2E.CraftingTab.ExpendFormula"
