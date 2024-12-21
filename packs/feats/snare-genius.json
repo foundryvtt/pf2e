@@ -36,36 +36,10 @@
                 "craftableItems": [
                     "item:trait:snare"
                 ],
-                "isDailyPrep": false,
                 "isPrepared": true,
                 "key": "CraftingAbility",
-                "label": "Snare Crafting",
-                "slug": "snare-crafting"
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "add",
-                "path": "system.crafting.entries.snareCrafting.maxSlots",
-                "phase": "beforeDerived",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 2,
-                            "start": 2,
-                            "value": 3
-                        },
-                        {
-                            "end": 3,
-                            "start": 3,
-                            "value": 4
-                        },
-                        {
-                            "start": 4,
-                            "value": 5
-                        }
-                    ],
-                    "field": "actor|system.skills.crafting.rank"
-                }
+                "maxSlots": "1 + @actor.system.skills.crafting.rank",
+                "slug": "snare-genius"
             }
         ],
         "traits": {
