@@ -1,10 +1,10 @@
 {
-    "_id": "nQ6vM1CRLyvQdGLG",
+    "_id": "NPeuNp3C6Wq94Oub",
     "img": "systems/pf2e/icons/equipment/other/spellhearts/five-feather-wreath.webp",
-    "name": "Effect: Five-Feather Wreath - Armor",
+    "name": "Effect: Five-Feather Wreath - Weapon",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Five-Feather Wreath], @UUID[Compendium.pf2e.equipment-srd.Item.Five-Feather Wreath (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Five-Feather Wreath (Major)]</p>\n<p>You gain an item bonus to Acrobatics checks.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Five-Feather Wreath], @UUID[Compendium.pf2e.equipment-srd.Item.Five-Feather Wreath (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Five-Feather Wreath (Major)]</p>\n<p>You can Fly 5 feet as a single action, or you can Fly a number of feet as a free action if the spell you cast wasn't a cantrip. This must be your next action, and if you don't have a fly Speed, you must end the flight on solid ground or fall.</p>"
         },
         "duration": {
             "expiry": null,
@@ -18,7 +18,7 @@
         "publication": {
             "license": "OGL",
             "remaster": false,
-            "title": "Pathfinder Secrets of Magic"
+            "title": ""
         },
         "rules": [
             {
@@ -69,21 +69,64 @@
                 "rollOption": "five-feather-wreath"
             },
             {
-                "key": "FlatModifier",
-                "selector": "acrobatics",
-                "slug": "five-feather-wreath-bonus",
-                "type": "item",
-                "value": 1
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "five-feather-wreath:five-feather-wreath",
+                    {
+                        "nor": [
+                            "item:type:cantrip",
+                            "cantrip"
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellheart.FiveFeatherWreath.Weapon.Note"
+                    }
+                ]
             },
             {
-                "key": "AdjustModifier",
-                "mode": "upgrade",
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
                 "predicate": [
-                    "five-feather-wreath:five-feather-wreath-major"
+                    "five-feather-wreath:five-feather-wreath-greater",
+                    {
+                        "nor": [
+                            "item:type:cantrip",
+                            "cantrip"
+                        ]
+                    }
                 ],
-                "selector": "acrobatics",
-                "slug": "five-feather-wreath-bonus",
-                "value": 2
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellheart.FiveFeatherWreath.Weapon.Greater"
+                    }
+                ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "five-feather-wreath:five-feather-wreath-major",
+                    {
+                        "nor": [
+                            "item:type:cantrip",
+                            "cantrip"
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "F2E.SpecificRule.Spellheart.FiveFeatherWreath.Weapon.Major"
+                    }
+                ]
             }
         ],
         "start": {
@@ -94,7 +137,6 @@
             "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },
