@@ -24,7 +24,36 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Ancestry Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "change-shape:hybrid"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "change-shape:hybrid"
+                ],
+                "reach": {
+                    "override": 10
+                },
+                "resizeEquipment": true,
+                "value": "large"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "change-shape:hybrid"
+                ],
+                "selector": "melee-strike-damage",
+                "type": "status",
+                "value": 2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
