@@ -62,7 +62,7 @@ import { IdentifyItemPopup } from "./popups/identify-popup.ts";
 import { ItemTransferDialog } from "./popups/item-transfer-dialog.ts";
 import { IWREditor } from "./popups/iwr-editor.ts";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup.ts";
-import {iterateAllItems} from "@actor/helpers.js";
+import { iterateAllItems } from "@actor/helpers.js";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -70,7 +70,6 @@ import {iterateAllItems} from "@actor/helpers.js";
  * @category Actor
  */
 abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
-
     #inventorySearchEngine = new MiniSearch<Pick<PhysicalItemPF2e<TActor>, "id" | "name">>({
         fields: ["name"],
         idField: "id",
