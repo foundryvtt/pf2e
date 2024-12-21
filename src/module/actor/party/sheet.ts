@@ -1,12 +1,12 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
 import { HitPointsSummary } from "@actor/base.ts";
 import { Language, ResourceData } from "@actor/creature/index.ts";
-import { isReallyPC } from "@actor/helpers.ts";
+import { isReallyPC, iterateAllItems } from "@actor/helpers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
-import { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e } from "@actor/sheet/data-types.ts";
+import { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e, SheetInventory } from "@actor/sheet/data-types.ts";
 import { condenseSenses } from "@actor/sheet/helpers.ts";
 import { DistributeCoinsPopup } from "@actor/sheet/popups/distribute-coins-popup.ts";
-import { ItemPF2e } from "@item";
+import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { Bulk } from "@item/physical/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
@@ -17,6 +17,7 @@ import { SocketMessage } from "@scripts/socket.ts";
 import { SettingsMenuOptions } from "@system/settings/menu.ts";
 import { createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, signedInteger } from "@util";
 import { createTooltipster } from "@util/destroyables.ts";
+import MiniSearch from "minisearch";
 import * as R from "remeda";
 import { PartyPF2e } from "./document.ts";
 
@@ -26,6 +27,13 @@ interface PartySheetRenderOptions extends ActorSheetRenderOptionsPF2e {
 
 class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     currentSummaryView = "languages";
+
+    #inventorySearchEngine = new MiniSearch<Pick<PhysicalItemPF2e<PartyPF2e>, "id" | "name">>({
+        fields: ["name"],
+        idField: "id",
+        processTerm: (t) => (t.length > 1 ? t.toLocaleLowerCase(game.i18n.lang) : null),
+        searchOptions: { combineWith: "AND", prefix: true },
+    });
 
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
@@ -37,6 +45,9 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             height: 720,
             template: "systems/pf2e/templates/actors/party/sheet.hbs",
             scrollY: [...options.scrollY, ".tab.active", ".tab.active .content", ".sidebar"],
+            filters: [
+                { inputSelector: "[data-tab=inventory] input[type=search]", contentSelector: "section.inventory-list" },
+            ],
             tabs: [
                 {
                     navSelector: "form > nav",
@@ -417,6 +428,12 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         htmlQuery(html, "[data-action=prompt]")?.addEventListener("click", () => {
             game.pf2e.gm.checkPrompt({ actors: this.actor.members });
         });
+
+        // Work around search filter flashing on re-render
+        for (const filter of this._searchFilters) {
+            const rgx = new RegExp(RegExp.escape(filter.query), "i");
+            this._onSearchFilter(new KeyboardEvent("input"), filter.query, rgx, filter._content);
+        }
     }
 
     /** Overriden to prevent inclusion of campaign-only item types. Those should get added to their own sheet */
@@ -459,6 +476,57 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
     /** Override to not auto-disable fields on a thing meant to be used by players */
     protected override _disableFields(_form: HTMLElement): void {}
+
+    protected override _onSearchFilter(
+        event: KeyboardEvent,
+        query: string,
+        rgx: RegExp,
+        html: HTMLElement | null,
+    ): void {
+        super._onSearchFilter(event, query, rgx, html);
+
+        // Gets all parents, including containers and parent items
+        const getAllParents = (item: PhysicalItemPF2e): PhysicalItemPF2e[] => {
+            const parents = [item.container, item.parentItem].filter((i): i is PhysicalItemPF2e => !!i);
+            return [...parents, ...parents.flatMap((p) => getAllParents(p))];
+        };
+
+        // Gets all children, including container contents and sub items
+        const getAllChildren = (item: PhysicalItemPF2e): PhysicalItemPF2e[] => {
+            const contents = [...(item.isOfType("backpack") ? item.contents : []), ...item.subitems];
+            return [...contents, ...contents.flatMap((c) => getAllChildren(c))];
+        };
+
+        const matches = (() => {
+            // If inventory, also include all parents and all children in result set. Due to subitems, we can't use actor.items
+            if (html?.classList.contains("inventory-list") && query.length > 1) {
+                const baseMatches = this.#inventorySearchEngine.search(query).map((s) => String(s.id));
+                const allItems = [...iterateAllItems(this.actor)];
+                const itemsById = R.mapToObj(
+                    allItems.filter((i): i is PhysicalItemPF2e<PartyPF2e> => i.isOfType("physical")),
+                    (i) => [i.id, i],
+                );
+                const baseItems = baseMatches.map((id) => itemsById[id]).filter((i) => !!i);
+                const parentMatches = baseItems.flatMap((i) => getAllParents(i)).map((i) => i.id);
+                const childMatches = baseItems.flatMap((i) => getAllChildren(i)).map((i) => i.id);
+
+                return new Set([baseMatches, parentMatches, childMatches].flat());
+            }
+
+            return null;
+        })();
+
+        for (const row of htmlQueryAll(html, "li[data-item-id]")) {
+            row.hidden = matches !== null && !matches.has(row.dataset.itemId ?? "");
+        }
+    }
+
+    protected override prepareInventory(): SheetInventory {
+        const items = [...iterateAllItems(this.actor)].filter((i) => i.isOfType("physical"));
+        this.#inventorySearchEngine.removeAll();
+        this.#inventorySearchEngine.addAll(items.map((i) => R.pick(i, ["id", "name"])));
+        return super.prepareInventory();
+    }
 
     /** Recursively performs a render and activation of all sub-regions */
     async #renderRegions(element: HTMLElement, data: object): Promise<void> {

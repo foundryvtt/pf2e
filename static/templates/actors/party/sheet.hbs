@@ -56,6 +56,11 @@
 
             <section class="inventory">
                 {{> "systems/pf2e/templates/actors/partials/coinage.hbs" owner=@root.owner}}
+                <header class="inventory-header">
+                    <div class="search">
+                        <input type="search" spellcheck="false" placeholder="{{localize "PF2E.Actor.Stash.Search"}}" />
+                    </div>
+                </header>
                 {{> "systems/pf2e/templates/actors/partials/inventory.hbs"}}
                 {{> "systems/pf2e/templates/actors/partials/total-bulk.hbs"}}
             </section>
