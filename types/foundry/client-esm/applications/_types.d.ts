@@ -14,7 +14,7 @@ export interface ApplicationConfiguration {
     /** Click actions supported by the Application and their event handler functions */
     actions: Record<string, ApplicationClickAction>;
     /** Configuration used if the application top-level element is a form */
-    form?: ApplicationFormConfiguration;
+    form?: DeepPartial<ApplicationFormConfiguration>;
     /** Default positioning data for the application */
     position: Partial<ApplicationPosition>;
 }
