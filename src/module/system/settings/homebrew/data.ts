@@ -28,6 +28,7 @@ const TRAIT_PROPAGATIONS = {
     creatureTraits: ["ancestryTraits", "hazardTraits"],
     equipmentTraits: ["armorTraits", "consumableTraits"],
     featTraits: ["actionTraits"],
+    spellTraits: ["actionTraits"],
     weaponTraits: ["npcAttackTraits"],
 } as const;
 
