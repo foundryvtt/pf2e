@@ -910,7 +910,7 @@ const equipmentTraits = {
     barding: "PF2E.TraitBarding",
     censer: "PF2E.TraitCenser",
     clockwork: "PF2E.TraitClockwork",
-    coagulant: "PF2E.Coagulant",
+    coagulant: "PF2E.TraitCoagulant",
     coda: "PF2E.TraitCoda",
     companion: "PF2E.TraitCompanion",
     contract: "PF2E.TraitContract",
