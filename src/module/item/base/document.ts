@@ -620,6 +620,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         })();
 
         const outputSources = items.map((i) => i._source);
+        const itemUpdates: EmbeddedDocumentUpdateData[] = [];
 
         // Process item preCreate rules for all items that are going to be added
         // This may add additional items (such as via GrantItem)
@@ -636,6 +637,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                     ruleSource,
                     pendingItems: outputSources,
                     tempItems: items,
+                    itemUpdates,
                     operation,
                 });
             }
@@ -653,6 +655,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             for (const feature of classFeatures) {
                 feature.sort = classFeatures.indexOf(feature) * 100 * (feature.system.level?.value ?? 1);
             }
+        }
+
+        // If there are any item updates, perform them first
+        if (itemUpdates.length) {
+            await actor.updateEmbeddedDocuments("Item", itemUpdates, { render: false });
         }
 
         const nonKits = outputSources.filter((source) => source.type !== "kit");
