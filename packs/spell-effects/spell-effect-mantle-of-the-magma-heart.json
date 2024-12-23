@@ -1,0 +1,205 @@
+{
+    "_id": "34yP4e2e6jpY1Bsi",
+    "img": "systems/pf2e/icons/spells/mantle-of-the-magma-heart.webp",
+    "name": "Spell Effect: Mantle of the Magma Heart",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Mantle of the Magma Heart]</p>\n<p>Pick two of the options below. As a single action, which has the concentrate trait, you can change one of your chosen abilities to a different option from the list.</p><ul><li><strong>Enlarging Eruption</strong> You grow to size Large. You're clumsy 1. Your reach increases by 5 feet (or by 10 feet if you started out Tiny), and you gain a +2 status bonus to melee damage. You can't choose this option if you're already Large or larger.</li><li><strong>Fiery Grasp</strong> You gain a lava fist unarmed attack in the brawling weapon group. Your lava fists deal 1d8 bludgeoning damage as their base damage, plus an additional 2d6 fire damage and 1d6 persistent fire damage.</li><li><strong>Warming Flames</strong> You gain resistance 5 to cold and fire.</li></ul>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SpellEffectMantle.MagmaHeart.RollOptionLabel.First",
+                "option": "magma-heart-first",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectMantle.MagmaHeart.Label.EnlargingEruption",
+                        "value": "enlarging-eruption"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectMantle.MagmaHeart.Label.FieryGrasp",
+                        "value": "fiery-grasp"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectMantle.MagmaHeart.Label.HeartOfFire",
+                        "value": "heart-of-fire"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectMantle.MagmaHeart.Label.WarmingFlames",
+                        "value": "warming-flames"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "alwaysActive": true,
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SpellEffectMantle.MagmaHeart.RollOptionLabel.Second",
+                "option": "magma-heart-second",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectMantle.MagmaHeart.Label.EnlargingEruption",
+                        "predicate": [
+                            {
+                                "not": "magma-heart-first:enlarging-eruption"
+                            }
+                        ],
+                        "value": "enlarging-eruption"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectMantle.MagmaHeart.Label.FieryGrasp",
+                        "predicate": [
+                            {
+                                "not": "magma-heart-first:fiery-grasp"
+                            }
+                        ],
+                        "value": "fiery-grasp"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectMantle.MagmaHeart.Label.HeartOfFire",
+                        "predicate": [
+                            {
+                                "not": "magma-heart-first:heart-of-fire"
+                            }
+                        ],
+                        "value": "heart-of-fire"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectMantle.MagmaHeart.Label.WarmingFlames",
+                        "predicate": [
+                            {
+                                "not": "magma-heart-first:warming-flames"
+                            }
+                        ],
+                        "value": "warming-flames"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "melee",
+                    {
+                        "or": [
+                            "magma-heart-first:enlarging-eruption",
+                            "magma-heart-second:enlarging-eruption"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    {
+                        "or": [
+                            "magma-heart-first:enlarging-eruption",
+                            "magma-heart-second:enlarging-eruption"
+                        ]
+                    }
+                ],
+                "value": "large"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.LavaFist",
+                "predicate": [
+                    {
+                        "or": [
+                            "magma-heart-first:fiery-grasp",
+                            "magma-heart-second:fiery-grasp"
+                        ]
+                    }
+                ],
+                "range": null,
+                "traits": [
+                    "unarmed",
+                    "magical"
+                ]
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "label": "PF2E.SpecificRule.SpellEffectMantle.MagmaHeart.Label.FieryGrasp",
+                "selector": "{item|_id}-damage"
+            },
+            {
+                "category": "persistent",
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "label": "PF2E.SpecificRule.SpellEffectMantle.MagmaHeart.Label.FieryGrasp",
+                "selector": "{item|_id}-damage"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "or": [
+                            "magma-heart-first:warming-flames",
+                            "magma-heart-second:warming-flames"
+                        ]
+                    }
+                ],
+                "type": "cold",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "or": [
+                            "magma-heart-first:warming-flames",
+                            "magma-heart-second:warming-flames"
+                        ]
+                    }
+                ],
+                "type": "fire",
+                "value": 5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
