@@ -9,6 +9,7 @@ import type {
     CraftingAbilityRuleSource,
 } from "@module/rules/rule-element/crafting-ability.ts";
 import { Predicate } from "@system/predication.ts";
+import { sluggify } from "@util";
 import * as R from "remeda";
 import type {
     CraftableItemDefinition,
@@ -148,6 +149,14 @@ class CraftingAbility implements CraftingAbilityData {
                     game.i18n.format("PF2E.CraftingTab.Alerts.MaxItemLevel", { level: this.maxItemLevel }),
                 );
             }
+            return false;
+        }
+
+        // Avoid granting the ability to expend a resource to craft that same resource
+        const resourceUUID = this.resource
+            ? this.actor.synthetics.resources[sluggify(this.resource, { camel: "dromedary" })]?.itemUUID
+            : null;
+        if (item.uuid === resourceUUID) {
             return false;
         }
 
