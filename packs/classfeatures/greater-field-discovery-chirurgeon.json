@@ -26,9 +26,16 @@
         },
         "rules": [
             {
+                "domain": "inline-healing",
+                "key": "RollOption",
+                "option": "chirurgeon-greater-field-discovery",
+                "toggleable": true
+            },
+            {
                 "key": "DamageAlteration",
                 "mode": "downgrade",
                 "predicate": [
+                    "chirurgeon-greater-field-discovery",
                     "dice:slug:base",
                     {
                         "or": [
@@ -50,6 +57,7 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
+                    "chirurgeon-greater-field-discovery",
                     {
                         "or": [
                             "item:slug:elixir-of-life-minor",
