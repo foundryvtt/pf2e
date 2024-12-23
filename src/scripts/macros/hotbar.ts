@@ -189,9 +189,9 @@ if (item?.type === "condition") {
     for (const actor of actors) {
         const existing = actor.itemTypes.effect.find((e) => e.flags.core?.sourceId === ITEM_UUID);
         if (existing) {
-            existing.delete();
+            await existing.delete();
         } else {
-            actor.createEmbeddedDocuments("Item", [source]);
+            await actor.createEmbeddedDocuments("Item", [source]);
         }
     }
 } else {
