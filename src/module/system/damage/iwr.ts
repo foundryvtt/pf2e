@@ -140,7 +140,12 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             const mainWeaknesses = damageWeaknesses.filter((w) => w.test(formalDescription));
             const splashDamage = instance.componentTotal("splash");
             const splashWeakness = splashDamage ? (weaknesses.find((w) => w.type === "splash-damage") ?? null) : null;
-            const precisionWeakness = precisionDamage > 0 ? weaknesses.find((r) => r.type === "precision") : null;
+            const precisionWeakness =
+                precisionDamage > 0
+                    ? weaknesses.find(
+                          (r) => r.type === "precision" && r.test([...formalDescription, "damage:component:precision"]),
+                      )
+                    : null;
             const highestWeakness = [...mainWeaknesses, precisionWeakness, splashWeakness]
                 .filter(R.isTruthy)
                 .reduce(
@@ -187,7 +192,13 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
 
             const precisionResistance = ((): WorkingResistanceData | null => {
                 const resistance =
-                    precisionDamage > 0 && !precisionImmunity ? resistances.find((r) => r.type === "precision") : null;
+                    precisionDamage > 0 && !precisionImmunity
+                        ? resistances.find(
+                              (r) =>
+                                  r.type === "precision" &&
+                                  r.test([...formalDescription, "damage:component:precision"]),
+                          )
+                        : null;
                 return resistance
                     ? new WorkingResistanceData(resistance, {
                           value: Math.min(resistance.getDoubledValue(formalDescription), precisionDamage),
