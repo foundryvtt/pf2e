@@ -148,6 +148,7 @@ export type {
     ItemGrantData,
     ItemGrantDeleteAction,
     ItemGrantSource,
+    ItemGranterSource,
     ItemSchemaPF2e,
     ItemSourceFlagsPF2e,
     ItemSystemData,
