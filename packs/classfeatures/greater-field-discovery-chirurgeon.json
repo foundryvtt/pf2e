@@ -24,7 +24,98 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "DamageAlteration",
+                "mode": "downgrade",
+                "predicate": [
+                    "dice:slug:base",
+                    {
+                        "or": [
+                            "item:slug:elixir-of-life-minor",
+                            "item:slug:elixir-of-life-lesser",
+                            "item:slug:elixir-of-life-moderate",
+                            "item:slug:elixir-of-life-greater",
+                            "item:slug:elixir-of-life-major",
+                            "item:slug:elixir-of-life-true"
+                        ]
+                    }
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "inline-healing"
+                ],
+                "value": 0
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:elixir-of-life-minor",
+                            "item:slug:elixir-of-life-lesser",
+                            "item:slug:elixir-of-life-moderate",
+                            "item:slug:elixir-of-life-greater",
+                            "item:slug:elixir-of-life-major",
+                            "item:slug:elixir-of-life-true"
+                        ]
+                    }
+                ],
+                "selector": "inline-healing",
+                "slug": "chirurgeon-greater-field-discovery",
+                "value": 6
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "predicate": [
+                    "item:slug:elixir-of-life-lesser"
+                ],
+                "selector": "inline-healing",
+                "slug": "chirurgeon-greater-field-discovery",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "predicate": [
+                    "item:slug:elixir-of-life-moderate"
+                ],
+                "selector": "inline-healing",
+                "slug": "chirurgeon-greater-field-discovery",
+                "value": 5
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "predicate": [
+                    "item:slug:elixir-of-life-greater"
+                ],
+                "selector": "inline-healing",
+                "slug": "chirurgeon-greater-field-discovery",
+                "value": 7
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "predicate": [
+                    "item:slug:elixir-of-life-major"
+                ],
+                "selector": "inline-healing",
+                "slug": "chirurgeon-greater-field-discovery",
+                "value": 8
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "predicate": [
+                    "item:slug:elixir-of-life-true"
+                ],
+                "selector": "inline-healing",
+                "slug": "chirurgeon-greater-field-discovery",
+                "value": 10
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
