@@ -77,6 +77,11 @@ class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         await this.actor.updateEmbeddedDocuments("Item", updates, { render: false });
     }
 
+    /** Containers never stack, otherwise their contents can have strange results */
+    override isStackableWith(_item: PhysicalItemPF2e): boolean {
+        return false;
+    }
+
     override async getChatData(
         this: ContainerPF2e<TParent>,
         htmlOptions: EnrichmentOptions = {},
