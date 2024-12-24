@@ -194,6 +194,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     protected prepareInventory(): SheetInventory {
+        const items = [...iterateAllItems(this.actor)].filter((i) => i.isOfType("physical"));
+        this.#inventorySearchEngine.removeAll();
+        this.#inventorySearchEngine.addAll(items.map((i) => R.pick(i, ["id", "name"])));
+
         const sections: SheetInventory["sections"] = [
             {
                 label: game.i18n.localize("PF2E.Actor.Inventory.Section.WeaponsAndShields"),
@@ -231,10 +235,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     protected prepareInventoryItem(item: PhysicalItemPF2e): InventoryItem {
-        const items = [...iterateAllItems(this.actor)].filter((i) => i.isOfType("physical"));
-        this.#inventorySearchEngine.removeAll();
-        this.#inventorySearchEngine.addAll(items.map((i) => R.pick(i, ["id", "name"])));
-
         const editable = game.user.isGM || item.isIdentified;
         const heldItems = item.isOfType("backpack") ? item.contents.map((i) => this.prepareInventoryItem(i)) : null;
         heldItems?.sort((a, b) => (a.item.sort || 0) - (b.item.sort || 0));
