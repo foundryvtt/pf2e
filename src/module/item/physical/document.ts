@@ -464,14 +464,18 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return super.getEmbeddedDocument(embeddedName, id, options);
     }
 
-    /** Can the provided item stack with this item? */
+    /**
+     * Can the provided item stack with this item?
+     * @param item an item we are trying to add to the inventory
+     */
     isStackableWith(item: PhysicalItemPF2e): boolean {
         const preCheck =
             this !== item &&
             this.type === item.type &&
             this.name === item.name &&
             this.isIdentified === item.isIdentified &&
-            ![this, item].some((i) => i.isHeld || i.isOfType("backpack"));
+            this.isHeld === item.isHeld &&
+            (!this.isHeld || this.quantity === 0 || item.quantity === 0);
         if (!preCheck) return false;
 
         const thisData = this.toObject().system;
