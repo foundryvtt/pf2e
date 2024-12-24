@@ -1,0 +1,56 @@
+{
+    "_id": "UpHZIBq0ECtgUS6T",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Friend of the Family",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You come from a long line of imperial kobolds—if you meet a stranger who has some political standing in Tian Xia, they might know someone from your family line. You gain a +2 circumstance bonus to Diplomacy checks to Make an Impression or Request when speaking to politicians or other officials.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "heavenscribe kobold heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:tag:politician",
+                    {
+                        "or": [
+                            "action:make-an-impression",
+                            "action:request"
+                        ]
+                    }
+                ],
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kobold"
+            ]
+        }
+    },
+    "type": "feat"
+}

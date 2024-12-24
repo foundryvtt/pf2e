@@ -4,10 +4,10 @@
     "name": "Effect: Bloodseeker Beak",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Bloodseeker Beak]</p>\n<p>When you activate the beak, you deal an extra 1d4 precision damage on your damage roll.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Bloodseeker Beak], @UUID[Compendium.pf2e.equipment-srd.Item.Bloodseeker Beak (Greater)]</p>\n<p>You deal an extra d4 precision damage on your damage roll.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -22,10 +22,49 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "not": "parent:origin:item:slug:bloodseeker-beak"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Bloodseeker Beak (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "not": "parent:origin:item:slug:bloodseeker-beak-greater"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Bloodseeker Beak"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "bloodseeker-beak"
+            },
+            {
                 "category": "precision",
                 "diceNumber": 1,
                 "dieSize": "d4",
+                "hideIfDisabled": true,
                 "key": "DamageDice",
+                "predicate": [
+                    "bloodseeker-beak:bloodseeker-beak"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "category": "precision",
+                "diceNumber": 2,
+                "dieSize": "d4",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "bloodseeker-beak:bloodseeker-beak-greater"
+                ],
                 "selector": "strike-damage"
             }
         ],

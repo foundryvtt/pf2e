@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You have power connected to the powerful jann amirs. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Read Omens] and 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Invisibility] each once per day as arcane innate spells, and you can cast <em>detect magic</em> at will as an arcane innate cantrip, heightened to a spell rank equal to half your level rounded up.</p>"
+            "value": "<p>You have power connected to the powerful jann amirs. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Read Omens] and 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Invisibility] each once per day as arcane innate spells, and you can cast @UUID[Compendium.pf2e.spells-srd.Item.Detect Magic] at will as an arcane innate cantrip, heightened to a spell rank equal to half your level rounded up.</p>"
         },
         "level": {
             "value": 13
@@ -24,7 +24,42 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Ancestry Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:detect-magic",
+                            "item:slug:invisibility",
+                            "item:slug:read-omens"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:detect-magic",
+                            "item:slug:invisibility",
+                            "item:slug:read-omens"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:suli"
+            }
+        ],
         "traits": {
             "rarity": "uncommon",
             "value": [

@@ -35,18 +35,10 @@
                     }
                 ],
                 "isDailyPrep": true,
-                "key": "CraftingEntry",
+                "key": "CraftingAbility",
                 "label": "PF2E.SpecificRule.Witch.Cauldron.CraftingEntry",
-                "maxItemLevel": "@actor.level",
-                "maxSlots": 1,
-                "selector": "cauldron"
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.crafting.entries.cauldron.maxSlots",
-                "phase": "beforeDerived",
-                "value": "ternary(eq(@actor.system.proficiencies.spellcasting.rank,4),3,ternary(eq(@actor.system.proficiencies.spellcasting.rank,3),2,1))"
+                "maxSlots": "ternary(eq(@actor.system.proficiencies.spellcasting.rank,4),3,ternary(eq(@actor.system.proficiencies.spellcasting.rank,3),2,1))",
+                "slug": "cauldron"
             }
         ],
         "traits": {

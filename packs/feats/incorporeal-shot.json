@@ -1,0 +1,70 @@
+{
+    "_id": "LRSTjjBNNlD0XZX8",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Incorporeal Shot",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per day</p><hr /><p>You can concentrate an immense amount of magic to create a piece of ammunition that phases through everything but your target.</p>\n<p>Make a bow or crossbow Strike against a foe who is @UUID[Compendium.pf2e.conditionitems.Item.Observed] or @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to you (but not @UUID[Compendium.pf2e.conditionitems.Item.Undetected]).</p>\n<p>The ammunition travels to your target in a straight line, passing through any non-magical barriers or walls in its way, though magical barriers stop the arrow. The shot ignores all cover, the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition, the hidden condition, and circumstance bonuses to AC from shields. It has a +4 status bonus to hit creatures wearing any type of armor.</p>\n<p>The Strike's damage can't be reduced with a Shield Block reaction using a non-magical shield.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "level": {
+            "value": 16
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Eldritch Archer Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "domain": "attack-roll",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.EldritchArcher.IncorporealShot.Label",
+                "option": "incorporeal-shot",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "incorporeal-shot",
+                    {
+                        "or": [
+                            "item:group:bow",
+                            "item:group:crossbow"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "strike-attack-roll"
+                ],
+                "type": "status",
+                "value": 4
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "magical"
+            ]
+        }
+    },
+    "type": "feat"
+}

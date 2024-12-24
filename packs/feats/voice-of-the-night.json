@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You hear and understand the words of creatures you share the darkness with. You can ask questions of, receive answers from, and use Diplomacy with bats, rats, and wolves. You also gain a +1 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] on such animals.</p>"
+            "value": "<p>You hear and understand the words of creatures you share the darkness with. You can ask questions of, receive answers from, and use the Diplomacy skill with bats, rats, and wolves. You also gain a +1 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] on such animals.</p>"
         },
         "level": {
             "value": 1
@@ -20,16 +20,22 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "predicate": [
                     "action:make-an-impression",
-                    "target:vampire-friend"
+                    {
+                        "or": [
+                            "target:tag:bat",
+                            "target:tag:rat",
+                            "target:tag:wolf"
+                        ]
+                    }
                 ],
                 "selector": "diplomacy",
                 "type": "circumstance",

@@ -4,7 +4,7 @@
     "name": "Spell Effect: Celestial Brand",
     "system": {
         "description": {
-            "value": "<p>Granted by attacking a target under the effect of @UUID[Compendium.pf2e.spells-srd.Item.Celestial Brand]</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Celestial Brand]</p>\n<p>You gain a +1 status bonus to your attack rolls and skill checks against the marked creature, and deal additional spirit damage to it.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,25 +16,22 @@
             "value": 5
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "Target is affected by Celestial Brand",
-                "option": "celestial-brand",
-                "toggleable": true
+                "key": "TokenMark",
+                "slug": "celestial-brand"
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "celestial-brand"
+                    "target:mark:celestial-brand"
                 ],
                 "selector": [
-                    "attack",
+                    "attack-roll",
                     "skill-check"
                 ],
                 "type": "status",
@@ -42,40 +39,24 @@
             },
             {
                 "damageType": "spirit",
-                "key": "FlatModifier",
-                "predicate": [
-                    "celestial-brand"
-                ],
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "start": 5,
-                            "value": 0
-                        },
-                        {
-                            "end": 8,
-                            "start": 7,
-                            "value": 1
-                        },
-                        {
-                            "start": 9,
-                            "value": 2
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
-            },
-            {
-                "damageType": "spirit",
                 "diceNumber": 1,
                 "dieSize": "d4",
                 "key": "DamageDice",
                 "predicate": [
-                    "celestial-brand"
+                    "self:trait:holy",
+                    "target:mark:celestial-brand"
                 ],
-                "selector": "strike-damage"
+                "selector": "damage"
+            },
+            {
+                "damageType": "spirit",
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:trait:holy",
+                    "target:mark:celestial-brand"
+                ],
+                "selector": "damage",
+                "value": "floor((@item.level - 5) / 2)"
             }
         ],
         "start": {

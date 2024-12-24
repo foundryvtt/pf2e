@@ -1,7 +1,7 @@
 import type { ActorPF2e, ActorType } from "@actor";
 import { ConditionPF2e, ItemPF2e, ItemProxyPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { ItemGrantDeleteAction } from "@item/base/data/system.ts";
+import type { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { ItemGrantDeleteAction, ItemGranterSource, ItemSourceFlagsPF2e } from "@item/base/data/system.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { SlugField, StrictArrayField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, isObject, setHasElement, sluggify, tupleHasValue } from "@util";
@@ -85,6 +85,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
                 initial: true,
                 label: "PF2E.RuleEditor.GrantItem.AllowDuplicate",
             }),
+            nestUnderGranter: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
             alterations: new StrictArrayField(new fields.EmbeddedDataField(ItemAlteration)),
             track: new fields.BooleanField(),
         };
@@ -107,10 +108,11 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
     override async preCreate(args: RuleElementPF2e.PreCreateParams): Promise<void> {
         if (this.inMemoryOnly || this.invalid) return;
 
-        const { itemSource, pendingItems, operation } = args;
+        const { itemSource, pendingItems, itemUpdates, operation } = args;
         const ruleSource: GrantItemSource = args.ruleSource;
 
         const uuid = this.resolveInjectedProperties(this.uuid);
+        if (!UUIDUtils.isItemUUID(uuid, { embedded: false })) return;
         const grantedItem: ClientDocument | null = await (async () => {
             try {
                 return (await fromUuid(uuid))?.clone() ?? null;
@@ -139,7 +141,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         // If we shouldn't allow duplicates, check for an existing item with this source ID
         const existingItem = this.actor.items.find((i) => i.sourceId === uuid);
         if (!this.allowDuplicate && existingItem) {
-            this.#setGrantFlags(itemSource, existingItem);
+            this.#setGrantFlags(itemSource, existingItem, itemUpdates);
 
             ui.notifications.info(
                 game.i18n.format("PF2E.UI.RuleElements.GrantItem.AlreadyHasItem", {
@@ -156,7 +158,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         grantedSource._id = fu.randomID();
 
         // An item may grant another copy of itself, but at least strip the copy of its grant REs
-        if (this.item.sourceId === (grantedSource.flags.core?.sourceId ?? "")) {
+        if (this.item.sourceId === (grantedSource._stats.compendiumSource ?? "")) {
             grantedSource.system.rules = grantedSource.system.rules.filter((r) => r.key !== "GrantItem");
         }
 
@@ -166,7 +168,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         }
 
         // Guarantee future already-granted checks pass in all cases by re-assigning sourceId
-        grantedSource.flags = fu.mergeObject(grantedSource.flags, { core: { sourceId: uuid } });
+        grantedSource._stats.compendiumSource = uuid;
 
         // Apply alterations
         try {
@@ -210,7 +212,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         this.grantedId = grantedSource._id;
         operation.keepId = true;
 
-        this.#setGrantFlags(itemSource, grantedSource);
+        this.#setGrantFlags(itemSource, grantedSource, itemUpdates);
         this.#trackItem(tempGranted);
 
         // Add to pending items before running pre-creates to preserve creation order
@@ -243,7 +245,20 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
 
         const pendingItems: ItemSourcePF2e[] = [];
         const operation = { parent: this.actor, render: false };
-        await this.preCreate({ itemSource, pendingItems, ruleSource, tempItems: [], operation, reevaluation: true });
+        const itemUpdates: EmbeddedDocumentUpdateData[] = [];
+        await this.preCreate({
+            itemSource,
+            pendingItems,
+            ruleSource,
+            tempItems: [],
+            itemUpdates,
+            operation,
+            reevaluation: true,
+        });
+
+        if (itemUpdates.length) {
+            await this.actor.updateEmbeddedDocuments("Item", itemUpdates, { render: false });
+        }
 
         if (pendingItems.length > 0) {
             const updatedGrants = itemSource.flags.pf2e?.itemGrants ?? {};
@@ -292,15 +307,34 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
     }
 
     /** Set flags on granting and grantee items to indicate relationship between the two */
-    #setGrantFlags(granter: PreCreate<ItemSourcePF2e>, grantee: ItemSourcePF2e | ItemPF2e<ActorPF2e>): void {
-        const flags = fu.mergeObject(granter.flags ?? {}, { pf2e: { itemGrants: {} } });
+    #setGrantFlags(
+        granter: PreCreate<ItemSourcePF2e>,
+        grantee: ItemSourcePF2e | ItemPF2e<ActorPF2e>,
+        itemUpdates: EmbeddedDocumentUpdateData[],
+    ): void {
         if (!this.flag) throw ErrorPF2e("Unexpected failure looking up RE flag key");
-        flags.pf2e.itemGrants[this.flag] = {
+
+        const newFlagData: ItemGranterSource = {
             // The granting item records the granted item's ID in an array at `flags.pf2e.itemGrants`
             id: grantee instanceof ItemPF2e ? grantee.id : grantee._id!,
             // The on-delete action determines what will happen to the granter item when the granted item is deleted:
             // Default to "detach" (do nothing).
             onDelete: this.onDeleteActions?.grantee ?? "detach",
+        };
+        if (granter.type === "feat" && grantee.type === "feat" && this.nestUnderGranter === false) {
+            newFlagData.nested = this.nestUnderGranter;
+        }
+
+        // Assign flag data to the granter source, but also to the prepared item data for later rule elements
+        const flags: ItemSourceFlagsPF2e & { pf2e: { itemGrants: Record<string, object> } } = fu.mergeObject(
+            granter.flags ?? {},
+            { pf2e: { itemGrants: {} } },
+        );
+        flags.pf2e.itemGrants[this.flag] = newFlagData;
+        this.item.flags.pf2e.itemGrants[this.flag] = {
+            ...newFlagData,
+            onDelete: newFlagData.onDelete ?? "detach",
+            nested: newFlagData.nested ?? null,
         };
 
         // The granted item records its granting item's ID at `flags.pf2e.grantedBy`
@@ -313,12 +347,10 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
                 (setHasElement(PHYSICAL_ITEM_TYPES, grantee.type) ? "detach" : "cascade"),
         };
 
-        if (grantee instanceof ItemPF2e) {
+        grantee.flags = fu.mergeObject(grantee.flags ?? {}, { pf2e: { grantedBy } });
+        if (grantee instanceof ItemPF2e && grantee._id && this.actor.items.has(grantee._id)) {
             // This is a previously granted item: update its grantedBy flag
-            // Don't await since it will trigger a data reset, possibly wiping temporary roll options
-            grantee.update({ "flags.pf2e.grantedBy": grantedBy }, { render: false });
-        } else {
-            grantee.flags = fu.mergeObject(grantee.flags ?? {}, { pf2e: { grantedBy } });
+            itemUpdates.push({ _id: grantee._id, "flags.pf2e.grantedBy": grantedBy });
         }
     }
 

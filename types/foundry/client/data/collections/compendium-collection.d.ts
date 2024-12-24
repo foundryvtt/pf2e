@@ -260,7 +260,7 @@ declare global {
         type: string;
         name: string;
         img: ImageFilePath;
-        uuid: string;
+        uuid: CompendiumUUID;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         [key: string]: any;
     }

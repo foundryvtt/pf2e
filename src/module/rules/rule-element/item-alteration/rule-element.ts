@@ -1,18 +1,16 @@
 import type { ActorPF2e } from "@actor";
 import type { ItemPF2e, PhysicalItemPF2e } from "@item";
-import { ItemType } from "@item/base/data/index.ts";
+import type { ItemType } from "@item/base/data/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import * as R from "remeda";
-import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { AELikeRuleElement } from "../ae-like.ts";
 import { RuleElementPF2e } from "../base.ts";
-import { ModelPropsFromRESchema, RuleElementSchema } from "../data.ts";
+import type { ModelPropsFromRESchema, RuleElementSchema } from "../data.ts";
 import { ItemAlteration, ItemAlterationSchema } from "./alteration.ts";
+import fields = foundry.data.fields;
 
 class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema> {
     static override defineSchema(): ItemAlterationRuleSchema {
-        const fields = foundry.data.fields;
-
         // Set a default priority according to AE mode yet still later than AE-likes
         const baseSchema = super.defineSchema();
         const PRIORITIES: Record<string, number | undefined> = AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES;
@@ -87,6 +85,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
     }
 
     override onApplyActiveEffects(): void {
+        this.actor.synthetics.itemAlterations.push(this);
         if (!this.constructor.#DELAYED_PROPERTIES.includes(this.property)) {
             this.applyAlteration();
         }
@@ -166,9 +165,9 @@ interface ItemAlterationRuleElement
 type ItemAlterationRuleSchema = RuleElementSchema &
     ItemAlterationSchema & {
         /** The type of items to alter */
-        itemType: StringField<ItemType, ItemType, false, false, false>;
+        itemType: fields.StringField<ItemType, ItemType, false, false, false>;
         /** As an alternative to specifying item types, an exact item ID can be provided */
-        itemId: StringField<string, string, false, false, false>;
+        itemId: fields.StringField<string, string, false, false, false>;
     };
 
 interface ApplyAlterationOptions {

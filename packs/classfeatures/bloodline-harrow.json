@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p><strong>Spell List</strong> occult</p>\n<p><strong>Bloodline Skills</strong> Occultism, Performance</p>\n<p><strong>Granted Spells</strong> cantrip: @UUID[Compendium.pf2e.spells-srd.Item.Detect Magic]; 1st: @UUID[Compendium.pf2e.spells-srd.Item.Ill Omen], 2nd: @UUID[Compendium.pf2e.spells-srd.Item.Augury]; 3rd: @UUID[Compendium.pf2e.spells-srd.Item.Wanderer's Guide]; 4th: @UUID[Compendium.pf2e.spells-srd.Item.Suggestion]; 5th: @UUID[Compendium.pf2e.spells-srd.Item.Shadow Siphon]; 6th: @UUID[Compendium.pf2e.spells-srd.Item.Truesight]; 7th: @UUID[Compendium.pf2e.spells-srd.Item.Retrocognition]; 8th: @UUID[Compendium.pf2e.spells-srd.Item.Unrelenting Observation]; 9th: @UUID[Compendium.pf2e.spells-srd.Item.Weird]</p>\n<p><strong>Bloodline Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Unraveling Blast]; advanced: @UUID[Compendium.pf2e.spells-srd.Item.Invoke the Harrow]; greater: @UUID[Compendium.pf2e.spells-srd.Item.Rewrite Possibility]</p>\n<p><strong>Blood Magic</strong> You become enveloped in possibility, represented as multiple versions of yourself from your possible futures overlaid on each other. You gain @UUID[Compendium.pf2e.conditionitems.Item.Concealed]{Concealement} for 1 round, but can't use the concealment to @UUID[Compendium.pf2e.actionspf2e.Item.Hide].</p>"
+            "value": "<p><strong>Spell List</strong> occult</p>\n<p><strong>Bloodline Skills</strong> Occultism, Performance</p>\n<p><strong>Granted Spells</strong> cantrip: @UUID[Compendium.pf2e.spells-srd.Item.Detect Magic]; 1st: @UUID[Compendium.pf2e.spells-srd.Item.Ill Omen], 2nd: @UUID[Compendium.pf2e.spells-srd.Item.Augury]; 3rd: @UUID[Compendium.pf2e.spells-srd.Item.Wanderer's Guide]; 4th: @UUID[Compendium.pf2e.spells-srd.Item.Suggestion]; 5th: @UUID[Compendium.pf2e.spells-srd.Item.Shadow Siphon]; 6th: @UUID[Compendium.pf2e.spells-srd.Item.Truesight]; 7th: @UUID[Compendium.pf2e.spells-srd.Item.Retrocognition]; 8th: @UUID[Compendium.pf2e.spells-srd.Item.Unrelenting Observation]; 9th: @UUID[Compendium.pf2e.spells-srd.Item.Weird]</p>\n<p><strong>Bloodline Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Unraveling Blast]; advanced: @UUID[Compendium.pf2e.spells-srd.Item.Invoke the Harrow]; greater: @UUID[Compendium.pf2e.spells-srd.Item.Rewrite Possibility]</p>\n<p><strong>Blood Magic</strong> You become enveloped in possibility, represented as multiple versions of yourself from your possible futures overlaid on each other. You gain @UUID[Compendium.pf2e.conditionitems.Item.Concealed]{Concealment} for 1 round, but can't use the concealment to @UUID[Compendium.pf2e.actionspf2e.Item.Hide].</p>"
         },
         "level": {
             "value": 1
@@ -29,12 +29,22 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.occultism.rank",
+                "predicate": [
+                    {
+                        "not": "parent:granter:slug:crossblooded-evolution"
+                    }
+                ],
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.performance.rank",
+                "predicate": [
+                    {
+                        "not": "parent:granter:slug:crossblooded-evolution"
+                    }
+                ],
                 "value": 1
             },
             {
@@ -42,10 +52,11 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "class:sorcerer",
+                    {
+                        "not": "parent:granter:slug:crossblooded-evolution"
+                    },
                     {
                         "or": [
-                            "item:tag:ancestral-spell",
                             {
                                 "and": [
                                     "item:trait:focus",
@@ -75,11 +86,117 @@
                         ]
                     }
                 ],
+                "priority": 121,
+                "property": "other-tags",
+                "value": "blood-magic-spell"
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
+                "mergeable": true,
+                "option": "blood-magic",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Harrow",
+                        "predicate": [
+                            "class:sorcerer"
+                        ],
+                        "value": "harrow"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Sorcerer.SecondBloodMagic",
+                "mergeable": true,
+                "option": "second-blood-magic",
+                "placement": "spellcasting",
+                "predicate": [
+                    {
+                        "or": [
+                            "feat:blood-ascendancy",
+                            "feat:blood-sovereignty"
+                        ]
+                    }
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Harrow",
+                        "value": "harrow"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    "item:tag:blood-magic-spell",
+                    {
+                        "or": [
+                            "blood-magic:harrow",
+                            {
+                                "and": [
+                                    "second-blood-magic:harrow",
+                                    "feat:blood-sovereignty"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "priority": 121,
                 "property": "description",
                 "value": [
                     {
+                        "divider": true,
                         "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Harrow",
-                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Harrow"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    "item:slug:blood-rising",
+                    {
+                        "or": [
+                            "blood-magic:harrow",
+                            {
+                                "and": [
+                                    "second-blood-magic:harrow",
+                                    "feat:blood-ascendancy"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Harrow",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Harrow"
+                    }
+                ]
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "feature:bloodline:tradition:occult",
+                "predicate": [
+                    {
+                        "not": "parent:granter:slug:crossblooded-evolution"
                     }
                 ]
             }

@@ -46,3 +46,9 @@ export class GridlessGrid extends BaseGrid {
 
     override getCone(origin: Point, radius: number, direction: number, angle: number): Point[];
 }
+
+export interface GridlessGrid extends BaseGrid {
+    get isGridless(): true;
+    get isHexagonal(): false;
+    get isSquare(): false;
+}

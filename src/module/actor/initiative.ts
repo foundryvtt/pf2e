@@ -74,7 +74,7 @@ class ActorInitiative {
         // Update the tracker unless requested not to
         const updateTracker = args.updateTracker ?? true;
         if (updateTracker) {
-            combatant.encounter.setInitiative(combatant.id, roll.total);
+            combatant.encounter.setInitiative(combatant.id, roll.total, this.statistic.base?.slug);
         }
 
         return { combatant, roll };

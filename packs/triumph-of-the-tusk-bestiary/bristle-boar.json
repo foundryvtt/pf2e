@@ -1,0 +1,321 @@
+{
+    "_id": "phCMinhQbRR4uB31",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "6qPXnsDcpaiRT3aA",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tusk",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "eXLWcIsdaWbfrTX6": {
+                        "damage": "2d6+6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "U8K5O43M52VSQzVk",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spine",
+            "sort": 200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "kt4co9PlZ54LCNhg": {
+                        "damage": "1d8+6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "nElhnlMldOpPK4xM",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Bristle Spines",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When an adjacent creature hits the bristle boar with a melee attack, that creature takes @Damage[1d6[piercing]] damage unless it succeeds at a @Check[reflex|dc:17] save.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ExMA03zRgMQZOqqV",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Ferocity",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Ferocity]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "ferocity",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Hp3Gz1u0EvAMmrWI",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Boar Charge",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The bristle boar Strides twice and then makes a tusk Strike. As long as it moved at least 20 feet, it gains a +2 circumstance bonus to its attack roll.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "boar-charge",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "boar-charge"
+                        ],
+                        "selector": "tusk-attack-roll",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "L0PfOr8sIkBwjWDi",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Dustup",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The bristle boar is standing in an area with soil, dust, sand, or similar debris</p>\n<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The bristle boar spins and kicks up dirt, knocking it into foes' faces. Each adjacent creature must attempt a @Check[fortitude|dc:17] save.</p><hr /><p><strong>Success</strong> The creature is unaffected and immune to the bristle boar's Dustup for 24 hours.</p>\n<p><strong>Success</strong> The creature unaffected.</p>\n<p><strong>Failure</strong> The creature @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} and dazzled for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "earth",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Bristle Boar",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -2
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 19
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 45,
+                "temp": 0,
+                "value": 45
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 40
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 3
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>The wild animals that have adapted to the harsh environs of Belkzen are either fierce enough to scare off predators, tough enough to survive attacks, or smart enough to avoid trouble. Bristle boars are all three. Many orcs admire the bristle boar, viewing them as living symbols of the toughness Belkzen demands from its inhabitants. With their spiny manes, sharp tusks, keen noses, and irascible nature, the creatures are both intimidating and dangerous.</p>\n<p>Hunters throughout the Inner Sea region know that taking down a wild boar can prove deadly for the unprepared. Bristle boars—the name given to both male and female specimen—are even more challenging to kill. Further, their meat is sinewy, so few hunters even bother with the animals. For those who fell the beasts, the boars' spined hides often serve as trophies of the hunter's skill.</p>\n<p>Bristle boars are not as reliant on the Deluge as other animals in Belkzen. Though they're certainly found in the green areas that spring up during the annual flooding, sounders of bristle boars can survive even in desolate areas like the Dirt Sea, grubbing for sustenance where few others can. The Cleft Head Hold maintains a small herd of tamed bristle boars.</p>\n<p>The orcs have learned that, with the right trainer, the clever animals make excellent companions. Aside from their utility in battle, the boars are often used to sniff out the rare yellow truffles that grow throughout the hold.</p>\n<p>A typical bristle boar stands 4 feet tall and weighs roughly 200 pounds.</p><h2>Stuck Treasure</h2><p>Although they don't seek out shiny objects like some animals, bristle boars who evade hunters often escape with weapons embedded in their thick hides. The Empty Hand orcs tell of a famous bristle boar dubbed \"Silverspear\" after the silvery spear stuck in its hide. Stories claim the boar's spear is imbued with powerful magic, and while many warriors have hunted Silverspear to claim its weapon, so far none have succeeded.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #207: The Resurrection Flood"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 9,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 6
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 9
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 10
+            },
+            "survival": {
+                "base": 8
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "animal"
+            ]
+        }
+    },
+    "type": "npc"
+}

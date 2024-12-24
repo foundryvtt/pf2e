@@ -178,10 +178,8 @@
         },
         {
             "_id": "G2hFIDtKPVXe7F1h",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.bVtkBJvGLP69qVGI"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.bVtkBJvGLP69qVGI"
             },
             "img": "systems/pf2e/icons/spells/unfettered-pack.webp",
             "name": "Unfettered Pack",
@@ -239,10 +237,8 @@
         },
         {
             "_id": "q3DcxqPwtseZwxfM",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.dN8QBNuTiaBHCKUe"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.dN8QBNuTiaBHCKUe"
             },
             "img": "icons/creatures/amphibians/frog-confused-green-blue.webp",
             "name": "Baleful Polymorph",
@@ -308,10 +304,8 @@
         },
         {
             "_id": "038PcNHJqLVAT3oi",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.znv4ECL7ZtuiagtA"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.znv4ECL7ZtuiagtA"
             },
             "img": "icons/magic/defensive/armor-stone-skin.webp",
             "name": "Flesh to Stone",
@@ -375,10 +369,8 @@
         },
         {
             "_id": "TOqxzU4DPEnUAgQT",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.2w4OpAGihn1JSHFD"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.2w4OpAGihn1JSHFD"
             },
             "img": "systems/pf2e/icons/spells/black-tentacles.webp",
             "name": "Black Tentacles",
@@ -405,7 +397,12 @@
                         "type": "bludgeoning"
                     }
                 },
-                "defense": null,
+                "defense": {
+                    "passive": {
+                        "statistic": "fortitude-dc"
+                    },
+                    "save": null
+                },
                 "description": {
                     "value": "<p><strong>Area</strong> 20-foot burst adjacent to a flat surface</p>\n<hr />\n<p>Oily black tentacles rise up and attempt to capture creatures in the area. Make spell attack rolls against the Fortitude DC of each creature in the area. Any creature you succeed against is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] and takes 3d6 bludgeoning damage. Whenever a creature ends its turn in the area, the tentacles attempt to grab that creature if they haven't already, and they deal @Damage[1d6[bludgeoning]] damage to any creature already Grabbed.</p>\n<p>The tentacles' Escape DC is equal to your spell DC. A creature can attack a tentacle in an attempt to release its grip. Its AC is equal to your spell DC, and it is destroyed if it takes 12 or more damage. Even if destroyed, additional tentacles continue to grow in the area until the duration ends. You can Dismiss the spell.</p>"
                 },
@@ -453,10 +450,8 @@
         },
         {
             "_id": "RXjcX6T7yDSBKILP",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.1K6AYGisvo9gqdhs"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.1K6AYGisvo9gqdhs"
             },
             "img": "systems/pf2e/icons/spells/elemental-form.webp",
             "name": "Elemental Form",
@@ -470,7 +465,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You call upon the power of the planes to transform into a Medium elemental battle form. When you cast this spell, choose air, earth, fire, or water. While in this form, you gain the corresponding trait and the elemental trait. You have hands in this battle form and can take manipulate actions. You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities regardless of which battle form you choose:</p>\n<ul>\n<li>AC = 19 + your level. Ignore your armor's check penalty and Speed reduction.</li>\n<li>10 temporary Hit Points.</li>\n<li>Darkvision.</li>\n<li>One or more unarmed melee attacks specific to the battle form you choose, which are the only attacks you can use. You're trained with them. Your attack modifier is +18, and your damage bonus is +9. These are Dexterity based (air or fire) or Strength based (earth or water). If your corresponding unarmed attack modifier is higher, you can use it instead.</li>\n<li>Acrobatics (air or fire) or Athletics (earth or water) modifier of +20; ignore this change if your own modifier is higher.</li>\n</ul>\n<p>You also gain specific abilities based on the type of elemental you choose:</p>\n<ul>\n<li><strong>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Elemental Form (Air)]{Air}</strong>\n<ul>\n<li>fly Speed 80 feet, movement doesn't trigger reactions;</li>\n<li><strong>Melee</strong> <span class=\"action-glyph\">1</span> gust, <strong>Damage</strong> 1d4 bludgeoning.</li>\n</ul>\n</li>\n<li><strong>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Elemental Form (Earth)]{Earth}</strong>\n<ul>\n<li>Speed 20 feet, burrow Speed 20 feet;</li>\n<li><strong>Melee</strong> <span class=\"action-glyph\">1</span> fist, <strong>Damage</strong> 2d10 bludgeoning.</li>\n</ul>\n</li>\n<li><strong>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Elemental Form (Fire)]{Fire}</strong>\n<ul>\n<li>Speed 50 feet; fire resistance 10, weakness 5 to cold and 5 to water;</li>\n<li><strong>Melee</strong> <span class=\"action-glyph\">1</span> tendril, <strong>Damage</strong> 1d8 fire plus @Damage[1d4[persistent,fire]] damage.</li>\n</ul>\n</li>\n<li><strong>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Elemental Form (Water)]{Water}</strong>\n<ul>\n<li>Speed 20 feet, swim Speed 60 feet; fire resistance 5;</li>\n<li><strong>Melee</strong> <span class=\"action-glyph\">1</span> wave, <strong>Damage</strong> 1d12 bludgeoning, and you can spend an action immediately after a hit to push the target 5 feet with the effects of a successful @UUID[Compendium.pf2e.actionspf2e.Item.Shove].</li>\n</ul>\n</li>\n</ul>\n<hr />\n<p><strong>Heightened (6th)</strong> Your battle form is Large and your attacks have 10-foot reach. You must have space to expand or the spell is lost. You instead gain AC = 22 + your level, 15 temporary HP, an attack modifier of +23, a damage bonus of +13, and Acrobatics or Athletics +23.</p>\n<p><strong>Heightened (7th)</strong> Your battle form is Huge and your attacks have 15-foot reach. You must have space to expand or the spell is lost. You instead gain AC = 22 + your level, 20 temporary HP, an attack modifier of +25, a damage bonus of +11, double the number of damage dice (including @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]), and Acrobatics or Athletics +25.</p>"
+                    "value": "<p>You call upon the power of the planes to transform into a Medium elemental battle form. When you Cast this Spell, choose a listed element. While in this form, you gain the corresponding trait and the elemental trait. You have hands in this battle form and can take manipulate actions. You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities regardless of which battle form you choose:</p>\n<ul>\n<li>AC = 19 + your level. Ignore your armor's check penalty and Speed reduction.</li>\n<li>10 temporary Hit Points.</li>\n<li>Darkvision.</li>\n<li>One or more unarmed melee attacks specific to the battle form you choose, which are the only attacks you can Strike with. You're trained with them. Your attack modifier is +18, and your damage bonus is +9. These are Dexterity based (air, fire, or metal) or Strength based (earth, water, or wood). If your corresponding unarmed attack modifier is higher, you can use it instead.</li>\n<li>Acrobatics (air, fire, or metal) or Athletics (earth, water, or wood) modifier of +20; ignore this change if your own modifier is higher.</li>\n</ul>\n<p>You also gain specific abilities based on the type of elemental you choose:</p>\n<ul>\n<li><strong>Air</strong>\n<ul>\n<li>fly 80 feet, movement doesn't trigger reactions;</li>\n<li><strong>Melee</strong> <span class=\"action-glyph\">1</span> gust, <strong>Damage</strong> 1d4 bludgeoning.</li>\n</ul>\n</li>\n<li><strong>Earth</strong>\n<ul>\n<li>Speed 20 feet, burrow 20 feet;</li>\n<li><strong>Melee</strong> <span class=\"action-glyph\">1</span> boulder, <strong>Damage</strong> 2d10 bludgeoning.</li>\n</ul>\n</li>\n<li><strong>Fire</strong>\n<ul>\n<li>Speed 50 feet; fire resistance 10, weakness 5 to cold and 5 to water;</li>\n<li><strong>Melee</strong> <span class=\"action-glyph\">1</span> tendril, <strong>Damage</strong> 1d8 fire plus 1d4 persistent fire.</li>\n</ul>\n</li>\n<li><strong>Metal</strong>\n<ul>\n<li>Speed 40 feet, fly 20 feet;</li>\n<li><strong>Melee</strong> <span class=\"action-glyph\">1</span> blade (versatile piercing), <strong>Damage</strong> 1d8 slashing plus 1d4 electricity.</li>\n</ul>\n</li>\n<li><strong>Water</strong>\n<ul>\n<li>Speed 20 feet, swim 60 feet; fire resistance 5;</li>\n<li><strong>Melee</strong> <span class=\"action-glyph\">1</span> wave, <strong>Damage</strong> 1d12 bludgeoning, and you can spend an action immediately after a hit to push the target 5 feet with the effects of a successful @UUID[Compendium.pf2e.actionspf2e.Item.Shove].</li>\n</ul>\n</li>\n<li><strong>Wood</strong>\n<ul>\n<li>Speed 20 feet, climb 30 feet;</li>\n<li><strong>Melee</strong> <span class=\"action-glyph\">1</span> branch, <strong>Damage</strong> 2d10 bludgeoning.</li>\n</ul>\n</li>\n</ul>\n<hr />\n<p><strong>Heightened (6th)</strong> Your battle form is Large and your attacks have 10-foot reach. You must have space to expand or the spell is lost. You instead gain AC = 22 + your level, 15 temporary HP, an attack modifier of +23, a damage bonus of +13, and Acrobatics or Athletics +23.</p>\n<p><strong>Heightened (7th)</strong> Your battle form is Huge and your attacks have 15-foot reach. You must have space to expand or the spell is lost. You instead gain AC = 22 + your level, 20 temporary HP, an attack modifier of +25, a damage bonus of +11, double the number of damage dice (including persistent damage), and Acrobatics or Athletics +25.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Elemental Form]</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -483,9 +478,9 @@
                     "value": "Ko4aNbEgnBzlpPk6"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": ""
@@ -516,10 +511,8 @@
         },
         {
             "_id": "PIN97iF3T2fIBVF1",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.YtesyvfAIwXOqISq"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.YtesyvfAIwXOqISq"
             },
             "img": "icons/creatures/mammals/humanoid-cat-skulking-teal.webp",
             "name": "Moon Frenzy",
@@ -578,10 +571,8 @@
         },
         {
             "_id": "C5QyR4m10SyzeWVo",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.SwUiVavHKMWG7t5K"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.SwUiVavHKMWG7t5K"
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Tongues",
@@ -641,10 +632,8 @@
         },
         {
             "_id": "3FZDPpPCEne5zWXG",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.A2JfEKe6BZcTG1S8"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.A2JfEKe6BZcTG1S8"
             },
             "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
             "name": "Fly",
@@ -704,10 +693,8 @@
         },
         {
             "_id": "BHquSWiPxvAEFJ2T",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.o6YCGx4lycsYpww4"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.o6YCGx4lycsYpww4"
             },
             "img": "systems/pf2e/icons/spells/haste.webp",
             "name": "Haste",
@@ -777,10 +764,8 @@
         },
         {
             "_id": "sgqTWoFopf5WEpcc",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.WsUwpfmhKrKwoIe3"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.WsUwpfmhKrKwoIe3"
             },
             "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
@@ -855,10 +840,8 @@
         },
         {
             "_id": "eaKnWKtRJAhXqmeK",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.YWrfKetOqDwVFut7"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.YWrfKetOqDwVFut7"
             },
             "img": "systems/pf2e/icons/spells/barkskin.webp",
             "name": "Barkskin",
@@ -917,12 +900,10 @@
         },
         {
             "_id": "UlnjdffC9SbA0myF",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.wzctak6BxOW8xvFV"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.wzctak6BxOW8xvFV"
             },
-            "img": "systems/pf2e/icons/spells/enlarge.webp",
+            "img": "icons/magic/unholy/silhouette-evil-horned-giant.webp",
             "name": "Enlarge",
             "sort": 1300000,
             "system": {
@@ -934,7 +915,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Bolstered by magical power, the target grows to size Large. Its equipment grows with it but returns to natural size if removed. The creature is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}. Its reach increases by 5 feet (or by 10 feet if it started out Tiny), and it gains a +2 status bonus to melee damage. This spell has no effect on a Large or larger creature.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Enlarge]</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The creature instead grows to size Huge. The status bonus to melee damage is +4 and the creature's reach increases by 10 feet (or 15 feet if the creature started out Tiny). The spell has no effect on a Huge or larger creature. @UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Enlarge (Heightened 4th)]</p>\n<p><strong>Heightened (6th)</strong> Choose either the 2nd-rank or 4th-rank version of this spell and apply its effects to 10 willing creatures.</p>"
+                    "value": "<p>Bolstered by magical power, the target grows to size Large. Its equipment grows with it but returns to natural size if removed. The creature is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}. Its reach increases by 5 feet (or by 10 feet if it started out Tiny), and it gains a +2 status bonus to melee damage. This spell has no effect on a Large or larger creature.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Enlarge]</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The creature instead grows to size Huge. The status bonus to melee damage is +4 and the creature's reach increases by 10 feet (or 15 feet if the creature started out Tiny). The spell has no effect on a Huge or larger creature.</p>\n<p><strong>Heightened (6th)</strong> Choose either the 2nd-rank or 4th-rank version of this spell and apply its effects to up to 10 willing creatures.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -957,9 +938,9 @@
                     "value": "Ko4aNbEgnBzlpPk6"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -990,10 +971,8 @@
         },
         {
             "_id": "CgDnf5N7CCQGsZ2F",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.0qaqksrGGDj74HXE"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.0qaqksrGGDj74HXE"
             },
             "img": "systems/pf2e/icons/spells/glitterdust.webp",
             "name": "Glitterdust",
@@ -1060,10 +1039,8 @@
         },
         {
             "_id": "BCqrTgKLpuifvHr0",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.XXqE1eY3w3z6xJCB"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.XXqE1eY3w3z6xJCB"
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
@@ -1122,10 +1099,8 @@
         },
         {
             "_id": "5xA01gfNHtOGVxEe",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl"
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
@@ -1191,10 +1166,8 @@
         },
         {
             "_id": "dRAsNA15zXnWQlfd",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.kBhaPuzLUSwS6vVf"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.kBhaPuzLUSwS6vVf"
             },
             "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
             "name": "Electric Arc",
@@ -1278,10 +1251,8 @@
         },
         {
             "_id": "M7G9lWsEk20IKRDG",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.4koZzrnMXhhosn0D"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4koZzrnMXhhosn0D"
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
@@ -1360,10 +1331,8 @@
         },
         {
             "_id": "aHQNrXsl0Yt2L0t4",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.aEM2cttJ2eYcLssW"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.aEM2cttJ2eYcLssW"
             },
             "img": "icons/skills/movement/feet-winged-sandals-tan.webp",
             "name": "Fleet Step",
@@ -1422,10 +1391,8 @@
         },
         {
             "_id": "7878ZnAkz3xfuoTr",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs"
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
@@ -1620,10 +1587,8 @@
         },
         {
             "_id": "iqqkiqYv9A6jsiQl",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.Q7QQ91vQtyi1Ux36"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.Q7QQ91vQtyi1Ux36"
             },
             "img": "systems/pf2e/icons/spells/jump.webp",
             "name": "Jump",
@@ -1695,10 +1660,8 @@
         },
         {
             "_id": "lFKCt9p3zBryjbgC",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.WBmvzNDfpwka3qT4"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.WBmvzNDfpwka3qT4"
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
@@ -1761,10 +1724,8 @@
         },
         {
             "_id": "U8DDcN4LCXZlDBRl",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.KcLVELhCUcKXxiKE"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.KcLVELhCUcKXxiKE"
             },
             "img": "systems/pf2e/icons/spells/longstrider.webp",
             "name": "Longstrider",
@@ -1823,10 +1784,8 @@
         },
         {
             "_id": "IUA6Hz2k67u3GvWn",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.O9w7r4BKgPogYDDe"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.O9w7r4BKgPogYDDe"
             },
             "img": "icons/magic/fire/flame-burning-earth-orange.webp",
             "name": "Produce Flame",
@@ -1906,10 +1865,8 @@
         },
         {
             "_id": "wZLjFFbF14hvvnVM",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.TVKNbcgTee19PXZR"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.TVKNbcgTee19PXZR"
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
@@ -1970,10 +1927,8 @@
         },
         {
             "_id": "tJUzQTuhoE9qFUiP",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.Gb7SeieEvd0pL2Eh"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.Gb7SeieEvd0pL2Eh"
             },
             "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
             "name": "True Strike",
@@ -2032,10 +1987,8 @@
         },
         {
             "_id": "S1fFulc448l5M852",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.xqmHD8JIjak15lRk"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.xqmHD8JIjak15lRk"
             },
             "img": "icons/magic/air/wind-stream-blue-gray.webp",
             "name": "Unseen Servant",
@@ -2094,10 +2047,8 @@
         },
         {
             "_id": "ygz9vjKBMtdLBGRq",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU"
             },
             "img": "icons/weapons/staves/staff-simple.webp",
             "name": "Staff",
@@ -2247,10 +2198,8 @@
         },
         {
             "_id": "wdjGItceQjeRcTN6",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Change Shape",

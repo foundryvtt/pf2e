@@ -138,7 +138,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:23]</p>\n<p><strong>Maximum Duration</strong> 8 rounds</p>\n<p><strong>Stage 1</strong> 1d6 poison (1 round)</p>\n<p><strong>Stage 2</strong> 1d6 poison, off-guard, and clumsy 1 (1 round)</p>\n<p><strong>Stage 3</strong> 1d6 poison, off-guard, and clumsy 2 (1 round)</p>\n<p><strong>Stage 4</strong> 1d6 poison and paralyzed (1 round).</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:23]</p>\n<p><strong>Maximum Duration</strong> 8 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d6[poison]] (1 round)</p>\n<p><strong>Stage 2</strong> 1d6 poison, @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard], and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 3</strong> 1d6 poison, off-guard, and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} (1 round)</p>\n<p><strong>Stage 4</strong> 1d6 poison and @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] (1 round).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -170,7 +170,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The tarantula flicks its legs, flinging spiky hairs in a @Template[type:cone|distance:15]. This deals @Damage[4d6[piercing]] damage with a @Check[type:reflex|dc:25|basic:true] save.</p>"
+                    "value": "<p>The tarantula flicks its legs, flinging spiky hairs in a @Template[cone|distance:15]. This deals @Damage[4d6[piercing]|traits:area-damage] damage with a @Check[reflex|dc:25|basic] save.</p>"
                 },
                 "publication": {
                     "license": "OGL",

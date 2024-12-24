@@ -104,7 +104,7 @@ declare global {
     interface RegionBoundaryRegionEvent<TDocument extends RegionDocument = RegionDocument, TUser extends User = User>
         extends BaseRegionEvent<TDocument, TUser> {
         name: "regionBoundary";
-        data: {};
+        data: object;
     }
 
     type RegionEvent<TDocument extends RegionDocument = RegionDocument, TUser extends User = User> =

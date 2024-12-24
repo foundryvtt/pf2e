@@ -53,8 +53,6 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/partials/spell-collection.hbs",
         "systems/pf2e/templates/actors/partials/toggles.hbs",
         "systems/pf2e/templates/actors/partials/total-bulk.hbs",
-        "systems/pf2e/templates/actors/crafting-entry-alchemical.hbs",
-        "systems/pf2e/templates/actors/crafting-entry-list.hbs",
         "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs",
 
         // SVG icons
@@ -136,7 +134,6 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/compendium-browser/settings/settings.hbs",
         "systems/pf2e/templates/compendium-browser/settings/pack-settings.hbs",
         "systems/pf2e/templates/compendium-browser/settings/source-settings.hbs",
-        "systems/pf2e/templates/compendium-browser/filters.hbs",
 
         // Action Partial
         "systems/pf2e/templates/chat/action/header.hbs",

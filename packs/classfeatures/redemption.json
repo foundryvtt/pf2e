@@ -1,0 +1,55 @@
+{
+    "_id": "UyuwFp0jQqYL2AdF",
+    "img": "icons/magic/nature/symbol-sun-yellow.webp",
+    "name": "Redemption",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Yearning for all to live in harmony, you make every attempt to redeem those others might slay or dismiss.</p>\n<p><strong>Edicts</strong> try to redeem those who commit wicked deeds, show compassion to others regardless of their authority or station</p>\n<p><strong>Anathema</strong> kill a sapient enemy without first offering a chance at redemption</p><hr /><p><strong>Champion's Reaction</strong> @UUID[Compendium.pf2e.actionspf2e.Item.Glimpse of Redemption]</p>\n<p><strong>Relentless Reaction (9th Level)</strong> If the enemy refuses, it takes persistent @Damage[@actor.abilities.cha.mod[spirit,persistent]]{persistent spirit damage} equal to your Charisma modifier.</p>\n<p><strong>Exalted Reaction (11th Level)</strong> If the enemy refuses, you can choose to grant the resistance to yourself and all allies in your champion's aura, including the triggering ally. If you do, the resistance is reduced by 2 for all</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:champion",
+                            "feat:champions-reaction"
+                        ]
+                    }
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Glimpse of Redemption"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "champion-cause",
+                "holy"
+            ],
+            "rarity": "common",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

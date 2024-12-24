@@ -1,0 +1,41 @@
+{
+    "_id": "kHvlHDq5hs2JDG0Y",
+    "folder": "u780Frvqdoqf5oLE",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Born of Item",
+    "system": {
+        "ancestry": {
+            "name": "Yaoguai",
+            "slug": "yaoguai",
+            "uuid": "Compendium.pf2e.ancestries.Item.dnk0Rf7AUmyR5b8z"
+        },
+        "description": {
+            "value": "<p>You were an object until the moon breathed life into you. Choose one Lore skill related to what kind of tool you were; for instance, Cooking Lore for a cleaver or Farming Lore for a rake. You become trained in this skill.</p><ul><li><strong>Humanoid Form</strong> You retain memories of the tasks you performed as an object. You gain a +1 circumstance bonus to the Lore skill you obtained through this heritage.</li><li><strong>Yaoguai Form</strong> Your time as a mindless object makes it harder to affect you mentally. If you roll a success on a mental effect, you gain a critical success instead.</li></ul>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:trait:mental",
+                    "change-shape:yaoguai"
+                ],
+                "selector": "saving-throw"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "yaoguai"
+            ]
+        }
+    },
+    "type": "heritage"
+}

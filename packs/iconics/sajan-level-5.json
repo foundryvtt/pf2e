@@ -4,15 +4,15 @@
     "items": [
         {
             "_id": "v6gdqk1v1h99mmac",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.heritages.Item.hFBwsVcSnNCJoimo"
+            },
             "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.heritages.Item.hFBwsVcSnNCJoimo"
-                },
                 "pf2e": {
                     "itemGrants": {}
                 }
             },
-            "img": "systems/pf2e/icons/features/ancestry/versatile-heritage.webp",
+            "img": "icons/environment/people/group.webp",
             "name": "Versatile Heritage",
             "sort": 0,
             "system": {
@@ -78,211 +78,15 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
         {
-            "_id": "txvixnbf5ik8ht3s",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.PodajLVxqYSAqVox"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "naturalAmbition": {
-                            "id": "876on97cr80erz04"
-                        }
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Natural Ambition",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "ancestry",
-                "description": {
-                    "value": "<p>You were raised to be ambitious and always reach for the stars, leading you to progress quickly in your chosen field. You gain a 1st-level class feat for your class. You must meet the prerequisites, but you can select the feat later in the character creation process in order to determine which prerequisites you meet.</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "ancestry-1",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "choices": {
-                            "filter": [
-                                "item:level:1",
-                                "item:category:class",
-                                "item:trait:{actor|system.details.class.trait}",
-                                {
-                                    "or": [
-                                        "feature:dragon-instinct",
-                                        {
-                                            "not": "item:draconic-arrogance"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "nor": [
-                                        "item:animal-companion",
-                                        "item:animal-companion-druid",
-                                        "item:bardic-lore",
-                                        "item:fire-lung",
-                                        "item:lingering-composition",
-                                        "item:leshy-familiar",
-                                        "item:martial-performance",
-                                        "item:shore-step",
-                                        "item:steadying-stone",
-                                        "item:storm-born",
-                                        "item:versatile-performance",
-                                        "item:untamed-form"
-                                    ]
-                                }
-                            ],
-                            "itemType": "feat"
-                        },
-                        "flag": "naturalAmbition",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat",
-                        "selection": "Compendium.pf2e.feats-srd.Item.Tiger Stance"
-                    },
-                    {
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.naturalAmbition}"
-                    }
-                ],
-                "slug": "natural-ambition",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "human"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "876on97cr80erz04",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.VCjAlOvjNvFJOsG5"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "txvixnbf5ik8ht3s"
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Tiger Stance",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> You are unarmored</p>\n<hr />\n<p>You enter the stance of a tiger and can make tiger claw attacks. These deal 1d8 slashing damage; are in the brawling group; and have the agile, finesse, nonlethal, and unarmed traits.</p>\n<p>On a critical success with your tiger claws, if you deal damage, the target takes @Damage[1d4[bleed]].</p>\n<p>As long as your Speed is at least 20 feet while in Tiger Stance, you can Step 10 feet.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "selfEffect": {
-                    "name": "Stance: Tiger Stance",
-                    "uuid": "Compendium.pf2e.feat-effects.Item.Stance: Tiger Stance"
-                },
-                "slug": "tiger-stance",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "monk",
-                        "stance"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "PmbIz2kjx58BXFZ3",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.yA9tsWT9uzL2REnw"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Ki Rush",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p>You can use ki to move with extraordinary speed and make yourself harder to hit. You gain the @UUID[Compendium.pf2e.spells-srd.Item.Ki Rush] ki spell and a focus pool of 1 Focus Point.</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "class-1",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "ki-rush",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "monk"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "10ljcayenbhp5nmy",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
             },
             "img": "icons/containers/bags/pack-leather-white-tan.webp",
             "name": "Backpack",
@@ -345,10 +149,8 @@
         },
         {
             "_id": "oo4lauuxrqtkzyvu",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.L9ZV076913otGtiB"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.L9ZV076913otGtiB"
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/rations.webp",
             "name": "Rations",
@@ -411,10 +213,8 @@
         },
         {
             "_id": "qvglo3nbcoro6at1",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.fyYnQf1NAx9fWFaS"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.fyYnQf1NAx9fWFaS"
             },
             "img": "icons/sundries/survival/rope-wrapped-brown.webp",
             "name": "Rope",
@@ -471,10 +271,8 @@
         },
         {
             "_id": "hpngyf1dy9py718v",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.VnPh324pKwd2ZB66"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.VnPh324pKwd2ZB66"
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/waterskin.webp",
             "name": "Waterskin",
@@ -531,10 +329,8 @@
         },
         {
             "_id": "uadq8whc2esc5ska",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.UlIxxLm71UdRgCFE"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UlIxxLm71UdRgCFE"
             },
             "img": "icons/commodities/stone/geode-raw-tan.webp",
             "name": "Flint and Steel",
@@ -591,10 +387,8 @@
         },
         {
             "_id": "h445gjzlq8i6zpr1",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.fagzYdmfYyMQ6J77"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.fagzYdmfYyMQ6J77"
             },
             "img": "icons/containers/ammunition/quiver-simple-brown.webp",
             "name": "Bedroll",
@@ -651,10 +445,8 @@
         },
         {
             "_id": "7g0g9bwv6ghjra40",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.81aHsD27HFGnq1Nt"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.81aHsD27HFGnq1Nt"
             },
             "img": "icons/sundries/survival/soap.webp",
             "name": "Soap",
@@ -711,10 +503,8 @@
         },
         {
             "_id": "71NOqjwekwonrFat",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.44F1mfJei4GY8f2X"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.44F1mfJei4GY8f2X"
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/crowbar.webp",
             "name": "Crowbar",
@@ -778,10 +568,8 @@
         },
         {
             "_id": "4h9J50B4NZk76kjO",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.5Ew82vBF9YfaiY9f"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.5Ew82vBF9YfaiY9f"
             },
             "img": "systems/pf2e/icons/equipment/treasure/currency/silver-pieces.webp",
             "name": "Silver Pieces",
@@ -821,7 +609,7 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "quantity": 5,
+                "quantity": 2,
                 "rules": [],
                 "size": "med",
                 "slug": "silver-pieces",
@@ -835,10 +623,8 @@
         },
         {
             "_id": "MHHFTKL9xHfU2oSu",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.lzJ8AVhRcbFul5fh"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.lzJ8AVhRcbFul5fh"
             },
             "img": "systems/pf2e/icons/equipment/treasure/currency/copper-pieces.webp",
             "name": "Copper Pieces",
@@ -892,10 +678,8 @@
         },
         {
             "_id": "bW47CPuOPXvGZN9V",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.dDIPA1WE9ESF67EB"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.dDIPA1WE9ESF67EB"
             },
             "img": "icons/equipment/chest/shirt-collared-pink.webp",
             "name": "Explorer's Clothing",
@@ -964,10 +748,8 @@
         },
         {
             "_id": "oxdmzPXt8nkuhPrb",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.Tt4Qw64fwrxhr5gT"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Tt4Qw64fwrxhr5gT"
             },
             "img": "systems/pf2e/icons/equipment/weapons/dart.webp",
             "name": "Dart",
@@ -1053,10 +835,8 @@
         },
         {
             "_id": "wKazyW4F8wTVtLAb",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.6DCy7tEF1cxaIJMy"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.6DCy7tEF1cxaIJMy"
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/grapling-hook.webp",
             "name": "Grappling Hook",
@@ -1148,310 +928,15 @@
                 },
                 "tradition": {
                     "value": "divine"
-                }
+                },
+                "traits": {}
             },
             "type": "spellcastingEntry"
         },
         {
-            "_id": "7jPsDcMBaL5Ua9bv",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.ps0nmhclT6aIXgd8"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/ki-rush.webp",
-            "name": "Ki Rush",
-            "sort": 0,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>Accelerated by your ki, you move with such speed you become a blur. Move two times: two Strides, two Steps, or one Stride and one Step (in either order).</p>\n<p>You gain the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition during this movement and until the start of your next turn.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "ilIgpzbt2yQUyheA"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "ki-rush",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "1"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [],
-                    "value": [
-                        "concentrate",
-                        "focus",
-                        "monk"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "xm7kk8mrqpknxl7n",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.KcbSxOPYC5CUqbZQ"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "cleverImproviser": {
-                            "id": "4nzsfmx5by8pss9f"
-                        }
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Clever Improviser",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "ancestry",
-                "description": {
-                    "value": "<p>You've learned how to handle situations when you're out of your depth. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Untrained Improvisation] general feat. In addition, you can attempt skill actions that normally require you to be trained, even if you are untrained.</p>"
-                },
-                "level": {
-                    "taken": 5,
-                    "value": 5
-                },
-                "location": "ancestry-5",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "GrantItem",
-                        "uuid": "Compendium.pf2e.feats-srd.Item.Untrained Improvisation"
-                    }
-                ],
-                "slug": "clever-improviser",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "human"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "4nzsfmx5by8pss9f",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.9jGaBxLUtevZYcZO"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "xm7kk8mrqpknxl7n"
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Untrained Improvisation",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "general",
-                "description": {
-                    "value": "<p>You've learned how to handle situations when you're out of your depth. Your proficiency bonus to untrained skill checks is equal to half your level instead of +0. If you're 7th level or higher, the bonus increases to your full level instead. This doesn't allow you to use the skill's trained actions.</p>"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": "",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": "skill-check",
-                        "type": "proficiency",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 6,
-                                    "value": "floor(@actor.level / 2)"
-                                },
-                                {
-                                    "start": 7,
-                                    "value": "@actor.level"
-                                }
-                            ]
-                        }
-                    }
-                ],
-                "slug": "untrained-improvisation",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "7tA66wP37Ysc8GIl",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.wB1ONG2uO7RnD1iC"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Flying Kick",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p>You launch yourself at a foe. Make a @UUID[Compendium.pf2e.actionspf2e.Item.Leap] or attempt a @UUID[Compendium.pf2e.actionspf2e.Item.High Jump] or @UUID[Compendium.pf2e.actionspf2e.Item.Long Jump].</p>\n<p>At the end of the jump, if you're adjacent to a foe, you can immediately Strike that foe with an unarmed attack, even if the foe is in midair. You fall to the ground after the Strike. If the distance you fall is no more than the height of your jump, you land upright and take no damage.</p>"
-                },
-                "level": {
-                    "taken": 4,
-                    "value": 4
-                },
-                "location": "class-4",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "flying-kick",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "monk"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "DTuFKrM46TAKmvqL",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.8bMmGBO6gsMfWZk3"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Stunning Fist",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p>The focused power of your flurry threatens to overwhelm your opponent. When you target the same creature with two Strikes from your @UUID[Compendium.pf2e.actionspf2e.Item.Flurry of Blows], you can try to stun the creature. If either Strike hits and deals damage, the target must succeed at a Fortitude save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} on a critical failure). This is an incapacitation effect.</p>"
-                },
-                "level": {
-                    "taken": 2,
-                    "value": 2
-                },
-                "location": "class-2",
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "Flurry of Blows"
-                        }
-                    ]
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "stunning-fist",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "Note",
-                        "predicate": [
-                            "stunning-fist"
-                        ],
-                        "selector": "strike-damage",
-                        "text": "PF2E.SpecificRule.Monk.StunningFist.Note",
-                        "title": "{item|name}"
-                    }
-                ],
-                "slug": "stunning-fist",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "monk"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "xZiICASHLtNA4eiX",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.HJYQlmGTdtyGWr6a"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.HJYQlmGTdtyGWr6a"
             },
             "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Powerful Leap",
@@ -1498,10 +983,8 @@
         },
         {
             "_id": "iJrendJ7WjLCbpRL",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.ZBhvJ9O8MvBFAlhq"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.ZBhvJ9O8MvBFAlhq"
             },
             "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Quick Jump",
@@ -1547,86 +1030,9 @@
             "type": "feat"
         },
         {
-            "_id": "iGouEO4PrBXF6Xcb",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.TZUskLT7yvP7N2co"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
-            "name": "Elixir of Life (Lesser)",
-            "sort": 0,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "elixir",
-                "containerId": "10ljcayenbhp5nmy",
-                "damage": {
-                    "formula": "3d6+6",
-                    "kind": "healing",
-                    "type": "untyped"
-                },
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>Elixirs of life accelerate a living creatures natural healing processes and immune system. Upon drinking this elixir, you regain [[/r (3d6+6)[healing]]]{3d6+6 Hit Points} and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life (Lesser)]</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 5
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 30
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 2,
-                "rules": [],
-                "size": "med",
-                "slug": "elixir-of-life-lesser",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "consumable",
-                        "elixir",
-                        "healing"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
             "_id": "xpWHMQLItEwWHjS1",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.TZUskLT7yvP7N2co"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.TZUskLT7yvP7N2co"
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
             "name": "Elixir of Life (Lesser)",
@@ -1644,7 +1050,7 @@
                     "type": "untyped"
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>Elixirs of life accelerate a living creatures natural healing processes and immune system. Upon drinking this elixir, you regain [[/r (3d6+6)[healing]]]{3d6+6 Hit Points} and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life (Lesser)]</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>Elixirs of life accelerate a living creatures natural healing processes and immune system. Upon drinking this elixir, you regain @Damage[(3d6+6)[healing]] Hit Points and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life]</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1698,10 +1104,8 @@
         },
         {
             "_id": "IdOPBmXUw4qShMSK",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.B6B7tBWJSqOBz5zz"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.B6B7tBWJSqOBz5zz"
             },
             "img": "systems/pf2e/icons/equipment/treasure/currency/gold-pieces.webp",
             "name": "Gold Pieces",
@@ -1741,7 +1145,7 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "quantity": 17,
+                "quantity": 30,
                 "rules": [],
                 "size": "med",
                 "slug": "gold-pieces",
@@ -1755,10 +1159,8 @@
         },
         {
             "_id": "b7GteVUMVWDpib3Q",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.97QyNEOAyYLdGaYc"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.97QyNEOAyYLdGaYc"
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/bottled-lightning.webp",
             "name": "Bottled Lightning (Moderate)",
@@ -1852,10 +1254,10 @@
         },
         {
             "_id": "DTQZ7gcFEy8QDpZG",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.backgrounds.Item.lX5KDS2hU5LihZRs"
+            },
             "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.backgrounds.Item.lX5KDS2hU5LihZRs"
-                },
                 "pf2e": {
                     "itemGrants": {
                         "catFall": {
@@ -1957,10 +1359,10 @@
         },
         {
             "_id": "tzlZiOb8LxAtIf5x",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.LQw0yIMDUJJkq1nD"
+            },
             "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.LQw0yIMDUJJkq1nD"
-                },
                 "pf2e": {
                     "grantedBy": {
                         "id": "DTQZ7gcFEy8QDpZG",
@@ -2012,10 +1414,8 @@
         },
         {
             "_id": "M9iTpefdcJVCBU7w",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.8Jdw4yAzWYylGePS"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8Jdw4yAzWYylGePS"
             },
             "img": "icons/sundries/lights/torch-brown.webp",
             "name": "Torch",
@@ -2152,10 +1552,8 @@
         },
         {
             "_id": "jgVvaELZPsa5nXSp",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.NIsxR5zXtVa3PuyU"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.NIsxR5zXtVa3PuyU"
             },
             "img": "systems/pf2e/icons/equipment/weapons/temple-sword.webp",
             "name": "Temple Sword",
@@ -2240,10 +1638,8 @@
         },
         {
             "_id": "Esqp4384FJiRMeqX",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.W6Gl9ePmItfDHji0"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.W6Gl9ePmItfDHji0"
             },
             "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Assurance (Acrobatics)",
@@ -2387,10 +1783,8 @@
         },
         {
             "_id": "vO6Re2NIjnMNiKvd",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.FNDq4NFSN0g2HKWO"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FNDq4NFSN0g2HKWO"
             },
             "img": "icons/equipment/hand/gauntlet-simple-leather-brown-gold.webp",
             "name": "Handwraps of Mighty Blows",
@@ -2475,69 +1869,152 @@
             "type": "weapon"
         },
         {
-            "_id": "1nG9xYYyqDyIQHEe",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.x9wxQ61HNkAVbDHr"
-                }
+            "_id": "LBXAJlwl0h8gevbT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
             },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Weapon Proficiency (Martial)",
+            "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/human.svg",
+            "name": "Human",
             "sort": 0,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "general",
-                "description": {
-                    "value": "<p>You become trained in all simple weapons. If you were already trained in all simple weapons, you become trained in all martial weapons. If you were already trained in all martial weapons, you become trained in one advanced weapon of your choice.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat more than once. Each time you do, you become trained in additional weapons as appropriate, following the above progression.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
+                "additionalLanguages": {
+                    "count": 1,
+                    "custom": "",
                     "value": []
+                },
+                "boosts": {
+                    "0": {
+                        "selected": "str",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    },
+                    "1": {
+                        "selected": "dex",
+                        "value": [
+                            "str",
+                            "dex",
+                            "con",
+                            "int",
+                            "wis",
+                            "cha"
+                        ]
+                    },
+                    "2": {
+                        "value": []
+                    }
+                },
+                "description": {
+                    "value": "<p><em>As unpredictable and varied as any of Golarion's peoples, humans have exceptional drive and the capacity to endure and expand. Though many civilizations thrived before humanity rose to prominence, humans have built some of the greatest and the most terrible societies throughout the course of history, and today they are the most populous people in the realms around the Inner Sea.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.45SK8rdbbxvEHfMn.JournalEntryPage.7pU8yM7yPMw92SY3]{Human}</em></p>"
+                },
+                "flaws": {
+                    "0": {
+                        "value": []
+                    }
+                },
+                "hp": 8,
+                "items": {},
+                "languages": {
+                    "custom": "",
+                    "value": [
+                        "common"
+                    ]
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.martial.rank",
-                        "value": "min(1,@actor.system.proficiencies.attacks.simple.rank)"
-                    }
-                ],
-                "slug": "weapon-proficiency",
-                "subfeatures": {
-                    "proficiencies": {
-                        "simple": {
-                            "rank": 1
-                        }
-                    }
-                },
+                "reach": 5,
+                "rules": [],
+                "size": "med",
+                "slug": "human",
+                "speed": 25,
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "general"
+                        "human",
+                        "humanoid"
                     ]
-                }
+                },
+                "vision": "normal"
             },
-            "type": "feat"
+            "type": "ancestry"
         },
         {
-            "_id": "ne1w7Gf79qwMeuus",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classes.Item.YPxpk9JbMnKjbNLc"
+            "_id": "o6PakiRCMOt1Vpmz",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.xShIDyydOMkGvGNb"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/chalk.webp",
+            "name": "Chalk",
+            "sort": 28321,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "other",
+                "containerId": "10ljcayenbhp5nmy",
+                "damage": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 10,
+                "rules": [],
+                "size": "med",
+                "slug": "chalk",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "Ks9agTfXGNMPAmvW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classes.Item.YPxpk9JbMnKjbNLc"
             },
             "img": "systems/pf2e/icons/classes/monk.webp",
             "name": "Monk",
@@ -2633,17 +2110,17 @@
                         "name": "Expert Strikes",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Expert Strikes"
                     },
-                    "bgd0f": {
-                        "img": "icons/creatures/eyes/human-single-blue.webp",
-                        "level": 5,
-                        "name": "Alertness",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Alertness"
-                    },
                     "c8q3r": {
-                        "img": "systems/pf2e/icons/features/classes/flurry-of-blows.webp",
+                        "img": "icons/skills/melee/unarmed-punch-fist-yellow-red.webp",
                         "level": 1,
                         "name": "Flurry of Blows",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Flurry of Blows"
+                    },
+                    "dZCTM": {
+                        "img": "icons/creatures/eyes/human-single-blue.webp",
+                        "level": 5,
+                        "name": "Perception Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Perception Expertise"
                     },
                     "dzcvw": {
                         "img": "systems/pf2e/icons/features/classes/graceful-legend.webp",
@@ -2658,7 +2135,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Powerful Fist"
                     },
                     "k3mxz": {
-                        "img": "systems/pf2e/icons/features/classes/graceful-mastery.webp",
+                        "img": "icons/magic/defensive/illusion-evasion-echo-purple.webp",
                         "level": 13,
                         "name": "Graceful Mastery",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Graceful Mastery"
@@ -2670,7 +2147,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Monk Expertise"
                     },
                     "udbeu": {
-                        "img": "systems/pf2e/icons/features/classes/metal-strikes.webp",
+                        "img": "icons/magic/lightning/fist-unarmed-strike-blue-green.webp",
                         "level": 9,
                         "name": "Metal Strikes",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Metal Strikes"
@@ -2688,7 +2165,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Path to Perfection"
                     },
                     "zeyz5": {
-                        "img": "systems/pf2e/icons/features/classes/perfected-form.webp",
+                        "img": "icons/magic/unholy/strike-body-life-soul-purple.webp",
                         "level": 19,
                         "name": "Perfected Form",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Perfected Form"
@@ -2707,6 +2184,7 @@
                     }
                 },
                 "keyAbility": {
+                    "selected": "dex",
                     "value": [
                         "dex",
                         "str"
@@ -2714,9 +2192,9 @@
                 },
                 "perception": 1,
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
                 },
                 "rules": [],
                 "savingThrows": {
@@ -2765,13 +2243,11 @@
             "type": "class"
         },
         {
-            "_id": "Zpn9iQNCqivUKLBl",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.NLHHHiAcdnZ5ohc2"
-                }
+            "_id": "c55XWvo1nUmuvgxu",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.NLHHHiAcdnZ5ohc2"
             },
-            "img": "systems/pf2e/icons/features/classes/flurry-of-blows.webp",
+            "img": "icons/skills/melee/unarmed-punch-fist-yellow-red.webp",
             "name": "Flurry of Blows",
             "sort": 0,
             "system": {
@@ -2783,19 +2259,19 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>You can attack rapidly with fists, feet, elbows, knees, and other unarmed attacks. You gain the Flurry of Blows action.</p>\n<hr />\n<p>Make two unarmed @UUID[Compendium.pf2e.actionspf2e.Item.Strike]{Strikes}. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses. Apply your multiple attack penalty to the Strikes normally. As it has the flourish trait, you can use Flurry of Blows only once per turn.</p>"
+                    "value": "<p>Make two unarmed Strikes. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses. Apply your multiple attack penalty to the Strikes normally. As a flourish ability, you can use Flurry of Blows only once per turn.</p>"
                 },
                 "level": {
                     "value": 1
                 },
-                "location": "ne1w7Gf79qwMeuus",
+                "location": "Ks9agTfXGNMPAmvW",
                 "prerequisites": {
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
                 },
                 "rules": [],
                 "slug": "flurry-of-blows",
@@ -2810,11 +2286,9 @@
             "type": "feat"
         },
         {
-            "_id": "JXHXyIwrI321C6ED",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.SB8UJ8rZmvbcBweJ"
-                }
+            "_id": "qMNy4ocgA9XePZ6t",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.SB8UJ8rZmvbcBweJ"
             },
             "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
             "name": "Powerful Fist",
@@ -2828,19 +2302,19 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>You know how to wield your fists as deadly weapons. The damage die for your fist increases to 1d6 instead of 1d4. Most people take a -2 circumstance penalty when making a lethal attack with nonlethal unarmed attacks, because they find it hard to use their fists with deadly force. You don't take this penalty when making a lethal attack with your fist or any other unarmed attacks.</p>"
+                    "value": "<p>Your fists are deadly weapons. The damage die for your fist increases to 1d6 instead of 1d4. You don't take the normal –2 circumstance penalty when making a lethal attack with your fist or any other unarmed attacks.</p>"
                 },
                 "level": {
                     "value": 1
                 },
-                "location": "ne1w7Gf79qwMeuus",
+                "location": "Ks9agTfXGNMPAmvW",
                 "prerequisites": {
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
                 },
                 "rules": [
                     {
@@ -2866,15 +2340,77 @@
             "type": "feat"
         },
         {
-            "_id": "a8x0VnrQXHji61it",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.Cq6NjvcKZOMySBVj"
+            "_id": "R444mgC27v0NGm3h",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.D2AE8RfMlZ3D1FuV"
+            },
+            "img": "icons/magic/fire/flame-burning-embers-yellow.webp",
+            "name": "Mystic Strikes",
+            "sort": 600,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Focusing your will into your physical attacks imbues them with mystical energy. Your unarmed attacks become magical, allowing them to get past resistances to non-magical attacks. However, you still need an item such as @UUID[Compendium.pf2e.equipment-srd.Item.Handwraps of Mighty Blows]{Handwraps of Mighty Blows (+1)} to gain an item bonus to attack rolls or increase your attacks' weapon damage dice.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "Ks9agTfXGNMPAmvW",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "definition": [
+                            "item:category:unarmed"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "weapon-traits",
+                        "value": "magical"
+                    },
+                    {
+                        "definition": [
+                            "item:trait:monk"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "feat:monastic-weaponry"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "magical"
+                    }
+                ],
+                "slug": "mystic-strikes",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "monk"
+                    ]
                 }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "3wFIGs4h0yOWdZ8D",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.Cq6NjvcKZOMySBVj"
             },
             "img": "systems/pf2e/icons/features/classes/incredible-movement.webp",
             "name": "Incredible Movement",
-            "sort": 600,
+            "sort": 900,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2889,14 +2425,14 @@
                 "level": {
                     "value": 3
                 },
-                "location": "ne1w7Gf79qwMeuus",
+                "location": "Ks9agTfXGNMPAmvW",
                 "prerequisites": {
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
                 },
                 "rules": [
                     {
@@ -2950,80 +2486,12 @@
             "type": "feat"
         },
         {
-            "_id": "N8yus35qvXFJ7KXo",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.D2AE8RfMlZ3D1FuV"
-                }
+            "_id": "bpB8wllNAhKQRoB0",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.VgZIutWjFl8oZQFi"
             },
-            "img": "icons/magic/fire/flame-burning-embers-yellow.webp",
-            "name": "Mystic Strikes",
-            "sort": 900,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Focusing your will into your physical attacks imbues them with mystical energy. Your unarmed attacks become magical, allowing them to get past resistances to non-magical attacks. However, you still need an item such as @UUID[Compendium.pf2e.equipment-srd.Item.Handwraps of Mighty Blows]{Handwraps of Mighty Blows (+1)} to gain an item bonus to attack rolls or increase your attacks' weapon damage dice.</p>"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": "ne1w7Gf79qwMeuus",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "definition": [
-                            "item:category:unarmed"
-                        ],
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "weapon-traits",
-                        "value": "magical"
-                    },
-                    {
-                        "definition": [
-                            "item:trait:monk"
-                        ],
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "predicate": [
-                            "feat:monastic-weaponry"
-                        ],
-                        "property": "weapon-traits",
-                        "value": "magical"
-                    }
-                ],
-                "slug": "mystic-strikes",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "monk"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "yuBb165x395x7l45",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.D8CSi8c9XiRpVc5M"
-                }
-            },
-            "img": "icons/creatures/eyes/human-single-blue.webp",
-            "name": "Alertness",
+            "img": "icons/skills/melee/hand-grip-staff-yellow-brown.webp",
+            "name": "Expert Strikes",
             "sort": 2000,
             "system": {
                 "actionType": {
@@ -3034,70 +2502,29 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>Experience has made you increasingly aware of threats around you, and you react more quickly to danger. Your proficiency rank for Perception increases to expert.</p>"
+                    "value": "<p>You've practiced martial arts and have now surpassed your former skill. Your proficiency ranks for unarmed attacks and simple weapons increase to expert. When you get a critical hit with an unarmed attack in the brawling group, you get its critical specialization effect.</p>"
                 },
                 "level": {
                     "value": 5
                 },
-                "location": "ne1w7Gf79qwMeuus",
+                "location": "Ks9agTfXGNMPAmvW",
                 "prerequisites": {
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
                 },
-                "rules": [],
-                "slug": "alertness",
-                "subfeatures": {
-                    "proficiencies": {
-                        "perception": {
-                            "rank": 2
-                        }
+                "rules": [
+                    {
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            "item:category:unarmed",
+                            "item:group:brawling"
+                        ]
                     }
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "05poxXZNjI7hg6at",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.VgZIutWjFl8oZQFi"
-                }
-            },
-            "img": "icons/skills/melee/hand-grip-staff-yellow-brown.webp",
-            "name": "Expert Strikes",
-            "sort": 2500,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You've practiced martial arts and have now surpassed your former skill. Your proficiency ranks for unarmed attacks and simple weapons increase to expert.</p>"
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": "ne1w7Gf79qwMeuus",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
+                ],
                 "slug": "expert-strikes",
                 "subfeatures": {
                     "proficiencies": {
@@ -3119,109 +2546,633 @@
             "type": "feat"
         },
         {
-            "_id": "LBXAJlwl0h8gevbT",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
-                }
+            "_id": "UW1zUAKM9SJ8jSuQ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.JCqACxgrm5ixX0Jy"
             },
-            "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/human.svg",
-            "name": "Human",
-            "sort": 0,
+            "img": "icons/creatures/eyes/human-single-blue.webp",
+            "name": "Perception Expertise",
+            "sort": 2500,
             "system": {
-                "additionalLanguages": {
-                    "count": 1,
-                    "custom": "",
-                    "value": []
+                "actionType": {
+                    "value": "passive"
                 },
-                "boosts": {
-                    "0": {
-                        "selected": "str",
-                        "value": [
-                            "cha",
-                            "con",
-                            "dex",
-                            "int",
-                            "str",
-                            "wis"
-                        ]
-                    },
-                    "1": {
-                        "selected": "dex",
-                        "value": [
-                            "str",
-                            "dex",
-                            "con",
-                            "int",
-                            "wis",
-                            "cha"
-                        ]
-                    },
-                    "2": {
-                        "value": []
-                    }
+                "actions": {
+                    "value": null
                 },
+                "category": "classfeature",
                 "description": {
-                    "value": "<p><em>As unpredictable and varied as any of Golarion's peoples, humans have exceptional drive and the capacity to endure and expand. Though many civilizations thrived before humanity rose to prominence, humans have built some of the greatest and the most terrible societies throughout the course of history, and today they are the most populous people in the realms around the Inner Sea.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.45SK8rdbbxvEHfMn.JournalEntryPage.7pU8yM7yPMw92SY3]{Human}</em></p>"
+                    "value": "<p>You remain alert to threats around you. Your proficiency rank for Perception increases to expert.</p>"
                 },
-                "flaws": {
-                    "0": {
-                        "value": []
-                    }
+                "level": {
+                    "value": 5
                 },
-                "hp": 8,
-                "items": {},
-                "languages": {
-                    "custom": "",
-                    "value": [
-                        "common"
-                    ]
+                "location": "Ks9agTfXGNMPAmvW",
+                "prerequisites": {
+                    "value": []
                 },
                 "publication": {
                     "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "remaster": true,
+                    "title": "Pathfinder Rage of Elements"
                 },
-                "reach": 5,
                 "rules": [],
-                "size": "med",
-                "slug": "human",
-                "speed": 25,
+                "slug": "perception-expertise",
+                "subfeatures": {
+                    "proficiencies": {
+                        "perception": {
+                            "rank": 2
+                        }
+                    }
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "iDofdffIJNnS51Sn",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.ps0nmhclT6aIXgd8"
+            },
+            "img": "systems/pf2e/icons/spells/ki-rush.webp",
+            "name": "Qi Rush",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>Accelerated by your qi, you move with such speed you become a blur. Move two times: two Strides, two Steps, or one Stride and one Step (in either order).</p>\n<p>You gain the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition during this movement and until the start of your next turn.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "ilIgpzbt2yQUyheA"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "ritual": null,
+                "rules": [],
+                "slug": "qi-rush",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "concentrate",
+                        "focus",
+                        "monk"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "0EuwrINKDz8IZFm7",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.PodajLVxqYSAqVox"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "tigerStance": {
+                            "id": "07VbvnValiBOclG4",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Natural Ambition",
+            "sort": 192000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestry",
+                "description": {
+                    "value": "<p>You were raised to be ambitious and always reach for the stars, leading you to progress quickly in your chosen field. You gain a 1st-level class feat for your class. You must meet the prerequisites, but you can select the feat later in the character creation process in order to determine which prerequisites you meet.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:level:1",
+                                "item:category:class",
+                                "item:trait:{actor|system.details.class.trait}",
+                                {
+                                    "or": [
+                                        "feature:dragon-instinct",
+                                        {
+                                            "not": "item:draconic-arrogance"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "nor": [
+                                        "item:animal-companion",
+                                        "item:animal-companion-druid",
+                                        "item:bardic-lore",
+                                        "item:fire-lung",
+                                        "item:lingering-composition",
+                                        "item:leshy-familiar",
+                                        "item:martial-performance",
+                                        "item:shore-step",
+                                        "item:steadying-stone",
+                                        "item:storm-born",
+                                        "item:versatile-performance",
+                                        "item:untamed-form"
+                                    ]
+                                }
+                            ],
+                            "itemType": "feat"
+                        },
+                        "flag": "naturalAmbition",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat",
+                        "selection": "Compendium.pf2e.feats-srd.Item.Tiger Stance"
+                    },
+                    {
+                        "flag": "tigerStance",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.naturalAmbition}"
+                    }
+                ],
+                "slug": "natural-ambition",
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "human",
-                        "humanoid"
+                        "human"
                     ]
-                },
-                "vision": "normal"
-            },
-            "type": "ancestry"
-        },
-        {
-            "_id": "o6PakiRCMOt1Vpmz",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.xShIDyydOMkGvGNb"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/chalk.webp",
-            "name": "Chalk",
-            "sort": 28321,
+            "type": "feat"
+        },
+        {
+            "_id": "07VbvnValiBOclG4",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.VCjAlOvjNvFJOsG5"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "0EuwrINKDz8IZFm7",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Tiger Stance",
+            "sort": 233800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> You are unarmored</p>\n<hr />\n<p>You enter the stance of a tiger and can make tiger claw attacks. These deal 1d8 slashing damage; are in the brawling group; and have the agile, finesse, nonlethal, and unarmed traits.</p>\n<p>On a critical success with your tiger claws, if you deal damage, the target takes 1d4 persistent bleed damage.</p>\n<p>As long as your Speed is at least 20 feet while in Tiger Stance, you can Step 10 feet.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Stance: Tiger Stance",
+                    "uuid": "Compendium.pf2e.feat-effects.Item.Stance: Tiger Stance"
+                },
+                "slug": "tiger-stance",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "monk",
+                        "stance"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "uBgao8kL2igaSajV",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.KcbSxOPYC5CUqbZQ"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "untrainedImprovisation": {
+                            "id": "TgTFC2zatPBNPg0U",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Clever Improviser",
+            "sort": 155200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestry",
+                "description": {
+                    "value": "<p>You've learned how to handle situations when you're out of your depth. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Untrained Improvisation] general feat. In addition, you can attempt skill actions that normally require you to be trained, even if you are untrained.</p>"
+                },
+                "level": {
+                    "taken": 5,
+                    "value": 5
+                },
+                "location": "ancestry-5",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "flag": "untrainedImprovisation",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Untrained Improvisation"
+                    }
+                ],
+                "slug": "clever-improviser",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "human"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "TgTFC2zatPBNPg0U",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.9jGaBxLUtevZYcZO"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "uBgao8kL2igaSajV",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Untrained Improvisation",
+            "sort": 73300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p>You've learned how to handle situations when you're out of your depth. Your proficiency bonus to untrained skill checks is equal to your level –2. This improves to your level –1 at 5th level and your full level at 7th level. This doesn't allow you to use the skill's trained actions.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "skill-check",
+                        "type": "proficiency",
+                        "value": {
+                            "brackets": [
+                                {
+                                    "end": 4,
+                                    "value": "@actor.level -2"
+                                },
+                                {
+                                    "end": 6,
+                                    "start": 5,
+                                    "value": "@actor.level -1"
+                                },
+                                {
+                                    "start": 7,
+                                    "value": "@actor.level"
+                                }
+                            ],
+                            "field": "actor|level"
+                        }
+                    }
+                ],
+                "slug": "untrained-improvisation",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "6n6kAHsXxeX9v00z",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.yA9tsWT9uzL2REnw"
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Qi Spells",
+            "sort": 451700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>You have cultivated your qi to produce magical effects. You gain @UUID[Compendium.pf2e.spells-srd.Item.Inner Upheaval], @UUID[Compendium.pf2e.spells-srd.Item.Qi Rush], or another 1st-rank monk qi spell you have access to.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "class-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [],
+                "slug": "qi-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "monk"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "lGhkd5XTPvzJmTZ1",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.8bMmGBO6gsMfWZk3"
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Stunning Blows",
+            "sort": 65400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>The focused power of your flurry threatens to overwhelm your opponent. When you target the same creature with two Strikes from your @UUID[Compendium.pf2e.actionspf2e.Item.Flurry of Blows], you can try to stun the creature. If either Strike hits and deals damage, the target must succeed at a Fortitude save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} on a critical failure). This is an incapacitation effect.</p>"
+                },
+                "level": {
+                    "taken": 2,
+                    "value": 2
+                },
+                "location": "class-2",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "Flurry of Blows"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "stunning-blows",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "stunning-blows"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "PF2E.SpecificRule.Monk.StunningFist.Note",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": "stunning-blows",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "monk"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "db7ZutYPdB2b6G93",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.wB1ONG2uO7RnD1iC"
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Flying Kick",
+            "sort": 437600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>You launch yourself at a foe. Make a @UUID[Compendium.pf2e.actionspf2e.Item.Leap] or attempt a @UUID[Compendium.pf2e.actionspf2e.Item.High Jump] or @UUID[Compendium.pf2e.actionspf2e.Item.Long Jump].</p>\n<p>At the end of the jump, if you're adjacent to a foe, you can immediately Strike that foe with an unarmed attack, even if the foe is in midair. You fall to the ground after the Strike. If the distance you fall is no more than the height of your jump, you land upright and take no damage.</p>"
+                },
+                "level": {
+                    "taken": 4,
+                    "value": 4
+                },
+                "location": "class-4",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [],
+                "slug": "flying-kick",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "monk"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "b2Dl4sGYNWmR8eER",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.x9wxQ61HNkAVbDHr"
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Weapon Proficiency (Martial)",
+            "sort": 444200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p>You become trained in all martial weapons. If you were already trained in all martial weapons, you become trained in one advanced weapon of your choice. If you are at least 11th level, you also become an expert in these weapons.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat more than once. Each time you do, you become trained in an advanced weapon.</p>"
+                },
+                "level": {
+                    "taken": 5,
+                    "value": 1
+                },
+                "location": null,
+                "maxTakable": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.proficiencies.attacks.martial.rank",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    11
+                                ]
+                            }
+                        ],
+                        "value": 2
+                    }
+                ],
+                "slug": "weapon-proficiency",
+                "subfeatures": {
+                    "proficiencies": {
+                        "martial": {
+                            "rank": 1
+                        }
+                    }
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "CeSgaMw7zTEt0FXj",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.0CNSvLpeSM4aIfPJ"
+            },
+            "img": "systems/pf2e/icons/equipment/consumables/talismans/feather-step-stone.webp",
+            "name": "Feather Step Stone",
+            "sort": 1600000,
             "system": {
                 "baseItem": null,
                 "bulk": {
                     "value": 0
                 },
-                "category": "other",
-                "containerId": "10ljcayenbhp5nmy",
+                "category": "talisman",
+                "containerId": null,
                 "damage": null,
                 "description": {
-                    "value": ""
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">F</span> (concentrate)</p>\n<p><strong>Trigger</strong> You Stride or Step</p>\n<p><strong>Requirements</strong> You are trained in Acrobatics</p>\n<hr />\n<p>This stone, usually shaped as a cabochon, is a small chunk of amber with a bit of feather or a flying insect caught within it. When you activate the stone, you ignore the effects of any difficult terrain and greater difficult terrain you move through until the end of your turn.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
+                    "carryType": "worn"
                 },
                 "hardness": 0,
                 "hp": {
@@ -3229,30 +3180,102 @@
                     "value": 0
                 },
                 "level": {
-                    "value": 0
+                    "value": 3
                 },
                 "material": {
                     "grade": null,
                     "type": null
                 },
                 "price": {
-                    "per": 10,
                     "value": {
-                        "cp": 1
+                        "gp": 8
                     }
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Player Core"
+                    "title": "Pathfinder GM Core"
                 },
-                "quantity": 10,
+                "quantity": 1,
                 "rules": [],
                 "size": "med",
-                "slug": "chalk",
+                "slug": "feather-step-stone",
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "consumable",
+                        "magical",
+                        "talisman"
+                    ]
+                },
+                "usage": {
+                    "value": "affixed-to-armor"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "ynaYxkdVOjISwQOw",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.GyO89RBVjAKFxsFm"
+            },
+            "img": "icons/consumables/potions/bottle-conical-corked-blue.webp",
+            "name": "Mistform Elixir (Lesser)",
+            "sort": 131600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "elixir",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>A faint mist emanates from your skin, making you @UUID[Compendium.pf2e.conditionitems.Item.Concealed] for 3 rounds.</p>\n<p>As usual being concealed when your position is still obvious, you can't use this concealment to @UUID[Compendium.pf2e.actionspf2e.Item.Hide] or @UUID[Compendium.pf2e.actionspf2e.Item.Sneak].</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 4
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 18
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "mistform-elixir-lesser",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir",
+                        "illusion",
+                        "visual"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"

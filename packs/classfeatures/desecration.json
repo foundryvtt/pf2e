@@ -1,0 +1,55 @@
+{
+    "_id": "8YIA0jh64Ecz0TG6",
+    "img": "icons/magic/symbols/rune-sigil-horned-white-purple.webp",
+    "name": "Desecration",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You always take what pleases you, no matter who it hurts, and you spread a malign influence across all you touch.</p>\n<p><strong>Edicts</strong> subvert or corrupt everything in your path that is pure or holy, sow doubt among those holding ideals of purity or holiness.</p><hr /><p><strong>Champion's Reaction</strong> @UUID[Compendium.pf2e.actionspf2e.Item.Selfish Shield]</p>\n<p><strong>Relentless Reaction (9th)</strong> If your Charisma modifier is +3 or greater, your resistance against the triggering damage equals your Charisma modifier + half your level.</p>\n<p><strong>Exalted Reaction (11th)</strong> Each enemy in your champion's aura takes a –1 status penalty to attack rolls against you until the start of your next turn.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Exalted Reaction (Desecrator)]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:champion",
+                            "feat:champions-reaction"
+                        ]
+                    }
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Selfish Shield"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "champion-cause",
+                "unholy"
+            ],
+            "rarity": "uncommon",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

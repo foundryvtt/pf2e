@@ -1,0 +1,56 @@
+{
+    "_id": "3zNPch2pttYW2n1j",
+    "img": "icons/environment/people/charge.webp",
+    "name": "Effect: To War!",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.To War!]</p>\n<p>You gain a number of temporary Hit Points equal to the origin's level and a +2 status bonus to damage against any foe damaged by the origin's apocalypse mount.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 16
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "@item.origin.level"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.ApocalypseRider.ToWar.RollOptionLabel",
+                "option": "to-war-damage",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "to-war-damage"
+                ],
+                "selector": "damage",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

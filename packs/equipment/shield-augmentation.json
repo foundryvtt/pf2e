@@ -34,7 +34,146 @@
             "title": "Pathfinder Lost Omens: The Grand Bazaar"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitBackswing",
+                        "value": "backswing"
+                    },
+                    {
+                        "label": "PF2E.TraitDisarm",
+                        "value": "disarm"
+                    },
+                    {
+                        "label": "PF2E.TraitForceful",
+                        "value": "forceful"
+                    },
+                    {
+                        "label": "PF2E.TraitNonlethal",
+                        "value": "nonlethal"
+                    },
+                    {
+                        "label": "PF2E.TraitShove",
+                        "value": "shove"
+                    },
+                    {
+                        "label": "PF2E.TraitThrown",
+                        "value": "thrown"
+                    },
+                    {
+                        "label": "PF2E.TraitTrip",
+                        "value": "trip"
+                    },
+                    {
+                        "label": "PF2E.TraitVersatileS",
+                        "value": "versatile-s"
+                    }
+                ],
+                "flag": "traitOne",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Trait",
+                "rollOption": "shield-augmentation"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitDisarm",
+                        "predicate": [
+                            {
+                                "not": "shield-augmentation:disarm"
+                            }
+                        ],
+                        "value": "disarm"
+                    },
+                    {
+                        "label": "PF2E.TraitNonlethal",
+                        "predicate": [
+                            {
+                                "not": "shield-augmentation:nonlethal"
+                            }
+                        ],
+                        "value": "nonlethal"
+                    },
+                    {
+                        "label": "PF2E.TraitShove",
+                        "predicate": [
+                            {
+                                "not": "shield-augmentation:shove"
+                            }
+                        ],
+                        "value": "shove"
+                    },
+                    {
+                        "label": "PF2E.TraitThrown",
+                        "predicate": [
+                            {
+                                "not": "shield-augmentation:thrown"
+                            }
+                        ],
+                        "value": "thrown"
+                    },
+                    {
+                        "label": "PF2E.TraitTrip",
+                        "predicate": [
+                            {
+                                "not": "shield-augmentation:trip"
+                            }
+                        ],
+                        "value": "trip"
+                    },
+                    {
+                        "label": "PF2E.TraitVersatileS",
+                        "predicate": [
+                            {
+                                "not": "shield-augmentation:versatile-s"
+                            }
+                        ],
+                        "value": "versatile-s"
+                    }
+                ],
+                "flag": "traitTwo",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "nor": [
+                            "shield-augmentation:backswing",
+                            "shield-augmentation:forceful"
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Trait",
+                "rollOption": "shield-augmentation"
+            },
+            {
+                "definition": [
+                    "item:group:shield"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "{item|flags.pf2e.rulesSelections.traitOne}"
+            },
+            {
+                "definition": [
+                    "item:group:shield"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "nor": [
+                            "shield-augmentation:backswing",
+                            "shield-augmentation:forceful"
+                        ]
+                    }
+                ],
+                "property": "weapon-traits",
+                "value": "{item|flags.pf2e.rulesSelections.traitTwo}"
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "uncommon",

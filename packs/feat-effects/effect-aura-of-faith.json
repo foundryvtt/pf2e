@@ -4,10 +4,10 @@
     "name": "Effect: Aura of Faith",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Aura of Faith]</p>\n<p>Your first strike against an unholy creature each round deals an additional 1 spirit damage.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Aura of Faith]</p>\n<p>You add the holy trait to your Strikes.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -16,27 +16,28 @@
             "value": 12
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
-                "domain": "strike-damage",
-                "key": "RollOption",
-                "label": "PF2E.SpecificRule.Champion.AuraOfFaith.Toggle",
-                "option": "aura-of-faith",
-                "toggleable": true
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "parent:origin:trait:holy"
+                ],
+                "property": "traits",
+                "value": "holy"
             },
             {
-                "damageType": "spirit",
-                "key": "FlatModifier",
+                "key": "AdjustStrike",
+                "mode": "add",
                 "predicate": [
-                    "aura-of-faith",
-                    "target:trait:unholy"
+                    "parent:origin:trait:unholy"
                 ],
-                "selector": "strike-damage",
-                "value": 1
+                "property": "traits",
+                "value": "unholy"
             }
         ],
         "start": {

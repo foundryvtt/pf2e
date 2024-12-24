@@ -170,10 +170,8 @@
         },
         {
             "_id": "bHTnUEgmHf8mTmyp",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.d6o52BnjViNz7Gub"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.d6o52BnjViNz7Gub"
             },
             "img": "systems/pf2e/icons/spells/prismatic-spray.webp",
             "name": "Prismatic Spray",
@@ -236,10 +234,8 @@
         },
         {
             "_id": "bc9CZ1CgVPE4CZuF",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.0873MWM0qKDDv81O"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.0873MWM0qKDDv81O"
             },
             "img": "systems/pf2e/icons/spells/project-image.webp",
             "name": "Project Image",
@@ -300,10 +296,8 @@
         },
         {
             "_id": "yiu28YWKf5a9dOhD",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.5BbU1V6wGSGbrmRD"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.5BbU1V6wGSGbrmRD"
             },
             "img": "systems/pf2e/icons/spells/feeblemind.webp",
             "name": "Feeblemind",
@@ -370,10 +364,8 @@
         },
         {
             "_id": "JK3UzmKMWgBkwhqU",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.69L70wKfGDY66Mk9"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.69L70wKfGDY66Mk9"
             },
             "img": "systems/pf2e/icons/spells/teleport.webp",
             "name": "Teleport",
@@ -433,10 +425,8 @@
         },
         {
             "_id": "FQBTisR9Aly8BG9W",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.uqlxMQQeSGWEVjki"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.uqlxMQQeSGWEVjki"
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing",
@@ -498,22 +488,25 @@
         },
         {
             "_id": "GshKiFiTw3EMBRPS",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.2w4OpAGihn1JSHFD"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.2w4OpAGihn1JSHFD"
             },
             "img": "systems/pf2e/icons/spells/black-tentacles.webp",
             "name": "Black Tentacles",
             "sort": 700000,
             "system": {
-                "area": null,
+                "area": {
+                    "details": "20-foot burst adjacent to a flat surface",
+                    "type": "burst",
+                    "value": 20
+                },
                 "cost": {
                     "value": ""
                 },
                 "counteraction": false,
                 "damage": {
                     "0": {
+                        "applyMod": false,
                         "category": null,
                         "formula": "3d6",
                         "kinds": [
@@ -523,9 +516,14 @@
                         "type": "bludgeoning"
                     }
                 },
-                "defense": null,
+                "defense": {
+                    "passive": {
+                        "statistic": "fortitude-dc"
+                    },
+                    "save": null
+                },
                 "description": {
-                    "value": "<p>Oily black tentacles rise up and attempt to Grapple each creature in the area. Make spell attack rolls against the Fortitude DC of each creature. Any creature you succeed against is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] and takes 3d6 bludgeoning damage. Whenever a creature ends its turn in the area, the tentacles attempt to grab that creature if they haven't already, and they deal 1d6 bludgeoning damage to any creature already Grabbed.</p>\n<p>The tentacles' Escape DC is equal to your spell DC. A creature can attack a tentacle in an attempt to release its grip. Its AC is equal to your spell DC, and it is destroyed if it takes 12 or more damage. Even if destroyed, additional tentacles continue to grow in the area until the duration ends. You can Dismiss the spell.</p>"
+                    "value": "<p><strong>Area</strong> 20-foot burst adjacent to a flat surface</p>\n<hr />\n<p>Oily black tentacles rise up and attempt to capture creatures in the area. Make spell attack rolls against the Fortitude DC of each creature in the area. Any creature you succeed against is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] and takes 3d6 bludgeoning damage. Whenever a creature ends its turn in the area, the tentacles attempt to grab that creature if they haven't already, and they deal @Damage[1d6[bludgeoning]] damage to any creature already Grabbed.</p>\n<p>The tentacles' Escape DC is equal to your spell DC. A creature can attack a tentacle in an attempt to release its grip. Its AC is equal to your spell DC, and it is destroyed if it takes 12 or more damage. Even if destroyed, additional tentacles continue to grow in the area until the duration ends. You can Dismiss the spell.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -540,7 +538,7 @@
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
                 "range": {
                     "value": "120 feet"
@@ -561,6 +559,7 @@
                         "occult"
                     ],
                     "value": [
+                        "attack",
                         "concentrate",
                         "manipulate"
                     ]
@@ -570,10 +569,8 @@
         },
         {
             "_id": "z6DANJPlG3nUSWMY",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.3puDanGfpEt6jK5k"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.3puDanGfpEt6jK5k"
             },
             "img": "icons/magic/water/vortex-water-whirlpool.webp",
             "name": "Cone of Cold",
@@ -658,10 +655,8 @@
         },
         {
             "_id": "nysa73evCu3cVthj",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.9BnhadUO8FMLmeZ3"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.9BnhadUO8FMLmeZ3"
             },
             "img": "systems/pf2e/icons/spells/mind-probe.webp",
             "name": "Mind Probe",
@@ -727,10 +722,8 @@
         },
         {
             "_id": "PX3dDORh5j4SWAYX",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.LiGbewa9pO0yjbsY"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.LiGbewa9pO0yjbsY"
             },
             "img": "systems/pf2e/icons/spells/confusion.webp",
             "name": "Confusion",
@@ -796,10 +789,8 @@
         },
         {
             "_id": "4tt6ZjdR5AJPuI45",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door",
@@ -859,10 +850,8 @@
         },
         {
             "_id": "CVQP4H4oCMMxPma2",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.A2JfEKe6BZcTG1S8"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.A2JfEKe6BZcTG1S8"
             },
             "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
             "name": "Fly",
@@ -922,10 +911,8 @@
         },
         {
             "_id": "F6Gh5Mx7nKHmFzeI",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.I0j56TNRmGcTyoqJ"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.I0j56TNRmGcTyoqJ"
             },
             "img": "systems/pf2e/icons/spells/invisibility-sphere.webp",
             "name": "Invisibility Sphere",
@@ -987,10 +974,8 @@
         },
         {
             "_id": "HA533P8kpEcItk8S",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.9AAkVUCwF6WVNNY2"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.9AAkVUCwF6WVNNY2"
             },
             "img": "icons/magic/lightning/bolt-strike-sparks-blue.webp",
             "name": "Lightning Bolt",
@@ -1075,10 +1060,8 @@
         },
         {
             "_id": "CHXAYqBhknsvGNPr",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.EoKBlgf6Smt8opaU"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.EoKBlgf6Smt8opaU"
             },
             "img": "icons/environment/settlement/lighthouse-rock-red.webp",
             "name": "Nondetection",
@@ -1138,10 +1121,8 @@
         },
         {
             "_id": "kE16hHjXiE3GjFqD",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.f8hRqLJaxBVhF1u0"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.f8hRqLJaxBVhF1u0"
             },
             "img": "systems/pf2e/icons/spells/acid-arrow.webp",
             "name": "Acid Arrow",
@@ -1220,10 +1201,8 @@
         },
         {
             "_id": "BbLUZEJ8LgUkfDwG",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.f8SBoXiXQjlCKqly"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.f8SBoXiXQjlCKqly"
             },
             "img": "icons/creatures/magical/spirit-undead-winged-ghost.webp",
             "name": "Illusory Creature",
@@ -1285,10 +1264,8 @@
         },
         {
             "_id": "19pPrnbEoRumwPfP",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.6Ot4N22t5tPD51BO"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.6Ot4N22t5tPD51BO"
             },
             "img": "icons/skills/melee/unarmed-punch-fist-blue.webp",
             "name": "Knock",
@@ -1347,10 +1324,8 @@
         },
         {
             "_id": "NPyxoVX5xBt06l1D",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.4WAib3GichxLjp5p"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4WAib3GichxLjp5p"
             },
             "img": "systems/pf2e/icons/spells/alarm.webp",
             "name": "Alarm",
@@ -1414,10 +1389,8 @@
         },
         {
             "_id": "l19HYxWfqe5tThta",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.UKsIOWmMx4hSpafl"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.UKsIOWmMx4hSpafl"
             },
             "img": "icons/magic/control/buff-luck-fortune-rainbow.webp",
             "name": "Color Spray",
@@ -1487,10 +1460,8 @@
         },
         {
             "_id": "dJaxJkNHo3BQJy27",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl"
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
@@ -1556,10 +1527,8 @@
         },
         {
             "_id": "OcI6SrhOrjTM6joe",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.atlgGNI1E1Ox3O3a"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.atlgGNI1E1Ox3O3a"
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Ghost Sound",
@@ -1621,10 +1590,8 @@
         },
         {
             "_id": "mn80YDbRe0CR2jK5",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.aAbfKn8maGjJjk2W"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.aAbfKn8maGjJjk2W"
             },
             "img": "systems/pf2e/icons/spells/mage-armor.webp",
             "name": "Mage Armor",
@@ -1683,10 +1650,8 @@
         },
         {
             "_id": "xAfhGIMGCj7NPK77",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.vLzFcIaSXs7YTIqJ"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.vLzFcIaSXs7YTIqJ"
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
@@ -1750,10 +1715,8 @@
         },
         {
             "_id": "gqoxRUq74GYLkPPz",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.TVKNbcgTee19PXZR"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.TVKNbcgTee19PXZR"
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
@@ -1814,12 +1777,10 @@
         },
         {
             "_id": "5W8jGY13y07XUbFH",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.60sgbuMWN0268dB7"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.60sgbuMWN0268dB7"
             },
-            "img": "systems/pf2e/icons/spells/telekinetic-projectile.webp",
+            "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
             "sort": 2600000,
             "system": {
@@ -2216,7 +2177,7 @@
                     "type": "untyped"
                 },
                 "description": {
-                    "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain [[/r (3d8+10)[healing]]]{3d8+10 Hit Points}.</p>"
+                    "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain @Damage[(3d8+10)[healing]] Hit Points.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",

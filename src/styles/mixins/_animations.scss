@@ -3,6 +3,8 @@
 }
 
 @mixin die-spin {
+    animation: rotation 2s infinite linear;
+
     @keyframes rotation {
         from {
             -webkit-transform: rotate(0deg);
@@ -11,8 +13,6 @@
             -webkit-transform: rotate(359deg);
         }
     }
-
-    animation: rotation 2s infinite linear;
 }
 
 @mixin quick-transition {

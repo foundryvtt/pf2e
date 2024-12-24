@@ -9,7 +9,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>These brass goggles are engraved with flame patterns and have thick, heavy lenses.</p>\n<p>While worn, they give you a +2 item bonus to Crafting checks to @UUID[Compendium.pf2e.actionspf2e.Item.Craft] alchemical items and a +2 item bonus to attack rolls with alchemical bombs.</p>\n<p>You can also ignore lesser cover when making Strikes with alchemical bombs.</p>"
+            "value": "<p>These brass goggles are engraved with flame patterns and have thick, heavy lenses.</p>\n<p>While worn, they give you a +2 item bonus to Crafting checks to @UUID[Compendium.pf2e.actionspf2e.Item.Craft] alchemical items. When making Strikes with alchemical bombs, you ignore lesser cover.</p>\n<p>If your Strike with an alchemical bomb fails (but doesn't critically fail), you gain a +2 item bonus to the splash damage the target of the Strike takes.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -29,16 +29,16 @@
             }
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "quantity": 1,
         "rules": [
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "alchemical",
+                    "item:trait:alchemical",
                     "action:craft"
                 ],
                 "selector": "crafting",
@@ -46,12 +46,26 @@
                 "value": 2
             },
             {
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "target:cover-level:lesser"
+                ],
+                "selectors": "alchemical-bomb-base-attack-roll",
+                "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Alchemist Goggles"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.AlchemistGoggles.RollOptionLabel",
+                "option": "alchemist-goggles-failure",
+                "toggleable": true
+            },
+            {
+                "damageCategory": "splash",
                 "key": "FlatModifier",
                 "predicate": [
-                    "alchemical",
-                    "bomb"
+                    "alchemist-goggles-failure"
                 ],
-                "selector": "attack",
+                "selector": "alchemical-bomb-base-damage",
                 "type": "item",
                 "value": 2
             }

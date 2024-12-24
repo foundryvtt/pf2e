@@ -1,0 +1,60 @@
+{
+    "_id": "vXnMKFIxqLuCDW9q",
+    "img": "icons/creatures/magical/spirit-undead-masked-blue.webp",
+    "name": "Curse of Ancestral Meddling",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>The ancestral spirits you commune with haunt you and meddle with your belongings and actions, either out of a wellintentioned (but ultimately detrimental) attempt to assist you, as punishment for your audacity in circumventing the traditional means of achieving divine power, for their own amusement, or a mixture of the above. When you have the @UUID[Compendium.pf2e.conditionitems.Item.Cursebound] condition, you are @UUID[Compendium.pf2e.conditionitems.Item.Clumsy] with a value equal to your cursebound value as the spirits of your ancestors temporarily possess you and vie for control in your mind, hindering your movements.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": "@actor.conditions.cursebound.value"
+                    }
+                ],
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "predicate": [
+                    "self:condition:cursebound"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "curse",
+                "divine",
+                "oracle",
+                "spirit"
+            ]
+        }
+    },
+    "type": "feat"
+}

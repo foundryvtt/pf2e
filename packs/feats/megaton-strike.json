@@ -31,29 +31,33 @@
         "rules": [
             {
                 "key": "RollOption",
+                "label": "PF2E.SpecificRule.Inventor.Unstable.UnstableFunction.Label",
+                "option": "unstable-state",
+                "predicate": [
+                    {
+                        "not": "feature:construct-innovation"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
                 "option": "megaton",
                 "predicate": [
                     {
                         "not": "feature:construct-innovation"
                     }
                 ],
-                "suboptions": [
-                    {
-                        "label": "PF2E.SpecificRule.Inventor.Unstable.Stable",
-                        "value": "stable"
-                    },
-                    {
-                        "label": "PF2E.TraitUnstable",
-                        "value": "unstable"
-                    }
-                ],
-                "toggleable": true
+                "toggleable": true,
+                "value": true
             },
             {
                 "key": "AdjustStrike",
                 "mode": "add",
                 "predicate": [
-                    "megaton:unstable"
+                    "megaton",
+                    "unstable-state"
                 ],
                 "property": "traits",
                 "value": "unstable"
@@ -62,7 +66,10 @@
                 "diceNumber": "ternary(gte(@actor.level, 18), 3, ternary(gte(@actor.level, 10), 2, 1))",
                 "key": "DamageDice",
                 "predicate": [
-                    "megaton:stable",
+                    "megaton",
+                    {
+                        "not": "unstable-state"
+                    },
                     {
                         "or": [
                             {
@@ -86,7 +93,8 @@
                 "diceNumber": "ternary(gte(@actor.level, 18), 4, ternary(gte(@actor.level, 10), 3, 2))",
                 "key": "DamageDice",
                 "predicate": [
-                    "megaton:unstable",
+                    "megaton",
+                    "unstable-state",
                     {
                         "or": [
                             {
@@ -105,6 +113,17 @@
                     }
                 ],
                 "selector": "strike-damage"
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "unstable-state",
+                    "item:megaton-strike"
+                ],
+                "property": "traits",
+                "value": "unstable"
             }
         ],
         "traits": {

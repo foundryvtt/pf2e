@@ -44,10 +44,8 @@
         },
         {
             "_id": "T12UIlBHXTS1vtIa",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.jj5d830iUi2ZlQfs"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.jj5d830iUi2ZlQfs"
             },
             "img": "icons/magic/holy/barrier-shield-winged-blue.webp",
             "name": "Blessed Boundary",
@@ -134,10 +132,8 @@
         },
         {
             "_id": "MLu3Gs1SBokVcZgs",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.A2JfEKe6BZcTG1S8"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.A2JfEKe6BZcTG1S8"
             },
             "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
             "name": "Fly (Constant)",
@@ -199,10 +195,8 @@
         },
         {
             "_id": "uNKhZeAW6I0HvBef",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Translocate",
@@ -277,12 +271,10 @@
         },
         {
             "_id": "iXEKwjG6gRclQYwe",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.8M03UxGXjYyDFAoy"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.8M03UxGXjYyDFAoy"
             },
-            "img": "systems/pf2e/icons/spells/weapon-storm.webp",
+            "img": "icons/skills/melee/spear-tips-three-purple.webp",
             "name": "Weapon Storm",
             "sort": 500000,
             "system": {
@@ -299,7 +291,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You swing a weapon you're holding, and the weapon magically multiplies into duplicates that swipe at all creatures in either a cone or an emanation. This flurry deals four dice of damage to creatures in the area. This damage has the same type as the weapon and uses the same die size. Determine the die size as if you were attacking with the weapon; for instance, if you were wielding a two-hand weapon in both hands, you'd use its two-hand damage die.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target takes full damage.</p>\n<p><strong>Critical Failure</strong> The target takes double damage and is subject to the weapon's critical specialization effect.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Add another damage die.</p>"
+                    "value": "<p><strong>Area</strong> 30-foot cone or 10-foot emanation</p><hr /><p>You swing a weapon you're holding, and the weapon magically multiplies into duplicates that swipe at all creatures in either a cone or an emanation. This flurry deals four dice of damage to creatures in the area. This damage has the same type as the weapon and uses the same die size. Determine the die size as if you were attacking with the weapon; for instance, if you were wielding a two-hand weapon in both hands, you'd use its two-hand damage die.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target takes full damage.</p>\n<p><strong>Critical Failure</strong> The target takes double damage and is subject to the weapon's critical specialization effect.</p><hr /><p><strong>Heightened (+1)</strong> Add another damage die.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -314,7 +306,7 @@
                 },
                 "overlays": {
                     "9Ly51UbFomNFSkwE": {
-                        "name": "Weapon Storm (10-foot emanation)",
+                        "name": "Weapon Storm (Emanation)",
                         "overlayType": "override",
                         "sort": 2,
                         "system": {
@@ -325,7 +317,7 @@
                         }
                     },
                     "mAZRhujP3gA9tb4m": {
-                        "name": "Weapon Storm (30-foot cone)",
+                        "name": "Weapon Storm (Cone)",
                         "overlayType": "override",
                         "sort": 1,
                         "system": {
@@ -495,10 +487,8 @@
         },
         {
             "_id": "bLA7GlEL18ButVld",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
@@ -523,15 +513,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "or": [
-                                    "magical",
-                                    "arcane",
-                                    "divine",
-                                    "primal",
-                                    "occult"
-                                ]
-                            }
+                            "item:magical"
                         ],
                         "selector": "saving-throw",
                         "type": "status",
@@ -560,7 +542,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>If the First Blade is disarmed, he takes @Damage[8d6[mental]] damage (@Check[type:will|dc:36|basic:true] save, plus @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} on a critical failure). He also can't Conjure Weapon for 1 round.</p>"
+                    "value": "<p>If the First Blade is disarmed, he takes @Damage[8d6[mental]] damage (@Check[will|dc:36|basic] save, plus @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} on a critical failure). He also can't Conjure Weapon for 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -589,7 +571,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Each time the First Blade is critically hit, he attempts a @Check[type:flat|dc:17]. On a success, it becomes a normal hit.</p>"
+                    "value": "<p>Each time the First Blade is critically hit, he attempts a @Check[flat|dc:17]. On a success, it becomes a normal hit.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -606,10 +588,8 @@
         },
         {
             "_id": "6Wf5YWVfTFcN8sdr",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc"
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Reactive Strike",
@@ -713,7 +693,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>10 feet, @Damage[3d6[slashing]] damage (@Check[type:reflex|dc:33|basic:true] save)</p>"
+                    "value": "<p>10 feet, @Damage[3d6[slashing]] damage (@Check[reflex|dc:33|basic] save)</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -780,6 +760,12 @@
                         "text": "PF2E.Item.Weapon.CriticalSpecialization.hammer",
                         "title": "{item|name}",
                         "visibility": "owner"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "self:deity:slug:gorum",
+                        "toggleable": true
                     }
                 ],
                 "slug": null,
@@ -803,7 +789,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per minute</p><hr /><p><strong>Effect</strong> To the faint sound of fell warhorns, the First Blade transforms into a Large cloud of whirling metal shards, then Strides twice. This movement doesn't trigger reactions, and while he can move through occupied spaces, he must end his movement in an unoccupied space, at which point he resumes his true form. All creatures who the First Blade moves through at least once during his Strides take @Damage[10d10[slashing]] damage (@Check[type:reflex|dc:36|basic:true] save).</p>"
+                    "value": "<p><strong>Frequency</strong> once per minute</p><hr /><p><strong>Effect</strong> To the faint sound of fell warhorns, the First Blade transforms into a Large cloud of whirling metal shards, then Strides twice. This movement doesn't trigger reactions, and while he can move through occupied spaces, he must end his movement in an unoccupied space, at which point he resumes his true form. All creatures who the First Blade moves through at least once during his Strides take @Damage[10d10[slashing]] damage (@Check[reflex|dc:36|basic] save).</p>"
                 },
                 "frequency": {
                     "max": 1,

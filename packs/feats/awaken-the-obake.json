@@ -1,0 +1,63 @@
+{
+    "_id": "XECkaKwvc8M8ec9H",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Awaken the Obake",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Not every tool is well cared for, and those that are treated badly might awaken as malevolent spirits. You can temporarily evoke the spirit within a nearby mistreated tool to cast @UUID[Compendium.pf2e.spells-srd.Item.Fear] as a 5th-rank innate arcane spell once per day. When you do so, the terrifying magic of the spell originates from a single unattended object within 30 feet of you instead of from you, and you measure the spell's range from that object. If a target becomes @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] as a result of the spell, they're fleeing from that object instead of from you as their mind fills with the absolute certainty that the object will come to life and attack them with malicious glee.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "tsukumogami poppet heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:fear",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:fear",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:poppet"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "poppet"
+            ]
+        }
+    },
+    "type": "feat"
+}

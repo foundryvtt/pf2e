@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You're an extraordinary teacher, capable of inspiring your students to amazing feats of athletics and ingenuity. Once per day, you can cast @UUID[Compendium.pf2e.spells-srd.Item.Heroism] as an innate divine spell; in addition to its normal effects, the spell also grants temporary Hit Points equal to half your level. You can't cast this spell on yourself.</p>"
+            "value": "<p>You're an extraordinary teacher, capable of inspiring your students to amazing feats of athletics and ingenuity. Once per day, you can cast @UUID[Compendium.pf2e.spells-srd.Item.Heroism] as an innate divine spell; in addition to its normal effects, the spell also grants temporary Hit Points equal to half your level. You can't cast this spell on yourself.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Mentor of Legends]</p>"
         },
         "level": {
             "value": 9
@@ -24,7 +24,49 @@
             "remaster": true,
             "title": "Pathfinder Howl of the Wild"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:heroism",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:heroism",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:centaur"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:heroism",
+                    "spellcasting:innate"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Centaur.MentorOfLegends.Description"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Mentor of Legends]"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

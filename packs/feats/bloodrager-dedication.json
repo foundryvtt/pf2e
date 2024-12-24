@@ -1,0 +1,85 @@
+{
+    "_id": "EcyPTxSwtdqrOtxY",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Bloodrager Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Drinking powerful blood has awakened magical potential within you. You gain a spell repertoire with two cantrips of your choice, from either the arcane or divine spell list. You choose these cantrips from the common spells for your tradition or from other spells you have access to on that tradition's spell list. At least one cantrip must require a spell attack roll. You're trained in spell attack modifier and spell DC. Your key spellcasting attribute for these spells is Charisma. Spells in your repertoire gain the rage trait while you are raging, and when you Cast a Spell from your repertoire, you become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (or increase the value of your drained condition by 1); you can reduce the value of this condition only by Harvesting Blood (see below). You become trained in Arcana if you chose arcane cantrips or Religion if you chose divine cantrips. If you were already trained in this skill, you become trained in a skill of your choice. You also gain the Harvest Blood action.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.V87pMN1WuIHaoYpQ]{Bloodrager}</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Bloodrager"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitArcane",
+                        "value": "arcana"
+                    },
+                    {
+                        "label": "PF2E.TraitDivine",
+                        "value": "religion"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Tradition"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Harvest Blood"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "property": "traits",
+                "value": "rage"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "spellcasting": {
+                    "rank": 1
+                }
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "class",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,5 +1,6 @@
 import { ActorPF2e, type PartyPF2e } from "@actor";
 import { HitPointsSummary } from "@actor/base.ts";
+import { CORE_RESOURCES } from "@actor/character/values.ts";
 import { CreatureSource } from "@actor/data/index.ts";
 import { MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import { ActorSpellcasting } from "@actor/spellcasting.ts";
@@ -19,20 +20,27 @@ import { Rarity, SIZES, SIZE_SLUGS, ZeroToFour, ZeroToTwo } from "@module/data.t
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractModifiers } from "@module/rules/helpers.ts";
 import { BaseSpeedSynthetic } from "@module/rules/synthetics.ts";
+import { eventToRollParams } from "@module/sheet/helpers.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import { LightLevels } from "@scene/data.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { Predicate } from "@system/predication.ts";
 import { Statistic, StatisticDifficultyClass, type ArmorStatistic } from "@system/statistic/index.ts";
 import { PerceptionStatistic } from "@system/statistic/perception.ts";
-import { ErrorPF2e, localizer, setHasElement } from "@util";
+import { ErrorPF2e, localizer, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
-import { CreatureSpeeds, CreatureSystemData, LabeledSpeed, VisionLevel, VisionLevels } from "./data.ts";
+import {
+    CreatureResources,
+    CreatureSpeeds,
+    CreatureSystemData,
+    LabeledSpeed,
+    VisionLevel,
+    VisionLevels,
+} from "./data.ts";
 import { imposeEncumberedCondition, setImmunitiesFromTraits } from "./helpers.ts";
-import { CreatureTrait, CreatureType, CreatureUpdateOperation, GetReachParameters } from "./types.ts";
+import { CreatureTrait, CreatureType, CreatureUpdateOperation, GetReachParameters, ResourceData } from "./types.ts";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 abstract class CreaturePF2e<
@@ -84,7 +92,7 @@ abstract class CreaturePF2e<
         } else {
             const attacks: { item: ItemPF2e<ActorPF2e>; ready: boolean }[] = weapon
                 ? [{ item: weapon, ready: true }]
-                : this.system.actions ?? [];
+                : (this.system.actions ?? []);
             const readyAttacks = attacks.filter((a) => a.ready);
             const traitsFromItems = readyAttacks.map((a) => new Set(a.item.system.traits?.value ?? []));
             if (traitsFromItems.length === 0) return baseReach;
@@ -240,7 +248,9 @@ abstract class CreaturePF2e<
     }
 
     override prepareData(): void {
-        if (this.initialized) return;
+        if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
+            return;
+        }
         super.prepareData();
 
         // Add spell collections from spell consumables if a matching spellcasting ability is found
@@ -287,6 +297,7 @@ abstract class CreaturePF2e<
         this.flags.pf2e.rollOptions.all["self:creature"] = true;
 
         this.system.perception = fu.mergeObject({ attribute: "wis", senses: [] }, this.system.perception);
+        this.system.resources ??= {};
 
         const attributes = this.system.attributes;
         attributes.ac = fu.mergeObject({ attribute: "dex" }, attributes.ac);
@@ -394,7 +405,7 @@ abstract class CreaturePF2e<
 
         // Set labels for attributes
         if (this.system.abilities) {
-            for (const [shortForm, data] of R.entries.strict(this.system.abilities)) {
+            for (const [shortForm, data] of R.entries(this.system.abilities)) {
                 data.label = CONFIG.PF2E.abilities[shortForm];
                 data.shortLabel = `PF2E.AbilityId.${shortForm}`;
             }
@@ -439,10 +450,16 @@ abstract class CreaturePF2e<
             status.value = Math.min(condition?.value ?? 0, status.max);
         }
 
-        if (this.system.resources?.focus) {
-            const { focus } = this.system.resources;
-            focus.max = Math.clamp(Math.floor(focus.max), 0, focus.cap) || 0;
-            focus.value = Math.clamp(Math.floor(focus.value), 0, focus.max) || 0;
+        // Clamp certain core resources
+        const resources = this.system.resources;
+        if (resources.focus) {
+            resources.focus.max = Math.floor(Math.clamp(resources.focus.max, 0, resources.focus.cap)) || 0;
+        }
+        for (const key of ["heroPoints", "mythicPoints", "focus"]) {
+            const resource = resources[key];
+            if (resource) {
+                resource.value = Math.floor(Math.clamp(resource.value, 0, resource.max)) || 0;
+            }
         }
 
         // Disallow creatures not in either alliance to flank
@@ -614,6 +631,56 @@ abstract class CreaturePF2e<
         });
     }
 
+    /** Returns a resource by slug or by key */
+    override getResource(resource: string): ResourceData | null {
+        const slug = sluggify(resource);
+        const key = sluggify(resource, { camel: "dromedary" });
+
+        // Temporary compatibility hack until the big migration
+        if (slug === "infused-reagents" && this.isOfType("character")) {
+            const data = this.system.resources.crafting.infusedReagents;
+            return {
+                ...data,
+                slug,
+                label: "PF2E.CraftingTab.Alchemical.InfusedReagents",
+            };
+        }
+
+        const data = this.system.resources[key];
+        if (!data) return null;
+
+        const label = tupleHasValue(CORE_RESOURCES, slug)
+            ? game.i18n.localize(`PF2E.Actor.Resource.${key.capitalize()}`)
+            : (this.synthetics.resources[key]?.label ?? key.capitalize());
+        return { ...data, slug, label };
+    }
+
+    /**
+     * Updates a resource. Redirects to special resources if needed.
+     * Accepts resource slugs in both kebab and dromedary, to handle token updates and direct ones.
+     */
+    async updateResource(resource: string, value: number, { render }: { render?: boolean } = {}): Promise<void> {
+        const slug = sluggify(resource);
+        const key = sluggify(resource, { camel: "dromedary" });
+        if (key === "investiture") return;
+
+        // Temporary compatibility hack until the big migration
+        if (slug === "infused-reagents" && this.isOfType("character")) {
+            value = Math.clamp(value, 0, this.system.resources.crafting.infusedReagents.max);
+            await this.update({ [`system.resources.crafting.infusedReagents.value`]: value });
+            return;
+        }
+
+        const resources = this.system.resources;
+        const special = this.synthetics.resources[key];
+        if (special) {
+            await special.update(Math.clamp(value, 0, special.max), { render });
+        } else if (!!resources?.[key] && tupleHasValue(CORE_RESOURCES, slug)) {
+            value = Math.clamp(value, 0, resources[key]?.max ?? 0);
+            await this.update({ [`system.resources.${key}.value`]: value }, { render });
+        }
+    }
+
     prepareSpeed(movementType: "land"): this["system"]["attributes"]["speed"];
     prepareSpeed(movementType: Exclude<MovementType, "land">): (LabeledSpeed & StatisticModifier) | null;
     prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) | null;
@@ -776,6 +843,15 @@ abstract class CreaturePF2e<
             const updatedPoints = Number(focusUpdate.value ?? this.system.resources.focus?.value) || 0;
             const enforcedMax = (Number(focusUpdate.max) || this.system.resources.focus?.max) ?? 0;
             focusUpdate.value = Math.clamp(updatedPoints, 0, enforcedMax);
+        }
+
+        // Remove special resources from update data
+        if (changed.system.resources) {
+            for (const special of Object.keys(this.synthetics.resources)) {
+                if (special in changed.system.resources) {
+                    delete (changed.system.resources as CreatureResources)[special];
+                }
+            }
         }
 
         // Preserve alignment traits if not exposed

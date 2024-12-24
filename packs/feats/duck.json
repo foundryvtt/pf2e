@@ -1,0 +1,54 @@
+{
+    "_id": "VHOsMzpzQUX7AEau",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Duck!",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your long experience with your erratic patrons and their peers has given you a lot of practice in hitting the deck when you hear the rumbling of a powerful entity. When you roll a critical failure on a Reflex saving throw against an ability that targets an area and was caused by a Huge or larger creature, you get a failure instead, and when you roll a success against such an effect, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better",
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "area-effect",
+                    {
+                        "gte": [
+                            "origin:size",
+                            4
+                        ]
+                    }
+                ],
+                "selector": "reflex"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kobold"
+            ]
+        }
+    },
+    "type": "feat"
+}

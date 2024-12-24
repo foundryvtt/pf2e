@@ -1,6 +1,6 @@
 import { Progress } from "@system/progress.ts";
 import { localizer, sluggify } from "@util";
-import { CompendiumBrowserSources } from "./index.ts";
+import type { CompendiumBrowserSources } from "./browser.ts";
 
 class PackLoader {
     loadedSources: string[] = [];
@@ -47,7 +47,7 @@ class PackLoader {
         if (!packName.startsWith("pf2e.")) return;
         for (const record of index) {
             const uuid = `Compendium.${packName}.Actor.${record._id}` as const;
-            const actorArt = game.pf2e.system.moduleArt.map.get(uuid)?.img;
+            const actorArt = game.compendiumArt.get(uuid)?.actor ?? game.pf2e.system.moduleArt.map.get(uuid)?.img;
             record.img = actorArt ?? record.img;
         }
     }

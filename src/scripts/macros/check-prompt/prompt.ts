@@ -3,7 +3,8 @@ import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { PROFICIENCY_RANKS } from "@module/data.ts";
 import { adjustDC, calculateDC, calculateSimpleDC, DCAdjustment } from "@module/dc.ts";
 import { ActionDefaultOptions } from "@system/action-macros/types.ts";
-import { htmlQuery, signedInteger, tagify, tupleHasValue } from "@util";
+import { htmlQuery, signedInteger, tupleHasValue } from "@util";
+import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
 import { getActions, loreSkillsFromActors } from "./helpers.ts";
 

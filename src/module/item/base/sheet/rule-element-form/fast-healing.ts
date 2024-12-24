@@ -4,7 +4,8 @@ import type {
     FastHealingType,
 } from "@module/rules/rule-element/fast-healing.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
-import { htmlQuery, tagify } from "@util";
+import { htmlQuery } from "@util/dom.ts";
+import { tagify } from "@util/tags.ts";
 import { RuleElementForm, RuleElementFormSheetData } from "./base.ts";
 
 class FastHealingForm extends RuleElementForm<FastHealingSource, FastHealingRuleElement> {

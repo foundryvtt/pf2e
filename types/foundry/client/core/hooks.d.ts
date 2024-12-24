@@ -161,7 +161,8 @@ declare global {
          * @param hook  The unique name of the hooked event
          * @param fn    The function that should be removed from the set of hooked callbacks
          */
-        static off(hook: string, fn: Function): void;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        static off(hook: string, fn: (...args: any[]) => boolean | void | Promise<boolean | void>): void;
 
         /**
          * Call all hook listeners in the order in which they were registered

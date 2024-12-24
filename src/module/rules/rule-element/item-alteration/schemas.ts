@@ -105,6 +105,18 @@ const ITEM_ALTERATION_VALIDATORS = {
             initial: undefined,
         } as const),
     }),
+    "area-size": new ItemAlterationValidator({
+        itemType: new fields.StringField({ required: true, choices: ["spell"] }),
+        mode: new fields.StringField({
+            required: true,
+            choices: ["add", "subtract", "upgrade", "downgrade", "override"],
+        }),
+        value: new fields.NumberField({
+            required: true,
+            nullable: false,
+            initial: undefined,
+        } as const),
+    }),
     "badge-max": new ItemAlterationValidator(
         {
             itemType: new fields.StringField({ required: true, choices: ["effect"] }),
@@ -228,7 +240,7 @@ const ITEM_ALTERATION_VALIDATORS = {
         itemType: new fields.StringField({
             required: true,
             nullable: false,
-            choices: () => R.keys.strict(CONFIG.PF2E.Item.documentClasses),
+            choices: () => R.keys(CONFIG.PF2E.Item.documentClasses),
             initial: undefined,
         }),
         mode: new fields.StringField({
@@ -292,7 +304,7 @@ const ITEM_ALTERATION_VALIDATORS = {
             required: true,
             choices: ["add", "downgrade", "multiply", "override", "remove", "subtract", "upgrade"],
         }),
-        value: new fields.NumberField({ required: true, nullable: false, min: -20, max: 20 } as const),
+        value: new fields.NumberField({ required: true, nullable: false, min: -100, max: 100 } as const),
     }),
     "hp-max": new ItemAlterationValidator({
         itemType: new fields.StringField({ required: true, choices: Array.from(PHYSICAL_ITEM_TYPES) }),
@@ -414,7 +426,7 @@ const ITEM_ALTERATION_VALIDATORS = {
     "other-tags": new ItemAlterationValidator({
         itemType: new fields.StringField({
             required: true,
-            choices: () => R.keys.strict(CONFIG.PF2E.Item.documentClasses),
+            choices: () => R.keys(CONFIG.PF2E.Item.documentClasses),
         }),
         mode: new fields.StringField({
             required: true,

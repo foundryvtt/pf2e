@@ -1,0 +1,52 @@
+{
+    "_id": "vm8Ir6qfvb3BaNUs",
+    "img": "icons/sundries/books/book-symbol-yellow-grey.webp",
+    "name": "Effect: Tome Adept Benefit",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Tome]</p>\n<p>You gain a +1 circumstance bonus to your next attack roll against the marked creature. If you have the tome's paragon benefit, this bonus applies to all attack rolls.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "tome-adept-benefit"
+            },
+            {
+                "key": "FlatModifier",
+                "removeAfterRoll": [
+                    {
+                        "not": "implement-adept:tome"
+                    }
+                ],
+                "selector": "strike-attack-roll",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

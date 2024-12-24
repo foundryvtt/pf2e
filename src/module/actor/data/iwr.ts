@@ -25,7 +25,7 @@ abstract class IWR<TType extends IWRType> {
         this.exceptions = fu.deepClone(data.exceptions ?? []);
         this.definition = data.definition ?? null;
         this.source = data.source ?? null;
-        this.#customLabel = this.type === "custom" ? data.customLabel ?? null : null;
+        this.#customLabel = this.type === "custom" ? (data.customLabel ?? null) : null;
     }
 
     abstract get label(): string;
@@ -78,10 +78,10 @@ abstract class IWR<TType extends IWRType> {
             case "axes":
             case "axe-vulnerability":
                 return ["item:group:axe"];
+            case "critical-hits":
+                return ["check:outcome:critical-success"];
             case "custom":
                 return this.definition ?? [];
-            case "damage-from-spells":
-                return ["damage", "item:type:spell", "impulse"];
             case "disease":
                 return ["item:trait:disease"];
             case "emotion":
@@ -157,9 +157,9 @@ abstract class IWR<TType extends IWRType> {
                 const component = iwrType === "splash-damage" ? "splash" : "precision";
                 return [`damage:component:${component}`];
             }
-            case "spells": {
-                return ["damage", { or: ["item:type:spell", "item:from-spell", "impulse"] }];
-            }
+            case "spells":
+            case "damage-from-spells":
+                return ["damage", { or: ["item:type:spell", "item:from-spell", "item:trait:impulse"] }];
             case "unarmed-attacks":
                 return ["item:category:unarmed"];
             case "unholy":
@@ -176,9 +176,13 @@ abstract class IWR<TType extends IWRType> {
                 if (objectHasKey(CONFIG.PF2E.materialDamageEffects, iwrType)) {
                     switch (iwrType) {
                         case "adamantine":
-                            return [{ or: ["damage:material:adamantine", "damage:material:keep-stone"] }];
+                            return this instanceof Resistance
+                                ? [{ or: ["damage:material:adamantine", "damage:material:keep-stone"] }]
+                                : ["damage:material:adamantine"];
                         case "cold-iron":
-                            return [{ or: ["damage:material:cold-iron", "damage:material:sovereign-steel"] }];
+                            return this instanceof Weakness
+                                ? [{ or: ["damage:material:cold-iron", "damage:material:sovereign-steel"] }]
+                                : ["damage:material:cold-iron"];
                         case "duskwood":
                             return [
                                 {
@@ -189,7 +193,9 @@ abstract class IWR<TType extends IWRType> {
                                 },
                             ];
                         case "silver":
-                            return [{ or: ["damage:material:silver", "damage:material:dawnsilver"] }];
+                            return this instanceof Weakness
+                                ? [{ or: ["damage:material:silver", "damage:material:dawnsilver"] }]
+                                : ["damage:material:silver"];
                         default:
                             return [`damage:material:${iwrType}`];
                     }
@@ -361,7 +367,15 @@ class Resistance extends IWR<ResistanceType> implements ResistanceSource {
     /** Get the doubled value of this resistance if present and applicable to a given instance of damage */
     getDoubledValue(damageDescription: Set<string>): number {
         if (this.doubleVs.length === 0) return this.value;
-        const predicate = new Predicate(this.doubleVs.flatMap((d) => this.describe(d)));
+        const predicate =
+            this.doubleVs.length === 1
+                ? new Predicate(this.describe(this.doubleVs[0]))
+                : new Predicate({
+                      or: this.doubleVs.map((doubleVs) => {
+                          const description = this.describe(doubleVs);
+                          return description.length === 1 ? description[0] : { and: description };
+                      }),
+                  });
         return predicate.test(damageDescription) ? this.value * 2 : this.value;
     }
 }

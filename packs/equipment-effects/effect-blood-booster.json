@@ -1,0 +1,162 @@
+{
+    "_id": "LfhCO3rP5ImzPyNY",
+    "img": "icons/consumables/potions/vial-cork-red.webp",
+    "name": "Effect: Blood Booster",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Blood Booster (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Blood Booster (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Blood Booster (Greater)]</p>\n<p>You receive resistance to persistent bleed and persistent poison damage, and you lower the DC for any flat checks to end persistent bleed or persistent poison damage as if you received particularly appropriate aid.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:blood-booster-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Blood Booster (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:blood-booster-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Blood Booster (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:blood-booster-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Blood Booster (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "blood-booster"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "blood-booster:blood-booster-lesser"
+                ],
+                "type": "bleed",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "blood-booster:blood-booster-moderate"
+                ],
+                "type": "bleed",
+                "value": 10
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "blood-booster:blood-booster-greater"
+                ],
+                "type": "bleed",
+                "value": 20
+            },
+            {
+                "definition": [
+                    "damage:category:persistent",
+                    "damage:type:poison"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.PersistentPoison",
+                "predicate": [
+                    "blood-booster:blood-booster-lesser"
+                ],
+                "type": "custom",
+                "value": 5
+            },
+            {
+                "definition": [
+                    "damage:category:persistent",
+                    "damage:type:poison"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.PersistentPoison",
+                "predicate": [
+                    "blood-booster:blood-booster-moderate"
+                ],
+                "type": "custom",
+                "value": 10
+            },
+            {
+                "definition": [
+                    "damage:category:persistent",
+                    "damage:type:poison"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.PersistentPoison",
+                "predicate": [
+                    "blood-booster:blood-booster-greater"
+                ],
+                "type": "custom",
+                "value": 20
+            },
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "downgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:damage:type:bleed",
+                            "item:damage:type:poison"
+                        ]
+                    }
+                ],
+                "property": "pd-recovery-dc",
+                "value": 10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

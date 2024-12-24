@@ -1,8 +1,8 @@
 import type { ActorPF2e } from "@actor";
-import { DamageDicePF2e, ModifierPF2e, RawDamageDice } from "@actor/modifiers.ts";
+import { DamageDicePF2e, ModifierPF2e, RawDamageDice, adjustModifiers } from "@actor/modifiers.ts";
 import type { ItemPF2e } from "@item";
-import { extractDamageAlterations } from "@module/rules/helpers.ts";
-import { ErrorPF2e, fontAwesomeIcon, setHasElement, signedInteger, tupleHasValue } from "@util";
+import { extractDamageAlterations, extractModifierAdjustments } from "@module/rules/helpers.ts";
+import { ErrorPF2e, fontAwesomeIcon, signedInteger, tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { Die, NumericTerm, RollTerm } from "types/foundry/client-esm/dice/terms/module.d.ts";
 import { combinePartialTerms } from "./formula.ts";
@@ -57,40 +57,44 @@ const DamageCategorization = {
 /** Create `DamageDicePF2e` and `ModifierPF2e` instances in order to apply damage alterations to base damage data. */
 function applyBaseDamageAlterations({ actor, item, base, domains, rollOptions }: ApplyDamageAlterationsParams): void {
     const alterationsRecord = actor?.synthetics.damageAlterations ?? {};
-    const baseDamageAlterations = [
+    const modifierAdjustments = extractModifierAdjustments(actor.synthetics.modifierAdjustments, domains, "base");
+    const damageAlterations = [
         item?.isOfType("action", "feat") ? item.system.traits.toggles.getDamageAlterations() : [],
         extractDamageAlterations(alterationsRecord, domains, "base"),
     ].flat();
 
-    if (item && baseDamageAlterations.length > 0) {
+    if (item && damageAlterations.length + modifierAdjustments.length > 0) {
         for (const partial of base) {
             for (const term of partial.terms ?? []) {
                 if (term.dice) {
                     const damage = new DamageDicePF2e({
-                        selector: "inline-damage",
+                        selector: "damage",
                         slug: "base",
                         damageType: partial.damageType,
                         category: partial.category,
                         diceNumber: term.dice.number,
                         dieSize: `d${term.dice.faces}`,
                     });
-                    for (const alteration of baseDamageAlterations) {
+                    for (const alteration of damageAlterations) {
                         alteration.applyTo(damage, { item, test: rollOptions });
                     }
                     partial.damageType = damage.damageType ?? partial.damageType;
                     term.dice.number = damage.diceNumber;
                     term.dice.faces = damage.dieSize ? damageDieSizeToFaces(damage.dieSize) : term.dice.faces;
-                } else if (term.modifier && baseDamageAlterations.some((a) => a.property === "damage-type")) {
+                } else if (term.modifier) {
                     const modifier = new ModifierPF2e({
                         label: "PF2E.ModifierTitle",
                         slug: "base",
                         modifier: term.modifier,
                         damageCategory: partial.category,
                         damageType: partial.damageType,
+                        adjustments: modifierAdjustments,
                     });
-                    for (const alteration of baseDamageAlterations) {
+                    adjustModifiers([modifier], rollOptions);
+                    for (const alteration of damageAlterations) {
                         alteration.applyTo(modifier, { item, test: rollOptions });
                     }
+                    term.modifier = modifier.value;
                     partial.damageType = modifier.damageType ?? partial.damageType;
                 }
             }
@@ -103,7 +107,7 @@ interface ApplyDamageAlterationsParams {
     actor: ActorPF2e;
     item: ItemPF2e<ActorPF2e>;
     domains: string[];
-    rollOptions: string[] | Set<string>;
+    rollOptions: Set<string>;
 }
 
 const FACES = [4, 6, 8, 10, 12];
@@ -189,7 +193,7 @@ function extractBaseDamage(roll: DamageRoll): BaseDamageData[] {
         { category = null }: { category?: DamageCategoryUnique | null } = {},
     ): DamagePartialWithCategory[] {
         // If this expression introduces a category, override it when recursing
-        category = setHasElement(DAMAGE_CATEGORIES_UNIQUE, expression.options.flavor)
+        category = tupleHasValue(DAMAGE_CATEGORIES_UNIQUE, expression.options.flavor)
             ? expression.options.flavor
             : category;
 
@@ -248,7 +252,7 @@ function extractBaseDamage(roll: DamageRoll): BaseDamageData[] {
     }
 
     return roll.instances.flatMap((instance): BaseDamageData[] => {
-        const category = setHasElement(DAMAGE_CATEGORIES_UNIQUE, instance.category) ? instance.category : null;
+        const category = tupleHasValue(DAMAGE_CATEGORIES_UNIQUE, instance.category) ? instance.category : null;
         const terms = recursiveExtractTerms(instance.head, { category });
         return Object.values(R.groupBy(terms, (t) => t.category ?? "")).map((terms) => {
             const category = instance.persistent ? "persistent" : terms[0].category;
@@ -397,7 +401,7 @@ function getDamageDiceOverrideLabel(d: DamageDicePF2e | RawDamageDice): string {
                             ? game.i18n.format("PF2E.Roll.Dialog.Damage.Dice", {
                                   dice: d.override.diceNumber,
                               })
-                            : d.override.dieSize ?? "",
+                            : (d.override.dieSize ?? ""),
               })
             : null,
     ].filter(R.isTruthy);

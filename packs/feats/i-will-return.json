@@ -1,0 +1,50 @@
+{
+    "_id": "9GScusN2WjEh0afk",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "I Will Return",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your special connection to death and rebirth allows you to sense when it's your time to enter the Great Beyond, and now isn't the time. You gain +2 status bonus to saving throws against death effects. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Diehard] feat. The first time each day that you lose the @UUID[Compendium.pf2e.conditionitems.Item.Dying] condition, you do not increase your @UUID[Compendium.pf2e.conditionitems.Item.Wounded] condition.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:death"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Diehard"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "samsaran"
+            ]
+        }
+    },
+    "type": "feat"
+}

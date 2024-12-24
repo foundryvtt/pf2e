@@ -1,0 +1,66 @@
+{
+    "_id": "LLhVVhDPv9Z8Kd1k",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Surging Blood Magic",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your blood courses with magic. You gain the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.DOc3Pf8wmVxanTIv#expert-spellcasting-feat]{Expert Spellcasting Feat} benefits. In addition, when you Cast a Spell from your repertoire and you are at least @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}, increase the extra damage dealt by that spell from Rage by an additional 2 (for a total of 3).</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Rising Blood Magic"
+                },
+                {
+                    "value": "master in Arcana or Religion, depending on your chosen tradition"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:condition:drained",
+                            2
+                        ]
+                    }
+                ],
+                "selector": "attack-spell-damage",
+                "slug": "blood-rage-spell",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "spellcasting": {
+                    "rank": 2
+                }
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

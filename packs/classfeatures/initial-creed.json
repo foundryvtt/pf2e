@@ -1,0 +1,71 @@
+{
+    "_id": "BoZ3nSssFYcwuLIT",
+    "img": "icons/skills/melee/weapons-crossed-swords-black.webp",
+    "name": "Initial Creed",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You’re trained in light and medium armor, and you have expert proficiency in Fortitude saves. You’re trained in martial weapons. If your deity’s favored weapon is a simple weapon or an unarmed attack, you gain the @UUID[Compendium.pf2e.feats-srd.Item.Deadly Simplicity] cleric feat. At 13th level when you gain the @UUID[Compendium.pf2e.classfeatures.Item.Divine Defense] class feature, you also gain expert proficiency in light and medium armor.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Divine Mysteries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.light.rank",
+                "predicate": [
+                    "feature:divine-defense"
+                ],
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.medium.rank",
+                "predicate": [
+                    "feature:divine-defense"
+                ],
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "fortitude": {
+                    "rank": 2
+                },
+                "light": {
+                    "rank": 1
+                },
+                "martial": {
+                    "rank": 1
+                },
+                "medium": {
+                    "rank": 1
+                }
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "cleric"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,6 +1,6 @@
 import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
-import type { BaseCombat, BaseUser } from "./module.d.ts";
 import type * as fields from "../data/fields.d.ts";
+import type { BaseCombat } from "./module.d.ts";
 
 /** The Combat document model. */
 export default class BaseCombatant<TParent extends BaseCombat | null> extends Document<TParent, CombatantSchema> {

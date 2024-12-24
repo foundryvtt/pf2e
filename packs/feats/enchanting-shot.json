@@ -1,0 +1,84 @@
+{
+    "_id": "m8iP2OCzit9WUrMD",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Enchanting Shot",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>With a single whisper carried on the wind, you enchant your ammunition to make a foe more vulnerable to your attacks.</p>\n<p>Make a bow or crossbow Strike. On a hit, the target takes an additional 2d6 mental damage. On a critical hit, the target also becomes @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}. The mental damage increases to 3d6 if your weapon has a <em>greater striking rune</em>, or to 4d6 if your weapon has a <em>major striking rune</em>.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Eldritch Archer Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "enchanting-shot",
+                "toggleable": true
+            },
+            {
+                "damageType": "mental",
+                "diceNumber": "max(2,@weapon.system.damage.dice)",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "enchanting-shot",
+                    {
+                        "or": [
+                            "item:group:bow",
+                            "item:group:crossbow"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "enchanting-shot",
+                    {
+                        "or": [
+                            "item:group:bow",
+                            "item:group:crossbow"
+                        ]
+                    }
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.EldritchArcher.EnchantingArrow.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "emotion",
+                "magical",
+                "mental"
+            ]
+        }
+    },
+    "type": "feat"
+}

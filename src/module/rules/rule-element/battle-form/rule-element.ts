@@ -394,7 +394,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
             baseItem: strikeData.baseType,
             options: [slug],
             damage: { base: strikeData.damage },
-            range: { increment: strikeData.range ?? null, max: strikeData.maxRange ?? null },
+            range: strikeData.range,
             traits: strikeData.traits ?? [],
             ability: strikeData.ability,
             battleForm: true,
@@ -424,17 +424,17 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
 
         actor.system.actions = actor
             .prepareStrikes({ includeBasicUnarmed: this.ownUnarmed })
-            .filter((a) => (a.slug && a.slug in strikes) || (this.ownUnarmed && a.item.category === "unarmed"));
+            .filter((a) => a.item.flags.pf2e.battleForm || (this.ownUnarmed && a.item.category === "unarmed"));
         const strikeActions = actor.system.actions.flatMap((s): CharacterStrike[] => [s, ...s.altUsages]);
 
         for (const action of strikeActions) {
-            const strike = (strikes[action.slug ?? ""] ?? null) as BattleFormStrike | null;
-
-            if (
-                !this.ownUnarmed &&
-                strike &&
-                (Number(this.resolveValue(strike.modifier)) >= action.totalModifier || !strike.ownIfHigher)
-            ) {
+            const strike = strikes[action.slug ?? ""];
+            if (!strike) continue;
+            const addend = action.modifiers
+                .filter((m) => m.enabled && this.#filterModifier(m))
+                .reduce((sum, m) => sum + m.modifier, 0);
+            const formModifier = Number(this.resolveValue(strike.modifier)) + addend;
+            if (!this.ownUnarmed && (formModifier >= action.totalModifier || !strike.ownIfHigher)) {
                 // The battle form's static attack-roll modifier is >= the character's unarmed attack modifier:
                 // replace inapplicable attack-roll modifiers with the battle form's
                 this.#suppressModifiers(action);

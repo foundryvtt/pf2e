@@ -195,9 +195,7 @@ class DamageModifierDialog extends Application {
             ),
             isCritical: this.isCritical,
             damageTypes: sortStringRecord(CONFIG.PF2E.damageTypes),
-            damageSubtypes: sortStringRecord(
-                R.pick(CONFIG.PF2E.damageCategories, Array.from(DAMAGE_CATEGORIES_UNIQUE)),
-            ),
+            damageSubtypes: sortStringRecord(R.pick(CONFIG.PF2E.damageCategories, DAMAGE_CATEGORIES_UNIQUE)),
             rollModes: CONFIG.Dice.rollModes,
             rollMode: this.context?.rollMode ?? game.settings.get("core", "rollMode"),
             showDamageDialogs: game.user.settings.showDamageDialogs,
@@ -304,8 +302,9 @@ class DamageModifierDialog extends Application {
                 ui.notifications.error(`Unkown damage category: ${category}.`);
                 return;
             }
-            const faceLabel = game.i18n.localize(`PF2E.DamageDie${faces.toUpperCase()}`);
-            const label = game.i18n.format("PF2E.Roll.Dialog.Damage.ExtraDice", { dice: `+${count}${faceLabel}` });
+            const label =
+                String(parent.querySelector<HTMLInputElement>(".add-dice-name")?.value).trim() ||
+                game.i18n.format("PF2E.Roll.Dialog.Damage.ExtraDice");
             const slug = sluggify(`${label}-${type}`);
             this.formulaData.dice.push(
                 new DamageDicePF2e({

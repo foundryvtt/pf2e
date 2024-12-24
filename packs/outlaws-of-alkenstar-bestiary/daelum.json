@@ -4,10 +4,8 @@
     "items": [
         {
             "_id": "dPRbLumFIIG4T8Kl",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.6I4YJAQUbTAqbpsI"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.6I4YJAQUbTAqbpsI"
             },
             "img": "systems/pf2e/icons/equipment/weapons/pick.webp",
             "name": "Pick",
@@ -90,103 +88,10 @@
             "type": "weapon"
         },
         {
-            "_id": "vW3X6iTnWa52cj7M",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "dPRbLumFIIG4T8Kl"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Pick",
-            "sort": 200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 13
-                },
-                "damageRolls": {
-                    "5hsvnfzb4ao295qa9eer": {
-                        "damage": "1d6+7",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "fatal-d10",
-                        "reach-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "RvHiGkpbgGQQVSfo",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 13
-                },
-                "damageRolls": {
-                    "adpho2fjcn9qfisuu7bp": {
-                        "damage": "2d4+7",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "reach-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "255aEl1cZIFN1lnC",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hoof",
-            "sort": 400000,
+            "sort": 200000,
             "system": {
                 "attack": {
                     "value": ""
@@ -215,7 +120,9 @@
                 "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "unarmed"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -225,14 +132,12 @@
         },
         {
             "_id": "xTbmqvj8q9NXpTNJ",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 500000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -262,7 +167,7 @@
             "_id": "4Vwu7Dx2GieS3Xns",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Belly Hatch",
-            "sort": 600000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -292,7 +197,7 @@
             "_id": "akcOBJE7mzPgMkLb",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Gallop",
-            "sort": 700000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -311,6 +216,12 @@
                 },
                 "rules": [
                     {
+                        "disabledIf": [
+                            {
+                                "not": "shift-form"
+                            }
+                        ],
+                        "disabledValue": false,
                         "domain": "all",
                         "key": "RollOption",
                         "option": "gallop",
@@ -338,7 +249,7 @@
             "_id": "hiVEdBnoIdnSqV56",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Shift Form",
-            "sort": 800000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -355,7 +266,72 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "shift-form",
+                        "priority": 40,
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "shift-form"
+                        ],
+                        "selector": "land-speed",
+                        "value": 10
+                    },
+                    {
+                        "attackModifier": 13,
+                        "category": "martial",
+                        "damage": {
+                            "base": {
+                                "damageType": "piercing",
+                                "dice": 1,
+                                "die": "d6",
+                                "modifier": 7
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.Weapon.Base.pick",
+                        "predicate": [
+                            {
+                                "not": "shift-form"
+                            }
+                        ],
+                        "slug": "pick",
+                        "traits": [
+                            "fatal-d10",
+                            "reach-10"
+                        ]
+                    },
+                    {
+                        "attackModifier": 13,
+                        "baseType": "claw",
+                        "category": "unarmed",
+                        "damage": {
+                            "base": {
+                                "damageType": "slashing",
+                                "dice": 2,
+                                "die": "d4",
+                                "modifier": 7
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Claw",
+                        "predicate": [
+                            {
+                                "not": "shift-form"
+                            }
+                        ],
+                        "slug": "claw",
+                        "traits": [
+                            "agile",
+                            "reach-10"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -368,7 +344,7 @@
             "_id": "MdOgmdwFOpOboMdg",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Smog Cloud",
-            "sort": 900000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -378,7 +354,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The daelum unleashes a cloud of smog in a @Template[type:emanation|distance:10]. The cloud persists for 3 rounds, but doesn't move with the daelum. All creatures within the cloud are @UUID[Compendium.pf2e.conditionitems.Item.Concealed]. A creature that begins its turn in the smog cloud must attempt a @Check[type:fortitude|dc:18] save (creatures that must breathe and don't hold their breath take a -2 circumstance penalty on their save).</p>\n<hr />\n<p><strong>Critical Success</strong> No effect and temporarily immune for 1 hour.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is sickened 2 and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}.</p>"
+                    "value": "<p>The daelum unleashes a cloud of smog in a @Template[emanation|distance:10]. The cloud persists for 3 rounds, but doesn't move with the daelum. All creatures within the cloud are @UUID[Compendium.pf2e.conditionitems.Item.Concealed]. A creature that begins its turn in the smog cloud must attempt a @Check[fortitude|dc:18] save (creatures that must breathe and don't hold their breath take a -2 circumstance penalty on their save).</p>\n<hr />\n<p><strong>Critical Success</strong> No effect and temporarily immune for 1 hour.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is sickened 2 and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -401,7 +377,7 @@
             "_id": "lr40eSk84v9ETRi6",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Mining Lore",
-            "sort": 1000000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""

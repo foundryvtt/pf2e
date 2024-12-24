@@ -1,0 +1,81 @@
+{
+    "_id": "Ods1qOZ8CTCru8XQ",
+    "folder": "VU1vkm9fUFmtzF2X",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Conservator",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "dex",
+                    "int"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>Some history survives only so long as its physical remains do. You've developed robust museum skills to identify relics, preserve artifacts, recreate ancient technologies, and even rebuild shattered treasures—often with painstaking patience, a steady hand, and even a little magic. Your contributions don't end there, as whether you've mastered diligent recordkeeping or helped uncover smuggling rings that are looting archaeological sites, you've made an impression. Hearing of your promising abilities, representatives from Clan Tolorr contacted you, inviting you to study with their museum masters and share your own techniques, all while helping preserve over 10,000 years of history!</p>\n<p>Choose two attribute boosts. One must be to <strong>Dexterity</strong> or <strong>Intelligence</strong>, and one is a free attribute boost.</p>\n<p>You're trained in either the Crafting skill or the Thievery skill, and you're trained in either the Accounting Lore or the Underworld Lore skill. If you selected Crafting, you gain the @UUID[Compendium.pf2e.feats-srd.Item.Quick Repair] skill feat. If you chose Thievery, you gain the @UUID[Compendium.pf2e.feats-srd.Item.Assurance]{Assurance (Thievery)} skill feat.</p>\n<p><strong>Connection:</strong> Ria, an oread gnome curator who studies rivethun traditions</p>\n<p><strong>Reputation Points:</strong> +1</p>"
+        },
+        "items": {},
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Sky King's Tomb Player's Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Crafting",
+                        "value": {
+                            "feat": "Compendium.pf2e.feats-srd.Item.Quick Repair",
+                            "skill": "crafting"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Skill.Thievery",
+                        "value": {
+                            "feat": "Compendium.pf2e.feats-srd.Item.Assurance",
+                            "skill": "thievery"
+                        }
+                    }
+                ],
+                "flag": "conservator",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.conservator.skill}.rank",
+                "value": 1
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "preselectChoices": {
+                    "assurance": "thievery"
+                },
+                "uuid": "{item|flags.pf2e.rulesSelections.conservator.feat}"
+            }
+        ],
+        "trainedSkills": {
+            "lore": [],
+            "value": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "background"
+}

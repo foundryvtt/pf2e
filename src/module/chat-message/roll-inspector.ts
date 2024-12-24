@@ -35,6 +35,7 @@ class RollInspector extends Application {
 
     override getData(): ChatRollDetailsData {
         const context = this.message.flags.pf2e.context;
+        const contextualOptions = context && "contextualOptions" in context ? context.contextualOptions : {};
 
         const rollOptions = R.sortBy(context?.options?.sort() ?? [], (o) => o.includes(":"));
 
@@ -64,6 +65,12 @@ class RollInspector extends Application {
             domains: context?.domains?.sort() ?? [],
             modifiers,
             rollOptions,
+            contextualOptions: Object.entries(contextualOptions ?? {})
+                .map(([key, value]) => ({
+                    header: game.i18n.localize(`PF2E.ChatRollDetails.ContextualOptions.${key}`),
+                    options: value ?? [],
+                }))
+                .filter((o) => !!o.options.length),
         };
     }
 
@@ -87,16 +94,16 @@ class RollInspector extends Application {
 
             const rollOptions = R.sortBy(object.getRollOptions().sort(), (o) => o.includes(":"));
 
-            htmlQuery(element, "h4 .fa-solid")?.addEventListener("pointerenter", () => {
-                const content = createHTMLElement("ul", {
-                    children: rollOptions.map((o) => createHTMLElement("li", { innerHTML: o })),
+            htmlQuery(element, "h4 .fa-solid")?.addEventListener("pointerenter", async () => {
+                const content = await renderTemplate("systems/pf2e/templates/system/roll-options-tooltip.hbs", {
+                    description: game.i18n.localize("PF2E.ChatRollDetails.DiceRollOptionsHint"),
+                    rollOptions,
                 });
                 game.tooltip.dismissLockedTooltips();
                 game.tooltip.activate(element, {
-                    content,
+                    content: createHTMLElement("div", { innerHTML: content }),
                     locked: true,
                     direction: "RIGHT",
-                    cssClass: "pf2e roll-options",
                 });
             });
         }
@@ -109,8 +116,13 @@ class RollInspector extends Application {
         _rgx: RegExp,
         html: HTMLElement | null,
     ): void {
-        for (const row of htmlQueryAll(html, ":scope > li")) {
+        for (const row of htmlQueryAll(html, ":scope li:not(.header)")) {
             row.hidden = query.length > 0 && !row.innerText.includes(query);
+        }
+
+        // Hide a sub list if all options in that list are also hidden
+        for (const subList of htmlQueryAll(html, ":scope > ul.sub-list")) {
+            subList.hidden = htmlQueryAll(subList, "li:not(.header)").every((li) => li.hidden);
         }
     }
 }
@@ -121,6 +133,7 @@ interface ChatRollDetailsData {
     modifiers: PreparedModifier[];
     dice: PreparedDice[];
     rollOptions: string[];
+    contextualOptions: { header: string; options: string[] }[];
 }
 
 interface PreparedModifier extends Omit<Partial<RawModifier>, "critical"> {

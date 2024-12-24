@@ -9,8 +9,8 @@ import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource, RuleElements } from "@module/rules/index.ts";
 import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers.ts";
+import { eventToRollMode } from "@module/sheet/helpers.ts";
 import type { UserPF2e } from "@module/user/document.ts";
-import { eventToRollMode } from "@scripts/sheet-util.ts";
 import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, htmlClosest, isObject, localizer, setHasElement, sluggify, tupleHasValue } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
@@ -61,9 +61,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         return this.system.slug;
     }
 
-    /** The compendium source ID of the item **/
+    /** The UUID of the item from which this one was copied (or is identical to if a compendium item) **/
     get sourceId(): ItemUUID | null {
-        return this.flags.core?.sourceId ?? null;
+        const isCompendiumItem = this._id && this.pack && !this.isEmbedded;
+        return isCompendiumItem ? this.uuid : (this._stats.duplicateSource ?? this._stats.compendiumSource);
     }
 
     /** The recorded schema version of this item, updated after each data migration */
@@ -71,7 +72,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const legacyValue = R.isPlainObject(this._source.system.schema)
             ? Number(this._source.system.schema.version) || null
             : null;
-        return Number(this._source.system._migration?.version) ?? legacyValue;
+        return Number(this._source.system._migration?.version) || legacyValue;
     }
 
     get description(): string {
@@ -87,21 +88,23 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
      * Set a source ID on a dropped embedded item without a full data reset
      * This is currently necessary as of 10.291 due to system measures to prevent premature data preparation
      */
-    static override fromDropData<TDocument extends foundry.abstract.Document>(
+    static override async fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
         options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
-    static override fromDropData(
+    static override async fromDropData(
         data: object,
         options?: Record<string, unknown>,
     ): Promise<foundry.abstract.Document | undefined> {
         if ("uuid" in data && UUIDUtils.isItemUUID(data.uuid)) {
-            const item = fromUuidSync(data.uuid);
+            const item = await fromUuid(data.uuid);
             if (item instanceof ItemPF2e && item.parent && !item.sourceId) {
                 // Upstream would do this via `item.updateSource(...)`, causing a data reset
-                item._source.flags = fu.mergeObject(item._source.flags, { core: { sourceId: item.uuid } });
-                item.flags = fu.mergeObject(item.flags, { core: { sourceId: item.uuid } });
+                item._source._stats.duplicateSource = item.uuid;
+                item._stats.duplicateSource = item._source._stats.duplicateSource;
+                item._source._stats.compendiumSource ??= item.uuid.startsWith("Compendium.") ? item.uuid : null;
+                item._stats.compendiumSource = item._source._stats.compendiumSource;
             }
         }
 
@@ -150,7 +153,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         const slug = this.slug ?? sluggify(this.name);
         const granterOptions = includeGranter
-            ? this.grantedBy?.getRollOptions("granter", { includeGranter: false }).map((o) => `${prefix}:${o}`) ?? []
+            ? (this.grantedBy?.getRollOptions("granter", { includeGranter: false }).map((o) => `${prefix}:${o}`) ?? [])
             : [];
 
         const rollOptions = [
@@ -172,7 +175,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         // The heightened level of a spell is retrievable from its getter but not prepared level data
-        const level = this.isOfType("spell") ? this.rank : this.system.level?.value ?? null;
+        const level = this.isOfType("spell") ? this.rank : (this.system.level?.value ?? null);
         if (typeof level === "number") {
             rollOptions.push(`${prefix}:level:${level}`);
         }
@@ -229,7 +232,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         );
 
         // Create the chat message
-        return options.create ?? true
+        return (options.create ?? true)
             ? ChatMessagePF2e.create(chatData, { rollMode, renderSheet: false })
             : new ChatMessagePF2e(chatData, { rollMode });
     }
@@ -250,13 +253,14 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /**
      * Never prepare data except as part of `DataModel` initialization. If embedded, don't prepare data if the parent is
      * not yet initialized. See https://github.com/foundryvtt/foundryvtt/issues/7987
+     * @todo remove in V13
      */
     override prepareData(): void {
-        if (this.initialized) return;
-        if (!this.parent || this.parent.initialized) {
-            this.initialized = true;
-            super.prepareData();
+        if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
+            return;
         }
+        this.initialized = true;
+        super.prepareData();
     }
 
     /** Ensure the presence of the pf2e flag scope with default properties and values */
@@ -375,8 +379,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 !latestSource.system.spell
             ) {
                 // If a spell consumable, refresh the spell as well as the consumable
-                const spellSourceId = currentSource.system.spell.flags.core?.sourceId ?? "";
-                const refreshedSpell = await fromUuid(currentSource.system.spell.flags.core?.sourceId ?? "");
+                const spellSourceId = currentSource._stats.compendiumSource ?? currentSource._stats.duplicateSource;
+                const refreshedSpell = spellSourceId ? await fromUuid(spellSourceId) : null;
                 if (refreshedSpell instanceof ItemPF2e && refreshedSpell.isOfType("spell")) {
                     const spellConsumableData = await createConsumableFromSpell(refreshedSpell, {
                         type: currentSource.system.category,
@@ -446,7 +450,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         return this.processChatData(htmlOptions, data);
     }
 
-    protected traitChatData(
+    traitChatData(
         dictionary: Record<string, string | undefined> = this.constructor.validTraits,
         traits = this.system.traits.value ?? [],
     ): TraitChatData[] {
@@ -616,6 +620,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         })();
 
         const outputSources = items.map((i) => i._source);
+        const itemUpdates: EmbeddedDocumentUpdateData[] = [];
 
         // Process item preCreate rules for all items that are going to be added
         // This may add additional items (such as via GrantItem)
@@ -632,6 +637,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                     ruleSource,
                     pendingItems: outputSources,
                     tempItems: items,
+                    itemUpdates,
                     operation,
                 });
             }
@@ -649,6 +655,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             for (const feature of classFeatures) {
                 feature.sort = classFeatures.indexOf(feature) * 100 * (feature.system.level?.value ?? 1);
             }
+        }
+
+        // If there are any item updates, perform them first
+        if (itemUpdates.length) {
+            await actor.updateEmbeddedDocuments("Item", itemUpdates, { render: false });
         }
 
         const nonKits = outputSources.filter((source) => source.type !== "kit");
@@ -861,6 +872,29 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         if (updateKeys.length > 0 && !updateKeys.every((k) => k === "_id")) {
             this.actor.update(actorUpdates);
         }
+    }
+
+    /** To be overridden by subclasses to extend the HTML string that will become part of the embed */
+    protected embedHTMLString(_config: DocumentHTMLEmbedConfig, _options: EnrichmentOptions): string {
+        return this.description;
+    }
+
+    async _buildEmbedHTML(config: DocumentHTMLEmbedConfig, options: EnrichmentOptions): Promise<HTMLCollection> {
+        // As per foundry.js: JournalEntryPage#_embedTextPage
+        options = { ...options, relativeTo: this };
+        const {
+            secrets = options.secrets,
+            documents = options.documents,
+            links = options.links,
+            rolls = options.rolls,
+            embeds = options.embeds,
+        } = config;
+        foundry.utils.mergeObject(options, { secrets, documents, links, rolls, embeds });
+
+        // Get correct HTML
+        const container = document.createElement("div");
+        container.innerHTML = await TextEditor.enrichHTML(this.embedHTMLString(config, options), options);
+        return container.children;
     }
 }
 

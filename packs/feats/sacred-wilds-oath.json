@@ -1,0 +1,57 @@
+{
+    "_id": "ZXkVo5iTTT8Uc8jv",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Sacred Wilds Oath",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've sworn an oath to protect the holy places within nature and the spirits that dwell within, from ancient trees to primordial wild guardians. You can use Diplomacy to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] on animals and to make very simple Requests of them. In most cases, wild animals will give you time to make your case. You gain a +2 circumstance bonus to Diplomacy checks to Make an Impression when interacting with a beast, fey, or kami. You gain the following edict.</p>\n<p><strong>Edict</strong> You must aid any animal or nature spirit in need unless it violates your other tenets or puts someone else at risk of immediate harm.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Spirit Warrior Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:make-an-impression",
+                    {
+                        "or": [
+                            "target:trait:beast",
+                            "target:trait:fey",
+                            "target:trait:kami"
+                        ]
+                    }
+                ],
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

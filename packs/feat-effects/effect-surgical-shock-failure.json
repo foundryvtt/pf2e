@@ -1,0 +1,51 @@
+{
+    "_id": "tMsVpICbBU3kL1lp",
+    "img": "icons/skills/wounds/bone-broken-knee-beam.webp",
+    "name": "Effect: Surgical Shock (Failure)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Surgical Shock]</p>\n<p>You gain a +1 circumstance bonus to the next attack action you attempt against the target.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "surgical-shock"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:surgical-shock"
+                ],
+                "removeAfterRoll": true,
+                "selector": "attack",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

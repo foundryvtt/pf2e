@@ -1,0 +1,88 @@
+{
+    "_id": "HxMkvkxd8QMXcQ67",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Retreating Finisher",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You make a calculated attack without letting down your guard. Make a melee Strike with the following failure effect.</p>\n<p><strong>Failure</strong> You Step as a free action.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "self:effect:panache"
+                    }
+                ],
+                "disabledValue": false,
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Label",
+                "mergeable": true,
+                "option": "finisher",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Retreating",
+                        "value": "retreating"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "predicate": [
+                    "finisher:retreating",
+                    {
+                        "or": [
+                            "item:melee",
+                            {
+                                "and": [
+                                    "feat:flying-blade",
+                                    "item:thrown",
+                                    "target:range-increment:1"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse"
+                        ]
+                    }
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Swashbuckler.Finisher.RetreatingNote",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "finisher",
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

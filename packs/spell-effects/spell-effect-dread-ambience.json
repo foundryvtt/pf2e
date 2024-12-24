@@ -1,0 +1,94 @@
+{
+    "_id": "FT5Tt2DKBRutDqbV",
+    "img": "icons/magic/nature/stealth-hide-eyes-pink.webp",
+    "name": "Spell Effect: Dread Ambience",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Dread Ambience]</p>\n<p>You take a status penalty to saving throws against fear effects.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": "critical-success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "dread-ambience"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "dread-ambience:critical-success",
+                            "dread-ambience:success"
+                        ]
+                    },
+                    "item:trait:fear"
+                ],
+                "selector": "saving-throw",
+                "slug": "dread-ambience-fear-penalty",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "downgrade",
+                "predicate": [
+                    "dread-ambience:critical-success"
+                ],
+                "selector": "saving-throw",
+                "slug": "dread-ambience-fear-penalty",
+                "value": -2
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "dread-ambience:critical-failure"
+                ],
+                "selector": "will",
+                "slug": "dread-ambience-will-penalty",
+                "type": "status",
+                "value": -1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

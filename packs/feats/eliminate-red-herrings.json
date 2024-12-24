@@ -1,0 +1,50 @@
+{
+    "_id": "wNr02jsG5nRF23YO",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Eliminate Red Herrings",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You have a keen sense for avoiding spurious lines of inquiry. When you roll a critical failure on a skill check to Recall Knowledge related to a question about one of your active investigations, you get a failure instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalFailure"
+                ],
+                "predicate": [
+                    "pursue-a-lead",
+                    "action:recall-knowledge"
+                ],
+                "selector": "skill-check",
+                "text": "{item|description}",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "investigator"
+            ]
+        }
+    },
+    "type": "feat"
+}

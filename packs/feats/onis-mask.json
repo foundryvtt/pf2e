@@ -1,0 +1,63 @@
+{
+    "_id": "YrawssRNHsyqYuHi",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Oni's Mask",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You aren't as malleable as your oni ancestors but still can disguise yourself. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Illusory Disguise] as a 1st-rank primal innate spell once per day. This spell can't disguise your horns, though you can still hide them normally with a hairstyle or a hood.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:illusory-disguise",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:illusory-disguise",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:hungerseed"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "hungerseed"
+            ]
+        }
+    },
+    "type": "feat"
+}

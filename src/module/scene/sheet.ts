@@ -2,7 +2,8 @@ import { resetActors } from "@actor/helpers.ts";
 import { WorldClock } from "@module/apps/world-clock/app.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import { SettingsMenuOptions } from "@system/settings/menu.ts";
-import { ErrorPF2e, createHTMLElement, htmlQuery, htmlQueryAll, tagify } from "@util";
+import { ErrorPF2e, createHTMLElement, htmlQuery, htmlQueryAll } from "@util";
+import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
 import type { ScenePF2e } from "./document.ts";
 

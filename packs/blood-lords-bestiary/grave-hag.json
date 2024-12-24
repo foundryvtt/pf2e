@@ -44,12 +44,10 @@
         },
         {
             "_id": "7VhHDOoty19wikBN",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.vJuaxTd6q11OjGqA"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.vJuaxTd6q11OjGqA"
             },
-            "img": "systems/pf2e/icons/spells/abyssal-plague.webp",
+            "img": "icons/magic/lightning/bolt-strike-purple.webp",
             "name": "Abyssal Plague",
             "sort": 200000,
             "system": {
@@ -115,10 +113,8 @@
         },
         {
             "_id": "c541LrnhLSn79DP5",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.MlpbeZ61Euhl0d60"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.MlpbeZ61Euhl0d60"
             },
             "img": "icons/creatures/slimes/slime-movement-splash-green.webp",
             "name": "Cloudkill",
@@ -206,10 +202,8 @@
         },
         {
             "_id": "jfXuMDKLp1pb36MI",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.GUeRTriJkMlMlVrk"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.GUeRTriJkMlMlVrk"
             },
             "img": "systems/pf2e/icons/spells/bind-undead.webp",
             "name": "Bind Undead",
@@ -274,10 +268,8 @@
         },
         {
             "_id": "6oVWnTVGespEbAAQ",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.N1Z1oLPdBxaSgrEE"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.N1Z1oLPdBxaSgrEE"
             },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Touch",
@@ -366,10 +358,8 @@
         },
         {
             "_id": "DkbSS1GajTAp7Cmg",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.dLdRqT6UxTKlsPgp"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.dLdRqT6UxTKlsPgp"
             },
             "img": "systems/pf2e/icons/spells/death-knell.webp",
             "name": "Death Knell (At Will)",
@@ -435,10 +425,8 @@
         },
         {
             "_id": "U6K2dlKrqWforJsH",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.9WGeBwIIbbUuWKq0"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.9WGeBwIIbbUuWKq0"
             },
             "img": "systems/pf2e/icons/spells/animate-dead.webp",
             "name": "Animate Dead",
@@ -620,10 +608,8 @@
         },
         {
             "_id": "GdNAQ7JcgLPnVgKu",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
@@ -648,15 +634,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "or": [
-                                    "magical",
-                                    "arcane",
-                                    "divine",
-                                    "primal",
-                                    "occult"
-                                ]
-                            }
+                            "item:magical"
                         ],
                         "selector": "saving-throw",
                         "type": "status",
@@ -715,7 +693,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The grave hag names a single creature within 30 feet; that creature must succeed at a @Check[type:will|dc:28] save or be afflicted with a grave curse equal to the hag's level. The curse lasts until the hag chooses to end it or is slain, rather than by returning items. Regardless of the save result, the target is then temporarily immune to the hag's grave curse for 24 hours.</p>\n<hr />\n<p><strong>Effect</strong> You are hounded by undead creatures of the same level as the curse. Every night, you must attempt a @Check[type:flat|dc:15] check. On a failure, an incorporeal undead manifests to hassle and harry you throughout the night, retreating before it can take much damage and often preventing you from gaining a full night's rest. Whenever you enter a graveyard or other area where bodies are buried, you must succeed at the same flat check or a body animates as a corporeal undead (typically a skeleton or zombie) to attack you.</p>\n<p>These undead are temporary and exist only to harry you; if you take control of the undead, move on, or otherwise avoid their attacks, incorporeal undead discorporate and corporeal undead collapse into ordinary corpses. The curse can be removed by returning the stolen items to their resting place.</p>"
+                    "value": "<p>The grave hag names a single creature within 30 feet; that creature must succeed at a @Check[will|dc:28] save or be afflicted with a grave curse equal to the hag's level. The curse lasts until the hag chooses to end it or is slain, rather than by returning items. Regardless of the save result, the target is then temporarily immune to the hag's grave curse for 24 hours.</p>\n<hr />\n<p><strong>Effect</strong> You are hounded by undead creatures of the same level as the curse. Every night, you must attempt a @Check[flat|dc:15] check. On a failure, an incorporeal undead manifests to hassle and harry you throughout the night, retreating before it can take much damage and often preventing you from gaining a full night's rest. Whenever you enter a graveyard or other area where bodies are buried, you must succeed at the same flat check or a body animates as a corporeal undead (typically a skeleton or zombie) to attack you.</p>\n<p>These undead are temporary and exist only to harry you; if you take control of the undead, move on, or otherwise avoid their attacks, incorporeal undead discorporate and corporeal undead collapse into ordinary corpses. The curse can be removed by returning the stolen items to their resting place.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -748,7 +726,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The hag targets a living creature within 30 feet and overwhelms it with feelings of entombment. The target attempts a @Check[type:fortitude|dc:28] save and is then temporarily immune to the hag's Grave Impressions for 24 hours.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Unconscious].</p>\n<p><strong>Critical Failure</strong> The target is unconscious and can't awaken for 1 hour.</p>"
+                    "value": "<p>The hag targets a living creature within 30 feet and overwhelms it with feelings of entombment. The target attempts a @Check[fortitude|dc:28] save and is then temporarily immune to the hag's Grave Impressions for 24 hours.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Unconscious].</p>\n<p><strong>Critical Failure</strong> The target is unconscious and can't awaken for 1 hour.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -829,10 +807,8 @@
         },
         {
             "_id": "yThaeSJv15gPmoX4",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",

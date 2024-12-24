@@ -1,0 +1,78 @@
+{
+    "_id": "WtuhkNCNAW1JaGSe",
+    "img": "icons/magic/symbols/star-rising-purple.webp",
+    "name": "Aura: Manifest Will",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Manifest Will]</p>\n<p>You emanate a 10-ft aura. If you have the Multifaceted Will feat, you can choose any tradition. You and your allies gain a +1 status bonus to saves against spells with that tradition trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "actorFlag": true,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitArcane",
+                        "value": "arcane"
+                    },
+                    {
+                        "label": "PF2E.TraitDivine",
+                        "value": "divine"
+                    },
+                    {
+                        "label": "PF2E.TraitOccult",
+                        "value": "occult"
+                    },
+                    {
+                        "label": "PF2E.TraitPrimal",
+                        "value": "primal"
+                    }
+                ],
+                "flag": "manifestWill",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "parent:origin:item:tag:multifaceted-will"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Tradition"
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "predicate": [
+                            "parent:origin:item:tag:multifaceted-will"
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Multifaceted Will"
+                    }
+                ],
+                "key": "Aura",
+                "radius": 10,
+                "slug": "manifest-will"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

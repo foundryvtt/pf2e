@@ -1,8 +1,8 @@
 import * as R from "remeda";
-import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
 import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
+import fields = foundry.data.fields;
 
 /**
  * Make a numeric modification to an arbitrary property in a similar way as `ActiveEffect`s
@@ -10,17 +10,19 @@ import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleEl
  */
 class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TSchema> {
     static override defineSchema(): AELikeSchema {
-        const fields = foundry.data.fields;
-
         const baseSchema = super.defineSchema();
         const PRIORITIES: Record<string, number | undefined> = this.CHANGE_MODE_DEFAULT_PRIORITIES;
         baseSchema.priority.initial = (d) => PRIORITIES[String(d.mode)] ?? 50;
 
         return {
             ...baseSchema,
+            testDomains: new fields.ArrayField(
+                new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
+                { required: false, nullable: false, initial: () => [] },
+            ),
             mode: new fields.StringField({
                 required: true,
-                choices: R.keys.strict(this.CHANGE_MODE_DEFAULT_PRIORITIES),
+                choices: R.keys(this.CHANGE_MODE_DEFAULT_PRIORITIES),
                 initial: undefined,
             }),
             path: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
@@ -106,7 +108,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
             return this.failValidation(`no data found at or near "${path}"`);
         }
 
-        rollOptions ??= this.predicate.length > 0 ? new Set(this.actor.getRollOptions()) : new Set();
+        rollOptions ??= this.predicate.length > 0 ? new Set(this.actor.getRollOptions(this.testDomains)) : new Set();
         if (!this.test(rollOptions)) return;
 
         const actor = this.actor;
@@ -256,15 +258,24 @@ interface AutoChangeEntry {
 
 type AELikeSchema = RuleElementSchema & {
     /** How to apply the `value` at the `path` */
-    mode: StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
+    mode: fields.StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
     /** The data property path to modify on the parent item's actor */
-    path: StringField<string, string, true, false, false>;
+    path: fields.StringField<string, string, true, false, false>;
     /** Which phase of data preparation to run in */
-    phase: StringField<AELikeDataPrepPhase, AELikeDataPrepPhase, false, false, true>;
+    phase: fields.StringField<AELikeDataPrepPhase, AELikeDataPrepPhase, false, false, true>;
     /** The value to applied at the `path` */
     value: ResolvableValueField<true, boolean, boolean>;
+    /** A list of additional domains to include in predicate testing */
+    testDomains: fields.ArrayField<
+        fields.StringField<string, string, true, false, false>,
+        string[],
+        string[],
+        false,
+        false,
+        true
+    >;
     /** Whether to merge two objects given a `mode` of "override" */
-    merge: BooleanField<boolean, boolean, false, false, false>;
+    merge: fields.BooleanField<boolean, boolean, false, false, false>;
 };
 
 type AELikeChangeMode = keyof typeof AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES;

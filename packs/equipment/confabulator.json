@@ -1,6 +1,6 @@
 {
     "_id": "gSf5aYA9D8MSolc9",
-    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "img": "icons/magic/sonic/projectile-sound-rings-wave.webp",
     "name": "Confabulator",
     "system": {
         "baseItem": null,
@@ -36,19 +36,20 @@
         "quantity": 1,
         "rules": [
             {
+                "domain": "performance",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.Confabulator.RollOptionLabel",
+                "option": "confabulator-instrument",
+                "toggleable": true
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
-                    "confabstrument"
+                    "confabulator-instrument"
                 ],
                 "selector": "performance",
                 "type": "item",
                 "value": 1
-            },
-            {
-                "domain": "performance",
-                "key": "RollOption",
-                "label": "Confabulator Instrument",
-                "option": "confabstrument"
             }
         ],
         "size": "med",

@@ -11,6 +11,7 @@ import {
     sluggify,
     tupleHasValue,
 } from "@util";
+import { createSortable } from "@util/destroyables.ts";
 import * as R from "remeda";
 import Sortable from "sortablejs";
 import { HomebrewTag, LanguageNotCommon, LanguageSettings, LanguageSettingsSheetData } from "./data.ts";
@@ -28,12 +29,10 @@ export class LanguagesManager {
         this.menu = menu;
 
         const languagesFromSetting = game.settings.get("pf2e", "homebrew.languages").map((l) => l.id);
-        this.moduleLanguages = R.keys
-            .strict(CONFIG.PF2E.languages)
-            .filter(
-                (l): l is LanguageNotCommon =>
-                    l !== "common" && !LANGUAGES.includes(l) && !languagesFromSetting.includes(l),
-            );
+        this.moduleLanguages = R.keys(CONFIG.PF2E.languages).filter(
+            (l): l is LanguageNotCommon =>
+                l !== "common" && !LANGUAGES.includes(l) && !languagesFromSetting.includes(l),
+        );
 
         this.data.reset();
     }
@@ -76,12 +75,12 @@ export class LanguagesManager {
         });
 
         for (const list of htmlQueryAll(html, "ul[data-languages]")) {
-            new Sortable(list, {
+            createSortable(list, {
                 ...SORTABLE_BASE_OPTIONS,
                 group: "languages",
                 sort: false,
                 swapThreshold: 1,
-                onEnd: (event) => this.#onDropLanguage(event),
+                onEnd: this.#onDropLanguage.bind(this),
             });
         }
 
@@ -98,6 +97,14 @@ export class LanguagesManager {
         }
     }
 
+    #isValidLanguage(language: string | undefined): language is LanguageNotCommon {
+        return (
+            !!language &&
+            language !== "common" &&
+            (objectHasKey(CONFIG.PF2E.languages, language) || this.menu.cache.languages.some((l) => l.id === language))
+        );
+    }
+
     async #onDropLanguage(event: Sortable.SortableEvent): Promise<void> {
         const droppedEl = event.item;
         const dropTarget = htmlClosest(droppedEl, "ul[data-languages]");
@@ -107,7 +114,7 @@ export class LanguagesManager {
         if (oldRarity === newRarity) return;
 
         const language = droppedEl.dataset.slug;
-        if (!objectHasKey(CONFIG.PF2E.languages, language) || language === "common") {
+        if (!this.#isValidLanguage(language)) {
             throw ErrorPF2e("Unexpected update to language rarities");
         }
 
@@ -155,22 +162,18 @@ export class LanguagesManager {
         const languageSet = new Set(LANGUAGES);
         const updatedLanguages = [...this.moduleLanguages, ...languages.map((l) => l.id)];
 
-        let render = false;
-
         if (
             source.commonLanguage &&
             !languageSet.has(source.commonLanguage) &&
             !updatedLanguages.includes(source.commonLanguage)
         ) {
             source.commonLanguage = null;
-            render = true;
         }
 
         for (const rarity of ["uncommon", "rare", "secret", "unavailable"] as const) {
             for (const language of source[rarity]) {
                 if (!languageSet.has(language) && !updatedLanguages.includes(language)) {
                     source[rarity].findSplice((l) => l === language);
-                    render = true;
                 }
             }
         }
@@ -179,17 +182,13 @@ export class LanguagesManager {
         for (const language of data.common) {
             if (!languageSet.has(language) && !updatedLanguages.includes(language)) {
                 data.common.delete(language);
-                render = true;
             }
         }
 
         for (const language of updatedLanguages) {
             if (!LANGUAGE_RARITIES.some((r) => data[r].has(language))) {
                 data.common.add(language);
-                render = true;
             }
         }
-
-        if (render) this.menu.render();
     }
 }

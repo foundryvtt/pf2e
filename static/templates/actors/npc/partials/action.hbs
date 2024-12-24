@@ -1,4 +1,4 @@
-<li class="item action flexrow" data-action="{{action._id}}" data-item-name="{{action.name}}" data-item-id="{{action._id}}">
+<li class="item action flexrow" data-action="{{action.id}}" data-item-name="{{action.name}}" data-item-id="{{action.id}}">
     <h4>
         <span class="name">
             <strong><a data-action="toggle-summary">{{action.name}}</a></strong>
@@ -25,13 +25,11 @@
             <a data-action="delete-item" data-tooltip="Delete"><i class="fa-solid fa-fw fa-trash"></i></a>
         {{/if}}
     </div>
-    {{#if (or action.frequency action.has.selfEffect)}}
+    {{#if action.usable}}
         <div class="button-group">
-            {{#if action.has.selfEffect}}
-                <button type="button" class="use-action" data-action="use-action">
-                    <span>{{localize "PF2E.Action.Use"}}</span>
-                </button>
-            {{/if}}
+            <button type="button" class="use-action" data-action="use-action">
+                <span>{{localize "PF2E.Action.Use"}}</span>
+            </button>
             {{#if action.frequency}}
                 <div class="frequency">
                     <input type="number" value="{{action.frequency.value}}" data-item-id="{{action.id}}" data-item-property="system.frequency.value" />

@@ -1,0 +1,50 @@
+{
+    "_id": "b1y4mJG0CeNIuhc0",
+    "img": "systems/pf2e/icons/equipment/consumables/fulus/fulu-modest.webp",
+    "name": "Effect: Discord Fulu",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Discord Fulu]</p>\n<p>You take a –1 status penalty to Diplomacy checks. The first failure you roll on a Diplomacy check becomes a critical failure instead, and the effect ends.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "diplomacy",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "adjustment": {
+                    "failure": "one-degree-worse"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "diplomacy"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

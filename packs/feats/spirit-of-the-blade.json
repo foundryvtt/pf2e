@@ -1,0 +1,57 @@
+{
+    "_id": "ho5qkbgW4XxvkXuC",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Spirit of the Blade",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You charge your blade with spiritual energy, allowing it to cut through spirits and fiends with fearsome efficiency. The next Strike you make with a melee weapon or fist unarmed attack deals an additional 1d6 spirit damage. This bonus damage is lost if you don't attempt a Strike before the start of your next turn.</p>\n<p>At 10th level, you deal an additional 2d6 spirit damage with this ability, and at 18th level, you deal an additional 3d6 spirit damage.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Spirit Warrior Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "spirit-of-the-blade",
+                "toggleable": true
+            },
+            {
+                "damageType": "spirit",
+                "diceNumber": "ternary(gte(@actor.level,18),3,ternary(gte(@actor.level,10),2,1))",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "spirit-of-the-blade"
+                ],
+                "selector": "melee-strike-damage"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "flourish"
+            ]
+        }
+    },
+    "type": "feat"
+}

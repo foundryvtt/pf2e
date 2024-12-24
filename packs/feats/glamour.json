@@ -28,7 +28,28 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Impossible Lands"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:slug:fey-glamour"
+                ],
+                "property": "traits",
+                "value": "sorcerer"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:fey-glamour"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            }
+        ],
         "traits": {
             "rarity": "rare",
             "value": []

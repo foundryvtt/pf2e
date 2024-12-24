@@ -1,0 +1,58 @@
+{
+    "_id": "I5swIFsr4UOAEBvv",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Only My Doom May Claim Me",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>The power of your legend, fueled by your legendary deeds, resists any weapon that is not tied to your curse. You gain resistance equal to half your level against weapon and unarmed attacks that deal a damage type other than the type chosen for your cursed weakness.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Warrior of Legend Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:type:melee",
+                            "item:type:weapon"
+                        ]
+                    },
+                    {
+                        "not": "damage:type:{actor|flags.pf2e.warriorOfLegendCursedWeakness}"
+                    }
+                ],
+                "key": "Resistance",
+                "label": "{item|name}",
+                "type": "custom",
+                "value": "floor(@actor.level/2)"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

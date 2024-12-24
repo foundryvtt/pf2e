@@ -4,7 +4,7 @@
     "name": "Effect: Class Might",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.journals.JournalEntry.BSp4LUSaOmUyjBko.JournalEntryPage.a68Phr1qsqVRPMVp]{Class Might}</p>\n<p>Until the start of your next turn you gain a +2 status bonus to checks based on the key attribute of your class. If your class grants a choice for its key attribute, select one of those attributes to gain the bonus.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.journals.JournalEntry.BSp4LUSaOmUyjBko.JournalEntryPage.a68Phr1qsqVRPMVp]{Class Might}</p>\n<p>You gain a +2 status bonus to checks based on the key attribute of your class.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,8 +22,16 @@
         },
         "rules": [
             {
+                "choices": {
+                    "config": "abilities"
+                },
+                "flag": "attribute",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Attribute"
+            },
+            {
                 "key": "FlatModifier",
-                "selector": "{actor|class.system.keyAbility.selected}-based",
+                "selector": "{actor|class.system.keyAbility.attribute}-based",
                 "type": "status",
                 "value": 2
             }

@@ -1,0 +1,63 @@
+{
+    "_id": "1i2Ms9egpbnzuUjQ",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Kaiju's Footfalls",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You channel the might and mass of a kaiju. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Enlarge] as an innate primal spell twice per day, targeting yourself. The first time each turn you @UUID[Compendium.pf2e.actionspf2e.Item.High Jump], @UUID[Compendium.pf2e.actionspf2e.Item.Leap], or @UUID[Compendium.pf2e.actionspf2e.Item.Long Jump] while affected by this spell, creatures of your size or smaller adjacent to where you land must attempt a @Check[reflex|against:class-spell] save against your class DC or spell DC, whichever is higher.</p><hr /><p><strong>Failure</strong> The creature is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Critical Failure</strong> The creature is knocked prone and takes @Damage[2d6[bludgeoning]|options:area-damage] damage.</p>\n<p>At 17th level, you can choose to heighten this innate <em>enlarge</em> spell to 4th rank.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "mightyfall kobold heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:enlarge",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:enlarge",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:kobold"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kobold"
+            ]
+        }
+    },
+    "type": "feat"
+}

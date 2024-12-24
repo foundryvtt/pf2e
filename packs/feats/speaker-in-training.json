@@ -28,7 +28,80 @@
             "remaster": true,
             "title": "Pathfinder Howl of the Wild"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitDivine",
+                        "predicate": [
+                            {
+                                "not": "greenspeaker"
+                            }
+                        ],
+                        "value": "faithspeaker"
+                    },
+                    {
+                        "label": "PF2E.TraitPrimal",
+                        "predicate": [
+                            {
+                                "not": "faithspeaker"
+                            }
+                        ],
+                        "value": "greenspeaker"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "centaur-speaker"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:bless",
+                    "spellcasting:innate",
+                    "centaur-speaker:faithspeaker"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:bless",
+                    "spellcasting:innate",
+                    "centaur-speaker:faithspeaker"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:centaur"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:fleet-step",
+                    "spellcasting:innate",
+                    "centaur-speaker:greenspeaker"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:fleet-step",
+                    "spellcasting:innate",
+                    "centaur-speaker:greenspeaker"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:centaur"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

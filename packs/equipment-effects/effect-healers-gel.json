@@ -1,0 +1,106 @@
+{
+    "_id": "sOwAqyQ6MaoSqaY1",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-tools/skinitch-salve.webp",
+    "name": "Effect: Healer's Gel",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Healer's Gel (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Healer's Gel (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Healer's Gel (Greater)]</p>\n<p>You gain temporary Hit Points</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:healers-gel-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Healer's Gel (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:healers-gel-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Healer's Gel (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:healers-gel-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Healer's Gel (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "healers-gel"
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "healers-gel:healers-gel-lesser"
+                ],
+                "value": 5
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "healers-gel:healers-gel-moderate"
+                ],
+                "value": 10
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "healers-gel:healers-gel-greater"
+                ],
+                "value": 15
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

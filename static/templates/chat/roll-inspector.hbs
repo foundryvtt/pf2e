@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content" data-tooltip-class="pf2e">
     <section class="summary">
         <div class="type">{{localize "PF2E.Roll.Type"}}: <input disabled value="{{context.type}}"></div>
         {{#if domains}}
@@ -10,12 +10,21 @@
 
     <section class="roll-options">
         <h3>{{localize "PF2E.ChatRollDetails.RollOptions"}}</h3>
-        <input type="search" class="filter" placeholder="{{localize "PF2E.BrowserSearchPlaceholder"}}" />
+        <input type="search" class="filter" placeholder="{{localize "PF2E.CompendiumBrowser.Filter.SearchPlaceholder"}}" />
         <ul>
             {{#each rollOptions as |option|}}
                 <li>{{option}}</li>
             {{/each}}
+            {{#each contextualOptions as |list|}}
+                <ul class="sub-list">
+                    <li class="header"><h3>{{list.header}}</h3></li>
+                    {{#each list.options as |option|}}
+                        <li>{{option}}</li>
+                    {{/each}}
+                </ul>
+            {{/each}}
         </ul>
+
     </section>
 
     <section class="modifiers">

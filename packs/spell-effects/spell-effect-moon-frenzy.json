@@ -4,7 +4,7 @@
     "name": "Spell Effect: Moon Frenzy",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Moon Frenzy]</p>\n<p>Targets gain temporary Hit Points, a +10-foot status bonus to their Speeds, and weakness to silver. They also grow vicious fangs and claws, which are unarmed attacks. If a target is in the light of a full moon, it also grows by one size if it were Medium or smaller. This increases the reach of a Medium or Tiny creature by 5 feet.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Moon Frenzy]</p>\n<p>You gain temporary Hit Points, a +10-foot status bonus to your Speeds, and weakness to silver. You also grow vicious fangs and claws, which are unarmed attacks. If a target is in the light of a full moon, it also grows by one size if it were Medium or smaller. This increases the reach of a Medium or Tiny creature by 5 feet.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -23,7 +23,19 @@
         "rules": [
             {
                 "key": "TempHP",
+                "predicate": [
+                    {
+                        "not": "parent:origin:item:tag:ancestral-spell:beastkin"
+                    }
+                ],
                 "value": "ternary(gte(@item.level, 10), 20, ternary(gte(@item.level, 6), 10, 5))"
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "parent:origin:item:tag:ancestral-spell:beastkin"
+                ],
+                "value": "ternary(gte(@item.level, 10), 20, ternary(gte(@item.level, 6), 15, 5))"
             },
             {
                 "key": "FlatModifier",
@@ -33,8 +45,21 @@
             },
             {
                 "key": "Weakness",
+                "predicate": [
+                    {
+                        "not": "parent:origin:item:tag:ancestral-spell:beastkin"
+                    }
+                ],
                 "type": "silver",
                 "value": "ternary(gte(@item.level, 10), 20, ternary(gte(@item.level, 6), 10, 5))"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "parent:origin:item:tag:ancestral-spell:beastkin"
+                ],
+                "type": "silver",
+                "value": "ternary(gte(@item.level, 10), 20, ternary(gte(@item.level, 6), 15, 5))"
             },
             {
                 "category": "unarmed",

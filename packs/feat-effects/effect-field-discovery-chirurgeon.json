@@ -1,0 +1,41 @@
+{
+    "_id": "eS9I5kaig0i1j3z0",
+    "img": "icons/consumables/potions/potion-tube-corked-red.webp",
+    "name": "Effect: Field Discovery (Chirurgeon)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Chirurgeon]</p>\n<p>The creature gains a number of temporary Hit Points equal to your Intelligence modifier.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "@item.origin.abilities.int.mod"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

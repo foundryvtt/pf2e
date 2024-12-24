@@ -1,0 +1,89 @@
+{
+    "_id": "zb7F0M3H8PN3XsdX",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Kholo Weapon Familiarity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You gain access to all uncommon weapons with the kholo trait. You have familiarity with weapons with the kholo trait plus the flail, khopesh, mambele, and war flail—for the purpose of proficiency, you treat any of these that are martial weapons as simple weapons and any that are advanced weapons as martial weapons.</p>\n<p>At 5th level, whenever you get a critical hit with one of these weapons, you get its critical specialization effect.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "definition": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:trait:kholo",
+                                    "item:category:martial"
+                                ]
+                            },
+                            "item:base:flail",
+                            "item:base:khopesh",
+                            "item:base:mambele",
+                            "item:base:war-flail"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialKholoWeapons",
+                "sameAs": "simple",
+                "slug": "martial-kholo-weapons"
+            },
+            {
+                "definition": [
+                    "item:trait:kholo",
+                    "item:category:advanced"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedKholoWeapons",
+                "sameAs": "martial",
+                "slug": "advanced-kholo-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:kholo",
+                            "item:base:flail",
+                            "item:base:khopesh",
+                            "item:base:mambele",
+                            "item:base:war-flail"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gnoll"
+            ]
+        }
+    },
+    "type": "feat"
+}

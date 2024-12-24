@@ -1,7 +1,7 @@
 import type { ActorPF2e, CreaturePF2e } from "@actor";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import type { RollOptionRuleElement } from "@module/rules/rule-element/roll-option/rule-element.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { eventToRollParams } from "@module/sheet/helpers.ts";
 import type { ActionDefaultOptions } from "@system/action-macros/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import {
@@ -47,6 +47,7 @@ async function treatWounds(options: ActionDefaultOptions): Promise<void> {
     const chirurgeon = CheckFeat(actor, "chirurgeon");
     const naturalMedicine = CheckFeat(actor, "natural-medicine");
     const domIdAppend = fu.randomID(); // Attached to element id attributes for DOM uniqueness
+    const riskySurgeryChecked = actor.getRollOptions(["medicine"]).includes("risky-surgery") ? " checked" : "";
     const dialog = new Dialog({
         title: game.i18n.localize("PF2E.Actions.TreatWounds.Label"),
         content: `
@@ -56,9 +57,9 @@ async function treatWounds(options: ActionDefaultOptions): Promise<void> {
 <div class="form-group">
 <label for="skill-${domIdAppend}">${game.i18n.localize("PF2E.Actions.TreatWounds.SkillSelect")}</label>
 <select id="skill-${domIdAppend}"${!chirurgeon && !naturalMedicine ? " disabled" : ""}>
-  <option value="medicine">${medicineName}</option>
   ${chirurgeon ? `<option value="crafting">${game.i18n.localize("PF2E.Skill.Crafting")}</option>` : ``}
   ${naturalMedicine ? `<option value="nature">${game.i18n.localize("PF2E.Skill.Nature")}</option>` : ``}
+  <option value="medicine">${medicineName}</option>
 </select>
 </div>
 <div class="form-group">
@@ -78,7 +79,7 @@ ${
     CheckFeat(actor, "risky-surgery")
         ? `<div class="form-group">
 <label for="risky-surgery-${domIdAppend}">${game.i18n.localize("PF2E.Actions.TreatWounds.Feats.RiskySurgery")}</label>
-<input type="checkbox" id="risky-surgery-${domIdAppend}" />
+<input type="checkbox" id="risky-surgery-${domIdAppend}"${riskySurgeryChecked} />
 </div>`
         : ``
 }
@@ -114,18 +115,19 @@ async function treat(
     event: JQuery.TriggeredEvent | Event | null = null,
     domIdAppend: string,
 ): Promise<void> {
-    const { name } = actor;
-    const mod = Number($html.find(`#modifier-${domIdAppend}`).val()) || 0;
-    const requestedProf = Number($html.find(`#dc-type-${domIdAppend}`).val()) || 1;
-    const riskySurgery: boolean = $html.find(`#risky-surgery-${domIdAppend}`).prop("checked");
-    const mortalHealing: boolean = $html.find(`#mortal-healing-${domIdAppend}`).prop("checked");
-    const skillSlug = String($html.find(`#skill-${domIdAppend}`).val()) || "medicine";
+    const html = $html[0];
+    const mod = Number(html.querySelector<HTMLInputElement>(`#modifier-${domIdAppend}`)?.value) || 0;
+    const requestedProf = Number(html.querySelector<HTMLInputElement>(`#dc-type-${domIdAppend}`)?.value) || 1;
+    const riskySurgery = !!html.querySelector<HTMLInputElement>(`#risky-surgery-${domIdAppend}`)?.checked;
+    const mortalHealing = !!html.querySelector<HTMLInputElement>(`#mortal-healing-${domIdAppend}`)?.checked;
+    const skillSlug = html.querySelector<HTMLSelectElement>(`#skill-${domIdAppend}`)?.value ?? "medicine";
     const skill = actor.skills[skillSlug];
     if (!skill?.proficient) {
         const skillName = objectHasKey(CONFIG.PF2E.skills, skillSlug)
             ? game.i18n.localize(CONFIG.PF2E.skills[skillSlug].label)
             : skillSlug;
-        ui.notifications.warn(game.i18n.format("PF2E.Actions.TreatWounds.Error", { name, skill: skillName }));
+        const message = game.i18n.format("PF2E.Actions.TreatWounds.Error", { name: actor.name, skill: skillName });
+        ui.notifications.warn(message);
         return;
     }
 
@@ -190,7 +192,7 @@ async function treatWoundsMacroCallback({
 }): Promise<void> {
     const successLabel = outcome ? game.i18n.localize(`PF2E.Check.Result.Degree.Check.${outcome}`) : "";
     const magicHands = CheckFeat(actor, "magic-hands");
-    const riskySurgery = (message.flags.pf2e.modifiers ?? []).some((m) => m.slug === "risky-surgery");
+    const riskySurgery = !!message.flags.pf2e.modifiers?.some((m) => m.slug === "risky-surgery" && m.enabled);
     const bonusString = bonus > 0 ? `+ ${bonus}` : "";
 
     const healFormula = (() => {

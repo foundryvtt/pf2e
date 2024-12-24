@@ -1,45 +1,50 @@
 import type { Language } from "@actor/creature/index.ts";
 import { LANGUAGES_BY_RARITY, LANGUAGE_RARITIES } from "@actor/creature/values.ts";
 import { AttributeString } from "@actor/types.ts";
+import { BaseArmorType } from "@item/armor/types.ts";
 import type { BaseWeaponType } from "@item/weapon/types.ts";
 import * as R from "remeda";
 import type { SetField, StringField } from "types/foundry/common/data/fields.d.ts";
-import type { MenuTemplateData, SettingsTemplateData } from "../menu.ts";
+import type { MenuTemplateData } from "../menu.ts";
 
-const HOMEBREW_TRAIT_KEYS = [
-    "creatureTraits",
-    "featTraits",
+const HOMEBREW_ELEMENT_KEYS = [
     "languages",
-    "spellTraits",
+    "armorGroups",
+    "baseArmors",
     "weaponCategories",
     "weaponGroups",
     "baseWeapons",
+    "creatureTraits",
+    "featTraits",
+    "spellTraits",
     "weaponTraits",
+    "shieldTraits",
     "equipmentTraits",
-    "environmentTypes",
 ] as const;
 
 /** Homebrew elements from some of the above records are propagated to related records */
 const TRAIT_PROPAGATIONS = {
     actionTraits: ["effectTraits"],
-    creatureTraits: ["ancestryTraits"],
+    creatureTraits: ["ancestryTraits", "hazardTraits"],
     equipmentTraits: ["armorTraits", "consumableTraits"],
     featTraits: ["actionTraits"],
     weaponTraits: ["npcAttackTraits"],
 } as const;
 
-type HomebrewTraitKey = (typeof HOMEBREW_TRAIT_KEYS)[number];
+type HomebrewTraitKey = (typeof HOMEBREW_ELEMENT_KEYS)[number];
 type HomebrewKey = HomebrewTraitKey | "damageTypes" | "languageRarities";
 type HomebrewTraitSettingsKey = `homebrew.${HomebrewTraitKey}`;
 
 interface HomebrewTag<T extends HomebrewTraitKey = HomebrewTraitKey> {
-    id: T extends "baseWeapons"
-        ? BaseWeaponType
-        : T extends "languages"
-          ? LanguageNotCommon
-          : T extends Exclude<HomebrewTraitKey, "baseWeapons" | "languages">
-            ? keyof (typeof CONFIG.PF2E)[T]
-            : never;
+    id: T extends "baseArmors"
+        ? BaseArmorType
+        : T extends "baseWeapons"
+          ? BaseWeaponType
+          : T extends "languages"
+            ? LanguageNotCommon
+            : T extends Exclude<HomebrewTraitKey, "baseArmors" | "baseWeapons" | "languages">
+              ? keyof (typeof CONFIG.PF2E)[T]
+              : never;
     value: string;
 }
 
@@ -52,8 +57,6 @@ interface CustomDamageData {
 }
 
 interface HomebrewElementsSheetData extends MenuTemplateData {
-    campaignSettings: Record<string, SettingsTemplateData>;
-    traitSettings: Record<string, SettingsTemplateData>;
     languageRarities: LanguageSettingsSheetData;
     damageCategories: Record<MainDamageCategories, string>;
     customDamageTypes: CustomDamageData[];
@@ -81,9 +84,9 @@ class LanguageSettings extends foundry.abstract.DataModel<null, LanguageSettings
 
         const nonCommonLanguages = new Set([...this.uncommon, ...this.rare, ...this.secret, ...this.unavailable]);
         this.common = new Set(
-            R.keys
-                .strict(CONFIG.PF2E.languages)
-                .filter((l): l is LanguageNotCommon => l !== "common" && !nonCommonLanguages.has(l)),
+            R.keys(CONFIG.PF2E.languages).filter(
+                (l): l is LanguageNotCommon => l !== "common" && !nonCommonLanguages.has(l),
+            ),
         );
         this.homebrew = new Set(game.settings.get("pf2e", "homebrew.languages").map((t) => t.id));
     }
@@ -169,7 +172,7 @@ type LanguageSetField = SetField<
 >;
 
 interface ModuleHomebrewData {
-    additionalSkills: Record<string, { label: string; attribute: AttributeString }>;
+    skills: Record<string, { label: string; attribute: AttributeString }>;
     damageTypes: Record<string, CustomDamageData>;
     traits: Record<HomebrewTraitKey, HomebrewTag[]>;
     traitDescriptions: Record<string, string>;
@@ -180,7 +183,7 @@ type RawLanguageSettings<TModel extends LanguageSettings = LanguageSettings> = R
     homebrew: LanguageNotCommon[];
 };
 
-export { HOMEBREW_TRAIT_KEYS, LanguageSettings, TRAIT_PROPAGATIONS };
+export { HOMEBREW_ELEMENT_KEYS, LanguageSettings, TRAIT_PROPAGATIONS };
 export type {
     CustomDamageData,
     HomebrewElementsSheetData,

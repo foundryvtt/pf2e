@@ -1,0 +1,62 @@
+{
+    "_id": "6hrbTLlSyhL2W9Nf",
+    "img": "icons/sundries/lights/lantern-iron-lit-yellow.webp",
+    "name": "Effect: Lantern",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Lantern]</p>\n<p>You gain gain a +1 status bonus to visual Perception checks to notice anything that is within the origin's bright light, and to checks to Recall Knowledge against creatures within the bright light.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Thaumaturge.Implement.Lantern.BonusToggle",
+                "option": "lantern-implement-bonus",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "lantern-implement-bonus",
+                    "action:recall-knowledge",
+                    {
+                        "or": [
+                            "check:statistic:perception",
+                            "item:trait:visual"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "perception",
+                    "skill-check"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

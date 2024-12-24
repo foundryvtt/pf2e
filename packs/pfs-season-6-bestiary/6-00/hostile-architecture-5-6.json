@@ -1,0 +1,154 @@
+{
+    "_id": "cFyYZoVt6zz4fU0p",
+    "folder": "3O6k1txqxiBSM0Kb",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "0qNtBouiJtZ4CUMh",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Aversion Beam",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A non-demon creature comes within 15 feet of the hostile architecture</p><hr /><p><strong>Effect</strong> The hostile architecture shines the aversion beam on the triggering creature, and then rolls initiative. The triggering creature must attempt a @Check[will|dc:24] save.</p><hr /><p><strong>Critical Success</strong> The target is immune to the trap for 1 minute.</p>\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} and @UUID[Compendium.pf2e.conditionitems.Item.Fleeing].</p><hr />"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "attack",
+                        "fear",
+                        "magical",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Sym0UUmIO4YhiFHE",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Aversion Beam",
+            "sort": 0,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "jPmcLzpqz5iECp6j": {
+                        "damage": "2d8+9",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "range-30",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Hostile Architecture (5-6)",
+    "prototypeToken": {
+        "name": "Hostile Architecture"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "emitsSound": "encounter",
+            "hardness": 15,
+            "hp": {
+                "details": "",
+                "max": 54,
+                "temp": 0,
+                "value": 54
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 15
+            }
+        },
+        "details": {
+            "description": "<p>The sigils on the door's frame glow with an amber light, which collects in a facet over the center of the door.</p>",
+            "disable": "<p>@Check[religion|dc:19] (trained) to strategically destroy the runes, @Check[thievery|dc:21] to disrupt the beam from collecting the facet, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (3rd rank, counteract DC 21) to dispel the rune</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Society Scenario #6-00: Salt of the Ocean"
+            },
+            "reset": "<p>The Hostile Architecture resets after being exposed to the light of a blue moon.</p>",
+            "routine": "<p><span class=\"action-glyph\">a</span> The hostile architecture fires its aversion beam on a creature that is sanctified holy. If there are no sanctified holy creatures, it instead fires its beam on the nearest non-demon creature.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap",
+                "unholy"
+            ]
+        }
+    },
+    "type": "hazard"
+}

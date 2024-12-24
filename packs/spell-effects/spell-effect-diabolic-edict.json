@@ -4,7 +4,7 @@
     "name": "Spell Effect: Diabolic Edict",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Diabolic Edict]</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Diabolic Edict]</p>\n<p>The target gains a +1 status bonus to attack rolls and skill checks related to performing a particular task. If it refuses to perform the task you proclaimed, it instead takes a -1 status penalty to all its attack rolls and skill checks.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,60 +16,64 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
-                "domain": "all",
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Sorcerer.DiabolicEdict.Accept",
+                        "value": "accept"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Sorcerer.DiabolicEdict.Refuse",
+                        "value": "refuse"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Sorcerer.DiabolicEdict.Prompt",
+                "rollOption": "diabolic-edict"
+            },
+            {
                 "key": "RollOption",
-                "label": "Performing requested Diabolic Edict task",
-                "option": "diabolic-edict-agree",
+                "label": "PF2E.SpecificRule.Sorcerer.DiabolicEdict.Label",
+                "option": "perform-diabolic-edict",
+                "predicate": [
+                    "diabolic-edict:accept"
+                ],
                 "toggleable": true
             },
             {
                 "key": "FlatModifier",
-                "label": "Diabolic Edict Request",
                 "predicate": [
-                    "diabolic-edict-agree"
+                    {
+                        "or": [
+                            "perform-diabolic-edict",
+                            "diabolic-edict:refuse"
+                        ]
+                    }
                 ],
-                "selector": "attack",
+                "selector": [
+                    "attack-roll",
+                    "skill-check"
+                ],
+                "slug": "diabolic-edict",
                 "type": "status",
                 "value": 1
             },
             {
-                "key": "FlatModifier",
-                "label": "Diabolic Edict Refused",
+                "key": "AdjustModifier",
+                "mode": "downgrade",
                 "predicate": [
-                    {
-                        "not": "diabolic-edict-agree"
-                    }
+                    "diabolic-edict:refuse"
                 ],
-                "selector": "attack",
-                "type": "status",
-                "value": -1
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Diabolic Edict Performed",
-                "predicate": [
-                    "diabolic-edict"
+                "selectors": [
+                    "attack-roll",
+                    "skill-check"
                 ],
-                "selector": "skill-check",
-                "type": "status",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Diabolic Edict Refused",
-                "predicate": [
-                    {
-                        "not": "diabolic-edict"
-                    }
-                ],
-                "selector": "skill-check",
-                "type": "status",
+                "slug": "diabolic-edict",
                 "value": -1
             }
         ],

@@ -58,8 +58,12 @@ class ScenePF2e extends Scene {
         super._initialize(options);
     }
 
+    /**
+     * Prevent double data preparation of child documents.
+     * @removeme in V13
+     */
     override prepareData(): void {
-        if (this.initialized) return;
+        if (game.release.generation === 12 && this.initialized) return;
         this.initialized = true;
         super.prepareData();
 
@@ -89,7 +93,7 @@ class ScenePF2e extends Scene {
 
     /** Check for tokens that moved into or out of difficult terrain and reset their respective actors */
     #refreshTerrainAwareness(): void {
-        if (this.regions.some((r) => r.behaviors.some((b) => b.type === "environmentFeature"))) {
+        if (this.regions.some((r) => r.behaviors.some((b) => !b.disabled && b.type === "environmentFeature"))) {
             for (const token of this.tokens.filter((t) => t.isLinked)) {
                 const rollOptionsAll = token.actor?.rollOptions.all ?? {};
                 const actorDifficultTerrain = rollOptionsAll["self:position:difficult-terrain"]

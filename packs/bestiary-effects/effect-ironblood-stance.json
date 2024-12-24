@@ -1,0 +1,65 @@
+{
+    "_id": "nAHRwy8agswzdgFh",
+    "img": "systems/pf2e/icons/features/feats/ironblood-stance.webp",
+    "name": "Effect: Ironblood Stance",
+    "system": {
+        "description": {
+            "value": "<p>Nakasha enters a stance of impenetrable iron. As long as she's in this stance, Nakasha can make iron sweep Strikes with her fists and gains resistance 2 to all damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #209: Destroyer's Doom"
+        },
+        "rules": [
+            {
+                "attackModifier": 19,
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 3,
+                        "die": "d8",
+                        "modifier": 6
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/features/feats/ironblood-stance.webp",
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.Stance.Attack.IronSweep",
+                "range": null,
+                "traits": [
+                    "sweep",
+                    "unarmed",
+                    "nonlethal"
+                ]
+            },
+            {
+                "key": "Resistance",
+                "type": "all-damage",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

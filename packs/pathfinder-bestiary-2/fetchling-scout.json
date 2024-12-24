@@ -43,10 +43,8 @@
         },
         {
             "_id": "TNfduKabCjNGvHGp",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.i35dpZFI7jZcRoBo"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.i35dpZFI7jZcRoBo"
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise",
@@ -107,10 +105,8 @@
         },
         {
             "_id": "8DsdSzWnUcWOnZyf",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
             "name": "Dagger",
@@ -197,10 +193,8 @@
         },
         {
             "_id": "DZAfKgLUPURcf74R",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.MPcM4Wt6KmWE2kGL"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MPcM4Wt6KmWE2kGL"
             },
             "img": "systems/pf2e/icons/equipment/armor/chainshirt.webp",
             "name": "Chain Shirt",
@@ -412,14 +406,30 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The fetchling is in dim light</p>\n<hr />\n<p><strong>Effect</strong> The fetchling Strides. They have a +10-foot status bonus to their Speed during this Stride. The DC from shadow blending increases to 11 during this Stride, and the fetchling remains @UUID[Compendium.pf2e.conditionitems.Item.Concealed] by dim light until the end of the movement, even if they leave dim light during the Stride.</p>"
+                    "value": "<p><strong>Requirements</strong> The fetchling is in dim light</p>\n<hr />\n<p><strong>Effect</strong> The fetchling Strides. They have a +10-foot status bonus to their Speed during this Stride. The DC from shadow blending increases to @Check[flat|dc:11] during this Stride, and the fetchling remains @UUID[Compendium.pf2e.conditionitems.Item.Concealed] by dim light until the end of the movement, even if they leave dim light during the Stride.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "shadow-stride",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "shadow-stride"
+                        ],
+                        "selector": "land-speed",
+                        "type": "status",
+                        "value": 10
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -434,10 +444,8 @@
         },
         {
             "_id": "mcOn5wJPK3EDRCeU",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",

@@ -28,7 +28,31 @@
             "remaster": true,
             "title": "Pathfinder #202: Severed at the Root"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:enlarge",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:enlarge",
+                    "self:heritage:ardande",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:ardande"
+            }
+        ],
         "traits": {
             "rarity": "uncommon",
             "value": []

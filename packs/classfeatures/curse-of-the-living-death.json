@@ -1,0 +1,66 @@
+{
+    "_id": "8ODGE24gqEdzWljj",
+    "img": "icons/magic/death/skeleton-skull-soul-blue.webp",
+    "name": "Curse of the Living Death",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your body is slowly decaying even though you are alive, and using your powers furthers this unnatural living death, making you susceptible to both void and vitality damage. You carry a touch of the grave about you, manifesting as bloodless pallor, a faint smell of earth, or deathly cold skin.</p>\n<p><strong>@UUID[Compendium.pf2e.conditionitems.Item.Cursebound]{Cursebound 1}</strong> You gain weakness 2 to vitality and void damage. You can be hurt by both vitality and void damage even if one or the other normally has no effect on you. Any immunity or resistance you have to vitality or void is suppressed.</p>\n<p><strong>Cursebound 2</strong> You take a –1 status penalty to Fortitude saves.</p>\n<p><strong>Cursebound 3</strong> Your weakness to vitality and void damage is equal to 5 + your level.</p>\n<p><strong>Cursebound 4</strong> Your status penalty to Fortitude saving throws increases to –2.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "self:condition:cursebound"
+                ],
+                "type": [
+                    "vitality",
+                    "void"
+                ],
+                "value": "ternary(gte(@actor.conditions.cursebound.value,3),5+@actor.level,2)"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:condition:cursebound",
+                            2
+                        ]
+                    }
+                ],
+                "selector": "fortitude",
+                "type": "status",
+                "value": "ternary(gte(@actor.conditions.cursebound.value,4),-2,-1)"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "curse",
+                "divine",
+                "oracle",
+                "vitality",
+                "void"
+            ]
+        }
+    },
+    "type": "feat"
+}

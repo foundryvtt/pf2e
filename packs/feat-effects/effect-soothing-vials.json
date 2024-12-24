@@ -1,0 +1,47 @@
+{
+    "_id": "fqK8TsXmHr1JiM5e",
+    "img": "icons/consumables/potions/flask-corked-blue-glow.webp",
+    "name": "Effect: Soothing Vials",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Soothing Vials]</p>\n<p>The creature gains a +1 item bonus to the new Will saving throw.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:mental"
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": "will",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

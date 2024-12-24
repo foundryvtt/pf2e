@@ -34,36 +34,9 @@
                     "item:trait:gadget"
                 ],
                 "isDailyPrep": true,
-                "key": "CraftingEntry",
-                "maxItemLevel": "@actor.level",
-                "name": "Gadget Specialist",
-                "selector": "gadgetSpecialist"
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "add",
-                "path": "system.crafting.entries.gadgetSpecialist.maxSlots",
-                "phase": "beforeDerived",
-                "priority": 41,
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 2,
-                            "start": 2,
-                            "value": 2
-                        },
-                        {
-                            "end": 3,
-                            "start": 3,
-                            "value": 3
-                        },
-                        {
-                            "start": 4,
-                            "value": 4
-                        }
-                    ],
-                    "field": "actor|system.skills.crafting.rank"
-                }
+                "key": "CraftingAbility",
+                "maxSlots": "max(2,@actor.system.skills.crafting.rank)",
+                "slug": "gadget-specialist"
             }
         ],
         "traits": {

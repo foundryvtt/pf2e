@@ -15,7 +15,7 @@ declare global {
         active: boolean;
 
         /** Track references to the current set of Tokens which are targeted by the User */
-        targets: Set<Token>;
+        targets: UserTargets<Token>;
 
         /** Track the ID of the Scene that is currently being viewed by the User */
         viewedScene: string | null;

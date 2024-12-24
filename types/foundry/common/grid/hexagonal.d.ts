@@ -138,6 +138,12 @@ export class HexagonalGrid extends BaseGrid {
     static cubeDistance(a: HexagonalGridCube, b: HexagonalGridCube): number;
 }
 
+export interface HexagonalGrid extends BaseGrid {
+    get isGridless(): false;
+    get isHexagonal(): true;
+    get isSquare(): false;
+}
+
 declare global {
     interface HexagonalGridConfiguration extends GridConfiguration {
         /** Is this grid column-based (flat-topped) or row-based (pointy-topped)? Defaults to `false`. */
@@ -147,14 +153,14 @@ declare global {
     }
 
     /** Cube coordinates in a hexagonal grid. q + r + s = 0. */
-    interface HexagonalGridCube {
+    type HexagonalGridCube = {
         /** The coordinate along the E-W (columns) or SW-NE (rows) axis. Equal to the offset column coordinate if column orientation. */
         q: number;
         /** The coordinate along the NE-SW (columns) or N-S (rows) axis. Equal to the offset row coordinate if row orientation. */
         r: number;
         /** The coordinate along the SE-NW axis. */
         s: number;
-    }
+    };
 
     /** Hex cube coordinates, an offset of a grid space, or a point with pixel coordinates. */
     type HexagonalGridCoordinates = GridCoordinates | HexagonalGridCube;

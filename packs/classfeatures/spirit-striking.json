@@ -1,0 +1,78 @@
+{
+    "_id": "cAuV9xgPTwZ26Nj0",
+    "img": "icons/skills/melee/strike-blade-knife-white-red.webp",
+    "name": "Spirit Striking",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your divine power can't be contained, escaping in flits and embers as you wreak violence. You deal 2 additional spirit damage with weapons and unarmed attacks in which you are an expert. This damage increases to 3 if you're a master, and 4 if you're legendary.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "damageType": "spirit",
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            2
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "spirit-striking",
+                "tags": [
+                    "exemplar"
+                ],
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:proficiency:rank:3"
+                ],
+                "priority": 9,
+                "selector": "strike-damage",
+                "slug": "spirit-striking",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:proficiency:rank:4"
+                ],
+                "priority": 9,
+                "selector": "strike-damage",
+                "slug": "spirit-striking",
+                "value": 4
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "exemplar"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,68 @@
+{
+    "_id": "P9v4lpVpLlL7AGnw",
+    "img": "icons/equipment/neck/amulet-round-engraved-gold.webp",
+    "name": "Amulet of Kinship's Strength",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>This weighty brass disk is inscribed with the ancestral names of its previous owners and now includes your own. When worn, it rests against your chest with a heavy warmth, a reminder of the strength of those who came before you. While worn and invested, you gain a +2 item bonus to Will saves. This bonus increases to +3 if the effect has the fear trait.</p>\n<p><strong>Activate—Strengthen Resolve</strong> <span class=\"action-glyph\">1</span></p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> You extend your resolve to your allies, casting @UUID[Compendium.pf2e.spells-srd.Item.Strength of Mind] on up to three willing targets.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 12
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 2000
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #209: Destroyer's Doom"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "will",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:fear"
+                ],
+                "selector": "will",
+                "slug": "amulet-of-kinships-strength",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "worn"
+        }
+    },
+    "type": "equipment"
+}

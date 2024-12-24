@@ -90,7 +90,7 @@ export class Migration923KineticistRestructure extends MigrationBase {
             // Now attach the granted feats.
             for (const [idx, feat] of feats.entries()) {
                 const impulseNumberString = idx === 0 ? "One" : "Two";
-                this.#setChoice(elementFeat, `impulse${impulseNumberString}`, feat.flags.core?.sourceId);
+                this.#setChoice(elementFeat, `impulse${impulseNumberString}`, feat._stats.compendiumSource);
                 this.#addGrantedItem(actorSource, {
                     parent: elementFeat,
                     child: feat,
@@ -140,7 +140,7 @@ export class Migration923KineticistRestructure extends MigrationBase {
                 });
 
                 if (threshold.featItem) {
-                    this.#setChoice(elementFeat, "impulseOne", threshold.featItem.flags.core?.sourceId);
+                    this.#setChoice(elementFeat, "impulseOne", threshold.featItem._stats.compendiumSource);
                     this.#addGrantedItem(actorSource, {
                         parent: elementFeat,
                         child: threshold.featItem,
@@ -174,7 +174,7 @@ export class Migration923KineticistRestructure extends MigrationBase {
                 }
 
                 if (threshold.featItem) {
-                    this.#setChoice(thresholdItem, "impulseExpand", threshold.featItem.flags.core?.sourceId);
+                    this.#setChoice(thresholdItem, "impulseExpand", threshold.featItem._stats.compendiumSource);
                     this.#addGrantedItem(actorSource, {
                         parent: thresholdItem,
                         child: threshold.featItem,
@@ -234,7 +234,7 @@ export class Migration923KineticistRestructure extends MigrationBase {
         child.flags.pf2e ??= {};
         child.flags.pf2e.grantedBy = { id: parent._id, onDelete: "cascade" };
 
-        const grantUUID = options.grantUUID ?? child.flags.core?.sourceId;
+        const grantUUID = options.grantUUID ?? child._stats.compendiumSource;
         const grant = parent.system.rules.find(
             (r): r is GrantItemSource => r.key === "GrantItem" && "uuid" in r && r.uuid === grantUUID,
         );
@@ -265,7 +265,7 @@ export class Migration923KineticistRestructure extends MigrationBase {
         item.system.rules = item.system.rules.filter((r) => r.key !== "ChoiceSet" || ("selection" in r && r.selection));
     }
 
-    #setChoice(item: FeatSource, flagOrOption: string, selection?: string) {
+    #setChoice(item: FeatSource, flagOrOption: string, selection?: string | null) {
         const rule = item?.system.rules.find(
             (r): r is ChoiceSetSource =>
                 r.key === "ChoiceSet" &&

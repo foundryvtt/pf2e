@@ -1,5 +1,5 @@
 {
-    "_id": "gtXy5gMNU0NDvkBL",
+    "_id": "CYSH4aFmzH9PM3sm",
     "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Fiendish Form",
     "system": {
@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Your features reshape into those of a type of fiend who serves your deity; for example, as a demon you might have putrid scales, twisted horns, and red eyes.</p>\n<p>You gain a fly Speed equal to your Speed. You gain darkvision if you don't already have it, and you gain the fiend trait and the trait appropriate to the type of servitor you've become (such as daemon, demon, or devil).</p>"
+            "value": "<p>Your features reshape into those of a type of fiend who serves your deity; for example, as a demon you might have putrid scales, twisted horns, and red eyes. You gain a fly Speed equal to your Speed. You gain darkvision if you don't already have it, and you gain the fiend trait and the trait appropriate to the type of servitor you've become (such as daemon, demon, or devil).</p>"
         },
         "level": {
             "value": 18
@@ -19,33 +19,28 @@
         "prerequisites": {
             "value": [
                 {
-                    "value": "tenets of evil"
+                    "value": "unholy"
                 }
             ]
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Divine Mysteries"
         },
         "rules": [
-            {
-                "key": "BaseSpeed",
-                "selector": "fly",
-                "value": "@actor.attributes.speed.total"
-            },
             {
                 "add": [
                     "fiend"
                 ],
                 "key": "ActorTraits"
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": "@actor.attributes.speed.total"
             }
         ],
-        "subfeatures": {
-            "senses": {
-                "darkvision": {}
-            }
-        },
         "traits": {
             "rarity": "uncommon",
             "value": [

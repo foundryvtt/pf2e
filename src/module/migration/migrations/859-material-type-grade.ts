@@ -26,10 +26,10 @@ export class Migration859MaterialTypeGrade extends MigrationBase {
         if (itemIsOfType(source, "physical") && this.#hasOldMaterialData(source)) {
             const { preciousMaterial, preciousMaterialGrade } = source.system;
             const type = this.#PRECIOUS_MATERIAL_TYPES.has(String(preciousMaterial?.value))
-                ? preciousMaterial?.value ?? null
+                ? (preciousMaterial?.value ?? null)
                 : null;
             const grade = setHasElement(PRECIOUS_MATERIAL_GRADES, preciousMaterialGrade?.value)
-                ? preciousMaterialGrade?.value ?? null
+                ? (preciousMaterialGrade?.value ?? null)
                 : null;
 
             source.system.material = { type: type as WeaponMaterialType | null, grade };

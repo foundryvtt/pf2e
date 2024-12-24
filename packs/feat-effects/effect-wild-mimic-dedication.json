@@ -1,0 +1,51 @@
+{
+    "_id": "G6ytTRTwu9kBi59S",
+    "img": "icons/creatures/abilities/paw-print-yellow.webp",
+    "name": "Effect: Wild Mimic Dedication",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Wild Mimic Dedication]</p>\n<p>You gain a +1 circumstance bonus to your saving throws against the next attack or ability that the subject of your Recall Knowledge targets you with.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "wild-mimic-dedication"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:mark:wild-mimic-dedication"
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

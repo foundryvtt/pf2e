@@ -137,6 +137,7 @@ interface SettingsMenuPF2e extends FormApplication {
 
 interface PartialSettingsData extends Omit<SettingRegistration, "scope" | "config"> {
     prefix?: string;
+    tab?: string;
 }
 
 interface SettingsTemplateData extends PartialSettingsData {
@@ -156,7 +157,7 @@ interface SettingsMenuOptions extends FormApplicationOptions {
 
 function settingsToSheetData(
     settings: Record<string, PartialSettingsData>,
-    cache: Record<string, unknown>,
+    cache: Record<string, unknown> = {},
 ): Record<string, SettingsTemplateData> {
     return Object.entries(settings).reduce((result: Record<string, SettingsTemplateData>, [key, setting]) => {
         const lookupKey = `${setting.prefix ?? ""}${key}`;

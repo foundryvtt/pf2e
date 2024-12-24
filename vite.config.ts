@@ -1,7 +1,9 @@
 import type { ConditionSource } from "@item/base/data/index.ts";
+import { svelte as sveltePlugin } from "@sveltejs/vite-plugin-svelte";
 import { execSync } from "child_process";
 import esbuild from "esbuild";
 import fs from "fs-extra";
+import Glob from "glob";
 import path from "path";
 import Peggy from "peggy";
 import * as Vite from "vite";
@@ -24,10 +26,13 @@ function getUuidRedirects(): Record<CompendiumUUID, CompendiumUUID> {
     for (const [from, to] of Object.entries<string>(redirectJSON)) {
         const [, , pack, documentType, name] = to.split(".", 5);
         const packDir = systemJSON.packs.find((p) => p.type === documentType && p.name === pack)?.path;
-        if (!packDir) throw new Error(`Failure looking up pack JSON for ${to}`);
-        const docJSON = JSON.parse(
-            fs.readFileSync(path.resolve(__dirname, `${packDir}/${sluggify(name)}.json`), "utf-8"),
-        );
+        const dirPath = path.resolve(__dirname, packDir ?? "");
+        const filename = `${sluggify(name)}.json`;
+        const jsonPath = fs.existsSync(path.resolve(dirPath, filename))
+            ? path.resolve(dirPath, filename)
+            : Glob.sync(path.resolve(dirPath, "**", filename)).at(0);
+        if (!jsonPath) throw new Error(`Failure looking up pack JSON for ${to}`);
+        const docJSON = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
         const id = docJSON._id;
         if (!id) throw new Error(`No UUID redirect match found for ${documentType} ${name} in ${pack}`);
         redirectJSON[from] = `Compendium.pf2e.${pack}.${documentType}.${id}`;
@@ -46,7 +51,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         'AbstractDamageRoll.parser = { StartRules: ["Expression"], SyntaxError: peg$SyntaxError, parse: peg$parse };',
     );
 
-    const plugins = [checker({ typescript: true }), tsconfigPaths()];
+    const plugins = [checker({ typescript: true }), tsconfigPaths({ loose: true }), sveltePlugin()];
     // Handle minification after build to allow for tree-shaking and whitespace minification
     // "Note the build.minify option does not minify whitespaces when using the 'es' format in lib mode, as it removes
     // pure annotations and breaks tree-shaking."
@@ -88,7 +93,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                     },
                 },
             },
-            // Vite HMR is only preconfigured for css files: add handler for HBS templates
+            // Vite HMR is only preconfigured for css files: add handler for HBS templates and localization JSON
             {
                 name: "hmr-handler",
                 apply: "serve",
@@ -131,7 +136,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         fs.writeFileSync("./vendor.mjs", `/** ${message} */\n`);
     }
 
-    const reEscape = (s: string) => s.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+    const reEscape = (s: string) => s.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&");
 
     return {
         base: command === "build" ? "./" : "/systems/pf2e/",
@@ -147,7 +152,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         esbuild: { keepNames: true },
         build: {
             outDir,
-            emptyOutDir: false, // fails if world is running due to compendium locks. We do it in "npm run clean" instead.
+            emptyOutDir: false, // Fails if world is running due to compendium locks: handled with `npm run clean`
             minify: false,
             sourcemap: buildMode === "development",
             lib: {
@@ -169,7 +174,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                     ].join(""),
                 ),
                 output: {
-                    assetFileNames: ({ name }): string => (name === "style.css" ? "styles/pf2e.css" : name ?? ""),
+                    assetFileNames: ({ name }): string => (name === "style.css" ? "styles/pf2e.css" : (name ?? "")),
                     chunkFileNames: "[name].mjs",
                     entryFileNames: "pf2e.mjs",
                     manualChunks: {
@@ -192,9 +197,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             },
         },
         plugins,
-        css: {
-            devSourcemap: buildMode === "development",
-        },
+        css: { devSourcemap: buildMode === "development" },
     };
 });
 

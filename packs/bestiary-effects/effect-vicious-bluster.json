@@ -1,0 +1,47 @@
+{
+    "_id": "P8LdA05tK20u98MF",
+    "img": "icons/magic/sonic/scream-wail-shout-teal.webp",
+    "name": "Effect: Vicious Bluster",
+    "system": {
+        "badge": {
+            "evaluate": true,
+            "reevaluate": null,
+            "type": "formula",
+            "value": "1d6"
+        },
+        "description": {
+            "value": "<p>When a gargarthezul successfully @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize]{Demoralizes} a foe, it gains 1d6 temporary Hit Points (2d6 on a critical success) that last for 1 minute.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Society Scenario #6-00: Salt of the Ocean"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "@item.badge.value"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

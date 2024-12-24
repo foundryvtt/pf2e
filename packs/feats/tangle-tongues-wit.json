@@ -1,0 +1,52 @@
+{
+    "_id": "zxozwMyJgOzxADHh",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Tangle-Tongue's Wit",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your talent for language is a blessing from the yaksha makers of old. You learn two new languages, chosen from languages you have access to. You also gain a +2 circumstance bonus to your saving throws against linguistic effects.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.build.languages.max",
+                "value": "2"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:linguistic"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "yaksha"
+            ]
+        }
+    },
+    "type": "feat"
+}

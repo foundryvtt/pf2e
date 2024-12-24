@@ -48,7 +48,7 @@ function remove(actor: CharacterPF2e, event: MouseEvent): void {
     const translationKey = key?.replace(/^weapon-(?:base|group)-/, "") ?? "";
     const name = objectHasKey(weaponGroups, translationKey)
         ? game.i18n.localize(weaponGroups[translationKey])
-        : baseWeapons[translationKey] ?? baseShields[translationKey] ?? translationKey;
+        : (baseWeapons[translationKey] ?? baseShields[translationKey] ?? translationKey);
 
     const localize = localizer("PF2E.RemoveCombatProficiency");
     const message = localize("Message", { proficiency: name });

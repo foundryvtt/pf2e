@@ -29,10 +29,8 @@
         },
         {
             "_id": "M6HozHRP5PGGpZU4",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.heritages.Item.nW1gi13E62Feto2w"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.heritages.Item.nW1gi13E62Feto2w"
             },
             "img": "systems/pf2e/icons/features/ancestry/woodland-elf.webp",
             "name": "Woodland Elf",
@@ -73,10 +71,8 @@
         },
         {
             "_id": "DErFmyMtY400qTtc",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.backgrounds.Item.6UmhTxOQeqFnppxx"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.backgrounds.Item.6UmhTxOQeqFnppxx"
             },
             "img": "systems/pf2e/icons/default-icons/background.svg",
             "name": "Guard",
@@ -137,10 +133,8 @@
         },
         {
             "_id": "2Wg4t4tSXAPkgaMM",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.ar2DUlvDK4LDcH9J"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.ar2DUlvDK4LDcH9J"
             },
             "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Quick Coercion",
@@ -169,9 +163,9 @@
                     ]
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [],
                 "slug": "quick-coercion",
@@ -187,10 +181,8 @@
         },
         {
             "_id": "xr8idwu6gOX9Lqyy",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.kCO4r8NOm8E2T3eH"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.kCO4r8NOm8E2T3eH"
             },
             "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Nimble Elf",
@@ -215,9 +207,9 @@
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [
                     {
@@ -238,10 +230,8 @@
         },
         {
             "_id": "ZJAdTnST2Vw0vRTp",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.WoLh16gyDp8y9WOZ"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.WoLh16gyDp8y9WOZ"
             },
             "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Ancestral Longevity",
@@ -270,11 +260,143 @@
                     ]
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "ageless",
+                        "phase": "beforeDerived",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.Skill.Acrobatics",
+                                "predicate": [
+                                    "skill:acrobatics:rank:0"
+                                ],
+                                "value": "acrobatics"
+                            },
+                            {
+                                "label": "PF2E.Skill.Arcana",
+                                "predicate": [
+                                    "skill:arcana:rank:0"
+                                ],
+                                "value": "arcana"
+                            },
+                            {
+                                "label": "PF2E.Skill.Athletics",
+                                "predicate": [
+                                    "skill:athletics:rank:0"
+                                ],
+                                "value": "athletics"
+                            },
+                            {
+                                "label": "PF2E.Skill.Crafting",
+                                "predicate": [
+                                    "skill:crafting:rank:0"
+                                ],
+                                "value": "crafting"
+                            },
+                            {
+                                "label": "PF2E.Skill.Deception",
+                                "predicate": [
+                                    "skill:deception:rank:0"
+                                ],
+                                "value": "deception"
+                            },
+                            {
+                                "label": "PF2E.Skill.Diplomacy",
+                                "predicate": [
+                                    "skill:diplomacy:rank:0"
+                                ],
+                                "value": "diplomacy"
+                            },
+                            {
+                                "label": "PF2E.Skill.Intimidation",
+                                "predicate": [
+                                    "skill:intimidation:rank:0"
+                                ],
+                                "value": "intimidation"
+                            },
+                            {
+                                "label": "PF2E.Skill.Medicine",
+                                "predicate": [
+                                    "skill:medicine:rank:0"
+                                ],
+                                "value": "medicine"
+                            },
+                            {
+                                "label": "PF2E.Skill.Nature",
+                                "predicate": [
+                                    "skill:nature:rank:0"
+                                ],
+                                "value": "nature"
+                            },
+                            {
+                                "label": "PF2E.Skill.Occultism",
+                                "predicate": [
+                                    "skill:occultism:rank:0"
+                                ],
+                                "value": "occultism"
+                            },
+                            {
+                                "label": "PF2E.Skill.Performance",
+                                "predicate": [
+                                    "skill:performance:rank:0"
+                                ],
+                                "value": "performance"
+                            },
+                            {
+                                "label": "PF2E.Skill.Religion",
+                                "predicate": [
+                                    "skill:religion:rank:0"
+                                ],
+                                "value": "religion"
+                            },
+                            {
+                                "label": "PF2E.Skill.Society",
+                                "predicate": [
+                                    "skill:society:rank:0"
+                                ],
+                                "value": "society"
+                            },
+                            {
+                                "label": "PF2E.Skill.Stealth",
+                                "predicate": [
+                                    "skill:stealth:rank:0"
+                                ],
+                                "value": "stealth"
+                            },
+                            {
+                                "label": "PF2E.Skill.Survival",
+                                "predicate": [
+                                    "skill:survival:rank:0"
+                                ],
+                                "value": "survival"
+                            },
+                            {
+                                "label": "PF2E.Skill.Thievery",
+                                "predicate": [
+                                    "skill:thievery:rank:0"
+                                ],
+                                "value": "thievery"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.skills.{item|flags.pf2e.rulesSelections.ageless}.rank",
+                        "phase": "beforeDerived",
+                        "priority": 60,
+                        "value": 1
+                    }
+                ],
                 "slug": "ancestral-longevity",
                 "traits": {
                     "rarity": "common",
@@ -287,10 +409,8 @@
         },
         {
             "_id": "y6xkDvvl6acvNEj0",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.1W0a6YCyoYv8dm4e"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.1W0a6YCyoYv8dm4e"
             },
             "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Harming Hands",
@@ -319,9 +439,9 @@
                     ]
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [
                     {
@@ -350,10 +470,8 @@
         },
         {
             "_id": "9GmNBi8TLNcs7zi6",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.o5q9FBrPsAYqEl5w"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.o5q9FBrPsAYqEl5w"
             },
             "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Channel Smite",
@@ -400,10 +518,8 @@
         },
         {
             "_id": "iukDpUM7arqxWHcu",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.Trj5azJlaOk5jgBi"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.Trj5azJlaOk5jgBi"
             },
             "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Divine Weapon",
@@ -417,7 +533,12 @@
                 },
                 "category": "class",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per turn</p>\n<p><strong>Trigger</strong> You finish Casting a Spell using one of your divine spell slots on your turn.</p>\n<hr />\n<p>You siphon residual spell energy into a weapon you're wielding. Until the end of your turn, the weapon deals an additional 1d4 force damage.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Divine Weapon]{Effect: Divine Weapon (Force)}</p>\n<p>You can instead deal an additional 1d6 damage of an alignment type that matches one of your deity's alignment components. As usual for aligned damage, this can damage only creatures of the opposite alignment.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Divine Weapon (Chaotic)]</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Divine Weapon (Evil)]</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Divine Weapon (Good)]</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Divine Weapon (Lawful)]</p>"
+                    "value": "<p><strong>Frequency</strong> once per turn</p>\n<p><strong>Trigger</strong> You finish Casting a Spell using one of your divine spell slots on your turn.</p>\n<hr />\n<p>You siphon residual spell energy into a weapon you're wielding. Until the end of your turn, the weapon deals an additional 1d4 spirit damage. If you are holy or unholy, Strikes with the weapon also gain that trait, and the additional damage increases to 2d4 against creatures of the opposing trait.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "turn",
+                    "value": 1
                 },
                 "level": {
                     "taken": 6,
@@ -428,11 +549,15 @@
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Divine Weapon",
+                    "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Divine Weapon"
+                },
                 "slug": "divine-weapon",
                 "traits": {
                     "rarity": "common",
@@ -445,10 +570,8 @@
         },
         {
             "_id": "IxKBYHaVIlk0O0zd",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.xQMz6eDgX75WX2ce"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.xQMz6eDgX75WX2ce"
             },
             "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Intimidating Glare",
@@ -462,7 +585,7 @@
                 },
                 "category": "skill",
                 "description": {
-                    "value": "<p>You can <span data-pf2-action=\"demoralize\" data-pf2-glyph=\"1\">Demoralize</span> with a mere glare. When you do, Demoralize loses the auditory trait and gains the visual trait, and you don't take a penalty if the creature doesn't understand your language.</p>"
+                    "value": "<p>You can @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] with a mere glare. When you do, Demoralize loses the auditory trait and gains the visual trait, and you don't take a penalty if the creature doesn't understand your language.</p>"
                 },
                 "level": {
                     "taken": 2,
@@ -477,9 +600,9 @@
                     ]
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [],
                 "slug": "intimidating-glare",
@@ -495,10 +618,8 @@
         },
         {
             "_id": "gQ1ehCKYaRocTWNz",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.gUqvezs2zzoTXFAI"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.gUqvezs2zzoTXFAI"
             },
             "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Group Coercion",
@@ -545,10 +666,8 @@
         },
         {
             "_id": "emNOpwPZOuQopnv0",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.09PurtIanNUPfNRq"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.09PurtIanNUPfNRq"
             },
             "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Combat Climber",
@@ -562,7 +681,7 @@
                 },
                 "category": "skill",
                 "description": {
-                    "value": "<p>Your techniques allow you to fight as you climb. You're not off-guard while Climbing and can Climb with a hand occupied. You must still use another hand and both legs to Climb.</p>"
+                    "value": "<p>Your techniques allow you to fight as you climb. You're not @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] while Climbing and can Climb with a hand occupied. You must still use another hand and both legs to Climb.</p>"
                 },
                 "level": {
                     "taken": 6,
@@ -577,9 +696,9 @@
                     ]
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [],
                 "slug": "combat-climber",
@@ -595,10 +714,8 @@
         },
         {
             "_id": "Wx6NTZp9gSOAFimJ",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.BStw1cANwx5baL6d"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.BStw1cANwx5baL6d"
             },
             "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Armor Proficiency",
@@ -612,7 +729,7 @@
                 },
                 "category": "general",
                 "description": {
-                    "value": "<p>You become trained in light armor. If you already were trained in light armor, you gain training in medium armor. If you were trained in both, you become trained in heavy armor.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat more than once. Each time, you become trained in the next type of armor above.</p>"
+                    "value": "<p>You become trained in light armor. If you already were trained in light armor, you gain training in medium armor. If you were trained in both, you become trained in heavy armor. If you are at least 13th level, you become an expert in this armor type.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat more than once. Each time, you become trained in the next type of armor, as detailed above.</p>"
                 },
                 "level": {
                     "taken": 3,
@@ -624,34 +741,53 @@
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [
                     {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.defenses.heavy.rank",
-                        "priority": 41,
-                        "value": "max(min(1,@actor.system.proficiencies.defenses.light.rank)*min(1,@actor.system.proficiencies.defenses.medium.rank))"
+                        "choices": [
+                            {
+                                "label": "PF2E.Actor.Character.Proficiency.Defense.LightShort",
+                                "predicate": [
+                                    "defense:light:rank:0"
+                                ],
+                                "value": "light"
+                            },
+                            {
+                                "label": "PF2E.Actor.Character.Proficiency.Defense.MediumShort",
+                                "predicate": [
+                                    "defense:medium:rank:0",
+                                    {
+                                        "not": "defense:light:rank:0"
+                                    }
+                                ],
+                                "value": "medium"
+                            },
+                            {
+                                "label": "PF2E.Actor.Character.Proficiency.Defense.HeavyShort",
+                                "predicate": [
+                                    {
+                                        "nor": [
+                                            "defense:light:rank:0",
+                                            "defense:medium:rank:0"
+                                        ]
+                                    }
+                                ],
+                                "value": "heavy"
+                            }
+                        ],
+                        "key": "ChoiceSet"
                     },
                     {
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
-                        "path": "system.proficiencies.defenses.medium.rank",
-                        "priority": 41,
-                        "value": "min(1,@actor.system.proficiencies.defenses.light.rank)"
+                        "path": "system.proficiencies.defenses.{item|flags.pf2e.rulesSelections.armorProficiency}.rank",
+                        "value": "ternary(gte(@actor.level,13),2,1)"
                     }
                 ],
                 "slug": "armor-proficiency",
-                "subfeatures": {
-                    "proficiencies": {
-                        "light": {
-                            "rank": 1
-                        }
-                    }
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -767,10 +903,8 @@
         },
         {
             "_id": "kNGBEUgn29avWv9v",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.mAMEt4FFbdqoRnkN"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.mAMEt4FFbdqoRnkN"
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Chill Touch",
@@ -855,10 +989,8 @@
         },
         {
             "_id": "5NaH4QXOfBWMLJ4C",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl"
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
@@ -875,7 +1007,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies. You detect illusion magic only if that magic's effect has a lower rank than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an @UUID[Compendium.pf2e.equipment-srd.Item.Invisibility Potion]) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the rank or level of the most powerful magical effect the spell detects, as determined by the GM.</p>\n<p><strong>Heightened (4th)</strong> As 3rd rank, but you also pinpoint the source of the highest-rank magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies. You detect illusion magic only if that magic's effect has a lower rank than the rank of your <em>detect magic</em> spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an @UUID[Compendium.pf2e.equipment-srd.Item.Invisibility Potion]) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the rank or level of the most powerful magical effect the spell detects, as determined by the GM.</p>\n<p><strong>Heightened (4th)</strong> As 3rd rank, but you also pinpoint the source of the highest-rank magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -924,10 +1056,8 @@
         },
         {
             "_id": "3uMmU1JySjKeq8NA",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.izcxFQFwf3woCnFs"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.izcxFQFwf3woCnFs"
             },
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
@@ -941,7 +1071,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You ask for divine guidance, granting the target a +1 status bonus to one attack roll, Perception check, saving throw, or skill check the target attempts before the duration ends. The target chooses which roll to use the bonus on before rolling. If the target uses the bonus, the spell ends. Either way, the target is then temporarily immune for 1 hour.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Guidance]</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Effect: Guidance Immunity]</p>"
+                    "value": "<p>You ask for the guidance of supernatural entities, granting the target a +1 status bonus to one attack roll, Perception check, saving throw, or skill check the target attempts before the duration ends. The target chooses which roll to use the bonus on before rolling. If the target uses the bonus, the spell ends. Either way, the target is then temporarily immune for 1 hour.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Guidance]</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Effect: Guidance Immunity]</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -954,9 +1084,9 @@
                     "value": "VWkXQ81vHN7bbg1v"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -987,10 +1117,8 @@
         },
         {
             "_id": "jXPzBNLPGwT93vep",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.vLzFcIaSXs7YTIqJ"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.vLzFcIaSXs7YTIqJ"
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
@@ -1004,7 +1132,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You mouth words quietly, but instead of coming out of your mouth, they're transferred directly to the ears of the target. While others can't hear your words any better than if you normally mouthed them, the target can hear your words as if they were standing next to you.</p>\n<p>The target can give a brief response as a reaction, or as a free action on their next turn if they wish, but they must be able to see you and be within range to do so. If they respond, their response is delivered directly to your ear, just like the original message.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The spell's range increases to 500 feet.</p>"
+                    "value": "<p>You mouth words quietly, but instead of coming out of your mouth, they're transferred directly to the ears of the target. While others can't hear your words any better than if you normally mouthed them, the target can hear your words as if they were standing next to you. The target can give a brief response as a reaction, or as a free action on their next turn if they wish, but they must be able to see you and be within range to do so. If they respond, their response is delivered directly to your ear, just like the original message.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The spell's range increases to 500 feet.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1027,9 +1155,9 @@
                     "value": "VWkXQ81vHN7bbg1v"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "120 feet"
@@ -1056,7 +1184,8 @@
                         "concentrate",
                         "illusion",
                         "linguistic",
-                        "mental"
+                        "mental",
+                        "subtle"
                     ]
                 }
             },
@@ -1064,10 +1193,8 @@
         },
         {
             "_id": "cs1zl8ohvxiNyaHN",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.TVKNbcgTee19PXZR"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.TVKNbcgTee19PXZR"
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
@@ -1081,7 +1208,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage] spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Shield]</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Effect: Shield Immunity]</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
+                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] reaction with your magic shield. The shield has Hardness 5. You can use the spell's reaction to reduce damage from any spell or magical effect, even if it doesn't deal physical damage. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Shield]</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Effect: Shield Immunity]</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The shield's Hardness increases by 5.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1094,9 +1221,9 @@
                     "value": "VWkXQ81vHN7bbg1v"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": ""
@@ -1128,10 +1255,8 @@
         },
         {
             "_id": "WfKnkme6HzunCqxO",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.aIHY2DArKFweIrpf"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.aIHY2DArKFweIrpf"
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command",
@@ -1150,7 +1275,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You shout a command that's hard to ignore. You can command the target to approach you, run away (as if it had the @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] condition), release what it's holding, drop @UUID[Compendium.pf2e.conditionitems.Item.Prone], or stand in place. It can't Delay or take any reactions until it has obeyed your command. The effects depend on the target's Will save.</p>\n<hr /><p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> For the first action on its next turn, the creature must use a single action to do as you command.</p>\n<p><strong>Critical Failure</strong> The target must use all its actions on its next turn to obey your command.</p>\n<hr /><p><strong>Heightened (5th)</strong> You can target up to 10 creatures.</p>"
+                    "value": "<p>You shout a command that's hard to ignore. You can command the target to approach you, run away (as if it had the @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] condition), release what it's holding, drop @UUID[Compendium.pf2e.conditionitems.Item.Prone], or stand in place. It can't @UUID[Compendium.pf2e.actionspf2e.Item.Delay] or take any reactions until it has obeyed your command. The effects depend on the target's Will save.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> For the first action on its next turn, the creature must use a single action to do as you command.</p>\n<p><strong>Critical Failure</strong> The target must use all its actions on its next turn to obey your command.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> You can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1173,9 +1298,9 @@
                     "value": "VWkXQ81vHN7bbg1v"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -1209,10 +1334,8 @@
         },
         {
             "_id": "mIvet6TrkMdgRqH9",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.J7Y7tl0bbdz7TcCc"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.J7Y7tl0bbdz7TcCc"
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
@@ -1278,13 +1401,11 @@
         },
         {
             "_id": "9gpa5W7sWM7bQBfB",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.Gb7SeieEvd0pL2Eh"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.Gb7SeieEvd0pL2Eh"
             },
             "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
-            "name": "True Strike",
+            "name": "Sure Strike",
             "sort": 0,
             "system": {
                 "area": null,
@@ -1308,16 +1429,16 @@
                     "value": "VWkXQ81vHN7bbg1v"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": ""
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": "true-strike",
+                "slug": "sure-strike",
                 "target": {
                     "value": ""
                 },
@@ -1340,10 +1461,8 @@
         },
         {
             "_id": "XqFq6Jl35kUT5vg2",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs"
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
@@ -1374,7 +1493,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You channel vitality energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of vitality damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"action-glyph\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(verbal, somatic)</strong> The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8</p>\n<p><span class=\"action-glyph\">3</span> <strong>(material, somatic, verbal)</strong> You disperse vitality energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel vital energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of vitality damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"action-glyph\">1</span> The spell has a range of touch.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(concentrate)</strong> The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><span class=\"action-glyph\">3</span> <strong>(concentrate)</strong> You disperse vital energy in a @Template[emanation|distance:30]. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1505,9 +1624,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "varies"
@@ -1538,10 +1657,8 @@
         },
         {
             "_id": "bXtFfqeXSS5zXjsd",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.wdA52JJnsuQWeyqz"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.wdA52JJnsuQWeyqz"
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
@@ -1572,7 +1689,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You channel void energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 void damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"action-glyph\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(verbal, somatic)</strong> The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><span class=\"action-glyph\">3</span> <strong>(material, verbal, somatic)</strong> You disperse void energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel void energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 void damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"action-glyph\">1</span> The spell has a range of touch.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(concentrate)</strong> The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><span class=\"action-glyph\">3</span> <strong>(concentrate)</strong> You disperse void energy in a @Template[emanation|distance:30]. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1703,9 +1820,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "varies"
@@ -1734,10 +1851,8 @@
         },
         {
             "_id": "32KGGqvGW7T4fXKQ",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.XXqE1eY3w3z6xJCB"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.XXqE1eY3w3z6xJCB"
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
@@ -1751,7 +1866,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Cloaked in illusion, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Invisible]. This makes it @UUID[Compendium.pf2e.conditionitems.Item.Undetected] to all creatures, though the creatures can attempt to find the target, making it @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
+                    "value": "<p>Illusions bend light around the target, rendering it @UUID[Compendium.pf2e.conditionitems.Item.Invisible]. This makes it @UUID[Compendium.pf2e.conditionitems.Item.Undetected] to all creatures, though the creatures can attempt to find the target, making it @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1764,9 +1879,9 @@
                     "value": "VWkXQ81vHN7bbg1v"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "touch"
@@ -1788,7 +1903,8 @@
                     ],
                     "value": [
                         "illusion",
-                        "manipulate"
+                        "manipulate",
+                        "subtle"
                     ]
                 }
             },
@@ -1796,10 +1912,8 @@
         },
         {
             "_id": "3QafDeu35FWfg828",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.Fq9yCbqI2RDt6Orw"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.Fq9yCbqI2RDt6Orw"
             },
             "img": "icons/skills/melee/strike-sword-slashing-red.webp",
             "name": "Spiritual Weapon",
@@ -1878,10 +1992,8 @@
         },
         {
             "_id": "2snWQfKcBiGbfqxy",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.VosLNn2M8S7JH67D"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VosLNn2M8S7JH67D"
             },
             "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
             "name": "Blindness",
@@ -1913,9 +2025,9 @@
                     "value": "VWkXQ81vHN7bbg1v"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -1948,10 +2060,8 @@
         },
         {
             "_id": "ToGLjlSuHZZSfLo9",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.KqvqNAfGIE5a9wSv"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.KqvqNAfGIE5a9wSv"
             },
             "img": "icons/magic/life/ankh-gold-blue.webp",
             "name": "Heroism",
@@ -1965,7 +2075,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You tap into the target's inner heroism, granting it a +1 status bonus to attack rolls, Perception checks, saving throws, and skill checks.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> The status bonus increases to +2.</p>\n<p><strong>Heightened (9th)</strong> The status bonus increases to +3.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Heroism]</p>"
+                    "value": "<p>You unlock the target's inner heroism, granting it a +1 status bonus to attack rolls, Perception checks, saving throws, and skill checks.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> The status bonus increases to +2.</p>\n<p><strong>Heightened (9th)</strong> The status bonus increases to +3.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Heroism]</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1978,9 +2088,9 @@
                     "value": "VWkXQ81vHN7bbg1v"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "touch"
@@ -2054,10 +2164,8 @@
         },
         {
             "_id": "n8byhLd6coAqLJ7t",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.wdA52JJnsuQWeyqz"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.wdA52JJnsuQWeyqz"
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
@@ -2088,7 +2196,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You channel void energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 void damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"action-glyph\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(verbal, somatic)</strong> The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><span class=\"action-glyph\">3</span> <strong>(material, verbal, somatic)</strong> You disperse void energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel void energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 void damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"action-glyph\">1</span> The spell has a range of touch.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(concentrate)</strong> The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><span class=\"action-glyph\">3</span> <strong>(concentrate)</strong> You disperse void energy in a @Template[emanation|distance:30]. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -2224,9 +2332,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "varies"
@@ -2295,10 +2403,8 @@
         },
         {
             "_id": "Qr2UDdyxyVLjKoFo",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.W37iBXLsY2trJ1rS"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.W37iBXLsY2trJ1rS"
             },
             "img": "systems/pf2e/icons/spells/weapon-surge.webp",
             "name": "Weapon Surge",
@@ -2312,7 +2418,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Holding your weapon aloft, you fill it with divine energy.</p>\n<p>On your next Strike with that weapon before the start of your next turn, you gain a +1 status bonus to the attack roll and the weapon deals an additional die of damage.</p>\n<p>If the weapon has a striking rune, this instead increases the number of dice from the striking rune by 1 (to a maximum of 3 extra weapon dice).</p>\n<p>If the target weapon leaves your possession, weapon surge immediately ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Weapon Surge]</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Weapon Surge (Major Striking)]</p>"
+                    "value": "<p>Holding your weapon aloft, you fill it with divine energy. On your next Strike with that weapon before the start of your next turn, you gain a +1 status bonus to the attack roll and the weapon deals an additional 1d6 spirit damage, and the Strike gains the sanctified trait. <em>Weapon surge</em> ends once you complete this Strike or the weapon leaves your possession.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The attack deals 2d6 additional spirit damage.</p>\n<p><strong>Heightened (9th)</strong> The attack deals 3d6 additional spirit damage.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Weapon Surge]</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -2325,9 +2431,9 @@
                     "value": "Afux3oeP1SnJoFIZ"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "touch"
@@ -2347,7 +2453,8 @@
                     "value": [
                         "cleric",
                         "focus",
-                        "manipulate"
+                        "manipulate",
+                        "sanctified"
                     ]
                 }
             },
@@ -2355,10 +2462,8 @@
         },
         {
             "_id": "slC70UidAiaisjB2",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.UCH4myuFnokGv0vF"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UCH4myuFnokGv0vF"
             },
             "img": "systems/pf2e/icons/equipment/weapons/sling.webp",
             "name": "Sling",
@@ -2440,10 +2545,8 @@
         },
         {
             "_id": "n3IMfMqMwrNK90oD",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.wkzxLpSe7LN6c5Ld"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.wkzxLpSe7LN6c5Ld"
             },
             "img": "systems/pf2e/icons/equipment/weapons/sawtooth-saber.webp",
             "name": "Sawtooth Saber",
@@ -2529,10 +2632,8 @@
         },
         {
             "_id": "Bl4YABZGdtDiVH7Z",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
             },
             "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
             "name": "Leather Armor",
@@ -2599,10 +2700,8 @@
         },
         {
             "_id": "aOQ375mEC92vgGga",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.2gYZiUw9yjtb0yJY"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.2gYZiUw9yjtb0yJY"
             },
             "img": "icons/equipment/head/mask-horned-brown.webp",
             "name": "Mantis Mask of Fear",
@@ -2670,12 +2769,10 @@
         },
         {
             "_id": "GiI7n1L1OGrhCMxT",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.1r6StS0irdvi5JHY"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.1r6StS0irdvi5JHY"
             },
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/ventriloquists-ring.webp",
+            "img": "icons/equipment/finger/ring-band-engraved-lines-bronze.webp",
             "name": "Ventriloquist's Ring",
             "sort": 0,
             "system": {
@@ -2741,10 +2838,8 @@
         },
         {
             "_id": "uN2gZHhBLHWQ7Ke5",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.ktjFOp3U0wQD9t0Z"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ktjFOp3U0wQD9t0Z"
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/antidote.webp",
             "name": "Antidote (Lesser)",
@@ -2758,7 +2853,7 @@
                 "containerId": null,
                 "damage": null,
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>An antidote protects you against toxins. Upon drinking an antidote, you gain a +2 item bonus to Fortitude saving throws against poisons for 6 hours.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Antidote (Lesser)]</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>An antidote protects you against toxins. Upon drinking an antidote, you gain a +2 item bonus to Fortitude saving throws against poisons for 6 hours.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Antidote]</p>"
                 },
                 "equipped": {
                     "carryType": "worn"
@@ -2811,10 +2906,8 @@
         },
         {
             "_id": "msEcXPGVrbMKRSOd",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.MKSeXwUm56c15MZa"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MKSeXwUm56c15MZa"
             },
             "img": "systems/pf2e/icons/equipment/weapons/sling-bullets.webp",
             "name": "Sling Bullets",
@@ -2878,10 +2971,8 @@
         },
         {
             "_id": "3ab8Kml4SN6GEEpW",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.0CNSvLpeSM4aIfPJ"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.0CNSvLpeSM4aIfPJ"
             },
             "img": "systems/pf2e/icons/equipment/consumables/talismans/feather-step-stone.webp",
             "name": "Feather Step Stone",
@@ -2947,10 +3038,8 @@
         },
         {
             "_id": "tCcwryiP05PsHZgy",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.5RGNjhDxZ0yMhTds"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.5RGNjhDxZ0yMhTds"
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-poisons/hunting-spider-venom.webp",
             "name": "Hunting Spider Venom",
@@ -2964,7 +3053,7 @@
                 "containerId": null,
                 "damage": null,
                 "description": {
-                    "value": "<p>This venom erodes its target's defenses, aiding the spider in securing prey.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d10[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d12[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}, and off-guard (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[2d6[poison]] damage, clumsy 2, and off-guard (1 round)</p>"
+                    "value": "<p>This venom erodes its target's defenses, aiding the spider in securing prey.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:21]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d10[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d12[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}, and off-guard (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[2d6[poison]] damage, clumsy 2, and off-guard (1 round)</p>"
                 },
                 "equipped": {
                     "carryType": "worn"
@@ -3017,10 +3106,8 @@
         },
         {
             "_id": "cFZXHsn8qJL20xcE",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.Y7UD64foDbDMV9sx"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Y7UD64foDbDMV9sx"
             },
             "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
             "name": "Scroll of Faerie Fire (Level 2)",
@@ -3157,10 +3244,8 @@
         },
         {
             "_id": "8dc6ZO3N9Kt1hkjV",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.Y7UD64foDbDMV9sx"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Y7UD64foDbDMV9sx"
             },
             "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
             "name": "Scroll of Heal (Level 2)",
@@ -3443,10 +3528,8 @@
         },
         {
             "_id": "43R6evrNWFlNrQ3t",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.Y7UD64foDbDMV9sx"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Y7UD64foDbDMV9sx"
             },
             "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
             "name": "Scroll of Remove Fear (Level 2)",
@@ -3592,10 +3675,8 @@
         },
         {
             "_id": "0X1H90jV2wLvB2aw",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.Y7UD64foDbDMV9sx"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Y7UD64foDbDMV9sx"
             },
             "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
             "name": "Scroll of Resist Energy (Level 2)",
@@ -3745,10 +3826,8 @@
         },
         {
             "_id": "dwDc4VzUu7Czr6YU",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.B6B7tBWJSqOBz5zz"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.B6B7tBWJSqOBz5zz"
             },
             "img": "systems/pf2e/icons/equipment/treasure/currency/gold-pieces.webp",
             "name": "Gold Pieces",
@@ -3801,10 +3880,8 @@
         },
         {
             "_id": "T8H7mMRDTj7DYJQs",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
             },
             "img": "icons/containers/bags/pack-leather-white-tan.webp",
             "name": "Backpack",
@@ -3867,10 +3944,8 @@
         },
         {
             "_id": "8mlmsT7FKL9Q7bC1",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.Jvp0x2Sc82WVpExT"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Jvp0x2Sc82WVpExT"
             },
             "img": "icons/containers/chest/chest-simple-box-red.webp",
             "name": "Disguise Kit",
@@ -3926,12 +4001,10 @@
         },
         {
             "_id": "gM3QNg4HDduqUOwB",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.WAsQ6WuMYUB77Uh0"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.WAsQ6WuMYUB77Uh0"
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/hourglass.webp",
+            "img": "icons/tools/navigation/hourglass-yellow.webp",
             "name": "Hourglass (5 minutes)",
             "sort": 0,
             "system": {
@@ -3986,12 +4059,10 @@
         },
         {
             "_id": "ZSYUCwY5Tg9jal3W",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.z1okOYtNVnpBNj9F"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.z1okOYtNVnpBNj9F"
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/religious-text.webp",
+            "img": "icons/sundries/books/book-open-brown.webp",
             "name": "Religious Text of Achaekek",
             "sort": 0,
             "system": {
@@ -4046,10 +4117,8 @@
         },
         {
             "_id": "nsq26UNrtw9H0QYy",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classes.Item.EizrWvUPMS67Pahd"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classes.Item.EizrWvUPMS67Pahd"
             },
             "img": "systems/pf2e/icons/classes/cleric.webp",
             "name": "Cleric",
@@ -4109,7 +4178,7 @@
                 "hp": 8,
                 "items": {
                     "5ydlu": {
-                        "img": "systems/pf2e/icons/features/classes/resolve.webp",
+                        "img": "icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp",
                         "level": 9,
                         "name": "Resolve",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Resolve"
@@ -4136,7 +4205,7 @@
                         "img": "systems/pf2e/icons/features/classes/deity.webp",
                         "level": 1,
                         "name": "Deity",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Deity"
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Deity (Cleric)"
                     },
                     "dic6f": {
                         "img": "icons/weapons/axes/axe-double-gold.webp",
@@ -4271,799 +4340,9 @@
             "type": "class"
         },
         {
-            "_id": "aKvKfqdx2DewJGMy",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.DutW12WMFPHBoLTH"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "achaekek": {
-                            "id": "wBWR7Zdr56HTnLbT",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/deity.webp",
-            "name": "Deity (Achaekek)",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>As a cleric, you are a mortal servitor of a deity you revere above all others. Information on deities can be found in the deities compendium, along with their alignments, areas of concern, and the benefits you get for being a cleric of that deity. Your alignment must be one allowed by your deity, as listed in their entry. Your deity grants you the trained proficiency rank in one skill and with the deity's favored weapon. If the favored weapon is uncommon, you also get access to that weapon.</p>\n<p>Your deity also adds spells to your spell list. You can prepare these just like you can any spell on the divine spell list, once you can prepare spells of their level as a cleric. Some of these spells aren't normally on the divine list, but they're divine spells if you prepare them this way.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "nsq26UNrtw9H0QYy",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "choices": {
-                            "filter": [
-                                {
-                                    "or": [
-                                        "item:category:deity",
-                                        "item:category:pantheon"
-                                    ]
-                                }
-                            ],
-                            "itemType": "deity"
-                        },
-                        "flag": "deity",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.Prompt.Deity",
-                        "selection": "Compendium.pf2e.deities.Item.Achaekek"
-                    },
-                    {
-                        "allowDuplicate": false,
-                        "flag": "achaekek",
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.deity}"
-                    },
-                    {
-                        "fist": true,
-                        "key": "Strike",
-                        "predicate": [
-                            "deity:primary:favored-weapon:fist"
-                        ]
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "flags.pf2e.favoredWeaponRank",
-                        "predicate": [
-                            "class:cleric"
-                        ],
-                        "value": 1
-                    }
-                ],
-                "slug": "deity",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "cleric"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "ALtrMkUymrG6Bhfz",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.tyrBwBTzo5t9Zho7"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "cloisteredCleric": {
-                            "id": "LoLAHuRtg9WTAg4i",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "icons/magic/symbols/question-stone-yellow.webp",
-            "name": "Doctrine",
-            "sort": 100,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Even among followers of the same deity, there are numerous doctrines and beliefs, which sometimes vary wildly between clerics. At 1st level, you select a doctrine and gain the benefits of its first doctrine. Each doctrine grants you initial benefits at 1st level. At 3rd, 7th, 11th, 15th, and 19th levels, you gain the benefits granted by your doctrine's second, third, fourth, fifth, and final doctrines respectively.</p>\n<ul>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Cloistered Cleric]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Warpriest]</li>\n</ul>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "nsq26UNrtw9H0QYy",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "allowedDrops": {
-                            "label": "PF2E.SpecificRule.Cleric.Doctrine.AllowedDrops",
-                            "predicate": [
-                                "item:level:1",
-                                "item:trait:cleric",
-                                "item:type:feature"
-                            ]
-                        },
-                        "choices": [
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Cloistered Cleric"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Warpriest"
-                            }
-                        ],
-                        "flag": "doctrine",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.Cleric.Doctrine.Prompt",
-                        "selection": "Compendium.pf2e.classfeatures.Item.Cloistered Cleric"
-                    },
-                    {
-                        "flag": "cloisteredCleric",
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.doctrine}"
-                    }
-                ],
-                "slug": "doctrine",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "cleric"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "nnxTzUSB0qlPBfwp",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.UV1HlClbWCNcaKBZ"
-                }
-            },
-            "img": "icons/magic/symbols/cross-circle-blue.webp",
-            "name": "Anathema (Cleric)",
-            "sort": 200,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Acts fundamentally opposed to your deity's alignment or ideals are anathema to your faith. Learning or casting spells, committing acts, and using items that are anathema to your deity remove you from your deity's good graces.</p>\n<p>Casting spells with the evil trait is almost always anathema to good deities, and casting good spells is likewise anathema to evil deities; similarly, casting chaotic spells is anathema to lawful deities, and casting lawful spells is anathema to chaotic deities. A neutral cleric who worships a neutral deity isn't limited this way, but their alignment might change over time if they frequently cast spells or use abilities with a certain alignment. Similarly, casting spells that are anathema to the tenets or goals of your faith could interfere with your connection to your deity. For example, casting a spell to create undead would be anathema to @UUID[Compendium.pf2e.deities.Item.Pharasma], the goddess of death. For borderline cases, you and your GM determine which acts are anathema.</p>\n<p>If you perform enough acts that are anathema to your deity, or if your alignment changes to one not allowed by your deity, you lose the magical abilities that come from your connection to your deity. The class features that you lose are determined by the GM, but they likely include your divine font and all divine spellcasting. These abilities can be regained only if you demonstrate your repentance by conducting an @UUID[Compendium.pf2e.spells-srd.Item.Atone] ritual.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "nsq26UNrtw9H0QYy",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "anathema-cleric",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "cleric"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "OE4O4jnA3X6nJdZe",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.gblTFUOgolqFS9v4"
-                }
-            },
-            "img": "icons/magic/fire/flame-burning-hand-white.webp",
-            "name": "Divine Font",
-            "sort": 300,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Through your deity's blessing, you gain additional spells that channel either the life force called vitality energy or its counterforce, void energy. When you prepare your spells each day, you can prepare additional @UUID[Compendium.pf2e.spells-srd.Item.Heal] or @UUID[Compendium.pf2e.spells-srd.Item.Harm] spells, depending on your deity. Once you choose, you can't change your choice short of an ethical shift or divine intervention.</p>\n<p><strong>Healing Font</strong> You gain additional spell slots each day at your highest level of cleric spell slots. You can prepare only <em>heal</em> spells in these slots, and the number of slots is equal to 1 plus your Charisma modifier.</p>\n<p><strong>Harmful Font</strong> You gain additional spell slots each day at your highest level of cleric spell slots. You can prepare only <em>harm</em> spells in these slots, and the number of slots is equal to 1 plus your Charisma modifier.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "nsq26UNrtw9H0QYy",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "divine-font",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "cleric"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "OMbCJ3ZE8VQNeb1B",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.AvNbdGSOTWNRgcxs"
-                }
-            },
-            "img": "icons/weapons/axes/axe-double-gold.webp",
-            "name": "Divine Spellcasting (Cleric)",
-            "sort": 400,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Your deity bestows on you the power to cast divine spells. You can cast divine spells using the Cast a Spell activity, and you can supply material, somatic, and verbal components when casting spells. Because you're a cleric, you can usually hold a divine focus (such as a religious symbol) for spells requiring material components instead of needing to use a spell component pouch.</p>\n<p>At 1st level, you can prepare two 1st-rank spells and five cantrips each morning from the common spells on the divine spell list in this book or from other divine spells to which you gain access. Prepared spells remain available to you until you cast them or until you prepare your spells again. The number of spells you can prepare is called your spell slots.</p>\n<p>As you increase in level as a cleric, the number of spells you can prepare each day increases, as does the highest rank of spell you can cast.</p>\n<p>Some of your spells require you to attempt a spell attack roll to see how effective they are, or your enemies to roll against your spell DC (typically by attempting a saving throw). Since your key ability is Wisdom, your spell attack rolls and spell DCs use your Wisdom modifier.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "nsq26UNrtw9H0QYy",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "divine-spellcasting-cleric",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "cleric"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "U3QHFnDd8VcPNyC3",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.Qejo7FUWQtPTpgWH"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "firstDoctrineCloisteredCleric": {
-                            "id": "sabx2sHZOYZU9fRe",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "icons/magic/symbols/question-stone-yellow.webp",
-            "name": "First Doctrine",
-            "sort": 500,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You gain the first benefit of your doctrine:</p>\n<ul>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.First Doctrine (Cloistered Cleric)]{Cloistered Cleric}</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.First Doctrine (Warpriest)]{Warpriest}</li>\n</ul>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "nsq26UNrtw9H0QYy",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "flag": "firstDoctrineCloisteredCleric",
-                        "key": "GrantItem",
-                        "uuid": "{actor|flags.pf2e.cleric.firstDoctrine}"
-                    }
-                ],
-                "slug": "first-doctrine",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "cleric"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "cmN2BqSUekwKT49e",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.OnfrrwCfDFCFw0tc"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "secondDoctrineCloisteredCleric": {
-                            "id": "BiOj6JiLQRl7L5jt",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "icons/magic/symbols/question-stone-yellow.webp",
-            "name": "Second Doctrine",
-            "sort": 1800,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You gain the second benefit of your doctrine:</p>\n<ul>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Second Doctrine (Cloistered Cleric)]{Cloistered Cleric}</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Second Doctrine (Warpriest)]{Warpriest}</li>\n</ul>"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": "nsq26UNrtw9H0QYy",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "flag": "secondDoctrineCloisteredCleric",
-                        "key": "GrantItem",
-                        "predicate": [
-                            "feature:cloistered-cleric"
-                        ],
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Second Doctrine (Cloistered Cleric)"
-                    },
-                    {
-                        "flag": "secondDoctrineWarpriest",
-                        "key": "GrantItem",
-                        "predicate": [
-                            "feature:warpriest"
-                        ],
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Second Doctrine (Warpriest)"
-                    }
-                ],
-                "slug": "second-doctrine",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "cleric"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "7cGQauizjuwP965i",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.D8CSi8c9XiRpVc5M"
-                }
-            },
-            "img": "icons/creatures/eyes/human-single-blue.webp",
-            "name": "Alertness",
-            "sort": 3500,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Experience has made you increasingly aware of threats around you, and you react more quickly to danger. Your proficiency rank for Perception increases to expert.</p>"
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": "nsq26UNrtw9H0QYy",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "alertness",
-                "subfeatures": {
-                    "proficiencies": {
-                        "perception": {
-                            "rank": 2
-                        }
-                    }
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "wBWR7Zdr56HTnLbT",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.deities.Item.51kMMWaT6CqpGlGk"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "aKvKfqdx2DewJGMy",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/deity.svg",
-            "name": "Achaekek",
-            "sort": 0,
-            "system": {
-                "attribute": [
-                    "dex",
-                    "str"
-                ],
-                "category": "deity",
-                "description": {
-                    "value": "<p>While Achaekek's divine genesis is heavily debated among scholars, it is believed that he was created-either by the power of a singular deity or a group of them-to eradicate those who would steal a god's divinity, and he has since become the enforcer of divine punishment. Known as He Who Walks in Blood, he slumbers in the blood of heretics and worshippers alike in an immense cleft carved into the base of the Boneyard's spire, a realm known as the Blood Vale. He keeps no formal relationships with any other deities, even his sister, Grandmother Spider, who repeatedly coaxes Achaekek to rebel against the gods and abandon his duties. In response, even though some gods disapprove of Achaekek's methods, few openly defy him.</p>\n<p><strong>Edicts</strong> conduct assassinations, spread the Red Mantis's infamy, wield sawtooth sabers in combat</p>\n<p><strong>Anathema</strong> kill a rightful ruler, become fixated on petty matters such as others' gender or ancestry, abandon an assassination contract you agreed to pursue</p>\n<p><strong>Areas of Concern</strong> assassins, divine punishments, and the Red Mantis</p>"
-                },
-                "domains": {
-                    "alternate": [],
-                    "primary": [
-                        "death",
-                        "might",
-                        "trickery",
-                        "zeal"
-                    ]
-                },
-                "font": [
-                    "harm"
-                ],
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Lost Omens: Gods & Magic"
-                },
-                "rules": [],
-                "sanctification": {
-                    "modal": "can",
-                    "what": [
-                        "unholy"
-                    ]
-                },
-                "skill": [
-                    "stealth"
-                ],
-                "slug": "achaekek",
-                "spells": {
-                    "1": "Compendium.pf2e.spells-srd.Item.Gb7SeieEvd0pL2Eh",
-                    "2": "Compendium.pf2e.spells-srd.Item.XXqE1eY3w3z6xJCB",
-                    "4": "Compendium.pf2e.spells-srd.Item.tlcrVRqW1MSKJ5IC"
-                },
-                "traits": {},
-                "weapons": [
-                    "sawtooth-saber"
-                ]
-            },
-            "type": "deity"
-        },
-        {
-            "_id": "LoLAHuRtg9WTAg4i",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.ZZzLMOUAtBVgV1DF"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "ALtrMkUymrG6Bhfz",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "icons/magic/light/orb-hands-humanoid-yellow.webp",
-            "name": "Cloistered Cleric",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You are a cleric of the cloth, focusing on divine magic and your connection to your deity's domains.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.First Doctrine (Cloistered Cleric)]{First Doctrine (1st)}</strong> You gain the @UUID[Compendium.pf2e.feats-srd.Item.Domain Initiate] cleric feat.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Second Doctrine (Cloistered Cleric)]{Second Doctrine (3rd)}</strong> Your proficiency rank for Fortitude saves increases to expert.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Third Doctrine (Cloistered Cleric)]{Third Doctrine (7th)}</strong> Your proficiency ranks for divine spell attack rolls and spell DCs increase to expert.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Fourth Doctrine (Cloistered Cleric)]{Fourth Doctrine (11th)}</strong> You gain expert proficiency with your deity's favored weapon, simple weapons, and unarmed attacks. When you critically succeed at an attack roll using your deity's favored weapon, you apply the weapon's critical specialization effect; use your divine spell DC if necessary.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Fifth Doctrine (Cloistered Cleric)]{Fifth Doctrine (15th)}</strong> Your proficiency ranks for divine spell attack rolls and spell DCs increase to master.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Final Doctrine (Cloistered Cleric)]{Final Doctrine (19th)}</strong> Your proficiency ranks for divine spell attack rolls and spell DCs increase to legendary.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "flags.pf2e.cleric",
-                        "value": {
-                            "fifthDoctrine": "Compendium.pf2e.classfeatures.Item.Fifth Doctrine (Cloistered Cleric)",
-                            "finalDoctrine": "Compendium.pf2e.classfeatures.Item.Final Doctrine (Cloistered Cleric)",
-                            "firstDoctrine": "Compendium.pf2e.classfeatures.Item.First Doctrine (Cloistered Cleric)",
-                            "fourthDoctrine": "Compendium.pf2e.classfeatures.Item.Fourth Doctrine (Cloistered Cleric)",
-                            "secondDoctrine": "Compendium.pf2e.classfeatures.Item.Second Doctrine (Cloistered Cleric)",
-                            "thirdDoctrine": "Compendium.pf2e.classfeatures.Item.Third Doctrine (Cloistered Cleric)"
-                        }
-                    }
-                ],
-                "slug": "cloistered-cleric",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "cleric"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "sNNVqfaFI0ZYvLY7",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.hT4INKGtly4QY8KN"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "sabx2sHZOYZU9fRe",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Domain Initiate (Zeal)",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p>Your deity bestows a special spell related to their powers. Select one domain—a subject of particular interest to you within your religion—from your deity's list. You gain an initial domain spell for that domain, a spell unique to the domain and not available to other clerics.</p>\n<p>Domain spells are a type of focus spell. It costs 1 Focus Point to cast a focus spell, and you start with a focus pool of 1 Focus Point. You refill your focus pool during your daily preparations, and you can regain 1 Focus Point by spending 10 minutes using the Refocus activity to pray to your deity or do service toward their causes. Focus spells are automatically heightened to half your level rounded up.</p>\n<p>Focus spells don't require spell slots, nor can you cast them using spell slots. Certain feats can give you more focus spells and increase the size of your focus pool, though your focus pool can never hold more than 3 Focus Points.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat multiple times, selecting a different domain each time and gaining its domain spell.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "maxTakable": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "choices": "system.details.deities.domains",
-                        "flag": "domainInitiate",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.Prompt.DeitysDomain",
-                        "selection": "zeal"
-                    }
-                ],
-                "slug": "domain-initiate",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "cleric"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "sabx2sHZOYZU9fRe",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.aiwxBj5MjnafCMyn"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "U3QHFnDd8VcPNyC3",
-                        "onDelete": "cascade"
-                    },
-                    "itemGrants": {
-                        "domainInitiate": {
-                            "id": "sNNVqfaFI0ZYvLY7",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "icons/magic/light/orb-hands-humanoid-yellow.webp",
-            "name": "First Doctrine (Cloistered Cleric)",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You gain the @UUID[Compendium.pf2e.feats-srd.Item.Domain Initiate] cleric feat.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "flag": "domainInitiate",
-                        "key": "GrantItem",
-                        "uuid": "Compendium.pf2e.feats-srd.Item.Domain Initiate"
-                    }
-                ],
-                "slug": "first-doctrine-cloistered-cleric",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "cleric"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "BiOj6JiLQRl7L5jt",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.sa7BWfnyCswAvBVa"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "cmN2BqSUekwKT49e",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "icons/magic/light/orb-hands-humanoid-yellow.webp",
-            "name": "Second Doctrine (Cloistered Cleric)",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Your proficiency rank for Fortitude saves increases to expert.</p>"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "second-doctrine-cloistered-cleric",
-                "subfeatures": {
-                    "proficiencies": {
-                        "fortitude": {
-                            "rank": 2
-                        }
-                    }
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "cleric"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "PCswvbWu76JW1OAZ",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.ancestries.Item.PgKmsA2aKdbLU6O0"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.ancestries.Item.PgKmsA2aKdbLU6O0"
             },
             "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/elf.svg",
             "name": "Elf",
@@ -5144,6 +4423,889 @@
                 "vision": "low-light-vision"
             },
             "type": "ancestry"
+        },
+        {
+            "_id": "5R0BXyK2EpFc0Jot",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.DutW12WMFPHBoLTH"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "achaekek": {
+                            "id": "DEYsF9Rpx5naEuHG",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/deity.webp",
+            "name": "Deity (Cleric) (Achaekek)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>As a cleric, you are a mortal servitor of a deity you revere above all others. Your deity grants you the trained proficiency rank in one skill and with the deity's favored weapon. If the favored weapon is uncommon, you also get access to that weapon.</p>\n<p>Your deity also adds spells to your spell list. You can prepare these just like you can any spell on the divine spell list once you can prepare spells of their rank as a cleric. Any of these spells that aren't normally on the divine list are still divine spells if you prepare them this way.</p>\n<h2>Sanctification</h2>\n<p>Depending on your deity, their sanctification can make you holy or unholy. This gives you the holy or unholy trait, which commits you to one side of a struggle over the souls of the planes and may be referenced in other abilities. If you \"can be\" holy or unholy according to your deity, you make that choice, and if you \"must be\" holy or unholy you gain the trait automatically. If you gain the opposing trait in some way, you lose the previous trait until you complete an atone ritual.</p>\n<h2>Anathema</h2>\n<p>Acts fundamentally opposed to your deity's ideals are anathema to your faith. Learning or casting spells, committing acts, and using items that are anathema to your deity remove you from your deity's good graces.</p>\n<p>Casting spells with the unholy trait is almost always anathema to deities who don't allow unholy sanctification, and casting holy spells is likewise anathema to those who don't allow holy sanctification. Similarly, casting spells that are anathema to the tenets or goals of your faith could interfere with your connection to your deity. For example, casting a spell to create undead would be anathema to Pharasma, the goddess of death. Many actions that are anathema don't appear in any deity's formal list. For borderline cases, you and your GM determine which acts are anathema.</p>\n<p>If you perform enough acts that are anathema to your deity, you lose the magical abilities that come from your connection to your deity. The class features that you lose are determined by the GM, but they likely include your divine font and all cleric spellcasting. These abilities can be regained only if you repent by conducting an atone ritual.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "nsq26UNrtw9H0QYy",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "choices": {
+                            "filter": [
+                                {
+                                    "or": [
+                                        "item:category:deity",
+                                        "item:category:pantheon"
+                                    ]
+                                }
+                            ],
+                            "itemType": "deity"
+                        },
+                        "flag": "deity",
+                        "key": "ChoiceSet",
+                        "predicate": [
+                            {
+                                "not": "deity"
+                            }
+                        ],
+                        "prompt": "PF2E.SpecificRule.Prompt.Deity",
+                        "selection": "Compendium.pf2e.deities.Item.Achaekek"
+                    },
+                    {
+                        "allowDuplicate": false,
+                        "flag": "achaekek",
+                        "key": "GrantItem",
+                        "predicate": [
+                            {
+                                "not": "deity"
+                            }
+                        ],
+                        "uuid": "{item|flags.pf2e.rulesSelections.deity}"
+                    },
+                    {
+                        "adjustName": false,
+                        "choices": [
+                            {
+                                "label": "PF2E.TraitHoly",
+                                "predicate": [
+                                    {
+                                        "or": [
+                                            "deity:primary:sanctification:can:holy",
+                                            "deity:primary:sanctification:must:holy"
+                                        ]
+                                    }
+                                ],
+                                "value": "holy"
+                            },
+                            {
+                                "label": "PF2E.TraitUnholy",
+                                "predicate": [
+                                    {
+                                        "or": [
+                                            "deity:primary:sanctification:can:unholy",
+                                            "deity:primary:sanctification:must:unholy"
+                                        ]
+                                    }
+                                ],
+                                "value": "unholy"
+                            },
+                            {
+                                "label": "PF2E.NoneOption",
+                                "predicate": [
+                                    {
+                                        "nor": [
+                                            "deity:primary:sanctification:must:holy",
+                                            "deity:primary:sanctification:must:unholy"
+                                        ]
+                                    }
+                                ],
+                                "value": "none"
+                            }
+                        ],
+                        "flag": "sanctification",
+                        "key": "ChoiceSet",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "deity:primary:sanctification:none",
+                                    "sanctification:holy",
+                                    "sanctification:unholy"
+                                ]
+                            }
+                        ],
+                        "prompt": "PF2E.SpecificRule.Prompt.Sanctification",
+                        "rollOption": "sanctification",
+                        "selection": "unholy",
+                        "slug": "sanctification"
+                    },
+                    {
+                        "add": [
+                            "holy"
+                        ],
+                        "key": "ActorTraits",
+                        "predicate": [
+                            "sanctification:holy"
+                        ]
+                    },
+                    {
+                        "add": [
+                            "unholy"
+                        ],
+                        "key": "ActorTraits",
+                        "predicate": [
+                            "sanctification:unholy"
+                        ]
+                    },
+                    {
+                        "fist": true,
+                        "key": "Strike",
+                        "predicate": [
+                            "deity:primary:favored-weapon:fist"
+                        ]
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "flags.pf2e.favoredWeaponRank",
+                        "predicate": [
+                            "class:cleric"
+                        ],
+                        "value": 1
+                    }
+                ],
+                "slug": "deity-cleric",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cleric"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "alUDQsJHs8Nm8inp",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.tyrBwBTzo5t9Zho7"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "cloisteredCleric": {
+                            "id": "SP6jiz2YBE9NPWQf",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
+            "name": "Doctrine",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Even among followers of the same deity, approaches vary. At 1st level, you select cloistered cleric or warpriest and gain the benefits of its first doctrine. At 3rd level and every four levels thereafter, you gain another benefit from your doctrine.</p>\n<ul>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Cloistered Cleric]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Warpriest]</li>\n</ul>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "nsq26UNrtw9H0QYy",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:tag:cleric-doctrine"
+                            ]
+                        },
+                        "flag": "doctrine",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Cleric.Doctrine.Prompt",
+                        "selection": "Compendium.pf2e.classfeatures.Item.Cloistered Cleric"
+                    },
+                    {
+                        "flag": "cloisteredCleric",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.doctrine}"
+                    }
+                ],
+                "slug": "doctrine",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cleric"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "stwsDLh5VqHp3ICp",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.Qejo7FUWQtPTpgWH"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "firstDoctrineCloisteredCleric": {
+                            "id": "jzibFORh1NfwjDcJ",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
+            "name": "First Doctrine",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You gain the first benefit of your doctrine:</p>\n<ul>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.First Doctrine (Cloistered Cleric)]{Cloistered Cleric}</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.First Doctrine (Warpriest)]{Warpriest}</li>\n</ul>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "nsq26UNrtw9H0QYy",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "flag": "firstDoctrineCloisteredCleric",
+                        "key": "GrantItem",
+                        "uuid": "{actor|flags.pf2e.cleric.firstDoctrine}"
+                    }
+                ],
+                "slug": "first-doctrine",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cleric"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "c7fLIorKFDlLRj0C",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.OnfrrwCfDFCFw0tc"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "secondDoctrineCloisteredCleric": {
+                            "id": "Rt0HTRa0TMxEu8D4",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
+            "name": "Second Doctrine",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You gain the second benefit of your doctrine:</p>\n<ul>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Second Doctrine (Cloistered Cleric)]{Cloistered Cleric}</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Second Doctrine (Warpriest)]{Warpriest}</li>\n</ul>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "nsq26UNrtw9H0QYy",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "flag": "secondDoctrineCloisteredCleric",
+                        "key": "GrantItem",
+                        "uuid": "{actor|flags.pf2e.cleric.secondDoctrine}"
+                    }
+                ],
+                "slug": "second-doctrine",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cleric"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "DEYsF9Rpx5naEuHG",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.deities.Item.51kMMWaT6CqpGlGk"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "5R0BXyK2EpFc0Jot",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/deities/achaekek.webp",
+            "name": "Achaekek",
+            "sort": 0,
+            "system": {
+                "attribute": [
+                    "dex",
+                    "str"
+                ],
+                "category": "deity",
+                "description": {
+                    "value": "<p>While Achaekek's divine genesis is heavily debated among scholars, it is believed that he was created—either by the power of a singular deity or a group of them—to eradicate those who would steal a god's divinity. The creators are gone, perhaps by their creation's own claws. Achaekek remains, and he has since become the enforcer of divine punishment. Known as He Who Walks in Blood, he slumbers in the blood of heretics and worshippers alike. Sleeping in an immense cleft carved into the base of the Boneyard's spire, a realm known as the Blood Vale. He keeps no formal relationships with any other deities. Even his sister, Grandmother Spider, who repeatedly attempts to coax Achaekek to rebel against the gods and abandon his duties, barely warrants acknowledgment from the mantis god. In response, even though some gods disapprove of Achaekek's methods, few openly defy him. Rumors often fly about gods hiring Achaekek to assassinate another, but none of these claims have ever been proven.</p>\n<p><strong>Title</strong> He Who Walks in Blood</p>\n<p><strong>Areas of Concern</strong> assassins, divine punishment, the Red Mantis</p>\n<p><strong>Edicts</strong> conduct assassinations, spread the Red Mantis's infamy, wield sawtooth sabers in combat</p>\n<p><strong>Anathema</strong> kill a rightful ruler, become fixated on petty matters such as others' gender or ancestry, abandon an assassination contract you agreed to pursue</p>\n<p><strong>Religious Symbol</strong> crossed mantis claws</p>\n<p><strong>Sacred Animal</strong> crimson mantis</p>\n<p><strong>Sacred Color</strong> red</p>"
+                },
+                "domains": {
+                    "alternate": [
+                        "duty",
+                        "fate"
+                    ],
+                    "primary": [
+                        "death",
+                        "might",
+                        "trickery",
+                        "zeal"
+                    ]
+                },
+                "font": [
+                    "harm"
+                ],
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Lost Omens: Divine Mysteries"
+                },
+                "rules": [],
+                "sanctification": {
+                    "modal": "can",
+                    "what": [
+                        "unholy"
+                    ]
+                },
+                "skill": [
+                    "stealth"
+                ],
+                "slug": "achaekek",
+                "spells": {
+                    "1": "Compendium.pf2e.spells-srd.Item.Sure Strike",
+                    "2": "Compendium.pf2e.spells-srd.Item.Invisibility",
+                    "4": "Compendium.pf2e.spells-srd.Item.Vision of Death"
+                },
+                "traits": {},
+                "weapons": [
+                    "sawtooth-saber"
+                ]
+            },
+            "type": "deity"
+        },
+        {
+            "_id": "SP6jiz2YBE9NPWQf",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.ZZzLMOUAtBVgV1DF"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "alUDQsJHs8Nm8inp",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/magic/light/orb-hands-humanoid-yellow.webp",
+            "name": "Cloistered Cleric",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You are a cleric of the cloth, focusing on divine magic and your connection to your deity's domains.</p>\n<p><strong>First Doctrine (1st):</strong> You gain the @UUID[Compendium.pf2e.feats-srd.Item.Domain Initiate] cleric feat.</p>\n<p><strong>Second Doctrine (3rd):</strong> Your proficiency rank for Fortitude saves increases to expert.</p>\n<p><strong>Third Doctrine (7th):</strong> Your proficiency ranks for the spell attack modifier and spell DC statistics increase to expert.</p>\n<p><strong>Fourth Doctrine (11th):</strong> You gain expert proficiency with your deity's favored weapon, simple weapons, and unarmed attacks. When you critically succeed at an attack roll using your deity's favored weapon, you apply the weapon's critical specialization effect; you can use your spell DC in place of your class DC.</p>\n<p><strong>Fifth Doctrine (15th):</strong> Your proficiency ranks for the spell attack modifier and spell DC statistics increase to master.</p>\n<p><strong>Final Doctrine (19th):</strong> Your proficiency ranks for the spell attack modifier and spell DC statistics increase to legendary.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.cleric",
+                        "value": {
+                            "fifthDoctrine": "Compendium.pf2e.classfeatures.Item.Fifth Doctrine (Cloistered Cleric)",
+                            "finalDoctrine": "Compendium.pf2e.classfeatures.Item.Final Doctrine (Cloistered Cleric)",
+                            "firstDoctrine": "Compendium.pf2e.classfeatures.Item.First Doctrine (Cloistered Cleric)",
+                            "fourthDoctrine": "Compendium.pf2e.classfeatures.Item.Fourth Doctrine (Cloistered Cleric)",
+                            "secondDoctrine": "Compendium.pf2e.classfeatures.Item.Second Doctrine (Cloistered Cleric)",
+                            "thirdDoctrine": "Compendium.pf2e.classfeatures.Item.Third Doctrine (Cloistered Cleric)"
+                        }
+                    }
+                ],
+                "slug": "cloistered-cleric",
+                "traits": {
+                    "otherTags": [
+                        "cleric-doctrine"
+                    ],
+                    "rarity": "common",
+                    "value": [
+                        "cleric"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "jzibFORh1NfwjDcJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.aiwxBj5MjnafCMyn"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "stwsDLh5VqHp3ICp",
+                        "onDelete": "cascade"
+                    },
+                    "itemGrants": {
+                        "domainInitiate": {
+                            "id": "aan5DEV1jvcRzfoL",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/magic/light/orb-hands-humanoid-yellow.webp",
+            "name": "First Doctrine (Cloistered Cleric)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You gain the @UUID[Compendium.pf2e.feats-srd.Item.Domain Initiate] cleric feat.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "flag": "domainInitiate",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Domain Initiate"
+                    }
+                ],
+                "slug": "first-doctrine-cloistered-cleric",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cleric"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "aan5DEV1jvcRzfoL",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.hT4INKGtly4QY8KN"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "jzibFORh1NfwjDcJ",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Domain Initiate (Zeal)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>Your deity bestows a special spell related to their powers. Select one domain—a subject of particular interest to you within your religion—from your deity's list. You gain an initial domain spell for that domain, a spell unique to the domain and not available to other clerics.</p>\n<p>Domain spells are a type of focus spell. It costs 1 Focus Point to cast a focus spell, and you start with a focus pool of 1 Focus Point. You refill your focus pool during your daily preparations, and you can regain 1 Focus Point by spending 10 minutes using the Refocus activity to pray to your deity or do service toward their causes.</p>\n<p>Focus spells are automatically heightened to half your level rounded up, much like cantrips. Focus spells don't require spell slots, and can't be cast using spell slots. Your focus pool can hold one Focus Point for each focus spell you have, up to 3 points.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat multiple times, selecting a different domain each time and gaining its domain spell.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "maxTakable": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "choices": "system.details.deities.domains",
+                        "flag": "domainInitiate",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.DeitysDomain",
+                        "selection": "zeal"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "flags.pf2e.soulWarden.featCount",
+                        "value": 1
+                    }
+                ],
+                "slug": "domain-initiate",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cleric"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "Rt0HTRa0TMxEu8D4",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.sa7BWfnyCswAvBVa"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "c7fLIorKFDlLRj0C",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/magic/light/orb-hands-humanoid-yellow.webp",
+            "name": "Second Doctrine (Cloistered Cleric)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Your proficiency rank for Fortitude saves increases to expert.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "second-doctrine-cloistered-cleric",
+                "subfeatures": {
+                    "proficiencies": {
+                        "fortitude": {
+                            "rank": 2
+                        }
+                    }
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cleric"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "RzXBL6Oef1gCFstL",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.gblTFUOgolqFS9v4"
+            },
+            "img": "icons/magic/fire/flame-burning-hand-white.webp",
+            "name": "Divine Font",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Through your deity's blessing, you gain additional spells that channel either the life force called vitality or its counterforce, the void. When you prepare your spells each day, you can prepare additional @UUID[Compendium.pf2e.spells-srd.Item.Heal] or @UUID[Compendium.pf2e.spells-srd.Item.Harm] spells, depending on your deity. The divine font spell your deity provides is listed in the Divine Font entry for your deity; if both are listed, you can choose between heal or harm. Once you choose, you can't change your choice short of divine intervention.</p>\n<p><strong>Healing Font:</strong> You gain 4 additional spell slots each day at your highest rank of cleric spell slots. You can prepare only heal spells in these slots. At 5th level, the number of additional slots increases to 5, and at 15th level, the total number of additional slots increases to 6.</p>\n<p><strong>Harmful Font:</strong> You gain 4 additional spell slots each day at your highest rank of cleric spell slots. You can prepare only harm spells in these slots. At 5th level, the number of additional slots increases to 5, and at 15th level, the total number of additional slots increases to 6.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "nsq26UNrtw9H0QYy",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "img": "icons/magic/life/cross-worn-green.webp",
+                                "label": "PF2E.SpecificRule.Cleric.DivineFont.Healing",
+                                "predicate": [
+                                    "deity:primary:font:heal"
+                                ],
+                                "value": "heal"
+                            },
+                            {
+                                "img": "systems/pf2e/icons/spells/harm.webp",
+                                "label": "PF2E.SpecificRule.Cleric.DivineFont.Harmful",
+                                "predicate": [
+                                    "deity:primary:font:harm"
+                                ],
+                                "value": "harm"
+                            }
+                        ],
+                        "flag": "divineFont",
+                        "ignored": true,
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Cleric.DivineFont.Prompt",
+                        "rollOption": "divine-font"
+                    }
+                ],
+                "slug": "divine-font",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cleric"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "n5EjiRDHMyfnQoFV",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.AvNbdGSOTWNRgcxs"
+            },
+            "img": "icons/weapons/axes/axe-double-gold.webp",
+            "name": "Cleric Spellcasting",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Your deity bestows on you the power to cast divine spells. You are a spellcaster, and you can cast spells of the divine tradition using the Cast a Spell activity. As a cleric, your chants generally invoke your deity and their powerful servants by name or title, while your gestures are followed by sacred symbols or other representations of your deity.</p>\n<p>At 1st level, you can prepare two 1st-rank spells and five cantrips each morning from the common spells on the divine spell list or from other divine spells to which you gain access and learn via Learn a Spell. Prepared spells remain available to you until you cast them or until you prepare your spells again. The number of spells you can prepare each day is called your spell slots.</p>\n<p>As you increase in level as a cleric, the number of spells you can prepare each day increases, as does the highest rank of spell you can cast, as shown in Cleric Spells per Day table above.</p>\n<p>Some of your spells require you to attempt a spell attack to see how effective they are or for your enemies to roll against your spell DC (typically by attempting a saving throw). Since your key attribute is Wisdom, your spell attack modifier and spell DC use your Wisdom modifier.</p>\n<h2>Heightening Spells</h2>\n<p>When you get spell slots of 2nd rank and higher, you can fill those slots with stronger versions of lower-rank spells. This increases the spell's rank, heightening it to match the spell slot. Many spells have specific improvements when they are heightened to certain ranks.</p>\n<h2>Cantrips</h2>\n<p>Some of your spells are cantrips. A cantrip is a special type of spell that doesn't use spell slots. You can cast a cantrip at will, any number of times per day. A cantrip is always automatically heightened to half your level rounded up—this is usually equal to the highest rank of cleric spell slot you have. For example, as a 1st-level cleric, your cantrips are 1st-rank spells, and as a 5th-level cleric, your cantrips are 3rd-rank spells.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "nsq26UNrtw9H0QYy",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "cleric-spellcasting",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cleric"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "lUauopQyYI9wpauI",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.UV1HlClbWCNcaKBZ"
+            },
+            "img": "icons/magic/symbols/cross-circle-blue.webp",
+            "name": "Anathema (Cleric)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Acts fundamentally opposed to your deity's alignment or ideals are anathema to your faith. Learning or casting spells, committing acts, and using items that are anathema to your deity remove you from your deity's good graces.</p>\n<p>Casting spells with the evil trait is almost always anathema to good deities, and casting good spells is likewise anathema to evil deities; similarly, casting chaotic spells is anathema to lawful deities, and casting lawful spells is anathema to chaotic deities. A neutral cleric who worships a neutral deity isn't limited this way, but their alignment might change over time if they frequently cast spells or use abilities with a certain alignment. Similarly, casting spells that are anathema to the tenets or goals of your faith could interfere with your connection to your deity. For example, casting a spell to create undead would be anathema to @UUID[Compendium.pf2e.deities.Item.Pharasma], the goddess of death. For borderline cases, you and your GM determine which acts are anathema.</p>\n<p>If you perform enough acts that are anathema to your deity, or if your alignment changes to one not allowed by your deity, you lose the magical abilities that come from your connection to your deity. The class features that you lose are determined by the GM, but they likely include your divine font and all divine spellcasting. These abilities can be regained only if you demonstrate your repentance by conducting an @UUID[Compendium.pf2e.spells-srd.Item.Atone] ritual.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "nsq26UNrtw9H0QYy",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "anathema-cleric",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cleric"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "YGGx7QuiwW82TA7P",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.D8CSi8c9XiRpVc5M"
+            },
+            "img": "icons/creatures/eyes/human-single-blue.webp",
+            "name": "Alertness",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Experience has made you increasingly aware of threats around you, and you react more quickly to danger. Your proficiency rank for Perception increases to expert.</p>"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": "nsq26UNrtw9H0QYy",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [],
+                "slug": "alertness",
+                "subfeatures": {
+                    "proficiencies": {
+                        "perception": {
+                            "rank": 2
+                        }
+                    }
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "inventor",
+                        "magus"
+                    ]
+                }
+            },
+            "type": "feat"
         }
     ],
     "name": "Eteleon",

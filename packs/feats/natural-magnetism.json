@@ -24,7 +24,52 @@
             "remaster": true,
             "title": "Pathfinder Rage of Elements"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:magnetic-attraction",
+                            "item:slug:magnetic-repulsion",
+                            {
+                                "and": [
+                                    "feat:gildedsoul",
+                                    "item:slug:enthrall"
+                                ]
+                            }
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:magnetic-attraction",
+                            "item:slug:magnetic-repulsion",
+                            {
+                                "and": [
+                                    "feat:gildedsoul",
+                                    "item:slug:enthrall"
+                                ]
+                            }
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:talos"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

@@ -1,0 +1,71 @@
+{
+    "_id": "y87jU1yU8Plz4Yhq",
+    "folder": "u780Frvqdoqf5oLE",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Born of Vegetation",
+    "system": {
+        "ancestry": {
+            "name": "Yaoguai",
+            "slug": "yaoguai",
+            "uuid": "Compendium.pf2e.ancestries.Item.dnk0Rf7AUmyR5b8z"
+        },
+        "description": {
+            "value": "<p>You were a plant or fungi until the rain gifted you a mind. You gain your choice of the plant or fungus trait.</p><ul><li><strong>Humanoid Form</strong> With fresh vegetation, you can better aid those in need. You gain a +1 circumstance bonus to Medicine checks to @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid].</li><li><strong>Yaoguai Form</strong> When anyone uses the Medicine skill to @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds]{Treat your Wounds}, add your level to the Hit Points you regain from that treatment. Additionally, the creature attempting the check gains a +1 circumstance bonus if you have the plant trait and are in bright light, or the fungus trait and are in darkness.</li></ul>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitFungus",
+                        "value": "fungus"
+                    },
+                    {
+                        "label": "PF2E.TraitPlant",
+                        "value": "plant"
+                    }
+                ],
+                "flag": "trait",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Trait"
+            },
+            {
+                "add": [
+                    "{item|flags.pf2e.rulesSelections.trait}"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:administer-first-aid",
+                    "change-shape:humanoid"
+                ],
+                "selector": "medicine",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:treat-wounds",
+                    "change-shape:yaoguai",
+                    "check:statistic:medicine"
+                ],
+                "selector": "healing-received",
+                "value": "@actor.level"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "yaoguai"
+            ]
+        }
+    },
+    "type": "heritage"
+}

@@ -1,0 +1,52 @@
+{
+    "_id": "h8kgxDMclDHj6bIr",
+    "img": "icons/weapons/swords/shortsword-broad-blue.webp",
+    "name": "Effect: Sword Practice",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Tengu Weapon Familiarity]</p>\n<p>During your daily preparations, you can practice with a weapon from the sword group that's in your possession. You gain familiarity with that weapon as well. This lasts until you practice with a different sword in the same way.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "actorFlag": true,
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:group:sword"
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "tenguFamiliarSword",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Tengu.WeaponFamiliarity.Prompt1"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

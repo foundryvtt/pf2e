@@ -1,0 +1,103 @@
+{
+    "_id": "Vp00zw92L5yGqBHB",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Scaly Hide",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You were born with a layer of scales across your entire body that resemble those of your draconic progenitor. When you’re unarmored, the scales give you a +1 item bonus to AC with a Dexterity cap of +3. The item bonus to AC increases to +2 at 5th level. The item bonus to AC from these scales is cumulative with armor potency runes on your explorer's clothing, the @UUID[Compendium.pf2e.spells-srd.Item.Mystic Armor] spell, or @UUID[Compendium.pf2e.equipment-srd.Item.Bands of Force].</p><hr /><p><strong>Special</strong> You can select this feat only at 1st level, and you can't retrain into or out of this feat.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "DexterityModifierCap",
+                "predicate": [
+                    {
+                        "not": "self:armored"
+                    }
+                ],
+                "value": 3
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.pf2e.scalyHideBonus",
+                "priority": 19,
+                "value": "ternary(gte(@actor.level,5),2,1)"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "self:armored"
+                    }
+                ],
+                "selector": "ac",
+                "type": "item",
+                "value": "@actor.flags.pf2e.scalyHideBonus"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "self:armored"
+                    }
+                ],
+                "relabel": "PF2E.SpecificRule.ScalyHide.BracersOfArmor",
+                "selector": "ac",
+                "slug": "bands-of-force",
+                "value": "@actor.flags.pf2e.scalyHideBonus"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "self:armored"
+                    }
+                ],
+                "relabel": "PF2E.SpecificRule.ScalyHide.ExplorersClothing",
+                "selector": "ac",
+                "slug": "explorers-clothing",
+                "value": "@actor.flags.pf2e.scalyHideBonus"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "self:armored"
+                    }
+                ],
+                "relabel": "PF2E.SpecificRule.ScalyHide.MageArmor",
+                "selector": "ac",
+                "slug": "mage-armor",
+                "value": "@actor.flags.pf2e.scalyHideBonus"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dragonblood"
+            ]
+        }
+    },
+    "type": "feat"
+}

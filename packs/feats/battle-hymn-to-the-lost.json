@@ -1,0 +1,76 @@
+{
+    "_id": "UZwIVbrXuaYSJ9FS",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Battle Hymn to the Lost",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p>Your movements in combat are an artistic dirge to those spirits who could not fight to see another day. You make a Strike. Regardless of whether the Strike succeeds, spirits of warriors who died gloriously in battle surge out to attack with you. They appear in a @Template[type:cone|distance:30] if you make a melee Strike or in a @Template[type:emanation|distance:10] around your target if you made a ranged Strike. Each enemy in the area takes @Damage[(floor(@actor.level/4))d10[untyped]|options:area-damage|shortLabel] damage with a @Check[reflex|against:exemplar|basic|options:area-effect] save against your class DC; you choose whether the damage is bludgeoning, piercing, or slashing. At 12th level and every 4 levels thereafter, the damage increases by 1d10.</p>\n<p>As they join the battle, the spirits call your fallen allies back to the fight. Any of your allies in the area who are @UUID[Compendium.pf2e.conditionitems.Item.Dying] regain Hit Points equal to the damage you rolled. This is a divine, healing, vitality effect.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "PT1H"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "of verse unbroken or peerless under heaven"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "option": "battle-hymn-to-the-lost",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitBludgeoning",
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitPiercing",
+                        "value": "piercing"
+                    },
+                    {
+                        "label": "PF2E.TraitSlashing",
+                        "value": "slashing"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "property": "damage-type",
+                "selectors": [
+                    "{item|id}-inline-damage"
+                ],
+                "value": "{item|flags.pf2e.rulesSelections.battleHymnToTheLost}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "concentrate",
+                "divine",
+                "exemplar"
+            ]
+        }
+    },
+    "type": "feat"
+}

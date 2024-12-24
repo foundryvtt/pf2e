@@ -1,0 +1,71 @@
+{
+    "_id": "zovmBa6cipFsg8GA",
+    "img": "icons/environment/settlement/tavern.webp",
+    "name": "Teacher of Heroes",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Those who make great names for themselves as heroes are called upon to train those who follow them, and such is your destiny—to be remembered not through your own deeds but through the progeny who you hope will one day surpass you.</p>\n<p>After you Spark Transcendence, you can attempt to Recall Knowledge about one enemy you can see as a free action and instantly transmit any knowledge you gain as a result to every ally within 60 feet. The first piece of knowledge you gain when Recalling Knowledge in this way is always the enemy's immunities. If the enemy has no immunities, you learn its greatest resistance; if it also possesses no resistances, you learn its greatest weakness; if it possesses none of the above, you learn its lowest saving throw.</p>"
+        },
+        "level": {
+            "value": 15
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Epithet.Label",
+                "mergeable": true,
+                "option": "epithet",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "teacher-of-heroes"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    "divine-spark",
+                    "epithet:teacher-of-heroes"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Exemplar.Epithet.TeacherOfHeroes.Description"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "exemplar-sovereignty-epithet"
+            ],
+            "rarity": "common",
+            "value": [
+                "exemplar"
+            ]
+        }
+    },
+    "type": "feat"
+}

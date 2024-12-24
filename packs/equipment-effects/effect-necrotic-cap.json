@@ -1,0 +1,71 @@
+{
+    "_id": "wQDfwrrvfRxwG5CY",
+    "img": "icons/consumables/mushrooms/umbontae-bumpy-purple.webp",
+    "name": "Effect: Necrotic Cap",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Necrotic Cap (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Necrotic Cap (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Necrotic Cap (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Necrotic Cap (Major)]</p>\n<p>Your <em>acid grip</em> spell loses the acid trait, gains the fungus trait, and all acid damage the spell deals becomes void damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #202: Severed at the Root"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:slug:acid-grip"
+                ],
+                "property": "traits",
+                "value": "acid"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:acid-grip"
+                ],
+                "property": "traits",
+                "value": "fungus"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "damage:type:acid",
+                    "item:slug:acid-grip"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "spell-damage",
+                    "inline-damage"
+                ],
+                "value": "void"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

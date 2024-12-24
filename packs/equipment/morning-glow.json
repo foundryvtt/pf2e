@@ -1,0 +1,107 @@
+{
+    "_id": "JosogwNGybTSrH03",
+    "img": "systems/pf2e/icons/equipment/weapons/elven-curve-blade.webp",
+    "name": "Morning Glow",
+    "system": {
+        "baseItem": "elven-curve-blade",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "bulk": {
+            "value": 2
+        },
+        "category": "martial",
+        "containerId": null,
+        "damage": {
+            "damageType": "slashing",
+            "dice": 1,
+            "die": "d8"
+        },
+        "description": {
+            "value": "<p>The blade of this <em>+2 greater striking holy standard-grade cold iron elven curve blade</em> shines with a pale fire that illuminates the wielder's face in a grim visage and produces dim light in a @Template[type:emanation|distance:10]. The wielder can suppress or reactivate this light as a single action with the concentrate trait.</p>\n<p><strong>Activate—Reveal Demons</strong> <span class=\"action-glyph\">1</span> (concentrate, manipulate)</p>\n<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> You brandish <em>Morning Glow</em> and focus on its gleaming light, boosting its illumination so that it produces bright light in a @Template[type:emanation|distance:30] (and dim light for another 30 feet) for 10 minutes. All creatures in this area that have the demon trait must attempt a @Check[reflex|dc:31] save.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Morning Glow]</p><hr /><p><strong>Success</strong> The demon is unaffected by the glow.</p>\n<p><strong>Failure</strong> The demon becomes outlined with a shimmering aura of dim light that causes it to become @UUID[Compendium.pf2e.conditionitems.Item.Dazzled]. If the demon was @UUID[Compendium.pf2e.conditionitems.Item.Invisible], it becomes @UUID[Compendium.pf2e.conditionitems.Item.Concealed] instead. If it was already concealed for any other reason, it is no longer concealed. This light affects the demon for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, but with a duration of 10 minutes.</p>"
+        },
+        "group": "sword",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 14
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 4500
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #210: Whispers in the Dirt"
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.LitItem",
+                "option": "lit-morning-glow",
+                "predicate": [
+                    {
+                        "not": "self:effect:morning-glow"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "lit-morning-glow"
+                ],
+                "value": {
+                    "alpha": 0.1,
+                    "animation": {
+                        "intensity": 1,
+                        "speed": 2,
+                        "type": "pulse"
+                    },
+                    "bright": 0,
+                    "color": "#e7f3f1",
+                    "dim": 10
+                }
+            }
+        ],
+        "runes": {
+            "potency": 0,
+            "property": [],
+            "striking": 0
+        },
+        "size": "med",
+        "splashDamage": {
+            "value": 0
+        },
+        "traits": {
+            "rarity": "unique",
+            "value": [
+                "elf",
+                "finesse",
+                "forceful"
+            ]
+        },
+        "usage": {
+            "value": "held-in-two-hands"
+        }
+    },
+    "type": "weapon"
+}

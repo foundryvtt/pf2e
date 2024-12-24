@@ -1,0 +1,63 @@
+{
+    "_id": "e8DABlCNZ0h0i9OA",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Sash of the Wind",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Access</strong> Tian Xia origin</p><hr /><p>At your request, the nature spirits of the air and wind spin themselves into an iridescent sash loosely draped around your shoulders that buoys you through the sky. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Fly] on yourself as a 4th-rank innate primal spell once per day. If the sash created by this feat is removed, the spell immediately ends.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:fly",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:fly",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:fly"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "leshy"
+            ]
+        }
+    },
+    "type": "feat"
+}

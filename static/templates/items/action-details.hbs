@@ -3,10 +3,4 @@
 {{#unless (eq item.system.actionType.value "passive")}}
     {{> "systems/pf2e/templates/items/partials/self-applied-effect.hbs"}}
 {{/unless}}
-
-<div class="form-group">
-    <label for="{{fieldIdPrefix}}death-note">{{localize "PF2E.ActionDeathNoteLabel"}}</label>
-    <div class="form-fields">
-        <input type="checkbox" name="system.deathNote" id="{{fieldIdPrefix}}death-note" {{checked data.deathNote}} />
-    </div>
-</div>
+{{formGroup fields.deathNote value=data.deathNote rootId=fieldRootId}}

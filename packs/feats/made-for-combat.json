@@ -1,0 +1,127 @@
+{
+    "_id": "jcxbTUl0gaPMkmPv",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Made for Combat",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You can use your body as a deadly weapon. You gain one of the following melee unarmed attacks, which must be one that matches your body (for instance, tsukumogami wrap for a tsukumogami that's a bolt of cotton).</p><ul><li>A blade unarmed attack that deals 1d6 slashing, has the versatile P trait, and is in the sword weapon group.</li><li>A spoke unarmed attack that deals 1d4 piercing, has the agile and finesse traits, and is in the knife weapon group.</li><li>A wrap unarmed attack that deals 1d4 bludgeoning, has the grapple, nonlethal, and trip traits, and is in the flail weapon group.</li></ul><hr /><p><strong>Special</strong> You can take this feat only at 1st level, and you can't retrain into or out of this feat.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "onlyLevel1": true,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "tsukumogami poppet heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.BattleForm.Attack.Blade",
+                        "value": "blade"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Spoke",
+                        "value": "spoke"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Wrap",
+                        "value": "wrap"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.UnarmedAttack",
+                "rollOption": "made-for-combat"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "sword",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Blade",
+                "predicate": [
+                    "made-for-combat:blade"
+                ],
+                "slug": "blade",
+                "traits": [
+                    "unarmed",
+                    "versatile-p"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "knife",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Spoke",
+                "predicate": [
+                    "made-for-combat:spoke"
+                ],
+                "slug": "spoke",
+                "traits": [
+                    "unarmed",
+                    "agile",
+                    "finesse"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "flail",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Wrap",
+                "predicate": [
+                    "made-for-combat:wrap"
+                ],
+                "slug": "wrap",
+                "traits": [
+                    "unarmed",
+                    "grapple",
+                    "nonlethal",
+                    "trip"
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "poppet"
+            ]
+        }
+    },
+    "type": "feat"
+}

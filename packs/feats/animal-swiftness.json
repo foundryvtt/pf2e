@@ -24,7 +24,58 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Ancestry Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Land",
+                        "value": "land"
+                    },
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Fly",
+                        "value": "fly"
+                    },
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Swim",
+                        "value": "swim"
+                    },
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Climb",
+                        "value": "climb"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.MovementType",
+                "rollOption": "animal-swiftness"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "land-speed",
+                "slug": "animal-swiftness",
+                "value": 5
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "animal-swiftness:land"
+                ],
+                "selector": "speed",
+                "slug": "animal-swiftness",
+                "value": 10
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "change-shape:hybrid",
+                    {
+                        "not": "animal-swiftness:land"
+                    }
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.animalSwiftness}",
+                "value": "@actor.attributes.speed.total"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

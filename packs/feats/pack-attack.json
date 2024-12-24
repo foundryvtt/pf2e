@@ -31,7 +31,24 @@
             "remaster": true,
             "title": "Pathfinder Howl of the Wild"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "damage",
+                "key": "RollOption",
+                "option": "pack-attack",
+                "toggleable": true
+            },
+            {
+                "category": "precision",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "pack-attack"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

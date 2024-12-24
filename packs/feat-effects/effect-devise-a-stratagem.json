@@ -10,7 +10,7 @@
             "value": "1d20"
         },
         "description": {
-            "value": "<p>You assess a foe's weaknesses in combat and use them to formulate a plan of attack against your enemy. Choose a creature you can see, and roll a d20. If you Strike the chosen creature later this round, you must use the result of the roll you made to Devise a Stratagem for your Strike's attack roll instead of rolling. You make this substitution only for the first Strike you make against the creature this round, not any subsequent attacks.</p>\n<p>When you make this substitution, you can also add your Intelligence modifier to your attack roll instead of your Strength or Dexterity modifier, provided your Strike uses an agile or finesse melee weapon, an agile or finesse unarmed attack, a ranged weapon (which must be agile or finesse if it's a melee weapon with the thrown trait) or @UUID[Compendium.pf2e.equipment-srd.Item.Sap].</p>\n<p>If you're aware that the creature you choose is the subject of a lead you're pursuing, you can use this ability as a free action.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Devise a Stratagem]</p>\n<p>You assess a foe's weaknesses in combat and use them to formulate a plan of attack against your enemy. Choose a creature you can see, and roll a d20. If you Strike the chosen creature later this round, you must use the result of the roll you made to Devise a Stratagem for your Strike's attack roll instead of rolling. You make this substitution only for the first Strike you make against the creature this round, not any subsequent attacks.</p>\n<p>When you make this substitution, you can also add your Intelligence modifier to your attack roll instead of your Strength or Dexterity modifier, provided your Strike uses an agile or finesse melee weapon, an agile or finesse unarmed attack, a ranged weapon (which must be agile or finesse if it's a melee weapon with the thrown trait) or @UUID[Compendium.pf2e.equipment-srd.Item.Sap].</p>"
         },
         "duration": {
             "expiry": "round-end",
@@ -22,9 +22,9 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
@@ -32,8 +32,32 @@
                 "slug": "devise-a-stratagem"
             },
             {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "option": "devise-a-stratagem",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Investigator.DeviseAStratagem.Attack",
+                        "value": "attack"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Investigator.DeviseAStratagem.Skill",
+                        "value": "skill"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Investigator.DeviseAStratagem.Defensive",
+                        "predicate": [
+                            "feat:defensive-stratagem"
+                        ],
+                        "value": "defensive"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
                 "key": "SubstituteRoll",
                 "predicate": [
+                    "devise-a-stratagem:attack",
                     "target:mark:devise-a-stratagem"
                 ],
                 "removeAfterRoll": "if-enabled",
@@ -45,6 +69,7 @@
             {
                 "key": "SubstituteRoll",
                 "predicate": [
+                    "devise-a-stratagem:attack",
                     "feat:athletic-strategist",
                     {
                         "or": [
@@ -66,6 +91,53 @@
                 "selector": "athletics",
                 "slug": "devise-a-strategem",
                 "value": "@item.badge.value"
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Investigator.DeviseAStratagem.Skill",
+                "predicate": [
+                    "devise-a-stratagem:skill"
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": [
+                    "perception",
+                    "cha-skill-check",
+                    "int-skill-check",
+                    "wis-skill-check"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "devise-a-stratagem:skill"
+                ],
+                "selectors": [
+                    "perception",
+                    "cha-skill-check",
+                    "int-skill-check",
+                    "wis-skill-check"
+                ],
+                "slug": "pursue-a-lead",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Investigator.DeviseAStratagem.Defensive",
+                "predicate": [
+                    "devise-a-stratagem:defensive",
+                    "origin:mark:devise-a-stratagem"
+                ],
+                "selector": [
+                    "ac",
+                    "fortitude",
+                    "reflex",
+                    "will"
+                ],
+                "type": "circumstance",
+                "value": 1
             }
         ],
         "start": {

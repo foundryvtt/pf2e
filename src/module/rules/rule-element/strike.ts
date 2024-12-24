@@ -11,19 +11,10 @@ import type {
     WeaponTrait,
 } from "@item/weapon/types.ts";
 import type { DamageDieSize, DamageType } from "@system/damage/index.ts";
-import { StrictBooleanField } from "@system/schema-data-fields.ts";
 import { objectHasKey, sluggify } from "@util";
-import type {
-    ArrayField,
-    BooleanField,
-    FilePathField,
-    NumberField,
-    SchemaField,
-    StringField,
-} from "types/foundry/common/data/fields.d.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
-import { ItemAlterationRuleElement } from "./item-alteration/rule-element.ts";
+import fields = foundry.data.fields;
 
 /**
  * Create an ephemeral strike on an actor
@@ -43,7 +34,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
         this.battleForm ??= false;
         this.options ??= [];
         this.graspingAppendage = ["fist", "claw"].includes(this.baseType ?? "")
-            ? true
+            ? (this.graspingAppendage ?? true)
             : this.category === "unarmed" || this.traits.includes("unarmed")
               ? !!this.graspingAppendage
               : false;
@@ -52,7 +43,6 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
     static #defaultFistIcon: ImageFilePath = "icons/skills/melee/unarmed-punch-fist.webp";
 
     static override defineSchema(): StrikeSchema {
-        const fields = foundry.data.fields;
         const baseTypeChoices: Record<NonShieldWeaponType, string> = CONFIG.PF2E.baseWeaponTypes;
 
         return {
@@ -147,7 +137,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             }),
             options: new fields.ArrayField(new fields.StringField(), { required: false, initial: undefined }),
             fist: new fields.BooleanField({ required: false, nullable: false }),
-            graspingAppendage: new StrictBooleanField({ required: false, nullable: false, initial: undefined }),
+            graspingAppendage: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
         };
     }
 
@@ -182,23 +172,9 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
     }
 
     override beforePrepareData(): void {
-        if (this.ignored) return;
-
-        // Prefer a non-default fist icon if one is set
-        const actor = this.actor;
-        if (this.fist && this.img === StrikeRuleElement.#defaultFistIcon) {
-            const nonDefaultImg = actor.rules.find(
-                (r): r is StrikeRuleElement =>
-                    !r.ignored &&
-                    r instanceof StrikeRuleElement &&
-                    r.fist &&
-                    r.img !== StrikeRuleElement.#defaultFistIcon,
-            )?.img;
-            this.img = nonDefaultImg ?? this.img;
-        }
-
+        if (!this.test()) return;
         const slug = this.slug ?? sluggify(this.label);
-        actor.synthetics.strikes.push((unarmedRunes) => this.#constructWeapon({ slug, unarmedRunes }));
+        this.actor.synthetics.strikes[slug] = (unarmedRunes) => this.#constructWeapon({ slug, unarmedRunes });
     }
 
     /** Exclude other strikes if this rule element specifies that its strike replaces all others */
@@ -229,7 +205,6 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
      * @param damageType The resolved damage type for the strike
      */
     #constructWeapon({ slug, unarmedRunes }: ConstructWeaponParams): WeaponPF2e<ActorPF2e> | null {
-        if (!this.test()) return null;
         const actor = this.actor;
 
         const attribute = this.resolveInjectedProperties(this.ability) || null;
@@ -265,7 +240,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             flags: {
                 pf2e: {
                     battleForm: this.battleForm,
-                    fixedAttack: actorIsNPC ? this.attackModifier ?? null : null,
+                    fixedAttack: actorIsNPC ? (this.attackModifier ?? null) : null,
                 },
             },
             system: {
@@ -276,7 +251,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                 baseItem: this.baseType,
                 attribute,
                 bonus: {
-                    value: actorIsNPC ? this.attackModifier ?? 0 : 0,
+                    value: actorIsNPC ? (this.attackModifier ?? 0) : 0,
                 },
                 damage: {
                     ...this.damage.base,
@@ -295,7 +270,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                     },
                 },
                 options: { value: this.options },
-                runes: this.category === "unarmed" ? unarmedRunes ?? {} : {},
+                runes: this.category === "unarmed" ? (unarmedRunes ?? {}) : {},
                 usage: { value: "held-in-one-hand" },
                 equipped: {
                     carryType: "held",
@@ -308,8 +283,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
         const weapon = new WeaponPF2e(source, { parent: actor });
         weapon.rule = this;
         weapon.name = weapon._source.name; // Remove renaming by runes
-        const alterations = actor.rules.filter((r): r is ItemAlterationRuleElement => r.key === "ItemAlteration");
-        for (const alteration of alterations) {
+        for (const alteration of actor.synthetics.itemAlterations) {
             alteration.applyAlteration({ singleItem: weapon });
         }
 
@@ -338,17 +312,17 @@ interface StrikeRuleElement extends RuleElementPF2e<StrikeSchema>, ModelPropsFro
 type NonShieldWeaponType = Exclude<BaseWeaponType, BaseShieldType>;
 type StrikeSchema = RuleElementSchema & {
     /** A weapon category */
-    category: StringField<WeaponCategory, WeaponCategory, true, false, true>;
+    category: fields.StringField<WeaponCategory, WeaponCategory, true, false, true>;
     /** A weapon group */
-    group: StringField<string, string, true, true, true>;
+    group: fields.StringField<string, string, true, true, true>;
     /** A weapon base type */
-    baseType: StringField<NonShieldWeaponType, NonShieldWeaponType, true, true, true>;
+    baseType: fields.StringField<NonShieldWeaponType, NonShieldWeaponType, true, true, true>;
     /** Permit NPC attack traits to sneak in for battle forms */
-    traits: ArrayField<StringField<NPCAttackTrait, NPCAttackTrait, true, false, false>>;
-    traitToggles: SchemaField<
+    traits: fields.ArrayField<fields.StringField<NPCAttackTrait, NPCAttackTrait, true, false, false>>;
+    traitToggles: fields.SchemaField<
         {
-            modular: StringField<DamageType, DamageType, true, true, true>;
-            versatile: StringField<DamageType, DamageType, true, true, true>;
+            modular: fields.StringField<DamageType, DamageType, true, true, true>;
+            versatile: fields.StringField<DamageType, DamageType, true, true, true>;
         },
         { modular: DamageType | null; versatile: DamageType | null },
         { modular: DamageType | null; versatile: DamageType | null },
@@ -356,8 +330,8 @@ type StrikeSchema = RuleElementSchema & {
         false,
         true
     >;
-    otherTags: ArrayField<
-        StringField<OtherWeaponTag, OtherWeaponTag, true, false, false>,
+    otherTags: fields.ArrayField<
+        fields.StringField<OtherWeaponTag, OtherWeaponTag, true, false, false>,
         OtherWeaponTag[],
         OtherWeaponTag[],
         false,
@@ -368,11 +342,11 @@ type StrikeSchema = RuleElementSchema & {
      * A fixed attack modifier: usable only if the strike is generated for an NPC
      * Also causes the damage to not be recalculated when converting the resulting weapon to an NPC attack
      */
-    attackModifier: NumberField<number, number, false, true, true>;
-    range: SchemaField<
+    attackModifier: fields.NumberField<number, number, false, true, true>;
+    range: fields.SchemaField<
         {
-            increment: NumberField<number, number, false, true, true>;
-            max: NumberField<number, number, false, true, true>;
+            increment: fields.NumberField<number, number, false, true, true>;
+            max: fields.NumberField<number, number, false, true, true>;
         },
         { increment: number | null; max: number | null },
         { increment: number | null; max: number | null },
@@ -380,28 +354,35 @@ type StrikeSchema = RuleElementSchema & {
         true,
         true
     >;
-    damage: SchemaField<{
-        base: SchemaField<{
-            damageType: StringField<string, string, true, false, true>;
+    damage: fields.SchemaField<{
+        base: fields.SchemaField<{
+            damageType: fields.StringField<string, string, true, false, true>;
             dice: ResolvableValueField<true, false, true>;
-            die: StringField<DamageDieSize, DamageDieSize, true, false, true>;
-            modifier: NumberField<number, number, false, false, true>;
+            die: fields.StringField<DamageDieSize, DamageDieSize, true, false, true>;
+            modifier: fields.NumberField<number, number, false, false, true>;
         }>;
     }>;
-    ability: StringField<string, string, false, true, true>;
+    ability: fields.StringField<string, string, false, true, true>;
     /** A representative icon for the strike */
-    img: FilePathField<ImageFilePath, ImageFilePath, true, false, true>;
+    img: fields.FilePathField<ImageFilePath, ImageFilePath, true, false, true>;
     /** Whether to replace all other strike actions */
-    replaceAll: BooleanField<boolean, boolean, false, false, false>;
+    replaceAll: fields.BooleanField<boolean, boolean, false, false, false>;
     /** Whether to replace the "basic unarmed" strike action */
-    replaceBasicUnarmed: BooleanField<boolean, boolean, false, false, false>;
+    replaceBasicUnarmed: fields.BooleanField<boolean, boolean, false, false, false>;
     /** Whether this attack is from a battle form */
-    battleForm: BooleanField<boolean, boolean, false, false, true>;
-    options: ArrayField<StringField<string, string, true, false, false>, string[], string[], false, false, false>;
+    battleForm: fields.BooleanField<boolean, boolean, false, false, true>;
+    options: fields.ArrayField<
+        fields.StringField<string, string, true, false, false>,
+        string[],
+        string[],
+        false,
+        false,
+        false
+    >;
     /** Whether this was a request for a standard fist attack */
-    fist: BooleanField<boolean, boolean, false, false, true>;
+    fist: fields.BooleanField<boolean, boolean, false, false, true>;
     /** Whether the unarmed attack is a grasping appendage */
-    graspingAppendage: StrictBooleanField<false, false, false>;
+    graspingAppendage: fields.BooleanField<boolean, boolean, false, false, false>;
 };
 
 interface ConstructWeaponParams {

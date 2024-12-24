@@ -4,10 +4,8 @@
     "items": [
         {
             "_id": "OUrXXBtHgFYgqQhS",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy 100 feet",
@@ -42,10 +40,8 @@
         },
         {
             "_id": "tFKZOItqhSuU5Mmq",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.OvqohW9YuahnFaiX"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.OvqohW9YuahnFaiX"
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Form Up",
@@ -77,10 +73,8 @@
         },
         {
             "_id": "aEcgeJMpYmuraIJt",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
@@ -105,15 +99,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "or": [
-                                    "magical",
-                                    "arcane",
-                                    "divine",
-                                    "primal",
-                                    "occult"
-                                ]
-                            }
+                            "item:magical"
                         ],
                         "selector": "saving-throw",
                         "type": "status",
@@ -130,10 +116,8 @@
         },
         {
             "_id": "mC3RoLYhb5drUzos",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
@@ -147,7 +131,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>30 feet. @Check[type:will|dc:34]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>30 feet. @Check[will|dc:34]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -222,7 +206,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>5 feet. Non-demons that start their turn in the aura take @Damage[4d8[poison]] damage. Each creature damaged this way must succeed at a @Check[type:fortitude|dc:34] save or take @Damage[2d8[persistent,piercing]] damage as the spores penetrate its skin and grow into thick, green vines. The vines cease growing after 10 rounds, and they wither away in [[/br 1d4 #days]]{1d4 days} if not shaved off before then. The vines can be destroyed if the creature is affected by a good spell or if holy water is applied to the vines (with an Interact action).</p>"
+                    "value": "<p>5 feet. Non-demons that start their turn in the aura take @Damage[4d8[poison]] damage. Each creature damaged this way must succeed at a @Check[fortitude|dc:34] save or take @Damage[2d8[persistent,piercing]] damage as the spores penetrate its skin and grow into thick, green vines. The vines cease growing after 10 rounds, and they wither away in [[/br 1d4 #days]]{1d4 days} if not shaved off before then. The vines can be destroyed if the creature is affected by a good spell or if holy water is applied to the vines (with an Interact action).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -253,10 +237,8 @@
         },
         {
             "_id": "eId3sQclhPGvD5jY",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.RJbI07QSiYp0SF9A"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.RJbI07QSiYp0SF9A"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Troop Defenses",
@@ -300,7 +282,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The throng furiously tears at each enemy within its squares and within 5 feet (@Check[type:reflex|dc:37] save). Damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> Damage @Damage[(1d12+14)[slashing],1d6[spirit]]{1d12+14 slashing plus 1d6 spirit}</p>\n<p><span class=\"action-glyph\">2</span> Damage @Damage[(2d12+14)[slashing],1d6[spirit]]{2d12+14 slashing plus 1d6 spirit}</p>\n<p><span class=\"action-glyph\">3</span> Damage @Damage[(3d12+14)[slashing],1d6[spirit]]{3d12+14 slashing plus 1d6 spirit}</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The throng furiously tears at each enemy within its squares and within 5 feet (@Check[reflex|dc:37] save). Damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> Damage @Damage[(1d12+14)[slashing],1d6[spirit]]{1d12+14 slashing plus 1d6 spirit}</p>\n<p><span class=\"action-glyph\">2</span> Damage @Damage[(2d12+14)[slashing],1d6[spirit]]{2d12+14 slashing plus 1d6 spirit}</p>\n<p><span class=\"action-glyph\">3</span> Damage @Damage[(3d12+14)[slashing],1d6[spirit]]{3d12+14 slashing plus 1d6 spirit}</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -365,7 +347,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> Each non-demon creature in the throng or within a @Template[type:emanation|distance:20] from it takes damage based on the number of actions used (@Check[type:reflex|dc:37|basic:true] save). Damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> Damage @Damage[4d6[electricity]]</p>\n<p><span class=\"action-glyph\">2</span> Damage @Damage[8d6[electricity]]</p>\n<p><span class=\"action-glyph\">3</span> Damage @Damage[12d6[electricity]]</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> Each non-demon creature in the throng or within a @Template[emanation|distance:20] from it takes damage based on the number of actions used (@Check[reflex|dc:37|basic] save). Damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> Damage @Damage[4d6[electricity]]</p>\n<p><span class=\"action-glyph\">2</span> Damage @Damage[8d6[electricity]]</p>\n<p><span class=\"action-glyph\">3</span> Damage @Damage[12d6[electricity]]</p>"
                 },
                 "frequency": {
                     "max": 1,

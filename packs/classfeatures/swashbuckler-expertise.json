@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>You perform swashbuckling techniques with exceptional flair, making them harder to resist. Your proficiency rank for your swashbuckler class DC increases to expert.</p>"
+            "value": "<p>You perform swashbuckling techniques with exceptional flair, making them harder to resist. Your circumstance bonus from Stylish Combatant increases to +2. Your proficiency rank for your swashbuckler class DC increases to expert.</p>"
         },
         "level": {
             "value": 9
@@ -20,14 +20,23 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "selector": "skill-check",
+                "slug": "stylish-combatant-skill",
+                "value": 2
+            }
+        ],
         "subfeatures": {
             "proficiencies": {
                 "swashbuckler": {
+                    "attribute": null,
                     "rank": 2
                 }
             }

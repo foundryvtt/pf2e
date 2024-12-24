@@ -7,7 +7,6 @@ import { RawItemChatData } from "@item/base/data/index.ts";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
 import type { SpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import type { ValueAndMax } from "@module/data.ts";
-import type { ItemAlterationRuleElement } from "@module/rules/rule-element/item-alteration/index.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { ErrorPF2e, setHasElement } from "@util";
@@ -45,8 +44,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         const context = { parent: this.actor, parentItem: this };
         const spell = new ItemProxyPF2e(spellSource, context) as SpellPF2e<NonNullable<TParent>>;
 
-        const alterations = this.actor.rules.filter((r): r is ItemAlterationRuleElement => r.key === "ItemAlteration");
-        for (const alteration of alterations) {
+        for (const alteration of this.actor.synthetics.itemAlterations) {
             alteration.applyAlteration({ singleItem: spell });
         }
 
@@ -81,7 +79,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         rollOptions: Record<string, unknown> = {},
     ): Promise<RawItemChatData> {
         const traits = this.traitChatData(CONFIG.PF2E.consumableTraits);
-        const [category, isUsable] = this.isIdentified
+        const [category, isUsableItemType] = this.isIdentified
             ? [game.i18n.localize(CONFIG.PF2E.consumableCategories[this.category]), true]
             : [
                   this.generateUnidentifiedName({ typeOnly: true }),
@@ -97,7 +95,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             properties:
                 this.isIdentified && this.uses.max > 1 ? [`${this.uses.value}/${this.uses.max} ${usesLabel}`] : [],
             category,
-            isUsable: fromFormula ? false : isUsable,
+            isUsable: isUsableItemType && !fromFormula && this.parent && this.parent.items.get(this.id),
         });
     }
 
@@ -131,14 +129,12 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     }
 
     isAmmoFor(weapon: WeaponPF2e): boolean {
-        if (!this.isAmmo) return false;
         if (!weapon.isOfType("weapon")) {
             console.warn("Cannot load a consumable into a non-weapon");
             return false;
         }
 
-        const { max } = this.uses;
-        return weapon.system.traits.value.includes("repeating") ? max > 1 : max <= 1;
+        return this.isAmmo;
     }
 
     /** Use a consumable item, sending the result to chat */
@@ -169,7 +165,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             const flags = {
                 pf2e: {
                     origin: {
-                        sourceId: this.flags.core?.sourceId,
+                        sourceId: this.sourceId,
                         uuid: this.uuid,
                         type: this.type,
                     },

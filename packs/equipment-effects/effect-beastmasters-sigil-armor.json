@@ -1,13 +1,13 @@
 {
     "_id": "M1HKNPpqkjFI9A4q",
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "icons/creatures/invertebrates/scorpion-yellow.webp",
     "name": "Effect: Beastmaster's Sigil - Armor",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Beastmaster's Sigil]</p>\n<p>The <em>sigil</em> grants you a +1 item bonus to saving throws against poison.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Beastmaster's Sigil], @UUID[Compendium.pf2e.equipment-srd.Item.Beastmaster's Sigil (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Beastmaster's Sigil (Major)]</p>\n<p>You gain an item bonus to saving throws against poison.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -22,13 +22,71 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:beastmasters-sigil",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Beastmaster's Sigil"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:beastmasters-sigil-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Beastmaster's Sigil (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:beastmasters-sigil-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Beastmaster's Sigil (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "beastmasters-sigil"
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
-                    "poison"
+                    "item:trait:poison"
                 ],
                 "selector": "saving-throw",
+                "slug": "sigil-bonus-armor",
                 "type": "item",
                 "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "beastmasters-sigil:beastmasters-sigil-major"
+                ],
+                "selector": "saving-throw",
+                "slug": "sigil-bonus-armor",
+                "value": 2
             }
         ],
         "start": {

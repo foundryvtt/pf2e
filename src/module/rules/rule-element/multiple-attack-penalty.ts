@@ -1,15 +1,13 @@
-import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { MAPSynthetic } from "../synthetics.ts";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
+import fields = foundry.data.fields;
 
 /**
  * @category RuleElement
  */
 class MultipleAttackPenaltyRuleElement extends RuleElementPF2e<MAPRuleSchema> {
     static override defineSchema(): MAPRuleSchema {
-        const fields = foundry.data.fields;
-
         return {
             ...super.defineSchema(),
             selector: new fields.StringField({
@@ -50,7 +48,7 @@ interface MultipleAttackPenaltyRuleElement
         ModelPropsFromRESchema<MAPRuleSchema> {}
 
 type MAPRuleSchema = RuleElementSchema & {
-    selector: StringField<string, string, true, false, false>;
+    selector: fields.StringField<string, string, true, false, false>;
     value: ResolvableValueField<true, false, false>;
 };
 

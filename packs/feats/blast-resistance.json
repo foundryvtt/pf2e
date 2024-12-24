@@ -26,17 +26,16 @@
         },
         "rules": [
             {
-                "key": "Note",
-                "outcome": [
-                    "success"
-                ],
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
                 "predicate": [
                     "auditory",
-                    "condition:deafened"
+                    "inflicts:deafened"
                 ],
                 "selector": "saving-throw",
-                "text": "When you roll a success on a save against a cold or water effect, you get a critical success instead.",
-                "title": "{item|name}"
+                "type": "save"
             },
             {
                 "key": "Resistance",

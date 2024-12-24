@@ -1,0 +1,74 @@
+{
+    "_id": "gNFPwTHDygxdf9pw",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Proteankin",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your blood bubbles with the roiling quintessence of the Maelstrom, the infinite sea of primal chaos that long ago spawned the other Outer Planes. You gain resistance to a single damage type equal to half your level; at the beginning of each day, determine randomly whether this resistance applies to acid, electricity, or sonic damage. You also gain a +1 circumstance bonus to saving throws against effects that would cause you to gain the controlled condition.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "inflicts:controlled"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Prompt.Resistance",
+                "option": "proteankinResistance",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.proteankinResistance}",
+                "value": "max(floor(@actor.level/2),1)"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "lineage",
+                "nephilim"
+            ]
+        }
+    },
+    "type": "feat"
+}

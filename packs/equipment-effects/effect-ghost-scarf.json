@@ -1,0 +1,94 @@
+{
+    "_id": "vOwZlSNCS35GULgL",
+    "img": "icons/equipment/waist/sash-cloth-purple.webp",
+    "name": "Effect: Ghost Scarf",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Ghost Scarf]</p>\n<p>A weapon you carry is granted the effects of a <em>ghost touch</em> property rune. If the weapon already bears a <em>ghost touch</em> rune, you instead gain a +1 item bonus to Fortitude saves against effects from incorporeal undead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 5
+        },
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #197: Let the Leaves Fall"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.WeaponPropertyRune.ghostTouch.Name",
+                        "value": "ghost-touch"
+                    },
+                    {
+                        "label": "PF2E.SavesFortitude",
+                        "value": "fortitude"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "ghost-scarf"
+            },
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:equipped",
+                        {
+                            "not": "item:rune:property:ghost-touch"
+                        }
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "ghost-scarf:ghost-touch"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "ghost-scarf:ghost-touch"
+                ],
+                "property": "property-runes",
+                "value": "ghost-touch"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "ghost-scarf:fortitude",
+                    "origin:trait:incorporeal",
+                    "origin:trait:undead"
+                ],
+                "selector": "fortitude",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

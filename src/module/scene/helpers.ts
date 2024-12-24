@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor";
 import type { CreaturePF2e } from "@actor/creature/document.ts";
 import { PrototypeTokenPF2e } from "@actor/data/base.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
@@ -53,7 +54,7 @@ function computeSightAndDetectionForRBV(token: TokenDocumentPF2e | PrototypeToke
     if (!actor?.isOfType("creature")) return;
 
     // Reset detection modes if using rules-based vision
-    const hasVision = !!actor.perception?.hasVision;
+    const hasVision = actor.perception.hasVision;
     const lightPerception: DetectionModeEntry = { id: "lightPerception", enabled: hasVision, range: null };
     const basicSight: DetectionModeEntry = { id: "basicSight", enabled: hasVision, range: 0 };
     token.detectionModes = [lightPerception, basicSight];
@@ -98,4 +99,10 @@ function computeSightAndDetectionForRBV(token: TokenDocumentPF2e | PrototypeToke
     }
 }
 
-export { checkAuras, computeSightAndDetectionForRBV };
+/** Returns true if this token has the default actor image or the default image for its actor type */
+function isDefaultTokenImage(token: TokenDocumentPF2e | PrototypeTokenPF2e<ActorPF2e>): boolean {
+    const defaultIcons = [ActorPF2e.DEFAULT_ICON, `systems/pf2e/icons/default-icons/${token.actor?.type}.svg`];
+    return defaultIcons.some((path) => token.texture.src?.endsWith(path));
+}
+
+export { checkAuras, computeSightAndDetectionForRBV, isDefaultTokenImage };

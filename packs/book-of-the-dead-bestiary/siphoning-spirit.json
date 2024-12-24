@@ -16,7 +16,7 @@
                 },
                 "category": null,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A living creature passes within 15 feet of the spirit</p>\n<hr />\n<p><strong>Effect</strong> The invisible spirit latches onto the life essence of the living, dealing @Damage[(4d10+20)[void]] damage to all living creatures within @Template[type:burst|distance:60]{60 feet} (@Check[type:fortitude|dc:41|basic:true] save). The haunt then rolls initiative.</p>"
+                    "value": "<p><strong>Trigger</strong> A living creature passes within 15 feet of the spirit</p>\n<hr />\n<p><strong>Effect</strong> The invisible spirit latches onto the life essence of the living, dealing @Damage[(4d10+20)[void]] damage to all living creatures within @Template[burst|distance:60]{60 feet} (@Check[fortitude|dc:41|basic] save). The haunt then rolls initiative.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -57,7 +57,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>A formless spirit drains life from the living, becoming progressively visible as its victims weaken.</p>",
-            "disable": "<p>@Check[type:occultism|dc:48] (expert) or @Check[type:religion|dc:48] (expert) to weaken the spirit; four total successes are required to disable the haunt</p>",
+            "disable": "<p>@Check[occultism|dc:48] (expert) or @Check[religion|dc:48] (expert) to weaken the spirit; four total successes are required to disable the haunt</p>",
             "isComplex": true,
             "level": {
                 "value": 19
@@ -68,7 +68,7 @@
                 "title": "Pathfinder Book of the Dead"
             },
             "reset": "<p>After 1 minute, the spirit is satiated, and the haunt deactivates as it returns to a resting state. Over the course of 1 hour, the spirit's siphoned life energy disperses and the haunt resets.</p>",
-            "routine": "<p>(1 action; death, divine, necromancy, void) The spirit inhales, siphoning the souls of the living and becoming more visible. Each creature within @Template[type:burst|distance:60]{60 feet} takes @Damage[(4d10+20)[void]] damage, with a @Check[type:fortitude|dc:41|traits:death,divine,necromancy,void,damaging-effect] save. If no creatures are within the area, the haunt moves up to 120 feet into the largest concentration of living creatures and then inhales.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and increases its @UUID[Compendium.pf2e.conditionitems.Item.Drained] value by 1, to a maximum of drained 4.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and increases its drained value by 2, to a maximum of drained 4. If the creature was already drained 4, it dies.</p>"
+            "routine": "<p>(1 action; death, divine, necromancy, void) The spirit inhales, siphoning the souls of the living and becoming more visible. Each creature within @Template[burst|distance:60]{60 feet} takes @Damage[(4d10+20)[void]] damage, with a @Check[fortitude|dc:41|traits:death,divine,necromancy,void,damaging-effect] save. If no creatures are within the area, the haunt moves up to 120 feet into the largest concentration of living creatures and then inhales.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and increases its @UUID[Compendium.pf2e.conditionitems.Item.Drained] value by 1, to a maximum of drained 4.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and increases its drained value by 2, to a maximum of drained 4. If the creature was already drained 4, it dies.</p>"
         },
         "saves": {
             "fortitude": {

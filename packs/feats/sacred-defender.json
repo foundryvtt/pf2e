@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You are a great warrior that can stand strong against the fiercest opponents to your cause.</p>\n<p>You gain resistance 10 to bludgeoning, piercing, and slashing damage caused by creatures and effects opposed to your tenets (unholy creatures for tenets of good, holy creatures for tenets of evil, and so on).</p>\n<p>In addition, creatures and effects that roll a natural 20 on an attack roll against you don't improve their result by one degree of success.</p>"
+            "value": "<p>You are a great warrior that can stand strong against the fiercest opponents to your cause. You gain resistance 5 to bludgeoning, piercing, and slashing damage.</p>\n<p>If you're holy, this resistance increases to 10 against unholy creatures, and if you're unholy it increases to 10 against holy creatures.</p>\n<p>In addition, creatures and effects that roll a natural 20 on an attack roll against you don't improve their result by one degree of success.</p>"
         },
         "level": {
             "value": 20
@@ -20,9 +20,9 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
@@ -33,26 +33,48 @@
                             "damage:type:piercing",
                             "damage:type:slashing"
                         ]
-                    },
-                    {
-                        "or": [
-                            {
-                                "and": [
-                                    "origin:trait:unholy",
-                                    "self:trait:holy"
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "origin:trait:holy",
-                                    "self:trait:unholy"
-                                ]
-                            }
-                        ]
                     }
                 ],
                 "key": "Resistance",
-                "label": "{item|name}",
+                "label": "PF2E.IWR.Custom.BludgeoningPiercingSlashing",
+                "type": "custom",
+                "value": 5
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "damage:type:bludgeoning",
+                            "damage:type:piercing",
+                            "damage:type:slashing"
+                        ]
+                    },
+                    "origin:trait:unholy"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.UnholyBludgeoningPiercingSlashing",
+                "predicate": [
+                    "self:trait:holy"
+                ],
+                "type": "custom",
+                "value": 10
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "damage:type:bludgeoning",
+                            "damage:type:piercing",
+                            "damage:type:slashing"
+                        ]
+                    },
+                    "origin:trait:holy"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.HolyBludgeoningPiercingSlashing",
+                "predicate": [
+                    "self:trait:unholy"
+                ],
                 "type": "custom",
                 "value": 10
             }

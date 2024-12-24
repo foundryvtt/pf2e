@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>You've developed keen awareness and attention to detail. Your proficiency rank for Perception increases to master.</p>"
+            "value": "<p><strong>Barbarian</strong> Your instinct heightens each of your senses further. Your proficiency rank for Perception increases to master.</p>\n<p><strong>Bard, Rogue</strong> You've developed keen awareness and attention to detail. Your proficiency rank for Perception increases to master.</p>\n<p><strong>Exemplar</strong> Through your adventures, you've developed keen awareness and attention to detail, the better to watch over your wards and keep an eye out for monsters and other threats. Your proficiency rank for Perception increases to master.</p>\n<p><strong>Ranger</strong> You have highly developed acuity and attention to detail. Your proficiency rank for Perception increases to master.</p>\n<p><strong>Swashbuckler</strong> Through your adventures, you've developed keen awareness and attention to detail. Your proficiency rank for Perception increases to master.</p>"
         },
         "level": {
             "value": 7
@@ -24,7 +24,26 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "{actor|class.slug}"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.ClassFeatures.PerceptionMastery.{actor|class.slug}.Description"
+                    }
+                ]
+            }
+        ],
         "subfeatures": {
             "proficiencies": {
                 "perception": {
@@ -34,7 +53,14 @@
         },
         "traits": {
             "rarity": "common",
-            "value": []
+            "value": [
+                "barbarian",
+                "bard",
+                "exemplar",
+                "ranger",
+                "rogue",
+                "swashbuckler"
+            ]
         }
     },
     "type": "feat"

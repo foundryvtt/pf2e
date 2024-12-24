@@ -26,20 +26,6 @@
         },
         "rules": [
             {
-                "key": "Note",
-                "predicate": [
-                    {
-                        "or": [
-                            "inhaled",
-                            "olfactory"
-                        ]
-                    }
-                ],
-                "selector": "saving-throw",
-                "text": "When you roll a saving throw against an olfactory or inhaled effect, you get the outcome one degree of success better than the result of your roll.",
-                "title": "{item|name}"
-            },
-            {
                 "adjustment": {
                     "all": "one-degree-better"
                 },
@@ -47,13 +33,12 @@
                 "predicate": [
                     {
                         "or": [
-                            "olfactory",
-                            "inhaled"
+                            "item:trait:olfactory",
+                            "item:trait:inhaled"
                         ]
                     }
                 ],
-                "selector": "saving-throw",
-                "type": "save"
+                "selector": "saving-throw"
             }
         ],
         "traits": {

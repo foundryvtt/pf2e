@@ -1,10 +1,10 @@
 {
     "_id": "AJNUrLJgTC0AdBhS",
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "icons/consumables/potions/bottle-pear-corked-labeled-green.webp",
     "name": "Effect: Poison Fizz",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Poison Fizz (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Poison Fizz (Moderate)]</p>\n<p>You have a +2 (Lesser, Moderate) item bonus to saving throws against poison and being petrified.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Poison Fizz (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Poison Fizz (Moderate)]</p>\n<p>You have a +2 item bonus to saving throws against poison and being petrified.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -26,7 +26,7 @@
                 "predicate": [
                     {
                         "or": [
-                            "poison",
+                            "item:trait:poison",
                             "inflicts:petrified"
                         ]
                     }

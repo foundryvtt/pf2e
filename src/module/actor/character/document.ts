@@ -1,6 +1,6 @@
 import { CreaturePF2e, type FamiliarPF2e } from "@actor";
 import { Abilities, CreatureSpeeds, LabeledSpeed } from "@actor/creature/data.ts";
-import { CreatureUpdateOperation } from "@actor/creature/types.ts";
+import { CreatureUpdateOperation, ResourceData } from "@actor/creature/types.ts";
 import { ALLIANCES, SAVING_THROW_ATTRIBUTES } from "@actor/creature/values.ts";
 import { StrikeData } from "@actor/data/base.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
@@ -26,21 +26,11 @@ import { CheckContext } from "@actor/roll-context/check.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
 import { AttributeString, MovementType, SkillSlug } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES } from "@actor/values.ts";
-import type {
-    AncestryPF2e,
-    BackgroundPF2e,
-    ClassPF2e,
-    ConsumablePF2e,
-    DeityPF2e,
-    FeatPF2e,
-    HeritagePF2e,
-    PhysicalItemPF2e,
-} from "@item";
-import { ItemPF2e, WeaponPF2e } from "@item";
-import { ActionTrait } from "@item/ability/types.ts";
+import type { AncestryPF2e, BackgroundPF2e, ClassPF2e, ConsumablePF2e, DeityPF2e, FeatPF2e, HeritagePF2e } from "@item";
+import { WeaponPF2e } from "@item";
+import { AbilityTrait } from "@item/ability/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
-import { ItemType, PhysicalItemSource } from "@item/base/data/index.ts";
-import { itemIsOfType } from "@item/helpers.ts";
+import type { ItemType } from "@item/base/data/index.ts";
 import { getPropertyRuneDegreeAdjustments, getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 import { WeaponSource } from "@item/weapon/data.ts";
 import { processTwoHandTrait } from "@item/weapon/helpers.ts";
@@ -54,10 +44,9 @@ import {
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers.ts";
-import type { ItemAlterationRuleElement } from "@module/rules/rule-element/item-alteration/rule-element.ts";
+import { eventToRollParams } from "@module/sheet/helpers.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckCheckContext, CheckPF2e, CheckRoll } from "@system/check/index.ts";
 import { DamageDamageContext, DamagePF2e, DamageType } from "@system/damage/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
@@ -66,10 +55,10 @@ import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { Predicate } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls.ts";
 import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
-import { ErrorPF2e, setHasElement, signedInteger, sluggify, traitSlugToObject } from "@util";
-import { UUIDUtils } from "@util/uuid.ts";
+import { ErrorPF2e, setHasElement, signedInteger, sluggify } from "@util/misc.ts";
+import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
-import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting/index.ts";
+import { CharacterCrafting } from "./crafting/index.ts";
 import {
     BaseWeaponProficiencyKey,
     CharacterAbilities,
@@ -83,7 +72,7 @@ import {
     MartialProficiency,
     WeaponGroupProficiencyKey,
 } from "./data.ts";
-import { CharacterFeats } from "./feats.ts";
+import { CharacterFeats } from "./feats/index.ts";
 import {
     PCAttackTraitHelpers,
     WeaponAuxiliaryAction,
@@ -115,7 +104,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     declare feats: CharacterFeats<this>;
     declare pfsBoons: FeatPF2e<this>[];
-    declare deityBoonsCurses: FeatPF2e<this>[];
+    declare divineIntercessions: FeatPF2e<this>[];
 
     /** The primary class DC */
     declare classDC: Statistic | null;
@@ -125,6 +114,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     declare skills: CharacterSkills<this>;
 
     declare initiative: ActorInitiative;
+
+    declare crafting: CharacterCrafting;
 
     override get allowedItemTypes(): (ItemType | "physical")[] {
         const buildItems = ["ancestry", "heritage", "background", "class", "deity", "feat"] as const;
@@ -203,73 +194,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         return this.classDCs[slug] ?? super.getStatistic(slug);
     }
 
-    async getCraftingFormulas(): Promise<CraftingFormula[]> {
-        const formulas = this.system.crafting.formulas;
-        formulas.sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0));
-        const formulaMap = new Map(formulas.map((data) => [data.uuid, data]));
-        const items = await UUIDUtils.fromUUIDs(formulas.map((f) => f.uuid));
-
-        return items
-            .filter((i): i is PhysicalItemPF2e => i instanceof ItemPF2e && i.isOfType("physical"))
-            .map((item) => {
-                const { dc, batchSize, deletable } = formulaMap.get(item.uuid) ?? { deletable: false };
-                return new CraftingFormula(item, { dc, batchSize, deletable });
-            });
-    }
-
-    async getCraftingEntries(formulas?: CraftingFormula[]): Promise<CraftingEntry[]> {
-        const craftingFormulas = formulas ?? (await this.getCraftingFormulas());
-        return Object.values(this.system.crafting.entries)
-            .filter((entry): entry is CraftingEntryData => CraftingEntry.isValid(entry))
-            .map((entry) => new CraftingEntry(craftingFormulas, entry));
-    }
-
-    async getCraftingEntry(selector: string): Promise<CraftingEntry | null> {
-        const craftingFormulas = await this.getCraftingFormulas();
-        const craftingEntryData = this.system.crafting.entries[selector];
-        if (CraftingEntry.isValid(craftingEntryData)) {
-            return new CraftingEntry(craftingFormulas, craftingEntryData);
-        }
-
-        return null;
-    }
-
-    async performDailyCrafting(): Promise<void> {
-        const entries = (await this.getCraftingEntries()).filter((e) => e.isDailyPrep);
-        const alchemicalEntries = entries.filter((e) => e.isAlchemical);
-        const reagentCost = alchemicalEntries.reduce((sum, entry) => sum + entry.reagentCost, 0);
-        const reagentValue = (this.system.resources.crafting.infusedReagents.value || 0) - reagentCost;
-        if (reagentValue < 0) {
-            ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MissingReagents"));
-            return;
-        } else {
-            await this.update({ "system.resources.crafting.infusedReagents.value": reagentValue });
-            const key = reagentCost === 0 ? "ZeroConsumed" : reagentCost === 1 ? "OneConsumed" : "NConsumed";
-            ui.notifications.info(
-                game.i18n.format(`PF2E.Actor.Character.Crafting.Daily.Complete.${key}`, { quantity: reagentCost }),
-            );
-        }
-
-        // Remove infused/temp items
-        for (const item of this.inventory) {
-            if (item.system.temporary) await item.delete();
-        }
-
-        for (const entry of entries) {
-            for (const formula of entry.preparedCraftingFormulas) {
-                const itemSource: PhysicalItemSource = formula.item.toObject();
-                itemSource.system.quantity = formula.quantity;
-                itemSource.system.temporary = true;
-                itemSource.system.size = this.ancestry?.size === "tiny" ? "tiny" : "med";
-
-                if (entry.isAlchemical && itemIsOfType(itemSource, "consumable", "equipment", "weapon")) {
-                    itemSource.system.traits.value.push("infused");
-                }
-                await this.addToInventory(itemSource);
-            }
-        }
-    }
-
     protected override _initialize(options?: Record<string, unknown>): void {
         this.familiar ??= null;
         super._initialize(options);
@@ -277,6 +201,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     /** If one exists, prepare this character's familiar */
     override prepareData(): void {
+        if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
+            return;
+        }
         super.prepareData();
 
         if (game.ready && this.familiar && game.actors.has(this.familiar.id)) {
@@ -288,6 +215,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     override prepareBaseData(): void {
         super.prepareBaseData();
 
+        const levelData = this.system.details.level;
+        if (!Number.isInteger(levelData.value) || levelData.value < 0) {
+            levelData.value = 1;
+        }
+
         // Traits
         this.system.traits = {
             value: [],
@@ -296,7 +228,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         };
 
         // Flags
-        const { flags } = this;
+        const flags = this.flags;
         flags.pf2e.favoredWeaponRank = 0;
         flags.pf2e.freeCrafting ??= false;
         flags.pf2e.quickAlchemy ??= false;
@@ -311,6 +243,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             flags.pf2e.sheetTabs ?? {},
         );
         flags.pf2e.showBasicUnarmed ??= true;
+        flags.pf2e.featLimits ??= {};
 
         // Build selections: boosts and skill trainings
         const isGradual = game.pf2e.settings.variants.gab;
@@ -361,7 +294,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 },
                 allowedBoosts,
                 flaws: { ancestry: [] },
-                apex: isABP ? system.build?.attributes?.apex ?? null : null,
+                apex: isABP ? (system.build?.attributes?.apex ?? null) : null,
             },
             languages: { value: 0, max: 0, granted: [] },
         };
@@ -408,7 +341,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         attributes.classhp = 0;
 
         // Skills
-        system.skills = R.mapToObj(R.entries.strict(CONFIG.PF2E.skills), ([key, { attribute }]) => {
+        system.skills = R.mapToObj(R.entries(CONFIG.PF2E.skills), ([key, { attribute }]) => {
             const rank = Math.clamp(this._source.system.skills[key]?.rank || 0, 0, 4) as ZeroToFour;
             return [key, { rank, attribute, armor: ["dex", "str"].includes(attribute) }];
         });
@@ -423,19 +356,21 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         };
         system.proficiencies.spellcasting ??= { rank: 0 };
 
-        // Resources
+        // Resources (Mythic points replace hero points if the character is mythic)
         const { resources } = this.system;
-        resources.heroPoints.max = 3;
+        const isMythic =
+            game.pf2e.settings.campaign.mythic !== "disabled" &&
+            this.itemTypes.feat.some((f) => f.category === "calling");
+        resources.heroPoints.max = isMythic ? 0 : 3;
         resources.investiture = { value: 0, max: 10 };
-
         resources.focus = {
             value: resources.focus?.value || 0,
             max: 0,
             cap: 3,
         };
-
         resources.crafting = fu.mergeObject({ infusedReagents: { value: 0, max: 0 } }, resources.crafting ?? {});
         resources.crafting.infusedReagents.max = 0;
+        resources.mythicPoints = { value: resources.mythicPoints?.value ?? 0, max: isMythic ? 3 : 0 };
 
         // Size
         this.system.traits.size = new ActorSizePF2e({ value: "med" });
@@ -455,11 +390,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             defenses[category] = { rank: defenses[category]?.rank ?? 0 };
         }
 
-        // Indicate that crafting formulas stored directly on the actor are deletable
+        // Crafting
         system.crafting = fu.mergeObject({ formulas: [], entries: {} }, system.crafting ?? {});
-        for (const formula of this.system.crafting.formulas) {
-            formula.deletable = true;
-        }
 
         // PC level is never a derived number, so it can be set early
         this.rollOptions.all[`self:level:${this.level}`] = true;
@@ -514,12 +446,21 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
      * modifiers according to them.
      */
     override prepareDataFromItems(): void {
+        // Set up feat hierarchies first, so that we know who is a parent of whom later
+        for (const feat of this.itemTypes.feat) {
+            feat.establishHierarchy();
+        }
+
         super.prepareDataFromItems();
         this.prepareBuildData();
     }
 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
+
+        // Create the crafting sub-object, and ensure the instance is maintained between data preparations
+        this.crafting ??= new CharacterCrafting(this);
+        this.crafting.initialize();
 
         imposeOversizedWeaponCondition(this);
         game.pf2e.variantRules.AutomaticBonusProgression.concatModifiers(this);
@@ -741,12 +682,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             rollOptionsAll[`attribute:${key}:mod:${mod}`] = true;
         }
 
-        for (const key of R.keys.strict(CONFIG.PF2E.skills)) {
+        for (const key of R.keys(CONFIG.PF2E.skills)) {
             const rank = this.system.skills[key].rank;
             rollOptionsAll[`skill:${key}:rank:${rank}`] = true;
         }
 
-        for (const key of R.keys.strict(CONFIG.PF2E.weaponCategories)) {
+        for (const key of R.keys(CONFIG.PF2E.weaponCategories)) {
             const rank = this.system.proficiencies.attacks[key].rank;
             rollOptionsAll[`attack:${key}:rank:${rank}`] = true;
         }
@@ -885,7 +826,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     private prepareSkills() {
         const { synthetics, system, wornArmor } = this;
 
-        this.skills = R.mapToObj(R.entries.strict(CONFIG.PF2E.skills), ([skillSlug, { label, attribute }]) => {
+        this.skills = R.mapToObj(R.entries(CONFIG.PF2E.skills), ([skillSlug, { label, attribute }]) => {
             const skill = system.skills[skillSlug];
 
             const domains = [skillSlug, `${attribute}-based`, "skill-check", `${attribute}-skill-check`, "all"];
@@ -1018,7 +959,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     private prepareFeats(): void {
         this.pfsBoons = [];
-        this.deityBoonsCurses = [];
+        this.divineIntercessions = [];
         this.feats = new CharacterFeats(this);
 
         for (const section of game.pf2e.settings.campaign.feats.sections) {
@@ -1035,7 +976,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             if (feat.category === "pfsboon") {
                 this.pfsBoons.push(feat);
             } else {
-                this.deityBoonsCurses.push(feat);
+                this.divineIntercessions.push(feat);
             }
         }
     }
@@ -1072,7 +1013,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Acquire the character's handwraps of mighty blows and apply its runes to all unarmed attacks
         const handwrapsSlug = "handwraps-of-mighty-blows";
         const handwraps = itemTypes.weapon.find(
-            (w) => w.slug === handwrapsSlug && w.category === "unarmed" && w.isEquipped && w.isInvested,
+            (w) =>
+                (w.slug === handwrapsSlug || w.system.traits.otherTags.includes(handwrapsSlug)) &&
+                w.category === "unarmed" &&
+                w.isEquipped &&
+                w.isInvested,
         );
         const unarmedRunes = fu.deepClone(handwraps?._source.system.runes) ?? { potency: 0, striking: 0, property: [] };
 
@@ -1104,10 +1049,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
                   // No handwraps, so generate straight from source
                   const attack = new WeaponPF2e(source, { parent: this });
-                  const alterations = this.rules.filter(
-                      (r): r is ItemAlterationRuleElement => r.key === "ItemAlteration",
-                  );
-                  for (const rule of alterations) {
+                  for (const rule of this.synthetics.itemAlterations) {
                       rule.applyAlteration({ singleItem: attack });
                   }
                   return attack;
@@ -1118,15 +1060,15 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             ...itemTypes.consumable.filter((i) => i.category === "ammo" && !i.isStowed),
             ...itemTypes.weapon.filter((w) => w.system.usage.canBeAmmo),
         ];
-        const offensiveCategories = R.keys.strict(CONFIG.PF2E.weaponCategories);
-        const syntheticWeapons = R.uniqueBy(
-            synthetics.strikes.map((s) => s(unarmedRunes)).filter(R.isTruthy),
-            (w) => w.slug,
-        );
-
+        const offensiveCategories = R.keys(CONFIG.PF2E.weaponCategories);
+        const syntheticWeapons = Object.values(synthetics.strikes)
+            .map((s) => s(unarmedRunes))
+            .filter(R.isNonNull);
         // Exclude handwraps as a strike
         const weapons = [
-            itemTypes.weapon.filter((w) => w.slug !== handwrapsSlug),
+            itemTypes.weapon.filter(
+                (w) => w.slug !== handwrapsSlug && !w.system.traits.otherTags.includes(handwrapsSlug),
+            ),
             syntheticWeapons,
             basicUnarmed ?? [],
             // Generate a shield attacks from the character's shields
@@ -1170,7 +1112,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     /** Prepare a strike action from a weapon */
     private prepareStrike(
-        weapon: WeaponPF2e<this>,
+        weapon: WeaponPF2e<CharacterPF2e>,
         { categories, handsReallyFree, ammos = [] }: PrepareStrikeOptions,
     ): CharacterStrike {
         const synthetics = this.synthetics;
@@ -1186,8 +1128,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
         // Process again (first done during weapon data preparation) in case of late-arriving strike adjustment
         processTwoHandTrait(weapon);
-        const weaponRollOptions = weapon.getRollOptions("item");
         const weaponTraits = weapon.traits;
+        const weaponRollOptions = new Set(weapon.getRollOptions("item"));
 
         // If the character has an ancestral weapon familiarity or similar feature, it will make weapons that meet
         // certain criteria also count as weapon of different category
@@ -1199,16 +1141,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
         const baseWeapon = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
         const baseWeaponRank = proficiencies.attacks[`weapon-base-${baseWeapon}`]?.rank ?? 0;
-
-        // If a weapon matches against a linked proficiency, temporarily add the `sameAs` category to the weapon's
-        // item roll options
-        const equivalentCategories = Object.values(proficiencies.attacks).flatMap((p) =>
-            !!p && "sameAs" in p && (p.definition?.test(weaponRollOptions) ?? true) ? `item:category:${p.sameAs}` : [],
-        );
-        const weaponProficiencyOptions = new Set(weaponRollOptions.concat(equivalentCategories));
-
         const syntheticRanks = Object.values(proficiencies.attacks)
-            .filter((p): p is MartialProficiency => !!p?.definition?.test(weaponProficiencyOptions))
+            .filter((p): p is MartialProficiency => !!p?.definition?.test(weaponRollOptions))
             .map((p) => p.rank);
 
         const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks) as ZeroToFour;
@@ -1219,7 +1153,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             `item:proficiency:rank:${proficiencyRank}`,
             // @todo migrate away:
             PROFICIENCY_RANK_OPTION[proficiencyRank],
-            ...weaponTraits, // always add weapon traits as options
+            ...weaponTraits, // @todo same
             meleeOrRanged,
         ]);
 
@@ -1400,7 +1334,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         const handsAvailable = !weapon.system.graspingAppendage || handsReallyFree > 0;
 
-        const actionTraits: ActionTrait[] = [
+        const actionTraits: AbilityTrait[] = [
             "attack" as const,
             // CRB p. 544: "Due to the complexity involved in preparing bombs, Strikes to throw alchemical bombs gain
             // the manipulate trait."
@@ -1523,7 +1457,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     ? configuredAmmo.uses.max > 1
                         ? configuredAmmo.uses.value
                         : configuredAmmo.quantity
-                    : configuredAmmo?.quantity ?? 0;
+                    : (configuredAmmo?.quantity ?? 0);
                 params.consumeAmmo ??= ammoRequired > 0;
 
                 if (params.consumeAmmo && ammoRequired > ammoRemaining) {
@@ -1534,7 +1468,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 }
                 const targetToken = params.getFormula
                     ? null
-                    : (params.target ?? game.user.targets.first())?.document ?? null;
+                    : ((params.target ?? game.user.targets.first())?.document ?? null);
 
                 const context = await new CheckContext({
                     domains: attackDomains,
@@ -1613,6 +1547,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     createMessage: params.createMessage ?? true,
                 };
 
+                // consumeAmmo will add/wrap the callback to do the actual consumption of ammo at the end
                 if (params.consumeAmmo && !this.consumeAmmo(context.origin.item, params)) {
                     return null;
                 }
@@ -1732,7 +1667,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         return flavor;
     }
 
-    consumeAmmo(weapon: WeaponPF2e<this>, params: RollParameters): boolean {
+    consumeAmmo(weapon: WeaponPF2e<CharacterPF2e>, params: RollParameters): boolean {
         const ammo = weapon.ammo;
         if (!ammo) {
             return true;
@@ -1741,8 +1676,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             return false;
         } else {
             const existingCallback = params.callback;
-            params.callback = async (roll: Rolled<Roll>) => {
-                existingCallback?.(roll);
+            params.callback = async (...args) => {
+                await existingCallback?.(...args);
                 await weapon.consumeAmmo();
             };
             return true;
@@ -1848,16 +1783,18 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (!changed.system) return super._preUpdate(changed, options, user);
 
         // Clamp level, allowing for level-0 variant rule and enough room for homebrew "mythical" campaigns
-        const newLevel = changed.system.details?.level?.value ?? this.level;
         const attributeChanged =
             !!changed.system.build?.attributes &&
             !R.isEmpty(fu.diffObject(this._source.system.build?.attributes ?? {}, changed.system.build.attributes));
-        if (newLevel !== this.level || attributeChanged) {
-            const level = changed.system.details?.level;
-            if (level) {
-                level.value = Math.clamp(newLevel, 0, 30);
-            }
 
+        const levelData = changed.system.details?.level;
+        if (levelData?.value !== undefined) {
+            if (!Number.isInteger(levelData.value)) levelData.value = 1;
+            levelData.value = Math.clamp(levelData.value, 0, 30);
+        }
+        const newLevel = levelData?.value ?? this.level;
+
+        if (newLevel !== this.level || attributeChanged) {
             // Adjust hit points if level is changing
             const clone = this.clone(changed);
             const hpMaxDifference = clone.hitPoints.max - this.hitPoints.max;
@@ -1920,7 +1857,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     .filter(
                         (feature) =>
                             feature.system.level.value > this.level &&
-                            !current.some((currentFeature) => currentFeature.sourceId === feature.flags.core?.sourceId),
+                            !current.some((cf) => cf.sourceId === feature.sourceId),
                     )
                     .map((i) => i.toObject());
                 await this.createEmbeddedDocuments("Item", classFeaturesToCreate, { keepId: true, render: false });
@@ -1951,6 +1888,9 @@ interface CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocument
     flags: CharacterFlags;
     readonly _source: CharacterSource;
     system: CharacterSystemData;
+
+    getResource(resource: "hero-points" | "mythic-points" | "focus" | "investiture" | "infused-reagents"): ResourceData;
+    getResource(resource: string): ResourceData | null;
 }
 
 interface PrepareStrikeOptions {

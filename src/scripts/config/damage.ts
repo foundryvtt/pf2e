@@ -65,6 +65,7 @@ export {
     damageCategoriesUnique,
     damageRollFlavors,
     damageTypes,
+    energyDamageTypes,
     materialDamageEffects,
     physicalDamageTypes,
 };

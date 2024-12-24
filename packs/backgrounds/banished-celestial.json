@@ -1,0 +1,67 @@
+{
+    "_id": "ySWc2RRRb7jnadSg",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Banished Celestial",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You were once something supernatural—a heavenly agent, grim reaper, immortal phoenix, or demonic tyrant. For some reason, you've been forced to live in a mortal form. You might have been sealed by the holy power of a monk or cruelly betrayed and slain, but most likely, your superiors punished you for your hubris. You can't remember your previous life very well, if you're even aware you were once anything more than you currently are, but you aren't completely forsaken by the powers that once ruled your life. You often find a spark of enlightenment in failure, as fate nudges you to correct the mistakes or tragedies that caused your unmaking.</p>\n<p>You gain two free attribute boosts. You choose one, and the GM chooses the other based on your past life.</p>\n<p>You're trained in any one skill of your choice and any one Lore skill of your choice. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Enlightenment in Adversity] ability.</p>"
+        },
+        "items": {},
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "config": "skills"
+                },
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Enlightenment in Adversity"
+            }
+        ],
+        "trainedSkills": {
+            "lore": [],
+            "value": []
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": []
+        }
+    },
+    "type": "background"
+}

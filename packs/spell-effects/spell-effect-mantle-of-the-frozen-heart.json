@@ -1,0 +1,204 @@
+{
+    "_id": "K8NWxqtnrSg26KPJ",
+    "img": "systems/pf2e/icons/spells/mantle-of-the-frozen-heart.webp",
+    "name": "Spell Effect: Mantle of the Frozen Heart",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Mantle of the Frozen Heart]</p>\n<p>Pick two of the options below. As a single action, which has the concentrate trait, you can change one of your chosen abilities to a different option from the list.</p><ul><li><strong>Chilling Ice</strong> You gain resistance 10 to cold.</li><li><strong>Ice Glide</strong> While moving along a smooth surface, you gain a +20-foot status bonus to your land Speed.</li><li><strong>Icy Claws</strong> Your hands morph into vicious, piercing claws of ice useful for attacking or climbing. As long as you have both hands free, you gain a climb Speed equal to your land Speed. You gain a claw unarmed attack with the agile and finesse traits, in the brawling weapon group. Your claw attack deals 1d6 piercing damage as its base damage, plus an additional 2d6 cold damage.</li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SpellEffectMantle.FrozenHeart.RollOptionLabel.First",
+                "option": "frozen-heart-first",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectMantle.FrozenHeart.Label.ChillingIce",
+                        "value": "chilling-ice"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectMantle.FrozenHeart.Label.HeartOfIce",
+                        "value": "heart-of-ice"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectMantle.FrozenHeart.Label.IceGlide",
+                        "value": "ice-glide"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectMantle.FrozenHeart.Label.IcyClaws",
+                        "value": "icy-claws"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "alwaysActive": true,
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SpellEffectMantle.FrozenHeart.RollOptionLabel.Second",
+                "option": "frozen-heart-second",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectMantle.FrozenHeart.Label.ChillingIce",
+                        "predicate": [
+                            {
+                                "not": "frozen-heart-first:chilling-ice"
+                            }
+                        ],
+                        "value": "chilling-ice"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectMantle.FrozenHeart.Label.HeartOfIce",
+                        "predicate": [
+                            {
+                                "not": "frozen-heart-first:heart-of-ice"
+                            }
+                        ],
+                        "value": "heart-of-ice"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectMantle.FrozenHeart.Label.IceGlide",
+                        "predicate": [
+                            {
+                                "not": "frozen-heart-first:ice-glide"
+                            }
+                        ],
+                        "value": "ice-glide"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectMantle.FrozenHeart.Label.IcyClaws",
+                        "predicate": [
+                            {
+                                "not": "frozen-heart-first:icy-claws"
+                            }
+                        ],
+                        "value": "icy-claws"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "disabledIf": [
+                    {
+                        "nor": [
+                            "frozen-heart-first:ice-glide",
+                            "frozen-heart-second:ice-glide"
+                        ]
+                    }
+                ],
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SpellEffectMantle.FrozenHeart.Label.IceGlideSurface",
+                "option": "ice-glide-active",
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "or": [
+                            "frozen-heart-first:chilling-ice",
+                            "frozen-heart-second:chilling-ice"
+                        ]
+                    }
+                ],
+                "type": "cold",
+                "value": 10
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "ice-glide-active"
+                ],
+                "selector": "land-speed",
+                "type": "status",
+                "value": 20
+            },
+            {
+                "baseType": "claw",
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.claw",
+                "predicate": [
+                    {
+                        "or": [
+                            "frozen-heart-first:icy-claws",
+                            "frozen-heart-second:icy-claws"
+                        ]
+                    }
+                ],
+                "range": null,
+                "traits": [
+                    "unarmed",
+                    "agile",
+                    "finesse",
+                    "magical"
+                ]
+            },
+            {
+                "damageType": "cold",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "or": [
+                            "frozen-heart-first:icy-claws",
+                            "frozen-heart-second:icy-claws"
+                        ]
+                    }
+                ],
+                "selector": "{item|_id}-damage"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "hands-free:2",
+                    {
+                        "or": [
+                            "frozen-heart-first:icy-claws",
+                            "frozen-heart-second:icy-claws"
+                        ]
+                    }
+                ],
+                "selector": "climb-speed",
+                "value": "@actor.attributes.speed.total"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

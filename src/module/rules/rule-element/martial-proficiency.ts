@@ -4,11 +4,12 @@ import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { ProficiencyRank } from "@item/base/data/index.ts";
 import { WeaponCategory } from "@item/weapon/types.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
-import { ZeroToFour } from "@module/data.ts";
-import { PredicateField, StrictStringField } from "@system/schema-data-fields.ts";
+import { OneToFour } from "@module/data.ts";
+import { PredicateField } from "@system/schema-data-fields.ts";
 import { sluggify } from "@util";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
+import fields = foundry.data.fields;
 
 class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySchema> {
     protected static override validActorTypes: ActorType[] = ["character"];
@@ -25,19 +26,19 @@ class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySc
     static override defineSchema(): MartialProficiencySchema {
         return {
             ...super.defineSchema(),
-            kind: new StrictStringField({
+            kind: new fields.StringField({
                 required: true,
                 nullable: false,
                 choices: ["attack", "defense"],
                 initial: "attack",
             }),
             definition: new PredicateField({ required: true, nullable: false }),
-            sameAs: new StrictStringField({
+            sameAs: new fields.StringField({
                 required: false,
                 nullable: false,
                 choices: [...WEAPON_CATEGORIES, ...ARMOR_CATEGORIES],
             }),
-            maxRank: new StrictStringField({
+            maxRank: new fields.StringField({
                 required: false,
                 nullable: false,
                 choices: ["trained", "expert", "master", "legendary"],
@@ -49,7 +50,7 @@ class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySc
     override onApplyActiveEffects(): void {
         if (!this.test()) return;
 
-        const rank = Math.clamp(Number(this.resolveValue(this.value)) || 1, 1, 4) as ZeroToFour;
+        const rank = Math.clamp(Number(this.resolveValue(this.value)) || 1, 1, 4) as OneToFour;
         const key = this.kind === "attack" ? "attacks" : "defenses";
         this.actor.system.proficiencies[key][this.slug] = {
             definition: this.resolveInjectedProperties(this.definition),
@@ -71,13 +72,13 @@ interface MartialProficiencyRuleElement
 
 type MartialProficiencySchema = RuleElementSchema & {
     /** Whether the proficiency is an attack or defense */
-    kind: StrictStringField<"attack" | "defense", "attack" | "defense", true, false, true>;
+    kind: fields.StringField<"attack" | "defense", "attack" | "defense", true, false, true>;
     /** The criteria for matching qualifying weapons and other attacks */
     definition: PredicateField<true, false, false>;
     /** The attack category to which this proficiency's rank is linked */
-    sameAs: StrictStringField<WeaponCategory | ArmorCategory, WeaponCategory | ArmorCategory, false, false, false>;
+    sameAs: fields.StringField<WeaponCategory | ArmorCategory, WeaponCategory | ArmorCategory, false, false, false>;
     /** The maximum rank this proficiency can reach, if any */
-    maxRank: StrictStringField<
+    maxRank: fields.StringField<
         Exclude<ProficiencyRank, "untrained">,
         Exclude<ProficiencyRank, "untrained">,
         false,

@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You align your magical and physical potential. Whenever you succeed at an unarmed Strike against an opponent, they have a -1 status penalty to saves against your spells until the start of your next turn. Whenever you cast a spell using spell slots, you gain a +1 status bonus to attack rolls with your unarmed Strikes until the start of your next turn.</p>"
+            "value": "<p>You align your magical and physical potential. Whenever you succeed at an unarmed Strike against an opponent, they have a -1 status penalty to saves against your spells until the start of your next turn. Whenever you cast a spell using spell slots, you gain a +1 status bonus to attack rolls with your unarmed Strikes until the start of your next turn.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Sixth Pillar Mastery]</p>"
         },
         "level": {
             "value": 14
@@ -28,7 +28,35 @@
             "remaster": false,
             "title": "Pathfinder Fists of the Ruby Phoenix Hardcover Compilation"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "selector": "unarmed-attack-roll",
+                "text": "PF2E.SpecificRule.SixthPillar.SixthPillarMastery.AttackNote",
+                "title": "{item|name}"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:spell-slot"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.SixthPillar.SixthPillarMastery.SpellNote"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Sixth Pillar Mastery]"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

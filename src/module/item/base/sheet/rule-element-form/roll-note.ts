@@ -1,7 +1,8 @@
 import type { NoteRESource, RollNoteRuleElement } from "@module/rules/rule-element/roll-note.ts";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
-import { htmlQuery, tagify } from "@util";
+import { htmlQuery } from "@util/dom.ts";
+import { tagify } from "@util/tags.ts";
 import { RuleElementForm, RuleElementFormSheetData } from "./base.ts";
 
 /** Form handler for the RollNote rule element */
@@ -21,7 +22,7 @@ class RollNoteForm extends RuleElementForm<NoteRESource, RollNoteRuleElement> {
         // Add events for toggle buttons
         htmlQuery(html, "[data-action=toggle-selector]")?.addEventListener("click", () => {
             const selector = this.rule.selector;
-            const newValue = Array.isArray(selector) ? selector.at(0) ?? "" : [selector ?? ""].filter((s) => !!s);
+            const newValue = Array.isArray(selector) ? (selector.at(0) ?? "") : [selector ?? ""].filter((s) => !!s);
             this.updateItem({ selector: newValue });
         });
         const optionsEl = htmlQuery<HTMLTagifyTagsElement>(html, "tagify-tags.outcomes");

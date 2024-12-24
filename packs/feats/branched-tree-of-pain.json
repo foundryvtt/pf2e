@@ -1,0 +1,77 @@
+{
+    "_id": "dfQdJIqngKIX24UV",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Branched Tree of Pain",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Usage</strong> imbued into a weapon ikon that deals piercing or slashing damage</p><hr /><p>The blade of your ikon takes one or more notches, capable of dealing mortal pain to your foes.</p>\n<p><strong>Immanence</strong> When you Strike with the ikon, you critically succeed if you roll a 19 on the die as long as that result would be a success. This has no effect on a 19 if the result would be a failure.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.Plant Thirty Barbs] <span class=\"action-glyph\">1</span> (death, transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.cfQb0mBbyrjhyGf5 inline]</p>"
+        },
+        "level": {
+            "value": 18
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "choices": "flags.pf2e.exemplar.ikons",
+                "flag": "ikon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Plant Thirty Barbs"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "chosen-ikon:{item|flags.pf2e.rulesSelections.ikon}"
+            },
+            {
+                "adjustment": {
+                    "success": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "check:roll:total:natural:19",
+                    "check:outcome:success",
+                    "item:tag:physical-ikon:{item|flags.pf2e.rulesSelections.ikon}",
+                    "divine-spark:{item|flags.pf2e.rulesSelections.ikon}",
+                    {
+                        "or": [
+                            "item:damage:type:piercing",
+                            "item:damage:type:slashing"
+                        ]
+                    }
+                ],
+                "selector": "strike-attack-roll"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "weapon-ikon-feat"
+            ],
+            "rarity": "common",
+            "value": [
+                "exemplar",
+                "ikon"
+            ]
+        }
+    },
+    "type": "feat"
+}

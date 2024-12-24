@@ -1,0 +1,96 @@
+{
+    "_id": "XKON66YXYLXlGPPg",
+    "img": "icons/equipment/chest/breastplate-gorget-steel-purple.webp",
+    "name": "Warleader's Bulwark (Greater)",
+    "system": {
+        "acBonus": 4,
+        "baseItem": "breastplate",
+        "bulk": {
+            "value": 2
+        },
+        "category": "medium",
+        "checkPenalty": -3,
+        "containerId": null,
+        "description": {
+            "value": "<p>This <em>+2 resilient breastplate</em> is made from shining bronze overlaid with reinforcing golden panels emblazoned with images of loyal soldiers. Wearing this breastplate grants you a commanding aura. You gain a +3 item bonus to Diplomacy checks, but you take a -3 item penalty to Stealth checks to @UUID[Compendium.pf2e.actionspf2e.Item.Hide] and @UUID[Compendium.pf2e.actionspf2e.Item.Sneak] and Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Impersonate].</p><hr /><p><strong>Activate—Command Bravery</strong> <span class=\"action-glyph\">1</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> You grant allies within 100 feet a +2 status bonus to saves against fear effects for 1 minute. When you activate this ability, each affected ally who's @UUID[Compendium.pf2e.conditionitems.Item.Frightened] reduces their frightened value by 1.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Command Bravery]</p>"
+        },
+        "dexCap": 1,
+        "group": "plate",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 18
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 22000
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "diplomacy",
+                "type": "item",
+                "value": 3
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:hide",
+                            "action:sneak",
+                            "action:impersonate"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "deception",
+                    "stealth"
+                ],
+                "type": "item",
+                "value": -3
+            }
+        ],
+        "runes": {
+            "potency": 2,
+            "property": [],
+            "resilient": 2
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 2,
+                "property": [],
+                "resilient": 2
+            }
+        },
+        "speedPenalty": -5,
+        "strength": 3,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "invested",
+                "magical"
+            ]
+        }
+    },
+    "type": "armor"
+}

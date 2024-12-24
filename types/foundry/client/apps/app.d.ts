@@ -1,5 +1,7 @@
 export {};
 
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
+
 declare global {
     /** The standard application window that is rendered for a large variety of UI elements in Foundry VTT */
     class Application<TOptions extends ApplicationOptions = ApplicationOptions> {
@@ -346,12 +348,19 @@ declare global {
         /** The CSS selector used to target the content container for these tabs. */
         contentSelector: string;
         /** A callback function which executes when the filter changes. */
-        callback?: Function;
+        callback?: SearchFilterCallback;
         /** The initial value of the search query. */
         initial?: string;
         /** The number of milliseconds to wait for text input before processing. */
         delay?: number;
     }
+
+    type SearchFilterCallback = (
+        event: KeyboardEvent,
+        query: string,
+        rgx?: RegExp,
+        content?: HTMLElement | null,
+    ) => void;
 
     interface ApplicationHeaderButton {
         label: string;

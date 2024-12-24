@@ -26,15 +26,15 @@
         },
         "rules": [
             {
-                "choices": {
-                    "ownedItems": true,
-                    "predicate": [
-                        "item:tag:thaumaturge-implement"
-                    ],
-                    "types": [
-                        "feat"
-                    ]
-                },
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.thaumaturge.paragonChoices",
+                "priority": 10,
+                "value": []
+            },
+            {
+                "adjustName": false,
+                "choices": "flags.pf2e.thaumaturge.adeptChoices",
                 "flag": "implementAdept",
                 "key": "ChoiceSet"
             },
@@ -44,6 +44,10 @@
                 "mode": "add",
                 "property": "other-tags",
                 "value": "thaumaturge-implement-adept"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.implementAdept}"
             }
         ],
         "traits": {

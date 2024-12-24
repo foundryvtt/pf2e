@@ -1,0 +1,83 @@
+{
+    "_id": "Q0A9V0zoY7MMXEqE",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Destined Victory",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Usage</strong> imbued into a worn ikon</p><hr /><p>You demand a battle against your chosen enemy. The imbued ikon gains the following abilities.</p>\n<p><strong>Immanence</strong> Whenever an enemy successfully Strikes you with a melee weapon, you gain a +2 status bonus to your AC against the next attack from that enemy before the start of your next turn.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.Only You and I] <span class=\"action-glyph\">1</span> (concentrate, transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.8r9ePG6BnrnO6YE1 inline]</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "choices": "flags.pf2e.exemplar.ikons",
+                "flag": "ikon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Only You and I"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "chosen-ikon:{item|flags.pf2e.rulesSelections.ikon}"
+            },
+            {
+                "key": "RollOption",
+                "option": "destined-victory",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "destined-victory"
+                ],
+                "selector": "ac",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "divine-spark:{item|flags.pf2e.rulesSelections.ikon}"
+                ],
+                "selectors": [
+                    "melee-strike-attack-roll"
+                ],
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Destined Victory (Note)"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "worn-ikon-feat"
+            ],
+            "rarity": "common",
+            "value": [
+                "exemplar",
+                "ikon"
+            ]
+        }
+    },
+    "type": "feat"
+}

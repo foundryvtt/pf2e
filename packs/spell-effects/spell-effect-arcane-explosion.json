@@ -1,0 +1,64 @@
+{
+    "_id": "T0eQfYKgejJqZiBA",
+    "img": "icons/magic/fire/explosion-fireball-large-purple-pink.webp",
+    "name": "Spell Effect: Arcane Explosion",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Arcane Explosion]</p>\n<p>You gain the incorporeal trait, are immune to disease, poison, and precision damage, and gain resistance to all damage equal to your level (except force damage, spirit damage, and damage from Strikes with the <em>ghost touch</em> property rune), with double the resistance against non-magical damage.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "add": [
+                    "incorporeal"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "key": "Immunity",
+                "type": [
+                    "disease",
+                    "poison",
+                    "precision"
+                ]
+            },
+            {
+                "doubleVs": [
+                    "non-magical"
+                ],
+                "exceptions": [
+                    "force",
+                    "ghost-touch",
+                    "spirit"
+                ],
+                "key": "Resistance",
+                "type": "all-damage",
+                "value": "@actor.level"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

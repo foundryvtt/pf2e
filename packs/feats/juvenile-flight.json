@@ -30,12 +30,15 @@
         },
         "rules": [
             {
-                "key": "BaseSpeed",
+                "key": "FlatModifier",
                 "predicate": [
-                    "fledgling-flight"
+                    "fledgling-flight",
+                    {
+                        "not": "feat:fully-flighted"
+                    }
                 ],
-                "selector": "fly",
-                "value": 25
+                "selector": "fly-speed",
+                "value": 10
             }
         ],
         "selfEffect": {

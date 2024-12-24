@@ -1,0 +1,64 @@
+{
+    "_id": "e7nTmdVOcaVkn2Q9",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Deflecting Jewel",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> You're the target of a ranged attack while you possess your head gem.</p>\n<p><strong>Requirements</strong> You're aware of the triggering attack.</p><hr /><p>You walk the line between two sides of something, such as belonging to two clans, having a mixed allegiance or faith, or being caught between two possible fates. Your dual nature has attuned your head gem to the half moon, and it has manifested the power to ward away attacks by drawing a line between them and you. You gain a +2 circumstance bonus to AC against the triggering attack.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "PT1H"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "has-sarangay-head-gem"
+                    }
+                ],
+                "disabledValue": false,
+                "domain": "ac",
+                "key": "RollOption",
+                "option": "deflecting-jewel",
+                "priority": 51,
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "deflecting-jewel"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "occult",
+                "sarangay"
+            ]
+        }
+    },
+    "type": "feat"
+}

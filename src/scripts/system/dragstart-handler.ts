@@ -56,7 +56,7 @@ export function extendDragData(): void {
                     roll: roll
                         ? {
                               total: roll.total,
-                              degreeOfSuccess: roll instanceof CheckRoll ? roll.degreeOfSuccess ?? null : null,
+                              degreeOfSuccess: roll instanceof CheckRoll ? (roll.degreeOfSuccess ?? null) : null,
                           }
                         : null,
                 };

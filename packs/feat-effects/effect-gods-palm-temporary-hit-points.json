@@ -1,0 +1,41 @@
+{
+    "_id": "KqyxpiGpEuju3d4z",
+    "img": "icons/magic/holy/prayer-hands-glowing-yellow-green.webp",
+    "name": "Effect: God's Palm (Temporary Hit Points)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Gods' Palm]</p>\n<p>You gain temporary Hit Points equal to half your level.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "floor(@actor.level/2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

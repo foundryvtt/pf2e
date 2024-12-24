@@ -1,7 +1,7 @@
 {
     "_id": "ABx8keV4c43gEmeN",
     "img": "icons/sundries/books/book-red-exclamation.webp",
-    "name": "Pierce The Light",
+    "name": "Pierce the Light",
     "system": {
         "actionType": {
             "value": "passive"
@@ -24,7 +24,30 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Ancestry Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:interplanar-teleport",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:interplanar-teleport",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:fetchling"
+            }
+        ],
         "traits": {
             "rarity": "uncommon",
             "value": [

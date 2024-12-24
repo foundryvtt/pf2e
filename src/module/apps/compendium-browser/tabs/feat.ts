@@ -1,13 +1,14 @@
-import { isObject, sluggify } from "@util";
+import { sluggify } from "@util";
+import * as R from "remeda";
+import { CompendiumBrowser } from "../browser.ts";
 import { ContentTabName } from "../data.ts";
-import { CompendiumBrowser } from "../index.ts";
-import { CompendiumBrowserTab } from "./base.ts";
-import { CompendiumBrowserIndexData, FeatFilters, MultiselectData } from "./data.ts";
+import { CompendiumBrowserTab } from "./base.svelte.ts";
+import { CompendiumBrowserIndexData, FeatFilters, TraitData } from "./data.ts";
 
 export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "feat";
-    filterData: FeatFilters;
-    templatePath = "systems/pf2e/templates/compendium-browser/partials/feat.hbs";
+    tabLabel = "PF2E.CompendiumBrowser.TabFeat";
+    declare filterData: FeatFilters;
 
     /* MiniSearch */
     override searchFields = ["name", "originalName"];
@@ -64,7 +65,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
 
                     // Accommodate deprecated featType objects
                     const featType: unknown = featData.system.featType;
-                    if (isObject(featType) && "value" in featType && typeof featType.value === "string") {
+                    if (R.isPlainObject(featType) && "value" in featType && typeof featType.value === "string") {
                         featData.system.category = featType.value;
                         delete featData.system.featType;
                     }
@@ -116,16 +117,16 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
         this.filterData.checkboxes.category.options = this.generateCheckboxOptions(CONFIG.PF2E.featCategories);
         this.filterData.checkboxes.skills.options = this.generateCheckboxOptions(CONFIG.PF2E.skills);
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits);
-        this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
-        this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.featTraits);
+        this.filterData.source.options = this.generateSourceCheckboxOptions(publications);
+        this.filterData.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.featTraits);
 
         console.debug("PF2e System | Compendium Browser | Finished loading feats");
     }
 
     protected override filterTraits(
         traits: string[],
-        selected: MultiselectData["selected"],
-        condition: MultiselectData["conjunction"],
+        selected: TraitData["selected"],
+        condition: TraitData["conjunction"],
     ): boolean {
         // Pre-filter the selected traits if the current ancestry item has no ancestry traits
         if (
@@ -139,10 +140,10 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
     }
 
     protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
-        const { checkboxes, multiselects, sliders } = this.filterData;
+        const { checkboxes, source, traits, level } = this.filterData;
 
         // Level
-        if (!(entry.level >= sliders.level.values.min && entry.level <= sliders.level.values.max)) return false;
+        if (!(entry.level >= level.from && entry.level <= level.to)) return false;
         // Feat types
         if (checkboxes.category.selected.length) {
             if (!checkboxes.category.selected.includes(entry.category)) return false;
@@ -152,11 +153,10 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
             if (!this.arrayIncludes(checkboxes.skills.selected, entry.skills)) return false;
         }
         // Traits
-        if (!this.filterTraits(entry.traits, multiselects.traits.selected, multiselects.traits.conjunction))
-            return false;
+        if (!this.filterTraits(entry.traits, traits.selected, traits.conjunction)) return false;
         // Source
-        if (checkboxes.source.selected.length) {
-            if (!checkboxes.source.selected.includes(entry.source)) return false;
+        if (source.selected.length) {
+            if (!source.selected.includes(entry.source)) return false;
         }
         // Rarity
         if (checkboxes.rarity.selected.length) {
@@ -170,57 +170,50 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
             checkboxes: {
                 category: {
                     isExpanded: false,
-                    label: "PF2E.BrowserFilterCategory",
+                    label: "PF2E.CompendiumBrowser.Filter.Categories",
                     options: {},
                     selected: [],
                 },
                 skills: {
                     isExpanded: false,
-                    label: "PF2E.BrowserFilterSkills",
+                    label: "PF2E.SkillsLabel",
                     options: {},
                     selected: [],
                 },
                 rarity: {
                     isExpanded: false,
-                    label: "PF2E.BrowserFilterRarities",
-                    options: {},
-                    selected: [],
-                },
-                source: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterSource",
+                    label: "PF2E.CompendiumBrowser.Filter.Rarities",
                     options: {},
                     selected: [],
                 },
             },
-            multiselects: {
-                traits: {
-                    conjunction: "and",
-                    label: "PF2E.BrowserFilterTraits",
-                    options: [],
-                    selected: [],
-                },
+            source: {
+                isExpanded: false,
+                label: "PF2E.CompendiumBrowser.Filter.Source",
+                options: {},
+                selected: [],
+            },
+            traits: {
+                conjunction: "and",
+                options: [],
+                selected: [],
             },
             order: {
                 by: "level",
                 direction: "asc",
                 options: {
-                    name: "Name",
-                    level: "PF2E.LevelLabel",
+                    name: { label: "Name", type: "alpha" },
+                    level: { label: "PF2E.LevelLabel", type: "numeric" },
                 },
+                type: "numeric",
             },
-            sliders: {
-                level: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterLevels",
-                    values: {
-                        lowerLimit: 0,
-                        upperLimit: 20,
-                        min: 0,
-                        max: 20,
-                        step: 1,
-                    },
-                },
+            level: {
+                changed: false,
+                isExpanded: false,
+                min: 0,
+                max: 20,
+                from: 0,
+                to: 20,
             },
             search: {
                 text: "",

@@ -1,6 +1,6 @@
 import type { CreaturePF2e } from "@actor";
+import { eventToRollParams } from "@module/sheet/helpers.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 
 export async function stealthForSelected(event: JQuery.ClickEvent): Promise<void> {
     const actors = canvas.tokens.controlled

@@ -1,10 +1,10 @@
 {
     "_id": "EjLVjt3GMeHM0Ai3",
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "icons/sundries/gaming/rune-card.webp",
     "name": "Effect: Ghostcaller's Planchette - Armor",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Ghostcaller's Planchette]</p>\n<p>After you cast a necromancy spell by activating the <em>planchette</em>, you gain resistance 5 to all physical damage (except <em>ghost touch</em>) until the start of your next turn. Attacks by incorporeal creatures (such as a ghost's ghostly hand) count as <em>ghost touch</em>.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Ghostcaller's Planchette], @UUID[Compendium.pf2e.equipment-srd.Item.Ghostcaller's Planchette (Greater)]</p>\n<p>You gain resistance to all physical damage (except <em>ghost touch</em>). Attacks by incorporeal creatures (such as a ghost's ghostly hand) count as <em>ghost touch</em>.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,12 +22,72 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:ghostcallers-planchette",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Ghostcaller's Planchette"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:ghostcallers-planchette-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Ghostcaller's Planchette (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "ghostcallers-planchette"
+            },
+            {
                 "exceptions": [
-                    "ghost-touch"
+                    "ghost-touch",
+                    {
+                        "definition": [
+                            "origin:trait:incorporeal"
+                        ],
+                        "label": "PF2E.IWR.Custom.IncorporealCreatures"
+                    }
                 ],
                 "key": "Resistance",
+                "predicate": [
+                    "ghostcallers-planchette:ghostcallers-planchette"
+                ],
                 "type": "physical",
                 "value": 5
+            },
+            {
+                "exceptions": [
+                    "ghost-touch",
+                    {
+                        "definition": [
+                            "origin:trait:incorporeal"
+                        ],
+                        "label": "PF2E.IWR.Custom.IncorporealCreatures"
+                    }
+                ],
+                "key": "Resistance",
+                "predicate": [
+                    "ghostcallers-planchette:ghostcallers-planchette-greater"
+                ],
+                "type": "physical",
+                "value": 10
             }
         ],
         "start": {

@@ -1,0 +1,81 @@
+{
+    "_id": "ogzkGtUR9vMt47ts",
+    "img": "icons/skills/melee/sword-damaged-broken-orange.webp",
+    "name": "Effect: Crash Against Me",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Crash Against Me]</p>\n<p>You have resistance equal to your level to the chosen damage type.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitBludgeoning",
+                        "predicate": [
+                            "skin-hard-as-horn:bludgeoning"
+                        ],
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitPiercing",
+                        "predicate": [
+                            "skin-hard-as-horn:piercing"
+                        ],
+                        "value": "piercing"
+                    },
+                    {
+                        "label": "PF2E.TraitSlashing",
+                        "predicate": [
+                            "skin-hard-as-horn:slashing"
+                        ],
+                        "value": "slashing"
+                    }
+                ],
+                "flag": "resistance",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.resistance}",
+                "value": "@actor.level"
+            },
+            {
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "item:damage:type:{item|flags.pf2e.rulesSelections.resistance}"
+                ],
+                "selectors": [
+                    "strike-attack-roll",
+                    "strike-damage"
+                ],
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Crash Against Me (Note)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

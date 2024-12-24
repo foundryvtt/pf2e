@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Trigger</strong> You attempt a saving throw, but you haven't rolled yet.</p>\n<hr />\n<p>When danger calls, you have a strange knack for coming out on top. You gain a +2 circumstance bonus to the triggering save.</p>"
+            "value": "<p><strong>Trigger</strong> You attempt a saving throw, but you haven't rolled yet.</p><hr /><p>When danger calls, you have a strange knack for coming out on top. You gain a +2 circumstance bonus to the triggering save. If you succeed on the triggering saving throw, you gain @UUID[Compendium.pf2e.feat-effects.Item.Effect: Panache]{Panache} until the end of your next turn.</p>"
         },
         "level": {
             "value": 2
@@ -24,15 +24,14 @@
             ]
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "Use Charmed Life",
                 "option": "charmed-life",
                 "toggleable": true
             },
@@ -44,6 +43,19 @@
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 2
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "charmed-life"
+                ],
+                "selector": "saving-throw",
+                "text": "PF2E.SpecificRule.Swashbuckler.PanacheFailure",
+                "title": "{item|name}"
             }
         ],
         "traits": {

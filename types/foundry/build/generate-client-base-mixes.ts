@@ -73,7 +73,7 @@ const genClientBase = (
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): ${hasSheet ? "DocumentSheet<this> | DocumentSheetV2<this> " : "null"};
+    get sheet(): ${hasSheet ? "DocumentSheet<this> | DocumentSheetV2<DocumentSheetConfiguration<this>>" : "null"};
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.

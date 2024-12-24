@@ -1,0 +1,53 @@
+{
+    "_id": "YoDvQ5fvpbgcoG3V",
+    "folder": "HSPsB9iHmfvgyxRE",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Deny the Traitor's Rebirth",
+    "system": {
+        "ancestry": {
+            "name": "Yaksha",
+            "slug": "yaksha",
+            "uuid": "Compendium.pf2e.ancestries.Item.k3zyr6du4gV0Ftuh"
+        },
+        "description": {
+            "value": "<p>You swore a vow to deliver others from rakshasas and asuras, whom yaksha legends have condemned as corrupted kin. To counter their shadowy schemes, your vow grants you darkvision and a +1 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] or @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive]{Sense the Motives} of rakshasas and asuras.</p><hr /><p><strong>Additional Edict</strong> confront rakshasas and asuras you come across (as long as you have a reasonable chance of success); in the unlikely event you find a benevolent rakshasa or asura, you don't have to confront them</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "Sense",
+                "selector": "darkvision"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "target:trait:asura",
+                            "target:trait:rakshasa"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "action:seek",
+                            "action:sense-motive"
+                        ]
+                    }
+                ],
+                "selector": "perception",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "yaksha"
+            ]
+        }
+    },
+    "type": "heritage"
+}

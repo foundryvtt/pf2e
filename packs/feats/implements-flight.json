@@ -24,7 +24,16 @@
             "remaster": false,
             "title": "Pathfinder Dark Archive"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "implement-held"
+                ],
+                "selector": "fly",
+                "value": "@actor.attributes.speed.total"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

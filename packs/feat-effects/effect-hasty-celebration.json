@@ -1,0 +1,59 @@
+{
+    "_id": "J8WkLtuY0RpcjI8q",
+    "img": "icons/tools/instruments/drum-snare-red.webp",
+    "name": "Effect: Hasty Celebration",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Hasty Celebration]</p>\n<p>You grant all allies within 60 feet a +2 circumstance bonus to attack rolls and damage, and you're @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to all enemies.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "self:signature:{item|origin.signature}"
+                    }
+                ],
+                "selector": [
+                    "attack-roll",
+                    "damage"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

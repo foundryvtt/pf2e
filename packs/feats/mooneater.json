@@ -1,0 +1,64 @@
+{
+    "_id": "FKS9nLz07v9x49sE",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Mooneater",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You call on the spirit of the dragon that devoured the moon to temporarily swallow a celestial body and blind onlookers with its visage. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Eclipse Burst] as a primal innate spell once per day. When you Cast the Spell, the sun or moon appears to eclipse to all creatures within 500 feet of you. For 1 round after Casting the Spell, the area is reduced to dim light.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "bakuwa lizardfolk heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:eclipse-burst",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:eclipse-burst",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:lizardfolk"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "lizardfolk",
+                "primal"
+            ]
+        }
+    },
+    "type": "feat"
+}

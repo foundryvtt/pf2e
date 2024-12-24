@@ -4,7 +4,7 @@
     "name": "Effect: Boulderhead Bock",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Boulderhead Bock].</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Boulderhead Bock].</p>\n<p>You gain a +1 item bonus to saving throws against effects that would make you stunned or stupefied.</p>\n<p>You take a -2 item penalty to Perception checks.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -26,8 +26,8 @@
                 "predicate": [
                     {
                         "or": [
-                            "stunned",
-                            "stupefied"
+                            "inflicts:stunned",
+                            "inflicts:stupefied"
                         ]
                     }
                 ],

@@ -1,98 +1,276 @@
 <div class="tab crafting crafting-pane" data-group="primary" data-tab="crafting">
-    <div class="crafting-options item-list">
-        <div class="crafting-option item" data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
-            <label>
-                <input type="checkbox" name="flags.pf2e.freeCrafting" {{checked actor.flags.pf2e.freeCrafting}} />
-                <span>{{localize "PF2E.CraftingTab.ToggleFreeCrafting"}}</span>
-            </label>
-        </div>
-        {{#if crafting.hasQuickAlchemy}}
+    {{#if crafting.hasQuickAlchemy}}
+        <div class="crafting-options item-list">
             <div class="crafting-option item" data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
                 <label>
                     <input type="checkbox" name="flags.pf2e.quickAlchemy" {{checked actor.flags.pf2e.quickAlchemy}} />
                     <span>{{localize "PF2E.CraftingTab.ToggleQuickAlchemy"}}</span>
                 </label>
             </div>
-        {{/if}}
-    </div>
+        </div>
+    {{/if}}
     <ol class="directory-list item-list crafting-entry-list">
-        {{> "systems/pf2e/templates/actors/crafting-entry-list.hbs" craftingEntries=crafting.entries}}
-        <li class="known-formulas item-container" data-container-type="knownFormulas">
-            <div class="action-header">{{localize "PF2E.FormulaKnownTitle"}}</div>
-            <ol class="directory-list item-list formula-list">
-                {{!-- Add section for each formula level --}}
-                {{#each crafting.knownFormulas as |section lvl|}}
-                    <li class="formula-level-header formula-header" data-item-type="formulaLevel" data-level="{{lvl}}">
-                        <div class="level-name flexrow">
-                            <h3>{{localize "PF2E.LevelN" level=lvl}}</h3>
+        {{#if crafting.abilities.alchemical.entries}}
+            <li class="crafting-entry item-container" data-container-type="craftingEntryGroup">
+                <div class="action-header">{{localize "PF2E.CraftingTab.Alchemical.AdvancedAlchemy"}}</div>
+                <ol class="directory-list item-list formula-list">
+                    {{> resourceRow resource=crafting.abilities.alchemical.resource resourceCost=crafting.abilities.alchemical.resourceCost}}
+                    {{#each crafting.abilities.alchemical.entries as |ability|}}
+                        <li class="crafting-entry item-container alchemical-entry" data-container-type="craftingEntry" data-ability="{{ability.slug}}">
+                            <div class="action-header alchemical-title">{{ability.label}}</div>
+
+                            <ol class="directory-list item-list formula-list">
+                                <li class="formula-header resource">
+                                    <div class="item-name reagent-cost">
+                                        <h3>{{localize "PF2E.CraftingTab.Alchemical.ReagentCost"}}:</h3>
+                                        <span class="formula-number">{{ability.resourceCost}}</span>
+                                    </div>
+
+                                    <div class="item-name reagent-resource">
+                                        <h3>{{localize "PF2E.CraftingTab.Alchemical.AdvancedAlchemyLevel"}}:</h3>
+                                        <span class="formula-number">{{ability.maxItemLevel}}</span>
+                                    </div>
+                                </li>
+
+                                {{#each ability.prepared as |formula|}}
+                                    {{> preparedFormula ability=ability formula=formula}}
+                                {{/each}}
+                                {{#unless ability.prepared}}
+                                    <li class="formula-header empty">
+                                        <h4>{{localize "PF2E.FormulaListEmpty"}}</h4>
+                                    </li>
+                                {{/unless}}
+                            </ol>
+                        </li>
+                    {{/each}}
+                </ol>
+            </li>
+        {{/if}}
+        {{#each crafting.abilities.prepared as |ability i|}}
+            <li class="crafting-entry item-container item" data-container-type="craftingEntry" data-ability="{{ability.slug}}">
+                <div class="action-header">
+                    <h3 class="item-name hide-container-toggle title">
+                        {{ability.label}}
+                        {{#if ability.insufficient}}
+                            <i class="fa-solid fa-warning" data-tooltip="PF2E.Actor.Character.Crafting.MissingResource"></i>
+                        {{/if}}
+                    </h3>
+                    <span class="level">{{localize "PF2E.LevelN" level=ability.maxItemLevel}}</span>
+                </div>
+                <ol class="directory-list item-list formula-list">
+                    {{#if ability.resource}}
+                        {{> resourceRow resource=ability.resource resourceCost=ability.resourceCost}}
+                    {{/if}}
+                    {{#each ability.prepared as |formula|}}
+                        {{> preparedFormula ability=ability formula=formula}}
+                    {{/each}}
+                    {{#if remainingSlots}}
+                        <li class="formula-item empty">
+                            <a data-action="prepare-formula">
+                                <i class="fa-solid fa-plus"></i>
+                                {{localize "PF2E.Actor.Character.Crafting.RemainingSlots" remaining=remainingSlots}}
+                            </a>
+                        </li>
+                    {{else if (and ability.resource (not ability.prepared.length))}}
+                        <li class="formula-header empty">
+                            <h4>{{localize "PF2E.FormulaListEmpty"}}</h4>
+                        </li>
+                    {{/if}}
+                </ol>
+            </li>
+        {{/each}}
+        {{#if crafting.hasDailyCrafting}}
+            <li class="crafting-entry item-container item">
+                <button
+                    type="button"
+                    class="perform-daily blue"
+                    data-action="perform-daily-crafting"
+                    {{disabled crafting.dailyCraftingComplete}}
+                >{{localize "PF2E.Actor.Character.Crafting.Daily.Perform"}}</button>
+
+                <button
+                    type="button"
+                    class="blue"
+                    data-action="reset-daily-crafting"
+                    {{disabled (not crafting.dailyCraftingComplete)}}
+                ><i class="fa-solid fa-redo"></i>{{localize "Reset"}}</button>
+            </li>
+        {{/if}}
+    </ol>
+    <section class="major item-container known-formulas" data-container-type="knownFormulas">
+        <header>
+            {{localize "PF2E.FormulaKnownTitle"}}
+            <div class="controls">
+                <button type="button" data-action="toggle-free-crafting" data-tooltip="PF2E.Actor.Character.Crafting.FreeCraftingTooltip">
+                    <input type="checkbox" {{checked actor.flags.pf2e.freeCrafting}} />
+                    {{localize "PF2E.Actor.Character.Crafting.FreeCrafting"}}
+                </button>
+                <button type="button" data-action="browse-equipment" data-action-type="{{sid}}">
+                    <i class="fa-solid fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
+                </button>
+            </div>
+        </header>
+        <ol class="directory-list item-list formula-list">
+            {{!-- Add section for each formula level --}}
+            {{#each crafting.knownFormulas as |section|}}
+                <li class="formula-level-header formula-header" data-item-type="formulaLevel" data-level="{{section.level}}">
+                    <div class="item-name flexrow">
+                        <h3>{{localize "PF2E.LevelN" level=section.level}}</h3>
+                    </div>
+
+                    <div class="formula-dc-header">{{localize "PF2E.CraftDCTitle"}}</div>
+                    <div class="formula-cost-header">{{localize "PF2E.Actor.Character.Crafting.Cost"}}</div>
+                    <div class="formula-quantity-header">{{localize "PF2E.CraftingTab.CraftQuantityTitle"}}</div>
+
+                    {{!-- Exists only due to localization reasons regarding a resizing button. We hide this button--}}
+                    <button type="button" class="craft blue invisible">
+                        {{#if @root.actor.flags.pf2e.freeCrafting}}
+                            <i class="fa-solid fa-plus"></i>
+                            {{localize "PF2E.CreateLabelUniversal"}}
+                        {{else}}
+                            <i class="fa-solid fa-hammer"></i>
+                            {{localize "PF2E.CraftItemTitle"}}
+                        {{/if}}
+                    </button>
+
+                    {{#if @root.editable}}
+                        <div class="item-controls">
+                            <a data-action="browse-equipment" data-tooltip="PF2E.OpenInventoryBrowser" data-level="{{section.level}}"><i class="fa-solid fa-fw fa-search"></i></a>
+                        </div>
+                    {{/if}}
+                </li>
+                {{!-- Add formula items for each formula level --}}
+                {{#each section.formulas as |formula i|}}
+                    <li class="item formula-item" data-formula-lvl="{{section.level}}" data-item-uuid="{{formula.uuid}}" data-is-formula>
+                        <div class="name item-name">
+                            <a class="item-image framed" data-action="formula-to-chat">
+                                <img class="item-icon" src="{{formula.item.img}}" alt="{{formula.item.name}}">
+                                <i class="fa-solid fa-message"></i>
+                            </a>
+                            <h4 class="name"><a data-action="toggle-summary">{{formula.item.name}}</a></h4>
                         </div>
 
-                        <div class="formula-dc-header">{{localize "PF2E.CraftDCTitle"}}</div>
-                        <div class="formula-cost-header">{{localize "PF2E.Actor.Character.Crafting.Cost"}}</div>
-                        <div class="formula-quantity-header">{{localize "PF2E.CraftingTab.CraftQuantityTitle"}}</div>
+                        <div class="dc">{{formula.dc}}</div>
+                        <div class="cost">{{coinLabel formula.cost}}</div>
+                        <div class="quantity">
+                            <a class="adjust decrease" data-action="decrease-craft-quantity">&ndash;</a>
+                            <input type="number" data-craft-quantity value="{{#if @root.crafting.noCost}}{{formula.item.system.price.per}}{{else}}{{formula.batchSize}}{{/if}}" />
+                            <a class="adjust increase" data-action="increase-craft-quantity">+</a>
+                        </div>
+
+                        <button type="button" class="craft blue" data-action="craft-item">
+                            {{#if @root.actor.flags.pf2e.freeCrafting}}
+                                <i class="fa-solid fa-plus"></i>
+                                {{localize "PF2E.Actor.Character.Crafting.Create"}}
+                            {{else}}
+                                <i class="fa-solid fa-hammer"></i>
+                                {{localize "PF2E.CraftItemTitle"}}
+                            {{/if}}
+                        </button>
 
                         {{#if @root.editable}}
                             <div class="item-controls">
-                                <a data-action="browse-equipment" data-tooltip="PF2E.OpenInventoryBrowser" data-level="{{lvl}}"><i class="fa-solid fa-fw fa-search"></i></a>
+                                <a
+                                    data-action="delete-formula"
+                                    data-tooltip="PF2E.DeleteItemTitle"
+                                ><i class="fa-solid fa-fw fa-trash"></i></a>
                             </div>
                         {{/if}}
+
+                        <div class="item-summary" hidden></div>
                     </li>
-                    {{!-- Add formula items for each formula level --}}
-                    {{#each section as |craftedItem i|}}
-                        <li class="item formula-item" data-formula-lvl="{{lvl}}" data-item-uuid="{{craftedItem.uuid}}" data-is-formula>
-                            <div class="item-name">
-                                <a class="item-image framed" data-action="formula-to-chat">
-                                    <img class="item-icon" src="{{craftedItem.img}}" alt="{{craftedItem.name}}">
-                                    <i class="fa-solid fa-message"></i>
-                                </a>
-                                <h4 class="name"><a data-action="toggle-summary">{{craftedItem.name}}</a></h4>
-                            </div>
-
-                            <div class="dc">{{craftedItem.dc}}</div>
-                            <div class="cost">{{coinLabel craftedItem.cost}}</div>
-                            <div class="quantity">
-                                <a class="adjust decrease" data-action="decrease-craft-quantity">&ndash;</a>
-                                <input type="number" class="formula-number" data-craft-quantity value="{{#if @root.crafting.noCost}}{{craftedItem.minimumBatchSize}}{{else}}{{craftedItem.batchSize}}{{/if}}" />
-                                <a class="adjust increase" data-action="increase-craft-quantity">+</a>
-                            </div>
-
-                            {{#if @root.editable}}
-                                <div class="item-controls">
-                                    {{#if (or @root.crafting.entries.alchemical.entries.length @root.crafting.entries.other.length)}}
-                                        <a
-                                            data-action="quick-add-formula"
-                                            data-tooltip="PF2E.CraftingTab.QuickAddTitle"
-                                        ><i class="fa-solid fa-fw fa-arrow-up-from-bracket"></i></a>
-                                    {{/if}}
-                                    <a
-                                        data-action="craft-item"
-                                        data-tooltip="PF2E.CraftItemTitle"
-                                    ><i class="fa-solid fa-fw fa-hammer"></i></a>
-                                    {{#if craftedItem.deletable}}
-                                        <a
-                                            data-action="delete-formula"
-                                            data-tooltip="PF2E.DeleteItemTitle"
-                                        ><i class="fa-solid fa-fw fa-trash"></i></a>
-                                    {{else}}
-                                        <span class="disabled" data-tooltip="PF2E.CraftingTab.UndeletableTooltip"><i class="fa-solid fa-fw fa-trash"></i></span>
-                                    {{/if}}
-                                </div>
-                            {{/if}}
-
-                            <div class="item-summary" hidden></div>
-                        </li>
-                    {{/each}}
-                {{else}}
-                    {{#if @root.editable}}
-                        <li class="formula-header empty">
-                            <h4>{{localize "PF2E.FormulaListEmpty"}}</h4>
-                            <button type="button" class="blue" data-action="browse-equipment" data-level="{{lvl}}">
-                                <i class="fa-solid fa-fw fa-search"></i>{{localize "PF2E.OpenInventoryBrowser"}}
-                            </a>
-                        </li>
-                    {{/if}}
                 {{/each}}
-            </ol>
-        </li>
-    </ol>
+            {{else if @root.editable}}
+                <li class="empty">
+                    <h4>{{localize "PF2E.FormulaListEmpty"}}</h4>
+                </li>
+            {{/each}}
+        </ol>
+    </section>
 </div>
+
+{{#*inline "resourceRow"}}
+    <li class="formula-header resource">
+        <div class="item-name reagent-cost">
+            <h3>{{localize "PF2E.CraftingTab.Alchemical.TotalCost"}}:</h3>
+            <div class="formula-number">{{resourceCost}}</div>
+        </div>
+
+        <div class="item-name reagent-resource">
+            <h3>{{localize resource.label}}:</h3>
+            <input
+                class="formula-number"
+                type="number"
+                data-action="adjust-resource"
+                data-resource="{{resource.slug}}"
+                value="{{resource.value}}"
+                placeholder="0"
+            />
+            <h3>/</h3>
+            <div class="formula-number">
+                {{resource.max}}
+            </div>
+        </div>
+    </li>
+{{/inline}}
+
+{{#*inline "preparedFormula"}}
+    <li
+        class="item formula-item"
+        data-item-uuid="{{formula.uuid}}"
+        data-item-type="formula"
+        {{#if formula.expended}}data-expended-state="true"{{/if}}
+        data-item-index={{@key}}
+        data-ability="{{ability.slug}}"
+        data-is-formula
+    >
+        <div class="item-name">
+            <a class="item-image framed" data-action="formula-to-chat">
+                <img class="item-icon" src="{{formula.item.img}}" />
+                <i class="fa-solid fa-message"></i>
+            </a>
+            <h4 class="name"><a data-action="toggle-summary">{{formula.item.name}}</a></h4>
+        </div>
+        <div class="dc"></div>
+        <div class="cost"></div>
+        <div class="quantity">
+            {{#if (or ability.resource ability.isDailyPrep)}}
+                <a class="adjust decrease" data-action="decrease-craft-quantity">&ndash;</a>
+                <input type="number" data-craft-quantity value="{{formula.quantity}}" />
+                <a class="adjust increase" data-action="increase-craft-quantity">+</a>
+            {{else}}
+                {{localize "PF2E.Actor.Character.Crafting.BatchQuantity" quantity=formula.quantity}}
+            {{/if}}
+        </div>
+
+        {{#if @root.editable}}
+            <div class="item-controls">
+                {{#if ability.isAlchemical}}
+                    <a
+                        data-action="toggle-signature-item"
+                        data-tooltip="PF2E.CraftingTab.Alchemical.ToggleSignatureItem"
+                    ><i class="fa-{{#if formula.isSignatureItem}}solid{{else}}regular{{/if}} fa-star"></i></a>
+                {{else if ability.isPrepared}}
+                    {{#unless formula.expended}}
+                        <a
+                            data-action="craft-item"
+                            data-free="true"
+                            data-prepared="true"
+                            data-tooltip="PF2E.CraftItemTitle"
+                        ><i class="fa-solid fa-hammer"></i></a>
+                    {{/unless}}
+                    <a
+                        data-action="toggle-formula-expended"
+                        data-tooltip="PF2E.CraftingTab.ExpendFormula"
+                    ><i class="fa-solid fa-minus-square"></i></a>
+                {{/if}}
+                <a
+                    data-action="unprepare-formula"
+                    data-tooltip="PF2E.UnprepareItemTitle"
+                ><i class="fa-solid fa-trash"></i></a>
+            </div>
+        {{/if}}
+
+        <div class="item-summary" hidden></div>
+    </li>
+{{/inline}}

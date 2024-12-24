@@ -1,0 +1,59 @@
+{
+    "_id": "8M7iQfVBRuucR6hJ",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Sword-Light Wave",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You channel spiritual energy through your weapon, unleashing it as a torrent of devastating power. Make a ranged Strike against an opponent within 60 feet using a one-handed, agile, or finesse melee weapon, or your fist unarmed attack. The attack is made at your normal proficiency with the chosen weapon or fist unarmed attack and has the same traits, damage dice, and runes, but all damage dealt by the attack is spirit damage.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Spirit Warrior Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SpiritWarrior.SpiritDamage",
+                "option": "spirit-warrior-spirit-damage",
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "spirit-warrior-spirit-damage"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "value": "spirit"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

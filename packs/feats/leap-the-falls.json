@@ -1,0 +1,63 @@
+{
+    "_id": "U13oe5dQFLvgNkUG",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Leap the Falls",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Usage</strong> imbued into a body ikon</p><hr /><p>Reinforcing your legs with divine energy, you can leap the battlefield as powerfully as a salmon clearing a waterfall. The imbued ikon gains the following ability.</p>\n<p><strong>Immanence</strong> You gain the Powerful @UUID[Compendium.pf2e.actionspf2e.Item.Leap] and Quick Jump skill feats, allowing you to jump further and faster, even if you do not meet the prerequisites for them.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "choices": "flags.pf2e.exemplar.ikons",
+                "flag": "ikon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "divine-spark:{item|flags.pf2e.rulesSelections.ikon}"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.feats-srd.Item.Quick Jump"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "divine-spark:{item|flags.pf2e.rulesSelections.ikon}"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.feats-srd.Item.Powerful Leap"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "body-ikon-feat"
+            ],
+            "rarity": "common",
+            "value": [
+                "exemplar",
+                "ikon"
+            ]
+        }
+    },
+    "type": "feat"
+}

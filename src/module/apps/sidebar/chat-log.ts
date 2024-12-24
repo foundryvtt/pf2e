@@ -38,7 +38,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             const { message, element: messageEl } = ChatLogPF2e.#messageFromEvent(event);
             if (!message) return;
 
-            const senderEl = message ? htmlClosest(event.target, ".message-sender") : null;
+            const senderEl = message ? htmlClosest(event.target, ".message-sender, .portrait") : null;
             if (senderEl && message) return this.#onClickSender(message, event);
 
             const button = htmlClosest(event.target, "button[data-action]");
@@ -209,91 +209,90 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
 
         // Add a tooltipster instance to the shield button if needed.
         if (!shieldButton.classList.contains("tooltipstered")) {
-            $(shieldButton)
-                .tooltipster({
-                    animation: "fade",
-                    trigger: "click",
-                    arrow: false,
-                    content: htmlQuery(messageEl, "div.hover-content"),
-                    contentAsHTML: true,
-                    contentCloning: true,
-                    debug: BUILD_MODE === "development",
-                    interactive: true,
-                    side: ["top"],
-                    theme: "crb-hover",
-                    functionBefore: (): boolean => {
-                        const tokens = getTokens();
-                        if (tokens.length === 0) return false;
+            const $shieldButton = $(shieldButton).tooltipster({
+                animation: "fade",
+                trigger: "click",
+                arrow: false,
+                content: htmlQuery(messageEl, "div.hover-content"),
+                contentAsHTML: true,
+                contentCloning: true,
+                debug: BUILD_MODE === "development",
+                interactive: true,
+                side: ["top"],
+                theme: "crb-hover",
+                functionBefore: (): boolean => {
+                    const tokens = getTokens();
+                    if (tokens.length === 0) return false;
 
-                        const nonBrokenShields = getNonBrokenShields(tokens);
-                        const hasMultipleShields = tokens.length === 1 && nonBrokenShields.length > 1;
-                        const shieldActivated = shieldButton.classList.contains("shield-activated");
+                    const nonBrokenShields = getNonBrokenShields(tokens);
+                    const hasMultipleShields = tokens.length === 1 && nonBrokenShields.length > 1;
+                    const shieldActivated = shieldButton.classList.contains("shield-activated");
 
-                        // More than one shield and no selection. Show tooltip.
-                        if (hasMultipleShields && !shieldActivated) {
-                            return true;
-                        }
+                    // More than one shield and no selection. Show tooltip.
+                    if (hasMultipleShields && !shieldActivated) {
+                        return true;
+                    }
 
-                        // More than one shield and one was previously selected. Remove selection and show tooltip.
-                        if (hasMultipleShields && shieldButton.dataset.shieldId) {
-                            shieldButton.attributes.removeNamedItem("data-shield-id");
-                            shieldButton.classList.remove("shield-activated");
-                            CONFIG.PF2E.chatDamageButtonShieldToggle = false;
-                            return true;
-                        }
+                    // More than one shield and one was previously selected. Remove selection and show tooltip.
+                    if (hasMultipleShields && shieldButton.dataset.shieldId) {
+                        shieldButton.attributes.removeNamedItem("data-shield-id");
+                        shieldButton.classList.remove("shield-activated");
+                        CONFIG.PF2E.chatDamageButtonShieldToggle = false;
+                        return true;
+                    }
 
-                        // Normal toggle behaviour. Tooltip is suppressed.
-                        shieldButton.classList.toggle("shield-activated");
-                        CONFIG.PF2E.chatDamageButtonShieldToggle = !CONFIG.PF2E.chatDamageButtonShieldToggle;
-                        return false;
-                    },
-                    functionFormat: (instance, _helper, contentEl: HTMLElement): string | JQuery => {
-                        const tokens = getTokens();
-                        const nonBrokenShields = getNonBrokenShields(tokens);
-                        const multipleShields = tokens.length === 1 && nonBrokenShields.length > 1;
-                        const shieldActivated = shieldButton.classList.contains("shield-activated");
+                    // Normal toggle behaviour. Tooltip is suppressed.
+                    shieldButton.classList.toggle("shield-activated");
+                    CONFIG.PF2E.chatDamageButtonShieldToggle = !CONFIG.PF2E.chatDamageButtonShieldToggle;
+                    return false;
+                },
+                functionFormat: (instance, _helper, contentEl: HTMLElement): string | JQuery => {
+                    const tokens = getTokens();
+                    const nonBrokenShields = getNonBrokenShields(tokens);
+                    const multipleShields = tokens.length === 1 && nonBrokenShields.length > 1;
+                    const shieldActivated = shieldButton.classList.contains("shield-activated");
 
-                        // If the actor is wielding more than one shield, have the user pick which shield to use for blocking.
-                        if (multipleShields && !shieldActivated) {
-                            // Populate the list with the shield options
-                            const listEl = htmlQuery(contentEl, "ul.shield-options");
-                            if (!listEl) return $(contentEl);
+                    // If the actor is wielding more than one shield, have the user pick which shield to use for blocking.
+                    if (multipleShields && !shieldActivated) {
+                        // Populate the list with the shield options
+                        const listEl = htmlQuery(contentEl, "ul.shield-options");
+                        if (!listEl) return $(contentEl);
 
-                            const shieldList = nonBrokenShields.map((shield): HTMLLIElement => {
-                                const input = document.createElement("input");
-                                input.classList.add("data");
-                                input.type = "radio";
-                                input.name = "shield-id";
-                                input.value = shield.id;
-                                input.addEventListener("click", () => {
-                                    shieldButton.dataset.shieldId = input.value;
-                                    shieldButton.classList.add("shield-activated");
-                                    CONFIG.PF2E.chatDamageButtonShieldToggle = true;
-                                    instance.close();
-                                });
-                                const shieldName = document.createElement("span");
-                                shieldName.classList.add("label");
-                                shieldName.innerHTML = shield.name;
-
-                                const hardness = document.createElement("span");
-                                hardness.classList.add("tag");
-                                const hardnessLabel = game.i18n.localize("PF2E.HardnessLabel");
-                                hardness.innerHTML = `${hardnessLabel}: ${shield.hardness}`;
-
-                                const itemLi = document.createElement("li");
-                                itemLi.classList.add("item");
-                                itemLi.append(input, shieldName, hardness);
-
-                                return itemLi;
+                        const shieldList = nonBrokenShields.map((shield): HTMLLIElement => {
+                            const input = document.createElement("input");
+                            input.classList.add("data");
+                            input.type = "radio";
+                            input.name = "shield-id";
+                            input.value = shield.id;
+                            input.addEventListener("click", () => {
+                                shieldButton.dataset.shieldId = input.value;
+                                shieldButton.classList.add("shield-activated");
+                                CONFIG.PF2E.chatDamageButtonShieldToggle = true;
+                                instance.close();
                             });
+                            const shieldName = document.createElement("span");
+                            shieldName.classList.add("label");
+                            shieldName.innerHTML = shield.name;
 
-                            listEl.replaceChildren(...shieldList);
-                        }
+                            const hardness = document.createElement("span");
+                            hardness.classList.add("tag");
+                            const hardnessLabel = game.i18n.localize("PF2E.HardnessLabel");
+                            hardness.innerHTML = `${hardnessLabel}: ${shield.hardness}`;
 
-                        return $(contentEl);
-                    },
-                })
-                .tooltipster("open");
+                            const itemLi = document.createElement("li");
+                            itemLi.classList.add("item");
+                            itemLi.append(input, shieldName, hardness);
+
+                            return itemLi;
+                        });
+
+                        listEl.replaceChildren(...shieldList);
+                    }
+
+                    return $(contentEl);
+                },
+            });
+            $shieldButton.tooltipster("open");
         }
     }
 
@@ -328,7 +327,11 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         const combatant = await CombatantPF2e.fromActor(actor);
         if (!combatant) return;
         const value = message.rolls.at(0)?.total ?? 0;
-        await combatant.encounter.setInitiative(combatant.id, value);
+        await combatant.encounter.setInitiative(
+            combatant.id,
+            value,
+            message.flags.pf2e.modifierName ? String(message.flags.pf2e.modifierName) : undefined,
+        );
 
         ui.notifications.info(
             game.i18n.format("PF2E.Encounter.InitiativeSet", { actor: token.name, initiative: value }),

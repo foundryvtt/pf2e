@@ -1,0 +1,39 @@
+{
+    "_id": "ZtKb89o1PPhwJ3Lx",
+    "img": "systems/pf2e/icons/actions/Passive.webp",
+    "name": "Extra Vial",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "familiar",
+        "description": {
+            "value": "<p>Your familiar accretes alchemical liquids in its body. Once per day, you can Interact when your familiar is adjacent to you to gain a versatile vial. You must have the @UUID[Compendium.pf2e.classfeatures.Item.Versatile Vials] ability to select this ability.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.crafting.infusedReagents.max",
+                "predicate": [
+                    "feature:infused-reagents"
+                ],
+                "priority": 41,
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "action"
+}

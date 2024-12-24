@@ -4,10 +4,8 @@
     "items": [
         {
             "_id": "54TF5PQy0vpGust7",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.heritages.Item.N36ZR4lh9eCazDaN"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.heritages.Item.N36ZR4lh9eCazDaN"
             },
             "img": "systems/pf2e/icons/features/ancestry/half-elf.webp",
             "name": "Half-Elf",
@@ -51,10 +49,8 @@
         },
         {
             "_id": "ar0qq4mh0arrz5g0",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.backgrounds.Item.Zmwyhsxe4i6rZN75"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.backgrounds.Item.Zmwyhsxe4i6rZN75"
             },
             "img": "systems/pf2e/icons/default-icons/background.svg",
             "name": "Sailor",
@@ -114,69 +110,6 @@
             "type": "background"
         },
         {
-            "_id": "zo60sor5xkojh5bi",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.iOY6YfGBaOvMNAor"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Underwater Marauder",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "skill",
-                "description": {
-                    "value": "<p>You've learned to fight underwater. You are not @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] while in water, and you don't take the usual penalties for using a bludgeoning or slashing melee weapon in water.</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "ar0qq4mh0arrz5g0",
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "trained in Athletics"
-                        }
-                    ]
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "aquatic-combat:not-off-guard"
-                    },
-                    {
-                        "key": "AdjustModifier",
-                        "mode": "override",
-                        "selector": "melee-attack-roll",
-                        "slug": "aquatic-combat",
-                        "suppress": true
-                    }
-                ],
-                "slug": "underwater-marauder",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general",
-                        "skill"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "goHo4CUWXtY48sZp",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Sailing Lore",
@@ -197,116 +130,15 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
         {
-            "_id": "O3mkKM2lFdjF4Il1",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.kCO4r8NOm8E2T3eH"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Nimble Elf",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "ancestry",
-                "description": {
-                    "value": "<p>Your muscles are tightly honed. Your Speed increases by 5 feet.</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "ancestry-1",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": "land-speed",
-                        "value": 5
-                    }
-                ],
-                "slug": "nimble-elf",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "elf"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "2iO7eMTtsIDjicZu",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.hXYnwpi95E77qfAu"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Goading Feint",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p>When you trick a foe, you can goad them into overextending their next attack.</p>\n<p>On a @UUID[Compendium.pf2e.actionspf2e.Item.Feint], you can use the following success and critical success effects instead of any other effects you would gain when you Feint; if you do, other abilities that adjust the normal effects of your Feint no longer apply. You can choose whether to use the Goading Feint benefits or the normal benefits each time you Feint a given foe.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes a -2 circumstance penalty to all attack rolls against you before the end of its next turn.</p>\n<p><strong>Success</strong> The target takes a -2 circumstance penalty to its next attack roll against you before the end of its next turn.</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "class-1",
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "trained in Deception"
-                        }
-                    ]
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [],
-                "slug": "goading-feint",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "swashbuckler"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "tzLHVULCGD8x6CNH",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
             },
             "img": "icons/containers/bags/pack-leather-white-tan.webp",
             "name": "Backpack",
@@ -369,10 +201,8 @@
         },
         {
             "_id": "3ZtNtz3imCdkN0fm",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.fyYnQf1NAx9fWFaS"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.fyYnQf1NAx9fWFaS"
             },
             "img": "icons/sundries/survival/rope-wrapped-brown.webp",
             "name": "Rope",
@@ -429,10 +259,8 @@
         },
         {
             "_id": "tJL0M1gC5wlbEp4h",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.VnPh324pKwd2ZB66"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.VnPh324pKwd2ZB66"
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/waterskin.webp",
             "name": "Waterskin",
@@ -489,10 +317,8 @@
         },
         {
             "_id": "7We0CWBh7cjUHSBr",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.UlIxxLm71UdRgCFE"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UlIxxLm71UdRgCFE"
             },
             "img": "icons/commodities/stone/geode-raw-tan.webp",
             "name": "Flint and Steel",
@@ -549,10 +375,8 @@
         },
         {
             "_id": "Ms9jRByMtNXbXmpv",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.L9ZV076913otGtiB"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.L9ZV076913otGtiB"
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/rations.webp",
             "name": "Rations",
@@ -615,10 +439,8 @@
         },
         {
             "_id": "6s8ajEFCp3qr2rnT",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.fagzYdmfYyMQ6J77"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.fagzYdmfYyMQ6J77"
             },
             "img": "icons/containers/ammunition/quiver-simple-brown.webp",
             "name": "Bedroll",
@@ -675,10 +497,8 @@
         },
         {
             "_id": "RGfuokXFg2py9qdH",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.81aHsD27HFGnq1Nt"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.81aHsD27HFGnq1Nt"
             },
             "img": "icons/sundries/survival/soap.webp",
             "name": "Soap",
@@ -735,10 +555,8 @@
         },
         {
             "_id": "xQDlblhUrSmxkngk",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.5Ew82vBF9YfaiY9f"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.5Ew82vBF9YfaiY9f"
             },
             "img": "systems/pf2e/icons/equipment/treasure/currency/silver-pieces.webp",
             "name": "Silver Pieces",
@@ -792,10 +610,8 @@
         },
         {
             "_id": "Uvgnayauw2tdutX3",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.1k3AsSW7lpU0kEpY"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.1k3AsSW7lpU0kEpY"
             },
             "img": "icons/equipment/shield/buckler-wooden-boss-brown.webp",
             "name": "Buckler",
@@ -855,10 +671,8 @@
         },
         {
             "_id": "O1S2xQ1HfWAiUYHO",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "icons/weapons/daggers/dagger-straight-blue.webp",
             "name": "Dagger",
@@ -946,10 +760,8 @@
         },
         {
             "_id": "xyBdG98K6WkkNunX",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.DA3HgyEBGEbtRNOo"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.DA3HgyEBGEbtRNOo"
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/dueling-cape.webp",
             "name": "Dueling Cape",
@@ -1007,10 +819,8 @@
         },
         {
             "_id": "BlIzesMrtsDDxbNe",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.jJZbdMHMdh8UL2j8"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.jJZbdMHMdh8UL2j8"
             },
             "img": "icons/equipment/chest/breastplate-purple.webp",
             "name": "Clothing (Fine)",
@@ -1067,10 +877,8 @@
         },
         {
             "_id": "vPjib3nQrgA8ud9m",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.2RuepCemJhrpKKao"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.2RuepCemJhrpKKao"
             },
             "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
             "name": "Healing Potion (Minor)",
@@ -1088,7 +896,7 @@
                     "type": "vitality"
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>A <em>healing potion</em> is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a <em>healing potion</em>, you regain [[/r 1d8[healing]]]{1d8 Hit Points}.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p><hr /><p>A <em>healing potion</em> is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a <em>healing potion</em>, you regain @Damage[1d8[healing]] Hit Points.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1143,10 +951,8 @@
         },
         {
             "_id": "rH4ocZtryvLVjUoJ",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
             },
             "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
             "name": "Leather Armor",
@@ -1213,12 +1019,10 @@
         },
         {
             "_id": "XxqjzIQoBKdA1WPX",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.iWcw1sFLAzByVLBP"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.iWcw1sFLAzByVLBP"
             },
-            "img": "systems/pf2e/icons/equipment/weapons/main-gauche.webp",
+            "img": "icons/weapons/polearms/spear-ornate-gold.webp",
             "name": "Main-Gauche",
             "sort": 0,
             "system": {
@@ -1304,10 +1108,8 @@
         },
         {
             "_id": "iKcU3pCBObgQyDP5",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.tH5GirEy7YB3ZgCk"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tH5GirEy7YB3ZgCk"
             },
             "img": "systems/pf2e/icons/equipment/weapons/rapier.webp",
             "name": "Rapier",
@@ -1393,10 +1195,8 @@
         },
         {
             "_id": "m5gKqOc6gPJqlORo",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.8Jdw4yAzWYylGePS"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8Jdw4yAzWYylGePS"
             },
             "img": "icons/sundries/lights/torch-brown.webp",
             "name": "Torch",
@@ -1533,10 +1333,8 @@
         },
         {
             "_id": "fF5vlJaDyuGnX5Q1",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.zvLyCVD8g2PdHJAc"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.zvLyCVD8g2PdHJAc"
             },
             "img": "icons/tools/hand/lockpicks-steel-grey.webp",
             "name": "Thieves' Toolkit",
@@ -1592,15 +1390,155 @@
             "type": "equipment"
         },
         {
-            "_id": "uFKbNUe1I8kbQKtj",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classes.Item.uJ5aCzlw34GGdWjp"
+            "_id": "ER4VakSmrK6wpOsH",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
+            },
+            "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/human.svg",
+            "name": "Human",
+            "sort": 0,
+            "system": {
+                "additionalLanguages": {
+                    "count": 1,
+                    "custom": "",
+                    "value": []
+                },
+                "boosts": {
+                    "0": {
+                        "selected": "dex",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    },
+                    "1": {
+                        "selected": "cha",
+                        "value": [
+                            "str",
+                            "dex",
+                            "con",
+                            "int",
+                            "wis",
+                            "cha"
+                        ]
+                    },
+                    "2": {
+                        "value": []
+                    }
+                },
+                "description": {
+                    "value": "<p><em>As unpredictable and varied as any of Golarion's peoples, humans have exceptional drive and the capacity to endure and expand. Though many civilizations thrived before humanity rose to prominence, humans have built some of the greatest and the most terrible societies throughout the course of history, and today they are the most populous people in the realms around the Inner Sea.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.45SK8rdbbxvEHfMn.JournalEntryPage.7pU8yM7yPMw92SY3]{Human}</em></p>"
+                },
+                "flaws": {
+                    "0": {
+                        "value": []
+                    }
+                },
+                "hp": 8,
+                "items": {},
+                "languages": {
+                    "custom": "",
+                    "value": [
+                        "common"
+                    ]
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "reach": 5,
+                "rules": [],
+                "size": "med",
+                "slug": "human",
+                "speed": 25,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "human",
+                        "humanoid"
+                    ]
+                },
+                "vision": "normal"
+            },
+            "type": "ancestry"
+        },
+        {
+            "_id": "Eso24oztXGI0bPFH",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.xShIDyydOMkGvGNb"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/chalk.webp",
+            "name": "Chalk",
+            "sort": 200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "other",
+                "containerId": "tzLHVULCGD8x6CNH",
+                "damage": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 10,
+                "rules": [],
+                "size": "med",
+                "slug": "chalk",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "m53zsUqqTFJ7j3zJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classes.Item.uJ5aCzlw34GGdWjp"
             },
             "img": "systems/pf2e/icons/classes/swashbuckler.webp",
             "name": "Swashbuckler",
-            "sort": 2100000,
+            "sort": 0,
             "system": {
                 "ancestryFeatLevels": {
                     "value": [
@@ -1693,13 +1631,13 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Vivacious Speed"
                     },
                     "9bzuj": {
-                        "img": "systems/pf2e/icons/features/classes/eternal-confidence.webp",
+                        "img": "icons/equipment/head/hat-cocked-purple.webp",
                         "level": 19,
                         "name": "Eternal Confidence",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Eternal Confidence"
                     },
                     "begqu": {
-                        "img": "systems/pf2e/icons/features/classes/resolve.webp",
+                        "img": "icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp",
                         "level": 17,
                         "name": "Resolve",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Resolve"
@@ -1722,12 +1660,6 @@
                         "name": "Swashbuckler's Style",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Swashbuckler's Style"
                     },
-                    "k2fub": {
-                        "img": "icons/magic/life/cross-explosion-burst-green.webp",
-                        "level": 3,
-                        "name": "Great Fortitude",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Fortitude Expertise"
-                    },
                     "m4r06": {
                         "img": "systems/pf2e/icons/features/classes/stylish-tricks.webp",
                         "level": 3,
@@ -1746,8 +1678,14 @@
                         "name": "Light Armor Mastery",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Light Armor Mastery"
                     },
+                    "o2Jz5": {
+                        "img": "icons/skills/melee/maneuver-greatsword-yellow.webp",
+                        "level": 1,
+                        "name": "Stylish Combatant",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Stylish Combatant"
+                    },
                     "o4f3f": {
-                        "img": "systems/pf2e/icons/features/classes/opportune-riposte.webp",
+                        "img": "icons/sundries/flags/banner-symbol-axe-red.webp",
                         "level": 3,
                         "name": "Opportune Riposte",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Opportune Riposte"
@@ -1770,6 +1708,12 @@
                         "name": "Light Armor Expertise",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Light Armor Expertise"
                     },
+                    "t8VSZ": {
+                        "img": "icons/magic/life/cross-explosion-burst-green.webp",
+                        "level": 3,
+                        "name": "Fortitude Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Fortitude Expertise"
+                    },
                     "xi59r": {
                         "img": "systems/pf2e/icons/features/classes/keen-flair.webp",
                         "level": 15,
@@ -1783,7 +1727,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Swashbuckler Expertise"
                     },
                     "z4u6l": {
-                        "img": "systems/pf2e/icons/features/classes/continuous-flair.webp",
+                        "img": "icons/equipment/head/hat-tricorn-pirate-black.webp",
                         "level": 11,
                         "name": "Continuous Flair",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Continuous Flair"
@@ -1802,9 +1746,9 @@
                 },
                 "perception": 2,
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
                 },
                 "rules": [],
                 "savingThrows": {
@@ -1858,345 +1802,15 @@
             "type": "class"
         },
         {
-            "_id": "ER4VakSmrK6wpOsH",
+            "_id": "m5Elb2bDSgpXYL0K",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.pyo0vmxUFIFX2GNl"
+            },
             "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/human.svg",
-            "name": "Human",
-            "sort": 0,
-            "system": {
-                "additionalLanguages": {
-                    "count": 1,
-                    "custom": "",
-                    "value": []
-                },
-                "boosts": {
-                    "0": {
-                        "selected": "dex",
-                        "value": [
-                            "cha",
-                            "con",
-                            "dex",
-                            "int",
-                            "str",
-                            "wis"
-                        ]
-                    },
-                    "1": {
-                        "selected": "cha",
-                        "value": [
-                            "str",
-                            "dex",
-                            "con",
-                            "int",
-                            "wis",
-                            "cha"
-                        ]
-                    },
-                    "2": {
-                        "value": []
-                    }
-                },
-                "description": {
-                    "value": "<p><em>As unpredictable and varied as any of Golarion's peoples, humans have exceptional drive and the capacity to endure and expand. Though many civilizations thrived before humanity rose to prominence, humans have built some of the greatest and the most terrible societies throughout the course of history, and today they are the most populous people in the realms around the Inner Sea.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.45SK8rdbbxvEHfMn.JournalEntryPage.7pU8yM7yPMw92SY3]{Human}</em></p>"
-                },
-                "flaws": {
-                    "0": {
-                        "value": []
-                    }
-                },
-                "hp": 8,
-                "items": {},
-                "languages": {
-                    "custom": "",
-                    "value": [
-                        "common"
-                    ]
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "reach": 5,
-                "rules": [],
-                "size": "med",
-                "slug": "human",
-                "speed": 25,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "human",
-                        "humanoid"
-                    ]
-                },
-                "vision": "normal"
-            },
-            "type": "ancestry"
-        },
-        {
-            "_id": "Eso24oztXGI0bPFH",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.xShIDyydOMkGvGNb"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/chalk.webp",
-            "name": "Chalk",
-            "sort": 200000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "category": "other",
-                "containerId": "tzLHVULCGD8x6CNH",
-                "damage": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "cp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 10,
-                "rules": [],
-                "size": "med",
-                "slug": "chalk",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "jPWvXGrZMncN23w5",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.LzYi0OuOoypNb6jd"
-                }
-            },
-            "img": "icons/commodities/treasure/crown-gold-laurel-wreath.webp",
-            "name": "Panache",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You care as much about the way you accomplish something as whether you actually accomplish it in the first place. When you perform an action with particular bravado, you can leverage this moment of verve to perform spectacular, deadly maneuvers. This state of flair is called panache, and you are either in a state of panache or you are not.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Panache]</p>\n<p>You gain panache by successfully performing the skill check associated with specific actions that have a bit of flair, including @UUID[Compendium.pf2e.actionspf2e.Item.Tumble Through] and additional actions determined by your swashbuckler's style (see below). At the GM's discretion, after succeeding at a check to perform a particularly daring action, such as swinging on a chandelier or sliding down a drapery, you also gain panache if your result is high enough (typically the very hard DC for your level, but the GM can choose a different threshold).</p>\n<p>While you have panache, you gain a +5-foot status bonus to your Speeds and gain a +1 circumstance bonus to checks to Tumble Through or to take any actions that give you panache due to your style. The @UUID[Compendium.pf2e.classfeatures.Item.Precise Strike] class feature also causes you to deal extra precision damage while you have panache. Powerful finisher actions, including @UUID[Compendium.pf2e.actionspf2e.Item.Confident Finisher], can be used only while you have panache and cause you to lose your panache.</p>\n<p>Normally, you gain and use panache only in combat encounters; when an encounter ends, you lose panache</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "uFKbNUe1I8kbQKtj",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success",
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
-                            "grants-panache",
-                            {
-                                "not": "self:effect:panache"
-                            }
-                        ],
-                        "selector": "skill-check",
-                        "text": "PF2E.SpecificRule.Swashbuckler.Panache",
-                        "title": "{item|name}"
-                    },
-                    {
-                        "key": "RollOption",
-                        "option": "grants-panache",
-                        "predicate": [
-                            "action:tumble-through"
-                        ],
-                        "selector": "skill-check"
-                    }
-                ],
-                "slug": "panache",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "swashbuckler"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "jap7yw8DYRoYt1q8",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.RQH6vigvhmiYKKjg"
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/precise-strike.webp",
-            "name": "Precise Strike",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You Strike with flair. When you have panache and you Strike with an agile or finesse melee weapon or agile or finesse unarmed attack, you deal 2 additional precision damage. If the strike is part of a finisher, the additional damage is 2d6 precision damage instead.</p>\n<p>As your swashbuckler level increases, so does your additional damage for precise strike. Increase the amount of additional damage on a Strike and the number of additional dice on a finisher by one at 5th, 9th, 13th, and 17th levels.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "uFKbNUe1I8kbQKtj",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "flags.pf2e.swashbuckler.preciseStrike",
-                        "predicate": [
-                            "class:swashbuckler"
-                        ],
-                        "value": "ceil(@actor.level/4) + 1"
-                    },
-                    {
-                        "damageCategory": "precision",
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "self:effect:panache",
-                            {
-                                "or": [
-                                    "item:melee",
-                                    {
-                                        "and": [
-                                            "feat:flying-blade",
-                                            "item:thrown",
-                                            "target:range-increment:1"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse"
-                                ]
-                            },
-                            {
-                                "not": "finisher"
-                            }
-                        ],
-                        "selector": "strike-damage",
-                        "slug": "precise-strike",
-                        "value": "@actor.flags.pf2e.swashbuckler.preciseStrike"
-                    },
-                    {
-                        "category": "precision",
-                        "diceNumber": "@actor.flags.pf2e.swashbuckler.preciseStrike",
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "self:effect:panache",
-                            "finisher",
-                            {
-                                "or": [
-                                    "item:melee",
-                                    {
-                                        "and": [
-                                            "feat:flying-blade",
-                                            "item:thrown",
-                                            "target:range-increment:1"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse"
-                                ]
-                            }
-                        ],
-                        "selector": "strike-damage",
-                        "slug": "finisher"
-                    }
-                ],
-                "slug": "precise-strike",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "swashbuckler"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "SyObucQ4YdXbTbDs",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.pyo0vmxUFIFX2GNl"
-                },
                 "pf2e": {
                     "itemGrants": {
                         "confidentFinisher": {
-                            "id": "AP1ab5hcpWT1DffQ",
+                            "id": "lvvNbHYeQgXI0NHx",
                             "onDelete": "detach"
                         }
                     }
@@ -2204,7 +1818,7 @@
             },
             "img": "icons/weapons/swords/scimitar-broad.webp",
             "name": "Confident Finisher",
-            "sort": 0,
+            "sort": 200,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2214,19 +1828,19 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>You gain an elegant finishing attack you can make when you have panache. The finisher trait is described below. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Confident Finisher] action.</p>\n<hr />\n<p><strong>Finisher</strong> Finishers are spectacular finishing moves that use your panache. You can use a finisher only if you have panache, and you lose your panache immediately after performing a finisher. Once you use a finisher, you can't use actions that have the attack trait for the rest of your turn.</p>\n<p>Some actions with the finisher trait also grant an effect on a failure. Effects added on a failure don't apply on a critical failure. If your finisher action succeeds, you can still choose to apply the failure effect instead. For example, you might do this when an attack deals no damage due to resistance.</p>"
+                    "value": "<p>You gain an elegant finishing attack you can make when you have panache. The finisher trait is described below. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Confident Finisher] action.</p><hr /><p><strong>Finisher</strong> Finishers are spectacular finishing moves that use your panache. Finishers can be used only with weapons that deal additional damage with precise strike (agile or finesse melee weapons or unarmed attacks, for most swashbucklers). You can use a finisher only if you have panache, and you lose your panache immediately after performing a finisher. Once you use a finisher, you can't use actions that have the attack trait for the rest of your turn.</p>\n<p>Some finisher actions also grant an effect on a failure. Effects added on a failure don't apply on a critical failure. If your finisher action succeeds, you can still choose to apply the failure effect instead. For example, you might do this when an attack deals no damage due to resistance.</p>"
                 },
                 "level": {
                     "value": 1
                 },
-                "location": "uFKbNUe1I8kbQKtj",
+                "location": "m53zsUqqTFJ7j3zJ",
                 "prerequisites": {
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
                 },
                 "rules": [
                     {
@@ -2246,15 +1860,15 @@
             "type": "feat"
         },
         {
-            "_id": "5NQPHSZueKs92Wcg",
+            "_id": "AOHBD66kvh0UOFuv",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.beW1OqibVQ3fBvRw"
+            },
             "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.beW1OqibVQ3fBvRw"
-                },
                 "pf2e": {
                     "itemGrants": {
                         "fencer": {
-                            "id": "8p6y0rllx8Qy77DJ",
+                            "id": "VT322fVxyu9e9zrA",
                             "onDelete": "detach"
                         }
                     }
@@ -2262,7 +1876,7 @@
             },
             "img": "icons/magic/symbols/question-stone-yellow.webp",
             "name": "Swashbuckler's Style",
-            "sort": 0,
+            "sort": 300,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2272,19 +1886,19 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>As a swashbuckler, you have your own distinctive style that enables you to gracefully handle everyday events and life-or-death situations alike. Choose a swashbuckler's style. This style determines the additional actions you use to gain panache and makes you trained in the skill related to that action.</p>"
+                    "value": "<p>Your own distinctive style lets you gracefully handle any situation. Choose a swashbuckler's style. This style determines the additional actions you use to gain panache and makes you trained in the skill related to that action.</p>"
                 },
                 "level": {
                     "value": 1
                 },
-                "location": "uFKbNUe1I8kbQKtj",
+                "location": "m53zsUqqTFJ7j3zJ",
                 "prerequisites": {
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
                 },
                 "rules": [
                     {
@@ -2319,14 +1933,14 @@
             "type": "feat"
         },
         {
-            "_id": "AP1ab5hcpWT1DffQ",
+            "_id": "lvvNbHYeQgXI0NHx",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.actionspf2e.Item.K878asDgf1EF0B9S"
+            },
             "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.actionspf2e.Item.K878asDgf1EF0B9S"
-                },
                 "pf2e": {
                     "grantedBy": {
-                        "id": "SyObucQ4YdXbTbDs",
+                        "id": "m5Elb2bDSgpXYL0K",
                         "onDelete": "cascade"
                     }
                 }
@@ -2343,7 +1957,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>You make an incredibly graceful attack, piercing your foe's defenses. Make a Strike with a weapon or unarmed attack that would apply your precise strike damage, with the following failure effect.</p>\n<hr />\n<p><strong>Failure</strong> You deal half your @UUID[Compendium.pf2e.classfeatures.Item.Precise Strike] damage to the target. This damage type is that of the weapon or unarmed attack you used for the Strike.</p>"
+                    "value": "<p>You make an incredibly graceful attack, piercing your foe's defenses. Make a Strike with the following failure effect.</p><hr /><p><strong>Failure</strong> You deal half your @UUID[Compendium.pf2e.classfeatures.Item.Precise Strike] damage to the target. This damage type is that of the weapon or unarmed attack you used for the Strike.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2390,7 +2004,22 @@
                                         "and": [
                                             "feat:flying-blade",
                                             "item:thrown",
-                                            "target:range-increment:1"
+                                            {
+                                                "or": [
+                                                    "target:range-increment:1",
+                                                    {
+                                                        "and": [
+                                                            "finisher:twirling-throw",
+                                                            {
+                                                                "lte": [
+                                                                    "target:range-increment",
+                                                                    3
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
                                         ]
                                     }
                                 ]
@@ -2421,14 +2050,14 @@
             "type": "action"
         },
         {
-            "_id": "8p6y0rllx8Qy77DJ",
+            "_id": "VT322fVxyu9e9zrA",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.Jgid6Ja6Y879COlN"
+            },
             "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.Jgid6Ja6Y879COlN"
-                },
                 "pf2e": {
                     "grantedBy": {
-                        "id": "5NQPHSZueKs92Wcg",
+                        "id": "AOHBD66kvh0UOFuv",
                         "onDelete": "cascade"
                     }
                 }
@@ -2445,7 +2074,7 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>You move carefully, feinting and creating false openings to lead your foes into inopportune attacks.</p>\n<p>You are trained in Deception. You gain @UUID[Compendium.pf2e.feat-effects.Item.Effect: Panache]{Panache} during an encounter whenever you successfully @UUID[Compendium.pf2e.actionspf2e.Item.Feint] or @UUID[Compendium.pf2e.actionspf2e.Item.Create a Diversion] against a foe.</p>"
+                    "value": "<p>You move carefully, feinting and creating false openings to lead your foes into inopportune attacks. You are trained in Deception. When you @UUID[Compendium.pf2e.actionspf2e.Item.Create a Diversion] or @UUID[Compendium.pf2e.actionspf2e.Item.Feint], the action gains the bravado trait.</p>"
                 },
                 "level": {
                     "value": 1
@@ -2455,9 +2084,9 @@
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
                 },
                 "rules": [
                     {
@@ -2485,7 +2114,7 @@
                     },
                     {
                         "key": "RollOption",
-                        "option": "grants-panache",
+                        "option": "item:trait:bravado",
                         "predicate": [
                             {
                                 "or": [
@@ -2502,6 +2131,618 @@
                     "otherTags": [
                         "swashbuckler-style"
                     ],
+                    "rarity": "common",
+                    "value": [
+                        "swashbuckler"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "OmQC5o9SSxillTa0",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.LzYi0OuOoypNb6jd"
+            },
+            "img": "icons/commodities/treasure/crown-gold-laurel-wreath.webp",
+            "name": "Panache",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You care as much about the way you accomplish something as whether you actually accomplish it in the first place. When you perform an action with particular style, you can leverage this moment of verve to perform spectacular, deadly maneuvers. This heightened state of flair is called panache.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Panache]</p>\n<p>You gain panache by performing actions that have the bravado trait. @UUID[Compendium.pf2e.actionspf2e.Item.Tumble Through] and additional actions determined by your swashbuckler's style gain the bravado trait when you use them. The GM might determine that a check to perform a particularly daring action, such as swinging on a chandelier or sliding down a drapery, can gain the bravado trait. These checks typically involve at least a single action and a non-trivial DC. Normally, you gain and use panache only in combat encounters; when an encounter ends, you lose panache.</p>\n<p>Powerful finisher actions, including @UUID[Compendium.pf2e.actionspf2e.Item.Confident Finisher], can be used only while you have panache and cause you to lose your panache.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "m53zsUqqTFJ7j3zJ",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success",
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "item:trait:bravado",
+                            {
+                                "not": "panache"
+                            }
+                        ],
+                        "selector": [
+                            "skill-check",
+                            "strike-attack-roll"
+                        ],
+                        "text": "PF2E.SpecificRule.Swashbuckler.Panache",
+                        "title": "{item|name}"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "failure"
+                        ],
+                        "predicate": [
+                            "item:trait:bravado",
+                            {
+                                "not": "panache"
+                            }
+                        ],
+                        "selector": [
+                            "skill-check",
+                            "strike-attack-roll"
+                        ],
+                        "text": "PF2E.SpecificRule.Swashbuckler.PanacheFailure",
+                        "title": "{item|name}"
+                    },
+                    {
+                        "key": "RollOption",
+                        "option": "item:trait:bravado",
+                        "predicate": [
+                            "action:tumble-through"
+                        ],
+                        "selector": "skill-check"
+                    }
+                ],
+                "slug": "panache",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "swashbuckler"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "lle8b3CtQ3emIciQ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.RQH6vigvhmiYKKjg"
+            },
+            "img": "systems/pf2e/icons/features/classes/precise-strike.webp",
+            "name": "Precise Strike",
+            "sort": 100,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>When you make a Strike with an agile or finesse melee weapon or agile or finesse unarmed attack, you deal 2 additional precision damage. If the Strike is part of a finisher, the additional damage is 2d6 precision damage instead.</p>\n<p>As your swashbuckler level increases, so does your additional damage for precise strike. At 5th, 9th, 13th, and 17th level, increase the amount of additional damage on a Strike by 1 and the additional damage on a finisher by 1d6.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "m53zsUqqTFJ7j3zJ",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.swashbuckler.preciseStrike",
+                        "predicate": [
+                            "class:swashbuckler"
+                        ],
+                        "value": "ceil(@actor.level/4) + 1"
+                    },
+                    {
+                        "damageCategory": "precision",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:melee",
+                                    {
+                                        "and": [
+                                            "feat:flying-blade",
+                                            "item:thrown",
+                                            "target:range-increment:1"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "or": [
+                                    "item:trait:agile",
+                                    "item:trait:finesse"
+                                ]
+                            },
+                            {
+                                "not": "finisher"
+                            }
+                        ],
+                        "selector": "strike-damage",
+                        "slug": "precise-strike",
+                        "value": "@actor.flags.pf2e.swashbuckler.preciseStrike"
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": "@actor.flags.pf2e.swashbuckler.preciseStrike",
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "finisher",
+                            {
+                                "or": [
+                                    "item:melee",
+                                    {
+                                        "and": [
+                                            "feat:flying-blade",
+                                            "item:thrown",
+                                            {
+                                                "or": [
+                                                    "target:range-increment:1",
+                                                    {
+                                                        "and": [
+                                                            "finisher:twirling-throw",
+                                                            {
+                                                                "lte": [
+                                                                    "target:range-increment",
+                                                                    3
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "or": [
+                                    "item:trait:agile",
+                                    "item:trait:finesse"
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage",
+                        "slug": "finisher"
+                    }
+                ],
+                "slug": "precise-strike",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "swashbuckler"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "j9n5C3Geruyf7Ijp",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.TALz3cU06Hb14Key"
+            },
+            "img": "icons/skills/melee/maneuver-greatsword-yellow.webp",
+            "name": "Stylish Combatant",
+            "sort": 400,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You gain a +1 circumstance bonus to skill checks with the bravado trait while in a combat encounter. While you have panache, you gain a +5-foot status bonus to your Speeds.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "m53zsUqqTFJ7j3zJ",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:bravado",
+                            {
+                                "or": [
+                                    "encounter",
+                                    "feature:continuous-flair"
+                                ]
+                            }
+                        ],
+                        "selector": "skill-check",
+                        "slug": "stylish-combatant-skill",
+                        "type": "circumstance",
+                        "value": 1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "self:effect:panache",
+                                    {
+                                        "and": [
+                                            "feature:vivacious-speed",
+                                            {
+                                                "not": "self:effect:panache"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "speed",
+                        "slug": "stylish-combatant-speed",
+                        "type": "status",
+                        "value": 5
+                    }
+                ],
+                "slug": "stylish-combatant",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "4cVpShSXvypPE9FC",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.kCO4r8NOm8E2T3eH"
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Nimble Elf",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestry",
+                "description": {
+                    "value": "<p>Your muscles are tightly honed. Your Speed increases by 5 feet.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "land-speed",
+                        "value": 5
+                    }
+                ],
+                "slug": "nimble-elf",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "elf"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "6hSnRQFKoMPEu8kR",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.iOY6YfGBaOvMNAor"
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Underwater Marauder",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>You've learned to fight underwater. You are not @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] while in water, and you don't take the usual penalties for using a bludgeoning or slashing melee weapon in water.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "ar0qq4mh0arrz5g0",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Athletics"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "aquatic-combat:not-off-guard"
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "override",
+                        "selector": "melee-attack-roll",
+                        "slug": "aquatic-combat",
+                        "suppress": true
+                    }
+                ],
+                "slug": "underwater-marauder",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "1vKlegKLbmS8y9Kn",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.actionspf2e.Item.GkmbTGfg8KcgynOA"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Create a Diversion",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>With a <span data-pf2-action=\"createADiversion\" data-pf2-glyph=\"A\" data-pf2-variant=\"gesture\">gesture</span>, a <span data-pf2-action=\"createADiversion\" data-pf2-glyph=\"A\" data-pf2-variant=\"trick\">trick</span>, or some <span data-pf2-action=\"createADiversion\" data-pf2-glyph=\"A\" data-pf2-variant=\"distracting-words\">distracting words</span>, you can create a diversion that draws creatures' attention elsewhere. If you use a gesture or trick, this action gains the manipulate trait. If you use distracting words, it gains the auditory and linguistic traits.</p>\n<p>Attempt a single Deception check and compare it to the Perception DCs of the creatures whose attention you're trying to divert. Whether or not you succeed, creatures you attempt to divert gain a +4 circumstance bonus to their Perception DCs against your attempts to Create a Diversion for 1 minute.</p>\n<hr />\n<p><strong>Success</strong> You become @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to each creature whose Perception DC is less than or equal to your result. (The hidden condition allows you to @UUID[Compendium.pf2e.actionspf2e.Item.Sneak] away.) This lasts until the end of your turn or until you do anything except Step or use the Stealth skill to Hide or Sneak. If you Strike a creature, the creature remains @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against that attack, and you then become observed. If you do anything else, you become observed just before you act unless the GM determines otherwise.</p>\n<p><strong>Failure</strong> You don't divert the attention of any creatures whose Perception DC exceeds your result, and those creatures are aware you were trying to trick them.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "create-a-diversion",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Mw1Wy6I7NXSIvAg4",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.actionspf2e.Item.xjGwis0uaC2305pm"
+            },
+            "img": "systems/pf2e/icons/actions/raise-a-shield.webp",
+            "name": "Raise a Shield",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> You are wielding a shield.</p>\n<hr />\n<p>You position your shield to protect yourself. When you have Raised a Shield, you gain its listed circumstance bonus to AC. Your shield remains raised until the start of your next turn.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Raise a Shield",
+                    "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Raise a Shield"
+                },
+                "slug": "raise-a-shield",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IK7Gf43sGfGPatHJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.actionspf2e.Item.QNAVeNKtHA0EUw4X"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Feint",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> You are within melee reach of the target you attempt to Feint.</p>\n<hr />\n<p>With a misleading flourish, you leave an opponent unprepared for your real attack. Attempt a <span data-pf2-action=\"feint\" data-pf2-glyph=\"A\">Deception</span> check against your target's Perception DC.</p>\n<hr />\n<p><strong>Critical Success</strong> You throw your enemy's defenses against you entirely off. The target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against melee attacks that you attempt against it until the end of your next turn.</p>\n<p><strong>Success</strong> Your foe is fooled, but only momentarily. The target is off-guard against the next melee attack that you attempt against it before the end of your current turn.</p>\n<p><strong>Critical Failure</strong> Your feint backfires. You are off-guard against melee attacks the target attempts against you until the end of your next turn.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "feint",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "539MW7RBX7OrXvJN",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.actionspf2e.Item.21WIfSu7Xd7uKqV8"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Tumble Through",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>You Stride up to your Speed. During this movement, you can try to move through the space of one enemy. Attempt an <span data-pf2-action=\"tumbleThrough\" data-pf2-glyph=\"A\">Acrobatics</span> check against the enemy's Reflex DC as soon as you try to enter its space. You can @UUID[Compendium.pf2e.actionspf2e.Item.Tumble Through] using Climb, Fly, Swim, or another action instead of Stride in the appropriate environment.</p>\n<p><strong>Success</strong> You move through the enemy's space, treating the squares in its space as difficult terrain (every 5 feet costs 10 feet of movement). If you don't have enough Speed to move all the way through its space, you get the same effect as a failure.</p>\n<p><strong>Failure</strong> Your movement ends, and you trigger reactions as if you had moved out of the square you started in.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "tumble-through",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "move",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NbdIYfurSCYy2vO2",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.hXYnwpi95E77qfAu"
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Goading Feint",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>Your tricks make foes overextend their attacks. On a [[/act feint options=goading-feint]], you can use the following success and critical success effects instead of any other effects you would gain when you Feint; if you do, other abilities that adjust the normal effects of your Feint no longer apply. You can choose whether to use the Goading Feint benefits or the normal benefits each time you Feint a given foe.</p><hr /><p><strong>Critical Success</strong> The target takes a –2 circumstance penalty to all attack rolls against you before the end of its next turn.</p>\n<p><strong>Success</strong> The target takes a –2 circumstance penalty to its next attack roll against you before the end of its next turn.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Goading Feint]</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "class-1",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Deception"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            "action:feint",
+                            "goading-feint"
+                        ],
+                        "selector": "skill-check",
+                        "text": "PF2E.SpecificRule.Swashbuckler.GoadingFeint.Note",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": "goading-feint",
+                "traits": {
                     "rarity": "common",
                     "value": [
                         "swashbuckler"

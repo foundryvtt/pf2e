@@ -1,0 +1,64 @@
+{
+    "_id": "fHM9xvCBWrBqcDQY",
+    "img": "icons/skills/wounds/injury-body-pain-gray.webp",
+    "name": "Effect: Acupuncturist",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Acupuncturist]</p>\n<p>You grant your ally the choice of a circumstance bonus to one downtime activity skill check. On a critical failure, your ally takes a –1 circumstance penalty to all downtime activity skill checks instead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 7
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": -1
+                    }
+                ],
+                "flag": "acupuncturist",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "downtime"
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": "@item.flags.pf2e.rulesSelections.acupuncturist"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

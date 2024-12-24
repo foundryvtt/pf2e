@@ -1,0 +1,454 @@
+{
+    "_id": "D7W52RHoK6Fv7KWY",
+    "folder": "PSbzKOT3Zp4TZAxL",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "9IQj88Hkj1UAEeaG",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Armored Apotheosis",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>When it is first encountered, the divine oozeshard is in a lumpy, vaguely spherical ooze form. When it takes damage from any weapon attack, it suddenly reshapes, taking a form almost identical to the dead deity Gorum. The ooze hardens into armored plates (increasing its AC by +8) and its pseudopod transforms into a massive, acid-dripping greatsword. While in this form, it loses its pseudopod attack and its immunity to bludgeoning and precision damage. It cannot use its constrict or engulf abilities, and any creature currently engulfed by it is spat out into an adjacent random square, taking @Damage[1d8[acid],1d8[slashing]]{1d8 acid damage and 1d8 slashing} damage. It gains the Reactive Strike reaction. If it is critically hit by a Strike or critically fails a save against an effect that deals Hit Point damage to it, the divine oozeshard reverts back into its ooze form.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "armored-apotheosis",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "armored-apotheosis"
+                        ],
+                        "selector": "ac",
+                        "value": 8
+                    },
+                    {
+                        "attackModifier": 21,
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 2,
+                                "die": "d8",
+                                "modifier": 10
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Pseudopod",
+                        "predicate": [
+                            {
+                                "not": "armored-apotheosis"
+                            }
+                        ],
+                        "slug": "pseudopod",
+                        "traits": [
+                            "reach-10"
+                        ]
+                    },
+                    {
+                        "attackModifier": 21,
+                        "category": "martial",
+                        "damage": {
+                            "base": {
+                                "damageType": "slashing",
+                                "dice": 2,
+                                "die": "d12",
+                                "modifier": 10
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.Weapon.Base.greatsword",
+                        "predicate": [
+                            "armored-apotheosis"
+                        ],
+                        "slug": "greatsword",
+                        "traits": [
+                            "reach-15"
+                        ]
+                    },
+                    {
+                        "key": "Note",
+                        "selector": "pseudopod-damage",
+                        "text": "@Localize[PF2E.NPC.Abilities.Glossary.Grab]",
+                        "title": "PF2E.AttackEffectGrab",
+                        "visibility": "owner"
+                    },
+                    {
+                        "damageType": "acid",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitAcid",
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "key": "Immunity",
+                        "predicate": [
+                            {
+                                "not": "armored-apotheosis"
+                            }
+                        ],
+                        "type": [
+                            "bludgeoning",
+                            "precision"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aSMT0peR3dmWXujl",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Strike (Armored Apotheosis Only)",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "reactive-strike",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wWPEZvZinFCGsmW2",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.g26YiEIfSHCpLocV"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Constrict (Ooze Form Only)",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Damage[(1d8+10)[bludgeoning],1d12[acid]], @Check[fortitude|dc:29|basic]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "constrict",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NFiC1mOQkGXNZK6F",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.zU3Ovaet4xQ5Gmvy"
+            },
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Engulf (Ooze Form Only)",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Check[reflex|dc:25], @Damage[3d8[acid]] damage, Escape DC 25, Rupture 22</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "engulf",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tywbosK5iMu0FmPc",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Gorumite Echoes",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>While in its armored apotheosis form, the divine oozeshard deals an additional 1d8 bleed damage and makes the target @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round whenever it critically hits with its greatsword.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "critical": true,
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "selector": "greatsword-damage"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "greatsword-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QEOgW56JFwhtqtP4",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spawn Oozeshardling Node",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Whenever the divine oozeshard takes 55 or more damage from a single attack, it spawns a sparking oozeshardling node in an adjacent square. The sparking oozeshardling node's electric pulse reaction immediately activates and then the sparking oozeshardling node enters initiative at the bottom of the current initiative count.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nYlGCZd6SfxXi9ZM",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Divine Oozeshard",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -5
+            },
+            "con": {
+                "mod": 7
+            },
+            "dex": {
+                "mod": -5
+            },
+            "int": {
+                "mod": -2
+            },
+            "str": {
+                "mod": 8
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": " (26 while in armored apotheosis form)",
+                "value": 18
+            },
+            "adjustment": null,
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 220,
+                "temp": 0,
+                "value": 220
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "acid"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                },
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "electricity"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 20
+                    }
+                ],
+                "value": 30
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 10
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Society Scenario #6-07: A God Falls Where Magic Fails"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 12,
+            "senses": [
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "motion-sense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 22
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 18
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 23
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "huge"
+            },
+            "value": [
+                "mythic",
+                "ooze"
+            ]
+        }
+    },
+    "type": "npc"
+}

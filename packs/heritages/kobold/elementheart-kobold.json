@@ -1,0 +1,64 @@
+{
+    "_id": "dbj1cbkYeAAdkDSM",
+    "folder": "U6XqIM7a4BC1W4QM",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Elementheart Kobold",
+    "system": {
+        "ancestry": {
+            "name": "Kobold",
+            "slug": "kobold",
+            "uuid": "Compendium.pf2e.ancestries.Item.7oQxL6wgsokD3QXG"
+        },
+        "description": {
+            "value": "<p>When you hatched, you imprinted on a creature strongly associated with one of the Elemental Planes, such as an elemental or genie. Choose air, earth, fire, metal, water, or wood for your elemental benefactor. You gain resistance equal to half your level (minimum 1) to the damage type associated with your elemental benefactor: cold for air, electricity for earth, fire for fire, sonic for metal, acid for water, or poison for wood.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAir",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitMetal",
+                        "value": "sonic"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitWood",
+                        "value": "poison"
+                    }
+                ],
+                "flag": "element",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Element"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.element}",
+                "value": "max(1,floor(@actor.level/2))"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

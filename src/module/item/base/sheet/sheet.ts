@@ -1,4 +1,4 @@
-import type { ItemPF2e } from "@item";
+import { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { Rarity } from "@module/data.ts";
 import { RuleElements, RuleElementSource } from "@module/rules/index.ts";
@@ -7,7 +7,7 @@ import {
     createTagifyTraits,
     maintainFocusInRender,
     SheetOptions,
-    TraitTagifyEntry,
+    TagifyEntry,
 } from "@module/sheet/helpers.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import {
@@ -27,11 +27,11 @@ import {
     sluggify,
     SORTABLE_BASE_OPTIONS,
     sortStringRecord,
-    tagify,
     tupleHasValue,
 } from "@util";
+import { createSortable } from "@util/destroyables.ts";
+import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
-import Sortable from "sortablejs";
 import type * as TinyMCE from "tinymce";
 import { CodeMirror } from "./codemirror.ts";
 import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-element-form/index.ts";
@@ -115,6 +115,9 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         const traitTagifyData = validTraits
             ? createTagifyTraits(itemTraits, { sourceTraits, record: validTraits })
             : null;
+        const otherTagsTagifyData = createTagifyTraits(item.system.traits.otherTags, {
+            sourceTraits: item._source.system.traits.otherTags,
+        });
 
         return {
             itemType: null,
@@ -132,6 +135,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             item,
             isPhysical: false,
             data: item.system,
+            fieldRootId: this.item.collection.has(this.item.id) ? this.id : foundry.utils.randomID(),
             fieldIdPrefix: `field-${this.appId}-`,
             enrichedContent,
             limited: this.item.limited,
@@ -139,10 +143,11 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             owner: this.item.isOwner,
             title: this.title,
             user: { isGM: game.user.isGM },
-            rarity: hasRarity ? this.item.system.traits?.rarity ?? "common" : null,
+            rarity: hasRarity ? (this.item.system.traits?.rarity ?? "common") : null,
             rarities: CONFIG.PF2E.rarityTraits,
             traits,
             traitTagifyData,
+            otherTagsTagifyData,
             enabledRulesUI: game.user.hasRole(game.settings.get("pf2e", "minimumRulesUI")),
             ruleEditing: !!this.editingRuleElement,
             rules: {
@@ -348,8 +353,10 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         // Add implementation for viewing an item's roll options
         const viewRollOptionsElement = htmlQuery(rulesPanel, "a[data-action=view-roll-options]");
         viewRollOptionsElement?.addEventListener("click", async () => {
-            const rollOptions = R.sortBy(this.item.getRollOptions("item").sort(), (o) => o.includes(":"));
-            const content = await renderTemplate("systems/pf2e/templates/items/roll-options.hbs", { rollOptions });
+            const content = await renderTemplate("systems/pf2e/templates/system/roll-options-tooltip.hbs", {
+                description: game.i18n.localize("PF2E.Item.Rules.Hint.RollOptions"),
+                rollOptions: R.sortBy(this.item.getRollOptions("item").sort(), (o) => o.includes(":")),
+            });
             game.tooltip.dismissLockedTooltips();
             game.tooltip.activate(viewRollOptionsElement, {
                 content: createHTMLElement("div", { innerHTML: content }),
@@ -369,8 +376,8 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         for (const anchor of htmlQueryAll(rulesPanel, "a.edit-rule-element")) {
             anchor.addEventListener("click", async () => {
                 if (this._submitting) return; // Don't open if already submitting
-                const index = Number(anchor.dataset.ruleIndex ?? "NaN") ?? null;
-                this.#editingRuleElementIndex = index;
+                const index = Number(anchor.dataset.ruleIndex ?? "NaN");
+                this.#editingRuleElementIndex = Number.isInteger(index) ? index : null;
                 this.#rulesLastScrollTop = rulesPanel?.scrollTop ?? null;
                 this.render();
             });
@@ -472,9 +479,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         }
 
         // Tagify other-tags input if present
-        tagify(htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.otherTags"]'), {
-            maxTags: 6,
-        });
+        tagify(htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.otherTags"]'), { maxTags: 6 });
 
         // Handle select and input elements that show modified prepared values until focused
         const modifiedPropertyFields = htmlQueryAll<HTMLSelectElement | HTMLInputElement>(html, "[data-property]");
@@ -522,7 +527,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         // Allow drag/drop sorting of rule elements
         const rules = htmlQuery(html, ".rule-element-forms");
         if (rules) {
-            Sortable.create(rules, {
+            createSortable(rules, {
                 ...SORTABLE_BASE_OPTIONS,
                 handle: ".drag-handle",
                 onEnd: async (event) => {
@@ -560,6 +565,21 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             } else {
                 refreshAnchor.dataset.tooltip = "PF2E.Item.RefreshFromCompendium.Tooltip.Enabled";
             }
+        }
+
+        // View a referenced item
+        for (const link of htmlQueryAll(html, "a[data-action=view-item]")) {
+            link.addEventListener("click", async (): Promise<void> => {
+                const uuid = htmlClosest(link, "li")?.dataset.uuid ?? "";
+                const item = await fromUuid(uuid);
+                if (!(item instanceof ItemPF2e)) {
+                    this.render(false);
+                    ui.notifications.error(`An item with the UUID "${uuid}" no longer exists`);
+                    return;
+                }
+
+                item.sheet.render(true);
+            });
         }
     }
 
@@ -646,6 +666,9 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem>
     detailsTemplate: string;
     item: TItem;
     data: TItem["system"];
+    /** The leading part of IDs used for label-input/select matching */
+    fieldRootId: string;
+    /** Legacy value of the above */
     fieldIdPrefix: string;
     enrichedContent: Record<string, string>;
     isPhysical: boolean;
@@ -655,7 +678,8 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem>
     rarity: Rarity | null;
     rarities: typeof CONFIG.PF2E.rarityTraits;
     traits: SheetOptions | null;
-    traitTagifyData: TraitTagifyEntry[] | null;
+    traitTagifyData: TagifyEntry[] | null;
+    otherTagsTagifyData: TagifyEntry[] | null;
     rules: {
         selection: {
             selected: string | null;

@@ -1,0 +1,51 @@
+{
+    "_id": "34E7k2YRcsOU5uyl",
+    "img": "systems/pf2e/icons/actions/OneAction.webp",
+    "name": "Change Shape",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "interaction",
+        "description": {
+            "value": "<p>You return to your natural shape or adopt a new shape as described by the source of this action.</p>"
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens: The Mwangi Expanse"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.NPCAbility.ChangeShape.Label",
+                "mergeable": true,
+                "option": "change-shape",
+                "suboptions": [
+                    {
+                        "label": "PF2E.NPCAbility.ChangeShape.Form.Humanoid",
+                        "predicate": [
+                            {
+                                "not": "non-humanoid-change-shape"
+                            }
+                        ],
+                        "value": "humanoid"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "concentrate",
+                "polymorph"
+            ]
+        }
+    },
+    "type": "action"
+}

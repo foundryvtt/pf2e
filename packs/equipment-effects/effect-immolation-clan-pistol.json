@@ -4,10 +4,10 @@
     "name": "Effect: Immolation Clan Pistol",
     "system": {
         "description": {
-            "value": "<p>For 1 minute, you look like a flaming corpse. During this time, you gain a +2 status bonus to Intimidation checks and the <em>immolation hand cannon</em> becomes a <em>+2 striking flaming hand cannon</em>.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Immolation Clan Pistol]</p>\n<p>You gain a +2 status bonus to Intimidation checks and the <em>immolation hand cannon</em> becomes a <em>+2 striking flaming hand cannon</em>.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -26,6 +26,15 @@
                 "selector": "intimidation",
                 "type": "status",
                 "value": 2
+            },
+            {
+                "definition": [
+                    "item:slug:immolation-clan-pistol"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "property-runes",
+                "value": "flaming"
             }
         ],
         "start": {

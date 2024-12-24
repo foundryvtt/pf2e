@@ -1,6 +1,6 @@
 {
     "_id": "OMZs5y16jZRW9KQK",
-    "img": "systems/pf2e/icons/features/classes/juggerenaut.webp",
+    "img": "icons/creatures/mammals/bull-horned-blue.webp",
     "name": "Juggernaut",
     "system": {
         "actionType": {
@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p><strong>Barbarian, Champion, Inventor, Ranger</strong> Your body is accustomed to physical hardship and resistant to ailments. Your proficiency rank for Fortitude saves increases to master. When you roll a success on a Fortitude save, you get a critical success instead.</p>\n<p><strong>Alchemist</strong> Your body has become accustomed to physical hazards and resistant to pathogens and ailments. Your proficiency rank for Fortitude saves increases to master. When you roll a success on a Fortitude save, you get a critical success instead.</p>\n<p><strong>Magus</strong> Your body is accustomed to physical hardship and resistant to a wide range of ailments. Your proficiency rank for Fortitude saves increases to master. When you roll a success on a Fortitude save, you get a critical success instead.</p>\n<p><strong>Gunslinger</strong> Your body has become accustomed to physical hazards and resistant to ailments. Your proficiency rank for Fortitude saves increases to master. When you roll a success on a Fortitude save, you get a critical success instead.</p>"
+            "value": "<p><strong>Barbarian, Inventor, Thaumaturge</strong> Your body is accustomed to physical hardship and resistant to ailments. Your proficiency rank for Fortitude saves increases to master. When you roll a success on a Fortitude save, you get a critical success instead.</p>\n<p><strong>Magus</strong> Your body is accustomed to physical hardship and resistant to a wide range of ailments. Your proficiency rank for Fortitude saves increases to master. When you roll a success on a Fortitude save, you get a critical success instead.</p>\n<p><strong>Gunslinger</strong> Your body has become accustomed to physical hazards and resistant to ailments. Your proficiency rank for Fortitude saves increases to master. When you roll a success on a Fortitude save, you get a critical success instead.</p>"
         },
         "level": {
             "value": 7
@@ -20,27 +20,35 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
-            {
-                "key": "Note",
-                "outcome": [
-                    "success"
-                ],
-                "selector": "fortitude",
-                "text": "PF2E.SpecificRule.SaveSuccessToCriticalSuccess.Fortitude",
-                "title": "{item|name}"
-            },
             {
                 "adjustment": {
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "selector": "fortitude",
-                "type": "save"
+                "selector": "fortitude"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.ClassFeatures.Juggernaut.{actor|class.slug}.Description"
+                    }
+                ]
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "{actor|class.slug}"
             }
         ],
         "subfeatures": {
@@ -52,7 +60,13 @@
         },
         "traits": {
             "rarity": "common",
-            "value": []
+            "value": [
+                "barbarian",
+                "gunslinger",
+                "inventor",
+                "magus",
+                "thaumaturge"
+            ]
         }
     },
     "type": "feat"

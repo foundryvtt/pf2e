@@ -205,7 +205,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         );
     }
 
-    override isStackableWith(item: PhysicalItemPF2e<TParent>): boolean {
+    override isStackableWith(item: PhysicalItemPF2e): boolean {
         if (this.category === "unarmed" || !item.isOfType("weapon") || item.category === "unarmed") {
             return false;
         }
@@ -460,7 +460,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     override generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
         const baseWeaponTypes: Record<string, string | undefined> = CONFIG.PF2E.baseWeaponTypes;
         const baseShieldTypes: Record<string, string | undefined> = CONFIG.PF2E.baseShieldTypes;
-        const base = this.baseType ? baseWeaponTypes[this.baseType] ?? baseShieldTypes[this.baseType] ?? null : null;
+        const base = this.baseType ? (baseWeaponTypes[this.baseType] ?? baseShieldTypes[this.baseType] ?? null) : null;
         const group = this.group ? CONFIG.PF2E.weaponGroups[this.group] : null;
         const itemType = game.i18n.localize(base ?? group ?? "TYPES.Item.weapon");
 
@@ -476,12 +476,21 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     getAltUsages({ recurse = true } = {}): WeaponPF2e<TParent>[] {
         const meleeUsage = this.toMeleeUsage();
 
-        return [
+        const altUsages: WeaponPF2e<TParent>[] = [
             this.toThrownUsage() ?? [],
             meleeUsage ?? [],
             // Some combination weapons have a melee usage that is throwable
-            recurse ? meleeUsage?.toThrownUsage() ?? [] : [],
+            recurse ? (meleeUsage?.toThrownUsage() ?? []) : [],
         ].flat();
+
+        // Apply item alterations to all alt usages
+        for (const rule of this.actor?.synthetics.itemAlterations ?? []) {
+            for (const weapon of altUsages) {
+                rule.applyAlteration({ singleItem: weapon as WeaponPF2e<NonNullable<TParent>> });
+            }
+        }
+
+        return altUsages;
     }
 
     override clone(
@@ -583,14 +592,15 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             };
         })();
         const fromPropertyRunes = this.system.runes.property
-            .flatMap((r) => RUNE_DATA.weapon.property[r].damage?.dice ?? [])
-            .map(
-                (d): NPCAttackDamage => ({
-                    damage: `${d.diceNumber}${d.dieSize}`,
-                    damageType: d.damageType ?? baseDamage.damageType,
-                    category: d.category ?? null,
-                }),
-            );
+            .flatMap((r) => RUNE_DATA.weapon.property[r].damage?.additional ?? [])
+            .map((additional): NPCAttackDamage => {
+                const [category = null, damage] =
+                    "diceNumber" in additional
+                        ? [additional.category, `${additional.diceNumber}${additional.dieSize}`]
+                        : [additional.damageCategory, additional.modifier.toString()];
+                const damageType = additional.damageType ?? baseDamage.damageType;
+                return { damage, damageType, category };
+            });
 
         const reachTraitToNPCReach = {
             tiny: null,
@@ -607,7 +617,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             const newTraits: NPCAttackTrait[] = traits
                 .flatMap((t) =>
                     t === "reach"
-                        ? reachTraitToNPCReach[this.size] ?? []
+                        ? (reachTraitToNPCReach[this.size] ?? [])
                         : t === "thrown" && setHasElement(THROWN_RANGES, rangeIncrement)
                           ? (`thrown-${rangeIncrement}` as const)
                           : t,

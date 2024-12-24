@@ -31,76 +31,17 @@
         },
         "rules": [
             {
-                "choices": [
-                    {
-                        "label": "PF2E.Skill.Acrobatics",
-                        "value": "acrobatics"
-                    },
-                    {
-                        "label": "PF2E.Skill.Arcana",
-                        "value": "arcana"
-                    },
-                    {
-                        "label": "PF2E.Skill.Athletics",
-                        "value": "athletics"
-                    },
-                    {
-                        "label": "PF2E.Skill.Crafting",
-                        "value": "crafting"
-                    },
-                    {
-                        "label": "PF2E.Skill.Deception",
-                        "value": "deception"
-                    },
-                    {
-                        "label": "PF2E.Skill.Diplomacy",
-                        "value": "diplomacy"
-                    },
-                    {
-                        "label": "PF2E.Skill.Intimidation",
-                        "value": "intimidation"
-                    },
-                    {
-                        "label": "PF2E.Skill.Medicine",
-                        "value": "medicine"
-                    },
-                    {
-                        "label": "PF2E.Skill.Nature",
-                        "value": "nature"
-                    },
-                    {
-                        "label": "PF2E.Skill.Occultism",
-                        "value": "occultism"
-                    },
-                    {
-                        "label": "PF2E.Skill.Performance",
-                        "value": "performance"
-                    },
-                    {
-                        "label": "PF2E.Skill.Religion",
-                        "value": "religion"
-                    },
-                    {
-                        "label": "PF2E.Skill.Society",
-                        "value": "society"
-                    },
-                    {
-                        "label": "PF2E.Skill.Stealth",
-                        "value": "stealth"
-                    },
-                    {
-                        "label": "PF2E.Skill.Survival",
-                        "value": "survival"
-                    },
-                    {
-                        "label": "PF2E.Skill.Thievery",
-                        "value": "thievery"
-                    },
-                    {
-                        "label": "PF2E.SkillLore",
-                        "value": "lore"
-                    }
-                ],
+                "choices": {
+                    "config": "skills",
+                    "predicate": [
+                        {
+                            "gte": [
+                                "skill:{choice|value}:rank",
+                                1
+                            ]
+                        }
+                    ]
+                },
                 "flag": "assurance",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Skill"

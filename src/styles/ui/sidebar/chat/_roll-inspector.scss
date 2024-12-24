@@ -32,19 +32,22 @@
         }
     }
 
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
     .roll-options,
     .modifiers {
         display: flex;
         flex-direction: column;
         overflow: hidden;
 
-        ul {
+        > ul {
             border: 1px solid var(--color-border-dark-tertiary);
             border-radius: 3px;
-            list-style-type: none;
-            margin: 0;
             overflow: hidden auto;
-            padding: 0;
             scrollbar-gutter: stable;
 
             li:nth-child(even of :not([hidden])) {
@@ -58,7 +61,7 @@
             margin-bottom: var(--space-4);
         }
 
-        ul {
+        > ul {
             height: 100%;
             white-space: nowrap;
 
@@ -68,6 +71,10 @@
                 padding-left: var(--space-4);
                 text-overflow: ellipsis;
                 user-select: text;
+            }
+
+            .sub-list h3 {
+                margin-bottom: 0;
             }
         }
     }

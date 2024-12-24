@@ -1,0 +1,74 @@
+{
+    "_id": "eeCM8QwOkhatdStO",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Favored",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "cha",
+                    "int"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You're a trained, elegant artist or entertainer for the upper echelon of society. You might be a skilled crafter, a master performer, a highly sought host or companion, an up-andcoming political darling, or a fashionable courtesan, but you've gained the eye of a powerful political patron. Whether it's the pressure of your profession or your patron's expectations, whatever drove you to leave your current life behind for that of a chaotic adventurer's must be worthy of breaking tradition.</p>\n<p>Choose two attribute boosts. One must be to <strong>Intelligence</strong> or <strong>Charisma</strong>, and one is a free attribute boost.</p>\n<p>You're trained in Diplomacy, Performance, or Society. You're trained in a Lore skill of your choice. You gain the Name Drop reaction. At the GM's discretion, you can ask your patron for further assistance and favors, such as monetary or political support. You must keep your patron's favor to avoid losing your benefits; what this entails is between you and the GM but usually implies never publicly speaking or acting against your patron's wishes. If you offend your patron, you lose @UUID[Compendium.pf2e.actionspf2e.Item.Name Drop] until you reconcile with them.</p>"
+        },
+        "items": {},
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Diplomacy",
+                        "value": "diplomacy"
+                    },
+                    {
+                        "label": "PF2E.Skill.Performance",
+                        "value": "performance"
+                    },
+                    {
+                        "label": "PF2E.Skill.Society",
+                        "value": "society"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Name Drop"
+            }
+        ],
+        "trainedSkills": {
+            "lore": [],
+            "value": []
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": []
+        }
+    },
+    "type": "background"
+}

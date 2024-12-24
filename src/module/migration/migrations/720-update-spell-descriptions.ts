@@ -8,7 +8,7 @@ import { MigrationBase } from "../base.ts";
 export class Migration720UpdateSpellDescriptions extends MigrationBase {
     static override version = 0.72;
 
-    private spellUUIDs: Set<CompendiumUUID> = new Set([
+    private spellUUIDs: Set<CompendiumItemUUID> = new Set([
         "Compendium.pf2e.spells-srd.Item.GoKkejPj5yWJPIPK", // Adaptive Ablation
         "Compendium.pf2e.spells-srd.Item.1b55SgYTV65JvmQd", // Blessing of Defiance
         "Compendium.pf2e.spells-srd.Item.b515AZlB0sridKSq", // Calm Emotions
@@ -22,7 +22,8 @@ export class Migration720UpdateSpellDescriptions extends MigrationBase {
     private spells = UUIDUtils.fromUUIDs([...this.spellUUIDs]);
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        if (!(source.type === "spell" && setHasElement(this.spellUUIDs, source.flags.core?.sourceId))) {
+        const compendiumSource = source._stats.compendiumSource;
+        if (!(source.type === "spell" && setHasElement(this.spellUUIDs, compendiumSource))) {
             return;
         }
 

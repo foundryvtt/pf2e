@@ -45,10 +45,8 @@
         },
         {
             "_id": "jqi7VsBT7VaIDlXD",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.f8SBoXiXQjlCKqly"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.f8SBoXiXQjlCKqly"
             },
             "img": "icons/creatures/magical/spirit-undead-winged-ghost.webp",
             "name": "Illusory Creature",
@@ -112,10 +110,8 @@
         },
         {
             "_id": "8rWpQcyGXcSdQoeg",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.WzLKjSw6hsBhuklC"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.WzLKjSw6hsBhuklC"
             },
             "img": "systems/pf2e/icons/spells/create-water.webp",
             "name": "Create Water (At Will) (See Desert Thirst)",
@@ -177,10 +173,8 @@
         },
         {
             "_id": "aOrM8e7mIxIeKIGV",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.atlgGNI1E1Ox3O3a"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.atlgGNI1E1Ox3O3a"
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Ghost Sound",
@@ -257,10 +251,8 @@
         },
         {
             "_id": "BFfKWeERBjfWxdXK",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.2oH5IufzdESuYxat"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.2oH5IufzdESuYxat"
             },
             "img": "systems/pf2e/icons/spells/illusory-object.webp",
             "name": "Illusory Object",
@@ -325,10 +317,8 @@
         },
         {
             "_id": "RUyTWgEbyPh0RqWP",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.yV7Ouzaoe7DHLESI"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.yV7Ouzaoe7DHLESI"
             },
             "img": "icons/magic/control/control-influence-puppet.webp",
             "name": "Ventriloquism (At Will)",
@@ -624,10 +614,8 @@
         },
         {
             "_id": "O5nC82tyENuQH3SJ",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
@@ -652,15 +640,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "or": [
-                                    "magical",
-                                    "arcane",
-                                    "divine",
-                                    "primal",
-                                    "occult"
-                                ]
-                            }
+                            "item:magical"
                         ],
                         "selector": "saving-throw",
                         "type": "status",
@@ -677,10 +657,8 @@
         },
         {
             "_id": "iVZkQBGcIBXlxkcc",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
@@ -694,7 +672,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>90 feet. @Check[type:will|dc:32]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>90 feet. @Check[will|dc:32]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -786,7 +764,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon breathes lightning that @Damage[9d12[electricity]] damage in a @Template[type:line|distance:100]{100-foot line} (@Check[type:reflex|dc:33|basic:true] save).</p>\n<p>It can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon breathes lightning that @Damage[9d12[electricity]] damage in a @Template[line|distance:100]{100-foot line} (@Check[reflex|dc:33|basic] save).</p>\n<p>It can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -819,7 +797,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When casting @UUID[Compendium.pf2e.spells-srd.Item.Create Water], the dragon can attempt to destroy liquid instead of creating it, turning an equal amount of liquid into sand. This destroys liquid magic or alchemical items if they're of a lower level than the dragon (a creature can attempt a @Check[type:will|dc:32] save to protect all liquids in its possession). This doesn't affect the liquids in a creature's body.</p>"
+                    "value": "<p>When casting @UUID[Compendium.pf2e.spells-srd.Item.Create Water], the dragon can attempt to destroy liquid instead of creating it, turning an equal amount of liquid into sand. This destroys liquid magic or alchemical items if they're of a lower level than the dragon (a creature can attempt a @Check[will|dc:32] save to protect all liquids in its possession). This doesn't affect the liquids in a creature's body.</p>"
                 },
                 "publication": {
                     "license": "OGL",

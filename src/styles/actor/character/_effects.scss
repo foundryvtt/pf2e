@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "../../mixins/effects-list";
 
 &.effects {
@@ -8,8 +9,8 @@
         padding-bottom: 1em;
 
         .item {
-            border-top: 1px solid lighten($-alt-color, 40);
-            $border-color: lighten($-alt-color, 40);
+            border-top: 1px solid color.adjust($-alt-color, $lightness: 40%);
+            $border-color: color.adjust($-alt-color, $lightness: 40%);
             border: solid transparent;
             border-width: 0 0 1px;
             border-image: linear-gradient(90deg, #f1edea, $border-color) 1 repeat;

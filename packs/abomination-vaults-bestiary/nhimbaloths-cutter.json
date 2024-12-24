@@ -65,7 +65,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>harmed by sonic ([[/r 6d6]], [[/r 2d6]] from areas or persistent damage); healed by fire (area [[/r 2d6]] HP); slowed by cold</p>\n<hr />\n<p>A golem is immune to spells and magical abilities other than its own, but each type of golem is affected by a few types of magic in special ways. If an entry lists multiple types (such as “cold and water”), either type of spell can affect the golem.</p>\n<p><strong>Harmed By</strong> Any magic of this type that targets the golem causes it to take the listed amount of damage (this damage has no type) instead of the usual effect. If the golem starts its turn in an area of magic of this type or is affected by a persistent effect of the appropriate type, it takes the damage listed in the parenthetical.</p>\n<p><strong>Healed By</strong> Any magic of this type that targets the golem makes the golem lose the slowed condition and gain HP equal to half the damage the spell would have dealt. If the golem starts its turn in an area of this type of magic, it gains the HP listed in the parenthetical.</p>\n<p><strong>Slowed By</strong> Any magic of this type that targets the golem causes it to be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for [[/r 2d6]] rounds instead of the usual effect. If the golem starts its turn in an area of this type of magic, it's slowed 1 for that round.</p>\n<p><strong>Vulnerable To</strong> Each golem is vulnerable to one or more specific spells, with the effects described in its stat block.</p>"
+                    "value": "<p>Harmed by sonic (@Damage[6d6[untyped]], @Damage[2d6[untyped]] from areas or persistent damage); healed by fire (area @Damage[2d6[healing]] HP); slowed by cold</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.GolemAntimagic]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -95,7 +95,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The glass golem is targeted by a spell</p>\n<hr />\n<p><strong>Effect</strong> The glass golem positions its magical, reflective surfaces to turn the spell back on the caster. It tries to counteract the spell by attempting an Acrobatics check for its counteract check. If it successfully counteract the spell, the effect is turned back on the caster.</p>"
+                    "value": "<p><strong>Trigger</strong> The glass golem is targeted by a spell</p>\n<hr />\n<p><strong>Effect</strong> The glass golem positions its magical, reflective surfaces to turn the spell back on the caster. It tries to counteract the spell by attempting an @Check[acrobatics] check for its counteract check. If it successfully counteract the spell, the effect is turned back on the caster.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -157,14 +157,38 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The glass golem creates waves of scintillating luminosity that cast bright light in a @Template[type:emanation|distance:60] (and dim light for the next 60 feet). The light lasts until the start of the glass golem's next turn, after which the glass golem can't use Dazzling Brilliance for [[/br 1d4 #Recharge Dazzling Brilliance]]{1d4 rounds}. A creature within the bright light or that enters the bright light must attempt a @Check[type:will|dc:23] save.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round and then dazzled for an additional 4 rounds.</p>"
+                    "value": "<p>The glass golem creates waves of scintillating luminosity that cast bright light in a @Template[emanation|distance:60] (and dim light for the next 60 feet). The light lasts until the start of the glass golem's next turn, after which the glass golem can't use Dazzling Brilliance for [[/gmr 1d4 #Recharge Dazzling Brilliance]]{1d4 rounds}. A creature within the bright light or that enters the bright light must attempt a @Check[will|dc:23] save.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round and then dazzled for an additional 4 rounds.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "dazzling-brilliance",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "dazzling-brilliance"
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 4,
+                                "type": "starlight"
+                            },
+                            "bright": 60,
+                            "color": "#fdeed8",
+                            "dim": 120,
+                            "shadows": 0.2
+                        }
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -190,14 +214,37 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The golem creates waves of baleful light that cast dim light in a @Template[type:emanation|distance:60]. The light lasts until the start of the golem's next turn, after which the golem can't use Grim Glimmering for [[/br 1d4 #Recharge Grim Glimmering]]{1d4 rounds}. A creature within the light or that enters the light must attempt a @Check[type:will|dc:23|name:Grim Glitter|traits:damaging-effect] save.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} and @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round.</p>"
+                    "value": "<p>The golem creates waves of baleful light that cast dim light in a @Template[emanation|distance:60]. The light lasts until the start of the golem's next turn, after which the golem can't use Grim Glimmering for [[/gmr 1d4 #Recharge Grim Glimmering]]{1d4 rounds}. A creature within the light or that enters the light must attempt a @Check[will|dc:23|name:Grim Glitter|traits:damaging-effect] save.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} and @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "grim-glimmering",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "grim-glimmering"
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 2,
+                                "type": "witchwave"
+                            },
+                            "color": "#efe5ff",
+                            "dim": 60,
+                            "shadows": 0.2
+                        }
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

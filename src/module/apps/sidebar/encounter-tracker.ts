@@ -1,7 +1,7 @@
 import { combatantAndTokenDoc } from "@module/doc-helpers.ts";
 import type { CombatantPF2e, EncounterPF2e, RolledCombatant } from "@module/encounter/index.ts";
+import { eventToRollParams } from "@module/sheet/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import {
     ErrorPF2e,
@@ -13,10 +13,10 @@ import {
     localizer,
     parseHTML,
 } from "@util";
-import Sortable, { SortableEvent } from "sortablejs";
+import Sortable from "sortablejs";
 
 export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> extends CombatTracker<TEncounter> {
-    declare sortable: Sortable;
+    #sortable: Sortable | null = null;
 
     /** Show encounter analysis data if obtainable */
     protected override async _renderInner(data: object, options: RenderOptions): Promise<JQuery> {
@@ -68,6 +68,8 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
 
         const encounter = this.viewed;
         if (!encounter) return super.activateListeners($html);
+        const trackerPlaceholder = document.createElement("div");
+        tracker.replaceWith(trackerPlaceholder);
 
         const tokenSetsNameVisibility = game.pf2e.settings.tokens.nameVisibility;
         const allyColor = (c: CombatantPF2e<EncounterPF2e>) =>
@@ -129,7 +131,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
                 }
             }
 
-            this.refreshTargetDisplay(combatant);
+            this.refreshTargetDisplay(combatant, [tracker]);
 
             // Hide names in the tracker of combatants with tokens that have unviewable nameplates
             if (tokenSetsNameVisibility) {
@@ -163,7 +165,8 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
 
         // Defer to Combat Enhancements module if in use
         if (game.user.isGM && !game.modules.get("combat-enhancements")?.active) {
-            Sortable.create(tracker, {
+            this.#sortable?.destroy();
+            this.#sortable = Sortable.create(tracker, {
                 animation: 200,
                 dataIdAttr: "data-combatant-id",
                 direction: "vertical",
@@ -171,8 +174,8 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
                 dragoverBubble: true,
                 easing: "cubic-bezier(1, 0, 0, 1)",
                 ghostClass: "drag-gap",
-                onEnd: (event) => this.adjustFinalOrder(event),
-                onUpdate: (event) => this.#onDropCombatant(event),
+                onEnd: this.#adjustFinalOrder.bind(this),
+                onUpdate: this.#onDropCombatant.bind(this),
             });
 
             for (const row of combatantRows) {
@@ -180,11 +183,12 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
             }
         }
 
+        trackerPlaceholder.replaceWith(tracker);
         super.activateListeners($html);
     }
 
     /** Refresh the list of users targeting a combatant's token as well as the active state of the target toggle */
-    refreshTargetDisplay(combatantOrToken: CombatantPF2e | TokenDocumentPF2e): void {
+    refreshTargetDisplay(combatantOrToken: CombatantPF2e | TokenDocumentPF2e, trackers?: HTMLElement[]): void {
         if (!this.viewed || !canvas.ready) return;
 
         const { combatant, tokenDoc } = combatantAndTokenDoc(combatantOrToken);
@@ -192,7 +196,8 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
             return;
         }
 
-        for (const tracker of htmlQueryAll(document, "#combat, #combat-popout")) {
+        trackers ??= htmlQueryAll(document, "#combat, #combat-popout");
+        for (const tracker of trackers) {
             const combatantRow = htmlQuery(tracker, `li.combatant[data-combatant-id="${combatant?.id ?? null}"]`);
             if (!combatantRow) return;
 
@@ -289,8 +294,8 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
     }
 
     /** Handle the drop event of a dragged & dropped combatant */
-    async #onDropCombatant(event: SortableEvent): Promise<void> {
-        this.validateDrop(event);
+    async #onDropCombatant(event: Sortable.SortableEvent): Promise<void> {
+        this.#validateDrop(event);
 
         const encounter = this.viewed;
         if (!encounter) return;
@@ -304,18 +309,18 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
             return;
         }
 
-        const newOrder = this.getCombatantsFromDOM();
+        const newOrder = this.#getCombatantsFromDOM();
         const oldOrder = encounter.turns.filter(
             (c): c is RolledCombatant<NonNullable<TEncounter>> => c.initiative !== null,
         );
         // Exit early if the order wasn't changed
         if (newOrder.every((c) => newOrder.indexOf(c) === oldOrder.indexOf(c))) return;
 
-        this.setInitiativeFromDrop(newOrder, dropped);
-        await this.saveNewOrder(newOrder);
+        this.#setInitiativeFromDrop(newOrder, dropped);
+        await this.#saveNewOrder(newOrder);
     }
 
-    private setInitiativeFromDrop(
+    #setInitiativeFromDrop(
         newOrder: RolledCombatant<NonNullable<TEncounter>>[],
         dropped: RolledCombatant<NonNullable<TEncounter>>,
     ): void {
@@ -350,7 +355,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
     }
 
     /** Save the new order, or reset the viewed order if no change was made */
-    private async saveNewOrder(newOrder: RolledCombatant<NonNullable<TEncounter>>[]): Promise<void> {
+    async #saveNewOrder(newOrder: RolledCombatant<NonNullable<TEncounter>>[]): Promise<void> {
         await this.viewed?.setMultipleInitiatives(
             newOrder.map((c) => ({
                 id: c.id,
@@ -361,7 +366,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
     }
 
     /** Adjust the final order of combatants if necessary, keeping unrolled combatants at the bottom */
-    private adjustFinalOrder(event: SortableEvent): void {
+    #adjustFinalOrder(event: Sortable.SortableEvent): void {
         const row = event.item;
         const tracker = this.element[0].querySelector<HTMLOListElement>("#combat-tracker");
         if (!tracker) throw ErrorPF2e("Unexpected failure to retriever tracker DOM element");
@@ -383,7 +388,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
         }
     }
 
-    private validateDrop(event: SortableEvent): void {
+    #validateDrop(event: Sortable.SortableEvent): void {
         const { combat } = game;
         if (!combat) throw ErrorPF2e("Unexpected error retrieving combat");
 
@@ -394,7 +399,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
     }
 
     /** Retrieve the (rolled) combatants in the real-time order as seen in the DOM */
-    private getCombatantsFromDOM(): RolledCombatant<NonNullable<TEncounter>>[] {
+    #getCombatantsFromDOM(): RolledCombatant<NonNullable<TEncounter>>[] {
         const { combat } = game;
         if (!combat) throw ErrorPF2e("Unexpected error retrieving combat");
 

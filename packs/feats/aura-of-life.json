@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Your aura protects against necromantic effects. You and all allies within 15 feet gain resistance 5 to void energy and a +1 status bonus to saves against necromancy effects.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Aura of Life]</p>"
+            "value": "<p>Your aura protects against the power of the Void. You and all allies in your champion's aura gain resistance 5 to void damage and a +1 status bonus to saves against void effects.</p>"
         },
         "level": {
             "value": 14
@@ -19,29 +19,32 @@
         "prerequisites": {
             "value": [
                 {
-                    "value": "Shining Oath"
+                    "value": "champion's aura"
                 }
             ]
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "effects": [
                     {
                         "affects": "allies",
-                        "events": [
-                            "enter"
-                        ],
                         "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Aura of Life"
                     }
                 ],
                 "key": "Aura",
-                "radius": 15,
-                "slug": "aura-of-life"
+                "predicate": [
+                    "champions-aura",
+                    {
+                        "not": "self:condition:unconscious"
+                    }
+                ],
+                "radius": "@actor.flags.pf2e.champion.aura",
+                "slug": "champions-aura"
             }
         ],
         "traits": {

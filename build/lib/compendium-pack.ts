@@ -1,14 +1,15 @@
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e, MeleeSource } from "@item/base/data/index.ts";
+import type { ItemSourcePF2e, MeleeSource } from "@item/base/data/index.ts";
 import { FEAT_OR_FEATURE_CATEGORIES } from "@item/feat/values.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { SIZES } from "@module/data.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
-import { RuleElementSource } from "@module/rules/index.ts";
+import type { RuleElementSource } from "@module/rules/index.ts";
 import { isObject, recursiveReplaceString, setHasElement, sluggify, tupleHasValue } from "@util/misc.ts";
 import fs from "fs";
 import path from "path";
-import type { DocumentStatsData } from "types/foundry/common/data/fields.d.ts";
+import * as R from "remeda";
+import type { DocumentStatsData, DocumentStatsSchema } from "types/foundry/common/data/fields.d.ts";
 import systemJSON from "../../static/system.json";
 import coreIconsJSON from "../core-icons.json";
 import "./foundry-utils.ts";
@@ -254,23 +255,23 @@ class CompendiumPack {
             systemId: "pf2e",
             systemVersion: systemJSON.version,
         } as DocumentStatsData;
-        docSource._stats = partialStats;
+        docSource._stats = { ...partialStats };
 
-        docSource.flags ??= {};
         if (isActorSource(docSource)) {
             docSource.effects = [];
-            docSource.flags.core = { sourceId: this.#sourceIdOf(docSource._id ?? "", { docType: "Actor" }) };
             this.#assertSizeValid(docSource);
             docSource.system._migration = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, previous: null };
             for (const item of docSource.items) {
-                item._stats = partialStats;
+                const compendiumSource = item._stats?.compendiumSource ?? null;
+                item._stats = { ...partialStats, compendiumSource } as SourceFromSchema<DocumentStatsSchema<ItemUUID>>;
                 item.effects = [];
                 item.system._migration = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, previous: null };
                 CompendiumPack.convertUUIDs(item, { to: "ids", map: CompendiumPack.#namesToIds.Item });
             }
+
+            docSource._stats.compendiumSource = this.#sourceIdOf(docSource._id ?? "", { docType: "Actor" });
         } else if (isItemSource(docSource)) {
             docSource.effects = [];
-            docSource.flags.core = { sourceId: this.#sourceIdOf(docSource._id ?? "", { docType: "Item" }) };
             docSource.system.slug = sluggify(docSource.name);
             docSource.system._migration = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, previous: null };
 
@@ -285,9 +286,10 @@ class CompendiumPack {
 
             // Convert uuids with names in GrantItem REs to well-formedness
             CompendiumPack.convertUUIDs(docSource, { to: "ids", map: CompendiumPack.#namesToIds.Item });
+            docSource._stats.compendiumSource = this.#sourceIdOf(docSource._id ?? "", { docType: "Item" });
         } else if ("pages" in docSource) {
             for (const page of docSource.pages) {
-                page._stats = partialStats;
+                page._stats = { ...partialStats };
             }
         }
 
@@ -329,7 +331,12 @@ class CompendiumPack {
     ): void {
         const convertOptions = { to: to === "ids" ? "id" : "name", map } as const;
 
-        // Convert UUIDs found in places particular to certain item types
+        if (itemIsOfType(source, "feat") && source.system.subfeatures?.suppressedFeatures) {
+            source.system.subfeatures.suppressedFeatures = source.system.subfeatures.suppressedFeatures.map((r) =>
+                CompendiumPack.convertUUID(r, convertOptions),
+            );
+        }
+
         if (itemIsOfType(source, "feat", "action") && source.system.selfEffect) {
             source.system.selfEffect.uuid = CompendiumPack.convertUUID(source.system.selfEffect.uuid, convertOptions);
         } else if (itemIsOfType(source, "ancestry", "background", "class", "kit")) {
@@ -342,6 +349,11 @@ class CompendiumPack {
                         subentry.uuid = CompendiumPack.convertUUID(subentry.uuid, convertOptions);
                     }
                 }
+            }
+        } else if (itemIsOfType(source, "deity")) {
+            const spells = source.system.spells;
+            for (const [key, spell] of R.entries(spells)) {
+                spells[key] = CompendiumPack.convertUUID(spell, convertOptions);
             }
         }
 

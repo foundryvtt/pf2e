@@ -1,0 +1,278 @@
+{
+    "_id": "9rHQn9Hn8JhY2e4V",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Energized Spark",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>The energy of your spirit manifests as crackling lightning, the chill of winter, or the power of an element. Choose one of the following traits: air (slashing), cold, earth (bludgeoning), electricity, fire, metal (slashing), poison, sonic, vitality, void, water (bludgeoning), or wood (piercing). You can choose for any spirit damage dealt by your exemplar abilities to instead gain the trait and deal the corresponding damage type.</p><hr /><p><strong>Special</strong> You can select this feat multiple times, choosing a different damage type each time.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "maxTakable": null,
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAir",
+                        "predicate": [
+                            {
+                                "not": "energized-spark:air"
+                            }
+                        ],
+                        "value": "air"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "predicate": [
+                            {
+                                "not": "energized-spark:cold"
+                            }
+                        ],
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "predicate": [
+                            {
+                                "not": "energized-spark:earth"
+                            }
+                        ],
+                        "value": "earth"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "predicate": [
+                            {
+                                "not": "energized-spark:electricity"
+                            }
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": [
+                            {
+                                "not": "energized-spark:fire"
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitMetal",
+                        "predicate": [
+                            {
+                                "not": "energized-spark:metal"
+                            }
+                        ],
+                        "value": "metal"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "predicate": [
+                            {
+                                "not": "energized-spark:poison"
+                            }
+                        ],
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "predicate": [
+                            {
+                                "not": "energized-spark:sonic"
+                            }
+                        ],
+                        "value": "sonic"
+                    },
+                    {
+                        "label": "PF2E.TraitVitality",
+                        "predicate": [
+                            {
+                                "not": "energized-spark:vitality"
+                            }
+                        ],
+                        "value": "vitality"
+                    },
+                    {
+                        "label": "PF2E.TraitVoid",
+                        "predicate": [
+                            {
+                                "not": "energized-spark:void"
+                            }
+                        ],
+                        "value": "void"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "predicate": [
+                            {
+                                "not": "energized-spark:water"
+                            }
+                        ],
+                        "value": "water"
+                    },
+                    {
+                        "label": "PF2E.TraitWood",
+                        "predicate": [
+                            {
+                                "not": "energized-spark:wood"
+                            }
+                        ],
+                        "value": "wood"
+                    }
+                ],
+                "flag": "energizedSpark",
+                "key": "ChoiceSet",
+                "rollOption": "energized-spark"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.EnergizedSpark.Label",
+                "mergeable": true,
+                "option": "energized-spark-damage",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitBludgeoning",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "energized-spark:earth",
+                                    "energized-spark:water"
+                                ]
+                            }
+                        ],
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "predicate": [
+                            "energized-spark:cold"
+                        ],
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "predicate": [
+                            "energized-spark:electricity"
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": [
+                            "energized-spark:fire"
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitPiercing",
+                        "predicate": [
+                            "energized-spark:wood"
+                        ],
+                        "value": "piercing"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "predicate": [
+                            "energized-spark:poison"
+                        ],
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.TraitSlashing",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "energized-spark:air",
+                                    "energized-spark:metal"
+                                ]
+                            }
+                        ],
+                        "value": "slashing"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "predicate": [
+                            "energized-spark:sonic"
+                        ],
+                        "value": "sonic"
+                    },
+                    {
+                        "label": "PF2E.TraitVitality",
+                        "predicate": [
+                            "energized-spark:vitality"
+                        ],
+                        "value": "vitality"
+                    },
+                    {
+                        "label": "PF2E.TraitVoid",
+                        "predicate": [
+                            "energized-spark:void"
+                        ],
+                        "value": "void"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "damage:type:spirit",
+                    "energized-spark-damage",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:type:feat",
+                                    "item:trait:exemplar"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:type:action",
+                                    "item:trait:transcendence"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "action:strike",
+                                    "damage:tag:exemplar"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "inline-damage",
+                    "strike-damage"
+                ],
+                "value": "{item|flags.pf2e.rulesSelections.energizedSparkDamage}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "exemplar"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,50 @@
+{
+    "_id": "uAo0wK1JL9kePcZb",
+    "folder": "W02zcMYyeNEfvUOz",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Even-Tempered Tanuki",
+    "system": {
+        "ancestry": {
+            "name": "Tanuki",
+            "slug": "tanuki",
+            "uuid": "Compendium.pf2e.ancestries.Item.pILFsoGsUQkVF5dZ"
+        },
+        "description": {
+            "value": "<p>You're possessed of a serenity uncommon to other tanuki, who always seem to be flying off the handle. You gain a +1 circumstance bonus to saving throws against emotion effects. If you roll a success at a saving throw against an emotion effect, you get a critical success instead, but when you roll a failure at a saving throw against an emotion effect, you get a critical failure instead.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:emotion"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "failure": "to-critical-failure",
+                    "success": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:trait:emotion"
+                ],
+                "selector": "saving-throw"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "tanuki"
+            ]
+        }
+    },
+    "type": "heritage"
+}

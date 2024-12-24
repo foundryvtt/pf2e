@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import type { FeatGroup } from "@actor/character/feats.ts";
+import type { FeatGroup } from "@actor/character/feats/index.ts";
 import { ItemPF2e } from "@item";
 import { normalizeActionChangeData } from "@item/ability/helpers.ts";
 import { ActionCost, Frequency } from "@item/base/data/index.ts";
@@ -29,7 +29,7 @@ class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> e
 
     /** Returns the level if the feature type supports it */
     get level(): number | null {
-        return this.behavior !== "activity" ? this.system.level?.value ?? 0 : null;
+        return this.behavior !== "activity" ? (this.system.level?.value ?? 0) : null;
     }
 
     get traits(): Set<KingmakerTrait> {
@@ -161,6 +161,16 @@ class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> e
         }
 
         await super._preUpdate(changed, operation, user);
+    }
+
+    protected override embedHTMLString(_config: DocumentHTMLEmbedConfig, _options: EnrichmentOptions): string {
+        const list = this.system.prerequisites?.value?.map((item) => item.value).join(", ") ?? "";
+        return (
+            (list
+                ? `<p><strong>${game.i18n.localize("PF2E.FeatPrereqLabel")}</strong> ${list}</p>` +
+                  (_config.hr === false ? "" : "<hr>")
+                : "") + this.description
+        );
     }
 }
 

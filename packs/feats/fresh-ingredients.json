@@ -11,7 +11,7 @@
         },
         "category": "skill",
         "description": {
-            "value": "<p>When using @UUID[Compendium.pf2e.feats-srd.Item.Natural Medicine] to @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds], you can spend a batch of herbs to gain the +2 circumstance bonus from having fresh ingredients, even if not in wilderness. If you spend a batch of herbs in wilderness, you gain a +4 circumstance bonus instead.</p>"
+            "value": "<p>It is amazing the difference fresh herbs can make. When using @UUID[Compendium.pf2e.feats-srd.Item.Natural Medicine] to @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds], you gain the +2 circumstance bonus from having fresh ingredients, even if not in wilderness. If you do this in the wilderness, you gain a +4 circumstance bonus instead.</p>"
         },
         "level": {
             "value": 2
@@ -20,21 +20,18 @@
             "value": [
                 {
                     "value": "Herbalist Dedication"
-                },
-                {
-                    "value": "expert in Nature"
                 }
             ]
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Spend a batch of herbs in wilderness",
+                "label": "PF2E.SkillVariant.Wilderness",
                 "predicate": [
                     "action:treat-wounds",
                     "natural-medicine",
@@ -47,7 +44,6 @@
             },
             {
                 "key": "FlatModifier",
-                "label": "Spend a batch of herbs",
                 "predicate": [
                     "action:treat-wounds",
                     "natural-medicine"

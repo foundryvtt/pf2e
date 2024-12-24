@@ -1,0 +1,77 @@
+{
+    "_id": "Mu89z7bsdXfZTUwb",
+    "img": "icons/skills/ranged/dagger-thrown-jeweled-purple.webp",
+    "name": "The Deft",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Speed, subtlety, and precision. Your feet rush as fast as a gale, but your fingers touch as lightly as a breeze. You are trained in Thievery. After you Spark Transcendence, you can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Steal] or @UUID[Compendium.pf2e.actionspf2e.Item.Palm an Object]. When you Spark Transcendence, you can Interact as a free action to reload or draw a weapon ikon, either directly before or directly after your transcendence action. The weapon ikon must be a ranged weapon with the reload trait or a one-handed melee weapon with the thrown trait.</p>"
+        },
+        "level": {
+            "value": 3
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.theivery.rank",
+                "value": 1
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Epithet.Label",
+                "mergeable": true,
+                "option": "epithet",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "the-deft"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    "divine-spark",
+                    "epithet:the-deft"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Exemplar.Epithet.TheDeft.Description"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "exemplar-root-epithet"
+            ],
+            "rarity": "common",
+            "value": [
+                "exemplar"
+            ]
+        }
+    },
+    "type": "feat"
+}

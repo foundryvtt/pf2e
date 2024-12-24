@@ -1,0 +1,177 @@
+{
+    "_id": "uPmHi7ZiCj7PWM9N",
+    "img": "systems/pf2e/icons/spells/elemental-motion.webp",
+    "name": "Spell Effect: Elemental Motion",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Elemental Motion]</p>\n<p>You call upon your element to propel you, improving your Speed depending on your element.</p><ul><li><strong>Air</strong> You gain a fly Speed.</li><li><strong>Earth</strong> You gain a burrow Speed.</li><li><strong>Fire</strong> You gain a fly Speed.</li><li><strong>Metal</strong> You gain a burrow Speed.</li><li><strong>Water</strong> You gain a swim Speed.</li><li><strong>Wood</strong> You gain a climb Speed.</li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAir",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "feature:bloodline:elemental:air",
+                                    {
+                                        "not": "feature:bloodline-elemental"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "air"
+                    },
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "feature:bloodline:elemental:earth",
+                                    {
+                                        "not": "feature:bloodline-elemental"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "earth"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "feature:bloodline:elemental:fire",
+                                    {
+                                        "not": "feature:bloodline-elemental"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitMetal",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "feature:bloodline:elemental:metal",
+                                    {
+                                        "not": "feature:bloodline-elemental"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "metal"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "feature:bloodline:elemental:water",
+                                    {
+                                        "not": "feature:bloodline-elemental"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "water"
+                    },
+                    {
+                        "label": "PF2E.TraitWood",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "feature:bloodline:elemental:wood",
+                                    {
+                                        "not": "feature:bloodline-elemental"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "wood"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Element",
+                "rollOption": "elemental-motion"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    {
+                        "or": [
+                            "elemental-motion:air",
+                            "elemental-motion:fire"
+                        ]
+                    }
+                ],
+                "selector": "fly",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    {
+                        "or": [
+                            "elemental-motion:earth",
+                            "elemental-motion:metal"
+                        ]
+                    }
+                ],
+                "selector": "burrow",
+                "value": 10
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "elemental-motion:water"
+                ],
+                "selector": "swim",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "elemental-motion:wood"
+                ],
+                "selector": "climb",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "all-speeds",
+                "type": "status",
+                "value": "ternary(gte(@item.level,9),20,ternary(gte(@item.level,6),10,0))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,51 @@
+{
+    "_id": "P40wHiI9uidwPkTW",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Abjure the False Kin",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your vow reminds you that there can be brackish vinegar hiding within honeyed words, helping you detect attempts to influence your mind. If you roll a success on a saving throw against a mental effect that doesn't deal damage, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:trait:mental",
+                    {
+                        "not": "damaging-effect"
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "save"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "yaksha"
+            ]
+        }
+    },
+    "type": "feat"
+}

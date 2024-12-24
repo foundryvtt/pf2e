@@ -8,12 +8,12 @@ import { coerceToSpellGroupId, spellSlotGroupIdToNumber } from "@item/spellcasti
 import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { OneToTen, ZeroToFour, goesToEleven } from "@module/data.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, createHTMLElement, fontAwesomeIcon, htmlClosest, htmlQueryAll, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { ActorSheetPF2e, SheetClickActionHandlers } from "../sheet/base.ts";
 import { CreatureConfig } from "./config.ts";
-import { Language } from "./index.ts";
+import { Language, ResourceData } from "./index.ts";
 import { SpellPreparationSheet } from "./spell-preparation-sheet.ts";
 
 /**
@@ -53,6 +53,9 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
                 remainingDying: Math.max(actor.attributes.dying.max - actor.attributes.dying.value),
                 remainingWounded: Math.max(actor.attributes.wounded.max - actor.attributes.wounded.value),
             },
+            specialResources: Object.values(this.actor.synthetics.resources).map((r) =>
+                R.pick(r, ["slug", "label", "value", "max"]),
+            ),
         };
     }
 
@@ -61,7 +64,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         const entry = this.actor.items.get(collectionId, { strict: true });
         if (entry?.isOfType("spellcastingEntry") && entry.isPrepared) {
             const referenceEl = htmlClosest(event?.target, "[data-action=open-spell-preparation]");
-            const offset = referenceEl ? $(referenceEl).offset() ?? { left: 0, top: 0 } : null;
+            const offset = referenceEl ? ($(referenceEl).offset() ?? { left: 0, top: 0 }) : null;
             const options = offset ? { top: offset.top - 60, left: offset.left + 200 } : {};
             const sheet = new SpellPreparationSheet(entry, options);
             sheet.render(true);
@@ -84,30 +87,6 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         super.activateListeners($html);
         const html = $html[0];
 
-        // General handler for embedded item updates
-        const selectors = "input[data-item-id][data-item-property], select[data-item-id][data-item-property]";
-        for (const element of htmlQueryAll<HTMLInputElement | HTMLSelectElement>(html, selectors)) {
-            element.addEventListener("change", (event) => {
-                event.stopPropagation();
-                const { itemId, itemProperty } = element.dataset;
-                if (!itemId || !itemProperty) return;
-
-                const value = (() => {
-                    const value =
-                        element instanceof HTMLInputElement && element.type === "checbox"
-                            ? element.checked
-                            : element.value;
-                    if (typeof value === "boolean") return value;
-                    const dataType =
-                        element.dataset.dtype ?? (["number", "range"].includes(element.type) ? "Number" : "String");
-
-                    return dataType === "Number" ? Number(value) || 0 : value.trim();
-                })();
-
-                this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, [itemProperty]: value }]);
-            });
-        }
-
         // Increase/decrease Dying/Wounded value
         for (const pips of htmlQueryAll(html, "a[data-action=adjust-condition-value]")) {
             const slug = pips.dataset.condition === "dying" ? "dying" : "wounded";
@@ -117,6 +96,37 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             });
             pips.addEventListener("contextmenu", () => {
                 return this.actor.decreaseCondition(slug);
+            });
+        }
+
+        // Resource Pips
+        const resourcePips = htmlQueryAll(html, "[data-action=adjust-resource]:not(input)");
+        if (resourcePips.length > 0) {
+            const listener = (event: Event) => {
+                const resourceSlug = htmlClosest(event.target, "[data-resource]")?.dataset.resource ?? "";
+                const resource = this.actor.getResource(resourceSlug);
+                if (resource) {
+                    const current = resource.value;
+                    const change = event.type === "click" ? 1 : -1;
+                    this.actor.updateResource(resourceSlug, current + change);
+                }
+            };
+
+            for (const pips of resourcePips) {
+                pips.addEventListener("click", listener);
+                pips.addEventListener("contextmenu", listener);
+            }
+        }
+
+        // Resource Input Fields
+        const resourceInputs = htmlQueryAll<HTMLInputElement>(html, "input[data-resource]");
+        for (const element of resourceInputs) {
+            const resourceSlug = element.dataset.resource ?? "";
+            const resource = this.actor.getResource(resourceSlug);
+            if (!resource) continue;
+
+            element.addEventListener("change", () => {
+                this.actor.updateResource(resourceSlug, Number(element.value));
             });
         }
     }
@@ -498,6 +508,7 @@ interface CreatureSheetData<TActor extends CreaturePF2e> extends ActorSheetDataP
         remainingDying: number;
         remainingWounded: number;
     };
+    specialResources: ResourceData[];
 }
 
 export { CreatureSheetPF2e, type CreatureSheetData };

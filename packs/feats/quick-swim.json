@@ -31,25 +31,23 @@
         "rules": [
             {
                 "key": "BaseSpeed",
+                "predicate": [
+                    "skill:athletics:rank:4"
+                ],
                 "selector": "swim",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": "@actor.attributes.speed.total"
-                        }
-                    ],
-                    "field": "actor|system.skills.athletics.rank"
-                }
+                "value": "@actor.attributes.speed.total"
             },
             {
                 "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
                 "predicate": [
                     "action:swim"
                 ],
                 "selector": "athletics",
-                "text": "You swim 5 more feet on a success, and 10 more feet on a critical success.",
+                "text": "PF2E.SpecificRule.Feat.QuickSwim.Note",
                 "title": "{item|name}"
             }
         ],

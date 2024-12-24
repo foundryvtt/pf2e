@@ -16,7 +16,7 @@ export class DamagePF2e {
     static async roll(
         data: DamageTemplate,
         context: DamageDamageContext,
-        callback?: Function,
+        callback?: (roll: Rolled<DamageRoll>) => void | Promise<void>,
     ): Promise<Rolled<DamageRoll> | null> {
         const outcome = context.outcome ?? null;
         context.createMessage ??= true;
@@ -36,7 +36,11 @@ export class DamagePF2e {
         let flavor = data.name.startsWith("<h4")
             ? data.name
             : data.name || subtitle
-              ? await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", { title: data.name, subtitle })
+              ? await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
+                    title: data.name,
+                    outcome,
+                    subtitle,
+                })
               : "";
 
         if (context.traits) {
@@ -240,6 +244,7 @@ export class DamagePF2e {
             target: targetFlag,
             domains: context.domains ?? [],
             options: Array.from(context.options).sort(),
+            contextualOptions: {},
             mapIncreases: context.mapIncreases,
             notes: notes.map((n) => n.toObject()),
             secret: context.secret ?? false,

@@ -129,11 +129,49 @@ table.pf2-table {
         background-color: var(--color-pf-primary-dark);
         color: var(--text-light);
         font-weight: bold;
-        padding: 0.5rem 0.25rem;
+        padding: var(--space-8) var(--space-4);
     }
 
     td {
-        padding: 0.25rem;
+        padding: var(--space-4);
+    }
+
+    &.remaster {
+        tr:nth-child(odd) {
+            background-color: #eee3c8;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f5efe0;
+        }
+
+        th,
+        td {
+            border-color: var(--color-border-light-tertiary);
+        }
+
+        th {
+            background-color: #002a17;
+        }
+    }
+
+    &.lost-omens {
+        tr:nth-child(odd) {
+            background-color: #efe5ca;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f6f2e2;
+        }
+
+        th,
+        td {
+            border-color: var(--color-border-light-tertiary);
+        }
+
+        th {
+            background-color: #042564;
+        }
     }
 }
 
@@ -173,7 +211,7 @@ a.content-link {
     color: var(--color-text-dark-primary);
 }
 
-.inline-roll.altered {
+a.inline-roll.altered {
     color: var(--color-text-dark-improved);
 }
 
@@ -191,7 +229,7 @@ span[data-pf2-action] {
     }
 
     &[data-pf2-glyph]::before {
-        font-family: "Pathfinder2eActions";
+        font-family: "Pathfinder2eActions", sans-serif;
         margin-right: var(--space-2);
         color: var(--color-text-dark-inactive);
     }

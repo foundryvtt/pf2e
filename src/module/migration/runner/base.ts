@@ -1,8 +1,8 @@
-import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import type { ActorSourcePF2e } from "@actor/data/index.ts";
+import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
-import { MigrationRecord } from "@module/data.ts";
-import { MigrationBase } from "@module/migration/base.ts";
+import type { MigrationRecord } from "@module/data.ts";
+import type { MigrationBase } from "@module/migration/base.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
 
 interface CollectionDiff<T extends foundry.documents.ActiveEffectSource | ItemSourcePF2e> {
@@ -14,7 +14,7 @@ interface CollectionDiff<T extends foundry.documents.ActiveEffectSource | ItemSo
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.932;
+    static LATEST_SCHEMA_VERSION = 0.935;
 
     static MINIMUM_SAFE_VERSION = 0.7;
 

@@ -4,7 +4,7 @@
     "name": "Spell Effect: Object Memory (Weapon)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Object Memory].</p>\n<p>If you touch a weapon, your proficiency rank with that weapon temporarily increases to trained (if it is not already higher).</p>\n<hr />\n<p><strong>Heightened (6th)</strong> Your proficiency rank increases to expert instead of trained.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Object Memory].</p>\n<p>Your proficiency rank with a chosen weapon temporarily increases to trained (if it is not already higher).</p><hr /><p><strong>Heightened (6th)</strong> Your proficiency rank increases to expert instead of trained.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,9 +16,9 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens: Gods & Magic"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Divine Mysteries"
         },
         "rules": [
             {
@@ -28,28 +28,18 @@
                         "weapon"
                     ]
                 },
-                "flag": "spellEffectObjectMemoryWeapon",
+                "flag": "weapon",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
-                "ability": "str",
-                "key": "FixedProficiency",
-                "selector": "{item|flags.pf2e.rulesSelections.spellEffectObjectMemoryWeapon}-attack",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "start": 1,
-                            "value": "2 + @actor.level"
-                        },
-                        {
-                            "start": 6,
-                            "value": "4 + @actor.level"
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.ObjectMemory",
+                "slug": "object-memory",
+                "value": "ternary(lt(@item.level, 6), 1, 2)"
             }
         ],
         "start": {

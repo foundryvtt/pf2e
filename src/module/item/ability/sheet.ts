@@ -1,13 +1,15 @@
 import type { AbilityItemPF2e } from "@item/ability/document.ts";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
+import { getItemFromDragEvent } from "@module/sheet/helpers.ts";
 import { ancestryTraits } from "@scripts/config/traits.ts";
+import { ErrorPF2e } from "@util";
 import * as R from "remeda";
-import { SelfEffectReference } from "./data.ts";
+import type { AbilitySystemSchema, SelfEffectReference } from "./data.ts";
 import { activateActionSheetListeners, createSelfEffectSheetData, handleSelfEffectDrop } from "./helpers.ts";
 
 // Gather traits to restrict to avoid trait selection noise in the selection
 // We fetch at load time to avoid propagated homebrew traits
-const originalAncestryTraits = R.keys.strict(ancestryTraits);
+const originalAncestryTraits = R.keys(ancestryTraits);
 
 class AbilitySheetPF2e extends ItemSheetPF2e<AbilityItemPF2e> {
     static override get defaultOptions(): ItemSheetOptions {
@@ -37,7 +39,7 @@ class AbilitySheetPF2e extends ItemSheetPF2e<AbilityItemPF2e> {
 
         return {
             ...sheetData,
-            categories: CONFIG.PF2E.actionCategories,
+            fields: this.item.system.schema.fields,
             actionTypes: CONFIG.PF2E.actionTypes,
             actionsNumber: CONFIG.PF2E.actionsNumber,
             actionTraits: CONFIG.PF2E.actionTraits,
@@ -60,17 +62,22 @@ class AbilitySheetPF2e extends ItemSheetPF2e<AbilityItemPF2e> {
     }
 
     override async _onDrop(event: DragEvent): Promise<void> {
-        return handleSelfEffectDrop(this, event);
+        const item = await getItemFromDragEvent(event);
+        if (!item) return;
+
+        if (!(await handleSelfEffectDrop(this, item))) {
+            throw ErrorPF2e("Invalid item drop");
+        }
     }
 }
 
 interface ActionSheetData extends ItemSheetDataPF2e<AbilityItemPF2e> {
-    categories: ConfigPF2e["PF2E"]["actionCategories"];
-    actionTypes: ConfigPF2e["PF2E"]["actionTypes"];
-    actionsNumber: ConfigPF2e["PF2E"]["actionsNumber"];
-    actionTraits: ConfigPF2e["PF2E"]["actionTraits"];
-    frequencies: ConfigPF2e["PF2E"]["frequencies"];
-    proficiencies: ConfigPF2e["PF2E"]["proficiencyLevels"];
+    fields: AbilitySystemSchema;
+    actionTypes: typeof CONFIG.PF2E.actionTypes;
+    actionsNumber: typeof CONFIG.PF2E.actionsNumber;
+    actionTraits: typeof CONFIG.PF2E.actionTraits;
+    frequencies: typeof CONFIG.PF2E.frequencies;
+    proficiencies: typeof CONFIG.PF2E.proficiencyLevels;
     selfEffect: SelfEffectReference | null;
 }
 

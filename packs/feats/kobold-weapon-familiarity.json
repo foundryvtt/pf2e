@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You've trained with weapons ideal for subterranean efficiency. You are trained with the @UUID[Compendium.pf2e.equipment-srd.Item.Crossbow], @UUID[Compendium.pf2e.equipment-srd.Item.Greatpick], @UUID[Compendium.pf2e.equipment-srd.Item.Light Pick], @UUID[Compendium.pf2e.equipment-srd.Item.Pick], and @UUID[Compendium.pf2e.equipment-srd.Item.Spear].</p>\n<p>You also gain access to all uncommon kobold weapons. For the purpose of determining your proficiency, martial kobold weapons are simple weapons, and advanced kobold weapons are martial weapons.</p>"
+            "value": "<p>You gain access to all uncommon weapons with the kobold trait. You have familiarity with weapons with the kobold trait plus the greatpick, light pick, and pick—for the purposes of proficiency, you treat any of these that are martial weapons as simple weapons and any that are advanced weapons as martial weapons.</p>\n<p>At 5th level, whenever you get a critical hit with one of these weapons, you get its critical specialization effect.</p>"
         },
         "level": {
             "value": 1
@@ -20,41 +20,11 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens: Ancestry Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-crossbow.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-greatpick.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-light-pick.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-pick.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-spear.rank",
-                "value": 1
-            },
             {
                 "definition": [
                     "item:trait:kobold",
@@ -67,16 +37,39 @@
             },
             {
                 "definition": [
-                    "item:trait:kobold",
                     "item:category:martial",
                     {
-                        "not": "item:category:advanced"
+                        "or": [
+                            "item:trait:kobold",
+                            "item:base:greatpick",
+                            "item:base:light-pick",
+                            "item:base:pick"
+                        ]
                     }
                 ],
                 "key": "MartialProficiency",
                 "label": "PF2E.SpecificRule.MartialProficiency.MartialKoboldWeapons",
                 "sameAs": "simple",
                 "slug": "martial-kobold-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:kobold",
+                            "item:base:greatpick",
+                            "item:base:light-pick",
+                            "item:base:pick"
+                        ]
+                    }
+                ]
             }
         ],
         "traits": {

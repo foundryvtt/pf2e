@@ -1,4 +1,4 @@
-import type { ActionTrait } from "@item/ability/index.ts";
+import type { AbilityTrait } from "@item/ability/index.ts";
 import type { ProficiencyRank } from "@item/base/data/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { PROFICIENCY_RANKS } from "@module/data.ts";
@@ -18,7 +18,7 @@ interface BaseActionVariantData {
     description?: string;
     name?: string;
     slug?: string;
-    traits?: ActionTrait[];
+    traits?: AbilityTrait[];
 }
 
 interface BaseActionData<ActionVariantDataType extends BaseActionVariantData = BaseActionVariantData> {
@@ -29,7 +29,7 @@ interface BaseActionData<ActionVariantDataType extends BaseActionVariantData = B
     sampleTasks?: Partial<Record<ProficiencyRank, string>>;
     section?: ActionSection;
     slug?: string | null;
-    traits?: ActionTrait[];
+    traits?: AbilityTrait[];
     variants?: ActionVariantDataType | ActionVariantDataType[];
 }
 
@@ -49,7 +49,7 @@ abstract class BaseActionVariant implements ActionVariant {
     readonly #description?: string;
     readonly name?: string;
     readonly #slug?: string;
-    readonly #traits?: ActionTrait[];
+    readonly #traits?: AbilityTrait[];
 
     protected constructor(action: BaseAction<BaseActionVariantData, BaseActionVariant>, data?: BaseActionVariantData) {
         this.#action = action;
@@ -78,7 +78,7 @@ abstract class BaseActionVariant implements ActionVariant {
         return this.#slug || sluggify(this.name ?? "") || this.#action.slug;
     }
 
-    get traits(): ActionTrait[] {
+    get traits(): AbilityTrait[] {
         return this.#traits ?? this.#action.traits;
     }
 
@@ -120,7 +120,7 @@ abstract class BaseAction<TData extends BaseActionVariantData, TAction extends B
     readonly sampleTasks?: Partial<Record<ProficiencyRank, string>>;
     readonly section?: ActionSection;
     readonly slug: string;
-    readonly traits: ActionTrait[];
+    readonly traits: AbilityTrait[];
     readonly #variants: TAction[];
 
     protected constructor(data: BaseActionData<TData>) {

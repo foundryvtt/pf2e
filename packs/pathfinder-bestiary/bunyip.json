@@ -120,10 +120,8 @@
         },
         {
             "_id": "zbg9eaOONakDkuma",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Aquatic Opportunity (Special)",
@@ -167,7 +165,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The bunyip is not @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] or already in a frenzy.</p>\n<p><strong>Trigger</strong> The bunyip deals bleed damage to a living creature.</p>\n<hr />\n<p><strong>Effect</strong> The bunyip flies into a frenzy that lasts 1 minute. While frenzied, the bunyip gains a +4 status bonus to damage rolls with its jaws, gains 8 temporary HP that go away at the end of the frenzy, and takes a -2 penalty to AC.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Blood Frenzy]</p>"
+                    "value": "<p><strong>Requirements</strong> The bunyip is not @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] or already in a frenzy.</p>\n<p><strong>Trigger</strong> The bunyip deals bleed damage to a living creature.</p><hr /><p><strong>Effect</strong> The bunyip flies into a frenzy that lasts 1 minute. While frenzied, the bunyip gains a +4 status bonus to damage rolls with its jaws, gains 8 temporary HP that go away at the end of the frenzy, and takes a -2 penalty to AC.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -199,6 +197,10 @@
                         "value": 1
                     }
                 ],
+                "selfEffect": {
+                    "name": "Effect: Blood Frenzy",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Blood Frenzy"
+                },
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -221,7 +223,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The bunyip lets out a loud and horrifying roar. Other creatures within @Template[type:emanation|distance:100]{100 feet} must succeed at a @Check[type:will|dc:21] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} on a critical failure,@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} on a success, or unaffected on a critical success).</p>\n<p>No matter the result, the creature is temporarily immune to the effect for 1 minute.</p>"
+                    "value": "<p>The bunyip lets out a loud and horrifying roar. Other creatures within @Template[emanation|distance:100]{100 feet} must succeed at a @Check[will|dc:21] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} on a critical failure,@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} on a success, or unaffected on a critical success).</p>\n<p>No matter the result, the creature is temporarily immune to the effect for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -305,7 +307,7 @@
                     },
                     {
                         "definition": [
-                            "item:tail"
+                            "item:slug:tail"
                         ],
                         "key": "AdjustStrike",
                         "mode": "add",

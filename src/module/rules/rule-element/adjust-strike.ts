@@ -1,6 +1,6 @@
 import type { ActorType } from "@actor/types.ts";
 import type { MeleePF2e, WeaponPF2e } from "@item";
-import { ActionTrait } from "@item/ability/types.ts";
+import { AbilityTrait } from "@item/ability/types.ts";
 import { RUNE_DATA, prunePropertyRunes } from "@item/physical/runes.ts";
 import { addOrUpgradeTrait } from "@item/weapon/helpers.ts";
 import { WeaponRangeIncrement } from "@item/weapon/types.ts";
@@ -8,11 +8,11 @@ import { MaterialDamageEffect } from "@system/damage/index.ts";
 import { PredicateField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, objectHasKey, sluggify } from "@util";
 import * as R from "remeda";
-import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { StrikeAdjustment } from "../synthetics.ts";
 import { AELikeChangeMode, AELikeRuleElement } from "./ae-like.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
+import fields = foundry.data.fields;
 
 class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
@@ -30,13 +30,11 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
     ] as const);
 
     static override defineSchema(): AdjustStrikeSchema {
-        const fields = foundry.data.fields;
-
         return {
             ...super.defineSchema(),
             mode: new fields.StringField({
                 required: true,
-                choices: R.keys.strict(AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES),
+                choices: R.keys(AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES),
                 initial: undefined,
             }),
             property: new fields.StringField({
@@ -109,7 +107,7 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
                     };
                 case "traits":
                     return {
-                        adjustTraits: (weapon: WeaponPF2e | MeleePF2e, traits: ActionTrait[]): void => {
+                        adjustTraits: (weapon: WeaponPF2e | MeleePF2e, traits: AbilityTrait[]): void => {
                             if (!["add", "subtract", "remove"].includes(this.mode)) {
                                 return this.failValidation(
                                     'A strike adjustment of traits must be used with the "add", "subtract", or "remove" mode.',
@@ -210,9 +208,9 @@ interface AdjustStrikeRuleElement
         ModelPropsFromRESchema<AdjustStrikeSchema> {}
 
 type AdjustStrikeSchema = RuleElementSchema & {
-    mode: StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
+    mode: fields.StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
     /** The property of the strike to adjust */
-    property: StringField<AdjustStrikeProperty, AdjustStrikeProperty, true, false, false>;
+    property: fields.StringField<AdjustStrikeProperty, AdjustStrikeProperty, true, false, false>;
     /** The definition of the strike in terms of its item (weapon) roll options */
     definition: PredicateField;
     value: ResolvableValueField<true, false, false>;

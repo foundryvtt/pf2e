@@ -1,0 +1,52 @@
+{
+    "_id": "P4EkIpTqPDB3gNba",
+    "img": "icons/sundries/books/book-embossed-roots-green.webp",
+    "name": "Effect: Avowed Insight",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Avowed Insight]</p>\n<p>You gain a +1 circumstance bonus to AC and saving throws against the marked creature's attacks and abilities.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "avowed-insight"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:mark:avowed-insight"
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

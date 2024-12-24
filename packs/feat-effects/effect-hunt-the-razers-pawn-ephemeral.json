@@ -1,0 +1,53 @@
+{
+    "_id": "uGNTOgns4lZ0HW08",
+    "img": "icons/magic/holy/barrier-shield-winged-blue.webp",
+    "name": "Effect: Hunt the Razer's Pawn (Ephemeral)",
+    "system": {
+        "description": {
+            "value": "<p>Ephemeral effect for</p>\n<p>You take a a –1 circumstance penalty to saving throws against spells or effects created by the originating actor. This penalty increases to –2 against effects that have the holy trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Spore War Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "saving-throw",
+                "slug": "hunt-the-razers-pawn",
+                "type": "circumstance",
+                "value": -1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "item:trait:holy"
+                ],
+                "slug": "hunt-the-razers-pawn",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

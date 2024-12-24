@@ -21,7 +21,13 @@ import type {
     PhysicalSystemData,
     Price,
 } from "./data.ts";
-import { CoinsPF2e, computeLevelRarityPrice, handleHPChange, prepareBulkData } from "./helpers.ts";
+import {
+    CoinsPF2e,
+    computeLevelRarityPrice,
+    getDefaultEquipStatus,
+    handleHPChange,
+    prepareBulkData,
+} from "./helpers.ts";
 import { getUsageDetails, isEquipped } from "./usage.ts";
 import { DENOMINATIONS } from "./values.ts";
 
@@ -91,7 +97,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
     /** The number of hands being used to hold this item */
     get handsHeld(): ZeroToTwo {
-        return this.system.equipped.carryType === "held" ? this.system.equipped.handsHeld ?? 1 : 0;
+        return this.system.equipped.carryType === "held" ? (this.system.equipped.handsHeld ?? 1) : 0;
     }
 
     /** Whether the item is currently being worn */
@@ -281,6 +287,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         // Normalize and fill price data
         this.system.price.value = new CoinsPF2e(this.system.temporary ? {} : this.system.price.value);
         this.system.price.per = Math.max(1, this.system.price.per ?? 1);
+        this.system.price.sizeSensitive ??= true;
 
         // Fill out usage and equipped status
         this.system.usage = getUsageDetails(this.system.usage?.value ?? "carried");
@@ -350,6 +357,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         };
 
         // Compute level, rarity, and price from factors like runes, precious material, shoddiness, and size
+        if (this.isMagical) this.system.price.sizeSensitive = false;
         const { level, rarity, price } = computeLevelRarityPrice(this);
         this.system.level.value = level;
         this.system.traits.rarity = rarity;
@@ -386,7 +394,9 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
         // Ensure that there is only one selected apex item, and all others are set to false
         if (this.system.apex) {
-            const otherApexData = this.actor.inventory.contents.flatMap((e) => (e === this ? [] : e.system.apex ?? []));
+            const otherApexData = this.actor.inventory.contents.flatMap((e) =>
+                e === this ? [] : (e.system.apex ?? []),
+            );
             if (this.system.apex.selected || (this.isInvested && otherApexData.every((d) => !d.selected))) {
                 this.system.apex.selected = true;
                 for (const data of otherApexData) {
@@ -454,14 +464,18 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return super.getEmbeddedDocument(embeddedName, id, options);
     }
 
-    /** Can the provided item stack with this item? */
+    /**
+     * Can the provided item stack with this item?
+     * @param item an item we are trying to add to the inventory
+     */
     isStackableWith(item: PhysicalItemPF2e): boolean {
         const preCheck =
             this !== item &&
             this.type === item.type &&
             this.name === item.name &&
             this.isIdentified === item.isIdentified &&
-            ![this, item].some((i) => i.isHeld || i.isOfType("backpack"));
+            this.isHeld === item.isHeld &&
+            (!this.isHeld || this.quantity === 0 || item.quantity === 0);
         if (!preCheck) return false;
 
         const thisData = this.toObject().system;
@@ -641,7 +655,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     }
 
     /** Include mystification-related rendering instructions for views that will display this data. */
-    protected override traitChatData(dictionary: Record<string, string>): TraitChatData[] {
+    override traitChatData(dictionary?: Record<string, string>): TraitChatData[] {
         const traitData = super.traitChatData(dictionary);
         for (const trait of traitData) {
             trait.mystified = !this.isIdentified && MystifiedTraits.has(trait.value);
@@ -718,10 +732,9 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         // Clear the apex selection in case this is an apex item being copied from a previous owner
         delete this._source.system.apex?.selected;
 
-        this._source.system.equipped = { carryType: "worn" };
-        const isSlottedItem = this.system.usage.type === "worn" && !!this.system.usage.where;
-        if (isSlottedItem && this.actor?.isOfType("character")) {
-            this._source.system.equipped.inSlot = false;
+        // If this is being dragged to a compendium or world items, clear the equip data
+        if (!this.actor) {
+            this._source.system.equipped = getDefaultEquipStatus(this);
         }
 
         return super._preCreate(data, options, user);

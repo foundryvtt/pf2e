@@ -1,0 +1,73 @@
+{
+    "_id": "TALz3cU06Hb14Key",
+    "img": "icons/skills/melee/maneuver-greatsword-yellow.webp",
+    "name": "Stylish Combatant",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You gain a +1 circumstance bonus to skill checks with the bravado trait while in a combat encounter. While you have panache, you gain a +5-foot status bonus to your Speeds.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:bravado",
+                    {
+                        "or": [
+                            "encounter",
+                            "feature:continuous-flair"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "slug": "stylish-combatant-skill",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:effect:panache",
+                            {
+                                "and": [
+                                    "feature:vivacious-speed",
+                                    {
+                                        "not": "self:effect:panache"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "speed",
+                "slug": "stylish-combatant-speed",
+                "type": "status",
+                "value": 5
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

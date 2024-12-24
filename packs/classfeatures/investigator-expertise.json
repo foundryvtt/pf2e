@@ -1,6 +1,6 @@
 {
     "_id": "PFvB79O2VFdiAeSj",
-    "img": "systems/pf2e/icons/features/classes/investigator-expertise.webp",
+    "img": "icons/commodities/treasure/medal-ribbon-gold-blue.webp",
     "name": "Investigator Expertise",
     "system": {
         "actionType": {
@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>You've refined your investigative techniques to an exceptional degree. Your circumstance bonus from @UUID[Compendium.pf2e.actionspf2e.Item.Pursue a Lead] increases to +2. Your proficiency rank for your investigator class DC increases to expert.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Clue In (Expertise)]</p>\n<p>If you have @UUID[Compendium.pf2e.feats-srd.Item.Detective's Readiness], @UUID[Compendium.pf2e.feat-effects.Item.Effect: Clue In (Detective's Readiness, Expertise)]</p>"
+            "value": "<p>You've refined your investigative techniques to an exceptional degree. Your circumstance bonus from @UUID[Compendium.pf2e.actionspf2e.Item.Pursue a Lead] increases to +2. Your proficiency rank for your investigator class DC increases to expert.</p>"
         },
         "level": {
             "value": 9
@@ -20,17 +20,28 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:clue-in"
+                ],
+                "property": "other-tags",
+                "value": "investigator-expertise"
+            },
             {
                 "key": "AdjustModifier",
                 "mode": "upgrade",
                 "selectors": [
                     "perception",
-                    "skill-check"
+                    "skill-check",
+                    "saving-throw"
                 ],
                 "slug": "pursue-a-lead",
                 "value": 2

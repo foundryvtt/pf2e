@@ -239,13 +239,14 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
      * @returns The array of choices to present to the user
      */
     async inflateChoices(rollOptions: Set<string>, tempItems: ItemPF2e<ActorPF2e>[]): Promise<PickableThing[]> {
+        const validate = R.isNullish(this.selection); // Skip validation if a preselection is made
         const choices = await (async () => {
             if (Array.isArray(this.choices)) {
-                return this.#choicesFromArray(this.choices, rollOptions);
+                return this.#choicesFromArray(this.choices, rollOptions, validate);
             }
 
             if (typeof this.choices === "string" || (R.isObjectType(this.choices) && this.choices.config)) {
-                return this.#choicesFromPath(this.choices, rollOptions);
+                return this.#choicesFromPath(this.choices, rollOptions, validate);
             }
 
             return R.isObjectType(this.choices) // ChoiceSetAttackQuery or ChoiceSetItemQuery
@@ -303,29 +304,38 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         }
     }
 
-    #choicesFromArray(choices: PickableThing[], actorRollOptions: Set<string>): PickableThing[] {
-        return choices.filter((c) =>
-            this.resolveInjectedProperties(new Predicate(c.predicate ?? [])).test(actorRollOptions),
-        );
+    #choicesFromArray(choices: PickableThing[], actorRollOptions: Set<string>, validate: boolean): PickableThing[] {
+        return validate
+            ? choices.filter((c) =>
+                  this.resolveInjectedProperties(new Predicate(c.predicate ?? [])).test(actorRollOptions),
+              )
+            : choices;
     }
 
-    #choicesFromPath(choices: string | ChoiceSetConfig, actorRollOptions: Set<string>): PickableThing<string>[] {
+    #choicesFromPath(
+        choices: string | ChoiceSetConfig,
+        actorRollOptions: Set<string>,
+        validate: boolean,
+    ): PickableThing<string>[] {
         const data =
             typeof choices === "string"
-                ? fu.getProperty(CONFIG.PF2E, choices) ?? fu.getProperty(this.actor, choices) ?? {}
-                : fu.getProperty(CONFIG.PF2E, choices.config) ?? {};
-        const predicate = typeof choices === "string" ? null : choices.predicate;
+                ? (fu.getProperty(CONFIG.PF2E, choices) ?? fu.getProperty(this.actor, choices) ?? {})
+                : (fu.getProperty(CONFIG.PF2E, choices.config) ?? {});
+        const predicate = !validate || typeof choices === "string" ? null : choices.predicate;
 
         // If this is an array, optionally run predicates on all the entries
         if (Array.isArray(data)) {
             if (!data.every((c) => R.isPlainObject(c) && typeof c.value === "string")) {
                 return [];
             }
-            return data.filter((choice) =>
-                this.resolveInjectedProperties(new Predicate(choice.predicate ?? predicate ?? []), {
-                    injectables: { choice },
-                }).test(actorRollOptions),
-            );
+
+            return validate
+                ? data.filter((choice) =>
+                      this.resolveInjectedProperties(new Predicate(choice.predicate ?? predicate ?? []), {
+                          injectables: { choice },
+                      }).test(actorRollOptions),
+                  )
+                : data;
         }
 
         // If this is an object with all string values or all string labels, optionally run the top level filter predicate
@@ -337,7 +347,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
 
             return entries
                 .filter(([key, choice]) => {
-                    return this.resolveInjectedProperties(new Predicate(predicate ?? []), {
+                    if (!predicate) return true;
+                    return this.resolveInjectedProperties(new Predicate(fu.deepClone(predicate)), {
                         injectables: { choice: { ...choice, value: key } },
                     }).test(actorRollOptions);
                 })
@@ -449,14 +460,16 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                         "system.ancestry",
                         "system.baseItem",
                         "system.category",
+                        "system.damage.damageType",
                         "system.group",
                         "system.level",
                         "system.maxTakable",
-                        "system.potencyRune",
                         "system.range",
+                        "system.runes",
                         "system.sanctification",
                         "system.slug",
                         "system.traits",
+                        "system.usage",
                     ],
                 }),
             );
@@ -478,7 +491,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
 
         // Exclude any feat of which the character already has its maximum number and return final list
         const existing: Map<string, number> = new Map();
-        for (const feat of this.actor.itemTypes.feat) {
+        const actor = this.actor;
+        for (const feat of actor.itemTypes.feat) {
             const slug = feat.slug ?? sluggify(feat.name);
             existing.set(slug, (existing.get(slug) ?? 0) + 1);
         }
@@ -488,9 +502,16 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         }
 
         return filteredItems
-            .filter((i) => (i.isOfType("feat") ? (existing.get(i.slug ?? sluggify(i.name)) ?? 0) < i.maxTakable : true))
+            .filter((item) => {
+                const slug = item.slug ?? sluggify(item.name);
+                if (item.isOfType("feat")) return (existing.get(slug) ?? 0) < item.maxTakable;
+                if (item.isOfType("heritage")) {
+                    return !actor.itemTypes.heritage.some((h) => (h.slug ?? sluggify(h.name)) === slug);
+                }
+                return true;
+            })
             .map((f) => ({
-                value: choices.slugsAsValues ? f.slug ?? sluggify(f.name) : f.uuid,
+                value: choices.slugsAsValues ? (f.slug ?? sluggify(f.name)) : f.uuid,
                 label: f.name,
                 img: f.img,
             }));

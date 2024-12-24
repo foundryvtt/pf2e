@@ -24,7 +24,40 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: The Mwangi Expanse"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:resist-energy",
+                            "item:slug:share-life"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:resist-energy",
+                            "item:slug:share-life"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:conrasu"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

@@ -1,5 +1,4 @@
-import { CraftingEntryData } from "@actor/character/crafting/entry.ts";
-import { CraftingFormulaData } from "@actor/character/crafting/formula.ts";
+import type { CraftingAbilityData, CraftingFormulaData } from "@actor/character/crafting/index.ts";
 import {
     AbilityData,
     BaseCreatureSource,
@@ -45,6 +44,8 @@ type CharacterSource = BaseCreatureSource<"character", CharacterSystemSource> & 
 
 type CharacterFlags = ActorFlagsPF2e & {
     pf2e: {
+        /** Has daily preparation crafting been completed for the day */
+        dailyCraftingComplete?: boolean;
         /** If applicable, the character's proficiency rank in their deity's favored weapon */
         favoredWeaponRank: number;
         /** The highest number of damage dice among the character's equipped weapons and available unarmed attacks */
@@ -59,6 +60,8 @@ type CharacterFlags = ActorFlagsPF2e & {
         sheetTabs: CharacterSheetTabVisibility;
         /** Whether the basic unarmed attack is shown on the Actions tab */
         showBasicUnarmed: boolean;
+        /** The limit for each feat group that supports a custom limit. */
+        featLimits: Record<string, number>;
     };
 };
 
@@ -403,17 +406,21 @@ interface VersatileWeaponOption {
 
 interface CharacterCraftingData {
     formulas: CraftingFormulaData[];
-    entries: Record<string, Partial<CraftingEntryData>>;
+    entries: Record<string, CraftingAbilityData>;
 }
 
-interface CharacterResources extends CreatureResources {
+type CharacterResources = CreatureResources & {
     /** The current and maximum number of hero points */
     heroPoints: ValueAndMax;
+    /** The current number of focus points and pool size */
+    focus: ValueAndMax & { cap: number };
     /** The current and maximum number of invested items */
     investiture: ValueAndMax;
+    // Will be removed in a future update
     crafting: { infusedReagents: ValueAndMax };
     resolve?: ValueAndMax;
-}
+    mythicPoints: ValueAndMax;
+};
 
 interface CharacterPerceptionData extends CreaturePerceptionData {
     rank: ZeroToFour;

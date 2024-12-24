@@ -1,10 +1,10 @@
 {
     "_id": "cOcHWeogJFIkEI0d",
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "icons/equipment/chest/breastplate-layered-leather-studded.webp",
     "name": "Effect: Energizing Lattice",
     "system": {
         "description": {
-            "value": "<p>The latticework glows for 1 minute, shedding bright light in a 20-foot radius (and dim light for the next 20 feet). You can Dismiss this light.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> envision (force)</p>\n<p><strong>Requirements</strong> The <em>energizing lattice</em> is glowing because it negated an enemy's critical hit</p>\n<hr />\n<p><strong>Effect</strong> You release the lattice's energy and make a weapon or unarmed attack Strike that deals 6d6 additional force damage. If your Strike fails, but doesn't critically fail, the target still takes half the force damage. The latticework ceases glowing after the Strike.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Energizing Lattice]</p>\n<p>The latticework glows for 1 minute, shedding bright light in a 20-foot radius (and dim light for the next 20 feet). You can Dismiss this light.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> envision (force)</p>\n<p><strong>Requirements</strong> The <em>energizing lattice</em> is glowing because it negated an enemy's critical hit</p><hr /><p><strong>Effect</strong> You release the lattice's energy and make a weapon or unarmed attack Strike that deals 6d6 additional force damage. If your Strike fails, but doesn't critically fail, the target still takes half the force damage. The latticework ceases glowing after the Strike.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -24,17 +24,21 @@
             {
                 "key": "TokenLight",
                 "value": {
+                    "alpha": 0.3,
+                    "animation": {
+                        "speed": 4,
+                        "type": "wave"
+                    },
                     "bright": 20,
-                    "color": "#9b7337",
+                    "color": "#f5efa1",
                     "dim": 40,
                     "shadows": 0.2
                 }
             },
             {
-                "domain": "all",
                 "key": "RollOption",
-                "label": "Unleash Energy in Lattice",
-                "option": "unleash-energy",
+                "label": "PF2E.SpecificRule.Equipment.EnergizingLattice.RollOptionLabel",
+                "option": "release-energy",
                 "toggleable": true
             },
             {
@@ -43,9 +47,21 @@
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "predicate": [
-                    "unleash-energy"
+                    "release-energy"
                 ],
                 "selector": "strike-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "predicate": [
+                    "release-energy"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Equipment.EnergizingLattice.Note",
+                "title": "{item|name}"
             }
         ],
         "start": {

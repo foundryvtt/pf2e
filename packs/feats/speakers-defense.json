@@ -28,7 +28,76 @@
             "remaster": true,
             "title": "Pathfinder Howl of the Wild"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:share-life",
+                            "item:slug:status"
+                        ]
+                    },
+                    "spellcasting:innate",
+                    "centaur-speaker:faithspeaker"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:share-life",
+                            "item:slug:status"
+                        ]
+                    },
+                    "spellcasting:innate",
+                    "centaur-speaker:faithspeaker"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:centaur"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:entangling-flora",
+                            "item:slug:environmental-endurance"
+                        ]
+                    },
+                    "spellcasting:innate",
+                    "centaur-speaker:greenspeaker"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:entangling-flora",
+                            "item:slug:environmental-endurance"
+                        ]
+                    },
+                    "spellcasting:innate",
+                    "centaur-speaker:greenspeaker"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:centaur"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

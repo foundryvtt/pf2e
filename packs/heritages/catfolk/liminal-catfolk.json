@@ -1,7 +1,7 @@
 {
     "_id": "3F5ffk7cmnrBhPcT",
     "folder": "rHnluMPovHqQZC1m",
-    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "img": "icons/creatures/mammals/humanoid-cat-skulking-teal.webp",
     "name": "Liminal Catfolk",
     "system": {
         "ancestry": {
@@ -10,20 +10,19 @@
             "uuid": "Compendium.pf2e.ancestries.Item.972EkpJOPv9KkQIW"
         },
         "description": {
-            "value": "<p>You've inherited a closeness to the far corners of the world, where the boundaries between dimensions grow thin. You can cast detect magic as an occult innate cantrip heightened to half your level, rounded up.</p>\n<p>You also gain a +1 circumstance bonus to Occultism checks to Recall Knowledge about creatures that originated outside of the Material Plane.</p>"
+            "value": "<p>You've inherited a closeness to the far corners of the world, where the boundaries between dimensions grow thin. You can cast the @UUID[Compendium.pf2e.spells-srd.Item.Detect Magic] cantrip as an occult innate spell at will. A cantrip is heightened to half your level rounded up. You also gain a +1 circumstance bonus to Occultism checks to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] about creatures that originated on planes other than the Universe.</p>"
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens: Ancestry Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "To Recall Knowledge about non-Material creatures (Liminal Catfolk)",
                 "predicate": [
                     "action:recall-knowledge",
-                    "target:not-material-plane"
+                    "target:not-from-universe"
                 ],
                 "selector": "occultism",
                 "type": "circumstance",

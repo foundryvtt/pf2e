@@ -1,0 +1,356 @@
+{
+    "_id": "y7LCTsOl0bTKl33q",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "5z4oxn4v1jzZpqBn",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Hoof",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "ZjzfkfjZctQvdDOU": {
+                        "damage": "1d8+6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "1TnNAR4SNE5Y6PnE",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Horn",
+            "sort": 200000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "knockdown"
+                    ]
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "kNMCe081FYpSKSaz": {
+                        "damage": "1d8+6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "FK7IOuMuHnlhzE6q",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Easily Spooked",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The aurochs gains a +5-foot-status bonus to Speed while @UUID[Compendium.pf2e.conditionitems.Item.Frightened].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "self:condition:frightened"
+                        ],
+                        "selector": "land-speed",
+                        "type": "status",
+                        "value": 5
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zFqVzADaVldvukHX",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Safety in Numbers",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Aurochs move together to keep safe from predators. While within 10 feet of another aurochs, the aurochs gains a +1 circumstance bonus to AC.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "safety-in-numbers",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "safety-in-numbers"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SynGkLQHeLcSKwwM",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Trample",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Medium or smaller, hoof, @Check[reflex|dc:19|basic]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "trample",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lUF95HtMg3Db46KF",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Wild Charge",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The aurochs Strides twice and makes a single horn Strike against any foe along its path.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LZVHB5N6Pn0qMLCa",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Knockdown",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Knockdown]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "knockdown",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Aurochs",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -1
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 18
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 42,
+                "temp": 0,
+                "value": 42
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 3
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>This massive bovine looks like a larger, wilder version of the domesticated cattle found throughout the Inner Sea region. During winter, vast herds of the animals roam the southern reaches of the Realm of the Mammoth Lords, but as the ice high in the mountains begins to melt, the aurochs migrate south into Belkzen, following their ancestral route along the Flood Road. Once the water flows in earnest and turns to massive floods, the sudden surge of greenery provides the aurochs with all the food they need to survive.</p>\n<p>Aurochs are essential to life in Belkzen. Not only do the orcs there hunt the wild cattle for their meat, but they use every part of the aurochs, from hide to bones, to craft their weapons and tools. The aurochs' arrival prompts the beginning of the Flood Truce, during which the usually war-focused orc holds cease all hostilities to take advantage of this time of plenty.</p>\n<p>While groups of 20 or fewer animals are sometimes encountered, most aurochs travel in herds that stretch to the horizon. The land thunders under the weight of these herds, and the dust kicked up by their hooves is often spotted days before the aurochs—or the floodwaters that spurred their migration—arrive.</p>\n<p>Aurochs bulls stand between 6 and 7 feet tall at the shoulder and weigh around 2,500 pounds, although prodigious specimens can grow to over 7 feet tall and 3,000 pounds. Cows are smaller, standing near 6 feet at the shoulder and weighing up to 2,000 pounds. All aurochs have slightly curved horns that grow up to three feet long from base to spear-sharp tip.</p>\n<p>The aurochs is represented in much of Belkzen's artwork. Not only are the animals vital to survival in that unforgiving land, but their strength, power, and tenacity serve as potent symbols for orc holds.</p><h2>Aurochs Rolling</h2><p>Farmers throughout the Inner Sea often joke about cow tipping: sneaking up on an unsuspecting bovine and pushing it over while it sleeps. But since cattle sleep lying down, the animal usually has the last laugh. Nonetheless, some younger orcs in Belkzen spend evenings creeping up on sleeping aurochs to roll them over. This usually results in little more than a startled aurochs.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #207: The Resurrection Flood"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 9,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 6
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 11
+            },
+            "survival": {
+                "base": 9
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "animal"
+            ]
+        }
+    },
+    "type": "npc"
+}

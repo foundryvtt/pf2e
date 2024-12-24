@@ -1,0 +1,74 @@
+{
+    "_id": "xSgUH97WkWadielz",
+    "img": "icons/magic/life/heart-cross-strong-flame-green.webp",
+    "name": "Healer of the World",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your legacy is written in the lives you save. In your presence, coughs cease and aches abate, as a soft glow fills any living being in your presence. Magic flowing from one hand stitches wounds, and vigor ebbs from the other. After you Spark Transcendence, choose any number of willing or @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] creatures in a @Template[type:emanation|distance:30]. Each of these creatures that's dying loses the @UUID[Compendium.pf2e.conditionitems.Item.Dying] condition and remains unconscious at 0 Hit Points, and each one that isn't dying gains 10 temporary Hit Points that last until the start of your next turn. This is a healing vitality effect.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Healer of the World]</p>"
+        },
+        "level": {
+            "value": 15
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Epithet.Label",
+                "mergeable": true,
+                "option": "epithet",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "healer-of-the-world"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    "divine-spark",
+                    "epithet:healer-of-the-world"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Exemplar.Epithet.HealerOfTheWorld.Description"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Healer of the World]"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "exemplar-sovereignty-epithet"
+            ],
+            "rarity": "common",
+            "value": [
+                "exemplar"
+            ]
+        }
+    },
+    "type": "feat"
+}

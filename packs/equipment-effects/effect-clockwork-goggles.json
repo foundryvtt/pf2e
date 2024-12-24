@@ -4,7 +4,7 @@
     "name": "Effect: Clockwork Goggles",
     "system": {
         "description": {
-            "value": "<p>You gain low-light vision for 10 minutes.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Clockwork Goggles], @UUID[Compendium.pf2e.equipment-srd.Item.Clockwork Goggles (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Clockwork Goggles (Major)]</p>\n<p>You gain low-light vision, darkvision (<em>greater</em> or <em>major</em>), and <em>see the unseen</em> (<em>major</em>).</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,8 +22,74 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:clockwork-goggles",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Clockwork Goggles"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:clockwork-goggles-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Clockwork Goggles (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:clockwork-goggles-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Clockwork Goggles (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "clockwork-goggles"
+            },
+            {
                 "key": "Sense",
                 "selector": "low-light-vision"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    {
+                        "or": [
+                            "clockwork-goggles:clockwork-goggles-greater",
+                            "clockwork-goggles:clockwork-goggles-major"
+                        ]
+                    }
+                ],
+                "selector": "darkvision"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "clockwork-goggles:clockwork-goggles-major"
+                ],
+                "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: See the Unseen"
             }
         ],
         "start": {

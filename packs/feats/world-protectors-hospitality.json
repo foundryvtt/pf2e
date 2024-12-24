@@ -1,0 +1,74 @@
+{
+    "_id": "2sVR3Z1TPZ8pQdQ0",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "World-Protector's Hospitality",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Through your spiritual power, you impede starvation and restore pantries. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Create Food] and @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Cuisine] as 2nd-rank primal innate spells, each once per day. Additionally, when you cast these spells, you instantly restore Hit Points to the containers storing these magical comestibles as though you've succeeded at a Repair action using your proficiency in your spell DC in place of your Crafting proficiency.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Meticulous Restorer"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:create-food",
+                            "item:slug:cleanse-cuisine"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:create-food",
+                            "item:slug:cleanse-cuisine"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:yaksha"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "primal",
+                "yaksha"
+            ]
+        }
+    },
+    "type": "feat"
+}

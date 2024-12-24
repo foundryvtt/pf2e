@@ -1,0 +1,58 @@
+{
+    "_id": "8VSMh11XydSm8DbP",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Mark of the Sage",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Usage</strong> imbued into a worn ikon</p><hr /><p>Your ikon gains a pin, stripe, or similar marking showing you as a master of your craft. The imbued ikon gains the following ability.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.A Challenge for Heroes] <span class=\"action-glyph\">2</span> (concentrate, mental, spirit, transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.c40APnn4a7bWhtcZ inline]</p>"
+        },
+        "level": {
+            "value": 16
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "choices": "flags.pf2e.exemplar.ikons",
+                "flag": "ikon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.A Challenge for Heroes"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "chosen-ikon:{item|flags.pf2e.rulesSelections.ikon}"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "worn-ikon-feat"
+            ],
+            "rarity": "common",
+            "value": [
+                "exemplar",
+                "ikon"
+            ]
+        }
+    },
+    "type": "feat"
+}

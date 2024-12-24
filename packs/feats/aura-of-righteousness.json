@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Your righteous aura dampens evil's might. You and all allies within 15 feet gain resistance 5 to unholy.</p>"
+            "value": "<p>Your righteous aura dampens evil's might and prevents the unholy from escaping you. You and all allies in your champion's aura gain resistance 5 to unholy spells, unholy Strikes, and other unholy effects. If a teleportation spell or effect would teleport an unholy creature out of your champion's aura, your aura attempts to counteract it, using the spell rank and DC of your devotion spells.</p>"
         },
         "level": {
             "value": 14
@@ -19,29 +19,34 @@
         "prerequisites": {
             "value": [
                 {
-                    "value": "tenets of good"
+                    "value": "champion's aura"
+                },
+                {
+                    "value": "holy"
                 }
             ]
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "effects": [
                     {
-                        "affects": "allies",
-                        "events": [
-                            "enter"
-                        ],
                         "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Aura of Righteousness"
                     }
                 ],
                 "key": "Aura",
-                "radius": 15,
-                "slug": "aura-of-righteousness"
+                "predicate": [
+                    "champions-aura",
+                    {
+                        "not": "self:condition:unconscious"
+                    }
+                ],
+                "radius": "@actor.flags.pf2e.champion.aura",
+                "slug": "champions-aura"
             }
         ],
         "traits": {

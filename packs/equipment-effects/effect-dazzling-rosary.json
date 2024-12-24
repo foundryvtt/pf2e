@@ -1,0 +1,49 @@
+{
+    "_id": "ryz7DdJTTXEgj9jf",
+    "img": "icons/commodities/gems/pearls-white.webp",
+    "name": "Effect: Dazzling Rosary",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Dazzling Rosary], @UUID[Compendium.pf2e.equipment-srd.Item.Dazzling Rosary (Greater)]</p>\n<p>When your <em>spiritual weapon</em> critically Strikes a target, it becomes Dazzled until the beginning of your next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "item:slug:spiritual-weapon"
+                ],
+                "selector": "spell-attack-roll",
+                "text": "PF2E.SpecificRule.Equipment.DazzlingRosary.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

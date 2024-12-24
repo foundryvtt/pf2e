@@ -125,10 +125,8 @@
         },
         {
             "_id": "YXBezR9P1AqXwyGR",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Void Healing",
@@ -167,10 +165,8 @@
         },
         {
             "_id": "LcatK42VYJ7RFHTo",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.HBrBrUzjfvj2gDXB"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.HBrBrUzjfvj2gDXB"
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Aquatic Ambush",
@@ -220,10 +216,8 @@
         },
         {
             "_id": "Vc4GNlil160ibq9a",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.ixPqVlqLaYTB1b23"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.ixPqVlqLaYTB1b23"
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Consume Flesh",
@@ -237,7 +231,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The ghoul crocodile is adjacent to the corpse of a creature that died within the last hour</p>\n<hr />\n<p><strong>Effect</strong> The ghoul crocodile devours a chunk of the corpse and regains [[/r 2d6[healing]]] Hit Points. It can regain HP from any given corpse only once.</p>"
+                    "value": "<p><strong>Requirements</strong> The ghoul crocodile is adjacent to the corpse of a creature that died within the last hour</p><hr /><p><strong>Effect</strong> The ghoul crocodile devours a chunk of the corpse and regains @Damage[2d6[healing]] Hit Points. It can regain HP from any given corpse only once.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -286,7 +280,8 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "death-roll"
+                            "death-roll",
+                            "target:condition:grabbed"
                         ],
                         "selector": "jaws-attack",
                         "type": "circumstance",
@@ -305,10 +300,8 @@
         },
         {
             "_id": "nrUiJF6RfQWNailR",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.N7UV5CZXtcoxDxCF"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.N7UV5CZXtcoxDxCF"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Ghoul Fever",
@@ -322,7 +315,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:19]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> @Damage[2d6[void]] damage and regains half as many Hit Points from all healing (1 day)</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day)</p>\n<p><strong>Stage 4</strong> @Damage[2d6[void]] damage and gains no benefit from healing (1 day)</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day)</p>\n<p><strong>Stage 6</strong> dead, and rises as a ghoul the next midnight</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:19]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> @Damage[2d6[void]] damage and regains half as many Hit Points from all healing (1 day)</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day)</p>\n<p><strong>Stage 4</strong> @Damage[2d6[void]] damage and gains no benefit from healing (1 day)</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day)</p>\n<p><strong>Stage 6</strong> dead, and rises as a ghoul the next midnight</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -342,10 +335,8 @@
         },
         {
             "_id": "JgSmuAF0Y7WGZqxZ",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.FW4KAUHb7r8WkxUc"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.FW4KAUHb7r8WkxUc"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Paralysis",
@@ -359,7 +350,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any living non-elf creature hit by a ghoul crocodile's tail must succeed at a @Check[type:fortitude|dc:20] save or become @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed]. It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each such save.</p>"
+                    "value": "<p>Any living non-elf creature hit by a ghoul crocodile's tail must succeed at a @Check[fortitude|dc:20] save or become @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed]. It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each such save.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -380,10 +371,8 @@
         },
         {
             "_id": "d5IvrBFX9sJwE0Mf",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",

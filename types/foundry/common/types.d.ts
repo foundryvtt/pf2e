@@ -49,7 +49,7 @@ declare global {
             | ObjectConstructor
             | ArrayConstructor
             | ConstructorOf<DataModel>
-            | Function;
+            | ((data: unknown) => unknown);
         /** For string Types, defines the allowable values */
         choices?: TChoices;
         /** For numeric Types, defines the allowable range */

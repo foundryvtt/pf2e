@@ -4,10 +4,10 @@
     "name": "Effect: Desolation Locket - Armor",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Desolation Locket]</p>\n<p>The <em>desolation locket</em> numbs you to further despair, and you gain a +2 item bonus to saving throws against emotion effects.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Desolation Locket]</p>\n<p>You gain an item bonus to saving throws against emotion effects.</p>\n<p>When you critically fail a saving throw against an emotion effect, you get a failure instead (<em>major</em>).</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -22,13 +22,92 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:desolation-locket",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Desolation Locket"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:desolation-locket-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Desolation Locket (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:desolation-locket-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Desolation Locket (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "desolation-locket"
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
-                    "emotion"
+                    "item:trait:emotion"
                 ],
                 "selector": "saving-throw",
+                "slug": "desolation-locket-bonus",
                 "type": "item",
                 "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "desolation-locket:desolation-locket-greater"
+                ],
+                "selector": "saving-throw",
+                "slug": "desolation-locket-bonus",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "desolation-locket:desolation-locket-major"
+                ],
+                "selector": "saving-throw",
+                "slug": "desolation-locket-bonus",
+                "value": 4
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "desolation-locket:desolation-locket-major",
+                    "item:trait:emotion"
+                ],
+                "selector": "saving-throw"
             }
         ],
         "start": {

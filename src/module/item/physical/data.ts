@@ -1,5 +1,5 @@
 import { AttributeString } from "@actor/types.ts";
-import { ActionTrait } from "@item/ability/types.ts";
+import { AbilityTrait } from "@item/ability/types.ts";
 import { PhysicalItemSource } from "@item/base/data/index.ts";
 import { Size, TraitsWithRarity, ValuesList, ZeroToTwo } from "@module/data.ts";
 import { MaterialDamageEffect } from "@system/damage/types.ts";
@@ -136,7 +136,7 @@ interface ItemActivation {
         cast: boolean;
     };
     frequency?: Frequency;
-    traits: ValuesList<ActionTrait>;
+    traits: ValuesList<AbilityTrait>;
 }
 
 interface PhysicalItemHPSource {
@@ -158,11 +158,12 @@ type Coins = {
 interface PartialPrice {
     value: Coins;
     per?: number;
+    /** Whether the price adjusts according to its size */
+    sizeSensitive?: boolean;
 }
 
-interface Price extends PartialPrice {
+interface Price extends Required<PartialPrice> {
     value: CoinsPF2e;
-    per: number;
 }
 
 export type {

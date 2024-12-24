@@ -1,9 +1,9 @@
 import { ActorPF2e } from "@actor";
 import { DamageDicePF2e, ModifierPF2e, createAttributeModifier } from "@actor/modifiers.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
-import { MeleePF2e, WeaponPF2e } from "@item";
+import type { ItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import type { NPCAttackDamage } from "@item/melee/data.ts";
-import { RUNE_DATA, getPropertyRuneDice, getPropertyRuneModifierAdjustments } from "@item/physical/runes.ts";
+import { RUNE_DATA, getPropertyRuneDamage, getPropertyRuneModifierAdjustments } from "@item/physical/runes.ts";
 import type { WeaponDamage } from "@item/weapon/data.ts";
 import type { ZeroToThree } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
@@ -99,10 +99,10 @@ class WeaponDamagePF2e {
         weaponPotency = null,
         context,
     }: WeaponDamageCalculateParams): Promise<WeaponDamageTemplate | null> {
-        const baseDamage = weapon.baseDamage;
+        const unprocessedBaseDamage = weapon.baseDamage;
         const { domains, options } = context;
-        if (baseDamage.die === null && baseDamage.modifier > 0) {
-            baseDamage.dice = 0;
+        if (unprocessedBaseDamage.die === null && unprocessedBaseDamage.modifier !== 0) {
+            unprocessedBaseDamage.dice = 0;
         } else if (!weapon.dealsDamage) {
             return null;
         }
@@ -146,6 +146,13 @@ class WeaponDamagePF2e {
             rule.beforeRoll?.(domains, options);
         }
 
+        const baseDamage = WeaponDamagePF2e.#processBaseDamage(unprocessedBaseDamage, {
+            actor,
+            item: weapon,
+            domains,
+            options,
+        });
+
         // Splash damage
         const hasScatterTrait = weaponTraits.some((t) => t.startsWith("scatter-"));
         const splashDamage = weapon.isOfType("weapon")
@@ -158,6 +165,7 @@ class WeaponDamagePF2e {
                 slug,
                 label,
                 modifier: splashDamage,
+                damageType: baseDamage.damageType,
                 damageCategory: "splash",
             });
             modifiers.push(modifier);
@@ -238,7 +246,7 @@ class WeaponDamagePF2e {
                 null,
             );
 
-            return standard ? alternate ?? standard : [];
+            return standard ? (alternate ?? standard) : [];
         })();
 
         if (critSpecEffect.length > 0) options.add("critical-specialization");
@@ -247,7 +255,9 @@ class WeaponDamagePF2e {
 
         // Property Runes
         const propertyRunes = weapon.system.runes.property;
-        damageDice.push(...getPropertyRuneDice(propertyRunes, options));
+        const runeDamage = getPropertyRuneDamage(weapon, propertyRunes, options);
+        damageDice.push(...runeDamage.filter((d): d is DamageDicePF2e => "diceNumber" in d));
+        modifiers.push(...runeDamage.filter((d): d is ModifierPF2e => "modifier" in d));
         const propertyRuneAdjustments = getPropertyRuneModifierAdjustments(propertyRunes);
 
         const irBypassData: DamageIRBypassData = {
@@ -304,7 +314,7 @@ class WeaponDamagePF2e {
         // Get striking dice: the number of damage dice from a striking rune (or ABP devastating strikes)
         const strikingDice = weapon.isOfType("weapon")
             ? weapon.system.damage.dice - weapon._source.system.damage.dice
-            : strikingSynthetic?.bonus ?? 0;
+            : (strikingSynthetic?.bonus ?? 0);
 
         // Deadly trait
         const traitLabels: Record<string, string> = CONFIG.PF2E.weaponTraits;
@@ -363,6 +373,18 @@ class WeaponDamagePF2e {
             );
         }
 
+        // Tearing trait
+        if (weaponTraits.some((t) => t === "tearing")) {
+            const modifier = new ModifierPF2e({
+                label: CONFIG.PF2E.weaponTraits.tearing,
+                slug: "tearing",
+                modifier: strikingDice > 1 ? 2 : 1,
+                damageType: "bleed",
+                damageCategory: "persistent",
+            });
+            modifiers.push(modifier);
+        }
+
         // Twin trait
         if (weaponTraits.some((t) => t === "twin") && weapon.isOfType("weapon")) {
             modifiers.push(
@@ -410,7 +432,7 @@ class WeaponDamagePF2e {
 
         const baseUncategorized = ((): WeaponBaseDamageData | null => {
             const diceNumber = baseDamage.die ? baseDamage.dice : 0;
-            return diceNumber > 0 || baseDamage.modifier > 0
+            return diceNumber > 0 || baseDamage.modifier !== 0
                 ? {
                       diceNumber,
                       dieSize: baseDamage.die,
@@ -529,6 +551,79 @@ class WeaponDamagePF2e {
                 formula: mapValues(computedFormulas, (formula) => formula?.formula ?? null),
                 breakdown: mapValues(computedFormulas, (formula) => formula?.breakdown ?? []),
             },
+        };
+    }
+
+    /** Apply damage alterations to weapon base damage. */
+    static #processBaseDamage(
+        unprocessed: ConvertedNPCDamage | WeaponDamage,
+        {
+            actor,
+            item,
+            domains,
+            options,
+        }: { actor: ActorPF2e; item: ItemPF2e<ActorPF2e>; domains: string[]; options: string[] | Set<string> },
+    ): ConvertedNPCDamage | WeaponDamage {
+        const damageCategory = "category" in unprocessed ? unprocessed.category : null;
+        const dice =
+            unprocessed.dice > 0
+                ? new DamageDicePF2e({
+                      selector: "strike-damage",
+                      slug: "base",
+                      category: damageCategory,
+                      damageType: unprocessed.damageType,
+                      diceNumber: unprocessed.dice,
+                      dieSize: unprocessed.die,
+                  })
+                : null;
+        const modifier =
+            unprocessed.modifier !== 0
+                ? new ModifierPF2e({
+                      slug: "base",
+                      label: "Base",
+                      damageCategory,
+                      damageType: unprocessed.damageType,
+                      modifier: unprocessed.modifier,
+                  })
+                : null;
+        const persistent = unprocessed.persistent
+            ? unprocessed.persistent.faces
+                ? new DamageDicePF2e({
+                      selector: "strike-damage",
+                      slug: "base-persistent",
+                      category: "persistent",
+                      damageType: unprocessed.persistent.type,
+                      diceNumber: unprocessed.persistent.number,
+                      dieSize: `d${unprocessed.persistent.faces}`,
+                  })
+                : new ModifierPF2e({
+                      slug: "base-persistent",
+                      label: "Base",
+                      damageCategory: "persistent",
+                      damageType: unprocessed.persistent.type,
+                      modifier: unprocessed.persistent.number,
+                  })
+            : null;
+        const alterations = extractDamageAlterations(actor.synthetics.damageAlterations, domains, "base");
+        for (const alteration of alterations) {
+            if (dice) alteration.applyTo(dice, { item, test: options });
+            if (modifier) alteration.applyTo(modifier, { item, test: options });
+            if (persistent) alteration.applyTo(persistent, { item, test: options });
+        }
+
+        return {
+            category: damageCategory,
+            damageType: dice?.damageType ?? modifier?.damageType ?? unprocessed.damageType,
+            dice: dice?.diceNumber ?? 0,
+            die: dice?.dieSize ?? null,
+            modifier: modifier?.value ?? 0,
+            persistent: persistent
+                ? {
+                      type: persistent.damageType ?? unprocessed.persistent?.type ?? unprocessed.damageType,
+                      number: unprocessed.persistent?.number ?? 0,
+                      faces: "dieSize" in persistent ? persistent.faces : null,
+                  }
+                : null,
         };
     }
 

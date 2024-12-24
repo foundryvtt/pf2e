@@ -19,24 +19,19 @@
                     <th>{{localize "PF2E.Skill.Religion"}}</th>
                     <td>{{dcs.religion}}</td>
                 </tr>
+            </tbody>
         </table>
-    {{else if isAlchemical}}
-        <h1>{{localize "PF2E.identification.IdentifyAlchemyDCs"}}</h1>
+    {{else}}
+        <h1>
+            {{localize (ifThen isAlchemical "PF2E.identification.IdentifyAlchemyDCs" "PF2E.identification.IdentifyGenericDCs")}}
+        </h1>
         <table>
             <tbody>
                 <tr data-skill="crafting" data-dc="{{dcs.crafting}}">
                     <th>{{localize "PF2E.Skill.Crafting"}}</th>
                     <td>{{dcs.crafting}}</td>
                 </tr>
-        </table>
-    {{else}}
-        <h1>{{localize "PF2E.identification.IdentifyGenericDCs"}}</h1>
-        <table>
-            <tbody>
-                <tr data-skill="crafting" data-dc="{{dcs.dc}}">
-                    <th>{{localize "PF2E.Skill.Crafting"}}</th>
-                    <td>{{dcs.dc}}</td>
-                </tr>
+            </tbody>
         </table>
     {{/if}}
     <button type="button" class="post-skill-checks">

@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You are trained with @UUID[Compendium.pf2e.equipment-srd.Item.Composite Longbow]{Composite Longbows}, @UUID[Compendium.pf2e.equipment-srd.Item.Composite Shortbow]{Composite Shortbows}, @UUID[Compendium.pf2e.equipment-srd.Item.Glaive]{Glaives}, @UUID[Compendium.pf2e.equipment-srd.Item.Longbow]{Longbows}, @UUID[Compendium.pf2e.equipment-srd.Item.Longsword]{Longswords}, and @UUID[Compendium.pf2e.equipment-srd.Item.Shortbow]{Shortbows}.</p>\n<p>In addition, you gain access to all uncommon hobgoblin weapons. For the purpose of determining your proficiency, martial hobgoblin weapons are simple weapons and advanced hobgoblin weapons are martial weapons.</p>"
+            "value": "<p>You gain access to all uncommon weapons with the hobgoblin trait. You have familiarity with weapons with the hobgoblin trait plus the composite longbow, composite shortbow, glaive, longbow, longsword, and shortbow—for the purpose of proficiency, you treat any of these that are martial weapons as simple weapons and any that are advanced weapons as martial weapons.</p>\n<p>At 5th level, whenever you get a critical hit with one of these weapons, you get its critical specialization effect.</p>"
         },
         "level": {
             "value": 1
@@ -20,47 +20,11 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens: Character Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-composite-longbow.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-composite-shortbow.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-glaive.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-longbow.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-longsword.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-shortbow.rank",
-                "value": 1
-            },
             {
                 "definition": [
                     "item:trait:hobgoblin",
@@ -73,16 +37,45 @@
             },
             {
                 "definition": [
-                    "item:trait:hobgoblin",
-                    "item:category:martial",
                     {
-                        "not": "item:category:advanced"
-                    }
+                        "or": [
+                            "item:trait:hobgoblin",
+                            "item:base:composite-longbow",
+                            "item:base:longbow",
+                            "item:base:composite-shortbow",
+                            "item:base:shortbow",
+                            "item:base:glaive",
+                            "item:base:longsword"
+                        ]
+                    },
+                    "item:category:martial"
                 ],
                 "key": "MartialProficiency",
                 "label": "PF2E.SpecificRule.MartialProficiency.MartialHobgoblinWeapons",
                 "sameAs": "simple",
                 "slug": "martial-hobgoblin-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:hobgoblin",
+                            "item:base:composite-longbow",
+                            "item:base:longbow",
+                            "item:base:composite-shortbow",
+                            "item:base:shortbow",
+                            "item:base:glaive",
+                            "item:base:longsword"
+                        ]
+                    }
+                ]
             }
         ],
         "traits": {

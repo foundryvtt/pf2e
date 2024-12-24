@@ -4,10 +4,10 @@
     "name": "Effect: Safeguard Soul",
     "system": {
         "description": {
-            "value": "<p>You gain a +2 status bonus to saving throws against death effects, possession effects, and effects that attempt to manipulate or steal your soul.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Safeguard Soul]</p>\n<p>You gain a +2 status bonus to saving throws against death effects, possession effects, and effects that attempt to manipulate or steal your soul.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -26,7 +26,7 @@
                 "predicate": [
                     {
                         "or": [
-                            "death",
+                            "item:trait:death",
                             "possession",
                             "manipulate-soul"
                         ]

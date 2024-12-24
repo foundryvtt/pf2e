@@ -1,0 +1,53 @@
+{
+    "_id": "aLrFDxT2dhIEwcQr",
+    "img": "icons/magic/light/orb-container-orange.webp",
+    "name": "Effect: Shining Glory",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Shining Glory]</p>\n<p>You gain a +3 status bonus to attack rolls and skill checks, and the status bonus you receive to saving throws against fear increases to +3.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 18
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack-roll",
+                    "skill-check"
+                ],
+                "type": "status",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "selector": "saving-throw",
+                "slug": "ascended-celestial-nimbus",
+                "value": 3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

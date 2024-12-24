@@ -1,0 +1,66 @@
+{
+    "_id": "AavhMzpW5KBIB2DV",
+    "img": "icons/commodities/bones/tooth-spiked-brown.webp",
+    "name": "Needle of Undeath",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>This thin, wand-like implement is carved from bone and scrimshawed with depictions of battle. While holding the <em>needle of undeath</em>, mindless undead creatures see you as one of their own and are indifferent to you until you take hostile actions against them, and you have a +2 item bonus to Deception and Diplomacy checks against intelligent undead. This does not affect a summoned undead's attitude.</p>\n<p><strong>Activate—Speak with Undead</strong> <span class=\"action-glyph\">1</span></p>\n<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> You can use Diplomacy to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] on mindless undead or make simple requests of them with a +2 item bonus. You cannot make this request of someone else's summoned undead.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 10
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 1150
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #209: Destroyer's Doom"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:trait:undead",
+                    {
+                        "not": "target:trait:mindless"
+                    }
+                ],
+                "selector": [
+                    "deception",
+                    "diplomacy"
+                ],
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        }
+    },
+    "type": "equipment"
+}
