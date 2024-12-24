@@ -42,6 +42,7 @@ import {
     signedInteger,
     tupleHasValue,
 } from "@util";
+import MiniSearch from "minisearch";
 import { createSortable } from "@util/destroyables.ts";
 import * as R from "remeda";
 import Sortable from "sortablejs";
@@ -61,6 +62,7 @@ import { IdentifyItemPopup } from "./popups/identify-popup.ts";
 import { ItemTransferDialog } from "./popups/item-transfer-dialog.ts";
 import { IWREditor } from "./popups/iwr-editor.ts";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup.ts";
+import { iterateAllItems } from "@actor/helpers.js";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -68,12 +70,22 @@ import { RemoveCoinsPopup } from "./popups/remove-coins-popup.ts";
  * @category Actor
  */
 abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
+    #inventorySearchEngine = new MiniSearch<Pick<PhysicalItemPF2e<TActor>, "id" | "name">>({
+        fields: ["name"],
+        idField: "id",
+        processTerm: (t) => (t.length > 1 ? t.toLocaleLowerCase(game.i18n.lang) : null),
+        searchOptions: { combineWith: "AND", prefix: true },
+    });
+
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         options.dragDrop = [
             { dragSelector: "[data-foundry-list] [data-drag-handle]" },
             { dragSelector: "ul[data-loot] li[data-item-id]" },
             { dragSelector: ".item-list .item:not(.inventory-list *)" },
+        ];
+        options.filters = [
+            { inputSelector: "[data-tab=inventory] input[type=search]", contentSelector: "section.inventory-list" },
         ];
         return fu.mergeObject(options, {
             classes: ["default", "sheet", "actor"],
@@ -182,6 +194,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     protected prepareInventory(): SheetInventory {
+        const items = [...iterateAllItems(this.actor)].filter((i) => i.isOfType("physical"));
+        this.#inventorySearchEngine.removeAll();
+        this.#inventorySearchEngine.addAll(items.map((i) => R.pick(i, ["id", "name"])));
+
         const sections: SheetInventory["sections"] = [
             {
                 label: game.i18n.localize("PF2E.Actor.Inventory.Section.WeaponsAndShields"),
@@ -240,6 +256,50 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             unitBulk: actor.isOfType("loot") ? createBulkPerLabel(item) : null,
             hidden: false,
         };
+    }
+
+    protected override _onSearchFilter(
+        event: KeyboardEvent,
+        query: string,
+        rgx: RegExp,
+        html: HTMLElement | null,
+    ): void {
+        super._onSearchFilter(event, query, rgx, html);
+
+        // Gets all parents, including containers and parent items
+        const getAllParents = (item: PhysicalItemPF2e): PhysicalItemPF2e[] => {
+            const parents = [item.container, item.parentItem].filter((i): i is PhysicalItemPF2e => !!i);
+            return [...parents, ...parents.flatMap((p) => getAllParents(p))];
+        };
+
+        // Gets all children, including container contents and sub items
+        const getAllChildren = (item: PhysicalItemPF2e): PhysicalItemPF2e[] => {
+            const contents = [...(item.isOfType("backpack") ? item.contents : []), ...item.subitems];
+            return [...contents, ...contents.flatMap((c) => getAllChildren(c))];
+        };
+
+        const matches = (() => {
+            // If inventory, also include all parents and all children in result set. Due to subitems, we can't use actor.items
+            if (html?.classList.contains("inventory-list") && query.length > 1) {
+                const baseMatches = this.#inventorySearchEngine.search(query).map((s) => String(s.id));
+                const allItems = [...iterateAllItems(this.actor)];
+                const itemsById = R.mapToObj(
+                    allItems.filter((i): i is PhysicalItemPF2e<TActor> => i.isOfType("physical")),
+                    (i) => [i.id, i],
+                );
+                const baseItems = baseMatches.map((id) => itemsById[id]).filter((i) => !!i);
+                const parentMatches = baseItems.flatMap((i) => getAllParents(i)).map((i) => i.id);
+                const childMatches = baseItems.flatMap((i) => getAllChildren(i)).map((i) => i.id);
+
+                return new Set([baseMatches, parentMatches, childMatches].flat());
+            }
+
+            return null;
+        })();
+
+        for (const row of htmlQueryAll(html, "li[data-item-id]")) {
+            row.hidden = matches !== null && !matches.has(row.dataset.itemId ?? "");
+        }
     }
 
     protected static coinsToSheetData(coins: Coins): CoinageSummary {
@@ -460,6 +520,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 const match = /[+-]?\d*/.exec(deltaInput.value)?.at(0);
                 deltaInput.value = match ?? deltaInput.value;
             });
+        }
+
+        // Work around search filter flashing on re-render
+        for (const filter of this._searchFilters) {
+            const rgx = new RegExp(RegExp.escape(filter.query), "i");
+            this._onSearchFilter(new KeyboardEvent("input"), filter.query, rgx, filter._content);
         }
     }
 
