@@ -42,12 +42,15 @@ function createTagifyTraits(traits: Iterable<string>, { sourceTraits, record }: 
     return [...traitSlugs, ...hiddenTraits]
         .map((slug) => {
             const label = game.i18n.localize(record?.[slug] ?? slug);
+            const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
+            const tooltip = traitDescriptions[slug];
             return {
                 id: slug,
                 value: label,
                 readonly: readonlyTraits.has(slug),
                 // Must be undefined for tagify to work
                 hidden: !traitSlugs.has(slug) || undefined,
+                "data-tooltip": tooltip,
             };
         })
         .sort((t1, t2) => t1.value.localeCompare(t2.value));
@@ -229,6 +232,7 @@ interface TagifyEntry {
      * Tagify treats any value as true, even false or null.
      */
     hidden?: true;
+    "data-tooltip"?: string;
 }
 
 export {
