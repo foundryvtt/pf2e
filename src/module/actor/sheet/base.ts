@@ -1,5 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import type { StrikeData } from "@actor/data/base.ts";
+import { iterateAllItems } from "@actor/helpers.js";
 import type { InitiativeRollResult } from "@actor/initiative.ts";
 import type { PhysicalItemPF2e } from "@item";
 import { AbstractEffectPF2e, ItemPF2e, SpellPF2e } from "@item";
@@ -42,8 +43,8 @@ import {
     signedInteger,
     tupleHasValue,
 } from "@util";
-import MiniSearch from "minisearch";
 import { createSortable } from "@util/destroyables.ts";
+import MiniSearch from "minisearch";
 import * as R from "remeda";
 import Sortable from "sortablejs";
 import { ActorSizePF2e } from "../data/size.ts";
@@ -62,7 +63,6 @@ import { IdentifyItemPopup } from "./popups/identify-popup.ts";
 import { ItemTransferDialog } from "./popups/item-transfer-dialog.ts";
 import { IWREditor } from "./popups/iwr-editor.ts";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup.ts";
-import { iterateAllItems } from "@actor/helpers.js";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -85,7 +85,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             { dragSelector: ".item-list .item:not(.inventory-list *)" },
         ];
         options.filters = [
-            { inputSelector: "[data-tab=inventory] input[type=search]", contentSelector: "section.inventory-list" },
+            { inputSelector: ".inventory-header input[type=search]", contentSelector: "section.inventory-list" },
         ];
         return fu.mergeObject(options, {
             classes: ["default", "sheet", "actor"],
