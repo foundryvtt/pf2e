@@ -4,7 +4,7 @@
     "name": "Effect: Grim Sandglass - Weapon",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Grim Sandglass]</p>\n<p>Your Strikes with the weapon deal an additional 1d4 void damage.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Grim Sandglass], @UUID[Compendium.pf2e.equipment-srd.Item.Grim Sandglass (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Grim Sandglass (Major)]</p>\n<p>Your Strikes with the weapon deal an additional void damage.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -22,6 +22,53 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:item:slug:grim-sandglass",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Grim Sandglass"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:grim-sandglass-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Grim Sandglass (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:grim-sandglass-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Grim Sandglass (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "grim-sandglass"
+            },
+            {
                 "choices": {
                     "includeHandwraps": true,
                     "ownedItems": true,
@@ -37,7 +84,33 @@
                 "damageType": "void",
                 "diceNumber": 1,
                 "dieSize": "d4",
+                "hideIfDisabled": true,
                 "key": "DamageDice",
+                "predicate": [
+                    "grim-sandglass:grim-sandglass"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectGrimSandglassWeapon}-damage"
+            },
+            {
+                "damageType": "void",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "grim-sandglass:grim-sandglass-greater"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectGrimSandglassWeapon}-damage"
+            },
+            {
+                "damageType": "void",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "grim-sandglass:grim-sandglass-major"
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.effectGrimSandglassWeapon}-damage"
             }
         ],
