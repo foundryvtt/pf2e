@@ -194,7 +194,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     }
 
     #resolveOption({ withSuboption = false } = {}): string {
-        const baseOption = this.resolveInjectedProperties(this.option)
+        const baseOption = this.resolveInjectedProperties(this._source.option)
             .replace(/[^-:\w]/g, "")
             .replace(/:+/g, ":")
             .replace(/-+/g, "-")
