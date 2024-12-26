@@ -4,7 +4,7 @@
     "name": "Effect: Core Cannon",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Core Cannon]</p>\n<p>Your body transforms into a powerful magical cannon.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Core Cannon]</p>\n<p>Select a potency rune. You gain a Strike that deals 3d8 fire damage and 3d6 force damage, which increases to 4d8 fire damage and 4d6 force damage at level 20. The Strike has the item bonus from the selected rune, has a range increment of 120 feet, and on a critical hit the target takes 10 persistent fire damage.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,7 +22,6 @@
         },
         "rules": [
             {
-                "domain": "all",
                 "key": "RollOption",
                 "option": "core-cannon"
             },
@@ -32,6 +31,48 @@
                     "grantee": "restrict"
                 },
                 "uuid": "Compendium.pf2e.conditionitems.Item.Immobilized"
+            },
+            {
+                "adjustName": false,
+                "allowNoSelection": true,
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.equipment-srd.Item.Weapon Potency (+1)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.equipment-srd.Item.Weapon Potency (+2)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.equipment-srd.Item.Weapon Potency (+3)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Rune",
+                "rollOption": "core-cannon:potency-rune"
+            },
+            {
+                "key": "WeaponPotency",
+                "predicate": [
+                    "core-cannon:potency-rune:weapon-potency-1"
+                ],
+                "selector": "core-cannon-attack",
+                "value": 1
+            },
+            {
+                "key": "WeaponPotency",
+                "predicate": [
+                    "core-cannon:potency-rune:weapon-potency-2"
+                ],
+                "selector": "core-cannon-attack",
+                "value": 2
+            },
+            {
+                "key": "WeaponPotency",
+                "predicate": [
+                    "core-cannon:potency-rune:weapon-potency-3"
+                ],
+                "selector": "core-cannon-attack",
+                "value": 3
             }
         ],
         "start": {

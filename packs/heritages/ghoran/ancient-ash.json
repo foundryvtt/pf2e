@@ -28,20 +28,9 @@
             },
             {
                 "key": "ActiveEffectLike",
-                "mode": "add",
+                "mode": "upgrade",
                 "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "value": 1
-                        },
-                        {
-                            "start": 5,
-                            "value": 2
-                        }
-                    ]
-                }
+                "value": "ternary(gte(@actor.level,5),2,1)"
             }
         ],
         "traits": {

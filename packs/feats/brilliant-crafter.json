@@ -33,40 +33,17 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.crafting.rank",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "start": 4,
-                            "value": 2
-                        },
-                        {
-                            "end": 14,
-                            "start": 7,
-                            "value": 3
-                        },
-                        {
-                            "start": 15,
-                            "value": 4
-                        }
-                    ]
-                }
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.classDCs.inventor.rank",
-                "predicate": [
-                    {
-                        "gte": [
-                            "self:level",
-                            15
-                        ]
-                    }
-                ],
-                "value": 2
+                "value": "ternary(gte(@actor.level,15),4,ternary(gte(@actor.level,7),3,2))"
             }
         ],
+        "subfeatures": {
+            "proficiencies": {
+                "inventor": {
+                    "attribute": null,
+                    "rank": 2
+                }
+            }
+        },
         "traits": {
             "rarity": "common",
             "value": [
