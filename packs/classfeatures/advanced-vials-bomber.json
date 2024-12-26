@@ -24,7 +24,100 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Alchemist.ResearchField.AdvancedVials",
+                "option": "bomber-advanced-vials",
+                "suboptions": [
+                    {
+                        "label": "PF2E.PreciousMaterialAdamantine",
+                        "value": "adamantine"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialColdIron",
+                        "value": "cold-iron"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialDawnsilver",
+                        "value": "dawnsilver"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialAbysium",
+                        "value": "abysium"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialDjezet",
+                        "value": "djezet"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialDuskwood",
+                        "value": "duskwood"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialInubrix",
+                        "value": "inubrix"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialKeepStone",
+                        "value": "keep-stone"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialNoqual",
+                        "value": "noqual"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialOrichalcum",
+                        "value": "orichalcum"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialPeachwood",
+                        "value": "peachwood"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialSiccatite",
+                        "value": "siccatite"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialSilver",
+                        "value": "silver"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialSisterstoneDusk",
+                        "value": "sisterstone-dusk"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialSisterstoneScarlet",
+                        "value": "sisterstone-scarlet"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialSloughstone",
+                        "value": "sloughstone"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialSovereignSteel",
+                        "value": "sovereign-steel"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialWarpglass",
+                        "value": "warpglass"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "definition": [
+                    "item:slug:versatile-vial"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "bomber-advanced-vials"
+                ],
+                "property": "materials",
+                "value": "{item|flags.pf2e.rulesSelections.bomberAdvancedVials}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
