@@ -568,6 +568,22 @@
                             "magical",
                             "unholy"
                         ]
+                    },
+                    {
+                        "damageType": "poison",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "label": "PF2E.BattleForm.Attack.Stinger",
+                        "selector": "stinger-damage"
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "change-shape:wasp"
+                        ],
+                        "selector": "fly",
+                        "value": 35
                     }
                 ],
                 "slug": "change-shape",
@@ -602,7 +618,15 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "tendril-attack",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -691,12 +715,7 @@
                 }
             ],
             "speed": {
-                "otherSpeeds": [
-                    {
-                        "type": "fly",
-                        "value": 35
-                    }
-                ],
+                "otherSpeeds": [],
                 "value": 25
             },
             "weaknesses": [
