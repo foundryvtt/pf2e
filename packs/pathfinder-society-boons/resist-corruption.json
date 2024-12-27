@@ -24,7 +24,32 @@
             "remaster": false,
             "title": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.PFS.Reputation.Liked",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.PFS.Reputation.Admired",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.PFS.Reputation.Revered",
+                        "value": 3
+                    }
+                ],
+                "flag": "resistCorruption",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.PFS.Reputation.Prompt"
+            },
+            {
+                "key": "Resistance",
+                "type": "unholy",
+                "value": "{item|flags.pf2e.rulesSelections.resistCorruption}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []

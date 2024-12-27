@@ -1,0 +1,63 @@
+{
+    "_id": "eW5uPNiBVxHtc7oY",
+    "folder": "KN9hhATq6X3GwryB",
+    "img": "systems/pf2e/icons/pathfinder-society/pfs-glyph.webp",
+    "name": "Effect: Protective Mentor",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.pathfinder-society-boons.Item.Protective Mentor]</p>\n<p>Your maximum Hit Points increases in addition to the bonus provided by the Level Bump.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.PFS.Reputation.Liked",
+                        "value": 3
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.PFS.Reputation.Admired",
+                        "value": 6
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.PFS.Reputation.Revered",
+                        "value": 9
+                    }
+                ],
+                "flag": "protectiveMentor",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.PFS.Reputation.Prompt"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "hp",
+                "value": "{item|flags.pf2e.rulesSelections.protectiveMentor}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}
