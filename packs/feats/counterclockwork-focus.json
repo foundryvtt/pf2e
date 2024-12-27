@@ -35,35 +35,65 @@
         },
         "rules": [
             {
-                "domain": "all",
                 "key": "RollOption",
-                "option": "counterclockwork",
+                "option": "counterclockwork-focus",
                 "toggleable": true
             },
             {
+                "disabledIf": [
+                    {
+                        "not": "counterclockwork-focus"
+                    }
+                ],
+                "disabledValue": false,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Shieldmarshal.CounterclockworkFocus.MaterialToggle",
+                "option": "counterclockwork-focus-material",
+                "suboptions": [
+                    {
+                        "label": "PF2E.PreciousMaterialAdamantine",
+                        "value": "adamantine"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialColdIron",
+                        "value": "cold-iron"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialOrichalcum",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    18
+                                ]
+                            }
+                        ],
+                        "value": "orichalcum"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "diceNumber": "ternary(gte(@actor.level,18),3,2)",
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "predicate": [
                     "target:trait:construct",
-                    "counterclockwork"
+                    "counterclockwork-focus"
                 ],
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 17,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        },
-                        {
-                            "start": 18,
-                            "value": {
-                                "diceNumber": 3
-                            }
-                        }
-                    ]
-                }
+                "selector": "strike-damage"
+            },
+            {
+                "definition": [
+                    "item:group:firearm"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "counterclockwork-focus-material"
+                ],
+                "property": "materials",
+                "value": "{item|flags.pf2e.rulesSelections.counterclockworkFocusMaterial}"
             }
         ],
         "traits": {
