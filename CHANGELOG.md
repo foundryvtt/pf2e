@@ -1,3 +1,50 @@
+## 6.8.1
+
+### System Improvements
+
+-   (reyzor) Add search to other actor inventories
+-   (Supe) Stack items created via quick alchemy with equivalent held items that have 0 quantity
+-   (Supe) Hide prepared craft button if expended
+
+### Bug Fixes
+
+-   (In3luki) Fix compendium browser trait exclusion sometimes erroneously returning zero results
+-   (stwlam) Check against exceptions when applying precision resistance/weakness
+-   (Supe) Fix issues with Thaumaturge and Kineticist when increasing levels by a large number
+-   (Supe) Prevent recursively creating a resource by expending that same resource
+
+### Data Updates
+
+-   (Ambrose) Apply `@Embed` to additional entries in the Archetype journal
+-   (Ambrose) Condense Five-Feather Wreath Armor, Grim Sandglass, and Mantle of the Magma Heart effects
+-   (Ambrose) Correct K'Zaard the Drover's Back Pedal AC bonus
+-   (Ambrose) Correct Ka Stone localization path and string
+-   (Ambrose) Remove spellcasting progression table from Sorcerer Spellcasting class features
+-   (Ambrose) Update Debilitating Bomb automation
+-   (Ambrose) Update Mantle of the Unwavering Heart spell effect automation
+-   (Ambrose) Update select Beastkin Ancestry Feats
+-   (Dire Weasel) Tag some damage as fall damage
+-   (kromko) Add Poisoner Dedication to Chemical Contagion prerequisites
+-   (kromko) Fix Devil Form Vordine effect link, Fix Demon Form Abrikandilu note RE localization key
+-   (LebombJames) Add Range increment sizes to ranged weapon infusion suboption labels
+-   (Rigo) Add description addendum to Heroes' Call's Heroism
+-   (Rigo) Add effects for Prey Mutagen and Mutagenist's Field Benefit
+-   (Rigo) Add inline healing toggleable upgrade for Chirurgeon's Greater Field Discovery
+-   (Rigo) Add precious material selection for Bomber's Advanced Vials
+-   (Rigo) Add spellcasting proficiency upgrade to Graceful Legend
+-   (Rigo) Condense rule elements and remove unlocalised label on Emotionally Unaware
+-   (Rigo) Fix description formatting and add icon to Vigilant Eye
+-   (Rigo) Fix embedded description on Magus class journal
+-   (Rigo) Fix the range increment in several alchemical bombs
+-   (Rigo) Remove link to prone condition in Brush Thylacine description
+-   (Rigo) Update Snare feats and Gadget Specialist feats
+-   (Rigo) Use Item Alteration instead of Damage Alteration for Bomber Field Vials
+-   (xdy) Update Signature Spell Expansion to use Player Core 2 text
+
+### Under the Hood
+
+-   (LebombJames) Don't await document create/delete in effect macros
+
 ## 6.8.0
 
 ### Highlights
