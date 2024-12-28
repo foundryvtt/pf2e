@@ -1,73 +1,77 @@
-> .message-header {
-    .flavor-text {
-        .target-dc-result {
-            line-height: 0.75rem;
-            margin-bottom: var(--space-4);
+@use "../../../colors";
 
-            .target-dc,
-            .result {
-                display: block;
-                margin: var(--space-1) 0;
-                width: fit-content;
-            }
+@mixin check {
+    > .message-header {
+        .flavor-text {
+            .target-dc-result {
+                line-height: 0.75rem;
+                margin-bottom: var(--space-4);
 
-            .unadjusted {
-                text-decoration: line-through;
-            }
-
-            .adjusted {
-                text-decoration: underline dotted;
-                &.increased {
-                    color: $degree-success-critical;
+                .target-dc,
+                .result {
+                    display: block;
+                    margin: var(--space-1) 0;
+                    width: fit-content;
                 }
-                &.decreased {
-                    color: $degree-failure-critical;
+
+                .unadjusted {
+                    text-decoration: line-through;
+                }
+
+                .adjusted {
+                    text-decoration: underline dotted;
+                    &.increased {
+                        color: colors.$degree-success-critical;
+                    }
+                    &.decreased {
+                        color: colors.$degree-failure-critical;
+                    }
                 }
             }
-        }
 
-        .degree-of-success {
-            .criticalSuccess {
-                color: $degree-success-critical;
+            .degree-of-success {
+                .criticalSuccess {
+                    color: colors.$degree-success-critical;
+                }
+                .success {
+                    color: colors.$degree-success;
+                }
+                .failure {
+                    color: colors.$degree-failure;
+                }
+                .criticalFailure {
+                    color: colors.$degree-failure-critical;
+                }
             }
-            .success {
-                color: $degree-success;
-            }
-            .failure {
-                color: $degree-failure;
-            }
-            .criticalFailure {
-                color: $degree-failure-critical;
-            }
-        }
 
-        .effect {
-            align-items: center;
-            column-gap: var(--space-5);
-            display: flex;
+            .effect {
+                align-items: center;
+                column-gap: var(--space-5);
+                display: flex;
 
-            img {
-                height: 2rem;
-                width: 2rem;
+                img {
+                    height: 2rem;
+                    width: 2rem;
+                }
             }
         }
     }
-}
 
-> .message-content {
-    .dice-total button.set-as-initiative {
-        align-items: center;
-        display: flex;
-        font-size: var(--font-size-10);
-        height: 2.2em;
-        justify-content: center;
-        position: absolute;
-        right: 0;
-        top: 1px;
-        width: 2.2em;
+    > .message-content {
+        .dice-total button.set-as-initiative {
+            align-items: center;
+            display: flex;
+            font-size: var(--font-size-10);
+            height: 2.2em;
+            justify-content: center;
+            position: absolute;
+            right: 0;
+            top: 1px;
+            width: 2.2em;
 
-        > i {
-            margin-right: 0;
+            > i {
+                margin-right: 0;
+            }
         }
     }
 }

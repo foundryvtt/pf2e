@@ -1,6 +1,18 @@
-@import "proficiency-ranks";
-@import "sidebar";
-@import "header";
+@use "sass:meta";
+@use "actions";
+@use "biography";
+@use "crafting";
+@use "character";
+@use "effects";
+@use "feats";
+@use "inventory";
+@use "pfs";
+@use "proficiencies";
+@use "spellcasting";
+@use "proficiency-ranks";
+@use "sidebar";
+@use "header";
+@use "../../mixins/frames";
 
 nav.sheet-navigation {
     .item {
@@ -38,7 +50,7 @@ nav.sheet-navigation {
         display: flex;
         height: 100%;
 
-        @import "option-toggles";
+        @include meta.load-css("option-toggles");
     }
 
     & > .tab:not(.inventory, .actions),
@@ -64,7 +76,7 @@ nav.sheet-navigation {
 
             &,
             i {
-                @include frame-icon;
+                @include frames.frame-icon;
             }
         }
 
@@ -90,8 +102,16 @@ nav.sheet-navigation {
         display: flex;
         flex-direction: column;
 
-        @import "character", "actions", "effects", "spellcasting", "proficiencies", "feats", "biography", "inventory",
-            "pfs", "crafting";
+        @include actions.tab;
+        @include biography.tab;
+        @include crafting.tab;
+        @include character.tab;
+        @include effects.tab;
+        @include feats.tab;
+        @include inventory.tab;
+        @include pfs.tab;
+        @include proficiencies.tab;
+        @include spellcasting.tab;
     }
 
     .directory-list {

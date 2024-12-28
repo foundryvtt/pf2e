@@ -1,10 +1,11 @@
+@use "sass:meta";
 .tab {
-    @import "actions";
+    @include meta.load-css("actions");
 }
 
 .tab.actions {
-    @import "../tabs/actions";
-    @import "option-toggles";
+    @include meta.load-css("../tabs/actions");
+    @include meta.load-css("option-toggles");
 
     margin: 0.25em var(--space-4) 0;
 

@@ -1,27 +1,31 @@
+@use "../../colors";
+
 @use "sass:color";
 @use "../../mixins/effects-list";
 
-&.effects {
-    @include configure($alt-color: $alt-color);
+@mixin tab {
+    &.effects {
+        @include effects-list.configure($alt-color: colors.$alt-color);
 
-    .effects-list {
-        @include effects-list;
-        padding-bottom: 1em;
+        .effects-list {
+            @include effects-list.effects-list;
+            padding-bottom: 1em;
 
-        .item {
-            border-top: 1px solid color.adjust($-alt-color, $lightness: 40%);
-            $border-color: color.adjust($-alt-color, $lightness: 40%);
-            border: solid transparent;
-            border-width: 0 0 1px;
-            border-image: linear-gradient(90deg, #f1edea, $border-color) 1 repeat;
-        }
+            .item {
+                border-top: 1px solid color.adjust(effects-list.$alt-color, $lightness: 40%);
+                $border-color: color.adjust(effects-list.$alt-color, $lightness: 40%);
+                border: solid transparent;
+                border-width: 0 0 1px;
+                border-image: linear-gradient(90deg, #f1edea, $border-color) 1 repeat;
+            }
 
-        .item:last-child {
-            border-bottom: none;
-        }
+            .item:last-child {
+                border-bottom: none;
+            }
 
-        .item-name h4 {
-            font-family: var(--serif);
+            .item-name h4 {
+                font-family: var(--serif);
+            }
         }
     }
 }

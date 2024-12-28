@@ -1,3 +1,5 @@
+@use "../mixins/typography";
+
 header.char-header {
     display: flex;
     justify-content: space-between;
@@ -5,7 +7,7 @@ header.char-header {
     color: var(--text-light);
 
     .char-details {
-        @include micro;
+        @include typography.micro;
         margin-left: 8px;
 
         h1.char-name {
@@ -65,7 +67,7 @@ header.char-header {
             padding-top: 2px;
             label {
                 color: var(--sidebar-label);
-                @include micro;
+                @include typography.micro;
                 line-height: 1.5;
             }
             input {

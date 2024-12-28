@@ -1,3 +1,6 @@
+@use "../colors";
+@use "../mixins/frames";
+
 /* ----------------------------------------- */
 /* Item Card Structure                       */
 /* ----------------------------------------- */
@@ -82,8 +85,8 @@
     }
 
     .addendum {
-        @include frame-elegant;
-        background: rgba($alt-dark, 0.1);
+        @include frames.frame-elegant;
+        background: rgba(colors.$alt-dark, 0.1);
         border-radius: 2px;
         color: var(--color-pf-alternate-darker);
         padding: var(--space-4);

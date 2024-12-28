@@ -1,3 +1,8 @@
+@use "sass:meta";
+@use "../../../colors";
+@use "../../../mixins/frames";
+@use "../../../mixins/typography";
+
 @use "../../../mixins/effects-list";
 
 .sheet.kingdom {
@@ -55,7 +60,7 @@
                 width: 3.25rem;
                 height: 3.25rem;
                 cursor: pointer;
-                @include brown-border;
+                @include frames.brown-border;
             }
         }
 
@@ -170,7 +175,7 @@
                 padding-top: 2px;
                 label {
                     color: var(--sidebar-label);
-                    @include micro;
+                    @include typography.micro;
                     line-height: 1.5;
                 }
                 input {
@@ -239,7 +244,7 @@
         }
     }
 
-    @import "../../nav";
+    @include meta.load-css("../../nav");
 
     .container {
         height: 100%;
@@ -247,11 +252,11 @@
     }
 
     input.adjusted-higher {
-        color: $adjusted-higher;
+        color: colors.$adjusted-higher;
     }
 
     input.adjusted-lower {
-        color: $adjusted-lower;
+        color: colors.$adjusted-lower;
     }
 
     .content {
@@ -310,7 +315,7 @@
     }
 
     .effects .directory-list {
-        @include effects-list;
+        @include effects-list.effects-list;
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -359,7 +364,7 @@
     button.small-button,
     select.proficiency,
     span.proficiency {
-        @include micro;
+        @include typography.micro;
         align-items: center;
         background: var(--color-proficiency-untrained);
         border: 1px solid rgba(black, 0.5);
@@ -413,26 +418,34 @@
 
     .tab.active {
         &[data-tab="main"] {
-            @import "main";
+            overflow: hidden scroll;
+            flex-direction: column;
+            @include meta.load-css("main");
         }
 
         &[data-tab="activities"] {
-            @import "activities";
+            display: flex;
+            flex-direction: row;
+            padding: 0 1rem;
+            height: 100%;
+            @include meta.load-css("activities");
         }
 
         &[data-tab="world"] {
-            @import "world";
+            @include meta.load-css("world");
         }
 
         &[data-tab="features"] {
-            @import "features";
+            @include meta.load-css("features");
         }
 
         &[data-tab="ongoing"] {
-            @import "ongoing";
+            padding: 0.75rem;
+            gap: 1rem;
+            @include meta.load-css("ongoing");
         }
     }
 }
 
-@import "builder";
-@import "chat";
+@include meta.load-css("builder");
+@include meta.load-css("chat");

@@ -1,11 +1,17 @@
-@import "character/attribute-builder";
-@import "iwr-editor";
+@use "sass:meta";
+@use "character/attribute-builder";
+@use "iwr-editor";
+@use "../colors";
+@use "../mixins/animations";
+@use "../mixins/frames";
+@use "../mixins/typography";
+@use "../reset" as *;
 
 .actor.sheet section.window-content {
     font-family: var(--sans-serif);
     overflow: hidden;
     padding: 0;
-    @import "../reset";
+    @include reset;
 
     h1,
     h2,
@@ -57,8 +63,8 @@
         }
     }
 
-    @import "inventory";
-    @import "item-summary";
+    @include meta.load-css("inventory");
+    @include meta.load-css("item-summary");
 
     .item-image {
         display: flex;
@@ -76,7 +82,7 @@
 
             &,
             i {
-                @include frame-icon;
+                @include frames.frame-icon;
             }
         }
 
@@ -214,7 +220,7 @@
             height: var(--font-size-19);
         }
 
-        @import "header";
+        @include meta.load-css("header");
 
         .char-header {
             grid-area: header;
@@ -256,7 +262,7 @@
                     }
                 }
 
-                @import "spell-collection";
+                @include meta.load-css("spell-collection");
 
                 .directory-list {
                     > h3,
@@ -339,11 +345,11 @@
                 }
 
                 .tab.actions {
-                    @import "tabs/actions";
+                    @include meta.load-css("tabs/actions");
                 }
 
                 footer {
-                    @include micro;
+                    @include typography.micro;
                     color: var(--color-pf-primary);
                     text-align: right;
                     line-height: 1.4;
@@ -353,7 +359,7 @@
         }
 
         /* Navigation */
-        @import "nav";
+        @include meta.load-css("nav");
 
         section.major > header,
         section.major > .subsection > header {
@@ -393,7 +399,7 @@
                 width: auto;
 
                 &.has-unallocated {
-                    @include requires-user-attention;
+                    @include animations.requires-user-attention;
                 }
             }
 
@@ -424,12 +430,12 @@
 
         /* Read-Only Sheet */
         &.limited {
-            @import "limited";
+            @include meta.load-css("limited");
         }
 
         input.adjusted:not(:focus) {
             font-weight: 700;
-            color: $adjusted-higher;
+            color: colors.$adjusted-higher;
         }
 
         button.tag:disabled {
@@ -459,13 +465,13 @@
         opacity: 0.75;
     }
 
-    @import "coinage";
+    @include meta.load-css("coinage");
 }
 
 .actor.sheet {
     &.character section.window-content {
         .crb-style {
-            @import "character";
+            @include meta.load-css("character");
         }
     }
 
@@ -473,27 +479,27 @@
         background-image: url("/assets/sheet/background.webp");
         background-position: 75% 10%;
 
-        @import "character/attack-popout";
+        @include meta.load-css("character/attack-popout");
     }
 
     &.vehicle .crb-style {
-        @import "vehicle";
+        @include meta.load-css("vehicle");
     }
 }
 
-@import "spell-preparation";
+@include meta.load-css("spell-preparation");
 
 /* Actor-type Imports */
-@import "familiar";
+@include meta.load-css("familiar");
 
-@import "hazard";
+@include meta.load-css("hazard");
 
-@import "npc";
+@include meta.load-css("npc");
 
-@import "loot";
+@include meta.load-css("loot");
 
-@import "party";
+@include meta.load-css("party");
 
-@import "army";
+@include meta.load-css("army");
 
-@import "item-transfer-dialog";
+@include meta.load-css("item-transfer-dialog");

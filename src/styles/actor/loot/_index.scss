@@ -1,3 +1,5 @@
+@use "../../mixins/buttons";
+
 .sheet.actor.loot form {
     display: flex;
     flex-direction: row;
@@ -45,7 +47,7 @@
                     background-color: var(--tertiary);
 
                     &:not(:hover) {
-                        @include button;
+                        @include buttons.button;
                     }
                 }
             }
@@ -220,7 +222,7 @@
     flex: unset;
 
     .confirm-button {
-        @include button;
+        @include buttons.button;
         width: calc(100% - 6px);
         height: 2.5em;
         margin-top: 1em;

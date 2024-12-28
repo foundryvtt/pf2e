@@ -1,3 +1,8 @@
+@use "sass:meta";
+@use "../../mixins/effects-list";
+@use "../../mixins/frames";
+@use "../../mixins/layout";
+
 .sheet.party {
     --color-border: rgba(0, 0, 0, 0.28);
 
@@ -51,7 +56,7 @@
                 border-radius: 0;
                 width: 100%;
                 cursor: pointer;
-                @include brown-border;
+                @include frames.brown-border;
             }
         }
 
@@ -110,7 +115,7 @@
         }
     }
 
-    @import "../nav";
+    @include meta.load-css("../nav");
 
     .actor-link {
         cursor: pointer;
@@ -140,8 +145,8 @@
     }
 
     .item-list.directory-list {
-        @include effects-list;
-        @include p-reset;
+        @include effects-list.effects-list;
+        @include layout.p-reset;
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -202,7 +207,7 @@
         width: 13.5rem;
 
         .box-list {
-            @include p-reset;
+            @include layout.p-reset;
             display: flex;
             color: var(--alt-dark);
             flex-direction: column;
@@ -306,15 +311,15 @@
     }
 
     [data-tab="inventory"] {
-        @import "inventory";
+        @include meta.load-css("inventory");
     }
 
     [data-tab="overview"] {
-        @import "overview";
+        @include meta.load-css("overview");
     }
 
     [data-tab="exploration"] {
-        @import "exploration";
+        @include meta.load-css("exploration");
     }
 
     [data-tab="orphaned"] {
@@ -324,4 +329,4 @@
     }
 }
 
-@import "kingdom";
+@include meta.load-css("kingdom");

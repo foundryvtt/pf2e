@@ -1,9 +1,13 @@
+@use "sass:meta";
+@use "../../mixins/forms";
+@use "../../mixins/layout";
+
 .sheet.hazard section.window-content {
-    @import "../red-action-boxes";
+    @include meta.load-css("../red-action-boxes");
 
     ul,
     ol {
-        @include p-reset;
+        @include layout.p-reset;
         list-style-type: none;
     }
 
@@ -11,12 +15,12 @@
     h2,
     h3,
     h4 {
-        @include p-reset;
+        @include layout.p-reset;
         border-bottom: none;
     }
 
     form {
-        @include p-reset;
+        @include layout.p-reset;
         display: flex;
         flex-direction: column;
         height: 100%;
@@ -36,16 +40,16 @@
     }
 
     .window-content {
-        @include p-reset;
+        @include layout.p-reset;
     }
 
     .window-content {
-        @include p-reset;
+        @include layout.p-reset;
     }
 
     input[type="text"],
     input[type="number"] {
-        @include p-reset;
+        @include layout.p-reset;
         background: none;
         border: 1px solid transparent;
 
@@ -69,7 +73,8 @@
         padding: 0 var(--space-5) 1.25rem;
     }
 
-    @import "header", "sidebar";
+    @include meta.load-css("header");
+    @include meta.load-css("sidebar");
 
     .toggles {
         .section-body {
@@ -172,7 +177,7 @@
             }
 
             .section-body {
-                @include publication-data;
+                @include forms.publication-data;
                 border-top: none;
                 padding: var(--space-4) var(--space-8);
 

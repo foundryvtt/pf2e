@@ -1,3 +1,6 @@
+@use "../mixins/frames";
+@use "../mixins/layout";
+
 .sidebar {
     align-items: center;
     display: flex;
@@ -13,7 +16,7 @@
         background-color: var(--tertiary);
         background-size: cover;
         background-position: top center;
-        @include frame-silver;
+        @include frames.frame-silver;
     }
 
     .appearance {
@@ -48,12 +51,12 @@
     }
 
     ul.stats {
-        @include p-reset;
+        @include layout.p-reset;
         list-style: none;
         text-align: center;
 
         li {
-            @include p-reset;
+            @include layout.p-reset;
         }
     }
 }

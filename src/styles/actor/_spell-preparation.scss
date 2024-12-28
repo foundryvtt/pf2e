@@ -1,8 +1,14 @@
+@use "sass:meta";
+@use "../colors";
+@use "../mixins/frames";
+@use "../mixins/layout";
+@use "../reset" as *;
+
 @use "sass:color";
 
 // Spellcasting Preparation Sheet Styling
 .spellcasting-entry.preparation > .window-content {
-    @import "../reset";
+    @include reset;
 
     form {
         display: flex;
@@ -76,7 +82,7 @@
             }
 
             &:nth-child(odd) {
-                background-color: rgba($alt-color, 0.1);
+                background-color: rgba(colors.$alt-color, 0.1);
             }
 
             &:nth-child(even) .item-summary {
@@ -88,7 +94,7 @@
             }
 
             &.header-row {
-                background: rgba($sub-color, 0.25);
+                background: rgba(colors.$sub-color, 0.25);
                 border: 1px solid var(--color-border-light-2);
                 border-radius: 2px;
                 font: 500 var(--font-size-12) var(--sans-serif);
@@ -147,7 +153,7 @@
 
                     &,
                     i {
-                        @include frame-icon;
+                        @include frames.frame-icon;
                     }
 
                     i {
@@ -172,7 +178,7 @@
                 }
 
                 h4 {
-                    @include p-reset;
+                    @include layout.p-reset;
                     font: 500 var(--font-size-14) / 1 var(--body-serif);
                     letter-spacing: -0.025em;
                     margin-left: 0.5em;
@@ -195,9 +201,9 @@
             }
 
             .item-summary {
-                background-color: rgba($light-background-color, 0.5);
+                background-color: rgba(colors.$light-background-color, 0.5);
                 border-bottom: 1px solid var(--sub);
-                border-top: 1px solid color.adjust($sub-color, $lightness: 30%);
+                border-top: 1px solid color.adjust(colors.$sub-color, $lightness: 30%);
                 display: block;
                 grid-column: span 5;
                 padding: var(--space-4) 0 var(--space-8);

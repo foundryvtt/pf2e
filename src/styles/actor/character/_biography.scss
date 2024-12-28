@@ -1,182 +1,188 @@
-&.biography {
-    padding-bottom: 1rem;
+@use "../../colors";
+@use "../../mixins/layout";
+@use "../../mixins/typography";
 
-    & > header {
-        align-items: baseline;
-        display: flex;
-        justify-content: space-between;
-        padding: 0 var(--space-1);
+@mixin tab {
+    &.biography {
+        padding-bottom: 1rem;
 
-        i.fa-eye-slash {
-            opacity: 75%;
-        }
-    }
-
-    section {
-        &.editable {
-            .editor,
-            input {
-                background: rgba(0, 0, 0, 5%);
-            }
-
-            .editor-content {
-                min-height: 4rem;
-            }
-        }
-
-        &:not(.editable) .editor-content {
-            min-height: 2rem;
-        }
-
-        // Override core input:disabled coloration
-        input:disabled {
-            color: var(--text-dark);
-        }
-
-        &.appearance-details {
-            display: grid;
-            grid-template:
-                "bio bio" 1fr
-                "height weight" min-content
-                / 1fr 1fr;
-            .bio {
-                grid-area: bio;
-            }
-        }
-
-        &.personality {
+        & > header {
+            align-items: baseline;
             display: flex;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 0 var(--space-1);
 
-            .bio {
-                align-items: start;
-                display: flex;
-                flex-direction: column;
-                flex: 50%;
-                justify-content: start;
-                margin-bottom: var(--space-8);
+            i.fa-eye-slash {
+                opacity: 75%;
+            }
+        }
 
-                span {
-                    width: 100%;
+        section {
+            &.editable {
+                .editor,
+                input {
+                    background: rgba(0, 0, 0, 5%);
+                }
+
+                .editor-content {
+                    min-height: 4rem;
                 }
             }
 
-            .edicts,
-            .anathema {
-                flex-basis: 100%;
+            &:not(.editable) .editor-content {
+                min-height: 2rem;
+            }
 
-                > * {
-                    width: 100%;
+            // Override core input:disabled coloration
+            input:disabled {
+                color: var(--text-dark);
+            }
+
+            &.appearance-details {
+                display: grid;
+                grid-template:
+                    "bio bio" 1fr
+                    "height weight" min-content
+                    / 1fr 1fr;
+                .bio {
+                    grid-area: bio;
                 }
+            }
 
-                .label-add {
-                    align-items: center;
+            &.personality {
+                display: flex;
+                flex-wrap: wrap;
+
+                .bio {
+                    align-items: start;
                     display: flex;
-                    justify-content: space-between;
-                    width: calc(100% - 0.75em);
+                    flex-direction: column;
+                    flex: 50%;
+                    justify-content: start;
+                    margin-bottom: var(--space-8);
+
+                    span {
+                        width: 100%;
+                    }
                 }
 
-                ol {
-                    list-style-type: decimal;
-                    margin-top: 0;
+                .edicts,
+                .anathema {
+                    flex-basis: 100%;
 
-                    li {
-                        white-space: nowrap;
+                    > * {
+                        width: 100%;
+                    }
 
-                        input {
-                            margin: 0.2em;
-                            max-width: calc(100% - 2rem);
+                    .label-add {
+                        align-items: center;
+                        display: flex;
+                        justify-content: space-between;
+                        width: calc(100% - 0.75em);
+                    }
+
+                    ol {
+                        list-style-type: decimal;
+                        margin-top: 0;
+
+                        li {
+                            white-space: nowrap;
+
+                            input {
+                                margin: 0.2em;
+                                max-width: calc(100% - 2rem);
+                            }
                         }
                     }
                 }
             }
-        }
 
-        &.campaign {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        input {
-            background: none;
-            border-bottom: 1px solid var(--color-border-input);
-            font-family: var(--body-serif);
-            width: calc(100% - 6px);
-
-            &::placeholder {
-                filter: opacity(0.5);
-                color: var(--text-dark);
+            &.campaign {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
             }
 
-            &:focus {
-                border-bottom: 1px solid #644f33;
-
-                &::placeholder {
-                    color: transparent;
-                }
-            }
-
-            &[type="number"] {
-                padding-bottom: 0;
-                padding-left: var(--space-4);
-            }
-        }
-
-        hr {
-            margin: var(--space-10) var(--space-6) var(--space-10) 0;
-        }
-
-        .bio {
-            > h3 {
-                @include p-reset;
-                background-color: rgba($text-dark-color, 0.1);
-                border: none;
-                color: var(--text-dark);
-                font: 700 var(--font-size-14) var(--body-serif);
-                grid-area: mod;
-                height: 1.625rem;
-                padding: var(--space-8) var(--space-4) var(--space-6);
+            input {
+                background: none;
+                border-bottom: 1px solid var(--color-border-input);
+                font-family: var(--body-serif);
                 width: calc(100% - 6px);
 
-                i {
-                    float: right;
-                    position: relative;
-                    right: calc(-1 * var(--space-2));
-                    top: calc(-1 * var(--space-2));
+                &::placeholder {
+                    filter: opacity(0.5);
+                    color: var(--text-dark);
                 }
 
-                span.value {
-                    display: inline-block;
-                    max-width: 87%;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
+                &:focus {
+                    border-bottom: 1px solid #644f33;
+
+                    &::placeholder {
+                        color: transparent;
+                    }
+                }
+
+                &[type="number"] {
+                    padding-bottom: 0;
+                    padding-left: var(--space-4);
                 }
             }
 
-            h4.details-label {
-                margin-bottom: var(--space-1);
-                width: 100%;
-            }
-        }
-
-        // Styling for the editor and editor content, especially to fit better in a small space
-        .editor {
-            .editor-content {
-                @include journal-styling;
-                padding: 0 var(--space-4);
+            hr {
+                margin: var(--space-10) var(--space-6) var(--space-10) 0;
             }
 
-            .editor-edit {
-                background: var(--color-pf-primary);
-                color: var(--text-light);
+            .bio {
+                > h3 {
+                    @include layout.p-reset;
+                    background-color: rgba(colors.$text-dark-color, 0.1);
+                    border: none;
+                    color: var(--text-dark);
+                    font: 700 var(--font-size-14) var(--body-serif);
+                    grid-area: mod;
+                    height: 1.625rem;
+                    padding: var(--space-8) var(--space-4) var(--space-6);
+                    width: calc(100% - 6px);
+
+                    i {
+                        float: right;
+                        position: relative;
+                        right: calc(-1 * var(--space-2));
+                        top: calc(-1 * var(--space-2));
+                    }
+
+                    span.value {
+                        display: inline-block;
+                        max-width: 87%;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                }
+
+                h4.details-label {
+                    margin-bottom: var(--space-1);
+                    width: 100%;
+                }
             }
 
-            &.prosemirror {
-                height: 13.5rem; // When the editor is open, fill more space
-                .editor-container {
-                    margin: var(--space-4) 0;
+            // Styling for the editor and editor content, especially to fit better in a small space
+            .editor {
+                .editor-content {
+                    @include typography.journal-styling;
+                    padding: 0 var(--space-4);
+                }
+
+                .editor-edit {
+                    background: var(--color-pf-primary);
+                    color: var(--text-light);
+                }
+
+                &.prosemirror {
+                    height: 13.5rem; // When the editor is open, fill more space
+                    .editor-container {
+                        margin: var(--space-4) 0;
+                    }
                 }
             }
         }

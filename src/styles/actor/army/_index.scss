@@ -1,3 +1,6 @@
+@use "../../colors";
+@use "../../mixins/frames";
+
 .sheet.army form {
     display: grid;
     grid-template:
@@ -26,11 +29,11 @@
 
     input {
         &.adjusted-higher {
-            color: $adjusted-higher;
+            color: colors.$adjusted-higher;
         }
 
         &.adjusted-lower {
-            color: $adjusted-lower;
+            color: colors.$adjusted-lower;
         }
     }
 
@@ -63,7 +66,7 @@
                 width: 4rem;
                 height: 4rem;
                 cursor: pointer;
-                @include brown-border;
+                @include frames.brown-border;
             }
         }
 

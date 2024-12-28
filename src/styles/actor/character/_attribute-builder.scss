@@ -1,3 +1,5 @@
+@use "../../mixins/animations";
+
 .attribute-builder .window-content {
     background: url("/assets/sheet/background.webp");
     background-repeat: repeat-x, no-repeat;
@@ -162,7 +164,7 @@
             text-align: center;
 
             &.extra {
-                @include requires-user-attention;
+                @include animations.requires-user-attention;
             }
         }
 

@@ -1,3 +1,5 @@
+@use "mixins/typography";
+
 // Note: tags html element is tagify, and .tags is paizo tag/traits styling. They are not mutually exclusive.
 
 // Temporary measure since V12 introduced core `.tags > .tag` styling
@@ -12,7 +14,7 @@
 
     .tag,
     .tag option {
-        @include micro;
+        @include typography.micro;
         align-items: center;
         background-color: var(--color-bg-trait);
         border-radius: 2px;

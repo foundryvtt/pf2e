@@ -1,5 +1,9 @@
+@use "../colors";
+@use "../mixins/frames";
+@use "../mixins/typography";
+
 .item-summary {
-    @include journal-styling;
+    @include typography.journal-styling;
     line-height: normal;
     overflow: hidden;
     padding: var(--space-4);
@@ -37,8 +41,8 @@
         }
 
         .addendum {
-            @include frame-elegant;
-            background: rgba($alt-dark, 0.1);
+            @include frames.frame-elegant;
+            background: rgba(colors.$alt-dark, 0.1);
             border-radius: 2px;
             color: var(--color-pf-alternate-darker);
             padding: var(--space-4);

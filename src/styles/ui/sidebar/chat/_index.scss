@@ -1,7 +1,15 @@
-@import "roll-inspector";
+@use "sass:meta";
+@use "roll-inspector";
+@use "action" as *;
+@use "check" as *;
+@use "damage";
+@use "reroll";
 
 .chat-message {
-    @import "action", "check", "damage", "reroll";
+    @include action;
+    @include check;
+    @include meta.load-css("damage");
+    @include meta.load-css("reroll");
 
     .message-header.with-image {
         display: grid;
@@ -98,7 +106,7 @@
     }
 
     > .message-content {
-        @import "conditions";
+        @include meta.load-css("conditions");
 
         .dice-roll {
             .dice-result > [data-visibility="gm"] {

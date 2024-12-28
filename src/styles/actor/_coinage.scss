@@ -1,5 +1,10 @@
+@use "../mixins/buttons";
+@use "../mixins/frames";
+@use "../mixins/layout";
+@use "../mixins/typography";
+
 .currency {
-    @include button;
+    @include buttons.button;
     align-items: center;
     background-color: var(--sub);
     display: flex;
@@ -41,7 +46,7 @@
             text-shadow:
                 1px 1px 1px rgba(white, 0.2),
                 -1px -1px 1px rgba(black, 0.2);
-            @include micro;
+            @include typography.micro;
         }
 
         span {
@@ -71,7 +76,7 @@
         }
 
         .currency-image {
-            @include gold-border;
+            @include frames.gold-border;
             height: 1.5rem;
             width: 1.5rem;
             background-size: cover !important;
@@ -79,8 +84,8 @@
     }
 
     li > button {
-        @include flex-center;
-        @include p-reset;
+        @include layout.flex-center;
+        @include layout.p-reset;
         background-color: var(--tertiary);
         border-radius: 1px;
         border: none;
@@ -97,7 +102,7 @@
         width: 1.875rem;
 
         > i {
-            @include p-reset;
+            @include layout.p-reset;
         }
 
         &:disabled {
@@ -113,8 +118,8 @@
 }
 
 .wealth {
-    @include micro;
-    @include button;
+    @include typography.micro;
+    @include buttons.button;
     align-items: center;
     background-color: var(--alt);
     display: flex;

@@ -1,3 +1,5 @@
+@use "../../mixins/frames";
+
 form > header {
     align-items: center;
     background: url("/assets/sheet/header-bw.webp"), url("/assets/sheet/background.webp");
@@ -28,7 +30,7 @@ form > header {
         }
 
         .actor-image {
-            @include brown-border;
+            @include frames.brown-border;
             border-radius: 0;
             border: none;
             max-height: 11.125rem;
@@ -38,7 +40,7 @@ form > header {
         }
 
         .edit-mode-button {
-            @include brown-border;
+            @include frames.brown-border;
             align-items: center;
             background-color: var(--color-text-light-0);
             border-radius: 10px;

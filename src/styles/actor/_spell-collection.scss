@@ -1,3 +1,6 @@
+@use "../colors";
+@use "../mixins/layout";
+
 @use "sass:color";
 
 ol.spell-list {
@@ -31,7 +34,7 @@ ol.spell-list {
         }
 
         &:nth-child(odd) {
-            background-color: rgba($alt-color, 0.1);
+            background-color: rgba(colors.$alt-color, 0.1);
         }
 
         &:nth-child(even) .item-summary {
@@ -43,7 +46,7 @@ ol.spell-list {
         }
 
         &.header-row {
-            background: rgba($sub-color, 0.25);
+            background: rgba(colors.$sub-color, 0.25);
             border: 1px solid var(--color-border-light-2);
             border-radius: 2px;
             font: 500 var(--font-size-12) var(--sans-serif);
@@ -175,7 +178,7 @@ ol.spell-list {
             }
 
             h4 {
-                @include p-reset;
+                @include layout.p-reset;
                 font: 500 var(--font-size-14) / 1 var(--body-serif);
                 letter-spacing: -0.025em;
                 margin-left: 0.5em;
@@ -213,9 +216,9 @@ ol.spell-list {
         }
 
         .item-summary {
-            background-color: rgba($light-background-color, 0.5);
+            background-color: rgba(colors.$light-background-color, 0.5);
             border-bottom: 1px solid var(--sub);
-            border-top: 1px solid color.adjust($sub-color, $lightness: -30%);
+            border-top: 1px solid color.adjust(colors.$sub-color, $lightness: -30%);
             display: block;
             grid-column: span 5;
             padding: var(--space-4) 0 var(--space-8);

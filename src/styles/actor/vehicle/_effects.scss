@@ -1,16 +1,17 @@
 @use "sass:color";
-@import "../../mixins/effects-list";
+@use "../../mixins/effects-list";
+@use "../../colors";
 
-&.effects {
-    @include configure($alt-color: $alt-color);
+.effects {
+    @include effects-list.configure($alt-color: colors.$alt-color);
 
     .effects-list {
-        @include effects-list;
+        @include effects-list.effects-list;
         padding-bottom: 1em;
 
         .item {
-            border-top: 1px solid color.adjust($-alt-color, $lightness: 40%);
-            $border-color: color.adjust($-alt-color, $lightness: 40%);
+            border-top: 1px solid color.adjust(effects-list.$alt-color, $lightness: 40%);
+            $border-color: color.adjust(effects-list.$alt-color, $lightness: 40%);
             border: solid transparent;
             border-width: 0 0 1px;
             border-image: linear-gradient(90deg, #f1edea, $border-color) 1 repeat;

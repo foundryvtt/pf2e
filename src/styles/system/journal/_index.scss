@@ -1,6 +1,9 @@
+@use "sass:meta";
+@use "../../mixins/typography";
+
 .journal-entry-page {
     .journal-page-content {
-        @include journal-styling;
-        @import "critical-fumble-deck";
+        @include typography.journal-styling;
+        @include meta.load-css("critical-fumble-deck");
     }
 }

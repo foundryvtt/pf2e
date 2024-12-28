@@ -1,4 +1,7 @@
-$-alt-color: #786452 !default;
+@use "buttons";
+@use "typography";
+
+$alt-color: #786452 !default;
 
 @mixin configure($alt-color: null) {
     @if $alt-color {
@@ -74,11 +77,11 @@ $-alt-color: #786452 !default;
                 margin: 0;
                 border: none;
                 cursor: pointer;
-                @include micro;
+                @include typography.micro;
                 padding: 5px;
                 color: var(--text-light);
                 width: 70px;
-                @include button;
+                @include buttons.button;
                 background: var(--secondary);
                 border-radius: 2px;
                 flex: 0;

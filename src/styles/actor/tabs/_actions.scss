@@ -1,3 +1,7 @@
+@use "../../colors";
+@use "../../mixins/frames";
+@use "../../mixins/layout";
+
 @use "sass:color";
 
 .actions-container {
@@ -36,7 +40,7 @@ ol.actions-list {
 
         &.action,
         &.strike {
-            $border-color: color.adjust($alt-color, $lightness: 40%);
+            $border-color: color.adjust(colors.$alt-color, $lightness: 40%);
             border: solid transparent;
             border-image: linear-gradient(90deg, #f1edea, $border-color) 1 repeat;
             border-width: 0 0 var(--space-1);
@@ -48,7 +52,7 @@ ol.actions-list {
             }
 
             .item-image {
-                @include flex-center;
+                @include layout.flex-center;
                 background-repeat: no-repeat;
                 background-size: contain;
                 cursor: pointer;
@@ -93,7 +97,7 @@ ol.actions-list {
             }
 
             .item-summary {
-                @include frame-elegant;
+                @include frames.frame-elegant;
                 padding: 0.5rem 1rem 1rem;
                 margin: var(--space-8) 0;
 

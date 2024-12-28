@@ -1,162 +1,166 @@
-&.feats {
-    .feat-section {
-        padding-bottom: 1em;
-        header .limit {
-            input {
-                background: rgba(0, 0, 0, 0.05);
-                display: inline;
-                color: inherit;
-                font: inherit;
-                height: 1em;
-                width: 2.2ch;
+@use "../../colors";
+
+@mixin tab {
+    &.feats {
+        .feat-section {
+            padding-bottom: 1em;
+            header .limit {
+                input {
+                    background: rgba(0, 0, 0, 0.05);
+                    display: inline;
+                    color: inherit;
+                    font: inherit;
+                    height: 1em;
+                    width: 2.2ch;
+                }
             }
         }
-    }
 
-    ol.feats-list {
-        padding-left: 0;
-    }
-
-    ol.feats-list li.slot {
-        align-items: center;
-        display: grid;
-        grid:
-            "name ctrl" min-content
-            "content content" min-content
-            / 1fr min-content;
-        padding: var(--space-5) 0 var(--space-4);
-        position: relative;
-        row-gap: var(--space-2);
-
-        &:nth-child(odd) {
-            background-color: rgba($alt-color, 0.1);
+        ol.feats-list {
+            padding-left: 0;
         }
 
-        .item-name,
-        .item-controls {
-            margin: 0;
-        }
-
-        .item-name {
+        ol.feats-list li.slot {
             align-items: center;
-            display: flex;
-            flex: 1;
-            gap: var(--space-8);
-            grid-area: name;
-            height: var(--font-size-25);
-            width: 100%;
+            display: grid;
+            grid:
+                "name ctrl" min-content
+                "content content" min-content
+                / 1fr min-content;
+            padding: var(--space-5) 0 var(--space-4);
+            position: relative;
+            row-gap: var(--space-2);
 
-            .feat-slot-title {
-                display: flex;
-                font: 600 var(--font-size-15) var(--serif);
-                color: var(--color-pf-secondary);
-                justify-content: center;
-                width: 1.25rem;
-                margin-left: var(--space-6);
+            &:nth-child(odd) {
+                background-color: rgba(colors.$alt-color, 0.1);
             }
 
-            .item-placeholder {
-                margin-left: 2.5rem;
-                margin-right: var(--space-4);
-            }
-
-            h4 {
-                display: inline-flex;
-                max-width: 20rem;
+            .item-name,
+            .item-controls {
                 margin: 0;
-
-                &:hover {
-                    color: var(--color-pf-primary);
-                    text-shadow: 0 0 3px var(--color-pf-tertiary);
-                }
-
-                a {
-                    font-size: var(--font-size-13);
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                }
-            }
-        }
-
-        .item-controls {
-            align-items: center;
-            display: flex;
-            font-size: var(--font-size-12);
-            grid-area: ctrl;
-            height: 100%;
-            white-space: nowrap;
-            width: 100%;
-
-            a {
-                &:last-child {
-                    margin-right: var(--space-6);
-                }
-            }
-        }
-
-        .item-summary {
-            grid-area: content;
-            margin: var(--space-4) 0;
-            padding: 0 var(--space-4);
-
-            .tags {
-                padding: var(--space-2) 0 0;
             }
 
-            .level {
-                font-weight: 600;
-                position: absolute;
-                right: 3rem;
-                top: var(--space-8);
-            }
-        }
-
-        > .item-summary {
-            margin-left: 1.75rem;
-        }
-
-        ol.nested-items {
-            border-left: var(--space-3) dotted var(--color-pf-alternate);
-            display: flex;
-            flex-basis: 100%;
-            flex-direction: column;
-            grid-column: span 2;
-            margin: var(--space-1) 0 0 2.85rem;
-            padding: 0;
-            row-gap: var(--space-4);
-
-            > li {
+            .item-name {
                 align-items: center;
                 display: flex;
-                flex-wrap: wrap;
-                margin: 0;
-                padding-left: 0.875rem;
-                position: relative;
+                flex: 1;
+                gap: var(--space-8);
+                grid-area: name;
+                height: var(--font-size-25);
+                width: 100%;
 
-                .item-name {
+                .feat-slot-title {
+                    display: flex;
+                    font: 600 var(--font-size-15) var(--serif);
+                    color: var(--color-pf-secondary);
+                    justify-content: center;
+                    width: 1.25rem;
+                    margin-left: var(--space-6);
+                }
+
+                .item-placeholder {
+                    margin-left: 2.5rem;
+                    margin-right: var(--space-4);
+                }
+
+                h4 {
+                    display: inline-flex;
+                    max-width: 20rem;
                     margin: 0;
 
-                    .feat-slot-title {
-                        display: none;
+                    &:hover {
+                        color: var(--color-pf-primary);
+                        text-shadow: 0 0 3px var(--color-pf-tertiary);
+                    }
+
+                    a {
+                        font-size: var(--font-size-13);
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
                     }
                 }
+            }
 
-                .item-controls {
-                    flex: 0;
-                }
+            .item-controls {
+                align-items: center;
+                display: flex;
+                font-size: var(--font-size-12);
+                grid-area: ctrl;
+                height: 100%;
+                white-space: nowrap;
+                width: 100%;
 
-                .item-summary {
-                    margin-left: 0;
-                    padding-left: 0;
-
-                    .level {
-                        top: var(--space-3);
+                a {
+                    &:last-child {
+                        margin-right: var(--space-6);
                     }
                 }
+            }
 
-                ol.nested-items {
-                    margin: var(--space-3) 0 0 var(--space-11);
+            .item-summary {
+                grid-area: content;
+                margin: var(--space-4) 0;
+                padding: 0 var(--space-4);
+
+                .tags {
+                    padding: var(--space-2) 0 0;
+                }
+
+                .level {
+                    font-weight: 600;
+                    position: absolute;
+                    right: 3rem;
+                    top: var(--space-8);
+                }
+            }
+
+            > .item-summary {
+                margin-left: 1.75rem;
+            }
+
+            ol.nested-items {
+                border-left: var(--space-3) dotted var(--color-pf-alternate);
+                display: flex;
+                flex-basis: 100%;
+                flex-direction: column;
+                grid-column: span 2;
+                margin: var(--space-1) 0 0 2.85rem;
+                padding: 0;
+                row-gap: var(--space-4);
+
+                > li {
+                    align-items: center;
+                    display: flex;
+                    flex-wrap: wrap;
+                    margin: 0;
+                    padding-left: 0.875rem;
+                    position: relative;
+
+                    .item-name {
+                        margin: 0;
+
+                        .feat-slot-title {
+                            display: none;
+                        }
+                    }
+
+                    .item-controls {
+                        flex: 0;
+                    }
+
+                    .item-summary {
+                        margin-left: 0;
+                        padding-left: 0;
+
+                        .level {
+                            top: var(--space-3);
+                        }
+                    }
+
+                    ol.nested-items {
+                        margin: var(--space-3) 0 0 var(--space-11);
+                    }
                 }
             }
         }

@@ -1,3 +1,7 @@
+@use "../mixins/frames";
+@use "../mixins/layout";
+@use "../mixins/typography";
+
 #effects-panel {
     pointer-events: initial;
     position: absolute;
@@ -37,7 +41,7 @@
         }
 
         > .icon {
-            @include frame-silver;
+            @include frames.frame-silver;
             align-items: center;
             background-repeat: no-repeat;
             background-size: contain;
@@ -68,7 +72,7 @@
                 bottom: -1px;
                 width: 100%;
                 padding: 2px 1px;
-                @include micro;
+                @include typography.micro;
                 color: var(--text-light);
                 background-color: var(--primary);
             }
@@ -134,7 +138,7 @@ aside.effect-info {
     }
 
     h1 {
-        @include p-reset;
+        @include layout.p-reset;
         border: none;
         display: flex;
         font-size: var(--font-size-14);

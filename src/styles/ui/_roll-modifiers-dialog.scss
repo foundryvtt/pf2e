@@ -1,3 +1,7 @@
+@use "../mixins/buttons";
+@use "../mixins/frames";
+@use "../mixins/typography";
+
 @use "sass:color";
 
 .roll-modifiers-dialog {
@@ -5,7 +9,7 @@
     box-shadow: none;
 
     .window-header {
-        @include inset-gold-border;
+        @include frames.inset-gold-border;
         background: linear-gradient(
             90deg,
             var(--color-pf-secondary) 0%,
@@ -18,12 +22,12 @@
     }
 
     .window-content {
-        @include corner-boxes;
+        @include frames.corner-boxes;
         padding-top: 0;
     }
 
     button {
-        @include button;
+        @include buttons.button;
         background-color: var(--color-pf-alternate);
         border-radius: 2px;
         color: var(--text-light);
@@ -74,7 +78,7 @@
 
         &::after,
         &::before {
-            @include micro;
+            @include typography.micro;
             top: 4px;
         }
 

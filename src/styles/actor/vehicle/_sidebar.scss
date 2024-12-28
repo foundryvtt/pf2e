@@ -1,3 +1,8 @@
+@use "../../colors";
+@use "../../mixins/forms";
+@use "../../mixins/layout";
+@use "../../mixins/typography";
+
 @use "sass:color";
 
 aside {
@@ -39,7 +44,7 @@ aside {
             color: var(--tertiary-light);
         }
         &:hover {
-            @include input-glow;
+            @include forms.input-glow;
         }
     }
 
@@ -112,7 +117,7 @@ aside {
 
     .sidebar_label {
         color: var(--sidebar-label);
-        @include micro;
+        @include typography.micro;
         white-space: nowrap;
     }
 
@@ -154,7 +159,7 @@ aside {
                     background-image: linear-gradient(
                         90deg,
                         var(--color-pf-primary-dark) 0%,
-                        color.adjust($primary-color, $lightness: 8%) 50%,
+                        color.adjust(colors.$primary-color, $lightness: 8%) 50%,
                         var(--color-pf-primary-dark) 100%
                     );
                     background-color: var(--primary);
@@ -210,7 +215,7 @@ aside {
 
             h4,
             label {
-                @include micro;
+                @include typography.micro;
             }
 
             i.fa-regular,
@@ -266,7 +271,7 @@ aside {
     }
 
     ul.sidebar-saves {
-        @include p-reset;
+        @include layout.p-reset;
         display: flex;
 
         .roll-data {
@@ -290,7 +295,7 @@ aside {
             }
 
             .save-roll {
-                @include flex-center;
+                @include layout.flex-center;
                 margin: 4px 0;
 
                 h3 {

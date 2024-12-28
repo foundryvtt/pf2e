@@ -1,4 +1,7 @@
-@import "homebrew", "variant-rules", "world-clock";
+@use "sass:meta";
+@use "homebrew";
+@use "variant-rules";
+@use "world-clock";
 
 // Settings sidebar
 #game-details {
@@ -50,5 +53,5 @@
 }
 
 #metagame-settings {
-    @import "metagame";
+    @include meta.load-css("metagame");
 }

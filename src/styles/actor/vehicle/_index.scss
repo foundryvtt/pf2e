@@ -1,8 +1,13 @@
+@use "sass:meta";
+@use "../../colors";
+@use "../../mixins/forms";
+@use "../../mixins/layout";
+
 .sheet-navigation {
     min-width: 375px;
 }
 
-@import "sidebar";
+@include meta.load-css("sidebar");
 
 header.char-header {
     .tags select {
@@ -119,17 +124,17 @@ header.char-header {
     }
 
     &.effects {
-        @import "effects";
+        @include meta.load-css("effects");
 
         ol.directory-list {
-            @include p-reset;
+            @include layout.p-reset;
             display: flex;
             flex-direction: column;
             list-style: none;
             width: 100%;
 
             h4 {
-                @include p-reset;
+                @include layout.p-reset;
             }
 
             .item {
@@ -164,7 +169,7 @@ header.char-header {
             margin-top: auto;
 
             > .content {
-                @include publication-data;
+                @include forms.publication-data;
             }
         }
     }
@@ -173,11 +178,11 @@ header.char-header {
 input.adjustable:not(:focus),
 span.adjustable {
     &.adjusted-higher {
-        color: $adjusted-higher;
+        color: colors.$adjusted-higher;
     }
 
     &.adjusted-lower {
-        color: $adjusted-lower;
+        color: colors.$adjusted-lower;
     }
 }
 

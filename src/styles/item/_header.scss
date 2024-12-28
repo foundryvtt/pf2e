@@ -1,66 +1,68 @@
-> header {
-    img {
-        border: none;
-        object-fit: contain;
-    }
-
-    .details {
-        align-items: baseline;
-        column-gap: 0.33rem;
-        display: flex;
-        flex-wrap: wrap;
-
-        input,
-        .level {
-            font: 700 var(--font-size-36) var(--serif-condensed);
+@mixin header {
+    > header {
+        img {
+            border: none;
+            object-fit: contain;
         }
 
+        .details {
+            align-items: baseline;
+            column-gap: 0.33rem;
+            display: flex;
+            flex-wrap: wrap;
+
+            input,
+            .level {
+                font: 700 var(--font-size-36) var(--serif-condensed);
+            }
+
+            tagify-tags {
+                height: auto;
+            }
+        }
+
+        input[type="text"],
+        input[type="number"],
         tagify-tags {
-            height: auto;
-        }
-    }
+            color: var(--color-text-dark-input);
+            border: none;
+            height: var(--font-size-34);
 
-    input[type="text"],
-    input[type="number"],
-    tagify-tags {
-        color: var(--color-text-dark-input);
-        border: none;
-        height: var(--font-size-34);
-
-        &:hover,
-        &:focus {
-            box-shadow: none;
-        }
-    }
-
-    input[name="name"] {
-        flex: 1;
-    }
-
-    .level {
-        flex: 0;
-        white-space: nowrap;
-        margin-left: auto;
-
-        i {
-            font-size: 0.6em;
-            vertical-align: middle;
+            &:hover,
+            &:focus {
+                box-shadow: none;
+            }
         }
 
-        input {
-            width: 40px;
-            text-align: center;
+        input[name="name"] {
+            flex: 1;
         }
-    }
 
-    .action-glyph {
-        font-size: 2.125rem;
-    }
+        .level {
+            flex: 0;
+            white-space: nowrap;
+            margin-left: auto;
 
-    .paizo-style {
-        border: none;
-        flex-basis: 100%;
-        margin-top: 0.125rem;
-        padding: 0;
+            i {
+                font-size: 0.6em;
+                vertical-align: middle;
+            }
+
+            input {
+                width: 40px;
+                text-align: center;
+            }
+        }
+
+        .action-glyph {
+            font-size: 2.125rem;
+        }
+
+        .paizo-style {
+            border: none;
+            flex-basis: 100%;
+            margin-top: 0.125rem;
+            padding: 0;
+        }
     }
 }

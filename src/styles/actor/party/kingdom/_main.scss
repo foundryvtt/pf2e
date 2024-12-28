@@ -1,7 +1,4 @@
-& {
-    overflow: hidden scroll;
-    flex-direction: column;
-}
+@use "../../../mixins/frames";
 
 input[type="text"],
 input[type="number"] {
@@ -34,7 +31,7 @@ input[type="number"] {
         }
 
         .image {
-            @include frame-icon;
+            @include frames.frame-icon;
             grid-area: img;
             width: 2.75rem;
             height: 2.75rem;

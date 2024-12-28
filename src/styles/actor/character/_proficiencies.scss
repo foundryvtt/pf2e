@@ -1,107 +1,114 @@
-&.proficiencies {
-    h1,
-    h4,
-    h6 {
-        @include p-reset;
-        align-items: center;
-        display: flex;
-        line-height: 1;
-    }
+@use "../../mixins/animations";
+@use "../../mixins/frames";
+@use "../../mixins/layout";
+@use "../../mixins/typography";
 
-    h6 {
-        @include micro;
-        border-radius: 2px;
-        box-shadow: inset 0 0 0 1px rgba(black, 0.5);
-        color: var(--text-light);
-        padding: var(--space-2) var(--space-4);
-    }
-
-    ul.proficiencies-list {
-        @include p-reset;
-        align-items: center;
-        display: grid;
-        gap: var(--space-8);
-        grid-template-columns: repeat(2, 1fr);
-        list-style: none;
-        margin-bottom: var(--space-12);
-
-        li {
-            @include frame-elegant;
+@mixin tab {
+    &.proficiencies {
+        h1,
+        h4,
+        h6 {
+            @include layout.p-reset;
             align-items: center;
             display: flex;
-            font-family: var(--serif);
-            font-size: var(--font-size-16);
-            min-height: 2.25rem;
-            padding: 0 var(--space-8) 0 var(--space-4);
-
-            a.d20 {
-                filter: drop-shadow(0 0 1px var(--color-shadow-dark)) drop-shadow(0 0 3px var(--color-text-dark-4))
-                    drop-shadow(0 0 12px var(--color-text-light-3));
-                padding: var(--space-4);
-
-                &:hover {
-                    @include die-spin;
-                }
-
-                path {
-                    fill: var(--color-text-light-1);
-                }
-            }
-
-            .name,
-            .modifier,
-            .dc {
-                // Compensation for the font's alignment
-                margin-bottom: -0.1em;
-                padding-top: 0.1em;
-            }
-
-            .modifier,
-            .dc {
-                color: var(--color-pf-primary);
-                font-weight: 600;
-                margin-right: var(--space-4);
-                text-align: end;
-                width: 1.75rem;
-            }
-
-            a.hover {
-                text-decoration: underline var(--color-pf-primary-dark);
-                text-underline-offset: 0.125em;
-            }
-
-            .name {
-                flex: 1;
-                line-height: 0.9em;
-                margin-right: var(--space-4);
-            }
-
-            // Proficiencies added by the user
-            &.custom {
-                position: relative;
-
-                a.delete {
-                    font-size: var(--font-size-12);
-                    opacity: 0.65;
-                    position: absolute;
-                    right: -0.5rem;
-                    top: -0.5rem;
-                }
-
-                &:hover a.delete {
-                    opacity: 1;
-                }
-            }
+            line-height: 1;
         }
 
-        &.lores-list > li .item-controls {
-            font-size: var(--font-size-12);
-            margin-left: var(--space-8);
+        h6 {
+            @include typography.micro;
+            border-radius: 2px;
+            box-shadow: inset 0 0 0 1px rgba(black, 0.5);
+            color: var(--text-light);
+            padding: var(--space-2) var(--space-4);
         }
 
-        &.lores-list > li,
-        li.all-by-myself {
-            grid-column: span 2;
+        ul.proficiencies-list {
+            @include layout.p-reset;
+            align-items: center;
+            display: grid;
+            gap: var(--space-8);
+            grid-template-columns: repeat(2, 1fr);
+            list-style: none;
+            margin-bottom: var(--space-12);
+
+            li {
+                @include frames.frame-elegant;
+                align-items: center;
+                display: flex;
+                font-family: var(--serif);
+                font-size: var(--font-size-16);
+                min-height: 2.25rem;
+                padding: 0 var(--space-8) 0 var(--space-4);
+
+                a.d20 {
+                    filter: drop-shadow(0 0 1px var(--color-shadow-dark)) drop-shadow(0 0 3px var(--color-text-dark-4))
+                        drop-shadow(0 0 12px var(--color-text-light-3));
+                    padding: var(--space-4);
+
+                    &:hover {
+                        @include animations.die-spin;
+                    }
+
+                    path {
+                        fill: var(--color-text-light-1);
+                    }
+                }
+
+                .name,
+                .modifier,
+                .dc {
+                    // Compensation for the font's alignment
+                    margin-bottom: -0.1em;
+                    padding-top: 0.1em;
+                }
+
+                .modifier,
+                .dc {
+                    color: var(--color-pf-primary);
+                    font-weight: 600;
+                    margin-right: var(--space-4);
+                    text-align: end;
+                    width: 1.75rem;
+                }
+
+                a.hover {
+                    text-decoration: underline var(--color-pf-primary-dark);
+                    text-underline-offset: 0.125em;
+                }
+
+                .name {
+                    flex: 1;
+                    line-height: 0.9em;
+                    margin-right: var(--space-4);
+                }
+
+                // Proficiencies added by the user
+                &.custom {
+                    position: relative;
+
+                    a.delete {
+                        font-size: var(--font-size-12);
+                        opacity: 0.65;
+                        position: absolute;
+                        right: -0.5rem;
+                        top: -0.5rem;
+                    }
+
+                    &:hover a.delete {
+                        opacity: 1;
+                    }
+                }
+            }
+
+            &.lores-list > li .item-controls {
+                font-size: var(--font-size-12);
+                margin-left: var(--space-8);
+            }
+
+            &.lores-list > li,
+            li.all-by-myself {
+                grid-column: span 2;
+            }
         }
     }
 }

@@ -1,7 +1,5 @@
-& {
-    padding: 0.75rem;
-    gap: 1rem;
-}
+@use "../../../mixins/effects-list";
+@use "../../../mixins/typography";
 
 .events {
     flex: 1;
@@ -49,7 +47,7 @@
         }
 
         .editor-content {
-            @include journal-styling;
+            @include typography.journal-styling;
         }
     }
 }
@@ -60,7 +58,7 @@ section.effects {
         margin-top: 0;
     }
     .effects-list {
-        @include effects-list;
+        @include effects-list.effects-list;
         .item {
             padding-left: 0;
         }

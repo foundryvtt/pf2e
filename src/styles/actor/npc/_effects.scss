@@ -1,11 +1,13 @@
+@use "../../colors";
+
 @use "../../mixins/effects-list";
 
-@include configure($alt-color: $alt-color);
+@include effects-list.configure($alt-color: colors.$alt-color);
 
 .effects {
     .section-body {
         .effects-list {
-            @include effects-list;
+            @include effects-list.effects-list;
             padding-left: 0px;
             padding-right: 5px;
         }

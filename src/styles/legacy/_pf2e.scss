@@ -1,3 +1,5 @@
+@use "../mixins/typography";
+
 :root {
     --primary-background: #454a7c;
     --secondary-background: gray;
@@ -32,7 +34,7 @@
             border: none;
 
             > input {
-                @include serif-condensed;
+                @include typography.serif-condensed;
                 height: 2.5rem;
                 width: 100%;
                 margin: var(--space-2);

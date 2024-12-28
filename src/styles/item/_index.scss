@@ -1,5 +1,13 @@
+@use "sass:meta";
+@use "header" as *;
+@use "nav" as *;
+@use "../colors";
+@use "../mixins/forms";
+@use "../mixins/typography";
+@use "../reset" as *;
+
 .pf2e.item.sheet {
-    @import "../reset";
+    @include reset;
 
     .window-content {
         padding: var(--space-8);
@@ -24,8 +32,8 @@
             font-weight: 500;
         }
 
-        @import "header";
-        @import "nav";
+        @include header;
+        @include nav;
 
         .mce-panel span {
             display: inherit;
@@ -136,7 +144,7 @@
                 scrollbar-gutter: stable;
             }
 
-            @import "sidebar";
+            @include meta.load-css("sidebar");
         }
 
         .sheet-body {
@@ -262,7 +270,7 @@
             }
 
             .editor {
-                @include journal-styling;
+                @include typography.journal-styling;
             }
         }
 
@@ -296,7 +304,7 @@
                 padding: var(--space-4);
 
                 .data {
-                    @include publication-data;
+                    @include forms.publication-data;
                 }
             }
 
@@ -383,12 +391,12 @@
             input,
             select {
                 &.adjusted-higher:not(:focus) {
-                    color: $adjusted-higher;
+                    color: colors.$adjusted-higher;
                     font-weight: 700;
                 }
 
                 &.adjusted-lower:not(:focus) {
-                    color: $adjusted-lower;
+                    color: colors.$adjusted-lower;
                     font-weight: 700;
                 }
             }
@@ -498,7 +506,7 @@
         input {
             &.adjusted:not(:focus) {
                 font-weight: 700;
-                color: $adjusted-higher;
+                color: colors.$adjusted-higher;
             }
         }
 
@@ -520,10 +528,10 @@
             }
         }
 
-        @import "abc-sheet";
-        @import "activations";
-        @import "mystification";
-        @import "rules";
+        @include meta.load-css("abc-sheet");
+        @include meta.load-css("activations");
+        @include meta.load-css("mystification");
+        @include meta.load-css("rules");
     }
 
     a.disabled,
@@ -537,56 +545,57 @@
     }
 
     &.action form {
-        @import "ability-sheet";
+        @include meta.load-css("ability-sheet");
     }
 
     &.affliction form {
-        @import "affliction-sheet";
+        @include meta.load-css("affliction-sheet");
     }
 
     &.ancestry form {
-        @import "ancestry-sheet";
+        @include meta.load-css("ancestry-sheet");
     }
 
     &.consumable form {
-        @import "consumable-sheet";
+        @include meta.load-css("consumable-sheet");
     }
 
     &.deity form {
-        @import "deity-sheet";
+        @include meta.load-css("deity-sheet");
     }
 
     &.effect form {
-        @import "effect-sheet";
+        @include meta.load-css("effect-sheet");
     }
 
     &.feat form {
-        @import "feat-sheet";
+        @include meta.load-css("feat-sheet");
     }
 
     &.heritage form {
-        @import "heritage-sheet";
+        @include meta.load-css("heritage-sheet");
     }
 
     &.kit form {
-        @import "kit-sheet";
+        @include meta.load-css("kit-sheet");
     }
 
     &.melee form {
-        @import "melee-sheet";
+        @include meta.load-css("melee-sheet");
     }
 
     &.physical form .sidebar {
-        @import "physical-sidebar";
+        @include meta.load-css("physical-sidebar");
     }
 
     &.spell form {
-        @import "spell-sheet";
+        @include meta.load-css("spell-sheet");
     }
 
     &.weapon form {
-        @import "weapon-sheet";
+        @include meta.load-css("weapon-sheet");
     }
 }
 
-@import "item-attacher", "persistent-damage-dialog";
+@include meta.load-css("item-attacher");
+@include meta.load-css("persistent-damage-dialog");

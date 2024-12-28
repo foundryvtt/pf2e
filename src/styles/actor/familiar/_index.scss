@@ -1,5 +1,9 @@
+@use "sass:meta";
+@use "../../mixins/effects-list";
+@use "../../mixins/layout";
+
 .sheet.familiar {
-    @import "../red-action-boxes";
+    @include meta.load-css("../red-action-boxes");
 
     form {
         background: url("/assets/sheet/background.webp") repeat-x local top/cover;
@@ -475,11 +479,11 @@
     }
 
     .effects-list {
-        @include p-reset;
-        @include effects-list;
+        @include layout.p-reset;
+        @include effects-list.effects-list;
 
         .item {
-            @include p-reset;
+            @include layout.p-reset;
             margin: 0.25em 0;
         }
     }

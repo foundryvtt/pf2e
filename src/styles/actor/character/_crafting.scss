@@ -1,182 +1,122 @@
+@use "../../colors";
+@use "../../mixins/frames";
+@use "../../mixins/layout";
 @use "sass:color";
 
-&.crafting {
-    --controls-width: 1.75rem;
+@mixin tab {
+    &.crafting {
+        --controls-width: 1.75rem;
 
-    .crafting-options {
-        @include frame-elegant;
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-4);
-        margin: 0 1rem 1rem;
-        padding: 0.5rem 1rem;
-
-        .crafting-option {
+        .crafting-options {
+            @include frames.frame-elegant;
             display: flex;
-            align-items: center;
-            flex-basis: 100%;
+            flex-direction: column;
+            gap: var(--space-4);
+            margin: 0 1rem 1rem;
+            padding: 0.5rem 1rem;
 
-            label {
-                * {
-                    vertical-align: middle;
-                }
-
-                input {
-                    @include p-reset;
-                }
-            }
-        }
-    }
-
-    li.crafting-entry {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-evenly;
-        align-items: center;
-        background: none;
-        border: none;
-
-        &.item-container {
-            margin-bottom: var(--space-6);
-        }
-
-        &.alchemical-entry {
-            margin-bottom: 0;
-
-            &:last-child {
-                margin-bottom: 0.5em;
-            }
-        }
-
-        .action-header {
-            color: var(--text-light);
-            font-size: var(--font-size-16);
-            font-weight: 500;
-            height: 1.75rem;
-
-            .level {
-                white-space: nowrap;
-            }
-
-            &.alchemical-title {
-                background: var(--color-pf-secondary);
-                font-size: var(--font-size-14);
-                height: 1.5rem;
-            }
-        }
-
-        input.formula-number {
-            background: var(--color-pf-alternate);
-            height: unset;
-            border-radius: 3px;
-            border: 1px solid var(--sub);
-            color: var(--text-light);
-            font: var(--font-size-12) var(--sans-serif);
-            text-align: center;
-            width: 2em;
-        }
-    }
-
-    ol.formula-list {
-        @include p-reset;
-        flex-basis: 100%;
-
-        .formula-item[data-expended-state="true"] {
-            h4 {
-                color: var(--color-disabled);
-                text-decoration: line-through;
-            }
-
-            .toggle-formula-expended {
-                color: var(--color-pf-primary);
-            }
-        }
-
-        .formula-header {
-            @include p-reset;
-            background: rgba($sub-color, 0.25);
-            border: 1px solid var(--sub);
-            color: var(--text-dark);
-            font: 600 var(--font-size-12) var(--sans-serif);
-            height: 1.75rem;
-
-            .item-name {
-                align-items: center;
+            .crafting-option {
                 display: flex;
-                flex-basis: 50%;
-                flex-wrap: nowrap;
-                justify-content: start;
-                justify-self: start;
-                line-height: 1.5;
-                gap: 0.5em;
-            }
+                align-items: center;
+                flex-basis: 100%;
 
-            h3 {
-                @include p-reset;
-                text-transform: capitalize;
-                font-size: var(--font-size-12);
-                font-weight: 500;
-                margin-left: 0;
-                padding: var(--space-4) 0;
-            }
+                label {
+                    * {
+                        vertical-align: middle;
+                    }
 
-            .formula-number {
-                text-align: center;
+                    input {
+                        @include layout.p-reset;
+                    }
+                }
             }
         }
 
-        .formula-header.resource {
+        li.crafting-entry {
             display: flex;
-            justify-content: space-between;
-            padding: 0 var(--space-4);
-        }
-
-        li.formula-level-header,
-        li.formula-item {
-            display: grid;
-            grid:
-                "name dc price quantity button controls" 1fr
-                / 1fr 1.5rem 4.5rem 5.125rem min-content var(--controls-width);
+            flex-wrap: wrap;
+            justify-content: space-evenly;
             align-items: center;
-            justify-items: center;
-
-            @include p-reset;
             background: none;
             border: none;
-            border-left: 1px solid var(--sub);
-            border-right: 1px solid var(--sub);
-            cursor: default;
 
-            &:nth-child(odd) {
-                background-color: rgba($alt-color, 0.1);
+            &.item-container {
+                margin-bottom: var(--space-6);
             }
 
-            &:nth-child(even) .item-summary {
-                background: none;
+            &.alchemical-entry {
+                margin-bottom: 0;
+
+                &:last-child {
+                    margin-bottom: 0.5em;
+                }
             }
 
-            &:last-child {
-                border-bottom: 1px solid var(--sub);
+            .action-header {
+                color: var(--text-light);
+                font-size: var(--font-size-16);
+                font-weight: 500;
+                height: 1.75rem;
+
+                .level {
+                    white-space: nowrap;
+                }
+
+                &.alchemical-title {
+                    background: var(--color-pf-secondary);
+                    font-size: var(--font-size-14);
+                    height: 1.5rem;
+                }
             }
 
-            &.empty {
-                align-items: center;
-                display: flex;
-                min-height: 2em;
-                opacity: 0.85;
-                padding-left: 1.25rem;
-                white-space: nowrap;
+            input.formula-number {
+                background: var(--color-pf-alternate);
+                height: unset;
+                border-radius: 3px;
+                border: 1px solid var(--sub);
+                color: var(--text-light);
+                font: var(--font-size-12) var(--sans-serif);
+                text-align: center;
+                width: 2em;
+            }
+        }
+
+        ol.formula-list {
+            @include layout.p-reset;
+            flex-basis: 100%;
+
+            .formula-item[data-expended-state="true"] {
+                h4 {
+                    color: var(--color-disabled);
+                    text-decoration: line-through;
+                }
+
+                .toggle-formula-expended {
+                    color: var(--color-pf-primary);
+                }
             }
 
-            &.formula-level-header {
-                background: rgba($sub-color, 0.25);
+            .formula-header {
+                @include layout.p-reset;
+                background: rgba(colors.$sub-color, 0.25);
                 border: 1px solid var(--sub);
                 color: var(--text-dark);
                 font: 600 var(--font-size-12) var(--sans-serif);
-                height: 1.25rem;
-                margin: 0;
+                height: 1.75rem;
+
+                .item-name {
+                    align-items: center;
+                    display: flex;
+                    flex-basis: 50%;
+                    flex-wrap: nowrap;
+                    justify-content: start;
+                    justify-self: start;
+                    line-height: 1.5;
+                    gap: 0.5em;
+                }
 
                 h3 {
+                    @include layout.p-reset;
                     text-transform: capitalize;
                     font-size: var(--font-size-12);
                     font-weight: 500;
@@ -184,144 +124,209 @@
                     padding: var(--space-4) 0;
                 }
 
-                .item-name {
-                    line-height: 1;
-                    padding-left: var(--space-4);
-
-                    h3 {
-                        @include p-reset;
-                    }
-                }
-
-                .controls {
-                    padding-right: var(--space-4);
-                }
-            }
-
-            .item-name {
-                grid-area: name;
-                cursor: pointer;
-
-                align-items: center;
-                display: flex;
-                flex-basis: 50%;
-                flex-wrap: nowrap;
-                justify-content: start;
-                justify-self: start;
-                line-height: 1.5;
-
-                h3 {
-                    white-space: nowrap;
-                }
-
-                .item-image {
-                    margin: var(--space-2) 0;
-                    margin-left: var(--space-4);
-                }
-
-                h4 {
-                    font-weight: 500;
-                    letter-spacing: -0.075em;
-                    line-height: 1;
-                    margin: 0 0 0 var(--space-8);
-                    padding: 0;
-
-                    &:hover {
-                        color: var(--color-pf-secondary);
-                    }
-                }
-
-                &.aa-level,
-                &.reagent-resource {
-                    justify-content: flex-end;
-                }
-            }
-
-            .price {
-                grid-area: price;
-            }
-
-            .quantity {
-                grid-area: quantity;
-
-                align-items: center;
-                display: flex;
-                gap: var(--space-3);
-                justify-content: center;
-
-                .adjust {
-                    align-items: center;
-                    display: flex;
-                    font-size: var(--font-size-16);
-                    font-family: var(--sans-serif-monospace);
-                    justify-content: center;
-                    width: 1em;
-                }
-
-                input {
-                    width: 1.5rem;
+                .formula-number {
                     text-align: center;
                 }
             }
 
-            button.craft {
-                grid-area: button;
-                font: 500 var(--font-size-10) / 1.8em var(--sans-serif);
-                justify-self: end;
-                min-width: 2.5rem;
-                padding: 0 0.25em;
-                text-transform: uppercase;
-                width: fit-content;
-                &.invisible {
-                    visibility: hidden;
-                }
+            .formula-header.resource {
+                display: flex;
+                justify-content: space-between;
+                padding: 0 var(--space-4);
             }
 
-            .item-controls {
-                grid-area: controls;
-                justify-self: end;
-                font-size: var(--font-size-12);
-                margin-right: var(--space-4);
-            }
+            li.formula-level-header,
+            li.formula-item {
+                display: grid;
+                grid:
+                    "name dc price quantity button controls" 1fr
+                    / 1fr 1.5rem 4.5rem 5.125rem min-content var(--controls-width);
+                align-items: center;
+                justify-items: center;
 
-            .item-summary {
-                grid-column: 1 / 7;
-                padding: var(--space-8);
-                border-bottom: 1px solid var(--sub);
-                border-top: 1px solid color.adjust($sub-color, $lightness: 30%);
-                background-color: rgba($light-background-color, 0.5);
-                width: 100%;
+                @include layout.p-reset;
+                background: none;
+                border: none;
+                border-left: 1px solid var(--sub);
+                border-right: 1px solid var(--sub);
+                cursor: default;
 
-                p {
-                    margin-top: 0;
+                &:nth-child(odd) {
+                    background-color: rgba(colors.$alt-color, 0.1);
                 }
 
-                .item-buttons button {
-                    display: none;
+                &:nth-child(even) .item-summary {
+                    background: none;
+                }
+
+                &:last-child {
+                    border-bottom: 1px solid var(--sub);
+                }
+
+                &.empty {
+                    align-items: center;
+                    display: flex;
+                    min-height: 2em;
+                    opacity: 0.85;
+                    padding-left: 1.25rem;
+                    white-space: nowrap;
+                }
+
+                &.formula-level-header {
+                    background: rgba(colors.$sub-color, 0.25);
+                    border: 1px solid var(--sub);
+                    color: var(--text-dark);
+                    font: 600 var(--font-size-12) var(--sans-serif);
+                    height: 1.25rem;
+                    margin: 0;
+
+                    h3 {
+                        text-transform: capitalize;
+                        font-size: var(--font-size-12);
+                        font-weight: 500;
+                        margin-left: 0;
+                        padding: var(--space-4) 0;
+                    }
+
+                    .item-name {
+                        line-height: 1;
+                        padding-left: var(--space-4);
+
+                        h3 {
+                            @include layout.p-reset;
+                        }
+                    }
+
+                    .controls {
+                        padding-right: var(--space-4);
+                    }
+                }
+
+                .item-name {
+                    grid-area: name;
+                    cursor: pointer;
+
+                    align-items: center;
+                    display: flex;
+                    flex-basis: 50%;
+                    flex-wrap: nowrap;
+                    justify-content: start;
+                    justify-self: start;
+                    line-height: 1.5;
+
+                    h3 {
+                        white-space: nowrap;
+                    }
+
+                    .item-image {
+                        margin: var(--space-2) 0;
+                        margin-left: var(--space-4);
+                    }
+
+                    h4 {
+                        font-weight: 500;
+                        letter-spacing: -0.075em;
+                        line-height: 1;
+                        margin: 0 0 0 var(--space-8);
+                        padding: 0;
+
+                        &:hover {
+                            color: var(--color-pf-secondary);
+                        }
+                    }
+
+                    &.aa-level,
+                    &.reagent-resource {
+                        justify-content: flex-end;
+                    }
+                }
+
+                .price {
+                    grid-area: price;
+                }
+
+                .quantity {
+                    grid-area: quantity;
+
+                    align-items: center;
+                    display: flex;
+                    gap: var(--space-3);
+                    justify-content: center;
+
+                    .adjust {
+                        align-items: center;
+                        display: flex;
+                        font-size: var(--font-size-16);
+                        font-family: var(--sans-serif-monospace);
+                        justify-content: center;
+                        width: 1em;
+                    }
+
+                    input {
+                        width: 1.5rem;
+                        text-align: center;
+                    }
+                }
+
+                button.craft {
+                    grid-area: button;
+                    font: 500 var(--font-size-10) / 1.8em var(--sans-serif);
+                    justify-self: end;
+                    min-width: 2.5rem;
+                    padding: 0 0.25em;
+                    text-transform: uppercase;
+                    width: fit-content;
+                    &.invisible {
+                        visibility: hidden;
+                    }
+                }
+
+                .item-controls {
+                    grid-area: controls;
+                    justify-self: end;
+                    font-size: var(--font-size-12);
+                    margin-right: var(--space-4);
+                }
+
+                .item-summary {
+                    grid-column: 1 / 7;
+                    padding: var(--space-8);
+                    border-bottom: 1px solid var(--sub);
+                    border-top: 1px solid color.adjust(colors.$sub-color, $lightness: 30%);
+                    background-color: rgba(colors.$light-background-color, 0.5);
+                    width: 100%;
+
+                    p {
+                        margin-top: 0;
+                    }
+
+                    .item-buttons button {
+                        display: none;
+                    }
                 }
             }
         }
-    }
 
-    li.crafting-entry button.perform-daily {
-        width: 75%;
-    }
+        li.crafting-entry button.perform-daily {
+            width: 75%;
+        }
 
-    .crafting-entry {
-        --controls-width: 3rem;
-    }
+        .crafting-entry {
+            --controls-width: 3rem;
+        }
 
-    .known-formulas {
-        padding-bottom: 2rem;
-        .empty {
-            display: flex;
-            align-items: center;
-            background: none;
-            border: none;
-            display: flex;
-            min-height: 2em;
-            opacity: 0.85;
-            white-space: nowrap;
+        .known-formulas {
+            padding-bottom: 2rem;
+            .empty {
+                display: flex;
+                align-items: center;
+                background: none;
+                border: none;
+                display: flex;
+                min-height: 2em;
+                opacity: 0.85;
+                white-space: nowrap;
+            }
         }
     }
 }

@@ -1,3 +1,5 @@
+@use "../mixins/animations";
+
 .persistent-damage-dialog {
     /** Work around Font Awesome styling bug present as of version 6.2 */
     i.fa-fw {
@@ -12,7 +14,7 @@
             float: right;
             font-size: 0.8em;
             &:hover i {
-                @include die-spin;
+                @include animations.die-spin;
             }
         }
     }

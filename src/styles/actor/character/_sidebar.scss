@@ -1,3 +1,8 @@
+@use "../../colors";
+@use "../../mixins/animations";
+@use "../../mixins/forms";
+@use "../../mixins/typography";
+
 @use "sass:color";
 
 aside {
@@ -36,12 +41,12 @@ aside {
         }
 
         &:hover {
-            @include input-glow;
+            @include forms.input-glow;
         }
     }
 
     select {
-        @include input-border;
+        @include forms.input-border;
         background-color: var(--color-pf-primary);
         font-size: var(--font-size-15);
         max-width: 100%;
@@ -124,7 +129,7 @@ aside {
         }
 
         .sidebar_label {
-            @include micro;
+            @include typography.micro;
             color: var(--sidebar-label);
             white-space: nowrap;
         }
@@ -179,7 +184,7 @@ aside {
                     transform: scale(1.25);
                 }
                 svg {
-                    @include die-spin;
+                    @include animations.die-spin;
                 }
             }
 
@@ -248,9 +253,9 @@ aside {
                         background-color: var(--color-pf-primary);
                         background-image: linear-gradient(
                             90deg,
-                            color.adjust($primary-color, $lightness: -5%) 0%,
-                            color.adjust($primary-color, $lightness: 8%) 50%,
-                            color.adjust($primary-color, $lightness: -5%) 100%
+                            color.adjust(colors.$primary-color, $lightness: -5%) 0%,
+                            color.adjust(colors.$primary-color, $lightness: 8%) 50%,
+                            color.adjust(colors.$primary-color, $lightness: -5%) 100%
                         );
                         border: 1px solid var(--sidebar-title);
                         border-radius: 0 0 4px 4px;
@@ -304,7 +309,7 @@ aside {
 
                 h4,
                 label {
-                    @include micro;
+                    @include typography.micro;
                 }
 
                 i.fa-regular,
@@ -439,7 +444,7 @@ aside {
                         }
 
                         .data-value {
-                            @include input-border;
+                            @include forms.input-border;
                             color: var(--color-pf-tertiary);
                             flex-basis: 3.125rem;
                             font-size: var(--font-size-14);

@@ -1,3 +1,8 @@
+@use "sass:meta";
+@use "mixins/animations";
+@use "mixins/frames";
+@use "mixins/typography";
+
 /* ----------------------------------------- */
 /* Sub-font-size spacing                     */
 /* (margin, padding, gap, etc.)              */
@@ -352,7 +357,7 @@ span[data-pf2-effect-area] {
 /* ----------------------------------------- */
 
 i[data-pf2-repost] {
-    @include quick-transition;
+    @include animations.quick-transition;
     background: var(--inline-repost-bg);
     color: var(--color-text-dark-inactive);
     border-left: 1px solid var(--color-border-dark-tertiary);
@@ -395,7 +400,7 @@ i[data-pf2-repost] {
 /* ----------------------------------------- */
 /* Forms                                     */
 /* ----------------------------------------- */
-@import "forms";
+@include meta.load-css("forms");
 
 a[href]:hover {
     text-shadow: 0 0 8px var(--color-text-hyperlink);
@@ -406,11 +411,11 @@ a[href]:hover {
 }
 
 #tinymce {
-    @include journal-styling;
+    @include typography.journal-styling;
 }
 
 #prosemirror-dropdown {
-    @include journal-styling;
+    @include typography.journal-styling;
 
     .info:hover {
         color: black;
@@ -455,7 +460,7 @@ a[href]:hover {
 // System theme Foundry tooltips
 #tooltip.pf2e,
 aside.locked-tooltip.pf2e {
-    @include corner-boxes;
+    @include frames.corner-boxes;
     background: rgba(black, 0.9);
     font-size: var(--font-size-14);
     padding: var(--space-4) 0;

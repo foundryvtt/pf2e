@@ -197,7 +197,14 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             },
         },
         plugins,
-        css: { devSourcemap: buildMode === "development" },
+        css: {
+            devSourcemap: buildMode === "development",
+            preprocessorOptions: {
+                scss: {
+                    api: "modern-compiler", // This will be the default in Vite v6
+                },
+            },
+        },
     };
 });
 
