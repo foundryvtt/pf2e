@@ -1,375 +1,387 @@
 @use "sass:color";
 
-/* ----------------------------------------- */
-/* Color definitions                         */
-/* ----------------------------------------- */
+// -----------------------------------------
+// Color definitions
+// -----------------------------------------
 
-/* Colors */
+// Colors
 $light-gray-color: #ababab;
 $dark-gray-color: #545454;
 
-/* Global */
+// Global
 $primary-color: #5e0000;
-$secondary-color: #171f69; /* used for mini headers, alternate primary color */
-$tertiary-color: #e9d7a1; /* compliments the primary color, usually used in combination */
+$secondary-color: #171f69; // used for mini headers, alternate primary color
+$tertiary-color: #e9d7a1; // compliments the primary color, usually used in combination
 
-$alt-color: #786452 !default; /* for all other uses */
+$alt-color: #786452 !default; // for all other uses
 $alt-dark: #443730;
 $light-background-color: #f8f4f1;
 $less-light-background-color: color.adjust($light-background-color, $lightness: -10%);
 $sub-color: #605856;
 
-/* Text */
+// Text
 $text-dark-color: #1c1c1c !default;
 
-/* ----------------------------------------- */
-/* Color schemes                             */
-/* ----------------------------------------- */
+// -----------------------------------------
+// Color schemes
+// -----------------------------------------
 
-/* Degrees of success */
+// Degrees of success
 $degree-success-critical: rgb(0, 128, 0);
 $degree-success: rgb(0, 0, 255);
 $degree-failure: rgb(255, 69, 0);
 $degree-failure-critical: rgb(255, 0, 0);
 
-/* Value adjustments (e.g. weak/elite) */
+// Value adjustments (e.g. weak/elite)
 $adjusted-higher: #009988;
 $adjusted-lower: #cc3311;
 
-/* ----------------------------------------- */
-/* CSS Custom Properties                     */
-/* ----------------------------------------- */
+// -----------------------------------------
+// CSS Custom Properties
+// -----------------------------------------
 
-:root {
-    /* Global */
-    --color-pf-primary: #{$primary-color};
-    --color-pf-primary-dark: #{color.adjust($primary-color, $lightness: -5%)};
-    --color-pf-primary-darker: #{color.adjust($primary-color, $lightness: -10%)};
-    --color-pf-primary-light: #{color.adjust($primary-color, $lightness: 5%)};
-    --color-pf-primary-lighter: #{color.adjust($primary-color, $lightness: 10%)};
-    --color-pf-alternate: #{$alt-color};
-    --color-pf-alternate-dark: #{$alt-dark};
-    --color-pf-alternate-darker: #{color.adjust($alt-dark, $lightness: -10%)};
-    --color-pf-alternate-light: #{color.adjust($alt-color, $lightness: 10%)};
-    --color-pf-secondary: #{$secondary-color};
-    --color-pf-secondary-dark: #{color.adjust($secondary-color, $lightness: -10%)};
-    --color-pf-secondary-light: #{color.adjust($secondary-color, $lightness: 10%)};
-    --color-pf-secondary-lighter: #{color.adjust($secondary-color, $lightness: 20%)};
-    --color-pf-tertiary: #{$tertiary-color};
-    --color-pf-tertiary-dark: #{color.adjust($tertiary-color, $lightness: -10%)};
-    --color-pf-tertiary-darker: #{color.adjust($tertiary-color, $lightness: -20%)};
-    --color-pf-tertiary-darkest: #{color.adjust($tertiary-color, $lightness: -51%)};
-    --color-pf-tertiary-light: #{color.adjust($tertiary-color, $lightness: 10%)};
-    --primary: var(--color-pf-primary);
-    --secondary: var(--color-pf-secondary);
-    --tertiary: var(--color-pf-tertiary);
+@mixin root {
+    :root {
+        // Global
+        --color-pf-primary: #{$primary-color};
+        --color-pf-primary-dark: #{color.adjust($primary-color, $lightness: -5%)};
+        --color-pf-primary-darker: #{color.adjust($primary-color, $lightness: -10%)};
+        --color-pf-primary-light: #{color.adjust($primary-color, $lightness: 5%)};
+        --color-pf-primary-lighter: #{color.adjust($primary-color, $lightness: 10%)};
+        --color-pf-alternate: #{$alt-color};
+        --color-pf-alternate-dark: #{$alt-dark};
+        --color-pf-alternate-darker: #{color.adjust($alt-dark, $lightness: -10%)};
+        --color-pf-alternate-light: #{color.adjust($alt-color, $lightness: 10%)};
+        --color-pf-secondary: #{$secondary-color};
+        --color-pf-secondary-dark: #{color.adjust($secondary-color, $lightness: -10%)};
+        --color-pf-secondary-light: #{color.adjust($secondary-color, $lightness: 10%)};
+        --color-pf-secondary-lighter: #{color.adjust($secondary-color, $lightness: 20%)};
+        --color-pf-tertiary: #{$tertiary-color};
+        --color-pf-tertiary-dark: #{color.adjust($tertiary-color, $lightness: -10%)};
+        --color-pf-tertiary-darker: #{color.adjust($tertiary-color, $lightness: -20%)};
+        --color-pf-tertiary-darkest: #{color.adjust($tertiary-color, $lightness: -51%)};
+        --color-pf-tertiary-light: #{color.adjust($tertiary-color, $lightness: 10%)};
+        --primary: var(--color-pf-primary);
+        --secondary: var(--color-pf-secondary);
+        --tertiary: var(--color-pf-tertiary);
 
-    --alt: var(--color-pf-alternate);
-    --alt-dark: var(--color-pf-alternate-dark);
-    --bg: #{$light-background-color};
-    --bg-dark: #{$less-light-background-color};
-    --sub: #{$sub-color};
-    --color-disabled: var(--color-text-dark-4);
+        --alt: var(--color-pf-alternate);
+        --alt-dark: var(--color-pf-alternate-dark);
+        --bg: #{$light-background-color};
+        --bg-dark: #{$less-light-background-color};
+        --sub: #{$sub-color};
+        --color-disabled: var(--color-text-dark-4);
 
-    // Inline links and user visibility
-    --inline-link-bg: #ddd;
-    --inline-repost-bg: #{color.adjust(#ddd, $lightness: 5%)};
-    --visibility-gm-bg: #e8e8ef;
-    --visibility-owner-bg: #ddebe1;
-    --blind-roll: #f5eaf5;
+        // Inline links and user visibility
+        --inline-link-bg: #ddd;
+        --inline-repost-bg: #{color.adjust(#ddd, $lightness: 5%)};
+        --visibility-gm-bg: #e8e8ef;
+        --visibility-owner-bg: #ddebe1;
+        --blind-roll: #f5eaf5;
 
-    /* Lighter / Darker */
-    --primary-dark: var(--color-pf-primary-dark);
-    --primary-darker: var(--color-pf-primary-darker);
-    --tertiary-dark: var(--color-pf-tertiary-dark);
-    --tertiary-light: var(--color-pf-tertiary-light);
+        // Lighter / Darker
+        --primary-dark: var(--color-pf-primary-dark);
+        --primary-darker: var(--color-pf-primary-darker);
+        --tertiary-dark: var(--color-pf-tertiary-dark);
+        --tertiary-light: var(--color-pf-tertiary-light);
 
-    /* Text */
-    --text-dark: var(--color-text-dark-primary);
-    --text-light: #f5efe0;
-    --text-light-disabled: #a6a092;
-    --color-text-dark-input: #333;
-    --color-text-dark-improved: #006644;
+        // Text
+        --text-dark: var(--color-text-dark-primary);
+        --text-light: #f5efe0;
+        --text-light-disabled: #a6a092;
+        --color-text-dark-input: #333;
+        --color-text-dark-improved: #006644;
 
-    /* Borders */
-    --color-border-divider: #baa991;
-    --color-border-dark-input: #d3ccbc;
-    --color-border-medium: gray;
+        // Borders
+        --color-border-divider: #baa991;
+        --color-border-dark-input: #d3ccbc;
+        --color-border-medium: gray;
 
-    /* Headers w/ boxes */
-    --header-color: var(--text-light);
-    --header-bg: var(--secondary);
+        // Headers w/ boxes
+        --header-color: var(--text-light);
+        --header-bg: var(--secondary);
 
-    /* Sidebar */
-    --sidebar-label: var(--tertiary-dark);
-    --sidebar-title: var(--tertiary);
+        // Sidebar
+        --sidebar-label: var(--tertiary-dark);
+        --sidebar-title: var(--tertiary);
 
-    /** Traits */
-    --color-bg-size: #3a7b59;
-    --color-bg-trait: #{$primary-color};
-    --color-border-trait: #d8c384;
-    --color-text-trait: white;
+        // Degree of success
+        --color-degree-success-critical: #{$degree-success-critical};
+        --color-degree-success: #{$degree-success};
+        --color-degree-failure: #{$degree-failure};
+        --color-degree-failure-critical: #{$degree-failure-critical};
 
-    /* Rarity */
-    --color-rarity-common: #323232;
-    --color-rarity-uncommon: #98513d;
-    --color-rarity-rare: #002664;
-    --color-rarity-unique: #54166e;
+        // Value adjustments (e.g. weak/elite)
+        --color-adjusted-higher: #{$adjusted-higher};
+        --color-adjusted-lower: #{$adjusted-lower};
 
-    /** Proficiency ranks */
-    --color-proficiency-untrained: #424242;
-    --color-proficiency-trained: #171f69;
-    --color-proficiency-expert: #3c005e;
-    --color-proficiency-master: #664400;
-    --color-proficiency-legendary: #{$primary-color};
+        // Traits
+        --color-bg-size: #3a7b59;
+        --color-bg-trait: #{$primary-color};
+        --color-border-trait: #d8c384;
+        --color-text-trait: white;
 
-    /* Damage colors */
-    .damage {
-        $damage-physical: #3c3c3c;
-        $damage-acid: #007300;
-        $damage-bleed: #99001a;
-        $damage-chaotic: #a600a6;
-        $damage-cold: #2f2fa6;
-        $damage-electricity: darkgoldenrod;
-        $damage-evil: indigo;
-        $damage-fire: #a62f00;
-        $damage-force: #6300aa;
-        $damage-good: #9d730a;
-        $damage-lawful: #402600;
-        $damage-mental: midnightblue;
-        $damage-poison: #5b7332;
-        $damage-sonic: darkcyan;
-        $damage-spirit: #5a5585;
-        $damage-vitality: #ffffe0;
-        $damage-void: #00001f;
-        $darker: -12.5%;
-        $transparenter: -87.5%;
+        // Rarity
+        --color-rarity-common: #323232;
+        --color-rarity-uncommon: #98513d;
+        --color-rarity-rare: #002664;
+        --color-rarity-unique: #54166e;
 
-        --color-bg-acid: #{color.scale($damage-acid, $alpha: $transparenter)};
-        --color-bg-bleed: #{color.scale($damage-bleed, $alpha: $transparenter)};
-        --color-bg-chaotic: #{color.scale($damage-chaotic, $alpha: $transparenter)};
-        --color-bg-cold: #{color.scale($damage-cold, $alpha: $transparenter)};
-        --color-bg-electricity: #{color.scale($damage-electricity, $alpha: $transparenter)};
-        --color-bg-evil: #{color.scale($damage-evil, $alpha: $transparenter)};
-        --color-bg-fire: #{color.scale($damage-fire, $alpha: $transparenter)};
-        --color-bg-force: #{color.scale($damage-force, $alpha: $transparenter)};
-        --color-bg-good: #{color.scale($damage-good, $alpha: $transparenter)};
-        --color-bg-lawful: #{color.scale($damage-lawful, $alpha: $transparenter)};
-        --color-bg-mental: #{color.scale($damage-mental, $alpha: $transparenter)};
-        --color-bg-physical: #{color.scale($damage-physical, $alpha: $transparenter)};
-        --color-bg-poison: #{color.scale($damage-poison, $alpha: $transparenter)};
-        --color-bg-sonic: #{color.scale($damage-sonic, $alpha: $transparenter)};
-        --color-bg-spirit: #{color.scale($damage-spirit, $alpha: $transparenter)};
-        --color-bg-vitality: #{color.scale($damage-vitality, $alpha: $transparenter)};
-        --color-bg-void: #{color.scale($damage-void, $alpha: $transparenter)};
+        // Proficiency ranks
+        --color-proficiency-untrained: #424242;
+        --color-proficiency-trained: #171f69;
+        --color-proficiency-expert: #3c005e;
+        --color-proficiency-master: #664400;
+        --color-proficiency-legendary: #{$primary-color};
 
-        --color-border-acid: #{$damage-acid};
-        --color-border-bleed: #{$damage-bleed};
-        --color-border-chaotic: #{$damage-chaotic};
-        --color-border-cold: #{$damage-cold};
-        --color-border-electricity: #{$damage-electricity};
-        --color-border-evil: #{$damage-evil};
-        --color-border-fire: #{$damage-fire};
-        --color-border-force: #{$damage-force};
-        --color-border-good: #{$damage-good};
-        --color-border-lawful: #{$damage-lawful};
-        --color-border-mental: #{$damage-mental};
-        --color-border-physical: #{$damage-physical};
-        --color-border-poison: #{$damage-poison};
-        --color-border-sonic: #{$damage-sonic};
-        --color-border-spirit: #{$damage-spirit};
-        --color-border-vitality: #{$damage-vitality};
-        --color-border-void: #{$damage-void};
+        // Damage colors
+        .damage {
+            $damage-physical: #3c3c3c;
+            $damage-acid: #007300;
+            $damage-bleed: #99001a;
+            $damage-chaotic: #a600a6;
+            $damage-cold: #2f2fa6;
+            $damage-electricity: darkgoldenrod;
+            $damage-evil: indigo;
+            $damage-fire: #a62f00;
+            $damage-force: #6300aa;
+            $damage-good: #9d730a;
+            $damage-lawful: #402600;
+            $damage-mental: midnightblue;
+            $damage-poison: #5b7332;
+            $damage-sonic: darkcyan;
+            $damage-spirit: #5a5585;
+            $damage-vitality: #ffffe0;
+            $damage-void: #00001f;
+            $darker: -12.5%;
+            $transparenter: -87.5%;
 
-        --color-text-acid: #{color.adjust($damage-acid, $lightness: $darker)};
-        --color-text-bleed: #{color.adjust($damage-bleed, $lightness: $darker)};
-        --color-text-chaotic: #{color.adjust($damage-chaotic, $lightness: $darker)};
-        --color-text-cold: #{color.adjust($damage-cold, $lightness: $darker)};
-        --color-text-electricity: #{color.adjust($damage-electricity, $lightness: $darker)};
-        --color-text-evil: #{color.adjust($damage-evil, $lightness: $darker)};
-        --color-text-fire: #{color.adjust($damage-fire, $lightness: $darker)};
-        --color-text-force: #{color.adjust($damage-force, $lightness: $darker)};
-        --color-text-good: #{color.adjust($damage-good, $lightness: $darker)};
-        --color-text-lawful: #{color.adjust($damage-lawful, $lightness: $darker)};
-        --color-text-mental: #{color.adjust($damage-mental, $lightness: $darker)};
-        --color-text-physical: #{color.adjust($damage-physical, $lightness: $darker)};
-        --color-text-poison: #{color.adjust($damage-poison, $lightness: $darker)};
-        --color-text-sonic: #{color.adjust($damage-sonic, $lightness: $darker)};
-        --color-text-spirit: #{color.adjust($damage-spirit, $lightness: $darker)};
-        --color-text-vitality: #{color.adjust($damage-vitality, $lightness: $darker)};
-        --color-text-void: #{color.adjust($damage-void, $lightness: $darker)};
+            --color-bg-acid: #{color.scale($damage-acid, $alpha: $transparenter)};
+            --color-bg-bleed: #{color.scale($damage-bleed, $alpha: $transparenter)};
+            --color-bg-chaotic: #{color.scale($damage-chaotic, $alpha: $transparenter)};
+            --color-bg-cold: #{color.scale($damage-cold, $alpha: $transparenter)};
+            --color-bg-electricity: #{color.scale($damage-electricity, $alpha: $transparenter)};
+            --color-bg-evil: #{color.scale($damage-evil, $alpha: $transparenter)};
+            --color-bg-fire: #{color.scale($damage-fire, $alpha: $transparenter)};
+            --color-bg-force: #{color.scale($damage-force, $alpha: $transparenter)};
+            --color-bg-good: #{color.scale($damage-good, $alpha: $transparenter)};
+            --color-bg-lawful: #{color.scale($damage-lawful, $alpha: $transparenter)};
+            --color-bg-mental: #{color.scale($damage-mental, $alpha: $transparenter)};
+            --color-bg-physical: #{color.scale($damage-physical, $alpha: $transparenter)};
+            --color-bg-poison: #{color.scale($damage-poison, $alpha: $transparenter)};
+            --color-bg-sonic: #{color.scale($damage-sonic, $alpha: $transparenter)};
+            --color-bg-spirit: #{color.scale($damage-spirit, $alpha: $transparenter)};
+            --color-bg-vitality: #{color.scale($damage-vitality, $alpha: $transparenter)};
+            --color-bg-void: #{color.scale($damage-void, $alpha: $transparenter)};
 
-        &.color {
-            &.acid {
-                background-color: var(--color-bg-acid);
-                border-color: var(--color-border-acid);
-                color: var(--color-text-acid);
+            --color-border-acid: #{$damage-acid};
+            --color-border-bleed: #{$damage-bleed};
+            --color-border-chaotic: #{$damage-chaotic};
+            --color-border-cold: #{$damage-cold};
+            --color-border-electricity: #{$damage-electricity};
+            --color-border-evil: #{$damage-evil};
+            --color-border-fire: #{$damage-fire};
+            --color-border-force: #{$damage-force};
+            --color-border-good: #{$damage-good};
+            --color-border-lawful: #{$damage-lawful};
+            --color-border-mental: #{$damage-mental};
+            --color-border-physical: #{$damage-physical};
+            --color-border-poison: #{$damage-poison};
+            --color-border-sonic: #{$damage-sonic};
+            --color-border-spirit: #{$damage-spirit};
+            --color-border-vitality: #{$damage-vitality};
+            --color-border-void: #{$damage-void};
 
-                i[class^="fa-"] {
-                    color: var(--color-border-acid);
+            --color-text-acid: #{color.adjust($damage-acid, $lightness: $darker)};
+            --color-text-bleed: #{color.adjust($damage-bleed, $lightness: $darker)};
+            --color-text-chaotic: #{color.adjust($damage-chaotic, $lightness: $darker)};
+            --color-text-cold: #{color.adjust($damage-cold, $lightness: $darker)};
+            --color-text-electricity: #{color.adjust($damage-electricity, $lightness: $darker)};
+            --color-text-evil: #{color.adjust($damage-evil, $lightness: $darker)};
+            --color-text-fire: #{color.adjust($damage-fire, $lightness: $darker)};
+            --color-text-force: #{color.adjust($damage-force, $lightness: $darker)};
+            --color-text-good: #{color.adjust($damage-good, $lightness: $darker)};
+            --color-text-lawful: #{color.adjust($damage-lawful, $lightness: $darker)};
+            --color-text-mental: #{color.adjust($damage-mental, $lightness: $darker)};
+            --color-text-physical: #{color.adjust($damage-physical, $lightness: $darker)};
+            --color-text-poison: #{color.adjust($damage-poison, $lightness: $darker)};
+            --color-text-sonic: #{color.adjust($damage-sonic, $lightness: $darker)};
+            --color-text-spirit: #{color.adjust($damage-spirit, $lightness: $darker)};
+            --color-text-vitality: #{color.adjust($damage-vitality, $lightness: $darker)};
+            --color-text-void: #{color.adjust($damage-void, $lightness: $darker)};
+
+            &.color {
+                &.acid {
+                    background-color: var(--color-bg-acid);
+                    border-color: var(--color-border-acid);
+                    color: var(--color-text-acid);
+
+                    i[class^="fa-"] {
+                        color: var(--color-border-acid);
+                    }
                 }
-            }
 
-            &.bleed {
-                background-color: var(--color-bg-bleed);
-                border-color: var(--color-border-bleed);
-                color: var(--color-text-bleed);
+                &.bleed {
+                    background-color: var(--color-bg-bleed);
+                    border-color: var(--color-border-bleed);
+                    color: var(--color-text-bleed);
 
-                i[class^="fa-"] {
-                    color: var(--color-border-bleed);
+                    i[class^="fa-"] {
+                        color: var(--color-border-bleed);
+                    }
                 }
-            }
 
-            &.bludgeoning,
-            &.piercing,
-            &.slashing {
-                background-color: var(--color-bg-physical);
-                border-color: var(--color-border-physical);
-                color: var(--color-text-physical);
+                &.bludgeoning,
+                &.piercing,
+                &.slashing {
+                    background-color: var(--color-bg-physical);
+                    border-color: var(--color-border-physical);
+                    color: var(--color-text-physical);
 
-                i[class^="fa-"] {
-                    color: var(--color-border-physical);
+                    i[class^="fa-"] {
+                        color: var(--color-border-physical);
+                    }
                 }
-            }
 
-            &.chaotic {
-                background-color: var(--color-bg-chaotic);
-                border-color: var(--color-border-chaotic);
-                color: var(--color-text-chaotic);
+                &.chaotic {
+                    background-color: var(--color-bg-chaotic);
+                    border-color: var(--color-border-chaotic);
+                    color: var(--color-text-chaotic);
 
-                i[class^="fa-"] {
-                    color: var(--color-border-chaotic);
+                    i[class^="fa-"] {
+                        color: var(--color-border-chaotic);
+                    }
                 }
-            }
 
-            &.cold {
-                background-color: var(--color-bg-cold);
-                border-color: var(--color-border-cold);
-                color: var(--color-text-cold);
+                &.cold {
+                    background-color: var(--color-bg-cold);
+                    border-color: var(--color-border-cold);
+                    color: var(--color-text-cold);
 
-                i[class^="fa-"] {
-                    color: var(--color-border-cold);
+                    i[class^="fa-"] {
+                        color: var(--color-border-cold);
+                    }
                 }
-            }
 
-            &.electricity {
-                background-color: var(--color-bg-electricity);
-                border-color: var(--color-border-electricity);
-                color: var(--color-text-electricity);
+                &.electricity {
+                    background-color: var(--color-bg-electricity);
+                    border-color: var(--color-border-electricity);
+                    color: var(--color-text-electricity);
 
-                i[class^="fa-"] {
-                    color: var(--color-border-electricity);
+                    i[class^="fa-"] {
+                        color: var(--color-border-electricity);
+                    }
                 }
-            }
 
-            &.evil {
-                background-color: var(--color-bg-evil);
-                border-color: var(--color-border-evil);
-                color: var(--color-text-evil);
+                &.evil {
+                    background-color: var(--color-bg-evil);
+                    border-color: var(--color-border-evil);
+                    color: var(--color-text-evil);
 
-                i[class^="fa-"] {
-                    color: var(--color-border-evil);
+                    i[class^="fa-"] {
+                        color: var(--color-border-evil);
+                    }
                 }
-            }
 
-            &.fire {
-                background-color: var(--color-bg-fire);
-                border-color: var(--color-border-fire);
-                color: var(--color-text-fire);
+                &.fire {
+                    background-color: var(--color-bg-fire);
+                    border-color: var(--color-border-fire);
+                    color: var(--color-text-fire);
 
-                i[class^="fa-"] {
-                    color: var(--color-border-fire);
+                    i[class^="fa-"] {
+                        color: var(--color-border-fire);
+                    }
                 }
-            }
 
-            &.force {
-                background-color: var(--color-bg-force);
-                border-color: var(--color-border-force);
-                color: var(--color-text-force);
+                &.force {
+                    background-color: var(--color-bg-force);
+                    border-color: var(--color-border-force);
+                    color: var(--color-text-force);
 
-                i[class^="fa-"] {
-                    color: var(--color-border-force);
+                    i[class^="fa-"] {
+                        color: var(--color-border-force);
+                    }
                 }
-            }
 
-            &.good {
-                background-color: var(--color-bg-good);
-                border-color: var(--color-border-good);
-                color: var(--color-text-good);
+                &.good {
+                    background-color: var(--color-bg-good);
+                    border-color: var(--color-border-good);
+                    color: var(--color-text-good);
 
-                i[class^="fa-"] {
-                    color: var(--color-border-good);
+                    i[class^="fa-"] {
+                        color: var(--color-border-good);
+                    }
                 }
-            }
 
-            &.lawful {
-                background-color: var(--color-bg-lawful);
-                border-color: var(--color-border-lawful);
-                color: var(--color-text-lawful);
+                &.lawful {
+                    background-color: var(--color-bg-lawful);
+                    border-color: var(--color-border-lawful);
+                    color: var(--color-text-lawful);
 
-                i[class^="fa-"] {
-                    color: var(--color-border-lawful);
+                    i[class^="fa-"] {
+                        color: var(--color-border-lawful);
+                    }
                 }
-            }
 
-            &.mental {
-                background-color: var(--color-bg-mental);
-                border-color: var(--color-border-mental);
-                color: var(--color-text-mental);
+                &.mental {
+                    background-color: var(--color-bg-mental);
+                    border-color: var(--color-border-mental);
+                    color: var(--color-text-mental);
 
-                i[class^="fa-"] {
-                    color: var(--color-border-mental);
+                    i[class^="fa-"] {
+                        color: var(--color-border-mental);
+                    }
                 }
-            }
 
-            &.poison {
-                background-color: var(--color-bg-poison);
-                border-color: var(--color-border-poison);
-                color: var(--color-text-poison);
+                &.poison {
+                    background-color: var(--color-bg-poison);
+                    border-color: var(--color-border-poison);
+                    color: var(--color-text-poison);
 
-                i[class^="fa-"] {
-                    color: var(--color-border-poison);
+                    i[class^="fa-"] {
+                        color: var(--color-border-poison);
+                    }
                 }
-            }
 
-            &.sonic {
-                border-color: var(--color-border-sonic);
-                background-color: var(--color-bg-sonic);
-                color: var(--color-text-sonic);
+                &.sonic {
+                    border-color: var(--color-border-sonic);
+                    background-color: var(--color-bg-sonic);
+                    color: var(--color-text-sonic);
 
-                i[class^="fa-"] {
-                    color: var(--color-border-sonic);
+                    i[class^="fa-"] {
+                        color: var(--color-border-sonic);
+                    }
                 }
-            }
 
-            &.spirit {
-                border-color: var(--color-border-spirit);
-                background-color: var(--color-bg-spirit);
-                color: var(--color-text-spirit);
+                &.spirit {
+                    border-color: var(--color-border-spirit);
+                    background-color: var(--color-bg-spirit);
+                    color: var(--color-text-spirit);
 
-                i[class^="fa-"] {
-                    color: var(--color-border-spirit);
+                    i[class^="fa-"] {
+                        color: var(--color-border-spirit);
+                    }
                 }
-            }
 
-            &.vitality {
-                background-color: var(--color-bg-physical); // Improve contrast with bright color
-                border-color: var(--color-border-vitality);
-                color: var(--color-text-vitality);
-                text-shadow: 1px 1px var(--color-text-dark-1);
+                &.vitality {
+                    background-color: var(--color-bg-physical); // Improve contrast with bright color
+                    border-color: var(--color-border-vitality);
+                    color: var(--color-text-vitality);
+                    text-shadow: 1px 1px var(--color-text-dark-1);
 
-                i[class^="fa-"] {
-                    color: var(--color-border-vitality);
+                    i[class^="fa-"] {
+                        color: var(--color-border-vitality);
+                    }
                 }
-            }
 
-            &.void {
-                background-color: var(--color-bg-void);
-                border-color: var(--color-border-void);
-                color: var(--color-text-void);
+                &.void {
+                    background-color: var(--color-bg-void);
+                    border-color: var(--color-border-void);
+                    color: var(--color-text-void);
 
-                i[class^="fa-"] {
-                    color: var(--color-border-void);
+                    i[class^="fa-"] {
+                        color: var(--color-border-void);
+                    }
                 }
             }
         }
