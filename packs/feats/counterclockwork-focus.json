@@ -37,18 +37,6 @@
             {
                 "key": "RollOption",
                 "option": "counterclockwork-focus",
-                "toggleable": true
-            },
-            {
-                "disabledIf": [
-                    {
-                        "not": "counterclockwork-focus"
-                    }
-                ],
-                "disabledValue": false,
-                "key": "RollOption",
-                "label": "PF2E.SpecificRule.Shieldmarshal.CounterclockworkFocus.MaterialToggle",
-                "option": "counterclockwork-focus-material",
                 "suboptions": [
                     {
                         "label": "PF2E.PreciousMaterialAdamantine",
@@ -90,10 +78,10 @@
                 "key": "AdjustStrike",
                 "mode": "add",
                 "predicate": [
-                    "counterclockwork-focus-material"
+                    "counterclockwork-focus"
                 ],
                 "property": "materials",
-                "value": "{item|flags.pf2e.rulesSelections.counterclockworkFocusMaterial}"
+                "value": "{item|flags.pf2e.rulesSelections.counterclockworkFocus}"
             }
         ],
         "traits": {
