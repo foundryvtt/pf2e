@@ -38,36 +38,15 @@
                     "halo-active"
                 ],
                 "value": {
+                    "alpha": 0.2,
                     "animation": {
                         "intensity": 1,
                         "speed": 2,
                         "type": "pulse"
                     },
-                    "bright": {
-                        "brackets": [
-                            {
-                                "end": 6,
-                                "value": 20
-                            },
-                            {
-                                "start": 7,
-                                "value": 60
-                            }
-                        ]
-                    },
-                    "color": "#343434",
-                    "dim": {
-                        "brackets": [
-                            {
-                                "end": 6,
-                                "value": 40
-                            },
-                            {
-                                "start": 7,
-                                "value": 120
-                            }
-                        ]
-                    }
+                    "bright": "ternary(gte(ceil(@actor.level / 2),4),60,20)",
+                    "color": "#e7f3f1",
+                    "dim": "ternary(gte(ceil(@actor.level / 2),4),120,40)"
                 }
             },
             {

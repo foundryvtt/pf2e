@@ -30,101 +30,24 @@
         },
         "rules": [
             {
-                "choices": [
-                    {
-                        "label": "PF2E.Skill.Acrobatics",
-                        "value": "acrobatics"
-                    },
-                    {
-                        "label": "PF2E.Skill.Arcana",
-                        "value": "arcana"
-                    },
-                    {
-                        "label": "PF2E.Skill.Athletics",
-                        "value": "athletics"
-                    },
-                    {
-                        "label": "PF2E.Skill.Crafting",
-                        "value": "crafting"
-                    },
-                    {
-                        "label": "PF2E.Skill.Deception",
-                        "value": "deception"
-                    },
-                    {
-                        "label": "PF2E.Skill.Diplomacy",
-                        "value": "diplomacy"
-                    },
-                    {
-                        "label": "PF2E.Skill.Intimidation",
-                        "value": "intimidation"
-                    },
-                    {
-                        "label": "PF2E.Skill.Medicine",
-                        "value": "medicine"
-                    },
-                    {
-                        "label": "PF2E.Skill.Nature",
-                        "value": "nature"
-                    },
-                    {
-                        "label": "PF2E.Skill.Occultism",
-                        "value": "occultism"
-                    },
-                    {
-                        "label": "PF2E.Skill.Performance",
-                        "value": "performance"
-                    },
-                    {
-                        "label": "PF2E.Skill.Religion",
-                        "value": "religion"
-                    },
-                    {
-                        "label": "PF2E.Skill.Society",
-                        "value": "society"
-                    },
-                    {
-                        "label": "PF2E.Skill.Stealth",
-                        "value": "stealth"
-                    },
-                    {
-                        "label": "PF2E.Skill.Survival",
-                        "value": "survival"
-                    },
-                    {
-                        "label": "PF2E.Skill.Thievery",
-                        "value": "thievery"
-                    }
-                ],
-                "flag": "skill",
+                "actorFlag": true,
+                "adjustName": false,
+                "choices": {
+                    "config": "skills"
+                },
+                "flag": "echoSkill",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Skill"
             },
             {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
-                "predicate": [
-                    "self:effect:accept-echo"
-                ],
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "start": 1,
-                            "value": 2
-                        },
-                        {
-                            "end": 14,
-                            "start": 7,
-                            "value": 3
-                        },
-                        {
-                            "start": 15,
-                            "value": 4
-                        }
-                    ]
-                }
+                "actorFlag": true,
+                "adjustName": false,
+                "choices": {
+                    "config": "baseWeaponTypes"
+                },
+                "flag": "echoWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "key": "GrantItem",
