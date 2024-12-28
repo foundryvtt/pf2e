@@ -24,7 +24,39 @@
             "remaster": false,
             "title": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "nexian-researcher",
+                "toggleable": true
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "nexian-researcher",
+                    "check:statistic:pathfinder-society-lore",
+                    "proficiency:untrained"
+                ],
+                "selector": "skill-check",
+                "slug": "pathfinder-society-lore-untrained-bonus",
+                "value": "@actor.level"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "nexian-researcher",
+                    "check:statistic:pathfinder-society-lore",
+                    "proficiency:trained"
+                ],
+                "selector": "skill-check",
+                "slug": "pathfinder-society-lore-trained-bonus",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []

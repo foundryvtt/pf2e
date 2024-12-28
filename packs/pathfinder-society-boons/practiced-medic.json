@@ -28,7 +28,31 @@
             "remaster": false,
             "title": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "practiced-medic",
+                "toggleable": true
+            },
+            {
+                "adjustment": {
+                    "all": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "practiced-medic",
+                    {
+                        "or": [
+                            "action:treat-poison",
+                            "action:treat-wounds",
+                            "action:treat-disease"
+                        ]
+                    }
+                ],
+                "selector": "skill-check"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []

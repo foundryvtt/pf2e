@@ -24,7 +24,25 @@
             "remaster": false,
             "title": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Hiding behind a mask or disguise",
+                "option": "narsens-web",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "narsens-web",
+                    "action:sense-motive"
+                ],
+                "selector": "perception-check",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []
