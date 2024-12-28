@@ -39,8 +39,8 @@
                 "option": "counterclockwork-focus",
                 "suboptions": [
                     {
-                        "label": "PF2E.SpecificRule.Shieldmarshal.CounterclockworkFocus.NoPreciousMaterial",
-                        "value": "no-precious-material"
+                        "label": "PF2E.NoneOption",
+                        "value": "none"
                     },
                     {
                         "label": "PF2E.PreciousMaterialAdamantine",
@@ -82,7 +82,10 @@
                 "key": "AdjustStrike",
                 "mode": "add",
                 "predicate": [
-                    "counterclockwork-focus"
+                    "counterclockwork-focus",
+                    {
+                        "not": "counterclockwork-focus:none"
+                    }
                 ],
                 "property": "materials",
                 "value": "{item|flags.pf2e.rulesSelections.counterclockworkFocus}"
