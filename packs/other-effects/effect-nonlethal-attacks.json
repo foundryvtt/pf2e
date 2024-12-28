@@ -1,0 +1,57 @@
+{
+    "_id": "FTT3F3ROOZEKpGi9",
+    "img": "icons/skills/melee/unarmed-punch-fist-white.webp",
+    "name": "Effect: Nonlethal Attacks",
+    "system": {
+        "description": {
+            "value": "<p>You take a –2 circumstance penalty to the attack roll when you make a nonlethal attack using a weapon or unarmed attack that doesn’t have the nonlethal trait.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "nonlethal-attacks",
+                "toggleable": true
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "nonlethal-attacks",
+                    {
+                        "not": "item:trait:nonlethal"
+                    }
+                ],
+                "selector": "attack",
+                "slug": "npnlethal-attack-penalty",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
