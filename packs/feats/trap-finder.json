@@ -26,45 +26,13 @@
         },
         "rules": [
             {
-                "domain": "all",
+                "domain": "perception",
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.TrapFinder.SearchLabel",
                 "option": "trap-finder",
                 "toggleable": true
             },
             {
-                "key": "FlatModifier",
-                "predicate": [
-                    {
-                        "or": [
-                            "origin:trait:trap",
-                            "trap"
-                        ]
-                    }
-                ],
-                "selector": [
-                    "saving-throw",
-                    "ac"
-                ],
-                "type": "circumstance",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 2,
-                            "start": 0,
-                            "value": 1
-                        },
-                        {
-                            "end": 4,
-                            "start": 3,
-                            "value": 2
-                        }
-                    ],
-                    "field": "actor|system.skills.thievery.rank"
-                }
-            },
-            {
-                "domain": "all",
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.TrapFinder.DefendingLabel",
                 "option": "origin:trait:trap",
@@ -73,31 +41,23 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    {
-                        "or": [
-                            "origin:trait:trap",
-                            "trap",
-                            "trap-finder"
-                        ]
-                    }
+                    "origin:trait:trap"
+                ],
+                "selector": [
+                    "saving-throw",
+                    "ac"
+                ],
+                "type": "circumstance",
+                "value": "ternary(gte(@actor.system.skills.thievery.rank,3),2,1)"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "trap-finder"
                 ],
                 "selector": "perception",
                 "type": "circumstance",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 2,
-                            "start": 0,
-                            "value": 1
-                        },
-                        {
-                            "end": 4,
-                            "start": 3,
-                            "value": 2
-                        }
-                    ],
-                    "field": "actor|system.skills.thievery.rank"
-                }
+                "value": "ternary(gte(@actor.system.skills.thievery.rank,3),2,1)"
             }
         ],
         "traits": {

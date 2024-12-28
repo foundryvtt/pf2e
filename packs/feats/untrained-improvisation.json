@@ -29,24 +29,7 @@
                 "key": "FlatModifier",
                 "selector": "skill-check",
                 "type": "proficiency",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "value": "@actor.level -2"
-                        },
-                        {
-                            "end": 6,
-                            "start": 5,
-                            "value": "@actor.level -1"
-                        },
-                        {
-                            "start": 7,
-                            "value": "@actor.level"
-                        }
-                    ],
-                    "field": "actor|level"
-                }
+                "value": "@actor.level + clamp(-2,floor((@actor.level - 7) / 2),0)"
             }
         ],
         "traits": {

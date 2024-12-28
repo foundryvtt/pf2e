@@ -4,7 +4,7 @@
     "name": "Effect: Grudgestone",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Grudgestone]</p>\n<p>Your Strikes with the affixed weapon against the triggering creature gain a +3 status bonus to damage rolls.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Grudgestone], @UUID[Compendium.pf2e.equipment-srd.Item.Grudgestone (Greater)]</p>\n<p>Your Strikes with the affixed weapon against the triggering creature gain a status bonus to damage rolls.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -21,6 +21,40 @@
             "title": "Pathfinder Treasure Vault"
         },
         "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:grudgestone",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Grudgestone"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:grudgestone-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Grudgestone (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "grudgestone"
+            },
             {
                 "key": "TokenMark",
                 "slug": "grudgestone"
@@ -43,8 +77,19 @@
                     "target:mark:grudgestone"
                 ],
                 "selector": "{item|flags.pf2e.rulesSelections.effectGrudgestone}-damage",
+                "slug": "grudgestone-bonus",
                 "type": "status",
                 "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "grudgestone:grudgestone-greater"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectGrudgestone}-damage",
+                "slug": "grudgestone-bonus",
+                "value": 5
             }
         ],
         "start": {

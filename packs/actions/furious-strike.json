@@ -20,38 +20,7 @@
         },
         "rules": [
             {
-                "key": "DamageDice",
-                "predicate": [
-                    "melee",
-                    "furious-strike"
-                ],
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 9,
-                            "value": {
-                                "diceNumber": 1
-                            }
-                        },
-                        {
-                            "end": 17,
-                            "start": 10,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        },
-                        {
-                            "start": 18,
-                            "value": {
-                                "diceNumber": 3
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "domain": "damage",
+                "domain": "melee-strike-damage",
                 "key": "RollOption",
                 "option": "furious-strike",
                 "toggleable": true
@@ -61,25 +30,17 @@
                 "predicate": [
                     "furious-strike"
                 ],
-                "selector": "strike-damage",
+                "selector": "melee-strike-damage",
                 "type": "circumstance",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 9,
-                            "value": 1
-                        },
-                        {
-                            "end": 17,
-                            "start": 10,
-                            "value": 2
-                        },
-                        {
-                            "start": 18,
-                            "value": 3
-                        }
-                    ]
-                }
+                "value": "ternary(gte(@actor.level,18),3,ternary(gte(@actor.level,10),2,1))"
+            },
+            {
+                "diceNumber": "ternary(gte(@actor.level,18),3,ternary(gte(@actor.level,10),2,1))",
+                "key": "DamageDice",
+                "predicate": [
+                    "furious-strike"
+                ],
+                "selector": "melee-strike-damage"
             }
         ],
         "traits": {
