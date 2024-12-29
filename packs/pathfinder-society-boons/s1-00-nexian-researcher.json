@@ -11,7 +11,7 @@
         },
         "category": "pfsboon",
         "description": {
-            "value": "<p><strong>[Generic][Limited Use]</strong> □□□</p>\n<hr />\n<p><strong>Effect</strong> You can check a box whenever you attempt a Pathfinder Society Lore check. If you are Untrained in Pathfinder Society Lore, you can add your level to your Intelligence modifier when determining your bonus. If you are at least Trained in Pathfinder Society Lore, you gain a +2 circumstance bonus to this check instead. If the check is in relation to Durvin Gest, Selmius Foster, Gregaro Voth, or Kerinha Napsunar, you do not need to check a box.</p>"
+            "value": "<p><strong>[Generic][Limited Use]</strong> □□□</p><hr /><p><strong>Effect</strong> You can check a box whenever you attempt a Pathfinder Society Lore check. If you are Untrained in Pathfinder Society Lore, you can add your level to your Intelligence modifier when determining your bonus. If you are at least Trained in Pathfinder Society Lore, you gain a +2 circumstance bonus to this check instead. If the check is in relation to Durvin Gest, Selmius Foster, Gregaro Voth, or Kerinha Napsunar, you do not need to check a box.</p>\n<p>@UUID[Compendium.pf2e.campaign-effects.Item.Effect: Nexian Researcher]</p>"
         },
         "level": {
             "value": 0
@@ -24,39 +24,7 @@
             "remaster": false,
             "title": ""
         },
-        "rules": [
-            {
-                "domain": "all",
-                "key": "RollOption",
-                "option": "nexian-researcher",
-                "toggleable": true
-            },
-            {
-                "hideIfDisabled": true,
-                "key": "FlatModifier",
-                "predicate": [
-                    "nexian-researcher",
-                    "check:statistic:pathfinder-society-lore",
-                    "proficiency:untrained"
-                ],
-                "selector": "skill-check",
-                "slug": "pathfinder-society-lore-untrained-bonus",
-                "value": "@actor.level"
-            },
-            {
-                "hideIfDisabled": true,
-                "key": "FlatModifier",
-                "predicate": [
-                    "nexian-researcher",
-                    "check:statistic:pathfinder-society-lore",
-                    "proficiency:trained"
-                ],
-                "selector": "skill-check",
-                "slug": "pathfinder-society-lore-trained-bonus",
-                "type": "circumstance",
-                "value": 2
-            }
-        ],
+        "rules": [],
         "traits": {
             "rarity": "common",
             "value": []
