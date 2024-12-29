@@ -1,11 +1,11 @@
 {
-    "_id": "IlSPZvli2IcLVPyi",
+    "_id": "EdYvHSzJC5pGLdoV",
     "folder": "KN9hhATq6X3GwryB",
     "img": "systems/pf2e/icons/pathfinder-society/pfs-glyph.webp",
-    "name": "Effect: Protective Mentor",
+    "name": "Effect: Resist Corruption",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.pathfinder-society-boons.Item.Protective Mentor]</p>\n<p>Your maximum Hit Points increases in addition to the bonus provided by the Level Bump.</p>"
+            "value": "<p>Granted by Resist Corruption</p>\n<p>You gain resistance to unholy equal to your Reputation Tier with the Vigilant Seal faction.</p>"
         },
         "duration": {
             "expiry": null,
@@ -23,9 +23,9 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "selector": "hp",
-                "value": "3 * ternary(gte(@item.origin.system.pfs.reputation.RO,120), 3, ternary(gte(@item.origin.system.pfs.reputation.RO, 60), 2, ternary(gte(@item.origin.system.pfs.reputation.RO,20), 1, 0)))"
+                "key": "Resistance",
+                "type": "unholy",
+                "value": "ternary(gte(@item.origin.system.pfs.reputation.VS,120), 3, ternary(gte(@item.origin.system.pfs.reputation.VS, 60), 2, ternary(gte(@item.origin.system.pfs.reputation.VS,20), 1, 0)))"
             }
         ],
         "start": {
@@ -36,7 +36,6 @@
             "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },
