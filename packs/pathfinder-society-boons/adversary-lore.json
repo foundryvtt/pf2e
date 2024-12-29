@@ -30,25 +30,6 @@
         },
         "rules": [
             {
-                "choices": [
-                    {
-                        "label": "PF2E.SpecificRule.PFS.Reputation.Liked",
-                        "value": 1
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.PFS.Reputation.Admired",
-                        "value": 1
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.PFS.Reputation.Revered",
-                        "value": 2
-                    }
-                ],
-                "flag": "adversaryLore",
-                "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.PFS.Reputation.Prompt"
-            },
-            {
                 "domain": "all",
                 "key": "RollOption",
                 "option": "adversary-lore",
@@ -63,7 +44,7 @@
                 ],
                 "selector": "skill-check",
                 "type": "circumstance",
-                "value": "{item|flags.pf2e.rulesSelections.adversaryLore}"
+                "value": "ternary(gte(@actor.system.pfs.reputation.VS,120), 2, 1)"
             }
         ],
         "traits": {
