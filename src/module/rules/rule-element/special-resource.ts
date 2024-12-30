@@ -52,11 +52,7 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
     async update(value: number, options?: { save?: true; render?: boolean; checkLevel?: boolean }): Promise<void>;
     async update(
         value: number,
-        {
-            save = true,
-            render = true,
-            checkLevel = false,
-        }: { save?: boolean; render?: boolean; checkLevel?: boolean } = {},
+        { save = true, render = true, checkLevel = false }: SpecialResourceUpdateOptions = {},
     ): Promise<void | ActorCommitData> {
         const data: ActorCommitData<CreaturePF2e> = {
             actorUpdates: null,
@@ -67,14 +63,14 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
         if (this.itemUUID) {
             // Find an existing item to update or create a new one
             const existing = this.actor.items.find((i) => i.sourceId === this.itemUUID);
-            const level = checkLevel && this.level !== null ? Number(this.resolveValue(this.level)) : null;
+            const level = this.level !== null ? Number(this.resolveValue(this.level)) : null;
 
             if (
                 existing?.isOfType("physical") &&
-                (existing.quantity !== value || (level !== null && level !== existing.level))
+                (existing.quantity !== value || (checkLevel && level !== existing.level))
             ) {
                 const update = { _id: existing.id, system: { quantity: value } };
-                if (level !== null) {
+                if (checkLevel && level !== null) {
                     update.system = fu.mergeObject(update.system, { level: { value: level } });
                 }
                 data.itemUpdates.push(update);
@@ -215,6 +211,13 @@ type SpecialResourceSchema = RuleElementSchema & {
     /** If itemUUID exists, determines the level of the granted item */
     level: ResolvableValueField<false, true, true>;
 };
+
+interface SpecialResourceUpdateOptions {
+    save?: boolean;
+    render?: boolean;
+    /** If set to true, updates the level if its an existing item */
+    checkLevel?: boolean;
+}
 
 export { SpecialResourceRuleElement };
 export type { SpecialResourceSource };
