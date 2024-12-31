@@ -520,14 +520,21 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> Ordulf rolls initiative</p><hr /><p><strong>Effect</strong> Ordulf attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] an observed foe.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> Ordulf rolls initiative</p><hr /><p><strong>Effect</strong> Ordulf attempts to [[/act demoralize]] an observed foe.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "initiative",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -611,7 +618,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Ordulf is wielding a melee weapon</p><hr /><p><strong>Effect</strong> Ordulf brandishes his weapon in a threatening display. He @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize]{Demoralizes} all enemies within 30 feet, rolling once and comparing the result to each target's Will DC.</p>"
+                    "value": "<p><strong>Requirements</strong> Ordulf is wielding a melee weapon</p><hr /><p><strong>Effect</strong> Ordulf brandishes his weapon in a threatening display. He [[/act demoralize]]{Demoralizes} all enemies within 30 feet, rolling once and comparing the result to each target's Will DC.</p>"
                 },
                 "publication": {
                     "license": "OGL",
