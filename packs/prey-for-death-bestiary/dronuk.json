@@ -1481,15 +1481,33 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Dronuk reduces an enemy to 0 Hit Points</p><hr /><p><strong>Effect</strong> Dronuk attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] a single creature he can see. He gains a +2 circumstance bonus to this check.</p>"
+                    "value": "<p><strong>Trigger</strong> Dronuk reduces an enemy to 0 Hit Points</p><hr /><p><strong>Effect</strong> Dronuk attempts to [[/act demoralize]] a single creature he can see. He gains a +2 circumstance bonus to this check.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "domain": "intimidation",
+                        "key": "RollOption",
+                        "option": "dronuk-yourenext",
+                        "toggleable": true
+                    },
+                    {
+                        "hideIfDisabled": true,
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:demoralize",
+                            "dronuk-yourenext"
+                        ],
+                        "selector": "intimidation",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": "youre-next",
                 "traits": {
                     "value": [
                         "emotion",
