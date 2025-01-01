@@ -5,6 +5,7 @@ import { BaseSpellcastingEntry } from "@item/spellcasting-entry/index.ts";
 import { SvelteApplicationMixin } from "@module/sheet/mixin.svelte.ts";
 import { ErrorPF2e, setHasElement } from "@util";
 import * as R from "remeda";
+import { untrack } from "svelte";
 import type {
     ApplicationConfiguration,
     ApplicationHeaderControlsEntry,
@@ -148,7 +149,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundry.applications.api.
     }
 
     resetListElement(): void {
-        this.activeTab.resultLimit = CompendiumBrowser.RESULT_LIMIT;
+        untrack(() => (this.activeTab.resultLimit = CompendiumBrowser.RESULT_LIMIT));
         this.$state.resultList?.scrollTo({ top: 0, behavior: "instant" });
     }
 
