@@ -166,7 +166,30 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Acrobatics",
+                        "value": "acrobatics"
+                    },
+                    {
+                        "label": "PF2E.Skill.Athletics",
+                        "value": "athletics"
+                    }
+                ],
+                "flag": "fighterSkill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.fighterSkill}.rank",
+                "value": 1
+            }
+        ],
         "savingThrows": {
             "fortitude": 2,
             "reflex": 2,
