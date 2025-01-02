@@ -4,7 +4,7 @@
     "name": "Effect: Jolt Coil - Weapon",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Jolt Coil]</p>\n<p>Strikes with the weapon deal an additional 1d4 electricity damage until the end of your next turn.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Jolt Coil], @UUID[Compendium.pf2e.equipment-srd.Item.Jolt Coil (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Jolt Coil (Major)]</p>\n<p>Strikes with the weapon deal an additional electricity damage until the end of your next turn.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -22,6 +22,53 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:jolt-coil",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Jolt Coil"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:jolt-coil-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Jolt Coil (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:jolt-coil-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Jolt Coil (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "jolt-coil"
+            },
+            {
                 "choices": {
                     "includeHandwraps": true,
                     "ownedItems": true,
@@ -38,6 +85,29 @@
                 "diceNumber": 1,
                 "dieSize": "d4",
                 "key": "DamageDice",
+                "predicate": [
+                    "jolt-coil:jolt-coil"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectJoltCoilWeapon}-damage"
+            },
+            {
+                "damageType": "electricity",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "jolt-coil:jolt-coil-greater"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectJoltCoilWeapon}-damage"
+            },
+            {
+                "damageType": "electricity",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    "jolt-coil:jolt-coil-major"
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.effectJoltCoilWeapon}-damage"
             }
         ],
