@@ -25,6 +25,7 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
         "materials",
         "property-runes",
         "range-increment",
+        "max-range",
         "traits",
         "weapon-traits",
     ] as const);
@@ -103,6 +104,35 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
 
                             const newRangeIncrement = AELikeRuleElement.getNewValue(this.mode, rangeIncrement, change);
                             weapon.system.range = newRangeIncrement as WeaponRangeIncrement;
+                        },
+                    };
+                case "max-range":
+                    return {
+                        adjustWeapon: (weapon: WeaponPF2e | MeleePF2e): void => {
+                            if (weapon.isOfType("melee")) return; // Currently not supported
+
+                            if (typeof change !== "number") {
+                                return this.failValidation("Change value is not a number.");
+                            }
+
+                            if (!definition.test(weapon.getRollOptions("item"))) {
+                                return;
+                            }
+
+                            const maxRange = weapon.range?.max;
+                            if (typeof maxRange !== "number") {
+                                return this.failValidation("A weapon that meets the definition lacks a max range.");
+                            }
+
+                            const rangeIncrement = weapon.range?.increment;
+                            if (rangeIncrement) {
+                                return this.failValidation(
+                                    "A weapon that meets the definition already has a range increment.",
+                                );
+                            }
+
+                            const newMaxRange = AELikeRuleElement.getNewValue(this.mode, maxRange, change);
+                            weapon.system.maxRange = newMaxRange as number;
                         },
                     };
                 case "traits":
