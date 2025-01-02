@@ -1,412 +1,552 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+///////////////////////////////////////////
+// Deep Clone
+///////////////////////////////////////////
+
 /**
- * Quickly clone a simple piece of data, returning a copy which can be mutated safely.
- * This method DOES support recursive data structures containing inner objects or arrays.
- * This method DOES NOT support advanced object types like Set, Map, or other specialized classes.
- * @param original Some sort of data
- * @return The clone of that data
+ * Deeply clone simple data (objects, arrays, dates, primitives).
+ *
+ * - This does NOT reliably handle Sets, Maps, or other advanced classes.
+ * - It DOES handle nested arrays/objects and Dates.
+ * - Any unrecognized prototype-based object will be returned as-is,
+ *   since we can't reliably reconstruct specialized classes without custom logic.
+ *
+ * @param original  The data to clone
+ * @returns         A deeply cloned copy
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function deepClone<T>(original: T): T extends Set<any> | Map<any, any> | Collection<any> ? never : T {
-    // Simple types
-    if (typeof original !== "object" || original === null)
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return original as T extends Set<any> | Map<any, any> | Collection<any> ? never : T;
+export function deepClone<T>(
+  original: T
+): T extends Set<any> | Map<any, any> | Collection<any> ? never : T {
+  // Non-object or null means primitive or function => return as is
+  if (typeof original !== "object" || original === null) {
+    return original as any;
+  }
 
-    // Arrays
-    if (original instanceof Array)
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return original.map(deepClone) as unknown as T extends Set<any> | Map<any, any> | Collection<any> ? never : T;
+  // If array, clone each element
+  if (Array.isArray(original)) {
+    return original.map((item) => deepClone(item)) as any;
+  }
 
-    // Dates
-    if (original instanceof Date)
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return new Date(original) as unknown as T extends Set<any> | Map<any, any> | Collection<any> ? never : T;
+  // Date
+  if (original instanceof Date) {
+    return new Date(original.getTime()) as any;
+  }
 
-    // Unsupported advanced objects
-    if ((original as { constructor: unknown }).constructor !== Object)
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return original as T extends Set<any> | Map<any, any> | Collection<any> ? never : T;
+  // If not a plain object, return as is (or throw if you prefer)
+  if ((original as { constructor: unknown }).constructor !== Object) {
+    // Return the object "as is" to avoid partial duplication of advanced classes
+    return original as any;
+  }
 
-    // Other objects
-    const clone: Record<string, unknown> = {};
-    for (const k of Object.keys(original)) {
-        clone[k] = deepClone(original[k as keyof typeof original]);
-    }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return clone as unknown as T extends Set<any> | Map<any, any> | Collection<any> ? never : T;
+  // Otherwise, plain object => recursively clone each property
+  const cloneObj: Record<string, unknown> = {};
+  for (const key of Object.keys(original)) {
+    cloneObj[key] = deepClone((original as Record<string, unknown>)[key]);
+  }
+  return cloneObj as any;
 }
 
+///////////////////////////////////////////
+// setProperty
+///////////////////////////////////////////
+
 /**
- * A helper function which searches through an object to assign a value using a string key
- * This string key supports the notation a.b.c which would target object[a][b][c]
+ * Assign a value in an object using "dot" notation for nested paths.
  *
- * @param obj {Object}   The object to update
- * @param key {String}      The string key
- * @param value             The value to be assigned
- *
- * @return A flag for whether or not the object was updated
+ * @param obj   The object to update in-place
+ * @param path  Dot-notation path, e.g. "a.b.c"
+ * @param value The value to assign
+ * @returns     True if changed, otherwise false
  */
-function setProperty(obj: object, key: string, value: unknown): boolean {
-    let target = obj;
-    let changed = false;
+export function setProperty(obj: object, path: string, value: unknown): boolean {
+  let target = obj;
+  let changed = false;
 
-    // Convert the key to an object reference if it contains dot notation
-    if (key.indexOf(".") !== -1) {
-        const parts = key.split(".");
-        key = parts.pop() ?? "";
-        target = parts.reduce((o, i) => {
-            if (!Object.prototype.hasOwnProperty.call(o, i)) (o as Record<string, unknown>)[i] = {};
-            return (o as Record<string, unknown>)[i] as unknown as Record<string, unknown>;
-        }, obj);
+  if (path.includes(".")) {
+    const parts = path.split(".");
+    path = parts.pop() ?? "";
+    // Descend into the object, building missing intermediate objects as needed
+    for (const part of parts) {
+      if (!Object.prototype.hasOwnProperty.call(target, part)) {
+        (target as Record<string, any>)[part] = {};
+      }
+      target = (target as Record<string, any>)[part];
+      if (typeof target !== "object" || target === null) {
+        throw new Error(`Path conflict at segment '${part}'. Not an object.`);
+      }
     }
+  }
 
-    // Update the target
-    if ((target as Record<string, unknown>)[key] !== value) {
-        changed = true;
-        (target as Record<string, unknown>)[key] = value;
-    }
+  // Perform the assignment if not equal
+  const oldVal = (target as Record<string, unknown>)[path];
+  if (oldVal !== value) {
+    (target as Record<string, unknown>)[path] = value;
+    changed = true;
+  }
 
-    // Return changed status
-    return changed;
+  return changed;
 }
 
-class Color extends Number {}
+///////////////////////////////////////////
+// getType
+///////////////////////////////////////////
+
+export class Color extends Number {}
 
 /**
- * Learn the underlying data type of some variable. Supported identifiable types include:
- * undefined, null, number, string, boolean, function, Array, Set, Map, Promise, Error,
- * HTMLElement (client side only), Object (catchall for other object types)
- * @param variable A provided variable
- * @return The named type of the token
+ * Identify a variable's "type" string label:
+ *   - undefined, null, number, string, boolean, function
+ *   - Array, Set, Map, Promise, Error, HTMLElement, Object (fallback)
+ *
+ * @param variable The input to inspect
+ * @returns        A string representing the variable's conceptual type
  */
 export function getType(variable: unknown): string {
-    // Primitive types, handled with simple typeof check
-    const typeOf = typeof variable;
-    if (typeOf !== "object") return typeOf;
+  const typeOf = typeof variable;
+  if (typeOf !== "object") {
+    // e.g. "undefined", "string", "boolean", "number", "function", "symbol"
+    return typeOf;
+  }
 
-    // Special cases of object
-    if (variable === null) return "null";
-    if (!(variable as object).constructor) return "Object"; // Object with the null prototype.
-    if ((variable as object).constructor.name === "Object") return "Object"; // simple objects
+  // object or null
+  if (variable === null) return "null";
 
-    // Match prototype instances
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const prototypes: [new (...args: any[]) => object, string][] = [
-        [Array, "Array"],
-        [Set, "Set"],
-        [Map, "Map"],
-        [Promise, "Promise"],
-        [Error, "Error"],
-        [Color, "number"],
-    ];
-    if ("HTMLElement" in globalThis) prototypes.push([globalThis.HTMLElement, "HTMLElement"]);
-    for (const [cls, type] of prototypes) {
-        if (variable instanceof cls) return type;
+  // If no constructor, fallback as a plain object
+  if (!(variable as object).constructor) return "Object";
+
+  // Named constructor checks
+  const name = (variable as object).constructor.name;
+  if (name === "Object") return "Object";
+
+  // Well-known types
+  if (Array.isArray(variable)) return "Array";
+  if (variable instanceof Set) return "Set";
+  if (variable instanceof Map) return "Map";
+  if (variable instanceof Promise) return "Promise";
+  if (variable instanceof Error) return "Error";
+  if (variable instanceof Color) return "number";
+
+  // Optional check if running in a browser environment
+  if ("HTMLElement" in globalThis) {
+    const HTMLElementRef = (globalThis as any).HTMLElement;
+    if (variable instanceof HTMLElementRef) {
+      return "HTMLElement";
     }
+  }
 
-    // Unknown Object type
-    return "Object";
+  // Fallback
+  return "Object";
 }
 
+///////////////////////////////////////////
+// expandObject
+///////////////////////////////////////////
+
 /**
- * Expand a flattened object to be a standard multi-dimensional nested Object by converting all dot-notation keys to
- * inner objects.
+ * Expand a flattened object into a nested object by converting dot-notation keys into sub-objects.
  *
  * @param obj  The object to expand
- * @param _d   Recursion depth, to prevent overflow
- * @return An expanded object
+ * @param depth recursion guard to limit expansions
  */
-function expandObject(obj: object, _d = 0) {
-    const expanded = {};
-    if (_d > 10) throw new Error("Maximum depth exceeded");
-    for (const [k, v0] of Object.entries(obj)) {
-        let v = v0;
-        if (v instanceof Object && !Array.isArray(v)) v = expandObject(v, _d + 1);
-        setProperty(expanded, k, v);
+export function expandObject(obj: object, depth = 0): object {
+  if (depth > 100) {
+    // arbitrary large recursion limit
+    throw new Error("Max recursion depth exceeded in expandObject.");
+  }
+  const expanded: Record<string, unknown> = {};
+
+  for (const [k, val] of Object.entries(obj)) {
+    let v = val;
+    // If we see an object, expand recursively
+    if (v && typeof v === "object" && !Array.isArray(v)) {
+      v = expandObject(v, depth + 1);
     }
-    return expanded;
+    // Set property will interpret any "dots" in k and nest accordingly
+    setProperty(expanded, k, v);
+  }
+  return expanded;
+}
+
+///////////////////////////////////////////
+// duplicate
+///////////////////////////////////////////
+
+/**
+ * Clone data by JSON-serialization. Works well for plain data or array-of-objects, but
+ *   *cannot handle* advanced data types like Set, Map, Classes, circular references, etc.
+ * @param original Input data
+ */
+export function duplicate<T>(original: T): T {
+  return JSON.parse(JSON.stringify(original));
+}
+
+///////////////////////////////////////////
+// mergeObject
+///////////////////////////////////////////
+
+export interface MergeObjectOptions {
+  insertKeys?: boolean;
+  insertValues?: boolean;
+  overwrite?: boolean;
+  recursive?: boolean;
+  inplace?: boolean;
+  enforceTypes?: boolean;
+  performDeletions?: boolean;
 }
 
 /**
- * A cheap data duplication trick, surprisingly relatively performant
- * @param original Some sort of data
+ * Merge the contents of `other` into `original`, returning an updated object reference.
+ *
+ * - Supports nested merging if `recursive` is true
+ * - Dot-notation keys in either object will be expanded first
+ * - Includes optional type enforcement, partial insertion, or deletion keys.
+ *
+ * @param original The "target" object to be updated
+ * @param other    The "source" object to read from
+ * @param options  Merge behavior controls
+ * @param depth    Recursion depth (internal)
+ * @returns The merged object (== original if inplace)
  */
-function duplicate<T>(original: T): T {
-    return JSON.parse(JSON.stringify(original));
-}
-
-/** Update a source object by replacing its keys and values with those from a target object. */
-function mergeObject<T extends object, U extends object = T>(
-    original: T,
-    other?: U,
-    options?: MergeObjectOptions,
-    _d?: number,
+export function mergeObject<T extends object, U extends object = T>(
+  original: T,
+  other?: U,
+  options?: MergeObjectOptions,
+  depth?: number
 ): T & U;
-function mergeObject(
-    original: object,
-    other: object = {},
-    {
-        insertKeys = true,
-        insertValues = true,
-        overwrite = true,
-        recursive = true,
-        inplace = true,
-        enforceTypes = false,
-        performDeletions = false,
-    } = {},
-    _d = 0,
+export function mergeObject(
+  original: object,
+  other: object = {},
+  {
+    insertKeys = true,
+    insertValues = true,
+    overwrite = true,
+    recursive = true,
+    inplace = true,
+    enforceTypes = false,
+    performDeletions = false,
+  }: MergeObjectOptions = {},
+  depth = 0
 ): object {
-    other = other || {};
-    if (!(original instanceof Object) || !(other instanceof Object)) {
-        throw new Error("One of original or other are not Objects!");
+  // Basic type check
+  if (typeof original !== "object" || original === null) {
+    throw new Error("mergeObject | 'original' must be a non-null object.");
+  }
+  if (typeof other !== "object" || other === null) {
+    throw new Error("mergeObject | 'other' must be a non-null object.");
+  }
+
+  // Expand dotted keys at top-level
+  if (depth === 0) {
+    // Expand dot-notation in "other"
+    if (Object.keys(other).some((k) => k.includes("."))) {
+      other = expandObject(other);
     }
-    const options = { insertKeys, insertValues, overwrite, recursive, inplace, enforceTypes, performDeletions };
-
-    // Special handling at depth 0
-    if (_d === 0) {
-        if (Object.keys(other).some((k) => /\./.test(k))) other = expandObject(other);
-        if (Object.keys(original).some((k) => /\./.test(k))) {
-            const expanded = expandObject(original);
-            if (inplace) {
-                Object.keys(original).forEach((k) => delete (original as Record<string, unknown>)[k]);
-                Object.assign(original, expanded);
-            } else original = expanded;
-        } else if (!inplace) original = foundry.utils.deepClone(original);
-    }
-
-    // Iterate over the other object
-    for (const k of Object.keys(other)) {
-        const v = (other as Record<string, unknown>)[k];
-        if (Object.hasOwn(original, k)) _mergeUpdate(original, k, v, options, _d + 1);
-        else _mergeInsert(original, k, v, options, _d + 1);
-    }
-    return original;
-}
-
-/** A helper function for merging objects when the target key does not exist in the original */
-function _mergeInsert(
-    original: object,
-    k: string,
-    v: unknown,
-    {
-        insertKeys,
-        insertValues,
-        performDeletions,
-    }: { insertKeys?: boolean; insertValues?: boolean; performDeletions?: boolean } = {},
-    _d: number,
-): object | void {
-    // Delete a key
-    if (k.startsWith("-=") && performDeletions) {
-        delete (original as Record<string, unknown>)[k.slice(2)];
-        return;
-    }
-
-    const canInsert = (_d <= 1 && insertKeys) || (_d > 1 && insertValues);
-    if (!canInsert) return;
-
-    // Recursively create simple objects
-    if (v?.constructor === Object) {
-        (original as Record<string, unknown>)[k] = mergeObject({}, v, {
-            insertKeys: true,
-            inplace: true,
-            performDeletions,
-        });
-        return;
-    }
-
-    // Insert a key
-    (original as Record<string, unknown>)[k] = v;
-}
-
-/** A helper function for merging objects when the target key exists in the original */
-function _mergeUpdate(
-    original: object,
-    k: string,
-    v: unknown,
-    {
-        insertKeys,
-        insertValues,
-        enforceTypes,
-        overwrite,
-        recursive,
-        performDeletions,
-    }: Partial<MergeObjectOptions> = {},
-    _d: number,
-): object | void {
-    const x = (original as Record<string, unknown>)[k];
-    const tv = getType(v);
-    const tx = getType(x);
-
-    // Recursively merge an inner object
-    if (tv === "Object" && tx === "Object" && recursive) {
-        return mergeObject(
-            x as object,
-            v as object,
-            {
-                insertKeys,
-                insertValues,
-                overwrite,
-                enforceTypes,
-                performDeletions,
-                inplace: true,
-            },
-            _d,
-        );
-    }
-
-    // Overwrite an existing value
-    if (overwrite) {
-        if (tx !== "undefined" && tv !== tx && enforceTypes) {
-            throw new Error(`Mismatched data types encountered during object merge.`);
+    // Expand dot-notation in "original"
+    if (Object.keys(original).some((k) => k.includes("."))) {
+      const expanded = expandObject(original);
+      if (inplace) {
+        // Clear old keys, replace with expanded
+        for (const key of Object.keys(original)) {
+          delete (original as Record<string, unknown>)[key];
         }
-        (original as Record<string, unknown>)[k] = v;
+        Object.assign(original, expanded);
+      } else {
+        original = expanded;
+      }
+    } else if (!inplace) {
+      // If not inplace, clone original
+      original = deepClone(original);
     }
+  }
+
+  // Merge each key in "other"
+  for (const key of Object.keys(other)) {
+    const val = (other as Record<string, unknown>)[key];
+    if (Object.hasOwn(original, key)) {
+      _mergeUpdate(original, key, val, { insertKeys, insertValues, overwrite, recursive, enforceTypes, performDeletions }, depth + 1);
+    } else {
+      _mergeInsert(original, key, val, { insertKeys, insertValues, performDeletions }, depth + 1);
+    }
+  }
+  return original;
 }
+
+function _mergeInsert(
+  original: object,
+  key: string,
+  val: unknown,
+  { insertKeys, insertValues, performDeletions }: Partial<MergeObjectOptions>,
+  depth: number
+): void {
+  // Deletion key
+  if (key.startsWith("-=") && performDeletions) {
+    const realKey = key.slice(2);
+    delete (original as Record<string, unknown>)[realKey];
+    return;
+  }
+
+  // Decide if we can insert
+  const canInsert = depth > 1 ? insertValues : insertKeys;
+  if (!canInsert) return;
+
+  // If value is plain object => we can recursively merge
+  if (val && typeof val === "object" && val.constructor === Object) {
+    (original as Record<string, unknown>)[key] = mergeObject({}, val, {
+      insertKeys: true,
+      inplace: true,
+      performDeletions,
+    });
+    return;
+  }
+
+  // Otherwise set the new key directly
+  (original as Record<string, unknown>)[key] = val;
+}
+
+function _mergeUpdate(
+  original: object,
+  key: string,
+  newVal: unknown,
+  { insertKeys, insertValues, overwrite, recursive, enforceTypes, performDeletions }: MergeObjectOptions,
+  depth: number
+): void {
+  const oldVal = (original as Record<string, unknown>)[key];
+  const tOld = getType(oldVal);
+  const tNew = getType(newVal);
+
+  // If both are objects and recursive => merge them
+  if (tOld === "Object" && tNew === "Object" && recursive) {
+    mergeObject(oldVal as object, newVal as object, {
+      insertKeys,
+      insertValues,
+      overwrite,
+      recursive,
+      enforceTypes,
+      performDeletions,
+      inplace: true,
+    }, depth);
+    return;
+  }
+
+  // Overwrite existing value if matching types or no type enforcement
+  if (overwrite) {
+    if (tOld !== "undefined" && tOld !== tNew && enforceTypes) {
+      throw new Error(`mergeObject type mismatch: key '${key}' has type ${tOld} vs. ${tNew}.`);
+    }
+    (original as Record<string, unknown>)[key] = newVal;
+  }
+}
+
+///////////////////////////////////////////
+// objectsEqual
+///////////////////////////////////////////
 
 /**
- * Test if two objects contain the same enumerable keys and values.
- * @param a The first object.
- * @param b The second object.
+ * Compare two objects for deep equality of keys and values.
+ * - If an inner property implements `equals()`, uses that for comparison.
+ *
+ * @param a The first object
+ * @param b The second object
+ * @returns Are the two objects deeply equal?
  */
-function objectsEqual(a: object | null, b: object | null): boolean {
-    if (a === null || b === null) return a === b;
-    if (getType(a) !== "Object" || getType(b) !== "Object") return a === b;
-    if (Object.keys(a).length !== Object.keys(b).length) return false;
-    return Object.entries(a).every(([k, v0]) => {
-        const v1 = (b as Record<string, unknown>)[k];
-        const t0 = getType(v0);
-        const t1 = getType(v1);
-        if (t0 !== t1) return false;
-        if (v0?.equals instanceof Function) return v0.equals(v1);
-        if (t0 === "Object") return objectsEqual(v0, v1 as object | null);
-        return v0 === v1;
-    });
+export function objectsEqual(a: object | null, b: object | null): boolean {
+  if (a === null || b === null) return a === b;
+  if (getType(a) !== "Object" || getType(b) !== "Object") return a === b;
+  const keysA = Object.keys(a);
+  const keysB = Object.keys(b);
+  if (keysA.length !== keysB.length) return false;
+
+  return keysA.every((k) => {
+    const valA = (a as Record<string, unknown>)[k];
+    const valB = (b as Record<string, unknown>)[k];
+    const tA = getType(valA);
+    const tB = getType(valB);
+    if (tA !== tB) return false;
+
+    // If custom equals
+    if ((valA as any)?.equals instanceof Function) {
+      return (valA as any).equals(valB);
+    }
+    // Recurse if object
+    if (tA === "Object") return objectsEqual(valA as object, valB as object);
+    // Direct comparison for primitives
+    return valA === valB;
+  });
+}
+
+///////////////////////////////////////////
+// isEmpty
+///////////////////////////////////////////
+
+/**
+ * Test if a value is "empty-like":
+ *   - undefined or null
+ *   - an empty array
+ *   - an object with no own keys
+ *   - a Set or Map with no entries
+ *
+ * @param value Any value
+ */
+export function isEmpty(value: unknown): boolean {
+  const t = getType(value);
+  switch (t) {
+    case "undefined":
+    case "null":
+      return true;
+    case "Array":
+      return !(value as unknown[]).length;
+    case "Object":
+      return !Object.keys(value as object).length;
+    case "Set":
+    case "Map":
+      return !(value as Map<unknown, unknown>).size;
+    default:
+      return false;
+  }
+}
+
+///////////////////////////////////////////
+// randomID
+///////////////////////////////////////////
+
+/**
+ * Generate a random alphanumeric string of desired length.
+ *
+ * @param length The length of the resulting string (default=16)
+ */
+export function randomID(length = 16): string {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const result = Array.from({ length }, () => {
+    const idx = Math.floor(Math.random() * chars.length);
+    return chars[idx];
+  });
+  return result.join("");
+}
+
+///////////////////////////////////////////
+// diffObject
+///////////////////////////////////////////
+
+/**
+ * Compare two objects, returning a new object containing only the keys/values that differ in `other`.
+ *
+ * @param original The baseline object
+ * @param other    The object to compare
+ * @param options  Additional config
+ * @param options.inner=false        If true, only diff keys that exist in `original`.
+ * @param options.deletionKeys=false If true, keep keys that start with "-=" if that key is in `original`.
+ */
+export function diffObject(
+  original: object,
+  other: object,
+  { inner = false, deletionKeys = false } = {}
+): object {
+  /**
+   * Returns a `[changed, newValue]` tuple
+   */
+  function _diff(valA: unknown, valB: unknown): [boolean, unknown] {
+    const typeA = getType(valA);
+    const typeB = getType(valB);
+
+    if (typeA !== typeB) {
+      return [true, valB];
+    }
+
+    // If custom equals
+    if ((valA as any)?.equals instanceof Function) {
+      return [(valA as any).equals(valB) === false, valB];
+    }
+
+    // If arrays, compare elements
+    if (Array.isArray(valA)) {
+      return [!_arrayEquals(valA, valB), valB];
+    }
+
+    // If objects, recursively diff
+    if (typeA === "Object") {
+      if (isEmpty(valB)) return [false, {}];
+      if (isEmpty(valA)) return [true, valB];
+      const d = diffObject(valA as object, valB as object, { inner, deletionKeys });
+      return [!isEmpty(d), d];
+    }
+
+    // Primitives
+    return [valA !== valB, valB];
+  }
+
+  const result: Record<string, unknown> = {};
+  for (const key of Object.keys(other)) {
+    const isDeletion = key.startsWith("-=");
+    if (isDeletion && deletionKeys) {
+      // Only keep if it can actually delete something from original
+      const realKey = key.slice(2);
+      if (Object.prototype.hasOwnProperty.call(original, realKey)) {
+        result[key] = (other as Record<string, unknown>)[key];
+      }
+      continue;
+    }
+    if (inner && !(key in original)) {
+      continue;
+    }
+    const [changed, difference] = _diff(
+      (original as Record<string, unknown>)[key],
+      (other as Record<string, unknown>)[key]
+    );
+    if (changed) {
+      result[key] = difference;
+    }
+  }
+  return result;
 }
 
 function _arrayEquals(arr: unknown[], other: unknown): boolean {
-    if (!(other instanceof Array) || other.length !== arr.length) return false;
-    return arr.every((v0, i) => {
-        const v1 = other[i];
-        const t0 = getType(v0);
-        const t1 = getType(v1);
-        if (t0 !== t1) return false;
-        if ((v0 as Maybe<{ equals?: unknown }>)?.equals instanceof Function)
-            return (v0 as { equals: (arg: unknown) => boolean }).equals(v1);
-        if (t0 === "Object") return objectsEqual(v0 as object, v1);
-        return v0 === v1;
-    });
-}
+  if (!Array.isArray(other) || other.length !== arr.length) return false;
+  return arr.every((valA, i) => {
+    const valB = other[i];
+    const typeA = getType(valA);
+    const typeB = getType(valB);
+    if (typeA !== typeB) return false;
 
-/**
- * Deeply difference an object against some other, returning the update keys and values.
- * @param original     An object comparing data against which to compare
- * @param other        An object containing potentially different data
- * @param [options={}] Additional options which configure the diff operation
- * @param [options.inner=false]  Only recognize differences in other for keys which also exist in original
- * @param [options.deletionKeys=false] Apply special logic to deletion keys. They will only be kept if the
- *                                               original object has a corresponding key that could be deleted.
- * @return {object}               An object of the data in other which differs from that in original
- */
-function diffObject(original: object, other: object, { inner = false, deletionKeys = false } = {}) {
-    function _difference(v0: unknown, v1: unknown): [boolean, unknown] {
-        // Eliminate differences in types
-        const t0 = getType(v0);
-        const t1 = getType(v1);
-        if (t0 !== t1) return [true, v1];
-
-        // null and undefined
-        if (["null", "undefined"].includes(t0)) return [v0 !== v1, v1];
-
-        // If the prototype explicitly exposes an equality-testing method, use it
-        if ((v0 as { equals?: unknown }).equals instanceof Function) {
-            return [!(v0 as { equals: (arg: unknown) => boolean }).equals(v1), v1];
-        }
-        if (Array.isArray(v0)) {
-            return [!_arrayEquals(v0, v1), v1];
-        }
-
-        // Recursively diff objects
-        if (t0 === "Object") {
-            if (isEmpty(v1)) return [false, {}];
-            if (isEmpty(v0)) return [true, v1];
-            const d = diffObject(v0 as object, v1 as object, { inner, deletionKeys });
-            return [!isEmpty(d), d];
-        }
-
-        // Differences in primitives
-        return [(v0 as object).valueOf() !== (v1 as object).valueOf(), v1];
+    if ((valA as any)?.equals instanceof Function) {
+      return (valA as any).equals(valB);
     }
-
-    // Recursively call the _difference function
-    return Object.keys(other).reduce((obj, key) => {
-        const isDeletionKey = key.startsWith("-=");
-        if (isDeletionKey && deletionKeys) {
-            const otherKey = key.substring(2);
-            if (otherKey in original) (obj as Record<string, unknown>)[key] = (other as Record<string, unknown>)[key];
-            return obj;
-        }
-        if (inner && !(key in original)) return obj;
-        const [isDifferent, difference] = _difference(
-            (original as Record<string, unknown>)[key],
-            (other as Record<string, unknown>)[key],
-        );
-        if (isDifferent) (obj as Record<string, unknown>)[key] = difference;
-        return obj;
-    }, {});
-}
-
-/**
- * Test whether a value is empty-like; either undefined or a content-less object.
- * @param value The value to test
- * @returns     Is the value empty-like?
- */
-export function isEmpty(value: unknown): boolean {
-    const t = getType(value);
-    switch (t) {
-        case "undefined":
-            return true;
-        case "null":
-            return true;
-        case "Array":
-            return !(value as unknown[]).length;
-        case "Object":
-            return !Object.keys(value as object).length;
-        case "Set":
-        case "Map":
-            return !(value as Map<unknown, unknown>).size;
-        default:
-            return false;
+    if (typeA === "Object") {
+      return objectsEqual(valA as object, valB as object);
     }
+    return valA === valB;
+  });
 }
+
+///////////////////////////////////////////
+// Final Export
+///////////////////////////////////////////
 
 /**
- * Generate a random string ID of a given requested length.
- * @param length The length of the random ID to generate
- * @return Return a string containing random letters and numbers
+ * Abstract class example
  */
-function randomID(length = 16): string {
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    const r = Array.from({ length }, () => (Math.random() * chars.length) >> 0);
-    return r.map((i) => chars[i]).join("");
-}
+export abstract class AbstractFormInputElement {}
 
-abstract class AbstractFormInputElement {}
+export const fu = {
+  deepClone,
+  setProperty,
+  getType,
+  expandObject,
+  duplicate,
+  mergeObject,
+  objectsEqual,
+  isEmpty,
+  randomID,
+  diffObject,
+};
 
-const f = (global.foundry = {
-    applications: {
-        elements: { AbstractFormInputElement },
-    },
-    utils: {
-        deepClone,
-        diffObject,
-        duplicate,
-        expandObject,
-        isEmpty,
-        getType,
-        mergeObject,
-        randomID,
-        setProperty,
-    },
-} as typeof foundry);
+const foundry = {
+  applications: {
+    elements: { AbstractFormInputElement },
+  },
+  utils: fu,
+};
 
-global.fu = f.utils;
+// attach to global for usage
+(globalThis as any).foundry = foundry;
+(globalThis as any).fu = fu;
