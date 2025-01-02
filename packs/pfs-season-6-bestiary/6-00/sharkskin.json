@@ -995,14 +995,24 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Sharkskin reduces an enemy to 0 hit points</p><hr /><p><strong>Effect</strong> Sharkskin attempts an Intimidation check to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] a single creature xe can see with a +2 circumstance bonus.</p>"
+                    "value": "<p><strong>Trigger</strong> Sharkskin reduces an enemy to 0 hit points</p><hr /><p><strong>Effect</strong> Sharkskin attempts an Intimidation check to [[/act demoralize options=youre-next]] a single creature xe can see with a +2 circumstance bonus.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:demoralize",
+                            "youre-next"
+                        ],
+                        "selector": "intimidation",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
