@@ -240,11 +240,17 @@
                 },
                 "rules": [
                     {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "blood-fueled-titter",
+                        "toggleable": true
+                    },
+                    {
                         "hideIfDisabled": true,
                         "key": "FlatModifier",
                         "predicate": [
                             "action:demoralize",
-                            "target:condition:persistent-damage:bleed"
+                            "blood-fueled-titter"
                         ],
                         "selector": "intimidation",
                         "type": "circumstance",

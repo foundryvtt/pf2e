@@ -129,6 +129,12 @@
                 },
                 "rules": [
                     {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "terrifying-charge",
+                        "toggleable": true
+                    },
+                    {
                         "key": "FlatModifier",
                         "predicate": [
                             "terrifying-charge"
@@ -138,10 +144,18 @@
                         "value": 4
                     },
                     {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "terrifying-charge",
-                        "toggleable": true
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            "terrifying-charge"
+                        ],
+                        "selector": "claw-attack",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
