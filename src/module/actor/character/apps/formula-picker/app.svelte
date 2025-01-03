@@ -5,7 +5,7 @@
     import HoverIconButton from "@module/sheet/components/hover-icon-button.svelte";
     import { sendItemToChat } from "@module/sheet/helpers.ts";
 
-    const { state: data, actor, ability, searchEngine, onSelect, onDeselect }: FormulaPickerContext = $props();
+    const { state: data, actor, ability, mode, searchEngine, onSelect, onDeselect }: FormulaPickerContext = $props();
     const openStates: Record<string, boolean> = $state({});
     let queryText = $state("");
 
@@ -44,7 +44,11 @@
         <header>{game.i18n.format("PF2E.LevelN", { level: section.level })}</header>
         <ol class="items-list">
             {#each section.formulas as formula (formula.item.id)}
-                <li class="item" class:selected={formula.selected}>
+                <li
+                    class="item"
+                    class:selected={formula.selected}
+                    class:faded={mode === "prepare" && !formula.selected}
+                >
                     <HoverIconButton
                         class="item-image"
                         src={formula.item.img}
@@ -59,15 +63,54 @@
                         <span>{formula.item.name}</span>
                         <ItemTraits traits={formula.item.traits} rarity={formula.item.rarity} />
                     </button>
-                    <button
-                        class="select"
-                        class:selected={formula.selected}
-                        onclick={() => (formula.selected ? onDeselect(formula.item.uuid) : onSelect(formula.item.uuid))}
-                        aria-labelledby="tooltip"
-                        data-tooltip={formula.selected ? "Cancel" : "Confirm"}
-                    >
-                        <i class="fa-solid fa-fw fa-check"></i>
-                    </button>
+                    {#if mode === "prepare"}
+                        <div class="quantity">
+                            <button
+                                type="button"
+                                class="subtract"
+                                disabled={formula.quantity === 0}
+                                data-tooltip="PF2E.Actor.Character.Crafting.DecreaseQuantity"
+                                aria-labelledby="tooltip"
+                                onclick={() => ability.setFormulaQuantity(formula.item.uuid, "decrease")}
+                            >
+                                <i class="fa-solid fa-minus"></i>
+                            </button>
+                            <input
+                                class:selected={formula.selected}
+                                type="number"
+                                placeholder="0"
+                                value={formula.quantity || null}
+                                onblur={(event) => {
+                                    ability.setFormulaQuantity(
+                                        formula.item.uuid,
+                                        Number(event.currentTarget.value || 0),
+                                    );
+                                    event.currentTarget.value = formula.quantity || null;
+                                }}
+                            />
+                            <button
+                                type="button"
+                                class="plus"
+                                data-tooltip="PF2E.Actor.Character.Crafting.IncreaseQuantity"
+                                aria-labelledby="tooltip"
+                                onclick={() => ability.setFormulaQuantity(formula.item.uuid, "increase")}
+                            >
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    {:else}
+                        <button
+                            type="button"
+                            class="select"
+                            class:selected={formula.selected}
+                            onclick={() =>
+                                formula.selected ? onDeselect(formula.item.uuid) : onSelect(formula.item.uuid)}
+                            aria-labelledby="tooltip"
+                            data-tooltip={formula.selected ? "Cancel" : "Confirm"}
+                        >
+                            <i class="fa-solid fa-fw fa-check"></i>
+                        </button>
+                    {/if}
                     <ItemSummary
                         uuid={formula.item.uuid}
                         open={!!openStates[formula.item.uuid]}
@@ -96,7 +139,7 @@
         width: 100%;
         flex: 1;
         overflow-y: scroll;
-        padding: var(--space-8);
+        padding: var(--space-8) 0;
         padding-top: 0;
 
         header {
@@ -105,6 +148,7 @@
             margin-bottom: var(--space-2);
             font-weight: 500;
             font-size: var(--font-size-16);
+            padding: 0 var(--space-8);
         }
 
         ol {
@@ -123,11 +167,17 @@
         flex-direction: row;
         flex-wrap: wrap;
         width: 100%;
-        padding: var(--space-4) 0;
+        padding: var(--space-4) var(--space-8);
         margin: 0;
 
-        &.selected .name > span {
-            font-style: italic;
+        &.faded {
+            > *:not(.item-summary) {
+                opacity: 0.88;
+            }
+
+            > :global(.item-image img) {
+                filter: grayscale(0.85);
+            }
         }
 
         > :global(.item-image) {
@@ -140,9 +190,11 @@
             cursor: pointer;
             flex: 1;
             margin: 0;
+
             &:hover {
                 text-shadow: 0 0 8px var(--color-shadow-primary);
             }
+
             :global {
                 .tags {
                     padding: 0;
@@ -150,6 +202,31 @@
                 }
                 .tag {
                     padding: 0.15em 0.3em 0.1em 0.3em;
+                }
+            }
+        }
+
+        > .quantity {
+            display: flex;
+            margin-top: var(--space-6);
+            button {
+                width: 1.375rem;
+                height: 1.375rem;
+                i {
+                    margin: 0;
+                }
+            }
+            input {
+                border: none;
+                width: 3ch;
+                height: 1.375rem;
+                padding-left: 0;
+                padding-right: 0;
+                text-align: center;
+                &.selected {
+                    font-weight: 600;
+                    opacity: unset;
+                    color: var();
                 }
             }
         }

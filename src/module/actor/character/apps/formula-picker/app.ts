@@ -1,6 +1,5 @@
 import { ActorPF2e } from "@actor/base.ts";
 import type { CraftingAbility } from "@actor/character/crafting/ability.ts";
-import { CraftingFormula } from "@actor/character/crafting/types.ts";
 import { CharacterPF2e } from "@actor/character/document.ts";
 import { ResourceData } from "@actor/creature/index.ts";
 import { AbilityItemPF2e, FeatPF2e, PhysicalItemPF2e } from "@item";
@@ -16,11 +15,8 @@ import Root from "./app.svelte";
 interface FormulaPickerConfiguration extends ApplicationConfiguration {
     actor: CharacterPF2e;
     ability: CraftingAbility;
-    prompt: string;
     item?: FeatPF2e | AbilityItemPF2e;
-    getSelected?: () => ItemUUID[];
-    onSelect: SelectFunction;
-    onDeselect: SelectFunction;
+    mode: "craft" | "prepare";
 }
 
 /** Creates a formula picker dialog that resolves with the selected item */
@@ -85,48 +81,71 @@ class FormulaPicker extends SvelteApplicationMixin<
     }
 
     protected override async _prepareContext(): Promise<FormulaPickerContext> {
-        const actor = this.options.actor;
-        const ability = this.options.ability;
-        const resource = actor.getResource(ability.resource ?? "");
-        const selected = this.options.getSelected?.() ?? [];
-
-        const formulas = (await actor.crafting.getFormulas()).filter((f) => ability.canCraft(f.item, { warn: false }));
+        const { actor, ability, mode } = this.options;
+        const formulas = await ability.getValidFormulas();
+        const sheetData = await ability.getSheetData();
+        const resource = sheetData.resource;
         this.#searchEngine.removeAll();
         this.#searchEngine.addAll(formulas.map((f) => R.pick(f.item, ["id", "name"])));
+
+        const prompt =
+            mode === "prepare"
+                ? game.i18n.format("PF2E.Actor.Character.Crafting.PrepareHint", {
+                      remaining: sheetData.remainingSlots,
+                  })
+                : resource
+                  ? game.i18n.format("PF2E.Actor.Character.Crafting.Action.Hint", {
+                        resource: resource.label,
+                        value: resource.value,
+                        max: resource.max,
+                    })
+                  : game.i18n.localize("PF2E.Actor.Character.Crafting.Action.HintResourceless");
 
         return {
             foundryApp: this,
             actor,
             ability,
+            mode: this.options.mode,
             onSelect: (uuid: ItemUUID) => {
                 if (this.#resolve) {
                     const item = formulas.find((f) => f.item.uuid === uuid)?.item;
                     this.selection = item ?? null;
                     this.close();
+                } else if (mode === "prepare") {
+                    ability.prepareFormula(uuid);
                 }
-
-                this.options.onSelect(uuid, { formulas });
             },
             onDeselect: (uuid: ItemUUID) => {
-                this.options.onDeselect(uuid, { formulas });
+                if (mode === "prepare") {
+                    ability.unprepareFormula(uuid);
+                }
             },
             searchEngine: this.#searchEngine,
             state: {
                 name: this.options.item?.name ?? ability.label,
                 resource,
-                prompt: this.options.prompt,
+                prompt,
                 sections: R.pipe(
-                    formulas.map((f) => ({
-                        item: {
-                            ...R.pick(f.item, ["id", "uuid", "img", "name"]),
-                            type: f.item.type as ItemType,
-                            level: f.item.level,
-                            rarity: f.item.rarity,
-                            traits: f.item.traitChatData(),
-                        },
-                        batchSize: f.batchSize,
-                        selected: selected.includes(f.item.uuid),
-                    })),
+                    formulas.map((f) => {
+                        const preparedQuantity =
+                            mode === "prepare"
+                                ? ability.preparedFormulaData
+                                      .filter((d) => d.uuid === f.item.uuid)
+                                      .reduce((sum, v) => sum + (v.quantity ?? 1), 0)
+                                : 0;
+
+                        return {
+                            item: {
+                                ...R.pick(f.item, ["id", "uuid", "img", "name"]),
+                                type: f.item.type as ItemType,
+                                level: f.item.level,
+                                rarity: f.item.rarity,
+                                traits: f.item.traitChatData(),
+                            },
+                            quantity: mode === "prepare" ? preparedQuantity : f.batchSize,
+                            selected: preparedQuantity > 0,
+                        };
+                    }),
                     R.groupBy((f) => f.item.level || 0),
                     R.entries(),
                     R.map(([level, formulas]): FormulaSection => ({ level: Number(level), formulas })),
@@ -140,6 +159,7 @@ class FormulaPicker extends SvelteApplicationMixin<
 interface FormulaPickerContext extends SvelteApplicationRenderContext {
     actor: ActorPF2e;
     ability: CraftingAbility;
+    mode: "craft" | "prepare";
     onSelect: (uuid: ItemUUID) => void;
     onDeselect: (uuid: ItemUUID) => void;
     searchEngine: MiniSearch<Pick<PhysicalItemPF2e, "id" | "name">>;
@@ -155,7 +175,8 @@ interface FormulaSection {
     level: number;
     formulas: {
         item: FormulaViewData;
-        batchSize: number;
+        /** The batch size or quantity prepared depending on context */
+        quantity: number;
         selected: boolean;
     }[];
 }
@@ -170,8 +191,6 @@ interface FormulaViewData {
     level: number | null;
     rarity: Rarity | null;
 }
-
-type SelectFunction = (uuid: ItemUUID, options: { formulas: CraftingFormula[] }) => void;
 
 export { FormulaPicker };
 export type { FormulaPickerContext };

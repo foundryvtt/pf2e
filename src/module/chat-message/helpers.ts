@@ -33,13 +33,8 @@ async function createUseActionMessage(
     const consumeResources = !!resource?.value;
     const craftedItem = await (async () => {
         if (!isCraftingAction) return null;
-        const prompt = game.i18n.format("PF2E.Actor.Character.Crafting.Action.Hint", {
-            resource: resource.label,
-            value: resource.value,
-            max: resource.max,
-        });
 
-        const picker = new FormulaPicker({ actor, item, prompt, ability: craftingAbility });
+        const picker = new FormulaPicker({ actor, item, ability: craftingAbility, mode: "craft" });
         const selection = await picker.resolveSelection();
         return selection
             ? craftingAbility.craft(selection, {
