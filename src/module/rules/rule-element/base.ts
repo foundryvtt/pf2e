@@ -268,7 +268,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
                 })();
                 if (value === undefined) {
                     this.ignored = true;
-                    if (warn) this.failValidation(`Failed to resolve injected property "${source}"`);
+                    if (warn) this.failValidation(`Failed to resolve injected property "${prop}" in "${source}"`);
                 }
                 return String(value);
             });
