@@ -1,0 +1,64 @@
+{
+    "_id": "rEQP3SwRF9Zb1ppV",
+    "folder": "KN9hhATq6X3GwryB",
+    "img": "systems/pf2e/icons/pathfinder-society/pfs-glyph.webp",
+    "name": "Effect: Nexian Researcher",
+    "system": {
+        "description": {
+            "value": "<p>Granted by S1-00 - Nexian Researcher</p>\n<p>If you are Untrained in Pathfinder Society Lore, you can add your level to your Intelligence modifier when determining your bonus. If you are at least Trained in Pathfinder Society Lore, you gain a +2 circumstance bonus to this check instead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Society Scenario #1-00: Origin of the Open Road"
+        },
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "check:statistic:pathfinder-society-lore",
+                    "proficiency:untrained"
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": "skill-check",
+                "slug": "pathfinder-society-lore-untrained-bonus",
+                "value": "@actor.level"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "nexian-researcher",
+                    "check:statistic:pathfinder-society-lore",
+                    "proficiency:trained"
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": "skill-check",
+                "slug": "pathfinder-society-lore-trained-bonus",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

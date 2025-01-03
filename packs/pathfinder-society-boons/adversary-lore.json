@@ -28,7 +28,25 @@
             "remaster": false,
             "title": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "adversary-lore",
+                "toggleable": true
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "adversary-lore",
+                    "action:recall-knowledge"
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": "ternary(gte(@actor.system.pfs.reputation.VS,120), 2, 1)"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []
