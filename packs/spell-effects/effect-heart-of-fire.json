@@ -1,0 +1,53 @@
+{
+    "_id": "UM9VpxvcaeG1CI9F",
+    "img": "systems/pf2e/icons/spells/mantle-of-the-magma-heart.webp",
+    "name": "Effect: Heart of Fire",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Mantle of the Magma Heart]</p>\n<p>Any creature that touches you, or that hits you with a melee unarmed attack or non-reach melee weapon attack, takes 2d6 fire damage.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:melee",
+                            {
+                                "not": "item:trait:reach"
+                            }
+                        ]
+                    }
+                ],
+                "selector": "damage-received",
+                "text": "PF2E.SpecificRule.SpellEffectMantle.MagmaHeart.DamageNote.HeartOfFire",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
