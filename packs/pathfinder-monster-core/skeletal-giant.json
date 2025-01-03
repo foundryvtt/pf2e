@@ -334,7 +334,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The giant Strides and makes a horns Strike with a +4 circumstance bonus to damage.</p>\n<p>If the strike hits, the giant attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] the target.</p>"
+                    "value": "<p>The giant Strides and makes a horns Strike with a +4 circumstance bonus to damage.</p>\n<p>If the strike hits, the giant attempts to [[/act demoralize]] the target.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -343,7 +343,7 @@
                 },
                 "rules": [
                     {
-                        "domain": "damage",
+                        "domain": "all",
                         "key": "RollOption",
                         "option": "terrifying-charge",
                         "toggleable": true
@@ -356,6 +356,20 @@
                         "selector": "horns-damage",
                         "type": "circumstance",
                         "value": 4
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            "terrifying-charge"
+                        ],
+                        "selector": "horns-attack",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
