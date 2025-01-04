@@ -120,7 +120,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The skeleton Strides and makes a claw Strike with a +4 circumstance bonus to damage. If the Strike hits, it attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] the target.</p>"
+                    "value": "<p>The skeleton Strides and makes a claw Strike with a +4 circumstance bonus to damage. If the Strike hits, it attempts to [[/act demoralize]] the target.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -128,6 +128,12 @@
                     "title": ""
                 },
                 "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "terrifying-charge",
+                        "toggleable": true
+                    },
                     {
                         "key": "FlatModifier",
                         "predicate": [
@@ -138,10 +144,18 @@
                         "value": 4
                     },
                     {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "terrifying-charge",
-                        "toggleable": true
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            "terrifying-charge"
+                        ],
+                        "selector": "claw-attack",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
