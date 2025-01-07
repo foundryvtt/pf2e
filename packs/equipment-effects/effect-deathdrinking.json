@@ -1,10 +1,10 @@
 {
     "_id": "VIYfrecOd54NUPur",
     "img": "systems/pf2e/icons/equipment/runes/weapon-property-runes/weapon-property-runes.webp",
-    "name": "Effect: Deathdrinking (Living)",
+    "name": "Effect: Deathdrinking",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Deathdrinking]</p>\n<p>You gain a +1 item bonus to attack and damage rolls for 10 minutes.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Deathdrinking]</p>\n<p>You gain a +1 item bonus to attack and damage rolls for 10 minutes.</p>\n<p>You gain a number of temporary HP equal to twice your level for 10 minutes.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,14 +22,37 @@
         },
         "rules": [
             {
+                "choices": [
+                    {
+                        "label": "Undead",
+                        "value": "undead"
+                    },
+                    {
+                        "label": "Living",
+                        "value": "living"
+                    }
+                ],
+                "rollOption": "deathdrinking",
+                "key": "ChoiceSet"
+            },
+            {
                 "key": "FlatModifier",
-                "predicate": [],
                 "selector": [
                     "attack-roll",
                     "damage"
                 ],
                 "type": "item",
+                "predicate": [
+                    "deathdrinking:living"
+                ],
                 "value": 1
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "deathdrinking:undead"
+                ],
+                "value": "@item.origin.level*2"
             }
         ],
         "start": {
