@@ -24,7 +24,41 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Knights of Lastwall"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "united-assault",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.One",
+                        "value": "1"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Two",
+                        "value": "2"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Three",
+                        "value": "3"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Four",
+                        "value": "4"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "united-assault"
+                ],
+                "selector": "strike-attack-roll",
+                "type": "circumstance",
+                "value": "@item.flags.pf2e.rulesSelections.unitedAssault"
+            }
+        ],
         "traits": {
             "rarity": "uncommon",
             "value": [
