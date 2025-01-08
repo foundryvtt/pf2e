@@ -197,18 +197,14 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
      * Filter rules, including those with suboptions among the same merge family.
      * Includes ignored rules and those with failed predications. */
     #resolveSuboptionRules(): RuleElementPF2e[] {
-        const rules = this.mergeable
-            ? this.actor.rules.filter(
-                  (r) =>
-                      r instanceof RollOptionRuleElement &&
-                      r.toggleable &&
-                      r.mergeable &&
-                      r.domain === this.domain &&
-                      r.option === this.option,
-              )
-            : [];
-
-        return rules;
+        return this.actor.rules.filter(
+              (r) =>
+                  r instanceof RollOptionRuleElement &&
+                  r.toggleable &&
+                  r.mergeable &&
+                  r.domain === this.domain &&
+                  r.option === this.option,
+          );
     }
 
     #resolveOption({ withSuboption = false } = {}): string {
