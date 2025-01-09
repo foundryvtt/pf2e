@@ -55,7 +55,15 @@
                 "key": "FlatModifier",
                 "selector": "{item|id}-attack",
                 "type": "item",
-                "value": "ternary(gte(@item.level,18),3,ternary(gte(@item.level,12),2,ternary(gte(@item.level,4),1)))"
+                "predicate": [
+                    {
+                        "gte": [
+                            "parent:level",
+                            4
+                        ]
+                    }
+                ],
+                "value": "ternary(gte(@item.level,18),3,ternary(gte(@item.level,12),2,1))"
             },
             {
                 "key": "DamageAlteration",
