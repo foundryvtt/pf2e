@@ -22,14 +22,59 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:camouflage-suit",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Camouflage Suit"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:camouflage-suit-superb",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Camouflage Suit (Superb)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "camouflage-suit"
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
                     "action:sneak",
                     "action:hide"
                 ],
                 "selector": "stealth",
+                "slug": "camouflage-suit-bonus",
                 "type": "item",
                 "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "camouflage-suit:camouflage-suit-superb"
+                ],
+                "selector": "stealth",
+                "slug": "camouflage-suit-bonus",
+                "value": 2
             }
         ],
         "start": {

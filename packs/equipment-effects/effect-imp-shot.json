@@ -1,0 +1,51 @@
+{
+    "_id": "R5rsGfIIkpNxbU9z",
+    "img": "icons/weapons/polearms/trident-jeweled-purple.webp",
+    "name": "Effect: Imp Shot",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Imp Shot]</p>\n<p>You are off-guard and take a –2 circumstance penalty to attack rolls and skill checks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack-roll",
+                    "skill-check"
+                ],
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
