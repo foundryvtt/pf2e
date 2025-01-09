@@ -28,7 +28,24 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Firebrands"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "intimidation",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.DazzlingDisplay.RollOptionLabel",
+                "option": "dazzling-display",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "dazzling-display"
+                ],
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
