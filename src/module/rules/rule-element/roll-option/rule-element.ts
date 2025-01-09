@@ -193,6 +193,20 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         return suboptions;
     }
 
+    /**
+     * Filter rules, including those with suboptions among the same merge family.
+     * Includes ignored rules and those with failed predications. */
+    #resolveSuboptionRules(): RuleElementPF2e[] {
+        return this.actor.rules.filter(
+            (r) =>
+                r instanceof RollOptionRuleElement &&
+                r.toggleable &&
+                r.mergeable &&
+                r.domain === this.domain &&
+                r.option === this.option,
+        );
+    }
+
     #resolveOption({ withSuboption = false } = {}): string {
         const baseOption = this.resolveInjectedProperties(this._source.option)
             .replace(/[^-:\w]/g, "")
@@ -335,7 +349,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
 
         if (this.mergeable && selection) {
             // Update the items containing rule elements in the merge family
-            const rulesByItem = R.groupBy(R.unique(this.#resolveSuboptions().map((s) => s.rule)), (r) => r.item.id);
+            const rulesByItem = R.groupBy(this.#resolveSuboptionRules(), (r) => r.item.id);
             for (const [itemId, rules] of Object.entries(rulesByItem)) {
                 const item = actor.items.get(itemId, { strict: true });
                 const ruleSources = item.toObject().system.rules;
