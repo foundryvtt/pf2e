@@ -109,6 +109,29 @@
                 ],
                 "property": "other-tags",
                 "value": "ancestral-spell"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.spelllcasting.rank",
+                "predicate": [
+                    "fey-influence:anteater",
+                    "fey-influence:gremlin"
+                ],
+                "value": 2
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "self:anteater-gremlin",
+                "predicate": [
+                    {
+                        "or": [
+                            "fey-influence:anteater",
+                            "fey-influence:gremlin"
+                        ]
+                    }
+                ]
             }
         ],
         "subfeatures": {
