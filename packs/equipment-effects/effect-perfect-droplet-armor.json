@@ -4,7 +4,7 @@
     "name": "Effect: Perfect Droplet - Armor",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Perfect Droplet]</p>\n<p>You gain resistance 2 to water effects and attacks by water creatures.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Perfect Droplet], @UUID[Compendium.pf2e.equipment-srd.Item.Perfect Droplet (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Perfect Droplet (Major)]</p>\n<p>You gain resistance to water effects and attacks by water creatures.</p>"
         },
         "duration": {
             "expiry": null,
@@ -22,7 +22,57 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:perfect-droplet",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Perfect Droplet"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:perfect-droplet-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Perfect Droplet (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:perfect-droplet-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Perfect Droplet (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "perfect-droplet"
+            },
+            {
                 "key": "Resistance",
+                "predicate": [
+                    "perfect-droplet:perfect-droplet"
+                ],
                 "type": "water",
                 "value": 2
             },
@@ -34,8 +84,55 @@
                 ],
                 "key": "Resistance",
                 "label": "PF2E.IWR.Custom.AttacksWaterCreatures",
+                "predicate": [
+                    "perfect-droplet:perfect-droplet"
+                ],
                 "type": "custom",
                 "value": 2
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "perfect-droplet:perfect-droplet-greater"
+                ],
+                "type": "water",
+                "value": 5
+            },
+            {
+                "definition": [
+                    "attack",
+                    "origin:creature",
+                    "origin:trait:water"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.AttacksWaterCreatures",
+                "predicate": [
+                    "perfect-droplet:perfect-droplet-greater"
+                ],
+                "type": "custom",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "perfect-droplet:perfect-droplet-major"
+                ],
+                "type": "water",
+                "value": 10
+            },
+            {
+                "definition": [
+                    "attack",
+                    "origin:creature",
+                    "origin:trait:water"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.AttacksWaterCreatures",
+                "predicate": [
+                    "perfect-droplet:perfect-droplet-major"
+                ],
+                "type": "custom",
+                "value": 10
             }
         ],
         "start": {
