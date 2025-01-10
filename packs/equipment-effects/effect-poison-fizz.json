@@ -4,7 +4,7 @@
     "name": "Effect: Poison Fizz",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Poison Fizz (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Poison Fizz (Moderate)]</p>\n<p>You have a +2 item bonus to saving throws against poison and being petrified.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Poison Fizz (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Poison Fizz (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Poison Fizz (Greater)]</p>\n<p>You gain an item bonus to saving throws against poison and being petrified.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,6 +22,53 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:poison-fizz-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Poison Fizz (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:poison-fizz-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Poison Fizz (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:poison-fizz-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Poison Fizz (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "poison-fizz"
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
                     {
@@ -32,8 +79,19 @@
                     }
                 ],
                 "selector": "saving-throw",
+                "slug": "poison-fizz-bonus",
                 "type": "item",
                 "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "poison-fizz:poison-fizz-greater"
+                ],
+                "selector": "saving-throw",
+                "slug": "poison-fizz-bonus",
+                "value": 3
             }
         ],
         "start": {
