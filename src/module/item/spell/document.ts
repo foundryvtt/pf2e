@@ -675,7 +675,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     override prepareSiblingData(this: SpellPF2e<ActorPF2e>): void {
-        if (this.spellcasting?.isInnate) {
+        if (this.spellcasting?.category === "innate") {
             fu.mergeObject(this.system.location, { uses: { value: 1, max: 1 } }, { overwrite: false });
         }
     }
@@ -706,7 +706,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             spellOptions.add(`${prefix}:trait:${spellcasting.tradition}`);
         }
 
-        const entryHasSlots = !!(spellcasting?.isPrepared || spellcasting?.isSpontaneous);
+        const entryHasSlots = ["prepared", "spontaneous"].includes(spellcasting?.category ?? "");
         if (entryHasSlots && !this.isCantrip && !this.parentItem) {
             spellOptions.add(`${prefix}:spell-slot`);
         }
@@ -725,7 +725,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             spellOptions.add(`${prefix}:frequency:limited`);
         }
 
-        if (spellcasting?.isSpontaneous && this.system.location.signature) {
+        if (spellcasting?.category === "spontaneous" && this.system.location.signature) {
             spellOptions.add(`${prefix}:signature`);
         }
 
