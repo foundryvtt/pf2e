@@ -436,6 +436,22 @@
                 ],
                 "priority": 70,
                 "value": "fire"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:ignition",
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    }
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "spell-damage"
+                ],
+                "value": "ceil(@actor.level/2)"
             }
         ],
         "traits": {
