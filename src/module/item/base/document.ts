@@ -624,7 +624,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         // Process item preCreate rules for all items that are going to be added
         // This may add additional items (such as via GrantItem)
-        for (const item of items) {
+        for (const item of [...items]) {
             // Pre-load this item's self: roll options for predication by preCreate rule elements
             item.prepareActorData?.();
 
