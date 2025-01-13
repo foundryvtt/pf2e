@@ -17,10 +17,6 @@ interface BaseSpellcastingEntry<TActor extends ActorPF2e | null = ActorPF2e | nu
     attribute?: Maybe<AttributeString>;
     isFlexible: boolean;
     isFocusPool: boolean;
-    isInnate: boolean;
-    isPrepared: boolean;
-    isRitual: boolean;
-    isSpontaneous: boolean;
     isEphemeral: boolean;
     statistic?: Statistic | null;
     /** A related but more-limited statistic for making counteract checks */

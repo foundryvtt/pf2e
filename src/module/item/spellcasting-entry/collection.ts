@@ -54,7 +54,7 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
         }
 
         const isStandardSpell = !(spell.isCantrip || spell.isFocusSpell || spell.isRitual);
-        const canHeighten = isStandardSpell && (this.entry.isSpontaneous || this.entry.isInnate);
+        const canHeighten = isStandardSpell && ["innate", "spontaneous"].includes(this.entry.category);
 
         // Only allow a different slot rank if the spell can heighten
         const groupId = options?.groupId;
@@ -246,6 +246,7 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
             // Everything else (Innate/Spontaneous/Ritual)
             const alwaysShowHeader = !this.entry.isRitual;
             const spellsByRank = groupBy(spells, (spell) => (spell.isCantrip ? 0 : spell.rank));
+            const isInnate = this.entry.category === "innate";
             for (let rank = 0 as ZeroToTen; rank <= this.highestRank; rank++) {
                 const data = this.entry.system.slots[`slot${rank}`];
                 const spells = spellsByRank.get(rank) ?? [];
@@ -254,8 +255,8 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
                         this.entry.isSpontaneous && rank !== 0 ? { value: data.value, max: data.max } : undefined;
                     const active = spells.map((spell) => ({
                         spell,
-                        expended: this.entry.isInnate && !spell.system.location.uses?.value,
-                        uses: this.entry.isInnate && !spell.atWill ? spell.system.location.uses : undefined,
+                        expended: isInnate && !spell.system.location.uses?.value,
+                        uses: isInnate && !spell.atWill ? spell.system.location.uses : undefined,
                     }));
 
                     // These entries hide if there are no active spells at that level, or if there are no spell slots
@@ -349,7 +350,7 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
     protected getSpellPrepList(spells: SpellPF2e<TActor>[]): Record<ZeroToTen, SpellPrepEntry[]> {
         const indices = Array.fromRange(11) as ZeroToTen[];
         const prepList: Record<ZeroToTen, SpellPrepEntry[]> = R.mapToObj(indices, (i) => [i, []]);
-        if (!this.entry.isPrepared) return prepList;
+        if (this.entry.category !== "prepared") return prepList;
 
         for (const spell of spells) {
             if (spell.isCantrip) {

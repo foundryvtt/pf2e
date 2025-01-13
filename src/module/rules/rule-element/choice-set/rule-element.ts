@@ -4,6 +4,7 @@ import { iterateAllItems } from "@actor/helpers.ts";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { PickableThing } from "@module/apps/pick-a-thing-prompt.ts";
+import { processChoicesFromData } from "@module/rules/helpers.ts";
 import { Predicate } from "@system/predication.ts";
 import { Progress } from "@system/progress.ts";
 import {
@@ -313,49 +314,24 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     }
 
     #choicesFromPath(
-        choices: string | ChoiceSetConfig,
+        pathOrConfig: string | ChoiceSetConfig,
         actorRollOptions: Set<string>,
         validate: boolean,
     ): PickableThing<string>[] {
         const data =
-            typeof choices === "string"
-                ? (fu.getProperty(CONFIG.PF2E, choices) ?? fu.getProperty(this.actor, choices) ?? {})
-                : (fu.getProperty(CONFIG.PF2E, choices.config) ?? {});
-        const predicate = !validate || typeof choices === "string" ? null : choices.predicate;
+            typeof pathOrConfig === "string"
+                ? (fu.getProperty(CONFIG.PF2E, pathOrConfig) ?? fu.getProperty(this.actor, pathOrConfig) ?? {})
+                : (fu.getProperty(CONFIG.PF2E, pathOrConfig.config) ?? {});
+        const choices = processChoicesFromData(data);
 
-        // If this is an array, optionally run predicates on all the entries
-        if (Array.isArray(data)) {
-            if (!data.every((c) => R.isPlainObject(c) && typeof c.value === "string")) {
-                return [];
-            }
-
-            return validate
-                ? data.filter((choice) =>
-                      this.resolveInjectedProperties(new Predicate(choice.predicate ?? predicate ?? []), {
-                          injectables: { choice },
-                      }).test(actorRollOptions),
-                  )
-                : data;
-        }
-
-        // If this is an object with all string values or all string labels, optionally run the top level filter predicate
-        if (R.isObjectType(data)) {
-            const entries = Object.entries(data);
-            if (!entries.every(([_, c]) => typeof (R.isPlainObject(c) ? c.label : c) === "string")) {
-                return [];
-            }
-
-            return entries
-                .filter(([key, choice]) => {
-                    if (!predicate) return true;
-                    return this.resolveInjectedProperties(new Predicate(fu.deepClone(predicate)), {
-                        injectables: { choice: { ...choice, value: key } },
-                    }).test(actorRollOptions);
-                })
-                .map(([value, data]) => ({ value, label: typeof data === "string" ? data : data.label }));
-        }
-
-        return [];
+        const predicate = !validate || typeof pathOrConfig === "string" ? null : pathOrConfig.predicate;
+        return validate
+            ? choices.filter((choice) =>
+                  this.resolveInjectedProperties(new Predicate(choice.predicate ?? fu.deepClone(predicate ?? [])), {
+                      injectables: { choice },
+                  }).test(actorRollOptions),
+              )
+            : choices;
     }
 
     #choicesFromOwnedItems(
