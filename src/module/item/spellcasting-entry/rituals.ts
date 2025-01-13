@@ -46,20 +46,8 @@ export class RitualSpellcasting<TActor extends ActorPF2e> implements BaseSpellca
         return false;
     }
 
-    get isInnate(): false {
-        return false;
-    }
-
-    get isPrepared(): false {
-        return false;
-    }
-
     get isRitual(): true {
         return true;
-    }
-
-    get isSpontaneous(): false {
-        return false;
     }
 
     get isEphemeral(): true {

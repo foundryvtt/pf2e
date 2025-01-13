@@ -373,7 +373,7 @@ abstract class CreaturePF2e<
             // PC1 p.298, When you gain an innate spell, you become trained in the spell attack modifier
             // and spell DC statistics. At 12th level, these proficiencies increase to expert.
             const actualSpellcasting = this.spellcasting.filter((e) => e.system && !e.system?.proficiency.slug);
-            if (actualSpellcasting.some((e) => e.isInnate)) {
+            if (actualSpellcasting.some((e) => e.category === "innate")) {
                 spellcasting.rank = Math.max(spellcasting.rank, this.level >= 12 ? 2 : 1) as ZeroToFour;
             } else if (actualSpellcasting.length) {
                 // If you can cast spells using spellcasting prof, you logically need to be at least trained
@@ -392,10 +392,8 @@ abstract class CreaturePF2e<
     }
 
     protected override prepareDataFromItems(): void {
-        this.spellcasting = new ActorSpellcasting(this, [
-            ...this.itemTypes.spellcastingEntry,
-            new RitualSpellcasting(this),
-        ]);
+        this.spellcasting ??= new ActorSpellcasting(this);
+        this.spellcasting.initialize([...this.itemTypes.spellcastingEntry, new RitualSpellcasting(this)]);
 
         super.prepareDataFromItems();
     }
