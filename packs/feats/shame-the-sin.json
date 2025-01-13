@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> You critically hit a demon with a Strike.</p><hr /><p>Your conviction against the sins that all demons grow from is so strong that you can force a demon to suffer from its sins when you strike a sound blow against them. In addition to doing the normal damage for your critical hit, the demon also suffers the effects of its special vulnerability. If the demon has no special vulnerability, it instead takes an additional @Damage[1d6[mental]] damage. This increases to @Damage[2d6[mental]] damage at 13th level and to @Damage[3d6[mental]] damage at 17th level.</p>"
+            "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> You critically hit a demon with a Strike.</p><hr /><p>Your conviction against the sins that all demons grow from is so strong that you can force a demon to suffer from its sins when you strike a sound blow against them. In addition to doing the normal damage for your critical hit, the demon also suffers the effects of its special vulnerability. If the demon has no special vulnerability, it instead takes an additional @Damage[(ternary(gte(@actor.level,17),3,ternary(gte(@actor.level,13),2,1)))d6[mental]] damage. This increases to 2d6 mental damage at 13th level and to 3d6 mental damage at 17th level.</p>"
         },
         "frequency": {
             "max": 1,
