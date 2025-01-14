@@ -1,6 +1,7 @@
 import { AttributeString } from "@actor/types.ts";
 import { AbilityTrait } from "@item/ability/types.ts";
 import { PhysicalItemSource } from "@item/base/data/index.ts";
+import type { SpellSlotGroupId } from "@item/spellcasting-entry/collection.ts";
 import { Size, TraitsWithRarity, ValuesList, ZeroToTwo } from "@module/data.ts";
 import { MaterialDamageEffect } from "@system/damage/types.ts";
 import { ActionCost, BaseItemSourcePF2e, Frequency, ItemSystemData, ItemSystemSource } from "../base/data/system.ts";
@@ -139,6 +140,20 @@ interface ItemActivation {
     traits: ValuesList<AbilityTrait>;
 }
 
+interface StaffData {
+    effect: string;
+    spells: StaffSpellData[];
+}
+
+interface StaffSpellData {
+    uuid: ItemUUID;
+    rank: SpellSlotGroupId;
+    /** The spell's name, used if the lookup fails */
+    name?: string;
+    /** The spell's image, used if the lookup fails */
+    img?: ImageFilePath;
+}
+
 interface PhysicalItemHPSource {
     value: number;
     max: number;
@@ -188,4 +203,6 @@ export type {
     PhysicalSystemData,
     PhysicalSystemSource,
     Price,
+    StaffData,
+    StaffSpellData,
 };
