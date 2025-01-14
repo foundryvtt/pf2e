@@ -3,7 +3,7 @@ import { ItemPF2e, SpellPF2e, SpellcastingEntryPF2e } from "@item";
 import { OneToTen, ValueAndMax, ZeroToTen } from "@module/data.ts";
 import { ErrorPF2e, groupBy, localizer, ordinalString } from "@util";
 import * as R from "remeda";
-import { spellSlotGroupIdToNumber } from "./helpers.ts";
+import { getSpellRankLabel, spellSlotGroupIdToNumber } from "./helpers.ts";
 import { BaseSpellcastingEntry, SpellPrepEntry, SpellcastingSlotGroup } from "./types.ts";
 
 class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TActor>> {
@@ -367,8 +367,8 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
     #warnInvalidDrop(warning: DropWarningType, { spell, groupId }: WarnInvalidDropParams): void {
         const localize = localizer("PF2E.Item.Spell.Warning");
         if (warning === "invalid-rank" && typeof groupId === "number") {
-            const spellRank = game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(spell.baseRank) });
-            const targetRank = game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(groupId) });
+            const spellRank = getSpellRankLabel(spell.baseRank);
+            const targetRank = getSpellRankLabel(groupId);
             ui.notifications.warn(localize("InvalidRank", { spell: spell.name, spellRank, targetRank }));
         } else if (warning === "cantrip-mismatch") {
             const locKey = spell.isCantrip ? "CantripToRankedSlots" : "NonCantripToCantrips";
