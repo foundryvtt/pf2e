@@ -277,6 +277,14 @@ class CompendiumPack {
 
             if (itemIsOfType(docSource, "physical")) {
                 docSource.system.equipped = { carryType: "worn" };
+
+                // Staff spell and name is only used to correct from broken links, but our uuid system handles that
+                if (itemIsOfType(docSource, "weapon") && docSource.system.staff?.spells) {
+                    for (const spell of docSource.system.staff.spells) {
+                        delete spell.name;
+                        delete spell.img;
+                    }
+                }
             } else if (docSource.type === "feat") {
                 const featCategory = docSource.system.category;
                 if (!setHasElement(FEAT_OR_FEATURE_CATEGORIES, featCategory)) {
@@ -335,6 +343,12 @@ class CompendiumPack {
             source.system.subfeatures.suppressedFeatures = source.system.subfeatures.suppressedFeatures.map((r) =>
                 CompendiumPack.convertUUID(r, convertOptions),
             );
+        }
+
+        if (itemIsOfType(source, "weapon") && source.system.staff?.spells) {
+            for (const spell of source.system.staff.spells) {
+                spell.uuid = CompendiumPack.convertUUID(spell.uuid, convertOptions);
+            }
         }
 
         if (itemIsOfType(source, "feat", "action") && source.system.selfEffect) {
