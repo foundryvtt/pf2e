@@ -1,0 +1,139 @@
+{
+    "_id": "m77YnEX1T7bdk7Qa",
+    "img": "icons/commodities/materials/liquid-green.webp",
+    "name": "Effect: Ooze Ammunition",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Ooze Ammunition (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Ooze Ammunition (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Ooze Ammunition (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Ooze Ammunition (Major)]</p>\n<p>You take a penalty to Speed and persistent acid damage until you end the effects.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:ooze-ammunition-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Ooze Ammunition (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:ooze-ammunition-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Ooze Ammunition (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:ooze-ammunition-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Ooze Ammunition (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:ooze-ammunition-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Ooze Ammunition (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "ooze-ammunition"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "land-speed",
+                "slug": "ooze-ammunition-penalty",
+                "value": -5
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    {
+                        "or": [
+                            "ooze-ammunition:ooze-ammunition-moderate",
+                            "ooze-ammunition:ooze-ammunition-greater"
+                        ]
+                    }
+                ],
+                "selector": "land-speed",
+                "slug": "ooze-ammunition-penalty",
+                "value": -10
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "ooze-ammunition:ooze-ammunition-major"
+                ],
+                "selector": "land-speed",
+                "slug": "ooze-ammunition-penalty",
+                "value": -15
+            },
+            {
+                "adjustment": {
+                    "criticalSuccess": "to-failure",
+                    "success": "to-failure"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:damage:type:acid"
+                ],
+                "selector": "pd-recovery-check"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
