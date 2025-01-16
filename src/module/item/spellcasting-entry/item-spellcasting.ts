@@ -61,22 +61,6 @@ class ItemSpellcasting<TActor extends CreaturePF2e = CreaturePF2e> implements Sp
         return false;
     }
 
-    get isInnate(): false {
-        return false;
-    }
-
-    get isPrepared(): false {
-        return false;
-    }
-
-    get isSpontaneous(): false {
-        return false;
-    }
-
-    get isRitual(): false {
-        return false;
-    }
-
     get isEphemeral(): true {
         return true;
     }
@@ -103,18 +87,7 @@ class ItemSpellcasting<TActor extends CreaturePF2e = CreaturePF2e> implements Sp
         const collectionData: SpellCollectionData = (await spells?.getSpellData()) ?? { groups: [], prepList: null };
 
         return {
-            ...R.pick(this, [
-                "category",
-                "tradition",
-                "sort",
-                "isFlexible",
-                "isFocusPool",
-                "isInnate",
-                "isPrepared",
-                "isRitual",
-                "isSpontaneous",
-                "isEphemeral",
-            ]),
+            ...R.pick(this, ["category", "tradition", "sort", "isFlexible", "isFocusPool", "isEphemeral"]),
             ...collectionData,
             id: spells?.id ?? this.id,
             name: spells?.name ?? this.name,

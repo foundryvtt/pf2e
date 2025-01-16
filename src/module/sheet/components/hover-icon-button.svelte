@@ -42,7 +42,8 @@
             color: var(--text-dark);
         }
 
-        &:hover {
+        &:hover,
+        &:focus {
             text-shadow: none;
 
             i {

@@ -426,18 +426,19 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 continue;
             }
 
-            const img = ((): ImageFilePath => {
-                const actionIcon = getActionIcon(item.actionCost);
-                const defaultIcon = ItemPF2e.getDefaultArtwork(item._source).img;
-                if (item.isOfType("action") && ![actionIcon, defaultIcon].includes(item.img)) {
-                    return item.img;
-                }
-                return item.system.selfEffect?.img ?? actionIcon;
-            })();
-
+            const baseData = createAbilityViewData(item);
             const action: CharacterAbilityViewData = {
-                ...createAbilityViewData(item),
-                img,
+                ...baseData,
+                img: ((): ImageFilePath => {
+                    const actionIcon = getActionIcon(item.actionCost);
+                    const defaultIcon = ItemPF2e.getDefaultArtwork(item._source).img;
+                    const commonFeatIcon = "icons/sundries/books/book-red-exclamation.webp";
+                    const isDefaultImage = [actionIcon, defaultIcon, commonFeatIcon].includes(item.img);
+                    if (item.isOfType("action") && !isDefaultImage) {
+                        return item.img;
+                    }
+                    return item.system.selfEffect?.img ?? (baseData.usable && !isDefaultImage ? item.img : actionIcon);
+                })(),
                 feat: item.isOfType("feat") ? item : null,
                 toggles: item.system.traits.toggles.getSheetData(),
             };
@@ -944,26 +945,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         };
 
         handlers["prepare-formula"] = (_, anchor) => {
+            const actor = this.actor;
             const abilitySlug = htmlClosest(anchor, "[data-ability]")?.dataset.ability;
-            const ability = this.actor.crafting.abilities.get(abilitySlug ?? "", { strict: true });
-
-            new FormulaPicker({
-                actor: this.actor,
-                ability,
-                prompt: game.i18n.localize("PF2E.Actor.Character.Crafting.PrepareHint"),
-                getSelected: () => {
-                    return R.unique(ability.preparedFormulaData.map((d) => d.uuid));
-                },
-                onSelect: (uuid: ItemUUID, { formulas }) => {
-                    const formula = formulas.find((f) => f.uuid === uuid);
-                    if (formula) {
-                        ability.prepareFormula(formula);
-                    }
-                },
-                onDeselect: (uuid: ItemUUID) => {
-                    ability.unprepareFormula(uuid);
-                },
-            }).render(true);
+            const ability = actor.crafting.abilities.get(abilitySlug ?? "", { strict: true });
+            new FormulaPicker({ actor, ability, mode: "prepare" }).render(true);
         };
 
         handlers["craft-item"] = async (event, anchor) => {
@@ -1416,8 +1401,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                     const ability = this.actor.crafting.abilities.get(slug);
                     if (!ability) return;
 
-                    const formula = this.#knownFormulas[String(dropData.uuid ?? "")];
-                    if (formula) ability.prepareFormula(formula);
+                    ability.prepareFormula(String(dropData.uuid ?? ""));
                     return;
                 }
             }

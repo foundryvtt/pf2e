@@ -3,7 +3,7 @@ import type { CharacterResources } from "@actor/character/data.ts";
 import { CORE_RESOURCES } from "@actor/character/values.ts";
 import { applyActorUpdate } from "@actor/helpers.ts";
 import type { ActorCommitData } from "@actor/types.ts";
-import { PhysicalItemPF2e } from "@item";
+import { ItemProxyPF2e, PhysicalItemPF2e } from "@item";
 import type { PhysicalItemSource } from "@item/base/data/index.ts";
 import { sluggify } from "@util";
 import { createBatchRuleElementUpdate } from "../helpers.ts";
@@ -97,7 +97,7 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
     }
 
     /** If an item uuid is specified, create it when this resource is first attached */
-    override async preCreate(args: RuleElementPF2e.PreCreateParams): Promise<void> {
+    override async preCreate({ tempItems, pendingItems }: RuleElementPF2e.PreCreateParams): Promise<void> {
         if (!this.test()) return;
 
         if (this.itemUUID) {
@@ -109,9 +109,19 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
             const uuid = this.resolveInjectedProperties(this.itemUUID);
             const level = this.level === null ? null : Number(this.resolveValue(this.level));
             const existingItem = this.actor.items.find((i) => i.sourceId === uuid);
-            if (!existingItem && uuid) {
+            const existingTempItem = tempItems.find((i) => i.sourceId === uuid);
+            if (existingTempItem) {
+                const existingTempSource = pendingItems.find((i) => i._id === existingTempItem.id);
+                if (existingTempSource && typeof level === "number") {
+                    existingTempSource.system.level = { value: level };
+                }
+            } else if (!existingItem && uuid) {
                 const source = await this.#createItem(uuid, level);
-                if (source) args.pendingItems.push(source);
+                if (source) {
+                    const item = new ItemProxyPF2e(fu.deepClone(source), { parent: this.actor });
+                    tempItems.push(item);
+                    pendingItems.push(source);
+                }
             } else if (typeof level === "number") {
                 await existingItem?.update({ "system.level.value": level });
             }
