@@ -362,16 +362,14 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     override getRollOptions(prefix = this.type, options?: { includeGranter?: boolean }): string[] {
         prefix = prefix === "feat" && this.isFeature ? "feature" : prefix;
 
-        const rollOptions = new Set([...super.getRollOptions(prefix, options), `${prefix}:category:${this.category}`]);
-        rollOptions.delete(`${prefix}:level:0`);
-        if (!this.isFeat) rollOptions.delete(`${prefix}:rarity:${this.rarity}`);
-        if (this.frequency) rollOptions.add(`${prefix}:frequency:limited`);
+        const rollOptions = super.getRollOptions(prefix, options);
+        rollOptions.push(`${prefix}:category:${this.category}`);
+        rollOptions.findSplice((o) => o === `${prefix}:level:0`);
+        if (!this.isFeat) rollOptions.findSplice((o) => o === `${prefix}:rarity:${this.rarity}`);
+        if (this.frequency) rollOptions.findSplice((o) => o === `${prefix}:frequency:limited`);
+        rollOptions.push(...getActionCostRollOptions(prefix, this));
 
-        for (const option of getActionCostRollOptions(prefix, this)) {
-            rollOptions.add(option);
-        }
-
-        return Array.from(rollOptions);
+        return rollOptions;
     }
 
     protected override embedHTMLString(_config: DocumentHTMLEmbedConfig, _options: EnrichmentOptions): string {

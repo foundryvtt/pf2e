@@ -454,7 +454,7 @@ class Kingdom extends DataModel<PartySystemData, KingdomSchema> implements Party
             this.actor,
             {
                 id: "features",
-                label: "Kingdom Features",
+                label: "PF2E.Kingmaker.Kingdom.FeatSlot.Features",
             },
             { limit: this.level },
         );
@@ -462,7 +462,7 @@ class Kingdom extends DataModel<PartySystemData, KingdomSchema> implements Party
             this.actor,
             {
                 id: "kingdom",
-                label: "Kingdom Feats",
+                label: "PF2E.Kingmaker.Kingdom.FeatSlot.Feats",
                 slots: [{ id: "government", label: "G" }, ...evenLevels],
                 filter: {
                     traits: ["kingdom"],
@@ -474,7 +474,7 @@ class Kingdom extends DataModel<PartySystemData, KingdomSchema> implements Party
             this.actor,
             {
                 id: "bonus",
-                label: "PF2E.FeatBonusHeader",
+                label: "PF2E.Kingmaker.Kingdom.FeatSlot.Bonus",
                 filter: {
                     traits: ["kingdom"],
                 },
