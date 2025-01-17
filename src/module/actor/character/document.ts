@@ -1796,7 +1796,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         if (newLevel !== this.level || attributeChanged) {
             // Adjust hit points if level is changing
-            const clone = this.clone(changed);
+            const clone = this.clone(fu.deepClone(changed));
             const hpMaxDifference = clone.hitPoints.max - this.hitPoints.max;
             if (hpMaxDifference !== 0) {
                 options.allowHPOverage = true;
