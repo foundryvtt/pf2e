@@ -1,5 +1,5 @@
 {
-    "_id": "SAgX6cRaMFL9zki6",
+    "_id": "Lt5GIrcYWixW0FaA",
     "folder": "Vtts0VaateDRwIWi",
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
@@ -13,11 +13,11 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 14
+                    "value": 12
                 },
                 "damageRolls": {
                     "PZlPFpjaA9pcYc3b": {
-                        "damage": "3d6+5",
+                        "damage": "2d6+5",
                         "damageType": "bludgeoning"
                     }
                 },
@@ -38,47 +38,10 @@
             "type": "melee"
         },
         {
-            "_id": "1lMfclHhDDu7nudH",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.fJSNOw4zHGbIm4bZ"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Repair Nanites (Fast Healing 7)",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The brain guzzler has integrated nanites that swarm over damage, healing it.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FastHealing",
-                        "value": 7
-                    }
-                ],
-                "slug": "fast-healing",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "VGtxQgR50RgNXgLv",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Cybernetics",
-            "sort": 300000,
+            "sort": 200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -107,7 +70,7 @@
             "_id": "Ww1mMdRu5yJSpaYj",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Guzzle",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -117,7 +80,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The brain guzzler kills an enemy</p><hr /><p><strong>Effect</strong> The brain guzzler breaks open its victim's skull and eats the brain. The brain guzzler gains knowledge of the victim's memories, and its Intelligence increases by +1. The victim can no longer be raised from the dead by any method that requires an intact corpse and rises as a zombie shambler the next day at dawn.</p>"
+                    "value": "<p><strong>Trigger</strong> The brain guzzler kills an enemy</p><hr /><p><strong>Effect</strong> The brain guzzler breaks open its victim's skull and eats the brain. The brain guzzler gains knowledge of the victim's memories. The victim can no longer be raised from the dead by any method that requires an intact corpse and rises as a zombie shambler the next day at dawn.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -139,7 +102,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Void Healing",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -170,9 +133,41 @@
                 }
             },
             "type": "action"
+        },
+        {
+            "_id": "YWzEkwp5ZbNl5zmJ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Ulna Bow",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The brain guzzler fires with the ulna bow, which rips the ulna out of its own forearm and fires it at one target within 120 feet. The target must succeed at a @Check[reflex|dc:22] save or take @Damage[(2d8+5)[piercing]] damage. The ulna explodes on impact, dealing @Damage[3d6[piercing]] damage to adjacent creatures (@Check[reflex|dc:22|basic] save). Once the ulna bow has been used once it can't be used again.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
-    "name": "Enhanced Brain Guzzler",
+    "name": "Brain Guzzler (Central Research)",
+    "prototypeToken": {
+        "name": "Brain Guzzler"
+    },
     "system": {
         "abilities": {
             "cha": {
@@ -185,7 +180,7 @@
                 "mod": 2
             },
             "int": {
-                "mod": 3
+                "mod": 2
             },
             "str": {
                 "mod": 3
@@ -197,39 +192,17 @@
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 22
+                "value": 19
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
-                "details": "fast healing 7, void healing",
-                "max": 140,
+                "details": "void healing",
+                "max": 91,
                 "temp": 0,
-                "value": 140
+                "value": 91
             },
-            "immunities": [
-                {
-                    "exceptions": [],
-                    "type": "death-effects"
-                },
-                {
-                    "exceptions": [],
-                    "type": "disease"
-                },
-                {
-                    "exceptions": [],
-                    "type": "paralyzed"
-                },
-                {
-                    "exceptions": [],
-                    "type": "poison"
-                },
-                {
-                    "exceptions": [],
-                    "type": "unconscious"
-                }
-            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -257,7 +230,7 @@
                 ]
             },
             "level": {
-                "value": 7
+                "value": 5
             },
             "privateNotes": "",
             "publicNotes": "",
@@ -272,7 +245,7 @@
         },
         "perception": {
             "details": "",
-            "mod": 15,
+            "mod": 12,
             "senses": [
                 {
                     "type": "darkvision"
@@ -283,20 +256,20 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 12
+                "value": 9
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 10
+                "value": 7
             },
             "will": {
                 "saveDetail": "",
-                "value": 15
+                "value": 12
             }
         },
         "skills": {
             "athletics": {
-                "base": 18
+                "base": 17
             }
         },
         "traits": {
