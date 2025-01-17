@@ -47,7 +47,10 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
     }
 
     /** Alteration properties that should be processed at the end of data preparation */
-    static #DELAYED_PROPERTIES = ["description", "pd-recovery-dc"];
+    static #DELAYED_PROPERTIES = ["pd-recovery-dc"];
+
+    /** Alteration properties that should only be processed when requested directly */
+    static #LAZY_PROPERTIES = ["description"];
 
     override async preCreate({ tempItems }: RuleElementPF2e.PreCreateParams): Promise<void> {
         if (this.ignored) return;
@@ -86,13 +89,17 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
 
     override onApplyActiveEffects(): void {
         this.actor.synthetics.itemAlterations.push(this);
-        if (!this.constructor.#DELAYED_PROPERTIES.includes(this.property)) {
+        const isLazy = this.constructor.#LAZY_PROPERTIES.includes(this.property);
+        const isDelayed = this.constructor.#DELAYED_PROPERTIES.includes(this.property);
+        if (!isLazy && !isDelayed) {
             this.applyAlteration();
         }
     }
 
     override afterPrepareData(): void {
-        if (this.constructor.#DELAYED_PROPERTIES.includes(this.property)) {
+        const isLazy = this.constructor.#LAZY_PROPERTIES.includes(this.property);
+        const isDelayed = this.constructor.#DELAYED_PROPERTIES.includes(this.property);
+        if (!isLazy && isDelayed) {
             this.applyAlteration();
         }
     }
