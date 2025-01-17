@@ -1,0 +1,135 @@
+{
+    "_id": "bHCpqwKH9JM8FZa6",
+    "img": "icons/consumables/potions/potion-flask-corked-green.webp",
+    "name": "Effect: Rainbow Vinegar",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Rainbow Vinegar (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Rainbow Vinegar (Greater)]</p>\n<p>Your unarmed attacks deal additional acid damage, and you have resistance to electricity. Vampires take additional acid damage instead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:rainbow-vinegar-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Rainbow Vinegar (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:rainbow-vinegar-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Rainbow Vinegar (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "rainbow-vinegar"
+            },
+            {
+                "damageType": "acid",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "rainbow-vinegar:rainbow-vinegar-moderate",
+                    {
+                        "not": "target:trait:vampire"
+                    }
+                ],
+                "selector": "unarmed-damage"
+            },
+            {
+                "damageType": "acid",
+                "diceNumber": 2,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "rainbow-vinegar:rainbow-vinegar-moderate",
+                    "target:trait:vampire"
+                ],
+                "selector": "unarmed-damage"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "rainbow-vinegar:rainbow-vinegar-moderate"
+                ],
+                "type": "electricity",
+                "value": 10
+            },
+            {
+                "damageType": "acid",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    "rainbow-vinegar:rainbow-vinegar-greater",
+                    {
+                        "not": "target:trait:vampire"
+                    }
+                ],
+                "selector": "unarmed-damage"
+            },
+            {
+                "damageType": "acid",
+                "diceNumber": 2,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    "rainbow-vinegar:rainbow-vinegar-greater",
+                    "target:trait:vampire"
+                ],
+                "selector": "unarmed-damage"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "rainbow-vinegar:rainbow-vinegar-greater"
+                ],
+                "type": "electricity",
+                "value": 15
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
