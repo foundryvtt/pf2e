@@ -80,9 +80,17 @@ class ItemChatData {
 
     async #prepareDescription(): Promise<Pick<ItemDescriptionData, "value" | "gm">> {
         const { data, item } = this;
-        const rollOptions = new Set(
-            [item.actor?.getRollOptions(), item.getRollOptions("item")].flat().filter(R.isTruthy),
-        );
+        const actor = item.actor;
+
+        // Lazy load description alterations now that we need them
+        if (!data.description.initialized && actor) {
+            for (const alteration of actor.synthetics.itemAlterations.filter((i) => i.property === "description")) {
+                alteration.applyAlteration({ singleItem: item as ItemPF2e<ActorPF2e> });
+            }
+            data.description.initialized = true;
+        }
+
+        const rollOptions = new Set([actor?.getRollOptions(), item.getRollOptions("item")].flat().filter(R.isTruthy));
 
         const baseText = await (async (): Promise<string> => {
             const override = data.description?.override;
