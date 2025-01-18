@@ -183,8 +183,6 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                 delete formData[`system.runes.property.${index}`];
             }
         }
-        formData["system.runes.potency"] ||= 0;
-        formData["system.runes.striking"] ||= 0;
 
         return super._updateObject(event, formData);
     }
