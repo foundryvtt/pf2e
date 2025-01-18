@@ -112,7 +112,12 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             otherTags,
             preciousMaterials: this.getMaterialSheetData(weapon, MATERIAL_DATA.weapon),
             propertyRuneSlots,
-            runeTypes: RUNE_DATA.weapon,
+            runeTypes: {
+                ...RUNE_DATA.weapon,
+                property: Object.values(RUNE_DATA.weapon.property)
+                    .map((p) => ({ slug: p.slug, name: game.i18n.localize(p.name) }))
+                    .sort((a, b) => a.name.localeCompare(b.name)),
+            },
             specificMagicData,
             weaponMAP: CONFIG.PF2E.weaponMAP,
             weaponRanges,
@@ -216,7 +221,7 @@ interface WeaponSheetData extends PhysicalItemSheetData<WeaponPF2e> {
     otherTags: SheetOptions;
     preciousMaterials: MaterialSheetData;
     propertyRuneSlots: PropertyRuneSheetSlot[];
-    runeTypes: typeof RUNE_DATA.weapon;
+    runeTypes: Omit<typeof RUNE_DATA.weapon, "property"> & { property: { slug: string; name: string }[] };
     specificMagicData: SpecificWeaponData;
     weaponMAP: typeof CONFIG.PF2E.weaponMAP;
     weaponRanges: Record<number, string>;
