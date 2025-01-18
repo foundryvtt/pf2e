@@ -30,7 +30,7 @@ import type {
     RawItemChatData,
     TraitChatData,
 } from "./data/index.ts";
-import type { ItemTrait } from "./data/system.ts";
+import type { ItemDescriptionData, ItemTrait } from "./data/system.ts";
 import type { ItemSheetPF2e } from "./sheet/sheet.ts";
 
 /** The basic `Item` subclass for the system */
@@ -270,6 +270,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         this.system.slug ||= null;
         this.system.description.addenda = [];
         this.system.description.override = null;
+        this.system.description.initialized = false;
 
         const flags = this.flags;
         flags.pf2e = fu.mergeObject(flags.pf2e ?? {}, { rulesSelections: {} });
@@ -429,6 +430,20 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /* -------------------------------------------- */
     /*  Chat Card Data                              */
     /* -------------------------------------------- */
+
+    /** Retrieves base description data before enriching. May be overriden to prepend or append additional data */
+    async getDescription(): Promise<ItemDescriptionData> {
+        // Lazy load description alterations now that we need them
+        const actor = this.actor;
+        if (!this.system.description.initialized && actor) {
+            for (const alteration of actor.synthetics.itemAlterations.filter((i) => i.property === "description")) {
+                alteration.applyAlteration({ singleItem: this as ItemPF2e<ActorPF2e> });
+            }
+            this.system.description.initialized = true;
+        }
+
+        return { ...this.system.description };
+    }
 
     /**
      * Internal method that transforms data into something that can be used for chat.

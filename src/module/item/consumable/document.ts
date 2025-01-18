@@ -2,8 +2,8 @@ import type { ActorPF2e } from "@actor";
 import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup.ts";
 import type { SpellPF2e, WeaponPF2e } from "@item";
 import { ItemProxyPF2e, PhysicalItemPF2e } from "@item";
-import { processSanctification } from "@item/ability/helpers.ts";
 import { RawItemChatData } from "@item/base/data/index.ts";
+import { performLatePreparation } from "@item/helpers.ts";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
 import type { SpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import type { ValueAndMax } from "@module/data.ts";
@@ -43,13 +43,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         const spellSource = fu.mergeObject(this.system.spell, { "system.location.value": null }, { inplace: false });
         const context = { parent: this.actor, parentItem: this };
         const spell = new ItemProxyPF2e(spellSource, context) as SpellPF2e<NonNullable<TParent>>;
-
-        for (const alteration of this.actor.synthetics.itemAlterations) {
-            alteration.applyAlteration({ singleItem: spell });
-        }
-
-        processSanctification(spell);
-
+        performLatePreparation(spell);
         return spell;
     }
 
