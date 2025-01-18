@@ -52,6 +52,11 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
     /** Alteration properties that should only be processed when requested directly */
     static #LAZY_PROPERTIES = ["description"];
 
+    /** If this item alteration is lazy and should be applied only when requested */
+    get isLazy(): boolean {
+        return this.constructor.#LAZY_PROPERTIES.includes(this.property);
+    }
+
     override async preCreate({ tempItems }: RuleElementPF2e.PreCreateParams): Promise<void> {
         if (this.ignored) return;
 
@@ -89,17 +94,15 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
 
     override onApplyActiveEffects(): void {
         this.actor.synthetics.itemAlterations.push(this);
-        const isLazy = this.constructor.#LAZY_PROPERTIES.includes(this.property);
         const isDelayed = this.constructor.#DELAYED_PROPERTIES.includes(this.property);
-        if (!isLazy && !isDelayed) {
+        if (!this.isLazy && !isDelayed) {
             this.applyAlteration();
         }
     }
 
     override afterPrepareData(): void {
-        const isLazy = this.constructor.#LAZY_PROPERTIES.includes(this.property);
         const isDelayed = this.constructor.#DELAYED_PROPERTIES.includes(this.property);
-        if (!isLazy && isDelayed) {
+        if (!this.isLazy && isDelayed) {
             this.applyAlteration();
         }
     }
