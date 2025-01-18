@@ -2,6 +2,7 @@ import type { ActorPF2e } from "@actor";
 import type { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { createHTMLElement, setHasElement } from "@util";
 import * as R from "remeda";
+import { processSanctification } from "./ability/helpers.ts";
 import type { ItemSourcePF2e, ItemType, RawItemChatData } from "./base/data/index.ts";
 import { ItemDescriptionData } from "./base/data/system.ts";
 import type { ItemPF2e } from "./base/document.ts";
@@ -38,6 +39,19 @@ function itemIsOfType(item: ItemOrSource, ...types: string[]): boolean {
 /** Create a "reduced" item name; that is, one without an "Effect:" or similar prefix */
 function reduceItemName(label: string): string {
     return label.includes(":") ? label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : label;
+}
+
+/** Performs late prep tasks on an item that doesn't exist in the actor, such as a cloned one */
+function performLatePreparation(item: ItemPF2e<ActorPF2e>): void {
+    const actor = item.actor;
+
+    for (const alteration of actor.synthetics.itemAlterations.filter((a) => !a.isLazy)) {
+        alteration.applyAlteration({ singleItem: item });
+    }
+
+    if (item.isOfType("spell", "feat", "action")) {
+        processSanctification(item);
+    }
 }
 
 /** A helper class to finalize data for item summaries and chat cards */
@@ -81,20 +95,12 @@ class ItemChatData {
     async #prepareDescription(): Promise<Pick<ItemDescriptionData, "value" | "gm">> {
         const { data, item } = this;
         const actor = item.actor;
-
-        // Lazy load description alterations now that we need them
-        if (!data.description.initialized && actor) {
-            for (const alteration of actor.synthetics.itemAlterations.filter((i) => i.property === "description")) {
-                alteration.applyAlteration({ singleItem: item as ItemPF2e<ActorPF2e> });
-            }
-            data.description.initialized = true;
-        }
-
         const rollOptions = new Set([actor?.getRollOptions(), item.getRollOptions("item")].flat().filter(R.isTruthy));
+        const description = await this.item.getDescription();
 
         const baseText = await (async (): Promise<string> => {
-            const override = data.description?.override;
-            if (!override) return data.description.value;
+            const override = description?.override;
+            if (!override) return description.value;
             return override
                 .flatMap((line) => {
                     if (!line.predicate.test(rollOptions)) return [];
@@ -146,9 +152,7 @@ class ItemChatData {
 
         return {
             value: await TextEditor.enrichHTML(assembled, { ...this.htmlOptions, rollData }),
-            gm: game.user.isGM
-                ? await TextEditor.enrichHTML(data.description.gm, { ...this.htmlOptions, rollData })
-                : "",
+            gm: game.user.isGM ? await TextEditor.enrichHTML(description.gm, { ...this.htmlOptions, rollData }) : "",
         };
     }
 }
@@ -159,4 +163,4 @@ interface ItemChatDataConstructorOptions {
     htmlOptions?: EnrichmentOptionsPF2e;
 }
 
-export { ItemChatData, itemIsOfType, reduceItemName };
+export { ItemChatData, itemIsOfType, performLatePreparation, reduceItemName };

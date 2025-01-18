@@ -7,6 +7,8 @@ import type { ConsumablePF2e } from "@item";
 import { ItemPF2e } from "@item";
 import { processSanctification } from "@item/ability/helpers.ts";
 import { ItemSourcePF2e, RawItemChatData } from "@item/base/data/index.ts";
+import type { ItemDescriptionData } from "@item/base/data/system.ts";
+import { performLatePreparation } from "@item/helpers.ts";
 import { SpellSlotGroupId } from "@item/spellcasting-entry/collection.ts";
 import { spellSlotGroupIdToNumber } from "@item/spellcasting-entry/helpers.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
@@ -510,18 +512,13 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             overrides.system.location.value = options.entryId;
         }
 
+        // Create the variant and run additional prep since it exists outside the normal cycle
         const actor = this.parent;
         const variant = new SpellPF2e(overrides, { parent: actor, parentItem: this.parentItem });
         variant.original = this;
         variant.appliedOverlays = appliedOverlays;
         variant.system.traits.value = Array.from(variant.traits);
-
-        // Run some additional preparation since this spell exists outside the normal data-preparation cycle
-        for (const alteration of actor?.synthetics.itemAlterations ?? []) {
-            alteration.applyAlteration({ singleItem: variant as SpellPF2e<NonNullable<TParent>> });
-        }
-
-        processSanctification(variant);
+        performLatePreparation(variant as SpellPF2e<NonNullable<TParent>>);
 
         return variant;
     }
@@ -835,6 +832,13 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return ChatMessagePF2e.create(messageSource, { renderSheet: false });
     }
 
+    override async getDescription(): Promise<ItemDescriptionData> {
+        const description = await super.getDescription();
+        const prepend = await createDescriptionPrepend(this, { includeTraditions: false });
+        description.value = `${prepend}\n${description.value}`;
+        return description;
+    }
+
     override async getChatData(
         this: SpellPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptionsPF2e = {},
@@ -863,13 +867,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         rollData.item ??= this;
 
         const systemData: SpellSystemData = this.system;
-
-        const description = await (async () => {
-            const options = { ...htmlOptions, rollData };
-            const prepend = await createDescriptionPrepend(this, { includeTraditions: false });
-            const description = await TextEditor.enrichHTML(this.description, options);
-            return `${prepend}\n${description}`;
-        })();
 
         const spellcasting = this.spellcasting;
         if (!spellcasting) {
@@ -945,7 +942,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         return this.processChatData(htmlOptions, {
             ...systemData,
-            description: { ...this.system.description, value: description },
             isAttack: this.isAttack,
             isSave,
             check: this.isAttack && statisticChatData ? statisticChatData.check : undefined,
