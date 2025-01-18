@@ -60,24 +60,36 @@
                 "diceNumber": 1,
                 "dieSize": "d4",
                 "key": "DamageDice",
-                "predicate": [
-                    "rainbow-vinegar:rainbow-vinegar-moderate",
-                    {
-                        "not": "target:trait:vampire"
-                    }
-                ],
-                "selector": "unarmed-damage"
+                "selector": "unarmed-damage",
+                "tags": [
+                    "rainbow-vinegar-acid"
+                ]
             },
             {
-                "damageType": "acid",
-                "diceNumber": 2,
-                "dieSize": "d4",
-                "key": "DamageDice",
+                "key": "DamageAlteration",
+                "mode": "upgrade",
                 "predicate": [
-                    "rainbow-vinegar:rainbow-vinegar-moderate",
-                    "target:trait:vampire"
+                    "rainbow-vinegar:rainbow-vinegar-greater",
+                    "dice:tag:rainbow-vinegar-acid"
                 ],
-                "selector": "unarmed-damage"
+                "property": "dice-faces",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "value": 8
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "target:trait:vampire",
+                    "dice:tag:rainbow-vinegar-acid"
+                ],
+                "selectors": [
+                    "unarmed-damage"
+                ],
+                "value": 2,
+                "property": "dice-number"
             },
             {
                 "key": "Resistance",
@@ -86,30 +98,6 @@
                 ],
                 "type": "electricity",
                 "value": 10
-            },
-            {
-                "damageType": "acid",
-                "diceNumber": 1,
-                "dieSize": "d8",
-                "key": "DamageDice",
-                "predicate": [
-                    "rainbow-vinegar:rainbow-vinegar-greater",
-                    {
-                        "not": "target:trait:vampire"
-                    }
-                ],
-                "selector": "unarmed-damage"
-            },
-            {
-                "damageType": "acid",
-                "diceNumber": 2,
-                "dieSize": "d8",
-                "key": "DamageDice",
-                "predicate": [
-                    "rainbow-vinegar:rainbow-vinegar-greater",
-                    "target:trait:vampire"
-                ],
-                "selector": "unarmed-damage"
             },
             {
                 "key": "Resistance",
