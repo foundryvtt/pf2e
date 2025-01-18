@@ -111,9 +111,6 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
         // Predicate testing is done per item among specified item type
         if (this.ignored) return;
 
-        const predicate = this.resolveInjectedProperties(this.predicate);
-        const [actorRollOptions, parentRollOptions] =
-            predicate.length > 0 ? [this.actor.getRollOptions(), this.parent.getRollOptions("parent")] : [[], []];
         try {
             const items = singleItem
                 ? singleItem.id === this.itemId || singleItem.type === this.itemType
@@ -123,6 +120,13 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
             items.push(
                 ...additionalItems.filter((i) => (this.itemId && i.id === this.itemId) || this.itemType === i.type),
             );
+
+            // Check if there are no items to process first (commmon if its a single item alteration)
+            if (items.length === 0) return;
+
+            const predicate = this.resolveInjectedProperties(this.predicate);
+            const [actorRollOptions, parentRollOptions] =
+                predicate.length > 0 ? [this.actor.getRollOptions(), this.parent.getRollOptions("parent")] : [[], []];
 
             for (const item of items) {
                 const itemRollOptions = predicate.length > 0 ? item.getRollOptions("item") : [];
