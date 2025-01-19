@@ -93,7 +93,7 @@ class ItemChatData {
     }
 
     async #prepareDescription(): Promise<Pick<ItemDescriptionData, "value" | "gm">> {
-        const { data, item } = this;
+        const item = this.item;
         const actor = item.actor;
         const rollOptions = new Set([actor?.getRollOptions(), item.getRollOptions("item")].flat().filter(R.isTruthy));
         const description = await this.item.getDescription();
@@ -129,7 +129,7 @@ class ItemChatData {
 
             const templatePath = "systems/pf2e/templates/items/partials/addendum.hbs";
             return Promise.all(
-                data.description.addenda.flatMap((unfiltered) => {
+                description.addenda.flatMap((unfiltered) => {
                     const addendum = {
                         label: game.i18n.localize(unfiltered.label),
                         contents: unfiltered.contents
