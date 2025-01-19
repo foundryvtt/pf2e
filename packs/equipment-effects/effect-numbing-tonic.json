@@ -1,0 +1,189 @@
+{
+    "_id": "rmVyC6Xb8O9WPvZz",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/addiction-suppressant.webp",
+    "name": "Effect: Numbing Tonic",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Numbing Tonic (Minor)], @UUID[Compendium.pf2e.equipment-srd.Item.Numbing Tonic (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Numbing Tonic (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Numbing Tonic (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Numbing Tonic (Major)], @UUID[Compendium.pf2e.equipment-srd.Item.Numbing Tonic (True)]</p>\n<p>You gain temporary Hit Points when you drink the elixir, and again at the start of each of your turns.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:numbing-tonic-minor",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Numbing Tonic (Minor)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:numbing-tonic-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Numbing Tonic (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:numbing-tonic-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Numbing Tonic (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:numbing-tonic-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Numbing Tonic (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:numbing-tonic-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Numbing Tonic (Major)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:numbing-tonic-true",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Numbing Tonic (True)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "numbing-tonic"
+            },
+            {
+                "events": {
+                    "onCreate": true,
+                    "onTurnStart": true
+                },
+                "key": "TempHP",
+                "predicate": [
+                    "numbing-tonic:numbing-tonic-minor"
+                ],
+                "value": 2
+            },
+            {
+                "events": {
+                    "onCreate": true,
+                    "onTurnStart": true
+                },
+                "key": "TempHP",
+                "predicate": [
+                    "numbing-tonic:numbing-tonic-lesser"
+                ],
+                "value": 5
+            },
+            {
+                "events": {
+                    "onCreate": true,
+                    "onTurnStart": true
+                },
+                "key": "TempHP",
+                "predicate": [
+                    "numbing-tonic:numbing-tonic-moderate"
+                ],
+                "value": 10
+            },
+            {
+                "events": {
+                    "onCreate": true,
+                    "onTurnStart": true
+                },
+                "key": "TempHP",
+                "predicate": [
+                    "numbing-tonic:numbing-tonic-greater"
+                ],
+                "value": 15
+            },
+            {
+                "events": {
+                    "onCreate": true,
+                    "onTurnStart": true
+                },
+                "key": "TempHP",
+                "predicate": [
+                    "numbing-tonic:numbing-tonic-major"
+                ],
+                "value": 20
+            },
+            {
+                "events": {
+                    "onCreate": true,
+                    "onTurnStart": true
+                },
+                "key": "TempHP",
+                "predicate": [
+                    "numbing-tonic:numbing-tonic-true"
+                ],
+                "value": 25
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
