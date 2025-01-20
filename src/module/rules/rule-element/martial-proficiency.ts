@@ -1,10 +1,9 @@
 import type { ActorType, CharacterPF2e } from "@actor";
 import { ArmorCategory } from "@item/armor/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
-import { ProficiencyRank } from "@item/base/data/index.ts";
 import { WeaponCategory } from "@item/weapon/types.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
-import { OneToFour } from "@module/data.ts";
+import { OneToFour, ProficiencyRankString } from "@module/data.ts";
 import { PredicateField } from "@system/schema-data-fields.ts";
 import { sluggify } from "@util";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
@@ -79,8 +78,8 @@ type MartialProficiencySchema = RuleElementSchema & {
     sameAs: fields.StringField<WeaponCategory | ArmorCategory, WeaponCategory | ArmorCategory, false, false, false>;
     /** The maximum rank this proficiency can reach, if any */
     maxRank: fields.StringField<
-        Exclude<ProficiencyRank, "untrained">,
-        Exclude<ProficiencyRank, "untrained">,
+        Exclude<ProficiencyRankString, "untrained">,
+        Exclude<ProficiencyRankString, "untrained">,
         false,
         false,
         false

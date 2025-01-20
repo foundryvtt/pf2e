@@ -1,6 +1,6 @@
 import type { ModifierPF2e, RawModifier } from "@actor/modifiers.ts";
 import { AttributeString } from "@actor/types.ts";
-import { ZeroToFour } from "@module/data.ts";
+import { ProficiencyRankNumber } from "@module/data.ts";
 import { CheckType } from "@system/check/index.ts";
 
 interface BaseStatisticData {
@@ -16,7 +16,7 @@ interface BaseStatisticData {
 /** Used to build the actual statistic object */
 interface StatisticData extends BaseStatisticData {
     attribute?: AttributeString | null;
-    rank?: ZeroToFour;
+    rank?: ProficiencyRankNumber;
     /** If the actor is proficient with this statistic (rather than deriving from rank) */
     proficient?: boolean;
     lore?: boolean;

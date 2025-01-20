@@ -318,6 +318,13 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return game.combat?.combatants.find((c) => c.actor?.uuid === this.uuid) ?? null;
     }
 
+    get isMythic(): boolean {
+        return Boolean(
+            game.pf2e.settings.campaign.mythic !== "disabled" &&
+                this.itemTypes.feat.some((f) => f.category === "calling"),
+        );
+    }
+
     /** Add effect icons from effect items and rule elements */
     override get temporaryEffects(): ActiveEffectPF2e<this>[] {
         const fromConditions = this.conditions.map((c) => ActiveEffectPF2e.fromEffect(c));

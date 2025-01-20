@@ -2,7 +2,7 @@ import { ActorProxyPF2e, type ActorPF2e } from "@actor";
 import type { ItemPF2e, MeleePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { AbilityTrait } from "@item/ability/types.ts";
 import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
-import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
+import { getProficiencyOptionByRank, ProficiencyRankNumber, ZeroToTwo } from "@module/data.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import {
@@ -336,7 +336,7 @@ function isOffGuardFromFlanking(target: ActorPF2e, origin: ActorPF2e): boolean {
 
 function getStrikeAttackDomains(
     weapon: WeaponPF2e<ActorPF2e> | MeleePF2e<ActorPF2e>,
-    proficiencyRank: ZeroToFour | null,
+    proficiencyRank: ProficiencyRankNumber | null,
     baseRollOptions: string[] | Set<string>,
 ): string[] {
     const unarmedOrWeapon = weapon.category === "unarmed" ? "unarmed" : "weapon";
@@ -361,8 +361,10 @@ function getStrikeAttackDomains(
     ].flat();
 
     if (typeof proficiencyRank === "number") {
-        const proficiencies = ["untrained", "trained", "expert", "master", "legendary"] as const;
-        domains.push(`${proficiencies[proficiencyRank]}-attack`);
+        const proficiencyOption = getProficiencyOptionByRank(proficiencyRank);
+        if (proficiencyOption) {
+            domains.push(`${proficiencyOption.slug}-attack`);
+        }
     }
 
     const actor = weapon.actor;
@@ -399,7 +401,7 @@ function getStrikeAttackDomains(
 
 function getStrikeDamageDomains(
     weapon: WeaponPF2e<ActorPF2e> | MeleePF2e<ActorPF2e>,
-    proficiencyRank: ZeroToFour | null,
+    proficiencyRank: ProficiencyRankNumber | null,
 ): string[] {
     const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
     const slug = weapon.slug ?? sluggify(weapon.name);
@@ -425,8 +427,10 @@ function getStrikeDamageDomains(
     }
 
     if (typeof proficiencyRank === "number") {
-        const proficiencies = ["untrained", "trained", "expert", "master", "legendary"] as const;
-        domains.push(`${proficiencies[proficiencyRank]}-damage`);
+        const proficiencyOption = getProficiencyOptionByRank(proficiencyRank);
+        if (proficiencyOption) {
+            domains.push(`${proficiencyOption.slug}-damage`);
+        }
     }
 
     // Include selectors for "equivalent weapons": longbow for composite longbow, etc.

@@ -27,11 +27,10 @@ import {
 import { AttributeString, MovementType, SaveType, SkillSlug } from "@actor/types.ts";
 import type { WeaponPF2e } from "@item";
 import { ArmorCategory } from "@item/armor/types.ts";
-import { ProficiencyRank } from "@item/base/data/index.ts";
 import { DeitySystemData } from "@item/deity/data.ts";
 import { DeityDomain } from "@item/deity/types.ts";
 import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types.ts";
-import { ValueAndMax, ZeroToFour } from "@module/data.ts";
+import { ProficiencyRankNumber, ProficiencyRankString, ValueAndMax } from "@module/data.ts";
 import { DamageType } from "@system/damage/types.ts";
 import type { Predicate } from "@system/predication.ts";
 import type { CharacterPF2e } from "./document.ts";
@@ -73,7 +72,7 @@ interface CharacterSystemSource extends CreatureSystemSource {
     proficiencies?: {
         attacks?: Record<string, MartialProficiencySource | undefined>;
     };
-    skills: Partial<Record<SkillSlug, { rank: ZeroToFour }>>;
+    skills: Partial<Record<SkillSlug, { rank: ProficiencyRankNumber }>>;
     resources: CharacterResourcesSource;
     initiative: CreatureInitiativeSource;
     crafting?: { formulas: CraftingFormulaData[] };
@@ -87,7 +86,7 @@ interface CharacterSystemSource extends CreatureSystemSource {
 }
 
 interface MartialProficiencySource {
-    rank: ZeroToFour;
+    rank: ProficiencyRankNumber;
     custom?: boolean;
 }
 
@@ -278,7 +277,7 @@ type SourceOmission = "customModifiers" | "perception" | "resources" | "saves" |
 interface CharacterSkillData extends SkillData {
     attribute: AttributeString;
     /** The proficiency rank ("TEML") */
-    rank: ZeroToFour;
+    rank: ProficiencyRankNumber;
     /** Whether this skill is subject to an armor check penalty */
     armor: boolean;
     /** Is this skill a Lore skill? */
@@ -341,7 +340,7 @@ type CharacterAbilities = Record<AttributeString, CharacterAbilityData>;
 
 interface CharacterSaveData extends SaveData {
     /** The proficiency rank ("TEML") */
-    rank: ZeroToFour;
+    rank: ProficiencyRankNumber;
 }
 type CharacterSaves = Record<SaveType, CharacterSaveData>;
 
@@ -352,7 +351,7 @@ interface CharacterProficiency {
     /** Describes how the value was computed. */
     breakdown: string;
     /** The proficiency rank (0 untrained - 4 legendary). */
-    rank: ZeroToFour;
+    rank: ProficiencyRankNumber;
 }
 
 /** A proficiency with a rank that depends on another proficiency */
@@ -363,7 +362,7 @@ interface MartialProficiency extends CharacterProficiency {
     /** The category to which this proficiency is linked */
     sameAs?: WeaponCategory | ArmorCategory;
     /** The maximum rank this proficiency can reach */
-    maxRank?: Exclude<ProficiencyRank, "untrained">;
+    maxRank?: Exclude<ProficiencyRankString, "untrained">;
     /** Whether the proficiency was manually added by the user */
     custom?: boolean;
 }
@@ -377,7 +376,7 @@ type WeaponGroupProficiencyKey = `weapon-group-${WeaponGroup}`;
 /** The full data for the class DC; similar to SkillData, but is not rollable. */
 interface ClassDCData extends Required<AttributeBasedTraceData> {
     label: string;
-    rank: ZeroToFour;
+    rank: ProficiencyRankNumber;
     primary: boolean;
 }
 
@@ -423,7 +422,7 @@ type CharacterResources = CreatureResources & {
 };
 
 interface CharacterPerceptionData extends CreaturePerceptionData {
-    rank: ZeroToFour;
+    rank: ProficiencyRankNumber;
 }
 
 interface CharacterDetails extends Omit<CharacterDetailsSource, "alliance">, CreatureDetails {

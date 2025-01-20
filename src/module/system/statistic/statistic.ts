@@ -4,7 +4,6 @@ import { calculateMAPs } from "@actor/helpers.ts";
 import {
     CheckModifier,
     ModifierPF2e,
-    PROFICIENCY_RANK_OPTION,
     StatisticModifier,
     createAttributeModifier,
     createProficiencyModifier,
@@ -13,7 +12,7 @@ import { CheckContext } from "@actor/roll-context/check.ts";
 import { AttributeString } from "@actor/types.ts";
 import type { ItemPF2e } from "@item";
 import { AbilityTrait } from "@item/ability/types.ts";
-import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
+import { getProficiencyOptionByRank, ProficiencyRankNumber, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
 import {
     extractDegreeOfSuccessAdjustments,
@@ -44,7 +43,7 @@ import {
 class Statistic<TActor extends ActorPF2e = ActorPF2e> extends BaseStatistic<TActor> {
     attribute: AttributeString | null = null;
 
-    rank: ZeroToFour | null = null;
+    rank: ProficiencyRankNumber | null = null;
 
     proficient = true;
 
@@ -136,7 +135,10 @@ class Statistic<TActor extends ActorPF2e = ActorPF2e> extends BaseStatistic<TAct
         }
 
         if (typeof this.rank === "number") {
-            rollOptions.push(PROFICIENCY_RANK_OPTION[this.rank]);
+            const proficiencyOption = getProficiencyOptionByRank(this.rank);
+            if (proficiencyOption) {
+                rollOptions.push(proficiencyOption.rankOption);
+            }
         }
 
         if (this.data.rollOptions) {

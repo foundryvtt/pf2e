@@ -4,7 +4,7 @@ import { MODIFIER_TYPES, ModifierPF2e, RawModifier, createProficiencyModifier } 
 import { CampaignFeaturePF2e, ItemPF2e } from "@item";
 import type { ItemType } from "@item/base/data/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
-import type { ZeroToFour } from "@module/data.ts";
+import type { ProficiencyRankNumber } from "@module/data.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, createHTMLElement, fontAwesomeIcon, objectHasKey, setHasElement } from "@util";
@@ -243,7 +243,7 @@ class Kingdom extends DataModel<PartySystemData, KingdomSchema> implements Party
         // Government skills
         if (build.government && build.government.skills.length > 0) {
             for (const skill of build.government.skills) {
-                build.skills[skill].rank = Math.max(1, build.skills[skill].rank) as ZeroToFour;
+                build.skills[skill].rank = Math.max(1, build.skills[skill].rank) as ProficiencyRankNumber;
             }
         }
 

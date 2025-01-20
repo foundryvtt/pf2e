@@ -2,7 +2,7 @@ import { CharacterSystemSource } from "@actor/character/data.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { SkillSlug } from "@actor/types.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { ZeroToFour } from "@module/data.ts";
+import { ProficiencyRankNumber } from "@module/data.ts";
 import { objectHasKey, recursiveReplaceString } from "@util";
 import { MigrationBase } from "../base.ts";
 import { SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SkillAbbreviation } from "./927-class-background-skill-longform.ts";
@@ -60,6 +60,6 @@ export class Migration928CharacterSkillsLongform extends MigrationBase {
 }
 
 interface CharacterSystemSourceMaybeOld extends CharacterSystemSource {
-    skills: Partial<Record<SkillSlug | SkillAbbreviation, { rank: ZeroToFour }>> &
+    skills: Partial<Record<SkillSlug | SkillAbbreviation, { rank: ProficiencyRankNumber }>> &
         Partial<Record<`-=${SkillAbbreviation}`, null>>;
 }

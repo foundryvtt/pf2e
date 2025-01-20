@@ -120,6 +120,15 @@ const SETTINGS: Record<string, SettingRegistration> = {
             game.pf2e.settings.variants.pwol.modifiers[4] = Number(value) || 0;
         },
     },
+    proficiencyMythicModifier: {
+        name: "PF2E.SETTINGS.Variant.MythicModifier.Name",
+        hint: "PF2E.SETTINGS.Variant.MythicModifier.Hint",
+        default: 10,
+        type: Number,
+        onChange: (value) => {
+            game.pf2e.settings.variants.pwol.modifiers[5] = Number(value) || 0;
+        },
+    },
 };
 
 export class VariantRulesSettings extends FormApplication {

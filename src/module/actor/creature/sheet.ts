@@ -7,7 +7,7 @@ import { ITEM_CARRY_TYPES } from "@item/base/data/values.ts";
 import { coerceToSpellGroupId, spellSlotGroupIdToNumber } from "@item/spellcasting-entry/helpers.ts";
 import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
-import { OneToTen, ZeroToFour, goesToEleven } from "@module/data.ts";
+import { OneToTen, ProficiencyRankNumber, goesToEleven } from "@module/data.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, createHTMLElement, fontAwesomeIcon, htmlClosest, htmlQueryAll, tupleHasValue } from "@util";
 import * as R from "remeda";
@@ -79,7 +79,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
     }
 
     /** Get the font-awesome icon used to display a certain level of skill proficiency */
-    protected getProficiencyIcon(level: ZeroToFour): string {
+    protected getProficiencyIcon(level: ProficiencyRankNumber): string {
         return [...Array(level)].map(() => fontAwesomeIcon("check-circle").outerHTML).join("");
     }
 

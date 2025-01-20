@@ -1,5 +1,5 @@
 import { RawModifier } from "@actor/modifiers.ts";
-import { ZeroToFour } from "@module/data.ts";
+import { ProficiencyRankNumber } from "@module/data.ts";
 import { DataUnionField, RecordField, StrictBooleanField, StrictStringField } from "@system/schema-data-fields.ts";
 import * as R from "remeda";
 import type {
@@ -59,10 +59,10 @@ function defineKingdomSchema(): KingdomSchema {
         skills: new fields.SchemaField(
             R.mapToObj(KINGDOM_SKILLS, (skill) => {
                 const schema = new fields.SchemaField({
-                    rank: new fields.NumberField<ZeroToFour, ZeroToFour, true, false>({
+                    rank: new fields.NumberField<ProficiencyRankNumber, ProficiencyRankNumber, true, false>({
                         initial: 0,
                         min: 0,
-                        max: 4,
+                        max: 5,
                         required: true,
                         nullable: false,
                     }),
@@ -390,7 +390,7 @@ type BuildSchema = {
         Record<
             KingdomSkill,
             fields.SchemaField<{
-                rank: fields.NumberField<ZeroToFour, ZeroToFour, true, false, true>;
+                rank: fields.NumberField<ProficiencyRankNumber, ProficiencyRankNumber, true, false, true>;
             }>
         >
     >;

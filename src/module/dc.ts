@@ -1,5 +1,4 @@
-import { ProficiencyRank } from "@item/base/data/index.ts";
-import { Rarity } from "./data.ts";
+import { ProficiencyRankString, Rarity } from "./data.ts";
 
 /**
  * Implementation of Difficulty Classes https://2e.aonprd.com/Rules.aspx?ID=552
@@ -62,7 +61,7 @@ const dcByLevel = new Map([
     [25, 50],
 ]);
 
-const simpleDCs = new Map<ProficiencyRank, number>([
+const simpleDCs = new Map<ProficiencyRankString, number>([
     ["untrained", 10],
     ["trained", 15],
     ["expert", 20],
@@ -70,7 +69,7 @@ const simpleDCs = new Map<ProficiencyRank, number>([
     ["legendary", 40],
 ]);
 
-const simpleDCsWithoutLevel = new Map<ProficiencyRank, number>([
+const simpleDCsWithoutLevel = new Map<ProficiencyRankString, number>([
     ["untrained", 10],
     ["trained", 15],
     ["expert", 20],
@@ -120,7 +119,15 @@ function calculateDC(level: number, { pwol, rarity = "common" }: DCOptions = {})
     }
 }
 
-function calculateSimpleDC(rank: ProficiencyRank, { pwol = false }: DCOptions = {}): number {
+function getDCByLevelOptions({ pwol = false }: DCOptions = {}): [ProficiencyRankString, number][] {
+    if (pwol) {
+        return Array.from(simpleDCsWithoutLevel.entries()) as [ProficiencyRankString, number][];
+    } else {
+        return Array.from(simpleDCs.entries()) as [ProficiencyRankString, number][];
+    }
+}
+
+function calculateSimpleDC(rank: ProficiencyRankString, { pwol = false }: DCOptions = {}): number {
     if (pwol) {
         return simpleDCsWithoutLevel.get(rank) ?? 10;
     } else {
@@ -167,6 +174,7 @@ export {
     calculateSpellDC,
     combineDCAdjustments,
     createDifficultyScale,
+    getDCByLevelOptions,
     rarityToDCAdjustment,
 };
 export type { DCAdjustment, DCOptions, NegativeDCAdjustment, PositiveDCAdjustment };

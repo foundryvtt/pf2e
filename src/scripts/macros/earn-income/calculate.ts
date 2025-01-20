@@ -1,6 +1,6 @@
 import { CoinsPF2e } from "@item/physical/coins.ts";
 import { Coins } from "@item/physical/data.ts";
-import { OneToFour } from "@module/data.ts";
+import { OneToFive, OneToFour } from "@module/data.ts";
 import { calculateDC } from "@module/dc.ts";
 import { DegreeOfSuccess, DegreeOfSuccessIndex, RollBrief } from "@system/degree-of-success.ts";
 
@@ -9,7 +9,7 @@ import { DegreeOfSuccess, DegreeOfSuccessIndex, RollBrief } from "@system/degree
  */
 
 // you have to be at least trained to earn income
-type Rewards = Record<OneToFour, CoinsPF2e>;
+type Rewards = Record<OneToFive, CoinsPF2e>;
 
 /**
  * There is a cap at each level for a certain proficiency
@@ -23,6 +23,7 @@ function buildRewards(...rewards: Coins[]): Rewards {
         2: new CoinsPF2e(expert ?? trained),
         3: new CoinsPF2e(master ?? expert ?? trained),
         4: new CoinsPF2e(legendary ?? master ?? expert ?? trained),
+        5: new CoinsPF2e(legendary ?? master ?? expert ?? trained),
     };
 }
 
@@ -90,7 +91,7 @@ interface ApplyIncomeOptionsParams {
     result: PerDayEarnIncomeResult;
     options: EarnIncomeOptions;
     level: number;
-    proficiency: OneToFour;
+    proficiency: OneToFive;
 }
 
 /**

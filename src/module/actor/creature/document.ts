@@ -16,7 +16,7 @@ import { RitualSpellcasting } from "@item/spellcasting-entry/rituals.ts";
 import { SpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
 import { ItemAttacher } from "@module/apps/item-attacher.ts";
-import { Rarity, SIZES, SIZE_SLUGS, ZeroToFour, ZeroToTwo } from "@module/data.ts";
+import { ProficiencyRankNumber, Rarity, SIZES, SIZE_SLUGS, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractModifiers } from "@module/rules/helpers.ts";
 import { BaseSpeedSynthetic } from "@module/rules/synthetics.ts";
@@ -374,7 +374,7 @@ abstract class CreaturePF2e<
             // and spell DC statistics. At 12th level, these proficiencies increase to expert.
             const actualSpellcasting = this.spellcasting.filter((e) => e.system && !e.system?.proficiency.slug);
             if (actualSpellcasting.some((e) => e.category === "innate")) {
-                spellcasting.rank = Math.max(spellcasting.rank, this.level >= 12 ? 2 : 1) as ZeroToFour;
+                spellcasting.rank = Math.max(spellcasting.rank, this.level >= 12 ? 2 : 1) as ProficiencyRankNumber;
             } else if (actualSpellcasting.length) {
                 // If you can cast spells using spellcasting prof, you logically need to be at least trained
                 spellcasting.rank ||= 1;

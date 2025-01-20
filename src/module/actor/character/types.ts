@@ -1,7 +1,7 @@
 import type { HitPointsSummary } from "@actor/base.ts";
 import type { SaveType, SkillSlug } from "@actor/types.ts";
 import type { MagicTradition } from "@item/spell/types.ts";
-import type { ZeroToFour } from "@module/data.ts";
+import type { ProficiencyRankNumber } from "@module/data.ts";
 import type { Statistic } from "@system/statistic/index.ts";
 import type { CharacterPF2e } from "./document.ts";
 
@@ -10,7 +10,7 @@ interface CharacterHitPointsSummary extends HitPointsSummary {
     recoveryAddend: number;
 }
 
-type CharacterSkill<TActor extends CharacterPF2e> = Statistic<TActor> & { rank: ZeroToFour };
+type CharacterSkill<TActor extends CharacterPF2e> = Statistic<TActor> & { rank: ProficiencyRankNumber };
 
 type CharacterSkills<TActor extends CharacterPF2e> = Record<string, CharacterSkill<TActor>>;
 

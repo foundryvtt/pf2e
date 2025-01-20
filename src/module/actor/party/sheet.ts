@@ -11,7 +11,6 @@ import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { Bulk } from "@item/physical/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
-import { ZeroToFour } from "@module/data.ts";
 import { SheetOptions, createSheetTags, eventToRollParams } from "@module/sheet/helpers.ts";
 import { SocketMessage } from "@scripts/socket.ts";
 import { SettingsMenuOptions } from "@system/settings/menu.ts";
@@ -19,6 +18,7 @@ import { createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, signedInteger 
 import { createTooltipster } from "@util/destroyables.ts";
 import * as R from "remeda";
 import { PartyPF2e } from "./document.ts";
+import { getProficiencyOptionByRank, ProficiencyRankNumber } from "@module/data.ts";
 
 interface PartySheetRenderOptions extends ActorSheetRenderOptionsPF2e {
     actors?: boolean;
@@ -369,7 +369,8 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             const statistics = this.actor.members.map((m) => m.skills[slug]).filter(R.isTruthy);
             const labels = R.sortBy(statistics, (s) => s.mod).map((statistic) => {
                 const rank = statistic.rank ?? (statistic.proficient ? 1 : 0);
-                const prof = game.i18n.localize(CONFIG.PF2E.proficiencyLevels[rank]);
+                const proficiencyOption = getProficiencyOptionByRank(rank);
+                const prof = proficiencyOption?.label;
                 const label = `${statistic.actor.name} (${prof}) ${signedInteger(statistic.mod)}`;
                 const row = createHTMLElement("div", { children: [label] });
                 row.style.textAlign = "right";
@@ -550,7 +551,7 @@ interface SkillData {
     slug: string;
     label: string;
     mod: number;
-    rank?: ZeroToFour | null;
+    rank?: ProficiencyRankNumber | null;
 }
 
 interface MemberBreakdown {

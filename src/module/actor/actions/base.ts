@@ -1,7 +1,6 @@
 import type { AbilityTrait } from "@item/ability/index.ts";
-import type { ProficiencyRank } from "@item/base/data/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
-import { PROFICIENCY_RANKS } from "@module/data.ts";
+import { getIndexedProficiencyOptions, ProficiencyRankString } from "@module/data.ts";
 import { getActionGlyph, sluggify } from "@util";
 import {
     Action,
@@ -26,20 +25,23 @@ interface BaseActionData<ActionVariantDataType extends BaseActionVariantData = B
     description: string;
     img?: string;
     name: string;
-    sampleTasks?: Partial<Record<ProficiencyRank, string>>;
+    sampleTasks?: Partial<Record<ProficiencyRankString, string>>;
     section?: ActionSection;
     slug?: string | null;
     traits?: AbilityTrait[];
     variants?: ActionVariantDataType | ActionVariantDataType[];
 }
 
-function labelSampleTasks(sampleTasks: Partial<Record<ProficiencyRank, string>>): { label: string; text: string }[] {
-    const unlabeled: { rank: ProficiencyRank; text: string }[] = [];
+function labelSampleTasks(
+    sampleTasks: Partial<Record<ProficiencyRankString, string>>,
+): { label: string; text: string }[] {
+    const unlabeled: { rank: ProficiencyRankString; text: string }[] = [];
     let rank: keyof typeof sampleTasks;
     for (rank in sampleTasks) {
         unlabeled.push({ rank, text: sampleTasks[rank]! });
     }
-    unlabeled.sort((t1, t2) => PROFICIENCY_RANKS.indexOf(t1.rank) - PROFICIENCY_RANKS.indexOf(t2.rank));
+    const indexedProficiencies = getIndexedProficiencyOptions();
+    unlabeled.sort((t1, t2) => indexedProficiencies[t1.rank]?.rank - indexedProficiencies[t2.rank]?.rank);
     return unlabeled.map((task) => ({ label: CONFIG.PF2E.proficiencyRanks[task.rank], text: task.text }));
 }
 
@@ -117,7 +119,7 @@ abstract class BaseAction<TData extends BaseActionVariantData, TAction extends B
     readonly description?: string;
     readonly img?: string;
     readonly name: string;
-    readonly sampleTasks?: Partial<Record<ProficiencyRank, string>>;
+    readonly sampleTasks?: Partial<Record<ProficiencyRankString, string>>;
     readonly section?: ActionSection;
     readonly slug: string;
     readonly traits: AbilityTrait[];

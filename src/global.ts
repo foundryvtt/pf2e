@@ -183,7 +183,7 @@ interface GamePF2e
                 pwol: {
                     enabled: boolean;
                     /** Modifiers for each proficiency rank */
-                    modifiers: [number, number, number, number, number];
+                    modifiers: [number, number, number, number, number, number];
                 };
                 /** Stamina */
                 stamina: boolean;
@@ -284,6 +284,7 @@ declare global {
         get(module: "pf2e", setting: "proficiencyExpertModifier"): number;
         get(module: "pf2e", setting: "proficiencyMasterModifier"): number;
         get(module: "pf2e", setting: "proficiencyLegendaryModifier"): number;
+        get(module: "pf2e", setting: "proficiencyMythicModifier"): number;
 
         get(module: "pf2e", setting: "metagame_partyVision"): boolean;
         get(module: "pf2e", setting: "metagame_secretCondition"): boolean;

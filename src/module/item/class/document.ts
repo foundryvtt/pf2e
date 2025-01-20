@@ -7,11 +7,11 @@ import { ABCItemPF2e, FeatPF2e } from "@item";
 import { ArmorCategory } from "@item/armor/index.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
-import { ZeroToFour } from "@module/data.ts";
 import { objectHasKey, sluggify } from "@util";
 import * as R from "remeda";
 import { ClassAttackProficiencies, ClassDefenseProficiencies, ClassSource, ClassSystemData } from "./data.ts";
 import { ClassTrait } from "./types.ts";
+import { ProficiencyRankNumber } from "@module/data.ts";
 
 class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABCItemPF2e<TParent> {
     get attacks(): ClassAttackProficiencies {
@@ -26,11 +26,11 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
         return this.system.hp;
     }
 
-    get perception(): ZeroToFour {
+    get perception(): ProficiencyRankNumber {
         return this.system.perception;
     }
 
-    get savingThrows(): Record<SaveType, ZeroToFour> {
+    get savingThrows(): Record<SaveType, ProficiencyRankNumber> {
         return this.system.savingThrows;
     }
 
@@ -93,7 +93,7 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
 
         attributes.classhp = this.hpPerLevel;
 
-        actor.system.perception.rank = Math.max(actor.system.perception.rank, this.perception) as ZeroToFour;
+        actor.system.perception.rank = Math.max(actor.system.perception.rank, this.perception) as ProficiencyRankNumber;
         this.logAutoChange("system.perception.rank", this.perception);
 
         // Override the actor's key ability score if it's set
@@ -115,7 +115,7 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
         const { attacks, defenses } = proficiencies;
 
         for (const category of WEAPON_CATEGORIES) {
-            attacks[category].rank = Math.max(attacks[category].rank, this.attacks[category]) as ZeroToFour;
+            attacks[category].rank = Math.max(attacks[category].rank, this.attacks[category]) as ProficiencyRankNumber;
             this.logAutoChange(`system.proficiencies.attacks.${category}.rank`, this.attacks[category]);
         }
 
@@ -124,25 +124,28 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
                 !["light-barding", "heavy-barding"].includes(c),
         );
         for (const category of nonBarding) {
-            defenses[category].rank = Math.max(defenses[category].rank, this.defenses[category]) as ZeroToFour;
+            defenses[category].rank = Math.max(
+                defenses[category].rank,
+                this.defenses[category],
+            ) as ProficiencyRankNumber;
             this.logAutoChange(`system.proficiencies.defenses.${category}.rank`, this.defenses[category]);
         }
 
         for (const saveType of SAVE_TYPES) {
-            saves[saveType].rank = Math.max(saves[saveType].rank, this.savingThrows[saveType]) as ZeroToFour;
+            saves[saveType].rank = Math.max(saves[saveType].rank, this.savingThrows[saveType]) as ProficiencyRankNumber;
             this.logAutoChange(`system.saves.${saveType}.rank`, this.savingThrows[saveType]);
         }
 
         for (const trainedSkill of this.system.trainedSkills.value) {
             if (objectHasKey(skills, trainedSkill)) {
-                skills[trainedSkill].rank = Math.max(skills[trainedSkill].rank, 1) as ZeroToFour;
+                skills[trainedSkill].rank = Math.max(skills[trainedSkill].rank, 1) as ProficiencyRankNumber;
             }
         }
 
         proficiencies.spellcasting.rank = Math.max(
             proficiencies.spellcasting.rank,
             this.system.spellcasting,
-        ) as ZeroToFour;
+        ) as ProficiencyRankNumber;
         this.logAutoChange("system.proficiencies.spellcasting.rank", this.system.spellcasting);
 
         details.class = { name: this.name, trait: slug };

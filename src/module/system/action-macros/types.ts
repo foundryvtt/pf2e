@@ -4,6 +4,7 @@ import type { ModifierPF2e } from "@actor/modifiers.ts";
 import type { DCSlug } from "@actor/types.ts";
 import type { ItemPF2e } from "@item";
 import type { WeaponTrait } from "@item/weapon/types.ts";
+import { ProficiencyRankNumber } from "@module/data.ts";
 import type { RollNotePF2e } from "@module/notes.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import type { CheckRoll, CheckType } from "@system/check/index.ts";
@@ -45,7 +46,7 @@ interface CheckMacroContext<TItem extends ItemPF2e<ActorPF2e>> {
     modifiers?: ModifierPF2e[];
     rollOptions: string[];
     slug: string;
-    statistic: Statistic | (StrikeData & { rank?: number });
+    statistic: Statistic | (StrikeData & { rank?: ProficiencyRankNumber });
     subtitle: string;
 }
 

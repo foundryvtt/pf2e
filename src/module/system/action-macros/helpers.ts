@@ -209,7 +209,7 @@ class ActionMacroHelpers {
                         fully: true,
                     });
                     const finalOptions = new Set(combinedOptions);
-                    ensureProficiencyOption(finalOptions, statistic.rank ?? -1);
+                    ensureProficiencyOption(finalOptions, statistic.rank ?? 0);
                     check.calculateTotal(finalOptions);
                     const selfActor = actor.getContextualClone(combinedOptions.filter((o) => o.startsWith("self:")));
 

@@ -1,9 +1,9 @@
 import type { CharacterPF2e } from "@actor";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
-import { PROFICIENCY_RANKS } from "@module/data.ts";
-import { adjustDC, calculateDC, calculateSimpleDC, DCAdjustment } from "@module/dc.ts";
+import { ProficiencyRankString } from "@module/data.ts";
+import { adjustDC, calculateDC, calculateSimpleDC, DCAdjustment, getDCByLevelOptions } from "@module/dc.ts";
 import { ActionDefaultOptions } from "@system/action-macros/types.ts";
-import { htmlQuery, signedInteger, tupleHasValue } from "@util";
+import { htmlQuery, signedInteger } from "@util";
 import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
 import { getActions, loreSkillsFromActors } from "./helpers.ts";
@@ -61,9 +61,11 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
 
     #prepareProficiencyRanks(): SelectData[] {
         const pwol = game.pf2e.settings.variants.pwol.enabled;
-        return PROFICIENCY_RANKS.map((value) => ({
-            value,
-            label: `${value} (${calculateSimpleDC(value, { pwol })})`,
+        const dcByLevelOptions = getDCByLevelOptions({ pwol });
+
+        return dcByLevelOptions.map(([rank, dc]) => ({
+            label: `${rank} (${dc})`,
+            value: rank,
         }));
     }
 
@@ -184,8 +186,10 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
                 return Number(htmlQuery<HTMLInputElement>(html, "input#check-prompt-dc")?.value || NaN);
             } else if (activeDCTab?.dataset.tab === "simple-dc") {
                 const profRank = htmlQuery<HTMLInputElement>(html, "select#check-prompt-simple-dc")?.value;
-                if (tupleHasValue(PROFICIENCY_RANKS, profRank)) {
-                    return calculateSimpleDC(profRank, { pwol });
+                const dcByLevelOptions = getDCByLevelOptions({ pwol });
+                const profRankHasDc = Boolean(profRank && dcByLevelOptions.some(([rank, _]) => rank === profRank));
+                if (profRankHasDc) {
+                    return calculateSimpleDC(profRank as ProficiencyRankString, { pwol });
                 }
             } else if (activeDCTab?.dataset.tab === "level-dc") {
                 const level = Number(htmlQuery<HTMLInputElement>(html, "input#check-prompt-level-dc")?.value || NaN);

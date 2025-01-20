@@ -20,6 +20,8 @@ global.game = Object.freeze({
                     return 6;
                 case "proficiencyLegendaryModifier":
                     return 8;
+                case "proficiencyMythicModifier":
+                    return 10;
 
                 /* Variant rules */
                 case "proficiencyVariant":

@@ -27,7 +27,7 @@ import { BaseWeaponType, WeaponGroup } from "@item/weapon/types.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
-import { LabeledValueAndMax, ZeroToFour } from "@module/data.ts";
+import { LabeledValueAndMax, ProficiencyRankNumber } from "@module/data.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { craft } from "@system/action-macros/crafting/craft.ts";
 import { DamageType } from "@system/damage/types.ts";
@@ -116,7 +116,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             if (tab) tab.initial = "biography";
         }
 
-        sheetData.numberToRank = R.mapToObj([0, 1, 2, 3, 4] as const, (n) => [
+        sheetData.numberToRank = R.mapToObj([0, 1, 2, 3, 4, 5] as const, (n) => [
             n,
             game.i18n.localize(`PF2E.ProficiencyLevel${n}`),
         ]);
@@ -1551,7 +1551,7 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     attributeBoostsAllocated: boolean;
     biography: CharacterBiography;
     class: ClassPF2e<CharacterPF2e> | null;
-    numberToRank: Record<ZeroToFour, string>;
+    numberToRank: Record<ProficiencyRankNumber, string>;
     classDCs: {
         dcs: ClassDCSheetData[];
         /** The slug of the character's primary class DC */

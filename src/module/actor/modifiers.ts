@@ -1,7 +1,7 @@
 import type { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import type { AttributeString } from "@actor/types.ts";
 import type { ItemPF2e } from "@item";
-import { ZeroToFour } from "@module/data.ts";
+import { getProficiencyOptionByRank, ProficiencyRankNumber } from "@module/data.ts";
 import type { RollNotePF2e } from "@module/notes.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import type { RuleElementPF2e } from "@module/rules/index.ts";
@@ -12,17 +12,11 @@ import { Predicate, RawPredicate } from "@system/predication.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, signedInteger, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 
-const PROFICIENCY_RANK_OPTION = [
-    "proficiency:untrained",
-    "proficiency:trained",
-    "proficiency:expert",
-    "proficiency:master",
-    "proficiency:legendary",
-] as const;
+function ensureProficiencyOption(options: Set<string>, rank: ProficiencyRankNumber): void {
+    const proficienyOption = getProficiencyOptionByRank(rank);
 
-function ensureProficiencyOption(options: Set<string>, rank: number): void {
-    if (rank >= 0) {
-        options.add(`skill:rank:${rank}`).add(PROFICIENCY_RANK_OPTION[rank]);
+    if (proficienyOption) {
+        options.add(`skill:rank:${rank}`).add(proficienyOption.rankOption);
     }
 }
 
@@ -363,16 +357,16 @@ function createProficiencyModifier({
     level,
     addLevel,
 }: CreateProficiencyModifierParams): ModifierPF2e {
-    rank = Math.clamp(rank, 0, 4) as ZeroToFour;
+    rank = Math.clamp(rank, 0, 5) as ProficiencyRankNumber;
     addLevel ??= rank > 0;
     const pwolVariant = game.pf2e.settings.variants.pwol.enabled;
 
-    const baseBonuses: [number, number, number, number, number] = pwolVariant
-        ? game.pf2e.settings.variants.pwol.modifiers
-        : [0, 2, 4, 6, 8];
+    const baseBonus = pwolVariant
+        ? game.pf2e.settings.variants.pwol.modifiers[Math.clamp(rank, 0, 5)]
+        : getProficiencyOptionByRank(rank)?.defaultModifier || 0;
 
     const addedLevel = addLevel && !pwolVariant ? (level ?? actor.level) : 0;
-    const bonus = baseBonuses[rank] + addedLevel;
+    const bonus = baseBonus + addedLevel;
 
     return new ModifierPF2e({
         slug: "proficiency",
@@ -385,7 +379,7 @@ function createProficiencyModifier({
 
 interface CreateProficiencyModifierParams {
     actor: ActorPF2e;
-    rank: ZeroToFour;
+    rank: ProficiencyRankNumber;
     domains: string[];
     /** If given, use this value instead of actor.level */
     level?: number;
@@ -800,7 +794,6 @@ export {
     DamageDicePF2e,
     MODIFIER_TYPES,
     ModifierPF2e,
-    PROFICIENCY_RANK_OPTION,
     StatisticModifier,
     adjustModifiers,
     applyStackingRules,

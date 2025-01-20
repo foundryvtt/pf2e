@@ -1,8 +1,8 @@
 import type { ActorPF2e } from "@actor";
 import type { AbilityTrait } from "@item/ability/index.ts";
-import type { ProficiencyRank } from "@item/base/data/index.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
+import { ProficiencyRankString } from "@module/data.ts";
 
 type ActionCost = "free" | "reaction" | 0 | 1 | 2 | 3;
 type ActionSection = "basic" | "skill" | "specialty-basic";
@@ -44,7 +44,7 @@ interface Action {
     glyph?: string;
     img?: string;
     name: string;
-    sampleTasks?: Partial<Record<ProficiencyRank, string>>;
+    sampleTasks?: Partial<Record<ProficiencyRankString, string>>;
     section?: ActionSection;
     slug: string;
     traits: AbilityTrait[];

@@ -23,10 +23,8 @@ import type { SpellSource } from "@item/spell/data.ts";
 import type { SpellcastingEntrySource } from "@item/spellcasting-entry/data.ts";
 import type { TreasureSource } from "@item/treasure/data.ts";
 import type { WeaponSource } from "@item/weapon/data.ts";
-import type { PROFICIENCY_RANKS, Rarity } from "@module/data.ts";
+import type { Rarity } from "@module/data.ts";
 import { ItemDescriptionData } from "./system.ts";
-
-type ProficiencyRank = (typeof PROFICIENCY_RANKS)[number];
 
 type NonPhysicalItemType =
     | "action"
@@ -131,7 +129,6 @@ export type {
     MeleeSource,
     NonPhysicalItemType,
     PhysicalItemSource,
-    ProficiencyRank,
     RawItemChatData,
     ShieldSource,
     SpellcastingEntrySource,

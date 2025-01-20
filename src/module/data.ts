@@ -96,7 +96,78 @@ interface PublicationData {
     remaster: boolean;
 }
 
-export const PROFICIENCY_RANKS = ["untrained", "trained", "expert", "master", "legendary"] as const;
+export const PROFICIENCY_RANKS = ["untrained", "trained", "expert", "master", "legendary", "mythic"] as const;
+export type ProficiencyRankNumber = ZeroToFive;
+export type ProficiencyRankString = (typeof PROFICIENCY_RANKS)[ProficiencyRankNumber];
+
+export interface ProficiencyOption {
+    defaultModifier: number; // The default modifier to add before level
+    label: string; // The user-readable string representing the proficiency
+    rankOption: string; // The string used for proficiency rule elements (e.g. `proficiency:trained`)
+    slug: ProficiencyRankString; // The string used in rule elements to refer to this proficiency option (e.g. `trained`)
+    rank: ProficiencyRankNumber; // Numeric "rank" of the proficiency
+}
+
+const buildProficiencyOption = (
+    proficiencyBase: Pick<ProficiencyOption, "defaultModifier" | "label" | "slug" | "rank">,
+): ProficiencyOption => ({
+    get rankOption() {
+        return `proficiency:${this.slug}`;
+    },
+    ...proficiencyBase,
+});
+
+export function getAllProficiencyOptions(): ProficiencyOption[] {
+    return [
+        buildProficiencyOption({
+            defaultModifier: 0,
+            label: game.i18n.localize("PF2E.ProficiencyLevel0"),
+            slug: "untrained",
+            rank: 0,
+        }),
+        buildProficiencyOption({
+            defaultModifier: 2,
+            label: game.i18n.localize("PF2E.ProficiencyLevel1"),
+            slug: "trained",
+            rank: 1,
+        }),
+        buildProficiencyOption({
+            defaultModifier: 4,
+            label: game.i18n.localize("PF2E.ProficiencyLevel2"),
+            slug: "expert",
+            rank: 2,
+        }),
+        buildProficiencyOption({
+            defaultModifier: 6,
+            label: game.i18n.localize("PF2E.ProficiencyLevel3"),
+            slug: "master",
+            rank: 3,
+        }),
+        buildProficiencyOption({
+            defaultModifier: 6,
+            label: game.i18n.localize("PF2E.ProficiencyLevel4"),
+            slug: "legendary",
+            rank: 4,
+        }),
+        buildProficiencyOption({
+            defaultModifier: 10,
+            label: game.i18n.localize("PF2E.ProficiencyLevel5"),
+            slug: "mythic",
+            rank: 5,
+        }),
+    ];
+}
+
+export function getProficiencyOptionByRank(rank: ProficiencyRankNumber): ProficiencyOption | undefined {
+    return getAllProficiencyOptions()[rank];
+}
+
+export function getIndexedProficiencyOptions(): Record<ProficiencyRankString, ProficiencyOption> {
+    return Object.fromEntries(getAllProficiencyOptions().map((option) => [option.slug, option])) as Record<
+        ProficiencyRankString,
+        ProficiencyOption
+    >;
+}
 
 export const MATH_FUNCTION_NAMES: Set<MathFunctionName> = new Set([
     "abs",

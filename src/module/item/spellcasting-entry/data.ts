@@ -1,7 +1,7 @@
 import { AttributeString } from "@actor/types.ts";
 import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource, OtherTagsOnly } from "@item/base/data/system.ts";
 import { MagicTradition } from "@item/spell/types.ts";
-import { OneToTen, ZeroToFour, ZeroToTen } from "@module/data.ts";
+import { OneToTen, ProficiencyRankNumber, ZeroToTen } from "@module/data.ts";
 import type { RollNotePF2e } from "@module/notes.ts";
 import { SpellcastingCategory } from "./types.ts";
 
@@ -41,7 +41,7 @@ interface SpellcastingEntrySystemSource extends ItemSystemSource {
     };
     proficiency: {
         slug: string;
-        value: ZeroToFour;
+        value: ProficiencyRankNumber;
     };
     slots: SpellcastingEntrySlots;
     autoHeightenLevel: {

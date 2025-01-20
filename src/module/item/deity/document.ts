@@ -2,7 +2,7 @@ import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { MartialProficiency } from "@actor/character/data.ts";
 import { ItemPF2e } from "@item";
 import { BaseWeaponType } from "@item/weapon/types.ts";
-import { ZeroToFour } from "@module/data.ts";
+import { ProficiencyRankNumber } from "@module/data.ts";
 import { objectHasKey, sluggify } from "@util";
 import { DeityCategory, DeitySource, DeitySystemData } from "./data.ts";
 
@@ -94,7 +94,7 @@ class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                     rank: Math.max(
                         Number(attacks[`weapon-base-${baseType}`]?.rank) || 0,
                         favoredWeaponRank,
-                    ) as ZeroToFour,
+                    ) as ProficiencyRankNumber,
                 };
             }
         }

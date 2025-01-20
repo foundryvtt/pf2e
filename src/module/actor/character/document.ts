@@ -16,7 +16,6 @@ import { ActorInitiative } from "@actor/initiative.ts";
 import {
     CheckModifier,
     ModifierPF2e,
-    PROFICIENCY_RANK_OPTION,
     StatisticModifier,
     adjustModifiers,
     createAttributeModifier,
@@ -35,7 +34,7 @@ import { getPropertyRuneDegreeAdjustments, getPropertyRuneStrikeAdjustments } fr
 import { WeaponSource } from "@item/weapon/data.ts";
 import { processTwoHandTrait } from "@item/weapon/helpers.ts";
 import { WeaponCategory } from "@item/weapon/types.ts";
-import { PROFICIENCY_RANKS, ZeroToFour, ZeroToTwo } from "@module/data.ts";
+import { getProficiencyOptionByRank, PROFICIENCY_RANKS, ProficiencyRankNumber, ZeroToTwo } from "@module/data.ts";
 import {
     extractDegreeOfSuccessAdjustments,
     extractModifierAdjustments,
@@ -342,7 +341,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Skills
         system.skills = R.mapToObj(R.entries(CONFIG.PF2E.skills), ([key, { attribute }]) => {
-            const rank = Math.clamp(this._source.system.skills[key]?.rank || 0, 0, 4) as ZeroToFour;
+            const rank = Math.clamp(this._source.system.skills[key]?.rank || 0, 0, 5) as ProficiencyRankNumber;
             return [key, { rank, attribute, armor: ["dex", "str"].includes(attribute) }];
         });
 
@@ -358,9 +357,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Resources (Mythic points replace hero points if the character is mythic)
         const { resources } = this.system;
-        const isMythic =
-            game.pf2e.settings.campaign.mythic !== "disabled" &&
-            this.itemTypes.feat.some((f) => f.category === "calling");
+        const isMythic = this.isMythic;
         resources.heroPoints.max = isMythic ? 0 : 3;
         resources.investiture = { value: 0, max: 10 };
         resources.focus = {
@@ -717,7 +714,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Upgrade light barding proficiency to trained if this PC is somehow an animal
         this.system.proficiencies.defenses["light-barding"].rank ||=
             this.traits.has("animal") && !isReallyPC(this)
-                ? (Math.max(this.system.proficiencies.defenses["light-barding"].rank, 1) as ZeroToFour)
+                ? (Math.max(this.system.proficiencies.defenses["light-barding"].rank, 1) as ProficiencyRankNumber)
                 : 0;
 
         const modifiers: ModifierPF2e[] = [];
@@ -753,7 +750,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 return proficiency.definition?.test(wornArmor.getRollOptions("item")) ?? false;
             })
             .map(([_k, v]) => v)
-            .reduce((best, p) => (p.rank > best.rank ? p : best), { rank: 0 as ZeroToFour });
+            .reduce((best, p) => (p.rank > best.rank ? p : best), { rank: 0 as ProficiencyRankNumber });
 
         return new ArmorStatistic(this, {
             rank: proficiency.rank,
@@ -1145,14 +1142,20 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             .filter((p): p is MartialProficiency => !!p?.definition?.test(weaponRollOptions))
             .map((p) => p.rank);
 
-        const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks) as ZeroToFour;
+        const proficiencyRank = Math.max(
+            categoryRank,
+            groupRank,
+            baseWeaponRank,
+            ...syntheticRanks,
+        ) as ProficiencyRankNumber;
         const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
+        const proficiencyOption = getProficiencyOptionByRank(proficiencyRank);
         const baseOptions = [
             "action:strike",
             "self:action:slug:strike",
             `item:proficiency:rank:${proficiencyRank}`,
             // @todo migrate away:
-            PROFICIENCY_RANK_OPTION[proficiencyRank],
+            ...(proficiencyOption ? [proficiencyOption.rankOption] : []),
             ...weaponTraits, // @todo same
             meleeOrRanged,
         ];
@@ -1695,9 +1698,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             );
             for (const proficiency of linkedProficiencies) {
                 const category = proficiencies[proficiency.sameAs ?? ""];
-                proficiency.rank = ((): ZeroToFour => {
-                    const maxRankIndex = PROFICIENCY_RANKS.indexOf(proficiency.maxRank ?? "legendary");
-                    return Math.min(category?.rank ?? 0, maxRankIndex) as ZeroToFour;
+                proficiency.rank = ((): ProficiencyRankNumber => {
+                    const maxRankIndex = PROFICIENCY_RANKS.indexOf(proficiency.maxRank ?? "mythic");
+                    return Math.min(category?.rank ?? 0, maxRankIndex) as ProficiencyRankNumber;
                 })();
             }
 
