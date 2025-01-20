@@ -203,7 +203,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     }
 
     /** Filter suboptions, including those among the same merge family. */
-    #resolveSuboptions(test?: Set<string>): Suboption[] {
+    #resolveSuboptions(test: Set<string>): Suboption[] {
         // Extract local suboptions first. If any exist but all fail predication, return none so we can fail later.
         const selfSuboptions = this.getSelfSuboptions();
         const localSuboptions = selfSuboptions.filter((s) => !test || s.predicate.test(test));
@@ -211,20 +211,9 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
             return [];
         }
 
-        const foreignSuboptions = this.mergeable
-            ? this.actor.rules.flatMap((r) =>
-                  r !== this &&
-                  !r.ignored &&
-                  r instanceof RollOptionRuleElement &&
-                  r.toggleable &&
-                  r.mergeable &&
-                  r.domain === this.domain &&
-                  r.option === this.option &&
-                  (!test || r.test(test))
-                      ? r.getSelfSuboptions()
-                      : [],
-              )
-            : [];
+        const foreignSuboptions = this.#resolveSuboptionRules().flatMap((r) =>
+            r !== this && !r.ignored && (!test || r.test(test)) ? r.getSelfSuboptions() : [],
+        );
 
         const suboptions = R.uniqueBy([...localSuboptions, ...foreignSuboptions], (s) => s.value)
             .filter((s) => !test || s.predicate.test(test))
@@ -254,9 +243,10 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     /**
      * Filter rules, including those with suboptions among the same merge family.
      * Includes ignored rules and those with failed predications. */
-    #resolveSuboptionRules(): RuleElementPF2e[] {
+    #resolveSuboptionRules(): RollOptionRuleElement[] {
+        if (!this.mergeable) return [];
         return this.actor.rules.filter(
-            (r) =>
+            (r): r is RollOptionRuleElement =>
                 r instanceof RollOptionRuleElement &&
                 r.toggleable &&
                 r.mergeable &&
@@ -296,25 +286,25 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         }
 
         if (this.toggleable) {
-            const suboptions = this.#resolveSuboptions(test);
-            const toggleDomain = (this.actor.synthetics.toggles[this.domain] ??= {});
-
             // Determine if this should be disabled. If so, and there is a disabled value, set it.
-            // This must be done before mergeable so that conflict resolution resolves correctly
+            // If mergeable, only the first one matters for disabling
             const enabled = this.disabledIf ? !this.disabledIf.test(test) : true;
             if (!enabled && !this.alwaysActive && typeof this.disabledValue === "boolean") {
                 this.value = this.disabledValue;
             }
 
+            // Exit early if another mergeable roll option has already completed the following
+            const toggleDomain = (this.actor.synthetics.toggles[this.domain] ??= {});
+            if (this.mergeable && toggleDomain[this.option]) return;
+
+            // Extract and consolidate all suboptions
             // If no suboptions remain after predicate testing, don't set the roll option or expose the toggle.
             // Also prevent further processing, such as from beforeRoll().
+            const suboptions = this.#resolveSuboptions(test);
             if (this.hasSubOptions && suboptions.length === 0) {
                 this.ignored = true;
                 return;
             }
-
-            // Exit early if another mergeable roll option has already completed the following
-            if (this.mergeable && toggleDomain[this.option]) return;
 
             if (suboptions.length > 0 && !suboptions.some((s) => s.value === this.selection)) {
                 // If predicate testing eliminated the selected suboption, select the first and deselect the rest
