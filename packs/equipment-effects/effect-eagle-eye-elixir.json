@@ -82,13 +82,6 @@
                 "rollOption": "eagle-eye-elixir"
             },
             {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "PF2E.SpecificRule.Equipment.EagleEyeElixir.RollOptionLabel",
-                "option": "eagle-eye-find-hidden",
-                "toggleable": true
-            },
-            {
                 "key": "FlatModifier",
                 "selector": "perception",
                 "slug": "eagle-eye-elixir-bonus",
@@ -99,9 +92,15 @@
                 "key": "AdjustModifier",
                 "mode": "upgrade",
                 "predicate": [
-                    "eagle-eye-find-hidden",
+                    {
+                        "or": [
+                            "item:trait:trap",
+                            "secret-door"
+                        ]
+                    },
                     "eagle-eye-elixir:eagle-eye-elixir-lesser"
                 ],
+                "priority": 120,
                 "selector": "perception",
                 "slug": "eagle-eye-elixir-bonus",
                 "value": 2
@@ -120,9 +119,15 @@
                 "key": "AdjustModifier",
                 "mode": "upgrade",
                 "predicate": [
-                    "eagle-eye-find-hidden",
+                    {
+                        "or": [
+                            "item:trait:trap",
+                            "secret-door"
+                        ]
+                    },
                     "eagle-eye-elixir:eagle-eye-elixir-moderate"
                 ],
+                "priority": 120,
                 "selector": "perception",
                 "slug": "eagle-eye-elixir-bonus",
                 "value": 3
@@ -146,7 +151,12 @@
                 "key": "AdjustModifier",
                 "mode": "upgrade",
                 "predicate": [
-                    "eagle-eye-find-hidden",
+                    {
+                        "or": [
+                            "item:trait:trap",
+                            "secret-door"
+                        ]
+                    },
                     {
                         "or": [
                             "eagle-eye-elixir:eagle-eye-elixir-greater",
