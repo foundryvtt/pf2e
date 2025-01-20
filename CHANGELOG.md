@@ -1,3 +1,27 @@
+## 6.8.3
+
+### System Improvements
+
+-   (Supe) Sort weapon and armor property runes in the item sheet dropdowns
+
+### Bug Fixes
+
+-   (Supe) Avoid feat being dislodged when drag dropping to the same spot
+-   (Supe) Fix issue where a spell could have duplicate description notes
+-   (Supe) Fix weapon striking rune being overriden by temporary versions when closing the item sheet
+
+### Data Updates
+
+-   (Ambrose) Add Alchemical tag to Elixir of Gender Transformation
+-   (Ambrose) Automate the Lightless Litheness Fetchling feat
+-   (Ambrose) Condense effects for Numbing Tonic and Rainbow Vinegar
+-   (Ambrose) Tag more Breath Weapons as area damage
+-   (Ambrose) Update journals with missing witch patrons
+-   (Ambrose) Update Vaccine item to match Treasure Vault
+-   (kromko) Fix Magical Scrounger description
+-   (Najin-Alex) Add bonus type for Grub Gloves
+-   (reyzor) Add Deathdrinking effects
+
 ## 6.8.2
 
 ### System Improvements
