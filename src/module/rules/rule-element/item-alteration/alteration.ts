@@ -197,10 +197,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
             }
             case "damage-dice-number": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
-                if (!validator.isValid(data) || !(data.item instanceof ItemPF2e)) {
-                    return;
-                }
-
+                if (!validator.isValid(data)) return;
                 const item = data.item;
                 if (!item.system.damage.dice) return;
                 const newValue = AELikeRuleElement.getNewValue(
@@ -209,7 +206,6 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     data.alteration.value,
                 );
                 item.system.damage.dice = newValue;
-
                 return;
             }
             case "damage-type": {
