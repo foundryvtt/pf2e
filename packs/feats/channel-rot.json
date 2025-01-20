@@ -36,6 +36,11 @@
                 "diceNumber": "ternary(gte(@actor.level,20),4,ternary(gte(@actor.level,14),3,2))",
                 "dieSize": "d6",
                 "key": "DamageDice",
+                "predicate": [
+                    {
+                        "not": "item:fist"
+                    }
+                ],
                 "selector": "melee-damage"
             },
             {
