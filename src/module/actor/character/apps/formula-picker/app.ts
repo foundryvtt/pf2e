@@ -5,7 +5,11 @@ import { ResourceData } from "@actor/creature/index.ts";
 import { AbilityItemPF2e, FeatPF2e, PhysicalItemPF2e } from "@item";
 import { ItemType, TraitChatData } from "@item/base/data/index.ts";
 import { Rarity } from "@module/data.ts";
-import { SvelteApplicationMixin, type SvelteApplicationRenderContext } from "@module/sheet/mixin.svelte.ts";
+import {
+    BaseSvelteState,
+    SvelteApplicationMixin,
+    type SvelteApplicationRenderContext,
+} from "@module/sheet/mixin.svelte.ts";
 import MiniSearch from "minisearch";
 import * as R from "remeda";
 import { ApplicationConfiguration, ApplicationRenderOptions } from "types/foundry/client-esm/applications/_types.js";
@@ -81,6 +85,8 @@ class FormulaPicker extends SvelteApplicationMixin<
     }
 
     protected override async _prepareContext(): Promise<FormulaPickerContext> {
+        const base = await super._prepareContext();
+
         const { actor, ability, mode } = this.options;
         const formulas = await ability.getValidFormulas();
         const sheetData = await ability.getSheetData();
@@ -102,7 +108,7 @@ class FormulaPicker extends SvelteApplicationMixin<
                   : game.i18n.localize("PF2E.Actor.Character.Crafting.Action.HintResourceless");
 
         return {
-            foundryApp: this,
+            ...base,
             actor,
             ability,
             mode: this.options.mode,
@@ -122,6 +128,7 @@ class FormulaPicker extends SvelteApplicationMixin<
             },
             searchEngine: this.#searchEngine,
             state: {
+                ...base.state,
                 name: this.options.item?.name ?? ability.label,
                 resource,
                 prompt,
@@ -163,7 +170,7 @@ interface FormulaPickerContext extends SvelteApplicationRenderContext {
     onSelect: (uuid: ItemUUID) => void;
     onDeselect: (uuid: ItemUUID) => void;
     searchEngine: MiniSearch<Pick<PhysicalItemPF2e, "id" | "name">>;
-    state: {
+    state: BaseSvelteState & {
         name: string;
         resource: ResourceData | null;
         prompt: string;

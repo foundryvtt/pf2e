@@ -2,7 +2,7 @@ import { AbilityTrait, ActionCategory } from "@item/ability/index.ts";
 import { ActionType, ItemType } from "@item/base/data/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/index.ts";
-import { SvelteApplicationMixin } from "@module/sheet/mixin.svelte.ts";
+import { BaseSvelteState, SvelteApplicationMixin, SvelteApplicationRenderContext } from "@module/sheet/mixin.svelte.ts";
 import { ErrorPF2e, setHasElement } from "@util";
 import * as R from "remeda";
 import { untrack } from "svelte";
@@ -124,9 +124,12 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundry.applications.api.
         return controls;
     }
 
-    protected override async _prepareContext(_options: ApplicationRenderOptions): Promise<CompendiumBrowserContext> {
+    protected override async _prepareContext(): Promise<CompendiumBrowserContext> {
+        const base = await super._prepareContext();
         return {
+            ...base,
             state: {
+                ...base.state,
                 activeTabName: "",
                 resultList: document.createElement("ul"), // This is required to make the value bindable
             },
@@ -343,11 +346,11 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundry.applications.api.
     }
 }
 
-interface CompendiumBrowserContext {
+interface CompendiumBrowserContext extends SvelteApplicationRenderContext {
     state: CompendiumBrowserState;
 }
 
-interface CompendiumBrowserState {
+interface CompendiumBrowserState extends BaseSvelteState {
     /** Changing this will trigger a tab rerender. An empty string will show the landing page */
     activeTabName: ContentTabName | "";
     /** The result list HTML element */

@@ -66,8 +66,10 @@
                 class="confirm"
                 aria-labelledby="tooltip"
                 data-tooltip="PF2E.Actor.Character.ABCPicker.Tooltip.ConfirmSelection"
-                onclick={saveSelection}><i class="fa-solid fa-check"></i></button
+                onclick={saveSelection}
             >
+                <i class="fa-solid fa-check"></i>
+            </button>
         </li>
     {/each}
 </ul>
