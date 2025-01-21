@@ -438,7 +438,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         // Only armies can target armies
         const isValidRoller = targetToken?.actor?.isOfType("army")
             ? self.isOfType("army")
-            : self.isOfType("army", "creature", "hazard", "party");
+            : self.isOfType("army", "creature", "hazard", "party", "vehicle");
         if (!isValidRoller) return null;
 
         // This is required to determine the AC for attack dialogs

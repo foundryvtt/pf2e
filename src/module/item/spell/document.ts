@@ -518,7 +518,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         variant.original = this;
         variant.appliedOverlays = appliedOverlays;
         variant.system.traits.value = Array.from(variant.traits);
-        performLatePreparation(variant as SpellPF2e<NonNullable<TParent>>);
+        performLatePreparation(variant);
 
         return variant;
     }
