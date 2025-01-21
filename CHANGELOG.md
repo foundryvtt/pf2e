@@ -1,3 +1,22 @@
+## 6.8.4
+
+### Bug Fixes
+
+-   (Supe) Fix viewing spells with variants from compendium browser
+
+### Data Updates
+
+-   (Ambrose) Add persistent damage to Channel Rot
+-   (Ambrose) Add spell links to some Summoner class feats
+-   (Dire Weasel) Add effect for Goz Mask (Major)
+-   (ottdmk) Fix level of Moderate Chromatic Jellyfish Oil
+-   (Redstone Flux) Fix damage of Spray of Stars
+-   (Tikael) Remove rule element from Hideous Ululation
+
+### Under the Hood
+
+-   (Cerapter) Extend ItemAlteration to support changing base damage dice number
+
 ## 6.8.3
 
 ### System Improvements
