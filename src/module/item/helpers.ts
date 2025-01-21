@@ -41,12 +41,16 @@ function reduceItemName(label: string): string {
     return label.includes(":") ? label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : label;
 }
 
-/** Performs late prep tasks on an item that doesn't exist in the actor, such as a cloned one */
-function performLatePreparation(item: ItemPF2e<ActorPF2e>): void {
+/**
+ * Performs late prep tasks on an item that doesn't exist in the actor, such as a cloned one.
+ * If the item isn't embedded, nothing happens.
+ */
+function performLatePreparation(item: ItemPF2e): void {
     const actor = item.actor;
+    if (!actor) return;
 
     for (const alteration of actor.synthetics.itemAlterations.filter((a) => !a.isLazy)) {
-        alteration.applyAlteration({ singleItem: item });
+        alteration.applyAlteration({ singleItem: item as ItemPF2e<ActorPF2e> });
     }
 
     if (item.isOfType("spell", "feat", "action")) {
