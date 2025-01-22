@@ -45,7 +45,12 @@ class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
             otherTags: createSheetTags(CONFIG.PF2E.otherArmorTags, sheetData.data.traits.otherTags),
             preciousMaterials: this.getMaterialSheetData(armor, MATERIAL_DATA.armor),
             propertyRuneSlots,
-            runeTypes: RUNE_DATA.armor,
+            runeTypes: {
+                ...RUNE_DATA.armor,
+                property: Object.values(RUNE_DATA.armor.property)
+                    .map((p) => ({ slug: p.slug, name: game.i18n.localize(p.name) }))
+                    .sort((a, b) => a.name.localeCompare(b.name)),
+            },
             specificMagicData,
         };
     }
@@ -77,7 +82,7 @@ interface ArmorSheetData extends PhysicalItemSheetData<ArmorPF2e> {
     otherTags: SheetOptions;
     preciousMaterials: MaterialSheetData;
     propertyRuneSlots: PropertyRuneSheetSlot[];
-    runeTypes: typeof RUNE_DATA.armor;
+    runeTypes: Omit<typeof RUNE_DATA.armor, "property"> & { property: { slug: string; name: string }[] };
     specificMagicData: SpecificArmorData;
 }
 
