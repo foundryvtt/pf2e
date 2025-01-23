@@ -127,7 +127,8 @@ class Statistic<TActor extends ActorPF2e = ActorPF2e> extends BaseStatistic<TAct
     }
 
     override createRollOptions(domains = this.domains, args: RollOptionConfig = {}): Set<string> {
-        const { item, extraRollOptions, origin, target } = args;
+        const { item, extraRollOptions, target } = args;
+        const origin = args.origin ?? (item?.actor && item.actor.uuid !== this.actor.uuid ? item.actor : null);
 
         const rollOptions: string[] = [];
         if (domains.length > 0) {
@@ -144,9 +145,6 @@ class Statistic<TActor extends ActorPF2e = ActorPF2e> extends BaseStatistic<TAct
 
         if (item) {
             rollOptions.push(...item.getRollOptions("item"));
-            if (item.actor && item.actor.uuid !== this.actor.uuid) {
-                rollOptions.push(...item.actor.getSelfRollOptions("origin"));
-            }
 
             // Special cases, traits that modify the action itself universally
             // This might change once we've better decided how derivative traits will work
@@ -438,7 +436,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         // Only armies can target armies
         const isValidRoller = targetToken?.actor?.isOfType("army")
             ? self.isOfType("army")
-            : self.isOfType("army", "creature", "hazard", "party");
+            : self.isOfType("army", "creature", "hazard", "party", "vehicle");
         if (!isValidRoller) return null;
 
         // This is required to determine the AC for attack dialogs

@@ -1,0 +1,70 @@
+{
+    "_id": "VIYfrecOd54NUPur",
+    "img": "systems/pf2e/icons/equipment/runes/weapon-property-runes/weapon-property-runes.webp",
+    "name": "Effect: Deathdrinking",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Deathdrinking]</p>\n<p>If the creature you killed was living you gain a +1 item bonus to attack and damage rolls. If the creature you destroyed was undead you gain a number of temporary HP equal to twice your level.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Kingmaker"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitUndead",
+                        "value": "undead"
+                    },
+                    {
+                        "label": "PF2E.ModeOfBeing.Living",
+                        "value": "living"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "deathdrinking"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "deathdrinking:living"
+                ],
+                "selector": [
+                    "attack-roll",
+                    "damage"
+                ],
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "deathdrinking:undead"
+                ],
+                "value": "@item.origin.level*2"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

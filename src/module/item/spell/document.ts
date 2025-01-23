@@ -7,6 +7,8 @@ import type { ConsumablePF2e } from "@item";
 import { ItemPF2e } from "@item";
 import { processSanctification } from "@item/ability/helpers.ts";
 import { ItemSourcePF2e, RawItemChatData } from "@item/base/data/index.ts";
+import type { ItemDescriptionData } from "@item/base/data/system.ts";
+import { performLatePreparation } from "@item/helpers.ts";
 import { SpellSlotGroupId } from "@item/spellcasting-entry/collection.ts";
 import { spellSlotGroupIdToNumber } from "@item/spellcasting-entry/helpers.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
@@ -329,7 +331,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             .flat()
             .filter(R.isTruthy);
 
-        const spellTraits = R.unique([...this.traits, spellcasting.tradition])
+        const spellTraits = R.unique([...this.system.traits.value, spellcasting.tradition])
             .filter(R.isTruthy)
             .sort();
         const actionAndTraitOptions = new Set(["action:cast-a-spell", "self:action:slug:cast-a-spell", ...spellTraits]);
@@ -510,18 +512,13 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             overrides.system.location.value = options.entryId;
         }
 
+        // Create the variant and run additional prep since it exists outside the normal cycle
         const actor = this.parent;
         const variant = new SpellPF2e(overrides, { parent: actor, parentItem: this.parentItem });
         variant.original = this;
         variant.appliedOverlays = appliedOverlays;
         variant.system.traits.value = Array.from(variant.traits);
-
-        // Run some additional preparation since this spell exists outside the normal data-preparation cycle
-        for (const alteration of actor?.synthetics.itemAlterations ?? []) {
-            alteration.applyAlteration({ singleItem: variant as SpellPF2e<NonNullable<TParent>> });
-        }
-
-        processSanctification(variant);
+        performLatePreparation(variant);
 
         return variant;
     }
@@ -700,75 +697,75 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         options: { includeGranter?: boolean; includeVariants?: boolean } = {},
     ): string[] {
         const spellcasting = this.spellcasting;
-        const spellOptions = new Set(["magical", `${prefix}:rank:${this.rank}`, ...this.traits]);
+        const spellOptions = ["magical", `${prefix}:rank:${this.rank}`, ...this.system.traits.value];
 
         if (spellcasting?.tradition) {
-            spellOptions.add(`${prefix}:trait:${spellcasting.tradition}`);
+            spellOptions.push(`${prefix}:trait:${spellcasting.tradition}`);
         }
 
         const entryHasSlots = ["prepared", "spontaneous"].includes(spellcasting?.category ?? "");
         if (entryHasSlots && !this.isCantrip && !this.parentItem) {
-            spellOptions.add(`${prefix}:spell-slot`);
+            spellOptions.push(`${prefix}:spell-slot`);
         }
 
         if (this.isMelee) {
-            spellOptions.add(`${prefix}:melee`);
+            spellOptions.push(`${prefix}:melee`);
         } else if (this.isRanged) {
-            spellOptions.add(`${prefix}:ranged`);
+            spellOptions.push(`${prefix}:ranged`);
         }
 
         if (!this.system.duration.value) {
-            spellOptions.add(`${prefix}:duration:0`);
+            spellOptions.push(`${prefix}:duration:0`);
         }
 
         if (!this.atWill) {
-            spellOptions.add(`${prefix}:frequency:limited`);
+            spellOptions.push(`${prefix}:frequency:limited`);
         }
 
         if (spellcasting?.category === "spontaneous" && this.system.location.signature) {
-            spellOptions.add(`${prefix}:signature`);
+            spellOptions.push(`${prefix}:signature`);
         }
 
         for (const damage of Object.values(this.system.damage)) {
             if (damage.type) {
-                spellOptions.add(`${prefix}:damage:${damage.type}`);
-                spellOptions.add(`${prefix}:damage:type:${damage.type}`);
+                spellOptions.push(`${prefix}:damage:${damage.type}`);
+                spellOptions.push(`${prefix}:damage:type:${damage.type}`);
             }
             const category = DamageCategorization.fromDamageType(damage.type);
             if (category) {
-                spellOptions.add(`${prefix}:damage:category:${category}`);
+                spellOptions.push(`${prefix}:damage:category:${category}`);
             }
             if (damage.category === "persistent") {
-                spellOptions.add(`${prefix}:damage:persistent:${damage.type}`);
+                spellOptions.push(`${prefix}:damage:persistent:${damage.type}`);
             }
         }
 
         const area = this.system.area;
         if (area) {
-            spellOptions.add(`${prefix}:area`);
-            spellOptions.add(`${prefix}:area:type:${area.type}`);
-            spellOptions.add(`${prefix}:area:size:${area.value}`);
-            spellOptions.add("area-effect");
+            spellOptions.push(`${prefix}:area`);
+            spellOptions.push(`${prefix}:area:type:${area.type}`);
+            spellOptions.push(`${prefix}:area:size:${area.value}`);
+            spellOptions.push("area-effect");
         }
 
         if (this.damageKinds.has("damage")) {
-            spellOptions.add("damaging-effect");
-            if (area) spellOptions.add("area-damage");
+            spellOptions.push("damaging-effect");
+            if (area) spellOptions.push("area-damage");
         }
 
         const defense = this.system.defense;
-        if (defense?.passive?.statistic) spellOptions.add(`${prefix}:defense:${defense.passive.statistic}`);
-        if (defense?.save?.statistic) spellOptions.add(`${prefix}:defense:${defense.save.statistic}`);
-        if (defense?.save?.basic) spellOptions.add(`${prefix}:defense:basic`);
+        if (defense?.passive?.statistic) spellOptions.push(`${prefix}:defense:${defense.passive.statistic}`);
+        if (defense?.save?.statistic) spellOptions.push(`${prefix}:defense:${defense.save.statistic}`);
+        if (defense?.save?.basic) spellOptions.push(`${prefix}:defense:basic`);
 
         // Include spellcasting roll options (if available)
         for (const option of spellcasting?.getRollOptions?.("spellcasting") ?? []) {
-            spellOptions.add(option);
+            spellOptions.push(option);
         }
 
         const actionCost = this.actionGlyph;
         if (["1", "2", "3"].includes(actionCost ?? "")) {
-            spellOptions.add(`${prefix}:cast:actions:${actionCost}`);
+            spellOptions.push(`${prefix}:cast:actions:${actionCost}`);
         }
 
         // If include variants is set, include a minor subset of variant options
@@ -776,7 +773,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             for (const variant of this.overlays.contents) {
                 const additionalTraits = variant.system?.traits?.value ?? [];
                 for (const trait of additionalTraits) {
-                    spellOptions.add(`${prefix}:trait:${trait}`);
+                    spellOptions.push(`${prefix}:trait:${trait}`);
                 }
             }
         }
@@ -835,6 +832,13 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return ChatMessagePF2e.create(messageSource, { renderSheet: false });
     }
 
+    override async getDescription(): Promise<ItemDescriptionData> {
+        const description = await super.getDescription();
+        const prepend = await createDescriptionPrepend(this, { includeTraditions: false });
+        description.value = `${prepend}\n${description.value}`;
+        return description;
+    }
+
     override async getChatData(
         this: SpellPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptionsPF2e = {},
@@ -863,13 +867,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         rollData.item ??= this;
 
         const systemData: SpellSystemData = this.system;
-
-        const description = await (async () => {
-            const options = { ...htmlOptions, rollData };
-            const prepend = await createDescriptionPrepend(this, { includeTraditions: false });
-            const description = await TextEditor.enrichHTML(this.description, options);
-            return `${prepend}\n${description}`;
-        })();
 
         const spellcasting = this.spellcasting;
         if (!spellcasting) {
@@ -932,7 +929,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         const spellTraits = this.traitChatData(
             CONFIG.PF2E.spellTraits,
-            R.unique([...this.traits, spellcasting.tradition]).filter(R.isTruthy),
+            R.unique([...this.system.traits.value, spellcasting.tradition]).filter(R.isTruthy),
         );
         const rarity =
             this.rarity === "common"
@@ -945,7 +942,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         return this.processChatData(htmlOptions, {
             ...systemData,
-            description: { ...this.system.description, value: description },
             isAttack: this.isAttack,
             isSave,
             check: this.isAttack && statisticChatData ? statisticChatData.check : undefined,
@@ -964,7 +960,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             rarity,
             area,
             variants,
-            isAura: this.traits.has("aura"),
+            isAura: this.system.traits.value.includes("aura"),
         });
     }
 
@@ -986,7 +982,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             ...context,
             action: "cast-a-spell",
             item: this,
-            traits: R.unique([...this.traits, tradition]).filter(R.isTruthy),
+            traits: R.unique([...this.system.traits.value, tradition]).filter(R.isNonNullish),
             attackNumber,
             dc: { slug: this.system.defense?.passive?.statistic ?? "ac" },
         });
@@ -1065,7 +1061,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             }),
         ];
 
-        const traits = R.unique([...this.traits, spellcasting.tradition]).filter(R.isTruthy);
+        const traits = R.unique([...this.system.traits.value, spellcasting.tradition]).filter(R.isNonNullish);
         return statistic.check.roll({
             ...eventToRollParams(event, { type: "check" }),
             label: game.i18n.localize("PF2E.Check.Specific.Counteract"),

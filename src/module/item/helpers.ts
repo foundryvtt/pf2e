@@ -2,6 +2,7 @@ import type { ActorPF2e } from "@actor";
 import type { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { createHTMLElement, setHasElement } from "@util";
 import * as R from "remeda";
+import { processSanctification } from "./ability/helpers.ts";
 import type { ItemSourcePF2e, ItemType, RawItemChatData } from "./base/data/index.ts";
 import { ItemDescriptionData } from "./base/data/system.ts";
 import type { ItemPF2e } from "./base/document.ts";
@@ -38,6 +39,23 @@ function itemIsOfType(item: ItemOrSource, ...types: string[]): boolean {
 /** Create a "reduced" item name; that is, one without an "Effect:" or similar prefix */
 function reduceItemName(label: string): string {
     return label.includes(":") ? label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : label;
+}
+
+/**
+ * Performs late prep tasks on an item that doesn't exist in the actor, such as a cloned one.
+ * If the item isn't embedded, nothing happens.
+ */
+function performLatePreparation(item: ItemPF2e): void {
+    const actor = item.actor;
+    if (!actor) return;
+
+    for (const alteration of actor.synthetics.itemAlterations.filter((a) => !a.isLazy)) {
+        alteration.applyAlteration({ singleItem: item as ItemPF2e<ActorPF2e> });
+    }
+
+    if (item.isOfType("spell", "feat", "action")) {
+        processSanctification(item);
+    }
 }
 
 /** A helper class to finalize data for item summaries and chat cards */
@@ -79,14 +97,14 @@ class ItemChatData {
     }
 
     async #prepareDescription(): Promise<Pick<ItemDescriptionData, "value" | "gm">> {
-        const { data, item } = this;
-        const rollOptions = new Set(
-            [item.actor?.getRollOptions(), item.getRollOptions("item")].flat().filter(R.isTruthy),
-        );
+        const item = this.item;
+        const actor = item.actor;
+        const rollOptions = new Set([actor?.getRollOptions(), item.getRollOptions("item")].flat().filter(R.isTruthy));
+        const description = await this.item.getDescription();
 
         const baseText = await (async (): Promise<string> => {
-            const override = data.description?.override;
-            if (!override) return data.description.value;
+            const override = description?.override;
+            if (!override) return description.value;
             return override
                 .flatMap((line) => {
                     if (!line.predicate.test(rollOptions)) return [];
@@ -115,7 +133,7 @@ class ItemChatData {
 
             const templatePath = "systems/pf2e/templates/items/partials/addendum.hbs";
             return Promise.all(
-                data.description.addenda.flatMap((unfiltered) => {
+                description.addenda.flatMap((unfiltered) => {
                     const addendum = {
                         label: game.i18n.localize(unfiltered.label),
                         contents: unfiltered.contents
@@ -138,9 +156,7 @@ class ItemChatData {
 
         return {
             value: await TextEditor.enrichHTML(assembled, { ...this.htmlOptions, rollData }),
-            gm: game.user.isGM
-                ? await TextEditor.enrichHTML(data.description.gm, { ...this.htmlOptions, rollData })
-                : "",
+            gm: game.user.isGM ? await TextEditor.enrichHTML(description.gm, { ...this.htmlOptions, rollData }) : "",
         };
     }
 }
@@ -151,4 +167,4 @@ interface ItemChatDataConstructorOptions {
     htmlOptions?: EnrichmentOptionsPF2e;
 }
 
-export { ItemChatData, itemIsOfType, reduceItemName };
+export { ItemChatData, itemIsOfType, performLatePreparation, reduceItemName };

@@ -308,8 +308,14 @@
                 flex-basis: 11em;
             }
 
-            &.material-runes .form-group {
-                flex-wrap: nowrap;
+            &.material-runes {
+                .precious-material select {
+                    min-width: 0;
+                    width: 0;
+                }
+                .form-group {
+                    flex-wrap: nowrap;
+                }
             }
         }
 
@@ -582,10 +588,6 @@
 
     &.spell form {
         @import "spell-sheet";
-    }
-
-    &.weapon form {
-        @import "weapon-sheet";
     }
 }
 

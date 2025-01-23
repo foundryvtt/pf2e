@@ -462,8 +462,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         const toCreate: (AfflictionSource | EffectSource)[] = [];
         const rollOptions = aura.effects.some((e) => e.predicate.length > 0)
-            ? new Set([...origin.actor.getRollOptions(), ...this.getSelfRollOptions("target")])
-            : new Set([]);
+            ? [...origin.actor.getRollOptions(), ...this.getSelfRollOptions("target")]
+            : [];
 
         const parentOptionsCache: Record<string, string[]> = {};
         for (const data of aura.effects) {
@@ -1661,18 +1661,15 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
      * @param domains The domains of discourse from which to pull options. Always includes the "all" domain.
      */
     getRollOptions(domains: string[] = []): string[] {
-        const withAll = Array.from(new Set(["all", ...domains]));
-        const { rollOptions } = this;
-        const toReturn: Set<string> = new Set();
-
-        for (const domain of withAll) {
-            const optionsRecord = rollOptions[domain] ?? {};
+        const options: string[] = [];
+        for (const domain of new Set(["all", ...domains])) {
+            const optionsRecord = this.rollOptions[domain] ?? {};
             for (const option of Object.keys(optionsRecord)) {
-                if (optionsRecord[option]) toReturn.add(option);
+                if (optionsRecord[option]) options.push(option);
             }
         }
 
-        return Array.from(toReturn);
+        return options;
     }
 
     /** This allows @actor.level and such to work for macros and inline rolls */

@@ -478,6 +478,20 @@
                     "success": "<strong>Effect</strong> The bomb also deals @Damage[2d4[persistent,fire]] and @Damage[(2[splash])[fire]]{2 fire splash damage}."
                 }
             },
+            "SkunkBomb": {
+                "Greater": {
+                    "success": "<strong>Effect</strong> Any creature hit by the bomb or in its splash area must attempt a @Check[fortitude|dc:28] saving throw. Creatures in the splash area treat the results of their saving throw as one step better.<hr><p><strong>Critical Success</strong> The target is unaffected.</p><p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 1}.</p><p><strong>Failure</strong> The target is sickened 1 and @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} while sickened.</p><p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} for 1 round, @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 2}, and slowed 1 while sickened.</p>"
+                },
+                "Lesser": {
+                    "success": "<strong>Effect</strong> Any creature hit by the bomb or in its splash area must attempt a @Check[fortitude|dc:15] saving throw. Creatures in the splash area treat the results of their saving throw as one step better.<hr><p><strong>Critical Success</strong> The target is unaffected.</p><p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 1}.</p><p><strong>Failure</strong> The target is sickened 1 and @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} while sickened.</p><p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} for 1 round, @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 2}, and slowed 1 while sickened.</p>"
+                },
+                "Major": {
+                    "success": "<strong>Effect</strong> Any creature hit by the bomb or in its splash area must attempt a @Check[fortitude|dc:37] saving throw. Creatures in the splash area treat the results of their saving throw as one step better.<hr><p><strong>Critical Success</strong> The target is unaffected.</p><p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 1}.</p><p><strong>Failure</strong> The target is sickened 1 and @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} while sickened.</p><p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} for 1 round, @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 2}, and slowed 1 while sickened.</p>"
+                },
+                "Moderate": {
+                    "success": "<strong>Effect</strong> Any creature hit by the bomb or in its splash area must attempt a @Check[fortitude|dc:17] saving throw. Creatures in the splash area treat the results of their saving throw as one step better.<hr><p><strong>Critical Success</strong> The target is unaffected.</p><p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 1}.</p><p><strong>Failure</strong> The target is sickened 1 and @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} while sickened.</p><p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} for 1 round, @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 2}, and slowed 1 while sickened.</p>"
+                }
+            },
             "SulfurBomb": {
                 "Greater": {
                     "criticalSuccess": "<strong>Effect</strong> The bomb also deals @Damage[(3[splash])[acid]]{3 acid splash damage} and the target becomes @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 1}.",
@@ -3799,6 +3813,9 @@
             "Fetchling": {
                 "DeepFetchling": {
                     "Prompt": "Select a type of energy to resist."
+                },
+                "LightlessLitheness": {
+                    "Note": "You can Step instead of Striding up to 5 feet."
                 }
             },
             "Fighter": {
@@ -4301,7 +4318,7 @@
                     "VenomtailKobold": "Venomtail Kobold"
                 },
                 "DragonsBreath": {
-                    "DescriptionAlteration": "You channel your draconic exemplar's power into a gout of energy that manifests as a @Template[line|distance:60] or a @Template[cone|distance:30], dealing @Damage[ceil(@actor.level/2)d8[@actor.flags.pf2e.draconicExemplar.damageType]|traits:area-damage] damage. Each creature in the area must attempt a basic saving throw against the higher of your class DC or spell DC. You can't use this ability again for 1 hour."
+                    "DescriptionAlteration": "You channel your draconic exemplar's power into a gout of energy that manifests as a @Template[line|distance:60] or a @Template[cone|distance:30], dealing @Damage[ceil(@actor.level/2)d8[@actor.flags.pf2e.draconicExemplar.damageType]|options:area-damage] damage. Each creature in the area must attempt a basic saving throw against the higher of your class DC or spell DC. You can't use this ability again for 1 hour."
                 },
                 "DragonsPresence": {
                     "Note": "When you roll a success on a saving throw against a fear effect, you get a critical success instead. When you roll a failure against a fear effect, you get a critical failure instead."
@@ -4590,9 +4607,9 @@
             "Mummy": {
                 "AccursedTouch": {
                     "Note": {
-                        "Base": "The creature takes @Damage[2d6[persistent,void]] damage. While the creature has this persistent damage, it's also @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1}.",
-                        "FourteenthLevel": "The creature takes @Damage[3d6[persistent,void]] damage. While the creature has this persistent damage, it's also @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1}.",
-                        "TwentiethLevel": "The creature takes @Damage[4d6[persistent,void]] damage. While the creature has this persistent damage, it's also @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1}."
+                        "Base": "While the creature is taking this persistent damage, it's also @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1}.",
+                        "FourteenthLevel": "While the creature is taking this persistent damage, it's also @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1}.",
+                        "TwentiethLevel": "While the creature is taking this persistent damage, it's also @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1}."
                     }
                 },
                 "Terrain": {

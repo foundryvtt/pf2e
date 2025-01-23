@@ -19,7 +19,7 @@ import {
 } from "@util";
 import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
-import { createDescriptionPrepend, createSpellRankLabel } from "./helpers.ts";
+import { createSpellRankLabel } from "./helpers.ts";
 import type {
     EffectAreaShape,
     SpellDamageSource,
@@ -64,9 +64,6 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     override async getData(options?: Partial<ItemSheetOptions>): Promise<SpellSheetData> {
         const sheetData = await super.getData(options);
         const spell = this.item;
-
-        const descriptionPrepend = await createDescriptionPrepend(spell, { includeTraditions: true });
-        sheetData.enrichedContent.description = `${descriptionPrepend}${sheetData.enrichedContent.description}`;
 
         const variants = spell.overlays.overrideVariants
             .map((variant) => ({
