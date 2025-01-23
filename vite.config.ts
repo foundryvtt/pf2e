@@ -24,8 +24,8 @@ const EN_JSON = JSON.parse(fs.readFileSync("./static/lang/en.json", { encoding: 
 const FOUNDRY_CONFIG = fs.existsSync("./foundryconfig.json")
     ? JSON.parse(fs.readFileSync("./foundryconfig.json", { encoding: "utf-8" }))
     : null;
-const port = Number(FOUNDRY_CONFIG?.port ?? 30001);
-const foundryPort = Number(FOUNDRY_CONFIG?.foundryPort ?? 30000);
+const port = Number(FOUNDRY_CONFIG?.port) || 30001;
+const foundryPort = Number(FOUNDRY_CONFIG?.foundryPort) || 30000;
 console.log(`Connecting to foundry hosted at http://localhost:${foundryPort}/`);
 
 /** Get UUID redirects from JSON file, converting names to IDs. */
