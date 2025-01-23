@@ -1,12 +1,21 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 import { SingleCheckAction } from "@actor/actions/index.ts";
+import { ModifierPF2e } from "@actor/modifiers.ts";
 
 const PREFIX = "PF2E.Actions.Climb";
 
 function climb(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
     const rollOptions = ["action:climb"];
-    const modifiers = options?.modifiers;
+    const modifiers = (options?.modifiers ?? []).concat(
+        new ModifierPF2e({
+            slug: "climb-speed",
+            label: `${PREFIX}.Modifier.ClimbSpeed`,
+            modifier: 4,
+            type: "circumstance",
+            predicate: ["speed:climb"],
+        }),
+    );
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         actionGlyph: options.glyph ?? "A",
@@ -31,6 +40,15 @@ const action = new SingleCheckAction({
     cost: 1,
     description: `${PREFIX}.Description`,
     img: "icons/skills/movement/arrow-upward-blue.webp",
+    modifiers: [
+        {
+            slug: "climb-speed",
+            label: `${PREFIX}.Modifier.ClimbSpeed`,
+            modifier: 4,
+            type: "circumstance",
+            predicate: ["speed:climb"],
+        },
+    ],
     name: `${PREFIX}.Title`,
     notes: [
         { outcome: ["criticalSuccess"], text: `${PREFIX}.Notes.criticalSuccess` },
