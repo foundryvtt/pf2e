@@ -20,6 +20,14 @@ const CONDITION_SOURCES = ((): ConditionSource[] => {
 })();
 const EN_JSON = JSON.parse(fs.readFileSync("./static/lang/en.json", { encoding: "utf-8" }));
 
+// Load foundry config if available to potentially use a different port
+const FOUNDRY_CONFIG = fs.existsSync("./foundryconfig.json")
+    ? JSON.parse(fs.readFileSync("./foundryconfig.json", { encoding: "utf-8" }))
+    : null;
+const port = Number(FOUNDRY_CONFIG?.port) || 30001;
+const foundryPort = Number(FOUNDRY_CONFIG?.foundryPort) || 30000;
+console.log(`Connecting to foundry hosted at http://localhost:${foundryPort}/`);
+
 /** Get UUID redirects from JSON file, converting names to IDs. */
 function getUuidRedirects(): Record<CompendiumUUID, CompendiumUUID> {
     const redirectJSON = JSON.parse(fs.readFileSync(path.resolve(__dirname, "build/uuid-redirects.json"), "utf-8"));
@@ -186,12 +194,12 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             target: "es2022",
         },
         server: {
-            port: 30001,
+            port,
             open: "/game",
             proxy: {
-                "^(?!/systems/pf2e/)": "http://localhost:30000/",
+                "^(?!/systems/pf2e/)": `http://localhost:${foundryPort}/`,
                 "/socket.io": {
-                    target: "ws://localhost:30000",
+                    target: `ws://localhost:${foundryPort}`,
                     ws: true,
                 },
             },
