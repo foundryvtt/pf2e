@@ -98,9 +98,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
     ): Promise<void> {
         const isEffect = item instanceof AbstractEffectPF2e;
         const effectLinkText =
-            item.isOfType("action", "feat") && item.system.selfEffect
-                ? `@UUID[${item.system.selfEffect.uuid}]{${item.system.selfEffect.name}}`
-                : null;
+            item.isOfType("action", "feat") && item.system.selfEffect ? `@UUID[${item.system.selfEffect.uuid}]` : null;
         const selfEffect = effectLinkText && (await TextEditor.enrichHTML(effectLinkText));
 
         const summary = await renderTemplate("systems/pf2e/templates/actors/partials/item-summary.hbs", {
