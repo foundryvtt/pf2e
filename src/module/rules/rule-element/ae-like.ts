@@ -32,6 +32,12 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
                 choices: fu.deepClone(this.PHASES),
                 initial: "applyAEs",
             }),
+            target: new fields.StringField({
+                required: false,
+                nullable: false,
+                choices: ["actor", "item"],
+                initial: "actor",
+            }),
             value: new ResolvableValueField({ required: true, nullable: true, initial: undefined }),
             merge: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
         };
@@ -63,13 +69,15 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
     }
 
     #pathIsValid(path: string): boolean {
-        const actor = this.item.actor;
+        const target = this.target === "actor" ? this.item.actor : this.target === "item" ? this.item : null;
+        if (target === null) return false;
+
         return (
             !path.startsWith("data.") &&
             !/\bnull\b/.test(path) &&
             (path.startsWith("flags.") ||
                 [path, path.replace(/\.[-\w]+$/, ""), path.replace(/\.?[-\w]+\.[-\w]+$/, "")].some(
-                    (path) => fu.getProperty(actor, path) !== undefined,
+                    (path) => fu.getProperty(target, path) !== undefined,
                 ))
         );
     }
@@ -111,8 +119,17 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
         rollOptions ??= this.predicate.length > 0 ? new Set(this.actor.getRollOptions(this.testDomains)) : new Set();
         if (!this.test(rollOptions)) return;
 
-        const actor = this.actor;
-        const current = fu.getProperty(actor, path);
+        const target = this.target === "actor" ? this.item.actor : this.target === "item" ? this.item : null;
+        if (target === null) {
+            return this.failValidation(
+                new foundry.data.validation.DataModelValidationFailure({
+                    invalidValue: target,
+                    fallback: false,
+                }).asError().message,
+            );
+        }
+
+        const current = fu.getProperty(target, path);
         const change = this.resolveValue(this.value);
         const newValue = AELikeRuleElement.getNewValue(this.mode, current, change, this.merge);
         if (newValue instanceof foundry.data.validation.DataModelValidationFailure) {
@@ -127,7 +144,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
             current.splice(current.indexOf(newValue), 1);
         } else {
             try {
-                fu.setProperty(actor, path, newValue);
+                fu.setProperty(target, path, newValue);
                 this.#logChange(change);
             } catch (error) {
                 if (error instanceof Error) {
@@ -259,7 +276,9 @@ interface AutoChangeEntry {
 type AELikeSchema = RuleElementSchema & {
     /** How to apply the `value` at the `path` */
     mode: fields.StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
-    /** The data property path to modify on the parent item's actor */
+    /** The location to search `path` for */
+    target: fields.StringField<"actor" | "item", "actor" | "item", false, false, true>;
+    /** The data property path to modify on the target */
     path: fields.StringField<string, string, true, false, false>;
     /** Which phase of data preparation to run in */
     phase: fields.StringField<AELikeDataPrepPhase, AELikeDataPrepPhase, false, false, true>;
