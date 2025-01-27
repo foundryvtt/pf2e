@@ -1,7 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { PhysicalItemPF2e } from "@item";
 import { Bulk } from "@item/physical/bulk.ts";
-import { Size } from "@module/data.ts";
 import { groupBy } from "@util";
 
 export class InventoryBulk {
@@ -44,7 +43,7 @@ export class InventoryBulk {
         if (this.#value) return this.#value;
         this.#value = InventoryBulk.computeTotalBulk(
             this.actor.inventory.filter((i) => !i.isInContainer),
-            this.actor.size,
+            this.actor,
         );
         return this.#value;
     }
@@ -80,7 +79,7 @@ export class InventoryBulk {
         return this.value.normal;
     }
 
-    static computeTotalBulk(items: PhysicalItemPF2e[], actorSize: Size): Bulk {
+    static computeTotalBulk(items: PhysicalItemPF2e[], actor: ActorPF2e | null): Bulk {
         items = this.#flattenNonStowing(items);
 
         // Figure out which items have stack groups and which don't
@@ -98,11 +97,15 @@ export class InventoryBulk {
             .reduce((first, second) => first.plus(second), new Bulk());
 
         // Group by stack group, then combine into quantities, then compute bulk from combined quantities
+        // Only convert to actor-relative size if the actor is a creature
+        // https://2e.aonprd.com/Rules.aspx?ID=258
         const stackingBehaviors = stackingItems.map((item) => ({
             per: item.system.bulk.per,
             item,
             group: item.system.baseItem,
-            bulk: new Bulk(item.system.bulk.value).convertToSize(item.size, actorSize),
+            bulk: actor?.isOfType("creature")
+                ? new Bulk(item.system.bulk.value).convertToSize(item.size, actor.size)
+                : new Bulk(item.system.bulk.value),
         }));
         const grouped = groupBy(stackingBehaviors, (d) => `${d.group}-${d.per}-${d.bulk.toLightUnits()}`);
         const bulks = [...grouped.values()].map((dataEntries) => {
