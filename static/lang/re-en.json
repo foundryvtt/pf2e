@@ -116,6 +116,7 @@
                 "FireMote": "Fire Mote",
                 "Fist": "Fist",
                 "FlameHair": "Flame-Hair",
+                "FlamingSword": "Flaming Sword",
                 "Foot": "Foot",
                 "Foreleg": "Foreleg",
                 "Gust": "Gust",
@@ -123,6 +124,7 @@
                 "Hoof": "Hoof",
                 "Horn": "Horn",
                 "Horns": "Horns",
+                "HurledDebris": "Hurled Debris",
                 "Jaws": "Jaws",
                 "LavaFist": "Lava Fist",
                 "Leaf": "Leaf",
@@ -171,7 +173,14 @@
                 "SunNote": "The target is @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled} for 1 round."
             },
             "DaemonForm": {
-                "CeustodaemonDamageNote": "Any successful jaws or claw Strike deals an additional @Damage[1d6[untyped]] damage, and you take the same amount of damage"
+                "Note": {
+                    "CeustodaemonDamage": "Any successful jaws or claw Strike deals an additional @Damage[1d6[untyped]] damage, and you take the same amount of damage"
+                }
+            },
+            "DemonForm": {
+                "Note": {
+                    "AbrikandiluCritical": "On a critical hit, the target is @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} for 1 minute."
+                }
             },
             "ElementEmbodied": {
                 "AirPushNote": "Plus @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.t6cx9FOODmeZQNYl]{Push} 10 feet",
@@ -469,6 +478,20 @@
                     "success": "<strong>Effect</strong> The bomb also deals @Damage[2d4[persistent,fire]] and @Damage[(2[splash])[fire]]{2 fire splash damage}."
                 }
             },
+            "SkunkBomb": {
+                "Greater": {
+                    "success": "<strong>Effect</strong> Any creature hit by the bomb or in its splash area must attempt a @Check[fortitude|dc:28] saving throw. Creatures in the splash area treat the results of their saving throw as one step better.<hr><p><strong>Critical Success</strong> The target is unaffected.</p><p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 1}.</p><p><strong>Failure</strong> The target is sickened 1 and @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} while sickened.</p><p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} for 1 round, @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 2}, and slowed 1 while sickened.</p>"
+                },
+                "Lesser": {
+                    "success": "<strong>Effect</strong> Any creature hit by the bomb or in its splash area must attempt a @Check[fortitude|dc:15] saving throw. Creatures in the splash area treat the results of their saving throw as one step better.<hr><p><strong>Critical Success</strong> The target is unaffected.</p><p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 1}.</p><p><strong>Failure</strong> The target is sickened 1 and @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} while sickened.</p><p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} for 1 round, @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 2}, and slowed 1 while sickened.</p>"
+                },
+                "Major": {
+                    "success": "<strong>Effect</strong> Any creature hit by the bomb or in its splash area must attempt a @Check[fortitude|dc:37] saving throw. Creatures in the splash area treat the results of their saving throw as one step better.<hr><p><strong>Critical Success</strong> The target is unaffected.</p><p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 1}.</p><p><strong>Failure</strong> The target is sickened 1 and @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} while sickened.</p><p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} for 1 round, @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 2}, and slowed 1 while sickened.</p>"
+                },
+                "Moderate": {
+                    "success": "<strong>Effect</strong> Any creature hit by the bomb or in its splash area must attempt a @Check[fortitude|dc:17] saving throw. Creatures in the splash area treat the results of their saving throw as one step better.<hr><p><strong>Critical Success</strong> The target is unaffected.</p><p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 1}.</p><p><strong>Failure</strong> The target is sickened 1 and @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} while sickened.</p><p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} for 1 round, @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 2}, and slowed 1 while sickened.</p>"
+                }
+            },
             "SulfurBomb": {
                 "Greater": {
                     "criticalSuccess": "<strong>Effect</strong> The bomb also deals @Damage[(3[splash])[acid]]{3 acid splash damage} and the target becomes @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 1}.",
@@ -648,15 +671,26 @@
                 "Label": "Special"
             },
             "Trigger": {
-                "Label": "Trigger"
+                "Label": "Trigger",
+                "TargetedByAStrike": "You are targeted by a Strike"
             }
         },
         "GenericLabel": {
+            "Check": {
+                "Attack": "Attack Rolls",
+                "Perception": "Perception Check",
+                "SavingThrow": "Saving Throws",
+                "Skill": "Skill Checks"
+            }, 
             "ItemVs": {
+                "DeathVoid": "{item} vs. Death and Void effects",
                 "Fear": "{item} vs. fear"
             },
             "PreviousAction": {
                 "ClimbLeapStride": "Your previous action was to Climb, Leap, or Stride"
+            },
+            "Resist": {
+                "ForcedMovement": "vs. forced movement"
             },
             "StrikeCount": {
                 "First": "First Strike",
@@ -677,13 +711,17 @@
                 "AttacksDemons": "attacks by demons",
                 "AttacksWaterCreatures": "attacks by water creatures",
                 "BludgeoningPiercingSlashing": "bludgeoning, piercing and slashing damage",
+                "BludgeoningPiercingSlashingFromFrightenedStrikes": "bludgeoning, piercing and slashing Strike damage from frightened creatures",
+                "CalistriasBane": "Calistria's Bane",
                 "ColdIronBludgeoning": "cold iron bludgeoning",
                 "CrystalHazards": "crystal hazards",
                 "DamageFromSwornCreatures": "damage from sworn creature kind",
                 "DraconicBreathWeapons": "draconic breath weapons",
                 "EnemyStrikes": "enemy Strikes",
+                "FallDamage": "fall damage",
                 "HolyBludgeoningPiercingSlashing": "holy bludgeoning, piercing and slashing damage",
                 "ImpulseFireFrom": "impulse fire from {origin}",
+                "IncorporealCreatures": "incorporeal creatures",
                 "IngestedPoisons": "ingested poisons",
                 "MagicalBludgeoning": "magical bludgeoning",
                 "MagicalColdIron": "magical cold iron",
@@ -822,6 +860,7 @@
                     "Faydhaan": "Faydhaan",
                     "Fish": "Fish",
                     "Fox": "Fox",
+                    "Fungus": "Fungus",
                     "Gancanagh": "Gancanagh",
                     "Gimmerling": "Gimmerling",
                     "Gosreg": "Gosreg",
@@ -844,6 +883,7 @@
                     "LeshyMob": "Leshy Mob",
                     "Lizard": "Lizard",
                     "Mantis": "Mantis",
+                    "Miastrilek": "Miastrilek",
                     "Moose": "Moose",
                     "Morrigna": "Morrigna",
                     "Mushroom": "Mushroom",
@@ -857,7 +897,7 @@
                     "Plant": "Plant",
                     "PorcupineGiant": "Giant Porcupine",
                     "Pukwudgie": "Pukwudgie",
-                    "RacoonDog": "Racoon Dog",
+                    "RacoonDog": "Raccoon Dog",
                     "RajaKrodha": "Raja-Krodha",
                     "Raktavarna": "Raktavarna",
                     "Rat": "Rat",
@@ -875,6 +915,7 @@
                     "Vidileth": "Vidileth",
                     "Vilderavn": "Vilderavn",
                     "Voidworm": "Voidworm",
+                    "Wasp": "Wasp",
                     "WingedHumanoid": "Winged Humanoid",
                     "Wolf": "Wolf",
                     "WolfDire": "Dire Wolf",
@@ -1874,6 +1915,7 @@
             "Water": "In Water",
             "WaterOrMud": "In Water or Mud",
             "Weave": "To Weave",
+            "Wilderness": "In Wilderness",
             "Woodworking": "Woodworking"
         },
         "SpecificLore": {
@@ -1946,6 +1988,12 @@
                     "CriticalNote": "If you critically succeed at a blowgun Strike using a poisoned dart, the target's initial save against the poison is one degree of success worse than the creature rolls; this is a misfortune effect.",
                     "StealthNote": "In addition, if you make a blowgun Strike while @UUID[Compendium.pf2e.conditionitems.Item.iU0fEDdBp3rXpTMC]{Hidden} or @UUID[Compendium.pf2e.conditionitems.Item.VRSef5y1LmL2Hkjf]{Undetected}, you don't automatically become @UUID[Compendium.pf2e.conditionitems.Item.1wQY3JYyhMYeeV2G]{Observed}. Instead, immediately attempt a @Check[stealth|against:perception] check against the Perception DC of the target. If you succeed, you don't become observed, and are hidden (if you were undetected, you still become hidden rather than remaining undetected)."
                 },
+                "DebilitatingBomb": {
+                    "AttackRollNote": "The target must succed at a @Check[fortitude|against:class], or suffer one of the following effects: dazzled, deafened, off-guard, or take a -5 foot status penalty to Speeds. @UUID[Compendium.pf2e.feat-effects.Item.VTJ8D23sOIfApEt3]{Effect: Debilitating Bomb}",
+                    "SpeedPenalty": {
+                        "Label": "-5 foot Speed Penalty"
+                    }
+                },
                 "ExpandedSplash": {
                     "Note": "The splash damage affects all creatures within 10 feet of the target instead of 5 feet."
                 },
@@ -1962,6 +2010,7 @@
                     }
                 },
                 "ResearchField": {
+                    "AdvancedVials": "Advanced Vials",
                     "Bomber": {
                         "FieldBenefit": "When throwing an alchemical bomb with the splash trait, you can choose to deal splash damage to only your primary target instead of the usual splash area.",
                         "FieldVials": {
@@ -1971,11 +2020,15 @@
                     },
                     "Chirurgeon": {
                         "FieldVials": {
-                            "Description": "Your versatile vials can be used to heal a living creature @Damage[(ternary(gte(@actor.level,18),4,ternary(gte(@actor.level,12),3,ternary(gte(@actor.level,4),2,1))))d6[healing]] Hit Points. A creature can drink the vial for this benefit, or you can throw the vial at a willing creature within 20 feet as an Interact action to heal that creature. In either case, a vial used this way loses the acid and splash traits and gains the coagulant and healing traits, plus the elixir trait if a creature drinks it."
+                            "Description": "Your versatile vials can be used to heal a living creature @Damage[(ternary(gte(@item.level,18),4,ternary(gte(@item.level,12),3,ternary(gte(@item.level,4),2,1))))d6[healing]] Hit Points. A creature can drink the vial for this benefit, or you can throw the vial at a willing creature within 20 feet as an Interact action to heal that creature. In either case, a vial used this way loses the acid and splash traits and gains the coagulant and healing traits, plus the elixir trait if a creature drinks it."
                         }
                     },
+                    "FieldBenefit": "Field Benefit",
                     "FieldVials": "Field Vials",
                     "Mutagenist": {
+                        "FieldBenefit": {
+                            "Description": "When you use a mutagen, you gain a number of temporary Hit Points equal to your Intelligence modifier (minimum 0) plus half your level. These temporary Hit Points last for 1 minute or until the mutagen's duration expires, whichever comes first. You can't gain temporary HP from drinking a mutagen again for 1 minute."
+                        },
                         "FieldVials": {
                             "Description": "You can drink the contents of one your versatile vials to suppress the drawback you take from one mutagen currently affecting you until the beginning of your next turn. A vial used this way loses the acid, bomb, and splash traits and gains the elixir trait. If you have more than one drawback due to @UUID[Compendium.pf2e.feats-srd.Item.jSkJIWPfSZZzvYzq]{Combine Elixirs} or a similar ability, drinking the vial suppresses one drawback of your choice."
                         }
@@ -2010,6 +2063,9 @@
                         "Failure": "The firearm misfires, but it doesn't cause the other critical failure effects."
                     }
                 }
+            },
+            "AllowedDrops": {
+                "OneHandedWeapon": "one-handed weapon"
             },
             "Anadi": {
                 "SpiderOrHybridForm": "In Spider or Hybrid Form"
@@ -2067,7 +2123,7 @@
             },
             "AquaticCombat": {
                 "FireNote": "You can't cast fire spells or use actions with the fire trait underwater.",
-                "RangedNote": "Ranged attacks that deal bludgeoning or slashing damage automatically miss if the attacker or target is underwater, and piercing ranged attacks made by an underwater creature or against an underwater target have their range increments halved."
+                "RangedNote": "Non-piercing ranged attacks have their range increments halved."
             },
             "Archfiend": {
                 "FiendEternal": {
@@ -2385,6 +2441,17 @@
                 },
                 "Cooldown": "Your eidolon then can't use their Breath Weapon again for the next [[/r 1d4 #rounds]]{1d4 rounds}.",
                 "Scaling": "At 3rd level and every 2 levels thereafter, the damage increases by 1d6."
+            },
+            "BrokenChain": {
+                "ReleaseMe": {
+                    "BonusToggle": "Release Me! — Apply melee Strike bonus"
+                },
+                "UltimatumOfLiberation": {
+                    "BonusIncreaseToggle": "Ultimatum of Liberation — Increase save bonus to +3"
+                },
+                "YouCantKillAnIdea": {
+                    "IdeaformToggle": "Become an ideaform"
+                }
             },
             "CapeOfJustice": {
                 "Toggle": "Target is your designated offender"
@@ -2718,13 +2785,13 @@
                         "Master": "You've gained access to the deepest corners of your own mind. Your proficiency ranks for occult spell attack rolls and spell DCs increase to master."
                     },
                     "sorcerer": {
-                        "Expert": "Your inherent magic responds easily and powerfully to your command. Your proficiency ranks for spell attack rolls and spell DCs for spells of your bloodline's tradition increase to expert.",
-                        "Legendary": "You demonstrate prodigious talent for spellcasting. Your proficiency ranks for spell attack rolls and spell DCs for spells of your bloodline's tradition increase to legendary.",
-                        "Master": "You have achieved mastery over the magic in your blood. Your proficiency ranks for spell attack rolls and spell DCs for spells of your bloodline's tradition increase to master."
+                        "Expert": "Your inherent magic responds easily and powerfully to your command. Your proficiency ranks for spell attack modifier and spell DC for spells of your bloodline's tradition increase to expert.",
+                        "Legendary": "You demonstrate prodigious talent for spellcasting. Your proficiency ranks for spell attack modifier and spell DC for spells of your bloodline's tradition increase to legendary.",
+                        "Master": "You have achieved mastery over the magic in your blood. Your proficiency ranks for spell attack modifier and spell DC for spells of your bloodline's tradition increase to master."
                     },
                     "summoner": {
-                        "Expert": "As your connection to your eidolon deepens, the power of your spells increases. Your proficiency ranks for spell attack rolls and spell DCs for spells of your eidolon's tradition increase to expert.",
-                        "Master": "Your connection to your eidolon is strong enough to grant you mastery over associated spells. Your proficiency ranks for spell attack rolls and spell DCs for spells of your eidolon's tradition increase to master."
+                        "Expert": "As your connection to your eidolon deepens, the power of your spells increases. Your proficiency ranks for spell attack modifier and spell DC for spells of your eidolon's tradition increase to expert.",
+                        "Master": "Your connection to your eidolon is strong enough to grant you mastery over associated spells. Your proficiency ranks for spell attack modifier and spell DC for spells of your eidolon's tradition increase to master."
                     },
                     "witch": {
                         "Expert": "You've learned to better control the power your patron has granted you. Your proficiency ranks for spell attack modifier and spell DC increase to expert.",
@@ -3009,6 +3076,9 @@
                     "AttackNote": "Your fangs Strike deals an additional @Damage[1d4[bleed]] on a critical hit."
                 }
             },
+            "Disarm": {
+                "WeakenedGraspBonusLabel": "Disarm (vs. weakened grasp)"
+            },
             "DivineAlly": {
                 "AllowedDrops": "champion class feature",
                 "Prompt": "Select a divine ally."
@@ -3123,6 +3193,9 @@
                 },
                 "ForgeBlessedShot": {
                     "Note": "Ignore your target's @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealed} condition, as well as your target's lesser, standard, and greater cover."
+                },
+                "HeroesCall": {
+                    "DescriptionAlteration": "If you Cast the Spell when you have half or fewer Hit Points, you also gain temporary Hit Points equal to twice your level."
                 },
                 "KneelForNoGod": {
                     "Note": "When you roll a success against a divine effect, you get a critical success instead."
@@ -3343,12 +3416,27 @@
                 "MaskOfTheMantis": {
                     "VernaisIreLabel": "Vernai's Ire"
                 },
+                "MindsLightCirclet": {
+                    "LightToggle": "Mind's Light Circlet — You have at least 1 Focus Point"
+                },
                 "NosoiCharm": {
                     "PerformanceLabel": "Nosoi Charm (Play an instrument, orate or sing)",
                     "RequestLabel": "Nosoi Charm (Request)"
                 },
                 "PhantomShroud": {
                     "StrikeLabel": "Ghostly Hand"
+                },
+                "PharasminVisor": {
+                    "PierceTheNight": "Pierce the Night",
+                    "RevealTheUnseen": "Reveal the Unseen",
+                    "SeeThroughDeath": "See Through Death"
+                },
+                "PreyMutagen": {
+                    "TimelyDodge": {
+                        "GreaterDescription": "You dart aside, gaining a +3 circumstance bonus to AC, then Step after the Strike resolves.",
+                        "MajorDescription": "You dart aside, gaining a +4 circumstance bonus to AC, then Step after the Strike resolves.",
+                        "ModerateDescription": "You dart aside, gaining a +2 circumstance bonus to AC, then Step after the Strike resolves."
+                    }
                 },
                 "RhinoShot": {
                     "CriticalSuccess": "The target must critically succeed at a @Check[fortitude|dc:19|name:Rhino Shot|traits:conjuration,consumable,magical|showDC:all] save or be knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}.",
@@ -3357,6 +3445,10 @@
                 },
                 "RobeOfTheArchmagi": {
                     "VsArcaneSpells": "{item} (vs. Arcane Spells)"
+                },
+                "RootBoots": {
+                    "GripGround": "Root Boots — Grip the Ground",
+                    "WoodenSurfaceLabel": "Root Boots — Wooden Surface"
                 },
                 "ScapularOfShields": {
                     "CriticalImmunityLabel": "Activate Scapular of Shields to gain critical immunity.",
@@ -3394,6 +3486,18 @@
                 },
                 "ZuhrasGloves": {
                     "WallOfMetalLabel": "Wall of Metal is Active"
+                }
+            },
+            "EternalLegend": {
+                "DeathFromAbove": {
+                    "Label": "Death from Above",
+                    "Note": "The target dealt damage by your Strike must succeed at a @Check[fortitude|against:class] or become @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1}."
+                },
+                "Dedication": {
+                    "AdjustmentToggle": "Eternal Legend — Apply adjustment against condition"
+                },
+                "FinishTheirStory": {
+                    "Note": "The target dies instantly."
                 }
             },
             "Exemplar": {
@@ -3700,17 +3804,23 @@
                     "Lash": "Lash"
                 },
                 "YoureNext": {
-                    "Rogue": "After downing a foe, you menace another. Attempt to @UUID[Compendium.pf2e.actionspf2e.Item.2u915NdUyQan6uKF]{Demoralize} a creature within 60 feet, with a +2 circumstance bonus. If you have legendary proficiency in Intimidation, you can use this as a free action with the same trigger.",
-                    "Swashbuckler": "After downing a foe, you promise another that you're coming after them next. Attempt an Intimidation check with a +2 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.2u915NdUyQan6uKF]{Demoralize} a single creature that you can see and that can see you. If you're legendary in Intimidation, you can use this as a free action with the same trigger.",
+                    "Rogue": "After downing a foe, you menace another. Attempt to [[/act demoralize options=youre-next]] a creature within 60 feet, with a +2 circumstance bonus. If you have legendary proficiency in Intimidation, you can use this as a free action with the same trigger.",
+                    "Swashbuckler": "After downing a foe, you promise another that you're coming after them next. Attempt an Intimidation check with a +2 circumstance bonus to [[/act demoralize options=youre-next]] a single creature that you can see and that can see you. If you're legendary in Intimidation, you can use this as a free action with the same trigger.",
                     "Trigger": "You reduce an enemy to 0 Hit Points."
                 }
             },
             "Fetchling": {
                 "DeepFetchling": {
                     "Prompt": "Select a type of energy to resist."
+                },
+                "LightlessLitheness": {
+                    "Note": "You can Step instead of Striding up to 5 feet."
                 }
             },
             "Fighter": {
+                "BrutalFinish": {
+                    "Note": "You deal @Damage[(ternary(gte(@actor.level,18),2,1))@item.system.damage.die[@item.system.damage.damageType]] damage."
+                },
                 "DazingBlow": {
                     "Note": "If the Strike hits, the creature must attempt a @Check[fortitude|against:class|traits:incapacitation] save against your class DC; this is an incapacitation effect.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 3}."
                 },
@@ -3805,7 +3915,7 @@
             "Geomancer": {
                 "AttunementShift": "Attunement Shift",
                 "TerrainAttunement": {
-                    "Aquatic": "You gain a swim Speed equal to your land Speed. If you're on a surface, temporary waves of water follow your movements, allowing you to use your swim Speed—if you have one—as your land Speed.",
+                    "Aquatic": "You gain a swim Speed equal to your land Speed. If you're on a surface, temporary waves of water follow your movements, allowing you to use your swim Speed—if you have one—as your land Speed. This effect lasts 1 round.",
                     "Arctic": "Enemies must attempt a @Check[fortitude] save. They take a –5-foot status penalty to their Speeds for 2 rounds (–10-foot on a critical failure).",
                     "Desert": "Enemies must attempt a @Check[fortitude] save. On a failure, they're @UUID[Compendium.pf2e.conditionitems.HL2l2VRSaQHu9lUw]{Fatigued} until they drink water or another potable liquid.",
                     "Forest": "Branches and vines reach out to get in your foes' way. Enemies must attempt a @Check[reflex] save. On a failure, they become @UUID[Compendium.pf2e.conditionitems.i3OJZU2nk64Df3xm]{Clumsy 1} for 1 round (@UUID[Compendium.pf2e.conditionitems.i3OJZU2nk64Df3xm]{Clumsy 2} on a critical failure).",
@@ -3853,6 +3963,15 @@
                 "Twitchy": {
                     "InitiativeToggle": "Twitchy — Opponent uses Deception or Diplomacy for initiative",
                     "TOTMToggle": "Twitchy — Defending against hazards"
+                }
+            },
+            "Godling": {
+                "DivineInvulnerability": {
+                    "IncreasedResistanceToggle": "Divine Invulnerability — Increase resistance"
+                },
+                "DomainDamageDropdown": "Godling — Domain damage type",
+                "StymieTheGods": {
+                    "BonusToggle": "Stymie the Gods — Defending against an extraplanar creature"
                 }
             },
             "GoldenBladeOfMzali": {
@@ -4198,7 +4317,7 @@
                     "VenomtailKobold": "Venomtail Kobold"
                 },
                 "DragonsBreath": {
-                    "DescriptionAlteration": "You channel your draconic exemplar's power into a gout of energy that manifests as a @Template[line|distance:60] or a @Template[cone|distance:30], dealing @Damage[ceil(@actor.level/2)d8[@actor.flags.pf2e.draconicExemplar.damageType]|traits:area-damage] damage. Each creature in the area must attempt a basic saving throw against the higher of your class DC or spell DC. You can't use this ability again for 1 hour."
+                    "DescriptionAlteration": "You channel your draconic exemplar's power into a gout of energy that manifests as a @Template[line|distance:60] or a @Template[cone|distance:30], dealing @Damage[ceil(@actor.level/2)d8[@actor.flags.pf2e.draconicExemplar.damageType]|options:area-damage] damage. Each creature in the area must attempt a basic saving throw against the higher of your class DC or spell DC. You can't use this ability again for 1 hour."
                 },
                 "DragonsPresence": {
                     "Note": "When you roll a success on a saving throw against a fear effect, you get a critical success instead. When you roll a failure against a fear effect, you get a critical failure instead."
@@ -4281,6 +4400,10 @@
                 "EvergreenVitality": "Evergreen Vitality",
                 "GraspingBranch": "Grasping Branch",
                 "OverwhelmingPerfume": "Overwhelming Perfume",
+                "RollOptionLabel": {
+                    "First": "Mantle of the Unwavering Heart — First ability",
+                    "Second": "Mantle of the Unwavering Heart — Second ability"
+                },
                 "ToweringTrunk": "Towering Trunk",
                 "UnyieldingWill": "Unyielding Will"
             },
@@ -4293,6 +4416,11 @@
                 "DreadMarshalStance": {
                     "Note": "When you critically hit an enemy with a Strike, that enemy is @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{Frightened 1}.",
                     "Title": "Dread Marshal Aura"
+                }
+            },
+            "MartialArtist": {
+                "GrievousBlow": {
+                    "Note": "This Strike ignores an amount of resistance to physical damage (or to a specific physical damage type) equal to your level."
                 }
             },
             "MartialProficiency": {
@@ -4337,6 +4465,7 @@
                 "AdvancedMerfolkWeapons": "Advanced Merfolk Weapons",
                 "AdvancedOrcWeapons": "Advanced Orc Weapons",
                 "AdvancedSamsaranWeapons": "Advanced Samsaran Weapons",
+                "AdvancedStudentOfArchery": "Advanced Student of Archery Weapon",
                 "AdvancedSurkiWeapons": "Advanced Surki Weapons",
                 "AdvancedTenguWeapons": "Advanced Tengu Weapons",
                 "AdvancedTripkeeWeapons": "Advanced Tripkee Weapons",
@@ -4390,6 +4519,7 @@
                 "MartialOniWeapons": "Martial Oni Weapons",
                 "MartialOrcWeapons": "Martial Orc Weapons",
                 "MartialSamsaranWeapons": "Martial Samsaran Weapons",
+                "MartialStudentOfArchery": "Martial Student of Archery Weapon",
                 "MartialSurkiWeapons": "Martial Surki Weapons",
                 "MartialTenguWeapons": "Martial Tengu Weapons",
                 "MartialTripkeeWeapons": "Martial Tripkee Weapons",
@@ -4476,9 +4606,9 @@
             "Mummy": {
                 "AccursedTouch": {
                     "Note": {
-                        "Base": "The creature takes @Damage[2d6[persistent,void]] damage. While the creature has this persistent damage, it's also @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1}.",
-                        "FourteenthLevel": "The creature takes @Damage[3d6[persistent,void]] damage. While the creature has this persistent damage, it's also @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1}.",
-                        "TwentiethLevel": "The creature takes @Damage[4d6[persistent,void]] damage. While the creature has this persistent damage, it's also @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1}."
+                        "Base": "While the creature is taking this persistent damage, it's also @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1}.",
+                        "FourteenthLevel": "While the creature is taking this persistent damage, it's also @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1}.",
+                        "TwentiethLevel": "While the creature is taking this persistent damage, it's also @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1}."
                     }
                 },
                 "Terrain": {
@@ -4511,6 +4641,9 @@
                 "Triple": {
                     "Label": "Triple"
                 }
+            },
+            "Mythic": {
+                "PointSpentPrompt": "Was a Mythic Point spent on this ability?"
             },
             "Nagaji": {
                 "VenomSpit": {
@@ -4624,6 +4757,11 @@
                 "ThoroughReports": "Thorough Reports"
             },
             "PlayingItem": "Playing {item}",
+            "PFS": {
+                "NarsensWeb": {
+                    "RollOptionLabel": "Hiding behind a mask or disguise"
+                }
+            },
             "Poppet": {
                 "Tsukumogami": {
                     "Ceramic": "Ceramic",
@@ -4645,9 +4783,11 @@
                 "Alignment": "Select an alignment.",
                 "Attribute": "Select an attribute.",
                 "Benefit": "Select a benefit.",
+                "Bonus": "Select a bonus.",
                 "Cantrip": "Select a cantrip.",
                 "CantripOrNonCantrip": "Select cantrip or non-cantrip spell.",
                 "ClassDCAbilityScore": "Select the class DC's key attribute.",
+                "ClassFeat": "Select a class feat.",
                 "Color": "Select a Color.",
                 "ConsciousMind": "Select a conscious mind.",
                 "CreatureSize": "Select a creature size.",
@@ -4657,6 +4797,7 @@
                 "DeitysDomain": "Select a deity's domain.",
                 "DieSize": "Select a die size.",
                 "DragonBreathWeapon": "Select a dragon's breath weapon.",
+                "Effect": "Select an effect.",
                 "Element": "Select an element.",
                 "EnergyType": "Select an energy type.",
                 "EquipmentVariety": "Select an item variety.",
@@ -4678,6 +4819,7 @@
                 "Penalty": "Select a penalty.",
                 "Persona": "Select a persona trait.",
                 "PsiCantrip": "Select a psi cantrip.",
+                "RangedWeapon": "Select a ranged weapon.",
                 "Resistance": "Select a resistance.",
                 "Rune": "Select a Rune.",
                 "Sanctification": "Select a sanctification.",
@@ -4779,6 +4921,7 @@
                         "Base": "Your telepathic message allows you to coordinate your actions while you pass on information. The target of the message can immediately spend its reaction to Step or Stride.",
                         "Heightened": "The target of the message can choose to @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{Shove}, Strike, or @UUID[Compendium.pf2e.actionspf2e.Item.ge56Lu1xXVFYUnLP]{Trip} with its reaction instead."
                     },
+                    "MindsLightCirclet": "You transfer some of the magical luminescence from the mind's light circlet to one of the creatures. Choose a creature targeted by the spell or in its area. Until the start of your next turn, that creature sheds bright light in a 20-foot radius (and dim light to the next 20 feet) and can't be @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealed}. If the creature is @UUID[Compendium.pf2e.conditionitems.Item.zJxUflt9np0q4yML]{Invisible}, it's concealed while alight, rather than being @UUID[Compendium.pf2e.conditionitems.Item.VRSef5y1LmL2Hkjf]{Undetected}.",
                     "OmnidirectionalScan": {
                         "Base": "Your scans are so minute that you can project your foe's likely strengths and weaknesses. You learn which of the target enemy's saving throws is highest and which is lowest, and you and all allies within 30 feet gain a +1 circumstance bonus to attacks and damage against the creature.",
                         "BaseTwo": "If you take the Aid reaction you prepared for and succeed at your roll, these bonuses increase to +2 on the attack you're Aiding. On a critical success, they increase to +3, or to +4 if you have legendary proficiency in spell attack rolls."
@@ -5080,6 +5223,9 @@
                     "SpellNote": "Whenever you cast a spell using spell slots, you gain a +1 status bonus to attack rolls with your unarmed Strikes until the start of your next turn."
                 }
             },
+            "SkilledClimber": {
+                "Label": "Climbing Cavern Wall or Tree"
+            },
             "SkillMastery": {
                 "ExpertPrompt": "Select a skill to become expert in.",
                 "MasterPrompt": "Select a skill to become master in."
@@ -5220,6 +5366,18 @@
                     "First": "Mantle of the Frozen Heart — First ability",
                     "Second": "Mantle of the Frozen Heart — Second ability"
                    } 
+                },
+                "MagmaHeart": {
+                    "Label": {
+                       "EnlargingEruption": "Enlarging Eruption",
+                       "FieryGrasp": "Fiery Grasp",
+                       "HeartOfFire": "Heart of Fire",
+                       "WarmingFlames": "Warming Flames"
+                   },
+                   "RollOptionLabel": {
+                    "First": "Mantle of the Magma Heart — First ability",
+                    "Second": "Mantle of the Magma Heart — Second ability"
+                   }
                 }
             },
             "SpellEffectPreciousMetals": {
@@ -5421,7 +5579,7 @@
                 "Martyr": "You lose @Damage[(@item.rank)d8] Hit Points, which can't be reduced or mitigated in any way, and your ally regains an equal number of Hit Points. @UUID[Compendium.pf2e.feat-effects.Item.7ogytOgDmh4h2g5d]{Effect: Heroic Recovery}",
                 "MelodiousSpell": "The spell gains the Subtle trait. The trait hides only the spell's spellcasting actions and manifestations, not its effects. As part of using Melodious Spell, you can choose to @UUID[Compendium.pf2e.actionspf2e.Item.GkmbTGfg8KcgynOA]{Create a Diversion}, @UUID[Compendium.pf2e.actionspf2e.Item.2u915NdUyQan6uKF]{Demoralize}, @UUID[Compendium.pf2e.actionspf2e.Item.EEDElIyin4z60PXx]{Perform}, or Request. If you do so, the spell you cast must have the auditory, emotion, sonic, or visual trait to gain the subtle trait.",
                 "NonLethal": "If your next action is to Cast a Spell that deals damage and doesn't have the death or void trait, that spell gains the nonlethal trait.",
-                "OstentatiousArrivalManifestEidolon": "All creatures in a @Template[type:emanation|distance:10] around the creature you summoned or manifested take @Damage[(@actor.level)d4[@actor.flags.pf2e.spellshape.arrayDamage]]. If the creature you summoned or manifested has the acid, cold, electricity, fire, sonic, or water trait, the damage is that type instead (or cold damage for the water trait). If the creature has more than one of these traits, you choose which damage type to deal.",
+                "OstentatiousArrivalManifestEidolon": "All creatures except you in a @Template[type:emanation|distance:10] around the creature you summoned or manifested take @Damage[(@actor.level)d4[@actor.flags.pf2e.spellshape.arrayDamage]]. If the creature you summoned or manifested has the acid, cold, electricity, fire, sonic, or water trait, the damage is that type instead (or cold damage for the water trait). If the creature has more than one of these traits, you choose which damage type to deal.",
                 "OstentatiousArrivalSummonSpell": "All creatures in a @Template[type:emanation|distance:10] around the creature you summoned or manifested take @Damage[(@item.level)d4[@actor.flags.pf2e.spellshape.arrivalDamage]] damage. If the creature you summoned or manifested has the acid, cold, electricity, fire, sonic, or water trait, the damage is that type instead (or cold damage for the water trait). If the creature has more than one of these traits, you choose which damage type to deal.",
                 "OverwhelmingBreath": "If you use your next action to Cast a Spell that has the monk trait and no duration, the spell and any Strikes you make as a result of casting it ignore an amount of the target's resistance to physical damage equal to your level.",
                 "OverwhelmingEnergy": "If the next action you use is to Cast a Spell, the spell ignores an amount of the target's resistance to acid, cold, electricity, fire, or sonic damage equal to your level. This applies to all damage the spell deals, including persistent damage and damage caused by an ongoing effect of the spell, such as the wall created by wall of fire. A creature's immunities are unaffected.",
@@ -5638,6 +5796,7 @@
                 "Toshiro": "Toshiro"
             },
             "Target": {
+                "AgainstAnimals": "Against Animals",
                 "AgainstDemons": "Against Demons",
                 "AgainstDevils": "Against Devils",
                 "AgainstHumanoids": "Against Humanoids",
@@ -5678,15 +5837,70 @@
             },
             "Thaumaturge": {
                 "Implement": {
-                    "Amulet": "Amulet",
-                    "Bell": "Bell",
-                    "Chalice": "Chalice",
-                    "Lantern": "Lantern",
-                    "Mirror": "Mirror",
-                    "Regalia": "Regalia",
-                    "Tome": "Tome",
-                    "Wand": "Wand",
-                    "Weapon": "Weapon"
+                    "Adept": {
+                        "Label": "Implement Adept"
+                    },
+                    "Amulet": {
+                        "Adept": {
+                            "Description": "When you use Amulet's Abeyance, you or your ally chooses one type of damage dealt by the triggering attack and gains resistance 5 against that damage type until the start of your next turn. At 15th level, this lingering resistance increases from 5 to 10.",
+                            "Prompt": "Select a damage type dealt by the triggering attack."
+                        },
+                        "Label": "Amulet"
+                    },
+                    "Bell": {
+                        "Label": "Bell"
+                    },
+                    "Chalice": {
+                        "Adept": {
+                            "DescriptionAlteration": "On a sip, the temporary Hit Points granted to the creature increase to 2 + your Charisma modifier + your level. When drained, the chalice heals the creature 5 Hit Points for each level you have.",
+                            "Note": "If you or an ally within 30 feet takes piercing or slashing damage from a foe's critical hit or takes persistent bleed damage, Drinking from the Chalice before the end of your next turn grants that injured creature greater restoration to make up for its lost vitality. On a sip, the temporary Hit Points granted to the creature increase to 2 + your Charisma modifier + your level. When drained, the chalice heals the creature 5 Hit Points for each level you have. @UUID[Compendium.pf2e.feat-effects.Item.Sq558879cgEc1lGC]{Effect: Chalice Adept Benefit (Self)}"
+                        },
+                        "Label": "Chalice"
+                    },
+                    "Lantern": {
+                        "BonusToggle": "Target is within the lantern's bright light",
+                        "Label": "Lantern",
+                        "LightToggle": "Light lantern implement"
+                    },
+                    "Mirror": {
+                        "Label": "Mirror"
+                    },
+                    "Paragon": {
+                        "Label": "Implement Paragon"
+                    },
+                    "Prompt": "Select an implement.",
+                    "Regalia": {
+                        "Label": "Regalia",
+                        "UnflankableToggle": "Regalia owner is being flanked."
+                    },
+                    "Tome": {
+                        "FirstSkillDropdown": "Tome — First skill",
+                        "Label": "Tome",
+                        "Paragon": {
+                            "InitiativeBonusLabel": "Tome (Paragon)",
+                            "InitiativeToggle": "Tome — Initiative vs. creatures or haunts"
+                        },
+                        "SecondSkillDropdown": "Tome — Second skill"
+                    },
+                    "Wand": {
+                        "Adept": {
+                            "Cold": "If the target fails its save and takes damage, it becomes chilled, taking a –10-foot status penalty to its Speeds for 1 round.",
+                            "RangeIncrease": "Tne range of Fling Magic increases to 120 feet.",
+                            "Electricity": "If the target fails its save and takes damage, it becomes shocked, becoming @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} until the end of your next turn.",
+                            "Fire": "If the target fails its save and takes damage, it catches flame, taking @Damage[1d10[persistent,fire]] (or @Damage[2d10[persistent,fire]] on a critical failure).",
+                            "FireParagon": "If the target fails its save and takes damage, it catches flame, taking @Damage[2d10[persistent,fire]] (or @Damage[4d10[persistent,fire]] on a critical failure)."
+                        },
+                        "Label": "Wand",
+                        "Paragon": {
+                            "Description": "The range of Fling Magic increases to 180 feet. You can choose to target a single creature or to affect all creatures in a @Template[burst|distance:20]."
+                        }
+                    },
+                    "Weapon": {
+                        "Adept": {
+                            "Note": "You deal @Damage[1[@item.system.damage.damageType]] damage, possibly applying any bonus damage due to the target's weakness."
+                        },
+                        "Label": "Weapon"
+                    }
                 },
                 "TalismanEsoterica": "Talisman Esoterica"
             },
@@ -5796,7 +6010,12 @@
             },
             "WeaponInfusion": {
                 "Melee": "Melee Infusion",
-                "Ranged": "Ranged Infusion"
+                "Ranged": "Ranged Infusion",
+                "RangedSuboptions": {
+                    "100Volley": "100 ft., Volley 30ft.",
+                    "50Propulsive": "50 ft., Propulsive",
+                    "20Thrown": "20 ft., Thrown"
+                }
             },
             "WellspringMage": {
                 "CriticalSuccess": "You temporarily recover an expended spell slot of any rank of your choice. The temporary spell slot lasts for 1 minute, and if you don't use it by then, you experience an immediate @UUID[Compendium.pf2e.rollable-tables.RollTable.N0pDFNCffTe2Du39]{Wellspring Surge}.",
@@ -5821,6 +6040,9 @@
                     "Label": "Wereboar"
                 },
                 "Werecrocodile": {
+                    "DeathRoll": {
+                        "ToggleLabel": "Death Roll — In Water"
+                    },
                     "Description": "You gain a 25ft speed and a 15ft swim speed, and a 1d8 piercing jaws unarmed attack with the grapple trait. You can hold your breath for 2 hours in animal or hybrid form.",
                     "Label": "Werecrocodile"
                 },
@@ -5845,7 +6067,7 @@
                     "Label": "Werewolf"
                 },
                 "YouDontSmellRight": {
-                    "Label": "Seek to determine if a creature is disguised."
+                    "Label": "Seek to determine if a creature is disguised"
                 }
             },
             "WingedWarrior": {
@@ -5927,10 +6149,10 @@
                         "RollOptionLabel": "You hit the same enemy with two consecutive nail strikes"
                     },
                     "IronTeeth": {
-                        "Note": "A creature that you critically hit with a jaws Strike must succeed at a @Check[fortitude|against:witch] save or become @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 1}."
+                        "Note": "A creature that you critically hit with a jaws Strike must succeed at a @Check[fortitude|against:class-spell] save gainst your class DC or Spell DC or become @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 1}."
                     },
                     "LivingHair": {
-                        "SrikeLabel": "Quill"
+                        "StrikeLabel": "Quill"
                     }
                 },
                 "WitchsArmaments": {

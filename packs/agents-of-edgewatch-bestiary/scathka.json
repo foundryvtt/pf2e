@@ -403,13 +403,18 @@
             "name": "Black Tentacles",
             "sort": 500000,
             "system": {
-                "area": null,
+                "area": {
+                    "details": "20-foot burst adjacent to a flat surface",
+                    "type": "burst",
+                    "value": 20
+                },
                 "cost": {
                     "value": ""
                 },
                 "counteraction": false,
                 "damage": {
                     "0": {
+                        "applyMod": false,
                         "category": null,
                         "formula": "3d6",
                         "kinds": [
@@ -419,7 +424,12 @@
                         "type": "bludgeoning"
                     }
                 },
-                "defense": null,
+                "defense": {
+                    "passive": {
+                        "statistic": "fortitude-dc"
+                    },
+                    "save": null
+                },
                 "description": {
                     "value": "<p><strong>Area</strong> 20-foot burst adjacent to a flat surface</p>\n<hr />\n<p>Oily black tentacles rise up and attempt to capture creatures in the area. Make spell attack rolls against the Fortitude DC of each creature in the area. Any creature you succeed against is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] and takes 3d6 bludgeoning damage. Whenever a creature ends its turn in the area, the tentacles attempt to grab that creature if they haven't already, and they deal @Damage[1d6[bludgeoning]] damage to any creature already Grabbed.</p>\n<p>The tentacles' Escape DC is equal to your spell DC. A creature can attack a tentacle in an attempt to release its grip. Its AC is equal to your spell DC, and it is destroyed if it takes 12 or more damage. Even if destroyed, additional tentacles continue to grow in the area until the duration ends. You can Dismiss the spell.</p>"
                 },
@@ -436,7 +446,7 @@
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
                 "range": {
                     "value": "120 feet"
@@ -457,6 +467,7 @@
                         "occult"
                     ],
                     "value": [
+                        "attack",
                         "concentrate",
                         "manipulate"
                     ]
@@ -2357,7 +2368,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirement</strong> Scathka is wielding a dagger</p>\n<hr />\n<p><strong>Effect</strong> Scathka draws a shadowy glyph on the dagger's blade and flings it at a nearby foe. Scathka makes a ranged Strike with the dagger with the range increment to 30 feet.</p>\n<p>If the Strike hits, it deals @Damage[8d6[cold]] damage (double damage on a critical success) and the target must succeed at a @Check[fortitude|dc:32] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until the end of its next turn (or [[/br 1d4 #rounds]]{1d4 rounds} on a critical failure).</p>\n<p>The dagger loses its shadowy magic as soon as the attack is resolved.</p>"
+                    "value": "<p><strong>Requirement</strong> Scathka is wielding a dagger</p>\n<hr />\n<p><strong>Effect</strong> Scathka draws a shadowy glyph on the dagger's blade and flings it at a nearby foe. Scathka makes a ranged Strike with the dagger with the range increment to 30 feet.</p>\n<p>If the Strike hits, it deals @Damage[8d6[cold]] damage (double damage on a critical success) and the target must succeed at a @Check[fortitude|dc:32] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until the end of its next turn (or [[/gmr 1d4 #rounds]]{1d4 rounds} on a critical failure).</p>\n<p>The dagger loses its shadowy magic as soon as the attack is resolved.</p>"
                 },
                 "publication": {
                     "license": "OGL",

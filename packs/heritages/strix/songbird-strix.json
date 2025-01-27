@@ -21,23 +21,12 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "action:impersonate"
+                    "action:impersonate",
+                    "voice-only"
                 ],
                 "selector": "deception",
                 "type": "circumstance",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 2,
-                            "value": 1
-                        },
-                        {
-                            "start": 3,
-                            "value": 2
-                        }
-                    ],
-                    "field": "actor|system.skills.deception.rank"
-                }
+                "value": "ternary(gte(@actor.system.skills.deception.rank,3),2,1)"
             },
             {
                 "key": "FlatModifier",
@@ -46,19 +35,7 @@
                 ],
                 "selector": "performance",
                 "type": "circumstance",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 2,
-                            "value": 1
-                        },
-                        {
-                            "start": 3,
-                            "value": 2
-                        }
-                    ],
-                    "field": "actor|system.skills.performance.rank"
-                }
+                "value": "ternary(gte(@actor.system.skills.performance.rank,3),2,1)"
             }
         ],
         "traits": {

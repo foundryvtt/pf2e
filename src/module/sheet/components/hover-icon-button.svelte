@@ -15,7 +15,8 @@
 </button>
 
 <style>
-    button {
+    /** Increase specificity until layer support */
+    button.flat {
         --image-size: 2rem;
 
         position: relative;
@@ -41,7 +42,8 @@
             color: var(--text-dark);
         }
 
-        &:hover {
+        &:hover,
+        &:focus {
             text-shadow: none;
 
             i {

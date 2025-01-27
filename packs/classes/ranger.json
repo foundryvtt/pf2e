@@ -190,7 +190,19 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.nature.rank",
+                "predicate": [
+                    {
+                        "not": "feature:vindicator"
+                    }
+                ],
+                "value": 1
+            }
+        ],
         "savingThrows": {
             "fortitude": 2,
             "reflex": 2,
@@ -227,7 +239,6 @@
         "trainedSkills": {
             "additional": 4,
             "value": [
-                "nature",
                 "survival"
             ]
         },

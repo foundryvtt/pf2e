@@ -1,8 +1,9 @@
 <script lang="ts">
-    import TraitsSelect from "./partials/traits-select.svelte";
-    import { htmlQuery, htmlClosest } from "@util";
-    import type { TraitData } from "../../tabs/data.ts";
+    import { onMount } from "svelte";
     import type { Action } from "svelte/action";
+    import { SvelteSet } from "svelte/reactivity";
+    import TraitsSelect from "./partials/traits-select.svelte";
+    import type { TraitData } from "../../tabs/data.ts";
 
     type TraitOption = TraitData["options"][number];
 
@@ -10,6 +11,7 @@
         traits: TraitData;
     }
     const { traits = $bindable() }: Props = $props();
+    const exclude = $state(new SvelteSet<string>());
 
     function onChangeConjunction(event: Event & { currentTarget: HTMLInputElement }): void {
         const value = event.currentTarget.value;
@@ -17,22 +19,30 @@
         traits.conjunction = value;
     }
 
-    function onChangeTraits(selected: TraitOption[]): void {
-        traits.selected = selected;
+    function onChangeTraits(newSelection: TraitOption[]): void {
+        // Keep the original value, if available, to not lose the "not" state
+        traits.selected = newSelection.map((n) => traits.selected.find((s) => s.value === n.value) ?? n);
     }
 
-    function onClickNot(event: MouseEvent, index: number): void {
+    function onClickNot(index: number): void {
         const selected = traits.selected.at(index);
         if (!selected) return;
         selected.not = !selected.not;
 
-        const element = htmlQuery(htmlClosest(event.currentTarget, ".sv-item--container"), ".sv-item--content");
         if (selected.not) {
-            element?.classList.add("not");
+            exclude.add(selected.value);
         } else {
-            element?.classList.remove("not");
+            exclude.delete(selected.value);
         }
     }
+
+    onMount(() => {
+        for (const selected of traits.selected) {
+            if (selected.not) {
+                exclude.add(selected.value);
+            }
+        }
+    });
 </script>
 
 <TraitsSelect
@@ -73,7 +83,7 @@
     {#each options as opt, index (opt.value)}
         <div class="sv-item--container">
             <div class="sv-item--wrap in-selection is-multi">
-                <div class="sv-item--content">{opt.label}</div>
+                <div class="sv-item--content" class:not={exclude.has(opt.value)}>{opt.label}</div>
             </div>
             <button
                 class="sv-item--btn"
@@ -81,7 +91,7 @@
                 type="button"
                 aria-label="not option"
                 data-action="not"
-                onclick={(event) => onClickNot(event, index)}
+                onclick={() => onClickNot(index)}
             >
                 <i class="fa-solid fa-ban fa-2xs"></i>
             </button>

@@ -28,7 +28,27 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Ancestry Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "evanescent-wings",
+                "predicate": [
+                    {
+                        "not": "feat:heros-wings"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "evanescent-wings"
+                ],
+                "selector": "fly",
+                "value": 15
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

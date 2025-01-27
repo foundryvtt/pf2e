@@ -28,7 +28,57 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "finish-their-story",
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "finish-their-story",
+                    {
+                        "lte": [
+                            "target:level",
+                            16
+                        ]
+                    }
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.EternalLegend.FinishTheirStory.Note",
+                "title": "{item|name}"
+            },
+            {
+                "diceNumber": 3,
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "finish-their-story",
+                    "target:level:17"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "diceNumber": 2,
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "finish-their-story",
+                    {
+                        "gte": [
+                            "target:level",
+                            18
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            }
+        ],
         "traits": {
             "otherTags": [
                 "eternal-legend-dedication"

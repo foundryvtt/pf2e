@@ -1,0 +1,82 @@
+{
+    "_id": "a57iBUZBQtXWZc36",
+    "folder": "VU1vkm9fUFmtzF2X",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Dedicated Delver",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "dex",
+                    "str"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>Filled with predators, pitfalls, and other perils, the Darklands rightfully scares off most travelers. Not you! Whether you're a veteran Darklands caravanner, a cartographer seeking safer paths through dangerous territory, or just a spelunker who loves to escape the surface and hear the caverns sing, you're adept at navigating underground obstacles and finding your way back to civilization.</p>\n<p>Clan Tolorr specializes more in studying the past than extracting it from dangerous areas. Its leader, Arghan Tolorr, was an avid explorer in his youth, and he's begun an initiative to befriend, recruit, and train subterranean daredevils who can extract relics responsibly. You're one of his candidates for this pilot program. Helping administrate recruits is Ria, a gnome curator and close Tolorr confidante who helped arrange your travel to Highhelm.</p>\n<p>Choose two attribute boosts. One must be to <strong>Strength</strong> or <strong>Dexterity</strong>, and one is a free attribute boost.</p>\n<p>You're trained in either the Athletics skill or the Survival skill, and you're trained in the Cave Lore skill. If you selected Athletics, you gain the @UUID[Compendium.pf2e.feats-srd.Item.Combat Climber] skill feat. If you chose Survival, you gain the @UUID[Compendium.pf2e.feats-srd.Item.Terrain Expertise]{Terrain Expertise (Underground)} skill feat.</p>\n<p><strong>Connection:</strong> Ria, an oread gnome curator who studies rivethun traditions</p>\n<p><strong>Reputation Points:</strong> +0</p>"
+        },
+        "items": {},
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Sky King's Tomb Player's Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Athletics",
+                        "value": {
+                            "feat": "Compendium.pf2e.feats-srd.Item.Combat Climber",
+                            "skill": "athletics"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Skill.Survival",
+                        "value": {
+                            "feat": "Compendium.pf2e.feats-srd.Item.Terrain Expertise",
+                            "skill": "survival"
+                        }
+                    }
+                ],
+                "flag": "dedicatedDiver",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.dedicatedDiver.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "preselectChoices": {
+                    "assurance": "underground"
+                },
+                "uuid": "{item|flags.pf2e.rulesSelections.dedicatedDiver.feat}"
+            }
+        ],
+        "trainedSkills": {
+            "lore": [
+                "Cave Lore"
+            ],
+            "value": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "background"
+}

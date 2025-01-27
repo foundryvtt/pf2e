@@ -1,0 +1,80 @@
+{
+    "_id": "KUNJk4bsCRDzArdK",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/prey-mutagen.webp",
+    "name": "Effect: Prey Mutagen (Moderate)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Prey Mutagen (Moderate)]</p>\n<p>You gain a +20 status bonus to your Speed and gain the Timely Dodge reaction. Animals and beasts gain a +2 circumstance bonus to attack rolls against you.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #194: Cult of the Cave Worm"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Timely Dodge"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:timely-dodge"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.FeatDescription.Trigger.TargetedByAStrike",
+                        "title": "PF2E.FeatDescription.Trigger.Label"
+                    },
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Equipment.PreyMutagen.TimelyDodge.ModerateDescription"
+                    }
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "land-speed",
+                "type": "status",
+                "value": 20
+            },
+            {
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "predicate": [
+                    {
+                        "or": [
+                            "origin:trait:animal",
+                            "origin:trait:beast"
+                        ]
+                    }
+                ],
+                "selectors": "attack-roll",
+                "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Prey Mutagen (Bonus)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -319,27 +319,54 @@ abstract class RollContext<
 
     #getClonedStatistic(clonedActor: ActorPF2e | null): Statistic | StrikeData | null {
         const unresolvedRoller = this.unresolved[this.rollerRole];
-        if (this.viewOnly) return unresolvedRoller?.statistic ?? null;
+        const unresolvedStatistic = unresolvedRoller?.statistic ?? null;
+        if (this.viewOnly) return unresolvedStatistic;
 
         const strikeActions = clonedActor?.system.actions ?? [];
         const unclonedItem = this.item;
 
-        return unresolvedRoller?.statistic instanceof StatisticModifier
-            ? (strikeActions.find((action): boolean => {
-                  // Find the matching weapon or melee item
-                  if (unclonedItem?.id !== action.item.id || unclonedItem.name !== action.item.name) return false;
-                  if (unclonedItem.isOfType("melee") && action.item.isOfType("melee")) return true;
+        if (unresolvedStatistic instanceof StatisticModifier) {
+            const matchingStrike = strikeActions.find((action): boolean => {
+                // Find the matching weapon or melee item
+                if (unclonedItem?.id !== action.item.id || unclonedItem.name !== action.item.name) return false;
+                if (unclonedItem.isOfType("melee") && action.item.isOfType("melee")) return true;
 
-                  // Discriminate between melee/thrown usages by checking that both are either melee or ranged
-                  return (
-                      unclonedItem.isOfType("weapon") &&
-                      action.item.isOfType("weapon") &&
-                      unclonedItem.isMelee === action.item.isMelee
-                  );
-              }) ??
-                  unresolvedRoller?.statistic ??
-                  null)
-            : (unresolvedRoller?.statistic ?? null);
+                // Discriminate between melee/thrown usages by checking that both are either melee or ranged
+                return (
+                    unclonedItem.isOfType("weapon") &&
+                    action.item.isOfType("weapon") &&
+                    unclonedItem.isMelee === action.item.isMelee
+                );
+            });
+            return matchingStrike ?? unresolvedStatistic;
+        }
+
+        // If this actor isn't actually a clone, return the normal statistic
+        if (!unresolvedStatistic || !clonedActor || unresolvedRoller?.actor === clonedActor) {
+            return unresolvedStatistic;
+        }
+
+        // Note: we may need to eventually handle heirarchies by finding the first available parent and then applying diffs
+        // For now we simply return the original if we detect a deviation
+        const clonedStatistic = clonedActor.getStatistic(unresolvedStatistic.slug);
+        const initialHeirarchy = this.#getStatisticHierarchy(unresolvedStatistic);
+        const clonedHeirarchy = this.#getStatisticHierarchy(clonedStatistic);
+        if (!R.isDeepEqual(initialHeirarchy, clonedHeirarchy)) {
+            return unresolvedStatistic;
+        }
+
+        return clonedStatistic ?? unresolvedStatistic;
+    }
+
+    /** Returns a statistic's inheritance hierarchy as a list of slugs */
+    #getStatisticHierarchy(statistic: Statistic | null) {
+        const results: string[] = [];
+        let current: Statistic | null = statistic;
+        while (current) {
+            results.push(current.slug);
+            current = current.base;
+        }
+        return results.reverse();
     }
 }
 

@@ -337,7 +337,10 @@
             "type": "action"
         },
         {
-            "_id": "Q6Z6sPX8M68AUOXI",
+            "_id": "Cuj1HV00AkJoEhU5",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
             "sort": 800000,
@@ -353,31 +356,23 @@
                     "value": ""
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
                 "rules": [
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "or": [
-                                    "magical",
-                                    "arcane",
-                                    "primal",
-                                    "occult",
-                                    "divine"
-                                ]
-                            }
+                            "item:magical"
                         ],
                         "selector": "saving-throw",
+                        "type": "status",
                         "value": 1
                     }
                 ],
-                "slug": null,
+                "slug": "1-status-to-all-saves-vs-magic",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -507,7 +502,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The shoal linnorm exhales scalding steam that deals @Damage[12d8[fire]] damage in a @Template[cone|distance:60] (@Check[reflex|dc:36|basic] save). The steam lingers until the end of the linnorm's next turn; anyone who enters the area or begins their turn in the area takes @Damage[6d8[fire]] damage (@Check[reflex|dc:36|traits:damaging-effect] save negates). During this time, the steam is so thick that it impedes movement as well as sight, turning the area into difficult terrain. All creatures in the steam become @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and all creatures outside the steam become concealed to creatures within it.</p>\n<p>The shoal linnorm can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                    "value": "<p>The shoal linnorm exhales scalding steam that deals @Damage[12d8[fire]|options:area-damage] damage in a @Template[cone|distance:60] (@Check[reflex|dc:36|basic|options:area-effect] save). The steam lingers until the end of the linnorm's next turn; anyone who enters the area or begins their turn in the area takes @Damage[6d8[fire]] damage (@Check[reflex|dc:36|traits:damaging-effect] save negates). During this time, the steam is so thick that it impedes movement as well as sight, turning the area into difficult terrain. All creatures in the steam become @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and all creatures outside the steam become concealed to creatures within it.</p>\n<p>The shoal linnorm can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",

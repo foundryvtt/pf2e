@@ -1,0 +1,95 @@
+{
+    "_id": "7jb5AgGsyIRcVsKw",
+    "img": "icons/equipment/head/goggles-leather-blue.webp",
+    "name": "Pharasmin Visor",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>Popular in Ustalav and other lands where undead are numerous, a <em>Pharasmin visor</em> is a valuable part of any fashionable noble's armory when attending events in places like Caliphas. This item consists of a metal skullcap helm with a pair of blue crystal lenses extending from each side on metal armatures that can be moved independently in front of or away from the eyes. The helm can appear as either gleaming silver or dull black, and the wearer can alter its appearance whenever they invest the visor.</p><hr /><p><strong>Activate—Pharasma's Disdain</strong> <span class=\"action-glyph\">2</span> (manipulate, mental)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You adjust the visors so that both are lowered. Your vision becomes obscured, causing you to become @UUID[Compendium.pf2e.conditionitems.Item.Dazzled]. At the same time, a tiny fraction of Pharasma's notice seeps out of the visor to fill the area around you in a @Template[type:emanation|distance:30]. All undead creatures in this area take @Damage[12d6[spirit]] damage (@Check[will|dc:30|basic] save). At the end of your turn, both visors automatically rise back up, but you remain dazzled until the start of your next turn.</p><hr /><p><strong>Activate—Pierce the Night</strong> <span class=\"action-glyph\">1</span> (manipulate)</p>\n<p><strong>Effect</strong> You adjust the helm so that only the left visor is lowered. You gain darkvision until you adjust the visors again or until the item is no longer invested by you, whichever comes first.</p><hr /><p><strong>Activate—Reveal the Unseen</strong> <span class=\"action-glyph\">1</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You adjust the helm so that only the right visor is lowered. You can see @UUID[Compendium.pf2e.conditionitems.Item.Invisible] creatures as though they weren't invisible, although their features are blurred, making them @UUID[Compendium.pf2e.conditionitems.Item.Concealed] and difficult to identify. You can also see incorporeal creatures like ghosts when they have phased through an object if you are within 10 feet of an object's surface; they look like blurry shapes seen through those objects. This effect lasts until 8 hours pass, until you adjust the visors again, or until the item is no longer invested by you, whichever comes first.</p><hr /><p><strong>Activate—See Through Death</strong> <span class=\"action-glyph\">1</span> (manipulate)</p>\n<p>You adjust the visors so that both are raised. The <em>Pharasmin visor</em> grants a +2 item bonus on all saving throws against effects with the death trait.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 13
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 3000
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #210: Whispers in the Dirt"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "pharasmin-visor",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.PharasminVisor.PierceTheNight",
+                        "value": "pierce-the-night"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.PharasminVisor.RevealTheUnseen",
+                        "value": "reveal-the-unseen"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.PharasminVisor.SeeThroughDeath",
+                        "value": "see-through-death"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "pharasmin-visor:pierce-the-night"
+                ],
+                "selector": "darkvision"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "pharasmin-visor:reveal-the-unseen"
+                ],
+                "selector": "see-invisibility"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "pharasmin-visor:see-through-death",
+                    "item:trait:death"
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "wornheadwear"
+        }
+    },
+    "type": "equipment"
+}

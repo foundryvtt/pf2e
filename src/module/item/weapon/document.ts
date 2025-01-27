@@ -7,6 +7,7 @@ import type { ConsumablePF2e, MeleePF2e, ShieldPF2e } from "@item";
 import { ItemProxyPF2e, PhysicalItemPF2e } from "@item";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import type { ItemSourcePF2e, MeleeSource, RawItemChatData } from "@item/base/data/index.ts";
+import { performLatePreparation } from "@item/helpers.ts";
 import type { NPCAttackDamage } from "@item/melee/data.ts";
 import type { NPCAttackTrait } from "@item/melee/types.ts";
 import type { PhysicalItemConstructionContext } from "@item/physical/document.ts";
@@ -483,11 +484,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             recurse ? (meleeUsage?.toThrownUsage() ?? []) : [],
         ].flat();
 
-        // Apply item alterations to all alt usages
-        for (const rule of this.actor?.synthetics.itemAlterations ?? []) {
-            for (const weapon of altUsages) {
-                rule.applyAlteration({ singleItem: weapon as WeaponPF2e<NonNullable<TParent>> });
-            }
+        // Apply late prep procedures to all alt usages
+        for (const weapon of altUsages) {
+            performLatePreparation(weapon as WeaponPF2e<NonNullable<TParent>>);
         }
 
         return altUsages;

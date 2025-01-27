@@ -1,0 +1,236 @@
+{
+    "_id": "oADE2kM43wpF7MT5",
+    "img": "icons/sundries/books/book-symbol-yellow-grey.webp",
+    "name": "Initiate Benefit (Tome)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>While you hold your tome, lines of text appear on the open pages, revealing useful information. While you hold your tome, you gain a +1 circumstance bonus to all skill checks to Recall Knowledge.</p>\n<p>During your daily preparations, you can gain the trained proficiency rank in two skills of your choice until you prepare again. You retain the benefit as long as the tome is on your person, even if you aren't holding it. At 3rd level, you're an expert in one of the skills and trained in the other, and at 5th level, you're an expert in both skills. Since these proficiencies are temporary, you can't use them as a prerequisite for a skill increase or a permanent character option like a feat.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Thaumaturge.Implement.Tome.Label",
+                "predicate": [
+                    "action:recall-knowledge",
+                    "implement:tome:equipped"
+                ],
+                "selector": "skill-check",
+                "slug": "tome-recall-knowledge",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Thaumaturge.Implement.Tome.FirstSkillDropdown",
+                "option": "first-tome-skill",
+                "phase": "beforeDerived",
+                "suboptions": {
+                    "config": "skills",
+                    "predicate": [
+                        {
+                            "or": [
+                                "skill:{choice|value}:rank:0",
+                                {
+                                    "and": [
+                                        {
+                                            "gte": [
+                                                "self:level",
+                                                3
+                                            ]
+                                        },
+                                        {
+                                            "lte": [
+                                                "skill:{choice|value}:rank",
+                                                1
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "feature:adept-benefit-tome",
+                                        {
+                                            "lte": [
+                                                "skill:{choice|value}:rank",
+                                                2
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "feature:paragon-benefit-tome",
+                                        {
+                                            "lte": [
+                                                "skill:{choice|value}:rank",
+                                                3
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "toggleable": true
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Thaumaturge.Implement.Tome.SecondSkillDropdown",
+                "option": "second-tome-skill",
+                "phase": "beforeDerived",
+                "suboptions": {
+                    "config": "skills",
+                    "predicate": [
+                        {
+                            "not": "first-tome-skill:{choice|value}"
+                        },
+                        {
+                            "or": [
+                                "skill:{choice|value}:rank:0",
+                                {
+                                    "and": [
+                                        {
+                                            "gte": [
+                                                "self:level",
+                                                5
+                                            ]
+                                        },
+                                        {
+                                            "lte": [
+                                                "skill:{choice|value}:rank",
+                                                1
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "feature:adept-benefit-tome",
+                                        {
+                                            "lte": [
+                                                "skill:{choice|value}:rank",
+                                                2
+                                            ]
+                                        },
+                                        {
+                                            "gte": [
+                                                "self:level",
+                                                9
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "feature:paragon-benefit-tome",
+                                        {
+                                            "lte": [
+                                                "skill:{choice|value}:rank",
+                                                3
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.firstTomeSkill}.rank",
+                "phase": "beforeDerived",
+                "priority": 50,
+                "value": "ternary(gte(@actor.level,3),2,1)"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.firstTomeSkill}.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    "feature:adept-benefit-tome"
+                ],
+                "priority": 50,
+                "value": 3
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.firstTomeSkill}.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    "feature:paragon-benefit-tome"
+                ],
+                "priority": 50,
+                "value": 4
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.secondTomeSkill}.rank",
+                "phase": "beforeDerived",
+                "priority": 50,
+                "value": "ternary(gte(@actor.level,5),2,1)"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.secondTomeSkill}.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    "feature:adept-benefit-tome",
+                    {
+                        "gte": [
+                            "self:level",
+                            9
+                        ]
+                    }
+                ],
+                "priority": 50,
+                "value": 3
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.secondTomeSkill}.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    "feature:paragon-benefit-tome"
+                ],
+                "priority": 50,
+                "value": 4
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "thaumaturge"
+            ]
+        }
+    },
+    "type": "feat"
+}

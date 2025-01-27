@@ -28,11 +28,32 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.EternalLegend.DeathFromAbove.Label",
+                "option": "death-from-above-eternal-legend",
+                "toggleable": true
+            },
+            {
+                "diceNumber": 2,
+                "key": "DamageDice",
+                "predicate": [
+                    "death-from-above-eternal-legend"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "death-from-above-eternal-legend"
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.EternalLegend.DeathFromAbove.Note",
+                "title": "PF2E.SpecificRule.EternalLegend.DeathFromAbove.Label"
+            }
+        ],
         "traits": {
-            "otherTags": [
-                "eternal-legend-dedication"
-            ],
             "rarity": "common",
             "value": [
                 "mythic"

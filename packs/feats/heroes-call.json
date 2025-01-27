@@ -46,6 +46,30 @@
                 ],
                 "property": "other-tags",
                 "value": "ancestral-spell:dwarf"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "lt": [
+                            "hp-percent",
+                            50
+                        ]
+                    },
+                    "item:slug:heroism",
+                    "item:tag:ancestral-spell:dwarf"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Dwarf.HeroesCall.DescriptionAlteration"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Heroes' Call]"
+                    }
+                ]
             }
         ],
         "traits": {

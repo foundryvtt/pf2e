@@ -1,0 +1,87 @@
+{
+    "_id": "EkNT2EhbClDQJUAG",
+    "img": "icons/commodities/gems/pearl-red-gold.webp",
+    "name": "Adept Benefit (Regalia)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your regalia's power increases, and so do the abilities it grants. The circumstance bonus you gain to Deception, Diplomacy, and Intimidation increases to +2, as long as you have master proficiency in each skill. When others use Follow the Expert to follow you, you grant them a +2 circumstance bonus if you are trained, +3 if you have expert proficiency, or +4 if you have master or legendary proficiency.</p>\n<p>The courage your aura instills grows stronger. The +1 status bonus now applies to all saving throws against mental effects, rather than only against fear, and you and allies in your aura gain a +2 status bonus to damage rolls. At 11th level, this increases to a +3 status bonus to damage rolls, and at 17th level, this increases to a +4 status bonus to damage rolls.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.thaumaturge.paragonChoices",
+                "priority": 20,
+                "value": {
+                    "label": "PF2E.SpecificRule.Thaumaturge.Implement.Regalia.Label",
+                    "value": "Compendium.pf2e.classfeatures.Item.Paragon Benefit (Regalia)"
+                }
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "selectors": [
+                    "deception",
+                    "diplomacy",
+                    "intimidation"
+                ],
+                "slug": "regalia",
+                "value": 2
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "alterations": [
+                            {
+                                "mode": "add",
+                                "property": "other-tags",
+                                "value": "adept-benefit"
+                            }
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Regalia"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "implement:regalia:equipped",
+                    {
+                        "not": "feature:paragon-benefit-regalia"
+                    }
+                ],
+                "radius": 15,
+                "slug": "regalia-aura",
+                "traits": [
+                    "emotion",
+                    "visual",
+                    "mental"
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "thaumaturge"
+            ]
+        }
+    },
+    "type": "feat"
+}

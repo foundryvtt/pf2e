@@ -1147,7 +1147,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks) as ZeroToFour;
         const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
-        const baseOptions = new Set([
+        const baseOptions = [
             "action:strike",
             "self:action:slug:strike",
             `item:proficiency:rank:${proficiencyRank}`,
@@ -1155,7 +1155,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             PROFICIENCY_RANK_OPTION[proficiencyRank],
             ...weaponTraits, // @todo same
             meleeOrRanged,
-        ]);
+        ];
 
         const attackDomains = getStrikeAttackDomains(weapon, proficiencyRank, baseOptions);
 

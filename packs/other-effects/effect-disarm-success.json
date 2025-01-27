@@ -1,0 +1,64 @@
+{
+    "_id": "PuDS0DEq0CnaSIFV",
+    "img": "icons/skills/melee/sword-damaged-broken-glow-red.webp",
+    "name": "Effect: Disarm (Success)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Disarm]</p>\n<p>You take a –2 circumstance penalty to attacks using the targeted item. Further attempts to Disarm you gain a +2 circumstance bonus.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "attacks": true,
+                    "predicate": [
+                        "item:equipped",
+                        {
+                            "not": "item:category:unarmed"
+                        }
+                    ]
+                },
+                "flag": "disarmWeakenedGrasp",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.disarmWeakenedGrasp}-attack",
+                "type": "circumstance",
+                "value": -2
+            },
+            {
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "selectors": "skill-check",
+                "uuid": "Compendium.pf2e.other-effects.Item.Effect: Disarm (Bonus)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

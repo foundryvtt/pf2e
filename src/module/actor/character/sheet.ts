@@ -1,9 +1,9 @@
 import { CreatureSheetData, Language, ResourceData } from "@actor/creature/index.ts";
 import type { Sense } from "@actor/creature/sense.ts";
-import { isReallyPC, iterateAllItems } from "@actor/helpers.ts";
+import { isReallyPC } from "@actor/helpers.ts";
 import { MODIFIER_TYPES, createProficiencyModifier } from "@actor/modifiers.ts";
 import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
-import { AbilityViewData, InventoryItem, SheetInventory } from "@actor/sheet/data-types.ts";
+import { AbilityViewData, InventoryItem } from "@actor/sheet/data-types.ts";
 import { condenseSenses, createAbilityViewData } from "@actor/sheet/helpers.ts";
 import { AttributeString, SaveType, SkillSlug } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
@@ -47,7 +47,6 @@ import {
 } from "@util";
 import { createTooltipster } from "@util/destroyables.ts";
 import { UUIDUtils } from "@util/uuid.ts";
-import MiniSearch from "minisearch";
 import * as R from "remeda";
 import { CreatureSheetPF2e } from "../creature/sheet.ts";
 import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies.ts";
@@ -82,13 +81,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     /** Non-persisted tweaks to formula data */
     #formulaQuantities: Record<string, number> = {};
 
-    #inventorySearchEngine = new MiniSearch<Pick<PhysicalItemPF2e<TActor>, "id" | "name">>({
-        fields: ["name"],
-        idField: "id",
-        processTerm: (t) => (t.length > 1 ? t.toLocaleLowerCase(game.i18n.lang) : null),
-        searchOptions: { combineWith: "AND", prefix: true },
-    });
-
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         options.classes = [...options.classes, "character"];
@@ -96,9 +88,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         options.height = 750;
         options.scrollY.push(".tab[data-tab=spellcasting] > [data-panels]", ".tab.active .tab-content");
         options.dragDrop.push({ dragSelector: "ol[data-strikes] > li, ol[data-elemental-blasts] > li" });
-        options.filters = [
-            { inputSelector: "[data-tab=inventory] input[type=search]", contentSelector: "section.inventory-list" },
-        ];
         options.tabs = [
             { navSelector: "nav.sheet-navigation", contentSelector: ".sheet-content", initial: "character" },
             { navSelector: "nav.actions-nav", contentSelector: ".actions-panels", initial: "encounter" },
@@ -437,18 +426,19 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 continue;
             }
 
-            const img = ((): ImageFilePath => {
-                const actionIcon = getActionIcon(item.actionCost);
-                const defaultIcon = ItemPF2e.getDefaultArtwork(item._source).img;
-                if (item.isOfType("action") && ![actionIcon, defaultIcon].includes(item.img)) {
-                    return item.img;
-                }
-                return item.system.selfEffect?.img ?? actionIcon;
-            })();
-
+            const baseData = createAbilityViewData(item);
             const action: CharacterAbilityViewData = {
-                ...createAbilityViewData(item),
-                img,
+                ...baseData,
+                img: ((): ImageFilePath => {
+                    const actionIcon = getActionIcon(item.actionCost);
+                    const defaultIcon = ItemPF2e.getDefaultArtwork(item._source).img;
+                    const commonFeatIcon = "icons/sundries/books/book-red-exclamation.webp";
+                    const isDefaultImage = [actionIcon, defaultIcon, commonFeatIcon].includes(item.img);
+                    if (item.isOfType("action") && !isDefaultImage) {
+                        return item.img;
+                    }
+                    return item.system.selfEffect?.img ?? (baseData.usable && !isDefaultImage ? item.img : actionIcon);
+                })(),
                 feat: item.isOfType("feat") ? item : null,
                 toggles: item.system.traits.toggles.getSheetData(),
             };
@@ -520,57 +510,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             },
             knownFormulas,
         };
-    }
-
-    protected override _onSearchFilter(
-        event: KeyboardEvent,
-        query: string,
-        rgx: RegExp,
-        html: HTMLElement | null,
-    ): void {
-        super._onSearchFilter(event, query, rgx, html);
-
-        // Gets all parents, including containers and parent items
-        const getAllParents = (item: PhysicalItemPF2e): PhysicalItemPF2e[] => {
-            const parents = [item.container, item.parentItem].filter((i): i is PhysicalItemPF2e => !!i);
-            return [...parents, ...parents.flatMap((p) => getAllParents(p))];
-        };
-
-        // Gets all children, including container contents and sub items
-        const getAllChildren = (item: PhysicalItemPF2e): PhysicalItemPF2e[] => {
-            const contents = [...(item.isOfType("backpack") ? item.contents : []), ...item.subitems];
-            return [...contents, ...contents.flatMap((c) => getAllChildren(c))];
-        };
-
-        const matches = (() => {
-            // If inventory, also include all parents and all children in result set. Due to subitems, we can't use actor.items
-            if (html?.classList.contains("inventory-list") && query.length > 1) {
-                const baseMatches = this.#inventorySearchEngine.search(query).map((s) => String(s.id));
-                const allItems = [...iterateAllItems(this.actor)];
-                const itemsById = R.mapToObj(
-                    allItems.filter((i): i is PhysicalItemPF2e<TActor> => i.isOfType("physical")),
-                    (i) => [i.id, i],
-                );
-                const baseItems = baseMatches.map((id) => itemsById[id]).filter((i) => !!i);
-                const parentMatches = baseItems.flatMap((i) => getAllParents(i)).map((i) => i.id);
-                const childMatches = baseItems.flatMap((i) => getAllChildren(i)).map((i) => i.id);
-
-                return new Set([baseMatches, parentMatches, childMatches].flat());
-            }
-
-            return null;
-        })();
-
-        for (const row of htmlQueryAll(html, "li[data-item-id]")) {
-            row.hidden = matches !== null && !matches.has(row.dataset.itemId ?? "");
-        }
-    }
-
-    protected override prepareInventory(): SheetInventory {
-        const items = [...iterateAllItems(this.actor)].filter((i) => i.isOfType("physical"));
-        this.#inventorySearchEngine.removeAll();
-        this.#inventorySearchEngine.addAll(items.map((i) => R.pick(i, ["id", "name"])));
-        return super.prepareInventory();
     }
 
     protected override prepareInventoryItem(item: PhysicalItemPF2e): InventoryItem {
@@ -820,12 +759,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 entry?.statistic?.check.roll(eventToRollParams(event, { type: "check" }));
             });
         }
-
-        // Work around search filter flashing on re-render
-        for (const filter of this._searchFilters) {
-            const rgx = new RegExp(RegExp.escape(filter.query), "i");
-            this._onSearchFilter(new KeyboardEvent("input"), filter.query, rgx, filter._content);
-        }
     }
 
     /** Activate listeners of main sheet navigation section */
@@ -1012,26 +945,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         };
 
         handlers["prepare-formula"] = (_, anchor) => {
+            const actor = this.actor;
             const abilitySlug = htmlClosest(anchor, "[data-ability]")?.dataset.ability;
-            const ability = this.actor.crafting.abilities.get(abilitySlug ?? "", { strict: true });
-
-            new FormulaPicker({
-                actor: this.actor,
-                ability,
-                prompt: game.i18n.localize("PF2E.Actor.Character.Crafting.PrepareHint"),
-                getSelected: () => {
-                    return R.unique(ability.preparedFormulaData.map((d) => d.uuid));
-                },
-                onSelect: (uuid: ItemUUID, { formulas }) => {
-                    const formula = formulas.find((f) => f.uuid === uuid);
-                    if (formula) {
-                        ability.prepareFormula(formula);
-                    }
-                },
-                onDeselect: (uuid: ItemUUID) => {
-                    ability.unprepareFormula(uuid);
-                },
-            }).render(true);
+            const ability = actor.crafting.abilities.get(abilitySlug ?? "", { strict: true });
+            new FormulaPicker({ actor, ability, mode: "prepare" }).render(true);
         };
 
         handlers["craft-item"] = async (event, anchor) => {
@@ -1041,17 +958,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             // Handle ability crafting first if we're crafting for an ability
             const ability = this.actor.crafting.abilities.get(row.dataset.ability ?? "");
             if (ability) {
-                const craftParam = await (async () => {
-                    if (ability.isPrepared) return row.dataset.itemIndex ? Number(row.dataset.itemIndex) : null;
-
-                    if (ability.resource) {
-                        const picker = new FormulaPicker({ actor: this.actor, ability });
-                        return await picker.resolveSelection();
-                    }
-
-                    return null;
-                })();
-
+                const craftParam = ability.isPrepared && row.dataset.itemIndex ? Number(row.dataset.itemIndex) : null;
                 const consume = !ability.resource || !!this.actor.getResource(ability.resource)?.value;
                 const item = craftParam !== null ? await ability.craft(craftParam, { consume }) : null;
                 if (item) {
@@ -1494,8 +1401,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                     const ability = this.actor.crafting.abilities.get(slug);
                     if (!ability) return;
 
-                    const formula = this.#knownFormulas[String(dropData.uuid ?? "")];
-                    if (formula) ability.prepareFormula(formula);
+                    ability.prepareFormula(String(dropData.uuid ?? ""));
                     return;
                 }
             }

@@ -23,7 +23,19 @@
         "rules": [
             {
                 "key": "TempHP",
+                "predicate": [
+                    {
+                        "not": "parent:origin:item:tag:ancestral-spell:beastkin"
+                    }
+                ],
                 "value": "ternary(gte(@item.level, 10), 20, ternary(gte(@item.level, 6), 10, 5))"
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "parent:origin:item:tag:ancestral-spell:beastkin"
+                ],
+                "value": "ternary(gte(@item.level, 10), 20, ternary(gte(@item.level, 6), 15, 5))"
             },
             {
                 "key": "FlatModifier",
@@ -33,8 +45,21 @@
             },
             {
                 "key": "Weakness",
+                "predicate": [
+                    {
+                        "not": "parent:origin:item:tag:ancestral-spell:beastkin"
+                    }
+                ],
                 "type": "silver",
                 "value": "ternary(gte(@item.level, 10), 20, ternary(gte(@item.level, 6), 10, 5))"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "parent:origin:item:tag:ancestral-spell:beastkin"
+                ],
+                "type": "silver",
+                "value": "ternary(gte(@item.level, 10), 20, ternary(gte(@item.level, 6), 15, 5))"
             },
             {
                 "category": "unarmed",

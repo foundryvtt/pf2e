@@ -1144,7 +1144,12 @@
                         "type": "bludgeoning"
                     }
                 },
-                "defense": null,
+                "defense": {
+                    "passive": {
+                        "statistic": "fortitude-dc"
+                    },
+                    "save": null
+                },
                 "description": {
                     "value": "<p><strong>Area</strong> 20-foot burst adjacent to a flat surface</p>\n<hr />\n<p>Oily black tentacles rise up and attempt to capture creatures in the area. Make spell attack rolls against the Fortitude DC of each creature in the area. Any creature you succeed against is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] and takes 3d6 bludgeoning damage. Whenever a creature ends its turn in the area, the tentacles attempt to grab that creature if they haven't already, and they deal @Damage[1d6[bludgeoning]] damage to any creature already Grabbed.</p>\n<p>The tentacles' Escape DC is equal to your spell DC. A creature can attack a tentacle in an attempt to release its grip. Its AC is equal to your spell DC, and it is destroyed if it takes 12 or more damage. Even if destroyed, additional tentacles continue to grow in the area until the duration ends. You can Dismiss the spell.</p>"
                 },
@@ -2815,7 +2820,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "mental"
+                            "item:trait:mental"
                         ],
                         "selector": "saving-throw",
                         "type": "status",
@@ -2938,7 +2943,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Ilthuliak breathes a spray of acid that deals @Damage[22d6[acid]] damage in a @Template[line|distance:100]{100 foot line} (@Check[reflex|dc:44|basic] save).</p>\n<p>She can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                    "value": "<p>Ilthuliak breathes a spray of acid that deals @Damage[22d6[acid]|options:area-damage] damage in a @Template[line|distance:100] (@Check[reflex|dc:44|basic|options:area-effect] save).</p>\n<p>She can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",

@@ -145,6 +145,11 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
 
     /** Adds a new feat to the actor, or reorders an existing one, into the correct slot */
     async insertFeat(feat: TItem, slotId: Maybe<string> = null): Promise<ItemPF2e<TActor>[]> {
+        // If we are inserting a feat into a slot its already in, skip, there's nothing to do
+        if (this.slotted && slotId && this.slots[slotId]?.feat === feat) {
+            return [];
+        }
+
         const slot = this.slots[slotId ?? ""];
         const location = this.slotted || this.id === "bonus" ? (slot?.id ?? null) : this.id;
         const existing = this.actor.items.filter(

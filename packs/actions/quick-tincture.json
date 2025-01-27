@@ -18,7 +18,23 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "craftableItems": [
+                    "item:trait:alchemical",
+                    "item:trait:consumable",
+                    {
+                        "or": [
+                            "item:trait:elixir",
+                            "item:tag:alchemical-tool"
+                        ]
+                    }
+                ],
+                "key": "CraftingAbility",
+                "resource": "versatile-vials",
+                "slug": "quick-tincture"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

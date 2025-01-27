@@ -1,0 +1,78 @@
+{
+    "_id": "KLWxwhCOdqrbepbu",
+    "folder": "VU1vkm9fUFmtzF2X",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Child Of Notoriety",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "cha",
+                    "con"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>One or more of your ancestors committed a grave atrocity, and even though you've tried to live your own life, your family's grim past looms over you like a relentless shadow. You might have traveled a thousand miles to escape the legends, learned how to ingratiate yourself to others, just tried to ignore the everyday accusing glances, or even accepted the notoriety just to be left alone. You didn't commit the crime, yet it haunts you. Whether you're proving the world wrong, proving to yourself that you're no monster, earning wealth to pay reparations, or just driven to do some good with your life, it's time to break free of the past. That journey begins with understanding.</p>\n<p>Clan Tolorr preserves the deeds and misdeeds of dwarven legend. With their help, you might not only understand dwarven crimes and reparations, but also learn how to accept your past and leave the world a little better than when you found it. You've corresponded with Clan Tolorr, but your most recent message came instead from one of the clan's guests: a lizardfolk mystic named Valahask who studies the dead and is eager to meet you. He has lobbied on your behalf, earning you an invitation to Clan Tolorr's upcoming Family Festival.</p>\n<p>Choose two attribute boosts. One must be to <strong>Constitution</strong> or <strong>Charisma</strong>, and one is a free attribute boost.</p>\n<p>Choose whether you've navigated your past through kindness or notoriety thus far. For the former, you're trained in the Diplomacy skill and the Genealogy Lore skill, and you gain the @UUID[Compendium.pf2e.feats-srd.Item.Group Impression] skill feat. For the latter, you're trained in the Intimidation skill and the Underworld Lore skill, and you gain the @UUID[Compendium.pf2e.feats-srd.Item.Intimidating Glare] skill feat.</p>\n<p><strong>Connection:</strong> Valahask, an iruxi mystic</p>\n<p><strong>Reputation Points:</strong> –1</p>"
+        },
+        "items": {},
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Sky King's Tomb Player's Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Diplomacy",
+                        "value": {
+                            "feat": "Compendium.pf2e.feats-srd.Item.Group Impression",
+                            "skill": "diplomacy"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Skill.Intimidation",
+                        "value": {
+                            "feat": "Compendium.pf2e.feats-srd.Item.Intimidating Glare",
+                            "skill": "intimidation"
+                        }
+                    }
+                ],
+                "flag": "childOfNotoriety",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.childOfNotoriety.skill}.rank",
+                "value": 1
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.childOfNotoriety.feat}"
+            }
+        ],
+        "trainedSkills": {
+            "lore": [],
+            "value": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "background"
+}

@@ -1,0 +1,117 @@
+{
+    "_id": "y5ibQXac9BbzrYoT",
+    "img": "systems/pf2e/icons/equipment/weapons/rapier.webp",
+    "name": "Castrovel's Beacon",
+    "system": {
+        "baseItem": "rapier",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "bulk": {
+            "value": 1
+        },
+        "category": "martial",
+        "containerId": null,
+        "damage": {
+            "damageType": "piercing",
+            "dice": 1,
+            "die": "d6"
+        },
+        "description": {
+            "value": "<p>The tip of this <em>+2 greater striking brilliant standard-grade cold iron rapier</em> shines with a flickering sheen of green light that mimics the glittering appearance of Castrovel in the night sky. The carrier of <em>Castrovel's Beacon</em> instinctively knows Castrovel's position in the sky even if it hasn't actually yet risen into view, which grants the wielder a +2 item bonus to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Direction] when using the stars to orient themself. Additionally, the weapon grants a +2 item bonus to all saving throws against effects that cause the @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] or @UUID[Compendium.pf2e.conditionitems.Item.Blinded] conditions.</p>\n<p>When its <em>brilliant</em> rune is activated, the counteract rank is 6 and the counteract modifier is [[/gmr 1d20+21 #Counteract]]{+21}.</p>\n<p><strong>Activate—Starlight Burst</strong> <span class=\"action-glyph\">1</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> You cast @UUID[Compendium.pf2e.spells-srd.Item.Vibrant Pattern] from <em>Castrovel's Beacon</em> as a 6th-rank arcane spell with a @Check[will|dc:31|traits:illusion,incapacitation,manipulate,subtle,visual|options:item:spell] save. Creatures with the elf trait are immune to Starlight Burst, and creatures with the demon trait take a –2 item penalty on all Will saves against the effect.</p>"
+        },
+        "group": "sword",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 14
+        },
+        "material": {
+            "grade": "standard",
+            "type": "cold-iron"
+        },
+        "price": {
+            "value": {
+                "gp": 4500
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #210: Whispers in the Dirt"
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "inflicts:dazzled",
+                            "inflicts:blinded",
+                            {
+                                "and": [
+                                    "action:sense-direction",
+                                    "using-stars"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": [
+                    "survival",
+                    "saving-throw"
+                ],
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "runes": {
+            "potency": 2,
+            "property": [
+                "brilliant"
+            ],
+            "striking": 2
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": "standard",
+                "type": "cold-iron"
+            },
+            "runes": {
+                "potency": 2,
+                "property": [
+                    "brilliant"
+                ],
+                "striking": 2
+            }
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "traits": {
+            "rarity": "unique",
+            "value": [
+                "deadly-d8",
+                "disarm",
+                "finesse",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        }
+    },
+    "type": "weapon"
+}

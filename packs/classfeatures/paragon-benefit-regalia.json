@@ -1,0 +1,84 @@
+{
+    "_id": "zOMYv2nl2gGICErA",
+    "img": "icons/commodities/gems/pearl-red-gold.webp",
+    "name": "Paragon Benefit (Regalia)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your regalia grants you the true gravitas of rulership, tying together the hearts and minds of your allies and making it impossible for you to leave a bad impression. If you roll a critical failure on a check to @UUID[Compendium.pf2e.actionspf2e.Item.Coerce], @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression], or @UUID[Compendium.pf2e.actionspf2e.Item.Request], you get a failure instead. When others use @UUID[Compendium.pf2e.actionspf2e.Item.Follow the Expert] to follow you, you grant them a +3 circumstance bonus if you are trained or +4 if you are an expert or above.</p>\n<p>Allies in your inspiring aura aren't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] from being flanked unless you too are flanked. If one of your allies in the aura is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy], @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled], @UUID[Compendium.pf2e.conditionitems.Item.Frightened], @UUID[Compendium.pf2e.conditionitems.Item.Sickened], or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied], the status penalty your ally takes from the condition is 1 lower than the condition's value as long as the ally remains in the aura, unless you too are affected by the same condition.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalFailure": "to-failure"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:coerce",
+                            "action:make-an-impression",
+                            "action:request"
+                        ]
+                    }
+                ],
+                "selector": "skill-check"
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "alterations": [
+                            {
+                                "mode": "add",
+                                "property": "other-tags",
+                                "value": "adept-benefit"
+                            },
+                            {
+                                "mode": "add",
+                                "property": "other-tags",
+                                "value": "paragon-benefit"
+                            }
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Regalia"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "implement:regalia:equipped"
+                ],
+                "radius": 15,
+                "slug": "regalia-aura",
+                "traits": [
+                    "emotion",
+                    "visual",
+                    "mental"
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "thaumaturge"
+            ]
+        }
+    },
+    "type": "feat"
+}

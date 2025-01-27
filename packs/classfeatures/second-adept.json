@@ -26,29 +26,14 @@
         },
         "rules": [
             {
-                "choices": {
-                    "ownedItems": true,
-                    "predicate": [
-                        "item:tag:thaumaturge-implement",
-                        {
-                            "not": "item:tag:thaumaturge-implement-adept"
-                        }
-                    ],
-                    "types": [
-                        "feat"
-                    ]
-                },
+                "adjustName": false,
+                "choices": "flags.pf2e.thaumaturge.adeptChoices",
                 "flag": "secondAdept",
-                "key": "ChoiceSet",
-                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
-                "rollOption": "adept"
+                "key": "ChoiceSet"
             },
             {
-                "itemId": "{item|flags.pf2e.rulesSelections.secondAdept}",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "property": "other-tags",
-                "value": "thaumaturge-implement-adept"
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.secondAdept}"
             }
         ],
         "traits": {

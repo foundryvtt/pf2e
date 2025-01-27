@@ -110,6 +110,8 @@ interface ItemDescriptionData extends ItemDescriptionSource {
         contents: AlteredDescriptionContent[];
     }[];
     override: AlteredDescriptionContent[] | null;
+    /** True if lazy loaded description altering properties have been applied */
+    initialized?: boolean;
 }
 
 interface AlteredDescriptionContent {
@@ -148,6 +150,7 @@ export type {
     ItemGrantData,
     ItemGrantDeleteAction,
     ItemGrantSource,
+    ItemGranterSource,
     ItemSchemaPF2e,
     ItemSourceFlagsPF2e,
     ItemSystemData,

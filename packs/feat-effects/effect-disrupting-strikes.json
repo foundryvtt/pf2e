@@ -27,19 +27,33 @@
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",
+                "predicate": [
+                    {
+                        "lt": [
+                            "self:level",
+                            14
+                        ]
+                    }
+                ],
                 "property": "property-runes",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 13,
-                            "value": "disrupting"
-                        },
-                        {
-                            "start": 14,
-                            "value": "greater-disrupting"
-                        }
-                    ]
-                }
+                "value": "disrupting"
+            },
+            {
+                "definition": [
+                    "item:type:weapon"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            14
+                        ]
+                    }
+                ],
+                "property": "property-runes",
+                "value": "greater-disrupting"
             }
         ],
         "start": {

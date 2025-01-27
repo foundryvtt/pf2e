@@ -4,7 +4,7 @@
     "name": "Effect: Accept Echo",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Accept Echo]</p>\n<p>You gain a +4 status bonus to all saves against possession effects.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Accept Echo]</p>\n<p>You gain a +4 status bonus to all saves against possession effects. You become trained and expert, respectively, in the weapon and skill you chose with Echo of the Fallen.</p>\n<p>At 7th level you become a master of the skill you chose, at 13th level you become an expert with the weapon you chose, and at 15th level you become legendary with the skill you chose.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -13,7 +13,7 @@
             "value": 10
         },
         "level": {
-            "value": 1
+            "value": 4
         },
         "publication": {
             "license": "OGL",
@@ -24,11 +24,25 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "possession"
+                    "item:trait:possession"
                 ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 4
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{actor|flags.pf2e.echoSkill}.rank",
+                "value": "ternary(gte(@actor.level,15),4,ternary(gte(@actor.level,7),3,2))"
+            },
+            {
+                "definition": [
+                    "item:base:{actor|flags.pf2e.echoWeapon}"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.Weapon.Base.{actor|flags.pf2e.echoWeapon}",
+                "value": "ternary(gte(@actor.level,13),2,1)"
             }
         ],
         "start": {

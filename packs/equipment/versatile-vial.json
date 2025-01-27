@@ -53,6 +53,14 @@
             {
                 "hideIfDisabled": true,
                 "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "gte": [
+                            "parent:level",
+                            4
+                        ]
+                    }
+                ],
                 "selector": "{item|id}-attack",
                 "type": "item",
                 "value": "ternary(gte(@item.level,18),3,ternary(gte(@item.level,12),2,1))"

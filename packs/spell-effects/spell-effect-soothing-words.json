@@ -4,7 +4,7 @@
     "name": "Spell Effect: Soothing Words",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Soothing Words].</p>\n<p>The target gains a +1 status bonus to Will saving throws. This bonus increases to +2 against emotion effects</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The bonus to saves increases to +2, or +3 against emotion effects.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Soothing Words]</p>\n<p>You gain a status bonus to Will saving throws. This bonus increases against emotion effects.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -24,42 +24,19 @@
             {
                 "key": "FlatModifier",
                 "selector": "will",
+                "slug": "soothing-words",
                 "type": "status",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "value": 1
-                        },
-                        {
-                            "start": 5,
-                            "value": 2
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
+                "value": "ternary(gte(@item.level,5),2,1)"
             },
             {
-                "key": "FlatModifier",
-                "label": "Soothing Words (vs. emotion)",
+                "key": "AdjustModifier",
+                "mode": "upgrade",
                 "predicate": [
-                    "emotion"
+                    "item:trait:emotion"
                 ],
                 "selector": "will",
-                "type": "status",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "value": 2
-                        },
-                        {
-                            "start": 5,
-                            "value": 3
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
+                "slug": "soothing-words",
+                "value": "ternary(gte(@item.level,5),3,2)"
             }
         ],
         "start": {

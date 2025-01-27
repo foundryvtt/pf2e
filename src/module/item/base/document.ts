@@ -30,7 +30,7 @@ import type {
     RawItemChatData,
     TraitChatData,
 } from "./data/index.ts";
-import type { ItemTrait } from "./data/system.ts";
+import type { ItemDescriptionData, ItemTrait } from "./data/system.ts";
 import type { ItemSheetPF2e } from "./sheet/sheet.ts";
 
 /** The basic `Item` subclass for the system */
@@ -270,6 +270,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         this.system.slug ||= null;
         this.system.description.addenda = [];
         this.system.description.override = null;
+        this.system.description.initialized = false;
 
         const flags = this.flags;
         flags.pf2e = fu.mergeObject(flags.pf2e ?? {}, { rulesSelections: {} });
@@ -429,6 +430,20 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /* -------------------------------------------- */
     /*  Chat Card Data                              */
     /* -------------------------------------------- */
+
+    /** Retrieves base description data before enriching. May be overriden to prepend or append additional data */
+    async getDescription(): Promise<ItemDescriptionData> {
+        // Lazy load description alterations now that we need them
+        const actor = this.actor;
+        if (!this.system.description.initialized && actor) {
+            for (const alteration of actor.synthetics.itemAlterations.filter((i) => i.property === "description")) {
+                alteration.applyAlteration({ singleItem: this as ItemPF2e<ActorPF2e> });
+            }
+            this.system.description.initialized = true;
+        }
+
+        return { ...this.system.description };
+    }
 
     /**
      * Internal method that transforms data into something that can be used for chat.
@@ -620,10 +635,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         })();
 
         const outputSources = items.map((i) => i._source);
+        const itemUpdates: EmbeddedDocumentUpdateData[] = [];
 
         // Process item preCreate rules for all items that are going to be added
         // This may add additional items (such as via GrantItem)
-        for (const item of items) {
+        for (const item of [...items]) {
             // Pre-load this item's self: roll options for predication by preCreate rule elements
             item.prepareActorData?.();
 
@@ -636,6 +652,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                     ruleSource,
                     pendingItems: outputSources,
                     tempItems: items,
+                    itemUpdates,
                     operation,
                 });
             }
@@ -653,6 +670,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             for (const feature of classFeatures) {
                 feature.sort = classFeatures.indexOf(feature) * 100 * (feature.system.level?.value ?? 1);
             }
+        }
+
+        // If there are any item updates, perform them first
+        if (itemUpdates.length) {
+            await actor.updateEmbeddedDocuments("Item", itemUpdates, { render: false });
         }
 
         const nonKits = outputSources.filter((source) => source.type !== "kit");
@@ -759,29 +781,54 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             }
         }
 
-        // If this item is of a certain type and belongs to a PC, change current HP along with any change to max
-        if (this.actor?.isOfType("character") && this.isOfType("ancestry", "background", "class", "feat", "heritage")) {
-            const actorClone = this.actor.clone();
-            const item = actorClone.items.get(this.id, { strict: true });
-            item.updateSource(changed, options);
-            actorClone.reset();
-
-            const hpMaxDifference = actorClone.hitPoints.max - this.actor.hitPoints.max;
-            if (hpMaxDifference !== 0) {
-                const newHitPoints = this.actor.hitPoints.value + hpMaxDifference;
-                await this.actor.update(
-                    { "system.attributes.hp.value": newHitPoints },
-                    { render: false, allowHPOverage: true },
-                );
-            }
-        }
-
         // Run preUpdateItem rule element callbacks
         for (const rule of this.rules) {
             await rule.preUpdate?.(changed);
         }
 
         return super._preUpdate(changed, options, user);
+    }
+
+    /** Store certain data to be checked in _onUpdateOperation */
+    static override async _preUpdateOperation(
+        documents: foundry.abstract.Document<foundry.abstract._Document | null, foundry.data.fields.DataSchema>[],
+        operation: ItemPF2eDatabaseUpdateOperation,
+        user: foundry.documents.BaseUser<foundry.documents.BaseActor<null>>,
+    ): Promise<boolean | void> {
+        if ((await super._preUpdateOperation(documents, operation, user)) === false) {
+            return false;
+        }
+
+        // If this item is of a certain type and belongs to a PC, store current hp to be checked later
+        const actor = documents.find((d): d is ItemPF2e => d instanceof ItemPF2e)?.actor;
+        if (actor) {
+            operation.previous = fu.mergeObject(operation.previous ?? {}, {
+                maxHitPoints: actor.hitPoints?.max,
+            });
+        }
+    }
+
+    /** Overriden to handle max hp updates when certain items changes. These updates should not occur due to temporary changes */
+    static override async _onUpdateOperation(
+        documents: foundry.abstract.Document<foundry.abstract._Document | null, foundry.data.fields.DataSchema>[],
+        operation: ItemPF2eDatabaseUpdateOperation,
+        user: foundry.documents.BaseUser<foundry.documents.BaseActor<null>>,
+    ): Promise<void> {
+        await super._onUpdateOperation(documents, operation, user);
+
+        const featureItem = documents.find(
+            (d): d is ItemPF2e =>
+                d instanceof ItemPF2e && d.isOfType("ancestry", "background", "class", "feat", "heritage"),
+        );
+        const actor = featureItem?.actor;
+        const previousHitPoints = operation.previous?.maxHitPoints;
+        if (actor?.isOfType("character") && typeof previousHitPoints === "number") {
+            const hpMaxDifference = actor.hitPoints.max - previousHitPoints;
+            if (hpMaxDifference !== 0) {
+                const newHitPoints = actor.hitPoints.value + hpMaxDifference;
+                await actor.update({ "system.attributes.hp.value": newHitPoints }, { allowHPOverage: true });
+            }
+        }
     }
 
     /** Call onCreate rule-element hooks */
@@ -940,5 +987,10 @@ interface RefreshFromCompendiumParams {
     /** Whether to run the update: if false, a clone with updated source is returned. */
     update?: boolean;
 }
+
+/** An extension of DatabaseUpdateOperation to pass on system specific data between phases */
+type ItemPF2eDatabaseUpdateOperation = DatabaseUpdateOperation<foundry.abstract.Document | null> & {
+    previous?: { maxHitPoints?: number };
+};
 
 export { ItemPF2e, ItemProxyPF2e };

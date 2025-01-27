@@ -4,7 +4,7 @@
     "name": "Effect: Grim Sandglass - Armor",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Grim Sandglass]</p>\n<p>You gain resistance 2 to void.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Grim Sandglass], @UUID[Compendium.pf2e.equipment-srd.Item.Grim Sandglass (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Grim Sandglass (Major)]</p>\n<p>You gain resistance to void.</p>"
         },
         "duration": {
             "expiry": null,
@@ -22,9 +22,75 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:item:slug:grim-sandglass",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Grim Sandglass"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:grim-sandglass-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Grim Sandglass (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:grim-sandglass-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Grim Sandglass (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "grim-sandglass"
+            },
+            {
                 "key": "Resistance",
+                "predicate": [
+                    "grim-sandglass:grim-sandglass"
+                ],
                 "type": "void",
                 "value": 2
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "grim-sandglass:grim-sandglass-greater"
+                ],
+                "type": "void",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "grim-sandglass:grim-sandglass-major"
+                ],
+                "type": "void",
+                "value": 10
             }
         ],
         "start": {

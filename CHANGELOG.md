@@ -1,3 +1,280 @@
+## 6.8.4
+
+### Bug Fixes
+
+-   (Supe) Fix viewing spells with variants from compendium browser
+
+### Data Updates
+
+-   (Ambrose) Add persistent damage to Channel Rot
+-   (Ambrose) Add spell links to some Summoner class feats
+-   (Dire Weasel) Add effect for Goz Mask (Major)
+-   (ottdmk) Fix level of Moderate Chromatic Jellyfish Oil
+-   (Redstone Flux) Fix damage of Spray of Stars
+-   (Tikael) Remove rule element from Hideous Ululation
+
+### Under the Hood
+
+-   (Cerapter) Extend ItemAlteration to support changing base damage dice number
+
+## 6.8.3
+
+### System Improvements
+
+-   (Supe) Sort weapon and armor property runes in the item sheet dropdowns
+
+### Bug Fixes
+
+-   (Supe) Avoid feat being dislodged when drag dropping to the same spot
+-   (Supe) Fix issue where a spell could have duplicate description notes
+-   (Supe) Fix weapon striking rune being overriden by temporary versions when closing the item sheet
+
+### Data Updates
+
+-   (Ambrose) Add Alchemical tag to Elixir of Gender Transformation
+-   (Ambrose) Automate the Lightless Litheness Fetchling feat
+-   (Ambrose) Condense effects for Numbing Tonic and Rainbow Vinegar
+-   (Ambrose) Tag more Breath Weapons as area damage
+-   (Ambrose) Update journals with missing witch patrons
+-   (Ambrose) Update Vaccine item to match Treasure Vault
+-   (kromko) Fix Magical Scrounger description
+-   (Najin-Alex) Add bonus type for Grub Gloves
+-   (reyzor) Add Deathdrinking effects
+
+## 6.8.2
+
+### System Improvements
+
+-   (stwlam, Supe) Minor performance improvements in actor data preparation
+-   (Supe) Add support for changing prepared quantities from the formula picker
+-   (Supe) Show item image for character sheet actions with use buttons and non-default images
+
+### Bug Fixes
+
+-   (In3luki) Fix Compendium Browser trait filter losing "not" state of selected traits
+-   (stwlam) Fix issue causing propulsive weapons to sometimes have dex-based attack statistics
+-   (Supe) Fix incorrect versatile vial level when recreated via sidebar update
+-   (Supe) Fix versatile vials being created twice when alchemist is added
+
+### Data Updates
+
+-   (7H3LaughingMan) Update Instinctive Strike to remaster
+-   (Abaddon) Fix predicate on winglet flight
+-   (Ambrose) Add `Alchemical Food` tag to Iron Wine and icons to select Alchemical foods
+-   (Ambrose) Add automation for Fighter and Vindicator skills
+-   (Ambrose) Apply remaster theme to several tables in item descriptions
+-   (Ambrose) Condense effects for several pieces of equipment
+-   (Ambrose) Correct errors in Cloak of Waves and Clouds, Quick Recovery, Stupefy, The Oscillating Wave, and Verex-That-Was
+-   (Ambrose) Correct Daemon Form spell to match Fall 2024 errata
+-   (Ambrose) Improve automation for the Stupefied condition and Pathfinder Society Boons
+-   (Ambrose) Improve automation of Witch's Armaments, Nosoi Charm, Obsidian Goggles, Fey Ascension, and Cloak of Elvenkind
+-   (Ambrose) Remove duplicate Ash mystery
+-   (Ambrose) Update ancestry, class, and archetype journals with new information and organization
+-   (Ambrose) Update automation for Prey for Death actors, Temperbrand, and dragons
+-   (Dire Weasel) Add rename of Glyph of Warding to Rune Trap to remaster journal
+-   (Dire Weasel) Add effect for Imp Shot and Tempest Touch, improve automation for Spark Dancer and Hellfire Breath
+-   (Dire Weasel) Add inline skill checks to Trick Magic Item, Evangelize
+-   (Dire Weasel) Add Palace Echoes Kitsune to Kitsune jounal
+-   (Dire Weasel) Assign Quinn's background attribute boosts
+-   (Dire Weasel) Clean up descriptions for Divine Font, Wildspell Dedication
+-   (Dire Weasel) Fix action type and cost of Regurgitate Mutagen
+-   (Dire Weasel) Fix rarity for Armored Coat
+-   (Dire Weasel) Fix inline roll in Kyonin ancestry Feats
+-   (Dire Weasel) Fix wording of Ignition's melee persistent fire damage link
+-   (Dire Weasel) Replace lower-resolution system icons with identical core icons
+-   (Dire Weasel) Update gnoll and grippli trait descriptions for remaster
+-   (In3luki) Add roll notes to Skunk Bombs
+-   (Intervencion) Remove "Steal" inline from Greater Shadow's Steal Shadow description
+-   (KaitoKuroba) Fix update mechanic on RollOptions with merged suboptions
+-   (kromko) Add Demon Hunter prerequisite to Demon Slayer feat
+-   (kromko) Fix error in Spirit Warrior archetype journal
+-   (MrVauxs) Fix typo in Moderate Ablative Armor Plating effect
+-   (Najin-Alex) Add area damage options to several inline rolls
+-   (Randommisha13) Fix Versatile Vials having item bonus to attack rolls before level 4
+-   (rectulo) Fix description in arcane spellcasting (magus) and Razmiri Mask
+-   (Rigo) Add expert kineticist proficiency to Expert Kinetic Control
+-   (Rigo) Add Note to Grievous Blow and Brutal Finish, and potency rune bonus to Core Cannon effect
+-   (Rigo) Add precious material selection to Counterclockwork Focus
+-   (Rigo) Add weapon selection and proficiency to Echo of the Fallen and Accept Echo
+-   (Rigo) Condense Fast Movement familiar ability
+-   (Rigo) Remove HP and BT from Glass Shield's spell effect per Summer 2024 Errata
+-   (Rigo) Remove unused adept and paragon implement tags
+-   (Rigo) Update Extra Alchemy's rule element to execute after Advanced Alchemy slot upgrades
+-   (Rigo) Use config suboptions for Tome's initiate benefit
+-   (Tikael) Automate the Battleblooded and United Assault feats
+-   (Tikael) Fix kineticist junctions
+-   (TMun) Correct rarity of Shadow Manse from Uncommon to Rare
+-   (xdy) Update descriptions of Sigil and Heal Mount to use the remastered term rank, rather than level
+
+### Under the Hood
+
+-   (In3luki) Include failing property path in `RuleElementPF2e#resolveInjectedProperties` warning
+-   (Supe) Support suboptions from config in roll option rule element
+
+## 6.8.1
+
+### System Improvements
+
+-   (reyzor) Add search to other actor inventories
+-   (Supe) Stack items created via quick alchemy with equivalent held items that have 0 quantity
+-   (Supe) Hide prepared craft button if expended
+
+### Bug Fixes
+
+-   (In3luki) Fix compendium browser trait exclusion sometimes erroneously returning zero results
+-   (stwlam) Check against exceptions when applying precision resistance/weakness
+-   (Supe) Fix issues with Thaumaturge and Kineticist when increasing levels by a large number
+-   (Supe) Prevent recursively creating a resource by expending that same resource
+
+### Data Updates
+
+-   (Ambrose) Apply `@Embed` to additional entries in the Archetype journal
+-   (Ambrose) Condense Five-Feather Wreath Armor, Grim Sandglass, and Mantle of the Magma Heart effects
+-   (Ambrose) Correct K'Zaard the Drover's Back Pedal AC bonus
+-   (Ambrose) Correct Ka Stone localization path and string
+-   (Ambrose) Remove spellcasting progression table from Sorcerer Spellcasting class features
+-   (Ambrose) Update Debilitating Bomb automation
+-   (Ambrose) Update Mantle of the Unwavering Heart spell effect automation
+-   (Ambrose) Update select Beastkin Ancestry Feats
+-   (Dire Weasel) Tag some damage as fall damage
+-   (kromko) Add Poisoner Dedication to Chemical Contagion prerequisites
+-   (kromko) Fix Devil Form Vordine effect link, Fix Demon Form Abrikandilu note RE localization key
+-   (LebombJames) Add Range increment sizes to ranged weapon infusion suboption labels
+-   (Rigo) Add description addendum to Heroes' Call's Heroism
+-   (Rigo) Add effects for Prey Mutagen and Mutagenist's Field Benefit
+-   (Rigo) Add inline healing toggleable upgrade for Chirurgeon's Greater Field Discovery
+-   (Rigo) Add precious material selection for Bomber's Advanced Vials
+-   (Rigo) Add spellcasting proficiency upgrade to Graceful Legend
+-   (Rigo) Condense rule elements and remove unlocalised label on Emotionally Unaware
+-   (Rigo) Fix description formatting and add icon to Vigilant Eye
+-   (Rigo) Fix embedded description on Magus class journal
+-   (Rigo) Fix the range increment in several alchemical bombs
+-   (Rigo) Remove link to prone condition in Brush Thylacine description
+-   (Rigo) Update Snare feats and Gadget Specialist feats
+-   (Rigo) Use Item Alteration instead of Damage Alteration for Bomber Field Vials
+-   (xdy) Update Signature Spell Expansion to use Player Core 2 text
+
+### Under the Hood
+
+-   (LebombJames) Don't await document create/delete in effect macros
+
+## 6.8.0
+
+### Highlights
+
+-   (Supe, Rigo) Update Alchemist to remaster rules. You'll need to drag the class in again for the new version.
+-   (In3luki) Convert CompendiumBrowser to ApplicationV2 and a new rendering framework for better performance
+-   (Rigo) Add basic support for physical implement items for Thaumaturge. Due to a current limitation, if rebuilt from level 0, advancement should be done in steps: from level 0 to 5, from 5 to 15, and from 15 to 20, as certain selections need to be made to inform future ones.
+
+### System Improvements
+
+-   (ceejii) Show skill replacements before medicine in treat wounds dialog
+-   (In3luki) Load all available compendium packs by default in the Compendium Browser
+-   (stwlam) Exclude already-possessed heritages in heritage choice sets
+-   (Supe) Add formula picker to prepared crafting abilities such as advanced alchemy
+-   (Supe) Add search filter to inventory and adjust invested styling
+-   (Supe) Bind newly created item macros to the actor that owns that item for linked actors
+-   (Supe) Show common language first in party sheet
+-   (Supe) Support updating the quantity of individual items in prepared crafting abilities such as Advanced Alchemy
+-   (Supe) Update design of known formulas in the crafting tab
+
+### Bugfixes
+
+-   (Codas, stwlam) Fix memory leaks present in many sheets
+-   (Supe) Fix chat token images blocking saves posted to chat
+-   (Supe) Fix transfer quantities of 4 digits or more overflowing in the transfer item dialog
+
+### Data Updates
+
+-   (Ambrose, Rigo, Tikael) Incorporate Fall 2024 Errata
+-   (7H3LaughingMan) Talon Stance now uses Talon image
+-   (Abaddon) Add prerequisites to harrower feats
+-   (Abaddon) Fix waterlogged source
+-   (Alexander Youngblood) Include applicable bonuses and penalties in battle form unarmed modifier comparison
+-   (Ambrose) Add automation to Lighter than Air Oracle feat
+-   (Ambrose) Add Howl of the Wild feats to Beastmaster Dedication Journal entry
+-   (Ambrose) Add Infectious Melody spell effect variants
+-   (Ambrose) Add localized notes to Wild Witch's Armaments feat
+-   (Ambrose) Add note item alteration to Uplifting Winds druid feat
+-   (Ambrose) Brush up additional Spell Effect descriptions
+-   (Ambrose) Condense Animal Swiftness, Clay Sphere, Desolation Locket, Dragon's Blood Pudding, Dragon Turtle Scale, Exsanguinating Ammunition, Flaming Star, Ghost Planchette, and Mantle of the Frozen Heart spell effects
+-   (Ambrose) Correct Spirit Striking localization in Exemplar Class journal entry
+-   (Ambrose) Correct Talos Gadgeteer's gadget inventory selection
+-   (Ambrose) Localize Magical Fortitude class feature text and update description text for Arcane Thesis and Mystery class features
+-   (Ambrose) Redirect Aphorite and Ganzi versatile heritages to Nephilim
+-   (Ambrose) Remove effects from Eye of the Unseen
+-   (Ambrose) Update automation for Ancestry flight-granting feats
+-   (Ambrose) Update Domains journals and add Oracle Mysteries
+-   (Ambrose) Update Gale Blast heightening to match Player Core 2
+-   (Ambrose) Update multiple archetype journal entries and add more embeds
+-   (Ambrose) Update multiple deities and their descriptions
+-   (Ambrose) Update multiple Spell Effect descriptions
+-   (Ambrose) Update rule elements on Ka Stone and Expeditious Advance
+-   (Anase Skyrider) Correct Greatpick and Pilgrim's Token price
+-   (CaptainWonders) Fix Kashrishi climbing feats
+-   (Dire Weasel) Add damage to Gust of Wind
+-   (Dire Weasel) Add inline links to Cat's Eye Elixir
+-   (Dire Weasel) Convert UUIDs for deity spells
+-   (Dire Weasel) Fix action cost of Steal Face
+-   (Dire Weasel) Fix description formatting for Shadow Leap
+-   (Dire Weasel) Refresh copies of Black Tentacles
+-   (Dire Weasel) Update automation of SoG Pilgrimage Gifts
+-   (Dire Weasel) Update automation of Werecreature, Wild Mimic, and Zephyr Guard archetypes
+-   (Intervencion) Fix typo on Rhysaphin's Greater Flameheart Weapon
+-   (kromko) Fix Sublime Breath Feigned Strike strike name
+-   (kromko) Fix Wisp Chain variants descriptions
+-   (kromko) Make alternate mythic rules tier label localizable
+-   (kromko) Remove trailing whitespace in many pack entries
+-   (kromko) Rename Hellknight Signifier to Signifer in feat prerequisites
+-   (kromko) Replace Blast Resistance Note RE with DoS adjustment, Remove Tide Hardened Note RE
+-   (Manuel Hegner) Alter versatile vial traits with bomber class feature
+-   (Manuel Hegner) Fix pillow shield ac bonus
+-   (Marius) Update Fresh Ingredients feat
+-   (rectulo) Fix librarian staff greater description
+-   (reyzor1991) Add Left-Hand Blood Effect
+-   (Rigo) Add alchemical tool and alchemical food consumable tags
+-   (Rigo) Add alternate amp and effect for Mind's Light Circlet
+-   (Rigo) Add area heightening to Thunderburst
+-   (Rigo) Add automation for multiple thaumaturge implements
+-   (Rigo) Add condition links to Curse of Turbulent Moments
+-   (Rigo) Add crane wing attack penalty to Crane Flutter
+-   (Rigo) Add effect for Extra Alchemy familiar ability
+-   (Rigo) Add effect for Instructive Strike and automate Implement's Flight
+-   (Rigo) Add effects for Manifest Will and Multifaceted Will
+-   (Rigo) Add Ephemeral Effect for Disarm's bonus to further attempts
+-   (Rigo) Add implement benefits as separate class features
+-   (Rigo) Add missing roll option to Skybearer's Belt and Twin Star's predicates
+-   (Rigo) Add spell effect for Swear Oath
+-   (Rigo) Allow 3rd rank revelation spells to be chosen for Diverse Mystery
+-   (Rigo) Allow Class Might effect to select any attribute
+-   (Rigo) Automate Alchemical Sciences Investigator alchemy and tag alchemical tools
+-   (Rigo) Automate several mythic destiny feats
+-   (Rigo) Automate several Wandering Chef feats including quick and advanced alchemy
+-   (Rigo) Grant implement with Thaumaturge Dedication
+-   (Rigo) Hide disabled Bloody Debilitation dice in Debilitating Strike feature
+-   (Rigo) Implement natural 19 DoS adjustments on some monsters
+-   (Rigo) Move Quick-Tempered effects to its Note
+-   (Rigo) Move versatile vials scaling to physical item rather than the feature
+-   (Rigo) Remove unlocalised label from Furious Footfalls
+-   (Rigo) Replace brackets with ternaries from several spell effects
+-   (Rigo) Use AdjustDegreeOfSuccess rule element on Ageless Patience and localize its Note
+-   (Rigo) Use origin level instead of actor level on Cringe's effect
+-   (Tikael) Add content from Spore War Player's Guide
+-   (Tikael) Add missing PFS 6 Quests folder
+-   (Tikael) Add wilderness label for Fresh Ingredients
+-   (Tikael) Fix Divine Vessel spell effects
+-   (Tikael) Make Biographical Eye inline immutable
+-   (TMun) Add NPCs from PFS Quest 20, 21, and 22 actors
+
+### Under the Hood
+
+-   (Supe) Add description for damage and modifier roll options in the roll inspector
+-   (Supe) Add support for aura effect resolvables and parent options
+-   (Supe) Show post roll options in the roll inspector
+-   (Supe) Show selectors when inspecting damage taken messages
+-   (Supe) Support ephemeral effects for most checks
+-   (Supe) Support uuid when using game.pf2e.rollItemMacro()
+
 ## 6.7.2
 
 ### System Improvements

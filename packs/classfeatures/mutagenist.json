@@ -49,6 +49,27 @@
                         "text": "PF2E.SpecificRule.Alchemist.ResearchField.Mutagenist.FieldVials.Description"
                     }
                 ]
+            },
+            {
+                "itemType": "consumable",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Alchemist.ResearchField.FieldBenefit",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:mutagen",
+                    {
+                        "not": "self:effect:mutagenist-field-benefit"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Alchemist.ResearchField.Mutagenist.FieldBenefit.Description"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Mutagenist Field Benefit]"
+                    }
+                ]
             }
         ],
         "traits": {

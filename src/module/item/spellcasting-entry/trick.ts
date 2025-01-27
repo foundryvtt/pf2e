@@ -128,22 +128,6 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
         return false;
     }
 
-    get isInnate(): false {
-        return false;
-    }
-
-    get isPrepared(): false {
-        return false;
-    }
-
-    get isRitual(): false {
-        return false;
-    }
-
-    get isSpontaneous(): false {
-        return false;
-    }
-
     get isEphemeral(): true {
         return true;
     }

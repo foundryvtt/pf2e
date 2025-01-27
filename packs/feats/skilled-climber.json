@@ -31,8 +31,25 @@
         "rules": [
             {
                 "key": "BaseSpeed",
-                "type": "climb",
+                "selector": "climb",
                 "value": 10
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "climbing-cavern-wall-or-tree"
+                ],
+                "selector": "climb",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SkilledClimber.Label",
+                "option": "climbing-cavern-wall-or-tree",
+                "predicate": [
+                    "feat:scuttle-up"
+                ],
+                "toggleable": true
             }
         ],
         "traits": {

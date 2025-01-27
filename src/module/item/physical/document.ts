@@ -21,7 +21,13 @@ import type {
     PhysicalSystemData,
     Price,
 } from "./data.ts";
-import { CoinsPF2e, computeLevelRarityPrice, handleHPChange, prepareBulkData } from "./helpers.ts";
+import {
+    CoinsPF2e,
+    computeLevelRarityPrice,
+    getDefaultEquipStatus,
+    handleHPChange,
+    prepareBulkData,
+} from "./helpers.ts";
 import { getUsageDetails, isEquipped } from "./usage.ts";
 import { DENOMINATIONS } from "./values.ts";
 
@@ -458,14 +464,18 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return super.getEmbeddedDocument(embeddedName, id, options);
     }
 
-    /** Can the provided item stack with this item? */
+    /**
+     * Can the provided item stack with this item?
+     * @param item an item we are trying to add to the inventory
+     */
     isStackableWith(item: PhysicalItemPF2e): boolean {
         const preCheck =
             this !== item &&
             this.type === item.type &&
             this.name === item.name &&
             this.isIdentified === item.isIdentified &&
-            ![this, item].some((i) => i.isHeld || i.isOfType("backpack"));
+            this.isHeld === item.isHeld &&
+            (!this.isHeld || this.quantity === 0 || item.quantity === 0);
         if (!preCheck) return false;
 
         const thisData = this.toObject().system;
@@ -722,10 +732,9 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         // Clear the apex selection in case this is an apex item being copied from a previous owner
         delete this._source.system.apex?.selected;
 
-        this._source.system.equipped = { carryType: "worn" };
-        const isSlottedItem = this.system.usage.type === "worn" && !!this.system.usage.where;
-        if (isSlottedItem && this.actor?.isOfType("character")) {
-            this._source.system.equipped.inSlot = false;
+        // If this is being dragged to a compendium or world items, clear the equip data
+        if (!this.actor) {
+            this._source.system.equipped = getDefaultEquipStatus(this);
         }
 
         return super._preCreate(data, options, user);

@@ -34,7 +34,7 @@
                 "damage": {
                     "base": {
                         "damageType": "fire",
-                        "dice": 3,
+                        "dice": "ternary(lt(@actor.level,20),3,4)",
                         "die": "d8"
                     }
                 },
@@ -52,46 +52,18 @@
             },
             {
                 "damageType": "force",
-                "diceNumber": 3,
+                "diceNumber": "ternary(lt(@actor.level,20),3,4)",
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "selector": "{item|_id}-damage"
+                "selector": "{item|id}-damage"
             },
             {
                 "critical": true,
                 "damageCategory": "persistent",
                 "damageType": "fire",
                 "key": "FlatModifier",
-                "selector": "{item|_id}-damage",
+                "selector": "{item|id}-damage",
                 "value": 10
-            },
-            {
-                "key": "Note",
-                "selector": "{item|_id}-attack",
-                "text": "<em>@Localize[PF2E.SpecificRule.Automaton.CoreCannon.AttackNote]</em>",
-                "title": "{item|name}"
-            },
-            {
-                "damageType": "fire",
-                "dieSize": "d8",
-                "key": "DamageDice",
-                "selector": "{item|_id}-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 19,
-                            "value": {
-                                "diceNumber": 0
-                            }
-                        },
-                        {
-                            "start": 20,
-                            "value": {
-                                "diceNumber": 1
-                            }
-                        }
-                    ]
-                }
             }
         ],
         "selfEffect": {

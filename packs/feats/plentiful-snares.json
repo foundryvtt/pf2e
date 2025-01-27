@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You can prepare incredible numbers of snares each day out of simple ingredients. Double the number of prepared snares granted by Snarecrafter Dedication.</p>"
+            "value": "<p>You can prepare incredible numbers of snares each day out of simple ingredients. Double the number of prepared snares granted by @UUID[Compendium.pf2e.feats-srd.Item.Snarecrafter Dedication].</p>"
         },
         "level": {
             "value": 12
@@ -31,28 +31,11 @@
         "rules": [
             {
                 "key": "ActiveEffectLike",
-                "mode": "add",
-                "path": "system.crafting.entries.snareCrafting.maxSlots",
+                "mode": "multiply",
+                "path": "system.crafting.entries.snarecrafter.maxSlots",
                 "phase": "beforeDerived",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 2,
-                            "start": 1,
-                            "value": 4
-                        },
-                        {
-                            "end": 3,
-                            "start": 3,
-                            "value": 6
-                        },
-                        {
-                            "start": 4,
-                            "value": 8
-                        }
-                    ],
-                    "field": "actor|system.skills.crafting.rank"
-                }
+                "priority": 41,
+                "value": 2
             }
         ],
         "traits": {

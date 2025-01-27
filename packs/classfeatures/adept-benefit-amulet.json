@@ -1,0 +1,65 @@
+{
+    "_id": "l3X6D8uMlt2y6vGS",
+    "img": "icons/commodities/treasure/token-gold-gem-purple.webp",
+    "name": "Adept Benefit (Amulet)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your amulet offers continued protection. When you use @UUID[Compendium.pf2e.actionspf2e.Item.Amulet's Abeyance], you or your ally chooses one type of damage dealt by the triggering attack and gains resistance 5 against that damage type until the start of your next turn. At 15th level, this lingering resistance increases from 5 to 10.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.thaumaturge.paragonChoices",
+                "priority": 20,
+                "value": {
+                    "label": "PF2E.SpecificRule.Thaumaturge.Implement.Amulet.Label",
+                    "value": "Compendium.pf2e.classfeatures.Item.Paragon Benefit (Amulet)"
+                }
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Thaumaturge.Implement.Adept.Label",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:amulets-abeyance"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Thaumaturge.Implement.Amulet.Adept.Description"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Amulet's Abeyance (Adept)]"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "thaumaturge"
+            ]
+        }
+    },
+    "type": "feat"
+}

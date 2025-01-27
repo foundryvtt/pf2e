@@ -1,0 +1,509 @@
+{
+    "_id": "blWhrVgjP5rIqb3q",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "zHYpJSw05Pb527GD",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "rotter-infestation"
+                    ]
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "Bu2L3mQLpjSOoGGI": {
+                        "damage": "2d8+9",
+                        "damageType": "piercing"
+                    },
+                    "nQvMVcivoOka9MbF": {
+                        "damage": "1d8",
+                        "damageType": "poison"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "poison",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "w4LFpANSIxPjULqH",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "cLuUBMBMfEA2utiE": {
+                        "damage": "2d8+9",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "WOg7GpfGZ8BaShg5",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Fungus Sense",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A root rotter has imprecise tremorsense to detect the vibrations of creatures who are within a region of fungal terrain shared by the root rotter.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yW6kSSYOyN0SZ23S",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Fungal Empowerment",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>If the root rotter is touching fungal terrain at the start of its turn, they regain @Damage[10[healing]] Hit Points and are @UUID[Compendium.pf2e.conditionitems.Item.Quickened] that turn; they can use the extra action only to Stride or Strike.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JY9rAddEAvmjglU9",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Fungal Mind",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Root rotters communicate telepathically with each other. While within telepathic range of at least one other root rotter, they gain a +2 circumstance bonus to initiative rolls, Perception checks, and saving throws against mental effects. If one root rotter is aware of a combatant, all members of the fungal mind within range are aware of it.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "fungal-mind",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "fungal-mind"
+                        ],
+                        "selector": [
+                            "initiative",
+                            "perception"
+                        ],
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "fungal-mind",
+                            "item:trait:mental"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": "fungal-mind",
+                "traits": {
+                    "value": [
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OgeUlpyzinY1Ey8R",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5Y1BDRtyFk8KwSpN",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Disperse",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The root rotter has 25 Hit Points or fewer</p><hr /><p><strong>Effect</strong> The root rotter destroys themself. Thorny fungal roots explode from their body, dealing @Damage[10d6[piercing]] damage in a @Template[type:emanation|distance:10] (@Check[reflex|dc:25|basic] save). Any creature who fails the save is exposed to rotter infestation.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "poison",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FBCGJUvGZkv8Prk7",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Fungal Root",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The root rotter is standing in fungal terrain</p><hr /><p><strong>Effect</strong> Fungal roots reach out to snag a nearby foe. An enemy within 30 feet of the root rotter takes @Damage[4d6[piercing]] damage and must attempt a @Check[reflex|dc:27] saving throw.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} until the end of its next turn.</p>\n<p><strong>Failure</strong> The creature takes full damage and becomes clumsy 1 with an unlimited duration. In addition, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Restrained] (@UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC 27) for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure but double damage. In addition, the creature is exposed to rotter infestation.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "poison",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qtcJImVaTzh3cwtt",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Rotter Infestation",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:27]</p>\n<p><strong>Onset</strong> 1 day</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and can sense the presence of root rotters within 30 feet as an imprecise sense (1 round)</p>\n<p><strong>Stage 3</strong> as stage 2, but transformation into a root rotter upon death (1 day)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "disease",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Root Rotter",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 26
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "void healing",
+                "max": 195,
+                "temp": 0,
+                "value": 195
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "death-effects"
+                },
+                {
+                    "exceptions": [],
+                    "type": "disease"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 30
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "holy",
+                    "value": 10
+                },
+                {
+                    "exceptions": [],
+                    "type": "slashing",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "Telepathy 30 feet fungi only",
+                "value": [
+                    "chthonian",
+                    "common",
+                    "elven"
+                ]
+            },
+            "level": {
+                "value": 9
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Root rotters are all that remain of the unfortunate elven residents of Greengold. Some died in the initial bursts of Jeharlu spores, while others succumbed to infestation by sinmolds. Fungus now riddles their bodies, wrapping around their brains and nerves to reanimate them.</p><h2>Corruption Spreaders</h2><p>A root rotter that remains in place for 24 hours causes a @Template[type:emanation|distance:5] to become overgrown with foul-smelling unpleasant fungus. This spread increases by 5 feet for each additional 24 hours the root rotter remains motionless, to a maximum area of a @Template[type:emanation|distance:60] after 12 days of motionless lurking. This fungus is permanent as long as it has a source of nourishment but can be destroyed as easily as any patch of mundane fungus.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #210: Whispers in the Dirt"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "fungus sense 120 feet",
+            "mod": 18,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 20
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 16
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 20,
+                "special": []
+            },
+            "athletics": {
+                "base": 17,
+                "special": []
+            },
+            "nature": {
+                "base": 15,
+                "special": []
+            },
+            "stealth": {
+                "base": 18,
+                "special": [
+                    {
+                        "base": 20,
+                        "label": "in fungal environs",
+                        "predicate": [
+                            "terrain:fungus"
+                        ]
+                    }
+                ]
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "fungus",
+                "undead",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}
