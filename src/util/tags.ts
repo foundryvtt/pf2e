@@ -3,6 +3,7 @@ import { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import Tagify, { TagifySettings } from "@yaireo/tagify";
 import { DestroyableManager } from "./destroyables.ts";
 import { objectHasKey } from "./misc.ts";
+import { createHTMLElement } from "@util";
 
 function traitSlugToObject(trait: string, dictionary: Record<string, string | undefined>): TraitViewData {
     // Look up trait labels from `npcAttackTraits` instead of `weaponTraits` in case a battle form attack is
@@ -28,20 +29,6 @@ function transformWhitelist(whitelist: WhitelistData) {
                   value: game.i18n.localize(typeof locPath === "string" ? locPath : locPath.label),
               }))
               .sort((a, b) => a.value.localeCompare(b.value, game.i18n.lang));
-}
-
-function getTagifyTagTemplate(tagify: Tagify<TagRecord>, tagData: TagRecord): string {
-    return `<tag 
-        contenteditable='false' 
-        spellcheck='false' 
-        tabIndex="${tagify.settings.a11y.focusableTags ? 0 : -1}"
-        class="${tagify.settings.classNames.tag}"
-        ${tagify.getAttributes(tagData)}> 
-        <x title='' class="${tagify.settings.classNames.tagX}" role='button' aria-label='remove tag'></x>
-        <div>
-            <span class="${tagify.settings.classNames.tagText}">${tagData[tagify.settings.tagTextProp] || tagData.value}</span>
-        </div>
-    </tag>`;
 }
 
 /** Create a tagify select menu out of a JSON input element */
@@ -81,9 +68,32 @@ function tagify(
         delimiters,
         whitelist: whitelistTransformed,
         templates: {
-            tag(tagData: TagRecord) {
+            tag(tagData: TagRecord): string {
                 // Default template without title to prevent the default tag tooltip from showing.
-                return getTagifyTagTemplate(this, tagData);
+                return createHTMLElement("div", {
+                    classes: [tagify.settings.classNames.tag],
+                    dataset: {
+                        contenteditable: "false",
+                        spellcheck: "false",
+                        tabIndex: tagify.settings.a11y.focusableTags ? 0 : -1,
+                        id: tagData.id,
+                        value: tagData.value,
+                    },
+                    children: [
+                        createHTMLElement("div", {
+                            dataset: { title: "" },
+                            classes: [tagify.settings.classNames.tagX],
+                        }),
+                        createHTMLElement("div", {
+                            children: [
+                                createHTMLElement("span", {
+                                    dataset: { text: tagData.value },
+                                    classes: [tagify.settings.classNames.tagText],
+                                }),
+                            ],
+                        }),
+                    ],
+                }).outerHTML;
             },
         },
     });
