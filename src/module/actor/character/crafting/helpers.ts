@@ -46,13 +46,14 @@ function calculateCosts(
     quantity: number,
     actor: CharacterPF2e,
     degreeOfSuccess: number,
+    skill: string = "crafting",
 ): Costs | null {
     const itemPrice = CoinsPF2e.fromPrice(item.price, quantity);
     const materialCosts = itemPrice.scale(0.5);
     const lostMaterials = new CoinsPF2e();
     const reductionPerDay = new CoinsPF2e();
 
-    const proficiency = actor.skills.crafting.rank;
+    const proficiency = actor.skills[skill]?.rank;
     if (!proficiency) return null;
 
     if (degreeOfSuccess === DegreeOfSuccess.CRITICAL_SUCCESS) {
@@ -159,11 +160,12 @@ export async function renderCraftingInline(
     quantity: number,
     actor: ActorPF2e,
     free: boolean,
+    skill: string = "crafting"
 ): Promise<string | null> {
     if (!actor.isOfType("character")) return null;
 
     const degreeOfSuccess = roll.options.degreeOfSuccess ?? 0;
-    const costs = calculateCosts(item, quantity, actor, degreeOfSuccess);
+    const costs = calculateCosts(item, quantity, actor, degreeOfSuccess, skill);
     if (!costs) return null;
 
     const daysForZeroCost = degreeOfSuccess > 1 ? calculateDaysToNoCost(costs) : 0;
