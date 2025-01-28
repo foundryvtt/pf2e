@@ -427,7 +427,28 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             const id = fu.randomID();
             this.#editingSettlements[id] = true;
             this.focusElement = `[name="settlements.${id}.name"]`;
-            this.kingdom.update({ [`settlements.${id}`]: {} });
+            this.kingdom.update({
+                [`settlements.${id}`]: {
+                    name: "",
+                    type: "village",
+                    level: 1,
+                    overcrowded: false,
+                    description: "",
+                    sort: 0,
+                    consumption: {
+                        base: 1,
+                        reduction: 0,
+                        total: 0,
+                    },
+                    storage: {
+                        food: 0,
+                        luxuries: 0,
+                        lumber: 0,
+                        ore: 0,
+                        stone: 0,
+                    },
+                },
+            });
         });
         for (const settlementElement of htmlQueryAll(html, ".settlement")) {
             this.#activateSettlementEvents(settlementElement);
