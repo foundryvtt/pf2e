@@ -197,13 +197,13 @@
 
 {{#if specialResources}}
     <header>
-        <h2>Special Resources</h2>
+        <h2>{{localize "PF2E.Actor.Resources"}}</h2>
     </header>
     <ol>
         {{#each specialResources as |resource|}}
             <li class="special-resource">
                 <span class="label">{{resource.label}}</span>
-                <input type="number" data-resource="{{resource.slug}}" value="{{resource.value}}" />
+                <input type="text" data-resource="{{resource.slug}}" value="{{resource.value}}" />
                 / {{resource.max}}
             </li>
         {{/each}}
