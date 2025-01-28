@@ -126,7 +126,14 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             if (!resource) continue;
 
             element.addEventListener("change", () => {
-                this.actor.updateResource(resourceSlug, Number(element.value));
+                const rawValue = element.value.trim();
+                const isDelta = rawValue.startsWith("+") || rawValue.startsWith("-");
+                const newValue = isDelta ? resource.value + Number(rawValue) : Number(rawValue);
+                if (Number.isNaN(newValue)) {
+                    element.value = String(resource.value);
+                } else {
+                    this.actor.updateResource(resourceSlug, newValue);
+                }
             });
         }
     }
