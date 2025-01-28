@@ -160,7 +160,7 @@ export async function renderCraftingInline(
     quantity: number,
     actor: ActorPF2e,
     free: boolean,
-    skill: string = "crafting"
+    skill: string = "crafting",
 ): Promise<string | null> {
     if (!actor.isOfType("character")) return null;
 
