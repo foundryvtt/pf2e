@@ -1082,25 +1082,25 @@
             "type": "consumable"
         },
         {
-            "_id": "MhayCkEUA2ErJ0HR",
+            "_id": "NtdB1CnsdRa3pmve",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-effects.Item.rH6RHxy6sNTLusKX"
+                "compendiumSource": "Compendium.pf2e.equipment-effects.Item.vlTiBE0h2kyw5J9o"
             },
             "img": "systems/pf2e/icons/equipment/other/emerald-fulcrum-lenses.webp",
-            "name": "Effect: Emerald Fulcrum Lens (Saving Throw)",
+            "name": "Effect: Emerald Fulcrum Lens",
             "sort": 1500000,
             "system": {
                 "description": {
-                    "value": "<p>For 1 round you gain a +1 item bonus to attack rolls, saving throws, and DCs.</p>"
+                    "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Emerald Fulcrum Lens]</p>\n<p>You gain void healing and <em>harm</em> spells gain a +4 status bonus to the Hit Points they restore to you.</p>"
                 },
                 "duration": {
-                    "expiry": "turn-start",
+                    "expiry": null,
                     "sustained": false,
-                    "unit": "rounds",
-                    "value": 1
+                    "unit": "unlimited",
+                    "value": -1
                 },
                 "level": {
-                    "value": 1
+                    "value": 10
                 },
                 "publication": {
                     "license": "OGL",
@@ -1109,25 +1109,30 @@
                 },
                 "rules": [
                     {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    },
+                    {
                         "key": "FlatModifier",
                         "predicate": [
-                            "item:magical"
+                            "item:slug:harm"
                         ],
-                        "selector": "saving-throw",
-                        "type": "item",
-                        "value": 2
+                        "selector": "healing-received",
+                        "type": "status",
+                        "value": 4
                     }
                 ],
-                "slug": "effect-emerald-fulcrum-lens-saving-throw",
+                "slug": "effect-emerald-fulcrum-lens",
                 "start": {
                     "initiative": null,
-                    "value": 0
+                    "value": 24
                 },
                 "tokenIcon": {
                     "show": true
                 },
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
