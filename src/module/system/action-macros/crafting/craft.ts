@@ -62,7 +62,7 @@ export async function craft(options: CraftActionOptions): Promise<void> {
                 const message = result.message;
                 const flavor = await (async () => {
                     if (["criticalSuccess", "success", "criticalFailure"].includes(result.outcome ?? "")) {
-                        return await renderCraftingInline(item, result.roll, quantity, result.actor, free);
+                        return await renderCraftingInline(item, result.roll, quantity, result.actor, free, slug);
                     }
                     return "";
                 })();
