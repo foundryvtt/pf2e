@@ -70,30 +70,38 @@ function tagify(
         templates: {
             tag(tagData: TagRecord): string {
                 // Default template without title to prevent the default tag tooltip from showing.
-                return createHTMLElement("div", {
-                    classes: [tagify.settings.classNames.tag],
-                    dataset: {
-                        contenteditable: "false",
-                        spellcheck: "false",
-                        tabIndex: tagify.settings.a11y.focusableTags ? 0 : -1,
-                        id: tagData.id,
-                        value: tagData.value,
-                    },
+                let removeButton = createHTMLElement("div", {
+                    dataset: {title: ""},
+                    classes: [this.settings.classNames.tagX],
+                });
+                removeButton.role="button";
+                removeButton.ariaLabel="remove tag";
+
+                let tag = createHTMLElement("div", {
+                    classes: [this.settings.classNames.tag],
                     children: [
+                        removeButton,
                         createHTMLElement("div", {
-                            dataset: { title: "" },
-                            classes: [tagify.settings.classNames.tagX],
-                        }),
-                        createHTMLElement("div", {
+                            classes: ["text-container"],
                             children: [
                                 createHTMLElement("span", {
-                                    dataset: { text: tagData.value },
-                                    classes: [tagify.settings.classNames.tagText],
+                                    innerHTML: tagData[this.settings.tagTextProp] || tagData.value,
+                                    classes: [this.settings.classNames.tagText],
                                 }),
                             ],
                         }),
-                    ],
-                }).outerHTML;
+                    ]                    
+                });
+                
+                tag.contentEditable= "false";
+                tag.spellcheck= false;
+                tag.tabIndex= this.settings.a11y.focusableTags ? 0 : -1;
+
+                Object.entries(tagData).forEach(([key, value]) => {
+                    tag.setAttribute(key,value);
+                });
+
+                return tag.outerHTML;
             },
         },
     });
