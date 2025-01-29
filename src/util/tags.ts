@@ -97,9 +97,9 @@ function tagify(
                 tag.spellcheck = false;
                 tag.tabIndex = this.settings.a11y.focusableTags ? 0 : -1;
 
-                Object.entries(tagData).forEach(([key, value]) => {
+                for (const [key, value] of Object.entries(tagData)) {
                     tag.setAttribute(key, value);
-                });
+                }
 
                 return tag.outerHTML;
             },
