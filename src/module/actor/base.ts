@@ -802,7 +802,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             return;
         }
         // Set after data model is initialized so that `this.id` will be defined (and `this.uuid` will be complete)
-        this.signature ??= UUIDv5(this.uuid, "e9fa1461-0edc-4791-826e-08633f1c6ef7"); // magic number as namespace
+        this.signature ??= UUIDv5(this.uuid ?? "", "e9fa1461-0edc-4791-826e-08633f1c6ef7"); // magic number as namespace
         this.initialized = true;
         super.prepareData();
 
