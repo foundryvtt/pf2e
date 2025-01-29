@@ -70,14 +70,14 @@ function tagify(
         templates: {
             tag(tagData: TagRecord): string {
                 // Default template without title to prevent the default tag tooltip from showing.
-                let removeButton = createHTMLElement("div", {
-                    dataset: {title: ""},
+                const removeButton = createHTMLElement("div", {
+                    dataset: { title: "" },
                     classes: [this.settings.classNames.tagX],
                 });
-                removeButton.role="button";
-                removeButton.ariaLabel="remove tag";
+                removeButton.role = "button";
+                removeButton.ariaLabel = "remove tag";
 
-                let tag = createHTMLElement("div", {
+                const tag = createHTMLElement("div", {
                     classes: [this.settings.classNames.tag],
                     children: [
                         removeButton,
@@ -90,15 +90,15 @@ function tagify(
                                 }),
                             ],
                         }),
-                    ]                    
+                    ],
                 });
-                
-                tag.contentEditable= "false";
-                tag.spellcheck= false;
-                tag.tabIndex= this.settings.a11y.focusableTags ? 0 : -1;
+
+                tag.contentEditable = "false";
+                tag.spellcheck = false;
+                tag.tabIndex = this.settings.a11y.focusableTags ? 0 : -1;
 
                 Object.entries(tagData).forEach(([key, value]) => {
-                    tag.setAttribute(key,value);
+                    tag.setAttribute(key, value);
                 });
 
                 return tag.outerHTML;
