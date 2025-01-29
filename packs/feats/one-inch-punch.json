@@ -49,14 +49,40 @@
                 "diceNumber": "ternary(gte(@actor.level, 18), 3, ternary(gte(@actor.level, 10), 2, 1))",
                 "key": "DamageDice",
                 "predicate": [
-                    "melee",
                     {
                         "or": [
-                            "unarmed",
                             {
                                 "and": [
-                                    "feat:monastic-weaponry",
-                                    "item:trait:monk"
+                                    "melee",
+                                    {
+                                        "or": [
+                                            "unarmed",
+                                            {
+                                                "and": [
+                                                    "feat:monastic-weaponry",
+                                                    "item:trait:monk"
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "ranged",
+                                    "self:effect:monastic-archer-stance",
+                                    {
+                                        "or": [
+                                            "item:shortbow",
+                                            "item:longbow",
+                                            {
+                                                "and": [
+                                                    "item:group:bow",
+                                                    "item:trait:monk"
+                                                ]
+                                            }
+                                        ]
+                                    }
                                 ]
                             }
                         ]
@@ -69,14 +95,40 @@
                 "diceNumber": "ternary(gte(@actor.level, 18), 6, ternary(gte(@actor.level, 10), 4, 2))",
                 "key": "DamageDice",
                 "predicate": [
-                    "melee",
                     {
                         "or": [
-                            "unarmed",
                             {
                                 "and": [
-                                    "feat:monastic-weaponry",
-                                    "item:trait:monk"
+                                    "melee",
+                                    {
+                                        "or": [
+                                            "unarmed",
+                                            {
+                                                "and": [
+                                                    "feat:monastic-weaponry",
+                                                    "item:trait:monk"
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "ranged",
+                                    "self:effect:monastic-archer-stance",
+                                    {
+                                        "or": [
+                                            "item:shortbow",
+                                            "item:longbow",
+                                            {
+                                                "and": [
+                                                    "item:group:bow",
+                                                    "item:trait:monk"
+                                                ]
+                                            }
+                                        ]
+                                    }
                                 ]
                             }
                         ]
