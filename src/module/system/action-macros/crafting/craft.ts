@@ -9,8 +9,7 @@ import { SelectItemDialog } from "./select-item.ts";
 
 export async function craft(options: CraftActionOptions): Promise<void> {
     // resolve item
-    const item =
-        options.item ?? (options.uuid ? await fromUuid(options.uuid) : await SelectItemDialog.getItem("craft"));
+    const item = options.item ?? (await (options.uuid ? fromUuid(options.uuid) : SelectItemDialog.getItem("craft")));
 
     // ensure item is a valid crafting target
     if (!item) {
