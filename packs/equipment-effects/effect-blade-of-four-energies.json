@@ -1,0 +1,146 @@
+{
+    "_id": "v20pbW7ZabrqqB9U",
+    "img": "systems/pf2e/icons/equipment/weapons/specific-magic-weapons/blade-of-four-energies.webp",
+    "name": "Effect: Blade of Four Energies",
+    "system": {
+        "badge": {
+            "evaluate": true,
+            "labels": [
+                "Corrosive",
+                "Flaming",
+                "Frost",
+                "Shock"
+            ],
+            "loop": false,
+            "reevaluate": null,
+            "type": "formula",
+            "value": "1d4"
+        },
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Blade of Four Energies], @UUID[Compendium.pf2e.equipment-srd.Item.Blade of Four Energies (Greater)]</p>\n<p>The weapon gains the <em>corrosive</em>, <em>flaming</em>, <em>frost</em>, or <em>shock</em> rune (greater runes for the <em>greater blade of four energies</em>).</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 13
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:slug:blade-of-four-energies"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "self:effect:blade-of-four-energies:1"
+                ],
+                "property": "property-runes",
+                "value": "corrosive"
+            },
+            {
+                "definition": [
+                    "item:slug:blade-of-four-energies"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "self:effect:blade-of-four-energies:2"
+                ],
+                "property": "property-runes",
+                "value": "flaming"
+            },
+            {
+                "definition": [
+                    "item:slug:blade-of-four-energies"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "self:effect:blade-of-four-energies:3"
+                ],
+                "property": "property-runes",
+                "value": "frost"
+            },
+            {
+                "definition": [
+                    "item:slug:blade-of-four-energies"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "self:effect:blade-of-four-energies:4"
+                ],
+                "property": "property-runes",
+                "value": "shock"
+            },
+            {
+                "definition": [
+                    "item:slug:blade-of-four-energies-greater"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "self:effect:blade-of-four-energies:1"
+                ],
+                "property": "property-runes",
+                "value": "greater-corrosive"
+            },
+            {
+                "definition": [
+                    "item:slug:blade-of-four-energies-greater"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "self:effect:blade-of-four-energies:2"
+                ],
+                "property": "property-runes",
+                "value": "greater-flaming"
+            },
+            {
+                "definition": [
+                    "item:slug:blade-of-four-energies-greater"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "self:effect:blade-of-four-energies:3"
+                ],
+                "property": "property-runes",
+                "value": "greater-frost"
+            },
+            {
+                "definition": [
+                    "item:slug:blade-of-four-energies-greater"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "self:effect:blade-of-four-energies:4"
+                ],
+                "property": "property-runes",
+                "value": "greater-shock"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
