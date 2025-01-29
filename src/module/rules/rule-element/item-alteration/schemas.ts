@@ -416,6 +416,30 @@ const ITEM_ALTERATION_VALIDATORS = {
             choices: RARITIES,
         } as const),
     }),
+    "range-increment": new ItemAlterationValidator({
+        itemType: new fields.StringField({ required: true, choices: ["weapon"] }),
+        mode: new fields.StringField({
+            required: true,
+            choices: ["add", "multiply", "override", "remove", "subtract"],
+        }),
+        value: new fields.NumberField({
+            required: true,
+            nullable: false,
+            initial: undefined,
+        } as const),
+    }),
+    "range-max": new ItemAlterationValidator({
+        itemType: new fields.StringField({ required: true, choices: ["weapon"] }),
+        mode: new fields.StringField({
+            required: true,
+            choices: ["add", "multiply", "override", "remove", "subtract"],
+        }),
+        value: new fields.NumberField({
+            required: true,
+            nullable: false,
+            initial: undefined,
+        } as const),
+    }),
     "frequency-max": new ItemAlterationValidator({
         itemType: new fields.StringField({ required: true, choices: ["action", "feat"] }),
         mode: new fields.StringField({
