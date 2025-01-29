@@ -1,0 +1,55 @@
+{
+    "_id": "OJibRFm4JCVGQZnx",
+    "folder": "KN9hhATq6X3GwryB",
+    "img": "systems/pf2e/icons/pathfinder-society/pfs-glyph.webp",
+    "name": "Effect: Practiced Medic",
+    "system": {
+        "description": {
+            "value": "<p>Granted by Practiced Medic</p>\n<p>You can improve a Medicine check's degree of success by one step to Administer First Aid, Treat Disease, Treat Poison, or Treat Wounds.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Society Boons"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "all": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:treat-poison",
+                            "action:treat-wounds",
+                            "action:treat-disease"
+                        ]
+                    }
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": "medicine"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -27,7 +27,7 @@ class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
 
     get capacity(): { value: Bulk; max: Bulk } {
         return {
-            value: InventoryBulk.computeTotalBulk(this.contents.contents, this.actor?.size ?? "med"),
+            value: InventoryBulk.computeTotalBulk(this.contents.contents, this.actor ?? null),
             max: new Bulk(this.system.bulk.capacity),
         };
     }

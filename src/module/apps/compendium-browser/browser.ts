@@ -236,7 +236,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundry.applications.api.
             filter.checkboxes.category.selected.push(category);
         }
 
-        if (entry.isRitual || entry.isFocusPool) {
+        if (entry.category === "ritual" || entry.isFocusPool) {
             filter.checkboxes.category.options[entry.category].selected = true;
             filter.checkboxes.category.selected.push(entry.category);
         }
@@ -247,13 +247,13 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundry.applications.api.
                 filter.checkboxes.rank.options[rank].selected = true;
                 filter.checkboxes.rank.selected.push(rank);
             }
-            if ((entry.isPrepared || entry.isSpontaneous || entry.isInnate) && !category) {
+            if (["prepared", "spontaneous", "innate"].includes(entry.category) && !category) {
                 filter.checkboxes.category.options["spell"].selected = true;
                 filter.checkboxes.category.selected.push("spell");
             }
         }
 
-        if (entry.tradition && !entry.isFocusPool && !entry.isRitual) {
+        if (entry.tradition && !entry.isFocusPool && entry.category !== "ritual") {
             traditions.options[entry.tradition].selected = true;
             traditions.selected.push(entry.tradition);
         }

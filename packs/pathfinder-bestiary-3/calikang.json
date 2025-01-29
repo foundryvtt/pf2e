@@ -635,7 +635,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day.</p>\n<hr />\n<p><strong>Effect</strong> The calikang breathes a blast of energy that deals 13d6 energy damage to creatures in a @Template[line|distance:60] (DC 28 basic Reflex save). The calikang can choose the damage type each time: acid, cold, electricity, fire, or sonic.</p>\n<p>Increase the die size to d8 if the calikang chooses electricity.</p>\n<hr />\n<ul>\n<li>@Damage[13d6[acid]] damage (@Check[reflex|dc:28|traits:acid|basic] save)</li>\n<li>@Damage[13d6[cold]] damage (@Check[reflex|dc:28|traits:cold|basic] save)</li>\n<li>@Damage[13d8[electricity]] damage (@Check[reflex|dc:28|traits:electricity|basic] save)</li>\n<li>@Damage[13d6[fire]] damage (@Check[reflex|dc:28|traits:fire|basic] save)</li>\n<li>@Damage[13d6[sonic]] damage (@Check[reflex|dc:28|traits:sonic|basic] save)</li>\n</ul>"
+                    "value": "<p><strong>Frequency</strong> once per day.</p><hr /><p><strong>Effect</strong> The calikang breathes a blast of energy that deals @Damage[13d6[@item.flags.pf2e.rulesSelections.breathWeapon]|options:area-damage] damage to creatures in a @Template[line|distance:60] (@Check[reflex|dc:28|basic|options:area-effect] save). The calikang can choose the damage type each time: acid, cold, electricity, fire, or sonic.</p>\n<p>Increase the die size to d8 if the calikang chooses electricity.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -647,7 +647,49 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "breath-weapon",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitAcid",
+                                "value": "acid"
+                            },
+                            {
+                                "label": "PF2E.TraitCold",
+                                "value": "cold"
+                            },
+                            {
+                                "label": "PF2E.TraitElectricity",
+                                "value": "electricity"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "value": "fire"
+                            },
+                            {
+                                "label": "PF2E.TraitSonic",
+                                "value": "sonic"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "item:slug:breath-weapon",
+                            "breath-weapon:electricity"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "inline-damage"
+                        ],
+                        "value": 8
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

@@ -126,7 +126,14 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             if (!resource) continue;
 
             element.addEventListener("change", () => {
-                this.actor.updateResource(resourceSlug, Number(element.value));
+                const rawValue = element.value.trim();
+                const isDelta = rawValue.startsWith("+") || rawValue.startsWith("-");
+                const newValue = isDelta ? resource.value + Number(rawValue) : Number(rawValue);
+                if (Number.isNaN(newValue)) {
+                    element.value = String(resource.value);
+                } else {
+                    this.actor.updateResource(resourceSlug, newValue);
+                }
             });
         }
     }
@@ -323,7 +330,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             // Confirm whether this is a swap and execute if so
             const { collectionId, groupId, slotIndex } = spellFrom;
             const collection = this.actor.spellcasting.collections.get(spellFrom.collectionId, { strict: true });
-            const isPrepared = collection.entry.isPrepared;
+            const isPrepared = collection.entry.category === "prepared";
             const collectionEl = htmlClosest(event.target, "[data-container-id]");
             const sameCollectionId = collectionId === collectionEl?.dataset.containerId;
 

@@ -22,11 +22,59 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:lightweave-scarf",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Lightweave Scarf"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:lightweave-scarf-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Lightweave Scarf (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:lightweave-scarf-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Lightweave Scarf (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "lightweave-scarf"
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
-                    "illusion"
+                    "item:trait:illusion"
                 ],
                 "selector": "saving-throw",
+                "slug": "lightweave-against-illusion-bonus",
                 "type": "item",
                 "value": 2
             },
@@ -36,8 +84,29 @@
                     "action:create-a-diversion"
                 ],
                 "selector": "deception",
+                "slug": "lightweave-deception-bonus",
                 "type": "item",
                 "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "lightweave-scarf:lightweave-scarf-major"
+                ],
+                "selector": "saving-throw",
+                "slug": "lightweave-against-illusion-bonus",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "lightweave-scarf:lightweave-scarf-major"
+                ],
+                "selector": "deception",
+                "slug": "lightweave-deception-bonus",
+                "value": 3
             }
         ],
         "start": {

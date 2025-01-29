@@ -78,10 +78,6 @@
 <style lang="scss">
     @use "src/styles/mixins/_typography.scss" as mixins;
 
-    :global(.theme-dark) .item-summary {
-        --visibility-gm-bg: var(--color-cool-4);
-    }
-
     .item-summary {
         flex: 0 0 100%;
         line-height: normal;

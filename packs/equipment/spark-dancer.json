@@ -11,7 +11,7 @@
             "value": 0
         },
         "bulk": {
-            "value": 1
+            "value": 0.1
         },
         "category": "martial",
         "containerId": null,
@@ -21,7 +21,7 @@
             "die": "d4"
         },
         "description": {
-            "value": "<p>This <em>+2 greater striking pepperbox</em> cycles through several magical cores, swapping in new ones while the previous ones cool. The gun deals fire or electricity damage, alternating with each attack as it rotates cores. Arcadian gunslingers liken the rotating cores to a group of dancers, each taking their turn in the spotlight.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The <em>spark dancer</em> casts either @UUID[Compendium.pf2e.spells-srd.Item.Fireball] or @UUID[Compendium.pf2e.spells-srd.Item.Lightning Bolt], depending on whether the current core would deal fire or electricity damage, as a 7th-rank arcane spell (@Check[reflex|dc:30|basic]).</p>"
+            "value": "<p>This <em>+2 greater striking pepperbox</em> cycles through several magical cores, swapping in new ones while the previous ones cool. The gun deals fire or electricity damage, alternating with each attack as it rotates cores. Arcadian gunslingers liken the rotating cores to a group of dancers, each taking their turn in the spotlight.</p><hr /><p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The <em>spark dancer</em> casts either @UUID[Compendium.pf2e.spells-srd.Item.Fireball] or @UUID[Compendium.pf2e.spells-srd.Item.Lightning Bolt], depending on whether the current core would deal fire or electricity damage, as a 7th-rank arcane spell (@Check[reflex|dc:30|basic]).</p>"
         },
         "group": "firearm",
         "hardness": 0,
@@ -51,7 +51,34 @@
         "reload": {
             "value": "1"
         },
-        "rules": [],
+        "rules": [
+            {
+                "alwaysActive": true,
+                "domain": "damage",
+                "key": "RollOption",
+                "option": "spark-dancer",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "property": "damage-type",
+                "selectors": [
+                    "{item|id}-damage"
+                ],
+                "value": "{item|flags.pf2e.rulesSelections.sparkDancer}"
+            }
+        ],
         "runes": {
             "potency": 2,
             "property": [],
@@ -75,9 +102,11 @@
         "traits": {
             "rarity": "uncommon",
             "value": [
+                "arcane",
                 "capacity-3",
                 "concussive",
-                "fatal-d8"
+                "fatal-d8",
+                "fire"
             ]
         },
         "usage": {

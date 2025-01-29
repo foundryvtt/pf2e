@@ -217,6 +217,20 @@ const ITEM_ALTERATION_VALIDATORS = {
             },
         },
     ),
+    "damage-dice-number": new ItemAlterationValidator({
+        itemType: new fields.StringField({ required: true, choices: ["weapon"] }),
+        mode: new fields.StringField({
+            required: true,
+            choices: ["add", "downgrade", "override", "remove", "subtract", "upgrade"],
+        }),
+        value: new fields.NumberField({
+            required: true,
+            nullable: false,
+            integer: true,
+            positive: true,
+            initial: undefined,
+        } as const),
+    }),
     "damage-type": new ItemAlterationValidator({
         itemType: new fields.StringField({ required: true, choices: ["weapon"] }),
         mode: new fields.StringField({ required: true, choices: ["override"] }),

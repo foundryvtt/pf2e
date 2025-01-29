@@ -22,10 +22,19 @@ export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollec
     /** Cache of trick magic item entries */
     #trickEntries: Record<string, BaseSpellcastingEntry<TActor> | undefined> = {};
 
-    constructor(actor: TActor, entries: BaseSpellcastingEntry<TActor>[]) {
-        super(entries.map((entry) => [entry.id, entry]));
+    constructor(actor: TActor) {
+        super();
         this.actor = actor;
+    }
 
+    /** Initializes spellcasting data. Must be called every data preparation */
+    initialize(entries: BaseSpellcastingEntry<TActor>[]): void {
+        this.clear();
+        for (const entry of entries) {
+            this.set(entry.id, entry);
+        }
+
+        this.collections.clear();
         for (const entry of entries) {
             if (entry.spells) this.collections.set(entry.spells.id, entry.spells);
         }

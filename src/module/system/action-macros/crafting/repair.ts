@@ -8,8 +8,7 @@ import { SelectItemDialog } from "./select-item.ts";
 
 async function repair(options: RepairActionOptions): Promise<void> {
     // resolve item
-    const item =
-        options.item ?? (options.uuid ? await fromUuid(options.uuid) : await SelectItemDialog.getItem("repair"));
+    const item = options.item ?? (await (options.uuid ? fromUuid(options.uuid) : SelectItemDialog.getItem("repair")));
 
     // ensure specified item is a valid crafting target
     if (!(item instanceof PhysicalItemPF2e)) {

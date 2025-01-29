@@ -1,5 +1,6 @@
 import type { ActorPF2e, ActorType, CharacterPF2e, NPCPF2e } from "@actor";
 import { WeaponPF2e } from "@item";
+import { performLatePreparation } from "@item/helpers.ts";
 import type { NPCAttackTrait } from "@item/melee/types.ts";
 import { BaseShieldType } from "@item/shield/types.ts";
 import type { WeaponRuneSource, WeaponSource } from "@item/weapon/data.ts";
@@ -283,10 +284,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
         const weapon = new WeaponPF2e(source, { parent: actor });
         weapon.rule = this;
         weapon.name = weapon._source.name; // Remove renaming by runes
-        for (const alteration of actor.synthetics.itemAlterations) {
-            alteration.applyAlteration({ singleItem: weapon });
-        }
-
+        performLatePreparation(weapon);
         return weapon;
     }
 

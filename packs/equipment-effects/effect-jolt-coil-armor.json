@@ -4,7 +4,7 @@
     "name": "Effect: Jolt Coil - Armor",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Jolt Coil]</p>\n<p>You gain resistance 2 to electricity.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Jolt Coil], @UUID[Compendium.pf2e.equipment-srd.Item.Jolt Coil (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Jolt Coil (Major)]</p>\n<p>You gain resistance to electricity.</p>"
         },
         "duration": {
             "expiry": null,
@@ -22,9 +22,75 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:jolt-coil",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Jolt Coil"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:jolt-coil-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Jolt Coil (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:jolt-coil-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Jolt Coil (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "jolt-coil"
+            },
+            {
                 "key": "Resistance",
+                "predicate": [
+                    "jolt-coil:jolt-coil"
+                ],
                 "type": "electricity",
                 "value": 2
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "jolt-coil:jolt-coil-greater"
+                ],
+                "type": "electricity",
+                "value": 3
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "jolt-coil:jolt-coil-major"
+                ],
+                "type": "electricity",
+                "value": 5
             }
         ],
         "start": {

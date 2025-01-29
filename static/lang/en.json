@@ -210,7 +210,8 @@
                 },
                 "Crafting": {
                     "Action": {
-                        "Hint": "Select an item to craft using {resource} ({value}/{max})"
+                        "Hint": "Select an item to craft using {resource} ({value}/{max})",
+                        "HintResourceless": "Select an item to craft"
                     },
                     "BatchQuantity": "x{quantity}",
                     "Cost": "Cost",
@@ -219,10 +220,12 @@
                         "Complete": "Daily crafting complete.",
                         "Perform": "Perform Daily Crafting"
                     },
+                    "DecreaseQuantity": "Decrease Quantity",
                     "FreeCrafting": "Free Crafting",
                     "FreeCraftingTooltip": "If enabled, creates items immediately without spending gold",
+                    "IncreaseQuantity": "Increase Quantity",
                     "MissingResource": "You have insufficient resources to complete crafting.",
-                    "PrepareHint": "Select the items that you want to prepare",
+                    "PrepareHint": "Select the items that you want to prepare ({remaining} remaining)",
                     "RemainingSlots": "Empty Slot ({remaining} remaining)",
                     "Search": "Search Formulas"
                 },
@@ -346,7 +349,7 @@
                     "goblin": "Goblin",
                     "goloma": "Goloma",
                     "grioth": "Grioth",
-                    "grippli": "Grippli",
+                    "grippli": "Tripkee",
                     "halfling": "Halfling",
                     "hallit": "Hallit",
                     "hwan": "Hwan",
@@ -2868,6 +2871,9 @@
             "Troubleshooting": "Troubleshooting",
             "WorldNotReady": "Game world not ready: try again in a few seconds."
         },
+        "ModeOfBeing": {
+            "Living": "Living"
+        },
         "ModifierNamePlaceholder": "Name",
         "ModifierTitle": "Modifier",
         "ModifierType": {
@@ -4009,6 +4015,7 @@
         "TraitBeastkin": "Beastkin",
         "TraitBleed": "Bleed",
         "TraitBludgeoning": "Bludgeoning",
+        "TraitBlight": "Blight",
         "TraitBoggard": "Boggard",
         "TraitBomb": "Bomb",
         "TraitBonded": "Bonded",
@@ -4142,6 +4149,7 @@
         "TraitDescriptionBarding": "You can purchase special armor for animals, called barding. All animals have a trained proficiency rank in light barding, and combat-trained animals are trained in heavy barding. Barding uses the same rules as armor except for the following. The Price and Bulk of barding depend on the animal's size. Unlike for a suit of armor, barding's Strength entry is listed as a modifier, not a score. Barding can't be etched with magic runes, though special magical barding might be available.",
         "TraitDescriptionBeast": "A creature similar to an animal but with an Intelligence modifier of –3 or higher is usually a beast. Unlike an animal, a beast might be able to speak and reason.",
         "TraitDescriptionBeastkin": "Humanoids that can partially or fully transform into animal forms.",
+        "TraitDescriptionBlight": "Blights are corruptions of nature's wrath.",
         "TraitDescriptionBoggard": "Boggards are frog-like humanoids. They typically have darkvision.",
         "TraitDescriptionBomb": "An alchemical bomb combines volatile alchemical components that explode when the bomb hits a creature or object. Most alchemical bombs deal damage, though some produce other effects.",
         "TraitDescriptionBottledBreath": "Bottles of breath are enchanted bottles of cloud and mist, first developed by the denizens of the Plane of Air. You can Activate an item with the bottled breath trait as you inhale it or cause another creature to inhale it.",
@@ -4269,7 +4277,7 @@
         "TraitDescriptionGhoul": "Ghouls are vile undead creatures that feast on flesh.",
         "TraitDescriptionGhul": "Greedy and gluttonous undead originally formed from genie.",
         "TraitDescriptionGiant": "Giants are massive humanoid creatures.",
-        "TraitDescriptionGnoll": "Gnolls are humanoids that resemble hyenas.",
+        "TraitDescriptionGnoll": "Kholos are humanoids that resemble hyenas.",
         "TraitDescriptionGnome": "A creature with this trait is a member of the gnome ancestry. Gnomes are small people skilled at magic who seek out new experiences and usually have low-light vision. An ability with this trait can be used or selected only by gnomes. A weapon with this trait is created and used by gnomes.",
         "TraitDescriptionGoblin": "A creature with this trait is a small, frantic goblinoid. Goblins tend to have darkvision. An ability with this trait can be used or chosen only by goblins. A weapon with this trait is created and used by goblins.",
         "TraitDescriptionGoloma": "Insular humanoids that bear countless eyes.",
@@ -4277,7 +4285,7 @@
         "TraitDescriptionGrapple": "You can use this weapon to Grapple with the Athletics skill even if you don't have a free hand. This uses the weapon's reach (if different from your own) and adds the weapon's item bonus to attack rolls as an item bonus to the Athletics check. If you critically fail a check to Grapple using the weapon, you can drop the weapon to take the effects of a failure instead of a critical failure.",
         "TraitDescriptionGremlin": "Cruel and mischievous fey, gremlins have acclimated to life in the Universe.",
         "TraitDescriptionGrimoire": "Spellbooks are useful tools for any magic user to write down incantations and runes of power, but where most spellbooks are nothing more than ink on parchment, grimoires have absorbed the magic of the spells within—magic that knowledgeable spellcasters can use to augment their spells.",
-        "TraitDescriptionGrippli": "Gripplis are a family of frog-like humanoids",
+        "TraitDescriptionGrippli": "Tripkees are a family of froglike humanoids.",
         "TraitDescriptionGunslinger": "This indicates abilities from the gunslinger class.",
         "TraitDescriptionHag": "These malevolent spellcasters form covens.",
         "TraitDescriptionHalfling": "A creature with this trait is a member of the halfling ancestry. These small people are friendly wanderers considered to be lucky. An ability with this trait can be used or selected only by halflings. A weapon with this trait is created and used by halflings.",
@@ -5369,6 +5377,7 @@
                 "mithral-tree": "Mithral Tree",
                 "monkeys-fist": "Monkey's Fist",
                 "morningstar": "Morningstar",
+                "nails": "Nails",
                 "naginata": "Naginata",
                 "nightstick": "Nightstick",
                 "nodachi": "Nodachi",
@@ -5537,7 +5546,7 @@
             "astral": {
                 "Name": "Astral",
                 "Note": {
-                    "criticalSuccess": "On a critical hit against a creature possessing another creature, the possessing creature must succeed at a @Check[will|dc:26] save or be expelled and unable to possess a creature for [[/br 1d4 #rounds]]{1d4 rounds}.",
+                    "criticalSuccess": "On a critical hit against a creature possessing another creature, the possessing creature must succeed at a @Check[will|dc:26] save or be expelled and unable to possess a creature for [[/gmr 1d4 #rounds]]{1d4 rounds}.",
                     "Note": "This rune has the same effects as a @UUID[Compendium.pf2e.equipment-srd.Item.JQdwHECogcTzdd8R]{Ghost Touch} rune, plus Strikes with it deal an extra @Damage[1d6[spirit]] damage. If used to attack a creature that's possessing another creature, this weapon deals no damage to the possessed creature."
                 }
             },
@@ -5663,7 +5672,7 @@
             "greaterAstral": {
                 "Name": "Greater Astral",
                 "Note": {
-                    "criticalSuccess": "On a critical hit against a creature possessing another creature, the possessing creature must succeed at a @Check[will|dc:36] save or be expelled and unable to possess a creature for [[/br 1d4 #rounds]]{1d4 rounds}.",
+                    "criticalSuccess": "On a critical hit against a creature possessing another creature, the possessing creature must succeed at a @Check[will|dc:36] save or be expelled and unable to possess a creature for [[/gmr 1d4 #rounds]]{1d4 rounds}.",
                     "Note": "This rune has the same effects as a @UUID[Compendium.pf2e.equipment-srd.Item.JQdwHECogcTzdd8R]{Ghost Touch} rune, plus Strikes with it deal an extra @Damage[1d6[spirit]] damage. If used to attack a creature that's possessing another creature, this weapon deals no damage to the possessed creature."
                 }
             },
@@ -6196,6 +6205,7 @@
             },
             "stupefied": {
                 "name": "Stupefied",
+                "note": "Any time you attempt to @UUID[Compendium.pf2e.actionspf2e.Item.aBQ8ajvEBByv45yz]{Cast a Spell} while stupefied, the spell is disrupted unless you succeed at a @Check[flat|showDC:all|dc:resolve(5+@actor.conditions.stupefied.value)].",
                 "rules": "<p>Your thoughts and instincts are clouded. Stupefied always includes a value. You take a status penalty equal to this value on Intelligence-, Wisdom-, and Charisma-based checks and DCs, including Will saving throws, spell attack rolls, spell DCs, and skill checks that use these attribute modifiers. Any time you attempt to Cast a Spell while stupefied, the spell is disrupted unless you succeed at a flat check with a DC equal to 5 + your stupefied value.</p>",
                 "summary": "You can't access your full mental faculties, and you have trouble casting spells."
             },
