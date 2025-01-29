@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import { ItemPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
+import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { FrequencyInterval, ItemSourcePF2e, PhysicalItemSource } from "@item/base/data/index.ts";
 import { PersistentSourceData } from "@item/condition/data.ts";
 import { itemIsOfType } from "@item/helpers.ts";
@@ -409,8 +409,8 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
             case "range-increment": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (!validator.isValid(data)) return;
-                if (!(data.item instanceof WeaponPF2e) || !data.item.system.range) return;
-                const rangeIncrement = data.item.system.range as number;
+                if (!data.item.system.range) return;
+                const rangeIncrement = data.item.system.range;
                 const newValue = AELikeRuleElement.getNewValue(this.mode, rangeIncrement, data.alteration.value);
                 data.item.system.range = newValue as WeaponRangeIncrement;
                 return;
@@ -418,7 +418,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
             case "range-max": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (!validator.isValid(data)) return;
-                if (!(data.item instanceof WeaponPF2e) || !data.item.system.maxRange) return;
+                if (!data.item.system.maxRange) return;
                 const maxRange = data.item.system.maxRange;
                 const newValue = AELikeRuleElement.getNewValue(this.mode, maxRange, data.alteration.value);
                 data.item.system.maxRange = newValue;
