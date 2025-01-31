@@ -69,14 +69,14 @@ function tagify(
         whitelist: whitelistTransformed,
         templates: {
             tag(tagData: TagRecord): string {
-                const removeButton = document.createElement("x")
-                removeButton.className = this.settings.classNames.tagX
+                const removeButton = document.createElement("x");
+                removeButton.className = this.settings.classNames.tagX;
                 removeButton.role = "button";
                 removeButton.ariaLabel = "remove tag";
-                
-                const tag = document.createElement("tag")
-                tag.className = this.settings.classNames.tag
-                tag.appendChild(removeButton)
+
+                const tag = document.createElement("tag");
+                tag.className = this.settings.classNames.tag;
+                tag.appendChild(removeButton);
                 tag.appendChild(
                     createHTMLElement("div", {
                         children: [
@@ -86,8 +86,8 @@ function tagify(
                             }),
                         ],
                     }),
-                )
-                
+                );
+
                 tag.contentEditable = "false";
                 tag.spellcheck = false;
                 tag.tabIndex = this.settings.a11y.focusableTags ? 0 : -1;
