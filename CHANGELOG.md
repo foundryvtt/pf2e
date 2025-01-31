@@ -1,3 +1,54 @@
+## 6.8.5
+
+### System Improvements
+
+-   (nikolaj-a) Add circumstance modifiers from climb and swim speeds to related actions
+-   (Supe) Support deltas in special resource input
+-   (Supe) Improve performance of mergeable sub options
+
+### Bug Fixes
+
+-   (MrVauxs) Fix Craft not using the right skills rank
+-   (stwlam) Fix adding settlements in the kingdom sheet
+-   (stwlam) Localize self effects by using compendium indices to fetch names
+-   (stwlam) Rewrite creation of IWR labels to allow for any number of `exceptions` or `doubleVs`es
+-   (Supe) Fix rendering character sheet when subitems of different items share the same id
+-   (Supe) Fix rolling vehicle fortitude saves
+-   (Supe) Fix stacks of items being bulk adjusted on vehicle actors
+
+### Data Updates
+
+-   (Abaddon) Fix effect link for Perfect Droplet (Major)
+-   (Ambrose) Add `area damage` and `area-effect` options to Breath Weapons in the bestiary
+-   (Ambrose) Add icons to multiple Equipment items
+-   (Ambrose) Add inline checks to Darmudiel's Vengeance hazard
+-   (Ambrose) Apply `/act` version of Disable a Device on select actions and NPC inline rolls
+-   (Ambrose) Remove level 7 reach increment for Deer antler and Frog tongue from Animal Instinct class feature
+-   (Ambrose) Set Shield of the Unified Legion as specific magic shield
+-   (Ambrose) Set Stench aura radius to 30 feet on Ofalth
+-   (Ambrose) Update Brimorak, Khurfel, and Oppali npc actors
+-   (Ambrose) Update mythic entries in the archetype and gm screen journals
+-   (Brendan Graham) Fix scaling of Stoke the Heart spell effect
+-   (Dire Weasel) Add `area damage` and `area-effect` options to some inline rolls
+-   (Dire Weasel) Add effect for Blade of Four Energies
+-   (Dire Weasel) Fix action type of Clone Risen and Miror Risen feats
+-   (dotadd) Correct monster warden circumstance bonus
+-   (In3luki) Fix SVG errors in firefox by setting explicit height and width attributes
+-   (kromko) Cleanup Blightburn Bomb description
+-   (kromko) Fix Blade of Four Energies (Greater) potency in the description
+-   (kromko) Fix some item description formatting
+-   (kromko) Fix Staff of Nature's Vengeance crafting requirements
+-   (Nomad) Fix feat description in Scion of Domora archetype journal
+-   (rectulo) Fix category of defend our union feat
+-   (rectulo) Fix description of seize identity spell
+-   (rectulo) Fix source of frost fair yanyuedao
+
+### Under the Hood
+
+-   (KaitoKuroba) Add range-increment and range-max to ItemAlteration
+-   (stwlam) Extract modifier adjustments for weapon/attack potency bonus
+-   (Supe) Prevent having conflicting sets of origin options for non-saves
+
 ## 6.8.4
 
 ### Bug Fixes
