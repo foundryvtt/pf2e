@@ -1,0 +1,125 @@
+{
+    "_id": "49e80oS2x19jiGw9",
+    "img": "icons/consumables/potions/bottle-pear-corked-labeled-ornamental-purple.webp",
+    "name": "Effect: Life-Boosting Oil",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Life-Boosting Oil (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Life-Boosting Oil (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Life-Boosting Oil (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Life-Boosting Oil (Major)]</p>\n<p>You gain fast healing.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 4
+        },
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:life-boosting-oil-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Life-Boosting Oil (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:life-boosting-oil-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Life-Boosting Oil (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:life-boosting-oil-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Life-Boosting Oil (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:life-boosting-oil-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Life-Boosting Oil (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "life-boosting-oil"
+            },
+            {
+                "key": "FastHealing",
+                "predicate": [
+                    "life-boosting-oil:life-boosting-oil-lesser"
+                ],
+                "value": 3
+            },
+            {
+                "key": "FastHealing",
+                "predicate": [
+                    "life-boosting-oil:life-boosting-oil-moderate"
+                ],
+                "value": 6
+            },
+            {
+                "key": "FastHealing",
+                "predicate": [
+                    "life-boosting-oil:life-boosting-oil-greater"
+                ],
+                "value": 10
+            },
+            {
+                "key": "FastHealing",
+                "predicate": [
+                    "life-boosting-oil:life-boosting-oil-major"
+                ],
+                "value": 15
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
