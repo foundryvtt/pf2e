@@ -1,0 +1,46 @@
+{
+    "_id": "HKC4IZOzbvtjsp77",
+    "img": "icons/consumables/potions/bottle-round-corked-orange.webp",
+    "name": "Effect: Crystal Shards",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Crystal Shards (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Crystal Shards (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Crystal Shards (Major)]</p>\n<p>As long as the bleed damage persists, you also take a –5-foot penalty to your speeds.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:condition:persistent-damage:bleed"
+                ],
+                "selector": "all-speeds",
+                "type": "item",
+                "value": -5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
