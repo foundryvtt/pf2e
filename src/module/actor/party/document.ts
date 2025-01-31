@@ -11,7 +11,6 @@ import * as R from "remeda";
 import type { DataModelValidationOptions } from "types/foundry/common/abstract/data.d.ts";
 import { PartySource, PartySystemData } from "./data.ts";
 import { Kingdom } from "./kingdom/model.ts";
-import { PartySheetRenderOptions } from "./sheet.ts";
 import { PartyCampaign, PartyUpdateOperation } from "./types.ts";
 
 class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
@@ -183,7 +182,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** Re-render the sheet if data preparation is called from the familiar's master */
     override reset({ actor = false } = {}): void {
         if (actor) {
-            this._resetAndRerenderDebounced();
+            this.sheet.render(false);
         } else {
             super.reset();
         }
@@ -199,11 +198,6 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         return campaignStat ?? null;
     }
-
-    private _resetAndRerenderDebounced = fu.debounce(() => {
-        super.reset();
-        this.sheet.render(false, { actor: true } as PartySheetRenderOptions);
-    }, 50);
 
     /* -------------------------------------------- */
     /*  Event Handlers                              */
