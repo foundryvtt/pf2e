@@ -150,11 +150,14 @@ const ITEM_ALTERATION_VALIDATORS = {
     ),
     bulk: new ItemAlterationValidator({
         itemType: new fields.StringField({ required: true, choices: Array.from(PHYSICAL_ITEM_TYPES) }),
-        mode: new fields.StringField({ required: true, choices: ["override"] }),
-        value: new StrictNumberField<number, number, true, false, false>({
+        mode: new fields.StringField({
+            required: true,
+            choices: () => ["add", "downgrade", "multiply", "override", "remove", "subtract", "upgrade"],
+        }),
+        value: new StrictNumberField({
             required: true,
             nullable: false,
-            choices: [0, 0.1, ...Array.fromRange(100, 1)],
+            integer: false,
             initial: undefined,
         } as const),
     }),

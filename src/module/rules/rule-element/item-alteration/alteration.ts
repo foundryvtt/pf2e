@@ -152,7 +152,12 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 data.alteration.value = Number(data.alteration.value) || 0;
                 if (!validator.isValid(data)) return;
-                data.item.system.bulk.value = data.alteration.value;
+                const newValue = AELikeRuleElement.getNewValue(
+                    this.mode,
+                    data.item.system.bulk.value,
+                    data.alteration.value,
+                );
+                data.item.system.bulk.value = Math.round(newValue * 10) / 10;
                 if (data.item instanceof foundry.abstract.DataModel) {
                     data.item.system.bulk = prepareBulkData(data.item);
                 }
