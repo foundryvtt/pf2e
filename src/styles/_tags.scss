@@ -101,7 +101,7 @@ tags.tagify {
     gap: 0;
     padding: 0.5em 0.05em;
 
-    .tagify__tag,
+    tag,
     .tag,
     select.tag {
         background-color: var(--color-bg-trait);
@@ -110,21 +110,17 @@ tags.tagify {
         box-shadow: none;
         margin: 0;
 
-        &__removeBtn {
-            align-items: inherit;
-            padding: 0;
+        x {
+            align-items: start;
             margin: 0;
-            line-height: normal;
-            border-radius: 50px;
         }
 
-        //hides before added by tagify
-        &__removeBtn::before {
-            display: none;
+        &__removeBtn {
+            align-items: baseline;
         }
     }
 
-    .tagify__tag,
+    tag,
     select.tag {
         border-width: 2px 3px 2px 2px;
 
@@ -137,7 +133,7 @@ tags.tagify {
         }
     }
 
-    .tagify__tag:last-of-type {
+    tag:last-of-type {
         border-right-width: 5px;
     }
 
@@ -157,7 +153,7 @@ tags.tagify {
         }
     }
 
-    .tagify__tag > .text-container {
+    tag > div {
         border-radius: 0;
         display: flex;
         font: 500 var(--font-size-10) var(--sans-serif);
@@ -280,12 +276,12 @@ tags.tags.paizo-style {
         }
     }
 
-    .tagify__tag {
+    tag {
         height: var(--font-size-27);
     }
 
     // In lieu of remove button
-    .tagify__tag[readonly="true"] {
+    tag[readonly="true"] {
         padding-right: var(--space-2);
     }
 }

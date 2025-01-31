@@ -69,30 +69,25 @@ function tagify(
         whitelist: whitelistTransformed,
         templates: {
             tag(tagData: TagRecord): string {
-                // Default template without title to prevent the default tag tooltip from showing.
-                const removeButton = createHTMLElement("div", {
-                    dataset: { title: "" },
-                    classes: [this.settings.classNames.tagX],
-                });
+                const removeButton = document.createElement("x")
+                removeButton.className = this.settings.classNames.tagX
                 removeButton.role = "button";
                 removeButton.ariaLabel = "remove tag";
-
-                const tag = createHTMLElement("div", {
-                    classes: [this.settings.classNames.tag],
-                    children: [
-                        removeButton,
-                        createHTMLElement("div", {
-                            classes: ["text-container"],
-                            children: [
-                                createHTMLElement("span", {
-                                    innerHTML: tagData[this.settings.tagTextProp] || tagData.value,
-                                    classes: [this.settings.classNames.tagText],
-                                }),
-                            ],
-                        }),
-                    ],
-                });
-
+                
+                const tag = document.createElement("tag")
+                tag.className = this.settings.classNames.tag
+                tag.appendChild(removeButton)
+                tag.appendChild(
+                    createHTMLElement("div", {
+                        children: [
+                            createHTMLElement("span", {
+                                innerHTML: tagData[this.settings.tagTextProp] || tagData.value,
+                                classes: [this.settings.classNames.tagText],
+                            }),
+                        ],
+                    }),
+                )
+                
                 tag.contentEditable = "false";
                 tag.spellcheck = false;
                 tag.tabIndex = this.settings.a11y.focusableTags ? 0 : -1;
