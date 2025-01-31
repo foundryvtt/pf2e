@@ -31,6 +31,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         "defense-passive",
         "description",
         "dex-cap",
+        "flags",
         "focus-point-cost",
         "frequency-max",
         "frequency-per",
@@ -252,6 +253,24 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     data.alteration.value,
                 );
                 data.item.system.dexCap = Math.max(newValue, 0);
+                return;
+            }
+            case "flags": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (!validator.isValid(data)) return;
+                if (!("getFlag" in data.item) || typeof data.item.getFlag !== "function") return;
+
+                const flatValue = foundry.utils.flattenObject(data.alteration.value);
+                for (const [key, value] of Object.entries(flatValue)) {
+                    const flag = data.item.getFlag("pf2e", key);
+                    const newValue = AELikeRuleElement.getNewValue(this.mode, flag, value);
+                    if (newValue instanceof DataModelValidationFailure) {
+                        throw newValue.asError();
+                    }
+                    foundry.utils.mergeObject(data.item.flags.pf2e, {
+                        [`${key}`]: newValue,
+                    });
+                }
                 return;
             }
             case "focus-point-cost": {

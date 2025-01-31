@@ -307,6 +307,28 @@ const ITEM_ALTERATION_VALIDATORS = {
             initial: undefined,
         } as const),
     }),
+    flags: new ItemAlterationValidator(
+        {
+            itemType: new fields.StringField({
+                required: true,
+                choices: () => R.keys(CONFIG.PF2E.Item.documentClasses),
+            }),
+            mode: new fields.StringField({
+                required: true,
+                choices: ["add", "downgrade", "multiply", "override", "remove", "subtract", "upgrade"],
+            }),
+            value: new fields.ObjectField({ required: true, nullable: false, initial: undefined } as const),
+        },
+        {
+            validateForItem(item): DataModelValidationFailure | void {
+                if (!("getFlag" in item) || typeof item.getFlag !== "function") {
+                    return new validation.DataModelValidationFailure({
+                        message: "item must be able to accept flags",
+                    });
+                }
+            },
+        },
+    ),
     "focus-point-cost": new ItemAlterationValidator({
         itemType: new fields.StringField({ required: true, choices: ["spell"] } as const),
         mode: new fields.StringField({
