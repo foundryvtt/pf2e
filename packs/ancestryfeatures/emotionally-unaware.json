@@ -31,7 +31,10 @@
                     {
                         "or": [
                             {
-                                "not": "check:statistic:perception"
+                                "nor": [
+                                    "check:statistic:perception",
+                                    "check:statistic:initiative"
+                                ]
                             },
                             "action:sense-motive"
                         ]
