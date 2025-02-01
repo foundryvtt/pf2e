@@ -31,11 +31,13 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         "defense-passive",
         "description",
         "dex-cap",
+        "flags",
         "focus-point-cost",
         "frequency-max",
         "frequency-per",
         "hardness",
         "hp-max",
+        "level",
         "material-type",
         "other-tags",
         "pd-recovery-dc",
@@ -152,7 +154,12 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 data.alteration.value = Number(data.alteration.value) || 0;
                 if (!validator.isValid(data)) return;
-                data.item.system.bulk.value = data.alteration.value;
+                const newValue = AELikeRuleElement.getNewValue(
+                    this.mode,
+                    data.item.system.bulk.value,
+                    data.alteration.value,
+                );
+                data.item.system.bulk.value = Math.round(newValue * 10) / 10;
                 if (data.item instanceof foundry.abstract.DataModel) {
                     data.item.system.bulk = prepareBulkData(data.item);
                 }
@@ -248,6 +255,24 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 data.item.system.dexCap = Math.max(newValue, 0);
                 return;
             }
+            case "flags": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (!validator.isValid(data)) return;
+                if (!("getFlag" in data.item) || typeof data.item.getFlag !== "function") return;
+
+                const flatValue = foundry.utils.flattenObject(data.alteration.value);
+                const resolvedValue = {};
+                for (const [key, value] of Object.entries(flatValue)) {
+                    const flag = data.item.getFlag("pf2e", key);
+                    const newValue = AELikeRuleElement.getNewValue(this.mode, flag, value);
+                    if (newValue instanceof DataModelValidationFailure) {
+                        throw newValue.asError();
+                    }
+                    foundry.utils.mergeObject(resolvedValue, { [`${key}`]: newValue });
+                }
+                foundry.utils.mergeObject(data.item.flags.pf2e, resolvedValue);
+                return;
+            }
             case "focus-point-cost": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (!validator.isValid(data)) return;
@@ -282,6 +307,20 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                         hp.brokenThreshold = Math.floor(hp.max / 2);
                     }
                     this.#adjustCreatureShieldData(data.item);
+                }
+                return;
+            }
+            case "level": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (
+                    validator.isValid(data) &&
+                    "level" in data.item.system &&
+                    typeof data.item.system.level !== "undefined"
+                ) {
+                    const level = data.item.system.level;
+                    const value = data.alteration.value;
+                    const newValue = AELikeRuleElement.getNewValue(this.mode, level.value, value);
+                    level.value = Math.clamp(Math.trunc(newValue), -1, 100);
                 }
                 return;
             }

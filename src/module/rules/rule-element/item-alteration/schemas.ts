@@ -150,11 +150,14 @@ const ITEM_ALTERATION_VALIDATORS = {
     ),
     bulk: new ItemAlterationValidator({
         itemType: new fields.StringField({ required: true, choices: Array.from(PHYSICAL_ITEM_TYPES) }),
-        mode: new fields.StringField({ required: true, choices: ["override"] }),
-        value: new StrictNumberField<number, number, true, false, false>({
+        mode: new fields.StringField({
+            required: true,
+            choices: () => ["add", "downgrade", "multiply", "override", "remove", "subtract", "upgrade"],
+        }),
+        value: new StrictNumberField({
             required: true,
             nullable: false,
-            choices: [0, 0.1, ...Array.fromRange(100, 1)],
+            integer: false,
             initial: undefined,
         } as const),
     }),
@@ -304,6 +307,28 @@ const ITEM_ALTERATION_VALIDATORS = {
             initial: undefined,
         } as const),
     }),
+    flags: new ItemAlterationValidator(
+        {
+            itemType: new fields.StringField({
+                required: true,
+                choices: () => R.keys(CONFIG.PF2E.Item.documentClasses),
+            }),
+            mode: new fields.StringField({
+                required: true,
+                choices: ["add", "downgrade", "multiply", "override", "remove", "subtract", "upgrade"],
+            }),
+            value: new fields.ObjectField({ required: true, nullable: false, initial: undefined } as const),
+        },
+        {
+            validateForItem(item): DataModelValidationFailure | void {
+                if (!("getFlag" in item) || typeof item.getFlag !== "function") {
+                    return new validation.DataModelValidationFailure({
+                        message: "item must be able to accept flags",
+                    });
+                }
+            },
+        },
+    ),
     "focus-point-cost": new ItemAlterationValidator({
         itemType: new fields.StringField({ required: true, choices: ["spell"] } as const),
         mode: new fields.StringField({
@@ -333,6 +358,33 @@ const ITEM_ALTERATION_VALIDATORS = {
             initial: undefined,
         } as const),
     }),
+    level: new ItemAlterationValidator(
+        {
+            itemType: new fields.StringField({
+                required: true,
+                choices: () => R.keys(CONFIG.PF2E.Item.documentClasses),
+            }),
+            mode: new fields.StringField({
+                required: true,
+                choices: ["add", "downgrade", "multiply", "override", "remove", "subtract", "upgrade"],
+            }),
+            value: new fields.NumberField({
+                required: true,
+                nullable: false,
+                positive: false,
+                initial: undefined,
+            } as const),
+        },
+        {
+            validateForItem(item): DataModelValidationFailure | void {
+                if (item.system.level === undefined || item.system.level.value === undefined) {
+                    return new validation.DataModelValidationFailure({
+                        message: "item must have a level",
+                    });
+                }
+            },
+        },
+    ),
     "material-type": new ItemAlterationValidator({
         itemType: new fields.StringField({ required: true, choices: Array.from(PHYSICAL_ITEM_TYPES) }),
         mode: new fields.StringField({ required: true, choices: ["override"] }),
