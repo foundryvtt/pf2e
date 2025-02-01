@@ -386,14 +386,15 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         newLevel = Math.clamp(newLevel, 1, 20);
         const currentLevel = this.system.details.level.value;
 
-        const strongSave = this.strongSave;
+        const system = this._source.system;
+        const strongSave = system.saves.maneuver >= system.saves.morale ? "maneuver" : "morale";
         const strongSaveDifference = ARMY_STATS.strongSave[newLevel] - ARMY_STATS.strongSave[currentLevel];
         const weakSaveDifference = ARMY_STATS.weakSave[newLevel] - ARMY_STATS.weakSave[currentLevel];
 
         return this.update({
             system: {
                 ac: {
-                    value: this.system.ac.value + (ARMY_STATS.ac[newLevel] - ARMY_STATS.ac[currentLevel]),
+                    value: system.ac.value + (ARMY_STATS.ac[newLevel] - ARMY_STATS.ac[currentLevel]),
                 },
                 details: {
                     level: {
@@ -402,13 +403,10 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                 },
                 saves: {
                     maneuver:
-                        this.system.saves.maneuver +
-                        (strongSave === "maneuver" ? strongSaveDifference : weakSaveDifference),
-                    morale:
-                        this.system.saves.morale +
-                        (strongSave === "morale" ? strongSaveDifference : weakSaveDifference),
+                        system.saves.maneuver + (strongSave === "maneuver" ? strongSaveDifference : weakSaveDifference),
+                    morale: system.saves.morale + (strongSave === "morale" ? strongSaveDifference : weakSaveDifference),
                 },
-                scouting: this.system.scouting + (ARMY_STATS.scouting[newLevel] - ARMY_STATS.scouting[currentLevel]),
+                scouting: system.scouting + (ARMY_STATS.scouting[newLevel] - ARMY_STATS.scouting[currentLevel]),
             },
         });
     }
