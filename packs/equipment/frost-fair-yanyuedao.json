@@ -21,7 +21,7 @@
             "die": "d8"
         },
         "description": {
-            "value": "<p>The <em>Frost Fair Yanyuedao</em> is a <em>+2 greater striking yanyuedao</em> (use statistics for glaive) once wielded by a legendary military general from Goka. This weapon was constructed from pieces harvested from a dragon's body. When in an area of severe cold or colder, the <em>Frost Fair Yanyuedao</em> becomes a <em>+3 major striking yanyuedao</em> with a glowing blue cutting edge and the following ability.</p>\n<p><strong>Activate—Dragon Chill</strong> <span class=\"action-glyph\">1</span> (manipulate)</p><hr /><p><strong>Effect</strong> Until the end of your turn, the <em>Frost Fair Yanyuedao</em> gains the effects of a <em>greater frost</em> rune. While under this effect, if you critically succeed at a Strike using this weapon against a creature who has resistance or immunity to cold, that creature must attempt a @Check[fortitude|dc:31] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 minute.</p>"
+            "value": "<p>The <em>Frost Fair Yanyuedao</em> is a <em>+2 greater striking yanyuedao</em> (use statistics for glaive) once wielded by a legendary military general from Goka. This weapon was constructed from pieces harvested from a dragon's body. When in an area of severe cold or colder, the <em>Frost Fair Yanyuedao</em> becomes a <em>+3 major striking yanyuedao</em> with a glowing blue cutting edge and the following ability.</p><hr /><p><strong>Activate—Dragon Chill</strong> <span class=\"action-glyph\">1</span> (manipulate)</p>\n<p><strong>Effect</strong> Until the end of your turn, the <em>Frost Fair Yanyuedao</em> gains the effects of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Frost (Greater)]{Greater Frost}</em> rune. While under this effect, if you critically succeed at a Strike using this weapon against a creature who has resistance or immunity to cold, that creature must attempt a @Check[fortitude|dc:31] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Dragon Chill]</p>"
         },
         "group": "polearm",
         "hardness": 0,
@@ -49,7 +49,31 @@
         "reload": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SkillVariant.SevereCold",
+                "option": "environment:severe-cold",
+                "toggleable": true
+            },
+            {
+                "key": "WeaponPotency",
+                "predicate": [
+                    "environment:severe-cold"
+                ],
+                "selector": "{item|id}-attack",
+                "value": 3
+            },
+            {
+                "key": "Striking",
+                "predicate": [
+                    "environment:severe-cold"
+                ],
+                "selector": "{item|id}-damage",
+                "value": 3
+            }
+        ],
         "runes": {
             "potency": 2,
             "property": [],
