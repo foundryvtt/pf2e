@@ -24,7 +24,7 @@
             {
                 "key": "Note",
                 "predicate": [
-                    "fire",
+                    "item:trait:fire",
                     {
                         "not": "item:rune:property:underwater"
                     }
@@ -64,8 +64,8 @@
             {
                 "key": "Resistance",
                 "type": [
-                    "acid",
-                    "fire"
+                    "item:trait:acid",
+                    "item:trait:fire"
                 ],
                 "value": 5
             },
@@ -86,10 +86,7 @@
                 "predicate": [
                     "item:ranged",
                     {
-                        "nor": [
-                            "item:damage:type:piercing",
-                            "item:rune:property:underwater"
-                        ]
+                        "not": "item:rune:property:underwater"
                     }
                 ],
                 "selector": "attack",
