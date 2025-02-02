@@ -5,6 +5,7 @@ import { applyActorUpdate } from "@actor/helpers.ts";
 import type { ActorCommitData } from "@actor/types.ts";
 import { ItemProxyPF2e, PhysicalItemPF2e } from "@item";
 import type { PhysicalItemSource } from "@item/base/data/index.ts";
+import { StrictChoicesField } from "@system/schema-data-fields.ts";
 import { sluggify } from "@util";
 import { createBatchRuleElementUpdate } from "../helpers.ts";
 import { RuleElementPF2e, type RuleElementOptions } from "./base.ts";
@@ -44,6 +45,12 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
                 label: "PF2E.UUID.Label",
             }),
             level: new ResolvableValueField({ required: false, nullable: true, initial: null }),
+            renew: new StrictChoicesField({
+                required: false,
+                nullable: false,
+                choices: ["daily", false],
+                initial: "daily",
+            }),
         };
     }
 
@@ -94,6 +101,14 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
         } else {
             return data;
         }
+    }
+
+    /** Returns data that when applied updates this resources uses based on renewal rules */
+    async renewUses(duration: "turn" | "round" | "day"): Promise<ActorCommitData> {
+        if (duration === "day" && this.renew !== false) {
+            return this.update(this.max, { save: false, checkLevel: true });
+        }
+        return { actorUpdates: null, itemCreates: [], itemUpdates: [] };
     }
 
     /** If an item uuid is specified, create it when this resource is first attached */
@@ -209,6 +224,7 @@ type SpecialResourceSource = RuleElementSource & {
     max?: unknown;
     itemUUID?: unknown;
     level?: unknown;
+    renew?: unknown;
 };
 
 type SpecialResourceSchema = RuleElementSchema & {
@@ -220,6 +236,8 @@ type SpecialResourceSchema = RuleElementSchema & {
     itemUUID: fields.DocumentUUIDField<ItemUUID, false, false, false>;
     /** If itemUUID exists, determines the level of the granted item */
     level: ResolvableValueField<false, true, true>;
+    /** Determines if the resource is rewnewable. Defaults to "daily" */
+    renew: StrictChoicesField<false | "daily", false, false>;
 };
 
 interface SpecialResourceUpdateOptions {
