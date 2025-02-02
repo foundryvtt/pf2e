@@ -751,6 +751,11 @@
             }
         },
         "NPCAbility": {
+            "AbstalarZantus": {
+                "CommunalHealingHands": {
+                    "Note": "When Abstalar casts <em>heal</em> to heal a single creature other than himself, he regains @Damage[@item.rank[vitality,healing]|shortLabel] Hit Points."
+                }
+            },
             "AlchemicalGolem": {
                 "Sickness": "Sickness"
             },
@@ -4686,8 +4691,8 @@
             "ObjectMemory": "Object Memory",
             "Oracle": {
                 "ConduitOfVoidAndVitality": {
-                    "HarmDescription": "You cast a 3-action harm spell, expending the slot as normal. If the spell restores Hit Points to one or more creatures, then one creature healed by this spell regains @Damage[(@actor.conditions.cursebound.value)d8[healing,void]|shortLabel:true] additional Hit Points; if the spell damages one or more creatures, then one creature harmed by this spell takes @Damage[(@actor.conditions.cursebound.value)d8[void]|shortLabel:true] additional damage.",
-                    "HealDescription": "You cast a 3-action heal spell, expending the slot as normal. If the spell restores Hit Points to one or more creatures, then one creature healed by this spell regains @Damage[(@actor.conditions.cursebound.value)d8[healing,vitality]|shortLabel:true] additional Hit Points; if the spell damages one or more creatures, then one creature harmed by this spell takes @Damage[(@actor.conditions.cursebound.value)d8[vitality]|shortLabel:true] additional damage."
+                    "HarmDescription": "You cast a 3-action <em>harm</em> spell, expending the slot as normal. If the spell restores Hit Points to one or more creatures, then one creature healed by this spell regains @Damage[(@actor.conditions.cursebound.value)d8[healing,void]|shortLabel:true] additional Hit Points; if the spell damages one or more creatures, then one creature harmed by this spell takes @Damage[(@actor.conditions.cursebound.value)d8[void]|shortLabel:true] additional damage.",
+                    "HealDescription": "You cast a 3-action <em>heal</em> spell, expending the slot as normal. If the spell restores Hit Points to one or more creatures, then one creature healed by this spell regains @Damage[(@actor.conditions.cursebound.value)d8[healing,vitality]|shortLabel:true] additional Hit Points; if the spell damages one or more creatures, then one creature harmed by this spell takes @Damage[(@actor.conditions.cursebound.value)d8[vitality]|shortLabel:true] additional damage."
                 },
                 "CurseSeverity": {
                     "MajorToExtreme": "When you cast a revelation spell while affected by your major curse, your curse intensifies to an extreme effect. When affected by your extreme curse, you become @UUID[Compendium.pf2e.conditionitems.Item.3uh1r86TzbQvosxv]{Doomed 2} (or increase your doomed condition by 2 if you were already doomed). Once every 10 minutes, when you fail an attack roll, skill or Perception check, or saving throw, you can reroll it and use the second result. The reroll has the fortune trait and doesn't require you to spend an action, meaning you can use the reroll even if you can't act.",
@@ -5537,7 +5542,7 @@
                 "BondConservation": "You gain an extra use of Drain Bonded Item. You can use it to cast a spell 2 or more ranks lower than the previous spell, and must use it before the end of your next turn or you lose it.",
                 "BurningSpell": "The spell deals @Damage[(@item.rank)[persistent,fire]] in addition to its other effects. This has no effect if the spell already deals persistent fire damage. The spell gains the fire trait",
                 "CallAndResponse": "While the spell is active, one ally of your choice affected by the spell can respond to your call as a single action that has the auditory and concentrate traits to extend the spell's duration by 1 round. Only one ally can respond to a given call, and responding to the ally's response has no additional effect.",
-                "CastDown": "If the next action you use is to cast harm or heal to damage one creature, the target is knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone} if it takes any damage from the spell. If the target critically fails its save against the spell, it also takes a –10-foot status penalty to its Speed for 1 minute. @UUID[Compendium.pf2e.feat-effects.Item.Ve1CRFI8ikL6dqcL]{Effect: Cast Down}",
+                "CastDown": "If the next action you use is to cast <em>harm</em> or <em>heal</em> to damage one creature, the target is knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone} if it takes any damage from the spell. If the target critically fails its save against the spell, it also takes a –10-foot status penalty to its Speed for 1 minute. @UUID[Compendium.pf2e.feat-effects.Item.Ve1CRFI8ikL6dqcL]{Effect: Cast Down}",
                 "ConcealSpell": "If the next action you use is to Cast a Spell, the spell gains the subtle trait, hiding the shining runes, sparks of magic, and other manifestations that would usually give away your spellcasting. The trait hides only the spell's spellcasting actions and manifestations, not its effects, so an observer might still see a ray streak out from you or see you vanish into thin air.",
                 "CourageousAdvance": "One ally of your choice who gains a status bonus from the spell can immediately use their reaction to Stride.",
                 "CourageousAssault": "One ally of your choice who gains a status bonus from the spell can immediately use their reaction to make a melee Strike.",
