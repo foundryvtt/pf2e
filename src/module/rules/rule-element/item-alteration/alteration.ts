@@ -157,7 +157,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     data.item.system.bulk.value,
                     data.alteration.value,
                 );
-                data.item.system.bulk.value = Math.round(newValue * 10) / 10;
+                data.item.system.bulk.value = Math.round(Math.max(newValue, 0) * 10) / 10;
                 if (data.item instanceof foundry.abstract.DataModel) {
                     data.item.system.bulk = prepareBulkData(data.item);
                 }

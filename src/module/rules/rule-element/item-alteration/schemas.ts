@@ -157,6 +157,7 @@ const ITEM_ALTERATION_VALIDATORS = {
         value: new StrictNumberField({
             required: true,
             nullable: false,
+            min: 0,
             integer: false,
             initial: undefined,
         } as const),
