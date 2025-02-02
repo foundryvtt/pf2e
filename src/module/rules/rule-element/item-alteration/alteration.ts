@@ -261,16 +261,16 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 if (!("getFlag" in data.item) || typeof data.item.getFlag !== "function") return;
 
                 const flatValue = foundry.utils.flattenObject(data.alteration.value);
-                const resolvedValue = {};
                 for (const [key, value] of Object.entries(flatValue)) {
                     const flag = data.item.getFlag("pf2e", key);
                     const newValue = AELikeRuleElement.getNewValue(this.mode, flag, value);
                     if (newValue instanceof DataModelValidationFailure) {
                         throw newValue.asError();
                     }
-                    foundry.utils.mergeObject(resolvedValue, { [`${key}`]: newValue });
+                    foundry.utils.mergeObject(data.item.flags.pf2e, {
+                        [`${key}`]: newValue,
+                    });
                 }
-                foundry.utils.mergeObject(data.item.flags.pf2e, resolvedValue);
                 return;
             }
             case "focus-point-cost": {
