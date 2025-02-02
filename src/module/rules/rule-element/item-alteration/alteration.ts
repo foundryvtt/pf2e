@@ -36,7 +36,6 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         "frequency-per",
         "hardness",
         "hp-max",
-        "level",
         "material-type",
         "other-tags",
         "pd-recovery-dc",
@@ -288,20 +287,6 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                         hp.brokenThreshold = Math.floor(hp.max / 2);
                     }
                     this.#adjustCreatureShieldData(data.item);
-                }
-                return;
-            }
-            case "level": {
-                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
-                if (
-                    validator.isValid(data) &&
-                    "level" in data.item.system &&
-                    typeof data.item.system.level !== "undefined"
-                ) {
-                    const level = data.item.system.level;
-                    const value = data.alteration.value;
-                    const newValue = AELikeRuleElement.getNewValue(this.mode, level.value, value);
-                    level.value = Math.clamp(Math.trunc(newValue), -1, 100);
                 }
                 return;
             }
