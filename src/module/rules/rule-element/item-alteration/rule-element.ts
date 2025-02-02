@@ -112,14 +112,13 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
         if (this.ignored) return;
 
         try {
+            const itemId = this.itemId ? this.resolveInjectedProperties(this.itemId) : null;
             const items = singleItem
-                ? singleItem.id === this.itemId || singleItem.type === this.itemType
+                ? singleItem.id === itemId || singleItem.type === this.itemType
                     ? [singleItem]
                     : []
                 : this.#getItemsOfType();
-            items.push(
-                ...additionalItems.filter((i) => (this.itemId && i.id === this.itemId) || this.itemType === i.type),
-            );
+            items.push(...additionalItems.filter((i) => (itemId && i.id === itemId) || this.itemType === i.type));
 
             // Check if there are no items to process first (commmon if its a single item alteration)
             if (items.length === 0) return;
