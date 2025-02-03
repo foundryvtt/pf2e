@@ -46,6 +46,7 @@ const ancestryTraits = {
     hobgoblin: "PF2E.TraitHobgoblin",
     human: "PF2E.TraitHuman",
     hungerseed: "PF2E.TraitHungerseed",
+    kholo: "PF2E.TraitKholo",
     kashrishi: "PF2E.TraitKashrishi",
     kitsune: "PF2E.TraitKitsune",
     kobold: "PF2E.TraitKobold",
