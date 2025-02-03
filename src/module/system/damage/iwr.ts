@@ -178,6 +178,19 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             );
             const applicableResistances = workingResistanceData.filter((r) => r.applicable);
             const criticalResistance = resistances.find((r) => r.type === "critical-hits");
+
+            const splashResistance = splashDamage
+                ? (resistances.find((r) => r.type === "splash-damage") ?? null)
+                : null;
+            if (splashResistance) {
+                applicableResistances.push(
+                    new WorkingResistanceData(splashResistance, {
+                        value: splashResistance.getDoubledValue(formalDescription),
+                        ignored: ignoredResistances.some((ir) => ir.test(formalDescription)),
+                    }),
+                );
+            }
+
             if (criticalResistance && isCriticalSuccess) {
                 const maxResistable = instanceTotal - critImmuneTotal;
                 if (maxResistable > 0) {
