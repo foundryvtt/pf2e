@@ -4,7 +4,7 @@
     "name": "Effect: Aquatic Combat",
     "system": {
         "description": {
-            "value": "<p>Use these rules for battles in water or underwater:</p><ul><li>You're off-guard unless you have a swim Speed.</li><li>You gain resistance 5 to acid and fire.</li><li>You take a –2 circumstance penalty to all attacks that pass through water, and ranged attacks have their range increments halved. Piercing attacks don't take this penalty, and ranged piercing attacks don't have their range increment reduced.</li><li>You can't cast fire spells or use actions with the fire trait underwater.</li><li>At the GM's discretion, some ground-based actions might not work underwater or while floating.</li></ul>"
+            "value": "<p>Use these rules for battles in water or underwater:</p><ul><li>You're off-guard unless you have a swim Speed.</li><li>You gain resistance 5 to acid and fire.</li><li>You take a –2 circumstance penalty to your attack roll for bludgeoning or slashing attacks that pass through water.</li><li>Ranged attacks made by an underwater creature or against an underwater target have their range increments halved.</li><li>You can't cast fire spells or use actions with the fire trait underwater. As normal for how traits work, any part of the effect that's unrelated to fire still works. For example, an attack with a <em>flaming battleaxe</em> could still deal its physical damage, just not its fire damage.</li><li>At the GM's discretion, some ground-based actions might not work underwater or while floating.</li></ul>"
         },
         "duration": {
             "expiry": null,
@@ -24,7 +24,7 @@
             {
                 "key": "Note",
                 "predicate": [
-                    "fire",
+                    "item:trait:fire",
                     {
                         "not": "item:rune:property:underwater"
                     }
@@ -57,7 +57,7 @@
                         "not": "item:rune:property:underwater"
                     }
                 ],
-                "selector": "melee-attack-roll",
+                "selector": "attack-roll",
                 "type": "circumstance",
                 "value": -2
             },
@@ -73,10 +73,7 @@
                 "definition": [
                     "item:ranged",
                     {
-                        "nor": [
-                            "item:rune:property:underwater",
-                            "item:damage:type:piercing"
-                        ]
+                        "not": "item:rune:property:underwater"
                     }
                 ],
                 "key": "AdjustStrike",
@@ -89,10 +86,7 @@
                 "predicate": [
                     "item:ranged",
                     {
-                        "nor": [
-                            "item:damage:type:piercing",
-                            "item:rune:property:underwater"
-                        ]
+                        "not": "item:rune:property:underwater"
                     }
                 ],
                 "selector": "attack",
