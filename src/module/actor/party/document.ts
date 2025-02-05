@@ -68,9 +68,13 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         data?: Record<string, unknown>,
         options?: DocumentSourceUpdateContext,
     ): DeepPartial<this["_source"]> {
-        if (!this.campaign) return super.updateSource(data, options);
+        if (!data || options?.dryRun || !this.campaign) return super.updateSource(data, options);
         const expanded: DeepPartial<PartySource> = fu.expandObject(data ?? {});
-        if (expanded.system?.campaign) this.campaign.updateSource(expanded.system.campaign, options);
+        if (expanded.system?.campaign) {
+            this.campaign.updateSource(expanded.system.campaign, options);
+            this.campaign.schema.clean(this.campaign._source);
+            this.campaign.reset();
+        }
         return super.updateSource(data, options);
     }
 
@@ -119,7 +123,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         if (game.pf2e.settings.campaign.type === "kingmaker" && !this.campaign) {
             Object.defineProperty(this, "campaign", {
-                value: new Kingdom(this.system._source.campaign ?? {}, { parent: this.system }),
+                value: new Kingdom(fu.deepClone(this.system._source.campaign ?? {}), { parent: this.system }),
                 writable: true,
                 enumerable: false,
             });

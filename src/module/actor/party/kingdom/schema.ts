@@ -295,7 +295,7 @@ function defineKingdomSchema(): KingdomSchema {
             }),
         ),
         build: new fields.SchemaField(KINGDOM_BUILD_SCHEMA),
-        customModifiers: new fields.ObjectField<Record<string, RawModifier[]>>({ initial: {} }),
+        customModifiers: new fields.ObjectField<Record<string, RawModifier[]>>(),
         leadership: new fields.SchemaField(
             R.mapToObj(KINGDOM_LEADERSHIP, (role) => {
                 const schema = new fields.SchemaField<LeadershipSchema>({
@@ -311,7 +311,7 @@ function defineKingdomSchema(): KingdomSchema {
         settlements: new RecordField(
             new fields.StringField({ required: true, nullable: false, blank: false }),
             new fields.SchemaField(KINGDOM_SETTLEMENT_SCHEMA, { required: true }),
-            { required: true, nullable: false, initial: {} },
+            { required: true, nullable: false },
         ),
         consumption: new fields.SchemaField({
             settlement: new fields.NumberField<number, number, false, false>({ min: 0, initial: 0 }),
@@ -351,7 +351,7 @@ function defineKingdomSchema(): KingdomSchema {
             }),
         }),
         /** Any kingmaker specific module configuration and tweaks. Not used otherwise */
-        module: new fields.ObjectField({ required: true, initial: {} }),
+        module: new fields.ObjectField({ required: true }),
     };
 }
 

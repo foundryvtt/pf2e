@@ -53,6 +53,49 @@
                     }
                 ],
                 "toggleable": true
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Wizard.ExplosiveArrival.Label",
+                "option": "arrival-damage",
+                "placement": "spellcasting",
+                "predicate": [
+                    "spellshape:explosive-arrival"
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    },
+                    {
+                        "label": "PF2E.TraitSpirit",
+                        "value": "spirit"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.spellshape.explosiveArrivalDamage",
+                "value": "{item|flags.pf2e.rulesSelections.explosiveArrivalDamage}"
             }
         ],
         "traits": {

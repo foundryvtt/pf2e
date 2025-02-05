@@ -14,6 +14,7 @@ import { AELikeChangeMode, AELikeRuleElement } from "../ae-like.ts";
 import type { RuleElementPF2e } from "../base.ts";
 import { ResolvableValueField } from "../data.ts";
 import { ITEM_ALTERATION_VALIDATORS } from "./schemas.ts";
+import { WeaponRangeIncrement } from "@item/weapon/types.ts";
 
 class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlterationSchema> {
     static VALID_PROPERTIES = [
@@ -39,6 +40,8 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         "other-tags",
         "pd-recovery-dc",
         "persistent-damage",
+        "range-increment",
+        "range-max",
         "rarity",
         "speed-penalty",
         "strength",
@@ -401,6 +404,24 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     const index = traits.indexOf(newValue);
                     if (index >= 0) traits.splice(index, 1);
                 }
+                return;
+            }
+            case "range-increment": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (!validator.isValid(data)) return;
+                if (!data.item.system.range) return;
+                const rangeIncrement = data.item.system.range;
+                const newValue = AELikeRuleElement.getNewValue(this.mode, rangeIncrement, data.alteration.value);
+                data.item.system.range = newValue as WeaponRangeIncrement;
+                return;
+            }
+            case "range-max": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (!validator.isValid(data)) return;
+                if (!data.item.system.maxRange) return;
+                const maxRange = data.item.system.maxRange;
+                const newValue = AELikeRuleElement.getNewValue(this.mode, maxRange, data.alteration.value);
+                data.item.system.maxRange = newValue;
                 return;
             }
         }
