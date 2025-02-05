@@ -30,21 +30,6 @@
         },
         "rules": [
             {
-                "itemType": "spell",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "spellshape:heroic-recovery",
-                    "item:slug:heal"
-                ],
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Spellshape.HeroicRecovery"
-                    }
-                ]
-            },
-            {
                 "key": "RollOption",
                 "label": "PF2E.TraitSpellshape",
                 "mergeable": true,
@@ -57,6 +42,24 @@
                     }
                 ],
                 "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:heroic-recovery",
+                    "item:slug:heal"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.HeroicRecovery"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Heroic Recovery]"
+                    }
+                ]
             }
         ],
         "traits": {
