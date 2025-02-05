@@ -1,0 +1,76 @@
+{
+    "_id": "zot8JuAN0HXfWo3j",
+    "img": "systems/pf2e/icons/spells/inspire-courage.webp",
+    "name": "Spell Effect: Courageous Anthem (4 rounds)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Courageous Anthem]</p>\n<p>You gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 4
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack-roll",
+                    "damage"
+                ],
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "fear"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "damageType": "sonic",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "label": "PF2E.SpecificRule.Bard.DiscordantVoice.Label",
+                "predicate": [
+                    "parent:origin:discordant-voice",
+                    {
+                        "not": "parent:origin:signature:{item|parent.signature}"
+                    }
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "courageous-anthem:origin:signature:{item|origin.signature}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}
