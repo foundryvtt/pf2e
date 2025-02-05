@@ -23,51 +23,11 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
         "rules": [
-            {
-                "definition": [
-                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}",
-                    "item:damage:die:faces:4"
-                ],
-                "key": "AdjustStrike",
-                "mode": "add",
-                "property": "weapon-traits",
-                "value": "two-hand-d6"
-            },
-            {
-                "definition": [
-                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}",
-                    "item:damage:die:faces:6"
-                ],
-                "key": "AdjustStrike",
-                "mode": "add",
-                "property": "weapon-traits",
-                "value": "two-hand-d8"
-            },
-            {
-                "definition": [
-                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}",
-                    "item:damage:die:faces:8"
-                ],
-                "key": "AdjustStrike",
-                "mode": "add",
-                "property": "weapon-traits",
-                "value": "two-hand-d10"
-            },
-            {
-                "definition": [
-                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}",
-                    "item:damage:die:faces:10"
-                ],
-                "key": "AdjustStrike",
-                "mode": "add",
-                "property": "weapon-traits",
-                "value": "two-hand-d12"
-            },
             {
                 "definition": [
                     "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
@@ -75,6 +35,53 @@
                 "key": "AdjustStrike",
                 "mode": "add",
                 "property": "weapon-traits",
+                "value": "versatile-b"
+            },
+            {
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:damage:die:faces:4"
+                ],
+                "property": "traits",
+                "value": "two-hand-d6"
+            },
+            {
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:damage:die:faces:6"
+                ],
+                "property": "traits",
+                "value": "two-hand-d8"
+            },
+            {
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:damage:die:faces:8"
+                ],
+                "property": "traits",
+                "value": "two-hand-d10"
+            },
+            {
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:damage:die:faces:10"
+                ],
+                "property": "traits",
+                "value": "two-hand-d12"
+            },
+            {
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
                 "value": "versatile-b"
             }
         ],

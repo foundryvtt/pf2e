@@ -1,7 +1,7 @@
 {
     "_id": "vXbk7Nm1TOTTUNvF",
     "img": "icons/skills/targeting/crosshair-bars-yellow.webp",
-    "name": "Singular Expertise",
+    "name": "Slinger's Precision",
     "system": {
         "actionType": {
             "value": "passive"
@@ -20,19 +20,54 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
         "rules": [
             {
+                "damageCategory": "precision",
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
-                "selector": [
-                    "firearm-weapon-group-damage",
-                    "crossbow-weapon-group-damage"
+                "predicate": [
+                    {
+                        "not": "item:trait:repeating"
+                    }
                 ],
-                "type": "circumstance",
-                "value": 1
+                "selector": "crossbow-weapon-group-damage",
+                "slug": "slingers-precision-crossbow",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "feature:gunslinging-legend"
+                ],
+                "selector": "crossbow-weapon-group-damage",
+                "slug": "slingers-precision-crossbow",
+                "value": 3
+            },
+            {
+                "category": "precision",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "selector": "firearm-weapon-group-damage",
+                "slug": "slingers-precision-firearm"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "feature:gunslinging-legend",
+                    "dice:slug:slingers-precision-firearm"
+                ],
+                "property": "dice-faces",
+                "selectors": [
+                    "firearm-weapon-group-damage"
+                ]
             }
         ],
         "traits": {

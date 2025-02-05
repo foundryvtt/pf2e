@@ -14,7 +14,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p><strong>Ranged Only</strong></p><hr /><p>Your weapon innovation can file the edges off your ammunition and adjust the blunt force of the shot to deliver a bludgeoning attack when necessary, as well as to avoid striking a lethal blow with an otherwise deadly shot. Your innovation gains the nonlethal and versatile B traits. You can choose whether to apply the nonlethal trait on each attack with your innovation.</p>"
+            "value": "<p><strong>Ranged Only</strong></p><hr /><p>Your weapon innovation can file the edges off your ammunition and adjust the blunt force of the shot to deliver an attack that can batter as much as pierce, or even knock an opponent right off their feet. Your innovation gains the concussive and ranged trip traits.</p>"
         },
         "level": {
             "value": 1
@@ -23,41 +23,24 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
         "rules": [
             {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "PF2E.SpecificRule.Inventor.Modification.NonlethalBluntShot",
-                "option": "nonlethal-blunt-shot",
-                "predicate": [
-                    "weapon-innovation:equipped"
-                ],
-                "toggleable": true
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "concussive"
             },
             {
-                "definition": [
-                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
-                ],
-                "key": "AdjustStrike",
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
                 "mode": "add",
-                "predicate": [
-                    "nonlethal-blunt-shot"
-                ],
-                "property": "weapon-traits",
-                "value": "nonlethal"
-            },
-            {
-                "definition": [
-                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
-                ],
-                "key": "AdjustStrike",
-                "mode": "add",
-                "property": "weapon-traits",
-                "value": "versatile-b"
+                "property": "traits",
+                "value": "ranged-trip"
             }
         ],
         "traits": {

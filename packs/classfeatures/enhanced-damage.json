@@ -20,17 +20,16 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
         "rules": [
             {
-                "key": "DamageDice",
-                "override": {
-                    "upgrade": true
-                },
-                "selector": "{actor|flags.pf2e.trackedItems.weaponInnovation}-damage"
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "property": "damage-dice-faces"
             }
         ],
         "traits": {
