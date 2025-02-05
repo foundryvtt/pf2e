@@ -136,17 +136,15 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
                 return instanceApplications;
             }
 
-            // Step 3: Weaknesses
+            // Step 2: Weaknesses
             const mainWeaknesses = damageWeaknesses.filter((w) => w.test(formalDescription));
-            const splashDamage = instance.componentTotal("splash");
-            const splashWeakness = splashDamage ? (weaknesses.find((w) => w.type === "splash-damage") ?? null) : null;
             const precisionWeakness =
                 precisionDamage > 0
                     ? weaknesses.find(
                           (r) => r.type === "precision" && r.test([...formalDescription, "damage:component:precision"]),
                       )
                     : null;
-            const highestWeakness = [...mainWeaknesses, precisionWeakness, splashWeakness]
+            const highestWeakness = [...mainWeaknesses, precisionWeakness]
                 .filter(R.isTruthy)
                 .reduce(
                     (highest: Weakness | null, w) =>
@@ -163,7 +161,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             }
             const afterWeaknesses = afterImmunities + (highestWeakness?.value ?? 0);
 
-            // Step 4: Resistances
+            // Step 3: Resistances
             const workingResistanceData = resistances.map(
                 (r) =>
                     new WorkingResistanceData(r, {
@@ -177,19 +175,6 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
                     }),
             );
             const applicableResistances = workingResistanceData.filter((r) => r.applicable);
-
-            const splashResistance = splashDamage
-                ? resistances.find((r) => r.type === "splash-damage" && r.test([...formalDescription, "damage:component:splash"]))
-                : null;
-            if (splashResistance) {
-                applicableResistances.push(
-                    new WorkingResistanceData(splashResistance, {
-                        value: splashResistance.getDoubledValue(formalDescription),
-                        ignored: ignoredResistances.some((ir) => ir.test(formalDescription)),
-                    }),
-                );
-            }
-
             const criticalResistance = resistances.find((r) => r.type === "critical-hits");
             if (criticalResistance && isCriticalSuccess) {
                 const maxResistable = instanceTotal - critImmuneTotal;
