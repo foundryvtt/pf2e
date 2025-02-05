@@ -2738,6 +2738,9 @@
                     "exemplar": {
                         "Description": "Through your adventures, you've developed keen awareness and attention to detail, the better to watch over your wards and keep an eye out for monsters and other threats. Your proficiency rank for Perception increases to master."
                     },
+                    "gunslinger": {
+                        "Description": "You've developed keen awareness and attention to detail. Your proficiency rank for Perception increases to master."
+                    },
                     "ranger": {
                         "Description": "You have highly developed acuity and attention to detail. Your proficiency rank for Perception increases to master."
                     },
@@ -4184,8 +4187,9 @@
                     "Vitriol": "Vitriol (Acid)"
                 },
                 "Overdrive": {
-                    "CriticalFailure": "Whoops! Something explodes. You take @Damage[@actor.level[@actor.flags.pf2e.inventor.explode]|immutable|name:PF2E.SpecificRule.Inventor.Innovation.MalfunctionDamage] damage, and you can't use Overdrive again for 1 minute as your gizmos cool down and reset.",
+                    "CriticalFailure": "Whoops! Something explodes. You take @Damage[(ceil(@actor.level / 2))[@actor.flags.pf2e.inventor.explode]|immutable|name:PF2E.SpecificRule.Inventor.Innovation.MalfunctionDamage] damage, and you can't use Overdrive again for [[/r 1d4 #Recharge Overdrive]]{1d4 rounds} as your gizmos reset.",
                     "CriticalSuccess": "Your gizmos go into a state of incredible efficiency called critical @UUID[Compendium.pf2e.feat-effects.Item.1XlJ9xLzL19GHoOL]{Overdrive}, adding great power to your attacks.",
+                    "Failure": "Your gizmos whine concerningly and begin to smoke. Your Strikes deal 1 additional fire damage. @UUID[Compendium.pf2e.feat-effects.Item.1XlJ9xLzL19GHoOL]{Overdrive}",
                     "FireDamage": "Overdrive: Fire Damage",
                     "Success": "Your gizmos go into @UUID[Compendium.pf2e.feat-effects.Item.1XlJ9xLzL19GHoOL]{Overdrive}, adding power to your attacks."
                 },
