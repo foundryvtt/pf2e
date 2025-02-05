@@ -10,14 +10,14 @@
             "expiry": "turn-end",
             "sustained": false,
             "unit": "rounds",
-            "value": 1
+            "value": 0
         },
         "level": {
             "value": 6
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
         "rules": [
@@ -46,6 +46,7 @@
             },
             {
                 "damageType": "{item|flags.pf2e.rulesSelections.fulminatingShot}",
+                "diceNumber": "ternary(gte(@actor.level,18),3,ternary(gte(@actor.level,12),2,1))",
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "predicate": [
@@ -56,30 +57,7 @@
                         ]
                     }
                 ],
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 11,
-                            "value": {
-                                "diceNumber": 1
-                            }
-                        },
-                        {
-                            "end": 17,
-                            "start": 12,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        },
-                        {
-                            "start": 18,
-                            "value": {
-                                "diceNumber": 3
-                            }
-                        }
-                    ]
-                }
+                "selector": "strike-damage"
             }
         ],
         "start": {

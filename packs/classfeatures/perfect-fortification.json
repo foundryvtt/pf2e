@@ -20,11 +20,20 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}"
+                ],
+                "type": "precision",
+                "value": "2 + floor(@actor.level / 2)"
+            }
+        ],
         "traits": {
             "otherTags": [
                 "armor-innovation-modification",

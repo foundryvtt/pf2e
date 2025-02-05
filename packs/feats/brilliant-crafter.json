@@ -24,8 +24,8 @@
             ]
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
         "rules": [
@@ -34,15 +34,24 @@
                 "mode": "upgrade",
                 "path": "system.skills.crafting.rank",
                 "value": "ternary(gte(@actor.level,15),4,ternary(gte(@actor.level,7),3,2))"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.classDCs.inventor.rank",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            15
+                        ]
+                    }
+                ],
+                "value": 2
             }
         ],
         "subfeatures": {
-            "proficiencies": {
-                "inventor": {
-                    "attribute": null,
-                    "rank": 2
-                }
-            }
+            "proficiencies": {}
         },
         "traits": {
             "rarity": "common",

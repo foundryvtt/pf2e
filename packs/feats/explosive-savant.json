@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p><strong>Access</strong> You are from Dongun Hold or Alkenstar.</p>\n<hr />\n<p>A lifetime wielding firearms and explosive ordinance amid the chaos of battle has granted you great skill with volatile weapons. You become trained in simple and martial bombs and firearms.</p>"
+            "value": "<p><strong>Access</strong> You are from Dongun Hold or Alkenstar.</p><hr /><p>You've spent a lifetime wielding guns and explosive ordinance. You have familiarity with bombs and firearms; for the purposes of proficiency you treat bombs and martial firearms as simple weapons, and advanced firearms as martial weapons.</p>"
         },
         "level": {
             "value": 1
@@ -20,40 +20,39 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
         "rules": [
             {
                 "definition": [
-                    "item:category:simple",
                     {
                         "or": [
-                            "item:group:firearm",
-                            "item:group:bomb"
-                        ]
-                    }
-                ],
-                "key": "MartialProficiency",
-                "label": "PF2E.SpecificRule.MartialProficiency.SimpleBombsFirearms",
-                "slug": "simple-bombs-firearms",
-                "value": 1
-            },
-            {
-                "definition": [
-                    "item:category:martial",
-                    {
-                        "or": [
-                            "item:group:firearm",
-                            "item:group:bomb"
+                            "item:group:bomb",
+                            {
+                                "and": [
+                                    "item:group:firearm",
+                                    "item:category:martial"
+                                ]
+                            }
                         ]
                     }
                 ],
                 "key": "MartialProficiency",
                 "label": "PF2E.SpecificRule.MartialProficiency.MartialBombsFirearms",
-                "slug": "martial-bombs-firearms",
-                "value": 1
+                "sameAs": "simple",
+                "slug": "martial-bombs-firearms"
+            },
+            {
+                "definition": [
+                    "item:category:advanced",
+                    "item:group:firearm"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedGroup.firearm",
+                "sameAs": "martial",
+                "slug": "advanced-firearms"
             }
         ],
         "traits": {

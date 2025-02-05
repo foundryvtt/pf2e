@@ -20,33 +20,72 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
         "rules": [
             {
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:volley"
+                ],
+                "property": "other-tags",
+                "value": "removed-volley"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:tag:removed-volley"
+                ],
+                "property": "traits",
+                "value": "volley-20"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:tag:removed-volley"
+                ],
+                "property": "traits",
+                "value": "volley-30"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:tag:removed-volley"
+                ],
+                "property": "traits",
+                "value": "volley-50"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:tag:removed-volley"
+                ],
+                "property": "traits",
+                "value": "volley-60"
+            },
+            {
                 "definition": [
                     "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}",
                     {
-                        "not": "item:trait:volley"
+                        "not": "removed-volley"
                     }
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",
-                "priority": 110,
                 "property": "range-increment",
                 "value": 50
-            },
-            {
-                "definition": [
-                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
-                ],
-                "key": "AdjustStrike",
-                "mode": "remove",
-                "priority": 115,
-                "property": "weapon-traits",
-                "value": "volley-30"
             }
         ],
         "traits": {
