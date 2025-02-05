@@ -14,7 +14,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>Blunt surfaces and sturdy construction make your weapon hefty and mace-like. Your innovation gains the shove and versatile B traits.</p>"
+            "value": "<p>Blunt surfaces and sturdy construction make your weapon hefty and mace-like. Your innovation gains the shove, razing, and versatile B traits.</p>"
         },
         "level": {
             "value": 1
@@ -23,27 +23,30 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
         "rules": [
             {
-                "definition": [
-                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
-                ],
-                "key": "AdjustStrike",
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
                 "mode": "add",
-                "property": "weapon-traits",
+                "property": "traits",
                 "value": "shove"
             },
             {
-                "definition": [
-                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
-                ],
-                "key": "AdjustStrike",
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
                 "mode": "add",
-                "property": "weapon-traits",
+                "property": "traits",
+                "value": "razing"
+            },
+            {
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
                 "value": "versatile-b"
             }
         ],

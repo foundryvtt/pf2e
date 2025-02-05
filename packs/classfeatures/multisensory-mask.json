@@ -20,11 +20,28 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "multisensory-mask",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}"
+                ],
+                "toggleable": true
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "multisensory-mask"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Concealed"
+            }
+        ],
         "traits": {
             "otherTags": [
                 "armor-innovation-modification",

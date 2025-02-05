@@ -14,7 +14,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>Softer materials make your weapon suited to knock out instead of kill, and special protrusions let you catch weapons and disarm your foes. Your innovation gains the disarm and nonlethal traits. You can choose whether to apply the nonlethal trait on each attack with your innovation.</p>"
+            "value": "<p>Softer materials make your weapon suited to knock out instead of kill, and special protrusions let you catch weapons and disarm your foes. Your innovation gains the disarm, hampering, and nonlethal traits. You can choose whether to apply the nonlethal trait on each attack with your innovation.</p>"
         },
         "level": {
             "value": 1
@@ -23,8 +23,8 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
         "rules": [
@@ -39,25 +39,28 @@
                 "toggleable": true
             },
             {
-                "definition": [
-                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
-                ],
-                "key": "AdjustStrike",
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
                     "nonlethal-pacification-tools"
                 ],
-                "property": "weapon-traits",
+                "property": "traits",
                 "value": "nonlethal"
             },
             {
-                "definition": [
-                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
-                ],
-                "key": "AdjustStrike",
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
                 "mode": "add",
-                "property": "weapon-traits",
+                "property": "traits",
                 "value": "disarm"
+            },
+            {
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "hampering"
             }
         ],
         "traits": {

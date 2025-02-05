@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Bullets and bombs can be scarce in some parts, so you've learned to make your own. You become trained in Crafting and gain the alchemist's infused reagents class feature, gaining a number of reagents each day equal to your level. You also gain the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] feat and four additional formulas for 1st-level alchemical items.</p>\n<p>You gain infused reagents (a pool of reagents usable to make alchemical items) and advanced alchemy (allowing you to make alchemical items during your daily preparations without the normal cost or time expenditure). You gain batches of infused reagents per day equal to your level, which you can use to create only bombs or alchemical ammunition. Your advanced alchemy level for creating these is 1 and doesn't increase on its own. If you use a batch of infused reagents to create basic level-0 ammunition such as black powder cartridges or black powder doses, you produce 10 rounds of ammunition.</p>"
+            "value": "<p>Bullets and bombs can be scarce in some parts, so you've learned to make your own. You become trained in Crafting and gain the advanced alchemy benefits. You can use the advanced alchemy benefits to create a number of daily consumables equal to 4 + half your level (rounded up); these consumables must be bombs or alchemical ammunition.</p>\n<p>You gain a formula book that includes the formula for black powder and four 1st-level types of common or uncommon alchemical ammunition or bombs of your choice.</p>\n<p>When crafting alchemical ammunition, including black powder in doses or rounds, using advanced alchemy, you create the ammunition in batches of 4 (meaning that if you were 4th level and used all of your advanced alchemy consumables to create alchemical ammunition, you could create a maximum of 24 rounds). You cannot use advanced alchemy to Craft horns or kegs of black powder.</p>"
         },
         "level": {
             "value": 1
@@ -20,45 +20,11 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
         "rules": [
-            {
-                "batchSizes": {
-                    "other": [
-                        {
-                            "definition": [
-                                "item:category:ammo",
-                                "item:trait:alchemical",
-                                "item:level:0"
-                            ],
-                            "quantity": 10
-                        }
-                    ]
-                },
-                "craftableItems": [
-                    "item:trait:alchemical",
-                    {
-                        "or": [
-                            "item:trait:bomb",
-                            "item:category:ammo"
-                        ]
-                    }
-                ],
-                "isAlchemical": true,
-                "isDailyPrep": true,
-                "key": "CraftingAbility",
-                "maxItemLevel": 1,
-                "slug": "munitions-crafter"
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.resources.crafting.infusedReagents.max",
-                "value": "@actor.level"
-            },
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.feats-srd.Item.Alchemical Crafting"
@@ -68,6 +34,32 @@
                 "mode": "upgrade",
                 "path": "system.skills.crafting.rank",
                 "value": 1
+            },
+            {
+                "batchSizes": {
+                    "other": [
+                        {
+                            "definition": [
+                                "item:category:ammo"
+                            ],
+                            "quantity": 4
+                        }
+                    ]
+                },
+                "craftableItems": [
+                    "item:trait:alchemical",
+                    {
+                        "or": [
+                            "item:group:bomb",
+                            "item:category:ammo"
+                        ]
+                    }
+                ],
+                "isDailyPrep": true,
+                "key": "CraftingAbility",
+                "label": "PF2E.SpecificRule.Alchemist.AdvancedAlchemy",
+                "maxSlots": "4 + ceil(@actor.level / 2)",
+                "slug": "advanced-alchemy"
             }
         ],
         "traits": {

@@ -14,11 +14,17 @@
             "value": "<p><strong>Trigger</strong> You roll initiative.</p>\n<hr />\n<p>You react to trouble with lightning speed, positioning yourself just right. You gain a +2 circumstance bonus to your initiative roll, and you can Interact to draw a one-handed firearm or one-handed crossbow. As your first action on your first turn, you can Step up to 10 feet as a free action.</p>"
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
         "rules": [
+            {
+                "domain": "initiative",
+                "key": "RollOption",
+                "option": "ten-paces",
+                "toggleable": true
+            },
             {
                 "key": "FlatModifier",
                 "predicate": [
@@ -29,15 +35,9 @@
                 "value": 2
             },
             {
-                "domain": "all",
-                "key": "RollOption",
-                "option": "ten-paces",
-                "toggleable": true
-            },
-            {
                 "key": "Note",
                 "selector": "initiative",
-                "text": "{item|system.description.value}",
+                "text": "{item|description}",
                 "title": "<span class=\"action-glyph\">F</span> {item|name}"
             }
         ],

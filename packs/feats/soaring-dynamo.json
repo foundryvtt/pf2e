@@ -24,13 +24,21 @@
             ]
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
         "rules": [
             {
+                "key": "RollOption",
+                "option": "soaring-dynamo",
+                "toggleable": true
+            },
+            {
                 "key": "BaseSpeed",
+                "predicate": [
+                    "soaring-dynamo"
+                ],
                 "selector": "fly",
                 "value": "@actor.attributes.speed.total"
             }

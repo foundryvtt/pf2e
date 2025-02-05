@@ -238,6 +238,12 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             }
         }
 
+        // Clear stack group if this isn't ammo
+        const newCategory = changed.system.category ?? this.system.category;
+        if (newCategory !== "ammo") {
+            changed.system.stackGroup = null;
+        }
+
         if (changed.system.uses) {
             if ("value" in changed.system.uses) {
                 const minimum = this.system.uses.autoDestroy ? 1 : 0;
