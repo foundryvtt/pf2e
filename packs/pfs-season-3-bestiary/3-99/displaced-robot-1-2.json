@@ -45,15 +45,17 @@
                         "selector": "{item|_id}-damage"
                     },
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "dieSize": "d4"
-                        },
+                        "key": "DamageAlteration",
+                        "mode": "downgrade",
                         "predicate": [
                             "divert-power:laser"
                         ],
-                        "selector": "{item|_id}-damage"
-                    },
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "value": 4
+                    }
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.NPCAbility.DisplacedRobot.DivertPower.LaserBeam",
@@ -108,15 +110,17 @@
                 },
                 "rules": [
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "dieSize": "d4"
-                        },
+                        "key": "DamageAlteration",
+                        "mode": "downgrade",
                         "predicate": [
                             "divert-power:fist"
                         ],
-                        "selector": "{item|_id}-damage"
-                    },
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "value": 4
+                    }
                     {
                         "damageType": "fire",
                         "diceNumber": 1,
