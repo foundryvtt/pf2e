@@ -535,6 +535,7 @@ const weaponTraits = {
     "volley-30": "PF2E.TraitVolley30",
     "volley-50": "PF2E.TraitVolley50",
     "volley-60": "PF2E.TraitVolley60",
+    wand: "PF2E.TraitWand",
 };
 
 const preciousMaterials: Record<PreciousMaterialType, string> = {

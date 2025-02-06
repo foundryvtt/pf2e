@@ -1,15 +1,15 @@
 {
-    "_id": "T99WI1hocCXE7RI0",
-    "img": "systems/pf2e/icons/equipment/held-items/doll.webp",
-    "name": "Doll (Exquisite surprise)",
+    "_id": "kK0ClM2NkZYKVs2Z",
+    "img": "icons/equipment/head/goggles-leather-tan.webp",
+    "name": "Sun Goggles",
     "system": {
         "baseItem": null,
         "bulk": {
-            "value": 0.1
+            "value": 0
         },
         "containerId": null,
         "description": {
-            "value": "<p>This doll contains a hidden compartment or pouch capable of holding a single object of up to light Bulk—typically a bell, rattle, or dried flowers.</p>\n<p>Hiding an object inside this beautifully crafted surprise doll grants you a +1 item bonus to Stealth checks made to Conceal an Item, as the compartment is particularly well-hidden and weighted to ensure the doll doesn't feel off-balance with an item inside.</p>"
+            "value": "<p>These goggles are usually fitted with a polished piece of yellowtoned crystal, allowing the wearer some protection against the brightness of the sun. Near the Crown of the World, a version of these goggles exists where the crystal is replaced by thin slits, mitigating the effects of the sun's reflection on snow.</p>\n<p>When wearing these goggles, you gain a +1 item bonus to saving throws against effects that could inflict the @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] condition.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -17,7 +17,7 @@
             "value": 0
         },
         "level": {
-            "value": 2
+            "value": 3
         },
         "material": {
             "grade": null,
@@ -25,7 +25,7 @@
         },
         "price": {
             "value": {
-                "gp": 10
+                "gp": 20
             }
         },
         "publication": {
@@ -37,10 +37,11 @@
         "rules": [
             {
                 "key": "FlatModifier",
+                "label": "Sun Goggles (Against Effects That Inflict Dazzled)",
                 "predicate": [
-                    "action:conceal-an-object"
+                    "inflicts:dazzled"
                 ],
-                "selector": "stealth",
+                "selector": "saving-throw",
                 "type": "item",
                 "value": 1
             }
@@ -51,7 +52,7 @@
             "value": []
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "worneyepiece"
         }
     },
     "type": "equipment"

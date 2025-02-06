@@ -1,19 +1,19 @@
 {
-    "_id": "kdZEZ6iBYQPVGzYD",
-    "img": "systems/pf2e/icons/spells/inspire-courage.webp",
-    "name": "Effect: Call to Action",
+    "_id": "pPmtUt7lPYfbVqbR",
+    "img": "icons/magic/control/mouth-smile-deception-purple.webp",
+    "name": "Effect: Beguiling Presence",
     "system": {
         "description": {
-            "value": "<p>The creature gains a +1 status bonus to attack and damage rolls.</p>"
+            "value": "<p>Creatures in the area that can observe the courtesan take a –2 status penalty on their Will DC against the courtesan's attempts to make a Request of them.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
-            "unit": "rounds",
-            "value": 1
+            "unit": "unlimited",
+            "value": -1
         },
         "level": {
-            "value": 8
+            "value": 1
         },
         "publication": {
             "license": "ORC",
@@ -23,12 +23,12 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": [
-                    "attack",
-                    "damage"
+                "predicate": [
+                    "action:request"
                 ],
+                "selector": "will",
                 "type": "status",
-                "value": 1
+                "value": -2
             }
         ],
         "start": {
@@ -39,7 +39,6 @@
             "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },
