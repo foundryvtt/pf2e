@@ -11,7 +11,7 @@
         "damage": {},
         "defense": null,
         "description": {
-            "value": "<p>You add a flourish to your composition to extend its benefits. If your next action is to cast a cantrip composition with a duration of 1 round, attempt a @Check[performance|options:spell-lingering-composition|dc:@self.level] check. The DC is usually a standard-difficulty DC of a level equal to the highest-level target of your composition, but the GM can assign a different DC based on the circumstances. The effect depends on the result of your check.</p><hr /><p><strong>Critical Success</strong> The composition lasts 4 rounds.</p>\n<p><strong>Success</strong> The composition lasts 3 rounds.</p>\n<p><strong>Failure</strong> The composition lasts 1 round, but you don't spend the Focus Point for casting this spell.</p>"
+            "value": "<p>You add a flourish to your composition to extend its benefits. If your next action is to cast a cantrip composition with a duration of 1 round, attempt a @Check[performance|options:spell-lingering-composition] check. The DC is usually a standard-difficulty DC of a level equal to the highest-level target of your composition, but the GM can assign a different DC based on the circumstances. The effect depends on the result of your check.</p><hr /><p><strong>Critical Success</strong> The composition lasts 4 rounds.</p>\n<p><strong>Success</strong> The composition lasts 3 rounds.</p>\n<p><strong>Failure</strong> The composition lasts 1 round, but you don't spend the Focus Point for casting this spell.</p>"
         },
         "duration": {
             "sustained": false,
@@ -33,57 +33,11 @@
             {
                 "key": "Note",
                 "predicate": [
-                    "spell-lingering-composition",
-                    {
-                        "lt": [
-                            "check:total:delta",
-                            0
-                        ]
-                    }
+                    "spell-lingering-composition"
                 ],
                 "selector": "performance-check",
-                "text": "The composition lasts 1 round, but you don't spend the Focus Point for casting this spell.",
-                "title": "Failure"
-            },
-            {
-                "key": "Note",
-                "predicate": [
-                    "spell-lingering-composition",
-                    {
-                        "and": [
-                            {
-                                "lt": [
-                                    "check:total:delta",
-                                    10
-                                ]
-                            },
-                            {
-                                "gte": [
-                                    "check:total:delta",
-                                    0
-                                ]
-                            }
-                        ]
-                    }
-                ],
-                "selector": "performance-check",
-                "text": "The next composition spell lasts 3 rounds. @UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Lingering Composition (Success)]",
-                "title": "Success"
-            },
-            {
-                "key": "Note",
-                "predicate": [
-                    "spell-lingering-composition",
-                    {
-                        "gte": [
-                            "check:total:delta",
-                            10
-                        ]
-                    }
-                ],
-                "selector": "performance-check",
-                "text": "The next composition lasts 4 rounds. @UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Lingering Composition (Critical Success)]",
-                "title": "Critical Success"
+                "text": "PF2E.SpecificRule.Feat.LingeringComposition.Note",
+                "title": "{item|name}"
             }
         ],
         "target": {
