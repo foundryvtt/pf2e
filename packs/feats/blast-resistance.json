@@ -26,16 +26,27 @@
         },
         "rules": [
             {
+                "domain": "saving-throw",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Dwarf.BlastResistance.RollOptionLabel",
+                "option": "blast-resistance-adjustment",
+                "toggleable": true
+            },
+            {
                 "adjustment": {
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
                 "predicate": [
-                    "auditory",
-                    "inflicts:deafened"
+                    {
+                        "or": [
+                            "blast-resistance-adjustment",
+                            "inflicts:dazzled",
+                            "inflicts:deafened"
+                        ]
+                    }
                 ],
-                "selector": "saving-throw",
-                "type": "save"
+                "selector": "saving-throw"
             },
             {
                 "key": "Resistance",
