@@ -632,14 +632,16 @@
                         "value": 2
                     },
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "dieSize": "d10"
-                        },
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
                         "predicate": [
                             "calculated-reload"
                         ],
-                        "selector": "crossbow-damage"
+                        "property": "dice-faces",
+                        "selectors": [
+                            "crossbow-damage"
+                        ],
+                        "value": 10
                     }
                 ],
                 "slug": null,

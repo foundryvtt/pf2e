@@ -151,15 +151,17 @@
                 },
                 "rules": [
                     {
-                        "key": "DamageDice",
+                        "key": "DamageAlteration",
                         "label": "Everstand Stance",
-                        "override": {
-                            "dieSize": "d8"
-                        },
+                        "mode": "upgrade",
                         "predicate": [
                             "stance:everstand"
                         ],
-                        "selector": "strike-damage"
+                        "property": "dice-faces",
+                        "selectors": [
+                            "shield-boss-damage"
+                        ],
+                        "value": 8
                     }
                 ],
                 "runes": {

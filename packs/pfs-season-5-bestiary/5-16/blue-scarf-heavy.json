@@ -249,15 +249,16 @@
                         "toggleable": true
                     },
                     {
-                        "key": "DamageDice",
-                        "label": "PF2E.TraitTwoHandD10",
-                        "override": {
-                            "dieSize": "d12"
-                        },
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
                         "predicate": [
                             "two-handed"
                         ],
-                        "selector": "{item|_id}-damage"
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "value": 10
                     }
                 ],
                 "slug": "bastard-sword",

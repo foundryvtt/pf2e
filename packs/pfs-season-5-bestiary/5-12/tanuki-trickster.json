@@ -584,14 +584,16 @@
                         "selector": "fist-damage"
                     },
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "dieSize": "d6"
-                        },
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
                         "predicate": [
                             "diverse-training:tonta"
                         ],
-                        "selector": "fist-damage"
+                        "property": "dice-faces",
+                        "selectors": [
+                            "fist-damage"
+                        ],
+                        "value": 6
                     },
                     {
                         "category": "precision",
