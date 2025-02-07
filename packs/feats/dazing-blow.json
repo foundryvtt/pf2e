@@ -32,14 +32,16 @@
                 "toggleable": true
             },
             {
-                "key": "DamageDice",
-                "override": {
-                    "damageType": "bludgeoning"
-                },
+                "key": "DamageAlteration",
+                "mode": "override",
+                "property": "damage-type",
                 "predicate": [
                     "dazing-blow"
                 ],
-                "selector": "strike-damage"
+                "selectors": [
+                    "strike-damage"
+                ],
+                "value": "bludgeoning"
             },
             {
                 "key": "Note",

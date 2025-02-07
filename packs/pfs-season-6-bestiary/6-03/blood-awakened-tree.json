@@ -120,14 +120,16 @@
                         "selector": "root-damage"
                     },
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "piercing"
-                        },
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
                         "predicate": [
                             "drink-blood"
                         ],
-                        "selector": "root-damage"
+                        "selectors": [
+                            "root-damage"
+                        ],
+                        "value": "piercing"
                     }
                 ],
                 "slug": "drink-blood",

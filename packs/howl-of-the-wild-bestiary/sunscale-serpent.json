@@ -343,24 +343,28 @@
                         "value": 0
                     },
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "piercing"
-                        },
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
                         "predicate": [
                             "bond-with-mortal"
                         ],
-                        "selector": "jaws-damage"
+                        "selectors": [
+                            "jaws-damage"
+                        ],
+                        "value": "piercing"
                     },
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "slashing"
-                        },
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
                         "predicate": [
                             "bond-with-mortal"
                         ],
-                        "selector": "tail-damage"
+                        "selectors": [
+                            "tail-damage"
+                        ],
+                        "value": "slashing"
                     }
                 ],
                 "slug": null,

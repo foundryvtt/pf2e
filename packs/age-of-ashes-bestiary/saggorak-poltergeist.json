@@ -301,11 +301,13 @@
                         "value": true
                     },
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "{item|flags.pf2e.rulesSelections.telekineticObject}"
-                        },
-                        "selector": "{item|id}-damage"
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
+                        "selectors": [
+                            "{item|id}-damage"
+                        ],
+                        "value": "{item|flags.pf2e.rulesSelections.telekineticObject}"
                     },
                     {
                         "key": "DamageAlteration",
