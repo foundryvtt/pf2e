@@ -1,14 +1,14 @@
 {
-    "_id": "SYrcABPch6qa61Tp",
+    "_id": "zUTlzjTKLyOc8bRM",
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "Bxt5euIfciVt0Bnw",
+            "_id": "QCBZKzLaKkHVJpqc",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU"
             },
-            "img": "icons/weapons/staves/staff-animal-skull.webp",
-            "name": "Dragon-Headed Cane",
+            "img": "icons/weapons/staves/staff-simple.webp",
+            "name": "Walking Stick",
             "sort": 100000,
             "system": {
                 "baseItem": "staff",
@@ -76,6 +76,7 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
+                        "monk",
                         "two-hand-d8"
                     ]
                 },
@@ -86,33 +87,31 @@
             "type": "weapon"
         },
         {
-            "_id": "iMlU1XykkXSp0ScX",
+            "_id": "KklnPd3xq1E7U7TW",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.r0ifJfoz8aqf0mwk"
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.dDIPA1WE9ESF67EB"
             },
-            "img": "icons/equipment/chest/breastplate-collared-steel.webp",
-            "name": "Breastplate",
+            "img": "icons/equipment/chest/shirt-collared-pink.webp",
+            "name": "Explorer's Clothing",
             "sort": 200000,
             "system": {
-                "acBonus": 4,
-                "baseItem": "breastplate",
+                "acBonus": 0,
+                "baseItem": "explorers-clothing",
                 "bulk": {
-                    "value": 2
+                    "value": 0.1
                 },
-                "category": "medium",
-                "checkPenalty": -2,
+                "category": "unarmored",
+                "checkPenalty": 0,
                 "containerId": null,
                 "description": {
-                    "value": "<p>Though referred to as a breastplate, this type of armor consists of several pieces of plate or @UUID[Compendium.pf2e.equipment-srd.Item.Half Plate] armor that protect the torso, chest, neck, and sometimes the hips and lower legs. It strategically grants some of the protection of plate while allowing greater flexibility and speed.</p>"
+                    "value": "<p>Adventurers who don't wear armor travel in durable clothing. Though it's not armor and uses your unarmored defense proficiency, it still has a Dex Cap and can grant an item bonus to AC if etched with potency runes.</p>"
                 },
-                "dexCap": 1,
+                "dexCap": 5,
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
                     "invested": null
                 },
-                "group": "plate",
+                "group": "cloth",
                 "hardness": 0,
                 "hp": {
                     "max": 0,
@@ -127,7 +126,7 @@
                 },
                 "price": {
                     "value": {
-                        "gp": 8
+                        "sp": 1
                     }
                 },
                 "publication": {
@@ -143,36 +142,102 @@
                     "resilient": 0
                 },
                 "size": "med",
-                "slug": "breastplate",
-                "speedPenalty": -5,
-                "strength": 3,
+                "slug": "explorers-clothing",
+                "speedPenalty": 0,
+                "strength": null,
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "comfort"
+                    ]
                 }
             },
             "type": "armor"
         },
         {
-            "_id": "QHTjAvY9mbg8A0XX",
+            "_id": "G5wm0CyZa3HaG66d",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
+            },
+            "img": "icons/commodities/treasure/broach-jeweled-green.webp",
+            "name": "Religious Symbol of Irori",
+            "sort": 300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity to use certain abilities and cast some spells. A religious symbol can be worn on the body on a chain or pin, or can be held.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "has-religious-symbol",
+                        "requiresEquipped": false
+                    }
+                ],
+                "size": "med",
+                "slug": "religious-symbol-wooden",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "JBHywsBKixp6A0VT",
             "flags": {
                 "pf2e": {
-                    "linkedWeapon": "Bxt5euIfciVt0Bnw"
+                    "linkedWeapon": "QCBZKzLaKkHVJpqc"
                 }
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dragon-Headed Cane",
-            "sort": 300000,
+            "name": "Staff",
+            "sort": 400000,
             "system": {
                 "attackEffects": {
                     "value": []
                 },
                 "bonus": {
-                    "value": 10
+                    "value": 6
                 },
                 "damageRolls": {
-                    "KY5G9IIsarF6y2Ax": {
-                        "damage": "1d4+5",
+                    "8mZFDXQrnq4g4gwt": {
+                        "damage": "1d4+1",
                         "damageType": "bludgeoning"
                     }
                 },
@@ -188,7 +253,7 @@
                     {
                         "domain": "damage",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TwoHanded.Cane",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
                         "option": "two-handed",
                         "toggleable": true
                     },
@@ -215,20 +280,20 @@
             "type": "melee"
         },
         {
-            "_id": "DD83LMY5UCjUnyWb",
+            "_id": "WEzTT885iSc7xGiI",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 400000,
+            "sort": 500000,
             "system": {
                 "attackEffects": {
                     "value": []
                 },
                 "bonus": {
-                    "value": 9
+                    "value": 5
                 },
                 "damageRolls": {
-                    "D0G14ab88041ZTT0": {
-                        "damage": "1d4+5",
+                    "gTzocEiOeK42OlpG": {
+                        "damage": "1d6+1",
                         "damageType": "bludgeoning"
                     }
                 },
@@ -253,49 +318,25 @@
             "type": "melee"
         },
         {
-            "_id": "W83ONh5xSCyi26No",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Business Savvy",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>When making monetary deals, the loan shark gets a +8 circumstance bonus to Deception checks, Diplomacy checks, and their Perception DC.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "BZZhLIhxJfdHMYct",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Loan Specialist",
+            "_id": "nfGLDYnWjF9dxUbC",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Rock",
             "sort": 600000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "attackEffects": {
+                    "value": []
                 },
-                "actions": {
-                    "value": null
+                "bonus": {
+                    "value": 4
                 },
-                "category": "interaction",
+                "damageRolls": {
+                    "07hyIH5JJp9RjeVa": {
+                        "damage": "1d4+1",
+                        "damageType": "bludgeoning"
+                    }
+                },
                 "description": {
-                    "value": "<p>For encounters involving monetary deals, the loan shark is a 7th-level challenge.</p>"
+                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -305,15 +346,17 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "value": []
+                    "value": [
+                        "thrown-10"
+                    ]
                 }
             },
-            "type": "action"
+            "type": "melee"
         },
         {
-            "_id": "tfK72gDLl1pjUfru",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Never off the Hook",
+            "_id": "DgCsAlvUfVyETg6K",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Ambulatory Oration",
             "sort": 700000,
             "system": {
                 "actionType": {
@@ -322,51 +365,9 @@
                 "actions": {
                     "value": null
                 },
-                "category": "defensive",
+                "category": "interaction",
                 "description": {
-                    "value": "<p>60 feet.</p>\n<p>Creatures in the aura who owe the loan shark money take a –3 circumstance penalty to their Will DC against the loan shark's attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] or @UUID[Compendium.pf2e.actionspf2e.Item.Coerce] them and can't reduce their @UUID[Compendium.pf2e.conditionitems.Item.Frightened] value below 1 while in the aura.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 60,
-                        "traits": [
-                            "emotion",
-                            "mental"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "emotion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qfr40H0AoV22bvUd",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Interest is Due!",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The loan shark commands an ally within 30 feet to attack a creature who owes the loan shark money. The ally can use a reaction to Strike the debtor, dealing an additional @Damage[1d6[mental]] damage.</p>"
+                    "value": "<p>Creatures that engage in conversation with the pilgrim gain a +1 circumstance bonus to all Recall Knowledge checks and Gather Information checks for 4 hours related to any topics discussed with the pilgrim.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -376,27 +377,51 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "value": [
-                        "auditory",
-                        "concentrate",
-                        "linguistic",
-                        "mental"
-                    ]
+                    "value": []
                 }
             },
             "type": "action"
         },
         {
-            "_id": "rgKyJyeyXfPEYM5M",
+            "_id": "c9RyMIISUEbGlI0s",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Path of the Faithful",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The pilgrim can use their Religion modifier instead of their Diplomacy modifier to [[/act gather-information skill=religion]] or [[/act make-an-impression skill=religion]] as long as the pilgrim includes their religious teachings.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OzW7ZKkOt44Nc2i0",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Accounting Lore",
+            "name": "Irori Lore",
             "sort": 900000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 17
+                    "value": 6
                 },
                 "proficient": {
                     "value": 0
@@ -413,41 +438,41 @@
             "type": "lore"
         }
     ],
-    "name": "Loan Shark",
+    "name": "Pilgrim of Irori",
     "system": {
         "abilities": {
             "cha": {
-                "mod": 4
+                "mod": 1
             },
             "con": {
-                "mod": 1
+                "mod": 2
             },
             "dex": {
                 "mod": 0
             },
             "int": {
-                "mod": 2
+                "mod": 0
             },
             "str": {
-                "mod": 3
+                "mod": 1
             },
             "wis": {
-                "mod": 2
+                "mod": 3
             }
         },
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 18
+                "value": 14
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 25,
+                "max": 9,
                 "temp": 0,
-                "value": 25
+                "value": 9
             },
             "speed": {
                 "otherSpeeds": [],
@@ -458,15 +483,13 @@
             "blurb": "",
             "languages": {
                 "details": "",
-                "value": [
-                    "common"
-                ]
+                "value": []
             },
             "level": {
-                "value": 2
+                "value": -1
             },
             "privateNotes": "",
-            "publicNotes": "<p>Loan sharks lend money to those in need but charge high interest. If there's ever an issue with repayment, they'll send their gang to ensure clients pay in full.</p><hr /><p>In the underbelly of society, the lawless reign supreme.</p>",
+            "publicNotes": "<p>Pilgrims traverse the lands spurred on by some holy reason, be it to visit a sacred place or follow a prophetic vision.</p><hr /><p>Religions inspire devout individuals to uphold their tenets.</p>",
             "publication": {
                 "license": "ORC",
                 "remaster": true,
@@ -478,39 +501,36 @@
         },
         "perception": {
             "details": "",
-            "mod": 8,
+            "mod": 5,
             "senses": []
         },
         "resources": {},
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 7
+                "value": 4
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 6
+                "value": 4
             },
             "will": {
                 "saveDetail": "",
-                "value": 10
+                "value": 7
             }
         },
         "skills": {
             "athletics": {
-                "base": 9
+                "base": 5
             },
-            "deception": {
-                "base": 8
-            },
-            "diplomacy": {
-                "base": 8
-            },
-            "intimidation": {
-                "base": 8
+            "religion": {
+                "base": 5
             },
             "society": {
-                "base": 15
+                "base": 4
+            },
+            "survival": {
+                "base": 5
             }
         },
         "traits": {

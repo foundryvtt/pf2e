@@ -614,10 +614,46 @@
             "type": "action"
         },
         {
+            "_id": "IhLf7F9sRTvihN0g",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Deny Advantage",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The crime kingpin isn't off-guard to creatures of 12th level or lower that are @UUID[Compendium.pf2e.conditionitems.Item.Hidden], @UUID[Compendium.pf2e.conditionitems.Item.Undetected], flanking, or using @UUID[Compendium.pf2e.classfeatures.Item.Surprise Attack].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.flanking.offGuardable",
+                        "value": 12
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "K3VO3ewirpN4AXzB",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Kingpin's Presence",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -669,7 +705,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Reactive Strike",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -698,7 +734,7 @@
             "_id": "MaYof9lSk9WcCAK3",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "You'll Pay for That",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -733,7 +769,7 @@
             "_id": "1k68ayfmeXOyucsU",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Fencing Brawl",
-            "sort": 1400000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -762,7 +798,7 @@
             "_id": "RNDNl6HBPuL8wgMp",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Kick Away",
-            "sort": 1500000,
+            "sort": 1600000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -805,7 +841,7 @@
             "_id": "DzvlOC7wwlihRXZo",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Kingpin's Command",
-            "sort": 1600000,
+            "sort": 1700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -842,7 +878,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 1700000,
+            "sort": 1800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -879,42 +915,6 @@
                     }
                 ],
                 "slug": "sneak-attack",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "IhLf7F9sRTvihN0g",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Deny Advantage",
-            "sort": 1800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": null,
-                "description": {
-                    "value": "<p>The crime kingpin isn't off-guard to creatures of 12th level or lower that are @UUID[Compendium.pf2e.conditionitems.Item.Hidden], @UUID[Compendium.pf2e.conditionitems.Item.Undetected], flanking, or using @UUID[Compendium.pf2e.classfeatures.Item.Surprise Attack].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.flanking.offGuardable",
-                        "value": 12
-                    }
-                ],
-                "slug": null,
                 "traits": {
                     "value": []
                 }
@@ -982,7 +982,7 @@
                 "details": "",
                 "max": 250,
                 "temp": 0,
-                "value": 10
+                "value": 250
             },
             "speed": {
                 "otherSpeeds": [],
