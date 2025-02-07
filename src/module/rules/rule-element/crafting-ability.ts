@@ -91,10 +91,15 @@ class CraftingAbilityRuleElement extends RuleElementPF2e<CraftingAbilityRuleSche
                 existing.label = this.label;
             }
 
+            // Add craftable items and batch size others. These will eventually be merged
             existing.craftableItems ??= [];
             if (this.craftableItems.length > 0) {
                 existing.craftableItems.push({ predicate: this.craftableItems });
             }
+            for (const other of this.batchSizes.other) {
+                existing.craftableItems.push({ predicate: other.definition, batchSize: other.quantity });
+            }
+
             existing.batchSize = Math.max(existing.batchSize, this.batchSizes?.default || 1);
             existing.maxItemLevel = Math.max(maxItemLevel, existing.maxItemLevel);
             existing.maxSlots =

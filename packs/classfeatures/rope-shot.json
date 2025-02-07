@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p><strong>Ranged Only</strong></p>\n<hr />\n<p>Your weapon can shoot projectiles that split into simple ropes or nets around your foes' legs to trip your targets, and you can climb using the grappling hooks built into the weapon. Your weapon innovation gains the climbing and ranged trip traits.</p>"
+            "value": "<p><strong>Ranged Only</strong></p><hr /><p>Your weapon can shoot projectiles that split into simple ropes or nets around your foes' legs to trip your targets, and you can climb using the grappling hooks built into the weapon. Your weapon innovation gains the climbing and ranged trip traits, as well as the tethered trait if it is thrown.</p>"
         },
         "level": {
             "value": 7
@@ -20,28 +20,34 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
         "rules": [
             {
-                "definition": [
-                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
-                ],
-                "key": "AdjustStrike",
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
                 "mode": "add",
-                "property": "weapon-traits",
+                "property": "traits",
                 "value": "climbing"
             },
             {
-                "definition": [
-                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
-                ],
-                "key": "AdjustStrike",
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
                 "mode": "add",
-                "property": "weapon-traits",
+                "property": "traits",
                 "value": "ranged-trip"
+            },
+            {
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:thrown"
+                ],
+                "property": "traits",
+                "value": "tethered"
             }
         ],
         "traits": {

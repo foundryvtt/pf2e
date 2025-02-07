@@ -3133,17 +3133,17 @@
                 },
                 "rules": [
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "dieSize": "d10"
-                        },
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
                         "predicate": [
                             "item:slug:heal"
                         ],
-                        "selector": [
+                        "property": "dice-faces",
+                        "selectors": [
                             "spell-damage",
                             "spell-healing"
-                        ]
+                        ],
+                        "value": 10
                     }
                 ],
                 "slug": "healing-hands",

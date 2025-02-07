@@ -4,7 +4,7 @@
     "name": "Effect: Overdrive",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Overdrive]</p>\n<p>Your Strikes deal additional damage equal to your Intelligence modifier.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Overdrive]</p>\n<p>Your Strikes deal additional damage equal to your Intelligence modifier on a critical success, or half your Intelligence modifier on a success. On a failure, your Strikes deal 1 additional fire damage instead.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,13 +16,32 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
         "rules": [
             {
                 "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:context:check:outcome:1",
+                                    {
+                                        "not": {
+                                            "gte": [
+                                                "parent:context:check:outcome",
+                                                0
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "failure"
+                    },
                     {
                         "label": "PF2E.Check.Result.Degree.Check.success",
                         "predicate": [
@@ -88,10 +107,38 @@
                 "value": "@item.origin.system.abilities.int.mod"
             },
             {
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "overdrive:critical-success",
+                            "overdrive:success"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "overdrive",
                 "value": "@actor.flags.pf2e.overdriveBaseDamage+ternary(gte(@item.origin.level,15), 3, ternary(gte(@item.origin.level,7), 2, ternary(gte(@item.origin.level,3),1,0)))"
+            },
+            {
+                "damageType": "fire",
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "overdrive:failure"
+                ],
+                "selector": "strike-damage",
+                "slug": "overdrive-failure",
+                "value": 1
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "self:effect:overdrive-failure",
+                "predicate": [
+                    "overdrive:failure"
+                ]
             },
             {
                 "domain": "all",

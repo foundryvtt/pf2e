@@ -45,14 +45,16 @@
                         "selector": "{item|_id}-damage"
                     },
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "dieSize": "d4"
-                        },
+                        "key": "DamageAlteration",
+                        "mode": "downgrade",
                         "predicate": [
                             "divert-power:laser"
                         ],
-                        "selector": "{item|_id}-damage"
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "value": 4
                     },
                     {
                         "key": "FlatModifier",
@@ -108,14 +110,16 @@
                 },
                 "rules": [
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "dieSize": "d4"
-                        },
+                        "key": "DamageAlteration",
+                        "mode": "downgrade",
                         "predicate": [
                             "divert-power:fist"
                         ],
-                        "selector": "{item|_id}-damage"
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "value": 4
                     },
                     {
                         "damageType": "fire",

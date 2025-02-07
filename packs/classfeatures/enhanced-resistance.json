@@ -20,8 +20,8 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
         "rules": [
@@ -55,8 +55,7 @@
                 ],
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Inventor.Modification.Breakthrough.EnhancedResistancePrompt",
-                "slug": "enhanced-resistance",
-                "slugsAsValues": true
+                "rollOption": "enhanced-resistance"
             },
             {
                 "key": "Resistance",
@@ -123,56 +122,22 @@
                 "predicate": [
                     "armor:id:{actor|flags.pf2e.innovationId}",
                     "enhanced-resistance:otherworldly-protection",
-                    {
-                        "not": "self:negative-healing"
-                    }
-                ],
-                "type": "vitality",
-                "value": "@actor.level"
-            },
-            {
-                "key": "Resistance",
-                "predicate": [
-                    "armor:id:{actor|flags.pf2e.innovationId}",
-                    "enhanced-resistance:otherworldly-protection",
-                    {
-                        "not": "self:negative-healing"
-                    },
-                    {
-                        "or": [
-                            "self:effect:overdrive-success",
-                            "self:effect:overdrive-critical-success"
-                        ]
-                    }
-                ],
-                "type": "vitality",
-                "value": "@actor.level + 2"
-            },
-            {
-                "key": "Resistance",
-                "predicate": [
-                    "armor:id:{actor|flags.pf2e.innovationId}",
-                    "enhanced-resistance:otherworldly-protection",
                     "self:negative-healing"
                 ],
-                "type": "void",
-                "value": "@actor.level"
+                "type": "vitality",
+                "value": "@actor.level + 3"
             },
             {
                 "key": "Resistance",
                 "predicate": [
                     "armor:id:{actor|flags.pf2e.innovationId}",
                     "enhanced-resistance:otherworldly-protection",
-                    "self:negative-healing",
                     {
-                        "or": [
-                            "self:effect:overdrive-success",
-                            "self:effect:overdrive-critical-success"
-                        ]
+                        "not": "self:negative-healing"
                     }
                 ],
                 "type": "void",
-                "value": "@actor.level + 2"
+                "value": "@actor.level + 3"
             },
             {
                 "key": "Resistance",
@@ -180,29 +145,28 @@
                     "armor:id:{actor|flags.pf2e.innovationId}",
                     "enhanced-resistance:otherworldly-protection"
                 ],
-                "type": [
-                    "holy",
-                    "unholy"
-                ],
-                "value": "@actor.level"
+                "type": "spirit",
+                "value": "@actor.level + 3"
             },
             {
                 "key": "Resistance",
                 "predicate": [
                     "armor:id:{actor|flags.pf2e.innovationId}",
                     "enhanced-resistance:otherworldly-protection",
-                    {
-                        "or": [
-                            "self:effect:overdrive-success",
-                            "self:effect:overdrive-critical-success"
-                        ]
-                    }
+                    "sanctification:unholy"
                 ],
-                "type": [
-                    "holy",
-                    "unholy"
+                "type": "holy",
+                "value": "@actor.level + 3"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "enhanced-resistance:otherworldly-protection",
+                    "sanctification:holy"
                 ],
-                "value": "@actor.level + 2"
+                "type": "unholy",
+                "value": "@actor.level + 3"
             },
             {
                 "key": "Resistance",

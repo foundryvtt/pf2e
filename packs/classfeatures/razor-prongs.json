@@ -14,7 +14,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>You can knock down and slash your foes with sharp, curved blades added to your weapon. Your innovation gains the trip and versatile S traits.</p>"
+            "value": "<p>You can knock down and slash your foes with sharp, curved blades added to your weapon. Your innovation gains the trip, tearing and versatile S traits.</p>"
         },
         "level": {
             "value": 1
@@ -23,27 +23,30 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
         "rules": [
             {
-                "definition": [
-                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
-                ],
-                "key": "AdjustStrike",
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
                 "mode": "add",
-                "property": "weapon-traits",
+                "property": "traits",
+                "value": "tearing"
+            },
+            {
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
                 "value": "trip"
             },
             {
-                "definition": [
-                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
-                ],
-                "key": "AdjustStrike",
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
                 "mode": "add",
-                "property": "weapon-traits",
+                "property": "traits",
                 "value": "versatile-s"
             }
         ],

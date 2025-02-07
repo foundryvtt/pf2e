@@ -4,7 +4,7 @@
     "name": "Stance: Bullet Dancer Stance",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Bullet Dancer Stance]</p>\n<p>While in this stance, the only Strikes you can make are those using bayonets, reinforced stocks, and simple firearms. You can use Flurry of Blows with these weapons. You can use your other monk feats or monk abilities that normally require unarmed attacks with bayonets and reinforced stocks, so long as the feat or ability doesn't require a single, specific Strike. You can also use them with simple firearms when attacking within half the first range increment.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Bullet Dancer Stance]</p>\n<p>While in this stance, the only Strikes you can make are those using bayonets, reinforced stocks, simple firearms, and simple combination weapons. You can use Flurry of Blows with these weapons. You can use other monk feats or monk abilities you have that normally require unarmed attacks with bayonets, reinforced stocks, and the melee component of simple combination weapons, so long as the feat or ability doesn't require a single, specific Strike. You can also use them with simple firearms when attacking within half the first range increment.</p>"
         },
         "duration": {
             "expiry": null,
@@ -16,11 +16,16 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Flurry of Blows"
+            }
+        ],
         "start": {
             "initiative": null,
             "value": 0
