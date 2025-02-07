@@ -766,16 +766,18 @@
             },
             {
                 "hideIfDisabled": true,
-                "key": "DamageDice",
-                "override": {
-                    "dieSize": "d10"
-                },
+                "key": "DamageAlteration",
+                "mode": "upgrade",
                 "predicate": [
                     "item:slug:{item|flags.pf2e.rulesSelections.spell}",
                     "item:tag:amped",
                     "item:slug:dancing-blade"
                 ],
-                "selector": "spell-damage"
+                "property": "dice-faces",
+                "selectors": [
+                    "spell-damage"
+                ],
+                "value": 10
             },
             {
                 "hideIfDisabled": true,

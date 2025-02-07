@@ -136,12 +136,22 @@
                         "value": true
                     },
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "{item|flags.pf2e.rulesSelections.animatedWeaponDamage}",
-                            "dieSize": "{item|flags.pf2e.rulesSelections.animatedWeaponDice}"
-                        },
-                        "selector": "animated-weapon-damage"
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
+                        "selectors": [
+                            "animated-weapon-damage"
+                        ],
+                        "value": "{item|flags.pf2e.rulesSelections.animatedWeaponDamage}"
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "dice-number",
+                        "selectors": [
+                            "animated-weapon-damage"
+                        ],
+                        "value": "{item|flags.pf2e.rulesSelections.animatedWeaponDice}"
                     }
                 ],
                 "slug": null,
