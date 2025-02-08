@@ -3723,17 +3723,18 @@
                 },
                 "rules": [
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "dieSize": "d10"
-                        },
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
                         "predicate": [
-                            "item:slug:heal"
+                            "item:slug:heal",
+                            "dice:slug:base"
                         ],
-                        "selector": [
+                        "property": "dice-faces",
+                        "selectors": [
                             "spell-damage",
                             "spell-healing"
-                        ]
+                        ],
+                        "value": 10
                     }
                 ],
                 "slug": "healing-hands",

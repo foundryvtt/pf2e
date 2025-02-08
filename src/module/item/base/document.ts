@@ -588,14 +588,22 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         // If any created types are "singular", remove existing competing ones.
-        // actor.deleteEmbeddedDocuments() will also delete any linked items.
+        // Also remove expired duplicate expired effects.
+        // Creature's deleteEmbeddedDocuments() will also delete any linked items.
         const singularTypes = ["ancestry", "background", "class", "heritage", "deity"] as const;
         const singularTypesToDelete = singularTypes.filter((type) => sources.some((s) => s.type === type));
         const preCreateDeletions = singularTypesToDelete.flatMap(
             (type): ItemPF2e<ActorPF2e>[] => actor.itemTypes[type],
         );
-        if (preCreateDeletions.length > 0) {
-            const idsToDelete = preCreateDeletions.map((i) => i.id);
+        const expiredDuplicateEffects = sources
+            .filter((s) => s.type === "effect")
+            .map((s) => s._stats?.duplicateSource ?? s._stats?.compendiumSource)
+            .flatMap((uuid) => actor.itemTypes.effect.filter((e) => e.sourceId === uuid && e.isExpired));
+        const idsToDelete = R.unique([
+            ...expiredDuplicateEffects.map((i) => i.id),
+            ...preCreateDeletions.map((i) => i.id),
+        ]);
+        if (idsToDelete.length > 0) {
             await actor.deleteEmbeddedDocuments("Item", idsToDelete, { render: false });
         }
 

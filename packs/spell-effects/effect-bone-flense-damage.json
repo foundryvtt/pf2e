@@ -1,0 +1,60 @@
+{
+    "_id": "P6f6UnvYSF5zATyu",
+    "img": "icons/commodities/bones/bone-spine-grey.webp",
+    "name": "Effect: Bone Flense (Damage)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Bone Flense]</p>\n<p>The target takes an additional d6 persistent bleed damage from the Strike of the imbued weapon.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure: Prey for Death"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "damageType": "bleed",
+                "diceNumber": "(floor((@item.level - 1)/2))",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "label": "PF2E.SpecificRule.SpellEffectBoneFlense.Label",
+                "predicate": [
+                    "item:id:{item|flags.pf2e.rulesSelections.weapon}",
+                    "bone-flense"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
