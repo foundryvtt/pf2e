@@ -2404,7 +2404,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When Abstalar casts heal, he rolls d10s instead of d8s. When he casts heal to heal a single creature other than himself, he regains Hit Points equal to the spell level of the heal spell.</p>"
+                    "value": "<p>When Abstalar casts @UUID[Compendium.pf2e.spells-srd.Item.Heal], he rolls d10s instead of d8s. When he casts <em>heal</em> to heal a single creature other than himself, he regains Hit Points equal to the spell rank of the <em>heal</em> spell.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2425,6 +2425,22 @@
                             "spell-healing"
                         ],
                         "value": 10
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "item:slug:heal",
+                            {
+                                "lt": [
+                                    "item:cast:actions",
+                                    3
+                                ]
+                            }
+                        ],
+                        "selector": "spell-healing",
+                        "text": "PF2E.NPCAbility.AbstalarZantus.CommunalHealingHands.Note",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
