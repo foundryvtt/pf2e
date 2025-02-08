@@ -1,3 +1,52 @@
+## 6.9.0
+
+### Highlights
+
+-   (Ambrose, Rigo, kromko, Randommisha13) Update Guns & Gears content to remaster
+
+### System Improvements
+
+-   (Kulkodar) Add tooltips to the item sheet traits
+-   (Supe) Remove expired copies of an effect when adding a new one
+
+### Bug Fixes
+
+-   (Supe) Fix certain description overrides in some items like the spellcasting repertoire class feature
+-   (Supe) Fix consumables retaining arrow stack behavior when changing from the ammo category
+-   (Supe) Fix kingdom army stats being incorrect on levelup if there were temporary bonuses or penalties
+
+### Data Updates
+
+-   (7H3LaughingMan) Correct critical failure persistant damage for Whispers of the Void
+-   (Abaddon) Add change shape ability to ifrit
+-   (Ambrose) Add effect to Bone Flense spell
+-   (Ambrose) Add Grab action to Raja-Krodha
+-   (Ambrose) Add missing details to Magus' Arcane Spellcasting class feature
+-   (Ambrose) Add vitality weakness to Arms of the Drowned
+-   (Ambrose) Correct action cost for Fire Scamp's Flame Breath action
+-   (Ambrose) Correct rarity to Grub Gloves
+-   (Ambrose) Fix Emotionally Unaware penalty so it doesn't apply on initiative rolls
+-   (Ambrose) Update Aquatic Combat and Crystal Shards to match to match Player Core and errata
+-   (Ambrose) Update Explosive Arrival automation and add `area-damage` option to localization strings
+-   (Ambrose) Update predicate for Daydream Trance
+-   (Dire Weasel) Add automation for Frost Fair Yanyuedao
+-   (Dire Weasel) Add some links and emphasis for harm and heal spells
+-   (Dire Weasel) Adding missing 7th rank entries to Atmospheric Staff (Major)
+-   (Dire Weasel) Fix action cost of Darkened Forest Form and Discomfiting Whispers
+-   (kromko) Fix a few area-effect checks
+-   (MrVauxs) Update Crunch to use DamageAlteration
+-   (rectulo) Fix format of spell in rivethun devotion feat
+-   (Rigo) Add missing prerequisite to Empiricist's Eye
+-   (Rigo) Add spell effect for Scintillating Safeguard
+-   (Rigo) Apply Flowing Spirit Strike's penalty to gleaming blade only
+-   (Rigo) Implement 2/25 PFS Rulings & Clarifications
+-   (Rigo) Link effect in Heroic Recovery's spellshape Item Alteration
+-   (Rigo) Remove Dazzling Brilliance from variant glass golem
+-   (Rigo) Restrict Regalia's flanking override to paragon Benefit
+-   (SpartanCPA) Adjust aura for Warsworn
+-   (SpartanCPA) Move DamageDice die size overrides to DamageAlteration
+-   (Tikael) Fix Gate's Threshold localization
+
 ## 6.8.5
 
 ### System Improvements
