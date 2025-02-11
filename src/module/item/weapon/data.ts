@@ -11,7 +11,8 @@ import type {
     PhysicalSystemSource,
     UsageDetails,
 } from "@item/physical/index.ts";
-import { ZeroToFour } from "@module/data.ts";
+import type { SpellSlotGroupId } from "@item/spellcasting-entry/collection.ts";
+import type { ZeroToFour } from "@module/data.ts";
 import { DamageDieSize, DamageType } from "@system/damage/index.ts";
 import type { WeaponTraitToggles } from "./trait-toggles.ts";
 import type {
@@ -89,6 +90,12 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
     /** Doubly-embedded adjustments, attachments, talismans etc. */
     subitems: PhysicalItemSource[];
 
+    /** If this is a staff, the number of charges and what spells is available on this staff */
+    staff: {
+        effect: string;
+        spells: StaffSpellData[];
+    } | null;
+
     // Refers to custom damage, *not* property runes
     property1: {
         value: string;
@@ -101,6 +108,15 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
         critDamageType: DamageType | "";
     };
     selectedAmmoId: string | null;
+}
+
+interface StaffSpellData {
+    uuid: ItemUUID;
+    rank: SpellSlotGroupId;
+    /** The spell's name, used if the lookup fails */
+    name?: string;
+    /** The spell's image, used if the lookup fails */
+    img?: ImageFilePath;
 }
 
 interface WeaponTraitsSource extends PhysicalItemTraits<WeaponTrait> {
@@ -196,6 +212,7 @@ interface ComboWeaponMeleeUsage {
 export type {
     ComboWeaponMeleeUsage,
     SpecificWeaponData,
+    StaffSpellData,
     WeaponDamage,
     WeaponFlags,
     WeaponMaterialData,
