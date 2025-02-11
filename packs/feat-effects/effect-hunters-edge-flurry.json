@@ -22,10 +22,14 @@
         },
         "rules": [
             {
+                "key": "TokenMark",
+                "slug": "hunted-prey"
+            },
+            {
                 "domain": "all",
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
-                "option": "hunted-prey",
+                "option": "target:mark:hunted-prey",
                 "toggleable": true
             },
             {
@@ -33,7 +37,7 @@
                 "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
                 "predicate": [
                     "action:seek",
-                    "hunted-prey"
+                    "target:mark:hunted-prey"
                 ],
                 "selector": "perception",
                 "type": "circumstance",
@@ -44,7 +48,7 @@
                 "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
                 "predicate": [
                     "action:track",
-                    "hunted-prey"
+                    "target:mark:hunted-prey"
                 ],
                 "selector": "survival",
                 "type": "circumstance",
@@ -54,7 +58,7 @@
                 "key": "MultipleAttackPenalty",
                 "predicate": [
                     "agile",
-                    "hunted-prey"
+                    "target:mark:hunted-prey"
                 ],
                 "selector": "attack",
                 "value": -2
@@ -62,7 +66,7 @@
             {
                 "key": "MultipleAttackPenalty",
                 "predicate": [
-                    "hunted-prey",
+                    "target:mark:hunted-prey",
                     {
                         "not": "agile"
                     }
