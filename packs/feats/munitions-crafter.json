@@ -40,7 +40,12 @@
                     "other": [
                         {
                             "definition": [
-                                "item:category:ammo"
+                                {
+                                    "or": [
+                                        "item:category:ammo",
+                                        "item:slug:black-powder-dose"
+                                    ]
+                                }
                             ],
                             "quantity": 4
                         }
@@ -50,8 +55,9 @@
                     "item:trait:alchemical",
                     {
                         "or": [
+                            "item:category:ammo",
                             "item:group:bomb",
-                            "item:category:ammo"
+                            "item:slug:black-powder-dose"
                         ]
                     }
                 ],
