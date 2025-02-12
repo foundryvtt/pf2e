@@ -546,6 +546,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 damage: { damageType: meleeUsage.damage.type, dice: 1, die: meleeUsage.damage.die },
                 group: meleeUsage.group,
                 range: null,
+                rangedGroup: meleeUsage.rangedGroup,
                 reload: { value: null },
                 traits: { value: [...meleeUsage.traits], toggles: traitToggles },
                 selectedAmmoId: null,
