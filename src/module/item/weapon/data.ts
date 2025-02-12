@@ -54,6 +54,7 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
     material: WeaponMaterialSource;
     category: WeaponCategory;
     group: WeaponGroup | null;
+    rangedGroup: WeaponGroup | null
     /** A base shield type can be used for attacks generated from shields */
     baseItem: BaseWeaponType | null;
     bonus: {
@@ -189,6 +190,7 @@ interface WeaponRuneData extends WeaponRuneSource {
 interface ComboWeaponMeleeUsage {
     damage: { type: DamageType; die: DamageDieSize };
     group: MeleeWeaponGroup;
+    rangedGroup?: WeaponGroup
     traits?: WeaponTrait[];
     traitToggles?: { modular: DamageType | null; versatile: DamageType | null };
 }
