@@ -1,0 +1,129 @@
+{
+    "_id": "LdmzgBOTjCete4F7",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/frost-vial.webp",
+    "name": "Effect: Frost Vial",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Frost Vial (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Frost Vial (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Frost Vial (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Frost Vial (Major)]</p>\n<p>You take a status penalty to your Speeds.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:frost-vial-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Frost Vial (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:item:slug:frost-vial-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Frost Vial (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:frost-vial-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Frost Vial (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:frost-vial-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Frost Vial (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "frost-vial"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "all-speeds",
+                "slug": "frost-vial-penalty",
+                "type": "status",
+                "value": -5
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "downgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "frost-vial:frost-vial-greater",
+                            "frost-vial:frost-vial-moderate"
+                        ]
+                    }
+                ],
+                "selector": "all-speeds",
+                "slug": "frost-vial-penalty",
+                "value": -10
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "downgrade",
+                "predicate": [
+                    "frost-vial:frost-vial-major"
+                ],
+                "selector": "all-speeds",
+                "slug": "frost-vial-penalty",
+                "value": -15
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
