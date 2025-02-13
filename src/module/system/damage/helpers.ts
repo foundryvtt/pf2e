@@ -1,6 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { DamageDicePF2e, ModifierPF2e, RawDamageDice, adjustModifiers } from "@actor/modifiers.ts";
 import type { ItemPF2e } from "@item";
+import { WeaponDamage } from "@item/weapon/data.ts";
 import { extractDamageAlterations, extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { ErrorPF2e, fontAwesomeIcon, signedInteger, tupleHasValue } from "@util";
 import * as R from "remeda";
@@ -23,6 +24,7 @@ import {
     DAMAGE_DICE_FACES,
     DAMAGE_DIE_SIZES,
 } from "./values.ts";
+import { ConvertedNPCDamage } from "./weapon.ts";
 
 function nextDamageDieSize(next: { upgrade: DamageDieSize }): DamageDieSize;
 function nextDamageDieSize(next: { downgrade: DamageDieSize }): DamageDieSize;
@@ -344,6 +346,85 @@ function isUnsimplifableArithmetic(term: RollTerm): boolean {
     );
 }
 
+/** Apply damage alterations to weapon base damage. */
+function processBaseDamage<TDamage extends ConvertedNPCDamage | WeaponDamage>(
+    selector: string,
+    unprocessed: TDamage,
+    options: { actor: ActorPF2e; item: ItemPF2e<ActorPF2e>; domains: string[]; options: string[] | Set<string> },
+): TDamage;
+function processBaseDamage(
+    selector: string,
+    unprocessed: ConvertedNPCDamage | WeaponDamage,
+    {
+        actor,
+        item,
+        domains,
+        options,
+    }: { actor: ActorPF2e; item: ItemPF2e<ActorPF2e>; domains: string[]; options: string[] | Set<string> },
+): ConvertedNPCDamage | WeaponDamage {
+    const damageCategory = "category" in unprocessed ? unprocessed.category : null;
+    const dice =
+        unprocessed.dice > 0
+            ? new DamageDicePF2e({
+                  selector,
+                  slug: "base",
+                  category: damageCategory,
+                  damageType: unprocessed.damageType,
+                  diceNumber: unprocessed.dice,
+                  dieSize: unprocessed.die,
+              })
+            : null;
+    const modifier =
+        unprocessed.modifier !== 0
+            ? new ModifierPF2e({
+                  slug: "base",
+                  label: "Base",
+                  damageCategory,
+                  damageType: unprocessed.damageType,
+                  modifier: unprocessed.modifier,
+              })
+            : null;
+    const persistent = unprocessed.persistent
+        ? unprocessed.persistent.faces
+            ? new DamageDicePF2e({
+                  selector,
+                  slug: "base-persistent",
+                  category: "persistent",
+                  damageType: unprocessed.persistent.type,
+                  diceNumber: unprocessed.persistent.number,
+                  dieSize: `d${unprocessed.persistent.faces}`,
+              })
+            : new ModifierPF2e({
+                  slug: "base-persistent",
+                  label: "Base",
+                  damageCategory: "persistent",
+                  damageType: unprocessed.persistent.type,
+                  modifier: unprocessed.persistent.number,
+              })
+        : null;
+    const alterations = extractDamageAlterations(actor.synthetics.damageAlterations, domains, "base");
+    for (const alteration of alterations) {
+        if (dice) alteration.applyTo(dice, { item, test: options });
+        if (modifier) alteration.applyTo(modifier, { item, test: options });
+        if (persistent) alteration.applyTo(persistent, { item, test: options });
+    }
+
+    return {
+        category: damageCategory,
+        damageType: dice?.damageType ?? modifier?.damageType ?? unprocessed.damageType,
+        dice: dice?.diceNumber ?? 0,
+        die: dice?.dieSize ?? null,
+        modifier: modifier?.value ?? 0,
+        persistent: persistent
+            ? {
+                  type: persistent.damageType ?? unprocessed.persistent?.type ?? unprocessed.damageType,
+                  number: unprocessed.persistent?.number ?? 0,
+                  faces: "dieSize" in persistent ? persistent.faces : null,
+              }
+            : null,
+    };
+}
+
 /** Check whether a roll has dice terms associated with a damage roll */
 function looksLikeDamageRoll(roll: Roll): boolean {
     const { dice } = roll;
@@ -426,6 +507,7 @@ export {
     isUnsimplifableArithmetic,
     looksLikeDamageRoll,
     nextDamageDieSize,
+    processBaseDamage,
     renderComponentDamage,
     simplifyTerm,
 };

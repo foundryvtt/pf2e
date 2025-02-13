@@ -272,8 +272,8 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     async getDamage(params: SpellDamageOptions = { skipDialog: true }): Promise<SpellDamage | null> {
         // Return early if the spell doesn't deal damage
-        const spellcasting = this.spellcasting;
-        if (Object.keys(this.system.damage).length === 0 || !this.actor || !spellcasting?.statistic) {
+        const { actor, spellcasting } = this;
+        if (Object.keys(this.system.damage).length === 0 || !actor || !spellcasting?.statistic) {
             return null;
         }
 
@@ -281,40 +281,41 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const rollData = this.getRollData({ castRank });
 
         // Loop over the user defined damage fields
-        const base: BaseDamageData[] = [];
-        for (const [id, damage] of Object.entries(this.system.damage ?? {})) {
-            if (!DamageRoll.validate(damage.formula)) {
-                console.error(`Failed to parse damage formula "${damage.formula}"`);
-                return null;
-            }
+        const base: BaseDamageData[] = Object.entries(this.system.damage ?? {})
+            .map(([id, damage]) => {
+                if (!DamageRoll.validate(damage.formula)) {
+                    console.error(`Failed to parse damage formula "${damage.formula}"`);
+                    return null;
+                }
 
-            const terms = parseTermsFromSimpleFormula(damage.formula, { rollData });
+                const terms = parseTermsFromSimpleFormula(damage.formula, { rollData });
 
-            // Check for and apply interval spell scaling
-            const heightening = this.system.heightening;
-            if (heightening?.type === "interval" && heightening.interval) {
-                const scalingFormula = heightening.damage[id];
-                const timesHeightened = Math.floor((castRank - this.baseRank) / heightening.interval);
-                if (scalingFormula && timesHeightened > 0) {
-                    const scalingTerms = parseTermsFromSimpleFormula(scalingFormula, { rollData });
-                    for (let i = 0; i < timesHeightened; i++) {
-                        terms.push(...fu.deepClone(scalingTerms));
+                // Check for and apply interval spell scaling
+                const heightening = this.system.heightening;
+                if (heightening?.type === "interval" && heightening.interval) {
+                    const scalingFormula = heightening.damage[id];
+                    const timesHeightened = Math.floor((castRank - this.baseRank) / heightening.interval);
+                    if (scalingFormula && timesHeightened > 0) {
+                        const scalingTerms = parseTermsFromSimpleFormula(scalingFormula, { rollData });
+                        for (let i = 0; i < timesHeightened; i++) {
+                            terms.push(...fu.deepClone(scalingTerms));
+                        }
                     }
                 }
-            }
 
-            // Increase or decrease the first instance of damage by 2 or 4 if elite or weak
-            const adjustment = this.actor.isOfType("npc") && this.actor.system.attributes.adjustment;
-            if (terms.length > 0 && base.length === 0 && adjustment) {
-                const value = this.atWill ? 2 : 4;
-                terms.push({ dice: null, modifier: this.actor.isElite ? value : -value });
-            }
+                // Increase or decrease the first instance of damage by 2 or 4 if elite or weak
+                const adjustment = actor.isOfType("npc") && actor.system.attributes.adjustment;
+                if (terms.length > 0 && base.length === 0 && adjustment) {
+                    const value = this.atWill ? 2 : 4;
+                    terms.push({ dice: null, modifier: actor.isElite ? value : -value });
+                }
 
-            const damageType = damage.type;
-            const category = damage.category || null;
-            const materials = damage.materials;
-            base.push({ terms: combinePartialTerms(terms), damageType, category, materials });
-        }
+                const damageType = damage.type;
+                const category = damage.category || null;
+                const materials = damage.materials;
+                return { terms: combinePartialTerms(terms), damageType, category, materials };
+            })
+            .filter(R.isNonNull);
 
         if (base.length === 0) return null;
 
@@ -336,7 +337,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             .sort();
         const actionAndTraitOptions = new Set(["action:cast-a-spell", "self:action:slug:cast-a-spell", ...spellTraits]);
         const contextData = await new DamageContext({
-            origin: { actor: this.actor, item: this as SpellPF2e<ActorPF2e>, statistic: checkStatistic },
+            origin: { actor, item: this as SpellPF2e<ActorPF2e>, statistic: checkStatistic },
             target: isAttack ? { token: params.target } : null,
             domains,
             options: actionAndTraitOptions,
@@ -362,11 +363,11 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         // Add modifiers and damage die adjustments
         const modifiers: ModifierPF2e[] = [];
         const damageDice: DamageDicePF2e[] = [];
-        const actor = contextData.origin.actor;
+        const originClone = contextData.origin.actor;
         const { damageAlterations, modifierAdjustments } = actor.synthetics;
 
-        if (actor.system.abilities) {
-            const attributes = actor.system.abilities;
+        if (originClone.system.abilities) {
+            const attributes = originClone.system.abilities;
             const attributeModifiers = Object.entries(this.system.damage)
                 .filter(([, d]) => d.applyMod)
                 .map(
