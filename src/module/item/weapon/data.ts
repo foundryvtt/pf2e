@@ -190,7 +190,7 @@ interface WeaponRuneData extends WeaponRuneSource {
 interface ComboWeaponMeleeUsage {
     damage: { type: DamageType; die: DamageDieSize };
     group: MeleeWeaponGroup;
-    rangedGroup?: WeaponGroup;
+    rangedGroup: WeaponGroup;
     traits?: WeaponTrait[];
     traitToggles?: { modular: DamageType | null; versatile: DamageType | null };
 }
