@@ -247,12 +247,9 @@
                 "value": "@blast.flags.pf2e.attackItemBonus"
             },
             {
-                "damageType": "fire",
-                "key": "DamageDice",
+                "key": "DamageAlteration",
                 "label": "PF2E.SpecificRule.Kineticist.KineticGate.Junction.ImpulseJunction",
-                "override": {
-                    "upgrade": true
-                },
+                "mode": "upgrade",
                 "predicate": [
                     {
                         "gte": [
@@ -260,10 +257,12 @@
                             2
                         ]
                     },
-                    "impulse",
-                    "junction:fire:impulse"
+                    "item:trait:impulse",
+                    "junction:fire:impulse",
+                    "damage:type:fire"
                 ],
-                "selector": [
+                "property": "dice-faces",
+                "selectors": [
                     "impulse-damage",
                     "inline-damage"
                 ]
