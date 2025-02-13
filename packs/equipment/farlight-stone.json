@@ -1,0 +1,115 @@
+{
+    "_id": "AQBJX5RnI1YIMLmm",
+    "img": "icons/commodities/stone/stone-nugget-gold.webp",
+    "name": "Farlight Stone",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p><em>Farlight stones</em> are common in libraries, monasteries, labs, and other places where simple but silent communication is important. <em>Farlight stones</em> always come in linked pairs, and each of the fist-sized stones can be Activated independently.</p><hr /><p><strong>Activate—Light</strong> <span class=\"action-glyph\">1</span> (manipulate)</p>\n<p><strong>Effect</strong> The stone begins to glow as a torch, shedding bright light in a 20-foot radius (and dim light to the next 20 feet). You can Activate the stone in this way again to end the effect.</p><hr /><p><strong>Activate—Color</strong> <span class=\"action-glyph\">1</span> (concentrate)</p>\n<p><strong>Requirements</strong> The stone is glowing with light</p>\n<p><strong>Effect</strong> You change the color of the stone's light to any other color, which remains as long as the stone sheds light.</p><hr /><p><strong>Activate—Notify</strong> <span class=\"action-glyph\">1</span> (concentrate)</p>\n<p><strong>Requirements</strong> The stone is glowing with light</p>\n<p><strong>Effect</strong> The stone's light begins to pulse. You can choose the rate of the pulse between slow, moderate, and fast. If the linked stone is within 15 miles, its center begins to glow in the same color and pulse at the same rate. You can use this activation to end the pulsing caused by a linked stone.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 2
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 35
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #213: Thirst for Blood"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.LitItem",
+                "option": "farlight-stone-lit",
+                "suboptions": [
+                    {
+                        "label": "PF2E.Color.Blue",
+                        "value": "#0000FF"
+                    },
+                    {
+                        "label": "PF2E.Color.Cyan",
+                        "value": "#43D6D6"
+                    },
+                    {
+                        "label": "PF2E.Color.Green",
+                        "value": "#00FF00"
+                    },
+                    {
+                        "label": "PF2E.Color.Indigo",
+                        "value": "#4B0082"
+                    },
+                    {
+                        "label": "PF2E.Color.Magenta",
+                        "value": "#FF00FF"
+                    },
+                    {
+                        "label": "PF2E.Color.Orange",
+                        "value": "#FFA400"
+                    },
+                    {
+                        "label": "PF2E.Color.Red",
+                        "value": "#FF0000"
+                    },
+                    {
+                        "label": "PF2E.Color.Violet",
+                        "value": "#9400D3"
+                    },
+                    {
+                        "label": "PF2E.Color.White",
+                        "value": "#AAAAAA"
+                    },
+                    {
+                        "label": "PF2E.Color.Yellow",
+                        "value": "#FAFA00"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "TokenLight",
+                "value": {
+                    "alpha": 0.4,
+                    "animation": {
+                        "intensity": 4,
+                        "speed": 1,
+                        "type": "torch"
+                    },
+                    "bright": 20,
+                    "color": "{item|flags.pf2e.rulesSelections.farlightStoneLit}",
+                    "dim": 40,
+                    "shadows": 0.2
+                }
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "light",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        }
+    },
+    "type": "equipment"
+}
