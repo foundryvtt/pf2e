@@ -1,5 +1,6 @@
 {
-    "_id": "Mu3obsMXZ0OYlQpo",
+    "_id": "qGG1x7nAp6ueDZZC",
+    "folder": "oAIT37JOUCRcCl1O",
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -60,20 +61,17 @@
             "name": "Jaws",
             "sort": 200000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
                 "attackEffects": {
                     "value": [
                         "grab"
                     ]
                 },
                 "bonus": {
-                    "value": 17
+                    "value": 20
                 },
                 "damageRolls": {
                     "BqbuEl9QLIApnUsB": {
-                        "damage": "3d6+8",
+                        "damage": "3d8+9",
                         "damageType": "piercing"
                     }
                 },
@@ -89,9 +87,6 @@
                 "slug": null,
                 "traits": {
                     "value": []
-                },
-                "weaponType": {
-                    "value": "melee"
                 }
             },
             "type": "melee"
@@ -102,18 +97,15 @@
             "name": "Pipe",
             "sort": 300000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
                 "attackEffects": {
                     "value": []
                 },
                 "bonus": {
-                    "value": 13
+                    "value": 16
                 },
                 "damageRolls": {
                     "itMpfcmWVcWxzmpC": {
-                        "damage": "4d6",
+                        "damage": "4d8",
                         "damageType": "sonic"
                     }
                 },
@@ -133,9 +125,6 @@
                         "range-60",
                         "sonic"
                     ]
-                },
-                "weaponType": {
-                    "value": "ranged"
                 }
             },
             "type": "melee"
@@ -176,7 +165,6 @@
                 ],
                 "slug": "telepathy",
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "aura",
                         "magical",
@@ -229,11 +217,12 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> A target creature within 30 feet must succeed at a @Check[will|dc:25] save or gain the effects of @UUID[Compendium.pf2e.spells-srd.Item.Cursed Metamorphosis], being polymorphed into a pig whose girth is determined by the target's wealth. After 24 hours, the target can end this effect using a Dismiss action, at which point the yeongno becomes aware that the effect has ended. A yeongno can use Fortune's Favor only if no targets are currently under its effects.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> A target creature within 30 feet must succeed at a @Check[will|dc:28] save or gain the effects of @UUID[Compendium.pf2e.spells-srd.Item.Cursed Metamorphosis], being polymorphed into a pig whose girth is determined by the target's wealth. After 24 hours, the target can end this effect using a Dismiss action, at which point the yeongno becomes aware that the effect has ended. A yeongno can use Fortune's Favor only if no targets are currently under its effects.</p>"
                 },
                 "frequency": {
                     "max": 1,
-                    "per": "day"
+                    "per": "day",
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -267,7 +256,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The target is carrying at least 100 gp worth of precious metals</p>\n<hr />\n<p><strong>Effect</strong> The yeongno crushes a creature it can see with the weight of their wealth. Apparitions of gold coins approximating the wealth of the target materialize and pummel the target from all sides. The target attempts a @Check[will|dc:25] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The target takes @Damage[3d6[persistent,mental]] damage and is slowed 1 as long as the damage continues. The effect immediately ends if they're carrying less than 100 gp worth of precious metals.</p>\n<p><strong>Critical Failure</strong> As failure, except any flat checks to remove the persistent damage automatically fail.</p>"
+                    "value": "<p><strong>Requirements</strong> The target is carrying at least 100 gp worth of precious metals</p><hr /><p><strong>Effect</strong> The yeongno crushes a creature it can see with the weight of their wealth. Apparitions of gold coins approximating the wealth of the target materialize and pummel the target from all sides. The target attempts a @Check[will|dc:28] save.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The target takes @Damage[3d8[persistent,mental]] damage and is slowed 1 as long as the damage continues. The effect immediately ends if they're carrying less than 100 gp worth of precious metals.</p>\n<p><strong>Critical Failure</strong> As failure, except any flat checks to remove the persistent damage automatically fail.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -302,7 +291,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Medium, @Damage[(3d6+6)[bludgeoning]], Rupture [20]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                    "value": "<p>Medium, @Damage[(3d8+7)[bludgeoning]], Rupture 23</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -312,7 +301,6 @@
                 "rules": [],
                 "slug": "swallow-whole",
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "attack"
                     ]
@@ -347,14 +335,13 @@
                 "rules": [],
                 "slug": "grab",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
             "type": "action"
         }
     ],
-    "name": "Yeongno",
+    "name": "Decked-Out Appraiser",
     "system": {
         "abilities": {
             "cha": {
@@ -364,10 +351,10 @@
                 "mod": 4
             },
             "dex": {
-                "mod": 2
+                "mod": 3
             },
             "int": {
-                "mod": 2
+                "mod": 3
             },
             "str": {
                 "mod": 6
@@ -379,7 +366,7 @@
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 25
+                "value": 28
             },
             "adjustment": null,
             "allSaves": {
@@ -387,9 +374,9 @@
             },
             "hp": {
                 "details": "",
-                "max": 120,
+                "max": 160,
                 "temp": 0,
-                "value": 120
+                "value": 160
             },
             "speed": {
                 "otherSpeeds": [],
@@ -397,9 +384,9 @@
             }
         },
         "details": {
-            "blurb": "",
+            "blurb": "Variant yeongno",
             "languages": {
-                "details": "telepathy 100 feet",
+                "details": "Telepathy 100 feet",
                 "value": [
                     "diabolic",
                     "draconic",
@@ -408,58 +395,58 @@
                 ]
             },
             "level": {
-                "value": 7
+                "value": 9
             },
             "privateNotes": "<h3>Glutton's Redemption</h3>\n<p>Yeongno eat the corrupt and wealthy as a symbolic means of consuming their own greed. While yeongno aspire to ascend from their current existence, they also actively sabotage other creatures hoping to do the same. They feel particularly threatened by imugi, whom the yeongno believe would take their spots in heaven.</p>",
             "publicNotes": "<p>Neither human nor beast yet resembling both, yeongno (yeong-no) are creatures that once were denizens of heaven but were cast out, down to the mortal Universe, due to their own greed. Yeongno claim to have once been celestial dragons and wear elongated dragon masks with full-body wraps decorated with scale patterns in honor of this claim—though no one has been able to confirm the veracity of this belief. As they wander, they hold a willow pipe in their mouths, producing a distinct \"bibi\" sound that often heralds their appearance.</p>\n<p>Despite their reputation as monsters who eat people, yeongno are welcomed by the poor and oppressed, who see the creatures as wise and just. Yeongno believe that by eating 100 wealthy individuals who abuse their wealth or who accumulated their wealth by underhanded or exploitative means, they can atone for their own greed, allowing them to ascend back into heaven. A corrupt and greedy individual can escape their fate of being eaten by a yeongno by giving away all of their wealth and agreeing to be transformed into a pig for one year. If the person can endure one year living as a pig in the care of a household they once harmed, the yeongno will spare them.</p>",
             "publication": {
                 "license": "ORC",
                 "remaster": true,
-                "title": "Pathfinder Lost Omens: Tian Xia World Guide"
+                "title": "Pathfinder Society Scenario #6-11: The Godsrain and the Dragon"
             }
         },
         "initiative": {
             "statistic": "perception"
         },
         "perception": {
-            "details": "goldvision (precise) 120 feet",
-            "mod": 17,
+            "details": "goldsense (precise) 120 feet",
+            "mod": 20,
             "senses": []
         },
         "resources": {},
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 15
+                "value": 18
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 13
+                "value": 16
             },
             "will": {
                 "saveDetail": "",
-                "value": 17
+                "value": 20
             }
         },
         "skills": {
             "athletics": {
-                "base": 17
+                "base": 20
             },
             "diplomacy": {
-                "base": 15
+                "base": 18
             },
             "religion": {
-                "base": 15
+                "base": 18
             },
             "society": {
-                "base": 15
+                "base": 18
             },
             "stealth": {
-                "base": 13
+                "base": 16
             }
         },
         "traits": {
-            "rarity": "common",
+            "rarity": "uncommon",
             "size": {
                 "value": "lg"
             },
