@@ -282,7 +282,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         // Loop over the user defined damage fields
         const base: BaseDamageData[] = Object.entries(this.system.damage ?? {})
-            .map(([id, damage]) => {
+            .map(([id, damage], index) => {
                 if (!DamageRoll.validate(damage.formula)) {
                     console.error(`Failed to parse damage formula "${damage.formula}"`);
                     return null;
@@ -305,7 +305,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
                 // Increase or decrease the first instance of damage by 2 or 4 if elite or weak
                 const adjustment = actor.isOfType("npc") && actor.system.attributes.adjustment;
-                if (terms.length > 0 && base.length === 0 && adjustment) {
+                if (terms.length > 0 && index === 0 && adjustment) {
                     const value = this.atWill ? 2 : 4;
                     terms.push({ dice: null, modifier: actor.isElite ? value : -value });
                 }
