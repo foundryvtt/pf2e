@@ -4211,7 +4211,7 @@
                         "Failure": "The innovation becomes incapable of being used for further unstable actions. @UUID[Compendium.pf2e.feat-effects.Item.olpkQDGDzmYZCvQH]{Effect: Unstable Check Failure}",
                         "Label": "Unstable Check"
                     },
-                    "Note": "When you take an unstable action, attempt a @Check[flat|dc:15|options:unstable-check|name:PF2E.SpecificRule.Inventor.Unstable.FlatCheck.Label]{flat check} immediately after applying its effects.",
+                    "Note": "When you take an unstable action, attempt a @Check[flat|dc:resolve(ternary(lt(@actor.skills.crafting.rank,4),15,13))|options:unstable-check|name:PF2E.SpecificRule.Inventor.Unstable.FlatCheck.Label|showDC:all] immediately after applying its effects.",
                     "Stable": "Stable",
                     "UnstableFunction": {
                         "Label": "Enable Unstable Functions"
