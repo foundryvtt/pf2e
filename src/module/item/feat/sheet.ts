@@ -62,7 +62,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             canHaveKeyOptions: featCanHaveKeyOptions(feat),
             categories: CONFIG.PF2E.featCategories,
             frequencies: CONFIG.PF2E.frequencies,
-            hasLanguages: subfeatures.languages.slots > 0 || subfeatures.languages.granted.length > 0,
+            hasLanguages: subfeatures.languages.slots > 0 || subfeatures.languages.granted.size > 0,
             hasLineageTrait,
             hasProficiencies: Object.keys(subfeatures.proficiencies).length > 0,
             hasSenses: Object.keys(subfeatures.senses).length > 0,
@@ -98,8 +98,8 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         return {
             slots: subfeatures.languages.slots,
             granted: {
-                available: languages.filter((l) => !subfeatures.languages.granted.includes(l.slug)),
-                selected: languages.filter((l) => subfeatures.languages.granted.includes(l.slug)),
+                available: languages.filter((l) => !subfeatures.languages.granted.has(l.slug)),
+                selected: languages.filter((l) => subfeatures.languages.granted.has(l.slug)),
             },
         };
     }

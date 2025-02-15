@@ -124,7 +124,7 @@ interface AlteredDescriptionContent {
 type FrequencyInterval = keyof typeof CONFIG.PF2E.frequencies;
 
 interface FrequencySource {
-    value?: number;
+    value: number | undefined;
     max: number;
     /** Gap between recharges as an ISO8601 duration, or "day" for daily prep. */
     per: FrequencyInterval;

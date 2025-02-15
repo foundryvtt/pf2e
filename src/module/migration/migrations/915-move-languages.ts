@@ -69,7 +69,7 @@ export class Migration915MoveLanguages extends Migration914MovePerceptionSenses 
             (i): i is FeatSource => i.type === "feat" && wildsongSlugs.includes(i.system.slug ?? ""),
         );
         if (wildsongFeature) {
-            wildsongFeature.system.subfeatures = { languages: { granted: ["wildsong"], slots: 0 } };
+            wildsongFeature.system.subfeatures.languages = { granted: ["wildsong"], slots: 0 };
             const languages = source.system.details.languages.value;
             if (languages.includes("wildsong")) {
                 languages.splice(languages.indexOf("wildsong"), 1);

@@ -1,20 +1,20 @@
 import type { ActorPF2e } from "@actor";
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
-import { FrequencyInterval, ItemSourcePF2e, PhysicalItemSource } from "@item/base/data/index.ts";
-import { PersistentSourceData } from "@item/condition/data.ts";
+import type { FrequencyInterval, ItemSourcePF2e, PhysicalItemSource } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { prepareBulkData } from "@item/physical/helpers.ts";
-import { ZeroToThree } from "@module/data.ts";
+import type { WeaponRangeIncrement } from "@item/weapon/types.ts";
+import type { ZeroToThree } from "@module/data.ts";
 import { nextDamageDieSize } from "@system/damage/helpers.ts";
-import { isObject, objectHasKey } from "@util";
+import { objectHasKey } from "@util";
 import { Duration } from "luxon";
+import * as R from "remeda";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
 import { AELikeChangeMode, AELikeRuleElement } from "../ae-like.ts";
 import type { RuleElementPF2e } from "../base.ts";
 import { ResolvableValueField } from "../data.ts";
 import { ITEM_ALTERATION_VALIDATORS } from "./schemas.ts";
-import { WeaponRangeIncrement } from "@item/weapon/types.ts";
 
 class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlterationSchema> {
     static VALID_PROPERTIES = [
@@ -286,9 +286,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 return;
             }
             case "persistent-damage": {
-                const pdObject = isObject<PersistentSourceData>(data.alteration.value)
-                    ? data.alteration.value
-                    : { dc: NaN };
+                const pdObject = R.isPlainObject(data.alteration.value) ? data.alteration.value : { dc: NaN };
                 const dc = Math.trunc(Math.abs(Number(pdObject?.dc) || 15));
                 data.alteration.value = { ...pdObject, dc };
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
@@ -328,7 +326,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
             case "frequency-max": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (!validator.isValid(data)) return;
-                data.item.system.frequency ??= { max: 1, per: "day" };
+                data.item.system.frequency ??= { value: undefined, max: 1, per: "day" };
                 const frequency = data.item.system.frequency;
                 const newValue = AELikeRuleElement.getNewValue(this.mode, frequency.max, data.alteration.value);
                 frequency.max = newValue;
@@ -338,7 +336,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
             case "frequency-per": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (!validator.isValid(data)) return;
-                data.item.system.frequency ??= { max: 1, per: "day" };
+                data.item.system.frequency ??= { value: undefined, max: 1, per: "day" };
                 const newValue = this.#getNewInterval(this.mode, data.item.system.frequency.per, data.alteration.value);
                 if (newValue instanceof DataModelValidationFailure) {
                     throw newValue.asError();

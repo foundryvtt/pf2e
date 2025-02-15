@@ -5,14 +5,13 @@ import type { FeatGroup } from "@actor/character/feats/index.ts";
 import type { SenseData } from "@actor/creature/index.ts";
 import { ItemPF2e, type HeritagePF2e } from "@item";
 import { getActionCostRollOptions, normalizeActionChangeData, processSanctification } from "@item/ability/helpers.ts";
-import { AbilityTraitToggles } from "@item/ability/trait-toggles.ts";
 import { ActionCost, Frequency, RawItemChatData } from "@item/base/data/index.ts";
 import { Rarity } from "@module/data.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "@module/rules/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
 import * as R from "remeda";
-import { FeatSource, FeatSubfeatures, FeatSystemData } from "./data.ts";
+import { FeatSource, FeatSystemData } from "./data.ts";
 import { featCanHaveKeyOptions, suppressFeats } from "./helpers.ts";
 import { FeatOrFeatureCategory, FeatTrait } from "./types.ts";
 import { FEATURE_CATEGORIES, FEAT_CATEGORIES } from "./values.ts";
@@ -95,9 +94,6 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         this.suppressed = false;
         this.crafting = null;
 
-        // Handle legacy data with empty-string locations
-        this.system.location ||= null;
-
         const traits = this.system.traits.value;
 
         // Add the General trait if of the general feat type
@@ -126,33 +122,11 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             this.system.onlyLevel1 = true;
         }
 
-        // `Infinity` is stored as `null` in JSON, so change back
-        this.system.maxTakable ??= Infinity;
-
         // Feats takable only at level 1 can never be taken multiple times
         if (this.system.onlyLevel1) {
             this.system.maxTakable = 1;
         }
 
-        this.system.traits.toggles = new AbilityTraitToggles(this);
-
-        // Initialize frequency uses if not set
-        if (this.actor && this.system.frequency) {
-            this.system.frequency.value ??= this.system.frequency.max;
-        }
-
-        this.system.subfeatures = fu.mergeObject(
-            {
-                keyOptions: [],
-                languages: { granted: [], slots: 0 },
-                proficiencies: {},
-                senses: {},
-                suppressedFeatures: [],
-            } satisfies FeatSubfeatures,
-            this.system.subfeatures ?? {},
-        );
-
-        this.system.selfEffect ??= null;
         // Self effects are only usable with actions
         if (this.system.actionType.value === "passive") {
             this.system.selfEffect = null;
@@ -175,17 +149,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         // Process subfeatures
         const subfeatures = this.system.subfeatures;
-        if (!featCanHaveKeyOptions(this)) {
-            subfeatures.keyOptions = [];
-        }
-
-        // Key attribute options
-        if (subfeatures.keyOptions.length > 0) {
-            actor.system.build.attributes.keyOptions = R.unique([
-                ...actor.system.build.attributes.keyOptions,
-                ...subfeatures.keyOptions,
-            ]);
-        }
+        if (!featCanHaveKeyOptions(this)) subfeatures.keyOptions?.clear();
 
         const { build, proficiencies, saves } = actor.system;
 
@@ -396,7 +360,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             this._source.system.location = null;
             delete this._source.system.level.taken;
             if (this._source.system.frequency) {
-                delete this._source.system.frequency.value;
+                this._source.system.frequency.value = undefined;
             }
         }
 
