@@ -53,7 +53,7 @@ declare global {
         time: {
             roundTime: number;
             turnTime: number;
-        }
+        };
 
         compendium: {
             /**

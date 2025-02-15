@@ -1,7 +1,4 @@
-import type {
-    ApplicationConfiguration,
-    ApplicationRenderOptions,
-} from "../_types.d.ts";
+import type { ApplicationConfiguration, ApplicationRenderOptions } from "../_types.d.ts";
 import type ApplicationV2 from "./application.js";
 
 export default abstract class DialogV2<
@@ -22,10 +19,7 @@ export default abstract class DialogV2<
      * @param event The triggering event
      * @returns
      */
-    protected _onSubmit(
-        target: HTMLButtonElement,
-        event: PointerEvent | SubmitEvent,
-    ): Promise<DialogV2>;
+    protected _onSubmit(target: HTMLButtonElement, event: PointerEvent | SubmitEvent): Promise<DialogV2>;
 
     /**
      * Handle keypresses within the dialog
@@ -37,10 +31,7 @@ export default abstract class DialogV2<
      * @param event The originating click event.
      * @param target The button element that was clicked
      */
-    protected static _onClickButton(
-        event: PointerEvent,
-        target: HTMLButtonElement,
-    ): void;
+    protected static _onClickButton(event: PointerEvent, target: HTMLButtonElement): void;
 
     static confirm({
         yes,
@@ -56,7 +47,7 @@ export default abstract class DialogV2<
         ...options
     }: {
         ok: Partial<DialogV2Button>;
-    } & Partial<DialogV2Configuration & DialogV2WaitOptions>): Promise<any>;
+    } & Partial<DialogV2Configuration & DialogV2WaitOptions>): Promise<unknown>;
 
     static wait({
         rejectClose,
@@ -67,7 +58,7 @@ export default abstract class DialogV2<
         rejectClose: boolean;
         close: DialogV2CloseCallback;
         render: DialogV2RenderCallback;
-    } & Partial<DialogV2Configuration>): Promise<any>;
+    } & Partial<DialogV2Configuration>): Promise<unknown>;
 }
 
 export interface DialogV2Button {
@@ -96,13 +87,10 @@ export type DialogV2ButtonCallback = (
     event: PointerEvent | SubmitEvent,
     button: HTMLButtonElement,
     dialog: HTMLDialogElement,
-) => Promise<any>;
+) => Promise<unknown>;
 
-export type DialogV2RenderCallback = (
-    event: Event,
-    dialog: HTMLDialogElement,
-) => void;
+export type DialogV2RenderCallback = (event: Event, dialog: HTMLDialogElement) => void;
 
 export type DialogV2CloseCallback = (event: Event, dialog: DialogV2) => void;
 
-export type DialogV2SubmitCallback = (result: any) => Promise<void>;
+export type DialogV2SubmitCallback = (result: unknown) => Promise<void>;

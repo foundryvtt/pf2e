@@ -42,6 +42,7 @@ export default class Semaphore {
      * @param args Function arguments
      * @returns A promise that resolves once the added function is executed
      */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     add(fn: (...args: any[]) => any, ...args: any[]): Promise<void>;
 
     /**
