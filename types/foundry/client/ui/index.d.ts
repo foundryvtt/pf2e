@@ -31,6 +31,7 @@ declare global {
         settings: Settings;
         sidebar: Sidebar;
         tables: RollTableDirectory;
+        webrtc: CameraViews;
         windows: Record<number, Application>;
     }
 }
