@@ -1,24 +1,17 @@
+import type { ActorPF2e } from "@actor";
 import type { MigrationDataField } from "@module/data.ts";
 import type { RuleElementSource } from "@module/rules/index.ts";
 import { SlugField } from "@system/schema-data-fields.ts";
-import type {
-    ArrayField,
-    BooleanField,
-    ObjectField,
-    SchemaField,
-    StringField,
-} from "types/foundry/common/data/fields.d.ts";
 import type { ItemPF2e } from "../document.ts";
 import type { ItemDescriptionData } from "./system.ts";
+import fields = foundry.data.fields;
 
 abstract class ItemSystemModel<TParent extends ItemPF2e, TSchema extends ItemSystemSchema> extends foundry.abstract
     .TypeDataModel<TParent, TSchema> {
     static override LOCALIZATION_PREFIXES = ["PF2E.Item"];
 
     static override defineSchema(): ItemSystemSchema {
-        const fields = foundry.data.fields;
-
-        const anyStringField = (): StringField<string, string, true, false, true> =>
+        const anyStringField = (): fields.StringField<string, string, true, false, true> =>
             new fields.StringField({ required: true, nullable: false, initial: "" });
 
         return {
@@ -37,10 +30,7 @@ abstract class ItemSystemModel<TParent extends ItemPF2e, TSchema extends ItemSys
                 }),
                 remaster: new fields.BooleanField({ required: true, nullable: false, initial: false }),
             }),
-            rules: new fields.ArrayField(new fields.ObjectField({ required: true, nullable: false }), {
-                required: true,
-                nullable: false,
-            }),
+            rules: new fields.ArrayField(new fields.ObjectField({ required: true, nullable: false })),
             slug: new SlugField({ required: true, nullable: true, initial: null }),
             traits: new fields.SchemaField({
                 otherTags: new fields.ArrayField(
@@ -70,6 +60,10 @@ abstract class ItemSystemModel<TParent extends ItemPF2e, TSchema extends ItemSys
             }),
         };
     }
+
+    get actor(): ActorPF2e | null {
+        return this.parent.actor;
+    }
 }
 
 interface ItemSystemModel<TParent extends ItemPF2e, TSchema extends ItemSystemSchema>
@@ -78,27 +72,20 @@ interface ItemSystemModel<TParent extends ItemPF2e, TSchema extends ItemSystemSc
 }
 
 type ItemSystemSchema = {
-    description: SchemaField<{
-        value: StringField<string, string, true, false, true>;
-        gm: StringField<string, string, true, false, true>;
+    description: fields.SchemaField<{
+        value: fields.StringField<string, string, true, false, true>;
+        gm: fields.StringField<string, string, true, false, true>;
     }>;
-    publication: SchemaField<{
-        title: StringField<string, string, true, false, true>;
-        authors: StringField<string, string, true, false, true>;
-        license: StringField<"OGL" | "ORC", "OGL" | "ORC", true, false, true>;
-        remaster: BooleanField<boolean, boolean, true, false, true>;
+    publication: fields.SchemaField<{
+        title: fields.StringField<string, string, true, false, true>;
+        authors: fields.StringField<string, string, true, false, true>;
+        license: fields.StringField<"OGL" | "ORC", "OGL" | "ORC", true, false, true>;
+        remaster: fields.BooleanField;
     }>;
-    rules: ArrayField<
-        ObjectField<RuleElementSource, RuleElementSource, true, false, false>,
-        RuleElementSource[],
-        RuleElementSource[],
-        true,
-        false,
-        true
-    >;
+    rules: fields.ArrayField<fields.ObjectField<RuleElementSource, RuleElementSource, true, false, false>>;
     slug: SlugField<true, true, true>;
-    traits: SchemaField<{
-        otherTags: ArrayField<SlugField<true, false, false>, string[], string[], true, false, true>;
+    traits: fields.SchemaField<{
+        otherTags: fields.ArrayField<SlugField<true, false, false>>;
     }>;
     _migration: MigrationDataField;
 };

@@ -61,7 +61,7 @@ function applyBaseDamageAlterations({ actor, item, base, domains, rollOptions }:
     const alterationsRecord = actor?.synthetics.damageAlterations ?? {};
     const modifierAdjustments = extractModifierAdjustments(actor.synthetics.modifierAdjustments, domains, "base");
     const damageAlterations = [
-        item?.isOfType("action", "feat") ? item.system.traits.toggles.getDamageAlterations() : [],
+        item?.isOfType("action", "feat") ? (item.system.traits.toggles?.getDamageAlterations() ?? []) : [],
         extractDamageAlterations(alterationsRecord, domains, "base"),
     ].flat();
 

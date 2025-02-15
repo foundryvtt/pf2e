@@ -440,7 +440,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                     return item.system.selfEffect?.img ?? (baseData.usable && !isDefaultImage ? item.img : actionIcon);
                 })(),
                 feat: item.isOfType("feat") ? item : null,
-                toggles: item.system.traits.toggles.getSheetData(),
+                toggles: item.system.traits.toggles?.getSheetData() ?? [],
             };
 
             const traits = item.system.traits.value;
@@ -869,12 +869,12 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             if (trait !== "mindshift") {
                 throw ErrorPF2e("Unexpected trait received while toggling");
             }
-            const toggle = item.system.traits.toggles[trait];
+            const toggle = item.system.traits.toggles?.[trait];
             if (!toggle) {
                 throw ErrorPF2e("Unexpected failure to look up trait toggle");
             }
 
-            return item.system.traits.toggles.update({ trait, selected: !toggle.selected });
+            return item.system.traits.toggles?.update({ trait, selected: !toggle.selected });
         };
 
         handlers["toggle-exploration"] = async (event) => {

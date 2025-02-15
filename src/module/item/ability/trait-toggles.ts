@@ -1,26 +1,33 @@
 import type { AbilityItemPF2e, FeatPF2e } from "@item";
+import type { FeatSystemData } from "@item/feat/data.ts";
 import { DamageAlteration } from "@module/rules/rule-element/damage-alteration/alteration.ts";
 import * as R from "remeda";
+import type { AbilitySystemData } from "./data.ts";
+import fields = foundry.data.fields;
 
 /** A helper class to handle toggleable ability traits */
-class AbilityTraitToggles {
-    parent: AbilityItemPF2e | FeatPF2e;
-
-    mindshift: { selected: boolean } | null;
-
-    constructor(item: AbilityItemPF2e | FeatPF2e) {
-        this.parent = item;
-        Object.defineProperty(this, "parent", { enumerable: false });
-
-        const selected = item._source.system.traits.toggles?.mindshift?.selected ?? false;
+class AbilityTraitToggles extends foundry.abstract.DataModel<AbilitySystemData | FeatSystemData, TraitToggleSchema> {
+    constructor(source: object, options: DataModelConstructionOptions<AbilitySystemData | FeatSystemData>) {
+        super(source, options);
+        const selected = this.mindshift?.selected ?? false;
+        const item = this.item;
         this.mindshift = item.system.traits.value.includes("mindshift") ? { selected } : null;
         if (this.mindshift?.selected) {
             item.system.traits.otherTags.push("mindshifted");
         }
     }
 
+    static override defineSchema(): TraitToggleSchema {
+        return {
+            mindshift: new fields.SchemaField(
+                { selected: new fields.BooleanField() },
+                { required: false, nullable: true, initial: undefined },
+            ),
+        };
+    }
+
     get item(): AbilityItemPF2e | FeatPF2e {
-        return this.parent;
+        return this.parent.parent;
     }
 
     get operableTraits(): "mindshift"[] {
@@ -66,6 +73,21 @@ class AbilityTraitToggles {
         return !!(await this.item.update({ [`system.traits.toggles.${trait}.selected`]: selected }));
     }
 }
+
+interface AbilityTraitToggles
+    extends foundry.abstract.DataModel<AbilitySystemData | FeatSystemData, TraitToggleSchema>,
+        ModelPropsFromSchema<TraitToggleSchema> {}
+
+type TraitToggleSchema = {
+    mindshift: fields.SchemaField<
+        { selected: fields.BooleanField },
+        { selected: boolean },
+        { selected: boolean },
+        false,
+        true,
+        false
+    >;
+};
 
 interface TraitToggleViewData {
     trait: string;
