@@ -88,6 +88,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
             nestUnderGranter: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
             alterations: new StrictArrayField(new fields.EmbeddedDataField(ItemAlteration)),
             track: new fields.BooleanField(),
+            grantOnDelete: new fields.BooleanField(),
         };
     }
 
@@ -106,22 +107,13 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
     }
 
     override async preCreate(args: RuleElementPF2e.PreCreateParams): Promise<void> {
-        if (this.inMemoryOnly || this.invalid) return;
+        if (this.inMemoryOnly || this.invalid || this.grantOnDelete) return;
 
         const { itemSource, pendingItems, itemUpdates, operation } = args;
         const ruleSource: GrantItemSource = args.ruleSource;
 
-        const uuid = this.resolveInjectedProperties(this.uuid);
-        if (!UUIDUtils.isItemUUID(uuid, { embedded: false })) return;
-        const grantedItem: ClientDocument | null = await (async () => {
-            try {
-                return (await fromUuid(uuid))?.clone() ?? null;
-            } catch (error) {
-                console.error(error);
-                return null;
-            }
-        })();
-        if (!(grantedItem instanceof ItemPF2e)) return;
+        const grantedItem = await this.#resolveItem();
+        if (!grantedItem) return;
 
         ruleSource.flag =
             typeof ruleSource.flag === "string" && ruleSource.flag.length > 0
@@ -139,7 +131,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         if (!this.test()) return;
 
         // If we shouldn't allow duplicates, check for an existing item with this source ID
-        const existingItem = this.actor.items.find((i) => i.sourceId === uuid);
+        const existingItem = this.actor.items.find((i) => i.sourceId === grantedItem.sourceId);
         if (!this.allowDuplicate && existingItem) {
             this.#setGrantFlags(itemSource, existingItem, itemUpdates);
 
@@ -168,7 +160,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         }
 
         // Guarantee future already-granted checks pass in all cases by re-assigning sourceId
-        grantedSource._stats.compendiumSource = uuid;
+        grantedSource._stats.compendiumSource = grantedItem.sourceId;
 
         // Apply alterations
         try {
@@ -224,11 +216,40 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         }
     }
 
+    /** Grant an item when the parent item of this rule element is deleted */
+    override async preDelete(): Promise<void> {
+        if (!this.grantOnDelete) return;
+
+        if (this.ignored && this.item.isOfType("effect") && this.item.isExpired) {
+            // Temporarily unignore this rule on an expired effect to test other predicates
+            this.ignored = false;
+            if (!this.test()) return;
+            this.ignored = true;
+        } else if (!this.test()) return;
+
+        const grantedItem = await this.#resolveItem();
+        if (!grantedItem) return;
+
+        // If we shouldn't allow duplicates, check for an existing item with this source ID
+        const existingItem = this.actor.items.find((i) => i.sourceId === grantedItem.sourceId);
+        if (!this.allowDuplicate && existingItem) {
+            ui.notifications.info(
+                game.i18n.format("PF2E.UI.RuleElements.GrantItem.AlreadyHasItem", {
+                    actor: this.actor.name,
+                    item: grantedItem.name,
+                }),
+            );
+            return;
+        }
+
+        await this.actor.createEmbeddedDocuments("Item", [grantedItem.toObject()], { render: false });
+    }
+
     /** Grant an item if this rule element permits it and the predicate passes */
     override async preUpdateActor(): Promise<{ create: ItemSourcePF2e[]; delete: string[] }> {
         const noAction = { create: [], delete: [] };
 
-        if (this.ignored || !this.reevaluateOnUpdate || this.inMemoryOnly) {
+        if (this.ignored || !this.reevaluateOnUpdate || this.inMemoryOnly || this.grantOnDelete) {
             return noAction;
         }
 
@@ -424,6 +445,18 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         const rollOptionsAll = this.actor.rollOptions.all;
         for (const statement of grantedItem.getRollOptions(slug)) {
             rollOptionsAll[statement] = true;
+        }
+    }
+
+    async #resolveItem(): Promise<ItemPF2e | null> {
+        const uuid = this.resolveInjectedProperties(this.uuid);
+        if (!UUIDUtils.isItemUUID(uuid, { embedded: false })) return null;
+        try {
+            const item = (await fromUuid(uuid))?.clone() ?? null;
+            return item instanceof ItemPF2e ? item : null;
+        } catch (error) {
+            console.error(error);
+            return null;
         }
     }
 }

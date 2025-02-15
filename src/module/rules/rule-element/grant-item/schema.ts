@@ -26,6 +26,8 @@ type GrantItemSchema = RuleElementSchema & {
      * options, which are added to the `all` domain.
      */
     track: fields.BooleanField<boolean, boolean, false, false, false>;
+    /** Whether to grant the item on deletion of the grantee instead of on creation. */
+    grantOnDelete: fields.BooleanField<boolean, boolean, false, false, true>;
 };
 
 export type { GrantItemSchema };
