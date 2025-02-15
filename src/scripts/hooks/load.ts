@@ -8,6 +8,7 @@ import { PartySystemData } from "@actor/party/data.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ItemProxyPF2e } from "@item";
 import { AbilitySystemData } from "@item/ability/index.ts";
+import { FeatSystemData } from "@item/feat/data.ts";
 import { KitSystemData } from "@item/kit/data.ts";
 import { MeleeSystemData } from "@item/melee/data.ts";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
@@ -93,6 +94,7 @@ export const Load = {
 
         // Item system data models
         CONFIG.Item.dataModels.action = AbilitySystemData;
+        CONFIG.Item.dataModels.feat = FeatSystemData;
         CONFIG.Item.dataModels.kit = KitSystemData;
         CONFIG.Item.dataModels.melee = MeleeSystemData;
 

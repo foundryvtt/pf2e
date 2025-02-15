@@ -94,12 +94,7 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
                 { key: "ActiveEffectLike", mode: "add", path: flagPath, value: 1 },
             ];
             source.system.rules = rules;
-            source.system.subfeatures = {
-                languages: {
-                    granted: [],
-                    slots: 2,
-                },
-            };
+            source.system.subfeatures.languages = { granted: [], slots: 2 };
         }
     }
 
@@ -108,7 +103,7 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
         if (!("game" in globalThis)) return;
 
         // Create a feat containing the user's custom changes to their character
-        const customChangesFeat: Partial<FeatSource> = {
+        const customChangesFeat: DeepPartial<FeatSource> = {
             _id: fu.randomID(),
             effects: [],
             flags: {},
@@ -123,7 +118,7 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
                 actionType: { value: "passive" },
                 category: "bonus",
                 description: { value: "", gm: "" },
-                level: { value: 1 },
+                level: { value: 1, taken: undefined },
                 location: null,
                 maxTakable: null,
                 onlyLevel1: false,
@@ -131,7 +126,7 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
                 publication: { title: "", authors: "", license: "OGL", remaster: false },
                 rules: [],
                 slug: "custom-changes",
-                traits: { otherTags: [], rarity: "unique", value: [] },
+                traits: { otherTags: [], rarity: "unique", value: [], toggles: undefined },
             },
         };
 
@@ -196,7 +191,7 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
                     key: "ActorTraits",
                     add: traits.value.filter((t) => t && typeof t === "string").map((t) => sluggify(t)),
                 };
-                customChangesFeat.system?.rules.push(rule);
+                customChangesFeat.system?.rules?.push(rule);
             }
 
             // Senses
