@@ -282,14 +282,16 @@
                         "toggleable": true
                     },
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "piercing"
-                        },
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
                         "predicate": [
                             "tentacle-stab"
                         ],
-                        "selector": "tentacle-damage"
+                        "selectors": [
+                            "tentacle-damage"
+                        ],
+                        "value": "piercing"
                     }
                 ],
                 "slug": null,
