@@ -14,6 +14,7 @@ import type {
 import type { ClassTrait } from "@item/class/types.ts";
 import type { WeaponCategory } from "@item/weapon/types.ts";
 import type { OneToFour, OneToThree, Rarity } from "@module/data.ts";
+import { RarityField } from "@module/model.ts";
 import { RecordField, SlugField } from "@system/schema-data-fields.ts";
 import { SourcePropFromDataField } from "types/foundry/common/data/fields.js";
 import type { FeatPF2e } from "./document.ts";
@@ -21,13 +22,6 @@ import type { FeatOrFeatureCategory, FeatTrait } from "./types.ts";
 import fields = foundry.data.fields;
 
 type FeatSource = BaseItemSourcePF2e<"feat", FeatSystemSource>;
-
-class RarityField extends fields.StringField<Rarity, Rarity, true, false, true> {
-    constructor() {
-        const rarityChoices: Record<Rarity, string> = CONFIG.PF2E.rarityTraits;
-        super({ required: true, nullable: false, choices: rarityChoices, initial: "common" });
-    }
-}
 
 class FeatSystemData extends ItemSystemModel<FeatPF2e, FeatSystemSchema> {
     declare maxTakable: number;
