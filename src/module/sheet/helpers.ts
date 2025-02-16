@@ -1,5 +1,8 @@
 import { ActorPF2e } from "@actor";
+import { CoinageSummary } from "@actor/sheet/data-types.ts";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
+import { Coins } from "@item/physical/data.ts";
+import { DENOMINATIONS } from "@item/physical/values.ts";
 import { htmlClosest, htmlQuery, sortLabeledRecord } from "@util";
 import * as R from "remeda";
 
@@ -54,6 +57,16 @@ function createTagifyTraits(traits: Iterable<string>, { sourceTraits, record }: 
             };
         })
         .sort((t1, t2) => t1.value.localeCompare(t2.value));
+}
+
+function coinsToSheetData(coins: Coins): CoinageSummary {
+    return DENOMINATIONS.reduce(
+        (accumulated, d) => ({
+            ...accumulated,
+            [d]: { value: coins[d], label: CONFIG.PF2E.currencies[d] },
+        }),
+        {} as CoinageSummary,
+    );
 }
 
 /**
@@ -236,6 +249,7 @@ interface TagifyEntry {
 }
 
 export {
+    coinsToSheetData,
     createSheetOptions,
     createSheetTags,
     createTagifyTraits,

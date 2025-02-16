@@ -10,12 +10,17 @@ import type { ActionType, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
-import type { Coins } from "@item/physical/data.ts";
 import { detachSubitem, sizeItemForActor } from "@item/physical/helpers.ts";
-import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
+import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { createUseActionMessage } from "@module/chat-message/helpers.ts";
-import { createSheetTags, eventToRollMode, eventToRollParams, maintainFocusInRender } from "@module/sheet/helpers.ts";
+import {
+    coinsToSheetData,
+    createSheetTags,
+    eventToRollMode,
+    eventToRollParams,
+    maintainFocusInRender,
+} from "@module/sheet/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import type { StatisticRollParameters } from "@system/statistic/statistic.ts";
 import {
@@ -48,13 +53,7 @@ import MiniSearch from "minisearch";
 import * as R from "remeda";
 import Sortable from "sortablejs";
 import { ActorSizePF2e } from "../data/size.ts";
-import type {
-    ActorSheetDataPF2e,
-    ActorSheetRenderOptionsPF2e,
-    CoinageSummary,
-    InventoryItem,
-    SheetInventory,
-} from "./data-types.ts";
+import type { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e, InventoryItem, SheetInventory } from "./data-types.ts";
 import { createBulkPerLabel, onClickCreateSpell } from "./helpers.ts";
 import { ItemSummaryRenderer } from "./item-summary-renderer.ts";
 import { AddCoinsPopup } from "./popups/add-coins-popup.ts";
@@ -137,8 +136,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         // Calculate financial and total wealth
         const coins = actor.inventory.coins;
-        const totalCoinage = ActorSheetPF2e.coinsToSheetData(coins);
-        const totalCoinageGold = (coins.copperValue / 100).toFixed(2);
+        const totalCoinage = coinsToSheetData(coins);
+        const totalCoinageGold = coins.goldValue.toFixed(2);
 
         const totalWealth = actor.inventory.totalWealth;
         const totalWealthGold = (totalWealth.copperValue / 100).toFixed(2);
@@ -301,16 +300,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         for (const row of htmlQueryAll(html, "li[data-uuid]")) {
             row.hidden = matches !== null && !matches.has(row.dataset.uuid ?? "");
         }
-    }
-
-    protected static coinsToSheetData(coins: Coins): CoinageSummary {
-        return DENOMINATIONS.reduce(
-            (accumulated, d) => ({
-                ...accumulated,
-                [d]: { value: coins[d], label: CONFIG.PF2E.currencies[d] },
-            }),
-            {} as CoinageSummary,
-        );
     }
 
     protected getStrikeFromDOM(button: HTMLElement, readyOnly = false): StrikeData | null {

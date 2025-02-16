@@ -602,6 +602,14 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return commitData;
     }
 
+    /**
+     * Updates a resource. Redirects to special resources if needed.
+     * Accepts resource slugs in both kebab and dromedary, to handle token updates and direct ones.
+     */
+    async updateResource(_resource: string, _value: number, _options?: { render?: boolean }): Promise<void> {
+        return; // no-op
+    }
+
     /** Don't allow the user to create in-development actor types. */
     static override createDialog<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
