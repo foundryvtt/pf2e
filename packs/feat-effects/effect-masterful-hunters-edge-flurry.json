@@ -25,7 +25,7 @@
                 "domain": "all",
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
-                "option": "hunted-prey",
+                "option": "target:mark:hunted-prey",
                 "toggleable": true
             },
             {
@@ -33,7 +33,7 @@
                 "label": "To Track hunted prey (Masterful Hunter)",
                 "predicate": [
                     "action:track",
-                    "hunted-prey"
+                    "target:mark:hunted-prey"
                 ],
                 "selector": "survival",
                 "type": "circumstance",
@@ -58,7 +58,7 @@
                 "label": "To Seek hunted prey (Masterful Hunter)",
                 "predicate": [
                     "action:seek",
-                    "hunted-prey"
+                    "target:mark:hunted-prey"
                 ],
                 "selector": "perception",
                 "type": "circumstance",
@@ -81,7 +81,7 @@
             {
                 "key": "MultipleAttackPenalty",
                 "predicate": [
-                    "hunted-prey",
+                    "target:mark:hunted-prey",
                     {
                         "or": [
                             "proficiency:master",
@@ -99,7 +99,7 @@
                 "key": "MultipleAttackPenalty",
                 "predicate": [
                     "agile",
-                    "hunted-prey",
+                    "target:mark:hunted-prey",
                     {
                         "or": [
                             "proficiency:master",

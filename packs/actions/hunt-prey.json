@@ -23,7 +23,7 @@
                 "domain": "all",
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
-                "option": "hunted-prey",
+                "option": "target:mark:hunted-prey",
                 "toggleable": true
             },
             {
@@ -31,7 +31,7 @@
                 "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
                 "predicate": [
                     "action:seek",
-                    "hunted-prey"
+                    "target:mark:hunted-prey"
                 ],
                 "selector": "perception",
                 "type": "circumstance",
@@ -42,7 +42,7 @@
                 "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
                 "predicate": [
                     "action:track",
-                    "hunted-prey"
+                    "target:mark:hunted-prey"
                 ],
                 "selector": "survival",
                 "type": "circumstance",
@@ -53,10 +53,14 @@
                 "key": "RollOption",
                 "option": "ignore-range-penalty:2",
                 "predicate": [
-                    "hunted-prey"
+                    "target:mark:hunted-prey"
                 ]
             }
         ],
+        "selfEffect": {
+            "name": "Effect: Hunt Prey",
+            "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Hunt Prey"
+        },
         "traits": {
             "rarity": "common",
             "value": [
