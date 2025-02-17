@@ -78,6 +78,10 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         return this.system.group;
     }
 
+    get rangedGroup(): WeaponGroup | null {
+        return this.system.rangedGroup;
+    }
+
     get category(): WeaponCategory {
         return this.system.category;
     }
@@ -280,6 +284,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 [`bulk:${bulk}`]: true,
                 [`usage:hands:${this.hands}`]: this.hands !== "0",
                 [`range-increment:${rangeIncrement}`]: !!rangeIncrement,
+                [`rangedGroup:${this.rangedGroup}`]: !!this.rangedGroup,
                 [`reload:${this.reload}`]: !!this.reload,
                 [`damage:type:${damage.type}`]: true,
                 [`damage:category:${damage.category}`]: !!damage.category,
@@ -541,6 +546,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 damage: { damageType: meleeUsage.damage.type, dice: 1, die: meleeUsage.damage.die },
                 group: meleeUsage.group,
                 range: null,
+                rangedGroup: meleeUsage.rangedGroup,
                 reload: { value: null },
                 traits: { value: [...meleeUsage.traits], toggles: traitToggles },
                 selectedAmmoId: null,

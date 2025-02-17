@@ -77,6 +77,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
 
         const meleeUsage = sheetData.data.meleeUsage ?? {
             group: "knife",
+            rangedGroup: "bow",
             damage: { type: "piercing", die: "d4" },
             traits: [],
         };
