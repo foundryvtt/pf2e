@@ -3,7 +3,7 @@ import { AbstractEffectPF2e, AfflictionPF2e, ConditionPF2e, EffectPF2e } from "@
 import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
 import { createTooltipListener } from "@module/sheet/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene/token-document/document.ts";
-import { createHTMLElement, ErrorPF2e, htmlQuery, htmlQueryAll } from "@util";
+import { ErrorPF2e, createHTMLElement, htmlQuery, htmlQueryAll } from "@util";
 
 export class EffectsPanel extends Application {
     private get token(): TokenDocumentPF2e | null {
@@ -47,7 +47,7 @@ export class EffectsPanel extends Application {
             ...(await super.getData(options)),
             afflictions: await this.#getViewData(actor.itemTypes.affliction ?? []),
             conditions: await this.#getViewData(actor.conditions.active),
-            effects: await this.#getViewData(actor.itemTypes.effect),
+            effects: await this.#getViewData(actor.itemTypes.effect.filter((e) => e.system.tokenIcon.show)),
             actor,
             user: { isGM: game.user.isGM },
         };
