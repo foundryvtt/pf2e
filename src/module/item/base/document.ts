@@ -38,8 +38,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /** Has this document completed `DataModel` initialization? */
     declare initialized: boolean;
 
-    /** Additional item roll options set by rule elements */
-    declare rollOptions: Set<string>;
+    /** Additional item roll options not derived from an item's own data */
+    declare specialOptions: string[];
 
     /** The item that granted this item, if any */
     declare grantedBy: ItemPF2e<ActorPF2e> | null;
@@ -161,7 +161,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             `${prefix}:${slug}`,
             `${prefix}:slug:${slug}`,
             ...granterOptions,
-            ...Array.from(this.rollOptions).map((o) => `${prefix}:${o}`),
+            ...Array.from(this.specialOptions).map((o) => `${prefix}:${o}`),
             ...traitOptions.map((t) => `${prefix}:${t}`),
             ...otherTags.map((t) => `${prefix}:tag:${t}`),
         ];
@@ -245,7 +245,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     protected override _initialize(options?: Record<string, unknown>): void {
         this.initialized = false;
         this.rules = [];
-        this.rollOptions = new Set();
+        this.specialOptions = [];
 
         super._initialize(options);
     }
