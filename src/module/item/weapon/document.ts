@@ -502,6 +502,13 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const clone = super.clone(data, context);
         if (context?.altUsage && clone instanceof WeaponPF2e) {
             clone.altUsageType = context.altUsage;
+            const priorUsage = { thrown: "melee", melee: "ranged" }[context.altUsage];
+            clone.specialOptions.push(
+                ...this.specialOptions,
+                `${priorUsage}-usage:category:${this.category}`,
+                `${priorUsage}-usage:group:${this.group}`,
+                `${priorUsage}-usage:base:${this.baseType}`,
+            );
         }
 
         return clone;
