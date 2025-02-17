@@ -6,7 +6,7 @@ import { ActorSizePF2e } from "@actor/data/size.ts";
 import type { ActorAlliance, ImmunityType, ResistanceType, WeaknessType } from "@actor/types.ts";
 import type { Rarity, Size } from "@module/data.ts";
 import { RarityField } from "@module/model.ts";
-import { DataUnionField } from "@system/schema-data-fields.ts";
+import { DataUnionField, LaxArrayField } from "@system/schema-data-fields.ts";
 import type { ArmorClassTraceData } from "@system/statistic/armor-class.ts";
 import type { VehiclePF2e } from "./document.ts";
 import type { VehicleTrait } from "./types.ts";
@@ -44,7 +44,7 @@ class VehicleSystemData extends ActorSystemModel<VehiclePF2e, VehicleSystemSchem
         return {
             ...super.defineSchema(),
             traits: new fields.SchemaField({
-                value: new fields.ArrayField(
+                value: new LaxArrayField(
                     new fields.StringField({
                         required: true,
                         nullable: false,
@@ -78,7 +78,7 @@ class VehicleSystemData extends ActorSystemModel<VehiclePF2e, VehicleSystemSchem
                 collisionDamage: new fields.SchemaField({
                     value: blankableString(),
                 }),
-                immunities: new fields.ArrayField(
+                immunities: new LaxArrayField(
                     new fields.SchemaField({
                         type: new fields.StringField({
                             required: true,
@@ -86,7 +86,7 @@ class VehicleSystemData extends ActorSystemModel<VehiclePF2e, VehicleSystemSchem
                             choices: immunityTypes,
                             initial: undefined,
                         }),
-                        exceptions: new fields.ArrayField(
+                        exceptions: new LaxArrayField(
                             new fields.StringField({
                                 required: true,
                                 nullable: false,
@@ -96,7 +96,7 @@ class VehicleSystemData extends ActorSystemModel<VehiclePF2e, VehicleSystemSchem
                         ),
                     }),
                 ),
-                weaknesses: new fields.ArrayField(
+                weaknesses: new LaxArrayField(
                     new fields.SchemaField({
                         type: new fields.StringField({
                             required: true,
@@ -105,7 +105,7 @@ class VehicleSystemData extends ActorSystemModel<VehiclePF2e, VehicleSystemSchem
                             initial: undefined,
                         }),
                         value: requiredInteger({ min: 1 }),
-                        exceptions: new fields.ArrayField(
+                        exceptions: new LaxArrayField(
                             new fields.StringField({
                                 required: true,
                                 nullable: false,
@@ -115,7 +115,7 @@ class VehicleSystemData extends ActorSystemModel<VehiclePF2e, VehicleSystemSchem
                         ),
                     }),
                 ),
-                resistances: new fields.ArrayField(
+                resistances: new LaxArrayField(
                     new fields.SchemaField({
                         type: new fields.StringField({
                             required: true,
@@ -124,7 +124,7 @@ class VehicleSystemData extends ActorSystemModel<VehiclePF2e, VehicleSystemSchem
                             initial: undefined,
                         }),
                         value: requiredInteger({ min: 1 }),
-                        exceptions: new fields.ArrayField(
+                        exceptions: new LaxArrayField(
                             new fields.StringField({
                                 required: true,
                                 nullable: false,
@@ -132,7 +132,7 @@ class VehicleSystemData extends ActorSystemModel<VehiclePF2e, VehicleSystemSchem
                                 initial: undefined,
                             }),
                         ),
-                        doubleVs: new fields.ArrayField(
+                        doubleVs: new LaxArrayField(
                             new fields.StringField({
                                 required: true,
                                 nullable: false,
