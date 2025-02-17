@@ -15,7 +15,7 @@ import type { ClassTrait } from "@item/class/types.ts";
 import type { WeaponCategory } from "@item/weapon/types.ts";
 import type { OneToFour, OneToThree, Rarity } from "@module/data.ts";
 import { RarityField } from "@module/model.ts";
-import { RecordField, SlugField } from "@system/schema-data-fields.ts";
+import { LaxArrayField, RecordField, SlugField } from "@system/schema-data-fields.ts";
 import { SourcePropFromDataField } from "types/foundry/common/data/fields.js";
 import type { FeatPF2e } from "./document.ts";
 import type { FeatOrFeatureCategory, FeatTrait } from "./types.ts";
@@ -73,7 +73,7 @@ class FeatSystemData extends ItemSystemModel<FeatPF2e, FeatSystemSchema> {
                 otherTags: new fields.ArrayField(
                     new SlugField({ required: true, nullable: false, initial: undefined }),
                 ),
-                value: new fields.ArrayField(
+                value: new LaxArrayField(
                     new fields.StringField({
                         required: true,
                         nullable: false,
