@@ -189,7 +189,7 @@ export function encodeURL(path: string): string;
  * @param timeStamp
  * @return
  */
-export function timeSince(timeStamp: Date): string;
+export function timeSince(timeStamp: Date | string | number): string;
 
 /**
  * Converts an RGB color value to HSV. Conversion formula
