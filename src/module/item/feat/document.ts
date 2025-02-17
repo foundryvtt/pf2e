@@ -149,7 +149,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         // Process subfeatures
         const subfeatures = this.system.subfeatures;
-        if (!featCanHaveKeyOptions(this)) subfeatures.keyOptions?.clear();
+        if (!featCanHaveKeyOptions(this)) subfeatures.keyOptions = [];
 
         const { build, proficiencies, saves } = actor.system;
 
