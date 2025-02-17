@@ -6,6 +6,7 @@ import { resetActors } from "@actor/helpers.ts";
 import { LootSystemData } from "@actor/loot/data.ts";
 import { PartySystemData } from "@actor/party/data.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
+import { VehicleSystemData } from "@actor/vehicle/data.ts";
 import { ItemProxyPF2e } from "@item";
 import { AbilitySystemData } from "@item/ability/index.ts";
 import { FeatSystemData } from "@item/feat/data.ts";
@@ -91,6 +92,7 @@ export const Load = {
         CONFIG.Actor.dataModels.familiar = FamiliarSystemData;
         CONFIG.Actor.dataModels.loot = LootSystemData;
         CONFIG.Actor.dataModels.party = PartySystemData;
+        CONFIG.Actor.dataModels.vehicle = VehicleSystemData;
 
         // Item system data models
         CONFIG.Item.dataModels.action = AbilitySystemData;
