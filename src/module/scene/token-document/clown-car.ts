@@ -58,7 +58,9 @@ class PartyClownCar {
         if (!placeable) return;
 
         const newTokens = (
-            await Promise.all(this.party.members.map((m) => m.getTokenDocument({ x: token.x, y: token.y })))
+            await Promise.all(
+                this.party.members.map((m) => m.getTokenDocument({ x: token.x, y: token.y, actorLink: true })),
+            )
         ).map((t) => ({ ...t.toObject(), x: token.x, y: token.y }));
         const createdTokens = await this.scene.createEmbeddedDocuments("Token", newTokens);
 
