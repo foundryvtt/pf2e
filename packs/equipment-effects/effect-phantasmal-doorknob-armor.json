@@ -22,13 +22,76 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:phantasmal-doorknob",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Phantasmal Doorknob"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:phantasmal-doorknob-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Phantasmal Doorknob (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:phantasmal-doorknob-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Phantasmal Doorknob (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "phantasmal-doorknob"
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
                     "action:pick-a-lock"
                 ],
                 "selector": "thievery",
+                "slug": "phantasmal-doorknob-bonus",
                 "type": "item",
                 "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "phantasmal-doorknob:phantasmal-doorknob-greater",
+                            "phantasmal-doorknob:phantasmal-doorknob-major"
+                        ]
+                    }
+                ],
+                "selector": "thievery",
+                "slug": "phantasmal-doorknob-bonus",
+                "value": 2
             }
         ],
         "start": {
