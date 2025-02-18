@@ -335,7 +335,8 @@ abstract class RollContext<
                 return (
                     unclonedItem.isOfType("weapon") &&
                     action.item.isOfType("weapon") &&
-                    unclonedItem.isMelee === action.item.isMelee
+                    unclonedItem.isMelee === action.item.isMelee &&
+                    unclonedItem.isThrown === action.item.isThrown
                 );
             });
             return matchingStrike ?? unresolvedStatistic;
