@@ -128,7 +128,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         for (const section of ["attacks", "defenses"] as const) {
             for (const key of Object.keys(sheetData.data.proficiencies[section])) {
                 const proficiency = sheetData.data.proficiencies[section][key];
-                if (proficiency?.rank === 0 && !proficiency.custom) {
+                if (!proficiency?.visible || (proficiency?.rank === 0 && !proficiency.custom)) {
                     delete sheetData.data.proficiencies[section][key];
                 }
             }

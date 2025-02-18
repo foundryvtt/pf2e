@@ -378,16 +378,24 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Attack and defense proficiencies
         type PartialMartialProficiency = Record<string, Partial<MartialProficiency> | undefined>;
         const attacks: PartialMartialProficiency = (system.proficiencies.attacks ??= {});
+        // Set custom attack proficiencies to be visible
+        for (const attack of Object.values(attacks).filter(R.isDefined)) {
+            attack.visible = true;
+        }
+
         for (const category of Object.keys(CONFIG.PF2E.weaponCategories)) {
             attacks[category] = {
                 rank: attacks[category]?.rank ?? 0,
-                custom: !!attacks[category]?.custom,
+                visible: true,
             };
         }
 
         const defenses: PartialMartialProficiency = (system.proficiencies.defenses ??= {});
         for (const category of ARMOR_CATEGORIES) {
-            defenses[category] = { rank: defenses[category]?.rank ?? 0 };
+            defenses[category] = {
+                rank: defenses[category]?.rank ?? 0,
+                visible: true,
+            };
         }
 
         // Crafting
