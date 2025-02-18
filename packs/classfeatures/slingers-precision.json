@@ -73,6 +73,54 @@
                 "selectors": [
                     "firearm-weapon-group-damage"
                 ]
+            },
+            {
+                "definition": [
+                    "item:category:advanced",
+                    "item:ranged-usage:trait:combination",
+                    {
+                        "or": [
+                            "item:ranged-usage:group:crossbow",
+                            "item:ranged-usage:group:firearm"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedCombinationFirearmsCrossbowsMelee",
+                "priority": 10,
+                "value": "@actor.system.proficiencies.attacks.advanced-firearms-crossbows.rank"
+            },
+            {
+                "definition": [
+                    "item:category:martial",
+                    "item:ranged-usage:trait:combination",
+                    {
+                        "or": [
+                            "item:ranged-usage:group:crossbow",
+                            "item:ranged-usage:group:firearm"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialCombinationFirearmsCrossbowsMelee",
+                "priority": 10,
+                "value": "@actor.system.proficiencies.attacks.martial-firearms-crossbows.rank"
+            },
+            {
+                "definition": [
+                    "item:category:simple",
+                    "item:ranged-usage:trait:combination",
+                    {
+                        "or": [
+                            "item:ranged-usage:group:crossbow",
+                            "item:ranged-usage:group:firearm"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.SimpleCombinationFirearmsCrossbowsMelee",
+                "priority": 10,
+                "value": "@actor.system.proficiencies.attacks.simple-firearms-crossbows.rank"
             }
         ],
         "traits": {
