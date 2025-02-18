@@ -1866,6 +1866,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             const tokens = this.getActiveTokens();
             for (const token of tokens) {
                 token.showFloatyText(-1 * operation.damageTaken);
+                token.ring?.flashColor(operation.damageTaken > 0 ? Color.from("D41159") : Color.from("1A85FF"), {
+                    duration: 1000,
+                    easing: (pt: number) => {
+                        return (Math.sin(2 * Math.PI * pt - Math.PI / 2) + 1) / 2;
+                    },
+                });
             }
         }
 
