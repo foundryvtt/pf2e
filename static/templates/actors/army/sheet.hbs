@@ -299,6 +299,11 @@
                             <a data-action="toggle-basic-war-action-summary">{{action.name}}</a>
                             {{{actionGlyph action.actionCost}}}
                         </h4>
+                        <div class="item-controls">
+                            <a data-action="use-basic-war-action" data-tooltip="PF2E.Kingmaker.Army.SendToChat">
+                                <i class="fa-solid fa-fw fa-message"></i>
+                            </a>
+                        </div>
                         <div class="item-summary" hidden></div>
                     </li>
                 {{/each}}
@@ -366,6 +371,9 @@
             {{/if}}
             {{#if @root.editable}}
                 <div class="item-controls">
+                    <a data-action="item-to-chat" data-tooltip="PF2E.Kingmaker.Army.SendToChat">
+                        <i class="fa-solid fa-fw fa-message"></i>
+                    </a>
                     <a data-action="edit-item" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-fw fa-edit"></i></a>
                     {{#if locked}}
                         <i class="fa-solid fa-lock fa-fw" data-tooltip="{{localize "PF2E.Kingmaker.GrantedBy" granter=action.granter.name}}"></i>
