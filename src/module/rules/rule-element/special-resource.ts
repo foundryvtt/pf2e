@@ -5,7 +5,7 @@ import { applyActorUpdate } from "@actor/helpers.ts";
 import type { ActorCommitData } from "@actor/types.ts";
 import { ItemProxyPF2e, PhysicalItemPF2e } from "@item";
 import type { PhysicalItemSource } from "@item/base/data/index.ts";
-import { StrictChoicesField } from "@system/schema-data-fields.ts";
+import { AnyChoiceField } from "@system/schema-data-fields.ts";
 import { sluggify } from "@util";
 import { createBatchRuleElementUpdate } from "../helpers.ts";
 import { RuleElementPF2e, type RuleElementOptions } from "./base.ts";
@@ -45,7 +45,7 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
                 label: "PF2E.UUID.Label",
             }),
             level: new ResolvableValueField({ required: false, nullable: true, initial: null }),
-            renew: new StrictChoicesField({
+            renew: new AnyChoiceField({
                 required: false,
                 nullable: false,
                 choices: ["daily", false],
@@ -237,7 +237,7 @@ type SpecialResourceSchema = RuleElementSchema & {
     /** If itemUUID exists, determines the level of the granted item */
     level: ResolvableValueField<false, true, true>;
     /** Determines if the resource is rewnewable. Defaults to "daily" */
-    renew: StrictChoicesField<false | "daily", false, false>;
+    renew: AnyChoiceField<false | "daily", false, false>;
 };
 
 interface SpecialResourceUpdateOptions {
