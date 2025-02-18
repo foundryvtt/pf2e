@@ -391,6 +391,8 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             formData["system.prerequisites.value"] = formData["system.prerequisites.value"].map((value) => ({ value }));
         }
 
+        if (formData["system.maxTakable"] === Infinity) formData["system.maxTakable"] = null;
+
         // Keep feat data tidy
         const keyOptionsKey = "system.subfeatures.keyOptions";
         const hasEmptyKeyOptions = Array.isArray(formData[keyOptionsKey]) && formData[keyOptionsKey].length === 0;
