@@ -165,7 +165,7 @@ class StrictObjectField<
 }
 
 /** A field that allows nothing except for the provided choices */
-class StrictChoicesField<
+class AnyChoiceField<
     TChoices extends JSONValue,
     TRequired extends boolean = true,
     TNullable extends boolean = false,
@@ -529,6 +529,7 @@ class NullField extends fields.DataField<null, null, true, true, true> {
 }
 
 export {
+    AnyChoiceField,
     DataUnionField,
     LaxArrayField,
     LaxSchemaField,
@@ -538,7 +539,6 @@ export {
     SlugField,
     StrictArrayField,
     StrictBooleanField,
-    StrictChoicesField,
     StrictNumberField,
     StrictObjectField,
     StrictSchemaField,
