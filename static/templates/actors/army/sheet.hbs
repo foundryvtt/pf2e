@@ -253,7 +253,7 @@
             <legend>
                 <i class="fa-light fa-sparkles"></i> {{localize "PF2E.ConditionsLabel"}}
             </legend>
-            <ol class="item-list">
+            <ol class="item-list effects-list">
                 {{#each document.itemTypes.effect as |effect|}}
                     <li class="item" data-item-id="{{effect._id}}">
                         <a class="icon item-image" data-action="item-to-chat">
@@ -262,11 +262,11 @@
                         </a>
                         <h4 class="item-name">
                             <a data-action="toggle-summary">{{effect.name}}</a>
+                            {{#if (and (eq effect.type "effect") (eq effect.badge.type "counter"))}}
+                                ({{coalesce effect.badge.label effect.badge.value}})
+                            {{/if}}
+                            {{#if (eq effect.type "condition")}}{{#unless effect.active}}<span> (Inactive)</span>{{/unless}}{{/if}}
                         </h4>
-                        {{#if (and (eq effect.type "effect") (eq effect.badge.type "counter"))}}
-                            ({{coalesce effect.badge.label effect.badge.value}})
-                        {{/if}}
-                        {{#if (eq effect.type "condition")}}{{#unless effect.active}}<span> (Inactive)</span>{{/unless}}{{/if}}
                         <div class="item-controls">
                             {{#if (and @root.options.editable (not effect.readonly))}}
                                 {{#if (eq effect.badge.type "counter")}}
