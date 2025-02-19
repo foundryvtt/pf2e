@@ -150,15 +150,19 @@ class VehicleSystemData extends ActorSystemModel<VehiclePF2e, VehicleSystemSchem
                             choices: ["encounter"] as const,
                             initial: undefined,
                         }),
-                        new fields.BooleanField<boolean, boolean, true, false, false>({ initial: undefined }),
+                        new fields.BooleanField<boolean, boolean, true, false, false>({
+                            required: true,
+                            nullable: false,
+                            initial: undefined,
+                        }),
                     ],
-                    { required: false, nullable: false, initial: undefined },
+                    { required: true, nullable: false, initial: "encounter" },
                 ),
             }),
             details: new fields.SchemaField({
                 description: blankableString(),
                 level: new fields.SchemaField({
-                    value: requiredInteger({ min: -1 }),
+                    value: requiredInteger({ min: -1, initial: 0 }),
                 }),
                 price: requiredInteger({ min: 0 }),
                 space: new fields.SchemaField({
@@ -274,9 +278,9 @@ type VehicleAttributesSchema = {
     emitsSound: DataUnionField<
         | fields.StringField<"encounter", "encounter", true, false, false>
         | fields.BooleanField<boolean, boolean, true, false, false>,
+        true,
         false,
-        false,
-        false
+        true
     >;
 };
 
