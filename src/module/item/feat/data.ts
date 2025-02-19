@@ -122,7 +122,7 @@ class FeatSystemData extends ItemSystemModel<FeatPF2e, FeatSystemSchema> {
             }),
             frequency: new FrequencyField(),
             subfeatures: new fields.SchemaField({
-                keyOptions: new fields.SetField(
+                keyOptions: new fields.ArrayField(
                     new fields.StringField<AttributeString, AttributeString, true, false, false>({
                         required: true,
                         nullable: false,
@@ -144,7 +144,7 @@ class FeatSystemData extends ItemSystemModel<FeatPF2e, FeatSystemSchema> {
                             min: 0,
                             initial: 0,
                         }),
-                        granted: new fields.SetField(
+                        granted: new fields.ArrayField(
                             new fields.StringField({ required: true, nullable: false, choices: languages }),
                         ),
                     },
@@ -219,8 +219,8 @@ class FeatSystemData extends ItemSystemModel<FeatPF2e, FeatSystemSchema> {
         if (this.actor && this.frequency) this.frequency.value ??= this.frequency.max;
 
         const subfeatures = this.subfeatures;
-        subfeatures.keyOptions ??= new Set();
-        subfeatures.languages ??= { slots: 0, granted: new Set() };
+        subfeatures.keyOptions ??= [];
+        subfeatures.languages ??= { slots: 0, granted: [] };
         subfeatures.proficiencies ??= {};
         subfeatures.senses ??= {};
         subfeatures.suppressedFeatures ??= [];
@@ -263,10 +263,10 @@ type FeatSystemSchema = Omit<ItemSystemSchema, "traits"> & {
     location: fields.StringField<string, string, true, true, true>;
     frequency: FrequencyField;
     subfeatures: fields.SchemaField<{
-        keyOptions: fields.SetField<
+        keyOptions: fields.ArrayField<
             fields.StringField<AttributeString, AttributeString, true, false, false>,
             AttributeString[],
-            Set<AttributeString>,
+            AttributeString[],
             false,
             false,
             false
@@ -275,10 +275,10 @@ type FeatSystemSchema = Omit<ItemSystemSchema, "traits"> & {
             {
                 slots: fields.NumberField<number, number, true, false, true>;
                 /** Additional specific languages the character knows */
-                granted: fields.SetField<fields.StringField<Language, Language, true, false, false>>;
+                granted: fields.ArrayField<fields.StringField<Language, Language, true, false, false>>;
             },
             { slots: number; granted: Language[] },
-            { slots: number; granted: Set<Language> },
+            { slots: number; granted: Language[] },
             false,
             false,
             false
@@ -353,7 +353,7 @@ interface FeatTraits extends FeatTraitsSource {
 }
 
 interface FeatSubfeatures {
-    keyOptions: Set<AttributeString>;
+    keyOptions: AttributeString[];
     languages: LanguagesSubfeature;
     proficiencies: { [K in IncreasableProficiency]?: { rank: OneToFour; attribute: AttributeString | null } };
     senses: SenseSubfeature;
@@ -364,7 +364,7 @@ interface LanguagesSubfeature {
     /** A number of open slots fillable with any language */
     slots: number;
     /** Additional specific languages the character knows */
-    granted: Set<Language>;
+    granted: Language[];
 }
 
 type IncreasableProficiency = ArmorCategory | ClassTrait | SaveType | WeaponCategory | "perception" | "spellcasting";

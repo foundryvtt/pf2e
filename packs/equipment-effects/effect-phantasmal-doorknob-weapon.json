@@ -22,6 +22,53 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:phantasmal-doorknob",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Phantasmal Doorknob"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:phantasmal-doorknob-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Phantasmal Doorknob (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:phantasmal-doorknob-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Phantasmal Doorknob (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "phantasmal-doorknob"
+            },
+            {
                 "choices": {
                     "includeHandwraps": true,
                     "ownedItems": true,
@@ -38,8 +85,28 @@
                 "outcome": [
                     "criticalSuccess"
                 ],
+                "predicate": [
+                    "phantasmal-doorknob:phantasmal-doorknob"
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.effectPhantasmalDoorknobWeapon}-damage",
-                "text": "The target is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] until the end of its next turn.",
+                "text": "PF2E.SpecificRule.Spellheart.PhantasmalDoorknob.CriticalHitNote.Weapon",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "or": [
+                            "phantasmal-doorknob:phantasmal-doorknob-greater",
+                            "phantasmal-doorknob:phantasmal-doorknob-major"
+                        ]
+                    }
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectPhantasmalDoorknobWeapon}-damage",
+                "text": "PF2E.SpecificRule.Spellheart.PhantasmalDoorknob.CriticalHitNote.GreaterOrMajor",
                 "title": "{item|name}"
             }
         ],
