@@ -1,4 +1,5 @@
 import "./app.d.ts";
+import "./av/index.d.ts";
 import "./client-settings.d.ts";
 import "./compendium.d.ts";
 import "./form.d.ts";
