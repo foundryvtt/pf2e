@@ -45,11 +45,13 @@
                 "value": 15
             },
             {
-                "key": "DamageDice",
-                "override": {
-                    "damageType": "{item|flags.pf2e.rulesSelections.physicalDamage}"
-                },
-                "selector": "weapon-arm-damage"
+                "key": "DamageAlteration",
+                "mode": "override",
+                "property": "damage-type",
+                "selectors": [
+                    "weapon-arm-damage"
+                ],
+                "value": "{item|flags.pf2e.rulesSelections.physicalDamage}"
             }
         ],
         "start": {

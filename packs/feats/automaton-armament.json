@@ -88,24 +88,28 @@
                 "rollOption": "armament"
             },
             {
-                "key": "DamageDice",
-                "override": {
-                    "dieSize": "d6"
-                },
+                "key": "DamageAlteration",
+                "mode": "upgrade",
                 "predicate": [
                     "enhancement:automaton-armament"
                 ],
-                "selector": "claw-damage"
+                "property": "dice-faces",
+                "selectors": [
+                    "claw-damage"
+                ],
+                "value": 6
             },
             {
-                "key": "DamageDice",
-                "override": {
-                    "dieSize": "d8"
-                },
+                "key": "DamageAlteration",
+                "mode": "upgrade",
                 "predicate": [
                     "enhancement:automaton-armament"
                 ],
-                "selector": "pincer-damage"
+                "property": "dice-faces",
+                "selectors": [
+                    "pincer-damage"
+                ],
+                "value": 8
             },
             {
                 "key": "ActiveEffectLike",

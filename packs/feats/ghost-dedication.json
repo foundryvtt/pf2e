@@ -53,14 +53,16 @@
                 "value": "magical"
             },
             {
-                "key": "DamageDice",
-                "override": {
-                    "damageType": "void"
-                },
+                "key": "DamageAlteration",
+                "mode": "override",
+                "property": "damage-type",
                 "predicate": [
                     "unarmed"
                 ],
-                "selector": "strike-damage"
+                "selectors": [
+                    "strike-damage"
+                ],
+                "value": "void"
             },
             {
                 "key": "GrantItem",

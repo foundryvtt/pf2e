@@ -173,14 +173,16 @@
                         "value": "reach-10"
                     },
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "bludgeoning"
-                        },
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
                         "predicate": [
                             "functional-form:ape"
                         ],
-                        "selector": "branch-damage"
+                        "selectors": [
+                            "branch-damage"
+                        ],
+                        "value": "bludgeoning"
                     }
                 ],
                 "slug": null,

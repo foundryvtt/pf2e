@@ -30,17 +30,17 @@
         },
         "rules": [
             {
-                "key": "DamageDice",
-                "override": {
-                    "damageType": "void"
-                },
+                "key": "DamageAlteration",
+                "mode": "override",
+                "property": "damage-type",
                 "predicate": [
                     "feverish-enzymes"
                 ],
-                "selector": [
+                "selectors": [
                     "claw-damage",
                     "jaws-damage"
-                ]
+                ],
+                "value": "void"
             },
             {
                 "domain": "damage",

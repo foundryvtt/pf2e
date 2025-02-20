@@ -737,14 +737,16 @@
                         "value": 2
                     },
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "electricity"
-                        },
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
                         "predicate": [
                             "diverse-training:kagebashi"
                         ],
-                        "selector": "fist-damage"
+                        "selectors": [
+                            "fist-damage"
+                        ],
+                        "value": "electricity"
                     },
                     {
                         "category": "precision",

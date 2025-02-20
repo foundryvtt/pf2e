@@ -22,11 +22,13 @@
         },
         "rules": [
             {
-                "key": "DamageDice",
-                "override": {
-                    "damageType": "acid"
-                },
-                "selector": "slime-whip-damage"
+                "key": "DamageAlteration",
+                "mode": "override",
+                "property": "damage-type",
+                "selectors": [
+                    "slime-whip-damage"
+                ],
+                "value": "acid"
             }
         ],
         "start": {
