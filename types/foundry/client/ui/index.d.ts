@@ -24,13 +24,14 @@ declare global {
         combat: TCombatTracker;
         compendium: TCompendiumDirectory;
         controls: SceneControls;
+        hotbar: THotbar;
         items: TItemDirectory;
+        nav: SceneNavigation;
         notifications: Notifications;
         settings: Settings;
         sidebar: Sidebar;
         tables: RollTableDirectory;
+        webrtc: CameraViews;
         windows: Record<number, Application>;
-        hotbar: THotbar;
-        nav: SceneNavigation;
     }
 }
