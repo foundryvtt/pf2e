@@ -95,34 +95,13 @@
                         "value": true
                     },
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "bludgeoning"
-                        },
-                        "predicate": [
-                            "hurled-metal-object:bludgeoning"
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
+                        "selectors": [
+                            "{item|_id}-damage"
                         ],
-                        "selector": "{item|_id}-damage"
-                    },
-                    {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "piercing"
-                        },
-                        "predicate": [
-                            "hurled-metal-object:piercing"
-                        ],
-                        "selector": "{item|_id}-damage"
-                    },
-                    {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "slashing"
-                        },
-                        "predicate": [
-                            "hurled-metal-object:slashing"
-                        ],
-                        "selector": "{item|_id}-damage"
+                        "value": "{item|flags.pf2e.rulesSelections.hurledMetalObject}"
                     }
                 ],
                 "slug": null,

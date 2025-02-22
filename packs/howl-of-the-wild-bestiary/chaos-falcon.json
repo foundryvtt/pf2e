@@ -319,11 +319,13 @@
                         "value": "{item|flags.pf2e.rulesSelections.stormNexus}"
                     },
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "{item|flags.pf2e.rulesSelections.stormNexus}"
-                        },
-                        "selector": "bolt-damage"
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
+                        "selectors": [
+                            "bolt-damage"
+                        ],
+                        "value": "{item|flags.pf2e.rulesSelections.stormNexus}"
                     }
                 ],
                 "slug": "storm-nexus",

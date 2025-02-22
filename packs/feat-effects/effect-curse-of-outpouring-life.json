@@ -39,10 +39,8 @@
                 "value": "-max(floor(@actor.level/2),1)"
             },
             {
-                "key": "DamageDice",
-                "override": {
-                    "dieSize": "d12"
-                },
+                "key": "DamageAlteration",
+                "mode": "upgrade",
                 "predicate": [
                     "class:oracle",
                     "item:slug:heal",
@@ -54,7 +52,11 @@
                     },
                     "all-living-targets"
                 ],
-                "selector": "spell-healing"
+                "property": "dice-faces",
+                "selectors": [
+                    "spell-healing"
+                ],
+                "value": 12
             },
             {
                 "domain": "all",

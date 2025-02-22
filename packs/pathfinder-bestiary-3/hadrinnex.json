@@ -202,14 +202,16 @@
                         "value": 15
                     },
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "{item|flags.pf2e.rulesSelections.rapidEvolutionEnergyGland}"
-                        },
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
                         "predicate": [
                             "rapid-evolution-energy-gland"
                         ],
-                        "selector": "energy-ray-damage"
+                        "selectors": [
+                            "energy-ray-damage"
+                        ],
+                        "value": "{item|flags.pf2e.rulesSelections.rapidEvolutionEnergyGland}"
                     },
                     {
                         "alwaysActive": true,
@@ -241,11 +243,16 @@
                         "value": 15
                     },
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "{item|flags.pf2e.rulesSelections.rapidEvolutionHusk}"
-                        },
-                        "selector": "weapon-arm-damage"
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
+                        "predicate": [
+                            "self:effect:erraticannon"
+                        ],
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "value": "slashing"
                     },
                     {
                         "definition": [

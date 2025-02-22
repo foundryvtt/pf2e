@@ -65,11 +65,13 @@
                 "prompt": "PF2E.SpecificRule.Prompt.EnergyType"
             },
             {
-                "key": "DamageDice",
-                "override": {
-                    "damageType": "{item|flags.pf2e.rulesSelections.energy}"
-                },
-                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
+                "key": "DamageAlteration",
+                "mode": "override",
+                "property": "damage-type",
+                "selectors": [
+                    "{item|flags.pf2e.rulesSelections.weapon}-damage"
+                ],
+                "value": "{item|flags.pf2e.rulesSelections.energy}"
             },
             {
                 "category": "persistent",

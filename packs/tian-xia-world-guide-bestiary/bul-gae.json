@@ -280,12 +280,22 @@
                 },
                 "rules": [
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "fire",
-                            "dieSize": "d6"
-                        },
-                        "selector": "jaws-damage"
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
+                        "selectors": [
+                            "jaws-damage"
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "dice-faces",
+                        "selectors": [
+                            "jaws-damage"
+                        ],
+                        "value": 6
                     }
                 ],
                 "slug": null,
