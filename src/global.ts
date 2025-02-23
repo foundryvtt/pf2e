@@ -225,6 +225,7 @@ declare global {
         PF2E: typeof PF2ECONFIG;
         time: {
             roundTime: number;
+            turnTime: number;
         };
     }
 
