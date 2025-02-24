@@ -4,7 +4,7 @@
     "name": "Spell Effect: Shields of the Spirit",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Shields of the Spirit]</p>\n<p>You gain a +1 status bonus to AC.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Shields of the Spirit]</p><p><strong>Champion:</strong> You Raise your Shield. The effect ends at the start of your next turn or when you're no longer raising your shield.</p><p><strong>Ally:</strong> You gain a +1 status bonus to AC while in the Champion's aura. When an enemy attacks you, they take 1d4 spirit damage.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -54,15 +54,15 @@
                 "type": "status",
                 "value": 1
             },
-      {
-        "key": "GrantItem",
-        "uuid": "Compendium.pf2e.equipment-effects.Item.2YgXoHvJfrDHucMr",
-        "predicate": [
-          "self:signature:{item|origin.signature}"
-        ],
-        "allowDuplicate": false,
-        "reevaluateOnUpdate": true
-      }
+            {
+              "allowDuplicate": false,
+              "key": "GrantItem",
+              "predicate": [
+                "self:signature:{item|origin.signature}"
+              ],
+              "reevaluateOnUpdate": true,
+              "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Raise a Shield"
+            }
         ],
         "start": {
             "initiative": null,
