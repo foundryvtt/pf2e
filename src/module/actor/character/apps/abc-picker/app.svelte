@@ -32,7 +32,9 @@
     const debouncedSearch = fu.debounce((query: string) => {
         const regexp = new RegExp(RegExp.escape(query.trim()), "i");
         for (const row of foundryApp.element.getElementsByTagName("li")) {
-            row.hidden = !regexp.test(row.innerText ?? "");
+            const name = row.innerText ?? "";
+            const originalName = row.dataset.originalName;
+            row.hidden = !regexp.test(name) && !(originalName && regexp.test(originalName));
         }
     }, 200);
 </script>
@@ -44,7 +46,7 @@
 
 <ul>
     {#each data.items as item}
-        <li data-uuid={item.uuid}>
+        <li data-uuid={item.uuid} data-original-name={item.originalName || null}>
             <button
                 type="button"
                 class="flat name-source"
