@@ -89,6 +89,40 @@
                 ],
                 "property": "other-tags",
                 "value": "bestial-mutagen-strike"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "label": "PF2E.WeaponSpecialization",
+                "predicate": [
+                    "item:tag:bestial-mutagen-strike",
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            2
+                        ]
+                    }
+                ],
+                "priority": 1,
+                "selector": "strike-damage",
+                "slug": "weapon-specialization",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "predicate": [
+                    "item:tag:bestial-mutagen-strike",
+                    "feature:weapon-specialization",
+                    {
+                        "not": "feature:greater-weapon-specialization"
+                    }
+                ],
+                "priority": 3,
+                "relabel": "PF2E.GreaterWeaponSpecialization",
+                "selector": "strike-damage",
+                "slug": "weapon-specialization",
+                "value": 2
             }
         ],
         "start": {
