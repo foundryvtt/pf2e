@@ -343,8 +343,15 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         })();
         this.#activateInventoryDragDrop(inventoryPanel);
 
+        // Allow use of search inputs when sheet is not editable
+        if (!this.isEditable && this.actor.testUserPermission(game.user, "OBSERVER")) {
+            for (const input of html.querySelectorAll<HTMLInputElement>("input[type=search]")) {
+                input.disabled = false;
+            }
+        }
+
         // Everything below here is only needed if the sheet is editable
-        if (!this.options.editable) return;
+        if (!this.isEditable) return;
 
         // Handlers for number inputs of properties subject to modification by AE-like rules elements
         const manualPropertyInputs = htmlQueryAll<HTMLInputElement | HTMLSelectElement>(

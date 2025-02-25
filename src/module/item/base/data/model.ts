@@ -1,5 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import type { MigrationDataField } from "@module/data.ts";
+import { PublicationField } from "@module/model.ts";
 import type { RuleElementSource } from "@module/rules/index.ts";
 import { SlugField } from "@system/schema-data-fields.ts";
 import type { ItemPF2e } from "../document.ts";
@@ -19,17 +20,7 @@ abstract class ItemSystemModel<TParent extends ItemPF2e, TSchema extends ItemSys
                 value: anyStringField(),
                 gm: anyStringField(),
             }),
-            publication: new fields.SchemaField({
-                title: anyStringField(),
-                authors: anyStringField(),
-                license: new fields.StringField({
-                    required: true,
-                    nullable: false,
-                    choices: ["OGL", "ORC"],
-                    initial: "OGL",
-                }),
-                remaster: new fields.BooleanField({ required: true, nullable: false, initial: false }),
-            }),
+            publication: new PublicationField(),
             rules: new fields.ArrayField(new fields.ObjectField({ required: true, nullable: false })),
             slug: new SlugField({ required: true, nullable: true, initial: null }),
             traits: new fields.SchemaField({
