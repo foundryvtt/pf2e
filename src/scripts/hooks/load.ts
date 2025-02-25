@@ -2,6 +2,7 @@ import { ActorProxyPF2e } from "@actor";
 import { ArmySystemData } from "@actor/army/data.ts";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
 import { FamiliarSystemData } from "@actor/familiar/data.ts";
+import { HazardSystemData } from "@actor/hazard/data.ts";
 import { resetActors } from "@actor/helpers.ts";
 import { LootSystemData } from "@actor/loot/data.ts";
 import { PartySystemData } from "@actor/party/data.ts";
@@ -91,6 +92,7 @@ export const Load = {
         // Actor system data models
         CONFIG.Actor.dataModels.army = ArmySystemData;
         CONFIG.Actor.dataModels.familiar = FamiliarSystemData;
+        CONFIG.Actor.dataModels.hazard = HazardSystemData;
         CONFIG.Actor.dataModels.loot = LootSystemData;
         CONFIG.Actor.dataModels.party = PartySystemData;
         CONFIG.Actor.dataModels.vehicle = VehicleSystemData;
