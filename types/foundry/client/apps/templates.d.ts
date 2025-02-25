@@ -10,7 +10,7 @@ declare function getTemplate(path: string, id?: string): Promise<(context: objec
  * Load and cache a set of templates by providing an Array of paths
  * @param paths
  */
-declare function loadTemplates(paths: string[]): Promise<void>;
+declare function loadTemplates(paths: string[] | Record<string, string>): Promise<void>;
 
 /**
  * Get and render a template using provided data and handle the returned HTML
