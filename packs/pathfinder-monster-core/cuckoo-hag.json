@@ -2677,14 +2677,16 @@
                         "value": true
                     },
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "bludgeoning"
-                        },
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
                         "predicate": [
                             "change-shape:humanoid-medium"
                         ],
-                        "selector": "damage"
+                        "selectors": [
+                            "damage"
+                        ],
+                        "value": "bludgeoning"
                     }
                 ],
                 "slug": "change-shape",

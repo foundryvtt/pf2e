@@ -65,10 +65,8 @@
                 "value": "@actor.system.abilities.con.mod"
             },
             {
-                "key": "DamageDice",
-                "override": {
-                    "dieSize": "d10"
-                },
+                "key": "DamageAlteration",
+                "mode": "upgrade",
                 "predicate": [
                     {
                         "lt": [
@@ -77,7 +75,11 @@
                         ]
                     }
                 ],
-                "selector": "stone-fist-damage"
+                "property": "dice-faces",
+                "selectors": [
+                    "stone-fist-damage"
+                ],
+                "value": 10
             }
         ],
         "traits": {
