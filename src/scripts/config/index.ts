@@ -454,6 +454,8 @@ export const PF2ECONFIG = {
         "affixed-to-armor": "PF2E.TraitAffixedToArmor",
         "affixed-to-medium-heavy-armor": "PF2E.TraitAffixedToMediumHeavyArmor",
         "affixed-to-medium-heavy-metal-armor": "PF2E.TraitAffixedToMediumHeavyMetalArmor",
+        "affixed-to-metal-armor-or-a-weapon": "PF2E.TraitAffixedToMetalArmorOrAWeapon",
+        "affixed-to-non-metal-armor-or-a-weapon": "PF2E.TraitAffixedToNMArmorOrAWeapon",
         "affixed-to-armor-or-a-weapon": "PF2E.TraitAffixedToArmorOrAWeapon",
         "affixed-to-armor-or-travelers-clothing": "PF2E.TraitAffixedToArmorOrTravelersClothing",
         "affixed-to-crossbow-or-firearm": "PF2E.TraitAffixedToCrossbowOrFirearm",
