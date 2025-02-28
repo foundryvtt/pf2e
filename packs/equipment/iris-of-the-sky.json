@@ -70,14 +70,16 @@
                 "toggleable": true
             },
             {
-                "key": "DamageDice",
-                "override": {
-                    "damageType": "fire"
-                },
+                "key": "DamageAlteration",
+                "mode": "override",
+                "property": "damage-type",
                 "predicate": [
                     "solar-flame"
                 ],
-                "selector": "{item|_id}-damage"
+                "selectors": [
+                    "{item|_id}-damage"
+                ],
+                "value": "fire"
             }
         ],
         "runes": {

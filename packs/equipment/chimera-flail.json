@@ -179,10 +179,9 @@
                 "toggleable": true
             },
             {
-                "key": "DamageDice",
-                "override": {
-                    "damageType": "piercing"
-                },
+                "key": "DamageAlteration",
+                "mode": "override",
+                "property": "damage-type",
                 "predicate": [
                     {
                         "or": [
@@ -191,7 +190,10 @@
                         ]
                     }
                 ],
-                "selector": "{item|id}-damage"
+                "selectors": [
+                    "{item|_id}-damage"
+                ],
+                "value": "piercing"
             },
             {
                 "damageType": "{item|flags.pf2e.rulesSelections.dragonHeadDamage}",

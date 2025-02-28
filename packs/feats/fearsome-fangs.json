@@ -26,24 +26,28 @@
         },
         "rules": [
             {
-                "key": "DamageDice",
-                "override": {
-                    "dieSize": "d12"
-                },
+                "key": "DamageAlteration",
+                "mode": "upgrade",
                 "predicate": [
                     "self:effect:ursine-avenger-form"
                 ],
-                "selector": "jaws-damage"
+                "property": "dice-faces",
+                "selectors": [
+                    "jaws-damage"
+                ],
+                "value": 12
             },
             {
-                "key": "DamageDice",
-                "override": {
-                    "dieSize": "d8"
-                },
+                "key": "DamageAlteration",
+                "mode": "upgrade",
                 "predicate": [
                     "self:effect:ursine-avenger-form"
                 ],
-                "selector": "claw-damage"
+                "property": "dice-faces",
+                "selectors": [
+                    "claw-damage"
+                ],
+                "value": 8
             }
         ],
         "traits": {

@@ -487,14 +487,16 @@
                         "value": true
                     },
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "vitality"
-                        },
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "property": "damage-type",
                         "predicate": [
                             "blessed-strikes:vitality"
                         ],
-                        "selector": "strike-damage"
+                        "selectors": [
+                            "strike-damage"
+                        ],
+                        "value": "vitality"
                     }
                 ],
                 "slug": null,
