@@ -49,7 +49,7 @@ abstract class PickAThingPrompt<TItem extends ItemPF2e, TThing extends string | 
             htmlClosest(event.target, ".content")?.querySelector<HTMLElement>("tag") ??
             htmlClosest(event.target, "button[data-action=pick]") ??
             htmlClosest(event.target, ".choice")?.querySelector("button[data-action=pick]");
-        const selectedIndex = valueElement?.getAttribute("value") ?? valueElement?.getAttribute("data-choice");
+        const selectedIndex = valueElement?.getAttribute("value");
 
         return !selectedIndex || !Number.isInteger(Number(selectedIndex))
             ? null
