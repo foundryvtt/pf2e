@@ -67,6 +67,21 @@
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Terrain",
                 "rollOption": "favored-terrain"
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:favored-terrain",
+                    "feature:unimpeded-journey"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Favored Terrain (Second Benefit)]"
+                    }
+                ]
             }
         ],
         "traits": {
