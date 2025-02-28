@@ -22,37 +22,86 @@
         },
         "rules": [
             {
+                "adjustName": false,
                 "choices": [
                     {
-                        "img": "icons/consumables/potions/bottle-round-ring-teal.webp",
-                        "label": "PF2E.BombNotes.GooGrenade.Lesser",
-                        "value": -5
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:goo-grenade-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Goo Grenade (Lesser)"
                     },
                     {
-                        "img": "icons/consumables/potions/bottle-round-ring-teal.webp",
-                        "label": "PF2E.BombNotes.GooGrenade.Moderate",
-                        "value": -5
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:goo-grenade-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Goo Grenade (Moderate)"
                     },
                     {
-                        "img": "icons/consumables/potions/bottle-round-ring-teal.webp",
-                        "label": "PF2E.BombNotes.GooGrenade.Greater",
-                        "value": -10
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:goo-grenade-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Goo Grenade (Greater)"
                     },
                     {
-                        "img": "icons/consumables/potions/bottle-round-ring-teal.webp",
-                        "label": "PF2E.BombNotes.GooGrenade.Major",
-                        "value": -10
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:goo-grenade-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Goo Grenade (Major)"
                     }
                 ],
-                "flag": "gooGrenade",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.BombNotes.GooGrenade.Prompt"
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "goo-grenade"
             },
             {
                 "key": "FlatModifier",
                 "selector": "speed",
+                "slug": "goo-grenade-penalty",
                 "type": "circumstance",
-                "value": "{item|flags.pf2e.rulesSelections.gooGrenade}"
+                "value": -5
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "downgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "goo-grenade:goo-grenade-greater",
+                            "goo-grenade:goo-grenade-major"
+                        ]
+                    }
+                ],
+                "selector": "speed",
+                "slug": "goo-grenade-penalty",
+                "value": -10
             }
         ],
         "start": {
