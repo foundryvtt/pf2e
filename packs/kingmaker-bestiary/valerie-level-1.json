@@ -1138,11 +1138,16 @@
                 },
                 "rules": [
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "dieSize": "d8"
-                        },
-                        "selector": "shortbow-damage"
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "dice:slug:base"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "shortbow-damage"
+                        ],
+                        "value": 8
                     }
                 ],
                 "slug": null,

@@ -20,37 +20,33 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
         "rules": [
             {
-                "definition": [
-                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
-                ],
-                "key": "AdjustStrike",
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
                 "mode": "add",
-                "property": "weapon-traits",
+                "property": "traits",
                 "value": "backstabber"
             },
             {
-                "definition": [
-                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
-                ],
-                "key": "AdjustStrike",
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
                 "mode": "add",
-                "property": "weapon-traits",
+                "property": "traits",
                 "value": "versatile-p"
             },
             {
-                "definition": [
-                    "item:bulk:light",
-                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
-                ],
-                "key": "AdjustStrike",
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
                 "mode": "add",
-                "property": "weapon-traits",
+                "predicate": [
+                    "item:bulk:light"
+                ],
+                "property": "traits",
                 "value": "concealable"
             }
         ],

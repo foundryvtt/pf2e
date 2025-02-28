@@ -55,6 +55,7 @@ class ArmySystemData extends ActorSystemModel<ArmyPF2e, ArmySystemSchema> {
                 level: new fields.SchemaField({
                     value: new fields.NumberField({ required: true, nullable: false, integer: true, initial: 1 }),
                 }),
+                description: new fields.StringField({ required: true, nullable: false, initial: "" }),
             }),
             consumption: new fields.NumberField({ required: true, nullable: false, integer: true, initial: 1 }),
             scouting: new fields.NumberField({
@@ -217,6 +218,7 @@ type ArmyDetailsSchema = {
     level: fields.SchemaField<{
         value: fields.NumberField<number, number, true, false, true>;
     }>;
+    description: fields.StringField<string, string, true, false, true>;
 };
 
 type ArmyTraitsSchema = {

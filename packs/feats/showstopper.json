@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Your twirling weapons create a grand distraction that's difficult to look away from. When using Pistol Twirl to Feint, you can target all enemies within your weapon's first range increment who you can perceive and who can see you. You roll one Deception check and compare it against each target's Perception DC.</p>"
+            "value": "<p>Your twirling weapons create a grand distraction that's difficult to look away from. When using @UUID[Compendium.pf2e.feats-srd.Item.Pistol Twirl] to @UUID[Compendium.pf2e.actionspf2e.Item.Feint], you can target all enemies within your weapon's first range increment who you can perceive and who can see you. You roll one Deception check and compare it against each target's Perception DC.</p>"
         },
         "level": {
             "value": 14
@@ -27,11 +27,27 @@
             ]
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:pistol-twirl"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

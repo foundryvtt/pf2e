@@ -2281,7 +2281,31 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "deflecting-cloud",
+                        "toggleable": true
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "deflecting-cloud"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Hidden"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "deflecting-cloud"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -2353,7 +2377,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon breathes a thundercloud that deals @Damage[15d6[electricity]] damage in a @Template[cone|distance:50] (@Check[reflex|dc:35|basic] save). They can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon breathes a thundercloud that deals @Damage[15d6[electricity]|options:area-damage] damage in a @Template[cone|distance:50] (@Check[reflex|dc:35|basic|options:area-effect] save). They can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",

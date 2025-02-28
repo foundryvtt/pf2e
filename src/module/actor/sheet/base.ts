@@ -70,9 +70,10 @@ import { RemoveCoinsPopup } from "./popups/remove-coins-popup.ts";
  * @category Actor
  */
 abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
-    #inventorySearchEngine = new MiniSearch<Pick<PhysicalItemPF2e<TActor>, "id" | "name">>({
+    /** Index all items and subitems in this actor for searching. Indexed by UUID because subitems may share ids across different parents */
+    #inventorySearchEngine = new MiniSearch<Pick<PhysicalItemPF2e<TActor>, "uuid" | "name">>({
         fields: ["name"],
-        idField: "id",
+        idField: "uuid",
         processTerm: (t) => (t.length > 1 ? t.toLocaleLowerCase(game.i18n.lang) : null),
         searchOptions: { combineWith: "AND", prefix: true },
     });
@@ -196,7 +197,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     protected prepareInventory(): SheetInventory {
         const items = [...iterateAllItems(this.actor)].filter((i) => i.isOfType("physical"));
         this.#inventorySearchEngine.removeAll();
-        this.#inventorySearchEngine.addAll(items.map((i) => R.pick(i, ["id", "name"])));
+        this.#inventorySearchEngine.addAll(items.map((i) => R.pick(i, ["uuid", "name"])));
 
         const sections: SheetInventory["sections"] = [
             {
@@ -283,13 +284,13 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             if (html?.classList.contains("inventory-list") && query.length > 1) {
                 const baseMatches = this.#inventorySearchEngine.search(query).map((s) => String(s.id));
                 const allItems = [...iterateAllItems(this.actor)];
-                const itemsById = R.mapToObj(
+                const itemsByUuid: Record<string, PhysicalItemPF2e<TActor>> = R.mapToObj(
                     allItems.filter((i): i is PhysicalItemPF2e<TActor> => i.isOfType("physical")),
-                    (i) => [i.id, i],
+                    (i) => [i.uuid, i],
                 );
-                const baseItems = baseMatches.map((id) => itemsById[id]).filter((i) => !!i);
-                const parentMatches = baseItems.flatMap((i) => getAllParents(i)).map((i) => i.id);
-                const childMatches = baseItems.flatMap((i) => getAllChildren(i)).map((i) => i.id);
+                const baseItems = baseMatches.map((uuid) => itemsByUuid[uuid]).filter((i) => !!i);
+                const parentMatches = baseItems.flatMap((i) => getAllParents(i)).map((i) => i.uuid);
+                const childMatches = baseItems.flatMap((i) => getAllChildren(i)).map((i) => i.uuid);
 
                 return new Set([baseMatches, parentMatches, childMatches].flat());
             }
@@ -297,8 +298,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             return null;
         })();
 
-        for (const row of htmlQueryAll(html, "li[data-item-id]")) {
-            row.hidden = matches !== null && !matches.has(row.dataset.itemId ?? "");
+        for (const row of htmlQueryAll(html, "li[data-uuid]")) {
+            row.hidden = matches !== null && !matches.has(row.dataset.uuid ?? "");
         }
     }
 
@@ -342,8 +343,15 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         })();
         this.#activateInventoryDragDrop(inventoryPanel);
 
+        // Allow use of search inputs when sheet is not editable
+        if (!this.isEditable && this.actor.testUserPermission(game.user, "OBSERVER")) {
+            for (const input of html.querySelectorAll<HTMLInputElement>("input[type=search]")) {
+                input.disabled = false;
+            }
+        }
+
         // Everything below here is only needed if the sheet is editable
-        if (!this.options.editable) return;
+        if (!this.isEditable) return;
 
         // Handlers for number inputs of properties subject to modification by AE-like rules elements
         const manualPropertyInputs = htmlQueryAll<HTMLInputElement | HTMLSelectElement>(

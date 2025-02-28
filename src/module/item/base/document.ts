@@ -38,8 +38,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /** Has this document completed `DataModel` initialization? */
     declare initialized: boolean;
 
-    /** Additional item roll options set by rule elements */
-    declare rollOptions: Set<string>;
+    /** Additional item roll options not derived from an item's own data */
+    declare specialOptions: string[];
 
     /** The item that granted this item, if any */
     declare grantedBy: ItemPF2e<ActorPF2e> | null;
@@ -161,7 +161,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             `${prefix}:${slug}`,
             `${prefix}:slug:${slug}`,
             ...granterOptions,
-            ...Array.from(this.rollOptions).map((o) => `${prefix}:${o}`),
+            ...Array.from(this.specialOptions).map((o) => `${prefix}:${o}`),
             ...traitOptions.map((t) => `${prefix}:${t}`),
             ...otherTags.map((t) => `${prefix}:tag:${t}`),
         ];
@@ -245,7 +245,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     protected override _initialize(options?: Record<string, unknown>): void {
         this.initialized = false;
         this.rules = [];
-        this.rollOptions = new Set();
+        this.specialOptions = [];
 
         super._initialize(options);
     }
@@ -588,14 +588,22 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         // If any created types are "singular", remove existing competing ones.
-        // actor.deleteEmbeddedDocuments() will also delete any linked items.
+        // Also remove expired duplicate expired effects.
+        // Creature's deleteEmbeddedDocuments() will also delete any linked items.
         const singularTypes = ["ancestry", "background", "class", "heritage", "deity"] as const;
         const singularTypesToDelete = singularTypes.filter((type) => sources.some((s) => s.type === type));
         const preCreateDeletions = singularTypesToDelete.flatMap(
             (type): ItemPF2e<ActorPF2e>[] => actor.itemTypes[type],
         );
-        if (preCreateDeletions.length > 0) {
-            const idsToDelete = preCreateDeletions.map((i) => i.id);
+        const expiredDuplicateEffects = sources
+            .filter((s) => s.type === "effect")
+            .map((s) => s._stats?.duplicateSource ?? s._stats?.compendiumSource)
+            .flatMap((uuid) => actor.itemTypes.effect.filter((e) => e.sourceId === uuid && e.isExpired));
+        const idsToDelete = R.unique([
+            ...expiredDuplicateEffects.map((i) => i.id),
+            ...preCreateDeletions.map((i) => i.id),
+        ]);
+        if (idsToDelete.length > 0) {
             await actor.deleteEmbeddedDocuments("Item", idsToDelete, { render: false });
         }
 

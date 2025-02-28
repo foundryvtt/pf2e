@@ -378,16 +378,24 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Attack and defense proficiencies
         type PartialMartialProficiency = Record<string, Partial<MartialProficiency> | undefined>;
         const attacks: PartialMartialProficiency = (system.proficiencies.attacks ??= {});
+        // Set custom attack proficiencies to be visible
+        for (const attack of Object.values(attacks).filter(R.isDefined)) {
+            attack.visible = true;
+        }
+
         for (const category of Object.keys(CONFIG.PF2E.weaponCategories)) {
             attacks[category] = {
                 rank: attacks[category]?.rank ?? 0,
-                custom: !!attacks[category]?.custom,
+                visible: true,
             };
         }
 
         const defenses: PartialMartialProficiency = (system.proficiencies.defenses ??= {});
         for (const category of ARMOR_CATEGORIES) {
-            defenses[category] = { rank: defenses[category]?.rank ?? 0 };
+            defenses[category] = {
+                rank: defenses[category]?.rank ?? 0,
+                visible: true,
+            };
         }
 
         // Crafting
@@ -595,7 +603,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Apply the speed penalty from this character's held shield
         const heldShield = this.heldShield;
         if (heldShield?.speedPenalty) {
-            const speedPenalty = new ModifierPF2e(heldShield.name, heldShield.speedPenalty, "untyped");
+            const speedPenalty = new ModifierPF2e({
+                slug: "shield-speed-penalty",
+                label: heldShield.name,
+                modifier: heldShield.speedPenalty,
+            });
             speedPenalty.predicate.push({ not: "self:shield:ignore-speed-penalty" });
             this.synthetics.modifiers.speed ??= [];
             this.synthetics.modifiers.speed.push(() => speedPenalty);
@@ -1209,7 +1221,16 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         })();
 
         if (weaponPotency) {
-            modifiers.push(new ModifierPF2e(weaponPotency.label, weaponPotency.bonus, weaponPotency.type));
+            const slug = weaponPotency.type === "item" ? "weapon-potency" : "attack-potency";
+            modifiers.push(
+                new ModifierPF2e({
+                    slug,
+                    type: weaponPotency.type,
+                    label: weaponPotency.label,
+                    modifier: weaponPotency.bonus,
+                    adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, attackDomains, slug),
+                }),
+            );
             // In case of a WeaponPotency RE, add traits to establish the weapon as being magical
             if (!weapon.isMagical && (weaponPotency.type === "item" || !ABP.isEnabled(weapon.actor))) {
                 weapon.system.traits.value.push("magical");

@@ -1,0 +1,185 @@
+{
+    "_id": "VOSQ77DV4BnAkP7m",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/eagle-eyes-elixir.webp",
+    "name": "Effect: Eagle Eye Elixir",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Eagle Eye Elixir (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Eagle Eye Elixir (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Eagle Eye Elixir (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Eagle Eye Elixir (Major)]</p>\n<p>You gain an item bonus to Perception checks that is greater when attempting to find secret doors and traps.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:eagle-eye-elixir-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Eagle Eye Elixir (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:eagle-eye-elixir-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Eagle Eye Elixir (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:eagle-eye-elixir-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Eagle Eye Elixir (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:eagle-eye-elixir-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Eagle Eye Elixir (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "eagle-eye-elixir"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "perception",
+                "slug": "eagle-eye-elixir-bonus",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "origin:trait:trap",
+                            "secret-door"
+                        ]
+                    },
+                    "eagle-eye-elixir:eagle-eye-elixir-lesser"
+                ],
+                "priority": 120,
+                "selector": "perception",
+                "slug": "eagle-eye-elixir-bonus",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "eagle-eye-elixir:eagle-eye-elixir-moderate"
+                ],
+                "selector": "perception",
+                "slug": "eagle-eye-elixir-bonus",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "origin:trait:trap",
+                            "secret-door"
+                        ]
+                    },
+                    "eagle-eye-elixir:eagle-eye-elixir-moderate"
+                ],
+                "priority": 120,
+                "selector": "perception",
+                "slug": "eagle-eye-elixir-bonus",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "eagle-eye-elixir:eagle-eye-elixir-greater",
+                            "eagle-eye-elixir:eagle-eye-elixir-major"
+                        ]
+                    }
+                ],
+                "selector": "perception",
+                "slug": "eagle-eye-elixir-bonus",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "origin:trait:trap",
+                            "secret-door"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "eagle-eye-elixir:eagle-eye-elixir-greater",
+                            "eagle-eye-elixir:eagle-eye-elixir-major"
+                        ]
+                    }
+                ],
+                "priority": 120,
+                "selector": "perception",
+                "slug": "eagle-eye-elixir-bonus",
+                "value": 4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -230,7 +230,13 @@ type FlatModifierSchema = RuleElementSchema & {
     damageType: fields.StringField<string, string, false, true, false>;
     /** If a damage modifier, a special category */
     damageCategory: fields.StringField<DamageCategoryUnique, DamageCategoryUnique, false, false, false>;
-    /** If a damage modifier, whether it applies given the presence or absence of a critically successful attack roll */
+    /**
+     * Control whether and how this modifier included in a roll depending on the result of the preceding check.
+     * - `true`: the modifier is added only to critical damage rolls, without doubling.
+     * - `false`: the modifier is added to both normal and critical damage rolls, without doubling.
+     * - `null` (default): the modifier is added to both normal and critical damage rolls and is doubled in critical
+     *   damage rolls.
+     */
     critical: fields.BooleanField<boolean, boolean, false, true, true>;
     /** The numeric value of the modifier */
     value: ResolvableValueField<false, false, false>;

@@ -14,7 +14,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>Increase your innovation's weapon damage die by one step (d4 to d6, d6 to d8, d8 to d10, d10 to d12). In addition, it gains one of the following traits of your choice: versatile B, versatile P, or versatile S.</p>"
+            "value": "<p>Increase your innovation's weapon damage die by one step (d4 to d6, d6 to d8, d8 to d10, d10 to d12). In addition, it gains two of the following traits of your choice: versatile B, versatile P, versatile S, or razing.</p>"
         },
         "level": {
             "value": 1
@@ -23,20 +23,28 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
         "rules": [
             {
-                "key": "DamageDice",
-                "override": {
-                    "upgrade": true
-                },
-                "selector": "{actor|flags.pf2e.trackedItems.weaponInnovation}-damage"
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "property": "damage-dice-faces"
             },
             {
                 "choices": [
+                    {
+                        "label": "PF2E.TraitRazing",
+                        "predicate": [
+                            {
+                                "not": "weapon-innovation:trait:razing"
+                            }
+                        ],
+                        "value": "razing"
+                    },
                     {
                         "label": "PF2E.TraitVersatileB",
                         "predicate": [
@@ -74,7 +82,7 @@
                         "value": "versatile-s"
                     }
                 ],
-                "flag": "versatileTrait",
+                "flag": "complexSimplicityFirstTrait",
                 "key": "ChoiceSet",
                 "predicate": [
                     {
@@ -96,30 +104,115 @@
                                     "weapon-innovation:damage:type:slashing",
                                     "weapon-innovation:trait:versatile-s"
                                 ]
+                            },
+                            {
+                                "not": "weapon-innovation:trait:razing"
                             }
                         ]
                     }
                 ],
-                "prompt": "PF2E.SpecificRule.Prompt.VersatileTrait",
-                "rollOption": "complex-simplicity"
+                "prompt": "PF2E.SpecificRule.Prompt.Trait",
+                "rollOption": "complex-simplicity-first-trait"
             },
             {
-                "definition": [
-                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
+                "choices": [
+                    {
+                        "label": "PF2E.TraitRazing",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "weapon-innovation:trait:razing",
+                                    "complex-simplicity-first-trait:razing"
+                                ]
+                            }
+                        ],
+                        "value": "razing"
+                    },
+                    {
+                        "label": "PF2E.TraitVersatileB",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "weapon-innovation:damage:type:bludgeoning",
+                                    "weapon-innovation:trait:versatile-b",
+                                    "complex-simplicity-first-trait:versatile-b"
+                                ]
+                            }
+                        ],
+                        "value": "versatile-b"
+                    },
+                    {
+                        "label": "PF2E.TraitVersatileP",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "weapon-innovation:damage:type:piercing",
+                                    "weapon-innovation:trait:versatile-p",
+                                    "complex-simplicity-first-trait:versatile-p"
+                                ]
+                            }
+                        ],
+                        "value": "versatile-p"
+                    },
+                    {
+                        "label": "PF2E.TraitVersatileS",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "weapon-innovation:damage:type:slashing",
+                                    "weapon-innovation:trait:versatile-s",
+                                    "complex-simplicity-first-trait:versatile-s"
+                                ]
+                            }
+                        ],
+                        "value": "versatile-s"
+                    }
                 ],
-                "key": "AdjustStrike",
-                "mode": "add",
+                "flag": "complexSimplicitySecondTrait",
+                "key": "ChoiceSet",
                 "predicate": [
                     {
                         "or": [
-                            "complex-simplicity:versatile-b",
-                            "complex-simplicity:versatile-p",
-                            "complex-simplicity:versatile-s"
+                            {
+                                "nor": [
+                                    "weapon-innovation:damage:type:bludgeoning",
+                                    "weapon-innovation:trait:versatile-b"
+                                ]
+                            },
+                            {
+                                "nor": [
+                                    "weapon-innovation:damage:type:piercing",
+                                    "weapon-innovation:trait:versatile-p"
+                                ]
+                            },
+                            {
+                                "nor": [
+                                    "weapon-innovation:damage:type:slashing",
+                                    "weapon-innovation:trait:versatile-s"
+                                ]
+                            },
+                            {
+                                "not": "weapon-innovation:trait:razing"
+                            }
                         ]
                     }
                 ],
-                "property": "weapon-traits",
-                "value": "{item|flags.pf2e.rulesSelections.versatileTrait}"
+                "prompt": "PF2E.SpecificRule.Prompt.Trait",
+                "rollOption": "complex-simplicity-second-trait"
+            },
+            {
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "{item|flags.pf2e.rulesSelections.complexSimplicityFirstTrait}"
+            },
+            {
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "{item|flags.pf2e.rulesSelections.complexSimplicitySecondTrait}"
             }
         ],
         "traits": {

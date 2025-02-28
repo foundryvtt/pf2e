@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You use bulky firearms or crossbows to shield your body from your foes' attacks. Any two-handed firearms and two-handed crossbows you wield gain the parry trait. If an appropriate weapon already has the parry trait, increase the circumstance bonus to AC it grants when used to parry from +1 to +2.</p>"
+            "value": "<p>You use bulky firearms or crossbows to shield your body. Any two-handed firearms and two-handed crossbows you wield gain the parry trait. If an appropriate weapon already has the parry trait, increase the circumstance bonus to AC it grants when used to parry from +1 to +2. While parrying with your weapon, you are immune to splash damage.</p>"
         },
         "level": {
             "value": 2
@@ -20,8 +20,8 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
         "rules": [
@@ -45,6 +45,13 @@
                 ],
                 "property": "traits",
                 "value": "parry"
+            },
+            {
+                "key": "Immunity",
+                "predicate": [
+                    "self:effect:parry"
+                ],
+                "type": "splash"
             }
         ],
         "traits": {

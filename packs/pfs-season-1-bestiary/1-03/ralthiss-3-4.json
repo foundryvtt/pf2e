@@ -1771,7 +1771,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>If the next action Ralthiss takes is to cast harm to restore Hit Points to a single undead creature, the target then deals an additional @Damage[1d6[void]] damage with its melee weapons and unarmed attacks until the end of its next turn.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Divine Infusion]</p>"
+                    "value": "<p>If the next action Ralthiss takes is to cast @UUID[Compendium.pf2e.spells-srd.Item.Harm] to restore Hit Points to a single undead creature, the target then deals an additional @Damage[1d6[void]] damage with its melee weapons and unarmed attacks until the end of its next turn.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Divine Infusion]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1809,7 +1809,18 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "item:slug:harm"
+                        ],
+                        "selector": "spell-damage",
+                        "text": "PF2E.SpecificRule.Cleric.SapLife.Note",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

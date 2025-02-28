@@ -577,15 +577,15 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 commitData.itemUpdates.push(...spellcastingRecharge.itemUpdates);
                 commitData.affected.spellSlots = spellcastingRecharge.itemUpdates.length > 0;
             }
+        }
 
-            // Restore special resources
-            for (const resource of Object.values(this.synthetics.resources)) {
-                const updates = await resource.update(resource.max, { save: false, checkLevel: true });
-                commitData.itemCreates.push(...updates.itemCreates);
-                commitData.itemUpdates.push(...updates.itemUpdates);
-                if (updates.itemCreates.length || updates.itemUpdates.length) {
-                    commitData.affected.resources.push(resource.slug);
-                }
+        // Restore special resources based on elapsed time
+        for (const resource of Object.values(this.synthetics.resources)) {
+            const updates = await resource.renewUses(elapsed);
+            commitData.itemCreates.push(...updates.itemCreates);
+            commitData.itemUpdates.push(...updates.itemUpdates);
+            if (updates.itemCreates.length || updates.itemUpdates.length) {
+                commitData.affected.resources.push(resource.slug);
             }
         }
 
@@ -802,7 +802,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             return;
         }
         // Set after data model is initialized so that `this.id` will be defined (and `this.uuid` will be complete)
-        this.signature ??= UUIDv5(this.uuid, "e9fa1461-0edc-4791-826e-08633f1c6ef7"); // magic number as namespace
+        this.signature ??= UUIDv5(this.uuid ?? "", "e9fa1461-0edc-4791-826e-08633f1c6ef7"); // magic number as namespace
         this.initialized = true;
         super.prepareData();
 

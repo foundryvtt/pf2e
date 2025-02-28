@@ -36,7 +36,7 @@ function normalizeActionChangeData(document: SourceWithActionData, changed: Deep
 /** Adds sheet listeners for modifying frequency */
 function activateActionSheetListeners(item: ItemPF2e & SourceWithFrequencyData, html: HTMLElement): void {
     htmlQuery(html, "a[data-action=frequency-add]")?.addEventListener("click", () => {
-        const frequency: FrequencySource = { max: 1, per: "day" };
+        const frequency: Partial<FrequencySource> = { max: 1, per: "day" };
         item.update({ system: { frequency } });
     });
 

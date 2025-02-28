@@ -1,3 +1,103 @@
+## 6.9.0
+
+### Highlights
+
+-   (Ambrose, Rigo, kromko, Randommisha13) Update Guns & Gears content to remaster
+
+### System Improvements
+
+-   (Kulkodar) Add tooltips to the item sheet traits
+-   (Supe) Remove expired copies of an effect when adding a new one
+
+### Bug Fixes
+
+-   (Supe) Fix certain description overrides in some items like the spellcasting repertoire class feature
+-   (Supe) Fix consumables retaining arrow stack behavior when changing from the ammo category
+-   (Supe) Fix kingdom army stats being incorrect on levelup if there were temporary bonuses or penalties
+
+### Data Updates
+
+-   (7H3LaughingMan) Correct critical failure persistant damage for Whispers of the Void
+-   (Abaddon) Add change shape ability to ifrit
+-   (Ambrose) Add effect to Bone Flense spell
+-   (Ambrose) Add Grab action to Raja-Krodha
+-   (Ambrose) Add missing details to Magus' Arcane Spellcasting class feature
+-   (Ambrose) Add vitality weakness to Arms of the Drowned
+-   (Ambrose) Correct action cost for Fire Scamp's Flame Breath action
+-   (Ambrose) Correct rarity to Grub Gloves
+-   (Ambrose) Fix Emotionally Unaware penalty so it doesn't apply on initiative rolls
+-   (Ambrose) Update Aquatic Combat and Crystal Shards to match to match Player Core and errata
+-   (Ambrose) Update Explosive Arrival automation and add `area-damage` option to localization strings
+-   (Ambrose) Update predicate for Daydream Trance
+-   (Dire Weasel) Add automation for Frost Fair Yanyuedao
+-   (Dire Weasel) Add some links and emphasis for harm and heal spells
+-   (Dire Weasel) Adding missing 7th rank entries to Atmospheric Staff (Major)
+-   (Dire Weasel) Fix action cost of Darkened Forest Form and Discomfiting Whispers
+-   (kromko) Fix a few area-effect checks
+-   (MrVauxs) Update Crunch to use DamageAlteration
+-   (rectulo) Fix format of spell in rivethun devotion feat
+-   (Rigo) Add missing prerequisite to Empiricist's Eye
+-   (Rigo) Add spell effect for Scintillating Safeguard
+-   (Rigo) Apply Flowing Spirit Strike's penalty to gleaming blade only
+-   (Rigo) Implement 2/25 PFS Rulings & Clarifications
+-   (Rigo) Link effect in Heroic Recovery's spellshape Item Alteration
+-   (Rigo) Remove Dazzling Brilliance from variant glass golem
+-   (Rigo) Restrict Regalia's flanking override to paragon Benefit
+-   (SpartanCPA) Adjust aura for Warsworn
+-   (SpartanCPA) Move DamageDice die size overrides to DamageAlteration
+-   (Tikael) Fix Gate's Threshold localization
+
+## 6.8.5
+
+### System Improvements
+
+-   (nikolaj-a) Add circumstance modifiers from climb and swim speeds to related actions
+-   (Supe) Support deltas in special resource input
+-   (Supe) Improve performance of mergeable sub options
+
+### Bug Fixes
+
+-   (MrVauxs) Fix Craft not using the right skills rank
+-   (stwlam) Fix adding settlements in the kingdom sheet
+-   (stwlam) Localize self effects by using compendium indices to fetch names
+-   (stwlam) Rewrite creation of IWR labels to allow for any number of `exceptions` or `doubleVs`es
+-   (Supe) Fix rendering character sheet when subitems of different items share the same id
+-   (Supe) Fix rolling vehicle fortitude saves
+-   (Supe) Fix stacks of items being bulk adjusted on vehicle actors
+
+### Data Updates
+
+-   (Abaddon) Fix effect link for Perfect Droplet (Major)
+-   (Ambrose) Add `area damage` and `area-effect` options to Breath Weapons in the bestiary
+-   (Ambrose) Add icons to multiple Equipment items
+-   (Ambrose) Add inline checks to Darmudiel's Vengeance hazard
+-   (Ambrose) Apply `/act` version of Disable a Device on select actions and NPC inline rolls
+-   (Ambrose) Remove level 7 reach increment for Deer antler and Frog tongue from Animal Instinct class feature
+-   (Ambrose) Set Shield of the Unified Legion as specific magic shield
+-   (Ambrose) Set Stench aura radius to 30 feet on Ofalth
+-   (Ambrose) Update Brimorak, Khurfel, and Oppali npc actors
+-   (Ambrose) Update mythic entries in the archetype and gm screen journals
+-   (Brendan Graham) Fix scaling of Stoke the Heart spell effect
+-   (Dire Weasel) Add `area damage` and `area-effect` options to some inline rolls
+-   (Dire Weasel) Add effect for Blade of Four Energies
+-   (Dire Weasel) Fix action type of Clone Risen and Miror Risen feats
+-   (dotadd) Correct monster warden circumstance bonus
+-   (In3luki) Fix SVG errors in firefox by setting explicit height and width attributes
+-   (kromko) Cleanup Blightburn Bomb description
+-   (kromko) Fix Blade of Four Energies (Greater) potency in the description
+-   (kromko) Fix some item description formatting
+-   (kromko) Fix Staff of Nature's Vengeance crafting requirements
+-   (Nomad) Fix feat description in Scion of Domora archetype journal
+-   (rectulo) Fix category of defend our union feat
+-   (rectulo) Fix description of seize identity spell
+-   (rectulo) Fix source of frost fair yanyuedao
+
+### Under the Hood
+
+-   (KaitoKuroba) Add range-increment and range-max to ItemAlteration
+-   (stwlam) Extract modifier adjustments for weapon/attack potency bonus
+-   (Supe) Prevent having conflicting sets of origin options for non-saves
+
 ## 6.8.4
 
 ### Bug Fixes

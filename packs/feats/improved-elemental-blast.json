@@ -29,7 +29,20 @@
             "remaster": true,
             "title": "Pathfinder Rage of Elements"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "DamageAlteration",
+                "mode": "add",
+                "predicate": [
+                    "dice:slug:base"
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "elemental-blast-damage"
+                ],
+                "value": "min(@item.timesTaken, 3)"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

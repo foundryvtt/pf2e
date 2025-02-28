@@ -184,7 +184,7 @@
                     </div>
                 {{/if}}
             </legend>
-            {{editor data.details.description target="system.details.description" button=true owner=owner editable=editable}}
+            {{editor description target="system.details.description" button=true owner=owner editable=editable engine="prosemirror"}}
         </fieldset>
 
         {{!-- TOGGLES --}}
@@ -253,7 +253,7 @@
             <legend>
                 <i class="fa-light fa-sparkles"></i> {{localize "PF2E.ConditionsLabel"}}
             </legend>
-            <ol class="item-list">
+            <ol class="item-list effects-list">
                 {{#each document.itemTypes.effect as |effect|}}
                     <li class="item" data-item-id="{{effect._id}}">
                         <a class="icon item-image" data-action="item-to-chat">
@@ -262,11 +262,11 @@
                         </a>
                         <h4 class="item-name">
                             <a data-action="toggle-summary">{{effect.name}}</a>
+                            {{#if (and (eq effect.type "effect") (eq effect.badge.type "counter"))}}
+                                ({{coalesce effect.badge.label effect.badge.value}})
+                            {{/if}}
+                            {{#if (eq effect.type "condition")}}{{#unless effect.active}}<span> (Inactive)</span>{{/unless}}{{/if}}
                         </h4>
-                        {{#if (and (eq effect.type "effect") (eq effect.badge.type "counter"))}}
-                            ({{coalesce effect.badge.label effect.badge.value}})
-                        {{/if}}
-                        {{#if (eq effect.type "condition")}}{{#unless effect.active}}<span> (Inactive)</span>{{/unless}}{{/if}}
                         <div class="item-controls">
                             {{#if (and @root.options.editable (not effect.readonly))}}
                                 {{#if (eq effect.badge.type "counter")}}
@@ -299,6 +299,11 @@
                             <a data-action="toggle-basic-war-action-summary">{{action.name}}</a>
                             {{{actionGlyph action.actionCost}}}
                         </h4>
+                        <div class="item-controls">
+                            <a data-action="use-basic-war-action" data-tooltip="PF2E.Kingmaker.Army.SendToChat">
+                                <i class="fa-solid fa-fw fa-message"></i>
+                            </a>
+                        </div>
                         <div class="item-summary" hidden></div>
                     </li>
                 {{/each}}
@@ -366,6 +371,9 @@
             {{/if}}
             {{#if @root.editable}}
                 <div class="item-controls">
+                    <a data-action="item-to-chat" data-tooltip="PF2E.Kingmaker.Army.SendToChat">
+                        <i class="fa-solid fa-fw fa-message"></i>
+                    </a>
                     <a data-action="edit-item" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-fw fa-edit"></i></a>
                     {{#if locked}}
                         <i class="fa-solid fa-lock fa-fw" data-tooltip="{{localize "PF2E.Kingmaker.GrantedBy" granter=action.granter.name}}"></i>

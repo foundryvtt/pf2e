@@ -68,13 +68,20 @@ interface RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema>, ModelProp
 
 type RollNoteSchema = RuleElementSchema & {
     /** The statistic(s) slugs of the rolls for which this note will be appended */
-    selector: fields.ArrayField<StringField<string, string, true, false, false>, string[], string[], true, false, true>;
+    selector: fields.ArrayField<StringField<string, string, true, false, false>>;
     /** An optional title prepended to the note */
     title: fields.StringField<string, string, false, true, true>;
     /** An optional limitation of the notes visibility to GMs */
     visibility: fields.StringField<UserVisibility, UserVisibility, true, true, true>;
     /** Applicable degree-of-success outcomes for the note */
-    outcome: fields.ArrayField<StringField<DegreeOfSuccessString, DegreeOfSuccessString, true, false, false>>;
+    outcome: fields.ArrayField<
+        StringField<DegreeOfSuccessString, DegreeOfSuccessString, true, false, false>,
+        DegreeOfSuccessString[],
+        DegreeOfSuccessString[],
+        false,
+        false,
+        false
+    >;
     /** The main text of the note */
     text: DataUnionField<
         StrictStringField<string, string, true, false, false> | ResolvableValueField<true, false, false>

@@ -1474,15 +1474,17 @@
                         "toggleable": true
                     },
                     {
-                        "key": "DamageDice",
-                        "label": "PF2E.TraitTwoHandD8",
-                        "override": {
-                            "dieSize": "d8"
-                        },
-                        "selector": "{item|_id}-damage",
-                        "traits": [
-                            "two-handed"
-                        ]
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "two-handed",
+                            "dice:slug:base"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "value": 8
                     }
                 ],
                 "slug": null,
