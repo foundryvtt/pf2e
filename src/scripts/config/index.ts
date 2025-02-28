@@ -472,6 +472,7 @@ export const PF2ECONFIG = {
         "affixed-to-object-structure-or-creature": "PF2E.TraitAffixedToStructureObjectOrCreature",
         "affixed-to-the-ground": "PF2E.TraitAffixedToGround",
         "affixed-to-unarmored-defense-item": "PF2E.TraitAffixedToUnarmoredItem",
+        "affixed-to-wall": "PF2E.TraitAffixedToWall",
         "affixed-to-weapon": "PF2E.TraitAffixedToWeapon",
         "applied-to-a-basket-bag-or-other-container": "PF2E.TraitAppliedToBasketBagOrContainer",
         "applied-to-a-weapon": "PF2E.TraitAppliedToAWeapon",
