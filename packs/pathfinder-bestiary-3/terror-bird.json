@@ -142,7 +142,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The terror bird's powerful beak can tear through flesh. On a successful beak Strike, the target takes @Damage[1[bleed]] damage. This bleed damage increases to @Damage[1d4[bleed]] on a critical hit.</p>"
+                    "value": "<p>The terror bird's powerful beak can tear through flesh. On a successful beak Strike, the target takes 1 bleed damage. This bleed damage increases to 1d4 bleed on a critical hit.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -155,6 +155,29 @@
                         "selector": "beak-damage",
                         "text": "{item|system.description.value}",
                         "title": "{item|name}"
+                    },
+                    {
+                        "damageCategory": "persistent",
+                        "damageType": "bleed",
+                        "hideIfDisabled": true,
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "check:outcome:success"
+                        ],
+                        "selector": "beak-damage",
+                        "value": 1
+                    },
+                    {
+                        "category": "persistent",
+                        "critical": false,
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "check:outcome:critical-success"
+                        ],
+                        "selector": "beak-damage"
                     }
                 ],
                 "slug": "tearing-clutch",
