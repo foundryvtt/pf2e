@@ -65,7 +65,7 @@ class ItemAttacher<TItem extends PhysicalItemPF2e> extends PickAThingPrompt<TIte
         }
 
         selectEl.addEventListener("change", () => {
-            attachButton.dataset.choice = selectEl.value;
+            attachButton.value = selectEl.value;
         });
     }
 
