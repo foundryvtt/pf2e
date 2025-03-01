@@ -1,10 +1,10 @@
 {
-    "_id": "wX9L6fbqVMLP05hn",
-    "img": "systems/pf2e/icons/spells/grease.webp",
-    "name": "Effect: Stench",
+    "_id": "a2XvUg92diojK9EA",
+    "img": "icons/equipment/head/crown-gold-blue.webp",
+    "name": "Effect: Queen's Presence",
     "system": {
         "description": {
-            "value": "<p>The creature takes a -2 circumstance penalty to saves against disease and to recover from the @UUID[Compendium.pf2e.conditionitems.Item.Sickened] condition.</p>"
+            "value": "<p>You gain a +2 status bonus to saving throws against emotion effects.</p>"
         },
         "duration": {
             "expiry": null,
@@ -13,27 +13,22 @@
             "value": -1
         },
         "level": {
-            "value": 1
+            "value": 17
         },
         "publication": {
             "license": "OGL",
             "remaster": false,
-            "title": "Pathfinder Bestiary"
+            "title": ""
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    {
-                        "or": [
-                            "item:trait:disease",
-                            "action:retch"
-                        ]
-                    }
+                    "item:trait:emotion"
                 ],
                 "selector": "saving-throw",
-                "type": "circumstance",
-                "value": -2
+                "type": "status",
+                "value": 2
             }
         ],
         "start": {
@@ -44,7 +39,6 @@
             "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },
