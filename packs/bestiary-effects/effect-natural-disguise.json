@@ -1,0 +1,46 @@
+{
+    "_id": "ppYqbg4erAFt8C9W",
+    "img": "icons/environment/wilderness/terrain-forest-gray.webp",
+    "name": "Effect: Natural Disguise",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +2 item bonus to Stealth checks while in a natural environment until your next daily preparations or until its disguise is ruined, whichever comes first.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "in-natural-terrain"
+                ],
+                "selector": "stealth",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -33,8 +33,8 @@
                     "value": "<p>These blades come in a variety of shapes and styles, but they are typically 2 feet long.</p>"
                 },
                 "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
+                    "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "group": "sword",
@@ -415,7 +415,7 @@
             "type": "consumable"
         },
         {
-            "_id": "feL8kRe1BuTpvNgv",
+            "_id": "T0LJUR3GMsIYp80e",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.e0vSAQfxhHauiAoD"
             },
@@ -514,11 +514,31 @@
                     "value": ""
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
+                    "license": "ORC",
+                    "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.TraitVersatileS",
+                        "option": "versatile-s-shortsword",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            "versatile-s-shortsword"
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "{item|id}-damage"
+                        ],
+                        "slug": "base",
+                        "value": "slashing"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -531,7 +551,10 @@
             "type": "melee"
         },
         {
-            "_id": "JGxLUe0AKnGsPT6t",
+            "_id": "9xpaU4kcENt6pjtN",
+            "_stats": {
+                "compendiumSource": "Actor.OnQ779U03HyImPcw.Item.0vVEiwK17dpFzgYu"
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
             "sort": 800000,
@@ -543,7 +566,7 @@
                     "value": 17
                 },
                 "damageRolls": {
-                    "XhLeDXOvodmx9Qz1": {
+                    "iswR188zNNz1VJHP": {
                         "damage": "1d4+10",
                         "damageType": "bludgeoning"
                     }
@@ -552,15 +575,16 @@
                     "value": ""
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
                 },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "value": [
                         "agile",
+                        "finesse",
                         "nonlethal",
                         "unarmed"
                     ]
@@ -583,7 +607,7 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 17
+                    "value": 18
                 },
                 "damageRolls": {
                     "0": {
@@ -595,8 +619,8 @@
                     "value": ""
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
+                    "license": "ORC",
+                    "remaster": true,
                     "title": ""
                 },
                 "rules": [],
@@ -628,8 +652,8 @@
                     "value": "<p>The gang leader isn't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to creatures of 7th level or lower that are @UUID[Compendium.pf2e.conditionitems.Item.Hidden], @UUID[Compendium.pf2e.conditionitems.Item.Undetected], flanking, or using surprise attack.</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
+                    "license": "ORC",
+                    "remaster": true,
                     "title": ""
                 },
                 "rules": [
@@ -664,8 +688,8 @@
                     "value": "<p>When the gang leader rolls a success on a Reflex save, they get a critical success instead.</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
+                    "license": "ORC",
+                    "remaster": true,
                     "title": ""
                 },
                 "rules": [
@@ -708,8 +732,8 @@
                     "value": "<p><strong>Trigger</strong> The gang leader is targeted with an attack by an attacker they can see</p>\n<hr />\n<p><strong>Effect</strong> The gang leader gains a +2 circumstance bonus to AC against the triggering attack.</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
+                    "license": "ORC",
+                    "remaster": true,
                     "title": ""
                 },
                 "rules": [
@@ -739,7 +763,7 @@
         {
             "_id": "qNEPB3RKC3SlV4YE",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Surprise Attack",
+            "name": "Surprise Attacker",
             "sort": 1300000,
             "system": {
                 "actionType": {
@@ -753,8 +777,8 @@
                     "value": "<p>On the first round of combat, creatures that haven't acted are off-guard to the gang leader.</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
+                    "license": "ORC",
+                    "remaster": true,
                     "title": ""
                 },
                 "rules": [
@@ -787,23 +811,23 @@
         },
         {
             "_id": "wXgvnztT7r9jO7Px",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Brutal Rally",
             "sort": 1400000,
             "system": {
                 "actionType": {
-                    "value": "action"
+                    "value": "reaction"
                 },
                 "actions": {
-                    "value": 1
+                    "value": null
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The gang leader rolls a critical hit against a creature</p><hr /><p><strong>Effect</strong> All allies that can see the gang leader gain a +1 circumstance bonus to attack rolls until the start of the gang leader's next turn.</p><hr /><p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Brutal Rally]</p>"
+                    "value": "<p><strong>Trigger</strong> The gang leader rolls a critical hit against a creature</p><hr /><p><strong>Effect</strong> All allies that can see the gang leader gain a +1 circumstance bonus to attack rolls until the start of the gang leader's next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Brutal Rally]</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
+                    "license": "ORC",
+                    "remaster": true,
                     "title": ""
                 },
                 "rules": [],
@@ -836,8 +860,8 @@
                     "value": "<p>Any enemy is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the gang leader's melee attacks due to flanking as long as the enemy is within melee reach of both the gang leader and one of the gang leader's allies.</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
+                    "license": "ORC",
+                    "remaster": true,
                     "title": ""
                 },
                 "rules": [],
@@ -865,8 +889,8 @@
                     "value": "<p>The gang leader @UUID[Compendium.pf2e.actionspf2e.Item.Interact]{Interacts} to draw a weapon, then Strikes with that weapon.</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
+                    "license": "ORC",
+                    "remaster": true,
                     "title": ""
                 },
                 "rules": [],
@@ -897,9 +921,9 @@
                     "value": "<p>The gang leader deals an extra 2d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
                 },
                 "rules": [
                     {
@@ -943,8 +967,8 @@
                     "value": 0
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
+                    "license": "ORC",
+                    "remaster": true,
                     "title": ""
                 },
                 "rules": [],
@@ -1007,7 +1031,7 @@
                 "value": 7
             },
             "privateNotes": "",
-            "publicNotes": "<p>Gang leaders direct cutthroats, killers, thieves, and toughs. The gang leader often appears alongside a @UUID[Compendium.pf2e.pathfinder-npc-core.Actor.Bandit Gang] or other criminals.</p><hr /><p>Villains pursue selfish and cruel goals, trampling over anyone in their way.</p>",
+            "publicNotes": "<p>Gang leaders direct cutthroats, killers, thieves, and toughs. The gang leader often appears alongside a bandit gang or other criminals.</p><hr /><p>Villains pursue selfish and cruel goals, trampling over anyone in their way.</p>",
             "publication": {
                 "license": "ORC",
                 "remaster": true,
@@ -1039,32 +1063,25 @@
         },
         "skills": {
             "acrobatics": {
-                "base": 15,
-                "special": []
+                "base": 15
             },
             "athletics": {
-                "base": 17,
-                "special": []
+                "base": 17
             },
             "deception": {
-                "base": 15,
-                "special": []
+                "base": 15
             },
             "intimidation": {
-                "base": 17,
-                "special": []
+                "base": 17
             },
             "society": {
-                "base": 11,
-                "special": []
+                "base": 11
             },
             "stealth": {
-                "base": 17,
-                "special": []
+                "base": 17
             },
             "thievery": {
-                "base": 15,
-                "special": []
+                "base": 15
             }
         },
         "traits": {
