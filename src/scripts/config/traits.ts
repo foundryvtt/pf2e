@@ -502,6 +502,7 @@ const weaponTraits = {
     "thrown-20": "PF2E.TraitThrown20",
     "thrown-30": "PF2E.TraitThrown30",
     "thrown-40": "PF2E.TraitThrown40",
+    "thrown-50": "PF2E.TraitThrown50",
     "thrown-60": "PF2E.TraitThrown60",
     "thrown-80": "PF2E.TraitThrown80",
     "thrown-100": "PF2E.TraitThrown100",
