@@ -39,7 +39,7 @@ export interface ApplicationWindowConfiguration {
     icon?: string | false;
 
     /** An array of window control entries */
-    controls: ApplicationHeaderControlsEntry[];
+    controls?: ApplicationHeaderControlsEntry[];
 
     /**
      * Can the window app be minimized by double-clicking on the title
