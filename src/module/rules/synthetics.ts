@@ -66,6 +66,7 @@ interface RuleElementSynthetics<TActor extends ActorPF2e = ActorPF2e> {
         ring?: {
             subject: TokenDocument["ring"]["subject"];
             colors: TokenDocument["ring"]["colors"];
+            effects: TokenDocument["ring"]["effects"];
         };
         animation?: TokenAnimationOptions;
     };
