@@ -1,4 +1,5 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
+import { ItemPF2e } from "@item";
 import { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
 import {
     MATERIAL_DATA,
@@ -8,14 +9,32 @@ import {
     RUNE_DATA,
     getPropertyRuneSlots,
 } from "@item/physical/index.ts";
+import { SpellSlotGroupId } from "@item/spellcasting-entry/collection.ts";
+import { coerceToSpellGroupId, getSpellRankLabel } from "@item/spellcasting-entry/helpers.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
-import { ErrorPF2e, htmlQueryAll, objectHasKey, setHasElement, sortStringRecord, tupleHasValue } from "@util";
+import {
+    ErrorPF2e,
+    htmlClosest,
+    htmlQueryAll,
+    objectHasKey,
+    setHasElement,
+    sortStringRecord,
+    tupleHasValue,
+} from "@util";
+import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
-import { ComboWeaponMeleeUsage, SpecificWeaponData, WeaponPersistentDamage } from "./data.ts";
+import type { ComboWeaponMeleeUsage, SpecificWeaponData, StaffSpellData, WeaponPersistentDamage } from "./data.ts";
 import type { WeaponPF2e } from "./document.ts";
 import { MANDATORY_RANGED_GROUPS, WEAPON_RANGES } from "./values.ts";
 
 export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
+    static override get defaultOptions(): ItemSheetOptions {
+        return {
+            ...super.defaultOptions,
+            dragDrop: [{ dropSelector: ".staff-spells" }],
+        };
+    }
+
     protected override get validTraits(): Record<string, string> {
         return CONFIG.PF2E.weaponTraits;
     }
@@ -122,6 +141,41 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             weaponMAP: CONFIG.PF2E.weaponMAP,
             weaponRanges,
             weaponReload: CONFIG.PF2E.weaponReload,
+            staff: await this.#prepareStaffSpells(),
+        };
+    }
+
+    async #prepareStaffSpells(): Promise<StaffSheetData | null> {
+        const item = this.item;
+        const staff = item.system.staff;
+        if (!staff) return null;
+
+        const items = await UUIDUtils.fromUUIDs(R.unique(staff.spells.map((s) => s.uuid)));
+        const itemsByUuid = R.mapToObj(items, (i) => [i.uuid, i]);
+
+        const allSpellGroups: SpellSlotGroupId[] = ["cantrips", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+        return {
+            defaultEffect: game.i18n.localize("PF2E.Item.Weapon.Staff.DefaultEffect"),
+            effect: staff.effect,
+            spells: allSpellGroups.map((rank) => ({
+                rank,
+                label: getSpellRankLabel(rank),
+                spells:
+                    staff.spells
+                        .filter((s) => s.rank === rank)
+                        .map((data) => {
+                            const spell = itemsByUuid[data.uuid];
+                            return {
+                                img: spell?.img ?? data.img,
+                                name: spell?.name ?? data.name,
+                                uuid: data.uuid,
+                                rank,
+                                fromWorld: data.uuid.startsWith("Item."),
+                                linked: !!spell,
+                            };
+                        }) ?? [],
+            })),
         };
     }
 
@@ -162,6 +216,18 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                 }
             });
         }
+
+        const staffSpellRemoves = htmlQueryAll(html, "[data-action=remove-staff-spell]");
+        for (const element of staffSpellRemoves) {
+            const uuid = htmlClosest(element, "[data-uuid]")?.dataset.uuid;
+            const rank = coerceToSpellGroupId(htmlClosest(element, "[data-rank]")?.dataset.rank);
+            element.addEventListener("click", () => {
+                const spells = this.item.system.staff?.spells.filter((s) => !(s.uuid === uuid && s.rank === rank));
+                if (spells) {
+                    this.item.update({ system: { staff: { spells } } });
+                }
+            });
+        }
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
@@ -185,6 +251,61 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         }
 
         return super._updateObject(event, formData);
+    }
+
+    protected override async _onDrop(event: DragEvent): Promise<void> {
+        if (!this.isEditable) return;
+
+        const item = await (async (): Promise<ItemPF2e | null> => {
+            try {
+                const dataString = event.dataTransfer?.getData("text/plain");
+                const dropData = JSON.parse(dataString ?? "");
+                return (await ItemPF2e.fromDropData(dropData)) ?? null;
+            } catch {
+                return null;
+            }
+        })();
+
+        // Handle dragging an item to a staff
+        const staffSpellsElement = htmlClosest(event.target, ".staff-spells");
+        if (staffSpellsElement && item?.isOfType("spell")) {
+            const savedSpells = this.item._source.system.staff?.spells ?? [];
+            const rank = item.isCantrip ? "cantrips" : coerceToSpellGroupId(staffSpellsElement.dataset.rank);
+            if (savedSpells.some((s) => s.uuid === item.uuid && s.rank === rank)) {
+                ui.notifications.warn("Spell already exists at this rank");
+                return;
+            } else if (typeof rank === "number" && rank < item.baseRank) {
+                ui.notifications.warn(
+                    game.i18n.format("PF2E.Item.Spell.Warning.InvalidRank", {
+                        spell: item.name,
+                        spellRank: getSpellRankLabel(item.baseRank),
+                        targetRank: getSpellRankLabel(rank),
+                    }),
+                );
+                return;
+            }
+
+            if (rank !== null) {
+                const spells: StaffSpellData[] = R.sortBy(
+                    [...savedSpells, { img: item.img, name: item.name, rank, uuid: item.uuid }],
+                    (s) => (s.rank === "cantrips" ? 0 : s.rank),
+                );
+                await this.item.update({ system: { staff: { spells } } });
+            }
+
+            return;
+        }
+
+        super._onDrop(event);
+    }
+
+    /** Clean up staff data if this sheet was closed. Doing it here allows a window of recovery of accidental deletion */
+    override close(options?: { force?: boolean | undefined }): Promise<void> {
+        if (!this.item.system.traits.value.includes("staff") && this.item._source.system.staff) {
+            this.item.update({ "system.staff": null });
+        }
+
+        return super.close(options);
     }
 }
 
@@ -224,4 +345,26 @@ interface WeaponSheetData extends PhysicalItemSheetData<WeaponPF2e> {
     weaponMAP: typeof CONFIG.PF2E.weaponMAP;
     weaponRanges: Record<number, string>;
     weaponReload: typeof CONFIG.PF2E.weaponReload;
+    staff: StaffSheetData | null;
+}
+
+interface StaffSheetData {
+    defaultEffect: string;
+    effect: string;
+    spells: StaffSpellRankSheetData[];
+}
+
+interface StaffSpellRankSheetData {
+    rank: SpellSlotGroupId;
+    label: string;
+    spells: SpellBrief[];
+}
+
+interface SpellBrief {
+    uuid: ItemUUID;
+    rank: SpellSlotGroupId;
+    name: string;
+    img: ImageFilePath;
+    fromWorld: boolean;
+    linked: boolean;
 }
