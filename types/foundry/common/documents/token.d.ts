@@ -139,7 +139,7 @@ type TokenSchema = {
             ring: fields.ColorField;
             background: fields.ColorField;
         }>;
-        effects: fields.NumberField;
+        effects: fields.NumberField<number, number, true, false, true>;
         subject: fields.SchemaField<{
             scale: fields.NumberField;
             texture: fields.FilePathField<ImageFilePath>;
