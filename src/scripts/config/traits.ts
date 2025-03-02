@@ -585,7 +585,7 @@ const npcAttackTraits = {
     ...weaponTraits,
     ...preciousMaterials,
     ...rangeTraits,
-    concentrate: "PF2.TraitConcentrate",
+    concentrate: "PF2E.TraitConcentrate",
     curse: "PF2E.TraitCurse",
     "deadly-2d8": "PF2E.TraitDeadly2D8",
     "deadly-3d8": "PF2E.TraitDeadly3D8",
