@@ -22,7 +22,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundry.applications.api.
     /** The amount of rendered result items for initial loading and per load operation */
     static RESULT_LIMIT = 100;
 
-    protected declare $state: CompendiumBrowserState;
+    declare protected $state: CompendiumBrowserState;
 
     root = App;
 

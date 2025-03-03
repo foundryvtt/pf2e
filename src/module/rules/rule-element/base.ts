@@ -20,7 +20,7 @@ import { BracketedValue, RuleElementSchema, RuleElementSource, RuleValue } from 
  */
 abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSchema> extends foundry.abstract
     .DataModel<ItemPF2e<ActorPF2e>, TSchema> {
-    protected declare static _schema: LaxSchemaField<RuleElementSchema> | undefined;
+    declare protected static _schema: LaxSchemaField<RuleElementSchema> | undefined;
 
     declare label: string;
 
