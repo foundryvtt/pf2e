@@ -494,9 +494,14 @@ class DamageInstance extends AbstractDamageRoll {
         return DAMAGE_TYPE_ICONS[this.type];
     }
 
-    /** Return 0 for persistent damage */
+    /** Return 0 for persistent damage and if damage is below 0 */
     protected override _evaluateTotal(): number {
-        return this.persistent && !this.options.evaluatePersistent ? 0 : super._evaluateTotal();
+        const total = super._evaluateTotal();
+        if (!this.persistent && total <= 0){
+            this.options.increasedFrom = total;
+            return 0;
+        }
+        else return this.persistent && !this.options.evaluatePersistent ? 0 : total;
     }
 
     override async render({ tooltips = true }: InstanceRenderOptions = {}): Promise<string> {
@@ -616,7 +621,7 @@ class DamageInstance extends AbstractDamageRoll {
                 result.hidden = true;
             }
         }
-
+        this._total = this._evaluateTotal();
         return this as Rolled<this>;
     }
 }
