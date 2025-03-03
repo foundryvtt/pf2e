@@ -63,7 +63,7 @@ export function registerKeybindings(): void {
         game.keybindings.register("pf2e", "gm-vision", {
             name: "PF2E.Keybinding.GMVision.Label",
             hint: "PF2E.Keybinding.GMVision.Hint",
-            editable: [{ key: "KeyG", modifiers: ["Control"] }],
+            editable: [{ key: "KeyG", modifiers: [KeyboardManager.CONTROL_KEY_STRING] }],
             restricted: true,
             onDown: (context: KeyboardEventContext): boolean => {
                 context.event.preventDefault();
