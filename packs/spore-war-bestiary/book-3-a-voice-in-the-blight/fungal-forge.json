@@ -1,0 +1,112 @@
+{
+    "_id": "0h5S5DqqGGvnsZfX",
+    "folder": "5Uj7smob0in9RJLF",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "cUO2nhAS76DmL75k",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Defile and Pollute",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A sapient living creature enters or is placed inside the fungal forge, a fungal forge takes damage, or an attempt to disable a forge critically fails</p><hr /><p><strong>Effect</strong> The fungal forge floods its interior with sickly green demonic energy that looks like a mix of fluid and fog. A creature within the fungal forge takes 5d8 variable damage and 5d8 void damage as their soul withers and their flesh decays, while a creature within 20 feet of the forge is exposed to vented unholy energy and only takes the void damage as their flesh rots—in either case, an affected creature must attempt a @Check[fortitude|dc:41] save. The type of non-void damage a fungal forge inflicts on those within varies. The green forge (<strong>D6a</strong>) deals cold damage, the yellow one (<strong>D6b</strong>) poison damage, the orange one (<strong>D6c</strong>) acid damage, the black one (<strong>D6d</strong>) electricity damage, and the purple one (<strong>D6e</strong>) mental damage. Demons and fungi are immune to this effect entirely.</p>\n<p><strong>Green:</strong> @Damage[5d8[cold],5d8[void]]</p>\n<p><strong>Yellow:</strong> @Damage[5d8[poison],5d8[void]]</p>\n<p><strong>Orange:</strong> @Damage[5d8[acid],5d8[void]]</p>\n<p><strong>Black:</strong> @Damage[5d8[electricity],5d8[void]]</p>\n<p><strong>Purple:</strong> @Damage[5d8[mental],5d8[void]]</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage. If the creature is inside the fungal forge, they also become @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} with an unlimited duration.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage. If the creature is inside the fungal forge, they also become @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} with an unlimited duration.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "primal",
+                        "unholy",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Fungal Forge",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 40
+            },
+            "emitsSound": "encounter",
+            "hardness": 32,
+            "hp": {
+                "details": "",
+                "max": 130,
+                "temp": 0,
+                "value": 130
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>A fifteen-foot diameter spherical fungus with a five-foot-diameter circular aperture facing into the room; inside the fungus lie partially decayed humanoid remains.</p>",
+                "value": 0
+            }
+        },
+        "details": {
+            "description": "",
+            "disable": "",
+            "isComplex": false,
+            "level": {
+                "value": 19
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #212: A Voice in the Blight"
+            },
+            "reset": "<p>A fungal forge resets immediately at the start of every round, and immediately triggers again if there are still sapient creatures within it.</p>",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 35
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 29
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "fungus",
+                "unholy"
+            ]
+        }
+    },
+    "type": "hazard"
+}

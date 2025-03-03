@@ -1,0 +1,155 @@
+{
+    "_id": "MuZrjsg6cYGxkZLl",
+    "folder": "5Uj7smob0in9RJLF",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "1UNRpjyq9r4O8xq3",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Void Pulse",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature comes within five feet of the void bars, or the void bars take damage (the Python does not trigger this hazard, and his presence suppresses this trigger)</p><hr /><p><strong>Effect</strong> Both sets of void bars pulse with dark energy, blasting waves unlife into the area. All living creatures inside the cell or within 20 feet of the cell's entrance in the outer hall must attempt a @Check[fortitude|dc:40] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} and @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 2} on a critical failure; creatures in the outer hall gain a +2 circumstance bonus on this save). If at least one PC becomes drained by a void pulse, psychic alerts ripple through the Oubliette and the party accrues 1 Awareness Point. The void bars then roll initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OBE6ksS2bOerBfXb",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Void Talon",
+            "sort": 0,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 35
+                },
+                "damageRolls": {
+                    "wwUrSw96Ja787ydw": {
+                        "damage": "6d6",
+                        "damageType": "void"
+                    },
+                    "yjgwsCY5bQl86hAu": {
+                        "damage": "3d12",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "void"
+                    ]
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Void Bars",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 42
+            },
+            "emitsSound": "encounter",
+            "hardness": 30,
+            "hp": {
+                "details": "",
+                "max": 120,
+                "temp": 0,
+                "value": 120
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master) to recognize the bars aren't just a passive defense; noticing the bars themselves has a DC of 0</p>",
+                "value": 35
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "vitality",
+                    "value": 15
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>Bars made of pure Void energy block access to the far side of the cell.</p>",
+            "disable": "<p>@Check[thievery|dc:45] (master) three times to deface the well-@UUID[Compendium.pf2e.conditionitems.Item.Hidden] focusing runes etched along the walls, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (10th rank; counteract DC 38) to counteract the void bars</p>",
+            "isComplex": true,
+            "level": {
+                "value": 18
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #212: A Voice in the Blight"
+            },
+            "reset": "<p>The trap deactivates at the end of a round in which no living creatures are in the cell, then immediately resets at the start of the next round.</p>",
+            "routine": "<p>(1 action) Each set of void bars manifests a long arm made of darkness that reaches out and attempts to Strike a creature in the room, favoring targets that previously damaged the bars or attempted to disable them, but otherwise choosing a target randomly from those available. This void talon can extend to attack any creature in the room or within 20 feet of the cell door in the outer hall, but targets in the outer hall gain the benefit of cover against this attack.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 33
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 27
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

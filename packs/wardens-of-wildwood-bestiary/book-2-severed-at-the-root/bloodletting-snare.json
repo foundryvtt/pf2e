@@ -1,0 +1,154 @@
+{
+    "_id": "JQWrjzgqb1jd3eEs",
+    "folder": "hC7EhepoGMQwgJ4z",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "jWt044DZEHr3yYrX",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Snare",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature steps into the square with the snare tripwire</p>\n<hr />\n<p><strong>Effect</strong> The bloodletting snare makes a snare Strike against the triggering creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Vb2Ik5EPoSX0ASV5",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Snare",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "dcyVQ4MFtWZILQDq": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "bleed"
+                    },
+                    "seyUVRqRSPyU3Xwj": {
+                        "damage": "4d8+12",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": "<p>The target is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] and pulled off the ground (@UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC 26). The persistent bleed can't be stopped while the creature is grabbed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "deadly-d10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Bloodletting Snare",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 24
+            },
+            "emitsSound": "encounter",
+            "hardness": 12,
+            "hp": {
+                "details": "",
+                "max": 48,
+                "temp": 0,
+                "value": 48
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 18
+            }
+        },
+        "details": {
+            "description": "<p>Slender razor wire snags a creature, hauling them up into the air while causing deep, bloody wounds.</p>",
+            "disable": "<p>@Check[survival|dc:25] (expert) or @Check[thievery|dc:25] (expert) to snip the wire without getting snared</p>",
+            "isComplex": false,
+            "level": {
+                "value": 6
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #202: Severed at the Root"
+            },
+            "reset": "",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": null
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

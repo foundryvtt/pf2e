@@ -1,0 +1,127 @@
+{
+    "_id": "fOSglTDVvg1YBCtz",
+    "folder": "aR4NTLulYqWX9YfY",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "ckxFaHQAapGIJRJX",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Soulrending Shriek",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A round begins after all demons in the spires have been slain</p><hr /><p><strong>Effect</strong> Aravashnial's distorted face unleashes an overwhelming shriek of agony that threatens to completely warp the thoughts of all intruders. All creatures within 20 feet of a soul pod must succeed at a @Check[will|dc:36] save or become @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round (1 minute on a critical failure). A confused creature can attempt a new save at the end of each of their turns to end the confusion early. The soul pods then roll initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Soul Pod",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 37
+            },
+            "emitsSound": "encounter",
+            "hardness": 24,
+            "hp": {
+                "details": "",
+                "max": 96,
+                "temp": 0,
+                "value": 96
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "acid"
+                },
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 30
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "cold-iron",
+                    "value": 15
+                },
+                {
+                    "exceptions": [],
+                    "type": "holy",
+                    "value": 15
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>An oblong, puffball-like fungus shaped ominously like a bulging coffin in which Aravashnial's distorted face can be seen silently screaming.</p>",
+            "disable": "<p>@Check[religion|dc:40] three times to exorcise Aravashnial's soul from a pod, or @Check[nature|dc:43] twice to pull the well-hidden filaments that connect the spore pod to the rest of the spires</p>",
+            "isComplex": true,
+            "level": {
+                "value": 15
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #211: The Secret of Deathstalk Tower"
+            },
+            "reset": "<p>A soul pod deactivates once no PCs are in the spires, then resets automatically.</p>",
+            "routine": "<p>(2 actions) The soul pod releases a soulrending shriek on its first action, then on its second action exhales a blast of spore-laden wind in a @Template[type:cone|distance:40]. Creatures in this area must attempt a @Check[fortitude|dc:36] save. This blast has the air and poison traits.</p><hr><p><strong>Critical Success</strong> The creature is unaffected.</p><p><strong>Success</strong> The creature takes @Damage[4d6[poison]] damage.</p><p><strong>Failure</strong> The creature takes @Damage[8d6[poison]] damage and is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] by the wind.</p><p><strong>Critical Failure</strong> The creature takes @Damage[16d6[poison]] damage, is knocked prone, and is blown 10 feet backward directly away from the soul pod, possibly being blown off the edge of a platform or stairwell.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 29
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 23
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 29
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt",
+                "fungus"
+            ]
+        }
+    },
+    "type": "hazard"
+}

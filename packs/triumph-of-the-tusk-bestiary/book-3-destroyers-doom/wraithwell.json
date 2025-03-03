@@ -1,0 +1,164 @@
+{
+    "_id": "uJcZXlxeogJryyDR",
+    "folder": "afdlDlLAsVu7DaVp",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "W88Th7urO2gSaVou",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Unholy Repair",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The locus is sustained by the power of Tar-Baphon. The orb regains 10 Hit Points at the beginning of every round and is repaired by void damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Yh1PNkKg8zQtc3V0",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Wraith Storm",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature touches the orb or attempts to disable the haunt</p><hr /><p><strong>Effect</strong> A cyclone of wraiths spirals from the orb, grasping at all living creatures in the area. Targeted creatures must succeed at a @Check[will|dc:32] save or be @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} (@UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 2} on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dZ1Bz9CSp5GJDYTZ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Undeath Manifest",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature who dies in the presence of the orb immediately becomes undead. Casting @UUID[Compendium.pf2e.spells-srd.Item.Bind Undead] or @UUID[Compendium.pf2e.spells-srd.Item.Peaceful Rest] in the presence of the orb automatically destroys the locus; other spells or abilities that combat undead might also do so, at GM discretion.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Wraithwell",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 30
+            },
+            "emitsSound": "encounter",
+            "hardness": 20,
+            "hp": {
+                "details": "",
+                "max": 82,
+                "temp": 0,
+                "value": 82
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 27
+            }
+        },
+        "details": {
+            "description": "<p>An orb of undeath draws creatures closer to a cursed existence.</p>",
+            "disable": "<p>@Check[religion|dc:27] to negate the forces of undeath (master), @Check[occultism|dc:30] (expert) to channel vital energy, @Check[thievery|dc:35] (master) to extricate the orb from the altar</p>",
+            "isComplex": true,
+            "level": {
+                "value": 12
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #209: Destroyer's Doom"
+            },
+            "reset": "<p>The haunt deactivates 1 minute after all living creatures leave the area. After 1 hour, the haunt reactivates.</p>",
+            "routine": "<p>(1 action; void) The wraiths attack all living creatures in the area, dealing @Damage[(3d10+14)[void]] damage (@Check[fortitude|dc:32|basic] save). Creatures who fail their saves are @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (@UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} on a critical failure) or increase their drained value by 1 (2 on a critical failure), up to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 4}.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 25
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

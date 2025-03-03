@@ -1,0 +1,136 @@
+{
+    "_id": "rvqP3hXVVLNJ3R93",
+    "folder": "Tn34WCNkVEMEIfwP",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "TDizqENcCMkARS9M",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Treerazer Notices",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The fungal heart takes damage, or an attempt to disable it fails</p><hr /><p><strong>Effect</strong> A sinister voice fills the minds of all creatures in area <strong>D1</strong> or <strong>D2</strong>, speaking in Chthonian: \"And so my whelp has failed, yet you have not found salvation—you have doomed Kyonin to fall. Will you be the first to die, or shall you linger long enough to see all you hold dear become mine?\" The PCs immediately recognize this voice as belonging to Treerazer and must attempt a @Check[will|dc:39] save or become @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} and @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} (or doomed 1, @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 4}, and @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for as long as they remain frightened on a critical failure). The Fungal Heart then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Fungal Heart",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 36
+            },
+            "emitsSound": "encounter",
+            "hardness": 22,
+            "hp": {
+                "details": "",
+                "max": 90,
+                "temp": 0,
+                "value": 90
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "acid"
+                },
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 15
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master) to detect that the fungal heart is hazardous; noticing the fungal heart has a DC of 0</p>",
+                "value": 28
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "cold",
+                    "value": 15
+                },
+                {
+                    "exceptions": [],
+                    "type": "cold-iron",
+                    "value": 15
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>A pulsing green cluster of fungus suspended in the middle of the spherical room by thick lengths of fibrous stalks.</p>",
+            "disable": "<p>@Check[nature|dc:33] (master) three times to carefully prune away specific tethers that keep the fungal heart active, or @Check[religion|dc:33] (master) three times to exorcise the demonic energies from the fungal heart.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 14
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #210: Whispers in the Dirt"
+            },
+            "reset": "<p>The fungal heart deactivates and resets if 3 rounds pass during which no attempts to disable or damage it take place. On subsequent activations of \"Treerazer Notices,\" no telepathic message is sent—it's simply an overwhelming sensation of imminent doom.</p>",
+            "routine": "<p>(1 action; divine, poison) The fungal heart clenches as if beating like a real heart, then exudes a churning cloud of toxic spores that fills areas <strong>D1</strong> and <strong>D2</strong>. All creatures in these areas take @Damage[10d6[poison]] damage (@Check[fortitude|dc:34|basic] save; creatures in area <strong>D1</strong> gain a +4 circumstance bonus to this save due to the diffusion of the spores as they wash into the larger area).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 28
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 22
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 30
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "fungus"
+            ]
+        }
+    },
+    "type": "hazard"
+}

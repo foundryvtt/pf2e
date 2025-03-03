@@ -1,0 +1,108 @@
+{
+    "_id": "KOATLw8dbPRo7DWb",
+    "folder": "5Uj7smob0in9RJLF",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "V7iggbIRmya9BuNk",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Psychic Shriek",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> any damage is inflicted on the engine, or any attempt to disable it critically fails</p><hr /><p><strong>Effect</strong> The entire mass of fungi shudders, then emits a piercing psychic scream as the trapped souls within cry out. All non-fungi creatures in area <strong>E3</strong> take @Damage[10d6[spirit]] damage (@Check[will|dc:41|basic] save), and four vansidieth demons waiting for this precise alarm use translocate to teleport into the room to attack the intruders. The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Fungal Engine",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 43
+            },
+            "emitsSound": "encounter",
+            "hardness": 32,
+            "hp": {
+                "details": "",
+                "max": 130,
+                "temp": 0,
+                "value": 130
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(legendary) to notice the fungi is potentially hazardous and that the two mushrooms in the middle are load bearing and that destroying those with damage can disable the hazard; noticing the engine itself has a DC of 0</p>",
+                "value": 37
+            }
+        },
+        "details": {
+            "description": "<p>A thick mass of pulsing fungi and mold infested with ghostly shapes cakes the walls of the room.</p>",
+            "disable": "<p>@Check[nature|dc:41] seven times to seek out and remove seven specific nodes of fungi that govern the intake and dispersal of energy, or @Check[religion|dc:47] three times to exorcise the souls out of the engine and force it to shut down</p>",
+            "isComplex": true,
+            "level": {
+                "value": 19
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #212: A Voice in the Blight"
+            },
+            "reset": "<p>The fungal engine deactivates and resets after 1 minute, but any demons called in remain in the area for an hour to ensure the intruders don't return.</p>",
+            "routine": "<p>(1 action) The fungal engine expels clouds of toxic spores on its turn, causing all non-fungi and non-demon creatures in the room to take @Damage[10d6[poison]] damage (@Check[fortitude|dc:41|basic] save); any creature that takes damage is exposed to grayshroud.</p><hr><p><strong>Grayshroud</strong></p><p><strong>Saving Throw</strong> @Check[fortitude|dc:40]</p><p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] (1 day)</p><p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} and fatigued (1 day)</p><p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and fatigued (1 day)</p><p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3}, fatigued, and can't speak (1 day)</p><p><strong>Stage 5</strong> death</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 35
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 29
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap",
+                "unholy"
+            ]
+        }
+    },
+    "type": "hazard"
+}
