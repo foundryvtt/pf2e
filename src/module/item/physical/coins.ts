@@ -91,7 +91,16 @@ class CoinsPF2e implements Coins {
     /** Parses a price string such as "5 gp" and returns a new CoinsPF2e object */
     static fromString(coinString: string, quantity = 1): CoinsPF2e {
         // This requires preprocessing, as large gold values contain , for their value
-        const priceTag = String(coinString).trim().replace(/,/g, "");
+        const priceTag = DENOMINATIONS.reduce(
+            (s, denomination) => {
+                const localizedDenomination = game.i18n.localize(`PF2E.CurrencyAbbreviations.${denomination}`);
+                if (localizedDenomination === denomination) return s;
+                // This matches localized denomination if it's not followed or preceeded by an unicode letter character
+                const pattern = new RegExp(`(?!<\\p{L})${localizedDenomination}(?!\\p{L})`, "u");
+                return s.replace(pattern, denomination);
+            },
+            coinString.trim().replace(/,/g, ""),
+        );
         return [...priceTag.matchAll(/(\d+)\s*([pgsc]p)/g)]
             .map((match) => {
                 const [value, denomination] = match.slice(1, 3);
@@ -109,14 +118,14 @@ class CoinsPF2e implements Coins {
     /** Creates a new price string such as "5 gp" from this object */
     toString(): string {
         if (DENOMINATIONS.every((denomination) => !this[denomination])) {
-            return "0 gp";
+            return `0 ${game.i18n.localize("PF2E.CurrencyAbbreviations.gp")}`;
         }
 
         const DENOMINATIONS_REVERSED = [...DENOMINATIONS].reverse();
         const parts: string[] = [];
-        for (const denomation of DENOMINATIONS_REVERSED) {
-            if (this[denomation]) {
-                parts.push(`${this[denomation]} ${denomation}`);
+        for (const denomination of DENOMINATIONS_REVERSED) {
+            if (this[denomination]) {
+                parts.push(`${this[denomination]} ${game.i18n.localize(`PF2E.CurrencyAbbreviations.${denomination}`)}`);
             }
         }
 

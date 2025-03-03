@@ -1,0 +1,167 @@
+{
+    "_id": "wA6006Kc9ig401r6",
+    "folder": "afdlDlLAsVu7DaVp",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "2PC0MWRiBZUVNniI",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Agony Lash",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature touches the orb or attempts to disable the haunt</p><hr /><p><strong>Effect</strong> All living creatures within 60 feet are overwhelmed by pain and must succeed at a @Check[fortitude|dc:32] save or be @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure). The haunt then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OP1OdZVCQLwL71wG",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Pain Manifest",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Casting @UUID[Compendium.pf2e.spells-srd.Item.Calm] or @UUID[Compendium.pf2e.spells-srd.Item.Soothe] in the orb's presence automatically destroys the locus; other spells or abilities that ease pain might also do so, at GM discretion.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TIlhb8GWzry8wFBb",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Unholy Repair",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The locus is sustained by the power of Tar-Baphon. The orb regains 10 Hit Points at the beginning of every round and is repaired by void damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Locus of Pain",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 30
+            },
+            "emitsSound": "encounter",
+            "hardness": 20,
+            "hp": {
+                "details": "",
+                "max": 82,
+                "temp": 0,
+                "value": 82
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 27
+            }
+        },
+        "details": {
+            "description": "<p>An arcane orb sits upon a sinister altar, filling creatures in the area with unimaginable pain.</p>",
+            "disable": "<p>@Check[medicine|dc:27] (master) to soothe the locus's pain, @Check[occultism|dc:30] or @Check[religion|dc:30] to counteract the locus's energies, @Check[thievery|dc:35] (master) to extricate the orb from the altar</p>",
+            "isComplex": true,
+            "level": {
+                "value": 12
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #209: Destroyer's Doom"
+            },
+            "reset": "<p>The haunt deactivates 1 minute after all living creatures leave the area. After 1 hour, the haunt reactivates.</p>",
+            "routine": "<p>(1 action; mental, nonlethal) Creatures affected by the haunt's agony lash are wracked with pain, as 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Phantom Pain] (@Check[will|dc:32|traits:mental,nonlethal]). If a creature falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] due to the haunt, they don't continue taking damage.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 25
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

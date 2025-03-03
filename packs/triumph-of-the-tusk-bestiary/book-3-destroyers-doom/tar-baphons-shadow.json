@@ -1,0 +1,128 @@
+{
+    "_id": "1tIWR9h3650FOW9Y",
+    "folder": "afdlDlLAsVu7DaVp",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "coFjx9xdGwcQnavh",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Unholy Leech",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the cavern</p><hr /><p><strong>Effect</strong> The shadow latches onto the Carcass Man, unleashing a @Template[type:emanation|distance:30] of necromantic energy. Creatures in the area except the Carcass Man must make a @Check[fortitude|dc:30] save or take @Damage[2d12[void]] damage. The haunt then rolls initiative.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage and is pushed back 5 feet.</p>\n<p><strong>Failure</strong> The creature takes full damage and is pushed back 15 feet.</p>\n<p><strong>Critical Failure</strong> As failure and the creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} and knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7lBHzLahLzNkrGPW",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Unholy Presence",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The shadow is sustained by the power of Tar-Baphon, regaining 10 Hit Points at the beginning of every round, and is repaired by void damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Tar-Baphon's Shadow",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "",
+                "value": 30
+            }
+        },
+        "details": {
+            "description": "<p>A manifestation of Tar-Baphon drains the essence of its divine target.</p>",
+            "disable": "<p>@Check[arcana|dc:33] (expert) to disrupt Tar-Baphon's magic, @Check[occultism|dc:30] or @Check[religion|dc:30] (master) to suppress the shadow's energy; three total successes in any combination are required to disable the haunt unless the Carcass Man is destroyed, in which case it's automatically destroyed</p>",
+            "isComplex": true,
+            "level": {
+                "value": 11
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #209: Destroyer's Doom"
+            },
+            "reset": "",
+            "routine": "<p>(1 action; death) The haunt drains Zagresh's divine energies, dealing @Damage[5d10[void]] damage.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -86,7 +86,7 @@ function escapeCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
     );
 
     if (highest) {
-        const { checkType, stat: slug, subtitle } = ActionMacroHelpers.resolveStat(highest.statistic.slug);
+        const { checkType, stat: slug, subtitle } = ActionMacroHelpers.resolveStat(highest.statistic.slug, opts.actor);
         return {
             modifiers: data.modifiers,
             rollOptions: highest.rollOptions,

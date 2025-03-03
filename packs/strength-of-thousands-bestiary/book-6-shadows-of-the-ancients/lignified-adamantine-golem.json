@@ -1,0 +1,419 @@
+{
+    "_id": "ryvb9GPRLh3Qz3xZ",
+    "folder": "hRI7gTl8V8y0eQkM",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "wjk251v8hn8yq30w",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Staff",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "destructive-strike"
+                    ]
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "ekf1l0hlULzmge3f": {
+                        "damage": "3d10+15",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "deadly-3d12",
+                        "magical",
+                        "reach-15"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "iOkGanVQLy28fFnI",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.r34QDwKiWZoVymJa"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Golem Antimagic",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Harmed by acid (@Damage[9d10[untyped]], @Damage[2d10[untyped]] from areas or persistent damage); healed by plant (area @Damage[2d10[healing]] HP); slowed by electricity</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.GolemAntimagic]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "golem-golem-antimagic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pjjx4azz3gsp6vh0",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Repair Mode",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When the golem is at 0 HP, it isn't destroyed. Instead, it enters repair mode, during which it is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}, can't take reactions, and can take only the Self-Repair action. Once it has more than 30 HP, it can use any type of action and can use reactions, though it remains slowed 1 and can't take any reactions until the start of its next turn. If a critical hit with an adamantine weapon reduces the golem to 0 HP, or if such a weapon hits it while it's already at 0 HP, then the golem is destroyed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "t0rg3oycgmd415fs",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Vulnerable to Dispelling and Shape Wood",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The golem can be targeted by @UUID[Compendium.pf2e.spells-srd.Item.Disjunction], @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic], and @UUID[Compendium.pf2e.spells-srd.Item.Shape Wood]. If targeted by such a spell of 9th rank or higher, the golem has its resistance to physical damage lowered to 10 and is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} if in repair mode) for [[/gmr 1d4 #Golem Vulnerability]]{1d4 rounds}. During this time, if the golem is reduced to 0 HP while already in repair mode, it is destroyed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "vulnerable-to-dispelling-and-shape-wood",
+                        "toggleable": true
+                    },
+                    {
+                        "exceptions": [
+                            "adamantine"
+                        ],
+                        "key": "Resistance",
+                        "predicate": [
+                            {
+                                "not": "vulnerable-to-dispelling-and-shape-wood"
+                            }
+                        ],
+                        "type": "physical",
+                        "value": 15
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ggjs0w79v0sr9ab8",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Destructive Strike",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>On a critical hit, the golem's staff Strike breaks the target's armor, if any, in addition to dealing damage to the target. If the target has a shield raised, the golem breaks the shield instead.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "j9c0igc036qj9m4s",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Inexorable March",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The golem Strides up to its Speed, pushing back each creature whose space it moves into and damaging them if they try to stop its movement. A creature can try to bar the way by attempting a @Check[fortitude|dc:43] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage and its armor takes no damage.</p>\n<p><strong>Success</strong> The golem halts its movement and cannot enter the creature's square.</p>\n<p><strong>Failure</strong> The resisting creature is damaged and its armor takes damage as if hit by the golem's staff.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "broizkqu57k2yok4",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Self-Repair",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The golem repairs itself, regaining @Damage[30[healing]] Hit Points.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "l3ib5p5v8pohydvm",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Vent Splinters",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The golem vents a @Template[cone|distance:30] of fiery splinters from its internal forge. This deals @Damage[13d6[piercing]] damage to all creatures in the cone (@Check[reflex|dc:38|basic]). Creatures who fail the save also take @Damage[2d6[persistent,fire]] damage (@Damage[4d6[persistent,fire]] damage on a critical failure). The golem can't use Vent Splinters again for [[/gmr 1d4 #Recharge Vent Splinters]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Lignified Adamantine Golem",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -5
+            },
+            "con": {
+                "mod": 9
+            },
+            "dex": {
+                "mod": -1
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 9
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 40
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "repair mode",
+                "max": 255,
+                "temp": 0,
+                "value": 255
+            },
+            "immunities": [
+                {
+                    "type": "magic"
+                }
+            ],
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine"
+                    ],
+                    "type": "physical",
+                    "value": 10
+                }
+            ],
+            "shield": {
+                "ac": 2,
+                "brokenThreshold": 0,
+                "hardness": 0,
+                "max": 0,
+                "value": 0
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "special": "",
+                "value": 30
+            }
+        },
+        "details": {
+            "blurb": "Variant adamantine golem",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 17
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder #174: Shadows of the Ancients"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 26,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 31
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 25
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 27
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 36
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "construct",
+                "golem",
+                "mindless"
+            ]
+        }
+    },
+    "type": "npc"
+}

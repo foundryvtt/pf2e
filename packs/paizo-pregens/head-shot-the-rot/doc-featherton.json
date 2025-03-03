@@ -1,0 +1,2651 @@
+{
+    "_id": "mgTDmRdQYUVHBs9V",
+    "folder": "EfQSgHra56EegVxm",
+    "img": "systems/pf2e/icons/default-icons/character.svg",
+    "items": [
+        {
+            "_id": "F7pEmp8SYfzdngDx",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Underworld Lore",
+            "sort": 0,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 0
+                },
+                "proficient": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "t28t7dfsczh2tqMP",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.heritages.Item.hFBwsVcSnNCJoimo"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "lengthyDiversion": {
+                            "id": "nvEqABSpSP3SCNGF",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/environment/people/group.webp",
+            "name": "Versatile Heritage",
+            "sort": 0,
+            "system": {
+                "ancestry": {
+                    "name": "Human",
+                    "slug": "human",
+                    "uuid": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
+                },
+                "description": {
+                    "value": "<p>Humanity's versatility and ambition have fueled its ascendance to be the most common ancestry in most nations throughout the world. Select a general feat of your choice for which you meet the prerequisites (as with your ancestry feat, you can select this general feat at any point during character creation).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:level:1",
+                                "item:trait:general"
+                            ],
+                            "itemType": "feat"
+                        },
+                        "flag": "versatileHeritage",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.GeneralTraining.Prompt",
+                        "selection": "Compendium.pf2e.feats-srd.Item.Lengthy Diversion"
+                    },
+                    {
+                        "flag": "lengthyDiversion",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.versatileHeritage}"
+                    }
+                ],
+                "slug": "versatile-heritage",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "heritage"
+        },
+        {
+            "_id": "nvEqABSpSP3SCNGF",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.HEBXaS656MZTiWFu"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "t28t7dfsczh2tqMP",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Lengthy Diversion",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>When you critically succeed to Create a Diversion, you continue to remain hidden after the end of your turn. This effect lasts for an amount of time that depends on the diversion and situation, as determined by the GM (minimum 1 additional round).</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Deception"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [],
+                "slug": "lengthy-diversion",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "IAjmeihiPlR8FQoQ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.backgrounds.Item.0wzTmGUb8yvzMrO0"
+            },
+            "img": "systems/pf2e/icons/default-icons/background.svg",
+            "name": "Back-Alley Doctor",
+            "sort": 0,
+            "system": {
+                "boosts": {
+                    "0": {
+                        "selected": "wis",
+                        "value": [
+                            "con",
+                            "wis"
+                        ]
+                    },
+                    "1": {
+                        "selected": "dex",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p>You're the medic many turn to when a more official clinic or healer might not be available. You may specialize in stitching up bullet wounds or have a standing, confidential deal with a criminal syndicate to provide your services any time of day or night. In either case, you've perhaps turned to the adventuring life because a former client is unhappy with your work or members of the local constabulary have been asking too many questions.</p>\n<p>Choose two ability boosts. One must be to <strong>Constitution</strong> or <strong>Wisdom</strong>, and one is a free ability boost.</p>\n<p>You're trained in the Medicine skill and the Underworld Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Risky Surgery] skill feat.</p>"
+                },
+                "items": {
+                    "n6uq0": {
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
+                        "level": 1,
+                        "name": "Risky Surgery",
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Risky Surgery"
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "rules": [],
+                "slug": "back-alley-doctor",
+                "trainedSkills": {
+                    "custom": "",
+                    "lore": [
+                        "Underworld"
+                    ],
+                    "value": [
+                        "medicine"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "background"
+        },
+        {
+            "_id": "4cXcr701bV5MGufZ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.bkZgWFSFV4cAf5Ot"
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Risky Surgery",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>Your surgery can bring a patient back from the brink of death, but might push them over the edge. When you @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds], you can deal @Damage[1d8[slashing]] damage to your patient just before applying the effects of Treat Wounds.</p>\n<p>If you do, you gain a +2 circumstance bonus to your Medicine check to Treat Wounds, and if you roll a success, you get a critical success instead.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "IAjmeihiPlR8FQoQ",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Medicine"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Advanced Player's Guide"
+                },
+                "rules": [
+                    {
+                        "domain": "medicine",
+                        "key": "RollOption",
+                        "option": "risky-surgery",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "risky-surgery"
+                        ],
+                        "selector": "medicine",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "risky-surgery"
+                        ],
+                        "selector": "medicine",
+                        "text": "When you @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds], you can deal @Damage[1d8[slashing]] damage to your patient just before applying the effects of Treat Wounds. If you do, you gain a +2 circumstance bonus to your Medicine check to Treat Wounds, and if you roll a success, you get a critical success instead.",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": "risky-surgery",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "4duThrzOedHwqIQT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.PodajLVxqYSAqVox"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "hitTheDirt": {
+                            "id": "G3jZVxB04bnlAM2h",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Natural Ambition",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestry",
+                "description": {
+                    "value": "<p>You were raised to be ambitious and always reach for the stars, leading you to progress quickly in your chosen field. You gain a 1st-level class feat for your class. You must meet the prerequisites, but you can select the feat later in the character creation process in order to determine which prerequisites you meet.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:level:1",
+                                "item:category:class",
+                                "item:trait:{actor|system.details.class.trait}",
+                                {
+                                    "or": [
+                                        "feature:dragon-instinct",
+                                        {
+                                            "not": "item:draconic-arrogance"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "nor": [
+                                        "item:animal-companion",
+                                        "item:animal-companion-druid",
+                                        "item:bardic-lore",
+                                        "item:fire-lung",
+                                        "item:lingering-composition",
+                                        "item:leshy-familiar",
+                                        "item:martial-performance",
+                                        "item:shore-step",
+                                        "item:steadying-stone",
+                                        "item:storm-born",
+                                        "item:versatile-performance",
+                                        "item:untamed-form"
+                                    ]
+                                }
+                            ],
+                            "itemType": "feat"
+                        },
+                        "flag": "naturalAmbition",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat",
+                        "selection": "Compendium.pf2e.feats-srd.Item.Hit the Dirt!"
+                    },
+                    {
+                        "flag": "hitTheDirt",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.naturalAmbition}"
+                    }
+                ],
+                "slug": "natural-ambition",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "human"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "G3jZVxB04bnlAM2h",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.6LFBPpPPJjDq07fg"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "4duThrzOedHwqIQT",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Hit the Dirt!",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature you can see attempts a ranged Strike against you.</p>\n<hr />\n<p>You fling yourself out of harm's way. You @UUID[Compendium.pf2e.actionspf2e.Item.Leap]. Your movement gives you a +2 circumstance bonus to AC against the triggering attack. Regardless of whether or not the triggering attack hits, you land @UUID[Compendium.pf2e.conditionitems.Item.Prone] after completing your Leap.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "hit-the-dirt",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "hit-the-dirt",
+                            "item:ranged"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": "hit-the-dirt",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "gunslinger"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "MRXmbTCKeWvQpDW1",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.sjChYEuEWPqndCSK"
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Dual-Weapon Reload",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> You're wielding two one-handed weapons, each in a different hand, one of which is a ranged weapon.</p>\n<hr />\n<p>You carry your ammunition in a way that allows you to reload while holding two weapons. You Interact to reload a one-handed ranged weapon you're holding. Unlike most Interact actions, you don't need a free hand to reload your ranged weapon in this way.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "class-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "rules": [],
+                "slug": "dual-weapon-reload",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "gunslinger"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "k4YbXrIT2CNgHDiy",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.MJg24e9fJd7OASvF"
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Medic Dedication",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>You become an expert in Medicine.</p>\n<p>When you succeed with @UUID[Compendium.pf2e.feats-srd.Item.Battle Medicine] or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds], the target regains 5 additional HP at DC 20, 10 HP at DC 30, or 15 HP at DC 40.</p>\n<p>Once per day, you can use Battle Medicine on a creature that's temporarily immune. If you're a master in Medicine, you can do so once per hour.</p>\n<hr />\n<p><strong>Special</strong> You can't select another dedication feat until you gain two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.XWkyCVISmVtJ0ZY3]{Medic} archetype.</p>"
+                },
+                "level": {
+                    "taken": 2,
+                    "value": 2
+                },
+                "location": "class-2",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Medicine"
+                        },
+                        {
+                            "value": "Battle Medicine"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Advanced Player's Guide"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.skills.medicine.rank",
+                        "value": 2
+                    }
+                ],
+                "slug": "medic-dedication",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "archetype",
+                        "dedication"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "FLqgWOmn4nhoTXyz",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.wYerMk6F1RZb0Fwt"
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Battle Medicine",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> You are holding or wearing healer's tools.</p>\n<hr />\n<p>You can patch up yourself or an adjacent ally, even in combat. Attempt a Medicine check with the same DC as for @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds], and restore a corresponding amount of Hit Points; this does not remove the @UUID[Compendium.pf2e.conditionitems.Item.Wounded] condition. As with Treat Wounds, you can attempt checks against higher DCs if you have the minimum proficiency rank. The target is then temporarily @UUID[Compendium.pf2e.feat-effects.Item.Effect: Battle Medicine Immunity]{immune} to your Battle Medicine for 1 day.</p>\n<p><strong>Editors note</strong> Paizo has clarified the usage of worn tools:</p>\n<blockquote>Worn tools should only take 1 hand to use, as you only draw the things you need from the kit and not the entire kit. This has been marked for future errata.</blockquote>"
+                },
+                "level": {
+                    "taken": 2,
+                    "value": 1
+                },
+                "location": "skill-2",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Medicine"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [],
+                "slug": "battle-medicine",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "healing",
+                        "manipulate",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "By31z5OsQ8A6uSLu",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.I0BhPWqYf1bbzEYg"
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Diehard",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p>It takes more to kill you than most. You die from the dying condition at dying 5, rather than dying 4.</p>"
+                },
+                "level": {
+                    "taken": 3,
+                    "value": 1
+                },
+                "location": "general-3",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.attributes.dying.max",
+                        "value": 5
+                    }
+                ],
+                "slug": "diehard",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "sWQnnVMNSFAvq8u7",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4gWvfeDGTSAf9LAQ"
+            },
+            "img": "icons/weapons/guns/gun-pistol-wood.webp",
+            "name": "Dragon Mouth Pistol",
+            "sort": 0,
+            "system": {
+                "baseItem": "dragon-mouth-pistol",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p>Similar to the blunderbuss, a dragon-mouth pistol fires pellets from a flared barrel. Though less powerful than a blunderbuss, the dragon-mouth pistol is appreciated for its portability and one-handed design. Though the name was coined because of the destructive belch of this handheld scatter weapon, many gunsmiths craft dragon-mouth pistols with elaborate embellishments that resemble a stylized dragon's maw framing the barrel.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "invested": null
+                },
+                "group": "firearm",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 9
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "quantity": 1,
+                "range": 30,
+                "reload": {
+                    "value": "1"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "selectedAmmoId": "EPkTyUZXh1qaiHME",
+                "size": "med",
+                "slug": "dragon-mouth-pistol",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "concussive",
+                        "scatter-5"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "CqdXCYcRGnTyVTpq",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tHIb3ynOHj7dGiCH"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/reinforced-stock.webp",
+            "name": "Reinforced Stock",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "dice": 1,
+                    "die": "d4"
+                },
+                "description": {
+                    "value": "<p>A reinforced stock is a weighted crossbow, firearm haft, or grip customized for striking in melee.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "invested": null
+                },
+                "group": "club",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 2
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "reinforced-stock",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attached-to-crossbow-or-firearm",
+                        "finesse",
+                        "two-hand-d6"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "rOQTI5GCljnX0JAz",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ogv5nwwrc3sU8DnP"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/dueling-pistol.webp",
+            "name": "Dueling Pistol",
+            "sort": 0,
+            "system": {
+                "baseItem": "dueling-pistol",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p>Made for settling disputes when diplomacy fails, dueling pistols are finely crafted and made to fit easily into a holster or pocket. Noble and wealthy merchants in both Alkenstar and Dongun Hold often own matching pairs of dueling pistols in case they're called upon to address a challenge-though this practice has become increasingly rare in the modern age.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "invested": null
+                },
+                "group": "firearm",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 12
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "quantity": 1,
+                "range": 60,
+                "reload": {
+                    "value": "1"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "striking": 0
+                },
+                "selectedAmmoId": "ypx3RVJX3aqDvW3j",
+                "size": "med",
+                "slug": "dueling-pistol",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "concealable",
+                        "concussive",
+                        "fatal-d10"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "gQcVdAy0zg6Tx5ke",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.jm5gQnfvVeUiVfdW"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/bayonet.webp",
+            "name": "Bayonet",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d4"
+                },
+                "description": {
+                    "value": "<p>This blade or spike can be attached to a crossbow or firearm but, unlike other attached weapons, can be wielded in one hand as its own weapon. When used as a separate weapon, it can't benefit from any runes or abilities that function only for attached weapons.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "invested": null
+                },
+                "group": "knife",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 2
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "bayonet",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "attached-to-crossbow-or-firearm",
+                        "finesse"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "VB0ayPtbaNqSu5Z3",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
+            },
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
+            "name": "Leather Armor",
+            "sort": 0,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "leather-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+                },
+                "dexCap": 4,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "leather-armor",
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "AqNsyP8oBP9WpAzE",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.QrNvP9SgnK9DrerA"
+            },
+            "img": "icons/sundries/lights/lantern-bullseye-signal-copper.webp",
+            "name": "Lantern (Bull's Eye)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>A lantern sheds bright light and requires 1 pint of oil to function for 6 hours. A bull's-eye lantern emits its light in a 60-foot cone (and dim light in the next 60 feet). A hooded lantern sheds light in a 30-foot radius (and dim light in the next 30 feet) and is equipped with shutters, which you can close to block the light. Closing or opening the shutters takes an Interact action.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "TokenEffectIcon",
+                        "value": "icons/sundries/lights/lantern-bullseye-signal-copper.webp"
+                    },
+                    {
+                        "key": "TokenLight",
+                        "value": {
+                            "angle": 90,
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "bright": 60,
+                            "color": "#9b7337",
+                            "dim": 120,
+                            "shadows": 0.2
+                        }
+                    }
+                ],
+                "size": "med",
+                "slug": "lantern-bulls-eye",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "yttdJZMVG8C8yEMS",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UlIxxLm71UdRgCFE"
+            },
+            "img": "icons/commodities/stone/geode-raw-tan.webp",
+            "name": "Flint and Steel",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>Flint and steel are useful in creating a fire if you have the time to catch a spark, though using them is typically too time-consuming to be practical during an encounter. Even in ideal conditions, using flint and steel to light a flame requires using at least 3 actions, and often significantly longer.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 5
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "flint-and-steel",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "1w0EIER667M5KlNh",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.s1vB3HdXjMigYAnY"
+            },
+            "img": "icons/containers/bags/pouch-gold-green.webp",
+            "name": "Healer's Tools",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to Administer First Aid, Treat Disease, Treat Poison, or Treat Wounds. If you wear your healer's tools, you can draw and replace them as part of the action that uses them.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 5
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "healers-tools",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "75jivr0lWSX1dsoJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.fyYnQf1NAx9fWFaS"
+            },
+            "img": "icons/sundries/survival/rope-wrapped-brown.webp",
+            "name": "Rope",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>50 feet of rope.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 5
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "rope",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "pZVTZru27n1LnJCY",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.1RiYM3lQDx30XEfB"
+            },
+            "img": "systems/pf2e/icons/equipment/held-items/firearm-cleaning-kit.webp",
+            "name": "Firearm Cleaning Kit",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This kit contains cleaning cloth, oil, small steel brushes, and other minor tools necessary for proper cleaning and maintenance of a firearm. Without a firearm cleaning kit, you can't perform the necessary tasks during your daily preparations to ensure that your firearm isn't at risk of misfiring under normal use conditions.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "firearm-cleaning-kit",
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "lRwsTEvIRsCqYT8S",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.2RuepCemJhrpKKao"
+            },
+            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
+            "name": "Healing Potion (Minor)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "potion",
+                "containerId": null,
+                "damage": {
+                    "formula": "1d8",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
+                "description": {
+                    "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain @Damage[1d8[healing]] Hit Points.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 4
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "healing-potion-minor",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "healing",
+                        "magical",
+                        "potion",
+                        "vitality"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "EPkTyUZXh1qaiHME",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.154C222Y7M96nvrL"
+            },
+            "img": "icons/weapons/ammunition/shot-round-lead.webp",
+            "name": "Rounds (Dragon Mouth Pistol)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "quantity": 20,
+                "rules": [],
+                "size": "med",
+                "slug": "rounds-dragon-mouth-pistol",
+                "stackGroup": "rounds10",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "ypx3RVJX3aqDvW3j",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FKPuzveKRNJhA1mi"
+            },
+            "img": "icons/weapons/ammunition/shot-round-lead.webp",
+            "name": "Rounds (Dueling Pistol)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "quantity": 20,
+                "rules": [],
+                "size": "med",
+                "slug": "rounds-dueling-pistol",
+                "stackGroup": "rounds10",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "fvcYB45TGRZzSjRJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.B6B7tBWJSqOBz5zz"
+            },
+            "img": "systems/pf2e/icons/equipment/treasure/currency/gold-pieces.webp",
+            "name": "Gold Pieces",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 13,
+                "rules": [],
+                "size": "med",
+                "slug": "gold-pieces",
+                "stackGroup": "coins",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
+            "_id": "bTmHPGS1dYfcyBbP",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.5Ew82vBF9YfaiY9f"
+            },
+            "img": "systems/pf2e/icons/equipment/treasure/currency/silver-pieces.webp",
+            "name": "Silver Pieces",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 5,
+                "rules": [],
+                "size": "med",
+                "slug": "silver-pieces",
+                "stackGroup": "coins",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
+            "_id": "yzv516q4Cl8n2VqB",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.lzJ8AVhRcbFul5fh"
+            },
+            "img": "systems/pf2e/icons/equipment/treasure/currency/copper-pieces.webp",
+            "name": "Copper Pieces",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 5,
+                "rules": [],
+                "size": "med",
+                "slug": "copper-pieces",
+                "stackGroup": "coins",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
+            "_id": "q3sW5uqSFuGervT5",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classes.Item.Z9li154CPNmun29Q"
+            },
+            "img": "systems/pf2e/icons/classes/gunslinger.webp",
+            "name": "Gunslinger",
+            "sort": 0,
+            "system": {
+                "ancestryFeatLevels": {
+                    "value": [
+                        1,
+                        5,
+                        9,
+                        13,
+                        17
+                    ]
+                },
+                "attacks": {
+                    "advanced": 0,
+                    "martial": 1,
+                    "other": {
+                        "name": "Simple Firearms, Martial Firearms",
+                        "rank": 2
+                    },
+                    "simple": 1,
+                    "unarmed": 1
+                },
+                "classFeatLevels": {
+                    "value": [
+                        1,
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "defenses": {
+                    "heavy": 0,
+                    "light": 1,
+                    "medium": 1,
+                    "unarmored": 1
+                },
+                "description": {
+                    "value": "<p><em>While some fear projectile weapons, you savor the searing flash, wild kick, and cloying smoke that accompanies a gunshot, or snap of the cable and telltale thunk of your crossbow just before your bolt finds purchase. Ready to draw a bead on an enemy at every turn, you rely on your reflexes, steady hand, and knowledge of your weapons to riddle your foes with holes.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.kzxu2dI7tFxv6Ix6.JournalEntryPage.88K0xjShkhkckbhv]{Gunslinger}</em></p>"
+                },
+                "generalFeatLevels": {
+                    "value": [
+                        3,
+                        7,
+                        11,
+                        15,
+                        19
+                    ]
+                },
+                "hp": 8,
+                "items": {
+                    "0f5gd": {
+                        "img": "icons/magic/fire/explosion-embers-evade-silhouette.webp",
+                        "level": 11,
+                        "name": "Evasion",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Evasion"
+                    },
+                    "182it": {
+                        "img": "systems/pf2e/icons/features/classes/shootists-edge.webp",
+                        "level": 17,
+                        "name": "Shootist's Edge",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Shootist's Edge"
+                    },
+                    "1qqd9": {
+                        "img": "systems/pf2e/icons/features/classes/gunslinger-expertise.webp",
+                        "level": 9,
+                        "name": "Gunslinger Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Gunslinger Expertise"
+                    },
+                    "5m24f": {
+                        "img": "systems/pf2e/icons/features/classes/greater-deed.webp",
+                        "level": 15,
+                        "name": "Greater Deed",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Greater Deed"
+                    },
+                    "5vutv": {
+                        "img": "systems/pf2e/icons/features/classes/advanced-deed.webp",
+                        "level": 9,
+                        "name": "Advanced Deed",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Advanced Deed"
+                    },
+                    "6sihc": {
+                        "img": "icons/equipment/chest/breastplate-quilted-brown.webp",
+                        "level": 13,
+                        "name": "Medium Armor Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Medium Armor Expertise"
+                    },
+                    "8ndxn": {
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
+                        "level": 1,
+                        "name": "Gunslinger's Way",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Gunslinger's Way"
+                    },
+                    "bskyv": {
+                        "img": "icons/equipment/chest/breastplate-collared-steel.webp",
+                        "level": 19,
+                        "name": "Medium Armor Mastery",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Medium Armor Mastery"
+                    },
+                    "emlsp": {
+                        "img": "systems/pf2e/icons/features/classes/gunslinging-legend.webp",
+                        "level": 13,
+                        "name": "Gunslinging Legend",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Gunslinging Legend"
+                    },
+                    "g7b2s": {
+                        "img": "systems/pf2e/icons/features/classes/weapon-specialization.webp",
+                        "level": 7,
+                        "name": "Weapon Specialization",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Specialization"
+                    },
+                    "gfou8": {
+                        "img": "icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp",
+                        "level": 3,
+                        "name": "Stubborn",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Stubborn"
+                    },
+                    "gpkfl": {
+                        "img": "icons/skills/targeting/crosshair-bars-yellow.webp",
+                        "level": 1,
+                        "name": "Singular Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Slinger's Precision"
+                    },
+                    "kh0qp": {
+                        "img": "systems/pf2e/icons/features/classes/gunslinger-weapon-mastery.webp",
+                        "level": 5,
+                        "name": "Gunslinger Weapon Mastery",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Gunslinger Weapon Mastery"
+                    },
+                    "pi0ik": {
+                        "img": "systems/pf2e/icons/features/classes/incredible-sense.webp",
+                        "level": 19,
+                        "name": "Incredible Senses",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Perception Legend"
+                    },
+                    "rqnn0": {
+                        "img": "icons/magic/perception/eye-tendrils-web-purple.webp",
+                        "level": 7,
+                        "name": "Vigilant Senses",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Perception Mastery"
+                    },
+                    "uq3mi": {
+                        "img": "icons/creatures/mammals/bull-horned-blue.webp",
+                        "level": 17,
+                        "name": "Juggernaut",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Juggernaut"
+                    },
+                    "zmmy3": {
+                        "img": "icons/skills/melee/hand-grip-sword-orange.webp",
+                        "level": 15,
+                        "name": "Greater Weapon Specialization (Level 15)",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Greater Weapon Specialization"
+                    }
+                },
+                "keyAbility": {
+                    "value": [
+                        "dex"
+                    ]
+                },
+                "perception": 2,
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "rules": [
+                    {
+                        "definition": [
+                            "item:category:simple",
+                            {
+                                "or": [
+                                    "item:group:firearm",
+                                    "item:group:crossbow"
+                                ]
+                            }
+                        ],
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRule.MartialProficiency.SimpleFirearmsCrossbows",
+                        "slug": "simple-firearms-crossbows",
+                        "value": 2
+                    },
+                    {
+                        "definition": [
+                            "item:category:martial",
+                            {
+                                "or": [
+                                    "item:group:firearm",
+                                    "item:group:crossbow"
+                                ]
+                            }
+                        ],
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRule.MartialProficiency.MartialFirearmsCrossbows",
+                        "slug": "martial-firearms-crossbows",
+                        "value": 2
+                    },
+                    {
+                        "definition": [
+                            "item:category:advanced",
+                            {
+                                "or": [
+                                    "item:group:firearm",
+                                    "item:group:crossbow"
+                                ]
+                            }
+                        ],
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRule.MartialProficiency.AdvancedFirearmsCrossbows",
+                        "slug": "advanced-firearms-crossbows",
+                        "value": 1
+                    }
+                ],
+                "savingThrows": {
+                    "fortitude": 2,
+                    "reflex": 2,
+                    "will": 1
+                },
+                "skillFeatLevels": {
+                    "value": [
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "skillIncreaseLevels": {
+                    "value": [
+                        3,
+                        5,
+                        7,
+                        9,
+                        11,
+                        13,
+                        15,
+                        17,
+                        19
+                    ]
+                },
+                "slug": "gunslinger",
+                "spellcasting": 0,
+                "trainedSkills": {
+                    "additional": 3,
+                    "value": []
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": []
+                }
+            },
+            "type": "class"
+        },
+        {
+            "_id": "WUziYMLVZhywIxIu",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.LDqVxLKrwEqSegiu"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "wayOfTheDrifter": {
+                            "id": "8RLoi2xYbuqZbWmp",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
+            "name": "Gunslinger's Way",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>All gunslingers have a particular way they follow, a combination of philosophy and combat style that defines both how they fight and the weapons they excel with. At 1st level, your way grants you an initial deed, a unique reload action called a slinger's reload, and proficiency with a particular skill. You also gain advanced and greater deeds at later levels, as well as access to way-specific feats.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Way of the Drifter]</strong> You wander across the battlefield, equally at home in and out of the fray.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Way of the Pistolero]</strong> You carefully maintain your distance at a duelist's 10 paces with pistol in hand.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Way of the Sniper]</strong> You practice a methodical style of shooting, striking from far cover.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Way of the Vanguard]</strong> You rely on a brutal combat style that uses heavy weapons and explosive attacks.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Way of the Triggerbrand]</strong> You prefer firearms that work well as weapons in both melee and ranged combat</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "q3sW5uqSFuGervT5",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "allowedDrops": {
+                            "label": "level 1 gunslinger class feature",
+                            "predicate": [
+                                "item:level:1",
+                                "item:trait:gunslinger",
+                                "item:type:feature"
+                            ]
+                        },
+                        "choices": [
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Way of the Drifter"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Way of the Pistolero"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Way of the Sniper"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Way of the Vanguard"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Way of the Triggerbrand"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.Gunslinger.Way.Spellshot",
+                                "predicate": [
+                                    "class:gunslinger"
+                                ],
+                                "value": "Compendium.pf2e.classfeatures.Item.Way of the Spellshot"
+                            }
+                        ],
+                        "flag": "way",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Gunslinger.Way.Prompt",
+                        "selection": "Compendium.pf2e.classfeatures.Item.Way of the Drifter"
+                    },
+                    {
+                        "flag": "wayOfTheDrifter",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.way}"
+                    }
+                ],
+                "slug": "gunslingers-way",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "gunslinger"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "EE6rAwflrA7yaOma",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.vXbk7Nm1TOTTUNvF"
+            },
+            "img": "icons/skills/targeting/crosshair-bars-yellow.webp",
+            "name": "Singular Expertise",
+            "sort": 100,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You have particular expertise with guns and crossbows that grants you greater proficiency with them and the ability to deal more damage. You gain a +1 circumstance bonus to damage rolls with firearms and crossbows.</p>\n<p>This intense focus on firearms and crossbows prevents you from reaching the same heights with other weapons. Your proficiency with unarmed attacks and with weapons other than firearms and crossbows can't be higher than trained, even if you gain an ability that would increase your proficiency in one or more other weapons to match your highest weapon proficiency (such as the weapon expertise feats many ancestries have). If you have gunslinger weapon mastery, the limit is expert, and if you have gunslinging legend, the limit is master.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "q3sW5uqSFuGervT5",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "firearm-weapon-group-damage",
+                        "type": "circumstance",
+                        "value": 1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:group:crossbow"
+                        ],
+                        "selector": "bow-weapon-group-damage",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": "singular-expertise",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "gunslinger"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "7Ycjzm58mNv0z0Ar",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.Wpdeh6EkcAKA60oH"
+            },
+            "img": "icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp",
+            "name": "Stubborn",
+            "sort": 600,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You don't like being told what to do, and you don't give up. Your proficiency rank for Will saves increases to expert. When you fail, but don't critically fail, a Will save against an effect that would give you the controlled condition, you can attempt a second save against the effect at the start of your next turn. On a successful second save, the controlled condition ends, though any other effects remain. As normal, failing this second save doesn't allow you to attempt a third save on the subsequent turn.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "q3sW5uqSFuGervT5",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "rules": [],
+                "slug": "stubborn",
+                "subfeatures": {
+                    "proficiencies": {
+                        "will": {
+                            "rank": 2
+                        }
+                    }
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "gunslinger"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "wkx2RV2sE5f5rldN",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.actionspf2e.Item.Uq2qy9aGNQ5JcPI1"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "8RLoi2xYbuqZbWmp",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Into the Fray",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> You roll initiative.</p>\n<hr />\n<p>You know trouble can lurk around every corner, and your hands never stray far from your holsters. You can Interact to draw a one-handed ranged weapon and can then Interact to draw a one-handed melee weapon. As your first action on your first turn, you can Stride as a free action toward an enemy you can perceive. If you can't perceive any enemies or can't end your movement closer to one, you can't use this Stride.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "initiative",
+                        "text": "{item|system.description.value}",
+                        "title": "<span class=\"action-glyph\">F</span> {item|name}"
+                    }
+                ],
+                "slug": "into-the-fray",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "gunslinger"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2vE9gOdIcMwSPj9a",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.actionspf2e.Item.jSC5AYEfliOPpO3H"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "8RLoi2xYbuqZbWmp",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Reloading Strike",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> You're wielding a firearm or crossbow in one hand, and your other hand either wields a one-handed melee weapon or is empty.</p>\n<hr />\n<p>You make a melee attack and then reload your gun in one fluid movement. Strike an opponent within reach with your one-handed melee weapon (or, if your other hand is empty, with an unarmed attack), and then Interact to reload. You don't need a free hand to reload in this way.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "rules": [],
+                "slug": "reloading-strike",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "gunslinger"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8RLoi2xYbuqZbWmp",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.a3pSIKkDVTvvNSRO"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "WUziYMLVZhywIxIu",
+                        "onDelete": "cascade"
+                    },
+                    "itemGrants": {
+                        "intoTheFray": {
+                            "id": "wkx2RV2sE5f5rldN",
+                            "onDelete": "detach"
+                        },
+                        "reloadingStrike": {
+                            "id": "2vE9gOdIcMwSPj9a",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/way-of-the-drifter.webp",
+            "name": "Way of the Drifter",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You're a wanderer traveling from land to land with your gun and a melee weapon as company. Maybe you learned to fight with blade and pistol as a Shackles pirate, mastered the hand cannon and katana in Minkai, or practiced with a hatchet and clan pistol in Dongun Hold. You win battles by relying on mobility and flexible use of your weapons.</p>\n<p><strong>Slinger's Reload</strong> @UUID[Compendium.pf2e.actionspf2e.Item.Reloading Strike]</p>\n<p><strong>Deeds</strong> <em>Initial</em> @UUID[Compendium.pf2e.actionspf2e.Item.Into the Fray]; <em>Advanced</em> @UUID[Compendium.pf2e.actionspf2e.Item.Finish The Job]; <em>Greater</em> @UUID[Compendium.pf2e.actionspf2e.Item.Drifter's Wake]</p>\n<p><strong>Way Skill</strong> Acrobatics</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "rules": [
+                    {
+                        "flag": "intoTheFray",
+                        "key": "GrantItem",
+                        "predicate": [
+                            "class:gunslinger"
+                        ],
+                        "uuid": "Compendium.pf2e.actionspf2e.Item.Into the Fray"
+                    },
+                    {
+                        "flag": "reloadingStrike",
+                        "key": "GrantItem",
+                        "predicate": [
+                            "class:gunslinger"
+                        ],
+                        "uuid": "Compendium.pf2e.actionspf2e.Item.Reloading Strike"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.skills.acrobatics.rank",
+                        "value": 1
+                    }
+                ],
+                "slug": "way-of-the-drifter",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "gunslinger"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "ZmJ65WWZmpFgkrnv",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
+            },
+            "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/human.svg",
+            "name": "Human",
+            "sort": 0,
+            "system": {
+                "additionalLanguages": {
+                    "count": 1,
+                    "custom": "",
+                    "value": []
+                },
+                "boosts": {
+                    "0": {
+                        "selected": "dex",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    },
+                    "1": {
+                        "selected": "cha",
+                        "value": [
+                            "str",
+                            "dex",
+                            "con",
+                            "int",
+                            "wis",
+                            "cha"
+                        ]
+                    },
+                    "2": {
+                        "value": []
+                    }
+                },
+                "description": {
+                    "value": "<p><em>As unpredictable and varied as any of Golarion's peoples, humans have exceptional drive and the capacity to endure and expand. Though many civilizations thrived before humanity rose to prominence, humans have built some of the greatest and the most terrible societies throughout the course of history, and today they are the most populous people in the realms around the Inner Sea.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.45SK8rdbbxvEHfMn.JournalEntryPage.7pU8yM7yPMw92SY3]{Human}</em></p>"
+                },
+                "flaws": {
+                    "0": {
+                        "value": []
+                    }
+                },
+                "hp": 8,
+                "items": {},
+                "languages": {
+                    "custom": "",
+                    "value": [
+                        "common"
+                    ]
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "reach": 5,
+                "rules": [],
+                "size": "med",
+                "slug": "human",
+                "speed": 25,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "human",
+                        "humanoid"
+                    ]
+                },
+                "vision": "normal"
+            },
+            "type": "ancestry"
+        }
+    ],
+    "name": "Doc Featherton",
+    "system": {
+        "abilities": null,
+        "attributes": {
+            "hp": {
+                "temp": 0,
+                "value": 32
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "build": {
+            "attributes": {
+                "boosts": {
+                    "1": [
+                        "cha",
+                        "dex",
+                        "wis",
+                        "int"
+                    ]
+                }
+            }
+        },
+        "crafting": {
+            "formulas": []
+        },
+        "customModifiers": {},
+        "details": {
+            "age": {
+                "value": ""
+            },
+            "alliance": "party",
+            "biography": {
+                "allies": "",
+                "anathema": [],
+                "appearance": "",
+                "attitude": "",
+                "backstory": "<p>Amara \"Doc\" Featherton has quick wits, a keen eye, a ready laugh, and a carefree disregard for local laws and conventions. Doc was born in Absalom but has spent years traveling around the Inner Sea, using her skills as a medic and surgeon to pay her way. While Doc does have talent as a physician, she's also been known to overestimate that talent, leaving bereaved families and incensed sheriffs in her wake.</p>\n<p>Doc's skills aren't just limited to treating wounds and performing surgeries with various degrees of success, however. Doc has a pair of pistols she's affectionately named \"Problem\" and \"Solution\"; when she's in a situation she can't outrun or talk her way out of, Problem's razor-sharp bayonet or a spray of pellets from Solution often turn the tides back in her favor.</p>\n<p>Doc's guns have rested in their holsters for a few months now thanks to her intimidating new companion, Booker; she's spent the last few weeks playing cards and selling her services as a physician when the cards turn against her. Still, she's feeling that tingle in her feet telling her to run that usually means trouble is coming.</p>",
+                "beliefs": "",
+                "birthPlace": "",
+                "campaignNotes": "",
+                "catchphrases": "",
+                "dislikes": "",
+                "edicts": [],
+                "enemies": "",
+                "likes": "",
+                "organizations": ""
+            },
+            "deity": {
+                "image": "systems/pf2e/assets/sheet/deity.webp",
+                "value": ""
+            },
+            "ethnicity": {
+                "value": ""
+            },
+            "gender": {
+                "value": "F/She/Her"
+            },
+            "height": {
+                "value": ""
+            },
+            "keyability": {
+                "value": "str"
+            },
+            "languages": {
+                "details": "",
+                "value": [
+                    "kelish",
+                    "tien"
+                ]
+            },
+            "level": {
+                "value": 3
+            },
+            "nationality": {
+                "value": ""
+            },
+            "weight": {
+                "value": ""
+            },
+            "xp": {
+                "max": 1000,
+                "min": 0,
+                "pct": 0,
+                "value": 0
+            }
+        },
+        "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
+        "pfs": {
+            "characterNumber": null,
+            "currentFaction": "EA",
+            "fame": 0,
+            "levelBump": false,
+            "playerNumber": null,
+            "reputation": {
+                "EA": 0,
+                "GA": 0,
+                "HH": 0,
+                "RO": 0,
+                "VS": 0,
+                "VW": 0
+            },
+            "school": "none"
+        },
+        "proficiencies": {
+            "attacks": {
+                "weapon-group-firearm": {
+                    "custom": true,
+                    "rank": 2
+                }
+            }
+        },
+        "resources": {
+            "heroPoints": {
+                "max": 3,
+                "value": 1
+            }
+        },
+        "saves": {
+            "will": {
+                "rank": 2
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "rank": 1
+            },
+            "arcana": {
+                "rank": 0
+            },
+            "athletics": {
+                "rank": 1
+            },
+            "crafting": {
+                "rank": 0
+            },
+            "deception": {
+                "rank": 1
+            },
+            "diplomacy": {
+                "rank": 0
+            },
+            "intimidation": {
+                "rank": 0
+            },
+            "medicine": {
+                "rank": 2
+            },
+            "nature": {
+                "rank": 0
+            },
+            "occultism": {
+                "rank": 0
+            },
+            "performance": {
+                "rank": 0
+            },
+            "religion": {
+                "rank": 0
+            },
+            "society": {
+                "rank": 1
+            },
+            "stealth": {
+                "rank": 1
+            },
+            "survival": {
+                "rank": 0
+            },
+            "thievery": {
+                "rank": 1
+            }
+        }
+    },
+    "type": "character"
+}

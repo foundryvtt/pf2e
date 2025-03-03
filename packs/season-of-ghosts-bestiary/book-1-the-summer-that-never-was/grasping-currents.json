@@ -1,0 +1,97 @@
+{
+    "_id": "2tgUyKdEjrK5hRye",
+    "folder": "ubp3uZylpKsdrXxj",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "DBo6AtO4gAV9uZ1G",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Ghostly Grasp",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature attempts to cross the lake by swimming or piloting a boat</p>\n<hr />\n<p><strong>Effect</strong> Ghostly arms reach up to grab and clutch at the creature or the boat, causing a –2 penalty to the Athletics or Piloting check that triggered the haunt. The haunt then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Grasping Currents",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(trained) to notice a weird, faintly glowing ripple of the current beneath the water.</p>",
+                "value": 20
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A swath of drowned spirits tries to pull someone down into the water to join them.</p>",
+            "disable": "<p>@Check[religion|dc:23] to calm the unquiet spirits in the waters for an hour, or light the <em>Eternal Lantern</em> (automatically disables the haunt)</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder #196: The Summer That Never Was"
+            },
+            "reset": "<p>The grasping currents quickly build up power and can trigger again after 10 minutes have passed.</p>",
+            "routine": "<p>(1 action) On its initiative, the grasping currents attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] a swimming creature or capsize a rowboat by attempting an Athletics check with a [[/r 1d20+12 #Athletics]]{+12} modifier. A creature that's @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by the grasping currents is pulled underwater and risks drowning. To capsize a rowboat, the haunt's Athletics check is rolled against the pilot's Athletics or Sailing Lore DC, whichever is higher.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

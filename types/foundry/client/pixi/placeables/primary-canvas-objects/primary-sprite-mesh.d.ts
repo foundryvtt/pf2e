@@ -19,7 +19,7 @@ export class PrimarySpriteMesh extends PrimaryOccludableObjectMixin(SpriteMesh) 
     declare name: string | null;
 
     /** The texture alpha data. */
-    protected declare _textureAlphaData: TextureAlphaData | null;
+    declare protected _textureAlphaData: TextureAlphaData | null;
 
     /**
      * The texture alpha threshold used for point containment tests.
