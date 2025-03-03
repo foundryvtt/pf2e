@@ -1,0 +1,218 @@
+{
+    "_id": "66iNb6JH1cttC45T",
+    "folder": "hC7EhepoGMQwgJ4z",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "zKIY45C5KNdinQ8U",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Shadow Tendrils",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature passes by the statue without placing an offering worth at least 10 gp in the bowl</p>\n<hr />\n<p><strong>Effect</strong> Shadow tendrils rise from the ground and make a lash Strike against the triggering creature. The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Naq8DFo1lcgiFso1",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.g26YiEIfSHCpLocV"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Constrict",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Damage[2d12[bludgeoning]], @Check[fortitude|dc:33|basic]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "constrict",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pfh75nUbmUelA0rL",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Lash",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "improved-grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "GuSjXSxiJE105RU7": {
+                        "damage": "2d12+13",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "reach-15"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "08ijaVymqrYJgFzr",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Punish the Impertinent",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 27
+            },
+            "emitsSound": "encounter",
+            "hardness": 15,
+            "hp": {
+                "details": "",
+                "max": 30,
+                "temp": 0,
+                "value": 30
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 15
+            }
+        },
+        "details": {
+            "description": "<p>Three shadow tendrils emerge from the ground and seize trespassers.</p>",
+            "disable": "<p>@Check[arcana|dc:32] or @Check[occultism|dc:32] (expert) to banish one of the three the shadow tendrils or @Check[thievery|dc:34] (master) twice to confound the bowl's magical sensors</p>\n<p><strong>Bypass</strong> A creature who places an offering worth at least 10 gp into the bowl doesn't trigger the trap and isn't targeted by the trap.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 10
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #202: Severed at the Root"
+            },
+            "reset": "<p>The trap resets after 10 minutes.</p>",
+            "routine": "<p>(2 actions per shadow tendril) On its turn, each shadow tendril uses 1 action to make a lash Strike against a creature in the area, then uses 1 action to Constrict a creature it has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]. The shadow tendrils don't apply the trap's multiple attack penalty.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 22
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "shadow",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

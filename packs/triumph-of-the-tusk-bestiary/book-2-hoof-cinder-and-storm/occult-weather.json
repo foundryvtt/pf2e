@@ -1,0 +1,167 @@
+{
+    "_id": "9KlZ43sStGWMgIR9",
+    "folder": "54NfIB4cWnQZqSk2",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "9LFO6zu5Lya2KTzx",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Thunder of Cries",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the haunt's area</p><hr /><p><strong>Effect</strong> The clouds darken and thunder roars, filled with the wails and screams of those killed in these lands. The shrieks of the spirits deal @Damage[(3d6+13)[sonic]] damage to all creatures in the area (@Check[fortitude|dc:28|basic] save). The haunt then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aykChjUW0MSk5lHE",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Wind of Screams",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The occult weather intensifies the wind blowing around the area, buffeting all creatures within a @Template[type:line|distance:60]. Each creature in the line must attempt a @Check[fortitude|dc:32] save or be knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone], taking @Damage[(1d10+6)[bludgeoning]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IoXP8pY3R6bWPZbi",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Lightning",
+            "sort": 0,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "QvFFbQ07mWNG2enw": {
+                        "damage": "2d10+11",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "electricity",
+                        "range-increment-60"
+                    ]
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Occult Weather",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(expert) or @UUID[Compendium.pf2e.spells-srd.Item.Detect Magic].</p>",
+                "value": 20
+            }
+        },
+        "details": {
+            "description": "<p>The sky suddenly darkens with storm clouds rumbling overhead, the faces of the dead forming in the clouds above as their voices wail along the high winds.</p>",
+            "disable": "<p>@Check[occultism|dc:28] (expert) to funnel the magic powering the weather back into itself, or @Check[religion|dc:30] (expert) to exorcise some of the trapped souls and weaken the storm; three total successes in any combination are required to disable the haunt</p>",
+            "isComplex": true,
+            "level": {
+                "value": 9
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #208: Hoof, Cinder, and Storm"
+            },
+            "reset": "<p>The haunt deactivates 1 minute after all creatures leave the Shadefields but resets immediately. The occult weather resets 1 day after being disabled if the ancestor storm isn't put to rest.</p>",
+            "routine": "<p>(4 actions) The occult weather intensifies, with winds picking up speed and lightning and thunder sounding overhead. The occult weather uses 3 actions to make lightning Strikes against three random creatures, favoring orcs or anyone who attempted to Disable it within the past round, then uses Wind of Screams as its final action.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "haunt",
+                "occult"
+            ]
+        }
+    },
+    "type": "hazard"
+}

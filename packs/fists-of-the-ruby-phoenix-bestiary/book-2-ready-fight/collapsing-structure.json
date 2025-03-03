@@ -1,0 +1,98 @@
+{
+    "_id": "zj3s5CUsTjRRiROd",
+    "folder": "7x2AwxXicm4g7tbY",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "2HYs6bwPR6eSgF5p",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Shake Apart",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Mogaru applies any amount of force to the structure</p>\n<hr />\n<p><strong>Effect</strong> The building trembles. The floors of the building and the streets within 30 feet of the building become difficult terrain; creatures on this difficult terrain take a -2 circumstance penalty to attack rolls, AC, and skill checks. The hazard rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Collapsing Structure",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "value": 10
+            },
+            "stealth": {
+                "details": "<p>+20 (master) to notice cracks forming in the walls of the structure as Mogaru approaches</p>",
+                "value": 20
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Mogaru brushes against a structure, severely compromising the building's stability and possibly causing it to collapse.</p>",
+            "disable": "<p>@Check[athletics|dc:43|name:Brace the Structure] (master), @Check[crafting|dc:43|name:Brace the Structure] (master), or @Check[engineering-lore|dc:43|name:Brace the Structure]{Engineering Lore} (master) to brace the structure to reduce the risk of collapse until the end of the creature's next turn. The DC of the flat check for this round (see Routine) is increased by 4 on a success, or by 8 on a critical success. Increasing the flat check DC to 21 or higher stabilizes the structure, ending this hazard.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 15
+            },
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder #167: Ready? Fight!"
+            },
+            "reset": "<p>The building becomes susceptible to Shake Apart again [[/gmr 1d6 #rounds]]{1d6 rounds} after it is stabilized.</p>",
+            "routine": "<p>(1 action) The GM rolls a @Check[flat|dc:9] to determine if the building collapses, increasing the DC as listed above. On a successful check, dust and debris fall within the building and 30 feet around it, providing @UUID[Compendium.pf2e.conditionitems.Item.Concealed]{Concealment} and dealing @Damage[6d6[bludgeoning]] damage to [[/gmr 1d4 #targets]] randomly chosen targets (@Check[reflex|dc:35|basic] save; on a critically failed save, the creature is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]). On a critical success, the effect is the same, but the debris deals @Damage[12d6[bludgeoning]] damage to [[/gmr 2d4 #targets]] randomly chosen targets instead (DC 35 basic Reflex save; on a critically failed Reflex save, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by rubble until freed [@UUID[Compendium.pf2e.actionspf2e.Item.Force Open] DC 38, @UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC 35]).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

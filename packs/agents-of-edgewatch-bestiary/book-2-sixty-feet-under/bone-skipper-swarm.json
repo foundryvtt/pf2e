@@ -1,0 +1,271 @@
+{
+    "_id": "5u7luLMeRNJ4en65",
+    "folder": "amzSBn9xGAwuwO0j",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "3BvCMBxHiHXEMq2P",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Bonesense (Imprecise) 30 feet",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A bone skipper swarm identifies bones and creatures with a skeletal system in the listed range.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "B6M6fTBtJwAQDYCs",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.baA0nSMhQyFyJIia"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Swarm Mind",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.SwarmMind]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "swarm-mind",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ofiTdcCz7bSlRXmy",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Marrow Rot",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Marrow rot affects only creatures with a skeletal system</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:24]</p>\n<p><strong>Onset</strong> 1 day</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 day)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "disease"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9LK5ORluncHekkZ5",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Swarming Bites",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each enemy in the swarm's space takes @Damage[3d6[piercing]] damage (@Check[reflex|dc:24|basic]) save plus exposure to marrow rot.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Bone Skipper Swarm",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -5
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": -4
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 24
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 120,
+                "temp": 0,
+                "value": 120
+            },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 5
+                },
+                {
+                    "type": "piercing",
+                    "value": 9
+                },
+                {
+                    "type": "slashing",
+                    "value": 9
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 40
+                    }
+                ],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 9
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 9
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 6
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder #158: Sixty Feet Under"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "bonesense (imprecise) 30 feet",
+            "mod": 17,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 12
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 17
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "animal",
+                "swarm"
+            ]
+        }
+    },
+    "type": "npc"
+}

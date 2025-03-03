@@ -1,0 +1,425 @@
+{
+    "_id": "29NHB8DNNAbEk5Va",
+    "folder": "ijEyiZM6e3SRPCuz",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "T1x41KttaKGcSc4U",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Vines",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "gday44ad22utwko3z4ny": {
+                        "damage": "2d6+9",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "tuA9DbCZRvsPkJ25",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 60 feet",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gHi2vKCOAok2Xdj9",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Frost Susceptibility",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Whenever the counteflora takes cold damage, it takes a -10-foot circumstance penalty to Speed for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SZ8U6jGsKMqKBXxd",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Tighten Bracts",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The counteflora stiffens the specialized leaves around its flower head, protecting its sensitive seedpods. While its bracts are tightened, a counteflora gains a +2 circumstance bonus to AC and can use its head Strike and Furious Swing abilities, but it cannot use its Black Seed Cloud ability and it loses its sense of sight (so it must rely on its imprecise tremorsense when targeting other creatures). The counteflora can't use its head Strike of Furious Swing ability unless its bracts are tightened. The counteflora can loosen its bracts as a free action. Against plants and fungi, the seeds burrow into the creatures' flesh rather than infiltrate their lungs.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "tighten-bracts",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "tighten-bracts"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "category": "unarmed",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 3,
+                                "die": "d10"
+                            }
+                        },
+                        "group": "brawling",
+                        "key": "Strike",
+                        "label": "Head",
+                        "predicate": [
+                            "tighten-bracts"
+                        ],
+                        "traits": [
+                            "reach-10",
+                            "sweep"
+                        ]
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "tighten-bracts"
+                        ],
+                        "selector": "head-damage",
+                        "value": 1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "tighten-bracts",
+                            "item:head"
+                        ],
+                        "selector": "attack",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Od9QuV4TEmA9vlH5",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Black Seed Cloud",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> the Counteflora's bracts are not tightened.</p>\n<hr />\n<p>The counteflora releases a cloud of black seedpods in a @Template[emanation|distance:15]{15-foot-radius emanation}. Non-counteflora creatures in the area must succeed at a Fortitude save or breathe in the toxic seeds. (Against plants and fungi, the seeds burrow into the creatures' flesh rather than infiltrate their lungs.)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PP6cWEeflOzf6dln",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Counteflora Toxin",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:30|traits:inhaled,poison] (@Check[fortitude|dc:32|name:Counteflora Toxin (Plant or Fungi)|traits:contact,poison] for plants and fungi)</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[4d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[6d6[poison]] damage, enfeebled 1, and @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] (1 round)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2tVmuiOOVxmIhIT4",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Furious Swing",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The counteflora's bracts are tightened</p>\n<hr />\n<p><strong>Effect</strong> The counteflora makes up to four headbutt Strikes (see Flower Headbutt), each against a different creature within reach.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Counteflora",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 6
+            },
+            "dex": {
+                "mod": 6
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 29
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 220,
+                "temp": 0,
+                "value": 220
+            },
+            "immunities": [
+                {
+                    "type": "poison"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 10
+                },
+                {
+                    "type": "fire",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 10
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>The counteflora resembles an oversized dandelion with black flowers and sinister patterns on its bracts, which it can contract for additional protection and to turn its flower head into a deadly bashing weapon. Unlike dandelions, countefloras do not have separate flowering and seeding stages, and can release their intoxicating seedpods as long as their bracts are open.</p>\n<p>Countefloras exhibit a strange intellect and communicate with one another by releasing invisible pheromones into the air. Alone, a desperate counteflora may ally with another creature if it is offered water or fertile soil. Contrary to popular belief, countefloras absorb sunlight for sustenance; they do not attack other creatures to feast upon them. Rather, the reason countefloras go to such lengths to kill their opponents is to fertilize the surrounding soil and create a nutrient-rich environment for their seedpods.</p>",
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder #153: Life's Long Shadows"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 18,
+            "senses": [
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "tremorsense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 22
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 20
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 14
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 23
+            },
+            "stealth": {
+                "base": 20,
+                "special": [
+                    {
+                        "base": 24,
+                        "label": "in jungles and flower fields",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:jungle",
+                                    "terrain:flower-field"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "plant"
+            ]
+        }
+    },
+    "type": "npc"
+}

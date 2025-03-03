@@ -1,0 +1,96 @@
+{
+    "_id": "OeA83Siggvi88A93",
+    "folder": "afdlDlLAsVu7DaVp",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "X2Qrb9Hu2xtZhT6J",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Growing Blaze",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The arsonists set the fire</p><hr /><p><strong>Effect</strong> The hay around the initial flames catches, setting two 5-foot squares in the affected room on fire. The hazard rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Nighttime Conflagration",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(trained) (decreases by 2 each round the hazard is active) to smell the smoke and hear the crackling flames</p>",
+                "value": 23
+            }
+        },
+        "details": {
+            "description": "",
+            "disable": "<p>@Check[athletics|dc:27] to beat out the flames, @Check[crafting|dc:27] to rig up a firefighting device, or @Check[nature|dc:27] to cut off avenues of the fire's spread. On a success, one square of the fire is extinguished (two squares on a critical success). Dousing a square in water, such as with create water, automatically extinguishes that square. When all squares are extinguished, the hazard ends.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 11
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #209: Destroyer's Doom"
+            },
+            "reset": "",
+            "routine": "<p>(1+ actions) Each square of flames spreads to an adjacent square, taking one action per square. Creatures adjacent to the fire take @Damage[3d6[fire]] damage each round from the heat (@Check[fortitude|dc:30|basic] save); a creature who fails their save is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} by the smoke (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure). If there are more than 10 active squares of flames, creatures adjacent to the fire instead take @Damage[6d6[fire]] damage each round (@Check[fortitude|dc:30|basic] save), and a creature who fails their save is sickened 2 (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3} on a critical failure). A creature standing in the flames takes @Damage[12d6[fire]] damage each round (@Check[reflex|dc:30|basic] save); a creature who fails their save also takes @Damage[4d6[persistent,fire]] damage.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}
