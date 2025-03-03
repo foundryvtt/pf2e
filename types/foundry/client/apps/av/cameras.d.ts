@@ -5,8 +5,7 @@ declare class CameraViews extends Application {
     /**
      * A reference to the master AV orchestrator instance
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    get webrtc(): any; // TODO AVMaster needs type
+    get webrtc(): object; // TODO AVMaster needs type
 
     /**
      * If all camera views are popped out, hide the dock.
