@@ -443,7 +443,6 @@ export const PF2ECONFIG = {
     usages: {
         "affixed-to-a-creature": "PF2E.TraitAffixedToCreature",
         "affixed-to-a-magical-staff": "PF2E.TraitAffixedToMagicalStaff",
-        "affixed-to-a-melee-weapon": "PF2E.TraitAffixedToAMeleeWeapon",
         "affixed-to-a-metal-weapon": "PF2E.TraitAffixedToAMetalWeapon",
         "affixed-to-a-one-handed-firearm-or-hand-crossbow": "PF2E.TraitAffixedToAOneHandedFirearmOrHandCrossbow",
         "affixed-to-a-ranged-weapon": "PF2E.TraitAffixedToARangedWeapon",
@@ -471,6 +470,8 @@ export const PF2ECONFIG = {
         "affixed-to-headgear": "PF2E.TraitAffixedToHeadgear",
         "affixed-to-instrument": "PF2E.TraitAffixedToInstrument",
         "affixed-to-load-bearing-wall-or-pillar": "PF2E.TraitAffixedToLoadBearingWallOrPillar",
+        "affixed-to-melee-weapon": "PF2E.TraitAffixedToMeleeWeapon",
+        "affixed-to-metal-weapon": "PF2E.TraitAffixedToMetalWeapon",
         "affixed-to-object-structure-or-creature": "PF2E.TraitAffixedToStructureObjectOrCreature",
         "affixed-to-the-ground": "PF2E.TraitAffixedToGround",
         "affixed-to-unarmored-defense-item": "PF2E.TraitAffixedToUnarmoredItem",
