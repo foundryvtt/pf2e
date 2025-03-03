@@ -99,7 +99,7 @@ class CoinsPF2e implements Coins {
                 const pattern = new RegExp(`(?!<\\p{L})${localizedDenomination}(?!\\p{L})`, "u");
                 return s.replace(pattern, denomination);
             },
-            String(coinString).trim().replace(/,/g, ""),
+            coinString.trim().replace(/,/g, ""),
         );
         return [...priceTag.matchAll(/(\d+)\s*([pgsc]p)/g)]
             .map((match) => {
