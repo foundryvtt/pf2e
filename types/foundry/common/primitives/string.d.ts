@@ -16,11 +16,7 @@ declare interface String {
      * @param [options.lowercase=true]   Lowercase the string.
      * @return The slugified input string
      */
-    slugify({
-        replacement,
-        strict,
-        lowercase,
-    }: {
+    slugify(options?: {
         replacement?: string;
         strict?: boolean;
         lowercase?: boolean;
