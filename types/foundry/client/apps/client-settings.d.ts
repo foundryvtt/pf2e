@@ -6,4 +6,6 @@
 declare class SettingsConfig extends FormApplication {
     // @TODO: Declare
     protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
+
+    static reloadConfirm(options: { world?: boolean }): Promise<void>;
 }
