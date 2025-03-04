@@ -38,8 +38,8 @@ export interface ApplicationWindowConfiguration {
     /** An optional Font Awesome icon class displayed left of the window title */
     icon?: string | false;
 
-    /** An array of window control entries */
-    controls: ApplicationHeaderControlsEntry[];
+    /** An optional array of window control entries */
+    controls?: ApplicationHeaderControlsEntry[];
 
     /**
      * Can the window app be minimized by double-clicking on the title
