@@ -168,9 +168,7 @@ declare global {
         protected _onCompositionEnd(event: CompositionEvent): void;
     }
 
-    type ModifierKey =
-        | (typeof KeyboardManager.MODIFIER_KEYS)[keyof typeof KeyboardManager.MODIFIER_KEYS]
-        | typeof KeyboardManager.CONTROL_KEY_STRING;
+    type ModifierKey = (typeof KeyboardManager.MODIFIER_KEYS)[keyof typeof KeyboardManager.MODIFIER_KEYS];
 
     interface KeyboardEventContext {
         event: KeyboardEvent;
