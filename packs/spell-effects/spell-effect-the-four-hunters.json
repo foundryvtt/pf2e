@@ -1,0 +1,124 @@
+{
+    "_id": "Bfcl6jQBEv505DM2",
+    "img": "icons/magic/symbols/cross-circle-blue.webp",
+    "name": "Spell Effect: The Four Hunters",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.The Four Hunters]</p><ul><li><strong>East</strong> You gain 5 temporary Hit Points and a +1 status bonus to Athletics.</li><li><strong>North</strong> You gain a +1 status bonus to Survival.</li><li><strong>South</strong> You become concealed and gain a +1 status bonus to Stealth.</li><li><strong>West</strong> You gain a +10-foot status bonus to their land Speed and a +1 status bonus to Acrobatics.</li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectTheFourHunters.East",
+                        "value": "east"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectTheFourHunters.North",
+                        "value": "north"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectTheFourHunters.South",
+                        "value": "south"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectTheFourHunters.West",
+                        "value": "west"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "the-four-hunters"
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "the-four-hunters:east"
+                ],
+                "value": 5
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "the-four-hunters:east"
+                ],
+                "selector": "athletics",
+                "slug": "the-four-hunters-athletics",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "the-four-hunters:north"
+                ],
+                "selector": "survival",
+                "slug": "the-four-hunters-survival",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "the-four-hunters:south"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Concealed"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "the-four-hunters:south"
+                ],
+                "selector": "stealth",
+                "slug": "the-four-hunters-stealth",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "the-four-hunters:west"
+                ],
+                "selector": "acrobatics",
+                "slug": "the-four-hunters-acrobatics",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "the-four-hunters:west"
+                ],
+                "selector": "land-speed",
+                "slug": "the-four-hunters-speed",
+                "type": "status",
+                "value": 10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

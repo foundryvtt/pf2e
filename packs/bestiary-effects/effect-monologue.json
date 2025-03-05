@@ -1,0 +1,55 @@
+{
+    "_id": "pzeGJHUdODOQslZO",
+    "img": "icons/creatures/magical/humanoid-silhouette-glowing-pink.webp",
+    "name": "Effect: Monologue",
+    "system": {
+        "badge": {
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p>You gain a +1 status bonus to Will saves and a +2 status bonus to damage rolls with their spells. Each time they take this action again, the bonuses increase by 1 and 2 respectively.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 16
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "will",
+                "slug": "monologue-will",
+                "type": "status",
+                "value": "@item.badge.value"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "spell-damage",
+                "slug": "monologue-damage",
+                "type": "status",
+                "value": "2*@item.badge.value"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

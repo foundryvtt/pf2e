@@ -1,0 +1,136 @@
+{
+    "_id": "68oispwYGLUUxjzt",
+    "img": "icons/magic/unholy/hand-weapon-glow-black-green.webp",
+    "name": "Effect: Breach the Outer Rifts",
+    "system": {
+        "badge": {
+            "evaluate": true,
+            "reevaluate": null,
+            "type": "formula",
+            "value": "1d20"
+        },
+        "description": {
+            "value": "<p>The weapon deals an extra 2d6 damage. Roll 1d20 to determine the type: 1–7 acid, 8–9 cold, 10–11 electricity, 12–18 fire, 19–20 void.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "damageType": "acid",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "lte": [
+                            "self:effect:breach-the-outer-rifts",
+                            7
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "damageType": "cold",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:effect:breach-the-outer-rifts",
+                            8
+                        ]
+                    },
+                    {
+                        "lte": [
+                            "self:effect:breach-the-outer-rifts",
+                            9
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "damageType": "electricity",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:effect:breach-the-outer-rifts",
+                            10
+                        ]
+                    },
+                    {
+                        "lte": [
+                            "self:effect:breach-the-outer-rifts",
+                            11
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:effect:breach-the-outer-rifts",
+                            12
+                        ]
+                    },
+                    {
+                        "lte": [
+                            "self:effect:breach-the-outer-rifts",
+                            18
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "damageType": "void",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:effect:breach-the-outer-rifts",
+                            19
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

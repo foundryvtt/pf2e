@@ -1,0 +1,52 @@
+{
+    "_id": "NAdAO5ElcSlSBkza",
+    "img": "icons/magic/nature/root-vine-wood-blue.webp",
+    "name": "Effect: Root in Place",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +1 circumstance bonus to AC and 2 temporary Hit Points.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "TempHP",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "land-speed",
+                "value": -25
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

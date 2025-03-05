@@ -1,0 +1,52 @@
+{
+    "_id": "Ore1RvtyWdioF5QW",
+    "img": "icons/magic/air/fog-gas-smoke-swirling-white.webp",
+    "name": "Spell Effect: Halcyon Mists",
+    "system": {
+        "badge": {
+            "evaluate": true,
+            "reevaluate": null,
+            "type": "formula",
+            "value": "(@item.level)d8"
+        },
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Halcyon Mists]</p>\n<p>You gain temporary Hit Points and become concealed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "@item.badge.value"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Concealed"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

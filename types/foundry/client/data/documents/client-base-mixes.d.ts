@@ -904,6 +904,11 @@ export class ClientBaseActiveEffect<
      */
     get isOwner(): boolean;
 
+    /**
+     * Is there some system logic that makes this active effect ineligible for application?
+     */
+    get isSuppressed(): boolean;
+
     /** Test whether this Document is owned by any non-Gamemaster User. */
     get hasPlayerOwner(): boolean;
 

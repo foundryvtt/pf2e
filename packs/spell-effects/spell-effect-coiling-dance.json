@@ -1,0 +1,67 @@
+{
+    "_id": "K1AHF9KV47PsPka1",
+    "img": "icons/creatures/reptiles/serpent-horned-green.webp",
+    "name": "Spell Effect: Coiling Dance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Coiling Dance]</p>\n<p>Your attacks and spells gain the holy trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "nor": [
+                            "self:trait:unholy",
+                            "item:trait:unholy"
+                        ]
+                    }
+                ],
+                "property": "traits",
+                "value": "holy"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "nor": [
+                            "self:trait:unholy",
+                            "item:trait:unholy"
+                        ]
+                    }
+                ],
+                "property": "traits",
+                "value": "holy"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

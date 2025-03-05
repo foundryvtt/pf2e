@@ -1,0 +1,51 @@
+{
+    "_id": "jS1J008XoEo50adu",
+    "folder": "93ELfrtUYYWaaOKE",
+    "img": "icons/magic/perception/eye-slit-orange.webp",
+    "name": "Effect: Memories of Failure",
+    "system": {
+        "description": {
+            "value": "<p>You take a -1 penalty to all saving throws against emotion effects created by the marked creature.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #212: A Voice in the Blight"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "memories-of-failure"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:emotion",
+                    "origin:mark:memories-of-failure"
+                ],
+                "selector": "saving-throw",
+                "value": -1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

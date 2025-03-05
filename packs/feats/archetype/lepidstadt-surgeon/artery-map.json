@@ -1,0 +1,75 @@
+{
+    "_id": "PFcg6OHheNy2dnoo",
+    "folder": "rKTkNlqyaQuLy3sq",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Artery Map",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>While you've learned all the places a scalpel can cause extensive bleeding to avoid disasters in surgery, such knowledge can serve other purposes. When you Strike an @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creature with a weapon from the knife group, you deal 1d6 persistent bleed damage. The damage increases to 1d10 when you are legendary in Medicine.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Lepidstadt Surgeon Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "rules": [
+            {
+                "category": "persistent",
+                "damageType": "bleed",
+                "diceNumber": 1,
+                "key": "DamageDice",
+                "predicate": [
+                    "target:condition:off-guard",
+                    "item:group:knife"
+                ],
+                "selector": "strike-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 3,
+                            "value": {
+                                "dieSize": "d6"
+                            }
+                        },
+                        {
+                            "start": 4,
+                            "value": {
+                                "dieSize": "d10"
+                            }
+                        }
+                    ],
+                    "field": "actor|system.skills.medicine.rank"
+                }
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

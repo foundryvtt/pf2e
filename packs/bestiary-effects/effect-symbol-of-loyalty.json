@@ -1,0 +1,50 @@
+{
+    "_id": "QMRMgU8l697aBcxj",
+    "img": "systems/pf2e/icons/spells/veil.webp",
+    "name": "Effect: Symbol of Loyalty",
+    "system": {
+        "description": {
+            "value": "<p>Allies in the aura who are 14th level and lower and are loyal to the grand inquisitor's cause get a +3 status bonus to Will saves.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "lte": [
+                            "self:level",
+                            14
+                        ]
+                    }
+                ],
+                "selector": "will",
+                "value": 3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
