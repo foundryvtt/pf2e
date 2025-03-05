@@ -3,6 +3,7 @@ import type { EffectPF2e } from "@item";
 import { getSelectedActors } from "@util/token-actor-utils.ts";
 import { BaseAction, BaseActionData, BaseActionVariant, BaseActionVariantData } from "./base.ts";
 import { ActionCost, ActionUseOptions } from "./types.ts";
+import * as R from "remeda";
 
 interface SimpleActionVariantData extends BaseActionVariantData {
     effect?: string | EffectPF2e;
@@ -56,7 +57,7 @@ class SimpleActionVariant extends BaseActionVariant {
 
         const traitLabels: Record<string, string | undefined> = CONFIG.PF2E.actionTraits;
         const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
-        const traits = this.traits.concat(options.traits ?? []).map((trait) => ({
+        const traits = R.unique(options?.traits ?? this.traits).map((trait) => ({
             description: traitDescriptions[trait],
             label: traitLabels[trait] ?? trait,
             slug: trait,

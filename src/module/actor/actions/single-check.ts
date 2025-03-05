@@ -17,6 +17,7 @@ import { CheckDC } from "@system/degree-of-success.ts";
 import { getActionGlyph, isObject, tupleHasValue } from "@util";
 import { BaseAction, BaseActionData, BaseActionVariant, BaseActionVariantData } from "./base.ts";
 import { ActionUseOptions } from "./types.ts";
+import * as R from "remeda";
 
 type SingleCheckActionRollNoteData = Omit<RollNoteSource, "selector"> & { selector?: string };
 function toRollNoteSource(data: SingleCheckActionRollNoteData): RollNoteSource {
@@ -174,7 +175,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
                 }
                 return null;
             },
-            traits: this.traits.concat(options?.traits ?? []),
+            traits: R.unique(options?.traits ?? this.traits),
         });
 
         return results;
