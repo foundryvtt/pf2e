@@ -1,0 +1,134 @@
+{
+    "_id": "ooSbW0fttnQXIn1T",
+    "folder": "aR4NTLulYqWX9YfY",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "DgGSdGTrkWg9il6R",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Defensive Spray",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The spore stomach takes damage, an attempt to disable it fails, or combat breaks out in area <strong>E1</strong></p><hr /><p><strong>Effect</strong> The spore stomach clenches, exuding gray spores in a @Template[type:emanation|distance:20]. Non-fungus creatures in this area take @Damage[10d6[poison]] damage (@Check[fortitude|dc:37|basic] save). The spore stomach then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Spore Stomach",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 37
+            },
+            "emitsSound": "encounter",
+            "hardness": 22,
+            "hp": {
+                "details": "",
+                "max": 90,
+                "temp": 0,
+                "value": 90
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "acid"
+                },
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 15
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master) to detect that the spore stomach is hazardous; noticing the spore stomach has a DC of 0</p>",
+                "value": 27
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "cold",
+                    "value": 15
+                },
+                {
+                    "exceptions": [],
+                    "type": "cold-iron",
+                    "value": 15
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>A puffball-like fungus periodically vents gray spores into the air.</p>",
+            "disable": "<p>@Check[nature|dc:37] (master) three times to carefully prune away the fungal roots that connect to the garden below, or @Check[religion|dc:37] (master) three times to exorcise the demonic energies from the fungus</p>",
+            "isComplex": true,
+            "level": {
+                "value": 13
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #211: The Secret of Deathstalk Tower"
+            },
+            "reset": "<p>The spore stomach deactivates if it starts a turn and there are no non-fungus creatures in area <strong>E1</strong>. It then immediately resets.</p>",
+            "routine": "<p>(1 action; divine, poison) On the first round, the spore stomach sprays a 40-foot-long cone of spores into the left half of area <strong>E1</strong>. On the second round, it sprays spores into the right half of area <strong>E1</strong>. On the third round, it takes no action. It repeats this pattern thereafter every 3 rounds. A creature in the area of spores takes @Damage[10d6[poison]] damage (@Check[fortitude|dc:37|basic|traits:divine,poison] save).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 26
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 20
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "fungus"
+            ]
+        }
+    },
+    "type": "hazard"
+}

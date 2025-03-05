@@ -1,0 +1,159 @@
+{
+    "_id": "KeIZnj0MN5yvPCEm",
+    "folder": "5Uj7smob0in9RJLF",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "VRuNYAjD3GkgHxtQ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Demonic Attention",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> the mushroom takes damage, any of the seven rifts are touched, or any attempt to disable the network critically fails</p><hr /><p><strong>Effect</strong> The demonic energies within each of the seven rifts take note, and the cacophonous sound of howling fiends fills the room. All creatures in area <strong>D4</strong> must attempt a @Check[will|dc:41] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure). The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XRoEb23w7cmcdpV3",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Rift Beam",
+            "sort": 0,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 36
+                },
+                "damageRolls": {
+                    "p8zpn7tz6EeNUxfn": {
+                        "damage": "4d10+20",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": "<p>No multiple attack penalty.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical"
+                    ]
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Rift Portal Network",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 40
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 130,
+                "temp": 0,
+                "value": 130
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "energy",
+                    "value": 20
+                }
+            ],
+            "stealth": {
+                "details": "<p>(legendary) to notice the network is hazardous; noticing the rifts and mushrooms themselves has a DC of 0</p>",
+                "value": 37
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "holy",
+                    "value": 20
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>A six-foot-tall green mushroom with red spots on its cap is connected to seven rifts in surrounding alcoves by tendrils of vapor.</p>",
+            "disable": "<p>@Check[nature|dc:50] once to delicately cut out or destroy the seven points on the mushroom that connect to the rifts, @Check[religion|dc:41] seven times (once per rift) to exorcise the demonic influence, or @UUID[Compendium.pf2e.spells-srd.Item.Planar Seal] (10th rank, counteract DC 39) to counteract the planar link in this room</p>",
+            "isComplex": true,
+            "level": {
+                "value": 19
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #212: A Voice in the Blight"
+            },
+            "reset": "<p>The network deactivates and resets if 1 minute passes without any creature moving in area <strong>D4</strong> and without any attempt to disable it.</p>",
+            "routine": "<p>(7 actions) Each round, each of the seven rifts fires a beam of demonic energy into the room, targeting one creature (regardless of alliance to Tanglebriar) at random. A single creature cannot be targeted by more than one rift beam per round, so if there are fewer than seven potential targets, the rift portal network loses any remaining actions for that round.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 38
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 29
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap",
+                "unholy"
+            ]
+        }
+    },
+    "type": "hazard"
+}

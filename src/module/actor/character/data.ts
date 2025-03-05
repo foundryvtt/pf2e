@@ -366,6 +366,8 @@ interface MartialProficiency extends CharacterProficiency {
     maxRank?: Exclude<ProficiencyRank, "untrained">;
     /** Whether the proficiency was manually added by the user */
     custom?: boolean;
+    /** Whether the proficiency is visible on the character sheet */
+    visible: boolean;
 }
 
 type CategoryProficiencies = Record<ArmorCategory | WeaponCategory, CharacterProficiency>;

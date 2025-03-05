@@ -1,0 +1,100 @@
+{
+    "_id": "9JFc5iSpc5a9TgRS",
+    "folder": "5Uj7smob0in9RJLF",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "ZeIl9SmDvMj69TVB",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Fungal Eruption",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A Small or larger creature enters the hazardous ring or attempts to fly over it at a height of less than 120 feet</p><hr /><p><strong>Effect</strong> The ring of fallen trees explodes upward to a height of 120 feet. All creatures in the ring or within the area 120 feet above it take @Damage[8d6[piercing]] damage and must attempt a @Check[reflex|dc:41] save. The fungal colony then rolls initiative.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The target takes full damage, is sickened 1, and is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 minute as spores settle on their bodies and quickly grow into rigid, interlocking plates. A creature can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] the shells (DC 41) to end the slowed 1 effect early.</p>\n<p><strong>Critical Failure</strong> The target takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Restrained] as they become almost completely encased in a hard fungal shell until they roll to Escape (DC 41), at which point they are slowed 1 for an additional minute until they Escape a second time.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "incapacitation",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Fungal Colony",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(legendary)</p>",
+                "value": 37
+            }
+        },
+        "details": {
+            "description": "<p>A ring of dead trees covered in dry fungus suddenly shakes and rattles as if something inside some of the trees were about to explode.</p>",
+            "disable": "<p>@Check[nature|dc:45] twice to appeal to spirits of the natural world still lingering in the area and ask them to neutralize the infestation, @Check[survival|dc:39] four times to gently break open four key tree trunks in the colony to allow the spores to vent harmlessly, or @Check[thievery|dc:48] to trigger a chain reaction among the logs that forces the hazard to implode dramatically but harmlessly. Once the hazard is triggered, only the Nature check can disable it.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 19
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #212: A Voice in the Blight"
+            },
+            "reset": "<p>24 hours after the fungal colonies erupt, the hazard reactivates and can trigger again. If the warsworns are activated and destroyed, they do not appear again on a subsequent triggering.</p>",
+            "routine": "<p>(1 action; poison, primal) The 120-foot-tall plume of spores turn toxic. Each round, the spore cloud's highest point drops by 40 feet, and it expands outward from the initial perimeter at <strong>A2</strong> by 20 feet on the ground and at a height of 10 feet. At the end of the third round, the spore cloud stabilizes as a ten-foot-high ring with a width of 45 feet, which completely fills the clearing with ease. This spore cloud doesn't obscure vision, but creatures that end their turn in it take @Damage[5d6[poison]] damage (@Check[fortitude|dc:41|basic|traits:poison,primal] save).</p><p>On round 4, the spore cloud settles to the ground on the hazard's action. If the hazard hasn't yet been disabled, the ground between areas <strong>A1</strong> and <strong>A2</strong> erupts, and a trio of fungus-encrusted warsworns, their bodies composed of ancient elven skeletons bound together by glistening filaments of mold, rises up to attack all intruders in the area. At this point, the hazard deactivates, but the warsworns fight until they're destroyed.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "fungus"
+            ]
+        }
+    },
+    "type": "hazard"
+}

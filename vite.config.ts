@@ -182,7 +182,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                     ].join(""),
                 ),
                 output: {
-                    assetFileNames: ({ name }): string => (name === "style.css" ? "styles/pf2e.css" : (name ?? "")),
+                    assetFileNames: "styles/pf2e.css",
                     chunkFileNames: "[name].mjs",
                     entryFileNames: "pf2e.mjs",
                     manualChunks: {

@@ -1,0 +1,167 @@
+{
+    "_id": "R2T7hEzM791ex1U2",
+    "folder": "afdlDlLAsVu7DaVp",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "oZNFYSsl2AKnOY9H",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Death Grip",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature touches the orb or attempts to disable the haunt</p><hr /><p><strong>Effect</strong> Necromantic energy lashes out from the orb and the triggering creature must succeed at a @Check[will|dc:32] save or be @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure). The haunt then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "s0TKqHUbv93Yln0c",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Death Manifest",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Casting @UUID[Compendium.pf2e.spells-srd.Item.Breath of Life], @UUID[Compendium.pf2e.spells-srd.Item.Death Ward], or @UUID[Compendium.pf2e.spells-srd.Item.Raise Dead] in the orb's presence automatically destroys the locus; other spells or abilities that restore the dead to life might also do so, at GM discretion.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kyuspH7V0pjRwFKh",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Unholy Repair",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The locus is sustained by the power of Tar-Baphon. The orb regains 10 Hit Points at the beginning of every round and is repaired by void damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Locus of Death",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 30
+            },
+            "emitsSound": "encounter",
+            "hardness": 20,
+            "hp": {
+                "details": "",
+                "max": 82,
+                "temp": 0,
+                "value": 82
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 27
+            }
+        },
+        "details": {
+            "description": "<p>A magical orb inflicts terrible visions of gruesome ends on anyone who approaches.</p>",
+            "disable": "<p>@Check[nature|dc:27] (master) to infuse the locus with life force, @Check[occultism|dc:30] or @Check[religion|dc:30] (expert) to counteract the locus's energies, @Check[thievery|dc:35] (master) to extricate the orb from the altar</p>",
+            "isComplex": true,
+            "level": {
+                "value": 12
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #209: Destroyer's Doom"
+            },
+            "reset": "<p>The haunt deactivates 1 minute after all living creatures leave the area. After 1 hour, the haunt reactivates.</p>",
+            "routine": "<p>(1 action; death, emotion, fear, mental) One living creature in the haunt's location (determined randomly) is targeted by a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Vision of Death] (@Check[will|dc:32|traits:death,emotion,fear,mental]). A creature that critically fails their save doesn't physically flee but instead can't attempt to disable the hazard until they're no longer frightened. Once all creatures have been affected, the haunt deactivates.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 25
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

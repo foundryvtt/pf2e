@@ -1066,14 +1066,8 @@
                         "diceNumber": 2,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "label": "PF2E.NPCAbility.TreerazerPlantAttack",
                         "predicate": [
-                            {
-                                "or": [
-                                    "target:trait:plant",
-                                    "plant-attack"
-                                ]
-                            }
+                            "target:trait:plant"
                         ],
                         "selector": "blackaxe-damage"
                     },
@@ -1081,7 +1075,7 @@
                         "domain": "damage",
                         "key": "RollOption",
                         "label": "PF2E.NPCAbility.TreerazerPlantAttack",
-                        "option": "plant-attack",
+                        "option": "target:trait:plant",
                         "toggleable": true
                     }
                 ],
@@ -1150,50 +1144,13 @@
             "type": "melee"
         },
         {
-            "_id": "xkMpFGfoqM0o6IYm",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 300 feet",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "UoKQ5xYxwkzldwhR",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
-            "sort": 1800000,
+            "sort": 1700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1226,7 +1183,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+2 Status to All Saves vs. Magic",
-            "sort": 1900000,
+            "sort": 1800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1268,8 +1225,8 @@
                 "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration",
-            "sort": 2000000,
+            "name": "Regeneration 50 (Deactivated by Holy)",
+            "sort": 1900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1289,10 +1246,22 @@
                 },
                 "rules": [
                     {
-                        "deactivatedBy": [],
+                        "deactivatedBy": [
+                            "holy"
+                        ],
                         "key": "FastHealing",
+                        "predicate": [
+                            {
+                                "not": "self:effect:spore-feedback"
+                            }
+                        ],
                         "type": "regeneration",
-                        "value": 5
+                        "value": 50
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "self:treerazer"
                     }
                 ],
                 "slug": "regeneration",
@@ -1307,7 +1276,7 @@
             "_id": "spBsMqVOA8rbhE2e",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Aura of Corruption",
-            "sort": 2100000,
+            "sort": 2000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1354,7 +1323,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Reactive Strike",
-            "sort": 2200000,
+            "sort": 2100000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -1384,7 +1353,7 @@
             "_id": "NWBV7oqS64HKJSkz",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Blackaxe - Owner's Authority",
-            "sort": 2300000,
+            "sort": 2200000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1417,7 +1386,7 @@
             "_id": "c09zz4QRa6hJSZ6q",
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Blackaxe - Owner's Reclamation",
-            "sort": 2400000,
+            "sort": 2300000,
             "system": {
                 "actionType": {
                     "value": "free"
@@ -1450,7 +1419,7 @@
             "_id": "uyDcXzwKNRuKIzY5",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Blackaxe - Rejuvenating Deforestation",
-            "sort": 2500000,
+            "sort": 2400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1489,7 +1458,7 @@
             "_id": "871udt0tIPBiUS63",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Defoliation",
-            "sort": 2600000,
+            "sort": 2500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1522,7 +1491,7 @@
             "_id": "veNUDgghA30FdVNB",
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Dispelling Strike",
-            "sort": 2700000,
+            "sort": 2600000,
             "system": {
                 "actionType": {
                     "value": "free"
@@ -1559,7 +1528,7 @@
             "_id": "xkIBsOSynEo9Ii6k",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Staggering Strike",
-            "sort": 2800000,
+            "sort": 2700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1582,7 +1551,7 @@
                         "outcome": [
                             "criticalSuccess"
                         ],
-                        "selector": "melee-attack-roll",
+                        "selector": "melee-damage",
                         "text": "{item|system.description.value}",
                         "title": "{item|name}",
                         "visibility": "owner"

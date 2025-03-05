@@ -1,0 +1,56 @@
+{
+    "_id": "l2fxGJVR9ffNI8uC",
+    "folder": "93ELfrtUYYWaaOKE",
+    "img": "icons/magic/symbols/runes-carved-stone-purple.webp",
+    "name": "Effect: Call Upon the Sovyrian Stone",
+    "system": {
+        "description": {
+            "value": "<p>Decrease the DC of Treerazer's primal innate spells and his Defoliation ability to DC 46, the DC of his aura of corruption to DC 43, and his spell attack modifier to +38.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #212: A Voice in the Blight"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "spell-dc",
+                    "defoliation-inline-dc"
+                ],
+                "value": -3
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "aura-of-corruption-inline-dc",
+                "value": -4
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "spell-attack",
+                "value": -5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,402 @@
+{
+    "_id": "7Fua7064VlF0Y14D",
+    "folder": "ubp3uZylpKsdrXxj",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "23IFxhQXEXwHsFKI",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Frond",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 5
+                },
+                "damageRolls": {
+                    "zBPflcU7a2cke7YJ": {
+                        "damage": "1d6",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "XVYGlrj03AqcGMI3",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Distracting Giggle",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>15 feet. The thatchling's giggle echoes in the back of the mind. Creatures within the aura take a –1 status penalty to Will saves.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "includesSelf": false,
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Distracting Giggle"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 15,
+                        "slug": "distracting-giggle",
+                        "traits": [
+                            "auditory",
+                            "emotion",
+                            "mental",
+                            "occult"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "aura",
+                        "emotion",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wsM7ognfk7jqmwtX",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Rejuvenation",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When a thatchling is destroyed by damage other than fire, it attempts a @Check[flat|dc:11]. On a success, it reforms after [[/br 2d4 #days]]{2d4 days} within 120 feet of where it was destroyed, fully healed. A thatchling is always permanently destroyed if reduced to 0 Hit Points by fire damage or if the obstacle preventing the soul from reincarnating is removed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gYa7Xy1s4PIsKKV2",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SNBRxMl0LfjvgCP2",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Thatchling's Curse",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The thatchling focuses its attention on a single target within 30 feet that it can see, and then begins muttering and whispering nonsense. The target must attempt a @Check[will|dc:16] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and is temporarily immune to Thatchling's Curse for 24 hours.</p>\n<p><strong>Success</strong> The target is momentarily disoriented and has difficulty moving in the right direction. The target takes a –5-foot status penalty to its Speeds for 1 round.</p>\n<p><strong>Failure</strong> As success, but the penalty to its Speeds lasts for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, but the penalty to its Speeds lasts until the curse is removed or until the thatchling that created the effect is permanently destroyed, whichever comes first. In addition, when the cursed creature attempts a Survival check to Sense Direction or @UUID[Compendium.pf2e.actionspf2e.Item.Track], they use the outcome for one degree of success worse than the result of their check, and they can't take the Scout exploration activity.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "curse",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6ox3qbeYGpuKFgZa",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Thicket Walker",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Thatchlings ignore difficult terrain caused by brambles, tangled grass, and undergrowth, even those manipulated by magic.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Thatchling",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 3
+            },
+            "con": {
+                "mod": 2
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 0
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 15
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "void healing",
+                "max": 16,
+                "temp": 0,
+                "value": 16
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "death-effects"
+                },
+                {
+                    "exceptions": [],
+                    "type": "disease"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "bludgeoning",
+                    "value": 2
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "piercing",
+                    "value": 2
+                }
+            ],
+            "speed": {
+                "details": "thicket walker",
+                "otherSpeeds": [],
+                "value": 30
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
+            "level": {
+                "value": 0
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>The typical thatchling appears as a humanoid bundle of dry grass and twigs, held together by coils of what looks like glowing blue hair. These minor undead can't form bodies larger than those of a small human child.</p>\n<hr />\n<p>In rural Shenmen, some branches of Sangpotshi warn of what can happen if a soul bound for reincarnation is prevented from entering the River of Souls and rejoining the cycle. These souls become frustrated, confused, and then furious at what they feel is a denial of the body they deserve, and in turn, they force vegetation to serve as their new body. Others theorize that when a body is buried in a shallow grave, the roots of grass growing down into the remains can tangle the soul and capture it.</p>\n<p>Thatchlings are intelligent and capable of speaking but rarely do so—they generally have little to say to those whose lives they covet. Rarely, one might attempt to lure someone into an area of tall grass or dense undergrowth by calling out to them for aid, but they have little skill at deception, so such tactics aren't particularly effective at making them seem like actual living creatures in need of help.</p>\n<h2>Old Friends</h2>\n<p>The source of Willowshore's thatchlings is the simple fact that the souls who would normally have been reincarnated upon death can't do so, thus rising as thatchlings. Of course, since each year \"resets\" things, those who died during the year and became thatchlings are reborn alive once more on every first day of summer, with no memories of their previous doomed existence. While still driven by instinct to attack the living, Willowshore's thatchlings do feel a sense of remorse—if the GM judges it especially appropriate, they might take a –2 circumstance penalty to attack rolls and saving throws against creatures they knew in life.</p>\n<h2>Forever Senseless</h2>\n<p>The thatchling's curse robs the sense of direction from those it falls upon, leading to a whole category of insults in Shenmen that compare someone's ability to get something done to \"a thatchling's sense.\" For example, someone who has a hard time making friends might be said to have \"a thatchling's sense of friendship,\" while someone who constantly ruins meals might be said to have \"a thatchling's kitchen sense.\"</p>",
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder #196: The Summer That Never Was"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 6,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 4
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 7
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 6
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 5
+            },
+            "stealth": {
+                "base": 5,
+                "special": [
+                    {
+                        "base": 7,
+                        "label": "in undergrowth",
+                        "predicate": [
+                            "terrain:undergrowth"
+                        ]
+                    }
+                ]
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "chaotic",
+                "evil",
+                "undead",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

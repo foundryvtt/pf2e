@@ -129,7 +129,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     declare skills?: Record<string, Statistic<this>>;
 
     /** A cached copy of `Actor#itemTypes`, lazily regenerated every data preparation cycle */
-    private declare _itemTypes: EmbeddedItemInstances<this> | null;
+    declare private _itemTypes: EmbeddedItemInstances<this> | null;
 
     constructor(data: PreCreate<ActorSourcePF2e>, context: DocumentConstructionContext<TParent> = {}) {
         super(data, context);

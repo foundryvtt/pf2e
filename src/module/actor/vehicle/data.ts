@@ -1,11 +1,11 @@
 import type { ActorAttributes, ActorDetails, ActorHitPoints, BaseActorSourcePF2e } from "@actor/data/base.ts";
 import type { Resistance, Weakness } from "@actor/data/iwr.ts";
 import { Immunity } from "@actor/data/iwr.ts";
-import { ActorSystemModel, ActorSystemSchema } from "@actor/data/model.ts";
+import { ActorHitPointsSchema, ActorSystemModel, ActorSystemSchema } from "@actor/data/model.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import type { ActorAlliance, ImmunityType, ResistanceType, WeaknessType } from "@actor/types.ts";
 import type { Rarity, Size } from "@module/data.ts";
-import { RarityField } from "@module/model.ts";
+import { PublicationField, RarityField } from "@module/model.ts";
 import { DataUnionField, LaxArrayField } from "@system/schema-data-fields.ts";
 import type { ArmorClassTraceData } from "@system/statistic/armor-class.ts";
 import type { VehiclePF2e } from "./document.ts";
@@ -150,15 +150,19 @@ class VehicleSystemData extends ActorSystemModel<VehiclePF2e, VehicleSystemSchem
                             choices: ["encounter"] as const,
                             initial: undefined,
                         }),
-                        new fields.BooleanField<boolean, boolean, true, false, false>({ initial: undefined }),
+                        new fields.BooleanField<boolean, boolean, true, false, false>({
+                            required: true,
+                            nullable: false,
+                            initial: undefined,
+                        }),
                     ],
-                    { required: false, nullable: false, initial: undefined },
+                    { required: true, nullable: false, initial: "encounter" },
                 ),
             }),
             details: new fields.SchemaField({
                 description: blankableString(),
                 level: new fields.SchemaField({
-                    value: requiredInteger({ min: -1 }),
+                    value: requiredInteger({ min: -1, initial: 0 }),
                 }),
                 price: requiredInteger({ min: 0 }),
                 space: new fields.SchemaField({
@@ -171,18 +175,7 @@ class VehicleSystemData extends ActorSystemModel<VehiclePF2e, VehicleSystemSchem
                 pilotingCheck: blankableString(),
                 AC: requiredInteger({ min: 0 }),
                 speed: blankableString(),
-                /** Information concerning the publication from which this actor originates */
-                publication: new fields.SchemaField({
-                    title: blankableString(),
-                    authors: blankableString(),
-                    license: new fields.StringField({
-                        required: true,
-                        nullable: false,
-                        choices: ["ORC", "OGL"] as const,
-                        initial: "OGL",
-                    }),
-                    remaster: new fields.BooleanField(),
-                }),
+                publication: new PublicationField(),
             }),
             saves: new fields.SchemaField({
                 fortitude: new fields.SchemaField({
@@ -239,7 +232,7 @@ interface VehicleTraits extends ModelPropsFromSchema<VehicleTraitsSchema> {
 }
 
 type VehicleAttributesSchema = {
-    hp: fields.SchemaField<VehicleHitPointsSchema, SourceFromSchema<VehicleHitPointsSchema>, VehicleHitPoints>;
+    hp: fields.SchemaField<ActorHitPointsSchema, SourceFromSchema<ActorHitPointsSchema>, VehicleHitPoints>;
     ac: fields.SchemaField<{
         value: fields.NumberField<number, number, true, false, true>;
     }>;
@@ -274,17 +267,10 @@ type VehicleAttributesSchema = {
     emitsSound: DataUnionField<
         | fields.StringField<"encounter", "encounter", true, false, false>
         | fields.BooleanField<boolean, boolean, true, false, false>,
+        true,
         false,
-        false,
-        false
+        true
     >;
-};
-
-type VehicleHitPointsSchema = {
-    value: fields.NumberField<number, number, true, false, true>;
-    max: fields.NumberField<number, number, true, false, true>;
-    temp: fields.NumberField<number, number, true, false, true>;
-    details: fields.StringField<string, string, true, false, true>;
 };
 
 type VehicleAttributesSource = SourceFromSchema<VehicleAttributesSchema>;
@@ -306,12 +292,7 @@ type VehicleDetailsSchema = {
     AC: fields.NumberField<number, number, true, false, true>;
     speed: fields.StringField<string, string, true, false, true>;
     /** Information concerning the publication from which this actor originates */
-    publication: fields.SchemaField<{
-        title: fields.StringField<string, string, true, false, true>;
-        authors: fields.StringField<string, string, true, false, true>;
-        license: fields.StringField<"ORC" | "OGL", "ORC" | "OGL", true, false, true>;
-        remaster: fields.BooleanField;
-    }>;
+    publication: PublicationField;
 };
 
 interface VehicleSystemSource extends SourceFromSchema<VehicleSystemSchema> {

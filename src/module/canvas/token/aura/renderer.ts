@@ -68,6 +68,11 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
 
     /** Draw the aura's border and texture */
     async draw(showBorder: boolean): Promise<void> {
+        // If the token is GM hidden, don't render anything
+        if (this.token.document.hidden && !this.token.visible) {
+            return;
+        }
+
         // Auras draw at 0, 0. Shift it into the correct position here
         const { mechanicalBounds } = this.token;
         this.x = mechanicalBounds.width / 2;

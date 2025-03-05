@@ -630,7 +630,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         }
     }
 
-    /** Reset aura renders when token size changes. */
+    /** Reset aura renders when token size or GM hidden changes. */
     override _onUpdate(
         changed: DeepPartial<TDocument["_source"]>,
         operation: TokenUpdateOperation<TDocument["parent"]>,
@@ -638,7 +638,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     ): void {
         super._onUpdate(changed, operation, userId);
 
-        if (changed.width) {
+        if (changed.width || "hidden" in changed) {
             if (this.animation) {
                 this.animation.then(() => {
                     this.auras.reset();

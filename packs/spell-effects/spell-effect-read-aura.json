@@ -1,0 +1,47 @@
+{
+    "_id": "J6OhRNSN23KzOPRL",
+    "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
+    "name": "Spell Effect: Read Aura",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Read Aura]</p>\n<p>You gain a +2 circumstance bonus to Identify Magic.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:identify-magic"
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
