@@ -1,0 +1,68 @@
+{
+    "_id": "JKrqKeBxSlLjF8xU",
+    "img": "icons/weapons/daggers/dagger-simple-stone-guard.webp",
+    "name": "Weapon of False Wounds",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>These weapons consist mostly of illusions, except in the spots where the weapon would be held. A sword, for example, would consist only of a physical handle with the permanent illusion of a blade. <em>Weapons of false wounds</em> come in all shapes and sizes to help accurately reenact both historic and theatrical combat without risk of injury. The most amazing property of these items is the fact the illusions become partially physical when interacting with other <em>weapons of false wounds</em>, allowing blades to clash and parry as they would in actual combat. As a <em>weapon of false wounds</em> is designed specifically to interact with other illusions, paying attention to subtle changes in the weapon's appearance can help alert the wielder to nearby illusions. While using this item, you gain a +1 item bonus to Perception checks to disbelieve an illusion.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 3
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 80
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "domain": "perception",
+                "key": "RollOption",
+                "option": "weapon-of-false-wounds",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "weapon-of-false-illusions"
+                ],
+                "selector": "perception",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "illusion",
+                "magical",
+                "visual"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-or-two-hands"
+        }
+    },
+    "type": "equipment"
+}

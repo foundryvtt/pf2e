@@ -1,0 +1,45 @@
+{
+    "_id": "Lno61HwUJaE4eLo8",
+    "img": "icons/creatures/magical/construct-golem-stone-blue.webp",
+    "name": "Spell Effect: Call the Ten",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Call the Ten]</p>\n<p>You gain resistance to physical and spirit damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": [
+                    "physical",
+                    "spirit"
+                ],
+                "value": "3 + 2*floor((@item.level - 4) / 2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
