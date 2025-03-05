@@ -1,0 +1,52 @@
+{
+    "_id": "nTISJz13lhHlc9pk",
+    "img": "icons/creatures/webs/web-spider-caught-hand-purple.webp",
+    "name": "Spell Effect: Unravel Knowledge",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Unravel Knowledge]</p>\n<p>You take a –2 status penalty to any check or DC for the affected ability the first time you use it each round.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SpellEffectUnravelKnowledge.ToggleLabel",
+                "option": "unravel-knowledge",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "unravel-knowledge"
+                ],
+                "selector": "all",
+                "type": "status",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

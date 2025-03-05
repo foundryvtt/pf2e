@@ -1,0 +1,74 @@
+{
+    "_id": "CxvLFkrV5LlADQkx",
+    "img": "icons/magic/light/explosion-star-glow-blue.webp",
+    "name": "Cobyslarni",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Though Cobyslarni doesn't often interact directly with mortals these days, your quest for wisdom has drawn his attention. You studied at his academy, encountered him on his travels throughout the planes, or responded to his strange psychic call. However your meeting occurred, Cobyslarni empowered your studies. Though Cobyslarni rarely demands anything directly from his witches, you may receive visions of danger to the academy or its students in times of dire need.</p>\n<p>Most witches chosen by Cobyslarni, if they're not already students at the academy, make their way there at some point. Some who follow these nudges remain at the academy indefinitely, but most eventually move on to experience their own journeys or even establish their own schools.</p>\n<p><strong>Spell List</strong> occult;</p>\n<p><strong>Patron Skill</strong> Occultism</p>\n<p><strong>Lesson of Wandering Mind</strong> Cobyslarni has taught you to keep an open mind and seek knowledge in all things, sifting through an array of facts that others would find bewildering. You gain the @UUID[Compendium.pf2e.spells-srd.Item.Information Overload] hex cantrip and your familiar learns @UUID[Compendium.pf2e.spells-srd.Item.Déjà Vu].</p>\n<p><strong>Familiar of Insightful Observation</strong> Your familiar boasts a third eye upon their head or body, resembling the one set in Cobyslarni's forehead. When you Cast or Sustain a hex, your familiar can attempt a check to Recall Knowledge as a free action with any skill in which you are trained or better, using your bonus, and psychically transmit the information to you.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.occultism.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.aliases.witch",
+                "priority": 39,
+                "value": "occult"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:witch",
+                    "item:trait:hex"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "@Embed[Compendium.pf2e.familiar-abilities.Item.YptMhsztTS9dYGAY inline]",
+                        "title": "PF2E.SpecificRule.Witch.Patron.FamiliarAbility.InsightfulObservation.Title"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "witch-patron"
+            ],
+            "rarity": "rare",
+            "value": [
+                "witch"
+            ]
+        }
+    },
+    "type": "feat"
+}

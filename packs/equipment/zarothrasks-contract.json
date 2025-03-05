@@ -1,0 +1,65 @@
+{
+    "_id": "vKzbNBm01hlp3jiO",
+    "img": "icons/sundries/documents/document-sealed-signatures-red.webp",
+    "name": "Zarothrask's Contract",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>You've bargained for power with a gongorinan, but in return, you must avoid furthering demonic goals. You gain a +2 item bonus to Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] manufactured items and to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple]. Once per day, the gongorinan can warp your body with animal features; you must attempt a @Check[fortitude|dc:25] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}. When you recover from the sickened condition, your features revert to normal. The gongorinan will usually do this if you sin or aid a demon, even unintentionally.</p>\n<p><strong>Activate—Gongorinan's Emergence</strong> <span class=\"action-glyph\">2</span> (concentrate, mental, morph, occult, unholy)</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> Stony tentacles burst out of your body, lashing at foes. Creatures in a @Template[type:emanation|distance:10] take @Damage[(6d6)[bludgeoning],(2d6)[mental]|options:area-damage] damage (@Check[fortitude|dc:25|basic|options:area-effect] save); on a failure, the creature also becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (sickened 2 on a critical failure) as parts of their anatomy temporarily warp into animal features. When a creature recovers from the sickened condition, its features revert to normal.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 9
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {}
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:grapple",
+                            "action:disarm"
+                        ]
+                    }
+                ],
+                "selector": "athletics",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "contract",
+                "invested",
+                "occult"
+            ]
+        },
+        "usage": {
+            "value": "other"
+        }
+    },
+    "type": "equipment"
+}
