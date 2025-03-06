@@ -970,6 +970,17 @@ export const PF2ECONFIG = {
 
     JournalEntry: { sheetClass: JournalSheetPF2e },
 
+    mapLocationMarker: {
+        default: {
+            backgroundColor: 0x000000,
+            borderColor: 0x000000,
+            borderHoverColor: 0xff6400, // --color-border-highlight
+            fontFamily: "Signika",
+            shadowColor: 0x000000,
+            textColor: 0xfbf8f5,
+        },
+    },
+
     Canvas: {
         darkness: {
             default: CONFIG.Canvas.darknessColor,
