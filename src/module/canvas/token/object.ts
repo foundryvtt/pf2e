@@ -145,6 +145,27 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return this._canControl(user, event);
     }
 
+    /** Determine wether this token can see another token on the canvas. */
+    canSee(token: TokenPF2e): boolean {
+        if (!token.isVisible) return false;
+        // Shrink bounds by 5 pixels to avoid clipping walls
+        const tokenBounds = token.mechanicalBounds.pad(-5);
+        const tokenCenter = token.center;
+        const tokenPoints = [
+            tokenCenter,
+            { x: tokenBounds.left, y: tokenBounds.top },
+            { x: tokenBounds.right, y: tokenBounds.top },
+            { x: tokenBounds.right, y: tokenBounds.bottom },
+            { x: tokenBounds.left, y: tokenBounds.bottom },
+        ];
+        const pointSource = new foundry.canvas.sources.PointVisionSource({ object: this });
+        const polygon = CONFIG.Canvas.polygonBackends.sight.create(this.center, {
+            source: pointSource,
+            type: "sight",
+        });
+        return tokenPoints.some((p) => polygon.contains(p.x, p.y));
+    }
+
     /**
      * Determine whether this token can flank another—given that they have a flanking buddy on the opposite side
      * @param flankee                  The potentially flanked token
@@ -211,7 +232,8 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
             (t) =>
                 (t.actor?.isAllyOf(thisActor) ||
                     (this.document.isLinked && t.actor === thisActor && t.id !== this.id)) &&
-                t.canFlank(flankee, R.pick(context, ["ignoreFlankable"])),
+                t.canFlank(flankee, R.pick(context, ["ignoreFlankable"])) &&
+                t.canSee(flankee),
         );
         if (flankingBuddies.length === 0) return false;
 
