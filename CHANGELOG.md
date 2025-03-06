@@ -1,3 +1,96 @@
+## 6.10.0
+
+### Highlights
+
+-   (Ambrose, Mecha Maya, Rigo, SpartanCPA, Tikael) Add content from NPC Core and Lost Omens Rival Academies
+
+### System Improvements
+
+-   (stwlam) Include original english name in ABC picker searches
+-   (Supe) Omit showing effects that hide token icons from the effects panel
+-   (Supe) Support sending kingmaker army war actions to chat
+-   (Trent) Provide a subtitle with actions when using lores
+
+### Bug Fixes
+
+-   (Ben Potter) Fix attaching items to anything except the first result
+-   (In3luki) Fix character sheet freezing when adding effects that grant a nested condition
+-   (stwlam) Allow use of search inputs by observers on non-editable actor sheets
+-   (stwlam) Apply damage alterations to elemental-blast damage
+-   (stwlam) Fix consumption of ammo for double-barrel weapons
+-   (stwlam) Fix registration of GM Vision keybind for macs
+-   (Supe) Fix incrementing and decrementing kingmaker army effects
+-   (Supe) Fix updating kingmaker army description and swap to prosemirror
+-   (Supe) Hide aura texture when token is GM hidden
+
+### Data Updates
+
+-   (Abaddon) Change usage for sniper's bead
+-   (Abaddon) Fix Expert Beast Gunner Spellcasting prerequisite
+-   (Abaddon) Fix Ghostshot Wrapping and Silver Tripod usage
+-   (Abaddon) Fix shadow blast saves and add damage rolls
+-   (Abaddon) Fix vampire mastermind's dominate ability
+-   (Ambrose) Add automation to Cloud Dragon's Deflecting Cloud reaction and Terror Bird's Tearing Clutch damage
+-   (Ambrose) Add effect to Read Aura and Tangling Creepers
+-   (Ambrose) Add initiative note for Shift Immanence
+-   (Ambrose) Add inline check for Scare to Death's critical success Fortitude save
+-   (Ambrose) Add missing fear immunity to Scarecrow actor
+-   (Ambrose) Apply `Token Mark` to Hunt Prey action and associated feats and effects
+-   (Ambrose) Apply description alterations to select Ranger feats
+-   (Ambrose) Automate Awakened Yaoguai Heritage Feat
+-   (Ambrose) Condense several consumable equipment effects
+-   (Ambrose) Fix heightening for Rose's Thorn
+-   (Ambrose) Fix traits in Declare Anathema feat and Ripnugget's Devastating Blast ability
+-   (Ambrose) Redirect old actors to their NPC Core and Monster Core equivalents
+-   (Ambrose) Remove (or add) inline checks and damage rolls for spells
+-   (Ambrose) Remove `dedication` trait from Spell-Woven Shot feat
+-   (Ambrose) Update rule elements and inline automation on several alchemical bombs
+-   (Ambrose) Update rules on Ultimatum of Liberation and Entreaty Spirit effects
+-   (Ben Potter) Fix some spellheart and talisman usages
+-   (CrackJackFlood) Update Necklace of Knives and Druidic orders
+-   (CrackJackFlood) Update Sanguine Klar items to include their runes
+-   (Dire Weasel) Fix some BattleForm ranged attack increments
+-   (Dire Weasel) Fix some localized strings
+-   (Dire Weasel) Remove superfluous RE from Burning Mammoth Longshield's copy of Shield Boss
+-   (dotadd) Add scaling to Curse of Death
+-   (Kulkodar) Add missing hooded lantern interact automation
+-   (kromko) Add translation to item currency values and parsing
+-   (kromko) Fix difficult terrain size in Lesser Pernicious Spore Bomb description
+-   (kromko) Improve Arcane Slam enhancement formatting
+-   (kromko) Improve Detective Readiness automation
+-   (kromko) Update Temporal Distortion description to match LODM
+-   (RakuJa) Fix DC data on several actors
+-   (reaperzeus) Add GrantItem RE for Raise a Shield to Shields of the Spirit spell effect
+-   (rectulo) Fix format of Kneel Before the Rightful Heir
+-   (rectulo) Fix the description of Apparition's Reflection feat
+-   (Rigo) Automate Improved Elemental Blast
+-   (Rigo) Implement Slinger's Precision's combination weapon's melee configuration proficiency
+-   (Rigo) Include "Black Powder (Dose)" in Munitions Crafter's Crafting Ability
+-   (Rigo) Push priority of weapon innovation fire damage toggle to after overdrive roll options
+-   (Rigo) Restrict slinger's precision damage dice to non-repeating firearms
+-   (Rigo) Update Unstable critical failure damage and DC to remaster
+-   (SpaceYeti) Add class predicate to Oracle Ashes and Time mysteries
+-   (SpartanCPA) Fix name of Bramble Champion Construct
+-   (SpartanCPA) Localize Hunt Prey "First Attack" on NPCs
+-   (SpartanCPA) Move AP, pregen, and one shot actors into compendium folders
+-   (stwlam) Remove remaining instances of "Open" trait
+-   (Suldrun45) Add automation to Dragonblood Paragon for Venomtail Kobolds
+-   (Supe) Fix formatting of the kingmaker army outflank condition
+-   (Tikael) Add effect for Umbral Dragon's Drain Vigor
+-   (Tikael) Add Thrown 50 ft trait
+-   (Tikael) Automate Wisp Resonance Aura
+-   (Tikael) Standardize Lost Omens publication data to match licenses
+-   (TMun) Add NPCs and one effect for Quest 23
+
+### Under the Hood
+
+-   (stwlam, Supe) Convert more actors and items to data models
+-   (stwlam) Add option to make proficiency created by `MartialProficiencyRuleElement` invisible
+-   (stwlam) Add item roll options for original weapon usage and combination weapon siblings
+-   (stwlam) Add support for token ring `effects` field in `TokenImage` RE
+-   (stwlam) Include item roll options in cloned statistic used for inline `against` expressions
+-   (Supe) Add support for disabling special resource renewal
+
 ## 6.9.0
 
 ### Highlights
