@@ -4,7 +4,7 @@
     "name": "Effect: Polished Demon Horn - Armor",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Polished Demon Horn]</p>\n<p>You gain resistance 2 to unholy.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Polished Demon Horn], @UUID[Compendium.pf2e.equipment-srd.Item.Polished Demon Horn (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Polished Demon Horn (Major)]</p>\n<p>You gain resistance to unholy.</p>"
         },
         "duration": {
             "expiry": null,
@@ -22,9 +22,75 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:polished-demon-horn",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Polished Demon Horn"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:polished-demon-horn-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Polished Demon Horn (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:polished-demon-horn-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Polished Demon Horn (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "polished-demon-horn"
+            },
+            {
                 "key": "Resistance",
+                "predicate": [
+                    "polished-demon-horn:polished-demon-horn"
+                ],
                 "type": "unholy",
                 "value": 2
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "polished-demon-horn:polished-demon-horn-greater"
+                ],
+                "type": "unholy",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "polished-demon-horn:polished-demon-horn-major"
+                ],
+                "type": "unholy",
+                "value": 10
             }
         ],
         "start": {
