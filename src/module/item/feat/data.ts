@@ -15,7 +15,7 @@ import type { ClassTrait } from "@item/class/types.ts";
 import type { WeaponCategory } from "@item/weapon/types.ts";
 import type { OneToFour, OneToThree, Rarity } from "@module/data.ts";
 import { RarityField } from "@module/model.ts";
-import { LaxArrayField, RecordField, SlugField } from "@system/schema-data-fields.ts";
+import { LaxArrayField, NullCoercingNumberField, RecordField, SlugField } from "@system/schema-data-fields.ts";
 import { SourcePropFromDataField } from "types/foundry/common/data/fields.js";
 import type { FeatPF2e } from "./document.ts";
 import type { FeatOrFeatureCategory, FeatTrait } from "./types.ts";
@@ -111,7 +111,7 @@ class FeatSystemData extends ItemSystemModel<FeatPF2e, FeatSystemSchema> {
                 }),
             }),
             actions: new fields.SchemaField({
-                value: new fields.NumberField({ required: true, nullable: true, choices: [1, 2, 3] as const }),
+                value: new NullCoercingNumberField({ required: true, nullable: true, choices: [1, 2, 3] as const }),
             }),
             prerequisites: new fields.SchemaField({
                 value: new fields.ArrayField(
@@ -251,7 +251,7 @@ type FeatSystemSchema = Omit<ItemSystemSchema, "traits"> & {
         value: fields.StringField<ActionType, ActionType, true, false, true>;
     }>;
     actions: fields.SchemaField<{
-        value: fields.NumberField<OneToThree, OneToThree, true, true, true>;
+        value: NullCoercingNumberField<OneToThree, OneToThree, true, true, true>;
     }>;
     prerequisites: fields.SchemaField<{
         value: fields.ArrayField<
