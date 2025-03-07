@@ -84,6 +84,19 @@ class StrictNumberField<
     }
 }
 
+/** @todo Remove in V13 */
+class NullCoercingNumberField<
+    TSourceProp extends number = number,
+    TModelProp extends NonNullable<JSONValue> = TSourceProp,
+    TRequired extends boolean = false,
+    TNullable extends boolean = true,
+    THasInitial extends boolean = true,
+> extends fields.NumberField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
+    protected override _cast(value: unknown): unknown {
+        return value === "" && this.nullable ? null : Number(value);
+    }
+}
+
 /** A `BooleanField` that does not cast the source value */
 class StrictBooleanField<
     TRequired extends boolean = false,
@@ -533,6 +546,7 @@ export {
     DataUnionField,
     LaxArrayField,
     LaxSchemaField,
+    NullCoercingNumberField,
     NullField,
     PredicateField,
     RecordField,
