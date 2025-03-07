@@ -29,6 +29,7 @@ const identifySkills = new Map<CreatureTrait, SkillSlug[]>([
     ["celestial", ["religion"]],
     ["construct", ["arcana", "crafting"]],
     ["dragon", ["arcana"]],
+    ["dream", ["occultism"]],
     ["elemental", ["arcana", "nature"]],
     ["ethereal", ["occultism"]],
     ["fey", ["nature"]],
@@ -37,8 +38,10 @@ const identifySkills = new Map<CreatureTrait, SkillSlug[]>([
     ["humanoid", ["society"]],
     ["monitor", ["religion"]],
     ["ooze", ["occultism"]],
+    ["shade", ["religion"]],
     ["plant", ["nature"]],
     ["spirit", ["occultism"]],
+    ["time", ["occultism"]],
     ["undead", ["religion"]],
 ]);
 
