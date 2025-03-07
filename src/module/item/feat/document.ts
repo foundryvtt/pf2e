@@ -151,6 +151,14 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const subfeatures = this.system.subfeatures;
         if (!featCanHaveKeyOptions(this)) subfeatures.keyOptions = [];
 
+        // Key attribute options
+        if (subfeatures.keyOptions.length > 0) {
+            actor.system.build.attributes.keyOptions = R.unique([
+                ...actor.system.build.attributes.keyOptions,
+                ...subfeatures.keyOptions,
+            ]);
+        }
+
         const { build, proficiencies, saves } = actor.system;
 
         // Languages

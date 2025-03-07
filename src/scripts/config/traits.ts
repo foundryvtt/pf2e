@@ -231,6 +231,7 @@ const creatureTraits = {
     serpentfolk: "PF2E.TraitSerpentfolk",
     seugathi: "PF2E.TraitSeugathi",
     shabti: "PF2E.TraitShabti",
+    shade: "PF2E.TraitShade",
     shadow: "PF2E.TraitShadow",
     shobhad: "PF2E.TraitShobhad",
     siktempora: "PF2E.TraitSiktempora",
