@@ -33,6 +33,25 @@
                 "domain": "stealth",
                 "key": "RollOption",
                 "option": "armor:ignore-noisy-penalty"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "armor:trait:noisy"
+                    }
+                ],
+                "selector": "stealth-check",
+                "slug": "armor-check-penalty",
+                "value": "max(@actor.system.skills.stealth.rank - 1, 0)"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "downgrade",
+                "selector": "stealth-check",
+                "slug": "armor-check-penalty",
+                "value": 0
             }
         ],
         "traits": {
