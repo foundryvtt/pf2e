@@ -57,6 +57,10 @@
             {
                 "allowDuplicate": false,
                 "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "cascade",
+                    "granter": "detach"
+                },
                 "predicate": [
                     "self:signature:{item|origin.signature}"
                 ],
