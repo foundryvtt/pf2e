@@ -47,7 +47,7 @@ export class EffectsPanel extends Application {
             ...(await super.getData(options)),
             afflictions: await this.#getViewData(actor.itemTypes.affliction ?? []),
             conditions: await this.#getViewData(actor.conditions.active),
-            effects: await this.#getViewData(actor.itemTypes.effect.filter((e) => e.system.tokenIcon.show)),
+            effects: await this.#getViewData(actor.itemTypes.effect),
             actor,
             user: { isGM: game.user.isGM },
         };
