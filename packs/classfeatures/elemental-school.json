@@ -1,19 +1,23 @@
 {
-    "_id": "O8qithYQCv3e7DUQ",
-    "img": "systems/pf2e/icons/features/classes/elemental-magic.webp",
-    "name": "Effect: Elementalist Dedication",
+    "_id": "5rFzX6JK6CXLFxUP",
+    "img": "icons/magic/symbols/elements-air-earth-fire-water.webp",
+    "name": "Elemental School",
     "system": {
-        "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Elementalist Dedication]</p>\n<p>Each day when you make your daily preparations, you can attune yourself to one element of your choice from your elemental philosophy. You gain resistance equal to half your level (minimum 1 resistance) against damage dealt by effects with your attuned elemental trait. This attunement lasts until you next make your daily preparations.</p>"
+        "actionType": {
+            "value": "passive"
         },
-        "duration": {
-            "expiry": "turn-start",
-            "sustained": false,
-            "unit": "days",
-            "value": 1
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>If you choose an elemental school, your curriculum spells can be any spells that you have access to and that have your chosen element's trait. Your school spells are the elemental focus spells of your chosen element, with the 1st-rank spell as your initial school spell and the 3rd- rank spell as the advanced school spell.</p>\n<p><strong>Air</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Updraft]; advanced: @UUID[Compendium.pf2e.spells-srd.Item.Powerful Inhalation]</p>\n<p><strong>Earth</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Crushing Ground]; advanced: @UUID[Compendium.pf2e.spells-srd.Item.Stone Lance]</p>\n<p><strong>Fire</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Wildfire]; advanced: @UUID[Compendium.pf2e.spells-srd.Item.Combustion]</p>\n<p><strong>Metal</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Serrate]; advanced: @UUID[Compendium.pf2e.spells-srd.Item.Repel Metal]</p>\n<p><strong>Water</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Rising Surf]; advanced: @UUID[Compendium.pf2e.spells-srd.Item.Pulverizing Cascade]</p>\n<p><strong>Wood</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Arms of Nature]; advanced: @UUID[Compendium.pf2e.spells-srd.Item.Wood Walk]</p>"
         },
         "level": {
-            "value": 2
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
         },
         "publication": {
             "license": "OGL",
@@ -26,12 +30,7 @@
                     {
                         "label": "PF2E.TraitAir",
                         "predicate": [
-                            {
-                                "or": [
-                                    "elementalist:inner-sea-elementalism",
-                                    "expanded-elemental-magic:air"
-                                ]
-                            }
+                            "elementalist:inner-sea-elementalism"
                         ],
                         "value": "air"
                     },
@@ -62,12 +61,7 @@
                     {
                         "label": "PF2E.TraitMetal",
                         "predicate": [
-                            {
-                                "or": [
-                                    "elementalist:elemental-cycle",
-                                    "expanded-elemental-magic:metal"
-                                ]
-                            }
+                            "elementalist:elemental-cycle"
                         ],
                         "value": "metal"
                     },
@@ -86,36 +80,28 @@
                     {
                         "label": "PF2E.TraitWood",
                         "predicate": [
-                            {
-                                "or": [
-                                    "elementalist:elemental-cycle",
-                                    "expanded-elemental-magic:wood"
-                                ]
-                            }
+                            "elementalist:elemental-cycle"
                         ],
                         "value": "wood"
                     }
                 ],
                 "flag": "element",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.Element"
-            },
-            {
-                "key": "Resistance",
-                "type": "{item|flags.pf2e.rulesSelections.element}",
-                "value": "max(1,floor(@actor.level/2))"
+                "prompt": "PF2E.SpecificRule.Elementalist.Wizard.ElementalSchool."
             }
         ],
-        "start": {
-            "initiative": null,
-            "value": 0
-        },
-        "tokenIcon": {
-            "show": true
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
         },
         "traits": {
+            "otherTags": [
+                "wizard-elemental-school"
+            ],
+            "rarity": "common",
             "value": []
         }
     },
-    "type": "effect"
+    "type": "feat"
 }
