@@ -1,0 +1,47 @@
+{
+    "_id": "SjxqjPDILhQWUcWf",
+    "img": "systems/pf2e/icons/spells/storm-lord.webp",
+    "name": "Spell Effect: Wrathful Storm",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Wrathful Storm]</p>\n<p>You take a -4 circumstance penalty to physical ranged attacks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:ranged"
+                ],
+                "selector": "strike-attack-roll",
+                "type": "circumstance",
+                "value": -4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
