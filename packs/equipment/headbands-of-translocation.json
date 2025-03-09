@@ -34,7 +34,36 @@
             "title": "Pathfinder Treasure Vault"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.HeadbandsOfTranslocation.ToggleLabel",
+                "option": "headbands-of-translocation",
+                "toggleable": true
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "to-failure"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:aid",
+                    "headbands-of-translocation"
+                ],
+                "selector": "skill-check"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "to-failure"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:aid",
+                    "headbands-of-translocation"
+                ],
+                "selector": "attack-roll"
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "uncommon",
