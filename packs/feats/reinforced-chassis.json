@@ -33,9 +33,17 @@
             {
                 "itemId": "{item|flags.pf2e.itemGrants.reinforcedChassis.id}",
                 "key": "ItemAlteration",
-                "mode": "upgrade",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    }
+                ],
                 "property": "ac-bonus",
-                "value": "ternary(gte(@actor.level,10),5,ternary(gte(@actor.level,5),4,3))"
+                "value": "ternary(gte(@actor.level,10),2,1)"
             },
             {
                 "key": "ActiveEffectLike",
