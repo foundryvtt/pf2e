@@ -24,6 +24,8 @@ import fields = foundry.data.fields;
 type FeatSource = BaseItemSourcePF2e<"feat", FeatSystemSource>;
 
 class FeatSystemData extends ItemSystemModel<FeatPF2e, FeatSystemSchema> {
+    declare traits: FeatTraits;
+
     declare maxTakable: number;
 
     declare frequency: Frequency | null;
@@ -218,12 +220,18 @@ class FeatSystemData extends ItemSystemModel<FeatPF2e, FeatSystemSchema> {
         this.selfEffect ??= null;
         if (this.actor && this.frequency) this.frequency.value ??= this.frequency.max;
 
+        this.traits.toggles ??= new AbilityTraitToggles({}, { parent: this });
+
         const subfeatures = this.subfeatures;
         subfeatures.keyOptions ??= [];
         subfeatures.languages ??= { slots: 0, granted: [] };
         subfeatures.proficiencies ??= {};
         subfeatures.senses ??= {};
         subfeatures.suppressedFeatures ??= [];
+    }
+
+    override prepareDerivedData(): void {
+        this.traits.toggles.prepareData();
     }
 }
 

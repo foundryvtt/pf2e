@@ -127,6 +127,12 @@ class AbilitySystemData extends ItemSystemModel<AbilityItemPF2e, AbilitySystemSc
         if (this.actionType.value === "passive") {
             this.selfEffect = null;
         }
+
+        this.traits.toggles ??= new AbilityTraitToggles(this.traits.toggles ?? {}, { parent: this });
+    }
+
+    override prepareDerivedData(): void {
+        this.traits.toggles.prepareData();
     }
 }
 

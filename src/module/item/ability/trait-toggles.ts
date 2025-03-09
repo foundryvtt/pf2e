@@ -7,16 +7,6 @@ import fields = foundry.data.fields;
 
 /** A helper class to handle toggleable ability traits */
 class AbilityTraitToggles extends foundry.abstract.DataModel<AbilitySystemData | FeatSystemData, TraitToggleSchema> {
-    constructor(source: object, options: DataModelConstructionOptions<AbilitySystemData | FeatSystemData>) {
-        super(source, options);
-        const selected = this.mindshift?.selected ?? false;
-        const item = this.item;
-        this.mindshift = item.system.traits.value.includes("mindshift") ? { selected } : null;
-        if (this.mindshift?.selected) {
-            item.system.traits.otherTags.push("mindshifted");
-        }
-    }
-
     static override defineSchema(): TraitToggleSchema {
         return {
             mindshift: new fields.SchemaField(
@@ -26,12 +16,23 @@ class AbilityTraitToggles extends foundry.abstract.DataModel<AbilitySystemData |
         };
     }
 
+    /** The grandparent item */
     get item(): AbilityItemPF2e | FeatPF2e {
         return this.parent.parent;
     }
 
+    /** Get all traits in the grandparent item that can be toggled. */
     get operableTraits(): "mindshift"[] {
         return this.item.system.traits.value.includes("mindshift") ? ["mindshift"] : [];
+    }
+
+    prepareData(): void {
+        const selected = this.mindshift?.selected ?? false;
+        const item = this.item;
+        this.mindshift = item.system.traits.value.includes("mindshift") ? { selected } : null;
+        if (this.mindshift?.selected) {
+            item.system.traits.otherTags.push("mindshifted");
+        }
     }
 
     getDamageAlterations(): DamageAlteration[] {

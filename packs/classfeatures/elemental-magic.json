@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>You're a spellcaster that's specialized in harnessing the four elements. Though you might feel a stronger kinship for one element over the others, you're capable of shaping all of them. Due to your specialization in elemental magic, you have a smaller, more focused spell list than other spellcasters, though your magic is drawn from multiple traditions. If you choose this class archetype, you must select the @UUID[Compendium.pf2e.feats-srd.Item.Elementalist Dedication] as your 2nd-level class feat.</p>\n<p><strong>Prerequisites</strong> You must have a spellcasting class feature that chooses spells from the arcane or primal spell list.</p>\n<p><strong>Elementalist Adjustments</strong> Replace your spell list with the elemental spell list. Your actual magical tradition is unchanged, but you choose your spells from the elemental list instead. You must choose an elemental philosophy, which determines which spells and other elemental magic you can use.</p>\n<p><strong>Druid Elementalist Adjustments</strong> If you're a druid of the storm order and air is your elemental philosophy, you can choose to replace your starting order spell, @UUID[Compendium.pf2e.spells-srd.Item.Tempest Surge], with @UUID[Compendium.pf2e.spells-srd.Item.Updraft].</p>\n<p><strong>Elemental Sorcerer Adjustments</strong> If you're a sorcerer with the elemental bloodline, you can replace your initial bloodline spell with an initial elemental focus spell, and your advanced bloodline spell with an advanced elemental focus spell. The initial and advanced elemental focus spells you select must have the same trait as your elemental bloodline.</p>\n<p><strong>Wizard Elementalist Adjustments</strong> If you're a wizard, you can either choose to be a universalist or to follow an arcane school dedicated to one element from your elemental philosophy. If you choose an elemental school, your curriculum spells can be any spells that you have access to and that have your chosen element's trait. Your school spells are the elemental focus spells of your chosen element, with the 1st-rank spell as your initial school spell and the 3rd-rank spell as the advanced school spell.</p>\n<p><strong>Additional Feats</strong> 4th @UUID[Compendium.pf2e.feats-srd.Item.Familiar], 6th @UUID[Compendium.pf2e.feats-srd.Item.Enhanced Familiar]</p>\n<hr />\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.oMIA3aFKvpuV9f2H#elementalist-spells]{Elementalist Spells}</p>"
+            "value": "<p>You're a spellcaster who specializes in harnessing the elements. Though you might feel a kinship for one element over the others, you're capable of shaping many of them. Due to your specialization in elemental magic, you have a smaller, more focused spell list than other spellcasters, though your magic is drawn from multiple traditions. If you choose this class archetype, you must select the @UUID[Compendium.pf2e.feats-srd.Item.Elementalist Dedication] as your 2nd-level class feat.</p>\n<p><strong>Elementalist Adjustments:</strong> Replace your spell list with the elemental spell list. Your actual magical tradition is unchanged, but you choose your spells from the elemental list instead. You must choose an elemental philosophy (detailed below), which determines which spells and other elemental magic you can use.</p>\n<p><strong>Druid Elementalist Adjustments:</strong> If you're a druid of the storm order and air is in your elemental philosophy, you can choose to replace your starting order spell, @UUID[Compendium.pf2e.spells-srd.Item.Tempest Surge], with @UUID[Compendium.pf2e.spells-srd.Item.Updraft].</p>\n<p><strong>Elemental Sorcerer Adjustments:</strong> If you're a sorcerer with the elemental bloodline, you can replace your initial bloodline spell with an initial elemental focus spell, and your advanced bloodline spell with an advanced elemental focus spell. The initial and advanced elemental focus spells you select must have the same trait as your elemental bloodline.</p>\n<p><strong>Wizard Elementalist Adjustments:</strong> If you're a wizard, you can either choose to be a @UUID[Compendium.pf2e.classfeatures.Item.School of Unified Magical Theory] or to follow an arcane school dedicated to one element from your elemental philosophy. If you choose an elemental school, your curriculum spells can be any spells that you have access to and that have your chosen element's trait. Your school spells are the elemental focus spells of your chosen element, with the 1st-rank spell as your initial school spell and the 3rd- rank spell as the advanced school spell.</p><h3>Elemental Philosophy</h3><p>Choose an elemental philosophy, which determines which elements you can use. The options available are as follows.</p><ul><li><strong>Elemental Cycle:</strong> Earth, fire, metal, water, wood</li><li><strong>Inner Sea Elementalism:</strong> Air, earth, fire, water</li></ul><p>Every elementalist has the spells from the universal elemental spells list. Your choice of elemental philosophy affects your other spells. Your personal list also contains any spell that shares one or more traits with those in your elemental philosophy, and doesn't have any traits that aren't in your elemental philosophy. For example, an elemental cycle elementalist could choose a spell with both the earth and fire traits, but not one with the air and fire traits, while an inner sea elementalist could choose either of those, but not a spell with metal and fire traits.</p>\n<p>You can't take elementalist feats or use elementalist abilities for an element you're unable to attune to. For example, an Inner Sea elementalist couldn't select the @UUID[Compendium.pf2e.feats-srd.Item.Reverberating Spell] feat, use @UUID[Compendium.pf2e.feats-srd.Item.Redirect Elements] against a metal or wood spell, or choose a metal or wood ability for their @UUID[Compendium.pf2e.feats-srd.Item.Elemental Familiar].</p><hr /><p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.oMIA3aFKvpuV9f2H#elementalist-focus-spells]{Elementalist Focus Spells}</p>"
         },
         "level": {
             "value": 1
@@ -28,8 +28,150 @@
             "remaster": true,
             "title": "Pathfinder Rage of Elements"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Elementalist.ElementalCycle",
+                        "value": "elemental-cycle"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Elementalist.InnerSea",
+                        "value": "inner-sea-elementalism"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Elementalist.Prompt",
+                "rollOption": "elementalist"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:tag:druid-order"
+                    ]
+                },
+                "flag": "druidicOrder",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "class:druid"
+                ],
+                "prompt": "PF2E.SpecificRule.Druid.DruidicOrder.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "class:druid"
+                ],
+                "uuid": "{item|flags.pf2e.rulesSelections.druidicOrder}"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:tag:witch-elementalist-patron"
+                    ]
+                },
+                "flag": "patron",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "class:witch"
+                ],
+                "prompt": "PF2E.SpecificRule.Witch.Patron.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "class:witch"
+                ],
+                "uuid": "{item|flags.pf2e.rulesSelections.patron}"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:tag:sorcerer-bloodline"
+                    ]
+                },
+                "flag": "bloodline",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "class:sorcerer"
+                ],
+                "prompt": "PF2E.SpecificRule.Sorcerer.Bloodline.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "class:sorcerer"
+                ],
+                "uuid": "{item|flags.pf2e.rulesSelections.bloodline}"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:tag:magus-hybrid-study"
+                    ]
+                },
+                "flag": "hybridStudy",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "class:magus"
+                ],
+                "prompt": "PF2E.SpecificRule.Magus.HybridStudy.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "class:magus"
+                ],
+                "uuid": "{item|flags.pf2e.rulesSelections.hybridStudy}"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:tag:wizard-elemental-school"
+                    ]
+                },
+                "flag": "arcaneSchool",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "class:wizard"
+                ],
+                "prompt": "PF2E.SpecificRule.Wizard.ArcaneSchool.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "class:wizard"
+                ],
+                "uuid": "{item|flags.pf2e.rulesSelections.arcaneSchool}"
+            },
+            {
+                "flag": "elementalistDedication",
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            2
+                        ]
+                    }
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.feats-srd.Item.Elementalist Dedication"
+            }
+        ],
         "traits": {
+            "otherTags": [
+                "druid-order",
+                "magus-hybrid-study",
+                "sorcerer-bloodline",
+                "witch-patron",
+                "wizard-arcane-school"
+            ],
             "rarity": "common",
             "value": []
         }
