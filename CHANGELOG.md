@@ -1,3 +1,16 @@
+## 6.10.2
+
+### Bugfixes
+
+- (stwlam) Fix issue causing feats with trait-toggle data to fail to initialize
+
+### Data Updates
+
+- (Abaddon) Fix Fated Duel description
+- (Ambrose) Condense Potency Crystal equipment effects
+- (Ambrose) Improve automation workflow for Elementalist Class Archetype
+- (Dire Weasel) Preselect Assurance choice for some backgrounds
+
 ## 6.10.1
 
 ### Bugfixes
