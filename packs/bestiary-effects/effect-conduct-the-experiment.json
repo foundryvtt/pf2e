@@ -7,10 +7,10 @@
             "value": "<p>Your melee Strikes deal an extra 2d8 precision damage against the marked creature.</p>"
         },
         "duration": {
-            "expiry": null,
+            "expiry": "turn-start",
             "sustained": false,
-            "unit": "unlimited",
-            "value": -1
+            "unit": "minutes",
+            "value": 1
         },
         "level": {
             "value": 7
@@ -30,6 +30,9 @@
                 "diceNumber": 2,
                 "dieSize": "d8",
                 "key": "DamageDice",
+                "predicate": [
+                    "target:mark:conduct-the-experiment"
+                ],
                 "selector": "melee-strike-damage"
             }
         ],
