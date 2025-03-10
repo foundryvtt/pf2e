@@ -1,0 +1,71 @@
+{
+    "_id": "pdEXnJrIHIEX9NM4",
+    "img": "icons/tools/scribal/spectacles-glasses.webp",
+    "name": "Effect: Sage's Analysis",
+    "system": {
+        "description": {
+            "value": "<p>The sage gains a +2 circumstance bonus to attack rolls and AC against the marked creature and deals an additional 2d6 damage to the creature with weapon attacks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "sages-analysis"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:sages-analysis"
+                ],
+                "selector": "attack",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:mark:sages-analysis"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:mark:sages-analysis",
+                    {
+                        "not": "item:category:unarmed"
+                    }
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
