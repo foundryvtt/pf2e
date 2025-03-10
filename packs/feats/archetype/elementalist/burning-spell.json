@@ -1,0 +1,85 @@
+{
+    "_id": "bVng7Mkrj4UnQzLo",
+    "folder": "K4qJOvrQVDDcIIBT",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Burning Spell",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You enhance your spell with elemental fire, causing it to set the target on fire. If the next action you use is to Cast a non-cantrip Spell that deals damage at a single target, the spell deals additional @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]{Persistent Fire Damage} equal to the spell rank, in addition to its other effects. This has no effect if the spell already deals persistent fire damage. The spell gains the fire trait.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Elementalist Dedication"
+                },
+                {
+                    "value": "fire is in your elemental philosophy"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:burning-spell"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.BurningSpell"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "burning-spell"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:burning-spell"
+                ],
+                "property": "traits",
+                "value": "fire"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "fire",
+                "spellshape"
+            ]
+        }
+    },
+    "type": "feat"
+}

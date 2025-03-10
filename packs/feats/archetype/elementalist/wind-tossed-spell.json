@@ -1,7 +1,8 @@
 {
-    "_id": "U9SrWgLJ8JoAKIy0",
+    "_id": "TdA3oVj79KxOm2Kd",
+    "folder": "K4qJOvrQVDDcIIBT",
     "img": "icons/sundries/books/book-red-exclamation.webp",
-    "name": "Rockslide Spell",
+    "name": "Wind-Tossed Spell",
     "system": {
         "actionType": {
             "value": "action"
@@ -11,10 +12,10 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You enhance your spell with elemental earth, causing chunks of stone to litter the ground. If the next action you use is to Cast a non-cantrip Spell that affects an area, a number of 5-foot squares in the area equal to the spell rank become difficult terrain for 1 round. These squares must be on the ground, and the entire area of difficult terrain must be contiguous. The spell gains the earth trait.</p>"
+            "value": "<p>You enhance your spell with elemental air, using the wind to find your target and carry your magic around cover. If the next action you use is to Cast a Spell that requires a spell attack roll, you ignore the target's @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition and any cover they have from you. The spell gains the air trait.</p>"
         },
         "level": {
-            "value": 10
+            "value": 14
         },
         "prerequisites": {
             "value": [
@@ -22,7 +23,7 @@
                     "value": "Elementalist Dedication"
                 },
                 {
-                    "value": "earth is in your elemental philosophy"
+                    "value": "air is in your elemental philosophy"
                 }
             ]
         },
@@ -37,12 +38,12 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "spellshape:rockslide-spell"
+                    "spellshape:wind-tossed-spell"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Spellshape.RockslideSpell"
+                        "text": "PF2E.SpecificRule.Spellshape.WindTossedSpell"
                     }
                 ]
             },
@@ -51,10 +52,10 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "spellshape:rockslide-spell"
+                    "spellshape:wind-tossed-spell"
                 ],
                 "property": "traits",
-                "value": "earth"
+                "value": "air"
             },
             {
                 "key": "RollOption",
@@ -65,7 +66,7 @@
                 "suboptions": [
                     {
                         "label": "{item|name}",
-                        "value": "rockslide-spell"
+                        "value": "wind-tossed-spell"
                     }
                 ],
                 "toggleable": true
@@ -74,8 +75,9 @@
         "traits": {
             "rarity": "common",
             "value": [
+                "air",
                 "archetype",
-                "earth",
+                "concentrate",
                 "spellshape"
             ]
         }
