@@ -1,7 +1,8 @@
 {
-    "_id": "bVng7Mkrj4UnQzLo",
+    "_id": "nroOy0PBeEUGdUXD",
+    "folder": "K4qJOvrQVDDcIIBT",
     "img": "icons/sundries/books/book-red-exclamation.webp",
-    "name": "Burning Spell",
+    "name": "Dousing Spell",
     "system": {
         "actionType": {
             "value": "action"
@@ -11,10 +12,10 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You enhance your spell with elemental fire, causing it to set the target on fire. If the next action you use is to Cast a non-cantrip Spell that deals damage at a single target, the spell deals additional @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]{Persistent Fire Damage} equal to the spell rank, in addition to its other effects. This has no effect if the spell already deals persistent fire damage. The spell gains the fire trait.</p>"
+            "value": "<p>You enhance your spell with elemental water, soaking the target. If the next action you use is to Cast a Spell targeting a single creature, you soak the target of the spell with water. If the target has @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]{Persistent Acid or Fire Damage}, the DC to end those conditions is reduced to 10, and the creature can attempt a flat check to end those types of persistent damage immediately. The spell gains the water trait (causing it to deal extra damage to creatures with weakness to water).</p>"
         },
         "level": {
-            "value": 6
+            "value": 4
         },
         "prerequisites": {
             "value": [
@@ -22,7 +23,7 @@
                     "value": "Elementalist Dedication"
                 },
                 {
-                    "value": "fire is in your elemental philosophy"
+                    "value": "water is in your elemental philosophy"
                 }
             ]
         },
@@ -37,12 +38,12 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "spellshape:burning-spell"
+                    "spellshape:dousing-spell"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Spellshape.BurningSpell"
+                        "text": "PF2E.SpecificRule.Spellshape.DousingSpell"
                     }
                 ]
             },
@@ -55,7 +56,7 @@
                 "suboptions": [
                     {
                         "label": "{item|name}",
-                        "value": "burning-spell"
+                        "value": "dousing-spell"
                     }
                 ],
                 "toggleable": true
@@ -65,18 +66,18 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "spellshape:burning-spell"
+                    "spellshape:dousing-spell"
                 ],
                 "property": "traits",
-                "value": "fire"
+                "value": "water"
             }
         ],
         "traits": {
             "rarity": "common",
             "value": [
                 "archetype",
-                "fire",
-                "spellshape"
+                "spellshape",
+                "water"
             ]
         }
     },

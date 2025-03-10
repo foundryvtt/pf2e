@@ -1,7 +1,8 @@
 {
-    "_id": "hRRxmIhRvg59RMqO",
+    "_id": "U9SrWgLJ8JoAKIy0",
+    "folder": "K4qJOvrQVDDcIIBT",
     "img": "icons/sundries/books/book-red-exclamation.webp",
-    "name": "Growth Spell",
+    "name": "Rockslide Spell",
     "system": {
         "actionType": {
             "value": "action"
@@ -11,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You enhance your spell with elemental wood, causing your magic to expand and grow beyond its original limitations. If the next action you use this turn is to Cast a non-cantrip Spell that affects an area, expand the area of the spell. For bursts, expand the radius by 5 feet; for cones, expand the cone by 10 feet; and for lines, expand the length by 15 feet. The spell gains the wood trait.</p>"
+            "value": "<p>You enhance your spell with elemental earth, causing chunks of stone to litter the ground. If the next action you use is to Cast a non-cantrip Spell that affects an area, a number of 5-foot squares in the area equal to the spell rank become difficult terrain for 1 round. These squares must be on the ground, and the entire area of difficult terrain must be contiguous. The spell gains the earth trait.</p>"
         },
         "level": {
             "value": 10
@@ -22,7 +23,7 @@
                     "value": "Elementalist Dedication"
                 },
                 {
-                    "value": "wood is in your elemental philosophy"
+                    "value": "earth is in your elemental philosophy"
                 }
             ]
         },
@@ -37,14 +38,24 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "spellshape:growth-spell"
+                    "spellshape:rockslide-spell"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Spellshape.GrowthSpell"
+                        "text": "PF2E.SpecificRule.Spellshape.RockslideSpell"
                     }
                 ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:rockslide-spell"
+                ],
+                "property": "traits",
+                "value": "earth"
             },
             {
                 "key": "RollOption",
@@ -55,28 +66,18 @@
                 "suboptions": [
                     {
                         "label": "{item|name}",
-                        "value": "growth-spell"
+                        "value": "rockslide-spell"
                     }
                 ],
                 "toggleable": true
-            },
-            {
-                "itemType": "spell",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "spellshape:growth-spell"
-                ],
-                "property": "traits",
-                "value": "wood"
             }
         ],
         "traits": {
             "rarity": "common",
             "value": [
                 "archetype",
-                "spellshape",
-                "wood"
+                "earth",
+                "spellshape"
             ]
         }
     },
