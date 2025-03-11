@@ -1,0 +1,108 @@
+{
+    "_id": "k8Gt8zfPOhkYOn1A",
+    "img": "systems/pf2e/icons/equipment/consumables/potions/potion-of-acid-resistance.webp",
+    "name": "Effect: Potion of Acid Resistance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Potion of Acid Resistance (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Potion of Acid Resistance (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Potion of Acid Resistance (Greater)]</p>\n<p>You gain resistance against acid damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:potion-of-acid-resistance-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Potion of Acid Resistance (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:potion-of-acid-resistance-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Potion of Acid Resistance (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:potion-of-acid-resistance-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Potion of Acid Resistance (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "potion-of-acid-resistance"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "potion-of-acid-resistance:potion-of-acid-resistance-lesser"
+                ],
+                "type": "acid",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "potion-of-acid-resistance:potion-of-acid-resistance-moderate"
+                ],
+                "type": "acid",
+                "value": 10
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "potion-of-acid-resistance:potion-of-acid-resistance-greater"
+                ],
+                "type": "acid",
+                "value": 15
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
