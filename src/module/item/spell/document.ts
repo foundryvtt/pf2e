@@ -457,7 +457,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }
         const { castRank, overlayIds } = options;
         const appliedOverlays: Map<SpellOverlayType, string> = new Map();
-        const heightenOverlays = this.getHeightenLayers(castRank);
+        const heightenOverlays = this.getHeightenLayers(castRank ?? this.rank);
         const overlays = overlayIds?.map((id) => ({ id, data: this.overlays.get(id, { strict: true }) })) ?? [];
 
         const overrides = (() => {
