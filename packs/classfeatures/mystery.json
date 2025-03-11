@@ -29,11 +29,32 @@
                 "adjustName": false,
                 "choices": {
                     "filter": [
+                        {
+                            "or": [
+                                "item:tag:oracle-mystery",
+                                "item:tag:oracle-class-archetype"
+                            ]
+                        }
+                    ]
+                },
+                "flag": "mystery",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Oracle.Mystery.Prompt"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
                         "item:tag:oracle-mystery"
                     ]
                 },
                 "flag": "mystery",
                 "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "not": "class:oracle"
+                    }
+                ],
                 "prompt": "PF2E.SpecificRule.Oracle.Mystery.Prompt"
             },
             {

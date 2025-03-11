@@ -29,11 +29,31 @@
                 "adjustName": false,
                 "choices": {
                     "filter": [
+                        "item:tag:inventor-innovation",
+                        "item:tag:inventor-class-archetype"
+                    ]
+                },
+                "flag": "innovation",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "class:inventor"
+                ],
+                "prompt": "PF2E.SpecificRule.Inventor.Innovation.Prompt"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
                         "item:tag:inventor-innovation"
                     ]
                 },
                 "flag": "innovation",
                 "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "not": "class:inventor"
+                    }
+                ],
                 "prompt": "PF2E.SpecificRule.Inventor.Innovation.Prompt"
             },
             {

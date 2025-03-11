@@ -30,6 +30,48 @@
                 "choices": {
                     "filter": [
                         "item:type:feature",
+                        {
+                            "or": [
+                                "item:tag:champion-cause",
+                                "item:tag:champion-class-archetype"
+                            ]
+                        },
+                        {
+                            "or": [
+                                {
+                                    "and": [
+                                        "item:tag:holy",
+                                        "sanctification:holy"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:tag:unholy",
+                                        "sanctification:unholy"
+                                    ]
+                                },
+                                {
+                                    "nor": [
+                                        "item:tag:holy",
+                                        "item:tag:unholy"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "flag": "cause",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "class:champion"
+                ],
+                "prompt": "PF2E.SpecificRule.DeityAndCause.Prompt"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:type:feature",
                         "item:tag:champion-cause",
                         {
                             "or": [
@@ -57,6 +99,11 @@
                 },
                 "flag": "cause",
                 "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "not": "class:champion"
+                    }
+                ],
                 "prompt": "PF2E.SpecificRule.DeityAndCause.Prompt"
             },
             {

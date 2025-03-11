@@ -29,11 +29,35 @@
                 "adjustName": false,
                 "choices": {
                     "filter": [
+                        {
+                            "or": [
+                                "item:tag:witch-patron",
+                                "item:tag:witch-class-archetype"
+                            ]
+                        }
+                    ]
+                },
+                "flag": "patron",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "class:witch"
+                ],
+                "prompt": "PF2E.SpecificRule.Witch.Patron.Prompt"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
                         "item:tag:witch-patron"
                     ]
                 },
                 "flag": "patron",
                 "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "not": "class:witch"
+                    }
+                ],
                 "prompt": "PF2E.SpecificRule.Witch.Patron.Prompt"
             },
             {
