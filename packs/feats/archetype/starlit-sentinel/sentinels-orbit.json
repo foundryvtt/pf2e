@@ -1,0 +1,50 @@
+{
+    "_id": "RtqMWOyfNoruyoxK",
+    "folder": "qAxIUqU7f0yo5Mtl",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Sentinel's Orbit",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Just as your constellation traverses the sky, so too can you. When in your sentinel form, you gain a fly Speed equal to your land Speed or 20 feet, whichever is higher.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Starlit Sentinel Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "self:effect:starlit-transformation"
+                ],
+                "selector": "fly",
+                "value": "max(20,@actor.attributes.speed.total)"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

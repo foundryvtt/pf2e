@@ -1,0 +1,90 @@
+{
+    "_id": "renUpSO6MJXPSXow",
+    "folder": "O4rSejyxkTbAfGZq",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Monk Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You become trained in unarmed attacks and gain the @UUID[Compendium.pf2e.classfeatures.Item.Powerful Fist] class feature. You become trained in your choice of Acrobatics or Athletics; if you are already trained in both of these skills, you become trained in a skill of your choice. You become trained in monk class DC.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.5v7k1XWQxaP0DoGX]{Monk}</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Strength +2"
+                },
+                {
+                    "value": "Dexterity +2"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.monkDedicationCount",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.classfeatures.Item.Powerful Fist"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.AbilityStr",
+                        "value": "str"
+                    },
+                    {
+                        "label": "PF2E.AbilityDex",
+                        "value": "dex"
+                    }
+                ],
+                "flag": "attribute",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.ClassDCAbilityScore"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.classDCs.monk.ability",
+                "value": "{item|flags.pf2e.rulesSelections.attribute}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "monk": {
+                    "attribute": null,
+                    "rank": 1
+                },
+                "unarmed": {
+                    "rank": 1
+                }
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication",
+                "multiclass"
+            ]
+        }
+    },
+    "type": "feat"
+}

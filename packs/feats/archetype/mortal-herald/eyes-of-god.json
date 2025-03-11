@@ -1,0 +1,62 @@
+{
+    "_id": "EfIh3sGokwzAwYpQ",
+    "folder": "5S0CMZTDzgFfC0iN",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Eyes of God",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can see things as they truly are. You are constantly under the effect of 8th-rank @UUID[Compendium.pf2e.spells-srd.Item.See the Unseen] and @UUID[Compendium.pf2e.spells-srd.Item.Truesight] spells. Additionally, you gain a +4 status bonus to your @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive] checks and to your Perception DC against Lies.</p>"
+        },
+        "level": {
+            "value": 18
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Mortal Herald Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:sense-motive"
+                ],
+                "selector": "perception",
+                "slug": "eyes-of-god-sense-motive",
+                "type": "status",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:lie"
+                ],
+                "selector": "perception-dc",
+                "slug": "eyes-of-god-lie",
+                "type": "status",
+                "value": 4
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,103 @@
+{
+    "_id": "BBPrlPncXg86I42D",
+    "folder": "Hoars8XAWamKNgYm",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Counterclockwork Focus",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p>You understand the need for law enforcement doctrine to adapt to the ever-changing innovations in technology and arcana. Your training in special weapons and tactics give you access to unusual techniques to respond to clockwork- and magic-related crimes. You apply special additives to a loaded firearm. On your next Strike with that firearm before the end of your turn, you deal an additional 2d6 damage if the target is a construct, and you can treat the ammunition as your choice of cold iron or adamantine. At 18th level, this additional damage increases to 3d6, and you can choose to instead treat the ammunition as orichalcum.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "round",
+            "value": 1
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Shieldmarshal Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Impossible Lands"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "counterclockwork-focus",
+                "suboptions": [
+                    {
+                        "label": "PF2E.NoneOption",
+                        "value": "none"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialAdamantine",
+                        "value": "adamantine"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialColdIron",
+                        "value": "cold-iron"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialOrichalcum",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    18
+                                ]
+                            }
+                        ],
+                        "value": "orichalcum"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "diceNumber": "ternary(gte(@actor.level,18),3,2)",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:trait:construct",
+                    "counterclockwork-focus"
+                ],
+                "selector": "firearm-weapon-group-damage"
+            },
+            {
+                "definition": [
+                    "item:group:firearm"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "counterclockwork-focus",
+                    {
+                        "not": "counterclockwork-focus:none"
+                    }
+                ],
+                "property": "materials",
+                "value": "{item|flags.pf2e.rulesSelections.counterclockworkFocus}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

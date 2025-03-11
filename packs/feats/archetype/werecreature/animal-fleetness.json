@@ -1,0 +1,118 @@
+{
+    "_id": "7sI2tb0XRvAKmz2o",
+    "folder": "IuPreCoIEABvPblu",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Animal Fleetness",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You're adept at using your animal shape's natural means of locomotion. While you're in animal shape, the Speeds granted by that shape increases by 10 feet.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Werecreature Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "werecreature:werebat",
+                    "change-shape:animal"
+                ],
+                "selector": "land",
+                "value": 20
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "werecreature:werebat",
+                    "change-shape:animal"
+                ],
+                "selector": "fly",
+                "value": 25
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    {
+                        "or": [
+                            "werecreature:werebear",
+                            "werecreature:werecrocodile",
+                            "werecreature:weremoose",
+                            "werecreature:wererat",
+                            "werecreature:weretiger"
+                        ]
+                    },
+                    "change-shape:animal"
+                ],
+                "selector": "land",
+                "value": 35
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    {
+                        "or": [
+                            "werecreature:wereboar",
+                            "werecreature:werewolf"
+                        ]
+                    },
+                    "change-shape:animal"
+                ],
+                "selector": "land",
+                "value": 40
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "werecreature:werecrocodile",
+                    "change-shape:animal"
+                ],
+                "selector": "swim",
+                "value": 25
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "werecreature:wereshark",
+                    "change-shape:animal"
+                ],
+                "selector": "land",
+                "value": 25
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "werecreature:wereshark",
+                    "change-shape:animal"
+                ],
+                "selector": "swim",
+                "value": 35
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

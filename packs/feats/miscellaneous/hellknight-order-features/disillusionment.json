@@ -1,0 +1,67 @@
+{
+    "_id": "RkvAuikI0kIZlQTU",
+    "folder": "JWONUtbcQQpNsayF",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Disillusionment",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "bonus",
+        "description": {
+            "value": "<p>Dreams are pointless illusions you seek to quash. If you roll a success on a saving throw against an illusion or dream effect or a Perception check to disbelieve an illusion, you get a critical success instead. If you roll a critical failure on any of those checks, you get a failure instead.</p>"
+        },
+        "level": {
+            "value": 0
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Order of the Rack"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Character Guide"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better",
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:dream",
+                            "item:trait:illusion"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better",
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:disbelieve"
+                ],
+                "selector": "perception"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,161 @@
+{
+    "_id": "0YjetnLVIUz9zQt5",
+    "folder": "QEy7Vs3sZGb1qZJ7",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Champion Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Choose a deity. You are bound by your deity's anathema and gain the champion's aura and sanctification as described in the champion class. Choose a cause as you would if you were a champion, with the same options a champion must abide by. You gain its edicts and anathema but don't gain the other abilities.</p>\n<p>You become trained in Religion and your deity's associated skill; for each of these skills in which you were already trained, you instead become trained in a skill of your choice. You become trained in champion class DC. If you later gain a devotion spell, you become trained in spell attack modifier and spell DC.</p>\n<p>You become trained in light armor and medium armor. If you already were trained in light armor and medium armor, you gain training in heavy armor as well. Whenever you gain a class feature that grants you expert or greater proficiency in any type of armor (but not unarmored defense), you also gain that proficiency in the armor types granted to you by this feat. If you have a class feature that grants you expert proficiency in unarmored defense and you're 13th level or higher, you also become an expert in the armor types granted to you by this feat.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.DXtjeVaWNB8zSjpA]{Champion}</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Strength +2"
+                },
+                {
+                    "value": "Charisma +2"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Character.Proficiency.Defense.LightShort",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "defense:light:rank:0",
+                                    "defense:medium:rank:0"
+                                ]
+                            }
+                        ],
+                        "value": "light-and-medium"
+                    },
+                    {
+                        "label": "PF2E.Actor.Character.Proficiency.Defense.HeavyShort",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "defense:light:rank:0",
+                                    "defense:medium:rank:0"
+                                ]
+                            }
+                        ],
+                        "value": "heavy"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "champion-dedication"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.AbilityStr",
+                        "value": "str"
+                    },
+                    {
+                        "label": "PF2E.AbilityDex",
+                        "value": "dex"
+                    }
+                ],
+                "flag": "attribute",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.ClassDCAbilityScore"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.religion.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.championDedicationCount",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.classfeatures.Item.Deity (Champion)"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.classfeatures.Item.Cause"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.classDCs.champion.attribute",
+                "value": "{item|flags.pf2e.rulesSelections.attribute}"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.light.rank",
+                "predicate": [
+                    "champion-dedication:light-and-medium"
+                ],
+                "value": "max(@actor.system.proficiencies.defenses.medium.rank,ternary(gte(@actor.level,13),min(@actor.system.proficiencies.defenses.unarmored.rank,2),1))"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.medium.rank",
+                "predicate": [
+                    "champion-dedication:light-and-medium"
+                ],
+                "value": "max(@actor.system.proficiencies.defenses.light.rank,ternary(gte(@actor.level,13),min(@actor.system.proficiencies.defenses.unarmored.rank,2),1))"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.heavy.rank",
+                "predicate": [
+                    "champion-dedication:heavy"
+                ],
+                "value": "max(@actor.system.proficiencies.defenses.light.rank,@actor.system.proficiencies.defenses.medium.rank,ternary(gte(@actor.level,13),min(@actor.system.proficiencies.defenses.unarmored.rank,2),1))"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "champion": {
+                    "attribute": null,
+                    "rank": 1
+                },
+                "light": {
+                    "rank": 1
+                },
+                "medium": {
+                    "rank": 1
+                }
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication",
+                "multiclass"
+            ]
+        }
+    },
+    "type": "feat"
+}

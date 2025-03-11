@@ -1,0 +1,54 @@
+{
+    "_id": "sjVDquil4S6pIror",
+    "folder": "pyWJzBWeHObKLfXj",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Stone Brawler Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've learned to call the primal power of elemental stone to your aid. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Stonestrike Stance] action.</p><hr /><p><strong>Special</strong> You cannot select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.YbGa7Rdxh2iQxPfG]{Stone Brawler} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Constitution +2"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #195: Heavy is the Crown"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.stoneBrawlerArchetype.featCount",
+                "value": 1
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Stonestrike Stance"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}
