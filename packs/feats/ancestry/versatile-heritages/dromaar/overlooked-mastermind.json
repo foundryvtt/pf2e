@@ -1,0 +1,54 @@
+{
+    "_id": "KuD4Yplwcdolhjsu",
+    "folder": "lqeWjYCinpelJ5df",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Overlooked Mastermind",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Many consider half-orcs little more than dumb brutes. This is offensive to you, but it can occasionally be useful. You are trained in Deception (or another skill of your choice if you were already trained in Deception), and you gain a +2 circumstance bonus to Deception checks to Lie when specifically claiming ignorance and to Deception DCs against @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive] checks to uncover such lies.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Character Guide"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.deception.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:lie",
+                    "claim-ignorance"
+                ],
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dromaar"
+            ]
+        }
+    },
+    "type": "feat"
+}

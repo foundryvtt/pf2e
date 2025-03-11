@@ -1,0 +1,69 @@
+{
+    "_id": "PGVXjbAi1Fa4uTmD",
+    "folder": "mCO6gdJ68cnsdtlN",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Halo",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have a halo of light and goodness that sheds light with the effects of a divine @UUID[Compendium.pf2e.spells-srd.Item.Light] cantrip. A cantrip is heightened to a spell rank equal to half your level rounded up. You can Sustain to suppress or reestablish the halo.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "halo-active",
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "halo-active"
+                ],
+                "value": {
+                    "alpha": 0.2,
+                    "animation": {
+                        "intensity": 1,
+                        "speed": 2,
+                        "type": "pulse"
+                    },
+                    "bright": "ternary(gte(ceil(@actor.level / 2),4),60,20)",
+                    "color": "#e7f3f1",
+                    "dim": "ternary(gte(ceil(@actor.level / 2),4),120,40)"
+                }
+            },
+            {
+                "key": "TokenEffectIcon",
+                "predicate": [
+                    "halo-active"
+                ],
+                "value": "icons/magic/light/explosion-star-glow-blue.webp"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "nephilim"
+            ]
+        }
+    },
+    "type": "feat"
+}

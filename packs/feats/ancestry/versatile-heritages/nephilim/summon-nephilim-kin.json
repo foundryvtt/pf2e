@@ -1,0 +1,76 @@
+{
+    "_id": "L231BR4815B6hwKT",
+    "folder": "mCO6gdJ68cnsdtlN",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Summon Nephilim Kin",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have a connection to the Outer Planes, allowing you to summon a divine ally. Choose either @UUID[Compendium.pf2e.spells-srd.Item.Summon Celestial], @UUID[Compendium.pf2e.spells-srd.Item.Summon Fiend], or another 5th-rank spell capable of summoning an extraplanar creature appropriate to your lineage. Once per day, you can cast the chosen spell as a 5th-rank divine innate spell, but the creature summoned must be from the same category as your own lineage, such as a creature with the angel trait if you are an angelkin.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "any nephilim lineage feat"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:summon-monitor",
+                            "item:summon-celestial",
+                            "item:summon-fiend"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:summon-monitor",
+                            "item:summon-celestial",
+                            "item:summon-fiend"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:nephilim"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "nephilim"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,70 @@
+{
+    "_id": "6WwxTbX8KvU3Xxak",
+    "folder": "GCOKwZbbnnZVX5w4",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Janni Hospitality",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You can use magic to show others desert hospitality. You can cast 2nd-rank @UUID[Compendium.pf2e.spells-srd.Item.Create Food] once per day and @UUID[Compendium.pf2e.spells-srd.Item.Create Water] twice per day as arcane innate spells.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Ancestry Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:create-food",
+                            "item:slug:create-water"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:create-food",
+                            "item:slug:create-water"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:suli"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "suli"
+            ]
+        }
+    },
+    "type": "feat"
+}

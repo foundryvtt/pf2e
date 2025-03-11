@@ -1,0 +1,71 @@
+{
+    "_id": "DGtUIMliflzGXc6E",
+    "folder": "IulPPM6u6V9GJtD3",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Ghost Hunter",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your connection to the Boneyard ensures that your blows strike true against spectral beings. Your weapon and unarmed Strikes against incorporeal creatures become magical. If they are already magical, they instead gain the effects of a <em>ghost touch</em> property rune.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.TOTMToggle.Incorporeal",
+                "option": "target:trait:incorporeal",
+                "toggleable": "totm"
+            },
+            {
+                "definition": [
+                    "item:magical"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "target:trait:incorporeal"
+                ],
+                "property": "property-runes",
+                "value": "ghost-touch"
+            },
+            {
+                "definition": [
+                    {
+                        "not": "item:magical"
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "target:trait:incorporeal"
+                ],
+                "property": "weapon-traits",
+                "value": "magical"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "duskwalker"
+            ]
+        }
+    },
+    "type": "feat"
+}
