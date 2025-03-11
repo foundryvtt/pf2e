@@ -1,0 +1,58 @@
+{
+    "_id": "XKDFgBEtFdEzCz8X",
+    "folder": "mCO6gdJ68cnsdtlN",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Intuitive Crafting",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your affinity with process and order makes you a natural artisan. You are trained in Crafting. If you were already trained in Crafting, you instead gain the @UUID[Compendium.pf2e.feats-srd.Item.Specialty Crafting] skill feat in a specialty of your choice; if you have both, you instead become trained in a skill of your choice. In addition, when you critically fail to Repair an item, you get a failure instead.</p><hr /><p><em>Note: If you were already trained in Crafting, you need to manually add the Specialty Crafting feat or select an alternative skill.</em></p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Aeonbound"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.crafting.rank",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:repair"
+                ],
+                "selector": "crafting"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "nephilim"
+            ]
+        }
+    },
+    "type": "feat"
+}

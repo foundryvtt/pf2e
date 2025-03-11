@@ -1,0 +1,84 @@
+{
+    "_id": "gxQheZ4xuDWwyzy4",
+    "folder": "mCO6gdJ68cnsdtlN",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Pitborn",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your blood bears the mark of a demon, a living embodiment of sin from the fetid depths of the Outer Rifts. Demonic power pulses through your veins and manifests in a different way for each pitborn, whether you have webbed fingers and thrive in the water, large hands capable of wrestling larger foes, or some other manifestation. You are trained in Athletics. If you were already trained in Athletics (from your background or class, for example), you instead become trained in a skill of your choice.</p>\n<p>You also gain any one common 1st-level skill feat with a prerequisite of trained in Athletics, as reflects the manifestation of your fiendish blood.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "onlyLevel1": true,
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.athletics.rank",
+                "value": 1
+            },
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "PF2E.SpecificRule.Nephilim.Pitborn.AllowedDrops",
+                    "predicate": [
+                        "item:category:skill",
+                        "item:level:1",
+                        "item:rarity:common"
+                    ]
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Armor Assist"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Combat Climber"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Hefty Hauler"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Quick Jump"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Titan Wrestler"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Underwater Marauder"
+                    }
+                ],
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.SkillFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "lineage",
+                "nephilim"
+            ]
+        }
+    },
+    "type": "feat"
+}

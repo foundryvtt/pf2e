@@ -1,0 +1,69 @@
+{
+    "_id": "Tl8yckXeTCHnwrlM",
+    "folder": "XZIfusnrUVlWL7bd",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Soaring Flight",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per round</p><hr /><p>You Fly. If you don't normally have a fly Speed, you gain a fly Speed of 20 feet for this movement. If you aren't on solid ground at the end of this movement, you fall.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "round"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "skyborn tengu heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "soaring-flight",
+                "predicate": [
+                    {
+                        "not": "feat:soaring-form"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "soaring-flight"
+                ],
+                "selector": "fly",
+                "value": 20
+            }
+        ],
+        "selfEffect": {
+            "name": "Effect: Soaring Flight",
+            "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Soaring Flight"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "tengu"
+            ]
+        }
+    },
+    "type": "feat"
+}

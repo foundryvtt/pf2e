@@ -1,0 +1,66 @@
+{
+    "_id": "B4e8V5nExlScjojY",
+    "folder": "IulPPM6u6V9GJtD3",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Shoki's Argument",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You feel a connection to shokis, the rambling collectors of wayward souls, and might have found old texts written by one. You are trained in Diplomacy. If you were already trained in Diplomacy (from your background or class, for example), you instead become trained in a skill of your choice. You can also cast @UUID[Compendium.pf2e.spells-srd.Item.Vitality Lash] as a divine innate cantrip at will. A cantrip is heightened to a spell rank equal to half your level rounded up.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Ancestry Guide"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.diplomacy.rank",
+                "value": 1
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:vitality-lash",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:vitality-lash",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:duskwalker"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "duskwalker"
+            ]
+        }
+    },
+    "type": "feat"
+}

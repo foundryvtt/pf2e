@@ -1,0 +1,88 @@
+{
+    "_id": "5Unc9AhGAAw1klFN",
+    "folder": "uSNzrFBqGPoQkbH3",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Animal Swiftness",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You move like an animal. Your Speed increases by 5 feet. In addition, you gain one of the following Speeds available to your inherent animal: climb, fly, or swim. You gain this Speed only while in your hybrid shape. The new movement is as fast as your standard Speed; for example, if you have a 30-foot Speed, you can gain a 30-foot climb Speed. If your inherent animal doesn't typically have a specific type of Speed, you can't gain it with this feat. If your inherent animal doesn't typically have a climb, fly, or swim Speed, your Speed increases by 10 feet instead.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Ancestry Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Land",
+                        "value": "land"
+                    },
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Fly",
+                        "value": "fly"
+                    },
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Swim",
+                        "value": "swim"
+                    },
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Climb",
+                        "value": "climb"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.MovementType",
+                "rollOption": "animal-swiftness"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "land-speed",
+                "slug": "animal-swiftness",
+                "value": 5
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "animal-swiftness:land"
+                ],
+                "selector": "speed",
+                "slug": "animal-swiftness",
+                "value": 10
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "change-shape:hybrid",
+                    {
+                        "not": "animal-swiftness:land"
+                    }
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.animalSwiftness}",
+                "value": "@actor.attributes.speed.total"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "beastkin"
+            ]
+        }
+    },
+    "type": "feat"
+}

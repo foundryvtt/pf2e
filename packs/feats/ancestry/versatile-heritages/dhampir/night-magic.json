@@ -1,0 +1,70 @@
+{
+    "_id": "iRpVW1DPKVxlzIzt",
+    "folder": "ujjBTcgWjsAQJA9n",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Night Magic",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You can tap into the magic that runs through your blood. You gain @UUID[Compendium.pf2e.spells-srd.Item.Animal Form] (wolf only, using the statistics for a canine) and @UUID[Compendium.pf2e.spells-srd.Item.Mist] as 2nd-rank divine innate spells. You can cast each of these spells once per day.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:animal-form",
+                            "item:slug:mist"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:animal-form",
+                            "item:slug:mist"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:dhampir"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dhampir"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,73 @@
+{
+    "_id": "n3CbbtK4fgBznIMf",
+    "folder": "mCO6gdJ68cnsdtlN",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Extraplanar Supplication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You call upon divine power to place a benediction upon your allies or a malediction upon your foes. Choose either @UUID[Compendium.pf2e.spells-srd.Item.Bless] or @UUID[Compendium.pf2e.spells-srd.Item.Bane]. You can cast the chosen spell once per day as a 1st-rank divine innate spell.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:bless",
+                            "item:slug:bane"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:bless",
+                            "item:slug:bane"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:nephilim"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "selected": {
+                "aasimar": "Aasimar"
+            },
+            "value": [
+                "nephilim"
+            ]
+        }
+    },
+    "type": "feat"
+}
