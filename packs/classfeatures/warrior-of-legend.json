@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>You have received a blessing that will ensure your ascension to legend, and a curse that foretells your inevitable fall. You must select Warrior of Legend Dedication as your 2nd-level class feat.</p>\n<p><strong>Prerequisites:</strong> You must be a fighter.</p>\n<p><strong>Warrior of Legend Adjustments:</strong> You aren't trained in heavy armor.</p>\n<p>The armor expertise and armor mastery class features only improve your proficiency rank for light armor, medium armor, and unarmored defense. You don't gain Shield Block as a class feature. You are trained in both Acrobatics and Athletics, rather than one or the other.</p>\n<p>Choose one physical damage type, which becomes your cursed weakness: bludgeoning, piercing, or slashing. You gain weakness to this damage type equal to half your level (minimum 1).</p>\n<p>You gain Diehard as a bonus feat, but you become @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 2} whenever you take damage from your cursed weakness (unless your doomed value is already higher).</p>\n<p>Your fighter weapon mastery and weapon legend class features grant you increased proficiency in both spears and polearms, but you can't choose any other weapon group with these class features.</p>"
+            "value": "<p>You have received a blessing that will ensure your ascension to legend, and a curse that foretells your inevitable fall. You must select Warrior of Legend Dedication as your 2nd-level class feat.</p>\n<p><strong>Prerequisites:</strong> You must be a fighter.</p>\n<p><strong>Warrior of Legend Adjustments:</strong> You aren't trained in heavy armor.</p>\n<p>The armor expertise and armor mastery class features only improve your proficiency rank for light armor, medium armor, and unarmored defense. You don't gain Shield Block as a class feature. You are trained in both Acrobatics and Athletics, rather than one or the other.</p>\n<p>Choose one physical damage type, which becomes your cursed weakness: bludgeoning, piercing, or slashing. You gain weakness to this damage type equal to half your level (minimum 1).</p>\n<p>You gain @UUID[Compendium.pf2e.feats-srd.Item.Diehard] as a bonus feat, but you become @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 2} whenever you take damage from your cursed weakness (unless your doomed value is already higher).</p>\n<p>Your fighter weapon mastery and weapon legend class features grant you increased proficiency in both spears and polearms, but you can't choose any other weapon group with these class features.</p>"
         },
         "level": {
             "value": 1
@@ -54,6 +54,20 @@
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.feats-srd.Item.Diehard"
+            },
+            {
+                "flag": "warriorOfLegendDedication",
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            2
+                        ]
+                    }
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.feats-srd.Item.Warrior of Legend Dedication"
             }
         ],
         "subfeatures": {
