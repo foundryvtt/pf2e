@@ -9,7 +9,7 @@
         "actions": {
             "value": 1
         },
-        "category": null,
+        "category": "offensive",
         "description": {
             "value": "<p>You clang your ikon against a weapon, shield, or the ground, emitting a shock wave that deals @Damage[(max(1,(floor((@actor.level - 2)/2))))d4[spirit],(max(1,(floor((@actor.level - 2)/2))))d4[sonic]|options:area-damage] damage to all creatures in a @Template[type:cone|distance:30] or @Template[type:emanation|distance:15] (@Check[fortitude|against:exemplar|basic|options:area-effect] save). A creature that critically fails its saving throw is @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 minute.</p>\n<p>At 6th level and every 2 levels thereafter, the damage increases by 1d4 spirit damage and 1d4 sonic damage.</p>"
         },
@@ -18,7 +18,15 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "exemplar-spirit-damage"
+            }
+        ],
         "traits": {
             "value": [
                 "sonic",

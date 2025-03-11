@@ -45,6 +45,68 @@
                     "{item|flags.pf2e.rulesSelections.sanctification}"
                 ],
                 "key": "ActorTraits"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "energized-spark"
+                    },
+                    "item:tag:exemplar-spirit-damage"
+                ],
+                "priority": 121,
+                "property": "traits",
+                "value": "sanctified"
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "energized-spark"
+                    },
+                    "item:tag:exemplar-spirit-damage"
+                ],
+                "priority": 121,
+                "property": "traits",
+                "value": "sanctified"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "energized-spark"
+                    },
+                    {
+                        "or": [
+                            "feature:spirit-striking",
+                            "divine-spark:barrows-edge",
+                            "divine-spark:gleaming-blade",
+                            "flowing-spirit-strike",
+                            "divine-spark:hands-of-the-wildling",
+                            "divine-spark:mortal-harvest",
+                            "divine-spark:noble-branch",
+                            "divine-spark:starshot",
+                            "divine-spark:titans-breaker",
+                            "divine-spark:unfailing-bow",
+                            "burn-out-of-time",
+                            "heaven-rains-an-ending",
+                            {
+                                "and": [
+                                    "self:effect:shadow-sheathe-weapon",
+                                    "divine-spark:shadow-sheath"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "priority": 150,
+                "property": "traits",
+                "value": "{item|flags.pf2e.rulesSelections.sanctification}"
             }
         ],
         "traits": {
