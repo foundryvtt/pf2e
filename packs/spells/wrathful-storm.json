@@ -14,7 +14,7 @@
         "damage": {},
         "defense": null,
         "description": {
-            "value": "<p>A massive storm cloud forms in the air above the area, spreading rain and gales. The wind imposes a –4 circumstance penalty to physical ranged attacks. The air in the area is greater difficult terrain for flying creatures. When you Cast this Spell and the first time each round you Sustain it on subsequent rounds, you can choose one of the following storm effects. You can't choose the same effect twice in a row.</p><ul><li><strong>Blizzard</strong> The driving snow deals @Damage[4d8[cold]] damage to each creature in or below the storm with no save. Everything in or beneath the cloud is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] by driving snow and any ground is difficult terrain.</li><li><strong>Hail</strong> Each creature in or below the storm takes @Damage[4d10[bludgeoning]] damage with a basic Fortitude save.</li><li><strong>Lightning</strong> Choose up to 10 creatures in or below the storm to be struck by lightning. Each of them takes @Damage[7d6[electricity]] damage with a basic Reflex save.</li><li><strong>Tornado</strong> A roughly cylindrical whirlwind appears in or below the cloud in a 30-foot radius. Each creature in the whirlwind is thrown 40 feet upward.</li></ul><p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Wrathful Storm]</p><hr /><p><strong>Heightened (10th)</strong> The range increases to 2,000 feet and the cloud is a 1,000-foot burst.</p>"
+            "value": "<p>A massive storm cloud forms in the air above the area, spreading rain and gales. The wind imposes a –4 circumstance penalty to physical ranged attacks. The air in the area is greater difficult terrain for flying creatures. When you Cast this Spell and the first time each round you Sustain it on subsequent rounds, you can choose one of the following storm effects. You can't choose the same effect twice in a row.</p><ul><li><strong>Blizzard</strong> The driving snow deals @Damage[4d8[cold]] damage to each creature in or below the storm with no save. Everything in or beneath the cloud is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] by driving snow and any ground is difficult terrain.</li><li><strong>Hail</strong> Each creature in or below the storm takes 4d10 bludgeoning damage with a basic Fortitude save.</li><li><strong>Lightning</strong> Choose up to 10 creatures in or below the storm to be struck by lightning. Each of them takes 7d6 electricity damage with a basic Reflex save.</li><li><strong>Tornado</strong> A roughly cylindrical whirlwind appears in or below the cloud in a 30-foot radius. Each creature in the whirlwind is thrown 40 feet upward.</li></ul><p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Wrathful Storm]</p><hr /><p><strong>Heightened (10th)</strong> The range increases to 2,000 feet and the cloud is a 1,000-foot burst.</p>"
         },
         "duration": {
             "sustained": true,
@@ -36,6 +36,66 @@
         },
         "level": {
             "value": 9
+        },
+        "overlays": {
+            "a1EVq7Kl6qbctD3Q": {
+                "name": "Wrathful Storm (Hail)",
+                "overlayType": "override",
+                "sort": 2,
+                "system": {
+                    "damage": {
+                        "T9SAgJg7VzDdFwhz": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "4d10",
+                            "kinds": [
+                                "damage"
+                            ],
+                            "materials": [],
+                            "type": "bludgeoning"
+                        }
+                    },
+                    "defense": {
+                        "save": {
+                            "basic": true,
+                            "statistic": "fortitude"
+                        }
+                    }
+                }
+            },
+            "kQ4gHh1H2ycUIJvs": {
+                "name": "Wrathful Storm (Blizzard and Tornado)",
+                "overlayType": "override",
+                "sort": 1,
+                "system": {
+                    "defense": null
+                }
+            },
+            "qSMPnn0EOrnjAyOJ": {
+                "name": "Wrathful Storm (Lightning)",
+                "overlayType": "override",
+                "sort": 3,
+                "system": {
+                    "damage": {
+                        "06iiUJ3sufqIpsMz": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "7d6",
+                            "kinds": [
+                                "damage"
+                            ],
+                            "materials": [],
+                            "type": "electricity"
+                        }
+                    },
+                    "defense": {
+                        "save": {
+                            "basic": true,
+                            "statistic": "reflex"
+                        }
+                    }
+                }
+            }
         },
         "publication": {
             "license": "ORC",
