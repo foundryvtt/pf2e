@@ -1,0 +1,70 @@
+{
+    "_id": "xDCtfNtbnaG166cy",
+    "folder": "GCOKwZbbnnZVX5w4",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Janni Magic",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>The magic of jann runs through your blood. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Enlarge] and @UUID[Compendium.pf2e.spells-srd.Item.Speak with Animals] once per day each as 2nd-rank arcane innate spells.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Ancestry Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:enlarge",
+                            "item:slug:speak-with-animals"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:enlarge",
+                            "item:slug:speak-with-animals"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:suli"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "suli"
+            ]
+        }
+    },
+    "type": "feat"
+}

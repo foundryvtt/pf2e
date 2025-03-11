@@ -1,0 +1,75 @@
+{
+    "_id": "NFsQOa3ynthYLVj6",
+    "folder": "IulPPM6u6V9GJtD3",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Ward Against Corruption",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your soul is warded against the power of undeath and plague, as well as that of the evil former psychopomps known as sahkils. You gain a +1 circumstance bonus to saving throws against death effects, disease, and all effects from undead or sahkils. This bonus increases to +2 against an undead or sahkil's death effect or disease.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:death",
+                            "item:trait:disease",
+                            "origin:mode:undead",
+                            "origin:trait:sakhil"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:disease",
+                            "item:trait:death"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "origin:mode:undead",
+                            "origin:trait:sakhil"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "ward-against-corruption",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "duskwalker"
+            ]
+        }
+    },
+    "type": "feat"
+}

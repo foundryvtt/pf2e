@@ -1,0 +1,61 @@
+{
+    "_id": "P1dk0LTWkQ1LT1ai",
+    "folder": "ujjBTcgWjsAQJA9n",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Svetocher",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You were born to a moroi, the most common vampires, and you share their supernatural fortitude and power of persuasion. When you have the @UUID[Compendium.pf2e.conditionitems.Item.Drained] condition, calculate the penalty to your Fortitude saves and your Hit Point reduction as though the condition value were 1 lower. You're trained in Diplomacy. If you would automatically be trained in it, you instead become trained in a skill of your choice.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "onlyLevel1": true,
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.diplomacy.rank",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "selector": "fortitude",
+                "slug": "drained",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:condition:drained"
+                ],
+                "selector": "hp",
+                "value": "@actor.level"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dhampir",
+                "lineage"
+            ]
+        }
+    },
+    "type": "feat"
+}

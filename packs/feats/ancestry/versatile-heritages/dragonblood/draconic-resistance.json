@@ -1,0 +1,106 @@
+{
+    "_id": "mI6dFvu28r66SfY0",
+    "folder": "hC1Cykg6qFGneUPq",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Draconic Resistance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Draconic magic safeguards you against harm. You gain resistance equal to half your level (minimum 1) to the damage type associated with your draconic exemplar. Double this resistance against damage of that type dealt to you by dragons.</p>\n<p>If your draconic exemplar is associated with bludgeoning, piercing, or slashing damage, instead of gaining resistance to that type you can choose acid, cold, fire, electricity, or sonic.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "draconic-resistance:{actor|flags.pf2e.dragonblood.damageType}"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "resistance",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "or": [
+                            "draconic-resistance:bludgeoning",
+                            "draconic-resistance:slashing",
+                            "draconic-resistance:piercing"
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.EnergyType"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "nor": [
+                            "draconic-resistance:bludgeoning",
+                            "draconic-resistance:piercing",
+                            "draconic-resistance:slashing"
+                        ]
+                    }
+                ],
+                "type": "{actor|flags.pf2e.dragonblood.damageType}",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "or": [
+                            "draconic-resistance:bludgeoning",
+                            "draconic-resistance:piercing",
+                            "draconic-resistance:slashing"
+                        ]
+                    }
+                ],
+                "type": "{item|flags.pf2e.rulesSelections.resistance}",
+                "value": "max(1,floor(@actor.level/2))"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dragonblood"
+            ]
+        }
+    },
+    "type": "feat"
+}
