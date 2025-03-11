@@ -34,6 +34,7 @@ import {
 import {
     ErrorPF2e,
     SORTABLE_BASE_OPTIONS,
+    applyDeltaToInput,
     fontAwesomeIcon,
     htmlClosest,
     htmlQuery,
@@ -523,10 +524,22 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         // Only allow digits & leading plus and minus signs for `data-allow-delta` inputs,
         // thus emulating input[type="number"]
+        // Also enable delta adjustment by arrow key
         for (const deltaInput of htmlQueryAll<HTMLInputElement>(html, "input[data-allow-delta]")) {
             deltaInput.addEventListener("input", () => {
                 const match = /[+-]?\d*/.exec(deltaInput.value)?.at(0);
                 deltaInput.value = match ?? deltaInput.value;
+            });
+
+            deltaInput.addEventListener("keydown", (event: KeyboardEvent) => {
+                const min = Number(deltaInput.dataset.min) || 0;
+                const max = Number(deltaInput.dataset.max) || 0;
+
+                if (event.key === "ArrowUp") {
+                    applyDeltaToInput(deltaInput, +1, min, max);
+                } else if(event.key === "ArrowDown") {
+                    applyDeltaToInput(deltaInput, -1, min, max);
+                }
             });
         }
 

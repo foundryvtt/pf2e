@@ -203,7 +203,7 @@
         {{#each specialResources as |resource|}}
             <li class="special-resource">
                 <span class="label">{{resource.label}}</span>
-                <input type="text" data-resource="{{resource.slug}}" value="{{resource.value}}" />
+                <input type="text" data-dtype="Number" data-allow-delta data-min="0" data-max="{{resource.max}}" data-resource="{{resource.slug}}" value="{{resource.value}}" />
                 / {{resource.max}}
             </li>
         {{/each}}
