@@ -165,6 +165,9 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
             return;
         }
 
+        // If this choice set is on a suppressed item, skip
+        if (this.item.isOfType("feat") && this.item.suppressed) return;
+
         const rollOptions = new Set([this.actor.getRollOptions(), this.item.getRollOptions("parent")].flat());
         const predicate = this.resolveInjectedProperties(this.predicate);
         if (!predicate.test(rollOptions)) return;

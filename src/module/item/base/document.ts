@@ -650,9 +650,23 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         for (const item of [...items]) {
             // Pre-load this item's self: roll options for predication by preCreate rule elements
             item.prepareActorData?.();
+            const rules = item.prepareRuleElements({ suppressWarnings: true });
+
+            // Mark suppressed feats as suppressed during preCreate.
+            // This must happen *after* rules are fetched, as suppressing kills the rules
+            // Our only goal is to prevent choice sets, which are not salvageable
+            const sourceId = item.sourceId;
+            if (sourceId && item.isOfType("feat")) {
+                const suppressed =
+                    items.some(
+                        (i) => i.isOfType("feat") && i.system.subfeatures.suppressedFeatures.includes(sourceId),
+                    ) || actor.itemTypes.feat.some((f) => f.system.subfeatures.suppressedFeatures.includes(sourceId));
+                if (suppressed) {
+                    item.suppressed = true;
+                }
+            }
 
             const itemSource = item._source;
-            const rules = item.prepareRuleElements({ suppressWarnings: true });
             for (const rule of rules) {
                 const ruleSource = itemSource.system.rules[rules.indexOf(rule)] as RuleElementSource;
                 await rule.preCreate?.({
