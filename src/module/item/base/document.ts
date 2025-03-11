@@ -657,13 +657,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             // Our only goal is to prevent choice sets, which are not salvageable
             const sourceId = item.sourceId;
             if (sourceId && item.isOfType("feat")) {
-                const suppressed =
+                item.suppressed ||=
                     items.some(
                         (i) => i.isOfType("feat") && i.system.subfeatures.suppressedFeatures.includes(sourceId),
                     ) || actor.itemTypes.feat.some((f) => f.system.subfeatures.suppressedFeatures.includes(sourceId));
-                if (suppressed) {
-                    item.suppressed = true;
-                }
             }
 
             const itemSource = item._source;
