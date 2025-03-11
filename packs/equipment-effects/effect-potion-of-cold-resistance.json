@@ -1,0 +1,108 @@
+{
+    "_id": "Iw3CtHFpD3gGVjis",
+    "img": "systems/pf2e/icons/equipment/consumables/potions/potion-of-cold-resistance.webp",
+    "name": "Effect: Potion of Cold Resistance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Potion of Cold Resistance (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Potion of Cold Resistance (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Potion of Cold Resistance (Greater)]</p>\n<p>You gain resistance against cold damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:potion-of-cold-resistance-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Potion of Cold Resistance (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:potion-of-cold-resistance-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Potion of Cold Resistance (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:potion-of-cold-resistance-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Potion of Cold Resistance (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "potion-of-cold-resistance"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "potion-of-cold-resistance:potion-of-cold-resistance-lesser"
+                ],
+                "type": "cold",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "potion-of-cold-resistance:potion-of-cold-resistance-moderate"
+                ],
+                "type": "cold",
+                "value": 10
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "potion-of-cold-resistance:potion-of-cold-resistance-greater"
+                ],
+                "type": "cold",
+                "value": 15
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
