@@ -40,6 +40,29 @@ function applyNTimes<T>(func: (val: T) => T, times: number, start: T): T {
 }
 
 /**
+ * Applies a delta change to the value of an input element
+ *
+ * @param input
+ * @param delta
+ * @returns the new value of the input field
+ */
+function applyDeltaToInput(input: HTMLInputElement, delta: number, min: number = 0, max: number = 0, triggerChange: boolean = true): string {
+    const oldValue = Number(input.value) || min;
+
+    if(max > 0) {
+        input.value = String(Math.clamp(oldValue + delta, min, max));
+    } else {
+        input.value = String(Math.min(oldValue + delta, min));
+    }
+
+    if (triggerChange) {
+        $(input).trigger('change');
+    }
+
+    return input.value;
+}
+
+/**
  * Check if a key is present in a given object in a type safe way
  *
  * @param obj The object to check
@@ -403,6 +426,7 @@ export {
     ErrorPF2e,
     SORTABLE_BASE_OPTIONS,
     applyNTimes,
+    applyDeltaToInput,
     configFromLocalization,
     fontAwesomeIcon,
     getActionGlyph,
