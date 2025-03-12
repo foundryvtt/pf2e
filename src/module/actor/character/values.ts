@@ -11,4 +11,6 @@ const CHARACTER_SHEET_TABS = [
     "pfs",
 ] as const;
 
-export { CHARACTER_SHEET_TABS };
+const CORE_RESOURCES = ["hero-points", "focus", "investiture", "resolve", "mythic-points"] as const;
+
+export { CHARACTER_SHEET_TABS, CORE_RESOURCES };

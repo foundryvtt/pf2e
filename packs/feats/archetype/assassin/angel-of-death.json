@@ -1,0 +1,51 @@
+{
+    "_id": "3poGYUYCBTmbeCUs",
+    "folder": "tpE3ROekcC2mpEht",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Angel of Death",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>All your Strikes against a creature you have @UUID[Compendium.pf2e.actionspf2e.Item.Mark for Death]{Marked for Death} have the death trait, causing the mark to be instantly killed when reduced to 0 Hit Points.</p>\n<p>In addition, if the creature is killed this way, attempts to communicate with it, return it to life, turn it into an undead, or otherwise disturb its afterlife fail unless the effect's counteract rank is higher than half your level rounded up, or originates from an artifact or a deity. Use the level you were when you killed the creature, even if your level is higher at the time the attempt was made.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Assassin Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "marked-for-death"
+                ],
+                "property": "traits",
+                "value": "death"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

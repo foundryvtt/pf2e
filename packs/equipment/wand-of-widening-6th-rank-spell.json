@@ -34,7 +34,90 @@
             "title": "Pathfinder GM Core"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "wand-of-widening",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "lte": [
+                            "item:rank",
+                            6
+                        ]
+                    },
+                    "wand-of-widening",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:area:type:burst",
+                                    {
+                                        "gte": [
+                                            "item:area:size",
+                                            10
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    {
+                                        "or": [
+                                            "item:area:type:cone",
+                                            "item:area:type:line"
+                                        ]
+                                    },
+                                    {
+                                        "lte": [
+                                            "item:area:size",
+                                            15
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "area-size",
+                "value": 5
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "lte": [
+                            "item:rank",
+                            6
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:area:type:line",
+                            "item:area:type:cone"
+                        ]
+                    },
+                    {
+                        "gt": [
+                            "item:area:size",
+                            15
+                        ]
+                    },
+                    "wand-of-widening"
+                ],
+                "priority": 119,
+                "property": "area-size",
+                "value": 10
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "common",

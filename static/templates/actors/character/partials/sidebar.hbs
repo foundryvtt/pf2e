@@ -83,7 +83,7 @@
             </div>
         </li>
         <li class="resolve">
-            <label for="{{options.id}}-pc-resolve" class="sidebar_label">{{localize "PF2E.ResolvePointsShortLabel"}}</label>
+            <label for="{{options.id}}-pc-resolve" class="sidebar_label">{{localize "PF2E.Actor.Resource.Resolve"}}</label>
             <div class="hp-max stamina-group">
                 <input
                     id="{{options.id}}-pc-resolve"
@@ -194,6 +194,21 @@
 {{#with data.attributes.ac}}
     {{> "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs" title="PF2E.ArmorClassLabel"}}
 {{/with}}
+
+{{#if specialResources}}
+    <header>
+        <h2>{{localize "PF2E.Actor.Resources"}}</h2>
+    </header>
+    <ol>
+        {{#each specialResources as |resource|}}
+            <li class="special-resource">
+                <span class="label">{{resource.label}}</span>
+                <input type="text" data-resource="{{resource.slug}}" value="{{resource.value}}" />
+                / {{resource.max}}
+            </li>
+        {{/each}}
+    </ol>
+{{/if}}
 
 {{!-- Perception --}}
 <header>

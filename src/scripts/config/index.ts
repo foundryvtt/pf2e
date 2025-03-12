@@ -40,7 +40,14 @@ import { Size } from "@module/data.ts";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet.ts";
 import { configFromLocalization, sluggify } from "@util";
 import * as R from "remeda";
-import { damageCategories, damageRollFlavors, damageTypes, materialDamageEffects } from "./damage.ts";
+import {
+    damageCategories,
+    damageRollFlavors,
+    damageTypes,
+    energyDamageTypes,
+    materialDamageEffects,
+    physicalDamageTypes,
+} from "./damage.ts";
 import { immunityTypes, resistanceTypes, weaknessTypes } from "./iwr.ts";
 import {
     actionTraits,
@@ -239,16 +246,17 @@ const speedTypes = R.mapToObj(MOVEMENT_TYPES, (t) => [
 ]);
 
 const featCategories: Record<FeatOrFeatureCategory, string> = {
-    ancestry: "PF2E.FeatTypeAncestry",
-    ancestryfeature: "PF2E.FeatTypeAncestryfeature",
-    class: "PF2E.FeatTypeClass",
-    classfeature: "PF2E.FeatTypeClassfeature",
-    skill: "PF2E.FeatTypeSkill",
-    general: "PF2E.FeatTypeGeneral",
-    bonus: "PF2E.FeatTypeBonus",
-    pfsboon: "PF2E.FeatTypePfsboon",
-    deityboon: "PF2E.FeatTypeDeityboon",
-    curse: "PF2E.FeatTypeCurse",
+    ancestry: "PF2E.Item.Feat.Category.Ancestry",
+    ancestryfeature: "PF2E.Item.Feat.Category.AncestryFeature",
+    calling: "PF2E.Item.Feat.Category.Calling",
+    class: "PF2E.Item.Feat.Category.Class",
+    classfeature: "PF2E.Item.Feat.Category.ClassFeature",
+    skill: "PF2E.Item.Feat.Category.Skill",
+    general: "PF2E.Item.Feat.Category.General",
+    bonus: "PF2E.Item.Feat.Category.Bonus",
+    pfsboon: "PF2E.Item.Feat.Category.PfsBoon",
+    deityboon: "PF2E.Item.Feat.Category.DeityBoon",
+    curse: "PF2E.Item.Feat.Category.Curse",
 };
 
 const creatureTypes = R.pick(creatureTraits, [
@@ -385,7 +393,9 @@ export const PF2ECONFIG = {
     damageTypes,
     damageRollFlavors,
     damageCategories,
+    energyDamageTypes,
     materialDamageEffects,
+    physicalDamageTypes,
     resistanceTypes,
 
     stackGroups: {
@@ -434,6 +444,7 @@ export const PF2ECONFIG = {
         "affixed-to-a-creature": "PF2E.TraitAffixedToCreature",
         "affixed-to-a-magical-staff": "PF2E.TraitAffixedToMagicalStaff",
         "affixed-to-a-metal-weapon": "PF2E.TraitAffixedToAMetalWeapon",
+        "affixed-to-a-one-handed-firearm-or-hand-crossbow": "PF2E.TraitAffixedToAOneHandedFirearmOrHandCrossbow",
         "affixed-to-a-ranged-weapon": "PF2E.TraitAffixedToARangedWeapon",
         "affixed-to-a-shield": "PF2E.TraitAffixedToAShield",
         "affixed-to-a-shield-or-weapon": "PF2E.TraitAffixedToAShieldOrWeapon",
@@ -444,6 +455,9 @@ export const PF2ECONFIG = {
         "affixed-to-armor": "PF2E.TraitAffixedToArmor",
         "affixed-to-medium-heavy-armor": "PF2E.TraitAffixedToMediumHeavyArmor",
         "affixed-to-medium-heavy-metal-armor": "PF2E.TraitAffixedToMediumHeavyMetalArmor",
+        "affixed-to-metal-armor-or-a-weapon": "PF2E.TraitAffixedToMetalArmorOrAWeapon",
+        "affixed-to-non-metal-armor-or-a-weapon": "PF2E.TraitAffixedToNMArmorOrAWeapon",
+        "affixed-to-armor-shield-or-weapon": "PF2E.TraitAffixedToArmorShieldOrWeapon",
         "affixed-to-armor-or-a-weapon": "PF2E.TraitAffixedToArmorOrAWeapon",
         "affixed-to-armor-or-travelers-clothing": "PF2E.TraitAffixedToArmorOrTravelersClothing",
         "affixed-to-crossbow-or-firearm": "PF2E.TraitAffixedToCrossbowOrFirearm",
@@ -461,6 +475,7 @@ export const PF2ECONFIG = {
         "affixed-to-object-structure-or-creature": "PF2E.TraitAffixedToStructureObjectOrCreature",
         "affixed-to-the-ground": "PF2E.TraitAffixedToGround",
         "affixed-to-unarmored-defense-item": "PF2E.TraitAffixedToUnarmoredItem",
+        "affixed-to-wall": "PF2E.TraitAffixedToWall",
         "affixed-to-weapon": "PF2E.TraitAffixedToWeapon",
         "applied-to-a-basket-bag-or-other-container": "PF2E.TraitAppliedToBasketBagOrContainer",
         "applied-to-a-weapon": "PF2E.TraitAppliedToAWeapon",
@@ -484,6 +499,7 @@ export const PF2ECONFIG = {
         "attached-to-crossbow-or-firearm-scope": "PF2E.TraitAttachedToCrossbowOrFirearmScope",
         "attached-to-firearm": "PF2E.TraitAttachedToFirearm",
         "attached-to-firearm-scope": "PF2E.TraitAttachedToFirearmScope",
+        "attached-to-melee-weapon": "PF2E.TraitAttachedToMeleeWeapon",
         "attached-to-ships-bow": "PF2E.TraitAttachedToShipsBow",
         bonded: "PF2E.TraitBonded",
         carried: "PF2E.TraitCarried",
@@ -512,9 +528,11 @@ export const PF2ECONFIG = {
         "etched-onto-thrown-weapon": "PF2E.TraitEtchedOntoAThrownWeapon",
         "held-in-one-hand": "PF2E.TraitHeldOneHand",
         "held-in-one-hand-or-free-standing": "PF2E.TraitHeldOneHandFreeStanding",
+        "held-in-1-hand-hung-on-a-cord-or-attached-to-clothing": "PF2E.HeldInOneHandHungOnACordOrAttachedToClothing",
         "held-in-one-or-two-hands": "PF2E.TraitHeldOneTwoHands",
         "held-in-two-hands": "PF2E.TraitHeldTwoHands",
         implanted: "PF2E.TraitImplanted",
+        "mounted-on-a-tripod-or-bracket": "PF2E.TraitMountedOnATripodOrBracket",
         other: "Other",
         "sewn-into-clothing": "PF2E.TraitSewnIntoClothing",
         "tattooed-on-the-body": "PF2E.TraitTattooedOnTheBody",
@@ -690,10 +708,10 @@ export const PF2ECONFIG = {
     },
 
     actionCategories: {
-        interaction: "PF2E.Item.Action.Category.Interaction",
-        defensive: "PF2E.Item.Action.Category.Defensive",
-        offensive: "PF2E.Item.Action.Category.Offensive",
-        familiar: "PF2E.Item.Action.Category.Familiar",
+        interaction: "PF2E.Item.Ability.Category.Interaction",
+        defensive: "PF2E.Item.Ability.Category.Defensive",
+        offensive: "PF2E.Item.Ability.Category.Offensive",
+        familiar: "PF2E.Item.Ability.Category.Familiar",
     },
 
     frequencies: {

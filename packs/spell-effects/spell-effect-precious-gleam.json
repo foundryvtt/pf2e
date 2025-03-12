@@ -1,0 +1,80 @@
+{
+    "_id": "ojC0jckNHOEIFFtB",
+    "img": "icons/weapons/polearms/spear-hooked-broad.webp",
+    "name": "Spell Effect: Precious Gleam",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Precious Gleam]</p>\n<p>Your next attack deals additional precision damage, and it gains the effects of cold iron, silver, or steel.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.PreciousMaterialColdIron",
+                        "value": "cold-iron"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialSilver",
+                        "value": "silver"
+                    }
+                ],
+                "flag": "preciousMaterial",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Material",
+                "rollOption": "precious-gleam"
+            },
+            {
+                "category": "precision",
+                "diceNumber": "@item.level",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "materials",
+                "value": "{item|flags.pf2e.rulesSelections.preciousMaterial}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

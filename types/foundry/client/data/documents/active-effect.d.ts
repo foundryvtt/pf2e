@@ -1,4 +1,8 @@
-import type { ActiveEffectSource, EffectDurationData } from "../../../common/documents/active-effect.d.ts";
+import type {
+    ActiveEffectSource,
+    EffectChangeData,
+    EffectDurationData,
+} from "../../../common/documents/active-effect.d.ts";
 import type { ClientBaseActiveEffect } from "./client-base-mixes.d.ts";
 
 declare global {
@@ -8,13 +12,88 @@ declare global {
      * Each ActiveEffect contains a ActiveEffectData object which provides its source data.
      */
     class ActiveEffect<TParent extends Actor | Item | null> extends ClientBaseActiveEffect<TParent> {
-        constructor(data: PreCreate<ActiveEffectSource>, context?: DocumentConstructionContext<TParent>);
+        /**
+         * Create an ActiveEffect instance from some status effect ID.
+         * Delegates to {@link ActiveEffect._fromStatusEffect} to create the ActiveEffect instance
+         * after creating the ActiveEffect data from the status effect data if `CONFIG.statusEffects`.
+         * @param statusId The status effect ID.
+         * @param options  Additional options to pass to the ActiveEffect constructor.
+         * @returns The created ActiveEffect instance.
+         *
+         * @throws {Error} An error if there is no status effect in `CONFIG.statusEffects` with the given status ID and if
+         * the status has implicit statuses but doesn't have a static _id.
+         */
+        static fromStatusEffect(
+            statusId: string,
+            options?: DocumentConstructionContext<foundry.abstract.Document | null>,
+        ): Promise<ActiveEffect<Actor | Item> | undefined>;
 
-        /** A cached reference to the source name to avoid recurring database lookups */
-        protected _sourceName: string | null;
+        /**
+         * Create an ActiveEffect instance from status effect data.
+         * Called by {@link ActiveEffect.fromStatusEffect}.
+         * @param statusId   The status effect ID.
+         * @param effectData The status effect data.
+         * @param options    Additional options to pass to the ActiveEffect constructor.
+         * @returns The created ActiveEffect instance.
+         */
+        protected static _fromStatusEffect(
+            statusId: string,
+            effectData: Partial<ActiveEffectSource>,
+            options?: DocumentConstructionContext<foundry.abstract.Document | null>,
+        ): Promise<ActiveEffect<Actor | Item> | undefined>;
 
-        /** A cached reference to the ActiveEffectConfig instance which configures this effect */
-        protected override _sheet: ActiveEffectConfig<this> | null;
+        /* -------------------------------------------- */
+        /*  Properties                                  */
+        /* -------------------------------------------- */
+
+        /**
+         * Is there some system logic that makes this active effect ineligible for application?
+         */
+        get isSuppressed(): boolean;
+
+        /**
+         * Retrieve the Document that this ActiveEffect targets for modification.
+         */
+        get target(): foundry.abstract.Document | null;
+
+        /**
+         * Whether the Active Effect currently applying its changes to the target.
+         */
+        get active(): boolean;
+
+        /**
+         * Does this Active Effect currently modify an Actor?
+         */
+        get modifiesActor(): boolean;
+
+        override prepareBaseData(): void;
+
+        override prepareDerivedData(): void;
+
+        /**
+         * Update derived Active Effect duration data.
+         * Configure the remaining and label properties to be getters which lazily recompute only when necessary.
+         */
+        updateDuration(): EffectDurationData;
+
+        /**
+         * Determine whether the ActiveEffect requires a duration update.
+         * True if the worldTime has changed for an effect whose duration is tracked in seconds.
+         * True if the combat turn has changed for an effect tracked in turns where the effect target is a combatant.
+         */
+        protected _requiresDurationUpdate(): boolean;
+
+        /**
+         * Compute derived data related to active effect duration.
+         */
+        _prepareDuration(): {
+            type: string;
+            duration: number | null;
+            remaining: number | null;
+            label: string;
+            _worldTime?: number;
+            _combatTime?: number;
+        };
 
         /**
          * Format a round+turn combination as a decimal
@@ -33,82 +112,62 @@ declare global {
          */
         protected _getDurationLabel(rounds: number, turns: number): string;
 
-        /** Describe whether the ActiveEffect has a temporary duration based on combat turns or rounds. */
+        /**
+         * Describe whether the ActiveEffect has a temporary duration based on combat turns or rounds.
+         */
         get isTemporary(): boolean;
 
-        /** A cached property for obtaining the source name */
-        get sourceName(): string;
-
         /**
-         * An instance of the ActiveEffectConfig sheet to use for this ActiveEffect instance.
-         * The reference to the sheet is cached so the same sheet instance is reused.
+         * A cached property for obtaining the source name
          */
-        override get sheet(): ActiveEffectConfig<this>;
+        get sourceName(): string;
 
         /* -------------------------------------------- */
         /*  Methods                                     */
         /* -------------------------------------------- */
 
         /**
+         * Apply EffectChangeData to a field within a DataModel.
+         * @param model  The model instance.
+         * @param change The change to apply.
+         * @param field  The field. If not supplied, it will be retrieved from the supplied model.
+         * @returns The updated value.
+         */
+        static applyField(
+            model: foundry.abstract.Document,
+            change: EffectChangeData,
+            field?: foundry.data.fields.DataField,
+        ): unknown;
+
+        /**
          * Apply this ActiveEffect to a provided Actor.
+         * TODO: This method is poorly conceived. Its functionality is static, applying a provided change to an Actor
+         * TODO: When we revisit this in Active Effects V2 this should become an Actor method, or a static method
          * @param actor  The Actor to whom this effect should be applied
          * @param change The change data being applied
-         * @return The resulting applied value
+         * @returns An object of property paths and their updated values.
          */
-        apply(actor: Actor<TokenDocument>, change: ActiveEffectSource["changes"][number]): unknown;
+        apply(actor: Actor, change: EffectChangeData): Record<string, unknown>;
 
         /**
-         * Apply an ActiveEffect that uses an ADD application mode.
-         * The way that effects are added depends on the data type of the current value.
-         *
-         * If the current value is null, the change value is assigned directly.
-         * If the current type is a string, the change value is concatenated.
-         * If the current type is a number, the change value is cast to numeric and added.
-         * If the current type is an array, the change value is appended to the existing array if it matches in type.
-         *
-         * @param actor  The Actor to whom this effect should be applied
-         * @param change The change data being applied
-         * @return The resulting applied value
+         * Apply this ActiveEffect to a provided Actor using a heuristic to infer the value types based on the current value
+         * and/or the default value in the template.json.
+         * @param actor    The Actor to whom this effect should be applied.
+         * @param change   The change data being applied.
+         * @param changes  The aggregate update paths and their updated values.
          */
-        protected _applyAdd(actor: Actor<TokenDocument>, change: ActiveEffectSource["changes"][number]): unknown;
+        protected _applyLegacy(actor: Actor, change: EffectChangeData, changes: Record<string, unknown>): void;
 
         /**
-         * Apply an ActiveEffect that uses a MULTIPLY application mode.
-         * Changes which MULTIPLY must be numeric to allow for multiplication.
-         * @param actor  The Actor to whom this effect should be applied
-         * @param change The change data being applied
-         * @return The resulting applied value
+         * Retrieve the initial duration configuration.
          */
-        protected _applyMultiply(actor: Actor<TokenDocument>, change: ActiveEffectSource["changes"][number]): unknown;
+        static getInitialDuration(): { startTime: number; startRound?: number; startTurn?: number };
 
-        /**
-         * Apply an ActiveEffect that uses an OVERRIDE application mode.
-         * Numeric data is overridden by numbers, while other data types are overridden by any value
-         * @param actor The Actor to whom this effect should be applied
-         * @param change The change data being applied
-         * @return The resulting applied value
-         */
-        protected _applyOverride(actor: Actor<TokenDocument>, change: ActiveEffectSource["changes"][number]): unknown;
+        /* -------------------------------------------- */
+        /*  Flag Operations                             */
+        /* -------------------------------------------- */
 
-        /**
-         * Apply an ActiveEffect that uses an UPGRADE, or DOWNGRADE application mode.
-         * Changes which UPGRADE or DOWNGRADE must be numeric to allow for comparison.
-         * @param actor The Actor to whom this effect should be applied
-         * @param change The change data being applied
-         * @return The resulting applied value
-         */
-        protected _applyUpgrade(actor: Actor<TokenDocument>, change: ActiveEffectSource["changes"][number]): unknown;
-
-        /**
-         * Apply an ActiveEffect that uses a CUSTOM application mode.
-         * @param actor  The Actor to whom this effect should be applied
-         * @param change The change data being applied
-         * @return The resulting applied value
-         */
-        protected _applyCustom(actor: Actor<TokenDocument>, change: ActiveEffectSource["changes"][number]): unknown;
-
-        /** Get the name of the source of the Active Effect */
-        protected _getSourceName(): Promise<string>;
+        override getFlag(scope: string, key: string): unknown;
 
         /* -------------------------------------------- */
         /*  Event Handlers                              */
@@ -119,6 +178,33 @@ declare global {
             operation: DatabaseCreateOperation<TParent>,
             user: User,
         ): Promise<boolean | void>;
+
+        protected override _onCreate(
+            data: this["_source"],
+            options: DatabaseCreateOperation<TParent>,
+            userId: string,
+        ): void;
+
+        override _preUpdate(
+            changed: Record<string, unknown>,
+            options: DatabaseUpdateOperation<TParent>,
+            user: User,
+        ): Promise<boolean | void>;
+
+        override _onUpdate(
+            changed: Record<string, unknown>,
+            options: DatabaseUpdateOperation<TParent>,
+            userId: string,
+        ): void;
+
+        /** @inheritDoc */
+        _onDelete(options: DatabaseDeleteOperation<TParent>, userId: string): void;
+
+        /**
+         * Display changes to active effects as scrolling Token status text.
+         * @param enabled Is the active effect currently enabled?
+         */
+        protected _displayScrollingStatus(enabled: boolean): void;
     }
 
     interface ActiveEffect<TParent extends Actor | Item | null> extends ClientBaseActiveEffect<TParent> {

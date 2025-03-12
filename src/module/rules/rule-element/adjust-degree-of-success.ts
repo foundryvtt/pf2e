@@ -6,9 +6,9 @@ import {
     DegreeOfSuccessString,
 } from "@system/degree-of-success.ts";
 import { RecordField } from "@system/schema-data-fields.ts";
-import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { ModelPropsFromRESchema } from "./data.ts";
 import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
+import fields = foundry.data.fields;
 
 /**
  * @category RuleElement
@@ -17,8 +17,6 @@ class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e<AdjustDegreeRuleS
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
     static override defineSchema(): AdjustDegreeRuleSchema {
-        const fields = foundry.data.fields;
-
         return {
             ...super.defineSchema(),
             selector: new fields.StringField({ required: true, nullable: false, blank: false }),
@@ -89,10 +87,10 @@ const degreeAdjustmentAmountString = [
 type DegreeAdjustmentAmountString = (typeof degreeAdjustmentAmountString)[number];
 
 type AdjustDegreeRuleSchema = RuleElementSchema & {
-    selector: StringField<string, string, true, false, false>;
+    selector: fields.StringField<string, string, true, false, false>;
     adjustment: RecordField<
-        StringField<"all" | DegreeOfSuccessString, "all" | DegreeOfSuccessString, true, false, false>,
-        StringField<DegreeAdjustmentAmountString, DegreeAdjustmentAmountString, true, false, false>
+        fields.StringField<"all" | DegreeOfSuccessString, "all" | DegreeOfSuccessString, true, false, false>,
+        fields.StringField<DegreeAdjustmentAmountString, DegreeAdjustmentAmountString, true, false, false>
     >;
 };
 

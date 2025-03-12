@@ -49,7 +49,7 @@ class ShieldSheetPF2e extends PhysicalItemSheetPF2e<ShieldPF2e> {
             canChangeMaterial: !shield.isSpecific || !!shield.system.material.type,
             preciousMaterials: this.getMaterialSheetData(shield, materialData),
             propertyRuneSlots,
-            reinforcing: R.mapToObj.indexed(REINFORCING_RUNE_LOC_PATHS, (value, index) => [index, value]),
+            reinforcing: R.mapToObj(REINFORCING_RUNE_LOC_PATHS, (value, index) => [index, value]),
             weaponRunes: weaponRunes ? RUNE_DATA.weapon : null,
         };
     }
@@ -57,7 +57,6 @@ class ShieldSheetPF2e extends PhysicalItemSheetPF2e<ShieldPF2e> {
     override activateListeners($html: JQuery<HTMLElement>): void {
         super.activateListeners($html);
         const html = $html[0];
-
         htmlQuery(html, "input[data-action=toggle-specific")?.addEventListener("change", () => {
             const newValue: SpecificShieldData | null = this.item.system.specific
                 ? null

@@ -16,6 +16,7 @@ const PRECIOUS_MATERIAL_TYPES = new Set([
     "duskwood",
     "djezet",
     "dragonhide",
+    "dreamweb",
     "grisantian-pelt",
     "inubrix",
     "keep-stone",
@@ -28,6 +29,7 @@ const PRECIOUS_MATERIAL_TYPES = new Set([
     "sisterstone",
     "sisterstone-dusk",
     "sisterstone-scarlet",
+    "sloughstone",
     "sovereign-steel",
     "warpglass",
 ] as const);

@@ -1,9 +1,9 @@
-import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
+import { AbilityViewData, ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
+import { createAbilityViewData } from "@actor/sheet/helpers.ts";
 import { VehiclePF2e } from "@actor/vehicle/index.ts";
-import { AbilityItemPF2e, ItemPF2e } from "@item";
-import { ActionCost, Frequency } from "@item/base/data/system.ts";
+import { ItemPF2e } from "@item";
 import { AdjustedValue, getAdjustedValue } from "@module/sheet/helpers.ts";
-import { ErrorPF2e, getActionGlyph, getActionIcon, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
+import { ErrorPF2e, getActionIcon, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 import { ActorSheetPF2e } from "../sheet/base.ts";
 
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
@@ -28,28 +28,18 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
         };
 
-        for (const item of this.actor.itemTypes.action.sort((a, b) => a.sort - b.sort)) {
-            const itemData = item.toObject(false);
-            const { actionCost, frequency } = item;
-            const actionType = actionCost?.type ?? "free";
-
-            const img = ((): ImageFilePath => {
-                const actionIcon = getActionIcon(item.actionCost);
-                const defaultIcon = ItemPF2e.getDefaultArtwork(item._source).img;
-                if (item.isOfType("action") && ![actionIcon, defaultIcon].includes(item.img)) {
-                    return item.img;
-                }
-                return item.system.selfEffect?.img ?? actionIcon;
-            })();
-
+        for (const item of this.actor.itemTypes.action.toSorted((a, b) => a.sort - b.sort)) {
+            const actionType = item.actionCost?.type ?? "free";
             actions[actionType].actions.push({
-                ...itemData,
-                id: item.id,
-                img,
-                actionCost,
-                glyph: actionCost ? getActionGlyph(actionCost) : null,
-                frequency,
-                hasEffect: !!item.system.selfEffect,
+                ...createAbilityViewData(item),
+                img: ((): ImageFilePath => {
+                    const actionIcon = getActionIcon(item.actionCost);
+                    const defaultIcon = ItemPF2e.getDefaultArtwork(item._source).img;
+                    if (item.isOfType("action") && ![actionIcon, defaultIcon].includes(item.img)) {
+                        return item.img;
+                    }
+                    return item.system.selfEffect?.img ?? actionIcon;
+                })(),
             });
         }
 
@@ -123,12 +113,4 @@ interface VehicleSheetData extends ActorSheetDataPF2e<VehiclePF2e> {
     emitsSoundOptions: FormSelectOption[];
 }
 
-type ActionsSheetData = Record<"action" | "reaction" | "free", { label: string; actions: ActionSheetData[] }>;
-
-interface ActionSheetData extends RawObject<AbilityItemPF2e> {
-    id: string;
-    actionCost: ActionCost | null;
-    glyph: string | null;
-    frequency: Frequency | null;
-    hasEffect: boolean;
-}
+type ActionsSheetData = Record<"action" | "reaction" | "free", { label: string; actions: AbilityViewData[] }>;

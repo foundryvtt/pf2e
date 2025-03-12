@@ -9,8 +9,6 @@ import fields = foundry.data.fields;
  */
 class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema> {
     static override defineSchema(): TokenImageRuleSchema {
-        const fields = foundry.data.fields;
-
         return {
             ...super.defineSchema(),
             value: new fields.StringField({
@@ -71,6 +69,14 @@ class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema> {
                         },
                         { required: true, nullable: false, initial: () => ({ background: null, ring: null }) },
                     ),
+                    effects: new fields.NumberField({
+                        required: false,
+                        nullable: false,
+                        integer: true,
+                        initial: 1,
+                        min: 0,
+                        max: 8388607,
+                    }),
                 },
                 { required: false, nullable: false, initial: undefined },
             ),
@@ -132,6 +138,7 @@ class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema> {
                     texture: subjectTexture,
                 },
                 colors: { ...this.ring.colors },
+                effects: this.ring.effects,
             };
         }
 
@@ -172,14 +179,17 @@ type TokenImageRuleSchema = RuleElementSchema & {
                 false,
                 true
             >;
+            effects: fields.NumberField<number, number, false, false, true>;
         },
         {
             subject: { texture: string; scale: number };
             colors: { background: HexColorString | null; ring: HexColorString | null };
+            effects: number;
         },
         {
             subject: { texture: string; scale: number };
             colors: { background: Color | null; ring: Color | null };
+            effects: number;
         },
         false,
         false,

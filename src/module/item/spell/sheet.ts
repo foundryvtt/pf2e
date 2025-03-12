@@ -15,11 +15,11 @@ import {
     objectHasKey,
     ordinalString,
     sortStringRecord,
-    tagify,
     tupleHasValue,
 } from "@util";
+import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
-import { createDescriptionPrepend, createSpellRankLabel } from "./helpers.ts";
+import { createSpellRankLabel } from "./helpers.ts";
 import type {
     EffectAreaShape,
     SpellDamageSource,
@@ -65,9 +65,6 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         const sheetData = await super.getData(options);
         const spell = this.item;
 
-        const descriptionPrepend = await createDescriptionPrepend(spell, { includeTraditions: true });
-        sheetData.enrichedContent.description = `${descriptionPrepend}${sheetData.enrichedContent.description}`;
-
         const variants = spell.overlays.overrideVariants
             .map((variant) => ({
                 name: variant.name,
@@ -109,7 +106,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             variants,
             isVariant: this.item.isVariant,
             damageTypes: sortStringRecord(CONFIG.PF2E.damageTypes),
-            damageSubtypes: R.pick(CONFIG.PF2E.damageCategories, [...DAMAGE_CATEGORIES_UNIQUE]),
+            damageSubtypes: R.pick(CONFIG.PF2E.damageCategories, DAMAGE_CATEGORIES_UNIQUE),
             damageKinds,
             materials: CONFIG.PF2E.materialDamageEffects,
             heightenIntervals: R.range(1, 5).map((i) => ({
@@ -174,7 +171,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 const key = anchor.dataset.id;
                 if (key) {
                     const values = { [`${baseKey}.damage.-=${key}`]: null };
-                    if (!overlayData) {
+                    if (!overlayData && this.item._source.system.heightening) {
                         values[`${baseKey}.heightening.damage.-=${key}`] = null;
                     }
                     this.item.update(values);
@@ -189,6 +186,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 type: "interval",
                 interval: 1,
                 damage: R.mapToObj(Object.keys(this.item.system.damage), (key) => [key, "0"]),
+                area: 0,
             };
             this.item.update({ [`${baseKey}.heightening`]: data });
         });

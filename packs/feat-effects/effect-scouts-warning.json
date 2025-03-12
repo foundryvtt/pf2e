@@ -4,7 +4,7 @@
     "name": "Effect: Scout's Warning",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Scout's Warning]</p>\n<p>You gain a +1 circumstance bonus to your initiative roll.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Scout's Warning]</p>\n<p>You gain a +1 circumstance bonus to your initiative roll (+2 if you also benefit from @UUID[Compendium.pf2e.actionspf2e.Item.Scout]).</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -25,8 +25,19 @@
                 "key": "FlatModifier",
                 "removeAfterRoll": true,
                 "selector": "initiative",
+                "slug": "scouts-warning",
                 "type": "circumstance",
                 "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "self:effect:scout"
+                ],
+                "selector": "initiative",
+                "slug": "scouts-warning",
+                "value": 2
             }
         ],
         "start": {

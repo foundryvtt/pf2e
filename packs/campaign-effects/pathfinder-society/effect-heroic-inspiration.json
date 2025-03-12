@@ -1,0 +1,67 @@
+{
+    "_id": "53nP5ljwRhD9BlUk",
+    "folder": "KN9hhATq6X3GwryB",
+    "img": "systems/pf2e/icons/pathfinder-society/pfs-glyph.webp",
+    "name": "Effect: Heroic Inspiration",
+    "system": {
+        "description": {
+            "value": "<p>Granted by Heroic Inspiration</p>\n<p>You gain a +1 circumstance bonus to checks of the same type the origin succeeded against.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Society Boons"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.GenericLabel.Check.Attack",
+                        "value": "attack-roll"
+                    },
+                    {
+                        "label": "PF2E.GenericLabel.Check.Perception",
+                        "value": "perception-check"
+                    },
+                    {
+                        "label": "PF2E.GenericLabel.Check.SavingThrow",
+                        "value": "saving-throw"
+                    },
+                    {
+                        "label": "PF2E.GenericLabel.Check.Skill",
+                        "value": "skill-check"
+                    }
+                ],
+                "flag": "heroicInspiration",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Bonus"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.heroicInspiration}",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

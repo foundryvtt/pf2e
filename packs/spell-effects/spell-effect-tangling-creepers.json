@@ -1,0 +1,47 @@
+{
+    "_id": "5RiskDnSXaRI6F4n",
+    "img": "icons/magic/nature/root-vine-hand-strike.webp",
+    "name": "Spell Effect: Tangling Creepers",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Tangling Creepers]</p>\n<p>You take a -10 circumstance penalty to your land, climb or swim speeds while in the area.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "swim-speed",
+                    "land-speed",
+                    "climb-speed"
+                ],
+                "type": "circumstance",
+                "value": -10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

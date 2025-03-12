@@ -1,0 +1,125 @@
+{
+    "_id": "JBWZkGkNikSlQfNr",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/prey-mutagen.webp",
+    "name": "Effect: Prey Mutagen",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Prey Mutagen (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Prey Mutagen (Major)]</p>\n<p>You gain a status bonus to your Speed and gain the Timely Dodge reaction. Animals and beasts gain a +2 circumstance bonus to attack rolls against you.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 11
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #194: Cult of the Cave Worm"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "not": "parent:origin:item:slug:prey-mutagen-major"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Prey Mutagen (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "not": "parent:origin:item:slug:prey-mutagen-greater"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Prey Mutagen (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "prey-mutagen"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Timely Dodge"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "land-speed",
+                "slug": "prey-mutagen-speed",
+                "type": "status",
+                "value": 30
+            },
+            {
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "predicate": [
+                    {
+                        "or": [
+                            "origin:trait:animal",
+                            "origin:trait:beast"
+                        ]
+                    }
+                ],
+                "selectors": "attack-roll",
+                "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Prey Mutagen (Bonus)"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "prey-mutagen:prey-mutagen-major"
+                ],
+                "selector": "land-speed",
+                "slug": "prey-mutagen-speed",
+                "value": 40
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:timely-dodge"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.FeatDescription.Trigger.TargetedByAStrike",
+                        "title": "PF2E.FeatDescription.Trigger.Label"
+                    },
+                    {
+                        "divider": true,
+                        "predicate": [
+                            "prey-mutagen:prey-mutagen-greater"
+                        ],
+                        "text": "PF2E.SpecificRule.Equipment.PreyMutagen.TimelyDodge.GreaterDescription"
+                    },
+                    {
+                        "divider": true,
+                        "predicate": [
+                            "prey-mutagen:prey-mutagen-major"
+                        ],
+                        "text": "PF2E.SpecificRule.Equipment.PreyMutagen.TimelyDodge.MajorDescription"
+                    }
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

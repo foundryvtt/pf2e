@@ -1,0 +1,85 @@
+{
+    "_id": "6p2Sjl7XxCc55ft4",
+    "img": "icons/commodities/stone/ore-pile-orange.webp",
+    "name": "Effect: Mudrock Snare",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Mudrock Snare]</p>\n<p><strong>Success</strong> You take a –5-foot circumstance penalty to your Speed.</p>\n<p><strong>Failure</strong> You take a –10-foot circumstance penalty to your Speed.</p>\n<p><strong>Critical Failure</strong> You are are immobilized.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "mudrock-snare"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "mudrock-snare:success"
+                ],
+                "selector": "land-speed",
+                "slug": "mudrock-snare-success",
+                "type": "circumstance",
+                "value": -5
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "mudrock-snare:failure"
+                ],
+                "selector": "land-speed",
+                "slug": "mudrock-snare-failure",
+                "type": "circumstance",
+                "value": -10
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "mudrock-snare:critical-failure"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Immobilized"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

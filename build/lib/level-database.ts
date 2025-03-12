@@ -10,7 +10,6 @@ import { PackError } from "./helpers.ts";
 import { PackEntry } from "./types.ts";
 
 const DB_KEYS = ["actors", "items", "journal", "macros", "tables"] as const;
-const EMBEDDED_KEYS = ["items", "pages", "results"] as const;
 
 class LevelDatabase extends ClassicLevel<string, DBEntry> {
     #dbkey: DBKey;
@@ -120,10 +119,8 @@ class LevelDatabase extends ClassicLevel<string, DBEntry> {
                     return "tables";
                 default: {
                     const key = `${metadata.type.toLowerCase()}s`;
-                    if (tupleHasValue(DB_KEYS, key)) {
-                        return key;
-                    }
-                    throw PackError(`Unkown Document type: ${metadata.type}`);
+                    if (!tupleHasValue(DB_KEYS, key)) throw PackError(`Unkown Document type: ${metadata.type}`);
+                    return key;
                 }
             }
         })();
@@ -144,7 +141,7 @@ class LevelDatabase extends ClassicLevel<string, DBEntry> {
 }
 
 type DBKey = (typeof DB_KEYS)[number];
-type EmbeddedKey = (typeof EMBEDDED_KEYS)[number];
+type EmbeddedKey = "items" | "pages" | "results";
 
 type Sublevel<T> = AbstractSublevel<ClassicLevel<string, T>, string | Buffer | Uint8Array, string, T>;
 

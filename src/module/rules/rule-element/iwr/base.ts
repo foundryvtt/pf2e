@@ -2,10 +2,10 @@ import { IWRSource, Immunity, Resistance, Weakness } from "@actor/data/iwr.ts";
 import { IWRType } from "@actor/types.ts";
 import type { Predicate } from "@system/predication.ts";
 import { DataUnionField, PredicateField, StrictArrayField, StrictStringField } from "@system/schema-data-fields.ts";
-import type { ArrayField, BooleanField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { AELikeChangeMode } from "../ae-like.ts";
 import { RuleElementPF2e } from "../base.ts";
 import { ModelPropsFromRESchema, RuleElementSchema, RuleElementSource, RuleValue } from "../data.ts";
+import fields = foundry.data.fields;
 
 /** @category RuleElement */
 abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElementPF2e<TSchema> {
@@ -16,16 +16,10 @@ abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElement
     }
 
     static override defineSchema(): IWRRuleSchema {
-        const { fields, validation } = foundry.data;
-
         return {
             ...super.defineSchema(),
             mode: new fields.StringField({ required: true, choices: ["add", "remove"], initial: "add" }),
-            type: new fields.ArrayField(new StrictStringField({ required: true, blank: false, initial: undefined }), {
-                validate: (v) =>
-                    (Array.isArray(v) && v.length > 0) ||
-                    new validation.DataModelValidationFailure({ message: "must have at least one" }),
-            }),
+            type: new fields.ArrayField(new fields.StringField({ required: true, blank: false }), { min: 1 }),
             definition: new PredicateField({ required: false, initial: undefined }),
             exceptions: this.createExceptionsField(),
             override: new fields.BooleanField(),
@@ -137,9 +131,9 @@ interface IWRRuleElement<TSchema extends IWRRuleSchema>
 
 type IWRRuleSchema = RuleElementSchema & {
     /** Whether to add or remove an immunity, weakness, or resistance (default is "add") */
-    mode: StringField<IWRChangeMode, IWRChangeMode, true, false, true>;
+    mode: fields.StringField<IWRChangeMode, IWRChangeMode, true, false, true>;
     /** One or more IWR types: "custom" is also an acceptable value, but it must be used in isolation. */
-    type: ArrayField<StringField<string, string, true, false, false>>;
+    type: fields.ArrayField<fields.StringField<string, string, true, false, false>>;
     /**
      * A list of exceptions, which may include string values corresponding with the IWR type or objects defining custom
      * exceptions
@@ -148,12 +142,12 @@ type IWRRuleSchema = RuleElementSchema & {
     /** A definition for a "custom"-type IWR */
     definition: PredicateField<false, false, false>;
     /** Whether to override an existing IWR of the same type, even if it's higher */
-    override: BooleanField;
+    override: fields.BooleanField;
 };
 
 type IWRExceptionField<TType extends string = string> = DataUnionField<
     | StrictStringField<TType, TType, true, false, false>
-    | SchemaField<{
+    | fields.SchemaField<{
           definition: PredicateField<true, false, false>;
           label: StrictStringField<string, string, true, false, false>;
       }>,

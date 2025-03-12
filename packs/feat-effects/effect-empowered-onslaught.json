@@ -1,0 +1,121 @@
+{
+    "_id": "ik5QuOpF0IO275Nm",
+    "img": "icons/skills/melee/strike-sword-dagger-runes-gold.webp",
+    "name": "Effect: Empowered Onslaught",
+    "system": {
+        "badge": {
+            "max": 3,
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Empowered Onslaught]</p>\n<p>The chosen battle aura's status bonus or penalty increases by 1, to a maximum of 4.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.spells-srd.Item.Bane"
+                    },
+                    {
+                        "predicate": [
+                            "parent:origin:item:tag:aura-enhancement"
+                        ],
+                        "value": "Compendium.pf2e.spells-srd.Item.Benediction"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spells-srd.Item.Bless"
+                    },
+                    {
+                        "predicate": [
+                            "parent:origin:item:tag:aura-enhancement"
+                        ],
+                        "value": "Compendium.pf2e.spells-srd.Item.Malediction"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Spell",
+                "rollOption": "empowered-onslaught"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "bonus:slug:bless",
+                                    "empowered-onslaught:bless"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "bonus:slug:benediction",
+                                    "empowered-onslaught:benediction"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selectors": [
+                    "attack-roll",
+                    "ac"
+                ],
+                "value": "@item.badge.value"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "remove",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "penalty:slug:bane",
+                                    "empowered-onslaught:bane"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "penalty:slug:malediction",
+                                    "empowered-onslaught:malediction"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selectors": [
+                    "attack-roll",
+                    "ac"
+                ],
+                "value": "@item.badge.value"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

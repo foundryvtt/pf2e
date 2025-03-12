@@ -1,0 +1,58 @@
+{
+    "_id": "Jt7NnE7WeR7e9V6Q",
+    "img": "systems/pf2e/icons/features/feats/lost-in-the-crowd.webp",
+    "name": "Effect: Lost in the Crowd",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Lost in the Crowd]</p>\n<p>You gain a +2 circumstance bonus on your Stealth check when in a crowd of at least 10 creatures or a +4 circumstance bonus when in a crowd of at least 100 creatures.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens World Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.LostInTheCrowd.CrowdSize.Ten",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.LostInTheCrowd.CrowdSize.Hundred",
+                        "value": 4
+                    }
+                ],
+                "flag": "crowdSizeBonus",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.LostInTheCrowd.Prompt"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "stealth",
+                "type": "circumstance",
+                "value": "{item|flags.pf2e.rulesSelections.crowdSizeBonus}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

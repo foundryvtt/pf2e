@@ -136,7 +136,7 @@ class LanguageSelector extends TagSelectorBasic<ActorPF2e | ItemPF2e> {
 }
 
 interface LanguageSelectorData extends TagSelectorBasicData<ActorPF2e | ItemPF2e> {
-    choices: Record<Language, ChoiceData>;
+    choices: Record<string, ChoiceData>;
     hasRarity: true;
 }
 

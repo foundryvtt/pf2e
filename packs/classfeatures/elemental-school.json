@@ -1,0 +1,107 @@
+{
+    "_id": "5rFzX6JK6CXLFxUP",
+    "img": "icons/magic/symbols/elements-air-earth-fire-water.webp",
+    "name": "Elemental School",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>If you choose an elemental school, your curriculum spells can be any spells that you have access to and that have your chosen element's trait. Your school spells are the elemental focus spells of your chosen element, with the 1st-rank spell as your initial school spell and the 3rd-rank spell as the advanced school spell.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAir",
+                        "predicate": [
+                            "elementalist:inner-sea-elementalism"
+                        ],
+                        "value": "air"
+                    },
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "elementalist:inner-sea-elementalism",
+                                    "elementalist:elemental-cycle"
+                                ]
+                            }
+                        ],
+                        "value": "earth"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "elementalist:inner-sea-elementalism",
+                                    "elementalist:elemental-cycle"
+                                ]
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitMetal",
+                        "predicate": [
+                            "elementalist:elemental-cycle"
+                        ],
+                        "value": "metal"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "elementalist:inner-sea-elementalism",
+                                    "elementalist:elemental-cycle"
+                                ]
+                            }
+                        ],
+                        "value": "water"
+                    },
+                    {
+                        "label": "PF2E.TraitWood",
+                        "predicate": [
+                            "elementalist:elemental-cycle"
+                        ],
+                        "value": "wood"
+                    }
+                ],
+                "flag": "element",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Elementalist.Wizard.ElementalSchool.Prompt"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "wizard-elemental-school"
+            ],
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

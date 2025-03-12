@@ -1,0 +1,69 @@
+{
+    "_id": "ydI39ViUy22nBRn6",
+    "img": "icons/creatures/magical/spirit-undead-ghost-purple.webp",
+    "name": "The Unseen Broker",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Whether in a dream, answering a feeling in your heart, or enacting a mysterious ritual, you have agreed to act as a mediator between your patron and the rest of the world. Of course, you understand the power of deals and receive further knowledge in exchange for your service. Your patron might be a god, an enigmatic figure like a planar being, or even an alien entity. Regardless of their origin, it is clear that through the bargains you make with others, you advance your patron's agenda.</p>\n<p><strong>Spell List</strong> occult</p>\n<p><strong>Patron Skill</strong> Occultism</p>\n<p><strong>Lesson of the Bound Words</strong> Your patron teaches you about bargains and how they can hold power over others. You gain the @UUID[Compendium.pf2e.spells-srd.Item.Pact Broker] hex cantrip and your familiar learns @UUID[Compendium.pf2e.spells-srd.Item.Command].</p>\n<p><strong>Familiar of Enticing Negotiation</strong> Your familiar constantly whispers distracting offers of power, wealth, and other temptations to your enemies, even if your familiar normally doesn't have the means of speaking. When you Cast or Sustain a hex and your familiar is within 10 feet of an enemy, the enemy becomes @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of your next turn. Your familiar can only distract a single enemy per round in this way.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.occultism.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.aliases.witch",
+                "priority": 39,
+                "value": "occult"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:witch",
+                    "item:trait:hex"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Witch.Patron.FamiliarAbility.EnticingNegotiation.Description",
+                        "title": "PF2E.SpecificRule.Witch.Patron.FamiliarAbility.EnticingNegotiation.Title"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "witch-patron"
+            ],
+            "rarity": "common",
+            "value": [
+                "witch"
+            ]
+        }
+    },
+    "type": "feat"
+}

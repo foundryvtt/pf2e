@@ -1,0 +1,56 @@
+{
+    "_id": "2O1MmFvLdGZodvVc",
+    "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
+    "name": "Effect: Enter Spirit Trance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Enter Spirit Trance]</p>\n<p>You gain temporary Hit Points equal to your level plus your Constitution modifier, a +1 status bonus to Fortitude and Will saving throws, and your melee Strikes deal 1 additional spirit damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "@actor.system.abilities.con.mod + @actor.level"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "fortitude",
+                    "will"
+                ],
+                "type": "status",
+                "value": 1
+            },
+            {
+                "damageType": "spirit",
+                "key": "FlatModifier",
+                "selector": "melee-damage",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

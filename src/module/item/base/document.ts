@@ -9,8 +9,8 @@ import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource, RuleElements } from "@module/rules/index.ts";
 import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers.ts";
+import { eventToRollMode } from "@module/sheet/helpers.ts";
 import type { UserPF2e } from "@module/user/document.ts";
-import { eventToRollMode } from "@scripts/sheet-util.ts";
 import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, htmlClosest, isObject, localizer, setHasElement, sluggify, tupleHasValue } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
@@ -30,7 +30,7 @@ import type {
     RawItemChatData,
     TraitChatData,
 } from "./data/index.ts";
-import type { ItemTrait } from "./data/system.ts";
+import type { ItemDescriptionData, ItemTrait } from "./data/system.ts";
 import type { ItemSheetPF2e } from "./sheet/sheet.ts";
 
 /** The basic `Item` subclass for the system */
@@ -38,8 +38,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /** Has this document completed `DataModel` initialization? */
     declare initialized: boolean;
 
-    /** Additional item roll options set by rule elements */
-    declare rollOptions: Set<string>;
+    /** Additional item roll options not derived from an item's own data */
+    declare specialOptions: string[];
 
     /** The item that granted this item, if any */
     declare grantedBy: ItemPF2e<ActorPF2e> | null;
@@ -63,7 +63,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     /** The UUID of the item from which this one was copied (or is identical to if a compendium item) **/
     get sourceId(): ItemUUID | null {
-        return this._id && this.pack ? this.uuid : this._stats.duplicateSource ?? this._stats.compendiumSource;
+        const isCompendiumItem = this._id && this.pack && !this.isEmbedded;
+        return isCompendiumItem ? this.uuid : (this._stats.duplicateSource ?? this._stats.compendiumSource);
     }
 
     /** The recorded schema version of this item, updated after each data migration */
@@ -71,7 +72,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const legacyValue = R.isPlainObject(this._source.system.schema)
             ? Number(this._source.system.schema.version) || null
             : null;
-        return Number(this._source.system._migration?.version) ?? legacyValue;
+        return Number(this._source.system._migration?.version) || legacyValue;
     }
 
     get description(): string {
@@ -87,17 +88,17 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
      * Set a source ID on a dropped embedded item without a full data reset
      * This is currently necessary as of 10.291 due to system measures to prevent premature data preparation
      */
-    static override fromDropData<TDocument extends foundry.abstract.Document>(
+    static override async fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
         options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
-    static override fromDropData(
+    static override async fromDropData(
         data: object,
         options?: Record<string, unknown>,
     ): Promise<foundry.abstract.Document | undefined> {
         if ("uuid" in data && UUIDUtils.isItemUUID(data.uuid)) {
-            const item = fromUuidSync(data.uuid);
+            const item = await fromUuid(data.uuid);
             if (item instanceof ItemPF2e && item.parent && !item.sourceId) {
                 // Upstream would do this via `item.updateSource(...)`, causing a data reset
                 item._source._stats.duplicateSource = item.uuid;
@@ -152,7 +153,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         const slug = this.slug ?? sluggify(this.name);
         const granterOptions = includeGranter
-            ? this.grantedBy?.getRollOptions("granter", { includeGranter: false }).map((o) => `${prefix}:${o}`) ?? []
+            ? (this.grantedBy?.getRollOptions("granter", { includeGranter: false }).map((o) => `${prefix}:${o}`) ?? [])
             : [];
 
         const rollOptions = [
@@ -160,7 +161,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             `${prefix}:${slug}`,
             `${prefix}:slug:${slug}`,
             ...granterOptions,
-            ...Array.from(this.rollOptions).map((o) => `${prefix}:${o}`),
+            ...Array.from(this.specialOptions).map((o) => `${prefix}:${o}`),
             ...traitOptions.map((t) => `${prefix}:${t}`),
             ...otherTags.map((t) => `${prefix}:tag:${t}`),
         ];
@@ -174,7 +175,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         // The heightened level of a spell is retrievable from its getter but not prepared level data
-        const level = this.isOfType("spell") ? this.rank : this.system.level?.value ?? null;
+        const level = this.isOfType("spell") ? this.rank : (this.system.level?.value ?? null);
         if (typeof level === "number") {
             rollOptions.push(`${prefix}:level:${level}`);
         }
@@ -231,7 +232,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         );
 
         // Create the chat message
-        return options.create ?? true
+        return (options.create ?? true)
             ? ChatMessagePF2e.create(chatData, { rollMode, renderSheet: false })
             : new ChatMessagePF2e(chatData, { rollMode });
     }
@@ -244,7 +245,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     protected override _initialize(options?: Record<string, unknown>): void {
         this.initialized = false;
         this.rules = [];
-        this.rollOptions = new Set();
+        this.specialOptions = [];
 
         super._initialize(options);
     }
@@ -252,13 +253,14 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /**
      * Never prepare data except as part of `DataModel` initialization. If embedded, don't prepare data if the parent is
      * not yet initialized. See https://github.com/foundryvtt/foundryvtt/issues/7987
+     * @todo remove in V13
      */
     override prepareData(): void {
-        if (this.initialized) return;
-        if (!this.parent || this.parent.initialized) {
-            this.initialized = true;
-            super.prepareData();
+        if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
+            return;
         }
+        this.initialized = true;
+        super.prepareData();
     }
 
     /** Ensure the presence of the pf2e flag scope with default properties and values */
@@ -268,6 +270,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         this.system.slug ||= null;
         this.system.description.addenda = [];
         this.system.description.override = null;
+        this.system.description.initialized = false;
 
         const flags = this.flags;
         flags.pf2e = fu.mergeObject(flags.pf2e ?? {}, { rulesSelections: {} });
@@ -428,6 +431,20 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /*  Chat Card Data                              */
     /* -------------------------------------------- */
 
+    /** Retrieves base description data before enriching. May be overriden to prepend or append additional data */
+    async getDescription(): Promise<ItemDescriptionData> {
+        // Lazy load description alterations now that we need them
+        const actor = this.actor;
+        if (!this.system.description.initialized && actor) {
+            for (const alteration of actor.synthetics.itemAlterations.filter((i) => i.property === "description")) {
+                alteration.applyAlteration({ singleItem: this as ItemPF2e<ActorPF2e> });
+            }
+            this.system.description.initialized = true;
+        }
+
+        return { ...this.system.description };
+    }
+
     /**
      * Internal method that transforms data into something that can be used for chat.
      * Currently renders description text using enrichHTML.
@@ -448,7 +465,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         return this.processChatData(htmlOptions, data);
     }
 
-    protected traitChatData(
+    traitChatData(
         dictionary: Record<string, string | undefined> = this.constructor.validTraits,
         traits = this.system.traits.value ?? [],
     ): TraitChatData[] {
@@ -571,14 +588,22 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         // If any created types are "singular", remove existing competing ones.
-        // actor.deleteEmbeddedDocuments() will also delete any linked items.
+        // Also remove expired duplicate expired effects.
+        // Creature's deleteEmbeddedDocuments() will also delete any linked items.
         const singularTypes = ["ancestry", "background", "class", "heritage", "deity"] as const;
         const singularTypesToDelete = singularTypes.filter((type) => sources.some((s) => s.type === type));
         const preCreateDeletions = singularTypesToDelete.flatMap(
             (type): ItemPF2e<ActorPF2e>[] => actor.itemTypes[type],
         );
-        if (preCreateDeletions.length > 0) {
-            const idsToDelete = preCreateDeletions.map((i) => i.id);
+        const expiredDuplicateEffects = sources
+            .filter((s) => s.type === "effect")
+            .map((s) => s._stats?.duplicateSource ?? s._stats?.compendiumSource)
+            .flatMap((uuid) => actor.itemTypes.effect.filter((e) => e.sourceId === uuid && e.isExpired));
+        const idsToDelete = R.unique([
+            ...expiredDuplicateEffects.map((i) => i.id),
+            ...preCreateDeletions.map((i) => i.id),
+        ]);
+        if (idsToDelete.length > 0) {
             await actor.deleteEmbeddedDocuments("Item", idsToDelete, { render: false });
         }
 
@@ -618,15 +643,27 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         })();
 
         const outputSources = items.map((i) => i._source);
+        const itemUpdates: EmbeddedDocumentUpdateData[] = [];
 
         // Process item preCreate rules for all items that are going to be added
         // This may add additional items (such as via GrantItem)
-        for (const item of items) {
+        for (const item of [...items]) {
             // Pre-load this item's self: roll options for predication by preCreate rule elements
             item.prepareActorData?.();
+            const rules = item.prepareRuleElements({ suppressWarnings: true });
+
+            // Mark suppressed feats as suppressed during preCreate.
+            // This must happen *after* rules are fetched, as suppressing kills the rules
+            // Our only goal is to prevent choice sets, which are not salvageable
+            const sourceId = item.sourceId;
+            if (sourceId && item.isOfType("feat")) {
+                item.suppressed ||=
+                    items.some(
+                        (i) => i.isOfType("feat") && i.system.subfeatures.suppressedFeatures.includes(sourceId),
+                    ) || actor.itemTypes.feat.some((f) => f.system.subfeatures.suppressedFeatures.includes(sourceId));
+            }
 
             const itemSource = item._source;
-            const rules = item.prepareRuleElements({ suppressWarnings: true });
             for (const rule of rules) {
                 const ruleSource = itemSource.system.rules[rules.indexOf(rule)] as RuleElementSource;
                 await rule.preCreate?.({
@@ -634,6 +671,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                     ruleSource,
                     pendingItems: outputSources,
                     tempItems: items,
+                    itemUpdates,
                     operation,
                 });
             }
@@ -651,6 +689,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             for (const feature of classFeatures) {
                 feature.sort = classFeatures.indexOf(feature) * 100 * (feature.system.level?.value ?? 1);
             }
+        }
+
+        // If there are any item updates, perform them first
+        if (itemUpdates.length) {
+            await actor.updateEmbeddedDocuments("Item", itemUpdates, { render: false });
         }
 
         const nonKits = outputSources.filter((source) => source.type !== "kit");
@@ -757,29 +800,54 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             }
         }
 
-        // If this item is of a certain type and belongs to a PC, change current HP along with any change to max
-        if (this.actor?.isOfType("character") && this.isOfType("ancestry", "background", "class", "feat", "heritage")) {
-            const actorClone = this.actor.clone();
-            const item = actorClone.items.get(this.id, { strict: true });
-            item.updateSource(changed, options);
-            actorClone.reset();
-
-            const hpMaxDifference = actorClone.hitPoints.max - this.actor.hitPoints.max;
-            if (hpMaxDifference !== 0) {
-                const newHitPoints = this.actor.hitPoints.value + hpMaxDifference;
-                await this.actor.update(
-                    { "system.attributes.hp.value": newHitPoints },
-                    { render: false, allowHPOverage: true },
-                );
-            }
-        }
-
         // Run preUpdateItem rule element callbacks
         for (const rule of this.rules) {
             await rule.preUpdate?.(changed);
         }
 
         return super._preUpdate(changed, options, user);
+    }
+
+    /** Store certain data to be checked in _onUpdateOperation */
+    static override async _preUpdateOperation(
+        documents: foundry.abstract.Document<foundry.abstract._Document | null, foundry.data.fields.DataSchema>[],
+        operation: ItemPF2eDatabaseUpdateOperation,
+        user: foundry.documents.BaseUser<foundry.documents.BaseActor<null>>,
+    ): Promise<boolean | void> {
+        if ((await super._preUpdateOperation(documents, operation, user)) === false) {
+            return false;
+        }
+
+        // If this item is of a certain type and belongs to a PC, store current hp to be checked later
+        const actor = documents.find((d): d is ItemPF2e => d instanceof ItemPF2e)?.actor;
+        if (actor) {
+            operation.previous = fu.mergeObject(operation.previous ?? {}, {
+                maxHitPoints: actor.hitPoints?.max,
+            });
+        }
+    }
+
+    /** Overriden to handle max hp updates when certain items changes. These updates should not occur due to temporary changes */
+    static override async _onUpdateOperation(
+        documents: foundry.abstract.Document<foundry.abstract._Document | null, foundry.data.fields.DataSchema>[],
+        operation: ItemPF2eDatabaseUpdateOperation,
+        user: foundry.documents.BaseUser<foundry.documents.BaseActor<null>>,
+    ): Promise<void> {
+        await super._onUpdateOperation(documents, operation, user);
+
+        const featureItem = documents.find(
+            (d): d is ItemPF2e =>
+                d instanceof ItemPF2e && d.isOfType("ancestry", "background", "class", "feat", "heritage"),
+        );
+        const actor = featureItem?.actor;
+        const previousHitPoints = operation.previous?.maxHitPoints;
+        if (actor?.isOfType("character") && typeof previousHitPoints === "number") {
+            const hpMaxDifference = actor.hitPoints.max - previousHitPoints;
+            if (hpMaxDifference !== 0) {
+                const newHitPoints = actor.hitPoints.value + hpMaxDifference;
+                await actor.update({ "system.attributes.hp.value": newHitPoints }, { allowHPOverage: true });
+            }
+        }
     }
 
     /** Call onCreate rule-element hooks */
@@ -938,5 +1006,10 @@ interface RefreshFromCompendiumParams {
     /** Whether to run the update: if false, a clone with updated source is returned. */
     update?: boolean;
 }
+
+/** An extension of DatabaseUpdateOperation to pass on system specific data between phases */
+type ItemPF2eDatabaseUpdateOperation = DatabaseUpdateOperation<foundry.abstract.Document | null> & {
+    previous?: { maxHitPoints?: number };
+};
 
 export { ItemPF2e, ItemProxyPF2e };

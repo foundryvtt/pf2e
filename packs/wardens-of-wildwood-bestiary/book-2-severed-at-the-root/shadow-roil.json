@@ -1,0 +1,98 @@
+{
+    "_id": "j5q3FQlRI4cdMguh",
+    "folder": "hC7EhepoGMQwgJ4z",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "mId4uB2MMaceT2Em",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Touch Down",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Two or more living creatures enter the area</p>\n<hr />\n<p><strong>Effect</strong> A spiraling column of shadows and crackling planar magic gathers 20 feet away, becoming a whirling cyclone of darkness 15 feet wide and 100 feet tall. The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Shadow Roil",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 15
+            }
+        },
+        "details": {
+            "description": "<p>A cyclone of living shadows and planar magic surges around the area, attracted to living creatures.</p>",
+            "disable": "<p>@Check[arcana|dc:32] or @Check[occultism|dc:32] (expert) to weaken the tornado; three successes in any combination are required to disable the trap.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 10
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #202: Severed at the Root"
+            },
+            "reset": "<p>The cyclone disperses after 1 minute and resets after 1 day.</p>",
+            "routine": "<p>(3 actions) The cyclone uses 3 actions to move, traveling up to 30 feet with each action and dealing @Damage[(2d12+13)[slashing]] damage to each creature in its path (@Check[reflex|dc:33|basic] save). A creature needs to attempt only one save during the cyclone's movement, even if the cyclone moves over its space more than once. On a critical failure, a creature is swept up into the cyclone, becoming @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] (@UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC 33). A creature grabbed by the cyclone moves along with the cyclone and takes @Damage[(1d12+7)[slashing]]{1d12+7 additional slashing} damage at the beginning of its turn, and it must attempt the basic Reflex save against the cyclone on the cyclone's turn, no matter where the cyclone moves. A creature that successfully Escapes from the cyclone falls from a height of 1d20 &times; 5 feet.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "shadow",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

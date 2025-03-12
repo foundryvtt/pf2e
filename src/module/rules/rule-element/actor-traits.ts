@@ -1,15 +1,13 @@
 import type { ActorType } from "@actor/types.ts";
 import { ErrorPF2e } from "@util";
-import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { ModelPropsFromRESchema } from "./data.ts";
 import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
+import fields = foundry.data.fields;
 
 class ActorTraitsRuleElement extends RuleElementPF2e<ActorTraitsRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "npc", "familiar", "hazard", "vehicle"];
 
     static override defineSchema(): ActorTraitsRuleSchema {
-        const fields = foundry.data.fields;
-
         return {
             ...super.defineSchema(),
             priority: new fields.NumberField({ required: true, nullable: false, integer: true, initial: 51 }),
@@ -70,8 +68,8 @@ class ActorTraitsRuleElement extends RuleElementPF2e<ActorTraitsRuleSchema> {
 }
 
 type ActorTraitsRuleSchema = RuleElementSchema & {
-    add: ArrayField<StringField<string, string, true, false, false>>;
-    remove: ArrayField<StringField<string, string, true, false, false>>;
+    add: fields.ArrayField<fields.StringField<string, string, true, false, false>>;
+    remove: fields.ArrayField<fields.StringField<string, string, true, false, false>>;
 };
 
 interface ActorTraitsRuleElement

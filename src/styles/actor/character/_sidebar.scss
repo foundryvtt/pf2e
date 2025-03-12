@@ -1,3 +1,5 @@
+@use "sass:color";
+
 aside {
     background-image: url("/assets/sheet/red_sidebar_top.webp"), url("/assets/sheet/red_sidebar_bottom.webp");
     background-repeat: no-repeat;
@@ -18,9 +20,9 @@ aside {
         width: calc(14rem + var(--space-10));
     }
 
-    input[type="number"] {
+    input[type="number"],
+    input[type="text"] {
         color: var(--text-light);
-        font-size: var(--font-size-28);
         font-weight: initial;
         line-height: 1em;
         text-align: center;
@@ -236,6 +238,10 @@ aside {
                 grid-template-columns: repeat(3, 1fr);
                 justify-content: space-evenly;
 
+                input {
+                    font-size: var(--font-size-28);
+                }
+
                 .container {
                     text-align: center;
 
@@ -243,9 +249,9 @@ aside {
                         background-color: var(--color-pf-primary);
                         background-image: linear-gradient(
                             90deg,
-                            darken($primary-color, 5) 0%,
-                            lighten($primary-color, 8) 50%,
-                            darken($primary-color, 5) 100%
+                            color.adjust($primary-color, $lightness: -5%) 0%,
+                            color.adjust($primary-color, $lightness: 8%) 50%,
+                            color.adjust($primary-color, $lightness: -5%) 100%
                         );
                         border: 1px solid var(--sidebar-title);
                         border-radius: 0 0 4px 4px;
@@ -485,6 +491,25 @@ aside {
                     justify-content: center;
                     margin-top: var(--space-4);
                 }
+            }
+        }
+
+        .special-resource {
+            align-items: baseline;
+            font-size: var(--font-size-16);
+            flex-wrap: nowrap;
+            line-height: 1.25;
+            .label {
+                flex: 1;
+                font-weight: initial;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            input {
+                width: 3.5ch;
+                text-align: end;
+                margin-right: var(--space-2);
             }
         }
 

@@ -1,0 +1,52 @@
+{
+    "_id": "8YjmPizeglw83W9E",
+    "img": "icons/magic/nature/tree-spirit-black.webp",
+    "name": "Effect: Curse of Inevitable Rot",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Curse of Inevitable Rot]</p>\n<p>You take a status penalty when attempting to Treat Disease, Poison, or Wounds on the target.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:treat-disease",
+                            "action:treat-poison",
+                            "action:treat-wounds"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "type": "status",
+                "value": "ternary(gte(@item.origin.conditions.cursebound.value,4),-2,-1)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

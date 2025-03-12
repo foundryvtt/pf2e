@@ -1,0 +1,67 @@
+{
+    "_id": "tlbv3TAD2xPDFnAf",
+    "img": "icons/commodities/biological/eye-red-pink.webp",
+    "name": "Spell Effect: Cutting Eye",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Cutting Eye]</p>\n<p>You gain a +2 circumstance bonus to AC or a saving throw.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.ArmorClassLabel",
+                        "value": "ac"
+                    },
+                    {
+                        "label": "PF2E.SavesFortitude",
+                        "value": "fortitude"
+                    },
+                    {
+                        "label": "PF2E.SavesReflex",
+                        "value": "reflex"
+                    },
+                    {
+                        "label": "PF2E.SavesWill",
+                        "value": "will"
+                    }
+                ],
+                "flag": "defense",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Defense"
+            },
+            {
+                "key": "FlatModifier",
+                "removeAfterRoll": "if-enabled",
+                "selector": "{item|flags.pf2e.rulesSelections.defense}",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

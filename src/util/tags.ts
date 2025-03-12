@@ -1,7 +1,9 @@
 import { TraitViewData } from "@actor/data/base.ts";
-import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
+import { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import Tagify, { TagifySettings } from "@yaireo/tagify";
+import { DestroyableManager } from "./destroyables.ts";
 import { objectHasKey } from "./misc.ts";
+import { createHTMLElement } from "@util";
 
 function traitSlugToObject(trait: string, dictionary: Record<string, string | undefined>): TraitViewData {
     // Look up trait labels from `npcAttackTraits` instead of `weaponTraits` in case a battle form attack is
@@ -46,15 +48,8 @@ function tagify(
         delimiters = ",",
     }: TagifyOptions = {},
 ): Tagify<TagRecord> | null {
-    // Avoid importing the HTMLTagifyTagsElement class for an instanceof check which breaks pack building
-    const isTagifyTagsElement = (element: HTMLElement | null): element is HTMLTagifyTagsElement => {
-        return element?.tagName.toLowerCase() === "tagify-tags";
-    };
-
-    const input = isTagifyTagsElement(element) ? element.input : element;
-    if (!input) {
-        return null;
-    }
+    const input = element instanceof HTMLTagifyTagsElement ? element.input : element;
+    if (!input) return null;
 
     const whitelistTransformed = whitelist ? transformWhitelist(whitelist) : [];
     const maxItems = whitelist ? Object.keys(whitelistTransformed).length : undefined;
@@ -72,7 +67,41 @@ function tagify(
         editTags,
         delimiters,
         whitelist: whitelistTransformed,
+        templates: {
+            tag(tagData: TagRecord): string {
+                const removeButton = document.createElement("x");
+                removeButton.className = this.settings.classNames.tagX;
+                removeButton.role = "button";
+                removeButton.ariaLabel = "remove tag";
+
+                const tag = document.createElement("tag");
+                tag.className = this.settings.classNames.tag;
+                tag.appendChild(removeButton);
+                tag.appendChild(
+                    createHTMLElement("div", {
+                        children: [
+                            createHTMLElement("span", {
+                                innerHTML: tagData[this.settings.tagTextProp] || tagData.value,
+                                classes: [this.settings.classNames.tagText],
+                            }),
+                        ],
+                    }),
+                );
+
+                tag.contentEditable = "false";
+                tag.spellcheck = false;
+                tag.tabIndex = this.settings.a11y.focusableTags ? 0 : -1;
+
+                for (const [key, value] of Object.entries(tagData)) {
+                    tag.setAttribute(key, value);
+                }
+
+                return tag.outerHTML;
+            },
+        },
     });
+
+    DestroyableManager.instance.observe(tagify);
 
     // Add the name to the tags html as an indicator for refreshing
     if (input.name) {

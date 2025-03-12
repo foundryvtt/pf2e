@@ -4,7 +4,7 @@
     "name": "Spell Effect: Resist Energy",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Resist Energy]</p>\n<p>A shield of elemental energy protects a creature against one type of energy damage. Choose acid, cold, electricity, fire, or sonic damage. The target and its gear gain resistance 5 against the damage type you chose.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The resistance increases to 10.</p>\n<p><strong>Heightened (7th)</strong> The resistance increases to 15.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Resist Energy]</p>\n<p>Choose acid, cold, electricity, fire, or sonic damage. You gain resistance against the damage type you chose.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -51,25 +51,7 @@
             {
                 "key": "Resistance",
                 "type": "{item|flags.pf2e.rulesSelections.resistEnergyType}",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 3,
-                            "start": 2,
-                            "value": 5
-                        },
-                        {
-                            "end": 6,
-                            "start": 4,
-                            "value": 10
-                        },
-                        {
-                            "start": 7,
-                            "value": 15
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
+                "value": "ternary(gte(@item.level,7),15,ternary(gte(@item.level,4),10,5))"
             }
         ],
         "start": {

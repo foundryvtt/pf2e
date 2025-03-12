@@ -1,6 +1,6 @@
 import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { ClassDCData } from "@actor/character/data.ts";
-import { FeatSlotCreationData } from "@actor/character/feats.ts";
+import type { FeatSlotData } from "@actor/character/feats/index.ts";
 import { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { ABCItemPF2e, FeatPF2e } from "@item";
@@ -34,7 +34,7 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
         return this.system.savingThrows;
     }
 
-    get grantedFeatSlots(): Record<"ancestry" | "class" | "skill" | "general", (number | FeatSlotCreationData)[]> {
+    get grantedFeatSlots(): Record<"ancestry" | "class" | "skill" | "general", (number | FeatSlotData)[]> {
         const system = this.system;
 
         return {

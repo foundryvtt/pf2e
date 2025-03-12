@@ -1,0 +1,123 @@
+{
+    "_id": "bHCpqwKH9JM8FZa6",
+    "img": "icons/consumables/potions/potion-flask-corked-green.webp",
+    "name": "Effect: Rainbow Vinegar",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Rainbow Vinegar (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Rainbow Vinegar (Greater)]</p>\n<p>Your unarmed attacks deal additional acid damage, and you have resistance to electricity. Vampires take additional acid damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:rainbow-vinegar-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Rainbow Vinegar (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:rainbow-vinegar-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Rainbow Vinegar (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "rainbow-vinegar"
+            },
+            {
+                "damageType": "acid",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "selector": "unarmed-damage",
+                "tags": [
+                    "rainbow-vinegar-acid"
+                ]
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "rainbow-vinegar:rainbow-vinegar-greater",
+                    "dice:tag:rainbow-vinegar-acid"
+                ],
+                "property": "dice-faces",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "value": 8
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "target:trait:vampire",
+                    "dice:tag:rainbow-vinegar-acid"
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "unarmed-damage"
+                ],
+                "value": 2
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "rainbow-vinegar:rainbow-vinegar-moderate"
+                ],
+                "type": "electricity",
+                "value": 10
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "rainbow-vinegar:rainbow-vinegar-greater"
+                ],
+                "type": "electricity",
+                "value": 15
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

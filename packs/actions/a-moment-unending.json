@@ -1,0 +1,47 @@
+{
+    "_id": "kAwE9YqU6GH1cD7W",
+    "img": "systems/pf2e/icons/actions/OneAction.webp",
+    "name": "A Moment Unending",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": null,
+        "description": {
+            "value": "<p>You take in every movement around you, affording you unparalleled accuracy. Your next successful Strike against an enemy before the end of your next turn deals an additional 1d6 precision damage. This damage increases to 2d6 at 10th level and 3d6 at 18th level.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "a-moment-unending",
+                "toggleable": true
+            },
+            {
+                "category": "precision",
+                "diceNumber": "ternary(gte(@actor.level,18),3,ternary(gte(@actor.level,10),2,1))",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "a-moment-unending"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "traits": {
+            "value": [
+                "concentrate",
+                "prediction",
+                "transcendence"
+            ]
+        }
+    },
+    "type": "action"
+}

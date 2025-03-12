@@ -1,0 +1,91 @@
+{
+    "_id": "pShjDoTqAdX1m3DK",
+    "folder": "pFo9tZOFFk8cOse6",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Animal Actor",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You participated in a performance of The Leaping Lion, a play focusing on Cyricas, the animal-loving adventurer who traveled with his ape friend Mardu and remains a favorite hero among Taldan youth. You become trained in Nature and a Lore skill related to a particular type of animal commonly used in show business (such as Canine Lore, Ursine Lore, or Primate Lore); if you were already trained in either, you become an expert in that skill instead. You gain a +2 circumstance bonus to all checks to Command an Animal and @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] about creatures with the animal trait. You can use your chosen animal Lore to Command an Animal of that type.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Kitharodian Actor Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "animal-actor",
+                    {
+                        "or": [
+                            "action:recall-knowledge",
+                            "action:command-an-animal"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "predicate": [
+                            "skill:nature:rank:1"
+                        ],
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "predicate": [
+                            {
+                                "not": "skill:nature:rank:1"
+                            }
+                        ],
+                        "value": 1
+                    }
+                ],
+                "flag": "rank",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.nature.rank",
+                "value": "@item.flags.pf2e.rulesSelections.rank"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

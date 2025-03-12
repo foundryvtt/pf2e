@@ -29,12 +29,38 @@
             }
         },
         "publication": {
-            "license": "OGL",
+            "license": "ORC",
             "remaster": false,
             "title": "Pathfinder Guns & Gears"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "environment:spiritual-disturbance",
+                    "playing"
+                ],
+                "selector": "performance",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "playing",
+                    {
+                        "or": [
+                            "action:detect-haunt",
+                            "action:detect-incorporeal-undead"
+                        ]
+                    }
+                ],
+                "selector": "perception",
+                "type": "item",
+                "value": 1
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "rare",

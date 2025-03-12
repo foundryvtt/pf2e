@@ -1,0 +1,43 @@
+{
+    "_id": "EdYvHSzJC5pGLdoV",
+    "folder": "KN9hhATq6X3GwryB",
+    "img": "systems/pf2e/icons/pathfinder-society/pfs-glyph.webp",
+    "name": "Effect: Resist Corruption",
+    "system": {
+        "description": {
+            "value": "<p>Granted by Resist Corruption</p>\n<p>You gain resistance to unholy equal to your Reputation Tier with the Vigilant Seal faction.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "unholy",
+                "value": "ternary(gte(@item.origin.system.pfs.reputation.VS,120), 3, ternary(gte(@item.origin.system.pfs.reputation.VS, 60), 2, ternary(gte(@item.origin.system.pfs.reputation.VS,20), 1, 0)))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

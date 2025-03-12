@@ -1,0 +1,75 @@
+{
+    "_id": "X6GQ4ngqpjP8SpCq",
+    "img": "icons/magic/time/clock-spinning-gold-pink.webp",
+    "name": "Curse of Turbulent Moments",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Time passes differently for you than for everyone else. You experience fluxes that might manifest as minor day-to-day changes in your apparent age, such as a gray lock of hair or a disappearing wrinkle, or as occasional ghostly temporal afterimages that slightly trail your movement. As you become more affected by your curse, time's passage becomes more disjointed for you, making it difficult for you to react to the quick actions of others. You take a status penalty to your AC against attacks made against you from reactions or free actions and a status penalty to saving throws against effects that would make you @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] or @UUID[Compendium.pf2e.conditionitems.Item.Slowed] equal to your @UUID[Compendium.pf2e.conditionitems.Item.Cursebound] value.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.OracleCurses.Time.DefendAgainstLabel",
+                "option": "time-curse-defend-against",
+                "predicate": [
+                    "class:oracle"
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:condition:cursebound",
+                    "time-curse-defend-against"
+                ],
+                "selector": "ac",
+                "type": "status",
+                "value": "-@actor.conditions.cursebound.value"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:condition:cursebound",
+                    {
+                        "or": [
+                            "time-curse-defend-against",
+                            "inflicts:fatigued",
+                            "inflicts:slowed"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": "-@actor.conditions.cursebound.value"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "curse",
+                "divine",
+                "oracle"
+            ]
+        }
+    },
+    "type": "feat"
+}

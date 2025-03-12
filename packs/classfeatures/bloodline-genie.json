@@ -31,7 +31,7 @@
                 "path": "system.skills.arcana.rank",
                 "predicate": [
                     {
-                        "not": "parent:tag:crossblooded-evolution"
+                        "not": "parent:granter:slug:crossblooded-evolution"
                     }
                 ],
                 "value": 1
@@ -42,7 +42,7 @@
                 "path": "system.skills.deception.rank",
                 "predicate": [
                     {
-                        "not": "parent:tag:crossblooded-evolution"
+                        "not": "parent:granter:slug:crossblooded-evolution"
                     }
                 ],
                 "value": 1
@@ -81,7 +81,7 @@
                 "mode": "add",
                 "predicate": [
                     {
-                        "not": "parent:tag:crossblooded-evolution"
+                        "not": "parent:granter:slug:crossblooded-evolution"
                     },
                     {
                         "or": [
@@ -218,6 +218,7 @@
             {
                 "itemType": "spell",
                 "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
                 "mode": "add",
                 "predicate": [
                     "class:sorcerer",
@@ -238,6 +239,7 @@
                 "property": "description",
                 "value": [
                     {
+                        "divider": true,
                         "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Genie",
                         "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Genie"
                     },
@@ -249,6 +251,7 @@
             {
                 "itemType": "feat",
                 "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
                 "mode": "add",
                 "predicate": [
                     "class:sorcerer",
@@ -269,6 +272,7 @@
                 "property": "description",
                 "value": [
                     {
+                        "divider": true,
                         "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Genie",
                         "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Genie"
                     },
@@ -283,7 +287,7 @@
                 "option": "feature:bloodline:tradition:arcane",
                 "predicate": [
                     {
-                        "not": "parent:tag:crossblooded-evolution"
+                        "not": "parent:granter:slug:crossblooded-evolution"
                     }
                 ]
             }

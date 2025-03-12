@@ -101,13 +101,16 @@
             }
         }
 
-        &:has(.effect-applied) {
+        &:has(.effect-applied, .crafted-item) {
             align-items: center;
             color: var(--color-text-dark-secondary);
             font-style: italic;
-            height: 2.1rem;
+            flex-direction: column;
+            gap: var(--space-8);
             justify-content: center;
+            min-height: 2.1rem;
             padding-bottom: 0.1rem;
+            text-align: center;
         }
     }
 }

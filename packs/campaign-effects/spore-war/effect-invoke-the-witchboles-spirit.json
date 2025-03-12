@@ -1,0 +1,59 @@
+{
+    "_id": "yZGqaYXpuZ3NfbNB",
+    "folder": "93ELfrtUYYWaaOKE",
+    "img": "icons/magic/symbols/runes-carved-stone-red.webp",
+    "name": "Effect: Invoke the Witchbole's Spirit",
+    "system": {
+        "description": {
+            "value": "<p>PCs gain a +4 circumstance bonus to all saving throws against Witchbole Collapse effects. Conversely, Treerazer takes a –4 circumstance penalty to his saving throws against the same effects.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #212: A Voice in the Blight"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "witchbole-collapse"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "predicate": [
+                    "self:type:npc"
+                ],
+                "selector": "saving-throw",
+                "slug": "invoke-the-witchboles-spirit",
+                "value": -1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

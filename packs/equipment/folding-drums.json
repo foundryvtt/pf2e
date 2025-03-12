@@ -9,7 +9,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>You can unfold this @UUID[Compendium.pf2e.equipment-srd.Item.Musical Instrument (Virtuoso heavy)]{Musical Instrument (virtuoso percussion instrument)} into a hand drum (1 Bulk), a marching drum set with a shoulder harness and back brace (3 Bulk), or a large standing drum set with a built-in stool (16 Bulk). Changing the folding drum's size is a 3-action Interact activity, and the drums must have sufficient open space to accommodate their new size.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact (concentrate)</p>\n<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> You play a pounding rhythm on the drum. If the next action you use is to cast a composition cantrip that has an emanation, increase the area of the emanation by 30 feet.</p>"
+            "value": "<p>You can unfold this @UUID[Compendium.pf2e.equipment-srd.Item.Musical Instrument (Virtuoso heavy)]{virtuoso percussion instrument} into a hand drum (1 Bulk), a marching drum set with a shoulder harness and back brace (3 Bulk), or a large standing drum set with a built-in stool (16 Bulk). Changing the <em>folding drum</em>'s size is a 3-action Interact activity, and the drums must have sufficient open space to accommodate their new size.</p><hr /><p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact (concentrate)</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Effect</strong> You play a pounding rhythm on the drum. If the next action you use is to cast a composition cantrip that has an emanation, increase the area of the emanation by 30 feet.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -34,7 +34,44 @@
             "title": "Pathfinder #164: Hands of the Devil"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "domain": "performance",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.PlayingItem",
+                "option": "playing",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "playing"
+                ],
+                "selector": "performance",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "folding-drums-emanation",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "folding-drums-emanation",
+                    "item:area:type:emanation",
+                    "item:trait:cantrip",
+                    "item:trait:composition"
+                ],
+                "property": "area-size",
+                "value": 30
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "uncommon",

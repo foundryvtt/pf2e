@@ -1,0 +1,70 @@
+{
+    "_id": "b1sZC0knPcr7B6Gz",
+    "folder": "KN9hhATq6X3GwryB",
+    "img": "systems/pf2e/icons/pathfinder-society/pfs-glyph.webp",
+    "name": "Effect: Magical Mentor",
+    "system": {
+        "description": {
+            "value": "<p>Granted by Magical Mentor</p>\n<p>Your Level Bump modifier bonus to your spell DC that is the same tradition of the mentor increases to 2.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Society Boons"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitArcane",
+                        "value": "arcane"
+                    },
+                    {
+                        "label": "PF2E.TraitDivine",
+                        "value": "divine"
+                    },
+                    {
+                        "label": "PF2E.TraitOccult",
+                        "value": "occult"
+                    },
+                    {
+                        "label": "PF2E.TraitPrimal",
+                        "value": "primal"
+                    }
+                ],
+                "flag": "magicalMentor",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Tradition"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "spellcasting:{item|flags.pf2e.rulesSelections.magicalMentor}"
+                ],
+                "selector": "spell-dc",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -2,7 +2,8 @@ import { userColorForActor } from "@actor/helpers.ts";
 import type { ItemPF2e } from "@item";
 import type { AuraRuleElement, AuraRuleElementSchema } from "@module/rules/rule-element/aura.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
-import { htmlClosest, htmlQuery, htmlQueryAll, isImageFilePath, tagify } from "@util";
+import { htmlClosest, htmlQuery, htmlQueryAll, isImageFilePath } from "@util";
+import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
 import { RuleElementForm, RuleElementFormSheetData, RuleElementFormTabData } from "./base.ts";
 
@@ -134,7 +135,7 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
                 ...e,
                 item: fromUuidSync(e.uuid),
             })),
-            borderColor: border?.color === "user-color" ? userColor : border?.color?.toString() ?? null,
+            borderColor: border?.color === "user-color" ? userColor : (border?.color?.toString() ?? null),
             highlightColor: highlight.color === "user-color" ? userColor : highlight?.color?.toString(),
             saveTypes: CONFIG.PF2E.saves,
             isImageFile: isImageFilePath(this.rule.appearance?.texture?.src),

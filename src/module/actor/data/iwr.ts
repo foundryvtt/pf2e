@@ -8,7 +8,11 @@ import { isObject, objectHasKey, setHasElement } from "@util";
 abstract class IWR<TType extends IWRType> {
     readonly type: TType;
 
+    declare value?: number;
+
     readonly exceptions: IWRException<TType>[];
+
+    declare readonly doubleVs?: IWRException<TType>[];
 
     /** A definition for a custom IWR */
     readonly definition: Predicate | null;
@@ -20,25 +24,55 @@ abstract class IWR<TType extends IWRType> {
 
     protected abstract readonly typeLabels: Record<TType, string>;
 
+    static get disjuncter(): Intl.ListFormat {
+        return (this.#disjunctor ??= new Intl.ListFormat(game.i18n.lang, { style: "long", type: "disjunction" }));
+    }
+
+    static #disjunctor: Intl.ListFormat | null = null;
+
     constructor(data: IWRConstructorData<TType>) {
         this.type = data.type;
         this.exceptions = fu.deepClone(data.exceptions ?? []);
         this.definition = data.definition ?? null;
         this.source = data.source ?? null;
-        this.#customLabel = this.type === "custom" ? data.customLabel ?? null : null;
+        this.#customLabel = this.type === "custom" ? (data.customLabel ?? null) : null;
     }
 
-    abstract get label(): string;
+    get label(): string {
+        return this.#createLabel({ withValue: this.value !== undefined });
+    }
 
     /** A label showing the type, exceptions, and doubleVs but no value (in case of weaknesses and resistances) */
     get applicationLabel(): string {
-        const type = this.typeLabel;
-        const exceptions = this.createFormatData({ list: this.exceptions, prefix: "exception" });
-        const key = `Exceptions${this.exceptions.length}DoubleVs0`;
+        return this.#createLabel({ withValue: false });
+    }
 
-        // Remove extra spacing from localization strings with unused {value} placeholders
+    /** Create a possibly complex IWR label with exceptions and types for which the value doubles. */
+    #createLabel({ withValue }: { withValue: boolean }): string {
+        const type = this.typeLabel;
+        const exceptions = IWR.disjuncter.format(
+            this.exceptions.map((e) => game.i18n.localize(typeof e === "string" ? this.typeLabels[e] : e.label)),
+        );
+        const doubleVs = IWR.disjuncter.format(
+            this.doubleVs?.map((e) => game.i18n.localize(typeof e === "string" ? this.typeLabels[e] : e.label)) ?? [],
+        );
+        const key =
+            this.exceptions.length > 0
+                ? this.doubleVs?.length
+                    ? "ExceptionsDoubleVs"
+                    : "Exceptions"
+                : this.doubleVs?.length
+                  ? "DoubleVs"
+                  : "Simple";
+        const value = withValue ? (this.value ?? "") : "";
+
         return game.i18n
-            .format(`PF2E.Damage.IWR.CompositeLabel.${key}`, { type, ...exceptions, value: "" })
+            .format(`PF2E.Damage.IWR.CompositeLabel.${key}`, {
+                type,
+                value,
+                exceptions,
+                doubleVs,
+            })
             .replace(/\s+/g, " ")
             .trim();
     }
@@ -82,8 +116,6 @@ abstract class IWR<TType extends IWRType> {
                 return ["check:outcome:critical-success"];
             case "custom":
                 return this.definition ?? [];
-            case "damage-from-spells":
-                return ["damage", "item:type:spell", "impulse"];
             case "disease":
                 return ["item:trait:disease"];
             case "emotion":
@@ -159,9 +191,9 @@ abstract class IWR<TType extends IWRType> {
                 const component = iwrType === "splash-damage" ? "splash" : "precision";
                 return [`damage:component:${component}`];
             }
-            case "spells": {
-                return ["damage", { or: ["item:type:spell", "item:from-spell", "impulse"] }];
-            }
+            case "spells":
+            case "damage-from-spells":
+                return ["damage", { or: ["item:type:spell", "item:from-spell", "item:trait:impulse"] }];
             case "unarmed-attacks":
                 return ["item:category:unarmed"];
             case "unholy":
@@ -232,23 +264,6 @@ abstract class IWR<TType extends IWRType> {
         };
     }
 
-    /** Construct an object argument for Localization#format (see also PF2E.Actor.IWR.CompositeLabel in en.json) */
-    protected createFormatData({
-        list,
-        prefix,
-    }: {
-        list: IWRException<TType>[];
-        prefix: string;
-    }): Record<string, string> {
-        return list
-            .slice(0, 4)
-            .map((exception, index) => {
-                const label = typeof exception === "string" ? this.typeLabels[exception] : exception.label;
-                return { [`${prefix}${index + 1}`]: game.i18n.localize(label) };
-            })
-            .reduce((accum, obj) => ({ ...accum, ...obj }), {});
-    }
-
     test(statements: string[] | Set<string>): boolean {
         return this.predicate.test(statements);
     }
@@ -267,10 +282,9 @@ type IWRDisplayData<TType extends IWRType> = Pick<IWR<TType>, "type" | "exceptio
 class Immunity extends IWR<ImmunityType> implements ImmunitySource {
     protected readonly typeLabels = CONFIG.PF2E.immunityTypes;
 
-    /** No value on immunities, so the full label is the same as the application label */
-    get label(): string {
-        return this.applicationLabel;
-    }
+    declare value?: never;
+
+    declare readonly doubleVs?: never;
 }
 
 interface IWRSource<TType extends IWRType = IWRType> {
@@ -283,19 +297,13 @@ type ImmunitySource = IWRSource<ImmunityType>;
 class Weakness extends IWR<WeaknessType> implements WeaknessSource {
     protected readonly typeLabels = CONFIG.PF2E.weaknessTypes;
 
-    value: number;
+    declare readonly doubleVs?: never;
+
+    override value: number;
 
     constructor(data: IWRConstructorData<WeaknessType> & { value: number }) {
         super(data);
         this.value = data.value;
-    }
-
-    get label(): string {
-        const type = this.typeLabel;
-        const exceptions = this.createFormatData({ list: this.exceptions, prefix: "exception" });
-        const key = `Exceptions${this.exceptions.length}DoubleVs0`;
-
-        return game.i18n.format(`PF2E.Damage.IWR.CompositeLabel.${key}`, { type, value: this.value, ...exceptions });
     }
 
     override toObject(): Readonly<WeaknessDisplayData> {
@@ -315,9 +323,9 @@ interface WeaknessSource extends IWRSource<WeaknessType> {
 class Resistance extends IWR<ResistanceType> implements ResistanceSource {
     protected readonly typeLabels = CONFIG.PF2E.resistanceTypes;
 
-    value: number;
+    override value: number;
 
-    readonly doubleVs: IWRException<ResistanceType>[];
+    override readonly doubleVs: IWRException<ResistanceType>[];
 
     constructor(
         data: IWRConstructorData<ResistanceType> & { value: number; doubleVs?: IWRException<ResistanceType>[] },
@@ -325,37 +333,6 @@ class Resistance extends IWR<ResistanceType> implements ResistanceSource {
         super(data);
         this.value = data.value;
         this.doubleVs = fu.deepClone(data.doubleVs ?? []);
-    }
-
-    get label(): string {
-        const type = this.typeLabel;
-        const exceptions = this.createFormatData({ list: this.exceptions, prefix: "exception" });
-        const doubleVs = this.createFormatData({ list: this.doubleVs, prefix: "doubleVs" });
-        const key = `Exceptions${this.exceptions.length}DoubleVs${this.doubleVs.length}`;
-
-        return game.i18n.format(`PF2E.Damage.IWR.CompositeLabel.${key}`, {
-            type,
-            value: this.value,
-            ...exceptions,
-            ...doubleVs,
-        });
-    }
-
-    override get applicationLabel(): string {
-        const type = this.typeLabel;
-        const exceptions = this.createFormatData({ list: this.exceptions, prefix: "exception" });
-        const doubleVs = this.createFormatData({ list: this.doubleVs, prefix: "doubleVs" });
-        const key = `Exceptions${this.exceptions.length}DoubleVs${this.doubleVs.length}`;
-
-        return game.i18n
-            .format(`PF2E.Damage.IWR.CompositeLabel.${key}`, {
-                type,
-                value: "",
-                ...exceptions,
-                ...doubleVs,
-            })
-            .replace(/\s+/g, " ")
-            .trim();
     }
 
     override toObject(): ResistanceDisplayData {
@@ -369,7 +346,15 @@ class Resistance extends IWR<ResistanceType> implements ResistanceSource {
     /** Get the doubled value of this resistance if present and applicable to a given instance of damage */
     getDoubledValue(damageDescription: Set<string>): number {
         if (this.doubleVs.length === 0) return this.value;
-        const predicate = new Predicate(this.doubleVs.flatMap((d) => this.describe(d)));
+        const predicate =
+            this.doubleVs.length === 1
+                ? new Predicate(this.describe(this.doubleVs[0]))
+                : new Predicate({
+                      or: this.doubleVs.map((doubleVs) => {
+                          const description = this.describe(doubleVs);
+                          return description.length === 1 ? description[0] : { and: description };
+                      }),
+                  });
         return predicate.test(damageDescription) ? this.value * 2 : this.value;
     }
 }

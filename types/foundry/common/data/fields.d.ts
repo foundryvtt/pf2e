@@ -107,6 +107,8 @@ export abstract class DataField<
 
     initial: this["options"]["initial"];
 
+    nullable: TNullable;
+
     /** The initially provided options which configure the data field */
     options: DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>;
 
@@ -696,7 +698,7 @@ export class ArrayField<
             SourcePropFromDataField<TElementField>
         >[] = SourcePropFromDataField<TElementField>[],
         TModelProp extends object = ModelPropFromDataField<TElementField>[],
-        TRequired extends boolean = false,
+        TRequired extends boolean = true,
         TNullable extends boolean = false,
         THasInitial extends boolean = true,
     >
@@ -765,7 +767,7 @@ export interface ArrayField<
     TElementField extends DataField,
     TSourceProp extends Partial<SourcePropFromDataField<TElementField>>[] = SourcePropFromDataField<TElementField>[],
     TModelProp extends object = ModelPropFromDataField<TElementField>[],
-    TRequired extends boolean = false,
+    TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true,
 > extends DataField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
@@ -805,7 +807,7 @@ export class EmbeddedDataField<
     THasInitial extends boolean = true,
 > extends SchemaField<
     TModelProp["schema"]["fields"],
-    SourceFromSchema<TModelProp["schema"]["fields"]>,
+    TModelProp["_source"],
     TModelProp,
     TRequired,
     TNullable,
@@ -1009,6 +1011,15 @@ export class DocumentUUIDField<
     protected override _cast(value: unknown): string;
 }
 
+interface ForeignDocumentFieldOptions<
+    TSourceProp extends string,
+    TRequired extends boolean,
+    TNullable extends boolean,
+    THasInitial extends boolean,
+> extends StringFieldOptions<TSourceProp, TRequired, TNullable, THasInitial> {
+    idOnly?: boolean;
+}
+
 /**
  * A special class of [StringField]{@link StringField} field which references another DataModel by its id.
  * This field may also be null to indicate that no foreign model is linked.
@@ -1026,7 +1037,7 @@ export class ForeignDocumentField<
      */
     constructor(
         model: ConstructorOf<abstract.DataModel>,
-        options?: StringFieldOptions<string, TRequired, TNullable, THasInitial>,
+        options?: ForeignDocumentFieldOptions<string, TRequired, TNullable, THasInitial>,
         context?: DataFieldContext,
     );
 

@@ -43,10 +43,8 @@
         },
         {
             "_id": "OzGRy5Q3gxjky0Q9",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.OyFCwQuw8XRazsNr"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.OyFCwQuw8XRazsNr"
             },
             "img": "systems/pf2e/icons/spells/remove-curse.webp",
             "name": "Remove Curse (At Will) (See Undo Curse)",
@@ -151,10 +149,8 @@
         },
         {
             "_id": "BIFXG8tlrggVbQZ0",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.r34QDwKiWZoVymJa"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.r34QDwKiWZoVymJa"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Golem Antimagic",
@@ -168,7 +164,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>harmed by cold and water (@Damage[5d8] damage, @Damage[2d6] damage from areas or persistent damage); healed by acid (area @Damage[2d6[healing]] Hit Points); slowed by earth</p><hr /><p>A golem is immune to spells and magical abilities other than its own, but each type of golem is affected by a few types of magic in special ways. These exceptions are listed in shortened form in the golem's stat block, with the full rules appearing here. If an entry lists multiple types (such as \"cold and water\"), either type of spell can affect the golem.</p><ul><li><strong>Harmed By</strong> Any magic of this type that targets the golem causes it to take the listed amount of damage (this damage has no type) instead of the usual effect. If the golem starts its turn in an area of magic of this type or is affected by a persistent effect of the appropriate type, it takes the damage listed in the parenthetical.</li><li><strong>Healed By</strong> Any magic of this type that targets the golem makes the golem lose the slowed condition and gain HP equal to half the damage the spell would have dealt. If the golem starts its turn in an area of this type of magic, it gains the HP listed in the parenthetical.</li><li><strong>Slowed By</strong> Any magic of this type that targets the golem causes it to be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for [[/br 2d6 #rounds]]{2d6 rounds} instead of the usual effect. If the golem starts its turn in an area of this type of magic, it's slowed 1 for that round.</li><li><strong>Vulnerable To</strong> Each golem is vulnerable to one or more specific spells, with the effects described in its stat block.</li></ul>"
+                    "value": "<p>Harmed by cold and water (@Damage[5d8[untyped]], @Damage[2d6[untyped]] from areas or persistent damage); healed by acid (area @Damage[2d6[healing]] HP); slowed by earth</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.GolemAntimagic]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -205,7 +201,27 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "vulnerable-to-stone-to-flesh",
+                        "toggleable": true
+                    },
+                    {
+                        "exceptions": [
+                            "adamantine"
+                        ],
+                        "key": "Resistance",
+                        "predicate": [
+                            {
+                                "not": "vulnerable-to-stone-to-flesh"
+                            }
+                        ],
+                        "type": "physical",
+                        "value": 10
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -248,10 +264,8 @@
         },
         {
             "_id": "xoigCRlVfwponLe7",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.qt2exWwQTzoObKfW"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.qt2exWwQTzoObKfW"
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Inexorable March",
@@ -295,7 +309,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Each creature in a @Template[emanation|distance:10] must succeed at a @Check[fortitude|dc:27|traits:incapacitation] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 minute.</p>\n<p>Cursebreaker can't use Slowing Pulse again for [[/br 1d4 #Recharge Slowing Pulse]]{1d4 rounds}.</p>"
+                    "value": "<p>Each creature in a @Template[emanation|distance:10] must succeed at a @Check[fortitude|dc:27|traits:incapacitation] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 minute.</p>\n<p>Cursebreaker can't use Slowing Pulse again for [[/gmr 1d4 #Recharge Slowing Pulse]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -412,15 +426,6 @@
                 },
                 {
                     "type": "magic"
-                }
-            ],
-            "resistances": [
-                {
-                    "exceptions": [
-                        "adamantine"
-                    ],
-                    "type": "physical",
-                    "value": 10
                 }
             ],
             "speed": {

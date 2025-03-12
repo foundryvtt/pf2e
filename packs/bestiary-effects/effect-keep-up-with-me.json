@@ -1,0 +1,69 @@
+{
+    "_id": "TMxGd734w9od0C8O",
+    "img": "icons/skills/melee/maneuver-greatsword-yellow.webp",
+    "name": "Effect: Keep Up With Me!",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +3 status bonus to their attack roll on the next Strike you make, or to the DC of your next offensive ability if you're a troop.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "self:trait:troop"
+                    }
+                ],
+                "selector": "attack-roll",
+                "slug": "keep-up-with-me-attack",
+                "type": "status",
+                "value": 3
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.NPCAbility.KeepUpWithMe.RollOptionLabel",
+                "option": "keep-up-with-me-dc",
+                "phase": "beforeDerived",
+                "predicate": [
+                    "self:trait:troop"
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:trait:troop",
+                    "keep-up-with-me-dc"
+                ],
+                "selector": "inline-dc",
+                "type": "status",
+                "value": 3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

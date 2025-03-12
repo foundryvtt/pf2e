@@ -3,7 +3,8 @@ import { ItemPF2e, SpellPF2e, type DeityPF2e } from "@item";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
-import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, tagify } from "@util";
+import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
+import { tagify } from "@util/tags.ts";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { DEITY_SANCTIFICATIONS } from "./values.ts";
@@ -45,6 +46,7 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
             categories: [
                 { value: "deity", label: "TYPES.Item.deity" },
                 { value: "pantheon", label: "PF2E.Item.Deity.Category.Pantheon" },
+                { value: "covenant", label: "PF2E.Item.Deity.Category.Covenant" },
                 { value: "philosophy", label: "PF2E.Item.Deity.Category.Philosophy" },
             ],
             sanctifications,
@@ -73,9 +75,6 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
 
         tagify(getInput("system.skill"), { whitelist: CONFIG.PF2E.skills, maxTags: 2 });
 
-        // Everything past this point requires a deity or pantheon
-        if (this.item.category === "philosophy") return;
-
         tagify(getInput("system.weapons"), { whitelist: CONFIG.PF2E.baseWeaponTypes, maxTags: 2 });
 
         const domainWhitelist = R.omitBy(CONFIG.PF2E.deityDomains, (_v, k) => k.endsWith("-apocryphal"));
@@ -84,21 +83,6 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
 
         const clericSpells = htmlQuery(html, ".cleric-spells");
         if (!clericSpells) return;
-
-        // View one of the spells
-        for (const link of htmlQueryAll(clericSpells, "a[data-action=view-spell]")) {
-            link.addEventListener("click", async (): Promise<void> => {
-                const uuid = htmlClosest(link, "li")?.dataset.uuid ?? "";
-                const spell = await fromUuid(uuid);
-                if (!(spell instanceof SpellPF2e)) {
-                    this.render(false);
-                    ui.notifications.error(`A spell with the UUID "${uuid}" no longer exists`);
-                    return;
-                }
-
-                spell.sheet.render(true);
-            });
-        }
 
         // Remove a stored spell reference
         for (const link of htmlQueryAll(clericSpells, "a[data-action=remove-spell]")) {

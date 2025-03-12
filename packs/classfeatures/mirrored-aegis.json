@@ -1,0 +1,236 @@
+{
+    "_id": "lJAQPRT2t8IABR4v",
+    "img": "icons/equipment/shield/heater-steel-spiral.webp",
+    "name": "Mirrored Aegis",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p><strong>Usage</strong> any shield</p><hr /><p>This shield is polished so brightly it can reflect even spiritual and ethereal attacks.</p>\n<p><strong>Immanence</strong> (aura) The mirrored aegis emits an aura in a @Template[type:emanation|distance:15] that protects you and all allies in the aura from harm, granting a +1 status bonus to AC. If the mirrored aegis houses your divine spark for 10 uninterrupted minutes, it is restored to full Hit Points.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.Raise the Walls] <span class=\"action-glyph\">1</span> (force, transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.IBEbFlMmDbGsrN4G inline]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.DivineSpark.Label",
+                "mergeable": true,
+                "option": "divine-spark",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "mirrored-aegis"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.exemplar.ikons",
+                "value": {
+                    "label": "PF2E.SpecificRule.Exemplar.Ikon.MirroredAegis.Label",
+                    "predicate": [
+                        "parent:tag:worn-ikon-feat"
+                    ],
+                    "value": "mirrored-aegis"
+                }
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Raise the Walls"
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Mirrored Aegis"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "divine-spark:mirrored-aegis"
+                ],
+                "radius": 15
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Grant",
+                        "value": "granted"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Existing",
+                        "value": "existing"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Prompt",
+                "rollOption": "mirrored-aegis-origin"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "shield"
+                    ]
+                },
+                "flag": "existingIkon",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "mirrored-aegis-origin:existing"
+                ]
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:level:0",
+                        {
+                            "not": "item:magical"
+                        }
+                    ],
+                    "itemType": "shield"
+                },
+                "flag": "grantedIkon",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "mirrored-aegis-origin:granted"
+                ]
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "mirrored-aegis-origin:granted"
+                ],
+                "uuid": "{item|flags.pf2e.rulesSelections.grantedIkon}"
+            },
+            {
+                "itemType": "shield",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "mirrored-aegis-origin:existing",
+                                    "item:id:{item|flags.pf2e.rulesSelections.existingIkon}"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "mirrored-aegis-origin:granted",
+                                    "item:granter:slug:mirrored-aegis"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "other-tags",
+                "value": "physical-ikon"
+            },
+            {
+                "itemType": "shield",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "mirrored-aegis-origin:existing",
+                                    "item:id:{item|flags.pf2e.rulesSelections.existingIkon}"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "mirrored-aegis-origin:granted",
+                                    "item:granter:slug:mirrored-aegis"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "other-tags",
+                "value": "physical-ikon:mirrored-aegis"
+            },
+            {
+                "itemType": "shield",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:physical-ikon:mirrored-aegis"
+                ],
+                "priority": 121,
+                "property": "traits",
+                "value": "divine"
+            },
+            {
+                "itemType": "shield",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:physical-ikon:mirrored-aegis"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "@Embed[Compendium.pf2e.classfeatures.Item.lJAQPRT2t8IABR4v inline]"
+                    }
+                ]
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    {
+                        "or": [
+                            "item:granter:tag:chosen-ikon:mirrored-aegis",
+                            "item:slug:raise-the-walls"
+                        ]
+                    },
+                    {
+                        "not": "divine-spark:mirrored-aegis"
+                    }
+                ],
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Exemplar.DivineSpark.SparkTranscendence.Reminder"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "exemplar-ikon",
+                "exemplar-worn-ikon"
+            ],
+            "rarity": "common",
+            "value": [
+                "ikon"
+            ]
+        }
+    },
+    "type": "feat"
+}

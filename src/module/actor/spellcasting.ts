@@ -2,14 +2,17 @@ import type { ActorPF2e } from "@actor";
 import type { ConsumablePF2e, SpellPF2e } from "@item";
 import { SpellcastingEntryPF2e } from "@item";
 import { SpellCollection } from "@item/spellcasting-entry/collection.ts";
-import { SpellcastingEntrySource } from "@item/spellcasting-entry/index.ts";
 import { RitualSpellcasting } from "@item/spellcasting-entry/rituals.ts";
 import { TRICK_MAGIC_SKILLS, TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import { Statistic } from "@system/statistic/statistic.ts";
 import { DelegatedCollection, ErrorPF2e, tupleHasValue } from "@util";
+import { CreatureSource } from "./data/index.ts";
+import { ActorCommitData } from "./types.ts";
 
 export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollection<BaseSpellcastingEntry<TActor>> {
+    actor: TActor;
+
     /** The base casting proficiency, off of which spellcasting builds */
     declare base: Statistic;
 
@@ -19,12 +22,19 @@ export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollec
     /** Cache of trick magic item entries */
     #trickEntries: Record<string, BaseSpellcastingEntry<TActor> | undefined> = {};
 
-    constructor(
-        public readonly actor: TActor,
-        entries: BaseSpellcastingEntry<TActor>[],
-    ) {
-        super(entries.map((entry) => [entry.id, entry]));
+    constructor(actor: TActor) {
+        super();
+        this.actor = actor;
+    }
 
+    /** Initializes spellcasting data. Must be called every data preparation */
+    initialize(entries: BaseSpellcastingEntry<TActor>[]): void {
+        this.clear();
+        for (const entry of entries) {
+            this.set(entry.id, entry);
+        }
+
+        this.collections.clear();
         for (const entry of entries) {
             if (entry.spells) this.collections.set(entry.spells.id, entry.spells);
         }
@@ -73,7 +83,7 @@ export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollec
         return !!spell && this.some((e) => e.canCast(spell, { origin: item }));
     }
 
-    refocus(options: { all?: boolean } = {}): { "system.resources.focus.value": number } | null {
+    refocus(options: { all?: boolean } = {}): DeepPartial<CreatureSource> | null {
         if (!options.all) {
             throw ErrorPF2e("Actors do not currently support regular refocusing");
         }
@@ -84,7 +94,7 @@ export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollec
             const rechargeFocus = focus?.max && focus.value < focus.max;
             if (focus && rechargeFocus) {
                 focus.value = focus.max;
-                return { "system.resources.focus.value": focus.value };
+                return { system: { resources: { focus: { value: focus.value } } } };
             }
         }
 
@@ -95,10 +105,7 @@ export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollec
      * Recharges all spellcasting entries based on the type of entry it is
      * @todo Support a timespan property of some sort and handle 1/hour innate spells
      */
-    recharge(): {
-        itemUpdates: ((Record<string, unknown> | Partial<SpellcastingEntrySource>) & { _id: string })[];
-        actorUpdates: { "system.resources.focus.value": number } | null;
-    } {
+    recharge(): ActorCommitData<TActor> {
         type SpellcastingUpdate = EmbeddedDocumentUpdateData | EmbeddedDocumentUpdateData[];
 
         const itemUpdates = this.contents.flatMap((entry): SpellcastingUpdate => {
@@ -109,7 +116,7 @@ export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollec
             if (entry.isInnate) {
                 return entry.spells.map((spell) => {
                     const value = spell.system.location.uses?.max ?? 1;
-                    return { _id: spell.id, "system.location.uses.value": value };
+                    return { _id: spell.id, system: { location: { uses: { value } } } };
                 });
             }
 
@@ -131,13 +138,13 @@ export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollec
             }
 
             if (updated) {
-                return { _id: entry.id, "system.slots": slots };
+                return { _id: entry.id, system: { slots } };
             }
 
             return [];
         });
 
         const actorUpdates = this.refocus({ all: true });
-        return { itemUpdates, actorUpdates };
+        return { actorUpdates, itemCreates: [], itemUpdates };
     }
 }

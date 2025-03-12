@@ -1,0 +1,74 @@
+{
+    "_id": "RPfpy4WzUzdwTeo0",
+    "img": "icons/sundries/misc/lock-open-yellow.webp",
+    "name": "Effect: Ultimatum of Liberation",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Ultimatum of Liberation]</p>\n<p>You gain a +2 status bonus to Will saving throws against effects produced by the oppressing creature and their allies, which increases to +3 if they are within 30 feet of the origin.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "level": {
+            "value": 12
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "ultimatum-of-liberation",
+                "toggleable": true
+            },
+            {
+                "disabledIf": [
+                    {
+                        "not": "ultimatum-of-liberation"
+                    }
+                ],
+                "disabledValue": false,
+                "domain": "saving-throw",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.BrokenChain.UltimatumOfLiberation.BonusIncreaseToggle",
+                "option": "ultimatum-of-liberation-increase",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "ultimatum-of-liberation"
+                ],
+                "selector": "will",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "ultimatum-of-liberation-increase"
+                ],
+                "selector": "will",
+                "slug": "ultimatum-of-liberation",
+                "value": 3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,10 +1,10 @@
 {
     "_id": "mAofA4oy3cRdT71K",
-    "img": "systems/pf2e/icons/spells/prenumbral-disguise.webp",
+    "img": "icons/creatures/slimes/slime-movement-dripping-purple.webp",
     "name": "Spell Effect: Penumbral Disguise",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Penumbral Disguise]</p>\n<p>You wrap the target in shadows, granting them a status bonus to Stealth checks to @UUID[Compendium.pf2e.actionspf2e.Item.Hide] while in dim light or darkness.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Penumbral Disguise]</p>\n<p>You gain a status bonus to Stealth checks to Hide while in dim light or darkness.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,40 +16,25 @@
             "value": 2
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder #172: Secrets of the Temple-City"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "action:hide"
+                    "action:hide",
+                    {
+                        "or": [
+                            "lighting:darkness",
+                            "lighting:dim-light"
+                        ]
+                    }
                 ],
                 "selector": "stealth",
                 "type": "status",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 3,
-                            "value": 1
-                        },
-                        {
-                            "end": 5,
-                            "start": 4,
-                            "value": 2
-                        },
-                        {
-                            "end": 7,
-                            "start": 6,
-                            "value": 3
-                        },
-                        {
-                            "start": 8,
-                            "value": 4
-                        }
-                    ]
-                }
+                "value": "ternary(gte(@item.level,8),4,ternary(gte(@item.level,6),3,ternary(gte(@item.level,4),2,1)))"
             }
         ],
         "start": {

@@ -4,6 +4,7 @@ import { iterateAllItems } from "@actor/helpers.ts";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { PickableThing } from "@module/apps/pick-a-thing-prompt.ts";
+import { processChoicesFromData } from "@module/rules/helpers.ts";
 import { Predicate } from "@system/predication.ts";
 import { Progress } from "@system/progress.ts";
 import {
@@ -164,6 +165,9 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
             return;
         }
 
+        // If this choice set is on a suppressed item, skip
+        if (this.item.isOfType("feat") && this.item.suppressed) return;
+
         const rollOptions = new Set([this.actor.getRollOptions(), this.item.getRollOptions("parent")].flat());
         const predicate = this.resolveInjectedProperties(this.predicate);
         if (!predicate.test(rollOptions)) return;
@@ -313,49 +317,24 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     }
 
     #choicesFromPath(
-        choices: string | ChoiceSetConfig,
+        pathOrConfig: string | ChoiceSetConfig,
         actorRollOptions: Set<string>,
         validate: boolean,
     ): PickableThing<string>[] {
         const data =
-            typeof choices === "string"
-                ? fu.getProperty(CONFIG.PF2E, choices) ?? fu.getProperty(this.actor, choices) ?? {}
-                : fu.getProperty(CONFIG.PF2E, choices.config) ?? {};
-        const predicate = !validate || typeof choices === "string" ? null : choices.predicate;
+            typeof pathOrConfig === "string"
+                ? (fu.getProperty(CONFIG.PF2E, pathOrConfig) ?? fu.getProperty(this.actor, pathOrConfig) ?? {})
+                : (fu.getProperty(CONFIG.PF2E, pathOrConfig.config) ?? {});
+        const choices = processChoicesFromData(data);
 
-        // If this is an array, optionally run predicates on all the entries
-        if (Array.isArray(data)) {
-            if (!data.every((c) => R.isPlainObject(c) && typeof c.value === "string")) {
-                return [];
-            }
-
-            return validate
-                ? data.filter((choice) =>
-                      this.resolveInjectedProperties(new Predicate(choice.predicate ?? predicate ?? []), {
-                          injectables: { choice },
-                      }).test(actorRollOptions),
-                  )
-                : data;
-        }
-
-        // If this is an object with all string values or all string labels, optionally run the top level filter predicate
-        if (R.isObjectType(data)) {
-            const entries = Object.entries(data);
-            if (!entries.every(([_, c]) => typeof (R.isPlainObject(c) ? c.label : c) === "string")) {
-                return [];
-            }
-
-            return entries
-                .filter(([key, choice]) => {
-                    if (!predicate) return true;
-                    return this.resolveInjectedProperties(new Predicate(fu.deepClone(predicate)), {
-                        injectables: { choice: { ...choice, value: key } },
-                    }).test(actorRollOptions);
-                })
-                .map(([value, data]) => ({ value, label: typeof data === "string" ? data : data.label }));
-        }
-
-        return [];
+        const predicate = !validate || typeof pathOrConfig === "string" ? null : pathOrConfig.predicate;
+        return validate
+            ? choices.filter((choice) =>
+                  this.resolveInjectedProperties(new Predicate(choice.predicate ?? fu.deepClone(predicate ?? [])), {
+                      injectables: { choice },
+                  }).test(actorRollOptions),
+              )
+            : choices;
     }
 
     #choicesFromOwnedItems(
@@ -460,14 +439,16 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                         "system.ancestry",
                         "system.baseItem",
                         "system.category",
+                        "system.damage.damageType",
                         "system.group",
                         "system.level",
                         "system.maxTakable",
-                        "system.potencyRune",
                         "system.range",
+                        "system.runes",
                         "system.sanctification",
                         "system.slug",
                         "system.traits",
+                        "system.usage",
                     ],
                 }),
             );
@@ -489,7 +470,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
 
         // Exclude any feat of which the character already has its maximum number and return final list
         const existing: Map<string, number> = new Map();
-        for (const feat of this.actor.itemTypes.feat) {
+        const actor = this.actor;
+        for (const feat of actor.itemTypes.feat) {
             const slug = feat.slug ?? sluggify(feat.name);
             existing.set(slug, (existing.get(slug) ?? 0) + 1);
         }
@@ -499,9 +481,16 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         }
 
         return filteredItems
-            .filter((i) => (i.isOfType("feat") ? (existing.get(i.slug ?? sluggify(i.name)) ?? 0) < i.maxTakable : true))
+            .filter((item) => {
+                const slug = item.slug ?? sluggify(item.name);
+                if (item.isOfType("feat")) return (existing.get(slug) ?? 0) < item.maxTakable;
+                if (item.isOfType("heritage")) {
+                    return !actor.itemTypes.heritage.some((h) => (h.slug ?? sluggify(h.name)) === slug);
+                }
+                return true;
+            })
             .map((f) => ({
-                value: choices.slugsAsValues ? f.slug ?? sluggify(f.name) : f.uuid,
+                value: choices.slugsAsValues ? (f.slug ?? sluggify(f.name)) : f.uuid,
                 label: f.name,
                 img: f.img,
             }));
@@ -522,7 +511,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         // If the selection was a UUID, the roll option had its suffix appended at item creation
         const suffix = UUIDUtils.isItemUUID(selection) ? "" : `:${selection}`;
         this.actor.rollOptions.all[`${this.rollOption}${suffix}`] = true;
-        this.parent.rollOptions.add(`${this.rollOption}${suffix}`);
+        this.parent.specialOptions.push(`${this.rollOption}${suffix}`);
     }
 
     /**  Change the name of the parent item after a selection is made */

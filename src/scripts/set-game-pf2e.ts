@@ -3,7 +3,7 @@ import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-prog
 import { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import { CheckModifier, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { CoinsPF2e, generateItemName } from "@item/physical/helpers.ts";
-import { CompendiumBrowser } from "@module/apps/compendium-browser/index.ts";
+import { CompendiumBrowser } from "@module/apps/compendium-browser/browser.ts";
 import { EffectsPanel } from "@module/apps/effects-panel.ts";
 import { LicenseViewer } from "@module/apps/license-viewer/app.ts";
 import { WorldClock } from "@module/apps/world-clock/index.ts";
@@ -41,6 +41,7 @@ import { sluggify } from "@util";
 /** Expose public game.pf2e interface */
 export const SetGamePF2e = {
     onInit: (): void => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         type ActionCollection = Record<string, Function> & Collection<Action>;
         const actions = new Collection<Action>(
             SystemActions.map((action) => [action.slug, action]),
@@ -103,6 +104,8 @@ export const SetGamePF2e = {
             variantRules: { AutomaticBonusProgression },
         };
         game.pf2e = fu.mergeObject(game.pf2e ?? {}, initSafe);
+
+        const campaignType = game.settings.get("pf2e", "campaignType");
         game.pf2e.settings = {
             automation: {
                 flanking: game.settings.get("pf2e", "automation.flankingDetection"),
@@ -113,6 +116,8 @@ export const SetGamePF2e = {
                     sections: game.settings.get("pf2e", "campaignFeatSections"),
                 },
                 languages: game.settings.get("pf2e", "homebrew.languageRarities"),
+                mythic: game.settings.get("pf2e", "mythic"),
+                type: campaignType === "none" ? null : campaignType,
             },
             critFumble: {
                 buttons: game.settings.get("pf2e", "critFumbleButtons"),

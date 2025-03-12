@@ -1,0 +1,46 @@
+{
+    "_id": "vGW3GPd2HO2ecgJX",
+    "img": "icons/skills/melee/hand-grip-staff-blue.webp",
+    "name": "Effect: Guard's Parry (Guard)",
+    "system": {
+        "description": {
+            "value": "<p>The palace guard gains a +2 circumstance bonus to attack and damage rolls until the end of their next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack",
+                    "damage"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

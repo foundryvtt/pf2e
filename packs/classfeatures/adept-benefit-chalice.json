@@ -1,0 +1,72 @@
+{
+    "_id": "T6p6lZnGupq3CX6A",
+    "img": "icons/containers/kitchenware/goblet-jeweled-red.webp",
+    "name": "Adept Benefit (Chalice)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>The life essence shed from blood empowers your chalice. If you or an ally within 30 feet takes piercing or slashing damage from a foe's critical hit or takes persistent bleed damage, @UUID[Compendium.pf2e.actionspf2e.Item.Drink from the Chalice]{Drinking from the Chalice} before the end of your next turn grants that injured creature greater restoration to make up for its lost vitality. On a sip, the temporary Hit Points granted to the creature increase to 2 + your Charisma modifier + your level. When drained, the chalice heals the creature 5 Hit Points for each level you have.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Chalice Adept Benefit (Self)]</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.thaumaturge.paragonChoices",
+                "priority": 20,
+                "value": {
+                    "label": "PF2E.SpecificRule.Thaumaturge.Implement.Chalice.Label",
+                    "value": "Compendium.pf2e.classfeatures.Item.Paragon Benefit (Chalice)"
+                }
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "origin:enemy",
+                                    "check:outcome:critical-success",
+                                    {
+                                        "or": [
+                                            "item:damage:type:piercing",
+                                            "item:damage:type:slashing"
+                                        ]
+                                    }
+                                ]
+                            },
+                            "item:damage:type:bleed"
+                        ]
+                    }
+                ],
+                "selector": "damage-received",
+                "text": "PF2E.SpecificRule.Thaumaturge.Implement.Chalice.Adept.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "thaumaturge"
+            ]
+        }
+    },
+    "type": "feat"
+}

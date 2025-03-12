@@ -7,7 +7,7 @@
             "value": "<p>Granted when a ranger shares their @UUID[Compendium.pf2e.classfeatures.Item.Masterful Hunter (Flurry)] with you.</p>\n<p>Your multiple attack penalty for attacks against your hunted prey is -3 (-2 with an agile weapon) on your second attack of the turn instead of -5, and -6 (-4 with an agile weapon) on your third or subsequent attack of the turn, instead of -10.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -16,16 +16,16 @@
             "value": 17
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
                 "domain": "all",
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
-                "option": "hunted-prey",
+                "option": "target:mark:hunted-prey",
                 "toggleable": true
             },
             {
@@ -33,7 +33,7 @@
                 "label": "To Track hunted prey (Masterful Hunter)",
                 "predicate": [
                     "action:track",
-                    "hunted-prey"
+                    "target:mark:hunted-prey"
                 ],
                 "selector": "survival",
                 "type": "circumstance",
@@ -58,7 +58,7 @@
                 "label": "To Seek hunted prey (Masterful Hunter)",
                 "predicate": [
                     "action:seek",
-                    "hunted-prey"
+                    "target:mark:hunted-prey"
                 ],
                 "selector": "perception",
                 "type": "circumstance",
@@ -81,7 +81,7 @@
             {
                 "key": "MultipleAttackPenalty",
                 "predicate": [
-                    "hunted-prey",
+                    "target:mark:hunted-prey",
                     {
                         "or": [
                             "proficiency:master",
@@ -99,7 +99,7 @@
                 "key": "MultipleAttackPenalty",
                 "predicate": [
                     "agile",
-                    "hunted-prey",
+                    "target:mark:hunted-prey",
                     {
                         "or": [
                             "proficiency:master",

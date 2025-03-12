@@ -1,0 +1,77 @@
+{
+    "_id": "QbkOLg8ZoIg1gUNB",
+    "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
+    "name": "Effect: Imbue Righteousness",
+    "system": {
+        "description": {
+            "value": "<p>Your strikes with that weapon gain the holy trait and deal an additional 1d6 spirit damage to unholy creatures.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "Cold Iron Elven Branched Spear",
+                        "value": "item:slug:elven-branched-spear"
+                    },
+                    {
+                        "label": "Composite Shortbow",
+                        "value": "item:slug:composite-shortbow"
+                    },
+                    {
+                        "label": "Fist",
+                        "value": "item:slug:fist"
+                    }
+                ],
+                "flag": "demonbaneWeapons",
+                "key": "ChoiceSet"
+            },
+            {
+                "damageType": "spirit",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "{item|flags.pf2e.rulesSelections.demonbaneWeapons}",
+                    "target:trait:unholy"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "itemType": "melee",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "{item|flags.pf2e.rulesSelections.demonbaneWeapons}"
+                ],
+                "property": "traits",
+                "value": "holy"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

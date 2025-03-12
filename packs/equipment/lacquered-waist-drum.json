@@ -36,7 +36,17 @@
         "quantity": 1,
         "rules": [
             {
+                "domain": "performance",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.PlayingItem",
+                "option": "playing",
+                "toggleable": true
+            },
+            {
                 "key": "FlatModifier",
+                "predicate": [
+                    "playing"
+                ],
                 "selector": "performance",
                 "type": "item",
                 "value": 2

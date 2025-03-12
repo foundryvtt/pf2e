@@ -4,10 +4,10 @@
     "name": "Effect: Enforce Oath",
     "system": {
         "description": {
-            "value": "<p>Granted by Enforce Oath</p>\n<p>You gain a +1 status bonus to AC and saves against attacks and effects by the chosen creature. You also gain a +1 status bonus to attack rolls against the chosen creature.</p>\n<p>However, your dedication to Enforcing your Oath draws your focus away from all other foes. While you are Enforcing your Oath, you take a -1 status penalty to AC, attack rolls, and saves against all other creatures until you stop Enforcing your Oath.</p>\n<p>You stop Enforcing your Oath once the chosen creature is reduced to 0 Hit Points or offers a legitimate surrender to you or your allies. You immediately stop Enforcing your Oath if you are @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] or if the chosen creature goes @UUID[Compendium.pf2e.conditionitems.Item.Unnoticed] by you for more than 1 minute. You can also stop Enforcing your Oath at any time during your turn as a free action.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Enforce Oath]</p>\n<p>You gain a +1 status bonus to AC and saves against attacks and effects by the chosen creature. You also gain a +1 status bonus to attack rolls against the chosen creature.</p>\n<p>You also take a –1 status penalty to AC, attack rolls, and saves against all other creatures until you stop Enforcing your Oath.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -16,47 +16,54 @@
             "value": 6
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
         },
         "rules": [
             {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "Target is subject of your Enforce Oath",
-                "option": "enforce-oath",
-                "toggleable": true
+                "key": "TokenMark",
+                "slug": "enforce-oath"
             },
             {
                 "key": "FlatModifier",
-                "label": "oath-target",
-                "predicate": [
-                    "enforce-oath"
-                ],
                 "selector": [
                     "ac",
-                    "attack",
                     "saving-throw"
                 ],
+                "slug": "enforce-oath-defense",
                 "type": "status",
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "attack-roll",
+                "slug": "enforce-oath-attack",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "origin:mark:enforce-oath"
+                ],
+                "selectors": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "slug": "enforce-oath-defense",
                 "value": 1
             },
             {
-                "key": "FlatModifier",
-                "label": "not-oath-target",
+                "key": "AdjustModifier",
+                "mode": "upgrade",
                 "predicate": [
-                    {
-                        "not": "enforce-oath"
-                    }
+                    "target:mark:enforce-oath"
                 ],
-                "selector": [
-                    "ac",
-                    "attack",
-                    "saving-throw"
-                ],
-                "type": "status",
-                "value": -1
+                "selector": "attack-roll",
+                "slug": "enforce-oath-attack",
+                "value": 1
             }
         ],
         "start": {

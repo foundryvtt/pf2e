@@ -1,0 +1,70 @@
+{
+    "_id": "1zAL0XwjCx6koYWL",
+    "img": "systems/pf2e/icons/spells/augury.webp",
+    "name": "Effect: Divine Frenzy",
+    "system": {
+        "description": {
+            "value": "<p>The sibyl enters into a divine frenzy that lasts 1 minute. The sibyl can't voluntarily stop frenzying. While in a divine frenzy, the sibyl takes a –2 penalty to Perception checks and Will saves and gains a +2 status bonus to their spell DC and spell attack modifier. During a divine frenzy, the sibyl can't use actions with the concentrate trait unless they're Casting a Spell or Seeking.</p>\n<p>The frenzy lasts for 1 minute, until the sibyl falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], or the encounter ends, whichever comes first. The sibyl can't voluntarily end the frenzy.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "concentrate",
+                    {
+                        "nor": [
+                            "action:cast-a-spell",
+                            "action:seek"
+                        ]
+                    }
+                ],
+                "selector": "all",
+                "text": "<p>During a divine frenzy, the sibyl can't use actions with the concentrate trait unless they're Casting a Spell or Seeking.</p>",
+                "title": "{item|name}"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "perception",
+                    "will"
+                ],
+                "type": "status",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "spell-dc",
+                    "spell-attack"
+                ],
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

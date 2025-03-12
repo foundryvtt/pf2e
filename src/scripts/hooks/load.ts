@@ -1,8 +1,17 @@
 import { ActorProxyPF2e } from "@actor";
+import { ArmySystemData } from "@actor/army/data.ts";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
+import { FamiliarSystemData } from "@actor/familiar/data.ts";
+import { HazardSystemData } from "@actor/hazard/data.ts";
 import { resetActors } from "@actor/helpers.ts";
+import { LootSystemData } from "@actor/loot/data.ts";
+import { PartySystemData } from "@actor/party/data.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
+import { VehicleSystemData } from "@actor/vehicle/data.ts";
 import { ItemProxyPF2e } from "@item";
+import { AbilitySystemData } from "@item/ability/index.ts";
+import { CampaignFeatureSystemData } from "@item/campaign-feature/data.ts";
+import { FeatSystemData } from "@item/feat/data.ts";
 import { KitSystemData } from "@item/kit/data.ts";
 import { MeleeSystemData } from "@item/melee/data.ts";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
@@ -35,7 +44,6 @@ import {
     TokenDocumentPF2e,
 } from "@scene/index.ts";
 import { ActorDeltaPF2e } from "@scene/token-document/actor-delta.ts";
-import { TokenConfigPF2e } from "@scene/token-document/sheet.ts";
 import { monkeyPatchFoundry } from "@scripts/🐵🩹.ts";
 import { CheckRoll, StrikeAttackRoll } from "@system/check/roll.ts";
 import { ClientDatabaseBackendPF2e } from "@system/client-backend.ts";
@@ -79,14 +87,24 @@ export const Load = {
         CONFIG.Tile.documentClass = TileDocumentPF2e;
         CONFIG.Token.documentClass = TokenDocumentPF2e;
         CONFIG.Token.objectClass = TokenPF2e;
-        CONFIG.Token.prototypeSheetClass = TokenConfigPF2e;
         CONFIG.User.documentClass = UserPF2e;
 
-        // Assign canvas layer and placeable classes
+        // Actor system data models
+        CONFIG.Actor.dataModels.army = ArmySystemData;
+        CONFIG.Actor.dataModels.familiar = FamiliarSystemData;
+        CONFIG.Actor.dataModels.hazard = HazardSystemData;
+        CONFIG.Actor.dataModels.loot = LootSystemData;
+        CONFIG.Actor.dataModels.party = PartySystemData;
+        CONFIG.Actor.dataModels.vehicle = VehicleSystemData;
 
+        // Item system data models
+        CONFIG.Item.dataModels.action = AbilitySystemData;
+        CONFIG.Item.dataModels.campaignFeature = CampaignFeatureSystemData;
+        CONFIG.Item.dataModels.feat = FeatSystemData;
         CONFIG.Item.dataModels.kit = KitSystemData;
         CONFIG.Item.dataModels.melee = MeleeSystemData;
 
+        // Assign canvas layer and placeable classes
         CONFIG.Canvas.darknessColor = 0x2d2d52; // Lightness increased by ~0.4/10 (Munsell value)
         CONFIG.Canvas.exploredColor = 0x262626; // Increased from 0 (black)
         CONFIG.Canvas.groups.effects.groupClass = EffectsCanvasGroupPF2e;
@@ -123,15 +141,19 @@ export const Load = {
         CONFIG.Item.typeIcons = {
             action: "fa-solid fa-person-running-fast",
             affliction: "fa-solid fa-biohazard",
+            ancestry: "fa-solid fa-person-fairy",
             armor: "fa-solid fa-shirt-long-sleeve",
+            background: "fa-solid fa-baby",
             backpack: "fa-solid fa-sack",
             book: "fa-solid fa-book",
+            class: "fa-solid fa-user-beard-bolt",
             condition: "fa-solid fa-face-zany",
             consumable: "fa-solid fa-flask-round-potion",
             deity: "fa-solid fa-hamsa",
             effect: "fa-solid fa-person-rays",
             equipment: "fa-solid fa-hat-cowboy",
             feat: "fa-solid fa-medal",
+            heritage: "fa-solid fa-wreath-laurel",
             shield: "fa-solid fa-shield-halved",
             spell: "fa-solid fa-sparkles",
             treasure: "fa-solid fa-gem",
@@ -164,7 +186,7 @@ export const Load = {
                     app.render();
                 }
             }
-            if (path.includes("effects-panel")) game.pf2e.effectPanel.render();
+            if (path.includes("system/effects")) game.pf2e.effectPanel.render();
         }
 
         // HMR for template files

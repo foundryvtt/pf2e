@@ -1,0 +1,113 @@
+{
+    "_id": "9mYcuun58wYNL1Ci",
+    "img": "icons/skills/wounds/injury-stapled-flesh-tan.webp",
+    "name": "Scar of the Survivor",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p><strong>Usage</strong> imbued in the skin</p><hr /><p>A scar on your body commemorates a time someone tried to end your story and failed—a testament to your resilience and fortitude.</p>\n<p><strong>Immanence</strong> Divine energy spreads outward from your scar, reinforcing your flesh. You gain the benefits of the Diehard feat and a +1 status bonus to Fortitude saving throws.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.No Scar but This] <span class=\"action-glyph\">1</span> (concentrate, healing, transcendence, vitality)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.JdpUaQeNwoVr2VHL inline]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.DivineSpark.Label",
+                "mergeable": true,
+                "option": "divine-spark",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "scar-of-the-survivor"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.exemplar.ikons",
+                "value": {
+                    "label": "PF2E.SpecificRule.Exemplar.Ikon.ScarOfTheSurvivor.Label",
+                    "predicate": [
+                        "parent:tag:body-ikon-feat"
+                    ],
+                    "value": "scar-of-the-survivor"
+                }
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.No Scar but This"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.attributes.dying.max",
+                "predicate": [
+                    "divine-spark:scar-of-the-survivor"
+                ],
+                "priority": 51,
+                "value": 5
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "divine-spark:scar-of-the-survivor"
+                ],
+                "selector": "fortitude",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    {
+                        "or": [
+                            "item:granter:tag:chosen-ikon:scar-of-the-survivor",
+                            "item:slug:no-scar-but-this"
+                        ]
+                    },
+                    {
+                        "not": "divine-spark:scar-of-the-survivor"
+                    }
+                ],
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Exemplar.DivineSpark.SparkTranscendence.Reminder"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "exemplar-body-ikon",
+                "exemplar-ikon"
+            ],
+            "rarity": "common",
+            "value": [
+                "ikon"
+            ]
+        }
+    },
+    "type": "feat"
+}

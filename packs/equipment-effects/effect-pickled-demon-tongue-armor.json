@@ -4,7 +4,7 @@
     "name": "Effect: Pickled Demon Tongue - Armor",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Pickled Demon Tongue]</p>\n<p>You gain resistance 2 to acid and attacks by demons.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Pickled Demon Tongue], @UUID[Compendium.pf2e.equipment-srd.Item.Pickled Demon Tongue (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Pickled Demon Tongue (Major)]</p>\n<p>You gain resistance to acid and attacks by demons.</p>"
         },
         "duration": {
             "expiry": null,
@@ -22,8 +22,87 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:pickled-demon-tongue",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Pickled Demon Tongue"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:pickled-demon-tongue-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Pickled Demon Tongue (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:pickled-demon-tongue-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Pickled Demon Tongue (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "pickled-demon-tongue"
+            },
+            {
                 "key": "Resistance",
+                "predicate": [
+                    "pickled-demon-tongue:pickled-demon-tongue"
+                ],
                 "type": "acid",
+                "value": 2
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "pickled-demon-tongue:pickled-demon-tongue-greater"
+                ],
+                "type": "acid",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "pickled-demon-tongue:pickled-demon-tongue-major"
+                ],
+                "type": "acid",
+                "value": 10
+            },
+            {
+                "definition": [
+                    "origin:action:trait:attack",
+                    "origin:trait:demon"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.AttacksDemons",
+                "predicate": [
+                    "pickled-demon-tongue:pickled-demon-tongue"
+                ],
+                "type": "custom",
                 "value": 2
             },
             {
@@ -33,8 +112,24 @@
                 ],
                 "key": "Resistance",
                 "label": "PF2E.IWR.Custom.AttacksDemons",
+                "predicate": [
+                    "pickled-demon-tongue:pickled-demon-tongue-greater"
+                ],
                 "type": "custom",
-                "value": 2
+                "value": 5
+            },
+            {
+                "definition": [
+                    "origin:action:trait:attack",
+                    "origin:trait:demon"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.AttacksDemons",
+                "predicate": [
+                    "pickled-demon-tongue:pickled-demon-tongue-major"
+                ],
+                "type": "custom",
+                "value": 10
             }
         ],
         "start": {

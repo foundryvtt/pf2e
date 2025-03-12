@@ -11,7 +11,8 @@ import { RuleElementSource } from "@module/rules/index.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 import { DAMAGE_DIE_SIZES } from "@system/damage/values.ts";
 import { Predicate } from "@system/predication.ts";
-import { ErrorPF2e, getActionGlyph, objectHasKey, sluggify, traitSlugToObject, tupleHasValue } from "@util";
+import { ErrorPF2e, getActionGlyph, objectHasKey, sluggify, tupleHasValue } from "@util";
+import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
 
 /** Handle weapon traits that introduce modifiers or add other weapon traits */

@@ -1,0 +1,68 @@
+{
+    "_id": "iN7j0d5LE7OwZlAo",
+    "img": "icons/skills/movement/arrow-upward-blue.webp",
+    "name": "Effect: Invoke Movement",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Invoke Movement]</p>\n<p>You gain a burrow, climb, fly or swim speed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "config": "speedTypes",
+                    "predicate": [
+                        {
+                            "not": "speed:{choice|value}"
+                        }
+                    ]
+                },
+                "flag": "speed",
+                "key": "ChoiceSet",
+                "rollOption": "invoke-movement"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    {
+                        "not": "invoke-movement:burrow"
+                    }
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.speed}",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "invoke-movement:burrow"
+                ],
+                "selector": "burrow",
+                "value": "floor(@actor.attributes.speed.total / 2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

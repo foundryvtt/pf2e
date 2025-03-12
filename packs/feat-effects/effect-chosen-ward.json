@@ -1,0 +1,77 @@
+{
+    "_id": "VlBozDEaEaKE1A3O",
+    "img": "icons/magic/nature/wolf-paw-glow-large-orange.webp",
+    "name": "Effect: Chosen Ward",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Chosen Ward]</p>\n<p>While either the origin or their united companion are adjacent to you, you gain a +1 circumstance bonus to your AC and Reflex saves.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "level": {
+            "value": 14
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.BeastLord.ChosenWard.DefenseToggle",
+                "option": "chosen-ward",
+                "toggleable": true
+            },
+            {
+                "disabledIf": [
+                    {
+                        "not": "chosen-ward"
+                    }
+                ],
+                "disabledValue": false,
+                "domain": "reflex",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.BeastLord.ChosenWard.FortuneToggle",
+                "option": "chosen-ward-fortune",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "chosen-ward"
+                ],
+                "selector": [
+                    "ac",
+                    "reflex"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    "chosen-ward-fortune"
+                ],
+                "removeAfterRoll": false,
+                "selector": "reflex"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

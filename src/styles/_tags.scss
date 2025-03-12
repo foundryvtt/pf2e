@@ -85,6 +85,16 @@
     }
 }
 
+// Allow tags to recieve events and disable just the rarity dropdown
+tags.tagify {
+    &[disabled] {
+        pointer-events: inherit;
+        select.tag.rarity {
+            pointer-events: none;
+        }
+    }
+}
+
 // Tagify and non-tagify paizo style main traits row
 .tags.paizo-style {
     border: none;
@@ -192,6 +202,10 @@
     padding: 0 var(--space-4);
     white-space: nowrap;
     width: auto;
+
+    .theme-dark & {
+        --tag-color: var(--color-form-hint);
+    }
 }
 
 .chat-message .tags {

@@ -181,10 +181,8 @@
         },
         {
             "_id": "88hwkEhv8cx338VM",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
@@ -229,7 +227,7 @@
                 "category": "defensive",
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When Akuzhail dies, its body explodes in a riot of seething vegetation and raw life. All living creatures within a @Template[emanation|distance:60]{60-foot radius} are restored [[/r 12d6[healing]]] Hit Points from this energy. A fully grown bloom of Lamashtu emerges from the carcass, but it can take no actions on this round. Next round, this bloom of Lamashtu enters combat at the same point in the turn during which Akuzhail perished on the previous round, but the bloom is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}. At the end of the bloom's turn, it attempts a @Check[flat|dc:11]; on a success it loses the slowed 1 condition at the start of its next turn.</p>"
+                    "value": "<p>When Akuzhail dies, its body explodes in a riot of seething vegetation and raw life. All living creatures within a @Template[emanation|distance:60]{60-foot radius} are restored @Damage[12d6[healing]] Hit Points from this energy. A fully grown bloom of Lamashtu emerges from the carcass, but it can take no actions on this round. Next round, this bloom of Lamashtu enters combat at the same point in the turn during which Akuzhail perished on the previous round, but the bloom is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}. At the end of the bloom's turn, it attempts a @Check[flat|dc:11]; on a success it loses the slowed 1 condition at the start of its next turn.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -436,7 +434,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Akuzhail breathes a @Template[line|distance:60] of venom from its snake mouth that deals @Damage[11d6[poison]] damage (@Check[fortitude|dc:29|basic]). Akuzhail can't use Breath Weapon for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                    "value": "<p>Akuzhail breathes a @Template[line|distance:60] of venom from its snake mouth that deals @Damage[11d6[poison]|options:area-damage] damage (@Check[fortitude|dc:29|basic|options:area-effect]). Akuzhail can't use Breath Weapon for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",

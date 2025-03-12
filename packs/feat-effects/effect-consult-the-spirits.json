@@ -1,0 +1,57 @@
+{
+    "_id": "sEv8H8PrMd0C3wJ7",
+    "img": "icons/magic/holy/meditation-chi-focus-blue.webp",
+    "name": "Effect: Consult the Spirits",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Consult the Spirits (Rivethun Emissary)]{Consult the Spirits}</p>\n<p>You gain a +1 status bonus with a chosen skill.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "config": "skills"
+                },
+                "flag": "skill",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.skill}",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "feat:emboldened-with-glorious-purpose"
+                ],
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Emboldened with Glorious Purpose"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

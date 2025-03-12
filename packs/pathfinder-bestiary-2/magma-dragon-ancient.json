@@ -46,10 +46,8 @@
         },
         {
             "_id": "boE5n1kGWU3PGXxn",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.y6rAdMK6EFlV6U0t"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.y6rAdMK6EFlV6U0t"
             },
             "img": "systems/pf2e/icons/spells/burning-hands.webp",
             "name": "Burning Hands (At Will)",
@@ -134,10 +132,8 @@
         },
         {
             "_id": "36ilDI41BLeisTly",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.sxQZ6yqTn0czJxVd"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.sxQZ6yqTn0czJxVd"
             },
             "img": "icons/magic/fire/projectile-fireball-orange-yellow.webp",
             "name": "Fireball",
@@ -222,10 +218,8 @@
         },
         {
             "_id": "Ump4s3SQmPTp8c0K",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.IarZrgCeaiUqOuRu"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.IarZrgCeaiUqOuRu"
             },
             "img": "icons/magic/fire/flame-burning-campfire-rocks.webp",
             "name": "Wall of Fire (At Will)",
@@ -302,10 +296,8 @@
         },
         {
             "_id": "2s2y3NKDRdpdH6gx",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.YrzBLPLd3r9m6t1p"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.YrzBLPLd3r9m6t1p"
             },
             "img": "systems/pf2e/icons/spells/fire-shield.webp",
             "name": "Fire Shield (Constant)",
@@ -382,10 +374,8 @@
         },
         {
             "_id": "nwKiflfj6AoldOfM",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.O9w7r4BKgPogYDDe"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.O9w7r4BKgPogYDDe"
             },
             "img": "icons/magic/fire/flame-burning-earth-orange.webp",
             "name": "Produce Flame",
@@ -646,10 +636,8 @@
         },
         {
             "_id": "dfO2vkmoVzinZBdb",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
@@ -680,7 +668,10 @@
             "type": "action"
         },
         {
-            "_id": "0IfzoP16zRxLRIJ3",
+            "_id": "UmzE277aA6nii5Lz",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
             "sort": 1200000,
@@ -696,32 +687,23 @@
                     "value": ""
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
                 "rules": [
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "or": [
-                                    "magical",
-                                    "arcane",
-                                    "primal",
-                                    "occult",
-                                    "divine"
-                                ]
-                            }
+                            "item:magical"
                         ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
                     }
                 ],
-                "slug": null,
+                "slug": "1-status-to-all-saves-vs-magic",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -729,10 +711,8 @@
         },
         {
             "_id": "Cl2tanuHvlyyksIz",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
@@ -838,7 +818,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon breathes a blast of magma that deals @Damage[10d6[fire],5d12[bludgeoning]]{10d6 fire damage and 5d12 bludgeoning damage} in a @Template[cone|distance:60] (@Check[reflex|dc:40|basic] save).</p>\n<p>They can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon breathes a blast of magma that deals @Damage[10d6[fire],5d12[bludgeoning]|options:area-damage]{10d6 fire damage and 5d12 bludgeoning damage} in a @Template[cone|distance:60] (@Check[reflex|dc:40|basic|options:area-effect] save).</p>\n<p>They can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1046,7 +1026,7 @@
                 "value": 42
             },
             "allSaves": {
-                "value": "+1 status to all saves vs. magic"
+                "value": "+1 Status to All Saves vs. Magic"
             },
             "hp": {
                 "details": "",

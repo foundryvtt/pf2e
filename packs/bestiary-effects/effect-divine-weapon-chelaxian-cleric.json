@@ -1,0 +1,65 @@
+{
+    "_id": "BWmrfNcFfjvWh8SV",
+    "img": "icons/magic/unholy/projectile-spear-glow-pink.webp",
+    "name": "Effect: Divine Weapon (Chelaxian Cleric)",
+    "system": {
+        "description": {
+            "value": "<p>The Chelaxian cleric's Strikes gain the unholy trait and deal an additional 1d4 spirit damage; this damage increases to 2d4 against creatures with the holy trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Society Scenario #6-07: A God Falls Where Magic Fails"
+        },
+        "rules": [
+            {
+                "damageType": "spirit",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "not": "target:trait:holy"
+                    }
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "damageType": "spirit",
+                "diceNumber": 2,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:trait:holy"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "unholy"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

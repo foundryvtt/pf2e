@@ -121,7 +121,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         }
     }
 
-    override prepareSiblingData(this: SpellcastingEntryPF2e<NonNullable<TParent>>): void {
+    override prepareSiblingData(this: SpellcastingEntryPF2e<ActorPF2e>): void {
         const actor = this.actor;
         this.spells = new SpellCollection(this) as SpellCollection<NonNullable<TParent>>;
         const spells = actor.itemTypes.spell.filter(
@@ -134,7 +134,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         actor.spellcasting?.collections.set(this.spells.id, this.spells);
     }
 
-    override prepareActorData(this: SpellcastingEntryPF2e<NonNullable<TParent>>): void {
+    override prepareActorData(this: SpellcastingEntryPF2e<ActorPF2e>): void {
         if ((this.spells?.size ?? 0) > 0) {
             const rollOptions = this.actor.flags.pf2e.rollOptions;
             rollOptions.all["self:caster"] = true;
@@ -381,7 +381,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
 
         const defaultData = { groups: [], prepList: null };
         const collectionData =
-            this.category === "items" ? defaultData : (await this.spells?.getSpellData({ prepList })) ?? defaultData;
+            this.category === "items" ? defaultData : ((await this.spells?.getSpellData({ prepList })) ?? defaultData);
 
         return fu.mergeObject(collectionData, {
             id: this.id,
@@ -449,10 +449,13 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     /* -------------------------------------------- */
 
     /**
-     * To prevent (or delay) console spam, will send out a deprecation notice in a later release
      * @deprecated
      */
     getSpellData(): Promise<SpellcastingSheetData> {
+        foundry.utils.logCompatibilityWarning(
+            "SpellcastingEntryPF2e#getSpellData() is deprecated. Use SpellcastingEntryPF2e#getSheetData() instead.",
+            { since: "6.7.1", until: "7.0.0" },
+        );
         return this.getSheetData();
     }
 }

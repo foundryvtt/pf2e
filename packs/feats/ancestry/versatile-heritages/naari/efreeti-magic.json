@@ -1,0 +1,70 @@
+{
+    "_id": "AJVx3sHm6f6i8ZQW",
+    "folder": "npWfd9OZLwKGM4d8",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Efreeti Magic",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>The magic of your efreeti ancestors flows through you. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Enlarge] and @UUID[Compendium.pf2e.spells-srd.Item.Illusory Object] once per day each as 2nd-rank arcane innate spells.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Ancestry Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:enlarge",
+                            "item:slug:illusory-object"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:enlarge",
+                            "item:slug:illusory-object"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:naari"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "naari"
+            ]
+        }
+    },
+    "type": "feat"
+}

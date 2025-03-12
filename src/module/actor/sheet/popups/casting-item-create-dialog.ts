@@ -5,7 +5,7 @@ import { OneToTen } from "@module/data.ts";
 import { ErrorPF2e } from "@util";
 
 interface FormInputData extends FormApplicationData<ActorPF2e> {
-    itemTypeOptions?: Object;
+    itemTypeOptions?: object;
     validLevels?: number[];
     itemType?: SpellConsumableItemType;
     level?: OneToTen;

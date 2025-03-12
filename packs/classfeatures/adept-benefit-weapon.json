@@ -1,0 +1,59 @@
+{
+    "_id": "XcuyDpn8L4HltRjW",
+    "img": "icons/weapons/axes/pickaxe-bone-purple.webp",
+    "name": "Adept Benefit (Weapon)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>When your implement lashes out at your foe, even a close miss brings the weapon close enough to do harm. When you use @UUID[Compendium.pf2e.actionspf2e.Item.Implement's Interruption] and fail (but don't critically fail) the Strike, you deal 1 damage of the weapon's normal type, possibly applying any bonus damage due to the target's weakness.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.thaumaturge.paragonChoices",
+                "priority": 20,
+                "value": {
+                    "label": "PF2E.SpecificRule.Thaumaturge.Implement.Weapon.Label",
+                    "value": "Compendium.pf2e.classfeatures.Item.Paragon Benefit (Weapon)"
+                }
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "predicate": [
+                    "implements-interruption"
+                ],
+                "selector": "{actor|flags.pf2e.thaumaturge.weaponImplement}-attack",
+                "text": "PF2E.SpecificRule.Thaumaturge.Implement.Weapon.Adept.Note",
+                "title": "PF2E.SpecificRule.Thaumaturge.Implement.Adept.Label"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "thaumaturge"
+            ]
+        }
+    },
+    "type": "feat"
+}

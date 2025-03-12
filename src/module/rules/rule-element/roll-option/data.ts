@@ -1,17 +1,17 @@
-import { DataUnionField, PredicateField, StrictBooleanField, StrictStringField } from "@system/schema-data-fields.ts";
-import type {
-    ArrayField,
-    BooleanField,
-    DataSchema,
-    EmbeddedDataField,
-    StringField,
-} from "types/foundry/common/data/fields.d.ts";
+import {
+    DataUnionField,
+    PredicateField,
+    StrictArrayField,
+    StrictBooleanField,
+    StrictStringField,
+} from "@system/schema-data-fields.ts";
+import type * as fields from "types/foundry/common/data/fields.d.ts";
 import type { AELikeDataPrepPhase } from "../ae-like.ts";
 import type { ResolvableValueField, RuleElementSchema } from "../data.ts";
 import type { RollOptionRuleElement } from "./rule-element.ts";
 
 class Suboption extends foundry.abstract.DataModel<RollOptionRuleElement, SuboptionSchema> {
-    static override defineSchema(): DataSchema {
+    static override defineSchema(): fields.DataSchema {
         return {
             label: new foundry.data.fields.StringField({ required: true, nullable: false, blank: false }),
             value: new StrictStringField({ required: true, nullable: false, blank: false }),
@@ -33,46 +33,63 @@ interface Suboption
         ModelPropsFromSchema<SuboptionSchema> {}
 
 type RollOptionSchema = RuleElementSchema & {
-    domain: StringField<string, string, true, false, true>;
-    phase: StringField<AELikeDataPrepPhase, AELikeDataPrepPhase, false, false, true>;
-    option: StringField<string, string, true, false, false>;
+    domain: fields.StringField<string, string, true, false, true>;
+    phase: fields.StringField<AELikeDataPrepPhase, AELikeDataPrepPhase, false, false, true>;
+    option: fields.StringField<string, string, true, false, false>;
     /** Suboptions for a toggle, appended to the option string */
-    suboptions: ArrayField<SuboptionField>;
+    suboptions: DataUnionField<
+        | fields.SchemaField<
+              SuboptionConfigSchema,
+              SourceFromSchema<SuboptionConfigSchema>,
+              ModelPropsFromSchema<SuboptionConfigSchema>,
+              false,
+              false
+          >
+        | StrictArrayField<SuboptionField>,
+        false,
+        false,
+        true
+    >;
     /**
      * The value of the roll option: either a boolean or a string resolves to a boolean If omitted, it defaults to
      * `true` unless also `togglable`, in which case to `false`.
      */
     value: ResolvableValueField<false, false, true>;
     /** Whether this instance's suboptions are mergeable with an already-present, toggleable `RollOption` */
-    mergeable: BooleanField<boolean, boolean, false, false, true>;
+    mergeable: fields.BooleanField<boolean, boolean, false, false, true>;
     /** A suboption selection */
-    selection: StringField<string, string, false, false, false>;
+    selection: fields.StringField<string, string, false, false, false>;
     /** Whether the roll option is toggleable: a checkbox will appear in interfaces (usually actor sheets) */
     toggleable: DataUnionField<StrictStringField<"totm"> | StrictBooleanField, false, false, true>;
     /** If toggleable, the location to be found in an interface */
-    placement: StringField<string, string, false, false, false>;
+    placement: fields.StringField<string, string, false, false, false>;
     /** An optional predicate to determine whether the toggle is interactable by the user */
     disabledIf: PredicateField<false, false, false>;
     /** The value of the roll option if its toggle is disabled: null indicates the pre-disabled value is preserved */
-    disabledValue: BooleanField<boolean, boolean, false, false, false>;
+    disabledValue: fields.BooleanField<boolean, boolean, false, false, false>;
     /**
      * Whether this (toggleable and suboptions-containing) roll option always has a `value` of `true`, allowing only
      * suboptions to be changed
      */
-    alwaysActive: BooleanField<boolean, boolean, false, false, false>;
+    alwaysActive: fields.BooleanField<boolean, boolean, false, false, false>;
     /** Whether this roll option is countable: it will have a numeric value counting how many rules added this option */
-    count: BooleanField<boolean, boolean, false, false, false>;
+    count: fields.BooleanField<boolean, boolean, false, false, false>;
     /** If the hosting item is an effect, remove or expire it after a matching roll is made */
-    removeAfterRoll: BooleanField<boolean, boolean, false, false, false>;
+    removeAfterRoll: fields.BooleanField<boolean, boolean, false, false, false>;
 };
 
 type SuboptionSchema = {
-    label: StringField<string, string, true, false, false>;
-    value: StringField<string, string, true, false, false>;
+    label: fields.StringField<string, string, true, false, false>;
+    value: fields.StringField<string, string, true, false, false>;
     predicate: PredicateField;
 };
 type SuboptionSource = SourceFromSchema<SuboptionSchema>;
-type SuboptionField = EmbeddedDataField<Suboption, true, false, false>;
+type SuboptionField = fields.EmbeddedDataField<Suboption, true, false, false>;
+
+type SuboptionConfigSchema = {
+    config: fields.StringField<string, string, true, false, false>;
+    predicate: PredicateField<false, false>;
+};
 
 export { Suboption };
 export type { RollOptionSchema, SuboptionField, SuboptionSource };

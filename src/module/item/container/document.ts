@@ -27,7 +27,7 @@ class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
 
     get capacity(): { value: Bulk; max: Bulk } {
         return {
-            value: InventoryBulk.computeTotalBulk(this.contents.contents, this.actor?.size ?? "med"),
+            value: InventoryBulk.computeTotalBulk(this.contents.contents, this.actor ?? null),
             max: new Bulk(this.system.bulk.capacity),
         };
     }
@@ -75,6 +75,11 @@ class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
 
         const updates = this.contents.map((i) => ({ _id: i.id, "system.containerId": this.container?.id ?? null }));
         await this.actor.updateEmbeddedDocuments("Item", updates, { render: false });
+    }
+
+    /** Containers never stack, otherwise their contents can have strange results */
+    override isStackableWith(_item: PhysicalItemPF2e): boolean {
+        return false;
     }
 
     override async getChatData(

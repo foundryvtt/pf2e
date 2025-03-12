@@ -1,0 +1,50 @@
+{
+    "_id": "wGaxWwJhIXbMJft1",
+    "folder": "horSQl7gqJhruCNW",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Plentiful Snares",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can prepare incredible numbers of snares each day out of simple ingredients. Double the number of prepared snares granted by @UUID[Compendium.pf2e.feats-srd.Item.Snarecrafter Dedication].</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Snarecrafter Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Advanced Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "multiply",
+                "path": "system.crafting.entries.snarecrafter.maxSlots",
+                "phase": "beforeDerived",
+                "priority": 41,
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,60 @@
+{
+    "_id": "f1w5p5AVfAajZi9t",
+    "img": "systems/pf2e/icons/spells/ki-blast.webp",
+    "name": "Effect: Super Qi Blast",
+    "system": {
+        "description": {
+            "value": "<p>The grandmaster's body expands as it prepares to exude an unfathomable amount of qi. If the grandmaster's next action is to cast the two-action version of qi blast, the size of the cone increases to 120 feet and the damage increases to 16d6. The grandmaster also becomes one size category larger for the next minute, dealing an additional +9 damage with their melee Strikes. Additionally, the grandmaster is permanently @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. This drained condition is cumulative.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:slug:qi-blast",
+                    "item:cast:actions:2"
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "spell-damage"
+                ],
+                "value": 16
+            },
+            {
+                "key": "CreatureSize",
+                "resizeEquipment": true,
+                "value": "large"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "melee-damage",
+                "value": 9
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

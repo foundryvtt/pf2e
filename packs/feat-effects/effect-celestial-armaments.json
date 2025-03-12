@@ -1,0 +1,87 @@
+{
+    "_id": "h8BLaHUFnzCDJf5I",
+    "img": "icons/skills/melee/weapons-crossed-swords-yellow-teal.webp",
+    "name": "Effect: Celestial Armaments",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Celestial Armaments]</p>\n<p>Your weapon sheds light like a torch, deals an additional 1d8 spirit damage, and you gain the weapon's critical specialization.</p>\n<p>When you critically hit a target with the weapon, the target must succeed at a Fortitude save against your class DC or spell DC (whichever is higher) or be blinded for 1d4 rounds.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "level": {
+            "value": 16
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "TokenLight",
+                "value": {
+                    "alpha": 0.2,
+                    "animation": {
+                        "intensity": 1,
+                        "speed": 2,
+                        "type": "flame"
+                    },
+                    "attenuation": 0.4,
+                    "bright": 20,
+                    "color": "#ffae3d",
+                    "dim": 40,
+                    "shadows": 0.2
+                }
+            },
+            {
+                "damageType": "spirit",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                ]
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-attack",
+                "text": "PF2E.SpecificRule.AscendedCelestial.CelestialArmaments.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

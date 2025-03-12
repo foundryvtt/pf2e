@@ -1,0 +1,52 @@
+{
+    "_id": "0nkzRcjN9iOSFUf9",
+    "img": "icons/magic/lightning/bolts-salvo-clouds-sky.webp",
+    "name": "Effect: Pass Vengeful Judgment",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Pass Vengeful Judgment]</p>\n<p>You gain a +2 status bonus to Intimidation checks against creatures in the area within a 10-mile radius of where Pass Vengeful Judgment was used.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 30
+        },
+        "level": {
+            "value": 18
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "domain": "intimidation",
+                "key": "RollOption",
+                "option": "pass-vengeful-judgment",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "pass-vengeful-judgment"
+                ],
+                "selector": "intimidation",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

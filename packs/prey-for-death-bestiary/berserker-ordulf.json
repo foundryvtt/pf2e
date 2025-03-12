@@ -4,10 +4,8 @@
     "items": [
         {
             "_id": "Q4OXvE3I5BaZi6pN",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.UX71GkWBL9g41VwM"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UX71GkWBL9g41VwM"
             },
             "img": "icons/weapons/swords/greatsword-crossguard-silver.webp",
             "name": "Greatsword",
@@ -94,10 +92,8 @@
         },
         {
             "_id": "3d1uzFaZD5w1oUhB",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.Gq1cZWSKOtJhKd2p"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Gq1cZWSKOtJhKd2p"
             },
             "img": "icons/equipment/chest/breastplate-layered-steel-green.webp",
             "name": "Full Plate",
@@ -247,10 +243,8 @@
         },
         {
             "_id": "L0apVhPMH7U617wJ",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc"
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Reactive Strike",
@@ -294,14 +288,22 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> Ordulf rolls initiative</p><hr /><p><strong>Effect</strong> Ordulf attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] an observed foe.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> Ordulf rolls initiative</p><hr /><p><strong>Effect</strong> Ordulf attempts to [[/act demoralize]] an observed foe.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "initiative",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -385,7 +387,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Ordulf is wielding a melee weapon</p><hr /><p><strong>Effect</strong> Ordulf brandishes his weapon in a threatening display. He @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize]{Demoralizes} all enemies within 30 feet, rolling once and comparing the result to each target's Will DC.</p>"
+                    "value": "<p><strong>Requirements</strong> Ordulf is wielding a melee weapon</p><hr /><p><strong>Effect</strong> Ordulf brandishes his weapon in a threatening display. He [[/act demoralize]]{Demoralizes} all enemies within 30 feet, rolling once and comparing the result to each target's Will DC.</p>"
                 },
                 "publication": {
                     "license": "OGL",

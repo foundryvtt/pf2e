@@ -1,0 +1,81 @@
+{
+    "_id": "BZPPcHtYugsNKz4Z",
+    "img": "icons/magic/control/silhouette-hold-change-green.webp",
+    "name": "Effect: Channeler's Stance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Channeler's Stance]</p>\n<p>Whenever you cast or Sustain an apparition spell or vessel spell that deals energy damage, you gain a status bonus to the spell's damage equal to the spell's rank.</p>\n<p>Each time you Cast a Spell that has the vitality or void traits and that restores Hit Points while in this stance, the spells' targets gain a status bonus to the initial amount of healing received equal to the spell's rank. This bonus healing does not apply to healing over time effects (such as fast healing or regeneration).</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "channelers-stance",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "channelers-stance",
+                    "item:damage:category:energy",
+                    {
+                        "or": [
+                            "item:tag:apparition-spell",
+                            {
+                                "and": [
+                                    "item:trait:animist",
+                                    "item:trait:focus"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "spell-damage",
+                "slug": "channelers-stance-damage",
+                "type": "status",
+                "value": "@spell.rank"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "channelers-stance",
+                    {
+                        "or": [
+                            "item:trait:void",
+                            "item:trait:vitality"
+                        ]
+                    }
+                ],
+                "selector": "spell-healing",
+                "slug": "channelers-stance-healing",
+                "type": "status",
+                "value": "@spell.rank"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

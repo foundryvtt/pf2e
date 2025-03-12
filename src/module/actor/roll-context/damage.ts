@@ -40,16 +40,16 @@ class DamageContext<
             .find((message) => {
                 if (!message.rolls.some((r) => r instanceof CheckRoll)) return false;
                 if (message.actor?.uuid !== actor.uuid) return false;
-                if (target.token !== message.target?.token.object) return false;
+                if (target.token !== message.target?.token) return false;
 
                 const messageItem = message.item;
                 if (!messageItem?.isOfType("melee", "weapon")) return false;
                 const paramsItemSlug = item.slug ?? sluggify(item.name);
                 const messageItemSlug = messageItem.slug ?? sluggify(messageItem.name);
 
-                return !!(
+                return (
                     paramsItemSlug === messageItemSlug &&
-                    item.uuid === item.uuid &&
+                    item.uuid === messageItem.uuid &&
                     item.isMelee === messageItem.isMelee
                 );
             });

@@ -1,0 +1,76 @@
+{
+    "_id": "5CRt5Dy9eLv5LpRF",
+    "folder": "RM5KwlKBN3uKTcd8",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Herbalist Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can create natural remedies. You gain the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.Jkl5KOZih7MoMqAJ#advanced-alchemy-benefits]{Advanced Alchemy} benefits. You can use advanced alchemy to create 4 alchemical consumables with the healing trait, though the number is reduced by 2 if you didn't make your daily preparations in the wilderness. These consumables are called your herbal items. You remember herbal item formulas and don't need a formula book for them.</p>\n<p>You become an expert in Nature and can use Nature instead of Crafting to Craft alchemical consumables with the healing trait. You don't need to be trained in Crafting to do so, and you can use healer's tools instead of alchemist's tools.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.Rrjz5tMJtyVEQnh8]{Herbalist}</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Nature"
+                },
+                {
+                    "value": "Natural Medicine"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.nature.rank",
+                "value": 2
+            },
+            {
+                "craftableItems": [
+                    {
+                        "or": [
+                            "item:tag:herbal",
+                            {
+                                "and": [
+                                    "item:trait:alchemical",
+                                    "item:trait:healing"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "isDailyPrep": true,
+                "key": "CraftingAbility",
+                "label": "PF2E.SpecificRule.Alchemist.AdvancedAlchemy",
+                "maxSlots": 4,
+                "slug": "advanced-alchemy"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Alchemical Crafting"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

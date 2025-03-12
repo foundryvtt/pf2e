@@ -4,7 +4,7 @@
     "name": "Spell Effect: Shields of the Spirit (Security)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Security]</p>\n<p>You grant an ally a +1 status bonus to AC.</p><hr /><p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Greater Security]</p>\n<p>If your shield is raised, the ally with the companion shield gets the same bonus to AC your shield grants.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Security]</p>\n<p>You gain a +1 status bonus to AC.</p><hr /><p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Greater Security]</p>\n<p>If the champion's shield is raised, you gain the same bonus to AC their shield grants.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -24,8 +24,28 @@
             {
                 "key": "FlatModifier",
                 "selector": "ac",
+                "slug": "shields-of-the-spirit-status",
                 "type": "status",
                 "value": 1
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Champion.GreaterSecurity.RollOptionLabel",
+                "option": "greater-security",
+                "predicate": [
+                    "parent:origin:item:tag:greater-security"
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "greater-security"
+                ],
+                "selector": "ac",
+                "slug": "shields-of-the-spirit-shield",
+                "type": "circumstance",
+                "value": "@item.origin.system.attributes.shield.ac"
             }
         ],
         "start": {

@@ -2,11 +2,11 @@ import { ActorPF2e } from "@actor";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
-import { ActionTrait } from "@item/ability/types.ts";
+import { AbilityTrait } from "@item/ability/types.ts";
 import { EFFECT_AREA_SHAPES } from "@item/spell/values.ts";
 import { ChatMessageFlagsPF2e, ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { calculateDC } from "@module/dc.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { Statistic, StatisticRollParameters } from "@system/statistic/index.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
@@ -91,7 +91,7 @@ export class InlineRollLinks {
     static #makeRepostHtml(target: HTMLElement, defaultVisibility: string): string {
         const flavor = game.i18n.localize(target.dataset.pf2RepostFlavor ?? "");
         const showDC = target.dataset.pf2ShowDc ?? defaultVisibility;
-        return `<span data-visibility="${showDC}">${flavor}</span> ${target.outerHTML}`.trim();
+        return (flavor ? `<span data-visibility="${showDC}">${flavor}</span> ` : "") + `${target.outerHTML}`.trim();
     }
 
     static #onClickInlineAction(event: MouseEvent, link: HTMLAnchorElement | HTMLSpanElement): void {
@@ -103,7 +103,7 @@ export class InlineRollLinks {
             ? { scope: "check", value: Number(pf2Dc) || 0, visibility }
             : pf2Dc;
         const maybeTraits = splitListString(pf2Traits ?? "");
-        const traits = maybeTraits.filter((trait): trait is ActionTrait => trait in CONFIG.PF2E.actionTraits);
+        const traits = maybeTraits.filter((trait): trait is AbilityTrait => trait in CONFIG.PF2E.actionTraits);
         const rollOptions = R.unique(
             [maybeTraits, traits.map((trait) => `item:trait:${trait}`), splitListString(pf2Options ?? "")].flat(),
         );
@@ -176,7 +176,7 @@ export class InlineRollLinks {
         }
 
         const maybeTraits = splitListString(pf2Traits ?? "");
-        const additionalTraits = maybeTraits.filter((t): t is ActionTrait => t in CONFIG.PF2E.actionTraits);
+        const additionalTraits = maybeTraits.filter((t): t is AbilityTrait => t in CONFIG.PF2E.actionTraits);
 
         const extraRollOptions = R.unique(
             [maybeTraits, additionalTraits.map((t) => `item:trait:${t}`), splitListString(pf2RollOptions ?? "")].flat(),
@@ -204,7 +204,7 @@ export class InlineRollLinks {
         // Get actual traits for display in chat cards
         const abilityTraits = isSavingThrow
             ? []
-            : extraRollOptions.filter((t): t is ActionTrait => t in CONFIG.PF2E.actionTraits);
+            : extraRollOptions.filter((t): t is AbilityTrait => t in CONFIG.PF2E.actionTraits);
 
         // Pre-emptively grab statistics to visibly error if the statistic is missing from all of them
         const actorStatistics = actors.map((actor) => ({ actor, statistic: actor.getStatistic(pf2Check) }));
@@ -235,7 +235,7 @@ export class InlineRollLinks {
                     ? rollingActor
                     : targetOwner
                       ? parentActor
-                      : game.user.targets.first()?.actor ?? null;
+                      : (game.user.targets.first()?.actor ?? null);
             const opposingActor = rollerRole === "target" ? parentActor : targetActor;
             const originActor = rollerRole === "origin" ? rollingActor : parentActor;
 
@@ -373,7 +373,7 @@ export class InlineRollLinks {
         const messageId =
             foundryDoc instanceof ChatMessagePF2e
                 ? foundryDoc.id
-                : htmlClosest(link, "[data-message-id]")?.dataset.messageId ?? null;
+                : (htmlClosest(link, "[data-message-id]")?.dataset.messageId ?? null);
         if (messageId) {
             flags.pf2e.messageId = messageId;
         }
@@ -468,7 +468,7 @@ function resolveDocument(html: HTMLElement): ClientDocument | null {
 
     // Return the chat message if there is one
     const messageId = htmlClosest(html, "[data-message-id]")?.dataset.messageId;
-    return messageId ? game.messages.get(messageId) ?? null : null;
+    return messageId ? (game.messages.get(messageId) ?? null) : null;
 }
 
 /** Retrieve an actor via a passed document. Handles item owners and chat message actors. */

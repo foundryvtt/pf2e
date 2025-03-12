@@ -1,0 +1,197 @@
+{
+    "_id": "xrJ4nGGgejUPf16q",
+    "img": "icons/equipment/wrist/bracer-segmented-leather.webp",
+    "name": "Fetching Bangles",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p><strong>Usage</strong> worn bracers</p><hr /><p>These lovely armbands sparkle and gleam, reflecting your own incredible magnetism.</p>\n<p><strong>Immanence</strong> (aura, mental) Others find it hard to leave your captivating presence. An aura surrounds you in a @Template[type:emanation|distance:10]. An enemy in the aura that attempts to move away from you must succeed at a @Check[will|against:class] save against your class DC or its move action is disrupted.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.Embrace of Destiny] <span class=\"action-glyph\">1</span> (mental, spirit, transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.V4HToYPQlkw8AW50 inline]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.DivineSpark.Label",
+                "mergeable": true,
+                "option": "divine-spark",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "fetching-bangles"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.exemplar.ikons",
+                "value": {
+                    "label": "PF2E.SpecificRule.Exemplar.Ikon.FetchingBangles.Label",
+                    "predicate": [
+                        "parent:tag:worn-ikon-feat"
+                    ],
+                    "value": "fetching-bangles"
+                }
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Embrace of Destiny"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Grant",
+                        "value": "granted"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Existing",
+                        "value": "existing"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Prompt",
+                "rollOption": "fetching-bangles-origin"
+            },
+            {
+                "allowDuplicate": false,
+                "alterations": [
+                    {
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "physical-ikon"
+                    },
+                    {
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "physical-ikon:fetching-bangles"
+                    }
+                ],
+                "key": "GrantItem",
+                "predicate": [
+                    "fetching-bangles-origin:granted"
+                ],
+                "uuid": "Compendium.pf2e.equipment-srd.Item.Fetching Bangles"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "equipment"
+                    ]
+                },
+                "flag": "existingIkon",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "fetching-bangles-origin:existing"
+                ]
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.existingIkon}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "physical-ikon"
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.existingIkon}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "fetching-bangles-origin:existing"
+                ],
+                "property": "other-tags",
+                "value": "physical-ikon:fetching-bangles"
+            },
+            {
+                "itemType": "equipment",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:physical-ikon:fetching-bangles",
+                    "fetching-bangles-origin:existing",
+                    {
+                        "not": "item:slug:fetching-bangles"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "@Embed[Compendium.pf2e.classfeatures.Item.xrJ4nGGgejUPf16q inline]"
+                    }
+                ]
+            },
+            {
+                "key": "Aura",
+                "predicate": [
+                    "divine-spark:fetching-bangles"
+                ],
+                "radius": 10,
+                "traits": [
+                    "aura",
+                    "mental"
+                ]
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    {
+                        "or": [
+                            "item:granter:tag:chosen-ikon:fetching-bangles",
+                            "item:slug:embrace-of-destiny"
+                        ]
+                    },
+                    {
+                        "not": "divine-spark:fetching-bangles"
+                    }
+                ],
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Exemplar.DivineSpark.SparkTranscendence.Reminder"
+                    }
+                ]
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.existingIkon}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "divine"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "exemplar-ikon",
+                "exemplar-worn-ikon"
+            ],
+            "rarity": "common",
+            "value": [
+                "ikon"
+            ]
+        }
+    },
+    "type": "feat"
+}

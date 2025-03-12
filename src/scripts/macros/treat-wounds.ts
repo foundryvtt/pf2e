@@ -1,7 +1,7 @@
 import type { ActorPF2e, CreaturePF2e } from "@actor";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import type { RollOptionRuleElement } from "@module/rules/rule-element/roll-option/rule-element.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { eventToRollParams } from "@module/sheet/helpers.ts";
 import type { ActionDefaultOptions } from "@system/action-macros/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import {
@@ -57,9 +57,9 @@ async function treatWounds(options: ActionDefaultOptions): Promise<void> {
 <div class="form-group">
 <label for="skill-${domIdAppend}">${game.i18n.localize("PF2E.Actions.TreatWounds.SkillSelect")}</label>
 <select id="skill-${domIdAppend}"${!chirurgeon && !naturalMedicine ? " disabled" : ""}>
-  <option value="medicine">${medicineName}</option>
   ${chirurgeon ? `<option value="crafting">${game.i18n.localize("PF2E.Skill.Crafting")}</option>` : ``}
   ${naturalMedicine ? `<option value="nature">${game.i18n.localize("PF2E.Skill.Nature")}</option>` : ``}
+  <option value="medicine">${medicineName}</option>
 </select>
 </div>
 <div class="form-group">

@@ -1,40 +1,26 @@
 <form class="flexcol" autocomplete="off">
-    <div class="form-group">
-        <label>{{localize gradualBoostsVariant.setting.name}}</label>
-        <div class="form-fields">
-            <input name="gradualBoostsVariant" type="checkbox" {{checked gradualBoostsVariant.value}} />
-        </div>
-        <p class="hint">{{localize gradualBoostsVariant.setting.hint}}</p>
-    </div>
-
-    <div class="form-group">
-        <label>{{localize staminaVariant.setting.name}}</label>
-        <div class="form-fields">
-            <input name="staminaVariant" type="checkbox" {{checked staminaVariant.value}} />
-        </div>
-        <p class="hint">{{localize staminaVariant.setting.hint}}</p>
-    </div>
-
-    <div class="form-group">
-        <label>{{localize freeArchetypeVariant.setting.name}}</label>
-        <div class="form-fields">
-            <input name="freeArchetypeVariant" type="checkbox" {{checked freeArchetypeVariant.value}} />
-        </div>
-        <p class="hint">{{localize freeArchetypeVariant.setting.hint}}</p>
-    </div>
+    {{> systems/pf2e/templates/system/settings/basic-setting.hbs setting=gradualBoostsVariant}}
+    {{> systems/pf2e/templates/system/settings/basic-setting.hbs setting=staminaVariant}}
+    {{> systems/pf2e/templates/system/settings/basic-setting.hbs setting=freeArchetypeVariant}}
 
     <div class="form-group abp">
-        <label>{{localize automaticBonusVariant.setting.name}}</label>
+        <label>{{localize automaticBonusVariant.name}}</label>
         <div class="form-fields">
             <select name="automaticBonusVariant">
-                {{selectOptions automaticBonusVariant.setting.choices selected=automaticBonusVariant.value localize=true}}
+                {{selectOptions
+                    automaticBonusVariant.choices
+                    selected=automaticBonusVariant.value
+                    localize=true
+                }}
             </select>
         </div>
-        <p class="hint">{{localize automaticBonusVariant.setting.hint}}</p>
+        <p class="hint">{{localize automaticBonusVariant.hint}}</p>
     </div>
 
+    {{> systems/pf2e/templates/system/settings/basic-setting.hbs setting=mythic}}
+
     <div class="form-group">
-        <label>{{localize proficiencyVariant.setting.name}}</label>
+        <label>{{localize proficiencyVariant.name}}</label>
         <div class="form-fields">
             <input type="checkbox" name="proficiencyVariant" {{checked proficiencyVariant.value}} />
         </div>
@@ -45,7 +31,11 @@
         <div class="modifier">
             <label>{{localize "PF2E.ProficiencyLevel0"}}</label>
             <div class="form-fields">
-                <input type="number" name="proficiencyUntrainedModifier" value="{{proficiencyUntrainedModifier.value}}" />
+                <input
+                    type="number"
+                    name="proficiencyUntrainedModifier"
+                    value="{{proficiencyUntrainedModifier.value}}"
+                />
             </div>
         </div>
         <div class="modifier">
@@ -69,7 +59,11 @@
         <div class="modifier">
             <label>{{localize "PF2E.ProficiencyLevel4"}}</label>
             <div class="form-fields">
-                <input type="number" name="proficiencyLegendaryModifier" value="{{proficiencyLegendaryModifier.value}}" />
+                <input
+                    type="number"
+                    name="proficiencyLegendaryModifier"
+                    value="{{proficiencyLegendaryModifier.value}}"
+                />
             </div>
         </div>
         <p class="hint">{{localize "PF2E.SETTINGS.Variant.Proficiency.ModifiersHint"}}</p>
@@ -79,10 +73,12 @@
 
     <footer class="sheet-footer">
         <button type="submit">
-            <i class="fa-regular fa-save"></i> {{localize "SETTINGS.Save"}}
+            <i class="fa-regular fa-save"></i>
+            {{localize "SETTINGS.Save"}}
         </button>
         <button type="reset">
-            <i class="fa-solid fa-undo"></i> {{localize "PF2E.SETTINGS.ResetChanges"}}
+            <i class="fa-solid fa-undo"></i>
+            {{localize "PF2E.SETTINGS.ResetChanges"}}
         </button>
     </footer>
 </form>

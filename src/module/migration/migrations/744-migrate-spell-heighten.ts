@@ -13,6 +13,7 @@ export class Migration744MigrateSpellHeighten extends MigrationBase {
                 type: "interval",
                 interval: system.scaling.interval,
                 damage: system.scaling.damage,
+                area: 0,
             };
             delete system.scaling;
             system["-=scaling"] = null;

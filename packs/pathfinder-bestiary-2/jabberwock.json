@@ -43,10 +43,8 @@
         },
         {
             "_id": "g2euZN5HL0HEXaye",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.uqlxMQQeSGWEVjki"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.uqlxMQQeSGWEVjki"
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing (Constant)",
@@ -371,10 +369,8 @@
         },
         {
             "_id": "vYo1emHFZe2lLLBo",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
@@ -406,10 +402,8 @@
         },
         {
             "_id": "gZfWtX8zkOoe49o7",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Regeneration 25 (Deactivated by Vorpal Weapons)",
@@ -481,10 +475,8 @@
         },
         {
             "_id": "Xc15ip4V31NZTNdq",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
@@ -574,7 +566,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The jabberwock creates a blast of strange noises and shouted nonsense in the various languages it knows (and invariably some languages it doesn't know), creating one of two effects.</p>\n<p>The jabberwock can't Burble again for [[/br 1d4 #Recharge Burble]]{1d4 rounds}.</p>\n<ul>\n<li><strong>Confusion</strong> 60 feet. Each creature in the emanation must succeed at a @Check[will|dc:46] save or become @UUID[Compendium.pf2e.conditionitems.Item.Confused] for [[/br 1d4 #rounds]]{1d4 rounds}.</li>\n<li><strong>Sonic Beam</strong> The jabberwock focuses its Burbling into a 60 foot line of sonic energy that deals @Damage[24d6[sonic]] damage to creatures in the area (@Check[reflex|dc:46|basic] save).</li>\n</ul>"
+                    "value": "<p>The jabberwock creates a blast of strange noises and shouted nonsense in the various languages it knows (and invariably some languages it doesn't know), creating one of two effects.</p>\n<p>The jabberwock can't Burble again for [[/gmr 1d4 #Recharge Burble]]{1d4 rounds}.</p>\n<ul>\n<li><strong>Confusion</strong> 60 feet. Each creature in the emanation must succeed at a @Check[will|dc:46] save or become @UUID[Compendium.pf2e.conditionitems.Item.Confused] for [[/gmr 1d4 #rounds]]{1d4 rounds}.</li>\n<li><strong>Sonic Beam</strong> The jabberwock focuses its Burbling into a 60 foot line of sonic energy that deals @Damage[24d6[sonic]] damage to creatures in the area (@Check[reflex|dc:46|basic] save).</li>\n</ul>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -617,7 +609,41 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "adjustment": {
+                            "success": "to-critical-success"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "check:total:natural:19",
+                            {
+                                "gte": [
+                                    "check:total:delta",
+                                    0
+                                ]
+                            }
+                        ],
+                        "selector": "jaws-attack-roll"
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "check:total:natural:19",
+                            {
+                                "not": {
+                                    "gte": [
+                                        "check:total",
+                                        "check:total:delta"
+                                    ]
+                                }
+                            }
+                        ],
+                        "selector": "jaws-attack-roll",
+                        "text": "{item|description}",
+                        "title": "{item|name}"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -660,10 +686,8 @@
         },
         {
             "_id": "VzK5CD8g2ofWRIkk",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Improved Grab",
@@ -695,10 +719,8 @@
         },
         {
             "_id": "cRTNLnVuzisUG7kl",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.LbnsT8yXchHMQT3t"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.LbnsT8yXchHMQT3t"
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Improved Knockdown",

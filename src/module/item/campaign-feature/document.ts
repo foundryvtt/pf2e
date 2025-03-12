@@ -1,12 +1,12 @@
 import type { ActorPF2e } from "@actor";
-import type { FeatGroup } from "@actor/character/feats.ts";
+import type { FeatGroup } from "@actor/character/feats/index.ts";
 import { ItemPF2e } from "@item";
 import { normalizeActionChangeData } from "@item/ability/helpers.ts";
 import { ActionCost, Frequency } from "@item/base/data/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
-import { CampaignFeatureSource, CampaignFeatureSystemData, CampaignFeatureSystemSource } from "./data.ts";
+import { CampaignFeatureSource, CampaignFeatureSystemData } from "./data.ts";
 import type { BehaviorType, KingmakerCategory, KingmakerTrait } from "./types.ts";
 import { CategoryData, KINGDOM_CATEGORY_DATA, KINGMAKER_CATEGORY_TYPES } from "./values.ts";
 
@@ -29,7 +29,7 @@ class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> e
 
     /** Returns the level if the feature type supports it */
     get level(): number | null {
-        return this.behavior !== "activity" ? this.system.level?.value ?? 0 : null;
+        return this.behavior !== "activity" ? (this.system.level?.value ?? 0) : null;
     }
 
     get traits(): Set<KingmakerTrait> {
@@ -70,11 +70,6 @@ class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> e
         this.behavior = categoryData.behavior;
         this.group = null;
         this.levelLabel = categoryData.levelLabel ?? (this.isFeat ? "PF2E.Item.Feat.LevelLabel" : "PF2E.LevelLabel");
-
-        // Initialize frequency uses if not set
-        if (this.actor && this.system.frequency) {
-            this.system.frequency.value ??= this.system.frequency.max;
-        }
     }
 
     /** Set a self roll option for this feat(ure). Skip for actions */
@@ -143,28 +138,21 @@ class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> e
 
         // Delete level if optional for the category type
         if (changed.system && changed.system.category) {
-            type SystemSourceWithDeletions = DeepPartial<CampaignFeatureSystemSource> & {
-                "-=level"?: null;
-            };
-            const system: SystemSourceWithDeletions = changed.system;
+            const system = changed.system;
 
             const category = tupleHasValue(KINGMAKER_CATEGORY_TYPES, changed.system.category)
                 ? changed.system.category
                 : KINGMAKER_CATEGORY_TYPES[0];
             const behavior = KINGDOM_CATEGORY_DATA[category].behavior;
-            if (behavior === "activity") {
-                if ("level" in this.system) system["-=level"] = null;
-            } else {
-                const level = system.level?.value ?? this.system.level?.value ?? 0;
-                system.level = { value: level };
-            }
+            const level = behavior === "activity" ? 1 : (system.level?.value ?? this.system.level?.value ?? 0);
+            system.level = { value: level };
         }
 
         await super._preUpdate(changed, operation, user);
     }
 
     protected override embedHTMLString(_config: DocumentHTMLEmbedConfig, _options: EnrichmentOptions): string {
-        const list = this.system.prerequisites?.value?.map((item) => item.value).join(",") ?? "";
+        const list = this.system.prerequisites?.value?.map((item) => item.value).join(", ") ?? "";
         return (
             (list
                 ? `<p><strong>${game.i18n.localize("PF2E.FeatPrereqLabel")}</strong> ${list}</p>` +

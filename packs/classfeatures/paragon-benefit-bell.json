@@ -1,0 +1,52 @@
+{
+    "_id": "Mu6lZ0H7hmsgKDKH",
+    "img": "icons/tools/instruments/bell-gold.webp",
+    "name": "Paragon Benefit (Bell)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>With your mastery of your bell, you can affect many foes with ease. All the condition values from @UUID[Compendium.pf2e.actionspf2e.Item.Ring Bell] increase to 2 (or 3 on a critical failure). Ring Bell can trigger off the Strike or spell of any enemy, not just the target of your @UUID[Compendium.pf2e.actionspf2e.Item.Exploit Vulnerability]; however, in that case, the condition lasts only until the start of your next turn.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Thaumaturge.Implement.Paragon.Label",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:ring-bell"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "thaumaturge"
+            ]
+        }
+    },
+    "type": "feat"
+}

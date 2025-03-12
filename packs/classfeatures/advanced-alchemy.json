@@ -27,36 +27,14 @@
         "rules": [
             {
                 "craftableItems": [
-                    "item:trait:alchemical"
+                    "item:trait:alchemical",
+                    "item:trait:consumable"
                 ],
-                "isAlchemical": true,
                 "isDailyPrep": true,
-                "key": "CraftingEntry",
-                "label": "PF2E.TraitAlchemist",
-                "predicate": [
-                    "class:alchemist"
-                ],
-                "selector": "alchemist"
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.resources.crafting.infusedReagents.max",
-                "predicate": [
-                    "class:alchemist"
-                ],
-                "value": "@actor.level + @actor.abilities.int.mod"
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.resources.crafting.infusedReagents.max",
-                "predicate": [
-                    {
-                        "not": "class:alchemist"
-                    }
-                ],
-                "value": "@actor.level"
+                "key": "CraftingAbility",
+                "label": "PF2E.SpecificRule.Alchemist.AdvancedAlchemy",
+                "maxSlots": "4 + @actor.system.abilities.int.mod",
+                "slug": "advanced-alchemy"
             }
         ],
         "traits": {

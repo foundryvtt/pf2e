@@ -1,13 +1,14 @@
 import type { ActorPF2e } from "@actor";
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
-import { FrequencyInterval, ItemSourcePF2e, PhysicalItemSource } from "@item/base/data/index.ts";
-import { PersistentSourceData } from "@item/condition/data.ts";
+import type { FrequencyInterval, ItemSourcePF2e, PhysicalItemSource } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { prepareBulkData } from "@item/physical/helpers.ts";
-import { ZeroToThree } from "@module/data.ts";
+import type { WeaponRangeIncrement } from "@item/weapon/types.ts";
+import type { ZeroToThree } from "@module/data.ts";
 import { nextDamageDieSize } from "@system/damage/helpers.ts";
-import { isObject, objectHasKey } from "@util";
+import { objectHasKey } from "@util";
 import { Duration } from "luxon";
+import * as R from "remeda";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
 import { AELikeChangeMode, AELikeRuleElement } from "../ae-like.ts";
@@ -25,6 +26,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         "category",
         "check-penalty",
         "damage-dice-faces",
+        "damage-dice-number",
         "damage-type",
         "defense-passive",
         "description",
@@ -38,6 +40,8 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         "other-tags",
         "pd-recovery-dc",
         "persistent-damage",
+        "range-increment",
+        "range-max",
         "rarity",
         "speed-penalty",
         "strength",
@@ -136,11 +140,11 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 const effect = data.item;
                 const badge = itemIsOfType(effect, "condition")
                     ? effect.system.value
-                    : effect.system.badge ?? { value: 0 };
+                    : (effect.system.badge ?? { value: 0 });
                 if (typeof badge.value !== "number") return;
                 const newValue = AELikeRuleElement.getNewValue(this.mode, badge.value, data.alteration.value);
-                const max = "max" in badge ? badge.max ?? Infinity : Infinity;
-                const min = "min" in badge ? badge.min ?? 0 : 0;
+                const max = "max" in badge ? (badge.max ?? Infinity) : Infinity;
+                const min = "min" in badge ? (badge.min ?? 0) : 0;
                 badge.value = Math.clamp(newValue, min, max) || 0;
                 return;
             }
@@ -192,6 +196,19 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     item.system.damage.die = `d${data.alteration.value}`;
                 }
 
+                return;
+            }
+            case "damage-dice-number": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (!validator.isValid(data)) return;
+                const item = data.item;
+                if (!item.system.damage.dice) return;
+                const newValue = AELikeRuleElement.getNewValue(
+                    this.mode,
+                    item.system.damage.dice,
+                    data.alteration.value,
+                );
+                item.system.damage.dice = newValue;
                 return;
             }
             case "damage-type": {
@@ -269,9 +286,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 return;
             }
             case "persistent-damage": {
-                const pdObject = isObject<PersistentSourceData>(data.alteration.value)
-                    ? data.alteration.value
-                    : { dc: NaN };
+                const pdObject = R.isPlainObject(data.alteration.value) ? data.alteration.value : { dc: NaN };
                 const dc = Math.trunc(Math.abs(Number(pdObject?.dc) || 15));
                 data.alteration.value = { ...pdObject, dc };
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
@@ -311,7 +326,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
             case "frequency-max": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (!validator.isValid(data)) return;
-                data.item.system.frequency ??= { max: 1, per: "day" };
+                data.item.system.frequency ??= { value: undefined, max: 1, per: "day" };
                 const frequency = data.item.system.frequency;
                 const newValue = AELikeRuleElement.getNewValue(this.mode, frequency.max, data.alteration.value);
                 frequency.max = newValue;
@@ -321,7 +336,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
             case "frequency-per": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (!validator.isValid(data)) return;
-                data.item.system.frequency ??= { max: 1, per: "day" };
+                data.item.system.frequency ??= { value: undefined, max: 1, per: "day" };
                 const newValue = this.#getNewInterval(this.mode, data.item.system.frequency.per, data.alteration.value);
                 if (newValue instanceof DataModelValidationFailure) {
                     throw newValue.asError();
@@ -384,8 +399,27 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 if (this.mode === "add") {
                     if (!traits.includes(newValue)) traits.push(newValue);
                 } else if (["subtract", "remove"].includes(this.mode)) {
-                    traits.splice(traits.indexOf(newValue), 1);
+                    const index = traits.indexOf(newValue);
+                    if (index >= 0) traits.splice(index, 1);
                 }
+                return;
+            }
+            case "range-increment": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (!validator.isValid(data)) return;
+                if (!data.item.system.range) return;
+                const rangeIncrement = data.item.system.range;
+                const newValue = AELikeRuleElement.getNewValue(this.mode, rangeIncrement, data.alteration.value);
+                data.item.system.range = newValue as WeaponRangeIncrement;
+                return;
+            }
+            case "range-max": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (!validator.isValid(data)) return;
+                if (!data.item.system.maxRange) return;
+                const maxRange = data.item.system.maxRange;
+                const newValue = AELikeRuleElement.getNewValue(this.mode, maxRange, data.alteration.value);
+                data.item.system.maxRange = newValue;
                 return;
             }
         }

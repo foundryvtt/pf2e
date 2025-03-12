@@ -14,6 +14,12 @@ export abstract class AbstractFormInputElement<TInternalValue, TInputValue = TIn
     /** Attached ElementInternals which provides form handling functionality. */
     protected _internals: ElementInternals;
 
+    /**
+     * The primary input (if any). Used to determine what element should receive focus when an associated label is clicked
+     * on.
+     */
+    protected _primaryInput: HTMLElement;
+
     /** The form this element belongs to. */
     get form(): HTMLFormElement;
 

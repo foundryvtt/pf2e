@@ -1,0 +1,84 @@
+{
+    "_id": "5uzu5u5UFSfRRBSs",
+    "folder": "5S0CMZTDzgFfC0iN",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Heraldic Proclamation",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per day</p><hr /><p>You proclaim your spell with the might of your god behind you. If the next action you use is to Cast a non-cantrip Spell, then all allies within 30 feet gain Hit Points equal to double the rank of the spell, and all enemies within 30 feet take spirit damage equal to double the rank of the spell (basic Will save against your spell DC).</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "level": {
+            "value": 16
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Mortal Herald Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeble": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "heraldic-proclamation"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "item:trait:cantrip"
+                    },
+                    "spellshape:heraldic-proclamation"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Spellshape.HeraldicProclamation"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "divine",
+                "healing",
+                "sanctified",
+                "spellshape",
+                "spirit",
+                "vitality"
+            ]
+        }
+    },
+    "type": "feat"
+}

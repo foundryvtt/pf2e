@@ -1,0 +1,113 @@
+{
+    "_id": "wtyyxv0ffoMAGV8I",
+    "img": "systems/pf2e/icons/equipment/weapons/elven-curve-blade.webp",
+    "name": "Soulcutter",
+    "system": {
+        "baseItem": "elven-curve-blade",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "bulk": {
+            "value": 2
+        },
+        "category": "martial",
+        "containerId": null,
+        "damage": {
+            "damageType": "slashing",
+            "dice": 1,
+            "die": "d8"
+        },
+        "description": {
+            "value": "<p>This <em>+2 greater striking astral elven curve blade</em> was the treasured weapon of the Calistrian witch Silisifex, who played several key roles in reclaiming Kyonin from Tanglebriar when the elves returned to Golarion. Although a witch, her mesmerizing skill with the curved blade rivaled that of many soldiers. Her reasons for leaving <em>Soulcutter</em> behind in Kyonin before her final mission into Tanglebriar in an attempt to purify Deathstalk Tower are unknown.</p>\n<p>As long as you carry <em>Soulcutter</em>, you gain its potency bonus as an item bonus to all saving throws against mental effects. This bonus increases by 2 against possession effects.</p><hr /><p><strong>Activate—Soothe Souls</strong> <span class=\"action-glyph\">2</span> (concentrate, healing, manipulate, primal, vitality)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You whirl <em>Soulcutter</em> in the air around you, rejuvenating the living within a @Template[type:emanation|distance:20] around you while castigating those in that area who have no place in nature. You can Sustain this activation for up to 1 minute. Living creatures that start their turn in the area regain 1d8 Hit Points, and any fiend or undead creature that starts its turn in the area takes @Damage[1d8[spirit]] damage.</p><hr /><p><strong>Activate—Soulcutting Storm</strong> <span class=\"action-glyph\">2</span> (concentrate, manipulate, primal)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You swing <em>Soulcutter</em> and cast a 7th-rank @UUID[Compendium.pf2e.spells-srd.Item.Weapon Storm] to your specifications, but all damage caused by the spell is spirit damage. If used to damage a creature that's possessing another creature, this spell does no damage to the possessed creature.</p>"
+        },
+        "group": "sword",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 15
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 6500
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #211: The Secret of Deathstalk Tower"
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:mental"
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": "@item.system.runes.potency"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:possession"
+                ],
+                "selector": "saving-throw",
+                "slug": "soulcutter",
+                "value": 2
+            }
+        ],
+        "runes": {
+            "potency": 2,
+            "property": [
+                "astral"
+            ],
+            "striking": 2
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 2,
+                "property": [
+                    "astral"
+                ],
+                "striking": 2
+            }
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "traits": {
+            "rarity": "unique",
+            "value": [
+                "elf",
+                "finesse",
+                "forceful",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "held-in-two-hands"
+        }
+    },
+    "type": "weapon"
+}

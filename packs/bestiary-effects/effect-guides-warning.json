@@ -1,10 +1,10 @@
 {
     "_id": "UiISDbCjK6AUDsll",
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "icons/skills/targeting/target-glowing-yellow.webp",
     "name": "Effect: Guide's Warning",
     "system": {
         "description": {
-            "value": ""
+            "value": "<p>You gain a +1 circumstance bonus to your initiative roll (+2 if the guide also benefits from <a class=\"content-link\" draggable=\"true\" data-link=\"\" data-uuid=\"Compendium.pf2e.actionspf2e.Item.kV3XM0YJeS2KCSOb\" data-id=\"kV3XM0YJeS2KCSOb\" data-type=\"Item\" data-pack=\"pf2e.actionspf2e\" data-tooltip=\"Ability Item\">Scout</a>).</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,9 +16,9 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Gamemastery Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
         },
         "rules": [
             {
@@ -26,6 +26,16 @@
                 "selector": "initiative",
                 "type": "circumstance",
                 "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "self:effect:scout"
+                ],
+                "selector": "initiative",
+                "slug": "guides-warning",
+                "value": 2
             }
         ],
         "start": {

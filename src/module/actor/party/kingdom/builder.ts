@@ -5,8 +5,9 @@ import * as R from "remeda";
 import type { PartyPF2e } from "../document.ts";
 import { resolveKingdomBoosts } from "./helpers.ts";
 import type { Kingdom } from "./model.ts";
+import { KingdomCHG } from "./schema.ts";
 import { KingdomSheetPF2e } from "./sheet.ts";
-import type { KingdomAbility, KingdomCHG } from "./types.ts";
+import type { KingdomAbility } from "./types.ts";
 import {
     KINGDOM_ABILITIES,
     KINGDOM_ABILITY_LABELS,
@@ -59,11 +60,6 @@ class KingdomBuilder extends FormApplication<Kingdom> {
                 tab: options.tab,
             },
         } satisfies SocketMessage);
-    }
-
-    constructor(kingdom: Kingdom) {
-        super(kingdom);
-        kingdom.actor.apps[this.appId] = this;
     }
 
     override get id(): string {
@@ -351,6 +347,7 @@ class KingdomBuilder extends FormApplication<Kingdom> {
         }
 
         await super._render(force, options);
+        this.kingdom.actor.apps[this.appId] ??= this;
         if (options?.tab) {
             this._tabs.at(0)?.activate(options.tab, { triggerCallback: true });
         }

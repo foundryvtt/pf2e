@@ -1,0 +1,56 @@
+{
+    "_id": "VOOShYoB4gTopZtg",
+    "img": "systems/pf2e/icons/spells/destructive-aura.webp",
+    "name": "Effect: Aura of Faith",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Aura of Faith]</p>\n<p>You add the holy trait to your Strikes.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 12
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "parent:origin:trait:holy"
+                ],
+                "property": "traits",
+                "value": "holy"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "parent:origin:trait:unholy"
+                ],
+                "property": "traits",
+                "value": "unholy"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

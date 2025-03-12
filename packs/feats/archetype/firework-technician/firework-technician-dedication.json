@@ -1,0 +1,80 @@
+{
+    "_id": "MVbNnjqQOK9d8Ki3",
+    "folder": "ZbKDHhoKk26BG7WF",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Firework Technician Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've learned the secrets of making fire and sound bloom using black powder, metals, and paper. You most likely came by this knowledge through formal training with a fireworks house in Tian Xia or a fireworks company from Vudra, though perhaps you mastered fireworks completely by yourself after finding a secret stash in an old shipwreck.</p>\n<p>You become trained in Fireworks Lore or become an expert if you were already trained in it. You gain the Alchemical Crafting feat, the advanced alchemy benefits, and the Quick Alchemy benefits, creating up to 4 versatile vials during your daily preparations. You can replenish these vials during exploration just like an alchemist can. You can use your versatile vials to make fireworks, @UUID[Compendium.pf2e.actionspf2e.Item.Launch Fireworks], and use other feats from this archetype.</p>\n<p>You can also create a special item called a fireworks display using your daily alchemical consumables from your advanced alchemy benefits. These displays are designed to create distinctive effects you can use to make onlookers marvel and even to gain an advantage in combat. You gain the Launch Fireworks action and learn some basic effects. You can learn additional, more complex displays that use your daily fireworks display resources through other firework technician feats. The DC for any display is equal to your class DC or spell DC, whichever is higher.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.S4BZW9c5n6CctDxl]{Firework Technician}</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Crafting"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Alchemical Crafting"
+            },
+            {
+                "craftableItems": [
+                    "item:slug:fireworks-display"
+                ],
+                "isDailyPrep": true,
+                "key": "CraftingAbility",
+                "label": "PF2E.SpecificRule.Alchemist.AdvancedAlchemy",
+                "maxSlots": 4,
+                "slug": "advanced-alchemy"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Launch Fireworks"
+            },
+            {
+                "itemUUID": "Compendium.pf2e.equipment-srd.Item.Versatile Vial",
+                "key": "SpecialResource",
+                "label": "PF2E.SpecificRule.Alchemist.VersatileVials",
+                "level": "ternary(gte(@actor.level, 18), 18, ternary(gte(@actor.level, 12), 12, ternary(gte(@actor.level, 4), 4, 1)))",
+                "max": 4,
+                "slug": "versatile-vials"
+            },
+            {
+                "craftableItems": [
+                    "item:slug:fireworks-display"
+                ],
+                "key": "CraftingAbility",
+                "slug": "quick-alchemy"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Quick Alchemy"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

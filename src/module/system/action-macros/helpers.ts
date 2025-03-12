@@ -5,7 +5,7 @@ import { getRangeIncrement } from "@actor/helpers.ts";
 import { CheckModifier, ModifierPF2e, ensureProficiencyOption } from "@actor/modifiers.ts";
 import type { RollOrigin, RollTarget } from "@actor/roll-context/types.ts";
 import type { ItemPF2e, WeaponPF2e } from "@item";
-import type { ActionTrait } from "@item/ability/types.ts";
+import type { AbilityTrait } from "@item/ability/types.ts";
 import type { WeaponTrait } from "@item/weapon/types.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import {
@@ -13,8 +13,8 @@ import {
     extractModifierAdjustments,
     extractRollSubstitutions,
 } from "@module/rules/helpers.ts";
+import { eventToRollParams } from "@module/sheet/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckPF2e, CheckType } from "@system/check/index.ts";
 import type { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import { CheckDCReference, Statistic } from "@system/statistic/index.ts";
@@ -30,7 +30,10 @@ import type {
 } from "./types.ts";
 
 class ActionMacroHelpers {
-    static resolveStat(stat: string): {
+    static resolveStat(
+        stat: string,
+        actor: ActorPF2e,
+    ): {
         checkType: CheckType;
         property: string;
         stat: string;
@@ -54,11 +57,14 @@ class ActionMacroHelpers {
             default: {
                 const slug = sluggify(stat);
                 const property = `skills.${slug}`;
+                const subtitle = `PF2E.ActionsCheck.${stat}`;
                 return {
                     checkType: "skill-check",
                     property,
                     stat,
-                    subtitle: `PF2E.ActionsCheck.${stat}`,
+                    subtitle: game.i18n.has(subtitle)
+                        ? subtitle
+                        : game.i18n.format("PF2E.ActionsCheck.x", { type: actor.skills?.[stat]?.label ?? null }),
                 };
             }
         }
@@ -68,7 +74,7 @@ class ActionMacroHelpers {
         options: CheckContextOptions<ItemType>,
         data: CheckContextData<ItemType>,
     ): CheckMacroContext<ItemType> | undefined {
-        const { checkType: type, property, stat: slug, subtitle } = this.resolveStat(data.slug);
+        const { checkType: type, property, stat: slug, subtitle } = this.resolveStat(data.slug, options.actor);
         const statistic =
             options.actor.getStatistic(data.slug) ?? (fu.getProperty(options.actor, property) as StrikeData);
         if (!statistic) {
@@ -83,9 +89,22 @@ class ActionMacroHelpers {
             target: options.target,
         });
 
+        // add relevant modifier adjustments
+        const modifiers = (data.modifiers ?? [])
+            .map((modifier) => modifier.clone())
+            .map((modifier) => {
+                const adjustments = extractModifierAdjustments(
+                    options.actor.synthetics.modifierAdjustments,
+                    [type, slug],
+                    modifier.slug,
+                );
+                modifier.adjustments = (modifier.adjustments ?? []).concat(adjustments);
+                return modifier;
+            });
+
         return {
             item,
-            modifiers: data.modifiers ?? [],
+            modifiers,
             rollOptions: contextualRollOptions,
             slug,
             statistic,
@@ -165,7 +184,7 @@ class ActionMacroHelpers {
                 });
 
                 const actionTraits = (options.traits ?? []).filter(
-                    (t): t is ActionTrait => t in CONFIG.PF2E.actionTraits,
+                    (t): t is AbilityTrait => t in CONFIG.PF2E.actionTraits,
                 );
                 const notes = options.extraNotes?.(statistic.slug) ?? [];
                 const label = (await options.content?.(header)) ?? header;
@@ -203,7 +222,7 @@ class ActionMacroHelpers {
                     const distance = ((): number | null => {
                         const reach =
                             selfActor.isOfType("creature") && weapon?.isOfType("weapon")
-                                ? selfActor.getReach({ action: "attack", weapon }) ?? null
+                                ? (selfActor.getReach({ action: "attack", weapon }) ?? null)
                                 : null;
                         return selfToken?.object && targetData?.token?.object
                             ? selfToken.object.distanceTo(targetData.token.object, { reach })
@@ -353,7 +372,7 @@ class ActionMacroHelpers {
         fully = false,
     }: ResolveCheckDCParams): CheckDC | CheckDCReference | null {
         if (typeof unresolvedDC === "string") {
-            return fully ? target?.getStatistic(unresolvedDC)?.dc ?? null : { slug: unresolvedDC };
+            return fully ? (target?.getStatistic(unresolvedDC)?.dc ?? null) : { slug: unresolvedDC };
         }
         if (typeof unresolvedDC === "function") return unresolvedDC(target);
 

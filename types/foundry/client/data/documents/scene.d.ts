@@ -13,7 +13,7 @@ declare global {
          * Track the viewed position of each scene (while in memory only, not persisted)
          * When switching back to a previously viewed scene, we can automatically pan to the previous position.
          */
-        protected _viewPosition: {} | { x: number; y: number; scale: number };
+        protected _viewPosition: Record<string, never> | { x: number; y: number; scale: number };
 
         /** Track whether the scene is the active view */
         protected _view: boolean;

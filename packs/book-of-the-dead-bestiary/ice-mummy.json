@@ -4,10 +4,8 @@
     "items": [
         {
             "_id": "xOyNtZslnRcM2xBf",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU"
             },
             "img": "icons/weapons/staves/staff-simple.webp",
             "name": "Staff",
@@ -137,15 +135,17 @@
                         "toggleable": true
                     },
                     {
-                        "key": "DamageDice",
-                        "label": "PF2E.TraitTwoHandD8",
-                        "override": {
-                            "dieSize": "d8"
-                        },
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
                         "predicate": [
-                            "two-handed"
+                            "two-handed",
+                            "dice:slug:base"
                         ],
-                        "selector": "{item|_id}-damage"
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "value": 8
                     }
                 ],
                 "slug": null,
@@ -308,10 +308,8 @@
         },
         {
             "_id": "dSlveRiUSvMYcg8P",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Void Healing",
@@ -429,7 +427,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The ice mummy exhales a @Template[cone|distance:60] of razor-sharp ice that deals @Damage[5d6[cold],4d6[slashing]]{5d6 cold and 4d6 slashing damage} (@Check[reflex|dc:26|basic]).</p>\n<p>The ice mummy can't use Frozen Breath again for [[/br 1d4 #Recharge Frozen Breath]]{1d4 rounds}.</p>"
+                    "value": "<p>The ice mummy exhales a @Template[cone|distance:60] of razor-sharp ice that deals @Damage[5d6[cold],4d6[slashing]]{5d6 cold and 4d6 slashing damage} (@Check[reflex|dc:26|basic]).</p>\n<p>The ice mummy can't use Frozen Breath again for [[/gmr 1d4 #Recharge Frozen Breath]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",

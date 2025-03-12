@@ -1,4 +1,5 @@
-import { htmlQueryAll, tagify } from "@util";
+import { htmlQueryAll } from "@util/dom.ts";
+import { tagify } from "@util/tags.ts";
 import { RuleElementForm } from "./base.ts";
 
 class ActorTraitsForm extends RuleElementForm {

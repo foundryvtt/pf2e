@@ -189,12 +189,24 @@
                 "value": 10
             },
             {
-                "hideIfDisabled": true,
-                "key": "DamageDice",
-                "override": {
-                    "diceNumber": "@spell.rank",
-                    "dieSize": "d10"
-                },
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:ignition",
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    }
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "spell-damage"
+                ],
+                "value": "ceil(@actor.level/2)"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
                 "predicate": [
                     "item:slug:ignition",
                     "item:tag:amped",
@@ -205,27 +217,32 @@
                         "not": "item:melee"
                     }
                 ],
-                "selector": "spell-damage"
+                "property": "dice-faces",
+                "selectors": [
+                    "spell-damage"
+                ],
+                "value": 10
             },
             {
-                "hideIfDisabled": true,
-                "key": "DamageDice",
-                "override": {
-                    "diceNumber": "@spell.rank",
-                    "dieSize": "d12"
-                },
+                "key": "DamageAlteration",
+                "mode": "upgrade",
                 "predicate": [
-                    "item:melee",
                     "item:slug:ignition",
                     "item:tag:amped",
+                    "item:melee",
                     {
                         "not": "alternate-amp"
                     }
                 ],
-                "selector": "spell-damage"
+                "property": "dice-faces",
+                "selectors": [
+                    "spell-damage"
+                ],
+                "value": 12
             },
             {
                 "damageCategory": "splash",
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
                 "predicate": [
                     "item:slug:ignition",
@@ -252,12 +269,8 @@
                 "selector": "spell-damage"
             },
             {
-                "hideIfDisabled": true,
-                "key": "DamageDice",
-                "override": {
-                    "diceNumber": "max(6,2*@spell.rank - 4)",
-                    "dieSize": "d6"
-                },
+                "key": "DamageAlteration",
+                "mode": "upgrade",
                 "predicate": [
                     "item:slug:redistribute-potential",
                     "item:tag:amped",
@@ -265,7 +278,27 @@
                         "not": "alternate-amp"
                     }
                 ],
-                "selector": "spell-damage"
+                "property": "dice-number",
+                "selectors": [
+                    "spell-damage"
+                ],
+                "value": "max(6,2*@spell.rank - 4)"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:slug:redistribute-potential",
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    }
+                ],
+                "property": "dice-faces",
+                "selectors": [
+                    "spell-damage"
+                ],
+                "value": 6
             },
             {
                 "alwaysActive": true,
@@ -289,11 +322,8 @@
                 "toggleable": true
             },
             {
-                "hideIfDisabled": true,
-                "key": "DamageDice",
-                "override": {
-                    "damageType": "{item|flags.pf2e.rulesSelections.conservationOfEnergy}"
-                },
+                "key": "DamageAlteration",
+                "mode": "override",
                 "predicate": [
                     {
                         "or": [
@@ -308,9 +338,14 @@
                             "item:slug:ignition",
                             "item:slug:polar-ray"
                         ]
-                    }
+                    },
+                    "dice:slug:base"
                 ],
-                "selector": "spell-damage"
+                "property": "damage-type",
+                "selectors": [
+                    "spell-damage"
+                ],
+                "value": "{item|flags.pf2e.rulesSelections.conservationOfEnergy}"
             },
             {
                 "key": "RollOption",

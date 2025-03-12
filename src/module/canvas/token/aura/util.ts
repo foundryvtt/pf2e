@@ -61,6 +61,14 @@ export function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {
         return new PointSource({ object: tokenObject });
     })();
 
+    const tokenCenterPolygons = tokenCenters.map((c) =>
+        CONFIG.Canvas.polygonBackends[collisionType].create(c, {
+            type: collisionType,
+            source: pointSource,
+            boundaryShape: [data.bounds],
+        }),
+    );
+
     return emptyVector
         .reduce(
             (squares: EffectAreaSquare[][]) => {
@@ -76,14 +84,7 @@ export function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {
         .flat()
         .filter((s) => measureDistanceCuboid(tokenBounds, s) <= data.radius)
         .map((square) => {
-            square.active = tokenCenters.some(
-                (c) =>
-                    !CONFIG.Canvas.polygonBackends[collisionType].testCollision(c, square.center, {
-                        type: collisionType,
-                        mode: "any",
-                        source: pointSource,
-                    }),
-            );
+            square.active = tokenCenterPolygons.some((c) => c.contains(square.center.x, square.center.y));
             return square;
         });
 }

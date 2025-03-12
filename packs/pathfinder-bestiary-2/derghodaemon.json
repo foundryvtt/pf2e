@@ -42,10 +42,8 @@
         },
         {
             "_id": "2UHZp2JLcI6aSHmH",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.peCF6VArm8urfwxZ"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.peCF6VArm8urfwxZ"
             },
             "img": "icons/skills/melee/strike-dagger-white-orange.webp",
             "name": "Blade Barrier",
@@ -126,10 +124,8 @@
         },
         {
             "_id": "641IAvHIWYmCo22k",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.5BbU1V6wGSGbrmRD"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.5BbU1V6wGSGbrmRD"
             },
             "img": "systems/pf2e/icons/spells/feeblemind.webp",
             "name": "Feeblemind",
@@ -200,10 +196,8 @@
         },
         {
             "_id": "QA06oxiBx2Bj99VS",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door",
@@ -263,10 +257,8 @@
         },
         {
             "_id": "fVJKjuH7SYz6QQHp",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door (At will)",
@@ -326,10 +318,8 @@
         },
         {
             "_id": "ot1UCPxTvpQLgwz3",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.QnTtGCAvdWRU4spv"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.QnTtGCAvdWRU4spv"
             },
             "img": "systems/pf2e/icons/spells/detect-alignment.webp",
             "name": "Detect Alignment (At will) (Good only)",
@@ -493,10 +483,8 @@
         },
         {
             "_id": "lzbAKcAmDlWaRGOF",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy 100 feet",
@@ -530,7 +518,10 @@
             "type": "action"
         },
         {
-            "_id": "TBsuxObKIaeVagO5",
+            "_id": "bdyhFvQv8a9N2rd2",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
             "sort": 1000000,
@@ -546,32 +537,23 @@
                     "value": ""
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
                 "rules": [
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "or": [
-                                    "magical",
-                                    "arcane",
-                                    "primal",
-                                    "occult",
-                                    "divine"
-                                ]
-                            }
+                            "item:magical"
                         ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
                     }
                 ],
-                "slug": null,
+                "slug": "1-status-to-all-saves-vs-magic",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -615,10 +597,8 @@
         },
         {
             "_id": "x2IF1MX8EodRyzeW",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.3JOi2cMcGhT3eze1"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.3JOi2cMcGhT3eze1"
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Rend",
@@ -692,7 +672,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The derghodaemon spews a large swarm, making a swarm spit Strike against up to two adjacent targets within range. Whether or not the targets are hit, each must attempt a @Check[reflex|dc:31|traits:damaging-effect] save (at a -2 circumstance penalty if it was actually hit by the swarm spit).</p>\n<p>@UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]{Persistent Piercing Damage} caused by the swarming infestation ends as soon as the creature takes any amount of damage from an area effect.</p>\n<p>The derghodaemon can't use this ability for [[/br 1d4 #Recharge Swarming Infestation]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The swarm disperses as soon as it deals its swarm spit Strike damage.</p>\n<p><strong>Success</strong> The swarm clings to the target and infests it, dealing @Damage[1d6[persistent,piercing]] damage.</p>\n<p><strong>Failure</strong> The swarm clings to the target and infests it, dealing @Damage[2d6[persistent,piercing]] damage.</p>\n<p><strong>Critical Failure</strong> As failure, but the hissing sounds caused by the infestation also cause the target to become @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round; this additional effect has the auditory, emotion, and mental traits.</p>"
+                    "value": "<p>The derghodaemon spews a large swarm, making a swarm spit Strike against up to two adjacent targets within range. Whether or not the targets are hit, each must attempt a @Check[reflex|dc:31|traits:damaging-effect] save (at a -2 circumstance penalty if it was actually hit by the swarm spit).</p>\n<p>@UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]{Persistent Piercing Damage} caused by the swarming infestation ends as soon as the creature takes any amount of damage from an area effect.</p>\n<p>The derghodaemon can't use this ability for [[/gmr 1d4 #Recharge Swarming Infestation]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The swarm disperses as soon as it deals its swarm spit Strike damage.</p>\n<p><strong>Success</strong> The swarm clings to the target and infests it, dealing @Damage[1d6[persistent,piercing]] damage.</p>\n<p><strong>Failure</strong> The swarm clings to the target and infests it, dealing @Damage[2d6[persistent,piercing]] damage.</p>\n<p><strong>Critical Failure</strong> As failure, but the hissing sounds caused by the infestation also cause the target to become @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round; this additional effect has the auditory, emotion, and mental traits.</p>"
                 },
                 "publication": {
                     "license": "OGL",

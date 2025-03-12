@@ -1,0 +1,56 @@
+{
+    "_id": "nTTqHZGSub9kmpOr",
+    "folder": "93ELfrtUYYWaaOKE",
+    "img": "icons/magic/symbols/triangle-glowing-green.webp",
+    "name": "Effect: Spore Feedback",
+    "system": {
+        "description": {
+            "value": "<p>Treerazer's maximum Hit Points are reduced to 500 and his regeneration reduces to 30.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #212: A Voice in the Blight"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "hp"
+                ],
+                "value": -50
+            },
+            {
+                "deactivatedBy": [
+                    "holy"
+                ],
+                "key": "FastHealing",
+                "predicate": [
+                    "self:effect:spore-feedback"
+                ],
+                "type": "regeneration",
+                "value": 30
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

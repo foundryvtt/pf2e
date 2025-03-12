@@ -1,0 +1,200 @@
+{
+    "_id": "pHUi7KCh1DH5pxMe",
+    "img": "icons/equipment/neck/amulet-round-star-gold.webp",
+    "name": "Victor's Wreath",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p><strong>Usage</strong> worn headwear or belt (typically a sash)</p><hr /><p>This symbol of victory—whether a laurel worn around the head or a medal that hangs from your neck—reminds you and your allies that victory is the only acceptable outcome.</p>\n<p><strong>Immanence</strong> (aura, emotion, mental) You inspire your allies to greater glory. You and all your allies in a 15-foot emanation gain a +1 status bonus to attack rolls.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.One Moment till Glory] <span class=\"action-glyph\">1</span> (concentrate, emotion, mental, transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.IEBBHnI7wWRt44KG inline]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.DivineSpark.Label",
+                "mergeable": true,
+                "option": "divine-spark",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "victors-wreath"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.exemplar.ikons",
+                "value": {
+                    "label": "PF2E.SpecificRule.Exemplar.Ikon.VictorsWreath.Label",
+                    "predicate": [
+                        "parent:tag:worn-ikon-feat"
+                    ],
+                    "value": "victors-wreath"
+                }
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.One Moment till Glory"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Grant",
+                        "value": "granted"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Existing",
+                        "value": "existing"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Prompt",
+                "rollOption": "victors-wreath-origin"
+            },
+            {
+                "allowDuplicate": false,
+                "alterations": [
+                    {
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "physical-ikon"
+                    },
+                    {
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "physical-ikon:victors-wreath"
+                    }
+                ],
+                "key": "GrantItem",
+                "predicate": [
+                    "victors-wreath-origin:granted"
+                ],
+                "uuid": "Compendium.pf2e.equipment-srd.Item.Victor's Wreath"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "equipment"
+                    ]
+                },
+                "flag": "existingIkon",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "victors-wreath-origin:existing"
+                ]
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.existingIkon}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "physical-ikon"
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.existingIkon}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "physical-ikon:victors-wreath"
+            },
+            {
+                "itemType": "equipment",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:physical-ikon:victors-wreath",
+                    "victors-wreath-origin:existing",
+                    {
+                        "not": "item:slug:victors-wreath"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "@Embed[Compendium.pf2e.classfeatures.Item.pHUi7KCh1DH5pxMe inline]"
+                    }
+                ]
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Victor's Wreath"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "divine-spark:victors-wreath"
+                ],
+                "radius": 15,
+                "traits": [
+                    "emotion",
+                    "mental"
+                ]
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    {
+                        "or": [
+                            "item:granter:tag:chosen-ikon:victors-wreath",
+                            "item:slug:one-moment-till-glory"
+                        ]
+                    },
+                    {
+                        "not": "divine-spark:victors-wreath"
+                    }
+                ],
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Exemplar.DivineSpark.SparkTranscendence.Reminder"
+                    }
+                ]
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.existingIkon}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "divine"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "exemplar-ikon",
+                "exemplar-worn-ikon"
+            ],
+            "rarity": "common",
+            "value": [
+                "ikon"
+            ]
+        }
+    },
+    "type": "feat"
+}

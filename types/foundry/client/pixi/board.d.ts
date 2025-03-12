@@ -357,7 +357,7 @@ declare global {
          * This number is zero if "soft shadows" are disabled
          * @param strength Optional blur strength to apply
          */
-        updateBlur(strength?: Number | undefined): void;
+        updateBlur(strength?: number | undefined): void;
 
         /**
          * Convert canvas co-ordinates to the client's viewport.

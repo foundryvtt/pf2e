@@ -10,6 +10,7 @@
         "counteraction": false,
         "damage": {
             "0": {
+                "applyMod": false,
                 "category": null,
                 "formula": "1d8",
                 "kinds": [
@@ -21,7 +22,7 @@
         },
         "defense": null,
         "description": {
-            "value": "<p>You fling a hollow icicle filled with winter's wrath. Make a spell attack against a target within range. The bolt deals 1d8 piercing damage and lodges in the target. At the end of the target's next turn, the bolt shatters, releasing a whirl of snow and ice that deals 1d12 cold damage to the target and all adjacent creatures. The bolt can be removed with an Interact action, which causes it to melt harmlessly without detonating.</p>\n<hr />\n<p><strong>Critical Success</strong> The initial bolt deals full damage and is especially well anchored, taking 2 Interact actions to remove. The bolt's explosion deals double damage.</p>\n<p><strong>Success</strong> The bolt and its explosion deal full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The initial damage increases by 1d8 and the secondary damage increases by 1d12.</p>"
+            "value": "<p>You fling a hollow icicle filled with winter's wrath. Make a spell attack against the target's AC. The bolt deals 1d8 piercing damage and lodges in the target. At the end of the target's next turn, the bolt shatters, releasing a whirl of snow and ice that deals @Damage[(@item.rank)d12[cold]|options:area-damage] damage to the target and all adjacent creatures. The bolt can be removed with an Interact action, which causes it to melt harmlessly without detonating.</p><hr /><p><strong>Critical Success</strong> The initial bolt deals full damage and is especially well anchored, taking 2 Interact actions to remove. The bolt's explosion deals double damage.</p>\n<p><strong>Success</strong> The bolt and its explosion deal full damage.</p><hr /><p><strong>Heightened (+1)</strong> The bolt's initial damage increases by 1d8 and the explosion damage increases by 1d12.</p>"
         },
         "duration": {
             "sustained": false,
@@ -38,9 +39,9 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens: Gods & Magic"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
         },
         "range": {
             "value": "60 feet"

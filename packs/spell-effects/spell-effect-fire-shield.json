@@ -4,7 +4,7 @@
     "name": "Spell Effect: Fire Shield",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Fire Shield]</p>\n<p>The target gains resistance to cold damage.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Fire Shield]</p>\n<p>You gain resistance to cold damage. You can Raise a Shield with the fire shield as a normal shield to gain a +1 circumstance bonus to AC.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -112,7 +112,7 @@
                 "domain": "all",
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.FireShield.DefendingAgainstWaterLabel",
-                "option": "water-trait",
+                "option": "fire-shield-against-water",
                 "toggleable": true
             },
             {
@@ -120,8 +120,9 @@
                 "mode": "multiply",
                 "path": "system.attributes.shield.hardness",
                 "predicate": [
-                    "item:trait:water"
+                    "fire-shield-against-water"
                 ],
+                "priority": 60,
                 "value": 0.5
             },
             {

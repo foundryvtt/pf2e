@@ -39,23 +39,7 @@
                     "clobber"
                 ],
                 "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 14,
-                            "start": 5,
-                            "value": {
-                                "diceNumber": 1
-                            }
-                        },
-                        {
-                            "start": 15,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        }
-                    ]
-                }
+                "value": "ternary(gte(@actor.level,15),2,1)"
             }
         ],
         "traits": {

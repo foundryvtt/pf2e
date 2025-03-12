@@ -5,9 +5,8 @@ import { CampaignFeaturePF2e, ItemPF2e, ItemProxyPF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
-import { AdjustedValue, getAdjustedValue, getAdjustment } from "@module/sheet/helpers.ts";
+import { AdjustedValue, eventToRollParams, getAdjustedValue, getAdjustment } from "@module/sheet/helpers.ts";
 import { kingmakerTraits } from "@scripts/config/traits.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, objectHasKey, tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { ArmyPF2e } from "./document.ts";
@@ -49,6 +48,9 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
 
         return {
             ...data,
+            description: await TextEditor.enrichHTML(actor.system.details.description, {
+                rollData: actor.getRollData(),
+            }),
             ac: {
                 value: actor.armorClass.value,
                 breakdown: actor.armorClass.breakdown,
@@ -312,6 +314,7 @@ class ArmyItemRenderer extends ItemSummaryRenderer<ArmyPF2e, ArmySheetPF2e> {
 }
 
 interface ArmySheetData extends ActorSheetDataPF2e<ArmyPF2e> {
+    description: string;
     ac: {
         value: number;
         breakdown: string;

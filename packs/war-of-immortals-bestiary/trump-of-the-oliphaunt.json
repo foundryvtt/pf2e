@@ -1,0 +1,96 @@
+{
+    "_id": "RAYQwQxm2nEmfYRD",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "13cgAF6tdEDdUGZg",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Bone-Shattering Rhythms",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Three or more characters enter the area of planar instability</p><hr /><p><strong>Effect</strong> Pent-up magical energy from another world begins to release in waves of overwhelming sound. The hazard rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Trump of the Oliphaunt",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(master) to notice the tension of a low vibration forming in the area from the imminent release of the Oliphaunt's trumpet</p>",
+                "value": 15
+            }
+        },
+        "details": {
+            "description": "<p>An overwhelming trumpeting sound vibrates and suffuses the area, causing everything to slow.</p>",
+            "disable": "<p>@Check[arcana|dc:38|name:Shore Up the Area] (expert), @Check[maelstrom-lore|dc:38|name:Shore Up the Area] (expert), @Check[occultism|dc:38|name:Shore Up the Area] (master), @Check[religion|dc:38|name:Shore Up the Area] (master) to recognize and shore up the area against the localized planar instability causing a connection to the Oliphaunt of Jandelay. Four successes are needed to strengthen the area enough against the instability to end the hazard.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 12
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder War of Immortals"
+            },
+            "reset": "<p>The area becomes unstable again after 24 hours.</p>",
+            "routine": "<p>(1 action) Each creature in the area must attempt a @Check[fortitude|dc:36] save. A creature with the slowed condition from this hazard takes a –2 circumstance penalty on further saves against this effect.</p><hr><p><strong>Critical Success</strong> The creature is unaffected.</p><p><strong>Success</strong> The creature takes @Damage[(2d6+6)[sonic]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 round.</p><p><strong>Failure</strong> The creature takes @Damage[(4d6+13)[sonic]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 2 rounds.</p><p><strong>Critical Failure</strong> The creature takes @Damage[(8d6+26)[sonic]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} for 2 rounds.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "mythic"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,5 +1,5 @@
 import { ActorPF2e, ArmyPF2e, CreaturePF2e, type PartyPF2e } from "@actor";
-import { FeatGroup } from "@actor/character/feats.ts";
+import type { FeatGroup } from "@actor/character/feats/index.ts";
 import { MODIFIER_TYPES } from "@actor/modifiers.ts";
 import { ActorSheetPF2e, SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
@@ -13,10 +13,10 @@ import {
     SheetOption,
     SheetOptions,
     createSheetTags,
+    eventToRollParams,
     getAdjustedValue,
     getAdjustment,
 } from "@module/sheet/helpers.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { SocketMessage } from "@scripts/socket.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import {
@@ -30,18 +30,18 @@ import {
     setHasElement,
     tupleHasValue,
 } from "@util";
+import { createSortable, createTooltipster } from "@util/destroyables.ts";
 import * as R from "remeda";
-import Sortable from "sortablejs";
 import { KingdomBuilder } from "./builder.ts";
 import { calculateKingdomCollectionData } from "./helpers.ts";
 import { Kingdom } from "./model.ts";
-import {
+import type {
     KingdomAbilityData,
     KingdomData,
     KingdomLeadershipData,
     KingdomSettlementData,
     KingdomSource,
-} from "./types.ts";
+} from "./schema.ts";
 import {
     KINGDOM_ABILITIES,
     KINGDOM_ABILITY_LABELS,
@@ -333,7 +333,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             if (vacantEl) {
                 const lines = vacantEl.title.split(/;\s*/).map((l) => createHTMLElement("li", { children: [l] }));
                 const content = createHTMLElement("ul", { children: lines });
-                $(vacantEl).tooltipster({
+                createTooltipster(vacantEl, {
                     content,
                     contentAsHTML: true,
                     side: "right",
@@ -374,16 +374,18 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             this.filterActions(filterButton.dataset.slug ?? null);
         });
 
-        $html.find("[data-tooltip-content]").tooltipster({
-            trigger: "click",
-            arrow: false,
-            contentAsHTML: true,
-            debug: BUILD_MODE === "development",
-            interactive: true,
-            side: ["right", "bottom"],
-            theme: "crb-hover",
-            minWidth: 120,
-        });
+        for (const content of htmlQueryAll(html, "[data-tooltip-content]")) {
+            createTooltipster(content, {
+                trigger: "click",
+                arrow: false,
+                contentAsHTML: true,
+                debug: BUILD_MODE === "development",
+                interactive: true,
+                side: ["right", "bottom"],
+                theme: "crb-hover",
+                minWidth: 120,
+            });
+        }
 
         // Handle adding and inputting custom user submitted modifiers
         for (const customModifierEl of htmlQueryAll(html, ".modifiers-tooltip")) {
@@ -439,16 +441,16 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 const filter = await compendiumTab.getFilterData();
 
                 // Configure level filters
-                const levels = filter.sliders.level;
-                levels.values.max = Math.min(maxLevel, levels.values.upperLimit);
-                levels.isExpanded = levels.values.max !== levels.values.upperLimit;
+                const levels = filter.level;
+                levels.to = Math.min(maxLevel, levels.max);
+                levels.isExpanded = levels.to !== levels.max;
 
                 // Set category
                 filter.checkboxes.category.options["kingdom-feat"].selected = true;
                 filter.checkboxes.category.selected.push("kingdom-feat");
                 filter.checkboxes.category.isExpanded = true;
 
-                compendiumTab.open(filter);
+                compendiumTab.open({ filter });
             });
         }
 
@@ -471,7 +473,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         // Sort settlements
         const settlementList = htmlQuery(html, ".settlement-list");
         if (settlementList) {
-            Sortable.create(settlementList, {
+            createSortable(settlementList, {
                 ...SORTABLE_BASE_OPTIONS,
                 handle: ".drag-handle",
                 onEnd: (event) => {
@@ -490,7 +492,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                         (s) => s.sort,
                     );
                     siblings.splice(newIndex, 0, settlement);
-                    const updates = R.mapToObj.indexed(siblings, (s, index) => [`settlements.${s.id}.sort`, index]);
+                    const updates = R.mapToObj(siblings, (s, index) => [`settlements.${s.id}.sort`, index]);
                     this.kingdom.update(updates);
                 },
             });

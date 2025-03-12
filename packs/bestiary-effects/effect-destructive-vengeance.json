@@ -1,0 +1,64 @@
+{
+    "_id": "6pLYKcDawL5JUBkK",
+    "img": "icons/magic/unholy/hand-grasping-green.webp",
+    "name": "Effect: Destructive Vengeance",
+    "system": {
+        "description": {
+            "value": "<p>The champion deals 2 extra spirit or void damage with their Strikes against the triggering creature.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #208: Hoof, Cinder, and Storm"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitSpirit",
+                        "predicate": [
+                            "destructive-vengeance-spirit"
+                        ],
+                        "value": "spirit"
+                    },
+                    {
+                        "label": "PF2E.TraitVoid",
+                        "value": "bludgeoning"
+                    }
+                ],
+                "flag": "damageType",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType"
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.damageType}",
+                "key": "FlatModifier",
+                "selector": [
+                    "strike-damage"
+                ],
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

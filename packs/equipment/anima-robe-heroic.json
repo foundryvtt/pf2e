@@ -1,0 +1,104 @@
+{
+    "_id": "jVBXBsulk4ZlvRs4",
+    "img": "icons/equipment/chest/robe-layered-teal.webp",
+    "name": "Anima Robe (Heroic)",
+    "system": {
+        "apex": {
+            "attribute": "cha"
+        },
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "gm": "<p>The <em>Anima Robe</em> is focused on Kyonin's safety and protection. It imparts the following edicts and anathema on the wielder. If they're violated, the artifact reverts to its non-artifact form until the wielder atones, either through the use of the atone ritual, or through a short side quest or influence encounter of your own design.</p><p><strong>Edicts</strong> kill Treerazer, protect elven lives, push back Tanglebriar's boundaries</p><p><strong>Anathema</strong> aid Treerazer, willingly betray Kyonin</p><h2>Choose Apex Attribute</h2><p>The <em>Anima Robe</em> is a powerful apex item, but the apex bonuses granted are more powerful than most. As with all apex items, a PC can only benefit from one apex item at a time. When your character creates the artifact, choose one attribute modifier. When you invest the artifact, you either increase that attribute modifier by 2 or increase it to +5, whichever would give you a higher value. Once you make this selection, you can't change it later.</p><hr /><p><em>Note: Select the apex attribute on the details tab of this item.</em></p><h2>Choose Heroic Skill</h2><p>The <em>Anima Robe</em> also bolsters one skill of your choice. When your character creates the artifact, choose one of the three skills listed for the artifact. As long as the artifact is invested by you, it grants you a +4 item bonus to checks with that skill.</p><h2>Heroic Recovery</h2><p>Finally, the <em>Anima Robe</em> has 1 Recovery Point; this point replenishes once per day when its invested partner does their daily preparations. When the artifact's partner's @UUID[Compendium.pf2e.conditionitems.Item.Dying] value would reach an amount sufficient to kill them (usually 4), the artifact spends its Recovery Point, and the partner instead increases their @UUID[Compendium.pf2e.conditionitems.Item.Doomed] value by 1 and stabilizes at 0 Hit Points.</p>",
+            "value": "<p><strong>Perception</strong> [[/r 1d20+33 #Perception]]{+33}; precise low-light vision and hearing within 30 feet</p>\n<p><strong>Communication</strong> telepathy (partner only)</p>\n<p><strong>Skills</strong> Deception [[/r 1d20+35 #Deception]]{+35}, Occultism [[/r 1d20+34 #Occultism]]{+34}, Performance [[/r 1d20+35 #Performance]]{+35}</p>\n<p><strong>Int</strong> +6, <strong>Wis</strong> +5, <strong>Cha</strong> +7</p>\n<p><strong>Will</strong> [[/r 1d20+33 #Will]]{+33}</p><hr /><p>The artistic echo of the Ekujae hero Iyalirrin animates the <em>Anima Robe's</em> stitching to display embroidered reactions to situations experienced by the wearer. The <em>Anima Robe's</em> telepathic voice is filled with confidence (almost to the point of cockiness) and is supportive, often encouraging his partner to take risky or showy actions yet never to the extent that would put them in significant harm's way.</p>\n<p>The <em>Anima Robe</em> grants a +3 item bonus to Diplomacy checks made to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] and to all Performance checks, and you gain resistance 15 to mental damage.</p><hr /><p><strong>Activate–Billowing Distraction</strong> <span class=\"action-glyph\">2</span> (concentrate)</p>\n<p><strong>Effect</strong> The <em>Anima Robe</em> billows as if in a blustery wind and attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Feint] a creature you're adjacent to.</p><hr /><p><strong>Activate–Who Am I?</strong> <span class=\"action-glyph\">2</span> (concentrate)</p>\n<p><strong>Effect</strong> The robe's hood rises up over your head, casting a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Illusory Disguise] to your specifications.</p><hr /><p><strong>Activate–Who Are We?</strong> <span class=\"action-glyph\">2</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Effect</strong> The robe's hem swishes, casting a 7th-rank <em>illusory disguise</em> to your specifications.</p><hr /><p><strong>Activate—Who Are They?</strong> <span class=\"action-glyph\">2</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Effect</strong> An image of a creature shows up in the robe's stitching, then appears to come to life; the robe casts an 8th-rank @UUID[Compendium.pf2e.spells-srd.Item.Illusory Creature] to your specifications. The robe can use an action to Sustain this activation for up to 1 minute.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 20
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {}
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #212: A Voice in the Blight"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:make-an-impression"
+                ],
+                "selector": [
+                    "diplomacy"
+                ],
+                "type": "item",
+                "value": 3
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "performance",
+                "type": "item",
+                "value": 3
+            },
+            {
+                "key": "Resistance",
+                "type": "mental",
+                "value": 15
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "config": "skills",
+                    "predicate": [
+                        "skill:{choice|value}:rank:0"
+                    ]
+                },
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.skill}",
+                "type": "item",
+                "value": 4
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.abilities.{item|system.apex.attribute}.mod",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "unique",
+            "value": [
+                "apex",
+                "artifact",
+                "illusion",
+                "intelligent",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "worngarment"
+        }
+    },
+    "type": "equipment"
+}

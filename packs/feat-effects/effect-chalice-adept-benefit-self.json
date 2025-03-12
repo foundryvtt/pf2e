@@ -1,0 +1,67 @@
+{
+    "_id": "Sq558879cgEc1lGC",
+    "img": "icons/containers/kitchenware/goblet-handle-gold.webp",
+    "name": "Effect: Chalice Adept Benefit (Self)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Chalice]</p>\n<p>Your temporary Hit Points granted by Drink from the Chalice increase to 2 + your Charisma modifier + your level, and its healing increases to 5 Hit Points for each level you have.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "drink-from-the-chalice-inline-healing",
+                "value": "2*@actor.level"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:drink-from-the-chalice"
+                ],
+                "property": "other-tags",
+                "value": "chalice-adept-benefit"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Thaumaturge.Implement.Adept.Label",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:drink-from-the-chalice"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Thaumaturge.Implement.Chalice.Adept.DescriptionAlteration"
+                    }
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

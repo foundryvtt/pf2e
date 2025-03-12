@@ -1,0 +1,67 @@
+{
+    "_id": "rOKA405aECklgq42",
+    "img": "icons/magic/control/encase-creature-humanoid-hold.webp",
+    "name": "Stance: Divine Presence",
+    "system": {
+        "badge": {
+            "labels": [
+                "5 ft.",
+                "10 ft.",
+                "15 ft."
+            ],
+            "loop": false,
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Divine Presence]</p>\n<p>You have a 5-foot emanation that has the aura trait. You can Sustain the emanation to increase its radius by 5 feet, up to a maximum of 15 feet.</p>\n<p>An enemy that ends its turn completely within the emanation is Off-Guard to your Strikes.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 18
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "key": "Aura",
+                "radius": "5*@item.badge.value"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.MortalHerald.DivinePresence.OffGuardToggle",
+                "option": "divine-presence",
+                "toggleable": true
+            },
+            {
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "divine-presence"
+                ],
+                "selectors": [
+                    "strike-attack-roll"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

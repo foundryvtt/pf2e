@@ -1,0 +1,103 @@
+{
+    "_id": "bL0FbIMucp28oocF",
+    "img": "icons/commodities/bones/tooth-canine-white.webp",
+    "name": "Shard of Self-Destruction",
+    "system": {
+        "baseItem": "dagger",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "bulk": {
+            "value": 0.1
+        },
+        "category": "simple",
+        "containerId": null,
+        "damage": {
+            "damageType": "slashing",
+            "dice": 1,
+            "die": "d6"
+        },
+        "description": {
+            "value": "<p>This jagged shard of bone appears to be and functions as a <em>+1 striking dagger</em> with a sharp edge that is perpetually stained with blood. Whenever you critically hit with the weapon, you deal an additional 1d6 persistent bleed damage, but you also take @Damage[1d6[persistent,bleed]] damage. You take a –2 penalty to the flat check to remove this bleed damage, and when you succeed at this flat check, you are exposed to Verex's ruin (see below) as the site of the injury grows red and inflamed, your blood vessels discoloring and swelling as if serrated knives were trying to push their way out.</p>\n<p>Once the curse has activated for the first time, the weapon fuses to you; while you can sheathe the dagger outside of combat, it appears in your hand when a fight begins and you can't sheathe it as long as there is an enemy you can perceive.</p><hr /><p><strong>Verex's Ruin</strong> (disease, unholy)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:22|traits:disease,unholy]</p>\n<p><strong>Onset</strong> 1 hour</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}, @UUID[Compendium.pf2e.conditionitems.Item.Fatigued], and @Damage[1d6[spirit]] damage each time you would take persistent bleed damage (1 week)</p>\n<p><strong>Stage 3</strong> as stage 2, but the spirit damage increases to @Damage[2d6[spirit]]{2d6} (1 week)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 3}, fatigued, and @Damage[4d6[spirit]] damage each time you would take persistent bleed damage (1 week)</p>\n<p><strong>Stage 5</strong> death</p>"
+        },
+        "group": "knife",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 5
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {}
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": null
+        },
+        "rules": [
+            {
+                "critical": true,
+                "damageType": "bleed",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "{item|id}-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "{item|id}-damage",
+                "text": "PF2E.SpecificRule.Equipment.ShardOfSelfDestruction.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "runes": {
+            "potency": 1,
+            "property": [],
+            "striking": 1
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 1,
+                "property": [],
+                "striking": 1
+            }
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "cursed",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        }
+    },
+    "type": "weapon"
+}

@@ -1,0 +1,71 @@
+{
+    "_id": "hNBYP7FbvIBoS9CV",
+    "img": "icons/environment/settlement/watchtower-castle-night.webp",
+    "name": "Thief of Moonlight",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Though your tales are not sung out loud, they still live on as cautionary tales, whispers, tall tales, and half-believed rumors. You walk hidden behind stars, capable of taking anything; the lights of the heavens are not safe from your avarice. After you Spark Transcendence, as a free action you can attempt a check to @UUID[Compendium.pf2e.actionspf2e.Item.Palm an Object] or to @UUID[Compendium.pf2e.actionspf2e.Item.Steal] an item from an enemy within 30 feet. The relocated objects simply disappear and reappear in your hand.</p>"
+        },
+        "level": {
+            "value": 15
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Epithet.Label",
+                "mergeable": true,
+                "option": "epithet",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "thief-of-moonlight"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    "divine-spark",
+                    "epithet:thief-of-moonlight"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Exemplar.Epithet.ThiefOfMoonlight.Description"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "exemplar-sovereignty-epithet"
+            ],
+            "rarity": "common",
+            "value": [
+                "exemplar"
+            ]
+        }
+    },
+    "type": "feat"
+}

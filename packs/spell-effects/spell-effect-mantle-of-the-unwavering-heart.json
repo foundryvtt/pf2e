@@ -4,7 +4,7 @@
     "name": "Spell Effect: Mantle of the Unwavering Heart",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Mantle of the Unwavering Heart]</p>\n<ul>\n<li><strong>Evergreen Vitality</strong> You gain fast healing 3 and a +2 bonus to saves against poison and disease. This effect has the healing and vitality traits.</li>\n<li><strong>Overwhelming Perfume</strong> (aura, olfactory) A cloud of potent floral scent surrounds you in a 15-foot emanation. Creatures in the aura can't benefit from the scent ability and are sickened 1 as long as they remain in the aura. The sickness is a disease effect.</li>\n<li><strong>Towering Trunk</strong> You grow to a considerable height. Increase your size to Large. You're clumsy 1. Your reach increases by 5 feet (or by 10 feet if you started out Tiny), and you gain a grasping branch unarmed attack; this attack is in the brawling weapon group and deals 2d8 bludgeoning damage plus Grab.</li>\n<li><strong>Unyielding Will</strong> Your mind becomes incredibly resilient to change. You're immune to being fascinated, and you get a +1 bonus to saves and DCs against mental effects.</li>\n</ul>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Mantle of the Unwavering Heart]</p>\n<p>Pick two of the options below. As a single action, which has the concentrate trait, you can change one of your chosen abilities to a different option from the list.</p><ul><li><strong>Evergreen Vitality</strong> You gain fast healing 3 and a +2 bonus to saves against poison and disease. This effect has the healing and vitality traits.</li><li><strong>Overwhelming Perfume</strong> (aura, olfactory) A cloud of potent floral scent surrounds you in a 15-foot emanation. Creatures in the aura can't benefit from the scent ability and are sickened 1 as long as they remain in the aura. The sickness is a disease effect.</li><li><strong>Towering Trunk</strong> You grow to your size to Large. You're clumsy 1. Your reach increases by 5 feet (or by 10 feet if you started out Tiny), and you gain a grasping branch unarmed attack; this attack is in the brawling weapon group and deals 2d8 bludgeoning damage plus Grab.</li><li><strong>Unyielding Will</strong> You're immune to being fascinated, and you get a +1 bonus to saves and DCs against mental effects.</li></ul>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,67 +22,102 @@
         },
         "rules": [
             {
-                "choices": [
+                "alwaysActive": true,
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.MantleOfTheUnwaveringHeart.RollOptionLabel.First",
+                "option": "unwavering-heart-first",
+                "suboptions": [
                     {
-                        "img": "icons/magic/nature/leaf-elm-sparkle-glow-green.webp",
+                        "label": "PF2E.SpecificRule.MantleOfTheUnwaveringHeart.EvergreenVitality",
+                        "value": "evergreen-vitality"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.MantleOfTheUnwaveringHeart.OverwhelmingPerfume",
+                        "value": "overwhelming-perfume"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.MantleOfTheUnwaveringHeart.ToweringTrunk",
+                        "value": "towering-trunk"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.MantleOfTheUnwaveringHeart.UnyieldingWill",
+                        "value": "unyielding-will"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "alwaysActive": true,
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.MantleOfTheUnwaveringHeart.RollOptionLabel.Second",
+                "option": "unwavering-heart-second",
+                "suboptions": [
+                    {
                         "label": "PF2E.SpecificRule.MantleOfTheUnwaveringHeart.EvergreenVitality",
                         "predicate": [
                             {
-                                "not": "mantle-unwavering-heart:evergreen-vitality"
+                                "not": "unwavering-heart-first:evergreen-vitality"
                             }
                         ],
                         "value": "evergreen-vitality"
                     },
                     {
-                        "img": "icons/commodities/flowers/daisy-close-white.webp",
                         "label": "PF2E.SpecificRule.MantleOfTheUnwaveringHeart.OverwhelmingPerfume",
                         "predicate": [
                             {
-                                "not": "mantle-unwavering-heart:overwhelming-perfume"
+                                "not": "unwavering-heart-first:overwhelming-perfume"
                             }
                         ],
                         "value": "overwhelming-perfume"
                     },
                     {
-                        "img": "icons/magic/nature/tree-animated-strike.webp",
                         "label": "PF2E.SpecificRule.MantleOfTheUnwaveringHeart.ToweringTrunk",
                         "predicate": [
                             {
-                                "not": "mantle-unwavering-heart:towering-trunk"
+                                "not": "unwavering-heart-first:towering-trunk"
                             }
                         ],
                         "value": "towering-trunk"
                     },
                     {
-                        "img": "icons/magic/nature/tree-animated-squint.webp",
                         "label": "PF2E.SpecificRule.MantleOfTheUnwaveringHeart.UnyieldingWill",
                         "predicate": [
                             {
-                                "not": "mantle-unwavering-heart:unyielding-will"
+                                "not": "unwavering-heart-first:unyielding-will"
                             }
                         ],
                         "value": "unyielding-will"
                     }
                 ],
-                "flag": "effectMantleUnwaveringHeart",
-                "key": "ChoiceSet",
-                "rollOption": "mantle-unwavering-heart"
+                "toggleable": true
             },
             {
                 "key": "FastHealing",
                 "predicate": [
-                    "mantle-unwavering-heart:evergreen-vitality"
+                    {
+                        "or": [
+                            "unwavering-heart-first:evergreen-vitality",
+                            "unwavering-heart-second:evergreen-vitality"
+                        ]
+                    }
                 ],
                 "value": 3
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "mantle-unwavering-heart:evergreen-vitality",
                     {
                         "or": [
-                            "disease",
-                            "poison"
+                            "unwavering-heart-first:evergreen-vitality",
+                            "unwavering-heart-second:evergreen-vitality"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:disease",
+                            "item:trait:poison"
                         ]
                     }
                 ],
@@ -93,14 +128,18 @@
             {
                 "effects": [
                     {
-                        "affects": "all",
                         "includesSelf": false,
-                        "uuid": "Compendium.pf2e.spell-effects.Item.Effect: Overwhelming Perfume"
+                        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Overwhelming Perfume"
                     }
                 ],
                 "key": "Aura",
                 "predicate": [
-                    "mantle-unwavering-heart:overwhelming-perfume"
+                    {
+                        "or": [
+                            "unwavering-heart-first:overwhelming-perfume",
+                            "unwavering-heart-second:overwhelming-perfume"
+                        ]
+                    }
                 ],
                 "radius": 15,
                 "slug": "overwhelming-perfume",
@@ -111,7 +150,12 @@
             {
                 "key": "CreatureSize",
                 "predicate": [
-                    "mantle-unwavering-heart:towering-trunk"
+                    {
+                        "or": [
+                            "unwavering-heart-first:towering-trunk",
+                            "unwavering-heart-second:towering-trunk"
+                        ]
+                    }
                 ],
                 "reach": {
                     "add": 5
@@ -124,7 +168,12 @@
                     "grantee": "restrict"
                 },
                 "predicate": [
-                    "mantle-unwavering-heart:towering-trunk"
+                    {
+                        "or": [
+                            "unwavering-heart-first:towering-trunk",
+                            "unwavering-heart-second:towering-trunk"
+                        ]
+                    }
                 ],
                 "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
             },
@@ -142,7 +191,12 @@
                 "key": "Strike",
                 "label": "PF2E.SpecificRule.MantleOfTheUnwaveringHeart.GraspingBranch",
                 "predicate": [
-                    "mantle-unwavering-heart:towering-trunk"
+                    {
+                        "or": [
+                            "unwavering-heart-first:towering-trunk",
+                            "unwavering-heart-second:towering-trunk"
+                        ]
+                    }
                 ],
                 "range": null,
                 "slug": "grasping-branch",
@@ -163,14 +217,24 @@
             {
                 "key": "Immunity",
                 "predicate": [
-                    "mantle-unwavering-heart:unyielding-will"
+                    {
+                        "or": [
+                            "unwavering-heart-first:unyielding-will",
+                            "unwavering-heart-second:unyielding-will"
+                        ]
+                    }
                 ],
                 "type": "fascinated"
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "mantle-unwavering-heart:unyielding-will",
+                    {
+                        "or": [
+                            "unwavering-heart-first:unyielding-will",
+                            "unwavering-heart-second:unyielding-will"
+                        ]
+                    },
                     "mental"
                 ],
                 "selector": [

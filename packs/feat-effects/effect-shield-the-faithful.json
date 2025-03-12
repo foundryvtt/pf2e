@@ -1,0 +1,62 @@
+{
+    "_id": "JMkGtyRU4bTSL2sB",
+    "img": "icons/equipment/shield/buckler-wooden-boss-glowing-blue.webp",
+    "name": "Effect: Shield the Faithful",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Shield the Faithful]</p>\n<p>You gain a +1 item bonus to AC and resistance to spirit damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "includesSelf": false,
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Shield the Faithful"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
+                "radius": 10
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "Resistance",
+                "type": "spirit",
+                "value": "ternary(gte(@item.origin.level,20),15,10)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

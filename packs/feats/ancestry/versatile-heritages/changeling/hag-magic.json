@@ -1,0 +1,132 @@
+{
+    "_id": "t6GBBIwX7hvvxYyV",
+    "folder": "cDR2FASsFdASuyjW",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Hag Magic",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Through your heritage, you can replicate a hag's magic. Choose one common spell of 4th rank or lower from those available to a coven, including the spells contributed to a coven by a hag of your mother's type. You can cast this spell once per day as a 4th-rank occult innate spell.</p>\n<p>Spells available to all covens are @UUID[Compendium.pf2e.spells-srd.Item.Augury], @UUID[Compendium.pf2e.spells-srd.Item.Charm], @UUID[Compendium.pf2e.spells-srd.Item.Clairaudience], @UUID[Compendium.pf2e.spells-srd.Item.Clairvoyance], @UUID[Compendium.pf2e.spells-srd.Item.Dream Message], and @UUID[Compendium.pf2e.spells-srd.Item.Illusory Disguise]. The eligible spells granted by the most prominent types of hag are:</p>\n<p><strong>Cuckoo Hag</strong> @UUID[Compendium.pf2e.spells-srd.Item.Nightmare], @UUID[Compendium.pf2e.spells-srd.Item.Spellwrack]</p>\n<p><strong>Iron Hag</strong> @UUID[Compendium.pf2e.spells-srd.Item.Earthbind], @UUID[Compendium.pf2e.spells-srd.Item.Spellwrack]</p>\n<p><strong>Sea Hag</strong> @UUID[Compendium.pf2e.spells-srd.Item.Humanoid Form], @UUID[Compendium.pf2e.spells-srd.Item.Mariner's Curse], @UUID[Compendium.pf2e.spells-srd.Item.Water Walk]</p>\n<p><strong>Sweet Hag</strong> @UUID[Compendium.pf2e.spells-srd.Item.Charm], @UUID[Compendium.pf2e.spells-srd.Item.Honeyed Words], @UUID[Compendium.pf2e.spells-srd.Item.Outcast's Curse]</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "filter": [
+                        {
+                            "or": [
+                                "item:slug:augury",
+                                "item:slug:charm",
+                                "item:slug:clairaudience",
+                                "item:slug:clairvoyance",
+                                "item:slug:dream-message",
+                                "item:slug:illusory-disguise",
+                                {
+                                    "and": [
+                                        "feat:brine-may",
+                                        {
+                                            "or": [
+                                                "item:slug:humanoid-form",
+                                                "item:slug:water-walk"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "feat:callow-may",
+                                        {
+                                            "or": [
+                                                "item:slug:honeyed-words",
+                                                "item:slug:outcasts-curse"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        {
+                                            "or": [
+                                                "feat:dream-may",
+                                                "feat:veil-may"
+                                            ]
+                                        },
+                                        "item:slug:nightmare"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "feat:slag-may",
+                                        "item:slug:earthbind"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "feat:snow-may",
+                                        "item:slug:solid-fog"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "feat:virga-may",
+                                        "item:slug:hydraulic-torrent"
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "itemType": "spell",
+                    "slugsAsValues": true
+                },
+                "flag": "hagMagic",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellcasting:innate",
+                    "item:slug:{item|flags.pf2e.rulesSelections.hagMagic}"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellcasting:innate",
+                    "item:slug:{item|flags.pf2e.rulesSelections.hagMagic}"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:changeling"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "changeling"
+            ]
+        }
+    },
+    "type": "feat"
+}

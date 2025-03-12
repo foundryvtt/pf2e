@@ -1,0 +1,52 @@
+{
+    "_id": "xhkVNfgFMUhalqib",
+    "img": "systems/pf2e/icons/spells/grease.webp",
+    "name": "Effect: Vamollaroth Stench",
+    "system": {
+        "description": {
+            "value": "<p>The creature takes a -2 circumstance penalty to saves against poison and to recover from the @UUID[Compendium.pf2e.conditionitems.Item.Sickened] condition.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #212: A Voice in the Blight"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:poison",
+                            "action:retch"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

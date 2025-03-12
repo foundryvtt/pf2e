@@ -1,0 +1,57 @@
+{
+    "_id": "GcEFca6I8f5Y06z7",
+    "img": "icons/skills/social/trading-justice-scale-yellow.webp",
+    "name": "Spell Effect: Swear Oath",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Swear Oath]</p>\n<p>You gain a +1 status bonus to the readied attack roll or skill check.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "domain": "check",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SwearOath.RollOptionLabel",
+                "option": "swear-oath",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "swear-oath"
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": [
+                    "attack-roll",
+                    "skill-check"
+                ],
+                "type": "status",
+                "value": "ternary(gte(@item.level,9),3,ternary(gte(@item.level,5),2,1))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

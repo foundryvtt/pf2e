@@ -1,9 +1,10 @@
-import { CharacterPF2e } from "@actor";
-import { AttributeString } from "@actor/types.ts";
+import type { CharacterPF2e } from "@actor";
+import type { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
-import { AncestryPF2e, BackgroundPF2e, ClassPF2e } from "@item";
+import type { AncestryPF2e, BackgroundPF2e, ClassPF2e } from "@item";
 import { maintainFocusInRender } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, setHasElement, signedInteger, tupleHasValue } from "@util";
+import { createTooltipster } from "@util/destroyables.ts";
 import * as R from "remeda";
 
 class AttributeBuilder extends Application {
@@ -47,7 +48,7 @@ class AttributeBuilder extends Application {
             class: actor.class,
             attributeModifiers: R.mapValues(actor.abilities, (value, attribute) => {
                 // Allow decimal values in manual mode (to track partial boosts)
-                const mod = build.manual ? actor._source.system.abilities?.[attribute].mod ?? 0 : value.base;
+                const mod = build.manual ? (actor._source.system.abilities?.[attribute].mod ?? 0) : value.base;
                 return {
                     mod: Number(mod.toFixed(1)).signedString(),
                     label: CONFIG.PF2E.abilities[attribute],
@@ -290,17 +291,18 @@ class AttributeBuilder extends Application {
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         const html = $html[0];
-        const { actor } = this;
-
-        $html.find("[data-tooltip-content]").tooltipster({
-            contentAsHTML: true,
-            arrow: false,
-            debug: BUILD_MODE === "development",
-            interactive: true,
-            maxWidth: 350,
-            side: ["bottom"],
-            theme: "crb-hover",
-        });
+        const actor = this.actor;
+        for (const contentEl of htmlQueryAll(html, "[data-tooltip-content]")) {
+            createTooltipster(contentEl, {
+                contentAsHTML: true,
+                arrow: false,
+                debug: BUILD_MODE === "development",
+                interactive: true,
+                maxWidth: 350,
+                side: ["bottom"],
+                theme: "crb-hover",
+            });
+        }
 
         // Input handling for manual attribute score entry
         for (const input of htmlQueryAll<HTMLInputElement>(html, "input[type=text], input[type=number]")) {

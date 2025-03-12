@@ -45,10 +45,8 @@
         },
         {
             "_id": "n5LtVj1vSi7CLE6u",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.U0hL0LLaprcnAyzC"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.U0hL0LLaprcnAyzC"
             },
             "img": "systems/pf2e/icons/spells/wind-walk.webp",
             "name": "Wind Walk",
@@ -107,10 +105,8 @@
         },
         {
             "_id": "h0aaj0TNkpmHZrxU",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.MlpbeZ61Euhl0d60"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.MlpbeZ61Euhl0d60"
             },
             "img": "icons/creatures/slimes/slime-movement-splash-green.webp",
             "name": "Cloudkill",
@@ -196,10 +192,8 @@
         },
         {
             "_id": "rJ7AdRxufg0jAASh",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.g8QqHpv2CWDwmIm1"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.g8QqHpv2CWDwmIm1"
             },
             "img": "systems/pf2e/icons/spells/gust-of-wind.webp",
             "name": "Gust of Wind (At Will)",
@@ -267,10 +261,8 @@
         },
         {
             "_id": "8pSslS7Gad58lq0T",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.piMJO6aYeDJbrhEo"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.piMJO6aYeDJbrhEo"
             },
             "img": "systems/pf2e/icons/spells/solid-fog.webp",
             "name": "Solid Fog",
@@ -333,10 +325,8 @@
         },
         {
             "_id": "zpCGLXqUH07afHBV",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.it4ZsAi6XgvGcodc"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.it4ZsAi6XgvGcodc"
             },
             "img": "icons/magic/air/fog-gas-smoke-swirling-white.webp",
             "name": "Wall of Wind (At Will)",
@@ -615,7 +605,10 @@
             "type": "action"
         },
         {
-            "_id": "tAdSWqK8N7bxwjab",
+            "_id": "Kh0L2ILLNuGBVZnk",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
             "sort": 1200000,
@@ -631,32 +624,23 @@
                     "value": ""
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
                 "rules": [
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "or": [
-                                    "magical",
-                                    "arcane",
-                                    "primal",
-                                    "occult",
-                                    "divine"
-                                ]
-                            }
+                            "item:magical"
                         ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
                     }
                 ],
-                "slug": null,
+                "slug": "1-status-to-all-saves-vs-magic",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -683,7 +667,31 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "deflecting-cloud",
+                        "toggleable": true
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "deflecting-cloud"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Hidden"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "deflecting-cloud"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -694,10 +702,8 @@
         },
         {
             "_id": "xgEzGbuJSMIIkD79",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
@@ -757,7 +763,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon breathes a thundercloud that deals @Damage[20d6[electricity]] damage in a @Template[cone|distance:60] (@Check[reflex|dc:41|basic] save). This cloud remains in the area for [[/br 1d4 #rounds]]{1d4 rounds}, with the effects of @UUID[Compendium.pf2e.spells-srd.Item.Mist]. A creature that ends its turn inside of the cloud takes @Damage[10d6[electricity]] damage (@Check[reflex|dc:41|basic] save).</p>\n<p>The cloud dragon can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon breathes a thundercloud that deals @Damage[20d6[electricity]|options:area-damage] damage in a @Template[cone|distance:60] (@Check[reflex|dc:41|basic|options:area-effect] save). This cloud remains in the area for [[/gmr 1d4 #rounds]]{1d4 rounds}, with the effects of @UUID[Compendium.pf2e.spells-srd.Item.Mist]. A creature that ends its turn inside of the cloud takes @Damage[10d6[electricity]] damage (@Check[reflex|dc:41|basic] save).</p>\n<p>The cloud dragon can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",

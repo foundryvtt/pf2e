@@ -1,29 +1,43 @@
 import { ActorPF2e } from "@actor";
 import { AttackPopout } from "@actor/character/apps/attack-popout.ts";
 import { ElementalBlast } from "@actor/character/elemental-blast.ts";
-import type { ConditionPF2e, EffectPF2e } from "@item";
+import { ItemPF2e, type ConditionPF2e, type EffectPF2e } from "@item";
 import { EffectTrait } from "@item/abstract-effect/types.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
-import { createSelfEffectMessage } from "@module/chat-message/helpers.ts";
+import { createUseActionMessage } from "@module/chat-message/helpers.ts";
 import { MacroPF2e } from "@module/macro.ts";
+import { eventToRollMode } from "@module/sheet/helpers.ts";
 import { objectHasKey } from "@util";
+import { UUIDUtils } from "@util/uuid.ts";
 
-/**
- * Create a Macro from an Item drop.
- * Get an existing item macro if one exists, otherwise create a new one.
- * @param itemId
- */
-export async function rollItemMacro(itemId: string, event: Event | null = null): Promise<ChatMessagePF2e | null> {
+/** Given an item's id or uuid, retrieves the item and uses it.  */
+export async function rollItemMacro(itemIdOrUuid: string, event: Event | null = null): Promise<ChatMessagePF2e | null> {
     const speaker = ChatMessage.getSpeaker();
-    const actor = canvas.tokens.get(speaker.token ?? "")?.actor ?? game.actors.get(speaker.actor ?? "");
-    const item = actor?.items?.get(itemId);
-    if (!item) {
-        ui.notifications.warn(`Your controlled Actor does not have an item with ID ${itemId}`);
-        return null;
-    }
+    const item = await (async () => {
+        if (UUIDUtils.isItemUUID(itemIdOrUuid)) {
+            const item = await fromUuid(itemIdOrUuid);
+            if (item instanceof ItemPF2e && item.actor) {
+                return item;
+            } else {
+                ui.notifications.warn(`Item with uuid ${itemIdOrUuid} does not exist`);
+                return null;
+            }
+        }
 
-    if (item.isOfType("action", "feat") && item.system.selfEffect) {
-        return createSelfEffectMessage(item);
+        const actor = canvas.tokens.get(speaker.token ?? "")?.actor ?? game.actors.get(speaker.actor ?? "");
+        const item = actor?.items?.get(itemIdOrUuid);
+        if (!item) {
+            ui.notifications.warn(`Your controlled Actor does not have an item with ID ${itemIdOrUuid}`);
+            return null;
+        }
+
+        return item;
+    })();
+
+    if (!item) return null;
+
+    if (item.isOfType("action", "feat")) {
+        return createUseActionMessage(item, eventToRollMode(event));
     }
 
     // Trigger the item roll
@@ -189,9 +203,9 @@ if (item?.type === "condition") {
     for (const actor of actors) {
         const existing = actor.itemTypes.effect.find((e) => e._stats.compendiumSource === ITEM_UUID);
         if (existing) {
-            await existing.delete();
+            existing.delete();
         } else {
-            await actor.createEmbeddedDocuments("Item", [source]);
+            actor.createEmbeddedDocuments("Item", [source]);
         }
     }
 } else {

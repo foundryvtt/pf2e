@@ -1,0 +1,144 @@
+{
+    "_id": "MN7OSIN1oeRfV0h6",
+    "img": "icons/consumables/potions/bottle-round-corked-pink.webp",
+    "name": "Effect: Antifungal Salve",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Antifungal Salve (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Antifungal Salve (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Antifungal Salve (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Antifungal Salve (Major)]</p>\n<p>You gain an item bonus to saves against fungal afflictions.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 24
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #210: Whispers in the Dirt"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:antifungal-salve-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Antifungal Salve (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:antifungal-salve-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Antifungal Salve (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:antifungal-salve-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Antifungal Salve (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:antifungal-salve-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Antifungal Salve (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "antifungal"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:curse",
+                            "item:trait:poison",
+                            "item:trait:disease"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:fungus",
+                            "origin:trait:fungus"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "antifungal-bonus",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "antifungal:antifungal-salve-moderate"
+                ],
+                "selector": "saving-throw",
+                "slug": "antifungal-bonus",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "antifungal:antifungal-salve-greater",
+                            "antifungal:antifungal-salve-major"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "antifungal-bonus",
+                "value": 4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

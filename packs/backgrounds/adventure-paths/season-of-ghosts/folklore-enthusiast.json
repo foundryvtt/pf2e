@@ -1,0 +1,147 @@
+{
+    "_id": "ia5aFzfmfnMjhcms",
+    "folder": "FFUQNELiPmqP04zU",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Folklore Enthusiast",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "int",
+                    "wis"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>Willowshore is a small town in a rural part of Shenmen, but that doesn't exempt it from the world of the strange and unexplained. There are plenty of mysterious events and haunting legends about Willowshore or its hinterlands, and as a result of your upbringing, you've become particularly interested in learning more about them. While much of the regional folklore comes from one of Willowshore's many religions and local faiths (of which you might be a practicing member or perhaps instead have a secular interest in the lore), you've noticed that these beliefs also influence artisans and crafters in ways they might not even realize. You're convinced that many of these local beliefs have roots in a deeper, historical event of great significance and hope one day to learn more about Willowshore's true history.</p>\n<p>If you're religious, your home is likely near a shrine associated with your faith—if your faith isn't represented among Willowshore's shrines, speak with your GM about potentially having a shrine to your faith in or near to your home.</p>\n<p>During the Reenactment Festival, you likely spent time chatting with others about ghost stories and sharing spooky legends and tales. You weren't chosen to be an abductee during the Reenactment Festival so much as you volunteered, eagerly, for the chance—you might have even participated in previous years as an abductee!</p>\n<p>Choose two attribute boosts. One must be to <strong>Intelligence</strong> or <strong>Wisdom</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Religion skill and the Art Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Oddity Identification] skill feat.</p>\n<p>@UUID[Compendium.pf2e.adventure-specific-actions.Item.Seasonal Boon (Folklore Enthusiast)]</p>\n<hr />\n<p>You can add one of the following two adjustments to any background to further modify your choice to match your vision for your PC.</p>\n<p><strong>Family:</strong> You and one (or more) other PCs are close family members (siblings, parent/child, married, etc.) If you take this adjustment, the other PC(s) who are your family must also take this adjustment. Choose one of the following to replace the skill feat you otherwise would've gained from your background. (You and your sibling need not share the same choice—a sibling who wants to keep their background's skill feat can pick \"Typical\" from the list.)</p>\n<ul>\n<li><strong>Bickering:</strong> You have a long-standing feud with your sibling(s). Whenever your sibling(s) critically fail a significant skill check or attack roll and you witness their failure, you gain a +1 status bonus to your saving throws until the end of your next turn as you secretly (or perhaps not so secretly) delight in their failure. @UUID[Compendium.pf2e.campaign-effects.Item.Effect: Bickering Family]</li>\n<li><strong>Close-Knit:</strong> You and your sibling(s) work well together, and you go all-out to help them when they're badly hurt. When you provide @UUID[Compendium.pf2e.actionspf2e.Item.Aid] or @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid] to your sibling(s), the DC is 5 lower than normal.</li>\n<li><strong>Typical:</strong> You have a standard relationship with your sibling(s); don't change your background's skill feat.</li>\n</ul>\n<p><strong>Foundling:</strong> You aren't a native to Willowshore, but you did grow up in the town. You might have adoptive parents, or you could've grown up on the streets. Choose one of the following to replace the bonus feat you otherwise would've gained from your background.</p>\n<ul>\n<li><strong>Bitter:</strong> You appreciate the town of Willowshore but still resent the conditions that resulted in you being abandoned or left in the town. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Intimidating Glare] skill feat.</li>\n<li><strong>Mysterious:</strong> You keep secrets, and very few in Willowshore (if anyone) know your history before you settled in the town, in part because you've taken to learning about Willowshore by watching rather than engaging in conversation. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Streetwise] skill feat.</li>\n<li><strong>Outgoing:</strong> You're grateful for the sense of belonging the townsfolk of Willowshore have extended to you and always do your best to repay that kindness. Once per week when you attempt a skill check to resolve a downtime activity that could benefit Willowshore (several of these activities are detailed in the adventures, and your GM can always make the call if another activity would qualify) and you fail that check, you instead succeed at the check, or if you critically fail at that check, you instead simply fail that check.</li>\n</ul>"
+        },
+        "items": {},
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Season of Ghosts Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.adventure-specific-actions.Item.Seasonal Boon (Folklore Enthusiast)"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.SeasonOfGhosts.Background.Family",
+                        "value": "family"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SeasonOfGhosts.Background.Foundling",
+                        "value": "foundling"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SeasonOfGhosts.Background.NoAdjustment",
+                        "value": "none"
+                    }
+                ],
+                "flag": "variant",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.SeasonOfGhosts.Background.Prompt",
+                "rollOption": "background-variant"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.SeasonOfGhosts.Background.Bickering",
+                        "value": "bickering"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SeasonOfGhosts.Background.CloseKnit",
+                        "value": "close-knit"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SeasonOfGhosts.Background.Typical",
+                        "value": "typical"
+                    }
+                ],
+                "flag": "variant",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "background-variant:family"
+                ],
+                "prompt": "PF2E.SpecificRule.SeasonOfGhosts.Background.FamilyPrompt",
+                "rollOption": "background-variant:family"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.SeasonOfGhosts.Background.Bitter",
+                        "value": "bitter"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SeasonOfGhosts.Background.Mysterious",
+                        "value": "mysterious"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SeasonOfGhosts.Background.Outgoing",
+                        "value": "outgoing"
+                    }
+                ],
+                "flag": "variant",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "background-variant:foundling"
+                ],
+                "prompt": "PF2E.SpecificRule.SeasonOfGhosts.Background.FoundlingPrompt",
+                "rollOption": "background-variant:foundling"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "or": [
+                            "background-variant:none",
+                            "background-variant:family:typical"
+                        ]
+                    }
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Oddity Identification"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "background-variant:foundling:bitter"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Intimidating Glare"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "background-variant:foundling:mysterious"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Streetwise"
+            }
+        ],
+        "trainedSkills": {
+            "custom": "",
+            "lore": [
+                "Art Lore"
+            ],
+            "value": [
+                "religion"
+            ]
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": []
+        }
+    },
+    "type": "background"
+}

@@ -1,6 +1,6 @@
 {
     "_id": "tX2vxY8RSdcBayEu",
-    "img": "systems/pf2e/icons/default-icons/mystery-man.webp",
+    "img": "systems/pf2e/icons/pathfinder-society/pfs-glyph.webp",
     "name": "S1-18 - Narsen's Web",
     "system": {
         "actionType": {
@@ -24,7 +24,25 @@
             "remaster": false,
             "title": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.PFS.NarsensWeb.RollOptionLabel",
+                "option": "narsens-web",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "narsens-web",
+                    "action:sense-motive"
+                ],
+                "selector": "perception-check",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []

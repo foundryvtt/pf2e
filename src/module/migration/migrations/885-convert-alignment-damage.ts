@@ -50,10 +50,13 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
 
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         const traits: { value: string[] } =
-            source.type === "character" ? { value: [] } : source.system.traits ?? { value: [] };
+            source.type === "character" ? { value: [] } : (source.system.traits ?? { value: [] });
 
         const iwrKeys = ["immunities", "weaknesses", "resistances"] as const;
-        const iwr: WeaklyTypedIWR = R.pick(source.system.attributes, iwrKeys);
+        const iwr: WeaklyTypedIWR = R.pick(
+            source.system.attributes ?? { immunities: undefined, weaknesses: undefined, resistances: undefined },
+            iwrKeys,
+        );
 
         for (const key of iwrKeys) {
             iwr[key] = iwr[key]?.filter((i) => !["chaotic", "lawful"].includes(i.type));
@@ -76,7 +79,7 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
             }
         }
 
-        fu.mergeObject(source.system.attributes, iwr);
+        source.system.attributes &&= fu.mergeObject(source.system.attributes, iwr);
         traits.value = R.unique(traits.value.sort());
         if (traits.value.includes("holy") && traits.value.includes("unholy")) {
             // Something weird about this one!

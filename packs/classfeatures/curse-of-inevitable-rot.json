@@ -1,0 +1,71 @@
+{
+    "_id": "5QVUaQGT1FSkFOYP",
+    "img": "icons/magic/nature/tree-spirit-black.webp",
+    "name": "Curse of Inevitable Rot",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your magic is a constant reminder that all creatures will eventually submit to the ravages of time and the environment. You are suffused with an aura of decay. Leaves wilt and insects fall out of the sky as you pass, silverware tarnishes in your hands, and the dregs of wine turn to vinegar in your goblet.</p>\n<p><strong>Cursebound 1</strong> You gain weakness 2 to acid and poison damage.</p>\n<p><strong>Cursebound 2</strong> You take a –1 status penalty to saving throws against diseases and poisons. In addition, anyone attempting to Treat your Disease, Poison, or Wounds takes a –1 status penalty to the associated skill check.</p>\n<p><strong>Cursebound 3</strong> Your weakness to acid and poison damage increases to twice your level.</p>\n<p><strong>Cursebound 4</strong> Your status penalty to saving throws against diseases and poisons and the status penalty for anyone attempting to Treat your Disease, Poison, or Wounds increases to –2.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "self:condition:cursebound"
+                ],
+                "type": [
+                    "acid",
+                    "poison"
+                ],
+                "value": "ternary(gte(@actor.conditions.cursebound.value,3),(2*@actor.level),2)"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:poison",
+                            "item:trait:disease"
+                        ]
+                    },
+                    {
+                        "gte": [
+                            "self:condition:cursebound",
+                            2
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": "ternary(gte(@actor.conditions.cursebound.value,4),-2,-1)"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "curse",
+                "divine",
+                "oracle",
+                "poison"
+            ]
+        }
+    },
+    "type": "feat"
+}

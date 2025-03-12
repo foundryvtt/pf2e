@@ -1,18 +1,16 @@
 import type { ActorPF2e } from "@actor";
 import type { ItemPF2e, PhysicalItemPF2e } from "@item";
-import { ItemType } from "@item/base/data/index.ts";
+import type { ItemType } from "@item/base/data/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import * as R from "remeda";
-import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { AELikeRuleElement } from "../ae-like.ts";
 import { RuleElementPF2e } from "../base.ts";
-import { ModelPropsFromRESchema, RuleElementSchema } from "../data.ts";
+import type { ModelPropsFromRESchema, RuleElementSchema } from "../data.ts";
 import { ItemAlteration, ItemAlterationSchema } from "./alteration.ts";
+import fields = foundry.data.fields;
 
 class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema> {
     static override defineSchema(): ItemAlterationRuleSchema {
-        const fields = foundry.data.fields;
-
         // Set a default priority according to AE mode yet still later than AE-likes
         const baseSchema = super.defineSchema();
         const PRIORITIES: Record<string, number | undefined> = AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES;
@@ -49,7 +47,15 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
     }
 
     /** Alteration properties that should be processed at the end of data preparation */
-    static #DELAYED_PROPERTIES = ["description", "pd-recovery-dc"];
+    static #DELAYED_PROPERTIES = ["pd-recovery-dc"];
+
+    /** Alteration properties that should only be processed when requested directly */
+    static #LAZY_PROPERTIES = ["description"];
+
+    /** If this item alteration is lazy and should be applied only when requested */
+    get isLazy(): boolean {
+        return this.constructor.#LAZY_PROPERTIES.includes(this.property);
+    }
 
     override async preCreate({ tempItems }: RuleElementPF2e.PreCreateParams): Promise<void> {
         if (this.ignored) return;
@@ -87,13 +93,16 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
     }
 
     override onApplyActiveEffects(): void {
-        if (!this.constructor.#DELAYED_PROPERTIES.includes(this.property)) {
+        this.actor.synthetics.itemAlterations.push(this);
+        const isDelayed = this.constructor.#DELAYED_PROPERTIES.includes(this.property);
+        if (!this.isLazy && !isDelayed) {
             this.applyAlteration();
         }
     }
 
     override afterPrepareData(): void {
-        if (this.constructor.#DELAYED_PROPERTIES.includes(this.property)) {
+        const isDelayed = this.constructor.#DELAYED_PROPERTIES.includes(this.property);
+        if (!this.isLazy && isDelayed) {
             this.applyAlteration();
         }
     }
@@ -102,18 +111,21 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
         // Predicate testing is done per item among specified item type
         if (this.ignored) return;
 
-        const predicate = this.resolveInjectedProperties(this.predicate);
-        const [actorRollOptions, parentRollOptions] =
-            predicate.length > 0 ? [this.actor.getRollOptions(), this.parent.getRollOptions("parent")] : [[], []];
         try {
+            const itemId = this.itemId ? this.resolveInjectedProperties(this.itemId) : null;
             const items = singleItem
-                ? singleItem.id === this.itemId || singleItem.type === this.itemType
+                ? singleItem.id === itemId || singleItem.type === this.itemType
                     ? [singleItem]
                     : []
                 : this.#getItemsOfType();
-            items.push(
-                ...additionalItems.filter((i) => (this.itemId && i.id === this.itemId) || this.itemType === i.type),
-            );
+            items.push(...additionalItems.filter((i) => (itemId && i.id === itemId) || this.itemType === i.type));
+
+            // Check if there are no items to process first (commmon if its a single item alteration)
+            if (items.length === 0) return;
+
+            const predicate = this.resolveInjectedProperties(this.predicate);
+            const [actorRollOptions, parentRollOptions] =
+                predicate.length > 0 ? [this.actor.getRollOptions(), this.parent.getRollOptions("parent")] : [[], []];
 
             for (const item of items) {
                 const itemRollOptions = predicate.length > 0 ? item.getRollOptions("item") : [];
@@ -166,9 +178,9 @@ interface ItemAlterationRuleElement
 type ItemAlterationRuleSchema = RuleElementSchema &
     ItemAlterationSchema & {
         /** The type of items to alter */
-        itemType: StringField<ItemType, ItemType, false, false, false>;
+        itemType: fields.StringField<ItemType, ItemType, false, false, false>;
         /** As an alternative to specifying item types, an exact item ID can be provided */
-        itemId: StringField<string, string, false, false, false>;
+        itemId: fields.StringField<string, string, false, false, false>;
     };
 
 interface ApplyAlterationOptions {

@@ -11,21 +11,22 @@ class HTMLTagifyTagsElement extends foundry.applications.elements.AbstractFormIn
 > {
     static override tagName = "tagify-tags";
 
-    /** The input elmement that the `Tagify` instance is bound to */
-    declare input: HTMLInputElement;
-
     constructor() {
         super();
         // Set the initial value
         this._setValue(this.getAttribute("value") || "[]");
     }
 
-    protected override _buildElements(): HTMLElement[] {
-        this.input = document.createElement("input");
-        this.input.type = "text";
-        this._applyInputAttributes(this.input);
+    protected override _primaryInput: HTMLInputElement = document.createElement("input");
 
-        return [this.input];
+    get input(): HTMLInputElement {
+        return this._primaryInput;
+    }
+
+    protected override _buildElements(): HTMLElement[] {
+        this._primaryInput.type = "text";
+        this._applyInputAttributes(this._primaryInput);
+        return [this._primaryInput];
     }
 
     /** Overwritten so that submit data receives a string array */
@@ -64,25 +65,26 @@ class HTMLTagifyTagsElement extends foundry.applications.elements.AbstractFormIn
         // Transfer all attributes, except name and value, to the input element
         for (const attribute of this.attributes) {
             if (attribute.name === "name" || attribute.name === "value") continue;
-            this.input.setAttribute(attribute.name, attribute.value);
+            this._primaryInput.setAttribute(attribute.name, attribute.value);
             // Remove transfered attributes, expect class, from this element
             if (attribute.name !== "class") {
                 this.removeAttribute(attribute.name);
             }
         }
-        this.input.setAttribute("data-tagify-tags-name", this.name);
-        this.input.value = JSON.stringify(this._value);
+        this._primaryInput.setAttribute("data-tagify-tags-name", this.name);
+        this._primaryInput.value = JSON.stringify(this._value);
     }
 
     protected override _toggleDisabled(disabled: boolean): void {
-        this.input.disabled = disabled;
+        this._primaryInput.disabled = disabled;
     }
 
     override _activateListeners(): void {
-        this.input.addEventListener("change", (event) => {
+        this._primaryInput.addEventListener("change", (event) => {
             const target = event.target;
-            if (!(target instanceof HTMLInputElement)) return;
-            this.value = target.value || "[]";
+            if (target instanceof HTMLInputElement) {
+                this.value = target.value || "[]";
+            }
         });
     }
 }

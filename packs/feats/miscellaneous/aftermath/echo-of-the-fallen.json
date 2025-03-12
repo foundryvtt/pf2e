@@ -1,0 +1,66 @@
+{
+    "_id": "pvFRMbIazwAO0fjH",
+    "folder": "E9ObyMxDmNTulE5a",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Echo of the Fallen",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>With the utmost gratitude for your help in releasing them from their unearthly coil, a tiny sliver of a ghostly entity has remained attached to you. This manifests as an echo of their former self that follows you around and that you and anyone capable of casting divine or occult spells can see and speak with. When you take this feat, work with your GM to choose one martial weapon and one skill (or an advanced weapon if you're trained in all martial weapons) that are appropriate for the spirit; once you've chosen the weapon and skill, you can't change them. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Accept Echo] action.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "You helped to lay a haunt, ghost, or spirit to rest"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "actorFlag": true,
+                "adjustName": false,
+                "choices": {
+                    "config": "skills"
+                },
+                "flag": "echoSkill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "actorFlag": true,
+                "adjustName": false,
+                "choices": {
+                    "config": "baseWeaponTypes"
+                },
+                "flag": "echoWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Accept Echo"
+            }
+        ],
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "aftermath"
+            ]
+        }
+    },
+    "type": "feat"
+}

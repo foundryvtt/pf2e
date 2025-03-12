@@ -1,0 +1,49 @@
+{
+    "_id": "qXWCvqt24iczeN8V",
+    "img": "icons/skills/trades/mining-pickaxe-stone-cart.webp",
+    "name": "Spell Effect: Traveling Workshop",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Traveling Workshop]</p>\n<p>You are trained in Crafting and Thievery.</p><hr /><p><strong>Heightened (3rd)</strong> Your proficiency in Crafting and Thievery is expert.</p>\n<p><strong>Heightened (5th)</strong> Your proficiency in Crafting and Thievery is master.</p>\n<p><strong>Heightened (9th)</strong> Your proficiency in Crafting and Thievery is legendary.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.crafting.rank",
+                "value": "ternary(gte(@item.level,9),4,ternary(gte(@item.level,5),3,ternary(gte(@item.level,3),2,1)))"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.thievery.rank",
+                "value": "ternary(gte(@item.level,9),4,ternary(gte(@item.level,5),3,ternary(gte(@item.level,3),2,1)))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

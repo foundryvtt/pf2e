@@ -1,0 +1,88 @@
+{
+    "_id": "wpqKltAoJjRQgWow",
+    "folder": "RogsPFVWrS0iRohO",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Rope Runner",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>You run and climb across ropes and rigging almost as easily as on the ground. You gain a climb Speed of 15 feet, but only when climbing ropes and similar objects. Whenever you succeed at an Athletics check to Climb or an Acrobatics check to @UUID[Compendium.pf2e.actionspf2e.Item.Balance], you get a critical success instead. You aren't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] while Climbing or Balancing on a rope or similar object.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Acrobatics"
+                },
+                {
+                    "value": "trained in Athletics"
+                },
+                {
+                    "value": "Pirate Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "rope-runner",
+                "toggleable": true
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "rope-runner"
+                ],
+                "selector": "climb",
+                "value": 15
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "rope-runner",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "action:balance",
+                                    "check:statistic:acrobatics"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "action:climb",
+                                    "check:statistic:athletics"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "skill-check"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

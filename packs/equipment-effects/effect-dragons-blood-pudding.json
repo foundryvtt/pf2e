@@ -1,0 +1,96 @@
+{
+    "_id": "nbMEBxeqZIdOgysR",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-tapas/dragons-blood-pudding.webp",
+    "name": "Effect: Dragon's Blood Pudding",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Dragon's Blood Pudding (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Dragon's Blood Pudding (Greater)]</p>\n<p>You are quickened. You can use the additional action to Step, Stride, Strike, or Demoralize. You gain an item bonus to Intimidation checks to Demoralize.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens The Grand Bazaar"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:dragons-blood-pudding-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Dragon's Blood Pudding (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:dragons-blood-pudding-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Dragon's Blood Pudding (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "dragons-blood-pudding"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:demoralize"
+                ],
+                "selector": "intimidation",
+                "slug": "dragons-blood-pudding-bonus",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "dragons-blood-pudding:dragons-blood-pudding-greater"
+                ],
+                "selector": "intimidation",
+                "slug": "dragons-blood-pudding-bonus",
+                "value": 3
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Quickened"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

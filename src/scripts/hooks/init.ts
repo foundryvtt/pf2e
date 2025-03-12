@@ -9,6 +9,7 @@ import {
 } from "@module/apps/sidebar/index.ts";
 import { setPerceptionModes } from "@module/canvas/perception/modes.ts";
 import { RulerPF2e } from "@module/canvas/ruler.ts";
+import { TokenConfigPF2e } from "@scene/token-document/sheet.ts";
 import { PF2ECONFIG } from "@scripts/config/index.ts";
 import { registerHandlebarsHelpers } from "@scripts/handlebars.ts";
 import { registerFonts } from "@scripts/register-fonts.ts";
@@ -38,9 +39,13 @@ export const Init = {
             CONFIG.ui.actors = ActorDirectoryPF2e;
             CONFIG.ui.items = ItemDirectoryPF2e;
             CONFIG.ui.combat = EncounterTrackerPF2e;
-            CONFIG.ui.chat = ChatLogPF2e;
             CONFIG.ui.compendium = CompendiumDirectoryPF2e;
             CONFIG.ui.hotbar = HotbarPF2e;
+
+            if (game.release.generation === 12) {
+                CONFIG.ui.chat = ChatLogPF2e;
+                CONFIG.Token.prototypeSheetClass = TokenConfigPF2e;
+            }
 
             // Set after load in case of module conflicts
             if (!RulerPF2e.hasModuleConflict) CONFIG.Canvas.rulerClass = RulerPF2e;
@@ -58,7 +63,7 @@ export const Init = {
             }
 
             // Populate UUID redirects
-            for (const [from, to] of R.entries.strict(UUID_REDIRECTS)) {
+            for (const [from, to] of R.entries(UUID_REDIRECTS)) {
                 CONFIG.compendium.uuidRedirects[from] = to;
             }
 
@@ -133,12 +138,12 @@ export const Init = {
             // Register damage enricher, which is more complicated and needs an extra level of nesting
             // Derived from https://stackoverflow.com/questions/17759004/how-to-match-string-within-parentheses-nested-in-java/17759264#17759264
             CONFIG.TextEditor.enrichers.push({
-                pattern: /@(Damage)\[((?:[^[\]]*|\[[^[\]]*\])*)\](?:{([^}]+)})?/g,
+                pattern: /@(Damage)\[((?:[^[\]]|\[[^[\]]*\])*)\](?:{([^}]+)})?/g,
                 enricher: (match, options) => game.pf2e.TextEditor.enrichString(match, options),
             });
 
             CONFIG.TextEditor.enrichers.push({
-                pattern: /\[\[\/(act) (?<slug>[-a-z]+)(\s+)?(?<options>[^\]]+)*]](?:{(?<label>[^}]+)})?/g,
+                pattern: /\[\[\/(act)\s+(?<slug>[-a-z]+)(?:\s+(?<options>[^\]]+))?\]\](?:\{(?<label>[^}]+)\})?/g,
                 enricher: (match, options) => game.pf2e.TextEditor.enrichString(match, options),
             });
 

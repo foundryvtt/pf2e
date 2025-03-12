@@ -1,0 +1,72 @@
+{
+    "_id": "VVMMJdIWL7fAsQf3",
+    "img": "systems/pf2e/icons/features/classes/baba-yaga-patron.webp",
+    "name": "Baba Yaga",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your patron is Baba Yaga, the Queen of Witches. You are most likely a young woman who has been thrown into events far above your head, though you might also be a young man or a brave knight who has sworn your loyalty to the old witch. You may have demanded Baba Yaga's aid, and somehow escaped unscathed for your audacity. She may have reached out to you by sending a messenger in the form of an animated object, such as a mortar that had grown legs. She may have instead appeared before you herself, demanding you aid her with some nigh-impossible chore. While many fail these tasks and end up becoming a meal for Baba Yaga or meet even worse fates, you prevailed and earned her respect. Her gift to you is her patronage (and your life).</p>\n<p><strong>Spell List</strong> occult</p>\n<p><strong>Patron Skill</strong> Occultism</p>\n<p><strong>Lesson of Baba's Understanding</strong> Baba Yaga teaches you to be more like her, allowing you to transfer spirits into objects and freeze your foes. You gain the @UUID[Compendium.pf2e.spells-srd.Item.Spirit Object] hex cantrip and your familiar learns @UUID[Compendium.pf2e.spells-srd.Item.Chilling Spray].</p>\n<p><strong>Familiar of Obscuring Snowfall</strong> Your familiar is always covered in a thin layer of snow, which it sheds as needed. When you Cast or Sustain a hex, you can cause clinging snow to fall in a @Template[type:burst|distance:5] centered on a square of your familiar's space. This snowfall remains until the start of your next turn, and enemies that enter these squares during that period are @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] until the start of your next turn.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.occultism.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.aliases.witch",
+                "priority": 39,
+                "value": "occult"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:witch",
+                    "item:trait:hex"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Witch.Patron.FamiliarAbility.ObscuringSnowfall.Description",
+                        "title": "PF2E.SpecificRule.Witch.Patron.FamiliarAbility.ObscuringSnowfall.Title"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "witch-patron"
+            ],
+            "rarity": "rare",
+            "selected": {
+                "witch": "Witch"
+            },
+            "value": [
+                "witch"
+            ]
+        }
+    },
+    "type": "feat"
+}

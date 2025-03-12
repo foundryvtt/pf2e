@@ -1,21 +1,21 @@
 import type { ActorPF2e } from "@actor";
 import type { StrikeData } from "@actor/data/base.ts";
+import { iterateAllItems } from "@actor/helpers.js";
 import type { InitiativeRollResult } from "@actor/initiative.ts";
 import type { PhysicalItemPF2e } from "@item";
 import { AbstractEffectPF2e, ItemPF2e, SpellPF2e } from "@item";
-import type { ActionCategory, ActionTrait } from "@item/ability/types.ts";
+import type { AbilityTrait, ActionCategory } from "@item/ability/types.ts";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import type { ActionType, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import type { Coins } from "@item/physical/data.ts";
-import { detachSubitem } from "@item/physical/helpers.ts";
+import { detachSubitem, sizeItemForActor } from "@item/physical/helpers.ts";
 import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
-import { createSelfEffectMessage } from "@module/chat-message/helpers.ts";
-import { createSheetTags, maintainFocusInRender } from "@module/sheet/helpers.ts";
-import { eventToRollMode, eventToRollParams } from "@scripts/sheet-util.ts";
+import { createUseActionMessage } from "@module/chat-message/helpers.ts";
+import { createSheetTags, eventToRollMode, eventToRollParams, maintainFocusInRender } from "@module/sheet/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import type { StatisticRollParameters } from "@system/statistic/statistic.ts";
 import {
@@ -43,6 +43,8 @@ import {
     signedInteger,
     tupleHasValue,
 } from "@util";
+import { createSortable } from "@util/destroyables.ts";
+import MiniSearch from "minisearch";
 import * as R from "remeda";
 import Sortable from "sortablejs";
 import { ActorSizePF2e } from "../data/size.ts";
@@ -68,6 +70,14 @@ import { RemoveCoinsPopup } from "./popups/remove-coins-popup.ts";
  * @category Actor
  */
 abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
+    /** Index all items and subitems in this actor for searching. Indexed by UUID because subitems may share ids across different parents */
+    #inventorySearchEngine = new MiniSearch<Pick<PhysicalItemPF2e<TActor>, "uuid" | "name">>({
+        fields: ["name"],
+        idField: "uuid",
+        processTerm: (t) => (t.length > 1 ? t.toLocaleLowerCase(game.i18n.lang) : null),
+        searchOptions: { combineWith: "AND", prefix: true },
+    });
+
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         options.dragDrop = [
@@ -75,18 +85,22 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             { dragSelector: "ul[data-loot] li[data-item-id]" },
             { dragSelector: ".item-list .item:not(.inventory-list *)" },
         ];
+        options.filters = [
+            { inputSelector: ".inventory-header input[type=search]", contentSelector: "section.inventory-list" },
+        ];
         return fu.mergeObject(options, {
             classes: ["default", "sheet", "actor"],
             scrollY: [".sheet-sidebar", ".tab.active", ".inventory-list"],
         });
     }
 
+    /** @todo fixme for V13 */
     constructor(actor: TActor, options?: Partial<ActorSheetOptions>) {
         super(actor, options);
 
         // On initial opening, adjust width according to `fontSize` setting
         const baseWidth = this.options.width;
-        if (typeof baseWidth === "number") {
+        if (game.release.generation === 12 && typeof baseWidth === "number") {
             const calculatedWidth = (baseWidth * game.settings.get("core", "fontSize")) / 5;
             this.position.width &&= Math.floor(Math.clamp(calculatedWidth, 0.75 * baseWidth, 1024));
         }
@@ -105,16 +119,15 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         options.editable = this.isEditable;
         options.sheetConfig &&=
             Object.values(CONFIG.Actor.sheetClasses[this.actor.type]).filter((c) => c.canConfigure).length > 1;
+        const actor = this.actor;
 
-        for (const item of [...this.actor.itemTypes.action, ...this.actor.itemTypes.feat]) {
+        for (const item of [...actor.itemTypes.action, ...this.actor.itemTypes.feat]) {
             if (item.system.selfEffect) {
                 item.system.selfEffect.img ??= fromUuidSync(item.system.selfEffect.uuid)?.img ?? null;
             }
         }
 
-        // The Actor and its Items
-        const actorData = this.actor.toObject(false);
-
+        const actorData = { ...actor, _id: this.actor.id, system: fu.deepClone({ ...actor.system }) };
         // Alphabetize displayed IWR
         const iwrKeys = ["immunities", "weaknesses", "resistances"] as const;
         const attributes: Record<(typeof iwrKeys)[number], { label: string }[]> = actorData.system.attributes;
@@ -123,15 +136,15 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         // Calculate financial and total wealth
-        const coins = this.actor.inventory.coins;
+        const coins = actor.inventory.coins;
         const totalCoinage = ActorSheetPF2e.coinsToSheetData(coins);
         const totalCoinageGold = (coins.copperValue / 100).toFixed(2);
 
-        const totalWealth = this.actor.inventory.totalWealth;
+        const totalWealth = actor.inventory.totalWealth;
         const totalWealthGold = (totalWealth.copperValue / 100).toFixed(2);
 
         const traitsMap = ((): Record<string, string> => {
-            switch (this.actor.type) {
+            switch (actor.type) {
                 case "hazard":
                     return CONFIG.PF2E.hazardTraits;
                 case "vehicle":
@@ -143,7 +156,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         // Consolidate toggles from across domains and regroup by sheet placement
         const toggles = R.groupBy(
-            Object.values(this.actor.synthetics.toggles).flatMap((domain) => Object.values(domain)),
+            Object.values(actor.synthetics.toggles).flatMap((domain) => Object.values(domain)),
             (t) => t.placement,
         );
 
@@ -158,7 +171,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             inventory: this.prepareInventory(),
             isLootSheet: this.isLootSheet,
             isTargetFlatFooted: !!this.actor.rollOptions.all["target:condition:off-guard"],
-            items: actorData.items,
+            items: [], // No longer used but part of type signature
             limited: this.actor.limited,
             options,
             owner: this.actor.isOwner,
@@ -182,6 +195,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     protected prepareInventory(): SheetInventory {
+        const items = [...iterateAllItems(this.actor)].filter((i) => i.isOfType("physical"));
+        this.#inventorySearchEngine.removeAll();
+        this.#inventorySearchEngine.addAll(items.map((i) => R.pick(i, ["uuid", "name"])));
+
         const sections: SheetInventory["sections"] = [
             {
                 label: game.i18n.localize("PF2E.Actor.Inventory.Section.WeaponsAndShields"),
@@ -199,10 +216,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             { label: game.i18n.localize("PF2E.Item.Container.Plural"), types: ["backpack"], items: [] },
         ];
 
-        const actor = this.actor;
+        const actor = this.actor.clone({}, { keepId: true });
         for (const item of actor.inventory.contents.sort((a, b) => (a.sort || 0) - (b.sort || 0))) {
             if (item.isInContainer) continue;
-            sections.find((s) => s.types.includes(item.type))?.items.push(this.prepareInventoryItem(item));
+            const section = sections.find((s) => s.types.includes(item.type));
+            section?.items.push(this.prepareInventoryItem(item));
         }
 
         return {
@@ -219,9 +237,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     protected prepareInventoryItem(item: PhysicalItemPF2e): InventoryItem {
         const editable = game.user.isGM || item.isIdentified;
-        const heldItems = item.isOfType("backpack")
-            ? item.contents.map((i) => this.prepareInventoryItem(i))
-            : undefined;
+        const heldItems = item.isOfType("backpack") ? item.contents.map((i) => this.prepareInventoryItem(i)) : null;
         heldItems?.sort((a, b) => (a.item.sort || 0) - (b.item.sort || 0));
 
         const actor = this.actor;
@@ -243,6 +259,50 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         };
     }
 
+    protected override _onSearchFilter(
+        event: KeyboardEvent,
+        query: string,
+        rgx: RegExp,
+        html: HTMLElement | null,
+    ): void {
+        super._onSearchFilter(event, query, rgx, html);
+
+        // Gets all parents, including containers and parent items
+        const getAllParents = (item: PhysicalItemPF2e): PhysicalItemPF2e[] => {
+            const parents = [item.container, item.parentItem].filter((i): i is PhysicalItemPF2e => !!i);
+            return [...parents, ...parents.flatMap((p) => getAllParents(p))];
+        };
+
+        // Gets all children, including container contents and sub items
+        const getAllChildren = (item: PhysicalItemPF2e): PhysicalItemPF2e[] => {
+            const contents = [...(item.isOfType("backpack") ? item.contents : []), ...item.subitems];
+            return [...contents, ...contents.flatMap((c) => getAllChildren(c))];
+        };
+
+        const matches = (() => {
+            // If inventory, also include all parents and all children in result set. Due to subitems, we can't use actor.items
+            if (html?.classList.contains("inventory-list") && query.length > 1) {
+                const baseMatches = this.#inventorySearchEngine.search(query).map((s) => String(s.id));
+                const allItems = [...iterateAllItems(this.actor)];
+                const itemsByUuid: Record<string, PhysicalItemPF2e<TActor>> = R.mapToObj(
+                    allItems.filter((i): i is PhysicalItemPF2e<TActor> => i.isOfType("physical")),
+                    (i) => [i.uuid, i],
+                );
+                const baseItems = baseMatches.map((uuid) => itemsByUuid[uuid]).filter((i) => !!i);
+                const parentMatches = baseItems.flatMap((i) => getAllParents(i)).map((i) => i.uuid);
+                const childMatches = baseItems.flatMap((i) => getAllChildren(i)).map((i) => i.uuid);
+
+                return new Set([baseMatches, parentMatches, childMatches].flat());
+            }
+
+            return null;
+        })();
+
+        for (const row of htmlQueryAll(html, "li[data-uuid]")) {
+            row.hidden = matches !== null && !matches.has(row.dataset.uuid ?? "");
+        }
+    }
+
     protected static coinsToSheetData(coins: Coins): CoinageSummary {
         return DENOMINATIONS.reduce(
             (accumulated, d) => ({
@@ -259,7 +319,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const altUsage = tupleHasValue(["thrown", "melee"], button?.dataset.altUsage) ? button?.dataset.altUsage : null;
 
         const strike = altUsage
-            ? rootAction?.altUsages?.find((s) => (altUsage === "thrown" ? s.item.isThrown : s.item.isMelee)) ?? null
+            ? (rootAction?.altUsages?.find((s) => (altUsage === "thrown" ? s.item.isThrown : s.item.isMelee)) ?? null)
             : rootAction;
 
         return strike?.ready || !readyOnly ? strike : null;
@@ -283,8 +343,15 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         })();
         this.#activateInventoryDragDrop(inventoryPanel);
 
+        // Allow use of search inputs when sheet is not editable
+        if (!this.isEditable && this.actor.testUserPermission(game.user, "OBSERVER")) {
+            for (const input of html.querySelectorAll<HTMLInputElement>("input[type=search]")) {
+                input.disabled = false;
+            }
+        }
+
         // Everything below here is only needed if the sheet is editable
-        if (!this.options.editable) return;
+        if (!this.isEditable) return;
 
         // Handlers for number inputs of properties subject to modification by AE-like rules elements
         const manualPropertyInputs = htmlQueryAll<HTMLInputElement | HTMLSelectElement>(
@@ -331,6 +398,37 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                                   : String(currentValue || 0);
                     }
                 }
+            });
+        }
+
+        // General handler for embedded item updates
+        const itemPropertyInputs = htmlQueryAll<HTMLInputElement | HTMLSelectElement>(
+            html,
+            "input[data-item-id][data-item-property], select[data-item-id][data-item-property]",
+        );
+        for (const element of itemPropertyInputs) {
+            element.addEventListener("change", async (event) => {
+                event.stopPropagation();
+                const { itemId, itemProperty } = element.dataset;
+                if (!itemId || !itemProperty) return;
+
+                const value = (() => {
+                    const value =
+                        element instanceof HTMLInputElement && element.type === "checkbox"
+                            ? element.checked
+                            : element.value;
+                    if (typeof value === "boolean") return value;
+                    const dataType =
+                        element.dataset.dtype ?? (["number", "range"].includes(element.type) ? "Number" : "String");
+
+                    return dataType === "Number" ? Number(value) || 0 : value.trim();
+                })();
+
+                // Perform the update. If nothing was changed, re-render so that input fields are reset
+                const updated = await this.actor.updateEmbeddedDocuments("Item", [
+                    { _id: itemId, [itemProperty]: value },
+                ]);
+                if (updated.length === 0) this.render(true);
             });
         }
 
@@ -431,6 +529,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 deltaInput.value = match ?? deltaInput.value;
             });
         }
+
+        // Work around search filter flashing on re-render
+        for (const filter of this._searchFilters) {
+            const rgx = new RegExp(RegExp.escape(filter.query), "i");
+            this._onSearchFilter(new KeyboardEvent("input"), filter.query, rgx, filter._content);
+        }
     }
 
     /** Sheet-wide click listeners for elements selectable as `a[data-action]` */
@@ -483,8 +587,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 const actor = this.actor;
                 const itemEl = htmlClosest(anchor, "[data-item-id]");
                 const collectionId = itemEl?.dataset.entryId;
-                const collection: Collection<ItemPF2e<TActor>> = collectionId
-                    ? actor.spellcasting?.collections.get(collectionId, { strict: true }) ?? actor.items
+                const collection: { get: Collection<ItemPF2e>["get"] } = collectionId
+                    ? (actor.spellcasting?.collections.get(collectionId, { strict: true }) ?? actor.items)
                     : actor.items;
 
                 const itemId = itemEl?.dataset.itemId;
@@ -537,7 +641,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 const itemId = htmlClosest(anchor, "[data-item-id]")?.dataset.itemId;
                 const item = this.actor.items.get(itemId, { strict: true });
                 if (item.isOfType("action", "feat")) {
-                    return createSelfEffectMessage(item, eventToRollMode(event));
+                    return createUseActionMessage(item, eventToRollMode(event));
                 }
             },
             // INVENTORY
@@ -629,14 +733,17 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             const handler = handlers[actionTarget?.dataset.action ?? ""];
             if (handler && actionTarget) {
                 event.stopImmediatePropagation();
+
                 // Temporarily remove the listener to ignore unintentional double clicks
                 html.removeEventListener("click", sheetHandler);
+                setTimeout(() => {
+                    html.addEventListener("click", sheetHandler);
+                }, 50);
+
                 try {
                     await handler(event, actionTarget);
                 } catch (error) {
                     console.error(error);
-                } finally {
-                    html.addEventListener("click", sheetHandler);
                 }
             }
         };
@@ -664,7 +771,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 onEnd: (event) => this.#onDropInventoryItem(event),
             };
 
-            new Sortable(list, options);
+            createSortable(list, options);
         }
     }
 
@@ -769,7 +876,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     #onClickBrowseAbilities(anchor: HTMLElement): void {
         const types = (anchor.dataset.actionType || "").split(",") as ActionType[];
-        const traits = (anchor.dataset.actionTrait || "").split(",") as ActionTrait[];
+        const traits = (anchor.dataset.actionTrait || "").split(",") as AbilityTrait[];
         const categories = (anchor.dataset.actionCategory || "").split(",") as ActionCategory[];
         game.pf2e.compendiumBrowser.openActionTab({ types, traits, categories });
     }
@@ -779,9 +886,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             .split(",")
             .map((s) => s.trim())
             .filter((s) => !!s);
+        const levelString = element.dataset.level;
         const tab = game.pf2e.compendiumBrowser.tabs.equipment;
         const filter = await tab.getFilterData();
-        const { checkboxes } = filter;
+        const checkboxes = filter.checkboxes;
 
         for (const itemType of checkboxesFilterCodes) {
             const checkbox = checkboxes.itemTypes;
@@ -792,7 +900,17 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             }
         }
 
-        tab.open(filter);
+        if (levelString) {
+            const level = filter.level;
+            const newValue = Math.clamp(Number(levelString), level.min, level.max);
+            if (!Number.isNaN(newValue)) {
+                level.from = newValue;
+                level.to = newValue;
+            }
+            level.isExpanded = true;
+        }
+
+        tab.open({ filter });
     }
 
     protected override _canDragStart(selector: string): boolean {
@@ -838,7 +956,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         };
         if (previewElement && "isFormula" in previewElement.dataset) {
             baseDragData.isFormula = true;
-            baseDragData.entrySelector = previewElement.dataset.entrySelector;
+            baseDragData.ability = previewElement.dataset.ability;
             baseDragData.uuid = previewElement.dataset.itemUuid;
         }
 
@@ -965,7 +1083,15 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         data: DropCanvasItemDataPF2e,
     ): Promise<Item<ActorPF2e | null>[]> {
         const actor = this.actor;
-        const itemSource = item.toObject();
+
+        // Get the item source.
+        // If the item is from a compendium, adjust the size to be appropriate to the creature's
+        const itemSource = (() => {
+            const fromCompendium =
+                data?.uuid?.startsWith("Compendium.") || event.dataTransfer?.types.includes("from-browser");
+            const adjustedItem = item.isOfType("physical") && fromCompendium ? sizeItemForActor(item, actor) : item;
+            return adjustedItem.toObject();
+        })();
 
         // Set effect to unidentified if alt key is held
         const mystified = game.user.isGM && event.altKey;
@@ -1054,7 +1180,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             return [item];
         }
 
-        if (itemIsOfType(itemSource, "physical")) {
+        if (item.isOfType("physical") && itemIsOfType(itemSource, "physical")) {
             const containerId = htmlClosest(event.target, "li[data-is-container]")?.dataset.itemId?.trim() || null;
             const container = this.actor.itemTypes.backpack.find((container) => container.id === containerId);
             if (container) {
@@ -1062,11 +1188,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 itemSource.system.equipped.carryType = "stowed";
             } else {
                 itemSource.system.equipped.carryType = "worn";
-            }
-            // If the item is from a compendium, adjust the size to be appropriate to the creature's
-            if (data?.uuid?.startsWith("Compendium") && itemSource.type !== "treasure" && actor.isOfType("creature")) {
-                const sourceSize = actor.system.traits?.naturalSize ?? actor.size;
-                itemSource.system.size = sourceSize === "sm" ? "med" : sourceSize;
             }
         }
 

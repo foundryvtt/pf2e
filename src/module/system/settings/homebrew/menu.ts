@@ -5,8 +5,9 @@ import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunner } from "@module/migration/runner/index.ts";
 import { LanguageSelector } from "@system/tag-selector/languages.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, localizer, objectHasKey, sluggify } from "@util";
+import { DestroyableManager } from "@util/destroyables.ts";
 import Tagify from "@yaireo/tagify";
-import "@yaireo/tagify/src/tagify.scss";
+import "@yaireo/tagify/dist/tagify.css";
 import * as R from "remeda";
 import { PartialSettingsData, SettingsMenuPF2e } from "../menu.ts";
 import { DamageTypeManager } from "./damage.ts";
@@ -76,7 +77,8 @@ class HomebrewElements extends SettingsMenuPF2e {
             choices: R.mapToObj(["none", "kingmaker"], (key) => [key, `PF2E.SETTINGS.CampaignType.Choices.${key}`]),
             type: String,
             tab: "campaign",
-            onChange: async () => {
+            onChange: async (value) => {
+                game.pf2e.settings.campaign.type = value === "none" ? null : String(value);
                 await resetActors(game.actors.filter((a) => a.isOfType("party")));
                 ui.sidebar.render();
             },
@@ -155,7 +157,7 @@ class HomebrewElements extends SettingsMenuPF2e {
             if (!input) throw ErrorPF2e("Unexpected error preparing form");
             const localize = localizer("PF2E.SETTINGS.Homebrew");
 
-            new Tagify(input, {
+            const tagify = new Tagify(input, {
                 editTags: 1,
                 hooks: {
                     beforeRemoveTag: (tags): Promise<void> => {
@@ -180,6 +182,7 @@ class HomebrewElements extends SettingsMenuPF2e {
                     }
                 },
             });
+            DestroyableManager.instance.observe(tagify);
         }
 
         htmlQuery(html, "[data-action=damage-add]")?.addEventListener("click", async () => {
@@ -348,7 +351,7 @@ class HomebrewElements extends SettingsMenuPF2e {
     /** Register homebrew elements stored in a prescribed location in module flags */
     #registerModuleTags(): void {
         const settings = HomebrewElements.moduleData;
-        for (const [recordKey, tags] of R.entries.strict(settings.traits)) {
+        for (const [recordKey, tags] of R.entries(settings.traits)) {
             if (tags.length > 0) {
                 this.#updateConfigRecords(tags, recordKey);
             }

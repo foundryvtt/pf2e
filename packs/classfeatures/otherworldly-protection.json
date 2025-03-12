@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>Just because you use science doesn't mean you can't build your armor with carefully chosen materials and gizmos designed to protect against otherworldly attacks. You gain resistance equal to 3 + half your level to void damage, or to vitality damage if you have void healing (such as if you're a dhampir). You gain the same amount of resistance to any types of alignment damage—good, evil, chaotic, lawful—that can damage you (note that creatures don't take a given type of alignment damage unless they are of the opposing alignment; for instance, you can take spirit damage only if you are good in alignment).</p>"
+            "value": "<p>Just because you prefer science doesn't mean you can't build your armor with materials and gizmos designed to protect against otherworldly attacks. You gain resistance equal to 3 + half your level to void damage, or to vitality damage if you have void healing (such as if you're a dhampir). You gain the same amount of resistance to spirit damage. If you are sanctified (such as by also being a champion or cleric dedicated to a deity who allows or enforces sanctification) this resistance applies to unholy damage (if you are sanctified holy) or holy damage (if you are sanctified unholy), regardless of what other traits the damage has.</p>"
         },
         "level": {
             "value": 1
@@ -20,8 +20,8 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
         "rules": [
@@ -50,8 +50,27 @@
                 "predicate": [
                     "armor:id:{actor|flags.pf2e.innovationId}"
                 ],
+                "type": "spirit",
+                "value": "3 + floor(@actor.level / 2)"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "sanctification:unholy"
+                ],
                 "type": [
-                    "holy",
+                    "holy"
+                ],
+                "value": "3 + floor(@actor.level / 2)"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "sanctification:holy"
+                ],
+                "type": [
                     "unholy"
                 ],
                 "value": "3 + floor(@actor.level / 2)"

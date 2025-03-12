@@ -1,0 +1,72 @@
+{
+    "_id": "aNomC4orI44YGBGU",
+    "img": "icons/weapons/polearms/spear-flared-silver-pink.webp",
+    "name": "Spell Effect: Charged Javelin (Attacker)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Charged Javelin]</p>\n<p>You gain a +1 status bonus to attack rolls with metal weapons or electricity effects against the origin.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:electricity",
+                            {
+                                "and": [
+                                    {
+                                        "or": [
+                                            "item:material:abysium",
+                                            "item:material:adamantine",
+                                            "item:material:cold-iron",
+                                            "item:material:dawnsilver",
+                                            "item:material:djezet",
+                                            "item:material:inubrix",
+                                            "item:material:keep-stone",
+                                            "item:material:metal",
+                                            "item:material:noqual",
+                                            "item:material:orichalcum",
+                                            "item:material:siccatite",
+                                            "item:material:silver",
+                                            "item:material:sovereign-steel"
+                                        ]
+                                    },
+                                    "item:type:weapon"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "attack-roll",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,33 +1,37 @@
+import { createTooltipster } from "@util/destroyables.ts";
 import type { CharacterPF2e } from "./document.ts";
 
 export class PCSheetTabManager {
-    constructor(
-        public actor: CharacterPF2e,
-        public link: HTMLAnchorElement,
-    ) {
-        renderTemplate("systems/pf2e/templates/actors/character/manage-tabs.hbs").then((template) => {
-            $(this.link).tooltipster({
-                content: template,
-                contentAsHTML: true,
-                delay: 250,
-                interactive: true,
-                theme: "crb-hover",
-                title: game.i18n.localize("PF2E.TabManageTabsLabel"),
-                trigger: "custom",
-                triggerOpen: { click: true },
-                triggerClose: { originClick: true, mouseleave: true },
-                functionReady: (_origin, helper) => this.onReady(helper.tooltip!),
-                functionAfter: () => this.onClose(),
-            });
+    actor: CharacterPF2e;
+
+    link: HTMLElement;
+
+    constructor(actor: CharacterPF2e, link: HTMLAnchorElement) {
+        this.actor = actor;
+        this.link = link;
+        this.initialize();
+    }
+
+    async initialize(): Promise<void> {
+        const content = await renderTemplate("systems/pf2e/templates/actors/character/manage-tabs.hbs");
+        createTooltipster(this.link, {
+            content,
+            contentAsHTML: true,
+            delay: 250,
+            interactive: true,
+            theme: "crb-hover",
+            title: game.i18n.localize("PF2E.TabManageTabsLabel"),
+            trigger: "custom",
+            triggerOpen: { click: true },
+            triggerClose: { originClick: true, mouseleave: true },
+            functionReady: (_origin, helper) => this.#onReady(helper.tooltip),
+            functionAfter: this.#onClose.bind(this),
         });
     }
 
-    static initialize(actor: CharacterPF2e, link: HTMLAnchorElement): void {
-        new this(actor, link);
-    }
-
     /** Set each checkbox to be checked according to its corresponding tab visibility */
-    private onReady(tooltip: HTMLElement): void {
+    #onReady(tooltip: HTMLElement | null = null): void {
+        if (!tooltip) return;
         const tabVisibility: Record<string, boolean> = this.actor.flags.pf2e.sheetTabs;
         const nav = this.link.closest("nav");
         const tabs = nav?.querySelectorAll<HTMLAnchorElement>("a.item[data-tab]") ?? [];
@@ -45,12 +49,12 @@ export class PCSheetTabManager {
 
         const checkboxes = Array.from(tooltip.querySelectorAll<HTMLInputElement>('input[type="checkbox"]'));
         for (const checkbox of checkboxes) {
-            this.handleOnChange(checkbox, checkboxes);
+            this.#handleOnChange(checkbox, checkboxes);
         }
     }
 
     /** Save to the actor flag when a checkbox is checked or unchecked */
-    private handleOnChange(checkbox: HTMLInputElement, checkboxes: HTMLInputElement[]): void {
+    #handleOnChange(checkbox: HTMLInputElement, checkboxes: HTMLInputElement[]): void {
         checkbox.addEventListener("change", async () => {
             const nav = this.link.closest("nav");
             const tabName = checkbox?.dataset.tabName ?? "";
@@ -75,7 +79,7 @@ export class PCSheetTabManager {
     }
 
     /** Hide all tab buttons selected requested be hidden */
-    private onClose(): void {
+    #onClose(): void {
         const tabs = Array.from(this.link.closest("nav")?.querySelectorAll("a.item[data-tab]") ?? []);
         for (const tab of tabs) {
             if (tab.classList.contains("to-hide")) {

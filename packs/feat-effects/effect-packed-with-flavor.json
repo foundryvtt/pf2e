@@ -1,0 +1,41 @@
+{
+    "_id": "U9tJvfQDdpsf5Ipd",
+    "img": "icons/consumables/food/cooked-kebab-meat-skewer-orange.webp",
+    "name": "Effect: Packed with Flavor",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Packed with Flavor]</p>\n<p>You gain temporary Hit Points.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 12
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "ternary(gte(@item.origin.system.skills.crafting.rank,3),10,5)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

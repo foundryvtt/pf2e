@@ -1,5 +1,7 @@
 import { resetActors } from "@actor/helpers.ts";
 import { htmlQuery, tupleHasValue } from "@util";
+import * as R from "remeda";
+import { SettingsTemplateData, settingsToSheetData } from "./menu.ts";
 
 const SETTINGS: Record<string, SettingRegistration> = {
     gradualBoostsVariant: {
@@ -46,6 +48,21 @@ const SETTINGS: Record<string, SettingRegistration> = {
             const choices = ["noABP", "ABPFundamentalPotency", "ABPRulesAsWritten"] as const;
             game.pf2e.settings.variants.abp = tupleHasValue(choices, value) ? value : game.pf2e.settings.variants.abp;
             resetActors(game.actors.filter((a) => a.type === "character"));
+        },
+    },
+    mythic: {
+        name: "PF2E.SETTINGS.Variant.Mythic.Name",
+        hint: "PF2E.SETTINGS.Variant.Mythic.Hint",
+        type: String,
+        default: "disabled",
+        choices: R.mapToObj(["disabled", "enabled", "variant-tiers"], (key) => [
+            key,
+            `PF2E.SETTINGS.Variant.Mythic.Choices.${key}`,
+        ]),
+        onChange: (value) => {
+            const choices = ["disabled", "enabled", "variant-tiers"] as const;
+            game.pf2e.settings.campaign.mythic = tupleHasValue(choices, value) ? value : "disabled";
+            resetActors(game.actors.filter((a) => a.isOfType("character")));
         },
     },
     proficiencyVariant: {
@@ -121,14 +138,8 @@ export class VariantRulesSettings extends FormApplication {
         };
     }
 
-    override async getData(): Promise<Record<string, { value: unknown; setting: SettingRegistration }>> {
-        return Object.entries(SETTINGS).reduce(
-            (data: Record<string, { value: unknown; setting: SettingRegistration }>, [key, setting]) => ({
-                ...data,
-                [key]: { value: game.settings.get("pf2e", key), setting },
-            }),
-            {},
-        );
+    override async getData(): Promise<Record<string, SettingsTemplateData>> {
+        return settingsToSheetData(SETTINGS);
     }
 
     static registerSettings(): void {

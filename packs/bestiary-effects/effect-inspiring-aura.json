@@ -1,0 +1,54 @@
+{
+    "_id": "lM0swBGK6CfkMb6E",
+    "img": "icons/sundries/flags/banner-symbol-claw.webp",
+    "name": "Effect: Inspiring Aura",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +1 status bonus to initiative rolls and saves against fear effects.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "check:statistic:initiative",
+                            "item:trait:fear"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "initiative",
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

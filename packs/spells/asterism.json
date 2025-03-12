@@ -3,13 +3,17 @@
     "img": "icons/skills/trades/academics-astronomy-navigation-purple.webp",
     "name": "Asterism",
     "system": {
-        "area": null,
+        "area": {
+            "type": "line",
+            "value": 30
+        },
         "cost": {
             "value": ""
         },
         "counteraction": false,
         "damage": {
             "0": {
+                "applyMod": false,
                 "category": null,
                 "formula": "4d6",
                 "kinds": [
@@ -26,13 +30,14 @@
             }
         },
         "description": {
-            "value": "<p>Lines of burning starlight form a constellation around you. Draw five lines, one at a time; each line must anchor at you or a creature or object already connected to a previous line, and it must end at a creature or object within 30 feet of its anchor (possibly allowing the <em>asterism</em> to extend to its full 150-foot range). A creature that begins its turn in one of these lines or enters one of these lines on its turn takes 4d6 fire damage (basic Reflex save). A creature can take this damage only once per turn, even if it moves through several lines. Targets that are part of the <em>asterism</em> do not take damage from it. If the distance between two targets (or you and a target) ever exceeds 30 feet, the line of starlight between the two breaks, and any lines that now no longer have a direct path back to you also break. You can Dismiss the spell.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
+            "value": "<p><strong>Area</strong> (continued) five 30-foot lines</p><hr /><p>Lines of burning starlight form a constellation around you. Draw five lines, one at a time; each line must anchor at you or a creature or object already connected to a previous line, and it must end at a creature or object within 30 feet of its anchor (possibly allowing the asterism to extend to its full 150-foot range). A creature that begins its turn in one of these lines or enters one of these lines on its turn takes 4d6 fire damage (basic Reflex save). A creature can take this damage only once per turn, even if it moves through several lines. Targets that are part of the asterism do not take damage from it. If the distance between two targets (or you and a target) ever exceeds 30 feet, the line of starlight between the two breaks, and any lines that now no longer have a direct path back to you also break. You can Dismiss the spell.</p><hr /><p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
         },
         "duration": {
             "sustained": false,
             "value": "1 minute"
         },
         "heightening": {
+            "area": 0,
             "damage": {
                 "0": "1d6"
             },
@@ -43,9 +48,9 @@
             "value": 4
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens: Gods & Magic"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
         },
         "range": {
             "value": "150 feet"
@@ -59,7 +64,7 @@
             "value": "3"
         },
         "traits": {
-            "rarity": "common",
+            "rarity": "uncommon",
             "traditions": [],
             "value": [
                 "cleric",

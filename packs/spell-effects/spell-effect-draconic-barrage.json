@@ -1,0 +1,79 @@
+{
+    "_id": "iXQCXCMiiJ8WV6K7",
+    "img": "icons/creatures/reptiles/dragon-winged-blue.webp",
+    "name": "Spell Effect: Draconic Barrage",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Draconic Barrage]</p>\n<p>Your Strikes with weapons or unarmed attacks deal additional damage of the chosen type.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "option": "draconic-barrage",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitForce",
+                        "value": "force"
+                    },
+                    {
+                        "label": "PF2E.TraitMental",
+                        "value": "mental"
+                    },
+                    {
+                        "label": "PF2E.TraitSpirit",
+                        "value": "spirit"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.draconicBarrage}",
+                "key": "FlatModifier",
+                "selector": "strike-damage",
+                "value": "@item.level"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:draconic-barrage"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "spell-damage"
+                ],
+                "value": "{item|flags.pf2e.rulesSelections.draconicBarrage}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

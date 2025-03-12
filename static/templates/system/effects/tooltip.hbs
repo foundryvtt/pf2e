@@ -1,0 +1,49 @@
+<div class="content">
+    <h1>
+        {{effect.name}}
+        <a data-action="send-to-chat" data-tooltip="{{localize "PF2E.NPC.SendToChat"}}"><i class="fa-solid fa-fw fa-comment-alt" ></i></a>
+        {{#if (or (ne effect.type "condition") (eq effect.slug "persistent-damage"))}}
+            <a data-action="edit" data-tooltip="{{localize "PF2E.EditItemTitle"}}"><i class="fa-solid fa-fw fa-pencil" ></i></a>
+        {{/if}}
+    </h1>
+    {{#if (or (eq effect.type "effect") effect.breakdown)}}
+        <div class="tags">
+            {{#if (and effect.system.duration.sustained (not effect.system.expired))}}
+                <div class="tag tag_secondary">{{localize "PF2E.Item.Spell.Sustained.Label"}}</div>
+            {{/if}}
+            {{#unless effect.isIdentified}}
+                <div class="tag tag_secondary">{{localize "PF2E.EffectPanel.Unidentified"}}</div>
+            {{/unless}}
+            {{#if effect.breakdown}}
+                <div class="tag tag_secondary">{{effect.breakdown}}</div>
+            {{/if}}
+            {{#if remaining}}
+                <div class="tag tag_secondary">{{remaining}}</div>
+            {{/if}}
+        </div>
+    {{/if}}
+    {{#if (eq effect.slug "persistent-damage")}}
+        <a class="inline-check" data-action="recover-persistent-damage">
+            <i class="fa-solid fa-dice-d20 icon"></i>
+            <span class="label">{{localize "PF2E.Item.Condition.PersistentDamage.AssistedRecovery"}}</span>
+        </a>
+    {{/if}}
+    <div class="instructions">
+        {{#if (nor effect.isLocked effect.inMemoryOnly)}}
+            {{#if (eq effect.badge.type "formula")}}
+                <div>{{localize "PF2E.EffectPanel.RollDamageToolTip"}}</div>
+            {{/if}}
+
+            {{#if (eq effect.badge.type "counter")}}
+                <div>{{localize "PF2E.EffectPanel.IncrementToolTip"}}</div>
+                <div>{{localize "PF2E.EffectPanel.DecrementToolTip"}}</div>
+            {{else}}
+                <div>{{localize "PF2E.EffectPanel.RemoveToolTip"}}</div>
+            {{/if}}
+        {{/if}}
+    </div>
+
+    <div class="description">
+        {{{description}}}
+    </div>
+</div>

@@ -178,9 +178,9 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
                 if (byAffliction) return byAffliction;
 
                 if (!data.linked) {
-                    return R.maxBy(
+                    return R.firstBy(
                         allExisting.filter((i) => !i.appliedBy && !i.isLocked),
-                        (c) => (c.active ? Infinity : c.value ?? 0),
+                        [(c) => (c.active ? Infinity : (c.value ?? 0)), "desc"],
                     );
                 }
 

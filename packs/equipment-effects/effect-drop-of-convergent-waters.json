@@ -1,0 +1,96 @@
+{
+    "_id": "YjcV6eW4u9OpSNC2",
+    "img": "icons/commodities/gems/pearl-water.webp",
+    "name": "Effect: Drop of Convergent Waters",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Drop of Convergent Waters]</p>\n<p>Choose an attack. It gains the magical, reach and water traits, and takes no penalties for being used underwater.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "attacks": true,
+                    "predicate": [
+                        "item:category:unarmed"
+                    ]
+                },
+                "flag": "attack",
+                "key": "ChoiceSet"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.attack}"
+                ],
+                "property": "traits",
+                "value": "magical"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.attack}"
+                ],
+                "property": "traits",
+                "value": "reach"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.attack}"
+                ],
+                "property": "traits",
+                "value": "water"
+            },
+            {
+                "key": "AdjustModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.attack}-attack-roll",
+                "slug": "aquatic-combat",
+                "suppress": true
+            },
+            {
+                "definition": [
+                    "item:ranged",
+                    {
+                        "not": "item:rune:property:underwater"
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "multiply",
+                "priority": 111,
+                "property": "range-increment",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

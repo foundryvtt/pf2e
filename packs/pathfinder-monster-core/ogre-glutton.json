@@ -4,10 +4,8 @@
     "items": [
         {
             "_id": "9YL8nBbbHZl7eqG2",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.8COlYvHe6hKCXY8x"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8COlYvHe6hKCXY8x"
             },
             "img": "icons/weapons/axes/axe-double-engraved.webp",
             "name": "Greataxe",
@@ -91,10 +89,8 @@
         },
         {
             "_id": "D61AbK6V7sJ1Zixd",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
             },
             "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
             "name": "Leather Armor",
@@ -268,7 +264,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>If the ogre glutton damages a living creature with their jaws Strike, they gain [[/r 1d4 #Temporary Hit Points]]{1d4 temporary Hit Points} for 1 minute.</p>"
+                    "value": "<p>If the ogre glutton damages a living creature with their jaws Strike, they gain 1d4 temporary Hit Points for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Glutton's Feast]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -282,6 +278,12 @@
                         "text": "{item|description}",
                         "title": "{item|name}",
                         "visibility": "owner"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.gluttonsFeast",
+                        "value": 1
                     }
                 ],
                 "slug": "gluttons-feast",
@@ -306,14 +308,32 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The ogre glutton Strides twice and makes a jaws Strike. If they damage a living creature with this Strike, the temporary Hit Points they receive from Glutton's Feast is increased to [[/r 2d4 #Temporary Hit Points]]{2d4}.</p>"
+                    "value": "<p>The ogre glutton Strides twice and makes a jaws Strike. If they damage a living creature with this Strike, the temporary Hit Points they receive from Glutton's Feast is increased to 2d4.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "gluttons-rush",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.gluttonsFeast",
+                        "predicate": [
+                            "gluttons-rush"
+                        ],
+                        "priority": 51,
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -324,10 +344,8 @@
         },
         {
             "_id": "OQICdYHqGHNlnuut",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.uJSseLa57HZYSMUu"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.uJSseLa57HZYSMUu"
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swallow Whole",
@@ -361,10 +379,8 @@
         },
         {
             "_id": "iw0W5WgXZN9Y21ul",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",

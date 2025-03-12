@@ -1,0 +1,43 @@
+{
+    "_id": "ZwTwuNuvHuQhIjcu",
+    "img": "icons/magic/symbols/rune-sigil-rough-white-teal.webp",
+    "name": "Spell Effect: Personal Runewell",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Personal Runewell]</p>\n<p>You gain a status bonus to spell damage equal to the spell's rank.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "spell-damage",
+                "type": "status",
+                "value": "@spell.rank"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

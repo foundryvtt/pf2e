@@ -1,5 +1,5 @@
 import { Predicate, PredicateStatement, RawPredicate, StatementValidator } from "@system/predication.ts";
-import { SlugCamel, sluggify } from "@util";
+import { SlugCamel, objectHasKey, sluggify } from "@util";
 import * as R from "remeda";
 import type DataModel from "types/foundry/common/abstract/data.d.ts";
 import type {
@@ -84,6 +84,19 @@ class StrictNumberField<
     }
 }
 
+/** @todo Remove in V13 */
+class NullCoercingNumberField<
+    TSourceProp extends number = number,
+    TModelProp extends NonNullable<JSONValue> = TSourceProp,
+    TRequired extends boolean = false,
+    TNullable extends boolean = true,
+    THasInitial extends boolean = true,
+> extends fields.NumberField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
+    protected override _cast(value: unknown): unknown {
+        return value === "" && this.nullable ? null : Number(value);
+    }
+}
+
 /** A `BooleanField` that does not cast the source value */
 class StrictBooleanField<
     TRequired extends boolean = false,
@@ -161,6 +174,29 @@ class StrictObjectField<
 > extends fields.ObjectField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
     protected override _cast(value: unknown): unknown {
         return value;
+    }
+}
+
+/** A field that allows nothing except for the provided choices */
+class AnyChoiceField<
+    TChoices extends JSONValue,
+    TRequired extends boolean = true,
+    TNullable extends boolean = false,
+    THasInitial extends boolean = true,
+> extends fields.DataField<TChoices, TChoices, TRequired, TNullable, THasInitial> {
+    protected override _cast(value: unknown): unknown {
+        return value;
+    }
+
+    protected override _validateType(value: unknown): void {
+        if (this.options.nullable && value === null) return;
+
+        const choices =
+            this.options.choices instanceof Function ? this.options.choices() : (this.options.choices ?? []);
+        const isValid = Array.isArray(choices) ? choices.includes(value) : objectHasKey(choices, value);
+        if (!isValid) {
+            throw new Error(`${value} is not a valid choice`);
+        }
     }
 }
 
@@ -506,9 +542,11 @@ class NullField extends fields.DataField<null, null, true, true, true> {
 }
 
 export {
+    AnyChoiceField,
     DataUnionField,
     LaxArrayField,
     LaxSchemaField,
+    NullCoercingNumberField,
     NullField,
     PredicateField,
     RecordField,

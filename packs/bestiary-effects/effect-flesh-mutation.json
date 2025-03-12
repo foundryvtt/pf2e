@@ -1,0 +1,130 @@
+{
+    "_id": "5w675gmnZqbND0mt",
+    "img": "icons/commodities/biological/pustules-brown.webp",
+    "name": "Effect: Flesh Mutation",
+    "system": {
+        "badge": {
+            "evaluate": true,
+            "labels": [
+                "Spongy Flesh",
+                "Caustic Blood",
+                "Sprouting Eyes",
+                "Mutated Mind"
+            ],
+            "loop": false,
+            "reevaluate": null,
+            "type": "formula",
+            "value": "1d4"
+        },
+        "description": {
+            "value": "<p>You are affected by an effect according to the result.</p>\n<p><strong>1 Spongy Flesh</strong> The creature has weakness 5 to physical damage.</p>\n<p><strong>2 Caustic Blood</strong> The creature takes @Damage[2d4[persistent,acid]] damage that can't be removed normally, but ends when the mutation does.</p>\n<p><strong>3 Sprouting Eyes</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled], but also immune to flanking.</p>\n<p><strong>4 Mutated Mind</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Confused]. It can still recover as noted in the condition, but if it does it remains @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the mutation ends.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "parent:badge:value:1"
+                ],
+                "type": "physical",
+                "value": 5
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "persistent-damage",
+                        "value": {
+                            "damageType": "acid",
+                            "formula": "2d4"
+                        }
+                    }
+                ],
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "parent:badge:value:2"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Persistent Damage"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "parent:badge:value:3"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.flankable",
+                "predicate": [
+                    "parent:badge:value:3"
+                ],
+                "value": false
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "option": "flesh-mutation",
+                "predicate": [
+                    "parent:badge:value:4"
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.condition.confused.name",
+                        "value": "confused"
+                    },
+                    {
+                        "label": "PF2E.condition.off-guard.name",
+                        "value": "off-guard"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "parent:badge:value:4",
+                    "flesh-mutation:confused"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Confused"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "parent:badge:value:4",
+                    "flesh-mutation:off-guard"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

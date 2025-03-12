@@ -1,0 +1,69 @@
+{
+    "_id": "sqAwZeoNUFPj3Dxw",
+    "folder": "5EPmB6Odj8AagJA9",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Release Me!",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> An enemy has you @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained].</p><hr /><p>Your retribution against one who would detain you is swift and dangerous. Make a melee Strike against the creature who has you @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained]. You can still make this attack even if you are restrained, though not if you are wielding a two-handed weapon. Unless your Strike is a critical failure, you can then attempt a check to @UUID[Compendium.pf2e.actionspf2e.Item.Escape]. If the creature who has you grabbed or restrained is the target of your @UUID[Compendium.pf2e.actionspf2e.Item.Ultimatum of Liberation], you gain a +2 circumstance bonus to this check. Both the Strike and the Escape count toward your multiple attack penalty, but it doesn't increase until you've made both rolls.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Broken Chain Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "ultimatum-of-liberation"
+                    }
+                ],
+                "disabledValue": false,
+                "domain": "melee-attack-roll",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.BrokenChain.ReleaseMe.BonusToggle",
+                "option": "release-me",
+                "predicate": [
+                    "self:effect:ultimatum-of-liberation"
+                ],
+                "priority": 51,
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "release-me"
+                ],
+                "selector": "melee-attack-roll",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "flourish",
+                "mythic"
+            ]
+        }
+    },
+    "type": "feat"
+}

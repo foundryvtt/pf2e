@@ -67,16 +67,37 @@
                 "toggleable": true
             },
             {
-                "key": "DamageAlteration",
+                "itemType": "weapon",
+                "key": "ItemAlteration",
                 "mode": "override",
                 "predicate": [
-                    "bomber-field-vials"
+                    "bomber-field-vials",
+                    "item:slug:versatile-vial"
                 ],
                 "property": "damage-type",
-                "selectors": [
-                    "versatile-vial-damage"
-                ],
                 "value": "{item|flags.pf2e.rulesSelections.bomberFieldVials}"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "bomber-field-vials",
+                    "item:slug:versatile-vial"
+                ],
+                "property": "traits",
+                "value": "{item|flags.pf2e.rulesSelections.bomberFieldVials}"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "bomber-field-vials",
+                    "item:slug:versatile-vial"
+                ],
+                "property": "traits",
+                "value": "acid"
             }
         ],
         "traits": {

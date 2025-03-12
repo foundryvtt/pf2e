@@ -1,0 +1,76 @@
+{
+    "_id": "VeTrBvxupaS4uo1B",
+    "folder": "rHS9A3MjldAHisqC",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Gildedsoul",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your elemental lineage manifests in the polished gleam of precious metals, such as silver and gold, or even rare and valuable skymetals like adamantine or orichalcum. This natural luster enhances your charm; you become trained in your choice of Diplomacy or Society. If you would automatically become trained in both these skills (from your background or class, for example), you instead become trained in a skill of your choice. If you're trained in Society, you also gain the @UUID[Compendium.pf2e.feats-srd.Item.Courtly Graces] skill feat.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Diplomacy",
+                        "value": "system.skills.diplomacy.rank"
+                    },
+                    {
+                        "label": "PF2E.Skill.Society",
+                        "value": "system.skills.society.rank"
+                    }
+                ],
+                "flag": "gildedsoul",
+                "key": "ChoiceSet",
+                "priority": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "{item|flags.pf2e.rulesSelections.gildedsoul}",
+                "priority": 2,
+                "value": 1
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:society:rank",
+                            1
+                        ]
+                    }
+                ],
+                "priority": 99,
+                "uuid": "Compendium.pf2e.feats-srd.Item.Courtly Graces"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "lineage",
+                "talos"
+            ]
+        }
+    },
+    "type": "feat"
+}

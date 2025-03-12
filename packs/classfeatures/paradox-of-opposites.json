@@ -1,0 +1,69 @@
+{
+    "_id": "RdOzBNPKLTMUWrJs",
+    "img": "icons/magic/death/skull-energy-light-white.webp",
+    "name": "Paradox of Opposites",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Life and death, good and evil, light and shadow, vitality and void energy—these diametrically opposed concepts exist everywhere, and your patron walks the line between them. You first encountered your patron in a place or situation of such duality, such as witnessing a baby being born in a cemetery or feeling the natural light of a sunbeam in an otherwise dark cavern. There is power to be derived from the interplay between seemingly antithetical ideas and striking a balance between the two. Your patron could be a monitor demigod interested in cultivating a cosmic balance or an entity that plays fast and loose with morality. They are the difference between the two sides of the same coin while also being the entirety of the coin.</p>\n<p><strong>Spell List</strong> divine</p>\n<p><strong>Patron Skill</strong> Religion</p>\n<p><strong>Lesson of the Twilit Soul</strong> For your patron, life and death and sleeping and waking have the same meaning. You gain the @UUID[Compendium.pf2e.spells-srd.Item.Trade Death for Life] hex cantrip and your familiar learns @UUID[Compendium.pf2e.spells-srd.Item.Sleep].</p>\n<p><strong>Familiar of Paired Perplexity</strong> Your familiar has twice as many of a small feature than a normal creature would have, such a second tail or an extra pair of whiskers. When you Cast or Sustain a hex, your familiar seems to double and be in two places at once. One creature you choose within 20 feet of it is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} until the start of your next turn; this is a visual effect.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.religion.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.aliases.witch",
+                "priority": 39,
+                "value": "divine"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:witch",
+                    "item:trait:hex"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Witch.Patron.FamiliarAbility.PairedPerplexity.Description",
+                        "title": "PF2E.SpecificRule.Witch.Patron.FamiliarAbility.PairedPerplexity.Title"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "witch-patron"
+            ],
+            "rarity": "common",
+            "value": [
+                "witch"
+            ]
+        }
+    },
+    "type": "feat"
+}

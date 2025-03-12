@@ -32,13 +32,14 @@
             }
         },
         "description": {
-            "value": "<p>A powerful globe of chilling moonlight explodes in the area, dealing 8d10 cold damage to creatures and objects in the area, plus @Damage[(@item.level+1)d10[vitality]] additional damage to undead creatures.</p>\n<p><em>Moonburst</em>'s cold damage is silver damage for the purposes of weaknesses, resistances, and the like. Each creature and object in the area must attempt a Reflex save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature or object is unaffected.</p>\n<p><strong>Success</strong> The creature or object takes half damage.</p>\n<p><strong>Failure</strong> The creature or object takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature or object takes full damage. If it's a creature, it's @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for an unlimited duration. If the globe overlaps with an area of magical darkness, <em>moonburst</em> attempts to counteract the darkness effect.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The cold damage increases by 1d10, and the vitality damage against undead increases by 1d10.</p>"
+            "value": "<p>A powerful globe of chilling moonlight explodes in the area, dealing 8d10 cold damage to all creatures in the area, plus an additional @Damage[(@item.rank+1)d10[vitality]] damage to undead creatures.</p>\n<p><em>Moonburst</em>'s cold damage is silver damage for the purposes of weaknesses, resistances, and the like. Each creature and object in the area must attempt a Reflex save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes full damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Blinded] permanently. If the globe overlaps with an area of magical darkness, <em>moonburst</em> attempts to counteract the darkness effect.</p><hr /><p><strong>Heightened (+1)</strong> The cold damage increases by 1d10, and the vitality damage against undead increases by 1d10.</p>"
         },
         "duration": {
             "sustained": false,
             "value": ""
         },
         "heightening": {
+            "area": 0,
             "damage": {
                 "8if8c4kjctnupcu8": "1d10"
             },
@@ -49,9 +50,9 @@
             "value": 7
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder #172: Secrets of the Temple-City"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
         },
         "range": {
             "value": "500 feet"
@@ -65,7 +66,7 @@
             "value": "2"
         },
         "traits": {
-            "rarity": "uncommon",
+            "rarity": "common",
             "traditions": [
                 "divine",
                 "primal"

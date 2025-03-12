@@ -1,0 +1,94 @@
+{
+    "_id": "VTJ8D23sOIfApEt3",
+    "img": "icons/magic/control/debuff-energy-hold-yellow.webp",
+    "name": "Effect: Debilitating Bomb",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Debilitating Bomb]</p>\n<p>You are dazzled, deafened, off-guard, or take a -5 foot status penalty to Speeds.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.condition.dazzled.name",
+                        "value": "dazzled"
+                    },
+                    {
+                        "label": "PF2E.condition.deafened.name",
+                        "value": "deafened"
+                    },
+                    {
+                        "label": "PF2E.condition.off-guard.name",
+                        "value": "off-guard"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Alchemist.DebilitatingBomb.SpeedPenalty.Label",
+                        "value": "speed-penalty"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Effect",
+                "rollOption": "debilitating-bomb"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "debilitating-bomb:speed-penalty"
+                ],
+                "selector": "speed",
+                "type": "status",
+                "value": -5
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "debilitating-bomb:off-guard"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "debilitating-bomb:deafened"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Deafened"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "debilitating-bomb:dazzled"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

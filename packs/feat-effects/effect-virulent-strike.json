@@ -1,0 +1,52 @@
+{
+    "_id": "Eh0uLxzYfheAWDpG",
+    "img": "icons/skills/melee/blade-tip-smoke-green.webp",
+    "name": "Effect: Virulent Strike",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Virulent Strike]</p>\n<p>You take a –4 circumstance penalty to the save against a disease or poison.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 16
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:disease",
+                            "item:trait:poison"
+                        ]
+                    }
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": -4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

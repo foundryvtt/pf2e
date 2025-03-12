@@ -1,0 +1,298 @@
+{
+    "_id": "MhM6u4Stl0jV6CF2",
+    "img": "icons/weapons/fist/claw-gauntlet-gray.webp",
+    "name": "Hands of the Wildling",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p><strong>Usage</strong> a melee free-hand weapon or a melee unarmed Strike</p><hr /><p>Tattooed fists, savage claws, or even powerful gauntlets—you swing each with the fury of an animal from the woods.</p>\n<p><strong>Immanence</strong> Strikes with your hands of the wildling deal an additional 1 spirit splash damage per weapon damage die. You are immune to this splash damage.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.Feral Swing] <span class=\"action-glyph\">1</span> (spirit, transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.K3hd3w20M707t6Iq inline]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.DivineSpark.Label",
+                "mergeable": true,
+                "option": "divine-spark",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "hands-of-the-wildling"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Feral Swing"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.exemplar.ikons",
+                "value": {
+                    "label": "PF2E.SpecificRule.Exemplar.Ikon.HandsOfTheWildling.Label",
+                    "predicate": [
+                        "parent:tag:weapon-ikon-feat"
+                    ],
+                    "value": "hands-of-the-wildling"
+                }
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.WeaponTypeUnarmed",
+                        "value": "unarmed"
+                    },
+                    {
+                        "label": "TYPES.Item.weapon",
+                        "value": "weapon"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Physical.UnarmedOrWeapon",
+                "rollOption": "hands-of-the-wildling"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Ikon.UnarmedIkonToggle",
+                "mergeable": true,
+                "option": "unarmed-ikon",
+                "predicate": [
+                    "hands-of-the-wildling:unarmed"
+                ],
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "hands-of-the-wildling"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Grant",
+                        "value": "granted"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Existing",
+                        "value": "existing"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": [
+                    "hands-of-the-wildling:weapon"
+                ],
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Prompt",
+                "rollOption": "hands-of-the-wildling-origin"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:trait:free-hand",
+                        {
+                            "not": "item:trait:consumable"
+                        }
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "existingIkon",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "hands-of-the-wildling-origin:existing"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:level:0",
+                        "item:trait:free-hand",
+                        {
+                            "nor": [
+                                "item:magical",
+                                "item:trait:consumable"
+                            ]
+                        }
+                    ],
+                    "itemType": "weapon"
+                },
+                "flag": "grantedIkon",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "hands-of-the-wildling-origin:granted"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "hands-of-the-wildling-origin:granted"
+                ],
+                "uuid": "{item|flags.pf2e.rulesSelections.grantedIkon}"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "hands-of-the-wildling:unarmed",
+                                    "unarmed-ikon:hands-of-the-wildling",
+                                    "item:category:unarmed"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "hands-of-the-wildling-origin:existing",
+                                    "item:id:{item|flags.pf2e.rulesSelections.existingIkon}"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "hands-of-the-wildling-origin:granted",
+                                    "item:granter:slug:hands-of-the-wildling"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "other-tags",
+                "value": "physical-ikon"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "hands-of-the-wildling:unarmed",
+                                    "unarmed-ikon:hands-of-the-wildling",
+                                    "item:category:unarmed"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "hands-of-the-wildling-origin:existing",
+                                    "item:id:{item|flags.pf2e.rulesSelections.existingIkon}"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "hands-of-the-wildling-origin:granted",
+                                    "item:granter:slug:hands-of-the-wildling"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "other-tags",
+                "value": "physical-ikon:hands-of-the-wildling"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:physical-ikon:hands-of-the-wildling"
+                ],
+                "priority": 121,
+                "property": "traits",
+                "value": "divine"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:physical-ikon:hands-of-the-wildling"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "@Embed[Compendium.pf2e.classfeatures.Item.MhM6u4Stl0jV6CF2 inline]"
+                    }
+                ]
+            },
+            {
+                "damageCategory": "splash",
+                "damageType": "spirit",
+                "key": "FlatModifier",
+                "predicate": [
+                    "divine-spark:hands-of-the-wildling",
+                    "item:tag:physical-ikon:hands-of-the-wildling"
+                ],
+                "selector": "strike-damage",
+                "tags": [
+                    "exemplar"
+                ],
+                "value": "@weapon.system.damage.dice"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    {
+                        "or": [
+                            "item:granter:tag:chosen-ikon:hands-of-the-wildling",
+                            "item:slug:feral-swing"
+                        ]
+                    },
+                    {
+                        "not": "divine-spark:hands-of-the-wildling"
+                    }
+                ],
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Exemplar.DivineSpark.SparkTranscendence.Reminder"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "exemplar-ikon",
+                "exemplar-weapon-ikon"
+            ],
+            "rarity": "common",
+            "value": [
+                "ikon"
+            ]
+        }
+    },
+    "type": "feat"
+}

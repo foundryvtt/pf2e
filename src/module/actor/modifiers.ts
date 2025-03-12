@@ -65,12 +65,12 @@ interface RawModifier {
     damageType?: DamageType | null;
     /** The damage category */
     damageCategory?: DamageCategoryUnique | null;
-    /** A predicate which determines when this modifier is active. */
+    /** A predicate that determines when this modifier is active */
     predicate?: RawPredicate;
     /** If true, this modifier is only active on a critical hit. */
     critical?: boolean | null;
-    /** The list of traits that this modifier gives to the underlying attack, if any. */
-    traits?: string[];
+    /** A list of tags associated with this modifier */
+    tags?: string[];
     /** Hide this modifier in UIs if it is disabled */
     hideIfDisabled?: boolean;
     /** Whether to use this bonus/penalty/modifier even if it isn't the greatest magnitude */
@@ -133,7 +133,7 @@ class ModifierPF2e implements RawModifier {
     damageCategory: DamageCategoryUnique | null;
     predicate: Predicate;
     critical: boolean | null;
-    traits: string[];
+    tags: string[];
     hideIfDisabled: boolean;
 
     /**
@@ -177,14 +177,14 @@ class ModifierPF2e implements RawModifier {
         this.ability = params.ability ?? null;
         this.domains = params.domains ?? [];
         this.force = params.force ?? false;
-        this.adjustments = fu.deepClone(params.adjustments ?? []);
-        this.alterations = [params.alterations ?? []].flat();
+        this.adjustments = fu.deepClone(params.adjustments) ?? [];
+        this.alterations = fu.deepClone(params.alterations) ?? [];
         this.enabled = params.enabled ?? true;
         this.ignored = params.ignored ?? false;
         this.custom = params.custom ?? false;
         this.source = params.source ?? null;
         this.predicate = new Predicate(params.predicate ?? []);
-        this.traits = fu.deepClone(params.traits ?? []);
+        this.tags = R.unique(fu.deepClone(params.tags) ?? []);
         this.hideIfDisabled = params.hideIfDisabled ?? false;
         this.modifier = params.modifier;
 
@@ -193,9 +193,9 @@ class ModifierPF2e implements RawModifier {
         Object.defineProperty(this, "rule", { enumerable: false });
 
         this.damageType = objectHasKey(CONFIG.PF2E.damageTypes, params.damageType) ? params.damageType : null;
-        this.damageCategory = this.damageType === "bleed" ? "persistent" : params.damageCategory ?? null;
+        this.damageCategory = this.damageType === "bleed" ? "persistent" : (params.damageCategory ?? null);
         // Force splash damage into being critical-only or not doubling on critical hits
-        this.critical = this.damageCategory === "splash" ? !!params.critical : params.critical ?? null;
+        this.critical = this.damageCategory === "splash" ? !!params.critical : (params.critical ?? null);
 
         this.kind = ((): "bonus" | "penalty" | "modifier" => {
             if (this.modifier >= 0 && !["ability", "untyped"].includes(this.type)) {
@@ -257,6 +257,7 @@ class ModifierPF2e implements RawModifier {
         if (this.type === "ability" && this.ability) {
             options.push(`modifier:ability:${this.ability}`);
         }
+        options.push(...this.tags.map((t) => `${this.kind}:tag:${t}`));
 
         const damageKinds = [
             this.domains.some((d) => /\bdamage$/.test(d)) ? "damage" : null,
@@ -276,11 +277,13 @@ class ModifierPF2e implements RawModifier {
                     options.push(`${this.kind}:${damageKind}:category:${categoryFromType}`);
                 }
             }
-
             if (this.damageCategory) {
                 options.push(`${damageKind}:category:${this.damageCategory}`);
                 options.push(`${this.kind}:${damageKind}:category:${this.damageCategory}`);
             }
+            options.push(
+                ...this.tags.flatMap((t) => [`${damageKind}:tag:${t}`, `${this.kind}:${damageKind}:tag:${t}`]),
+            );
         }
 
         return options;
@@ -368,7 +371,7 @@ function createProficiencyModifier({
         ? game.pf2e.settings.variants.pwol.modifiers
         : [0, 2, 4, 6, 8];
 
-    const addedLevel = addLevel && !pwolVariant ? level ?? actor.level : 0;
+    const addedLevel = addLevel && !pwolVariant ? (level ?? actor.level) : 0;
     const bonus = baseBonuses[rank] + addedLevel;
 
     return new ModifierPF2e({
@@ -686,6 +689,8 @@ class DamageDicePF2e {
     /** The damage category of these dice. */
     category: "persistent" | "precision" | "splash" | null;
     damageType: DamageType | null;
+    /** A list of tags associated with this damage */
+    tags: string[];
     /** If true, these dice overide the base damage dice of the weapon. */
     override: DamageDiceOverride | null;
     ignored: boolean;
@@ -719,8 +724,8 @@ class DamageDicePF2e {
             : this.damageType === "bleed"
               ? "persistent"
               : null;
-        this.critical = this.category === "splash" ? !!params.critical : params.critical ?? null;
-
+        this.critical = this.category === "splash" ? !!params.critical : (params.critical ?? null);
+        this.tags = R.unique(fu.deepClone(params.tags) ?? []);
         this.predicate =
             params.predicate instanceof Predicate ? params.predicate : new Predicate(params.predicate ?? []);
 
@@ -760,6 +765,7 @@ class DamageDicePF2e {
             this.damageType
                 ? [`${damageKind}:type:${this.damageType}`, `dice:${damageKind}:type:${this.damageType}`]
                 : [],
+            this.tags.flatMap((t) => [`${damageKind}:tag:${t}`, `dice:tag:${t}`]),
         ].flat();
     }
 
@@ -790,17 +796,17 @@ class DamageDicePF2e {
 interface RawDamageDice extends Required<DamageDiceParameters> {}
 
 export {
-    adjustModifiers,
-    applyStackingRules,
     CheckModifier,
-    createAttributeModifier,
-    createProficiencyModifier,
     DamageDicePF2e,
-    ensureProficiencyOption,
     MODIFIER_TYPES,
     ModifierPF2e,
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
+    adjustModifiers,
+    applyStackingRules,
+    createAttributeModifier,
+    createProficiencyModifier,
+    ensureProficiencyOption,
 };
 
 export type {

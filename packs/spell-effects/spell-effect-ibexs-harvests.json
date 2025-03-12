@@ -1,0 +1,76 @@
+{
+    "_id": "VYr6IyfCWUMcYLJH",
+    "img": "icons/environment/settlement/scarecrow.webp",
+    "name": "Spell Effect: Ibex's Harvests",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Ibex's Harvest]</p>\n<p>You gain temporary Hit Points.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Actions.OneAction",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Actions.TwoActions",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Actions.ThreeActions",
+                        "value": 3
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Actions.Prompt",
+                "rollOption": "ibexs-harvests"
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    {
+                        "lte": [
+                            "ibexs-harvests",
+                            2
+                        ]
+                    }
+                ],
+                "value": "1 + 3*@item.level"
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "ibexs-harvests:3"
+                ],
+                "value": "3*@item.level - 4"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

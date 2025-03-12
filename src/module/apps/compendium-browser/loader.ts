@@ -1,6 +1,6 @@
 import { Progress } from "@system/progress.ts";
 import { localizer, sluggify } from "@util";
-import { CompendiumBrowserSources } from "./index.ts";
+import type { CompendiumBrowserSources } from "./browser.ts";
 
 class PackLoader {
     loadedSources: string[] = [];

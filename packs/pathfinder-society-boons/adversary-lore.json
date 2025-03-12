@@ -1,6 +1,6 @@
 {
     "_id": "XBf4Uz3n0AwSmpXx",
-    "img": "systems/pf2e/icons/default-icons/mystery-man.webp",
+    "img": "systems/pf2e/icons/pathfinder-society/pfs-glyph.webp",
     "name": "Adversary Lore",
     "system": {
         "actionType": {
@@ -28,7 +28,25 @@
             "remaster": false,
             "title": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "adversary-lore",
+                "toggleable": true
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "adversary-lore",
+                    "action:recall-knowledge"
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": "ternary(gte(@actor.system.pfs.reputation.VS,120), 2, 1)"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []

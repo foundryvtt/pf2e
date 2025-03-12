@@ -1,0 +1,137 @@
+{
+    "_id": "dA8AzlayuQ1hIeEx",
+    "img": "icons/consumables/food/spice-anise-pod.webp",
+    "name": "Effect: Regional Specialty",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Regional Specialty]</p>\n<p>You gain an item bonus against certain saves depending on the chosen element.</p><ul><li><strong>Wood</strong> Against disease and poison effects.</li><li><strong>Fire</strong> Against being doomed or frightened.</li><li><strong>Earth</strong> Against being enfeebled.</li><li><strong>Metal</strong> Against being stupefied.</li><li><strong>Water</strong> Against deafened or drained.</li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 14
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "config": "elementTraits"
+                },
+                "key": "ChoiceSet",
+                "rollOption": "regional-specialty"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": 3
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "value": 4
+                    }
+                ],
+                "flag": "bonus",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.WanderingChef.RegionalSpecialty.Prompt"
+            },
+            {
+                "domain": "saving-throw",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.WanderingChef.RegionalSpecialty.BonusToggle",
+                "option": "regional-specialty-bonus",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "regional-specialty:wood",
+                                    {
+                                        "or": [
+                                            "item:trait:disease",
+                                            "item:trait:poison",
+                                            "regional-specialty-bonus"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "regional-specialty:fire",
+                                    {
+                                        "or": [
+                                            "inflicts:doomed",
+                                            "inflicts:frightened",
+                                            "regional-specialty-bonus"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "regional-specialty:earth",
+                                    {
+                                        "or": [
+                                            "inflicts:enfeebled",
+                                            "regional-specialty-bonus"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "regional-specialty:metal",
+                                    {
+                                        "or": [
+                                            "inflicts:stupefied",
+                                            "regional-specialty-bonus"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "regional-specialty:water",
+                                    {
+                                        "or": [
+                                            "inflicts:deafened",
+                                            "inflicts:drained",
+                                            "regional-specialty-bonus"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": "@item.flags.pf2e.rulesSelections.bonus"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

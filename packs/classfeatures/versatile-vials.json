@@ -26,38 +26,12 @@
         },
         "rules": [
             {
-                "hideIfDisabled": true,
-                "key": "FlatModifier",
-                "predicate": [
-                    {
-                        "gte": [
-                            "self:level",
-                            4
-                        ]
-                    }
-                ],
-                "selector": "versatile-vial-attack",
-                "type": "item",
-                "value": "ternary(gte(@actor.level,18),3,ternary(gte(@actor.level,12),2,1))"
-            },
-            {
-                "key": "DamageAlteration",
-                "mode": "upgrade",
-                "predicate": [
-                    "dice:slug:base"
-                ],
-                "property": "dice-number",
-                "selectors": [
-                    "versatile-vial-damage"
-                ],
-                "value": "ternary(gte(@actor.level,18),4,ternary(gte(@actor.level,12),3,ternary(gte(@actor.level,4),2,1)))"
-            },
-            {
-                "key": "AdjustModifier",
-                "mode": "upgrade",
-                "selector": "versatile-vial-damage",
-                "slug": "splash",
-                "value": "ternary(gte(@actor.level,18),4,ternary(gte(@actor.level,12),3,ternary(gte(@actor.level,4),2,1)))"
+                "itemUUID": "Compendium.pf2e.equipment-srd.Item.Versatile Vial",
+                "key": "SpecialResource",
+                "label": "PF2E.SpecificRule.Alchemist.VersatileVials",
+                "level": "ternary(gte(@actor.level, 18), 18, ternary(gte(@actor.level, 12), 12, ternary(gte(@actor.level, 4), 4, 1)))",
+                "max": "2 + @actor.system.abilities.int.mod",
+                "slug": "versatile-vials"
             }
         ],
         "traits": {

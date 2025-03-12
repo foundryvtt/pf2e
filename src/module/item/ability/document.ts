@@ -1,24 +1,31 @@
 import type { ActorPF2e } from "@actor";
+import type { CraftingAbility } from "@actor/character/crafting/ability.ts";
 import { ItemPF2e } from "@item";
 import type { ActionCost, Frequency, RawItemChatData } from "@item/base/data/index.ts";
 import type { RangeData } from "@item/types.ts";
+import type { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { sluggify } from "@util";
 import type { AbilitySource, AbilitySystemData } from "./data.ts";
 import { getActionCostRollOptions, normalizeActionChangeData, processSanctification } from "./helpers.ts";
-import { AbilityTraitToggles } from "./trait-toggles.ts";
-import type { ActionTrait } from "./types.ts";
+import type { AbilityTrait } from "./types.ts";
 
 class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     declare range?: RangeData | null;
 
     declare isMelee?: boolean;
 
-    static override get validTraits(): Record<ActionTrait, string> {
+    /** If this ability can craft, what is the crafting ability */
+    declare crafting?: CraftingAbility | null;
+
+    /** If suppressed, this ability should not be visible on character sheets nor have rule elements */
+    declare suppressed: boolean;
+
+    static override get validTraits(): Record<AbilityTrait, string> {
         return CONFIG.PF2E.actionTraits;
     }
 
-    get traits(): Set<ActionTrait> {
+    get traits(): Set<AbilityTrait> {
         return new Set(this.system.traits.value);
     }
 
@@ -33,29 +40,19 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
     }
 
     get frequency(): Frequency | null {
-        return this.system.frequency ?? null;
+        return this.system.frequency;
     }
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-
-        // Initialize frequency uses if not set
-        if (this.actor && this.system.frequency) {
-            this.system.frequency.value ??= this.system.frequency.max;
-        }
-
-        this.system.traits.toggles = new AbilityTraitToggles(this);
-
-        this.system.selfEffect ??= null;
-        // Self effects are only usable with actions
-        if (this.system.actionType.value === "passive") {
-            this.system.selfEffect = null;
-        }
+        this.crafting = null;
     }
 
     override prepareActorData(): void {
-        const actor = this.actor;
+        // Exit early if the ability is being suppressed
+        if (this.suppressed) return;
 
+        const actor = this.actor;
         if (actor?.isOfType("familiar") && this.system.category === "familiar") {
             const slug = this.slug ?? sluggify(this.name);
             actor.rollOptions.all[`self:ability:${slug}`] = true;
@@ -74,6 +71,12 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
 
         rollOptions.push(...getActionCostRollOptions(prefix, this));
         return rollOptions;
+    }
+
+    /** Overriden to not create rule elements when suppressed */
+    override prepareRuleElements(options?: Omit<RuleElementOptions, "parent">): RuleElementPF2e[] {
+        if (this.suppressed) return [];
+        return super.prepareRuleElements(options);
     }
 
     override async getChatData(
@@ -106,11 +109,7 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
         operation: DatabaseUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        if (typeof changed.system?.category === "string") {
-            changed.system.category ||= null;
-        }
         normalizeActionChangeData(this, changed);
-
         return super._preUpdate(changed, operation, user);
     }
 }

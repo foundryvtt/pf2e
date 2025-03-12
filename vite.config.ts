@@ -1,7 +1,9 @@
 import type { ConditionSource } from "@item/base/data/index.ts";
+import { svelte as sveltePlugin } from "@sveltejs/vite-plugin-svelte";
 import { execSync } from "child_process";
 import esbuild from "esbuild";
 import fs from "fs-extra";
+import Glob from "glob";
 import path from "path";
 import Peggy from "peggy";
 import * as Vite from "vite";
@@ -18,16 +20,27 @@ const CONDITION_SOURCES = ((): ConditionSource[] => {
 })();
 const EN_JSON = JSON.parse(fs.readFileSync("./static/lang/en.json", { encoding: "utf-8" }));
 
+// Load foundry config if available to potentially use a different port
+const FOUNDRY_CONFIG = fs.existsSync("./foundryconfig.json")
+    ? JSON.parse(fs.readFileSync("./foundryconfig.json", { encoding: "utf-8" }))
+    : null;
+const port = Number(FOUNDRY_CONFIG?.port) || 30001;
+const foundryPort = Number(FOUNDRY_CONFIG?.foundryPort) || 30000;
+console.log(`Connecting to foundry hosted at http://localhost:${foundryPort}/`);
+
 /** Get UUID redirects from JSON file, converting names to IDs. */
 function getUuidRedirects(): Record<CompendiumUUID, CompendiumUUID> {
     const redirectJSON = JSON.parse(fs.readFileSync(path.resolve(__dirname, "build/uuid-redirects.json"), "utf-8"));
     for (const [from, to] of Object.entries<string>(redirectJSON)) {
         const [, , pack, documentType, name] = to.split(".", 5);
         const packDir = systemJSON.packs.find((p) => p.type === documentType && p.name === pack)?.path;
-        if (!packDir) throw new Error(`Failure looking up pack JSON for ${to}`);
-        const docJSON = JSON.parse(
-            fs.readFileSync(path.resolve(__dirname, `${packDir}/${sluggify(name)}.json`), "utf-8"),
-        );
+        const dirPath = path.resolve(__dirname, packDir ?? "");
+        const filename = `${sluggify(name)}.json`;
+        const jsonPath = fs.existsSync(path.resolve(dirPath, filename))
+            ? path.resolve(dirPath, filename)
+            : Glob.sync(path.resolve(dirPath, "**", filename)).at(0);
+        if (!jsonPath) throw new Error(`Failure looking up pack JSON for ${to}`);
+        const docJSON = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
         const id = docJSON._id;
         if (!id) throw new Error(`No UUID redirect match found for ${documentType} ${name} in ${pack}`);
         redirectJSON[from] = `Compendium.pf2e.${pack}.${documentType}.${id}`;
@@ -46,7 +59,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         'AbstractDamageRoll.parser = { StartRules: ["Expression"], SyntaxError: peg$SyntaxError, parse: peg$parse };',
     );
 
-    const plugins = [checker({ typescript: true }), tsconfigPaths()];
+    const plugins = [checker({ typescript: true }), tsconfigPaths({ loose: true }), sveltePlugin()];
     // Handle minification after build to allow for tree-shaking and whitespace minification
     // "Note the build.minify option does not minify whitespaces when using the 'es' format in lib mode, as it removes
     // pure annotations and breaks tree-shaking."
@@ -88,7 +101,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                     },
                 },
             },
-            // Vite HMR is only preconfigured for css files: add handler for HBS templates
+            // Vite HMR is only preconfigured for css files: add handler for HBS templates and localization JSON
             {
                 name: "hmr-handler",
                 apply: "serve",
@@ -131,7 +144,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         fs.writeFileSync("./vendor.mjs", `/** ${message} */\n`);
     }
 
-    const reEscape = (s: string) => s.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+    const reEscape = (s: string) => s.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&");
 
     return {
         base: command === "build" ? "./" : "/systems/pf2e/",
@@ -147,7 +160,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         esbuild: { keepNames: true },
         build: {
             outDir,
-            emptyOutDir: false, // fails if world is running due to compendium locks. We do it in "npm run clean" instead.
+            emptyOutDir: false, // Fails if world is running due to compendium locks: handled with `npm run clean`
             minify: false,
             sourcemap: buildMode === "development",
             lib: {
@@ -169,7 +182,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                     ].join(""),
                 ),
                 output: {
-                    assetFileNames: ({ name }): string => (name === "style.css" ? "styles/pf2e.css" : name ?? ""),
+                    assetFileNames: "styles/pf2e.css",
                     chunkFileNames: "[name].mjs",
                     entryFileNames: "pf2e.mjs",
                     manualChunks: {
@@ -181,20 +194,18 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             target: "es2022",
         },
         server: {
-            port: 30001,
+            port,
             open: "/game",
             proxy: {
-                "^(?!/systems/pf2e/)": "http://localhost:30000/",
+                "^(?!/systems/pf2e/)": `http://localhost:${foundryPort}/`,
                 "/socket.io": {
-                    target: "ws://localhost:30000",
+                    target: `ws://localhost:${foundryPort}`,
                     ws: true,
                 },
             },
         },
         plugins,
-        css: {
-            devSourcemap: buildMode === "development",
-        },
+        css: { devSourcemap: buildMode === "development" },
     };
 });
 

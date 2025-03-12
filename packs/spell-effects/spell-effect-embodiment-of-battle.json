@@ -1,0 +1,76 @@
+{
+    "_id": "uiXWJVwWuMS3KvkV",
+    "img": "icons/skills/melee/hand-grip-staff-teal.webp",
+    "name": "Spell Effect: Embodiment of Battle",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Embodiment of Battle]</p>\n<p>You gain a status bonus to attack and damage rolls made with weapon or unarmed attacks, and you gain the Reactive Strike reaction; this reaction gains the apparition trait. You take a –2 status penalty to your spell attack modifiers and your spell DCs.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.attacks.martial.rank",
+                "value": "@actor.system.proficiencies.attacks.simple.rank"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "weapon-attack-roll",
+                    "unarmed-attack-roll",
+                    "weapon-damage",
+                    "unarmed-damage"
+                ],
+                "slug": "embodiment-of-battle-bonus",
+                "type": "status",
+                "value": "ternary(gte(@item.level,7),3,ternary(gte(@item.level,4),2,1))"
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "add",
+                        "property": "traits",
+                        "value": "apparition"
+                    }
+                ],
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Reactive Strike"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "spell-attack",
+                    "spell-dc"
+                ],
+                "slug": "embodiment-of-battle-penalty",
+                "type": "status",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -217,6 +217,20 @@ const ITEM_ALTERATION_VALIDATORS = {
             },
         },
     ),
+    "damage-dice-number": new ItemAlterationValidator({
+        itemType: new fields.StringField({ required: true, choices: ["weapon"] }),
+        mode: new fields.StringField({
+            required: true,
+            choices: ["add", "downgrade", "override", "remove", "subtract", "upgrade"],
+        }),
+        value: new fields.NumberField({
+            required: true,
+            nullable: false,
+            integer: true,
+            positive: true,
+            initial: undefined,
+        } as const),
+    }),
     "damage-type": new ItemAlterationValidator({
         itemType: new fields.StringField({ required: true, choices: ["weapon"] }),
         mode: new fields.StringField({ required: true, choices: ["override"] }),
@@ -240,7 +254,7 @@ const ITEM_ALTERATION_VALIDATORS = {
         itemType: new fields.StringField({
             required: true,
             nullable: false,
-            choices: () => R.keys.strict(CONFIG.PF2E.Item.documentClasses),
+            choices: () => R.keys(CONFIG.PF2E.Item.documentClasses),
             initial: undefined,
         }),
         mode: new fields.StringField({
@@ -304,7 +318,7 @@ const ITEM_ALTERATION_VALIDATORS = {
             required: true,
             choices: ["add", "downgrade", "multiply", "override", "remove", "subtract", "upgrade"],
         }),
-        value: new fields.NumberField({ required: true, nullable: false, min: -20, max: 20 } as const),
+        value: new fields.NumberField({ required: true, nullable: false, min: -100, max: 100 } as const),
     }),
     "hp-max": new ItemAlterationValidator({
         itemType: new fields.StringField({ required: true, choices: Array.from(PHYSICAL_ITEM_TYPES) }),
@@ -402,6 +416,30 @@ const ITEM_ALTERATION_VALIDATORS = {
             choices: RARITIES,
         } as const),
     }),
+    "range-increment": new ItemAlterationValidator({
+        itemType: new fields.StringField({ required: true, choices: ["weapon"] }),
+        mode: new fields.StringField({
+            required: true,
+            choices: ["add", "multiply", "override", "remove", "subtract"],
+        }),
+        value: new fields.NumberField({
+            required: true,
+            nullable: false,
+            initial: undefined,
+        } as const),
+    }),
+    "range-max": new ItemAlterationValidator({
+        itemType: new fields.StringField({ required: true, choices: ["weapon"] }),
+        mode: new fields.StringField({
+            required: true,
+            choices: ["add", "multiply", "override", "remove", "subtract"],
+        }),
+        value: new fields.NumberField({
+            required: true,
+            nullable: false,
+            initial: undefined,
+        } as const),
+    }),
     "frequency-max": new ItemAlterationValidator({
         itemType: new fields.StringField({ required: true, choices: ["action", "feat"] }),
         mode: new fields.StringField({
@@ -426,7 +464,7 @@ const ITEM_ALTERATION_VALIDATORS = {
     "other-tags": new ItemAlterationValidator({
         itemType: new fields.StringField({
             required: true,
-            choices: () => R.keys.strict(CONFIG.PF2E.Item.documentClasses),
+            choices: () => R.keys(CONFIG.PF2E.Item.documentClasses),
         }),
         mode: new fields.StringField({
             required: true,

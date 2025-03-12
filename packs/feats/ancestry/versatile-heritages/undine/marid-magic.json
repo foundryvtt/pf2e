@@ -1,0 +1,70 @@
+{
+    "_id": "hgfRHSS5BsoyQ9Fj",
+    "folder": "mNS3zks31gTFZldk",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Marid Magic",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You channel the magic of marids. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Hydraulic Push] and @UUID[Compendium.pf2e.spells-srd.Item.Mist] each once per day as 2nd-rank arcane innate spells.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Ancestry Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:hydraulic-push",
+                            "item:slug:mist"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:hydraulic-push",
+                            "item:slug:mist"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:undine"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "undine"
+            ]
+        }
+    },
+    "type": "feat"
+}

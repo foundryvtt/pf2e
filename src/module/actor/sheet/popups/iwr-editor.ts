@@ -1,7 +1,8 @@
 import type { ActorPF2e } from "@actor";
 import { Immunity, IWRSource, Resistance, Weakness } from "@actor/data/iwr.ts";
 import { ImmunityType, IWRType, ResistanceType, WeaknessType } from "@actor/types.ts";
-import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, tagify } from "@util";
+import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
+import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
 
 class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREditorOptions> {

@@ -4,7 +4,7 @@
     "name": "Effect: Potency Crystal",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Potency Crystal]</p>\n<p>The weapon becomes a <em>+1 striking weapon</em>.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Potency Crystal], @UUID[Compendium.pf2e.equipment-srd.Item.Potency Crystal (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Potency Crystal (Major)]</p>\n<p>The weapon becomes a <em>+1 striking weapon</em>, a <em>+2 greater striking weapon</em>, or a <em>+3 major striking weapon</em>.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -22,6 +22,53 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:potency-crystal",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Potency Crystal"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:potency-crystal-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Potency Crystal (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:potency-crystal-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Potency Crystal (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "potency-crystal"
+            },
+            {
                 "choices": {
                     "includeHandwraps": true,
                     "ownedItems": true,
@@ -35,13 +82,51 @@
             },
             {
                 "key": "WeaponPotency",
+                "predicate": [
+                    "potency-crystal:potency-crystal"
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.effectPotencyCrystal}-attack",
                 "value": 1
             },
             {
+                "key": "WeaponPotency",
+                "predicate": [
+                    "potency-crystal:potency-crystal-greater"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectPotencyCrystal}-attack",
+                "value": 2
+            },
+            {
+                "key": "WeaponPotency",
+                "predicate": [
+                    "potency-crystal:potency-crystal-major"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectPotencyCrystal}-attack",
+                "value": 3
+            },
+            {
                 "key": "Striking",
+                "predicate": [
+                    "potency-crystal:potency-crystal"
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.effectPotencyCrystal}-damage",
                 "value": 1
+            },
+            {
+                "key": "Striking",
+                "predicate": [
+                    "potency-crystal:potency-crystal-greater"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectPotencyCrystal}-damage",
+                "value": 2
+            },
+            {
+                "key": "Striking",
+                "predicate": [
+                    "potency-crystal:potency-crystal-major"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectPotencyCrystal}-damage",
+                "value": 3
             }
         ],
         "start": {

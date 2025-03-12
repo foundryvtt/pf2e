@@ -1,0 +1,63 @@
+{
+    "_id": "5blVLpIH65hvFJpn",
+    "img": "systems/pf2e/icons/spells/safe-passage.webp",
+    "name": "Spell Effect: Safe Passage",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Safe Passage]</p>\n<p>You gain a +2 status bonus to AC and saves against harmful effects of the terrain and environment, and resistance to all damage from such effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "safe-passage",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "safe-passage"
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "safe-passage"
+                ],
+                "type": "all-damage",
+                "value": "ternary(gte(@item.level,8),15,ternary(gte(@item.level,5),10,5))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

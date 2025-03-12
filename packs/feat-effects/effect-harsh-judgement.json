@@ -7,7 +7,7 @@
             "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Harsh Judgement]</p>\n<p>You gain a +2 circumstance bonus to Perception checks to Seek your condemned foe and on Intimidation checks to Demoralize them. You have a -1 circumstance penalty to Perception checks to Seek creatures other than your condemned foe and on Intimidation checks to Demoralize anyone other than your condemned foe.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -22,53 +22,55 @@
         },
         "rules": [
             {
-                "domain": "all",
+                "domain": "perception",
                 "key": "RollOption",
-                "label": "Target is Condemned Foe",
-                "option": "harsh-judgement",
+                "label": "PF2E.SpecificRule.GreyGardener.HarshJudgement.SeekCondemnedFoeLabel",
+                "option": "harsh-judgement:seek-condemned-foe",
                 "toggleable": true
             },
             {
                 "key": "FlatModifier",
-                "label": "Seeking Condemned Foe",
-                "predicate": [
-                    "harsh-judgement",
-                    "action:seek"
-                ],
-                "selector": "perception",
-                "type": "circumstance",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Seeking Non-Condemned Foe",
                 "predicate": [
                     "action:seek"
                 ],
                 "selector": "perception",
+                "slug": "harsh-judgement-seek",
                 "type": "circumstance",
                 "value": -1
             },
             {
-                "key": "FlatModifier",
-                "label": "Seeking Condemned Foe",
+                "key": "AdjustModifier",
+                "mode": "override",
                 "predicate": [
-                    "harsh-judgement",
-                    "action:demoralize"
+                    "harsh-judgement:seek-condemned-foe"
                 ],
-                "selector": "intimidation",
-                "type": "circumstance",
+                "selector": "perception",
+                "slug": "harsh-judgement-seek",
                 "value": 2
             },
             {
+                "key": "TokenMark",
+                "slug": "harsh-judgement"
+            },
+            {
                 "key": "FlatModifier",
-                "label": "Seeking Condemned Foe",
                 "predicate": [
                     "action:demoralize"
                 ],
                 "selector": "intimidation",
+                "slug": "harsh-judgement-demoralize",
                 "type": "circumstance",
                 "value": -1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "target:mark:harsh-judgement"
+                ],
+                "selector": "intimidation",
+                "slug": "harsh-judgement-demoralize",
+                "value": 2
             }
         ],
         "start": {

@@ -38,8 +38,10 @@ class CombatantPF2e<
             for (const member of actor.members) {
                 const token = member.getDependentTokens({ scenes: [scene], linked: true }).at(0);
                 const alreadyAdded = operation.parent?.combatants.some((c) => c.actor === member);
+                const memberTraits = member.system.traits.value;
+                const validInEncounter = !memberTraits.some((t) => ["minion", "eidolon"].includes(t));
                 const alreadyBeingAdded = data.some((d) => d.actorId === member.id);
-                if (token && !alreadyAdded && !alreadyBeingAdded) {
+                if (token && !alreadyAdded && !alreadyBeingAdded && validInEncounter) {
                     data.push({
                         actorId: member.id,
                         sceneId: scene.id,
@@ -168,13 +170,16 @@ class CombatantPF2e<
         super._initialize(options);
     }
 
-    /** If embedded, don't prepare data if the parent's data model hasn't initialized all its properties */
+    /**
+     * If embedded, don't prepare data if the parent hasn't finished initializing.
+     * @todo remove in V13
+     */
     override prepareData(): void {
-        if (this.initialized) return;
-        if (!this.parent || this.parent.initialized) {
-            this.initialized = true;
-            super.prepareData();
+        if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
+            return;
         }
+        this.initialized = true;
+        super.prepareData();
     }
 
     override prepareBaseData(): void {
@@ -239,11 +244,18 @@ class CombatantPF2e<
      */
     async #performActorUpdates(event: "initiative-roll" | "turn-start"): Promise<void> {
         const actor = this.actor;
+        if (!actor) return;
+
         const actorUpdates: Record<string, unknown> = {};
-        for (const rule of actor?.rules ?? []) {
+        for (const rule of actor.rules ?? []) {
             await rule.onUpdateEncounter?.({ event, actorUpdates });
         }
-        await actor?.update(actorUpdates);
+        await actor.update(actorUpdates);
+
+        // Refresh usages of any abilities with round durations
+        if (event === "turn-start") {
+            await actor.recharge({ duration: "round" });
+        }
     }
 
     /* -------------------------------------------- */

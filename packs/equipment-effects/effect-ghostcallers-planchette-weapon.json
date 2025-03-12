@@ -4,7 +4,7 @@
     "name": "Effect: Ghostcaller's Planchette - Weapon",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Ghostcaller's Planchette]</p>\n<p>After you cast a necromancy spell by activating the <em>planchette</em>, the affixed weapon gains the effects of the <em>ghost touch</em> property rune until the end of your next turn.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Ghostcaller's Planchette], @UUID[Compendium.pf2e.equipment-srd.Item.Ghostcaller's Planchette (Greater)]</p>\n<p>The affixed weapon gains the effects of the <em>ghost touch</em> property rune and the <em>greater disrupting</em> property rune (<em>greater</em>).</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -21,6 +21,40 @@
             "title": "Pathfinder Treasure Vault"
         },
         "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:ghostcallers-planchette",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Ghostcaller's Planchette"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:ghostcallers-planchette-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Ghostcaller's Planchette (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "ghostcallers-planchette"
+            },
             {
                 "choices": {
                     "includeHandwraps": true,
@@ -46,6 +80,23 @@
                 "mode": "add",
                 "property": "property-runes",
                 "value": "ghost-touch"
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:category:{item|flags.pf2e.rulesSelections.effectGhostcallersPlanchetteWeapon}",
+                            "item:id:{item|flags.pf2e.rulesSelections.effectGhostcallersPlanchetteWeapon}"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "ghostcallers-planchette:ghostcallers-planchette-greater"
+                ],
+                "property": "property-runes",
+                "value": "greater-disrupting"
             }
         ],
         "start": {

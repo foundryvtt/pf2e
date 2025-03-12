@@ -1,10 +1,11 @@
 import type { ActorPF2e } from "@actor";
+import { FormulaPicker } from "@actor/character/apps/formula-picker/app.ts";
 import { AbilityItemPF2e, FeatPF2e } from "@item";
 import { extractEphemeralEffects } from "@module/rules/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import { ErrorPF2e, getActionGlyph, htmlQuery, htmlQueryAll, traitSlugToObject, tupleHasValue } from "@util";
-import type { ChatMessageFlags } from "types/foundry/common/documents/chat-message.d.ts";
-import { ChatContextFlag, CheckContextChatFlag } from "./data.ts";
+import { ErrorPF2e, getActionGlyph, htmlQuery, htmlQueryAll, tupleHasValue } from "@util";
+import { traitSlugToObject } from "@util/tags.ts";
+import { ChatContextFlag, ChatMessageFlagsPF2e, CheckContextChatFlag } from "./data.ts";
 import { ChatMessagePF2e } from "./document.ts";
 
 function isCheckContextFlag(flag?: ChatContextFlag): flag is CheckContextChatFlag {
@@ -12,21 +13,42 @@ function isCheckContextFlag(flag?: ChatContextFlag): flag is CheckContextChatFla
 }
 
 /** Create a message with collapsed action description and button to apply an effect */
-async function createSelfEffectMessage(
+async function createUseActionMessage(
     item: AbilityItemPF2e<ActorPF2e> | FeatPF2e<ActorPF2e>,
     rollMode: RollMode | "roll" = "roll",
 ): Promise<ChatMessagePF2e | null> {
-    if (!item.system.selfEffect) {
-        throw ErrorPF2e(
-            [
-                "Only actions with self-applied effects can be passed to `ActorPF2e#useAction`.",
-                "Support will be expanded at a later time.",
-            ].join(" "),
-        );
-    }
-
     const { actor, actionCost } = item;
     const token = actor.getActiveTokens(true, true).shift() ?? null;
+
+    // Reduce remaining uses in frequency
+    if (item.system.frequency && item.system.frequency.value > 0) {
+        const newValue = item.system.frequency.value - 1;
+        await item.update({ "system.frequency.value": newValue });
+    }
+
+    // If this is a crafting action, prompt for the item we want to craft and then craft it
+    const craftingAbility = item.crafting;
+    const resource = craftingAbility?.resource ? actor.getResource(craftingAbility.resource) : null;
+    const isCraftingAction = !!craftingAbility && !!resource && actor.isOfType("character");
+    const consumeResources = !!resource?.value;
+    const craftedItem = await (async () => {
+        if (!isCraftingAction) return null;
+
+        const picker = new FormulaPicker({ actor, item, ability: craftingAbility, mode: "craft" });
+        const selection = await picker.resolveSelection();
+        return selection
+            ? craftingAbility.craft(selection, {
+                  consume: consumeResources,
+                  destination: "hand",
+              })
+            : null;
+    })();
+    if (!craftedItem && isCraftingAction) return null;
+
+    // If there is no self effect nor crafted item, show a regular message
+    if (!item.system.selfEffect && !craftedItem) {
+        return (await item.toMessage(null, { rollMode })) ?? null;
+    }
 
     const speaker = ChatMessagePF2e.getSpeaker({ actor, token });
     const flavor = await renderTemplate("systems/pf2e/templates/chat/action/flavor.hbs", {
@@ -46,17 +68,25 @@ async function createSelfEffectMessage(
 
         return tempDiv.innerText.slice(0, previewLength);
     })();
-    const description = {
-        full: descriptionPreview && descriptionPreview.length < previewLength ? item.description : null,
-        preview: descriptionPreview,
-    };
-    const content = await renderTemplate("systems/pf2e/templates/chat/action/self-effect.hbs", {
+    const content = await renderTemplate("systems/pf2e/templates/chat/action/collapsed.hbs", {
         actor: item.actor,
-        description,
+        description: {
+            full: descriptionPreview && descriptionPreview.length < previewLength ? item.description : null,
+            preview: descriptionPreview,
+        },
+        selfEffect: !!item.system.selfEffect,
+        craftedItem: craftedItem?.toAnchor({ attrs: { draggable: "true" } }).outerHTML,
+        withoutResources: craftedItem && !consumeResources,
     });
-    const flags: ChatMessageFlags = { pf2e: { context: { type: "self-effect", item: item.id } } };
-    const messageData = ChatMessagePF2e.applyRollMode({ speaker, flavor, content, flags }, rollMode);
+    const flags: { pf2e: ChatMessageFlagsPF2e["pf2e"] } = { pf2e: {} };
+    if (item.system.selfEffect) {
+        flags.pf2e.context = { type: "self-effect", item: item.id };
+    } else {
+        flags.pf2e.origin = item.getOriginData();
+    }
 
+    // Create the message
+    const messageData = ChatMessagePF2e.applyRollMode({ speaker, flavor, content, flags }, rollMode);
     return (await ChatMessagePF2e.create(messageData)) ?? null;
 }
 
@@ -94,6 +124,11 @@ async function applyDamageFromMessage({
 
     for (const token of tokens) {
         if (!token.actor) continue;
+        // Add roll option for ally/enemy status
+        if (token.actor.alliance && message.actor) {
+            const allyOrEnemy = token.actor.alliance === message.actor.alliance ? "ally" : "enemy";
+            messageRollOptions.push(`origin:${allyOrEnemy}`);
+        }
 
         // If no target was acquired during a roll, set roll options for it during damage application
         if (!messageRollOptions.some((o) => o.startsWith("target"))) {
@@ -113,7 +148,7 @@ async function applyDamageFromMessage({
                 : [];
         const contextClone = token.actor.getContextualClone(originRollOptions, ephemeralEffects);
         const rollOptions = new Set([
-            ...messageRollOptions.filter((o) => !/^(?:self|target):/.test(o)),
+            ...messageRollOptions.filter((o) => !/^(?:self|target)(?::|$)/.test(o)),
             ...effectRollOptions,
             ...originRollOptions,
             ...contextClone.getSelfRollOptions(),
@@ -205,4 +240,4 @@ function toggleClearTemplatesButton(message: ChatMessagePF2e | null): void {
     }
 }
 
-export { applyDamageFromMessage, createSelfEffectMessage, isCheckContextFlag, toggleClearTemplatesButton };
+export { applyDamageFromMessage, createUseActionMessage, isCheckContextFlag, toggleClearTemplatesButton };

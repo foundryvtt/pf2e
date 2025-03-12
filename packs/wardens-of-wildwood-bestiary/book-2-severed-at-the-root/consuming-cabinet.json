@@ -1,0 +1,211 @@
+{
+    "_id": "KKBBG1UE3OfVeN0B",
+    "folder": "hC7EhepoGMQwgJ4z",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "8i45TOQjQYW00lkI",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "It's Alive!",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature moves adjacent to the cabinet</p>\n<hr />\n<p><strong>Effect</strong> The cabinet animates and makes a door Strike against one adjacent creature. The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "attack"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mGORRER3N6zLPhLY",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Capture",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The target is trapped inside the cabinet's interior, gaining the @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] condition until it @UUID[Compendium.pf2e.actionspf2e.Item.Escape]{Escapes} (DC 32), another creature @UUID[Compendium.pf2e.actionspf2e.Item.Force Open]{Forces Open} the cabinet door (DC 32), or that cabinet door is destroyed. Each of the two cabinet interiors can contain one Medium creature, or two Small-sized creatures or smaller.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hIbzcJoVtBeL1qRX",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Door",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "capture"
+                    ]
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "di7DCTKkZEjB07zn": {
+                        "damage": "2d10+13",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ZeoFAPeatghPVLYS",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Batter",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The cabinet shakes, dealing @Damage[(2d10+13)[bludgeoning]] damage to all creatures it has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "attack"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Consuming Cabinet",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 28
+            },
+            "emitsSound": "encounter",
+            "hardness": 16,
+            "hp": {
+                "details": "Door Hardness 10; Door HP 40 (BT 20)",
+                "max": 70,
+                "temp": 0,
+                "value": 70
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 20
+            }
+        },
+        "details": {
+            "description": "<p>Animated cabinet imprisons intruders. The cabinet has two compartments; each can hold a single Medium creature or two Small-sized creatures or smaller.</p>",
+            "disable": "<p>@Check[thievery|dc:30] (expert) twice on cabinet; @Check[crafting|dc:28] or @Check[thievery|dc:28] (expert) to remove each or two doors</p>",
+            "isComplex": true,
+            "level": {
+                "value": 9
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #202: Severed at the Root"
+            },
+            "reset": "<p>The trap resets after 1 hour.</p>",
+            "routine": "<p>(3 actions) The trap uses its first action to move directly toward the nearest living creature, its second action to make a door Strike against each adjacent creature, and its third action to Batter. This trap doesn't take a multiple attack penalty.</p>\n<hr>\n<p><strong>Speed</strong> 15 feet</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 21
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

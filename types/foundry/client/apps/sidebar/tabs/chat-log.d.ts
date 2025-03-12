@@ -34,7 +34,7 @@ declare global {
          */
         protected _lastWhisper: TChatMessage | null;
 
-        constructor(options?: {});
+        constructor(options?: Partial<ChatLogOptions>);
 
         static override get defaultOptions(): ChatLogOptions;
 

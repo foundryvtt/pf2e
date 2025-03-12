@@ -1,0 +1,262 @@
+{
+    "_id": "HhDQOylStcEVZCNg",
+    "img": "icons/weapons/sickles/sickle-wrapped-engraved-green.webp",
+    "name": "Mortal Harvest",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p><strong>Usage</strong> a sickle or any weapon from the axe, flail, or polearm group</p><hr /><p>This weapon, once used for felling trees or crops, now harvests lives instead.</p>\n<p><strong>Immanence</strong> The mortal harvest deals 1 persistent spirit damage per weapon damage die to creatures it Strikes.</p>\n<p><strong>Transcendence—</strong>@UUID[Compendium.pf2e.actionspf2e.Item.Reap the Field] <span class=\"action-glyph\">1</span> (transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.24k7qCV8S95yYK3y inline]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.DivineSpark.Label",
+                "mergeable": true,
+                "option": "divine-spark",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "mortal-harvest"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.exemplar.ikons",
+                "value": {
+                    "label": "PF2E.SpecificRule.Exemplar.Ikon.MortalHarvest.Label",
+                    "predicate": [
+                        "parent:tag:weapon-ikon-feat"
+                    ],
+                    "value": "mortal-harvest"
+                }
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Reap the Field"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Grant",
+                        "value": "granted"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Existing",
+                        "value": "existing"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Physical.Prompt",
+                "rollOption": "mortal-harvest-origin"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        {
+                            "or": [
+                                "item:base:sickle",
+                                "item:group:axe",
+                                "item:group:flail",
+                                "item:group:polearm"
+                            ]
+                        },
+                        {
+                            "not": "item:trait:consumable"
+                        }
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "existingIkon",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "mortal-harvest-origin:existing"
+                ]
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:level:0",
+                        {
+                            "nor": [
+                                "item:magical",
+                                "item:trait:consumable"
+                            ]
+                        },
+                        {
+                            "or": [
+                                "item:base:sickle",
+                                "item:group:axe",
+                                "item:group:flail",
+                                "item:group:polearm"
+                            ]
+                        }
+                    ],
+                    "itemType": "weapon"
+                },
+                "flag": "grantedIkon",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "mortal-harvest-origin:granted"
+                ]
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "mortal-harvest-origin:granted"
+                ],
+                "uuid": "{item|flags.pf2e.rulesSelections.grantedIkon}"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "mortal-harvest-origin:existing",
+                                    "item:id:{item|flags.pf2e.rulesSelections.existingIkon}"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "mortal-harvest-origin:granted",
+                                    "item:granter:slug:mortal-harvest"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "other-tags",
+                "value": "physical-ikon"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "mortal-harvest-origin:existing",
+                                    "item:id:{item|flags.pf2e.rulesSelections.existingIkon}"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "mortal-harvest-origin:granted",
+                                    "item:granter:slug:mortal-harvest"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "other-tags",
+                "value": "physical-ikon:mortal-harvest"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:physical-ikon:mortal-harvest"
+                ],
+                "priority": 121,
+                "property": "traits",
+                "value": "divine"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:physical-ikon:mortal-harvest"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "@Embed[Compendium.pf2e.classfeatures.Item.HhDQOylStcEVZCNg inline]"
+                    }
+                ]
+            },
+            {
+                "damageCategory": "persistent",
+                "damageType": "spirit",
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:tag:physical-ikon:mortal-harvest",
+                    "divine-spark:mortal-harvest"
+                ],
+                "selector": "weapon-damage",
+                "slug": "barrows-edge-immanence",
+                "tags": [
+                    "exemplar"
+                ],
+                "value": "@weapon.system.damage.dice"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    {
+                        "or": [
+                            "item:granter:tag:chosen-ikon:mortal-harvest",
+                            "item:slug:reap-the-field"
+                        ]
+                    },
+                    {
+                        "not": "divine-spark:mortal-harvest"
+                    }
+                ],
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Exemplar.DivineSpark.SparkTranscendence.Reminder"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "exemplar-ikon",
+                "exemplar-weapon-ikon"
+            ],
+            "rarity": "common",
+            "value": [
+                "ikon"
+            ]
+        }
+    },
+    "type": "feat"
+}

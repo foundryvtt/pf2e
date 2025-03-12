@@ -1,6 +1,8 @@
 import { ActorPF2e } from "@actor";
-import { ItemProxyPF2e, KitPF2e, PhysicalItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { applyActorUpdate } from "@actor/helpers.ts";
+import { ItemPF2e, ItemProxyPF2e, KitPF2e, PhysicalItemPF2e } from "@item";
+import { ItemSourcePF2e, KitSource, PhysicalItemSource } from "@item/base/data/index.ts";
+import { itemIsOfType } from "@item/helpers.ts";
 import { Coins } from "@item/physical/data.ts";
 import { CoinsPF2e, coinCompendiumIds } from "@item/physical/helpers.ts";
 import { DENOMINATIONS } from "@item/physical/values.ts";
@@ -207,17 +209,56 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
         await this.actor.inventory.addCoins(coins);
     }
 
-    /** Adds an item to this inventory without removing from its original location */
-    async add(item: PhysicalItemPF2e | KitPF2e, options: AddItemOptions = {}): Promise<void> {
-        if (options.stack && item.isOfType("physical")) {
-            const stackableItem = this.findStackableItem(item._source);
-            if (stackableItem) {
-                await stackableItem.update({ "system.quantity": stackableItem.quantity + item.quantity });
-                return;
-            }
+    /** Deletes all temporary items, skipping those that are associated with a special resource */
+    async deleteTemporaryItems(
+        operation?: Partial<DatabaseDeleteOperation<TActor>> | undefined,
+    ): Promise<PhysicalItemPF2e<TActor>[]> {
+        const actor = this.actor;
+        const specialResourceItems = Object.values(actor.synthetics.resources)
+            .map((r) => r.itemUUID)
+            .filter((i) => !!i);
+        const itemsToDelete = this.actor.inventory
+            .filter((i) => i.system.temporary && (!i.sourceId || !specialResourceItems.includes(i.sourceId)))
+            .map((i) => i.id);
+        if (itemsToDelete.length) {
+            const deletedItems = await actor.deleteEmbeddedDocuments("Item", itemsToDelete, operation);
+            return deletedItems as PhysicalItemPF2e<TActor>[];
         }
 
-        await this.actor.createEmbeddedDocuments("Item", [item.toObject()]);
+        return [];
+    }
+
+    /** Adds one or more items to this inventory without removing from its original location */
+    async add(
+        itemOrItems:
+            | PhysicalItemPF2e
+            | KitPF2e
+            | PreCreate<PhysicalItemSource | KitSource>
+            | (PhysicalItemPF2e | KitPF2e | PreCreate<PhysicalItemSource | KitSource>)[],
+        options: AddItemOptions = {},
+    ): Promise<void> {
+        const items = Array.isArray(itemOrItems) ? itemOrItems : [itemOrItems];
+        const itemCreates: PreCreate<PhysicalItemSource | KitSource>[] = [];
+        const newQuantities: Record<string, number> = {};
+        for (const item of items) {
+            if (options.stack && itemIsOfType(item, "physical")) {
+                const source = "_source" in item ? item._source : item;
+                const stackableItem = this.findStackableItem(source);
+                if (stackableItem) {
+                    newQuantities[stackableItem.id] ??= stackableItem.quantity;
+                    newQuantities[stackableItem.id] += item.system.quantity;
+                    continue;
+                }
+            }
+
+            itemCreates.push(item instanceof ItemPF2e ? item.toObject() : item);
+        }
+
+        const itemUpdates = Object.entries(newQuantities).map(([id, quantity]) => ({
+            _id: id,
+            "system.quantity": quantity,
+        }));
+        applyActorUpdate(this.actor, { itemCreates, itemUpdates });
     }
 }
 

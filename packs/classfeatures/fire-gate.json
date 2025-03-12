@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<table class=\"pf2e\">\n<tbody>\n<tr>\n<th style=\"text-align:left\">Fire Gate Junction</th>\n</tr>\n</tbody>\n<tbody>\n<tr>\n<td style=\"text-align:left\"><strong>Critical Blast</strong> The target takes 1d6 persistent fire damage. You gain an item bonus to this persistent damage equal to your item bonus to impulse attack rolls, such as from a <em>gate attenuator</em>.</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Elemental Resistance</strong> cold, fire</td>\n</tr>\n<tr></tr>\n<tr>\n<td style=\"text-align:left\"><strong>Impulse Junction</strong> Increase the damage die size of fire damage dealt by the impulse by one step.</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Aura Junction</strong> Enemies in your kinetic aura gain weakness to fire from your fire impulses. The weakness is equal to half your level (minimum weakness 1).</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Skill Junction</strong> Intimidation, @UUID[Compendium.pf2e.feats-srd.Item.Intimidating Glare]</td>\n</tr>\n</tbody>\n</table>"
+            "value": "<table class=\"pf2e remaster\"><tbody><tr><th style=\"text-align:left\"><p>Fire Gate Junction</p></th></tr><tr><td style=\"text-align:left\"><p><strong>Critical Blast</strong> The target takes 1d6 persistent fire damage. You gain an item bonus to this persistent damage equal to your item bonus to impulse attack rolls, such as from a <em>gate attenuator</em>.</p></td></tr><tr><td style=\"text-align:left\"><p><strong>Elemental Resistance</strong> cold, fire</p></td></tr><tr><td style=\"text-align:left\"><p><strong>Impulse Junction</strong> Increase the damage die size of fire damage dealt by the impulse by one step.</p></td></tr><tr><td style=\"text-align:left\"><p><strong>Aura Junction</strong> Enemies in your kinetic aura gain weakness to fire from your fire impulses. The weakness is equal to half your level (minimum weakness 1).</p></td></tr><tr><td style=\"text-align:left\"><p><strong>Skill Junction</strong> Intimidation, @UUID[Compendium.pf2e.feats-srd.Item.Intimidating Glare]</p></td></tr></tbody></table>"
         },
         "level": {
             "value": 1
@@ -247,12 +247,9 @@
                 "value": "@blast.flags.pf2e.attackItemBonus"
             },
             {
-                "damageType": "fire",
-                "key": "DamageDice",
+                "key": "DamageAlteration",
                 "label": "PF2E.SpecificRule.Kineticist.KineticGate.Junction.ImpulseJunction",
-                "override": {
-                    "upgrade": true
-                },
+                "mode": "upgrade",
                 "predicate": [
                     {
                         "gte": [
@@ -260,10 +257,12 @@
                             2
                         ]
                     },
-                    "impulse",
-                    "junction:fire:impulse"
+                    "item:trait:impulse",
+                    "junction:fire:impulse",
+                    "damage:type:fire"
                 ],
-                "selector": [
+                "property": "dice-faces",
+                "selectors": [
                     "impulse-damage",
                     "inline-damage"
                 ]

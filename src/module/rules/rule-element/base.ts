@@ -20,7 +20,7 @@ import { BracketedValue, RuleElementSchema, RuleElementSource, RuleValue } from 
  */
 abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSchema> extends foundry.abstract
     .DataModel<ItemPF2e<ActorPF2e>, TSchema> {
-    protected declare static _schema: LaxSchemaField<RuleElementSchema> | undefined;
+    declare protected static _schema: LaxSchemaField<RuleElementSchema> | undefined;
 
     declare label: string;
 
@@ -67,7 +67,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             ? game.i18n.format(this.resolveInjectedProperties(this.label), {
                   actor: item.actor.name,
                   item: item.name,
-                  origin: item.isOfType("effect") ? item.origin?.name ?? null : null,
+                  origin: item.isOfType("effect") ? (item.origin?.name ?? null) : null,
               })
             : item.name;
 
@@ -94,7 +94,6 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 
     static override defineSchema(): RuleElementSchema {
         const fields = foundry.data.fields;
-
         return {
             key: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
             slug: new SlugField({ required: true, nullable: true, label: "PF2E.RuleEditor.General.Slug" }),
@@ -269,7 +268,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
                 })();
                 if (value === undefined) {
                     this.ignored = true;
-                    if (warn) this.failValidation(`Failed to resolve injected property "${source}"`);
+                    if (warn) this.failValidation(`Failed to resolve injected property "${prop}" in "${source}"`);
                 }
                 return String(value);
             });
@@ -520,6 +519,8 @@ namespace RuleElementPF2e {
         pendingItems: ItemSourcePF2e[];
         /** Items temporarily constructed from pending item source */
         tempItems: ItemPF2e<ActorPF2e>[];
+        /** Updates that should be performed to items after pre creates conclude */
+        itemUpdates: EmbeddedDocumentUpdateData[];
         /** The `operation` object from the `ItemPF2e.createDocuments` call */
         operation: Partial<DatabaseCreateOperation<ActorPF2e | null>>;
         /** Whether this preCreate run is from a pre-update reevaluation */

@@ -64,14 +64,17 @@
                 "type": "ability"
             },
             {
-                "key": "DamageDice",
-                "override": {
-                    "diceNumber": "max(1 + floor((@actor.level - 1) / 4), 1)"
-                },
+                "key": "DamageAlteration",
+                "mode": "override",
                 "predicate": [
-                    "class:kineticist"
+                    "class:kineticist",
+                    "dice:slug:base"
                 ],
-                "selector": "elemental-blast-damage"
+                "property": "dice-number",
+                "selectors": [
+                    "elemental-blast-damage"
+                ],
+                "value": "max(1 + floor((@actor.level - 1) / 4), 1)"
             }
         ],
         "traits": {

@@ -1,0 +1,55 @@
+{
+    "_id": "CYmipBeliNuymENB",
+    "img": "icons/skills/targeting/crosshair-pointed-orange.webp",
+    "name": "Effect: Come and Get Me (Temporary Hit Points)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Come and Get Me]</p>\n<p>You gain temporary Hit Points equal to your Constitution modifier, or double that on a critical hit. These temporary Hit Points last until the end of your rage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Attack.criticalSuccess",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Attack.success",
+                        "value": 1
+                    }
+                ],
+                "flag": "comeAndGetMe",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "TempHP",
+                "value": "@item.flags.pf2e.rulesSelections.comeAndGetMe*@actor.system.abilities.con.mod"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

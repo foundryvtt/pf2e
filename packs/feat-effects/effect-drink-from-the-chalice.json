@@ -1,0 +1,53 @@
+{
+    "_id": "gjxSQgN3MopLxM35",
+    "img": "icons/containers/kitchenware/goblet-worn-white.webp",
+    "name": "Effect: Drink from the Chalice",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Drink from the Chalice]</p>\n<p>You gain temporary Hit Points equal to 2 + half the origin's level. If the origin is under the effects of the chalice's adept benefit, these temporary Hit Points increase to 2 + their Charisma modifier + their level.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "predicate": [
+                    {
+                        "not": "parent:origin:item:tag:chalice-adept-benefit"
+                    }
+                ],
+                "value": "2+floor(@item.origin.level/2)"
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "parent:origin:item:tag:chalice-adept-benefit"
+                ],
+                "value": "2+ @item.origin.level + @item.origin.abilities.cha.mod"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

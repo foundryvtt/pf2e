@@ -1,0 +1,55 @@
+{
+    "_id": "og3gUpF2Ti64Py8t",
+    "img": "icons/skills/social/wave-halt-stop.webp",
+    "name": "Effect: Ruthless Orator (Enemy)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by Ruthless Orator</p>\n<p>You take a -2 circumstance penalty to attack rolls and spell attack rolls against the origin.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:enemy",
+                    {
+                        "lte": [
+                            "target:distance",
+                            20
+                        ]
+                    }
+                ],
+                "selector": [
+                    "attack-roll",
+                    "spell-attack-roll"
+                ],
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

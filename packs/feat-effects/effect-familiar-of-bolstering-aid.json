@@ -1,0 +1,49 @@
+{
+    "_id": "IgLMAwovQ9roTsRN",
+    "img": "icons/magic/nature/leaf-glow-triple-green.webp",
+    "name": "Effect: Familiar of Bolstering Aid",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.familiar-abilities.Item.Familiar of Bolstering Aid]</p>\n<p>You gain a +2 status bonus to the next non-attack skill check you attempt.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "item:trait:attack"
+                    }
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": "skill-check",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

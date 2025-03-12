@@ -1,14 +1,14 @@
 import { getActionIcon, sluggify } from "@util";
 import * as R from "remeda";
+import { CompendiumBrowser } from "../browser.ts";
 import { ContentTabName } from "../data.ts";
-import { CompendiumBrowser } from "../index.ts";
-import { CompendiumBrowserTab } from "./base.ts";
+import { CompendiumBrowserTab } from "./base.svelte.ts";
 import { ActionFilters, CompendiumBrowserIndexData } from "./data.ts";
 
 export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "action";
-    filterData: ActionFilters;
-    templatePath = "systems/pf2e/templates/compendium-browser/partials/action.hbs";
+    tabLabel = "PF2E.Item.Ability.Plural";
+    declare filterData: ActionFilters;
 
     /* MiniSearch */
     override searchFields = ["name", "originalName"];
@@ -78,18 +78,18 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
         this.indexData = actions;
 
         // Set Filters
-        this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.actionTraits);
+        this.filterData.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.actionTraits);
         this.filterData.checkboxes.types.options = this.generateCheckboxOptions(CONFIG.PF2E.actionTypes);
         this.filterData.checkboxes.category.options = this.generateCheckboxOptions(
             R.pick(CONFIG.PF2E.actionCategories, ["familiar"]),
         );
-        this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
+        this.filterData.source.options = this.generateSourceCheckboxOptions(publications);
 
         console.debug("PF2e System | Compendium Browser | Finished loading actions");
     }
 
     protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
-        const { checkboxes, multiselects } = this.filterData;
+        const { checkboxes, source, traits } = this.filterData;
 
         // Types
         if (checkboxes.types.selected.length) {
@@ -101,11 +101,10 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
             if (!selected.includes(entry.category)) return false;
         }
         // Traits
-        if (!this.filterTraits(entry.traits, multiselects.traits.selected, multiselects.traits.conjunction))
-            return false;
+        if (!this.filterTraits(entry.traits, traits.selected, traits.conjunction)) return false;
         // Source
-        if (checkboxes.source.selected.length) {
-            if (!checkboxes.source.selected.includes(entry.source)) return false;
+        if (source.selected.length) {
+            if (!source.selected.includes(entry.source)) return false;
         }
         return true;
     }
@@ -121,31 +120,29 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
                 },
                 category: {
                     isExpanded: true,
-                    label: "PF2E.BrowserFilterCategory",
-                    options: {},
-                    selected: [],
-                },
-                source: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterSource",
+                    label: "PF2E.CompendiumBrowser.Filter.Categories",
                     options: {},
                     selected: [],
                 },
             },
-            multiselects: {
-                traits: {
-                    conjunction: "and",
-                    label: "PF2E.BrowserFilterTraits",
-                    options: [],
-                    selected: [],
-                },
+            source: {
+                isExpanded: false,
+                label: "PF2E.CompendiumBrowser.Filter.Source",
+                options: {},
+                selected: [],
+            },
+            traits: {
+                conjunction: "and",
+                options: [],
+                selected: [],
             },
             order: {
                 by: "name",
                 direction: "asc",
                 options: {
-                    name: "Name",
+                    name: { label: "Name", type: "alpha" },
                 },
+                type: "alpha",
             },
             search: {
                 text: "",

@@ -84,9 +84,9 @@ class LanguageSettings extends foundry.abstract.DataModel<null, LanguageSettings
 
         const nonCommonLanguages = new Set([...this.uncommon, ...this.rare, ...this.secret, ...this.unavailable]);
         this.common = new Set(
-            R.keys
-                .strict(CONFIG.PF2E.languages)
-                .filter((l): l is LanguageNotCommon => l !== "common" && !nonCommonLanguages.has(l)),
+            R.keys(CONFIG.PF2E.languages).filter(
+                (l): l is LanguageNotCommon => l !== "common" && !nonCommonLanguages.has(l),
+            ),
         );
         this.homebrew = new Set(game.settings.get("pf2e", "homebrew.languages").map((t) => t.id));
     }

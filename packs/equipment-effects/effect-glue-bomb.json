@@ -1,0 +1,129 @@
+{
+    "_id": "sgQknR94qDt5ILBx",
+    "img": "icons/containers/bags/sack-simple-leather-tan.webp",
+    "name": "Effect: Glue Bomb",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Glue Bomb (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Glue Bomb (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Glue Bomb (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Glue Bomb (Major)]</p>\n<p>The target takes a status penalty to its speeds.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:glue-bomb-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Glue Bomb (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:glue-bomb-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Glue Bomb (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:glue-bomb-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Glue Bomb (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:glue-bomb-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Glue Bomb (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "glue-bomb"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "all-speeds",
+                "slug": "glue-bomb-penalty",
+                "type": "status",
+                "value": -10
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "downgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "glue-bomb:glue-bomb-greater",
+                            "glue-bomb:glue-bomb-moderate"
+                        ]
+                    }
+                ],
+                "selector": "all-speeds",
+                "slug": "glue-bomb-penalty",
+                "value": -15
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "downgrade",
+                "predicate": [
+                    "glue-bomb:glue-bomb-major"
+                ],
+                "selector": "all-speeds",
+                "slug": "glue-bomb-penalty",
+                "value": -20
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

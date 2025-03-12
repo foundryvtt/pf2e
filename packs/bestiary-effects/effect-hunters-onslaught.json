@@ -1,0 +1,110 @@
+{
+    "_id": "2eQDm7Oor2hSZKyf",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Hunter's Onslaught",
+    "system": {
+        "description": {
+            "value": "<p>You become fascinated by the marked creature and you gain 10 temporary Hit Points that last as long as the onslaught does. You gain a +8 status bonus to damage rolls against the marked enemy, and allies in a 30-foot aura around the hunter gain half that bonus.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
+                "slug": "hunters-onslaught"
+            },
+            {
+                "key": "RollOption",
+                "option": "target:mark:hunters-onslaught",
+                "predicate": [
+                    {
+                        "not": "self:signature:{item|origin.signature}"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Hunter's Onslaught"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
+                "radius": 30,
+                "traits": [
+                    "concentrate",
+                    "emotion",
+                    "mental"
+                ]
+            },
+            {
+                "flag": "huntersOnslaught",
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Fascinated"
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
+                "value": 10
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:hunters-onslaught"
+                ],
+                "selector": "damage",
+                "slug": "hunters-onslaught",
+                "type": "status",
+                "value": 8
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "predicate": [
+                    {
+                        "not": "self:signature:{item|origin.signature}"
+                    }
+                ],
+                "selector": "damage",
+                "slug": "hunters-onslaught",
+                "value": "0.5"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

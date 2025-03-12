@@ -1,0 +1,47 @@
+{
+    "_id": "MqUZKmLRL3ntnCZS",
+    "img": "systems/pf2e/icons/equipment/shields/precious-material-shields/orichalcum-buckler.webp",
+    "name": "Effect: Predictable! (Saving Throw)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Predictable!]{Predictable}</p>\n<p>You gain a circumstance bonus to your next saving throw against the target. On a critical failure, you take a –1 circumstance penalty instead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:mark:predictable"
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": "@actor.flags.pf2e.predictable"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

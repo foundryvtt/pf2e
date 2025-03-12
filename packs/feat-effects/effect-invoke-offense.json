@@ -1,0 +1,68 @@
+{
+    "_id": "0h6dhuMU0fOr1OS5",
+    "img": "icons/magic/light/swords-light-glowing-white.webp",
+    "name": "Effect: Invoke Offense",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Invoke Offense]</p>\n<p>You gain an unarmed attack that deals 1d8 spirit damage for the duration of your spirit trance.This unarmed attack is in the brawling weapon group and has the agile, finesse, and magical traits.</p>\n<p>At 5th level, this unarmed attack gains the benefits of a striking rune. At 12th level, this unarmed attack gains the benefits of a greater striking rune. At 20th level, this unarmed attack gains the benefits of a major striking rune.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "spirit",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.RivethunInvoker.InvokeOffense.Label",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "magical"
+                ]
+            },
+            {
+                "key": "Striking",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    }
+                ],
+                "selector": "{item|id}-damage",
+                "value": "ternary(gte(@actor.level,20),3,ternary(gte(@actor.level,12),2,1))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

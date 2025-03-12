@@ -5,7 +5,8 @@ import { RuleElements, type RuleElementPF2e, type RuleElementSource } from "@mod
 import { ResolvableValueField, RuleElementSchema } from "@module/rules/rule-element/data.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import type { LaxSchemaField } from "@system/schema-data-fields.ts";
-import { createHTMLElement, fontAwesomeIcon, htmlClosest, htmlQuery, htmlQueryAll, isObject, tagify } from "@util";
+import { createHTMLElement, fontAwesomeIcon, htmlClosest, htmlQuery, htmlQueryAll, isObject } from "@util";
+import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
 import type { DataField } from "types/foundry/common/data/fields.d.ts";
 import type { ItemSheetPF2e } from "../index.ts";

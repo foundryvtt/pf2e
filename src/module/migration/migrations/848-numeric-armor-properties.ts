@@ -20,7 +20,7 @@ export class Migration848NumericArmorProperties extends MigrationBase {
 
         for (const [oldKey, newKey] of this.#oldToNew) {
             const oldProperty = source.system[oldKey];
-            const newProperty = R.isPlainObject(source.system[newKey]) ? 0 : source.system[newKey] ?? 0;
+            const newProperty = R.isPlainObject(source.system[newKey]) ? 0 : (source.system[newKey] ?? 0);
             if (R.isPlainObject(oldProperty) && newProperty === 0) {
                 delete source.system[oldKey];
                 if (oldKey === "strength") {

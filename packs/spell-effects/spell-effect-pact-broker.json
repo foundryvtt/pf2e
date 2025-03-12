@@ -1,0 +1,62 @@
+{
+    "_id": "vFZ7hG2j2DIQGkXg",
+    "img": "icons/sundries/documents/document-official-capital.webp",
+    "name": "Spell Effect: Pact Broker",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Pact Broker]</p>\n<p>You take a penalty to attack and damage rolls against the origin and their allies.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": -1
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": -2
+                    }
+                ],
+                "flag": "pactBroker",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack-roll",
+                    "damage"
+                ],
+                "slug": "pact-broker-penalty",
+                "type": "status",
+                "value": "@item.flags.pf2e.rulesSelections.pactBroker"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

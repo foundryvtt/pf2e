@@ -1,0 +1,137 @@
+{
+    "_id": "vXbk7Nm1TOTTUNvF",
+    "img": "icons/skills/targeting/crosshair-bars-yellow.webp",
+    "name": "Slinger's Precision",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You deal an extra +2 precision damage with Strikes made using non-repeating crossbows and you deal an extra 1d4 precision damage on Strikes using non-repeating firearms.</p>\n<p>If you have gunslinging legend, you instead deal +3 additional precision damage with Strikes using non-repeating crossbows and an additional 1d6 precision damage with Strikes using non-repeating firearms.</p>\n<p>If you are using a combination weapon whose ranged form is a firearm or crossbow, you use your proficiency with firearms and crossbows for attacks made with the melee configuration of that weapon.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "damageCategory": "precision",
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "item:trait:repeating"
+                    }
+                ],
+                "selector": "crossbow-weapon-group-damage",
+                "slug": "slingers-precision-crossbow",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "feature:gunslinging-legend"
+                ],
+                "selector": "crossbow-weapon-group-damage",
+                "slug": "slingers-precision-crossbow",
+                "value": 3
+            },
+            {
+                "category": "precision",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "not": "item:trait:repeating"
+                    }
+                ],
+                "selector": "firearm-weapon-group-damage",
+                "slug": "slingers-precision-firearm"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "feature:gunslinging-legend",
+                    "dice:slug:slingers-precision-firearm"
+                ],
+                "property": "dice-faces",
+                "selectors": [
+                    "firearm-weapon-group-damage"
+                ]
+            },
+            {
+                "definition": [
+                    "item:category:advanced",
+                    "item:ranged-usage:trait:combination",
+                    {
+                        "or": [
+                            "item:ranged-usage:group:crossbow",
+                            "item:ranged-usage:group:firearm"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "priority": 41,
+                "slug": "slingers-precision-advanced",
+                "value": "@actor.system.proficiencies.attacks.advanced-firearms-crossbows.rank",
+                "visible": false
+            },
+            {
+                "definition": [
+                    "item:category:martial",
+                    "item:ranged-usage:trait:combination",
+                    {
+                        "or": [
+                            "item:ranged-usage:group:crossbow",
+                            "item:ranged-usage:group:firearm"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "priority": 41,
+                "slug": "slingers-precision-martial",
+                "value": "@actor.system.proficiencies.attacks.martial-firearms-crossbows.rank",
+                "visible": false
+            },
+            {
+                "definition": [
+                    "item:category:simple",
+                    "item:ranged-usage:trait:combination",
+                    {
+                        "or": [
+                            "item:ranged-usage:group:crossbow",
+                            "item:ranged-usage:group:firearm"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "priority": 41,
+                "slug": "slingers-precision-simple",
+                "value": "@actor.system.proficiencies.attacks.simple-firearms-crossbows.rank",
+                "visible": false
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gunslinger"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -2,12 +2,11 @@ import type { ActorPF2e } from "@actor";
 import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup.ts";
 import type { SpellPF2e, WeaponPF2e } from "@item";
 import { ItemProxyPF2e, PhysicalItemPF2e } from "@item";
-import { processSanctification } from "@item/ability/helpers.ts";
 import { RawItemChatData } from "@item/base/data/index.ts";
+import { performLatePreparation } from "@item/helpers.ts";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
 import type { SpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import type { ValueAndMax } from "@module/data.ts";
-import type { ItemAlterationRuleElement } from "@module/rules/rule-element/item-alteration/index.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { ErrorPF2e, setHasElement } from "@util";
@@ -44,14 +43,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         const spellSource = fu.mergeObject(this.system.spell, { "system.location.value": null }, { inplace: false });
         const context = { parent: this.actor, parentItem: this };
         const spell = new ItemProxyPF2e(spellSource, context) as SpellPF2e<NonNullable<TParent>>;
-
-        const alterations = this.actor.rules.filter((r): r is ItemAlterationRuleElement => r.key === "ItemAlteration");
-        for (const alteration of alterations) {
-            alteration.applyAlteration({ singleItem: spell });
-        }
-
-        processSanctification(spell);
-
+        performLatePreparation(spell);
         return spell;
     }
 
@@ -81,7 +73,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         rollOptions: Record<string, unknown> = {},
     ): Promise<RawItemChatData> {
         const traits = this.traitChatData(CONFIG.PF2E.consumableTraits);
-        const [category, isUsable] = this.isIdentified
+        const [category, isUsableItemType] = this.isIdentified
             ? [game.i18n.localize(CONFIG.PF2E.consumableCategories[this.category]), true]
             : [
                   this.generateUnidentifiedName({ typeOnly: true }),
@@ -97,7 +89,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             properties:
                 this.isIdentified && this.uses.max > 1 ? [`${this.uses.value}/${this.uses.max} ${usesLabel}`] : [],
             category,
-            isUsable: fromFormula ? false : isUsable,
+            isUsable: isUsableItemType && !fromFormula && this.parent && this.parent.items.get(this.id),
         });
     }
 
@@ -194,7 +186,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             } else {
                 // Deduct one from quantity if this item has one charge or doesn't have charges
                 await this.update({
-                    "system.quantity": Math.max(quantityRemaining - 1, 0),
+                    "system.quantity": Math.max(quantityRemaining - thisMany, 0),
                     "system.uses.value": uses.max,
                 });
             }
@@ -244,6 +236,12 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
                 // Ensure kind is still valid after changing damage type
                 changed.system.damage.kind = "damage";
             }
+        }
+
+        // Clear stack group if this isn't ammo
+        const newCategory = changed.system.category ?? this.system.category;
+        if (newCategory !== "ammo") {
+            changed.system.stackGroup = null;
         }
 
         if (changed.system.uses) {

@@ -1,0 +1,61 @@
+{
+    "_id": "DX6v0lcI2uA99Yjv",
+    "img": "icons/sundries/scrolls/scroll-plain-red.webp",
+    "name": "Effect: Sixth Pillar Mastery",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Sixth Pillar Mastery]</p>\n<p>You have a -1 status penalty to saves against spells from the source, or you gain a +1 status bonus to attack rolls with your unarmed Strikes.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Fists of the Ruby Phoenix Hardcover Compilation"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "self:signature:{item|origin.signature}"
+                    },
+                    "item:type:spell",
+                    "origin:signature:{item|origin.signature}"
+                ],
+                "selector": "saving-throw",
+                "slug": "sixth-pillar-mastery-saves",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
+                "selector": "unarmed-attack-roll",
+                "slug": "sixth-pillar-mastery-attacks",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

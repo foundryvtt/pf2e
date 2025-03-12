@@ -4,7 +4,7 @@ import type { ActorPF2e } from "@actor";
 import type { Action } from "@actor/actions/index.ts";
 import type { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
 import type { ElementalBlast } from "@actor/character/elemental-blast.ts";
-import type { FeatGroupOptions } from "@actor/character/feats.ts";
+import type { FeatGroupData } from "@actor/character/feats/index.ts";
 import type { CheckModifier, ModifierPF2e, ModifierType, StatisticModifier } from "@actor/modifiers.ts";
 import type { ItemPF2e, PhysicalItemPF2e } from "@item";
 import type { ConditionSource } from "@item/condition/data.ts";
@@ -14,7 +14,7 @@ import type {
     CompendiumBrowser,
     CompendiumBrowserSettings,
     CompendiumBrowserSources,
-} from "@module/apps/compendium-browser/index.ts";
+} from "@module/apps/compendium-browser/browser.ts";
 import type { EffectsPanel } from "@module/apps/effects-panel.ts";
 import type { HotbarPF2e } from "@module/apps/hotbar.ts";
 import type { LicenseViewer } from "@module/apps/license-viewer/app.ts";
@@ -84,6 +84,7 @@ interface GamePF2e
         UserPF2e
     > {
     pf2e: {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         actions: Record<string, Function> & Collection<Action>;
         compendiumBrowser: CompendiumBrowser;
         licenseViewer: LicenseViewer;
@@ -134,9 +135,11 @@ interface GamePF2e
             campaign: {
                 feats: {
                     enabled: boolean;
-                    sections: FeatGroupOptions[];
+                    sections: FeatGroupData[];
                 };
                 languages: LanguageSettings;
+                mythic: "disabled" | "enabled" | "variant-tiers";
+                type: string | null;
             };
             critFumble: {
                 buttons: boolean;
@@ -222,6 +225,7 @@ declare global {
         PF2E: typeof PF2ECONFIG;
         time: {
             roundTime: number;
+            turnTime: number;
         };
     }
 
@@ -302,8 +306,9 @@ declare global {
         get(module: "pf2e", setting: "worldClock.worldCreatedOn"): string;
 
         get(module: "pf2e", setting: "campaignFeats"): boolean;
-        get(module: "pf2e", setting: "campaignFeatSections"): FeatGroupOptions[];
+        get(module: "pf2e", setting: "campaignFeatSections"): FeatGroupData[];
         get(module: "pf2e", setting: "campaignType"): string;
+        get(module: "pf2e", setting: "mythic"): "disabled" | "enabled" | "variant-tiers";
 
         get(module: "pf2e", setting: "activeParty"): string;
         get(module: "pf2e", setting: "activePartyFolderState"): boolean;

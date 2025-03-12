@@ -1,0 +1,76 @@
+{
+    "_id": "2VclK5CWR1Vz1vqL",
+    "img": "icons/magic/fire/flame-burning-fence.webp",
+    "name": "Curse of Creeping Ashes",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your body is slowly being consumed by the fires of your internal power, purifying you with each passing day. You are occasionally wracked with dry, wheezing coughs, and wherever you go you leave behind a fine trace of ash that falls from your body.</p>\n<p><strong>Cursebound 1</strong> You gain weakness 2 to fire damage. Any immunity or resistance you have to fire is suppressed.</p>\n<p><strong>Cursebound 2</strong> Swirling ash imposes a -2 circumstance penalty to ranged attack rolls you make.</p>\n<p><strong>Cursebound 3</strong> Your weakness to fire damage is equal to 5 + your level.</p>\n<p><strong>Cursebound 4</strong> You take a –10-foot status penalty to all your Speeds as your limbs begin to crumble like ash.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "self:condition:cursebound"
+                ],
+                "type": "fire",
+                "value": "ternary(gte(@actor.conditions.cursebound.value,3),(5 + @actor.level),2)"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:condition:cursebound",
+                            2
+                        ]
+                    }
+                ],
+                "selector": "ranged-attack-roll",
+                "type": "circumstance",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:condition:cursebound",
+                            4
+                        ]
+                    }
+                ],
+                "selector": "all-speeds",
+                "type": "status",
+                "value": -10
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "curse",
+                "divine",
+                "fire",
+                "oracle"
+            ]
+        }
+    },
+    "type": "feat"
+}

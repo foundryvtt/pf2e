@@ -1,0 +1,71 @@
+{
+    "_id": "HRtspa4zHLD5cw8v",
+    "img": "icons/environment/settlement/castle.webp",
+    "name": "The Last Ruler",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Whether your destiny is monarch or god, the spirit of all rulers past and future grants you an unrivaled commanding presence. After you Spark Transcendence, you can exude an air of authority until the start of your next turn. If any enemy fails at an attack roll against you during this time, you can attempt an Intimidation check to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] that enemy as a free action as you rebuke it for its foolish attempt to stand against your authority.</p>"
+        },
+        "level": {
+            "value": 15
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Exemplar.Epithet.Label",
+                "mergeable": true,
+                "option": "epithet",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "the-last-ruler"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:transcendence",
+                    "divine-spark",
+                    "epithet:the-last-ruler"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Exemplar.Epithet.TheLastRuler.Description"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "exemplar-sovereignty-epithet"
+            ],
+            "rarity": "common",
+            "value": [
+                "exemplar"
+            ]
+        }
+    },
+    "type": "feat"
+}

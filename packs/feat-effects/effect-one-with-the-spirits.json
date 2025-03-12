@@ -1,0 +1,74 @@
+{
+    "_id": "WUvjLX4ieyISdNbr",
+    "img": "icons/magic/light/explosion-beam-impact-silhouette.webp",
+    "name": "Effect: One with the Spirits",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.One with the Spirits]</p>\n<p>You gain fast healing 5 and you become concealed. Your Strikes gain the benefits of a <em>ghost touch</em> property rune. Whenever you deal damage with a Strike, you can choose to have that Strike deal spirit damage, rather than its usual damage type.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 16
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "key": "FastHealing",
+                "value": 5
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Concealed"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "property-runes",
+                "selectors": [
+                    "strike-attack-roll",
+                    "strike-damage"
+                ],
+                "value": "ghost-touch"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.RivethunInvoker.OneWithTheSpirits.Label",
+                "option": "one-with-the-spirits-damage",
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "one-with-the-spirits-damage"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "value": "spirit"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

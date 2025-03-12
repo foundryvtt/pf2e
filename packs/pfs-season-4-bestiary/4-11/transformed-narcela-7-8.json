@@ -1,0 +1,339 @@
+{
+    "_id": "8DKm9pmBJdgsA4MQ",
+    "folder": "TulOG3T9F3AjPHdw",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "9bbjvJevDTl2Bp2n",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "rajPp2LwXISxE7MI": {
+                        "damage": "2d8 + 9",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "3BY4Zsk0PXo531hn",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Horn",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "QoJHLkW2gJjOLhrB": {
+                        "damage": "2d10 + 9",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "fi5GHVylNTbYL9Uy",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Heart Break",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Narcela has used Hold the Heart and is holding her bloodstone</p>\n<p><strong>Effect</strong> Narcela shatters the bloodstone, sending shards into her enemies' chests. Until the end of her next turn, each enemy within 60 feet of Narcela takes a -1 item penalty to Will saves. The benefits of Hold the Heart immediately end. Narcela can't use Hold the Heart again for [[/gmr 1d6 #Recharge Hold the Heart]]{1d6 rounds}, as her heart needs time to regenerate.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Heart Break]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "txEevBQ8epOeUUsz",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Hold the Heart",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Narcela has a hand free</p>\n<p><strong>Effect</strong> Narcela reaches into her chest and pulls out a crimson gem. This bloodstone is a lesser version of a night hag's heartstone; as long as she holds it, Narcela gains a +1 item bonus to Will saves.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "will",
+                        "key": "RollOption",
+                        "label": "Narcela is Holding the Heart",
+                        "option": "hold-the-heart",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "hold-the-heart"
+                        ],
+                        "selector": "will",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sypOJXfp2zOwHOfs",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Scream of Spite",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Narcela lets out a scream laden with all her rage, spreading Aslynn's ritual transmogrifying magic to any creature that can hear her. All creatures within a @Template[emanation|distance:30] must attempt a @Check[will|dc:26] save; creatures with the hag trait are immune to this effect. Narcela can't use Scream of Spite again for [[/gmr 1d4 #Recharge Scream of Spite]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} as it resists the effects.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round as it tries to keep its thoughts its own.</p>\n<p><strong>Critical Failure</strong> The creature is confused for [[/r 1d4 #rounds]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Transformed Narcela (7-8)",
+    "prototypeToken": {
+        "name": "Transformed Narcela"
+    },
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 3
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 27
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 165,
+                "temp": 0,
+                "value": 165
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "controlled"
+                },
+                {
+                    "exceptions": [],
+                    "type": "sleep"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "cold-iron",
+                    "value": 8
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
+            "level": {
+                "value": 8
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder Society Scenario #4-11: Prisoners of the Electric Castle"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 17,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 18
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 16
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 18
+            },
+            "intimidation": {
+                "base": 18
+            },
+            "survival": {
+                "base": 16
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "chaotic",
+                "evil",
+                "hag",
+                "humanoid"
+            ]
+        }
+    },
+    "type": "npc"
+}

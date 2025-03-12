@@ -1,8 +1,3 @@
 <div class="inventory-details">
-    <div class="form-group">
-        <label>{{localize "PF2E.Category"}}</label>
-        <select name="system.category">
-            {{selectOptions categories selected=data.category blank="PF2E.Item.Action.Category.None" localize=true}}
-        </select>
-    </div>
+    {{formGroup fields.category value=data.category blank="" rootId=fieldRootId localize=true}}
 </div>

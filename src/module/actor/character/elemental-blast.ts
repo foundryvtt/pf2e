@@ -4,9 +4,10 @@ import { calculateMAPs } from "@actor/helpers.ts";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
 import type { AbilityItemPF2e } from "@item";
-import { ActionTrait } from "@item/ability/types.ts";
+import { AbilityTrait } from "@item/ability/types.ts";
 import { EffectTrait } from "@item/abstract-effect/types.ts";
 import { RangeData } from "@item/types.ts";
+import { WeaponDamage } from "@item/weapon/data.ts";
 import { WeaponTrait } from "@item/weapon/types.ts";
 import {
     extractDamageDice,
@@ -14,17 +15,18 @@ import {
     extractModifiers,
     processDamageCategoryStacking,
 } from "@module/rules/helpers.ts";
+import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { effectTraits } from "@scripts/config/traits.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
 import { DamageModifierDialog } from "@system/damage/dialog.ts";
 import { createDamageFormula } from "@system/damage/formula.ts";
-import { DamageCategorization } from "@system/damage/helpers.ts";
+import { DamageCategorization, processBaseDamage } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import {
     BaseDamageData,
     DamageDamageContext,
+    DamageDiceFaces,
     DamageFormulaData,
     DamageType,
     SimpleDamageTemplate,
@@ -279,18 +281,18 @@ class ElementalBlast {
         const item = this.item;
         if (!item) return null;
 
-        const traits = ((): ActionTrait[] => {
+        const traits = ((): AbilityTrait[] => {
             const baseTraits = this.item?.system.traits.value ?? [];
             const infusionTraits = melee ? this.infusion?.traits.melee : this.infusion?.traits.ranged;
             return R.unique(
                 [baseTraits, infusionTraits, config?.element, damageType]
                     .flat()
-                    .filter((t): t is ActionTrait => !!t && t in CONFIG.PF2E.actionTraits),
+                    .filter((t): t is AbilityTrait => !!t && t in CONFIG.PF2E.actionTraits),
             ).sort();
         })();
 
         const clone = item.clone({ system: { traits: { value: traits } } }, { keepId: true });
-        clone.range = melee ? null : config?.range ?? null;
+        clone.range = melee ? null : (config?.range ?? null);
         clone.isMelee = melee;
 
         return clone;
@@ -419,16 +421,32 @@ class ElementalBlast {
         }).resolve();
         if (!context.origin) return null;
 
+        const processedDamage: WeaponDamage = processBaseDamage(
+            "elemental-blast-damage",
+            {
+                category: null,
+                damageType: params.damageType,
+                dice: 1,
+                die: `d${blastConfig.dieFaces}`,
+                modifier: 0,
+                persistent: null,
+            },
+            { actor: context.origin.actor, item, domains, options: context.options },
+        );
         const baseDamage: BaseDamageData = {
             category: null,
-            damageType: params.damageType,
+            damageType: processedDamage.damageType,
             terms: [
                 {
-                    dice: { number: 1, faces: blastConfig.dieFaces },
                     modifier: 0,
+                    dice: {
+                        number: processedDamage.dice,
+                        faces: Number(processedDamage.die?.replace(/^d/, "")) as DamageDiceFaces,
+                    },
                 },
             ],
         };
+
         const damageSynthetics = processDamageCategoryStacking([baseDamage], {
             modifiers: extractModifiers(context.origin.actor.synthetics, domains, {
                 test: context.options,

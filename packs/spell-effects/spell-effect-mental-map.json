@@ -1,0 +1,59 @@
+{
+    "_id": "8brCESGTl4pUIjhY",
+    "img": "icons/magic/lightning/barrier-shield-crackling-orb-pink.webp",
+    "name": "Spell Effect: Mental Map",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Mental Map]</p>\n<p>You gain a +2 circumstance bonus to Survival checks while in the location, and any skill checks to Recall Knowledge about the location.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "rules": [
+            {
+                "domain": "skill-check",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SpellEffectMentalMap.ToggleLabel",
+                "option": "mental-map",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "mental-map",
+                    {
+                        "or": [
+                            "check:statistic:survival",
+                            "action:recall-knowledge"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

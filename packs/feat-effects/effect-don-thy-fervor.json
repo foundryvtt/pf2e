@@ -1,0 +1,48 @@
+{
+    "_id": "ooX6QMPFfah5Yk5t",
+    "img": "icons/creatures/unholy/demon-horned-winged-laughing.webp",
+    "name": "Effect: Don Thy Fervor",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Don Thy Fervor]</p>\n<p>You gain a circumstance bonus to Deception, Diplomacy, and Intimidation skill checks, and to counteract checks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 14
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "deception",
+                    "diplomacy",
+                    "intimidation",
+                    "counteract-check"
+                ],
+                "type": "circumstance",
+                "value": "ternary(gte(@actor.level,18),3,2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

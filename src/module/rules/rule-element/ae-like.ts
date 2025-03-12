@@ -2,6 +2,7 @@ import * as R from "remeda";
 import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
+import fields = foundry.data.fields;
 
 /**
  * Make a numeric modification to an arbitrary property in a similar way as `ActiveEffect`s
@@ -9,8 +10,6 @@ import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleEl
  */
 class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TSchema> {
     static override defineSchema(): AELikeSchema {
-        const fields = foundry.data.fields;
-
         const baseSchema = super.defineSchema();
         const PRIORITIES: Record<string, number | undefined> = this.CHANGE_MODE_DEFAULT_PRIORITIES;
         baseSchema.priority.initial = (d) => PRIORITIES[String(d.mode)] ?? 50;
@@ -23,7 +22,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
             ),
             mode: new fields.StringField({
                 required: true,
-                choices: R.keys.strict(this.CHANGE_MODE_DEFAULT_PRIORITIES),
+                choices: R.keys(this.CHANGE_MODE_DEFAULT_PRIORITIES),
                 initial: undefined,
             }),
             path: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
@@ -257,7 +256,6 @@ interface AutoChangeEntry {
     mode: AELikeChangeMode;
 }
 
-import fields = foundry.data.fields;
 type AELikeSchema = RuleElementSchema & {
     /** How to apply the `value` at the `path` */
     mode: fields.StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;

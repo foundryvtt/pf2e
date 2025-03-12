@@ -1,0 +1,44 @@
+{
+    "_id": "IlSPZvli2IcLVPyi",
+    "folder": "KN9hhATq6X3GwryB",
+    "img": "systems/pf2e/icons/pathfinder-society/pfs-glyph.webp",
+    "name": "Effect: Protective Mentor",
+    "system": {
+        "description": {
+            "value": "<p>Granted by Protective Mentor</p>\n<p>Your maximum Hit Points increases in addition to the bonus provided by the Level Bump.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Society Boons"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "hp",
+                "value": "3 * ternary(gte(@item.origin.system.pfs.reputation.RO,120), 3, ternary(gte(@item.origin.system.pfs.reputation.RO, 60), 2, ternary(gte(@item.origin.system.pfs.reputation.RO,20), 1, 0)))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

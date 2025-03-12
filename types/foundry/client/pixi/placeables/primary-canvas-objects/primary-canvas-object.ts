@@ -32,7 +32,7 @@ export interface PrimaryCanvasObjectData {
  * @returns A DisplayObject subclass mixed with PrimaryCanvasObject features
  * @mixin
  */
-/* eslint-disable no-unused-expressions */
+/* eslint-disable @typescript-eslint/no-unused-expressions, no-unused-expressions */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function PrimaryCanvasObjectMixin<TBase extends ConstructorOf<PIXI.DisplayObject>>(DisplayObject: TBase) {
     /**
@@ -174,13 +174,13 @@ function CanvasTransformMixin<TBase extends ConstructorOf<PIXI.DisplayObject>>(D
         declare canvasBounds: PIXI.Rectangle;
 
         /** The canvas bounds of this object. */
-        protected declare _canvasBounds: PIXI.Bounds;
+        declare protected _canvasBounds: PIXI.Bounds;
 
         /**
          * The update ID of the canvas bounds.
          * Increment to force recalculation.
          */
-        protected declare _canvasBoundsID: number;
+        declare protected _canvasBoundsID: number;
 
         /* -------------------------------------------- */
         /*  Methods                                     */

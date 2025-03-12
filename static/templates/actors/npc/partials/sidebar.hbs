@@ -143,6 +143,39 @@
     </div>
 </div>
 
+{{!-- Resources and Mythic Points --}}
+{{#if specialResources}}
+    <div class="subsection resources">
+        <header>
+            <label>
+                <i class="fa-solid fa-fw fa-toolbox"></i>
+                <span>{{localize "PF2E.Actor.Resources"}}</span>
+            </label>
+        </header>
+        <ol>
+            {{#each specialResources as |resource|}}
+                <li class="special-resource">
+                    <span class="label">{{resource.label}}</span>
+                    {{#if (eq resource.slug "mythic-points")}}
+                        <span class="pips" data-action="adjust-resource" data-resource="{{resource.slug}}">
+                            {{#times resource.max as |idx|}}
+                                {{#if (gt resource.value idx)}}
+                                    <i class="fa-solid fa-circle"></i>
+                                {{else}}
+                                    <i class="fa-regular fa-circle"></i>
+                                {{/if}}
+                            {{/times}}
+                        </span>
+                    {{else}}
+                        <input type="text" data-resource="{{resource.slug}}" value="{{resource.value}}" />
+                        / {{resource.max}}
+                    {{/if}}
+                </li>
+            {{/each}}
+        </ol>
+    </div>
+{{/if}}
+
 {{!-- IWR --}}
 <div class="subsection iwr">
     <header>

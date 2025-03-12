@@ -8,9 +8,9 @@ import { ActorTokenFlag, ChatMessageSourcePF2e, CheckContextChatFlag } from "@mo
 import { isCheckContextFlag } from "@module/chat-message/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { RollNotePF2e } from "@module/notes.ts";
+import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { TokenDocumentPF2e, type ScenePF2e } from "@scene";
 import { treatWoundsMacroCallback } from "@scripts/macros/treat-wounds.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { StatisticDifficultyClass } from "@system/statistic/index.ts";
 import {
     ErrorPF2e,
@@ -21,8 +21,8 @@ import {
     parseHTML,
     signedInteger,
     sluggify,
-    traitSlugToObject,
 } from "@util";
+import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
 import type { Die } from "types/foundry/client-esm/dice/terms/die.d.ts";
 import {
@@ -184,26 +184,28 @@ class CheckPF2e {
         const allowInteractive = context.rollMode !== "blindroll";
         const roll = await new CheckRoll(`${dice}${totalModifierPart}`, {}, options).evaluate({ allowInteractive });
 
+        // Collect the check specific options. These only exist for DoS Adjustments and notes
+        const naturalTotal = roll.dice
+            .map((d) => d.results.find((r) => r.active && !r.discarded)?.result ?? null)
+            .find(R.isTruthy);
+        const postRollOptions = [
+            `check:total:${roll.total}`,
+            `check:total:natural:${naturalTotal}`,
+            // @todo migrate me
+            // backwards compatibility
+            `check:roll:total:natural:${naturalTotal}`,
+        ];
+        if (context.dc) {
+            postRollOptions.push(`check:total:delta:${roll.total - context.dc.value}`);
+        }
+
         // Combine all degree of success adjustments into a single record. Some may be overridden, but that should be
         // rare--and there are no rules for selecting among multiple adjustments.
         const dosAdjustments = ((): DegreeAdjustmentsRecord => {
             if (!context.dc) return {};
 
-            const naturalTotal = roll.dice
-                .map((d) => d.results.find((r) => r.active && !r.discarded)?.result ?? null)
-                .filter(R.isTruthy)
-                .shift();
-
             // Include tentative results in case an adjustment is predicated on it
-            const temporaryRollOptions = new Set([
-                ...rollOptions,
-                `check:total:${roll.total}`,
-                `check:total:natural:${naturalTotal}`,
-                `check:total:delta:${roll.total - context.dc.value}`,
-                // @todo migrate me
-                // backward compatibility
-                `check:roll:total:natural:${naturalTotal}`,
-            ]);
+            const temporaryRollOptions = new Set([...postRollOptions, ...rollOptions]);
 
             return (
                 context.dosAdjustments
@@ -230,7 +232,13 @@ class CheckPF2e {
             context.notes
                 ?.map((n) => (n instanceof RollNotePF2e ? n : new RollNotePF2e(n)))
                 .filter((note) => {
-                    if (!note.predicate.test([...rollOptions, ...(note.rule?.item.getRollOptions("parent") ?? [])])) {
+                    if (
+                        !note.predicate.test([
+                            ...rollOptions,
+                            ...postRollOptions,
+                            ...(note.rule?.item.getRollOptions("parent") ?? []),
+                        ])
+                    ) {
                         return false;
                     }
                     if (!context.dc || note.outcome.length === 0) {
@@ -245,8 +253,8 @@ class CheckPF2e {
         const item = context.item ?? null;
 
         const targeting = !!context.origin?.self;
-        const self = targeting ? context.origin ?? null : context.target ?? null;
-        const opposer = targeting ? context.target ?? null : context.origin ?? null;
+        const self = targeting ? (context.origin ?? null) : (context.target ?? null);
+        const opposer = targeting ? (context.target ?? null) : (context.origin ?? null);
 
         const flavor = await (async (): Promise<string> => {
             const result = await this.#createResultFlavor({ degree, self, opposer, targeting });
@@ -283,6 +291,9 @@ class CheckPF2e {
                 ? { actor: context.target.actor.uuid, token: context.target.token?.uuid }
                 : null,
             options: Array.from(rollOptions).sort(),
+            contextualOptions: {
+                postRoll: postRollOptions,
+            },
             notes: notes.map((n) => n.toObject()),
             rollMode: context.rollMode,
             rollTwice: context.rollTwice ?? false,
@@ -318,7 +329,7 @@ class CheckPF2e {
 
         if (callback) {
             const msg = message instanceof ChatMessagePF2e ? message : new ChatMessagePF2e(message);
-            const evt = !!event && event instanceof Event ? event : event?.originalEvent ?? null;
+            const evt = !!event && event instanceof Event ? event : (event?.originalEvent ?? null);
             await callback(roll, context.outcome, msg, evt);
         }
 
@@ -643,7 +654,7 @@ class CheckPF2e {
         const dc = degree.dc;
         const needsDCParam = !!dc.label && Number.isInteger(dc.value) && !dc.label.includes("{dc}");
         const customLabel =
-            needsDCParam && dc.label ? `<dc>${game.i18n.localize(dc.label)}: {dc}</dc>` : dc.label ?? null;
+            needsDCParam && dc.label ? `<dc>${game.i18n.localize(dc.label)}: {dc}</dc>` : (dc.label ?? null);
 
         const opposingActor = await (async (): Promise<ActorPF2e | null> => {
             if (!opposer?.actor) return null;
@@ -688,7 +699,7 @@ class CheckPF2e {
             const dcSlug = ((): string | null => {
                 const fromParams =
                     dc.slug ?? (dc.statistic instanceof StatisticDifficultyClass ? dc.statistic.parent.slug : null);
-                return fromParams === "ac" ? "armor" : fromParams?.replace(/-dc$/, "") ?? null;
+                return fromParams === "ac" ? "armor" : (fromParams?.replace(/-dc$/, "") ?? null);
             })();
             const dcType = game.i18n.localize(
                 dc.label?.trim() ||
@@ -705,7 +716,7 @@ class CheckPF2e {
             const preadjustedDC =
                 circumstances.length > 0 && dc.statistic
                     ? dc.value - circumstances.reduce((total, c) => total + c.modifier, 0)
-                    : dc.value ?? null;
+                    : (dc.value ?? null);
 
             const visible = opposingActor?.hasPlayerOwner || dc.visible || game.pf2e.settings.metagame.dcs;
 
@@ -715,7 +726,7 @@ class CheckPF2e {
                         ? targeting
                             ? checkDCs.Label.WithTarget
                             : checkDCs.Label.WithOrigin
-                        : customLabel ?? checkDCs.Label.NoTarget,
+                        : (customLabel ?? checkDCs.Label.NoTarget),
                 );
                 const markup = game.i18n.format(labelKey, { dcType, dc: dc.value, opposer: opposerData?.name ?? null });
 

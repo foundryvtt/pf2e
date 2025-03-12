@@ -9,11 +9,11 @@ import {
 } from "@actor/modifiers.ts";
 import { ResistanceType } from "@actor/types.ts";
 import type { ArmorPF2e, MeleePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
-import { ActionTrait } from "@item/ability/types.ts";
+import { AbilityTrait } from "@item/ability/types.ts";
 import { ArmorPropertyRuneType, ResilientRuneType } from "@item/armor/types.ts";
 import { SpellTrait } from "@item/spell/types.ts";
 import { StrikingRuneType, WeaponPropertyRuneType, WeaponRangeIncrement } from "@item/weapon/types.ts";
-import { OneToFour, Rarity, ZeroToFour, ZeroToSix, ZeroToThree } from "@module/data.ts";
+import { OneToFour, Rarity, ZeroToFour, ZeroToSix } from "@module/data.ts";
 import { RollNoteSource } from "@module/notes.ts";
 import { StrikeAdjustment } from "@module/rules/synthetics.ts";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
@@ -54,9 +54,9 @@ function getRuneValuationData(item: PhysicalItemPF2e): RuneData[] {
     type ItemRuneData = {
         ""?: number;
         potency?: ZeroToFour;
-        resilient?: ZeroToThree;
+        resilient?: ZeroToFour;
         reinforcing?: ZeroToSix;
-        striking?: ZeroToThree;
+        striking?: ZeroToFour;
         property?: string[];
     };
     const itemRunes: ItemRuneData = item.system.runes;
@@ -174,7 +174,7 @@ interface ReinforcingRuneData extends RuneData {
 
 interface FundamentalArmorRuneData {
     potency: Record<ZeroToFour, PotencyRuneData | null>;
-    resilient: Record<ZeroToThree, SecondaryFundamentalRuneData<ResilientRuneType> | null>;
+    resilient: Record<ZeroToFour, SecondaryFundamentalRuneData<ResilientRuneType> | null>;
 }
 
 const FUNDAMENTAL_ARMOR_RUNE_DATA: FundamentalArmorRuneData = {
@@ -208,10 +208,10 @@ const FUNDAMENTAL_ARMOR_RUNE_DATA: FundamentalArmorRuneData = {
         4: {
             name: "PF2E.ArmorPotencyRune4",
             value: 4,
-            level: 18,
-            price: 20_560,
-            rarity: "common",
-            traits: [],
+            level: 20,
+            price: 70_000,
+            rarity: "rare",
+            traits: ["mythic"],
         },
     },
     resilient: {
@@ -240,6 +240,14 @@ const FUNDAMENTAL_ARMOR_RUNE_DATA: FundamentalArmorRuneData = {
             slug: "majorResilient",
             traits: [],
         },
+        4: {
+            name: "PF2E.ArmorMythicResilientRune",
+            level: 20,
+            price: 70_000,
+            rarity: "rare",
+            slug: "mythicResilient",
+            traits: ["mythic"],
+        },
     },
 };
 
@@ -249,7 +257,7 @@ const FUNDAMENTAL_ARMOR_RUNE_DATA: FundamentalArmorRuneData = {
 
 interface FundamentalWeaponRuneData {
     potency: Record<ZeroToFour, PotencyRuneData | null>;
-    striking: Record<ZeroToThree, SecondaryFundamentalRuneData<StrikingRuneType> | null>;
+    striking: Record<ZeroToFour, SecondaryFundamentalRuneData<StrikingRuneType> | null>;
 }
 const FUNDAMENTAL_WEAPON_RUNE_DATA: FundamentalWeaponRuneData = {
     // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=25
@@ -282,10 +290,10 @@ const FUNDAMENTAL_WEAPON_RUNE_DATA: FundamentalWeaponRuneData = {
         4: {
             name: "PF2E.WeaponPotencyRune4",
             value: 4,
-            level: 16,
-            price: 8935,
-            rarity: "common",
-            traits: [],
+            level: 20,
+            price: 70_000,
+            rarity: "rare",
+            traits: ["mythic"],
         },
     },
     // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=25
@@ -314,6 +322,14 @@ const FUNDAMENTAL_WEAPON_RUNE_DATA: FundamentalWeaponRuneData = {
             rarity: "common",
             slug: "majorStriking",
             traits: [],
+        },
+        4: {
+            name: "PF2E.Item.Weapon.Rune.Striking.Mythic",
+            level: 20,
+            price: 70_000,
+            rarity: "rare",
+            slug: "mythicStriking",
+            traits: ["mythic"],
         },
     },
 };
@@ -1783,6 +1799,12 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                 },
                 {
                     outcome: ["criticalSuccess"],
+                    predicate: ["item:group:crossbow"],
+                    title: "PF2E.WeaponPropertyRune.grievous.Name",
+                    text: "PF2E.WeaponPropertyRune.grievous.Note.Crossbow",
+                },
+                {
+                    outcome: ["criticalSuccess"],
                     predicate: ["item:group:flail"],
                     title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Flail",
@@ -1878,7 +1900,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         },
         strikeAdjustments: [
             {
-                adjustTraits: (_weapon: WeaponPF2e | MeleePF2e, traits: ActionTrait[]): void => {
+                adjustTraits: (_weapon: WeaponPF2e | MeleePF2e, traits: AbilityTrait[]): void => {
                     if (!traits.includes("holy")) traits.push("holy");
                 },
             },
@@ -2148,7 +2170,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     speed: {
         level: 16,
-        name: "PF2E.Actor.Speed.Label",
+        name: "PF2E.WeaponPropertyRune.speed.Name",
         price: 10_000,
         rarity: "rare",
         slug: "speed",
@@ -2238,7 +2260,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         },
         strikeAdjustments: [
             {
-                adjustTraits: (_weapon: WeaponPF2e | MeleePF2e, traits: ActionTrait[]): void => {
+                adjustTraits: (_weapon: WeaponPF2e | MeleePF2e, traits: AbilityTrait[]): void => {
                     if (!traits.includes("unholy")) traits.push("unholy");
                 },
             },

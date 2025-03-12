@@ -4,13 +4,13 @@
     "name": "Effect: Cringe",
     "system": {
         "description": {
-            "value": "<p>You take a penalty to the strike damage equal to 2 + the origin's level.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Cringe] via Ephemeral Effect</p>\n<p>You take a circumstance penalty to the Strike's damage equal to 2 + the origin's level.</p>"
         },
         "duration": {
-            "expiry": "turn-end",
+            "expiry": null,
             "sustained": false,
-            "unit": "rounds",
-            "value": 1
+            "unit": "unlimited",
+            "value": -1
         },
         "level": {
             "value": 1
@@ -26,7 +26,7 @@
                 "key": "FlatModifier",
                 "selector": "strike-damage",
                 "type": "circumstance",
-                "value": "-(2 + @actor.level)"
+                "value": "-(2 + @item.origin.level)"
             }
         ],
         "start": {

@@ -1,5 +1,6 @@
 import { SetGamePF2e } from "@scripts/set-game-pf2e.ts";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
+import { DestroyableManager } from "@util/destroyables.ts";
 import { registerSheets } from "../register-sheets.ts";
 
 /** This runs after game data has been requested and loaded from the servers, so entities exist */
@@ -7,6 +8,9 @@ export const Setup = {
     listen: (): void => {
         Hooks.once("setup", () => {
             InlineRollLinks.activatePF2eListeners();
+
+            // Have the destroyable manager start observing the document body
+            DestroyableManager.initialize();
 
             // Register actor and item sheets
             registerSheets();

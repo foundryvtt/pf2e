@@ -9,7 +9,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>These paired bracers of red leather appear as plain armbands on the outside but display the branded symbol of Achaekek on the inside. They grant the wearer a +3 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5 as armor. You can affix talismans to assassin's bracers as though they were light armor.</p>\n<p><strong>Activate—Focus on the Doomed</strong> <span class=\"action-glyph\">2</span> (concentrate, manipulate)</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> You designate one creature within 30 feet. You cast 4th-rank invisibility on yourself, but the designated creature can still see you. The bracers enhance your appearance to the designated creature, making you appear more fearsome and unnerving, granting you a +1 item bonus to attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Feint] or @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] the designated creature. The designated creature takes a –3 item penalty to saving throws against fear effects.</p>"
+            "value": "<p>These paired bracers of red leather appear as plain armbands on the outside but display the branded symbol of @UUID[Compendium.pf2e.deities.Item.Achaekek] on the inside. They grant the wearer a +3 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5 as armor. You can affix talismans to <em>assassin's bracers</em> as though they were light armor.</p><hr /><p><strong>Activate—Focus on the Doomed</strong> <span class=\"action-glyph\">2</span> (concentrate, manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You designate one creature within 30 feet. You cast 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Invisibility] on yourself, but the designated creature can still see you. The bracers enhance your appearance to the designated creature, making you appear more fearsome and unnerving, granting you a +3 item bonus to attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Feint] or @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] the designated creature. The designated creature takes a –3 item penalty to saving throws against fear effects.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Focus on the Doomed]</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Focus on the Doomed (Fear Penalty)]</p>"
         },
         "hardness": 0,
         "hp": {
@@ -41,13 +41,18 @@
                     "ac",
                     "saving-throw"
                 ],
-                "slug": "bracers-of-armor",
                 "type": "item",
                 "value": 3
             },
             {
                 "key": "DexterityModifierCap",
                 "value": 5
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.assassinsBracersBonus",
+                "value": 3
             }
         ],
         "size": "med",

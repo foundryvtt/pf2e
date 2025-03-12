@@ -1,0 +1,94 @@
+{
+    "_id": "ofEoHZzaVmpKrMVH",
+    "img": "icons/equipment/wrist/bracer-red-silver.webp",
+    "name": "Effect: Focus on the Doomed (Fear Penalty)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Assassin's Bracers (Type I)], @UUID[Compendium.pf2e.equipment-srd.Item.Assassin's Bracers (Type II)], @UUID[Compendium.pf2e.equipment-srd.Item.Assassin's Bracers (Type III)]</p>\n<p>You take an item penalty to saving throws against fear effects.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure: Prey for Death"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.NegativeOne",
+                        "value": -1
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.NegativeTwo",
+                        "value": -2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.NegativeThree",
+                        "value": -3
+                    }
+                ],
+                "flag": "penalty",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "not": "parent:origin:item"
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Penalty"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:fear"
+                ],
+                "selector": "saving-throw",
+                "slug": "focus-on-the-doomed-fear",
+                "type": "item",
+                "value": -1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    {
+                        "not": "parent:origin:item"
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "focus-on-the-doomed-fear",
+                "value": "@item.flags.pf2e.rulesSelections.penalty"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "parent:origin:item"
+                ],
+                "selector": "saving-throw",
+                "slug": "focus-on-the-doomed-fear",
+                "value": "-@item.origin.flags.pf2e.assassinsBracersBonus"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

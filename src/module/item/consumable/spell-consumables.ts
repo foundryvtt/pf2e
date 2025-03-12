@@ -22,8 +22,7 @@ const scrollCompendiumIds: Record<number, string | undefined> = {
     10: "o1XIHJ4MJyroAHfF",
 };
 
-const SPELL_CONSUMABLE_ITEM_TYPE = new Set(["cantripDeck5", "scroll", "wand"] as const);
-type SpellConsumableItemType = SetElement<typeof SPELL_CONSUMABLE_ITEM_TYPE>;
+type SpellConsumableItemType = "cantripDeck5" | "scroll" | "wand";
 const SPELL_CONSUMABLE_NAME_TEMPLATES = {
     cantripDeck5: "PF2E.Item.Physical.FromSpell.CantripDeck5",
     scroll: "PF2E.Item.Physical.FromSpell.Scroll",
@@ -88,7 +87,7 @@ async function createConsumableFromSpell(
     const consumableSource = { ...consumable.toObject(), _id: null }; // Clear _id
 
     const traits = consumableSource.system.traits;
-    traits.value = R.unique([...traits.value, ...spell.traits]);
+    traits.value = R.unique([...traits.value, ...spell.system.traits.value]);
     traits.rarity = spell.rarity;
     if (traits.value.includes("magical") && traits.value.some((t) => setHasElement(MAGIC_TRADITIONS, t))) {
         traits.value.splice(traits.value.indexOf("magical"), 1);

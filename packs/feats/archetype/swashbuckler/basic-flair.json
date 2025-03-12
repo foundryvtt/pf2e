@@ -1,0 +1,65 @@
+{
+    "_id": "sE7x3QAel4VGdkgn",
+    "folder": "SpFs2eB7ZLtAw5AN",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Basic Flair",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain a 1st- or 2nd-level swashbuckler feat of your choice.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Swashbuckler Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:category:class",
+                        "item:trait:swashbuckler",
+                        {
+                            "lte": [
+                                "item:level",
+                                2
+                            ]
+                        }
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "basicFlair",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.basicFlair}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,117 +1,109 @@
 import type { CharacterPF2e } from "@actor";
-import type { ItemPF2e } from "@item";
+import { ResourceData } from "@actor/creature/index.ts";
+import { ItemPF2e, PhysicalItemPF2e } from "@item";
+import { PhysicalItemSource } from "@item/base/data/index.ts";
+import { itemIsOfType } from "@item/helpers.ts";
 import { createBatchRuleElementUpdate } from "@module/rules/helpers.ts";
-import { CraftingEntryRuleData, CraftingEntryRuleSource } from "@module/rules/rule-element/crafting-entry.ts";
-import { Predicate, RawPredicate } from "@system/predication.ts";
-import { ErrorPF2e } from "@util";
-import { UUIDUtils } from "@util/uuid.ts";
-import { CraftingFormula } from "./formula.ts";
+import type {
+    CraftingAbilityRuleData,
+    CraftingAbilityRuleSource,
+} from "@module/rules/rule-element/crafting-ability.ts";
+import { Predicate } from "@system/predication.ts";
+import { sluggify } from "@util";
+import * as R from "remeda";
+import type {
+    CraftableItemDefinition,
+    CraftingAbilityData,
+    CraftingFormula,
+    PreparedFormula,
+    PreparedFormulaData,
+} from "./types.ts";
 
 class CraftingAbility implements CraftingAbilityData {
-    /** A label for this crafting entry to display on sheets */
-    name: string;
-
-    selector: string;
-
     /** This crafting ability's parent actor */
     actor: CharacterPF2e;
+    declare slug: string;
 
-    preparedFormulaData: PreparedFormulaData[];
-    isAlchemical: boolean;
-    isDailyPrep: boolean;
-    isPrepared: boolean;
-    craftableItems: Predicate;
-    maxSlots: number;
-    fieldDiscovery: Predicate | null;
-    batchSizes: { default: number; other: { definition: Predicate; quantity: number }[] };
-    fieldDiscoveryBatchSize: number;
-    maxItemLevel: number;
+    /** A label for this crafting entry to display on sheets */
+    declare label: string;
+    declare resource: string | null;
+    declare preparedFormulaData: PreparedFormulaData[];
+    declare isAlchemical: boolean;
+    declare isDailyPrep: boolean;
+    declare isPrepared: boolean;
+    declare maxSlots: number;
+    declare fieldDiscovery: Predicate | null;
+    declare fieldDiscoveryBatchSize: number;
+    declare batchSize: number;
+    declare maxItemLevel: number;
 
-    #preparedCraftingFormulas: PreparedCraftingFormula[] | null = null;
+    /** All craftable item definitions, sorted from biggest batch to smallest batch size */
+    declare craftableItems: CraftableItemDefinition[];
 
-    constructor(actor: CharacterPF2e, data: CraftingAbilityData) {
+    /** A cache of all formulas that have been loaded from their compendiums */
+    #preparedFormulas: PreparedFormula[] | null = null;
+
+    constructor(actor: CharacterPF2e) {
         this.actor = actor;
-        this.selector = data.selector;
-        this.name = data.name;
+    }
+
+    /** Initializes this crafting ability with data. Call during actor data preparation. */
+    initialize(data: CraftingAbilityData): void {
+        this.slug = data.slug;
+        this.resource = data.resource;
+        this.label = data.label;
         this.isAlchemical = data.isAlchemical;
         this.isDailyPrep = data.isDailyPrep;
         this.isPrepared = data.isPrepared;
-        this.maxSlots = data.maxSlots ?? 0;
-        this.maxItemLevel = data.maxItemLevel ?? this.actor.level;
+        this.maxSlots = Math.floor(data.maxSlots ?? 0);
+        this.maxItemLevel = data.maxItemLevel;
         this.fieldDiscovery = data.fieldDiscovery ? new Predicate(data.fieldDiscovery) : null;
-        this.batchSizes = {
-            default: data.batchSizes?.default ?? (this.isAlchemical ? 2 : 1),
-            other:
-                data.batchSizes?.other.map((o) => ({
-                    definition: new Predicate(o.definition),
-                    quantity: o.quantity,
-                })) ?? [],
-        };
+        this.batchSize = data.batchSize;
+        this.craftableItems = R.sortBy(data.craftableItems, [(c) => c.batchSize ?? 1, "desc"]);
         this.fieldDiscoveryBatchSize = data.fieldDiscoveryBatchSize ?? 3;
-        this.craftableItems = new Predicate(data.craftableItems);
         this.preparedFormulaData = data.preparedFormulaData ?? [];
+        this.#preparedFormulas = null;
+
+        // Temporary compatibility hack until the big migration
+        if (this.isAlchemical) {
+            this.resource = "infused-reagents";
+            this.isDailyPrep = true;
+            this.isPrepared = true;
+        }
     }
 
-    async getPreparedCraftingFormulas(): Promise<PreparedCraftingFormula[]> {
-        if (this.#preparedCraftingFormulas) return this.#preparedCraftingFormulas;
+    async getPreparedCraftingFormulas(): Promise<PreparedFormula[]> {
+        if (this.#preparedFormulas) return this.#preparedFormulas;
 
         // Filter prepared formula data to valid ones. We can't do this until we've loaded compendium items
         const knownFormulas = await this.actor.crafting.getFormulas();
         this.preparedFormulaData = (this.preparedFormulaData ?? []).filter((d) =>
-            knownFormulas.some((f) => f.item.uuid === d.itemUUID),
+            knownFormulas.some((f) => f.item.uuid === d.uuid),
         );
 
-        this.#preparedCraftingFormulas = this.preparedFormulaData
-            .sort((prepDataA, prepDataB) => (prepDataA.sort ?? 0) - (prepDataB.sort ?? 0))
-            .flatMap((prepData): PreparedCraftingFormula | never[] => {
-                const formula = knownFormulas.find((f) => f.uuid === prepData.itemUUID);
-                return formula
-                    ? Object.assign(new CraftingFormula(formula.item), {
-                          quantity: prepData.quantity || 1,
-                          expended: !!prepData.expended,
-                          isSignatureItem: !!prepData.isSignatureItem,
-                          sort: prepData.sort ?? 0,
-                      })
-                    : [];
-            });
-        return this.#preparedCraftingFormulas;
-    }
-
-    async getSheetData(): Promise<CraftingAbilitySheetData> {
-        const preparedCraftingFormulas = await this.getPreparedCraftingFormulas();
-        const formulas = preparedCraftingFormulas.map((formula) => {
-            return {
-                uuid: formula.uuid,
-                img: formula.img,
-                name: formula.name,
-                expended: formula.expended,
-                quantity: formula.quantity,
-                isSignatureItem: formula.isSignatureItem,
-            };
+        this.#preparedFormulas = this.preparedFormulaData.flatMap((prepData): PreparedFormula | never[] => {
+            const formula = knownFormulas.find((f) => f.uuid === prepData.uuid);
+            const rollOptions = formula?.item.getRollOptions("item") ?? [];
+            const matching = formula ? this.craftableItems.find((c) => c.predicate.test(rollOptions)) : null;
+            const batchSize = matching?.batchSize ?? this.batchSize ?? 1;
+            const batches = Math.ceil((prepData.quantity || 1) / batchSize);
+            return formula
+                ? {
+                      ...formula,
+                      batchSize,
+                      batches,
+                      quantity: batches * batchSize,
+                      expended: !!prepData.expended,
+                      isSignatureItem: !!prepData.isSignatureItem,
+                  }
+                : [];
         });
-        if (this.maxSlots > 0) {
-            const fill = this.maxSlots - formulas.length;
-            if (fill > 0) {
-                const nulls = new Array(fill).fill(null);
-                formulas.push(...nulls);
-            }
-        }
-        return {
-            name: this.name,
-            selector: this.selector,
-            isAlchemical: this.isAlchemical,
-            isPrepared: this.isPrepared,
-            isDailyPrep: this.isDailyPrep,
-            maxItemLevel: this.maxItemLevel,
-            maxSlots: this.maxSlots,
-            reagentCost: await this.calculateReagentCost(),
-            formulas,
-        };
+        return this.#preparedFormulas;
     }
 
-    /** Computes reagent cost. Will go away once updated to PC2 */
-    async calculateReagentCost(): Promise<number> {
-        if (!this.isAlchemical) return 0;
+    /** Calculates the resources needed to craft all prepared crafting items */
+    async calculateResourceCost(): Promise<number> {
+        if (!this.resource) return 0;
 
         const preparedCraftingFormulas = await this.getPreparedCraftingFormulas();
         const values = await Promise.all(
@@ -120,31 +112,17 @@ class CraftingAbility implements CraftingAbilityData {
         return Math.ceil(values.reduce((total, part) => total + part, 0));
     }
 
-    static isValid(data: Maybe<Partial<CraftingAbilityData>>): data is CraftingAbilityData {
-        return !!data && !!data.name && !!data.selector;
-    }
-
-    async prepareFormula(formula: CraftingFormula): Promise<void> {
-        this.checkEntryRequirements(formula);
-
-        const quantity = await this.#batchSizeFor(formula);
-        const existing = this.preparedFormulaData.find((f) => f.itemUUID === formula.uuid);
-        if (existing && this.isAlchemical) {
-            existing.quantity = quantity;
-        } else {
-            this.preparedFormulaData.push({ itemUUID: formula.uuid, quantity });
-        }
-
-        return this.#updateRuleElement();
-    }
-
-    checkEntryRequirements(formula: CraftingFormula, { warn = true } = {}): boolean {
-        if (!!this.maxSlots && this.preparedFormulaData.length >= this.maxSlots) {
-            if (warn) ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MaxSlots"));
+    /** Returns true if the item can be created by this ability, which requires it to pass predication and be of sufficient level */
+    canCraft(item: PhysicalItemPF2e, { warn = true } = {}): boolean {
+        const rollOptions = item.getRollOptions("item");
+        if (!this.craftableItems.some((c) => c.predicate.test(rollOptions))) {
+            if (warn) {
+                ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.ItemMissingTraits"));
+            }
             return false;
         }
 
-        if (formula.level > this.maxItemLevel) {
+        if (item.level > this.maxItemLevel) {
             if (warn) {
                 ui.notifications.warn(
                     game.i18n.format("PF2E.CraftingTab.Alerts.MaxItemLevel", { level: this.maxItemLevel }),
@@ -153,147 +131,339 @@ class CraftingAbility implements CraftingAbilityData {
             return false;
         }
 
-        if (!this.craftableItems.test(formula.item.getRollOptions("item"))) {
-            if (warn) {
-                ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.ItemMissingTraits"));
-            }
+        // Avoid granting the ability to expend a resource to craft that same resource
+        const resourceUUID = this.resource
+            ? this.actor.synthetics.resources[sluggify(this.resource, { camel: "dromedary" })]?.itemUUID
+            : null;
+        if (item.uuid === resourceUUID) {
             return false;
         }
 
         return true;
     }
 
-    async unprepareFormula(index: number, itemUUID: string): Promise<void> {
-        const formula = this.preparedFormulaData[index];
-        if (!formula || formula.itemUUID !== itemUUID) return;
+    /** Returns all items that this ability can craft including the batch size produced by this ability */
+    async getValidFormulas(): Promise<CraftingFormula[]> {
+        const actorFormulas = await this.actor.crafting.getFormulas();
+        const validFormulas = actorFormulas.filter((f) => this.canCraft(f.item, { warn: false }));
+        return Promise.all(validFormulas.map(async (f) => ({ ...f, batchSize: await this.#batchSizeFor(f) })));
+    }
 
-        this.preparedFormulaData.splice(index, 1);
+    async prepareFormula(uuid: string): Promise<void> {
+        await this.setFormulaQuantity(uuid, "increase");
+    }
 
+    async unprepareFormula(indexOrUuid: number | string): Promise<void> {
+        if (typeof indexOrUuid === "string") {
+            this.preparedFormulaData = this.preparedFormulaData.filter((p) => p.uuid !== indexOrUuid);
+            return this.#updateRuleElement();
+        }
+
+        this.preparedFormulaData.splice(indexOrUuid, 1);
         return this.#updateRuleElement();
     }
 
-    async setFormulaQuantity(index: number, itemUUID: string, value: "increase" | "decrease" | number): Promise<void> {
-        if (!UUIDUtils.isItemUUID(itemUUID)) {
-            throw ErrorPF2e(`invalid item UUID: ${itemUUID}`);
+    /** Sets a formula's prepared quantity to a specific value, preparing it if necessary */
+    async setFormulaQuantity(indexOrUuid: number | string, value: "increase" | "decrease" | number): Promise<void> {
+        const index =
+            typeof indexOrUuid === "number"
+                ? indexOrUuid
+                : this.preparedFormulaData.findIndex((d) => d.uuid === indexOrUuid);
+        const data: PreparedFormulaData | null = this.preparedFormulaData[index] ?? null;
+        if (!data && typeof indexOrUuid !== "string") return;
+
+        const prepared = await this.getPreparedCraftingFormulas();
+        const consumed = prepared.reduce((sum, p) => sum + p.batches, 0);
+        const itemUuid = data?.uuid ?? (typeof indexOrUuid === "string" ? indexOrUuid : null);
+        const item = itemUuid ? await fromUuid<ItemPF2e>(itemUuid) : null;
+        const batchSize =
+            this.fieldDiscovery?.test(item?.getRollOptions("item") ?? []) || !item ? 1 : await this.#batchSizeFor(item);
+        const individualPrep = !this.isDailyPrep; // Delayed prep (and eventually snares in general?) need to be one at a time
+        const currentQuantity = individualPrep
+            ? prepared.filter((p) => p.uuid === item?.uuid).length
+            : (data?.quantity ?? 0);
+        if (!itemUuid) return;
+
+        // Determine if we're maxed out, if so, exit with a warning
+        const increasing = value === "increase" || !data || (typeof value === "number" && value > currentQuantity);
+        if (!this.resource && consumed >= this.maxSlots && increasing) {
+            ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MaxSlots"));
+            return;
         }
-        const data = this.preparedFormulaData[index];
-        if (data?.itemUUID !== itemUUID) return;
-        const item = this.fieldDiscovery ? await fromUuid<ItemPF2e>(itemUUID) : null;
-        const currentQuantity = data.quantity ?? 0;
-        const adjustment = this.fieldDiscovery?.test(item?.getRollOptions("item") ?? [])
-            ? 1
-            : await this.#batchSizeFor(data);
-        const newQuantity =
+
+        // Calculate new quantity. Exit early if we're increasing and there is no item
+        // If we're decreasing, we still need to be able to do so even if the item doesn't exist
+        const validMaxQuantity = this.maxSlots ? currentQuantity + (this.maxSlots - consumed) * batchSize : Infinity;
+        const newQuantity = Math.clamp(
             typeof value === "number"
                 ? value
                 : value === "increase"
-                  ? currentQuantity + adjustment
-                  : currentQuantity - adjustment;
-        data.quantity = Math.ceil(Math.clamp(newQuantity, adjustment, adjustment * 50) / adjustment) * adjustment;
+                  ? currentQuantity + batchSize
+                  : currentQuantity - batchSize,
+            0,
+            validMaxQuantity,
+        );
+        if (newQuantity > currentQuantity && (!item?.isOfType("physical") || !this.canCraft(item))) {
+            return;
+        }
+
+        // If quantity is being set to zero, unprepare the item
+        if (newQuantity === 0) {
+            return this.unprepareFormula(itemUuid ?? index);
+        }
+
+        // Handle individual prep items, which must be prepared individually without quantity
+        if (individualPrep) {
+            if (newQuantity > currentQuantity) {
+                if (!item) return;
+                this.preparedFormulaData.push(
+                    ...R.range(0, newQuantity - currentQuantity).map(() => ({ uuid: item.uuid })),
+                );
+            } else {
+                for (let i = 0; i < currentQuantity - newQuantity; i++) {
+                    const idx = this.preparedFormulaData.findLastIndex((p) => p.uuid === itemUuid);
+                    this.preparedFormulaData.splice(idx, 1);
+                }
+            }
+
+            return this.#updateRuleElement();
+        }
+
+        // Create a new prepared entry if it doesn't exist, otherwise update an existing one
+        if (!data) {
+            if (!item) return;
+            this.preparedFormulaData.push({ uuid: item.uuid, quantity: newQuantity });
+        } else {
+            data.quantity = Math.ceil(Math.clamp(newQuantity, batchSize, batchSize * 50) / batchSize) * batchSize;
+        }
 
         return this.#updateRuleElement();
     }
 
-    async toggleFormulaExpended(index: number, itemUUID: string): Promise<void> {
+    async toggleFormulaExpended(index: number, value?: boolean): Promise<void> {
         const data = this.preparedFormulaData[index];
-        if (data?.itemUUID !== itemUUID) return;
-        data.expended = !data.expended;
+        data.expended = value ?? !data.expended;
 
         return this.#updateRuleElement();
     }
 
     async toggleSignatureItem(itemUUID: string): Promise<void> {
-        const data = this.preparedFormulaData.find((f) => f.itemUUID === itemUUID);
-        if (data?.itemUUID !== itemUUID) return;
+        const data = this.preparedFormulaData.find((f) => f.uuid === itemUUID);
+        if (data?.uuid !== itemUUID) return;
         data.isSignatureItem = !data.isSignatureItem;
 
         return this.setFormulaQuantity(
             this.preparedFormulaData.indexOf(data),
-            itemUUID,
             data.quantity ?? (await this.#batchSizeFor(data)),
         );
     }
 
-    async updateFormulas(formulas: PreparedFormulaData[]): Promise<void> {
+    async updateFormulas(
+        formulas: PreparedFormulaData[],
+        operation?: Partial<DatabaseUpdateOperation<CharacterPF2e>> | undefined,
+    ): Promise<void> {
         this.preparedFormulaData = formulas;
-        return this.#updateRuleElement();
+        this.#preparedFormulas = null;
+        return this.#updateRuleElement(operation);
     }
 
-    async #batchSizeFor(data: CraftingFormula | PreparedFormulaData): Promise<number> {
-        const knownFormulas = await this.actor.crafting.getFormulas();
-        const formula =
-            data instanceof CraftingFormula ? data : knownFormulas.find((f) => f.item.uuid === data.itemUUID);
-        if (!formula) return 1;
+    async craft(
+        itemOrUUIDOrIndex: PhysicalItemPF2e | ItemUUID | number,
+        { consume = true, destination }: CraftParameters = {},
+    ): Promise<PhysicalItemPF2e | null> {
+        // Resolve item and possible index from the given parameter. If an index is given, its a prepared formula
+        const preparedFormulas = await this.getPreparedCraftingFormulas();
+        const [item, index] = await (async (): Promise<[PhysicalItemPF2e | null, number]> => {
+            if (typeof itemOrUUIDOrIndex === "number") {
+                return [preparedFormulas[itemOrUUIDOrIndex].item, itemOrUUIDOrIndex];
+            }
 
+            const item = typeof itemOrUUIDOrIndex === "string" ? await fromUuid(itemOrUUIDOrIndex) : itemOrUUIDOrIndex;
+            if (!(item instanceof PhysicalItemPF2e)) return [null, -1];
+
+            if (this.isPrepared) {
+                // determine what index this item could possibly be. Prioritize not expended
+                const validIndex = preparedFormulas.findIndex((f) => f.item.uuid === item.uuid && !f.expended);
+                const index =
+                    validIndex < 0 ? preparedFormulas.findIndex((f) => f.item.uuid === item.uuid) : validIndex;
+                return [item, index];
+            } else {
+                return [item, -1];
+            }
+        })();
+        if (!item) return null;
+
+        // Set the slot to expended if this is a prepared entry
+        if (this.isPrepared && consume) {
+            if (!this.preparedFormulaData[index] || this.preparedFormulaData[index].expended) {
+                ui.notifications.warn("PF2E.CraftingTab.Alerts.FormulaExpended", { localize: true });
+                return null;
+            }
+            await this.toggleFormulaExpended(index);
+        }
+
+        const rollOptions = item.getRollOptions("item");
+        const matching = this.craftableItems.find((c) => c.predicate.test(rollOptions));
+        const batchSize = matching?.batchSize ?? this.batchSize;
+
+        // Consume a special resource if we need to
+        if (this.resource && consume) {
+            const resource = this.actor.getResource(this.resource ?? "");
+            const value = resource?.value ?? 0;
+            if (!value) {
+                ui.notifications.warn("PF2E.Actor.Character.Crafting.MissingResource", { localize: true });
+                return null;
+            } else {
+                await this.actor.updateResource(this.resource, value - 1);
+            }
+        }
+
+        // Snares operate under entirely different rules, so we can't really craft them at this time
+        if (item.system.traits.value.includes("snare")) {
+            return null;
+        }
+
+        // Create the item source, and apply necessary temporary item modifications
+        const itemSource = item.toObject(true);
+        itemSource.system.quantity = batchSize;
+        itemSource.system.temporary = true;
+        itemSource.system.size = this.actor.ancestry?.size === "tiny" ? "tiny" : "med";
+        if (item.isAlchemical && itemIsOfType(itemSource, "consumable", "equipment", "weapon")) {
+            itemSource.system.traits.value.push("infused");
+            itemSource.system.traits.value.sort(); // required for stack matching
+        }
+        if (destination === "hand") {
+            itemSource.system.equipped = { carryType: "held", handsHeld: 1 };
+        }
+
+        // Create the item or update an existing one, then return it
+        const stackable = this.actor.inventory.findStackableItem(itemSource);
+        if (stackable) {
+            stackable.update({ "system.quantity": stackable.quantity + batchSize });
+            return stackable;
+        } else {
+            const created = await this.actor.createEmbeddedDocuments("Item", [itemSource]);
+            return (created[0] ?? null) as PhysicalItemPF2e<CharacterPF2e> | null;
+        }
+    }
+
+    /** Returns what items should be created by this ability during daily preparation, and what the resource expenditure should be */
+    async calculateDailyCrafting(): Promise<DailyCraftingResult> {
+        if (!this.isDailyPrep) {
+            return { items: [], resource: null, insufficient: false };
+        }
+
+        const prepared = await this.getPreparedCraftingFormulas();
+        const consumed = prepared.reduce((sum, p) => sum + p.batches, 0);
+
+        return {
+            items: prepared
+                .filter((f) => !f.expended)
+                .map((formula) => {
+                    const itemSource: PhysicalItemSource = formula.item.toObject();
+                    itemSource.system.quantity = formula.quantity;
+                    itemSource.system.temporary = true;
+                    itemSource.system.size = this.actor.ancestry?.size === "tiny" ? "tiny" : "med";
+                    if (formula.item.isAlchemical && itemIsOfType(itemSource, "consumable", "equipment", "weapon")) {
+                        itemSource.system.traits.value.push("infused");
+                        itemSource.system.traits.value.sort(); // required for stack matching
+                    }
+
+                    return itemSource;
+                }),
+            resource: this.resource
+                ? {
+                      slug: this.resource,
+                      cost: await this.calculateResourceCost(),
+                  }
+                : null,
+            insufficient: this.maxSlots > 0 && consumed > this.maxSlots,
+        };
+    }
+
+    async getSheetData(): Promise<CraftingAbilitySheetData> {
+        const preparedCraftingFormulas = await this.getPreparedCraftingFormulas();
+        const prepared = [...preparedCraftingFormulas];
+        const consumed = prepared.reduce((sum, p) => sum + p.batches, 0);
+        const remainingSlots = Math.max(0, this.maxSlots - consumed);
+
+        return {
+            label: this.label,
+            slug: this.slug,
+            isAlchemical: this.isAlchemical,
+            isPrepared: this.isPrepared,
+            isDailyPrep: this.isDailyPrep,
+            insufficient: this.maxSlots > 0 && consumed > this.maxSlots,
+            maxItemLevel: this.maxItemLevel,
+            resource: this.resource ? this.actor.getResource(this.resource) : null,
+            resourceCost: await this.calculateResourceCost(),
+            maxSlots: this.maxSlots,
+            prepared,
+            remainingSlots,
+        };
+    }
+
+    /** Helper to return the batch size for a formula or item. Once signature item is gone, we can make it take only physical items */
+    async #batchSizeFor(data: CraftingFormula | PreparedFormulaData | ItemPF2e): Promise<number> {
         const isSignatureItem = "isSignatureItem" in data && !!data.isSignatureItem;
-        if (isSignatureItem || this.fieldDiscovery?.test(formula.options)) {
+        const item =
+            data instanceof ItemPF2e
+                ? data
+                : "item" in data
+                  ? data.item
+                  : (await this.actor.crafting.getFormulas()).find((f) => f.item.uuid === data.uuid)?.item;
+        if (!item) return 1;
+
+        const rollOptions = item.getRollOptions("item");
+        if (isSignatureItem || this.fieldDiscovery?.test(rollOptions)) {
             return this.fieldDiscoveryBatchSize;
         }
 
-        const specialBatchSize = this.batchSizes.other.find((s) => s.definition.test(formula.options));
-        return specialBatchSize?.quantity ?? this.batchSizes.default;
+        const matching = this.craftableItems.find((c) => c.predicate.test(rollOptions));
+        return matching?.batchSize ?? this.batchSize;
     }
 
-    async #updateRuleElement(): Promise<void> {
+    async #updateRuleElement(operation?: Partial<DatabaseUpdateOperation<CharacterPF2e>> | undefined): Promise<void> {
         const rules = this.actor.rules.filter(
-            (r: CraftingEntryRuleSource): r is CraftingEntryRuleData =>
-                r.key === "CraftingEntry" && r.selector === this.selector,
+            (r: CraftingAbilityRuleSource): r is CraftingAbilityRuleData =>
+                r.key === "CraftingAbility" && r.slug === this.slug,
         );
-        const itemUpdates = createBatchRuleElementUpdate(rules, { preparedFormulas: this.preparedFormulaData });
+        const itemUpdates = createBatchRuleElementUpdate(rules, { prepared: this.preparedFormulaData });
         if (itemUpdates.length) {
-            await this.actor.updateEmbeddedDocuments("Item", itemUpdates);
+            await this.actor.updateEmbeddedDocuments("Item", itemUpdates, operation);
         }
     }
 }
 
-interface CraftingAbilityData {
-    selector: string;
-    name: string;
-    isAlchemical: boolean;
-    isDailyPrep: boolean;
-    isPrepared: boolean;
-    maxSlots?: number;
-    craftableItems: RawPredicate;
-    fieldDiscovery?: RawPredicate | null;
-    batchSizes?: { default: number; other: { definition: RawPredicate; quantity: number }[] };
-    fieldDiscoveryBatchSize?: number;
-    maxItemLevel?: number | null;
-    preparedFormulaData?: PreparedFormulaData[];
-}
-
-interface PreparedFormulaData {
-    itemUUID: string;
-    quantity?: number;
-    expended?: boolean;
-    isSignatureItem?: boolean;
-    sort?: number;
-}
-
-interface PreparedCraftingFormula extends CraftingFormula {
-    quantity: number;
-    expended: boolean;
-    isSignatureItem: boolean;
-    sort: number;
-}
-
 interface CraftingAbilitySheetData {
-    name: string;
-    selector: string;
+    slug: string;
+    label: string;
     isAlchemical: boolean;
     isPrepared: boolean;
     isDailyPrep: boolean;
+    /** This is true if we do not have sufficient slots or resources to craft this ability */
+    insufficient: boolean;
     maxSlots: number;
     maxItemLevel: number;
-    reagentCost: number;
-    formulas: ({
-        uuid: string;
-        expended: boolean;
-        img: ImageFilePath;
-        name: string;
-        quantity: number;
-        isSignatureItem: boolean;
-    } | null)[];
+    resource: ResourceData | null;
+    resourceCost: number;
+    remainingSlots: number;
+    prepared: PreparedFormula[];
+}
+
+interface DailyCraftingResult {
+    items: PreCreate<PhysicalItemSource>[];
+    resource: { slug: string; cost: number } | null;
+    /** True if this item is internally insufficient. It does not compare with other crafting abilties */
+    insufficient: boolean;
+}
+
+interface CraftParameters {
+    /** If set to true, will craft by consuming the required resource */
+    consume?: boolean;
+    /* The destination to place the newly created item. */
+    destination?: "hand";
 }
 
 export { CraftingAbility };
-export type { CraftingAbilityData, CraftingAbilitySheetData, PreparedFormulaData };
+export type { CraftingAbilitySheetData, PreparedFormulaData };

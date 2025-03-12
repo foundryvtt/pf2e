@@ -1,0 +1,59 @@
+{
+    "_id": "8n0wqGpz28lfnLsQ",
+    "img": "icons/equipment/feet/shoes-pointed-blue.webp",
+    "name": "Effect: Talented Tap Shoes",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Talented Tap Shoes]</p>\n<p>When you succeed or critically succeed at a Reflex save to avoid a damaging effect, you can Stride half your Speed as a reaction. You take a –2 item penalty to Stealth checks to Sneak.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 11
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "damaging-effect"
+                ],
+                "selector": "reflex",
+                "text": "PF2E.SpecificRule.Equipment.TalentedTapShoes.Note",
+                "title": "{item|name}"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:sneak"
+                ],
+                "selector": "stealth",
+                "type": "item",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

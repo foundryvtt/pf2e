@@ -84,8 +84,8 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
         return itemType === "condition"
             ? actor.conditions.get(itemId, { strict: true })
             : actionIndex
-              ? actor.system.actions?.[Number(actionIndex)].item ?? null
-              : actor.items.get(realItemId ?? "") ?? null;
+              ? (actor.system.actions?.[Number(actionIndex)].item ?? null)
+              : (actor.items.get(realItemId ?? "") ?? null);
     }
 
     /**
@@ -97,11 +97,13 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
         chatData: RawItemChatData,
     ): Promise<void> {
         const isEffect = item instanceof AbstractEffectPF2e;
-        const effectLinkText =
-            item.isOfType("action", "feat") && item.system.selfEffect
-                ? `@UUID[${item.system.selfEffect.uuid}]{${item.system.selfEffect.name}}`
-                : null;
-        const selfEffect = effectLinkText && (await TextEditor.enrichHTML(effectLinkText));
+        const selfEffectLink = (() => {
+            if (!item.isOfType("action", "feat") || !item.system.selfEffect) return null;
+            const uuid = item.system.selfEffect.uuid;
+            const effectItem = fromUuidSync(uuid);
+            const name = effectItem?.name ?? item.system.selfEffect.name;
+            return `@UUID[${uuid}]{${name}}`;
+        })();
 
         const summary = await renderTemplate("systems/pf2e/templates/actors/partials/item-summary.hbs", {
             item,
@@ -109,7 +111,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
             identified: game.user.isGM || !(item.isOfType("physical") || isEffect) || item.isIdentified,
             isCreature: item.actor?.isOfType("creature"),
             chatData,
-            selfEffect,
+            selfEffect: selfEffectLink && (await TextEditor.enrichHTML(selfEffectLink)),
         });
 
         container.innerHTML = summary;

@@ -42,10 +42,8 @@
         },
         {
             "_id": "zPuNQGhi5TybPxEI",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.MZGkMsPBztFN0pUO"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.MZGkMsPBztFN0pUO"
             },
             "img": "icons/magic/water/elemental-water.webp",
             "name": "Water Breathing",
@@ -105,10 +103,8 @@
         },
         {
             "_id": "p3okmanJApgDvPTD",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.vLA0q0WOK2YPuJs6"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.vLA0q0WOK2YPuJs6"
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
@@ -180,10 +176,8 @@
         },
         {
             "_id": "Vc5rrDmiuz7SKiHr",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.jfVCuOpzC6mUrf6f"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.jfVCuOpzC6mUrf6f"
             },
             "img": "systems/pf2e/icons/spells/hydraulic-push.webp",
             "name": "Hydraulic Push",
@@ -334,7 +328,10 @@
             "type": "action"
         },
         {
-            "_id": "eqGZhn9lsZI6JDYE",
+            "_id": "W6stKtycIqoXJIfr",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
             "sort": 700000,
@@ -350,31 +347,23 @@
                     "value": ""
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
                 "rules": [
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "or": [
-                                    "magical",
-                                    "arcane",
-                                    "primal",
-                                    "occult",
-                                    "divine"
-                                ]
-                            }
+                            "item:magical"
                         ],
                         "selector": "saving-throw",
+                        "type": "status",
                         "value": 1
                     }
                 ],
-                "slug": null,
+                "slug": "1-status-to-all-saves-vs-magic",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },

@@ -1,0 +1,148 @@
+{
+    "_id": "fOypEG6eeTwfM6c3",
+    "img": "icons/commodities/gems/pearl-red-gold.webp",
+    "name": "Effect: Regalia",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Regalia]</p>\n<p>You gain a +1 status bonus to saving throws against fear. If the origin has Regalia as an adept implement, this status bonus applies to mental effects, and you gain a status bonus to damage rolls.</p>\n<p>If the origin has Regalia as a paragon implement, you aren't off-guard from being flanked unless the origin is flanked, and the status penalty you take from being clumsy, enfeebled, frightened, sickened, or stupefied is reduced by 1, unless the origin is affected by the same condition.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:fear",
+                            {
+                                "and": [
+                                    "item:trait:mental",
+                                    "parent:tag:adept-benefit"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "regalia-aura",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Thaumaturge.Implement.Regalia.UnflankableToggle",
+                "option": "regalia:origin-is-flanked",
+                "predicate": [
+                    {
+                        "not": "self:signature:{item|origin.signature}"
+                    },
+                    "parent:tag:paragon-benefit"
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.flankable",
+                "predicate": [
+                    {
+                        "not": "regalia:origin-is-flanked"
+                    },
+                    "parent:tag:paragon-benefit"
+                ],
+                "value": false
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "parent:tag:paragon-benefit",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "penalty:slug:clumsy",
+                                    "self:condition:clumsy",
+                                    {
+                                        "not": "parent:origin:condition:clumsy"
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "penalty:slug:enfeebled",
+                                    "self:condition:enfeebled",
+                                    {
+                                        "not": "parent:origin:condition:enfeebled"
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "penalty:slug:frightened",
+                                    "self:condition:frightened",
+                                    {
+                                        "not": "parent:origin:condition:frightened"
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "penalty:slug:sickened",
+                                    "self:condition:sickened",
+                                    {
+                                        "not": "parent:origin:condition:sickened"
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "penalty:slug:stupefied",
+                                    "self:condition:stupefied",
+                                    {
+                                        "not": "parent:origin:condition:stupefied"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "all",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "parent:tag:adept-benefit"
+                ],
+                "selector": "damage",
+                "type": "status",
+                "value": "ternary(gte(@item.origin.level,17),4,ternary(gte(@item.origin.level,11),3,2))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

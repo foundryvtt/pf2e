@@ -1,0 +1,105 @@
+{
+    "_id": "NviQYIVZbPCSWLqT",
+    "img": "systems/pf2e/icons/spells/ancestral-defense.webp",
+    "name": "Effect: Endemic Herbs",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Endemic Herbs]</p>\n<p>You gain a benefit matching the location where the item was created.</p><ul><li><strong>Aquatic</strong> You gain a +1 circumstance bonus to Fortitude saves.</li><li><strong>Forest</strong> You gain a +2 circumstance bonus to saves against disease and poison effects.</li><li><strong>Mountain</strong> You gain a +1 circumstance bonus to Reflex saves.</li><li><strong>Plains</strong> You gain a +1 circumstance bonus to Will saves.</li><li><strong>Underground</strong> You gain a +1 circumstance bonus to Perception.</li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Terrain.Aquatic",
+                        "value": {
+                            "bonus": 1,
+                            "selector": "fortitude",
+                            "terrain": "aquatic"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Terrain.Forest",
+                        "value": {
+                            "bonus": 2,
+                            "selector": "saving-throw",
+                            "terrain": "forest"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Terrain.Mountain",
+                        "value": {
+                            "bonus": 1,
+                            "selector": "reflex",
+                            "terrain": "mountain"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Terrain.Plains",
+                        "value": {
+                            "bonus": 1,
+                            "selector": "will",
+                            "terrain": "plains"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Terrain.Underground",
+                        "value": {
+                            "bonus": 1,
+                            "selector": "perception",
+                            "terrain": "underground"
+                        }
+                    }
+                ],
+                "flag": "endemicHerbs",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "RollOption",
+                "option": "endemic-herbs:{item|flags.pf2e.rulesSelections.endemicHerbs.terrain}"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "not": "endemic-herbs:forest"
+                            },
+                            "item:trait:poison",
+                            "item:trait:disease"
+                        ]
+                    }
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.endemicHerbs.selector}",
+                "type": "circumstance",
+                "value": "@item.flags.pf2e.rulesSelections.endemicHerbs.bonus"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

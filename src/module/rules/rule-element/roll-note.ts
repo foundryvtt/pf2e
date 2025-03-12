@@ -2,14 +2,13 @@ import { RollNotePF2e } from "@module/notes.ts";
 import { UserVisibility } from "@scripts/ui/user-visibility.ts";
 import { DEGREE_OF_SUCCESS_STRINGS, DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import { DataUnionField, StrictStringField } from "@system/schema-data-fields.ts";
-import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
+import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
+import fields = foundry.data.fields;
 
 class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
     static override defineSchema(): RollNoteSchema {
-        const fields = foundry.data.fields;
-
         return {
             ...super.defineSchema(),
             selector: new fields.ArrayField(
@@ -69,13 +68,20 @@ interface RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema>, ModelProp
 
 type RollNoteSchema = RuleElementSchema & {
     /** The statistic(s) slugs of the rolls for which this note will be appended */
-    selector: ArrayField<StringField<string, string, true, false, false>, string[], string[], true, false, true>;
+    selector: fields.ArrayField<StringField<string, string, true, false, false>>;
     /** An optional title prepended to the note */
-    title: StringField<string, string, false, true, true>;
+    title: fields.StringField<string, string, false, true, true>;
     /** An optional limitation of the notes visibility to GMs */
-    visibility: StringField<UserVisibility, UserVisibility, true, true, true>;
+    visibility: fields.StringField<UserVisibility, UserVisibility, true, true, true>;
     /** Applicable degree-of-success outcomes for the note */
-    outcome: ArrayField<StringField<DegreeOfSuccessString, DegreeOfSuccessString, true, false, false>>;
+    outcome: fields.ArrayField<
+        StringField<DegreeOfSuccessString, DegreeOfSuccessString, true, false, false>,
+        DegreeOfSuccessString[],
+        DegreeOfSuccessString[],
+        false,
+        false,
+        false
+    >;
     /** The main text of the note */
     text: DataUnionField<
         StrictStringField<string, string, true, false, false> | ResolvableValueField<true, false, false>

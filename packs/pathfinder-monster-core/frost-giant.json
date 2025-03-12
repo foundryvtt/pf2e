@@ -4,10 +4,8 @@
     "items": [
         {
             "_id": "crdKpfEf0xqRNZES",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.8COlYvHe6hKCXY8x"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8COlYvHe6hKCXY8x"
             },
             "img": "icons/weapons/axes/axe-double-engraved.webp",
             "name": "Greataxe",
@@ -91,10 +89,8 @@
         },
         {
             "_id": "eeogqVkMgtpG8YAT",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.r0ifJfoz8aqf0mwk"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.r0ifJfoz8aqf0mwk"
             },
             "img": "icons/equipment/chest/breastplate-collared-steel.webp",
             "name": "Breastplate",
@@ -170,11 +166,7 @@
             "name": "Greataxe",
             "sort": 300000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -197,15 +189,11 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "magical",
                         "reach-10",
                         "sweep"
                     ]
-                },
-                "weaponType": {
-                    "value": "melee"
                 }
             },
             "type": "melee"
@@ -216,11 +204,7 @@
             "name": "Fist",
             "sort": 400000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -243,14 +227,10 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "agile",
                         "reach-10"
                     ]
-                },
-                "weaponType": {
-                    "value": "melee"
                 }
             },
             "type": "melee"
@@ -261,11 +241,7 @@
             "name": "Icicle",
             "sort": 500000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -292,24 +268,50 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "cold",
                         "primal",
                         "range-120"
                     ]
-                },
-                "weaponType": {
-                    "value": "ranged"
                 }
             },
             "type": "melee"
         },
         {
+            "_id": "P0c0u4UwdLFnplXT",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Strike",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "reactive-strike",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "VBMoJbMPEmzIPu5X",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Chill Breath",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -319,7 +321,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The frost giant breathes out a @Template[cone|distance:15] of freezing moisture that quickly condenses into ice, dealing @Damage[4d6[cold]] damage. Each creature in the cone must attempt a @Check[reflex|dc:28|basic] save. A creature that fails its save is also @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] and takes @Damage[2d6[cold]] damage at the end of each of its turns until it gets free ([[/act escape dc=28]]).</p>\n<p>The giant can't use Chill Breath again for [[/br 1d4 #Recharge Chill Breath]]{1d4 rounds}.</p>"
+                    "value": "<p>The frost giant breathes out a @Template[cone|distance:15] of freezing moisture that quickly condenses into ice, dealing @Damage[4d6[cold]] damage. Each creature in the cone must attempt a @Check[reflex|dc:28|basic] save. A creature that fails its save is also @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] and takes @Damage[2d6[cold]] damage at the end of each of its turns until it gets free ([[/act escape dc=28]]).</p>\n<p>The giant can't use Chill Breath again for [[/gmr 1d4 #Recharge Chill Breath]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -342,7 +344,7 @@
             "_id": "UkuRoGDf37QBLm8k",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Ice Stride",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -372,7 +374,7 @@
             "_id": "ZNWKdUJvc61evvBc",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Wide Swing",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "action"

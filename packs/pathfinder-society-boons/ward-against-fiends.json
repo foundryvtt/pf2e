@@ -1,6 +1,6 @@
 {
     "_id": "GvPWLAjLYT1dKBTL",
-    "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+    "img": "systems/pf2e/icons/pathfinder-society/pfs-glyph.webp",
     "name": "Ward Against Fiends",
     "system": {
         "actionType": {
@@ -28,7 +28,18 @@
             "remaster": false,
             "title": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalFailure": "to-failure"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "origin:trait:fiend"
+                ],
+                "selector": "saving-throw"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []

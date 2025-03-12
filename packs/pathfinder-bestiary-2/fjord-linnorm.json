@@ -43,10 +43,8 @@
         },
         {
             "_id": "pX8XlXGbLapNVOQT",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.aqRYNoSvxsVfqglH"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.aqRYNoSvxsVfqglH"
             },
             "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Freedom of Movement (Constant)",
@@ -60,7 +58,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You repel effects that would hinder a creature or slow its movement. While under this spell's effect, the target ignores effects that would give them a circumstance penalty to Speed. When they attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] an effect that has them @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], or @UUID[Compendium.pf2e.conditionitems.Item.Restrained], they automatically succeed unless the effect is magical and of a higher level than the freedom of movement spell.</p>"
+                    "value": "<p>You repel effects that would hinder a creature or slow its movement. While under this spell's effect, the target ignores effects that would give them a circumstance penalty to Speed. When they attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] an effect that has them @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], or @UUID[Compendium.pf2e.conditionitems.Item.Restrained], they automatically succeed unless the effect is magical and of a higher rank than the <em>freedom of movement</em> spell.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Unfettered Movement]{Spell Effect: Freedom of Movement}</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -106,10 +104,8 @@
         },
         {
             "_id": "XSu8EpdK6CVQXvZe",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.uqlxMQQeSGWEVjki"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.uqlxMQQeSGWEVjki"
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing (Constant)",
@@ -310,10 +306,8 @@
         },
         {
             "_id": "FnRuOLk9xVqNWtrD",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
@@ -344,7 +338,10 @@
             "type": "action"
         },
         {
-            "_id": "JWaVcBKV9F51VWja",
+            "_id": "0Nhvvwp0GYHM0tt9",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
             "sort": 800000,
@@ -360,32 +357,23 @@
                     "value": ""
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
                 "rules": [
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "or": [
-                                    "magical",
-                                    "arcane",
-                                    "primal",
-                                    "occult",
-                                    "divine"
-                                ]
-                            }
+                            "item:magical"
                         ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
                     }
                 ],
-                "slug": null,
+                "slug": "1-status-to-all-saves-vs-magic",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -393,10 +381,8 @@
         },
         {
             "_id": "lPGPRMZYecowSzGA",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Regeneration 10 (Deactivated by Cold Iron)",
@@ -438,10 +424,8 @@
         },
         {
             "_id": "zIgTjSPfr6rcIZod",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity (Tail Only)",
@@ -519,7 +503,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The fjord linnorm expels a @Template[line|distance:120] of icy bile, dealing @Damage[17d6[cold]] damage to creatures within the area (@Check[reflex|dc:37|basic] save). Any creature that fails its save is covered by the ice, which freezes and fuses with the creature's skin, giving it a -10-foot penalty to Speed. A creature can @UUID[Compendium.pf2e.actionspf2e.Item.Escape] or @UUID[Compendium.pf2e.actionspf2e.Item.Force Open] the ice (DC 34) to free itself; otherwise, the ice remains for 1 minute.</p>\n<p>The fjord linnorm can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                    "value": "<p>The fjord linnorm expels a @Template[line|distance:120] of icy bile, dealing @Damage[17d6[cold]|options:area-damage] damage to creatures within the area (@Check[reflex|dc:37|basic|options:area-effect] save). Any creature that fails its save is covered by the ice, which freezes and fuses with the creature's skin, giving it a -10-foot penalty to Speed. A creature can @UUID[Compendium.pf2e.actionspf2e.Item.Escape] or @UUID[Compendium.pf2e.actionspf2e.Item.Force Open] the ice (DC 34) to free itself; otherwise, the ice remains for 1 minute.</p>\n<p>The fjord linnorm can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -573,10 +557,8 @@
         },
         {
             "_id": "tjoCXlFjIMoeCEAO",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Improved Grab",
