@@ -1,0 +1,71 @@
+{
+    "_id": "j1hhTLOq7o80XCyV",
+    "folder": "UQdIYofnLbcraxlJ",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Bullet Dancer Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You mix guns and melee into a deadly art. You gain the Bullet Dancer Stance action. You are also granted familiarity with bayonets, reinforced stocks, martial firearms, and martial combination weapons; for the purposes of proficiency and abilities from this archetype, you treat bayonets, reinforced stocks, martial firearms, and martial combination weapons as simple weapons. You gain access to uncommon combination weapons that have a firearm ranged form.</p>\n<p><strong>@UUID[Compendium.pf2e.actionspf2e.Item.Bullet Dancer Stance]</strong> <span class=\"action-glyph\">1</span> (stance)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.SMF1hTWPHtmlS8Cd inline]</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.5nd8ON2kFGOsCdwQ]{Bullet Dancer}</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "expert in unarmored defense"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Bullet Dancer Stance"
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:base:bayonet",
+                            "item:base:reinforced-stock",
+                            {
+                                "and": [
+                                    "item:category:martial",
+                                    {
+                                        "or": [
+                                            "item:group:firearm",
+                                            "item:trait:combination"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "sameAs": "simple",
+                "slug": "bullet-dancer-dedication"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

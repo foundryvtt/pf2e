@@ -1,0 +1,58 @@
+{
+    "_id": "qTxgIym89ehgW684",
+    "folder": "5S0CMZTDzgFfC0iN",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Stand for the Fallen",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> An ally takes damage that would bring them to 0 Hit Points</p><hr /><p>You protect your allies at the cost of your own blood, but your deity shields you from the worst of the harm. Stride twice to be adjacent to the triggering ally. You can Burrow, Climb, Fly, or Swim instead of Striding if you have the corresponding movement type. You then take the damage that would have brought your ally to 0 Hit Points, though you gain resistance to all damage against that damage equal to your level.</p>"
+        },
+        "frequency": null,
+        "level": {
+            "value": 18
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Mortal Herald Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "stand-for-the-fallen",
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "stand-for-the-fallen"
+                ],
+                "type": "all-damage",
+                "value": "@actor.level"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "concentrate",
+                "divine"
+            ]
+        }
+    },
+    "type": "feat"
+}

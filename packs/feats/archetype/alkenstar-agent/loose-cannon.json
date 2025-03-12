@@ -1,0 +1,80 @@
+{
+    "_id": "Jk6gZzXEABiX5A0S",
+    "folder": "GMVALPbvTcAIWPL9",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Loose Cannon",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your unpredictable gunfire often catches enemies off guard or hits unprotected areas. Make a ranged Strike with a firearm against a creature that you haven't already attacked on this turn. You gain a circumstance bonus to damage on this Strike equal to the number of weapon damage dice. The Strike gains the following failure effect.</p><hr /><p><strong>Failure</strong> The firearm misfires, but it doesn't cause the other critical failure effects listed below.</p>\n<p><strong>Critical Failure</strong> The firearm misfires and also explodes. It becomes @UUID[Compendium.pf2e.conditionitems.Item.Broken], and it deals its normal weapon damage to all creatures in a @Template[burst|distance:20] centered on the firearm, with a @Check[reflex|against:class|basic] against your class DC. This damage includes any from the weapon's fundamental and property runes.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Alkenstar Agent Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #178: Punks in a Powder Keg"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "loose-cannon",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "loose-cannon"
+                ],
+                "selector": "firearm-weapon-group-damage",
+                "type": "circumstance",
+                "value": "@weapon.system.damage.dice"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalFailure"
+                ],
+                "predicate": [
+                    "loose-cannon"
+                ],
+                "selector": "firearm-group-attack-roll",
+                "text": "PF2E.SpecificRule.AlkenstarAgent.LooseCannon.Note.CriticalFailure",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "predicate": [
+                    "loose-cannon"
+                ],
+                "selector": "firearm-group-attack-roll",
+                "text": "PF2E.SpecificRule.AlkenstarAgent.LooseCannon.Note.Failure",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

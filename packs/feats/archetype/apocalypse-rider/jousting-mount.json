@@ -1,0 +1,104 @@
+{
+    "_id": "tuhEOBeX0sVnRoWH",
+    "folder": "PQJSFayS5vD5aZpa",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Jousting Mount",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>While riding your apocalypse mount, any two-handed weapon you wield gains the jousting trait with a die size equal to one die size lower than the weapon's normal damage die.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Apocalypse Rider Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "jousting-mount",
+                "toggleable": true
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:usage:hands:2",
+                    "jousting-mount",
+                    "item:damage:die:faces:6",
+                    {
+                        "not": "item:trait:jousting-d6"
+                    }
+                ],
+                "property": "traits",
+                "value": "jousting-d4"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:usage:hands:2",
+                    "jousting-mount",
+                    "item:damage:die:faces:8",
+                    {
+                        "not": "item:trait:jousting-d8"
+                    }
+                ],
+                "property": "traits",
+                "value": "jousting-d6"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:usage:hands:2",
+                    "jousting-mount",
+                    "item:damage:die:faces:10",
+                    {
+                        "not": "item:trait:jousting-d10"
+                    }
+                ],
+                "property": "traits",
+                "value": "jousting-d8"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:usage:hands:2",
+                    "jousting-mount",
+                    "item:damage:die:faces:12"
+                ],
+                "property": "traits",
+                "value": "jousting-d10"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "mythic"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,74 @@
+{
+    "_id": "PlRAfeNof3xgJttZ",
+    "folder": "hmtZeb4WiC3yp2DI",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Surrounding Flames",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>When you cast @UUID[Compendium.pf2e.spells-srd.Item.Wall of Fire], you can modify its standard effects as follows: Instead of a 5-foot-thick, 10-foot-radius ring of flame, you can form the wall into a @Template[burst|distance:10]{10-foot-radius} hemisphere of fire.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Spell Trickster Dedication"
+                },
+                {
+                    "value": "ability to cast wall of fire"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens The Grand Bazaar"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SpellTrickster.Label",
+                "mergeable": true,
+                "option": "spell-trickster",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "surrounding-flames"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spell-trickster:surrounding-flames",
+                    "item:slug:wall-of-fire"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.SpellTrickster.SurroundingFlames.Description"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

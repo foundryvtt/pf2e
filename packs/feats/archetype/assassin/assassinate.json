@@ -1,0 +1,68 @@
+{
+    "_id": "iJxbrXAdxhLqdT5E",
+    "folder": "tpE3ROekcC2mpEht",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Assassinate",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You have designated a mark using @UUID[Compendium.pf2e.actionspf2e.Item.Mark for Death] and are completely unnoticed by your mark.</p><hr /><p>You strike with one swift movement, trying to instantly slay your mark. Make a Strike against your mark. If you hit, your mark takes an additional 6d6 precision damage with a @Check[fortitude|against:class-spell|basic] save against the higher of your class DC or spell DC. If the mark critically fails, it dies unless its level is higher than yours. Regardless of the result of its save, the creature is temporarily immune to your Assassinate for 1 day.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Assassin Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "marked-for-death"
+                    }
+                ],
+                "disabledValue": false,
+                "domain": "attack-roll",
+                "key": "RollOption",
+                "option": "assassinate",
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "predicate": [
+                    "assassinate",
+                    "marked-for-death"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Assassin.Assassinate.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

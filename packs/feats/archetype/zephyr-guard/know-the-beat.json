@@ -1,0 +1,70 @@
+{
+    "_id": "9lyFxaoZjF1ZjVN9",
+    "folder": "t21ITcssNZ7GuPpO",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Know the Beat",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>You become trained in your choice of Guild Lore, Legal Lore, Mercantile Lore, or Underworld Lore. You gain a +1 circumstance bonus to Diplomacy checks to @UUID[Compendium.pf2e.actionspf2e.Item.Gather Information] and to checks made to investigate crimes.</p>"
+        },
+        "level": {
+            "value": 3
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Zephyr Guard Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #149: Against the Scarlet Triad"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.ZephyrGuard.KnowTheBeat.RollOptionLabel",
+                "option": "know-the-beat",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:gather-information"
+                ],
+                "selector": "diplomacy",
+                "slug": "know-the-beat-gather-information",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "know-the-beat"
+                ],
+                "selector": "check",
+                "slug": "know-the-beat-investigation",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}
