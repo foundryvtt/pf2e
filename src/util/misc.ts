@@ -46,17 +46,23 @@ function applyNTimes<T>(func: (val: T) => T, times: number, start: T): T {
  * @param delta
  * @returns the new value of the input field
  */
-function applyDeltaToInput(input: HTMLInputElement, delta: number, min: number = 0, max: number = 0, triggerChange: boolean = true): string {
+function applyDeltaToInput(
+    input: HTMLInputElement,
+    delta: number,
+    min: number = 0,
+    max: number = 0,
+    triggerChange: boolean = true,
+): string {
     const oldValue = Number(input.value) || min;
 
-    if(max > 0) {
+    if (max > 0) {
         input.value = String(Math.clamp(oldValue + delta, min, max));
     } else {
         input.value = String(Math.min(oldValue + delta, min));
     }
 
     if (triggerChange) {
-        $(input).trigger('change');
+        $(input).trigger("change");
     }
 
     return input.value;
