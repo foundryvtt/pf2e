@@ -1,0 +1,93 @@
+{
+    "_id": "lslR2UfP3ze7TFYu",
+    "folder": "rwqV1uVZyRarDMCy",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Eldritch Researcher Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain the ability to cast a single arcane or occult cantrip of your choice (which is heightened to a spell rank equal to half your level rounded up). If you weren't already, you become trained in that tradition's spell DCs and spell attack rolls with Intelligence as your spellcasting ability.</p>\n<p>Regardless of whether you choose an arcane or occult cantrip, you also become an expert in your choice of either Arcana or Occultism. You also gain a +1 circumstance bonus to checks you attempt with the chosen skill when Investigating or Identifying Magic.</p>\n<hr />\n<p><strong>Special</strong> You can't select another dedication feat until you've gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.JBPXisA4IdXI9gVn]{Eldritch Researcher} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Arcana"
+                },
+                {
+                    "value": "trained in Occultism"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #164: Hands of the Devil"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Arcana",
+                        "value": {
+                            "name": "arcana",
+                            "value": "arcana"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Skill.Occultism",
+                        "value": {
+                            "name": "occultism",
+                            "value": "occultism"
+                        }
+                    }
+                ],
+                "flag": "eldritch",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:identify-magic",
+                            "action:investigate"
+                        ]
+                    }
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.eldritch.name}",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.eldritch.value}.rank",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "spellcasting": {
+                    "rank": 1
+                }
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,56 @@
+{
+    "_id": "X5gNhaYNx1xu6NoH",
+    "folder": "SpFs2eB7ZLtAw5AN",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Finishing Precision",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've learned how to land daring blows when you have @UUID[Compendium.pf2e.feat-effects.Item.Effect: Panache]{Panache}.</p>\n<p>You gain the @UUID[Compendium.pf2e.classfeatures.Item.Precise Strike] class feature but you deal 1 addition damage on a hit and 1d6 damage on a finisher. This damage doesn't increase as you gain levels. In addition, you gain the @UUID[Compendium.pf2e.actionspf2e.Item.Basic Finisher] action.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Swashbuckler Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.swashbuckler.preciseStrike",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Basic Finisher"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.classfeatures.Item.Precise Strike"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

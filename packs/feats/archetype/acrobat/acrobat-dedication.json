@@ -1,0 +1,61 @@
+{
+    "_id": "aFygWxgSv82WyCsl",
+    "folder": "kcxudzittAmxnR9F",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Acrobat Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You become an expert in Acrobatics. At 7th level, you become a master in Acrobatics, and at 15th level, you become legendary in Acrobatics. Whenever you critically succeed at an Acrobatics check to @UUID[Compendium.pf2e.actionspf2e.Item.Tumble Through] an enemy's space, you don't treat the enemy's space as difficult terrain.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.rhDvoOHAhAlABiae]{Acrobat}</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Acrobatics"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.acrobatics.rank",
+                "value": "ternary(gte(@actor.level,15),4,ternary(gte(@actor.level,7),3,2))"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:tumble-through"
+                ],
+                "selector": "acrobatics",
+                "text": "PF2E.SpecificRule.Acrobat.AcrobatDedication.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,77 @@
+{
+    "_id": "pu8Mg2FIrhBYTNnB",
+    "folder": "8doC5H2PAm5u9qvc",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Duo's Aim",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>With assistance from your spotter, you aim for an especially accurate attack. Make a crossbow or firearm Strike against a foe either within your spotter's melee reach or the first range increment of a ranged weapon your spotter is wielding. On this Strike, you gain a +2 circumstance bonus to the attack roll and ignore the target's concealment. If you're using a firearm with the kickback trait, you don't take the normal circumstance penalty to this Strike for not having the required Strength modifier or firing without using a tripod.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Sniping Duo Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "duos-aim",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "duos-aim"
+                ],
+                "selector": "ranged-strike-attack-roll",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "duos-aim"
+                ],
+                "selector": "strike-attack-roll",
+                "slug": "kickback",
+                "suppress": true
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "duos-aim",
+                    "target:condition:concealed"
+                ],
+                "selector": "ranged-strike-attack-roll",
+                "text": "PF2E.SpecificRule.Feat.DuosAim.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "concentrate"
+            ]
+        }
+    },
+    "type": "feat"
+}

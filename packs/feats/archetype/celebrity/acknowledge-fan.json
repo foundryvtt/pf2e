@@ -1,0 +1,55 @@
+{
+    "_id": "arnSyCl9XfN1qviJ",
+    "folder": "Izx2ooWM99r611AV",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Acknowledge Fan",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your reputation as a Firebrand precedes you, and you need only make a simple gesture or give a look of recognition to amaze those around you. You're so famous and beloved that even your enemies are fans, and they're shocked to see you here. Choose one target creature who can see you to acknowledge. The target must attempt a @Check[will|against:class-spell] save against your class DC or spell DC, whichever is higher. Regardless of the result, the target becomes temporarily immune to Acknowledge Fan for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and becomes temporarily immune to Acknowledge Fan for 1 day.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} and becomes temporarily immune to Acknowledge Fan for 1 day.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] until the end of your next turn.</p>\n<hr />\n<p><strong>Special</strong> This feat has either the arcane or occult trait, matching the choice you made when you took @UUID[Compendium.pf2e.feats-srd.Item.Mesmerizing Gaze].</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Celebrity Dedication, Mesmerizing Gaze"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Firebrands"
+        },
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:id:{item|id}"
+                ],
+                "property": "traits",
+                "value": "{actor|flags.pf2e.mesmerizingGaze}"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "incapacitation",
+                "mental",
+                "visual"
+            ]
+        }
+    },
+    "type": "feat"
+}

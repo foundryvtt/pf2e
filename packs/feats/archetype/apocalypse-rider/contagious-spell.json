@@ -1,0 +1,72 @@
+{
+    "_id": "ad5MsrMMu721NH59",
+    "folder": "PQJSFayS5vD5aZpa",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Contagious Spell",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your magic can bring devastation to more individuals. Spend a Mythic Point. If your next action is to Cast a Spell that inflicts damage or debilitating conditions and targets a specific number of creatures, you can target one additional creature.</p>"
+        },
+        "level": {
+            "value": 18
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Apocalypse Rider Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "contagious-spell"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:contagious-spell"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "concentrate",
+                "mythic",
+                "spellshape"
+            ]
+        }
+    },
+    "type": "feat"
+}

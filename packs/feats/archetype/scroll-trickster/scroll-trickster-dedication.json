@@ -1,0 +1,68 @@
+{
+    "_id": "uxHWqFbYD0ZvkeF8",
+    "folder": "gHbWTf7PxQ3GXzZq",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Scroll Trickster Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've studied scrolls in depth. This might have been a comprehensive education in formal setting, or the sort of education where you somehow obtain a number of scrolls and try not to explode anything you didn't mean to explode.</p>\n<p>You gain the @UUID[Compendium.pf2e.feats-srd.Item.Trick Magic Item] feat, and you gain a +2 circumstance bonus to skill checks to Trick scrolls. If you roll a critical failure to Trick a Magic Item that's a scroll, you get a failure instead.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.4gKrDFB1GlILn9la]{Scroll Trickster}</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Arcana, Nature, Occultism, or Religion"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Trick Magic Item"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:trick-magic-item",
+                    "item:trait:scroll"
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:trick-magic-item",
+                    "item:trait:scroll"
+                ],
+                "selector": "skill-check"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

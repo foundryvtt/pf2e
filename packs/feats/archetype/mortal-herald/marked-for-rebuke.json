@@ -1,0 +1,76 @@
+{
+    "_id": "k8c0E7YyeIQJjRzB",
+    "folder": "5S0CMZTDzgFfC0iN",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Marked for Rebuke",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You declare that an enemy is fit for further punishment in the sight of your deity. If the next action you perform is to Cast a Spell that deals damage, one creature of your choice that takes damage from the spell is marked for rebuke until the end of your next turn. A creature marked this way gains weakness 10 to all damage and becomes immune to Marked for Rebuke for 24 hours.</p>"
+        },
+        "level": {
+            "value": 18
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Mortal Herald Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeble": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "marked-for-rebuke"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "damaging-effect",
+                    "spellshape:marked-for-rebuke"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "{item|description}"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Marked for Rebuke]"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "spellshape"
+            ]
+        }
+    },
+    "type": "feat"
+}

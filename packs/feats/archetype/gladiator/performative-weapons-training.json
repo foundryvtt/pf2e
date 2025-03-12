@@ -1,0 +1,77 @@
+{
+    "_id": "SOG0yVNtiDsaNbIO",
+    "folder": "y6KtcXHQ6HCC9Am2",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Performative Weapons Training",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You're skilled with flashy weapons and can use them to great effect. You have familiarity with the @UUID[Compendium.pf2e.equipment-srd.Item.Bo Staff], @UUID[Compendium.pf2e.equipment-srd.Item.Dueling Cape], @UUID[Compendium.pf2e.equipment-srd.Item.Spiked Chain], @UUID[Compendium.pf2e.equipment-srd.Item.Sword Cane], @UUID[Compendium.pf2e.equipment-srd.Item.Trident], @UUID[Compendium.pf2e.equipment-srd.Item.War Flail], and @UUID[Compendium.pf2e.equipment-srd.Item.Whip]. For the purposes of proficiency, you treat these as simple weapons. The GM may add other martial weapons to this list as appropriate for the world or region you are playing in.</p>\n<p>Whenever you get a critical hit with one of these weapons, you get its critical specialization effect.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Gladiator Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:base:bo-staff",
+                            "item:base:dueling-cape",
+                            "item:base:spiked-chain",
+                            "item:base:sword-cane",
+                            "item:base:trident",
+                            "item:base:war-flail",
+                            "item:base:whip"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.PerformativeWeapons",
+                "sameAs": "simple",
+                "slug": "performative-weapon-training"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:base:bo-staff",
+                            "item:base:dueling-cape",
+                            "item:base:spiked-chain",
+                            "item:base:sword-cane",
+                            "item:base:trident",
+                            "item:base:war-flail",
+                            "item:base:whip"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}
