@@ -537,7 +537,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
                 if (event.key === "ArrowUp") {
                     applyDeltaToInput(deltaInput, +1, min, max);
-                } else if(event.key === "ArrowDown") {
+                } else if (event.key === "ArrowDown") {
                     applyDeltaToInput(deltaInput, -1, min, max);
                 }
             });
