@@ -420,6 +420,9 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 continue;
             }
 
+            // Skip suppressed items
+            if (item.suppressed) continue;
+
             // KINETICIST HARD CODE: Show elemental blasts alongside strikes instead of among other actions
             // If the user added additional blasts manually, show the duplicates normally
             if (actor.flags.pf2e.kineticist && item === elementalBlasts[0]) {

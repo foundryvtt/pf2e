@@ -1,0 +1,95 @@
+{
+    "_id": "uD8J9wAE3KB2w0Cf",
+    "folder": "TIZCWJ6vnWuL3KYr",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Pactbinder Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>The first step toward forming a successful pact is an understanding of the magic behind it, along with skill at negotiation. It doesn't hurt that you also learned how to magically bind yourself to keep your word, enabling you to bargain more easily. You increase your proficiency from trained to expert in Diplomacy and in one of the following: Arcana, Nature, Occultism, or Religion.</p>\n<p>@UUID[Compendium.pf2e.actionspf2e.Item.Binding Vow]</p>\n<p><strong>Special</strong> You can't select another dedication feat until you've gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.0UrqPv7XLDDRwZ13]{Pactbinder} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Diplomacy as well as either Arcana, Nature Occultism, or Religion"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Arcana",
+                        "predicate": [
+                            "skill:arcana:rank:1"
+                        ],
+                        "value": "arcana"
+                    },
+                    {
+                        "label": "PF2E.Skill.Nature",
+                        "predicate": [
+                            "skill:nature:rank:1"
+                        ],
+                        "value": "nature"
+                    },
+                    {
+                        "label": "PF2E.Skill.Occultism",
+                        "predicate": [
+                            "skill:occultism:rank:1"
+                        ],
+                        "value": "occultism"
+                    },
+                    {
+                        "label": "PF2E.Skill.Religion",
+                        "predicate": [
+                            "skill:religion:rank:1"
+                        ],
+                        "value": "religion"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.diplomacy.rank",
+                "value": 2
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Binding Vow"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

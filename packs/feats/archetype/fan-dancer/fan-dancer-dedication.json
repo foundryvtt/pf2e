@@ -1,0 +1,49 @@
+{
+    "_id": "KXPPwGmoKsMa6Ytg",
+    "folder": "1Y90si8tqYe5zlv2",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Fan Dancer Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Access</strong> Tian Xia origin</p><hr /><p>You sweep across the battlefield, manifesting both the gentle spring breeze and the crisp autumn gusts. You become an expert in Performance. At 7th level you become a master in Performance, and at 15th level, you become legendary in Performance. Whenever you Feint while holding a fan, you can give your Feint the air trait. If you do, you can Stride 10 feet before or after as part of the same action.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.RK6AbtT26DHbHlLj]{Fan Dancer}</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Performance"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.performance.rank",
+                "value": "ternary(gte(@actor.level,15),4,ternary(gte(@actor.level,7),3,2))"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

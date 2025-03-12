@@ -3,6 +3,7 @@ import type { CraftingAbility } from "@actor/character/crafting/ability.ts";
 import { ItemPF2e } from "@item";
 import type { ActionCost, Frequency, RawItemChatData } from "@item/base/data/index.ts";
 import type { RangeData } from "@item/types.ts";
+import type { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { sluggify } from "@util";
 import type { AbilitySource, AbilitySystemData } from "./data.ts";
@@ -16,6 +17,9 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
 
     /** If this ability can craft, what is the crafting ability */
     declare crafting?: CraftingAbility | null;
+
+    /** If suppressed, this ability should not be visible on character sheets nor have rule elements */
+    declare suppressed: boolean;
 
     static override get validTraits(): Record<AbilityTrait, string> {
         return CONFIG.PF2E.actionTraits;
@@ -45,6 +49,9 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
     }
 
     override prepareActorData(): void {
+        // Exit early if the ability is being suppressed
+        if (this.suppressed) return;
+
         const actor = this.actor;
         if (actor?.isOfType("familiar") && this.system.category === "familiar") {
             const slug = this.slug ?? sluggify(this.name);
@@ -64,6 +71,12 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
 
         rollOptions.push(...getActionCostRollOptions(prefix, this));
         return rollOptions;
+    }
+
+    /** Overriden to not create rule elements when suppressed */
+    override prepareRuleElements(options?: Omit<RuleElementOptions, "parent">): RuleElementPF2e[] {
+        if (this.suppressed) return [];
+        return super.prepareRuleElements(options);
     }
 
     override async getChatData(

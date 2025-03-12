@@ -1,0 +1,116 @@
+{
+    "_id": "pwM4RGwCTLiVSic0",
+    "folder": "94iokP2a3nVhfcuu",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Ghostly Resistance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your ghostly form becomes innately weaker but also gains resistance to many forms of damage. Your maximum HP is reduced by your level. You gain resistance 1 to all damage except for force, vitality, and any damage done by a weapon with the ghost touch rune (or any other source that acts like a ghost touch rune). This resistance increases to 2 if the source is non-magical.</p>\n<p>At 10th level, the resistance increases to 2, or 4 if the source is non-magical. At 16th level, the resistance increases to 3, or 5 if the source is non-magical.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Ghost Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Book of the Dead"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "hp",
+                "value": "-1 * @actor.level"
+            },
+            {
+                "doubleVs": [
+                    "non-magical"
+                ],
+                "exceptions": [
+                    "force",
+                    "vitality",
+                    "ghost-touch"
+                ],
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "lt": [
+                            "self:level",
+                            16
+                        ]
+                    }
+                ],
+                "type": "all-damage",
+                "value": "ternary(lt(@actor.level, 10), 1, 2)"
+            },
+            {
+                "definition": [
+                    "damage",
+                    "item:magical"
+                ],
+                "exceptions": [
+                    "force",
+                    "vitality",
+                    "ghost-touch"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.AllMagicalDamage",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            16
+                        ]
+                    }
+                ],
+                "type": "custom",
+                "value": 3
+            },
+            {
+                "definition": [
+                    "damage",
+                    {
+                        "not": "item:magical"
+                    }
+                ],
+                "exceptions": [
+                    "force",
+                    "vitality",
+                    "ghost-touch"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.AllNonMagicalDamage",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            16
+                        ]
+                    }
+                ],
+                "type": "custom",
+                "value": 5
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

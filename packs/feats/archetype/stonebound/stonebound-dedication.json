@@ -1,0 +1,62 @@
+{
+    "_id": "jp7nDEmyRUtR5KFG",
+    "folder": "X1wvogV4sHZ1Lja3",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Stonebound Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You bind yourself to the very essence of stone. You become trained in Plane of Earth Lore and learn the Terran language. If you are already trained in Plane of Earth Lore, you become trained in a skill of your choice. If you already speak Terran, you learn a common language of your choice. Increase your maximum Hit Points by your level.</p><hr /><p><strong>Special</strong> You cannot select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.wC2H1yHQg1zu18Bh]{Stonebound} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Constitution +2"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #195: Heavy is the Crown"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "hp",
+                "value": "@actor.level"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.stoneboundArchetype.featCount",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "languages": {
+                "granted": [
+                    "petran"
+                ],
+                "slots": 0
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

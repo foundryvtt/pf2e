@@ -1,0 +1,141 @@
+{
+    "_id": "XmvIQ4iJ2euOgLYb",
+    "folder": "5S0CMZTDzgFfC0iN",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Mortal Herald Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You become a mortal herald of your deity, gaining power in return for your service. Others intuitively sense your connection with your deity, which subtly influences the way they act around you. You become bound by your deity's anathema. Depending on your deity, their sanctification can make you holy or unholy. This gives you the holy or unholy trait, which commits you to one side of a struggle over the souls of the planes and can be referenced in other abilities. If you \"can be\" holy or unholy according to your deity, you make that choice, and if you \"must be\" holy or unholy you gain the trait automatically. If you gain the opposing trait in some way, you lose the previous trait until you complete an @UUID[Compendium.pf2e.spells-srd.Item.Atone] ritual.</p>\n<p>In addition, once per day, you can cast @UUID[Compendium.pf2e.spells-srd.Item.Heal] as a 6th-rank innate divine spell. You can only target yourself with the spell, but you gain the benefits of the 2-action version when you spend 1 action to cast it. In addition, if you would be reduced to 0 Hit Points but not immediately killed, you can cast the spell as a free action before you become @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]. This spell is automatically heightened to a rank equal to half your level.</p><hr /><p><strong>Special</strong> If you have void healing, you instead cast @UUID[Compendium.pf2e.spells-srd.Item.Harm].</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.n787ifCmIxuhtcMG]{Mortal Herald}</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "worshipper of a specific deity"
+                },
+                {
+                    "value": "master in Religion or your deity's divine skill"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        {
+                            "or": [
+                                "item:category:deity",
+                                "item:category:pantheon"
+                            ]
+                        },
+                        {
+                            "not": "item:sanctification:none"
+                        }
+                    ],
+                    "itemType": "deity"
+                },
+                "flag": "deity",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "not": "deity"
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Deity"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "deity"
+                    }
+                ],
+                "uuid": "{item|flags.pf2e.rulesSelections.deity}"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitHoly",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "deity:primary:sanctification:can:holy",
+                                    "deity:primary:sanctification:must:holy"
+                                ]
+                            }
+                        ],
+                        "value": "holy"
+                    },
+                    {
+                        "label": "PF2E.TraitUnholy",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "deity:primary:sanctification:can:unholy",
+                                    "deity:primary:sanctification:must:unholy"
+                                ]
+                            }
+                        ],
+                        "value": "unholy"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "nor": [
+                            "deity:primary:sanctification:none",
+                            "sanctification:holy",
+                            "sanctification:unholy"
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Sanctification",
+                "rollOption": "sanctification",
+                "slug": "sanctification"
+            },
+            {
+                "add": [
+                    "holy"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "sanctification:holy"
+                ]
+            },
+            {
+                "add": [
+                    "unholy"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "sanctification:unholy"
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "dedication",
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,58 @@
+{
+    "_id": "Xhphe5Lsa4kuU4RG",
+    "folder": "nLqwmpCHNXB3DWMJ",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Crossbow Terror",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your skill with a crossbow strikes terror into your opponents when you threaten them with the next bolt. Interact to reload a crossbow and then attempt an Intimidation check to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize]. You gain a +2 circumstance bonus to this check if you succeeded at a @UUID[Compendium.pf2e.actionspf2e.Item.Strike] with a crossbow this turn.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Archer Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:demoralize",
+                    "crossbow-terror"
+                ],
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "domain": "skill-check",
+                "key": "RollOption",
+                "option": "crossbow-terror",
+                "toggleable": true
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

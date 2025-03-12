@@ -1,0 +1,64 @@
+{
+    "_id": "6sbuDCFHt89Uqykn",
+    "folder": "Dgb6rENjNuP1n8qe",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Mountain Skin",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You become trained in medium and heavy armor. Whenever you gain a class feature that grants you expert or greater proficiency in any armor (but not unarmored defense), you also gain that proficiency rank in the armor types granted to you by this feat.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Stalwart Defender Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Highhelm"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.medium.rank",
+                "value": "@actor.system.proficiencies.defenses.light.rank"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.heavy.rank",
+                "value": "@actor.system.proficiencies.defenses.light.rank"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "heavy": {
+                    "rank": 1
+                },
+                "medium": {
+                    "rank": 1
+                }
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

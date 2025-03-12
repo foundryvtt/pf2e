@@ -1,0 +1,71 @@
+{
+    "_id": "USt0jwK8XI5loG4E",
+    "folder": "cbsBMDCgI7cZ31xm",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Gunslinger Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You excel in using specific types of ranged weapons. You have familiarity with martial crossbows and firearms, treating them as simple weapons for the purposes of proficiency.</p>\n<p>You gain access to uncommon martial and simple crossbows and firearms that do not have an ancestry trait. You become trained in gunslinger class DC.</p>\n<p>Choose a gunslinger way. You become trained in your way's associated skill; if you were already trained in this skill, you become trained in a skill of your choice. You don't gain any other abilities from your choice of way.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.CSVoyUvynmM5LzPW]{Gunslinger}</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Dexterity +2"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.classfeatures.Item.Gunslinger's Way"
+            },
+            {
+                "definition": [
+                    "item:category:martial",
+                    {
+                        "or": [
+                            "item:group:firearm",
+                            "item:group:crossbow"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialFirearmsCrossbows",
+                "sameAs": "simple",
+                "slug": "martial-firearms-crossbows"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "gunslinger": {
+                    "attribute": "dex",
+                    "rank": 1
+                }
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication",
+                "multiclass"
+            ]
+        }
+    },
+    "type": "feat"
+}
