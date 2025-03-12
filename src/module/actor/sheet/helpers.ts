@@ -105,7 +105,7 @@ function applyDeltaToInput(
     }
 
     if (triggerChange) {
-        fu.debounce((el: HTMLInputElement) => el.dispatchEvent(new Event('change', { bubbles: true })), 0)(input);
+        fu.debounce((el: HTMLInputElement) => el.dispatchEvent(new Event("change", { bubbles: true })), 0)(input);
     }
 
     return input.value;
