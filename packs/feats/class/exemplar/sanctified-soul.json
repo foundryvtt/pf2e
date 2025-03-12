@@ -45,6 +45,52 @@
                     "{item|flags.pf2e.rulesSelections.sanctification}"
                 ],
                 "key": "ActorTraits"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "energized-spark"
+                    },
+                    "item:tag:exemplar-spirit-damage"
+                ],
+                "priority": 121,
+                "property": "traits",
+                "value": "sanctified"
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "energized-spark"
+                    },
+                    "item:tag:exemplar-spirit-damage"
+                ],
+                "priority": 121,
+                "property": "traits",
+                "value": "sanctified"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "energized-spark"
+                    },
+                    {
+                        "or": [
+                            "feature:spirit-striking",
+                            "exemplar-spirit-damage"
+                        ]
+                    }
+                ],
+                "priority": 150,
+                "property": "traits",
+                "value": "{item|flags.pf2e.rulesSelections.sanctification}"
             }
         ],
         "traits": {
