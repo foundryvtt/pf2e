@@ -1,0 +1,90 @@
+{
+    "_id": "kTnRp6zfI32iqjHc",
+    "folder": "dHkIfyfz2uyglAR2",
+    "img": "icons/skills/social/diplomacy-handshake-blue.webp",
+    "name": "Effect: Attitude",
+    "system": {
+        "badge": {
+            "labels": [
+                "Hostile",
+                "Unfriendly",
+                "Indifferent",
+                "Friendly",
+                "Helpful"
+            ],
+            "loop": false,
+            "type": "counter",
+            "value": 3
+        },
+        "description": {
+            "value": "<p>See @UUID[Compendium.pf2e.journals.JournalEntry.S55aqwWIzpQRFhcq.JournalEntryPage.CtFrwkS2yJ64080e]{Attitudes}</p>\n<p>Use this effect to keep track of the attitude of relevant NPCs, increasing or decreasing the effect's badge value as needed.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "parent:badge:value:1"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Hostile"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "parent:badge:value:2"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Unfriendly"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "parent:badge:value:3"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Indifferent"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "parent:badge:value:4"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Friendly"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "parent:badge:value:5"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Helpful"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
