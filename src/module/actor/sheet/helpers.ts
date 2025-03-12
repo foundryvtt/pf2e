@@ -80,4 +80,35 @@ function createAbilityViewData(item: AbilityItemPF2e | FeatPF2e): AbilityViewDat
     };
 }
 
-export { condenseSenses, createAbilityViewData, createBulkPerLabel, onClickCreateSpell };
+/**
+ * Applies a delta change to the value of an input element
+ *
+ * @param input
+ * @param delta
+ * @param min
+ * @param max
+ * @returns the new value of the input field
+ */
+function applyDeltaToInput(
+    input: HTMLInputElement,
+    delta: number,
+    min: number = 0,
+    max: number = 0,
+    triggerChange: boolean = true,
+): string {
+    const oldValue = Number(input.value) || min;
+
+    if (max > 0) {
+        input.value = String(Math.clamp(oldValue + delta, min, max));
+    } else {
+        input.value = String(Math.max(oldValue + delta, min));
+    }
+
+    if (triggerChange) {
+        fu.debounce((el: HTMLInputElement) => el.dispatchEvent(new Event('change', { bubbles: true })), 0)(input);
+    }
+
+    return input.value;
+}
+
+export { applyDeltaToInput, condenseSenses, createAbilityViewData, createBulkPerLabel, onClickCreateSpell };
