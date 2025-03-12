@@ -11,13 +11,13 @@
         <div class="container temp-hp">
             <label for="{{options.id}}-pc-hp-temp" class="sidebar_label">{{localize "PF2E.TempHitPointsShortLabel"}}</label>
             <div class="data-value">
-                <input name="system.attributes.hp.temp" id="{{options.id}}-pc-hp-temp" type="number" value="{{data.attributes.hp.temp}}" placeholder="0" />
+                <input name="system.attributes.hp.temp" id="{{options.id}}-pc-hp-temp" type="text" value="{{data.attributes.hp.temp}}" placeholder="0" data-dtype="Number" data-allow-delta data-min="0" />
             </div>
         </div>
         <div class="container current-hp">
             <label for="{{options.id}}-pc-hp" class="sidebar_label">{{localize "PF2E.CurrentHitPointsShortLabel"}}</label>
             <div class="data-value">
-                <input name="system.attributes.hp.value" id="{{options.id}}-pc-hp" type="number" value="{{data.attributes.hp.value}}" placeholder="10" />
+                <input name="system.attributes.hp.value" id="{{options.id}}-pc-hp" type="text" value="{{data.attributes.hp.value}}" placeholder="10" data-dtype="Number" data-allow-delta data-min="0" data-max="{{data.attributes.hp.max}}" />
             </div>
         </div>
         <div class="container max-hp">
