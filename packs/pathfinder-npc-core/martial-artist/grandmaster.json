@@ -988,7 +988,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The grandmaster has at least 1 Focus Point</p><hr /><p><strong>Effect</strong> The grandmaster casts touch of death (spending 1 Focus Point as normal). Any time the target attempts a Fortitude save against this touch of death, the grandmaster takes 40 damage and is permanently @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}. If the target gets a critical success, it's @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}; if it gets a success or failure the stunned condition it gains is increased by 1, and any damage it takes is increased by 40.</p>"
+                    "value": "<p><strong>Requirements</strong> The grandmaster has at least 1 Focus Point</p><hr /><p><strong>Effect</strong> The grandmaster casts @UUID[Compendium.pf2e.spells-srd.Item.Touch of Death] (spending 1 Focus Point as normal). Any time the target attempts a Fortitude save against this <em>touch of death</em>, the grandmaster takes @Damage[40] damage and is permanently @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}. If the target gets a critical success, it's @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}; if it gets a success or failure the stunned condition it gains is increased by 1, and any damage it takes is increased by 40.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -1024,7 +1024,32 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "one-millimeter-punch",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.SpecificRule.Actions.TwoActions",
+                                "value": "2"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.Actions.ThreeActions",
+                                "value": "4"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": "@item.flags.pf2e.rulesSelections.oneMillimeterPunch",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "one-millimeter-punch"
+                        ],
+                        "selector": "unarmed-damage"
+                    }
+                ],
                 "slug": "one-millimeter-punch",
                 "traits": {
                     "value": []

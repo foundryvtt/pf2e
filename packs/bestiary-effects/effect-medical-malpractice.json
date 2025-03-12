@@ -1,0 +1,66 @@
+{
+    "_id": "m8RWVvhQ3LCMGQzs",
+    "img": "icons/tools/cooking/knife-cleaver-steel-grey.webp",
+    "name": "Effect: Medical Malpractice",
+    "system": {
+        "description": {
+            "value": "<p>The surgeon's melee Strikes deal extra precision damage against the marked creature.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "medical-malpractice"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": 1
+                    }
+                ],
+                "flag": "medicalMalpractice",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
+            {
+                "category": "precision",
+                "diceNumber": "@item.flags.pf2e.rulesSelections.medicalMalpractice",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:mark:medical-malpractice"
+                ],
+                "selector": "melee-strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
