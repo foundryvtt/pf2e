@@ -34,7 +34,6 @@ import {
 import {
     ErrorPF2e,
     SORTABLE_BASE_OPTIONS,
-    applyDeltaToInput,
     fontAwesomeIcon,
     htmlClosest,
     htmlQuery,
@@ -56,7 +55,7 @@ import type {
     InventoryItem,
     SheetInventory,
 } from "./data-types.ts";
-import { createBulkPerLabel, onClickCreateSpell } from "./helpers.ts";
+import { applyDeltaToInput, createBulkPerLabel, onClickCreateSpell } from "./helpers.ts";
 import { ItemSummaryRenderer } from "./item-summary-renderer.ts";
 import { AddCoinsPopup } from "./popups/add-coins-popup.ts";
 import { CastingItemCreateDialog } from "./popups/casting-item-create-dialog.ts";
