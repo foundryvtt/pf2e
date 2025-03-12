@@ -1,0 +1,87 @@
+{
+    "_id": "pog3LJUEhSeGikl3",
+    "folder": "IuPreCoIEABvPblu",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "You Don't Smell Right",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can sniff out fellow werecreatures and master impersonators alike. You gain scent as an imprecise sense with a range of 30 feet or extend the range of your scent by 30 feet. When a creature that's transformed into another form or is @UUID[Compendium.pf2e.actionspf2e.Item.Impersonate]{Impersonating} a specific creature passes within range of your scent ability, the GM rolls a secret @Check[perception|traits:secret] check for you to realize that the creature is transformed, even if you didn't spend an action to @UUID[Compendium.pf2e.actionspf2e.Item.Seek]. When you actively Seek a creature within range of your scent, you gain a +2 circumstance bonus to your Perception check to determine if it's disguised.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Werecreature Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Werecreature.YouDontSmellRight.Label",
+                "option": "seek-disguise",
+                "predicate": [
+                    {
+                        "or": [
+                            "change-shape:animal",
+                            "change-shape:hybrid"
+                        ]
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    "feat:feral-senses",
+                    {
+                        "or": [
+                            "change-shape:animal",
+                            "change-shape:hybrid"
+                        ]
+                    }
+                ],
+                "range": 60,
+                "selector": "scent"
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "range": 30,
+                "selector": "scent"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "seek-disguise"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

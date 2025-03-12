@@ -1,0 +1,93 @@
+{
+    "_id": "3zcjIjJ7ujldN3zr",
+    "folder": "HyT3UBQkvWXmmQlR",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Kaleidoscopic Entreaty",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>If your next action is to cast @UUID[Compendium.pf2e.spells-srd.Item.Entreat Spirit], you can cause that spirit to unleash a brilliant display of color, light, and sound in a @Template[type:emanation|distance:10] centered on you. Each creature in the area must attempt a @Check[fortitude|against:class-spell] save against your class DC or spell DC with the following results.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>\n<p><strong>Failure</strong> The creature is dazzled for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round and dazzled for 1 minute.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Rivethun Emissary Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "kaleidoscopic-entreaty"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "placement": "spellcasting",
+                "predicate": [
+                    "spellshape:kaleidoscopic-entreaty",
+                    "item:slug:entreat-spirit"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Spellshape.KaleidoscopicEntreaty.Description"
+                    },
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Spellshape.KaleidoscopicEntreaty.CriticalSuccess",
+                        "title": "PF2E.Check.Result.Degree.Check.criticalSuccess"
+                    },
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.KaleidoscopicEntreaty.Success",
+                        "title": "PF2E.Check.Result.Degree.Check.success"
+                    },
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.KaleidoscopicEntreaty.Failure",
+                        "title": "PF2E.Check.Result.Degree.Check.failure"
+                    },
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.KaleidoscopicEntreaty.CriticalFailure",
+                        "title": "PF2E.Check.Result.Degree.Check.criticalFailure"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "concentrate",
+                "spellshape",
+                "visual"
+            ]
+        }
+    },
+    "type": "feat"
+}

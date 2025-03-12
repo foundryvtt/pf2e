@@ -1,0 +1,101 @@
+{
+    "_id": "CbfszeYw3cf99kdv",
+    "folder": "WHfL9Rfh3txexT7Q",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Kineticist Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You become trained in kineticist class DC and impulse attack rolls. Choose one element to be your kinetic element (air, earth, fire, metal, water, or wood). You gain a kinetic aura and the @UUID[Compendium.pf2e.actionspf2e.Item.Channel Elements] action, though you don't get to use an @UUID[Compendium.pf2e.actionspf2e.Item.Elemental Blast] or stance impulse when you take that action. You gain the Elemental Blast action. Your Elemental Blast does not automatically gain additional damage dice every four levels, instead requiring you to take the @UUID[Compendium.pf2e.feats-srd.Item.Improved Elemental Blast] feat. You become trained in Nature; if you were already trained in Nature, you instead become trained in another skill of your choice.</p>\n<hr />\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.1kRGIb5LPPKypQpN]{Kineticist Archetype}</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Constitution +2"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:tag:kineticist-kinetic-gate"
+                    ]
+                },
+                "flag": "elementOne",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Element",
+                "rollOption": "kinetic-gate:first-element"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.classfeatures.Item.Impulses"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Channel Elements"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.elementOne}"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.elements",
+                "priority": 10,
+                "value": []
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.gate",
+                "priority": 10,
+                "value": {
+                    "one": "none",
+                    "two": "none"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.nature.rank",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "kineticist": {
+                    "attribute": "con",
+                    "rank": 1
+                }
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication",
+                "multiclass"
+            ]
+        }
+    },
+    "type": "feat"
+}

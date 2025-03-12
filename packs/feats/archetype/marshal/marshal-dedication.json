@@ -1,0 +1,149 @@
+{
+    "_id": "MYzRfNExDYp25rro",
+    "folder": "Ji2CbKYOXGa69X7A",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Marshal Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've combined your social skills and combat training to become a talented combat leader. Choose Diplomacy or Intimidation. You become trained in that skill or become an expert if you were already trained in it.</p>\n<p>In addition, you're surrounded by a marshal's aura in a @Template[emanation|distance:15]. Your aura has the emotion, mental, and visual traits and grants you and allies within the aura a +1 status bonus to saving throws against fear.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.1F84oh5hoG86mZIw]{Marshal}</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in martial weapons and either Diplomacy or Intimidation"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Marshal's Aura"
+                    }
+                ],
+                "key": "Aura",
+                "radius": 15,
+                "slug": "marshals-aura",
+                "traits": [
+                    "emotion",
+                    "mental",
+                    "visual"
+                ]
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Diplomacy",
+                        "predicate": [
+                            "skill:diplomacy:rank:0"
+                        ],
+                        "value": "diplomacy-trained"
+                    },
+                    {
+                        "label": "PF2E.Skill.Diplomacy",
+                        "predicate": [
+                            "skill:diplomacy:rank:1"
+                        ],
+                        "value": "diplomacy-expert"
+                    },
+                    {
+                        "label": "PF2E.Skill.Intimidation",
+                        "predicate": [
+                            "skill:intimidation:rank:0"
+                        ],
+                        "value": "imtimidation-trained"
+                    },
+                    {
+                        "label": "PF2E.Skill.Intimidation",
+                        "predicate": [
+                            "skill:intimidation:rank:1"
+                        ],
+                        "value": "intimidation-expert"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "lte": [
+                                    "skill:intimidation:rank",
+                                    1
+                                ]
+                            },
+                            {
+                                "lte": [
+                                    "skill:diplomacy:rank",
+                                    1
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                "rollOption": "marshal-skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.diplomacy.rank",
+                "predicate": [
+                    "marshal-skill:diplomacy-trained"
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.diplomacy.rank",
+                "predicate": [
+                    "marshal-skill:diplomacy-expert"
+                ],
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.intimidation.rank",
+                "predicate": [
+                    "marshal-skill:intimidation-trained"
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.intimidation.rank",
+                "predicate": [
+                    "marshal-skill:intimidation-expert"
+                ],
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

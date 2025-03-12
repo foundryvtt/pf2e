@@ -1,0 +1,55 @@
+{
+    "_id": "vIoZmlIzO7gkKEWY",
+    "folder": "xkWcbOJP5vW5cCw6",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Harbinger's Protection",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You often work on missions alone, making sure to cover up your weaknesses more effectively than other members of your faith. You are trained in heavy armor. When you gain expert or greater proficiency in any type of armor, you also gain that proficiency in heavy armor.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Battle Harbinger Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.heavy.rank",
+                "value": "max(@actor.system.proficiencies.defenses.unarmored.rank,@actor.system.proficiencies.defenses.light.rank,@actor.system.proficiencies.defenses.medium.rank)"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "heavy": {
+                    "rank": 1
+                }
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

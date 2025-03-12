@@ -1,0 +1,57 @@
+{
+    "_id": "N46mQi4Av0HDJmfS",
+    "folder": "lPhGpwrVIKAOU64E",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "We Are One",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You and your companion move as one, never tripping each other up. This fluid movement throws your enemies off balance. You and your united companion can share each other's spaces. When you do so, both you and your united companion provide @UUID[Compendium.pf2e.other-effects.Item.Effect: Cover]{Lesser Cover} to one another. You and your united companion also count as being adjacent to one another when sharing each other's spaces. A target is automatically @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the first Strike each round each of you and your united companion make while sharing one another's spaces; this benefit also applies if you are mounted on your united companion.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Beast Lord Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "domain": "strike-attack-roll",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.BeastLord.WeAreOne.OffGuardToggle",
+                "option": "we-are-one",
+                "toggleable": true
+            },
+            {
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "we-are-one"
+                ],
+                "selectors": "strike-attack-roll",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "mythic"
+            ]
+        }
+    },
+    "type": "feat"
+}

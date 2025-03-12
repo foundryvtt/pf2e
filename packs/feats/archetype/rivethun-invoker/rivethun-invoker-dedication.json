@@ -1,0 +1,63 @@
+{
+    "_id": "U3W2T3kOWPdMt3Rv",
+    "folder": "KW2DgPiGHpnsrbtp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Rivethun Invoker Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Access</strong> Followers of Rivethun have access to this feat.</p><hr /><p>You're a practicing Rivethun invoker, able to enter a trance that connects you physically and mentally to surrounding spirits. You become an expert in Athletics and Religion. You also gain the @UUID[Compendium.pf2e.feats-srd.Item.Diehard] general feat and the @UUID[Compendium.pf2e.actionspf2e.Item.Enter Spirit Trance] ability.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.Svy85xtvHZaSsGaI]{Rivethun Invoker}</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Athletics and Religion"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Enter Spirit Trance"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Diehard"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.athletics.rank",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.religion.rank",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}
