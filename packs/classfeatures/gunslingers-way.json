@@ -29,35 +29,29 @@
                 "adjustName": false,
                 "choices": {
                     "filter": [
+                        "item:tag:gunslinger-way",
                         {
                             "or": [
-                                "item:tag:gunslinger-way",
-                                "item:tag:gunslinger-class-archetype"
+                                {
+                                    "and": [
+                                        "class:gunslinger",
+                                        "item:tag:gunslinger-way"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:tag:gunslinger-way",
+                                        {
+                                            "not": "item:tag:class-archetype"
+                                        }
+                                    ]
+                                }
                             ]
                         }
                     ]
                 },
                 "flag": "way",
                 "key": "ChoiceSet",
-                "predicate": [
-                    "class:gunslinger"
-                ],
-                "prompt": "PF2E.SpecificRule.Gunslinger.Way.Prompt"
-            },
-            {
-                "adjustName": false,
-                "choices": {
-                    "filter": [
-                        "item:tag:gunslinger-way"
-                    ]
-                },
-                "flag": "way",
-                "key": "ChoiceSet",
-                "predicate": [
-                    {
-                        "not": "class:gunslinger"
-                    }
-                ],
                 "prompt": "PF2E.SpecificRule.Gunslinger.Way.Prompt"
             },
             {

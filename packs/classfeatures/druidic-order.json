@@ -29,35 +29,29 @@
                 "adjustName": false,
                 "choices": {
                     "filter": [
+                        "item:tag:druid-order",
                         {
                             "or": [
-                                "item:tag:druid-order",
-                                "item:tag:druid-class-archetype"
+                                {
+                                    "and": [
+                                        "class:druid",
+                                        "item:tag:druid-order"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:tag:druid-order",
+                                        {
+                                            "not": "item:tag:class-archetype"
+                                        }
+                                    ]
+                                }
                             ]
                         }
                     ]
                 },
                 "flag": "druidicOrder",
                 "key": "ChoiceSet",
-                "predicate": [
-                    "class:druid"
-                ],
-                "prompt": "PF2E.SpecificRule.Druid.DruidicOrder.Prompt"
-            },
-            {
-                "adjustName": false,
-                "choices": {
-                    "filter": [
-                        "item:tag:druid-order"
-                    ]
-                },
-                "flag": "druidicOrder",
-                "key": "ChoiceSet",
-                "predicate": [
-                    {
-                        "not": "class:druid"
-                    }
-                ],
                 "prompt": "PF2E.SpecificRule.Druid.DruidicOrder.Prompt"
             },
             {

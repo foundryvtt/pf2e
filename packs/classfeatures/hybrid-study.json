@@ -29,10 +29,23 @@
                 "adjustName": false,
                 "choices": {
                     "filter": [
+                        "item:tag:magus-hybrid-study",
                         {
                             "or": [
-                                "item:tag:magus-hybrid-study",
-                                "item:tag:magus-class-archetype"
+                                {
+                                    "and": [
+                                        "class:magus",
+                                        "item:tag:magus-hybrid-study"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:tag:magus-hybrid-study",
+                                        {
+                                            "not": "item:tag:class-archetype"
+                                        }
+                                    ]
+                                }
                             ]
                         }
                     ]

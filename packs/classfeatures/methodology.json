@@ -29,10 +29,23 @@
                 "adjustName": false,
                 "choices": {
                     "filter": [
+                        "item:tag:investigator-methodology",
                         {
                             "or": [
-                                "item:tag:investigator-methodology",
-                                "item:tag:investigator-class-archetype"
+                                {
+                                    "and": [
+                                        "class:investigator",
+                                        "item:tag:investigator-methodology"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:tag:investigator-methodology",
+                                        {
+                                            "not": "item:tag:class-archetype"
+                                        }
+                                    ]
+                                }
                             ]
                         }
                     ]
