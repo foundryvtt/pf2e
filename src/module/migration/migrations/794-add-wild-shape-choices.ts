@@ -1,6 +1,7 @@
-import { FeatPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { itemIsOfType } from "@item/helpers.ts";
 import { MigrationBase } from "../base.ts";
+import { getCompendiumSource } from "../helpers.ts";
 
 /** Add AE-likes forming a UUID choice set for Wild Shape effect  */
 export class Migration794AddWildShapeChoices extends MigrationBase {
@@ -22,9 +23,9 @@ export class Migration794AddWildShapeChoices extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         const sourceId = source._stats.compendiumSource;
         if (source.type === "feat" && sourceId && this.#shapeFeats.has(sourceId)) {
-            const fromPack = await fromUuid(sourceId);
-            if (fromPack instanceof FeatPF2e) {
-                source.system.rules = fromPack.toObject().system.rules;
+            const fromPack = getCompendiumSource<ItemSourcePF2e>(sourceId);
+            if (fromPack && itemIsOfType(fromPack, "feat")) {
+                source.system.rules = fromPack.system.rules;
             }
         }
     }

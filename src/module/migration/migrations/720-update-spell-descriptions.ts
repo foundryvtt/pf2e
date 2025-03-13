@@ -1,8 +1,7 @@
-import { SpellPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { ItemSourcePF2e, SpellSource } from "@item/base/data/index.ts";
 import { setHasElement } from "@util";
-import { UUIDUtils } from "@util/uuid.ts";
 import { MigrationBase } from "../base.ts";
+import { getCompendiumSources } from "../helpers.ts";
 
 /** Update the descriptions of several spells with new effect items */
 export class Migration720UpdateSpellDescriptions extends MigrationBase {
@@ -19,17 +18,14 @@ export class Migration720UpdateSpellDescriptions extends MigrationBase {
         "Compendium.pf2e.spells-srd.Item.WBmvzNDfpwka3qT4", // Light
     ]);
 
-    private spells = UUIDUtils.fromUUIDs([...this.spellUUIDs]);
+    private spells = getCompendiumSources<SpellSource>([...this.spellUUIDs]);
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         const compendiumSource = source._stats.compendiumSource;
         if (!(source.type === "spell" && setHasElement(this.spellUUIDs, compendiumSource))) {
             return;
         }
-
-        const spells: unknown[] = await this.spells;
-        const spell = spells.find((s): s is SpellPF2e => s instanceof SpellPF2e && s.slug === source.system.slug);
-
-        if (spell) source.system.description.value = spell.description;
+        const spell = this.spells.find((s) => s.system.slug === source.system.slug);
+        if (spell) source.system.description.value = spell.system.description.value;
     }
 }

@@ -238,7 +238,8 @@ class CompendiumPack {
     }
 
     finalizeAll(): PackEntry[] {
-        return this.data.map((d) => JSON.parse(this.#finalize(d)));
+        this.data = this.data.map((d) => JSON.parse(this.#finalize(d)));
+        return this.data;
     }
 
     #finalize(docSource: PackEntry): string {

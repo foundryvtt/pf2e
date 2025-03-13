@@ -51,8 +51,8 @@ export class Migration915MoveLanguages extends Migration914MovePerceptionSenses 
             const language = String(rule.value);
             if (source.type === "feat" && !rule.predicate && this.#allLanguages.has(language)) {
                 const subfeatures: { languages: { granted: string[] } } = (source.system.subfeatures = fu.mergeObject(
-                    { languages: { granted: [], slots: 0 } },
                     source.system.subfeatures,
+                    { languages: { granted: [], slots: 0 } },
                 ));
                 subfeatures.languages.granted = R.unique([...subfeatures.languages.granted, language]);
                 source.system.rules.splice(source.system.rules.indexOf(rule), 1);

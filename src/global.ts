@@ -70,6 +70,7 @@ import type {
 } from "@system/settings/homebrew/index.ts";
 import type { TextEditorPF2e } from "@system/text-editor.ts";
 import type { sluggify } from "@util";
+import type { PackEntry } from "build/lib/types.ts";
 import type EnJSON from "static/lang/en.json";
 
 interface GamePF2e
@@ -357,4 +358,5 @@ declare global {
     const EN_JSON: typeof EnJSON;
     const ROLL_PARSER: string;
     const UUID_REDIRECTS: Record<CompendiumUUID, CompendiumUUID>;
+    const MIGRATION_SOURCES: PackEntry[];
 }

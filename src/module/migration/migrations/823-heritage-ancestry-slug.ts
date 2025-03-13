@@ -1,7 +1,8 @@
-import { AncestryPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { itemIsOfType } from "@item/helpers.ts";
 import { sluggify } from "@util";
 import { MigrationBase } from "../base.ts";
+import { getCompendiumSource } from "../helpers.ts";
 
 /** Set a slug in heritages' ancestry data */
 export class Migration823HeritageAncestrySlug extends MigrationBase {
@@ -12,10 +13,10 @@ export class Migration823HeritageAncestrySlug extends MigrationBase {
             return;
         }
 
-        const ancestry = await fromUuid(source.system.ancestry.uuid);
+        const ancestry = getCompendiumSource<ItemSourcePF2e>(source.system.ancestry.uuid);
         source.system.ancestry.slug =
-            ancestry instanceof AncestryPF2e
-                ? (ancestry.slug ?? sluggify(ancestry.name))
+            ancestry && itemIsOfType(ancestry, "ancestry")
+                ? (ancestry.system.slug ?? sluggify(ancestry.name))
                 : sluggify(source.system.ancestry.name);
     }
 }
