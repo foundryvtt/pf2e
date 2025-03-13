@@ -29,7 +29,25 @@
                 "adjustName": false,
                 "choices": {
                     "filter": [
-                        "item:tag:psychic-subconscious-mind"
+                        "item:tag:psychic-subconscious-mind",
+                        {
+                            "or": [
+                                {
+                                    "and": [
+                                        "class:psychic",
+                                        "item:tag:psychic-subconscious-mind"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:tag:psychic-subconscious-mind",
+                                        {
+                                            "not": "item:tag:class-archetype"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
                     ]
                 },
                 "flag": "subconsciousMind",
