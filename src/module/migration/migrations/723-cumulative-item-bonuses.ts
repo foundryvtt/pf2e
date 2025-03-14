@@ -1,24 +1,22 @@
-import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { FeatPF2e } from "@item";
-import { EffectSource, ItemSourcePF2e } from "@item/base/data/index.ts";
-import { UUIDUtils } from "@util/uuid.ts";
+import type { ActorSourcePF2e } from "@actor/data/index.ts";
+import type { EffectSource, FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
+import { sluggify } from "@util";
 import { MigrationBase } from "../base.ts";
+import { getCompendiumSources } from "../helpers.ts";
 
 /** Update feats, items, and rule elements to accurately process cumulative item bonuses */
 export class Migration723CumulativeItemBonuses extends MigrationBase {
     static override version = 0.723;
 
     /** Feat items: Animal Skin, Mountance Stance, Mountance Quake, and Mountance Stronghold */
-    private stanceFeats = (async (): Promise<Record<string, FeatPF2e | undefined>> => {
-        const documents: ClientDocument[] = await UUIDUtils.fromUUIDs([
+    private stanceFeats = ((): Record<string, FeatSource> => {
+        const sources = getCompendiumSources<FeatSource>([
             "Compendium.pf2e.feats-srd.ZPclfDmiHzEqblry", // Animal Skin
             "Compendium.pf2e.feats-srd.ZL5UU9quCTvcWzfY", // Mountain Stance
             "Compendium.pf2e.feats-srd.n2hawNmzW7DBn1Lm", // Mountain Stronghold
             "Compendium.pf2e.feats-srd.hO4sKslTrSQMLbGx", // Mountain Quake
         ]);
-
-        const feats = documents.filter((d): d is FeatPF2e & { slug: string } => d instanceof FeatPF2e && !!d.slug);
-        return feats.reduce((record: Record<string, FeatPF2e>, f) => ({ ...record, [f.slug]: f }), {});
+        return Object.fromEntries(sources.map((f) => [f.system.slug ?? sluggify(f.name), f]));
     })();
 
     /** Slug pattern for the same */
@@ -43,11 +41,11 @@ export class Migration723CumulativeItemBonuses extends MigrationBase {
         switch (source.type) {
             case "feat": {
                 if (source.system.slug === "animal-skin") {
-                    const feat = (await this.stanceFeats)[source.system.slug];
-                    if (feat) source.system.rules = feat.toObject().system.rules;
+                    const feat = this.stanceFeats[source.system.slug];
+                    if (feat) source.system.rules = feat.system.rules;
                 } else if (this.mountainPattern.test(source.system.slug)) {
-                    const feat = (await this.stanceFeats)[source.system.slug];
-                    if (feat) source.system.description.value = feat.description;
+                    const feat = this.stanceFeats[source.system.slug];
+                    if (feat) source.system.description.value = feat.system.description.value;
                 }
                 return;
             }

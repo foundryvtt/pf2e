@@ -1,5 +1,6 @@
 import type { ConditionSource } from "@item/base/data/index.ts";
 import { svelte as sveltePlugin } from "@sveltejs/vite-plugin-svelte";
+import type { PackEntry } from "build/lib/types.ts";
 import { execSync } from "child_process";
 import esbuild from "esbuild";
 import fs from "fs-extra";
@@ -17,6 +18,13 @@ import systemJSON from "./static/system.json";
 const CONDITION_SOURCES = ((): ConditionSource[] => {
     const output = execSync("npm run build:conditions", { encoding: "utf-8" });
     return JSON.parse(output.slice(output.indexOf("[")));
+})();
+const MIGRATION_SOURCES = ((): PackEntry[] => {
+    const filePath = path.resolve(__dirname, "./migration-sources.json");
+    if (fs.existsSync(filePath)) {
+        return JSON.parse(fs.readFileSync(filePath, { encoding: "utf-8" }));
+    }
+    return [];
 })();
 const EN_JSON = JSON.parse(fs.readFileSync("./static/lang/en.json", { encoding: "utf-8" }));
 
@@ -152,6 +160,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         define: {
             BUILD_MODE: JSON.stringify(buildMode),
             CONDITION_SOURCES: JSON.stringify(CONDITION_SOURCES),
+            MIGRATION_SOURCES: JSON.stringify(MIGRATION_SOURCES),
             EN_JSON: JSON.stringify(EN_JSON),
             ROLL_PARSER: JSON.stringify(ROLL_PARSER),
             UUID_REDIRECTS: JSON.stringify(getUuidRedirects()),

@@ -1,5 +1,4 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import type { ItemPF2e } from "@item";
 import { FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
@@ -9,6 +8,7 @@ import { ElementTrait } from "@scripts/config/traits.ts";
 import { objectHasKey, recursiveReplaceString, sluggify, tupleHasValue } from "@util/misc.ts";
 import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
+import { getCompendiumSource } from "../helpers.ts";
 
 /** Move existing kineticists to the new class automation structure **/
 export class Migration923KineticistRestructure extends MigrationBase {
@@ -81,7 +81,7 @@ export class Migration923KineticistRestructure extends MigrationBase {
                 this.#setChoice(kineticGate, `element${elementNumberString}`, uuid);
             }
 
-            const elementFeat = uuid ? await this.#loadFeatSource(uuid) : null;
+            const elementFeat = uuid ? this.#loadFeatSource(uuid) : null;
             if (!elementFeat) continue;
 
             const grantUUID = `{item|flags.pf2e.rulesSelections.element${elementNumberString}}`;
@@ -129,7 +129,7 @@ export class Migration923KineticistRestructure extends MigrationBase {
                 });
 
                 const uuid = this.#elementMap.get(element);
-                const elementFeat = uuid ? await this.#loadFeatSource(uuid) : null;
+                const elementFeat = uuid ? this.#loadFeatSource(uuid) : null;
                 if (!elementFeat) continue; // this shouldn't ever happen
 
                 this.#setChoice(thresholdItem, "elementFork", uuid);
@@ -161,7 +161,7 @@ export class Migration923KineticistRestructure extends MigrationBase {
                 );
                 this.#setChoice(thresholdItem, "elementOne", element);
 
-                const gateJunctionFeat = await this.#loadFeatSource(this.#gateJunctionFeat);
+                const gateJunctionFeat = this.#loadFeatSource(this.#gateJunctionFeat);
                 if (gateJunctionFeat && threshold.junction) {
                     gateJunctionFeat.system.rules = GATE_JUNCTION_RULES(element);
                     this.#addGrantedItem(actorSource, { parent: thresholdItem, child: gateJunctionFeat });
@@ -208,9 +208,8 @@ export class Migration923KineticistRestructure extends MigrationBase {
 
     #gateJunctionFeat: ItemUUID = "Compendium.pf2e.classfeatures.Item.jx70hPakuTgB3lM5";
 
-    async #loadFeatSource(uuid: ItemUUID): Promise<FeatSource | null> {
-        const item = await fromUuid<ItemPF2e>(uuid);
-        const source: ItemSourcePF2e | null = item?.toObject(true) ?? null;
+    #loadFeatSource(uuid: ItemUUID): FeatSource | null {
+        const source = getCompendiumSource<ItemSourcePF2e>(uuid);
         if (!source || !itemIsOfType(source, "feat")) return null;
         source._id = fu.randomID();
         return source;

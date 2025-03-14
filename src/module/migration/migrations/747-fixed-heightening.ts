@@ -1,9 +1,8 @@
-import type { SpellPF2e } from "@item";
 import { ItemSourcePF2e, SpellSource } from "@item/base/data/index.ts";
 import { sluggify } from "@util";
-import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
+import { getCompendiumSources } from "../helpers.ts";
 
 /** Handle spells gaining fixed level heightening */
 export class Migration747FixedHeightening extends MigrationBase {
@@ -17,7 +16,7 @@ export class Migration747FixedHeightening extends MigrationBase {
 
         const sourceId = source._stats.compendiumSource;
         if (sourceId && this.fixedHeightenSpells.has(sourceId)) {
-            const spells = await this.loadSpells();
+            const spells = this.loadSpells();
             const spell = spells[sourceId];
             if (spell && spell.system.heightening?.type === "fixed") {
                 source.system.heightening = spell.system.heightening;
@@ -26,7 +25,7 @@ export class Migration747FixedHeightening extends MigrationBase {
         }
     }
 
-    protected overwriteDamage(spell: SpellSource, newSpell: SpellPF2e): void {
+    protected overwriteDamage(spell: SpellSource, newSpell: SpellSource): void {
         const newDamage = newSpell.system.damage;
         const newKeys = new Set(Object.keys(newDamage.value));
         const diff = Object.keys(spell.system.damage.value).filter((key) => !newKeys.has(key));
@@ -39,16 +38,19 @@ export class Migration747FixedHeightening extends MigrationBase {
         }
     }
 
-    #loadedSpells?: Record<string, SpellPF2e | undefined>;
+    #loadedSpells?: Record<string, SpellSource>;
 
     // Ensure compendium is only hit if the migration runs, and only once
-    protected async loadSpells(): Promise<Record<string, SpellPF2e | undefined>> {
+    protected loadSpells(): Record<string, SpellSource> {
         if (this.#loadedSpells) {
             return this.#loadedSpells;
         }
 
-        const spells = await UUIDUtils.fromUUIDs([...this.fixedHeightenSpells]);
-        this.#loadedSpells = spells.reduce((record, spell) => ({ ...record, [spell.uuid]: spell }), {});
+        const spells = getCompendiumSources<SpellSource>([...this.fixedHeightenSpells]);
+        this.#loadedSpells = spells.reduce(
+            (record, spell) => ({ ...record, [spell._stats.compendiumSource ?? ""]: spell }),
+            {},
+        );
         return this.#loadedSpells;
     }
 
