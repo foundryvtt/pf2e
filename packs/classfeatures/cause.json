@@ -52,6 +52,24 @@
                                     ]
                                 }
                             ]
+                        },
+                        {
+                            "or": [
+                                {
+                                    "and": [
+                                        "class:champion",
+                                        "item:tag:champion-cause"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:tag:champion-cause",
+                                        {
+                                            "not": "item:tag:class-archetype"
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     ]
                 },
