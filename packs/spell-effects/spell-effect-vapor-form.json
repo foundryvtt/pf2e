@@ -4,7 +4,7 @@
     "name": "Spell Effect: Vapor Form",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Vapor Form]</p>\n<p>You gain resistance 8 to physical damage and are immune to precision damage. You also gain a fly Speed of 10 feet.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Vapor Form]</p>\n<p>You lose any item bonus to your AC, gain resistance 8 to physical damage, immunity to precision damage, and a fly Speed of 10 feet.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -34,6 +34,14 @@
                 "key": "BaseSpeed",
                 "selector": "fly",
                 "value": 10
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "bonus:type:item"
+                ],
+                "selector": "ac",
+                "suppress": true
             }
         ],
         "start": {

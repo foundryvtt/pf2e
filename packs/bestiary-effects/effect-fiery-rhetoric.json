@@ -1,30 +1,34 @@
 {
-    "_id": "h9ukqhz7qgNuOlxh",
-    "img": "systems/pf2e/icons/equipment/consumables/potions/potion-of-electricity-resistance.webp",
-    "name": "Effect: Potion of Electricity Resistance (Lesser)",
+    "_id": "Sekb8YSa36xlqcgk",
+    "img": "icons/magic/sonic/scream-wail-shout-teal.webp",
+    "name": "Effect: Fiery Rhetoric",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Potion of Electricity Resistance (Lesser)]</p>\n<p>You gain resistance 5 against electricity damage.</p>"
+            "value": "<p>You take a –2 status penalty to Perception and Will saves.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "hours",
+            "unit": "minutes",
             "value": 1
         },
         "level": {
-            "value": 6
+            "value": 1
         },
         "publication": {
             "license": "ORC",
             "remaster": true,
-            "title": "Pathfinder GM Core"
+            "title": "Pathfinder NPC Core"
         },
         "rules": [
             {
-                "key": "Resistance",
-                "type": "electricity",
-                "value": 5
+                "key": "FlatModifier",
+                "selector": [
+                    "perception",
+                    "will"
+                ],
+                "type": "status",
+                "value": -2
             }
         ],
         "start": {

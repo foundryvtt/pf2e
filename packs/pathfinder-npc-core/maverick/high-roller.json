@@ -482,14 +482,31 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The high roller's last action was a critical success</p><hr /><p><strong>Effect</strong> The high roller either Strides twice or attempts a Strike that deals an additional <code>@Damage[4d6[precision]]</code> damage and deals half damage on a failure (but not a critical failure).</p>"
+                    "value": "<p><strong>Requirements</strong> The high roller's last action was a critical success</p><hr /><p><strong>Effect</strong> The high roller either Strides twice or attempts a Strike that deals an additional 4d6 precision damage and deals half damage on a failure (but not a critical failure).</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "lucky-momentum",
+                        "toggleable": true
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 4,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "lucky-momentum"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
