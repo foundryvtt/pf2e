@@ -83,10 +83,11 @@ function createAbilityViewData(item: AbilityItemPF2e | FeatPF2e): AbilityViewDat
 /**
  * Applies a delta change to the value of an input element
  *
- * @param input
- * @param delta
- * @param min
- * @param max
+ * @param input reference to the input field
+ * @param delta the amount of change to apply to the input's current value
+ * @param [min] minimum input value
+ * @param [max] maximum input value; if "0", do not limit the value
+ * @param [triggerChange] if true, dispatches a change event after this operation is complete
  * @returns the new value of the input field
  */
 function applyDeltaToInput(

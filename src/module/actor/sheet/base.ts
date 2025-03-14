@@ -523,7 +523,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         // Only allow digits & leading plus and minus signs for `data-allow-delta` inputs,
         // thus emulating input[type="number"]
-        // Also enable delta adjustment by arrow key
+        // Also enable delta adjustment by arrow key and mousewheel
         for (const deltaInput of htmlQueryAll<HTMLInputElement>(html, "input[data-allow-delta]")) {
             deltaInput.addEventListener("input", () => {
                 const match = /[+-]?\d*/.exec(deltaInput.value)?.at(0);
@@ -533,11 +533,26 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             deltaInput.addEventListener("keydown", (event: KeyboardEvent) => {
                 const min = Number(deltaInput.dataset.min) || 0;
                 const max = Number(deltaInput.dataset.max) || 0;
+                const stepSize = Number(deltaInput.dataset.step) || 1;
 
                 if (event.key === "ArrowUp") {
-                    applyDeltaToInput(deltaInput, +1, min, max);
+                    applyDeltaToInput(deltaInput, +stepSize, min, max);
                 } else if (event.key === "ArrowDown") {
-                    applyDeltaToInput(deltaInput, -1, min, max);
+                    applyDeltaToInput(deltaInput, -stepSize, min, max);
+                }
+            });
+
+            deltaInput.addEventListener("wheel", (event: WheelEvent) => {
+                if (deltaInput === document.activeElement) {
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    const min = Number(deltaInput.dataset.min) || 0;
+                    const max = Number(deltaInput.dataset.max) || 0;
+                    const stepSize = Number(deltaInput.dataset.step) || 1;
+                    const step = stepSize * Math.sign(-1 * event.deltaY);
+
+                    applyDeltaToInput(deltaInput, step, min, max);
                 }
             });
         }
