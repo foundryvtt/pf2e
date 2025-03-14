@@ -33,70 +33,18 @@
             },
             {
                 "adjustName": false,
-                "choices": [
-                    {
-                        "label": "PF2E.AbilityCha",
-                        "predicate": [
-                            {
-                                "not": "ancestral-might:first-boost:cha"
-                            }
-                        ],
-                        "value": "cha"
-                    },
-                    {
-                        "label": "PF2E.AbilityCon",
-                        "predicate": [
-                            {
-                                "not": "ancestral-might:first-boost:con"
-                            }
-                        ],
-                        "value": "con"
-                    },
-                    {
-                        "label": "PF2E.AbilityDex",
-                        "predicate": [
-                            {
-                                "not": "ancestral-might:first-boost:dex"
-                            }
-                        ],
-                        "value": "dex"
-                    },
-                    {
-                        "label": "PF2E.AbilityInt",
-                        "predicate": [
-                            {
-                                "not": "ancestral-might:first-boost:int"
-                            }
-                        ],
-                        "value": "int"
-                    },
-                    {
-                        "label": "PF2E.AbilityStr",
-                        "predicate": [
-                            {
-                                "not": "ancestral-might:first-boost:str"
-                            }
-                        ],
-                        "value": "str"
-                    },
-                    {
-                        "label": "PF2E.AbilityWis",
-                        "predicate": [
-                            {
-                                "not": "ancestral-might:first-boost:wis"
-                            }
-                        ],
-                        "value": "wis"
-                    },
-                    {
-                        "label": "PF2E.UI.RuleElements.ChoiceSet.Decline",
-                        "value": "decline"
-                    }
-                ],
+                "allowNoSelection": true,
+                "choices": {
+                    "config": "abilities",
+                    "predicate": [
+                        {
+                            "not": "ancestral-might:first-boost:{choice|value}"
+                        }
+                    ]
+                },
                 "flag": "secondBoost",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.HeroPointDeck.AncestralMight.SecondBoostPrompt",
-                "rollOption": "ancestral-might:second-boost"
+                "prompt": "PF2E.SpecificRule.HeroPointDeck.AncestralMight.SecondBoostPrompt"
             },
             {
                 "key": "FlatModifier",
@@ -107,11 +55,6 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": [
-                    {
-                        "not": "ancestral-might:second-boost:decline"
-                    }
-                ],
                 "selector": "{item|flags.pf2e.rulesSelections.secondBoost}-based",
                 "slug": "ancestral-might-second",
                 "type": "status",
