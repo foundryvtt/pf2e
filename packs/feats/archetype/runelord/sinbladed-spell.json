@@ -31,23 +31,6 @@
         },
         "rules": [
             {
-                "itemType": "spell",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "spellshape:sinbladed-spell",
-                    {
-                        "not": "item:trait:cantrip"
-                    }
-                ],
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Spellshape.SinbladedSpell"
-                    }
-                ]
-            },
-            {
                 "key": "RollOption",
                 "label": "PF2E.TraitSpellshape",
                 "mergeable": true,
@@ -60,6 +43,24 @@
                     }
                 ],
                 "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:runelord-curriculum-spell",
+                    "spellshape:sinbladed-spell",
+                    {
+                        "not": "item:trait:cantrip"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.SinbladedSpell"
+                    }
+                ]
             }
         ],
         "subfeatures": {

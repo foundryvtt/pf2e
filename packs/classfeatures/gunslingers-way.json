@@ -29,7 +29,25 @@
                 "adjustName": false,
                 "choices": {
                     "filter": [
-                        "item:tag:gunslinger-way"
+                        "item:tag:gunslinger-way",
+                        {
+                            "or": [
+                                {
+                                    "and": [
+                                        "class:gunslinger",
+                                        "item:tag:gunslinger-way"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:tag:gunslinger-way",
+                                        {
+                                            "not": "item:tag:class-archetype"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
                     ]
                 },
                 "flag": "way",
