@@ -440,7 +440,7 @@
                             "action:subsist"
                         ],
                         "selector": "survival",
-                        "text": "While using Survival to Subsist, if the forager rolls any result worse than a success, they get a success. On a success, they can provide subsistence living for themselves and four additional creatures, and on a critical success, they can take care of twice as many creatures as on a success.",
+                        "text": "While using Survival to [[/act subsist statistic=survival]], if the forager rolls any result worse than a success, they get a success. On a success, they can provide subsistence living for themselves and four additional creatures, and on a critical success, they can take care of twice as many creatures as on a success.",
                         "title": "{item|name}"
                     }
                 ],
@@ -465,7 +465,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>For encounters involving Nature or Survival, the forager is a 3rdlevel challenge.</p>"
+                    "value": "<p>For encounters involving Nature or Survival, the forager is a 3rd-level challenge.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -494,14 +494,31 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The forager coats their dagger in a diluted, locally sourced poison. Until the end of their turn, Strikes with their dagger deal an additional <code>@Damage[2[persistent,poison]] damage</code>.</p>"
+                    "value": "<p>The forager coats their dagger in a diluted, locally sourced poison. Until the end of their turn, Strikes with their dagger deal an additional 2 persistent poison damage.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "local-poison",
+                        "toggleable": true
+                    },
+                    {
+                        "damageCategory": "persistent",
+                        "damageType": "poison",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "local-poison"
+                        ],
+                        "selector": "dagger-damage",
+                        "value": 2
+                    }
+                ],
                 "slug": "local-poison",
                 "traits": {
                     "value": [
