@@ -1,0 +1,108 @@
+{
+    "_id": "DbUEGIKxH6d1GgVw",
+    "img": "systems/pf2e/icons/equipment/consumables/potions/potion-of-electricity-resistance.webp",
+    "name": "Effect: Potion of Electricity Resistance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Potion of Electricity Resistance (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Potion of Electricity Resistance (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Potion of Electricity Resistance (Lesser)]</p>\n<p>You gain resistance against electricity damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:potion-of-electricity-resistance-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Potion of Electricity Resistance (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:potion-of-electricity-resistance-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Potion of Electricity Resistance (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:potion-of-electricity-resistance-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Potion of Electricity Resistance (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "potion-of-electricity-resistance"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "potion-of-electricity-resistance:potion-of-electricity-resistance-lesser"
+                ],
+                "type": "electricity",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "potion-of-electricity-resistance:potion-of-electricity-resistance-moderate"
+                ],
+                "type": "electricity",
+                "value": 10
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "potion-of-electricity-resistance:potion-of-electricity-resistance-greater"
+                ],
+                "type": "electricity",
+                "value": 15
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
