@@ -121,10 +121,11 @@
             {{#if data.attributes.shield.hp.max}}
                 <input
                     id="{{@root.options.id}}-shield-hp"
-                    type="number"
+                    type="text"
                     placeholder="0"
                     name="system.attributes.shield.hp.value"
                     value="{{data.attributes.shield.hp.value}}"
+                    data-dtype="Number" data-allow-delta data-max="{{data.attributes.shield.hp.max}}"
                     {{disabled (not data.attributes.shield.hp.max)}}
                 />
             {{else}}
