@@ -28,17 +28,16 @@
         },
         "rules": [
             {
-                "definition": [
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
                     {
                         "or": [
                             "item:group:polearm",
                             "item:group:spear"
                         ]
-                    }
-                ],
-                "key": "AdjustStrike",
-                "mode": "add",
-                "predicate": [
+                    },
                     {
                         "nor": [
                             "armor:category:heavy",
@@ -46,7 +45,7 @@
                         ]
                     }
                 ],
-                "property": "weapon-traits",
+                "property": "traits",
                 "value": "parry"
             },
             {

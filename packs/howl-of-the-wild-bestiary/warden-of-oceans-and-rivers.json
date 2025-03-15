@@ -82,12 +82,11 @@
                 },
                 "rules": [
                     {
-                        "definition": [
-                            "item:slug:tentacle"
-                        ],
-                        "key": "AdjustStrike",
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
                         "mode": "add",
                         "predicate": [
+                            "item:slug:tentacle",
                             {
                                 "gte": [
                                     "all-are-one",
@@ -95,7 +94,7 @@
                                 ]
                             }
                         ],
-                        "property": "weapon-traits",
+                        "property": "traits",
                         "value": "reach-60"
                     },
                     {
@@ -121,17 +120,16 @@
                         "value": "reach-40"
                     },
                     {
-                        "definition": [
-                            "item:slug:tentacle"
-                        ],
-                        "key": "AdjustStrike",
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
                         "mode": "add",
                         "predicate": [
+                            "item:slug:tentacle",
                             {
                                 "not": "all-are-one"
                             }
                         ],
-                        "property": "weapon-traits",
+                        "property": "traits",
                         "value": "reach-30"
                     }
                 ],
