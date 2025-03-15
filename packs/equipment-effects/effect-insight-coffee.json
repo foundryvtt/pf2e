@@ -1,0 +1,169 @@
+{
+    "_id": "2qHgwcYtCg4csC2w",
+    "img": "icons/consumables/drinks/wine-amphora-clay-gray.webp",
+    "name": "Effect: Insight Coffee",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Insight Coffee (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Insight Coffee (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Insight Coffee (Greater)]</p>\n<p>You use d8s instead of d6s for your extra damage from the @UUID[Compendium.pf2e.classfeatures.Item.Strategic Strike] class feature, if you have it. You also gain an item bonus to checks to Recall Knowledge with a skill determined by the blend chosen when the item is crafted.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:insight-coffee-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Insight Coffee (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:insight-coffee-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Insight Coffee (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:insight-coffee-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Insight Coffee (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "insight-coffee"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Arcana",
+                        "value": "arcana"
+                    },
+                    {
+                        "label": "PF2E.Skill.Medicine",
+                        "value": "medicine"
+                    },
+                    {
+                        "label": "PF2E.Skill.Nature",
+                        "value": "nature"
+                    },
+                    {
+                        "label": "PF2E.Skill.Occultism",
+                        "value": "occultism"
+                    },
+                    {
+                        "label": "PF2E.Skill.Religion",
+                        "value": "religion"
+                    },
+                    {
+                        "label": "PF2E.Skill.Society",
+                        "value": "society"
+                    }
+                ],
+                "flag": "insightCoffee",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "dice:slug:strategic-strike"
+                ],
+                "property": "dice-faces",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "value": 8
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "certain-stratagem"
+                ],
+                "property": "dice-faces",
+                "selectors": [
+                    "inline-damage"
+                ],
+                "value": 8
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:recall-knowledge"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.insightCoffee}",
+                "slug": "insight-coffee-bonus",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "insight-coffee:insight-coffee-moderate"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.insightCoffee}",
+                "slug": "insight-coffee-bonus",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "insight-coffee:insight-coffee-greater"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.insightCoffee}",
+                "slug": "insight-coffee-bonus",
+                "value": 4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
