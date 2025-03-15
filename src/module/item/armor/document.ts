@@ -111,7 +111,7 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         super.prepareDerivedData();
         const potencyRune = this.isInvested && !ABP.isEnabled(this.actor) ? this.system.runes.potency : 0;
         const baseArmor = Number(this.system.acBonus) || 0;
-        this.system.acBonus = baseArmor + potencyRune;
+        this.system.acBonus = this.isDestroyed ? 0 : baseArmor + potencyRune;
     }
 
     override prepareActorData(this: ArmorPF2e<ActorPF2e>): void {
