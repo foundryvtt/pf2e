@@ -29,12 +29,13 @@
         },
         "rules": [
             {
-                "definition": [
-                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
-                ],
-                "key": "AdjustStrike",
+                "itemType": "weapon",
+                "key": "ItemAlteration",
                 "mode": "add",
-                "property": "weapon-traits",
+                "predicate": [
+                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
+                ],                     
+                "property": "traits",
                 "value": "versatile-b"
             },
             {

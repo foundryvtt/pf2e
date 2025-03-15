@@ -34,12 +34,13 @@
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
-                "definition": [
-                    "item:id:{item|flags.pf2e.rulesSelections.effectMercifulBalmWeapon}"
-                ],
-                "key": "AdjustStrike",
+                "itemType": "weapon",
+                "key": "ItemAlteration",
                 "mode": "add",
-                "property": "weapon-traits",
+                "predicate": [
+                    "item:id:{item|flags.pf2e.rulesSelections.effectMercifulBalmWeapon}"
+                ],                     
+                "property": "traits",
                 "value": "nonlethal"
             }
         ],
