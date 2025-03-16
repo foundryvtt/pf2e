@@ -18,12 +18,12 @@ import type {
     StringFieldOptions,
 } from "types/foundry/common/data/fields.d.ts";
 import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
+import fields = foundry.data.fields;
+import validation = foundry.data.validation;
 
 /* -------------------------------------------- */
 /*  System `DataSchema` `DataField`s            */
 /* -------------------------------------------- */
-
-const { fields } = foundry.data;
 
 /** A `SchemaField` that preserves fields not declared in its `DataSchema` */
 class LaxSchemaField<TDataSchema extends DataSchema> extends fields.SchemaField<TDataSchema> {
@@ -249,23 +249,20 @@ class DataUnionField<
         return super.clean(value, options) as MaybeUnionSchemaProp<TField, TRequired, TNullable, THasInitial>;
     }
 
-    override validate(
+    protected override _validateType(
         value: unknown,
         options?: DataFieldValidationOptions | undefined,
-    ): void | DataModelValidationFailure {
-        const { DataModelValidationFailure } = foundry.data.validation;
-        const { StringField } = foundry.data.fields;
+    ): boolean | void | DataModelValidationFailure {
         for (const field of this.fields) {
-            if (field.validate(value, options) instanceof DataModelValidationFailure) {
-                continue;
-            } else if (field instanceof StringField && typeof value !== "string") {
+            const result = field.validate(value, options);
+            if (result instanceof validation.DataModelValidationFailure) {
+                if (field === this.fields.at(-1)) return result;
                 continue;
             } else {
-                return;
+                return true;
             }
         }
-
-        return this.fields[0].validate(value, options);
+        return false;
     }
 
     override initialize(
@@ -469,8 +466,7 @@ class RecordField<
         values: Record<string, unknown>,
         options?: DataFieldValidationOptions,
     ): DataModelValidationFailure | void {
-        const validationFailure = foundry.data.validation.DataModelValidationFailure;
-        const failures = new validationFailure();
+        const failures = new validation.DataModelValidationFailure();
         for (const [key, value] of Object.entries(values)) {
             // If this is a deletion key for a partial update, skip
             if (key.startsWith("-=") && options?.partial) continue;
@@ -506,7 +502,7 @@ class RecordField<
         options?: DataFieldValidationOptions,
     ): boolean | DataModelValidationFailure | void {
         if (!R.isPlainObject(values)) {
-            return new foundry.data.validation.DataModelValidationFailure({ message: "must be an Object" });
+            return new validation.DataModelValidationFailure({ message: "must be an Object" });
         }
         return this._validateValues(values, options);
     }
