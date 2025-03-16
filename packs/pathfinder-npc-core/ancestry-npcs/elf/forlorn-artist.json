@@ -519,10 +519,48 @@
             "type": "melee"
         },
         {
+            "_id": "GA8PO1XizYt1JtCd",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Bonus on Perception to Notice Unusual Artwork",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "notice-unusual-artwork"
+                        ],
+                        "selector": "perception",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "cV4Kub9vZA8CqaqH",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Art Specialist",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -551,7 +589,7 @@
             "_id": "X1QKFjmFc0xbIPEe",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Circumstance vs. emotion effects",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -587,10 +625,39 @@
             "type": "action"
         },
         {
+            "_id": "935o5SaVUaLp8sje",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Flick Ink",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The artist is targeted with a melee or ranged Strike by a creature within 15 feet</p><hr /><p><strong>Effect</strong> The artist flings ink in the attacker's eyes. The attacker must succeed at a @Check[reflex|dc:18|options:inflicts:blinded] save or be @UUID[Compendium.pf2e.conditionitems.Item.Blinded]. This takes effect before the attacker targets the artist. The blindness lasts until the end of the target's next turn, but the creature can Interact to rub its eyes to attempt a new save to end the condition.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "wbKoBbfaKQvWmYiS",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Cry of Ages",
-            "sort": 1200000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -619,7 +686,7 @@
             "_id": "EJIRyQVpmHDwOEKV",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Art Lore (+13 for visual arts)",
-            "sort": 1300000,
+            "sort": 1500000,
             "system": {
                 "description": {
                     "value": ""
@@ -680,7 +747,7 @@
                 "value": 18
             },
             "allSaves": {
-                "value": ""
+                "value": "+1 circumstance vs. emotion effects"
             },
             "hp": {
                 "details": "",
@@ -689,7 +756,6 @@
                 "value": 26
             },
             "speed": {
-                "details": "+1 circumstance vs. emotion effects",
                 "otherSpeeds": [],
                 "value": 25
             }
@@ -718,7 +784,7 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "",
+            "details": "(+9 to notice unusual artwork)",
             "mod": 7,
             "senses": [
                 {
