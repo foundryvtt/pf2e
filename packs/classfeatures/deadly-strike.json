@@ -26,43 +26,122 @@
         },
         "rules": [
             {
-                "definition": [
-                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
                     {
                         "or": [
                             "item:trait:deadly-d10",
                             "item:trait:deadly-d8"
                         ]
+                    },
+                    {
+                        "nor": [
+                            "item:tag:deadly-strike-d10",
+                            "item:tag:deadly-strike-d8"
+                        ]
                     }
                 ],
-                "key": "AdjustStrike",
-                "mode": "add",
-                "property": "weapon-traits",
-                "value": "deadly-d12"
+                "property": "other-tags",
+                "value": "deadly-strike-d12"
             },
             {
-                "definition": [
-                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
                     "item:trait:deadly-d6"
                 ],
-                "key": "AdjustStrike",
+                "property": "other-tags",
+                "value": "deadly-strike-d10"
+            },
+            {
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
                 "mode": "add",
-                "priority": 111,
-                "property": "weapon-traits",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:deadly-d4",
+                            {
+                                "not": "item:trait:deadly"
+                            }
+                        ]
+                    }
+                ],
+                "property": "other-tags",
+                "value": "deadly-strike-d8"
+            },
+            {
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:tag:deadly-strike-d12"
+                ],
+                "property": "traits",
                 "value": "deadly-d10"
             },
             {
-                "definition": [
-                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}",
-                    {
-                        "not": "item:trait:deadly"
-                    }
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:tag:deadly-strike-d12"
                 ],
-                "key": "AdjustStrike",
+                "property": "traits",
+                "value": "deadly-d8"
+            },
+            {
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
                 "mode": "add",
-                "priority": 112,
-                "property": "weapon-traits",
+                "predicate": [
+                    "item:tag:deadly-strike-d12"
+                ],
+                "property": "traits",
+                "value": "deadly-d12"
+            },
+            {
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:tag:deadly-strike-d10"
+                ],
+                "property": "traits",
                 "value": "deadly-d6"
+            },
+            {
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:deadly-strike-d10"
+                ],
+                "property": "traits",
+                "value": "deadly-d10"
+            },
+            {
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:tag:deadly-strike-d8"
+                ],
+                "property": "traits",
+                "value": "deadly-d4"
+            },
+            {
+                "itemId": "{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:deadly-strike-d8"
+                ],
+                "property": "traits",
+                "value": "deadly-d8"
             }
         ],
         "traits": {
