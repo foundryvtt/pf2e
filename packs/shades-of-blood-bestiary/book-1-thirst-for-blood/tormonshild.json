@@ -1,22 +1,28 @@
 {
-    "_id": "hm8wMZHRewfFdZFy",
+    "_id": "yLDEDOpiBK8kEiqy",
+    "folder": "y72yXqNwZPVQejrH",
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "fvRJu5GsHJ88Rlcd",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Phlegm Skitter",
+            "_id": "Oge6O8dyk6eEZ18C",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "attackEffects": {
+                    "value": []
                 },
-                "actions": {
-                    "value": 2
+                "bonus": {
+                    "value": 7
                 },
-                "category": "offensive",
+                "damageRolls": {
+                    "kPR9mXDkTipszIko": {
+                        "damage": "1d6+2",
+                        "damageType": "piercing"
+                    }
+                },
                 "description": {
-                    "value": "<p>The tormonshild swarm Strides, leaving pools of mucus as it moves. Each space the swarm moves through during this movement becomes coated with slippery mucus, which has the area effect of @UUID[Compendium.pf2e.spells-srd.Item.Grease] (@Check[reflex|dc:17]).</p>"
+                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,28 +33,33 @@
                 "slug": null,
                 "traits": {
                     "value": [
-                        "primal",
-                        "water"
+                        "agile",
+                        "reach-0"
                     ]
                 }
             },
-            "type": "action"
+            "type": "melee"
         },
         {
-            "_id": "JEuTVAr6jYpMJ9T3",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Phlegm Spray",
+            "_id": "Au9wRh9Obh2iGnV8",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spit",
             "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "attackEffects": {
+                    "value": []
                 },
-                "actions": {
-                    "value": 2
+                "bonus": {
+                    "value": 7
                 },
-                "category": "offensive",
+                "damageRolls": {
+                    "Q1KMUwJyA2WBYhqm": {
+                        "damage": "1d4+2",
+                        "damageType": "bludgeoning"
+                    }
+                },
                 "description": {
-                    "value": "<p>The tormonshild swarm sprays globules of mucus and water in every direction, dealing @Damage[3d6[bludgeoning]] damage (@Check[reflex|dc:20|basic] save) to all creatures within 10 feet. Creatures that fail the save are covered in mucus and become @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 minute. A creature covered in mucus can end the condition by using an Interact action to remove the mucus.</p>"
+                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -59,17 +70,17 @@
                 "slug": null,
                 "traits": {
                     "value": [
-                        "primal",
+                        "range-increment-20",
                         "water"
                     ]
                 }
             },
-            "type": "action"
+            "type": "melee"
         },
         {
-            "_id": "yQg6NQcDdWljbjJF",
+            "_id": "oxkrOr3uZuzTNuR4",
             "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Swarming Leap",
+            "name": "Phlegm Mortar",
             "sort": 300000,
             "system": {
                 "actionType": {
@@ -80,7 +91,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The tormonshild swarm jumps as a collective. It Leaps 50 feet horizontally.</p>"
+                    "value": "<p>The tormonshild spits a globule of mucus and water at a square within 30 feet. Any creature in that square takes @Damage[2d4[bludgeoning]] damage (@Check[reflex|dc:14|basic] save). The square also becomes coated with slippery mucus, which has the area effect of @UUID[Compendium.pf2e.spells-srd.Item.Grease] (@Check[reflex|dc:14]).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -90,26 +101,29 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "value": []
+                    "value": [
+                        "primal",
+                        "water"
+                    ]
                 }
             },
             "type": "action"
         },
         {
-            "_id": "A270s7a5judDdCMc",
+            "_id": "XV7bNsDQCEh6fxXI",
             "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Torrent of Bites",
+            "name": "Pouncing Bite",
             "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": 3
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Each enemy in the tormonshild swarm's space takes @Damage[2d6[piercing]] damage (@Check[reflex|dc:20|basic] save).</p>"
+                    "value": "<p>The tormonshild compresses itself and then makes an enormous jump. It Leaps 50 feet horizontally. If it lands within reach of a creature, it can make a jaws Strike against that creature.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -125,7 +139,7 @@
             "type": "action"
         }
     ],
-    "name": "Tormonshild Swarm",
+    "name": "Tormonshild",
     "system": {
         "abilities": {
             "cha": {
@@ -135,7 +149,7 @@
                 "mod": 4
             },
             "dex": {
-                "mod": 4
+                "mod": 3
             },
             "int": {
                 "mod": -5
@@ -150,37 +164,17 @@
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 18
+                "value": 15
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 35,
+                "max": 20,
                 "temp": 0,
-                "value": 35
+                "value": 20
             },
-            "immunities": [
-                {
-                    "exceptions": [],
-                    "type": "swarm-mind"
-                }
-            ],
-            "resistances": [
-                {
-                    "doubleVs": [],
-                    "exceptions": [],
-                    "type": "bludgeoning",
-                    "value": 5
-                },
-                {
-                    "doubleVs": [],
-                    "exceptions": [],
-                    "type": "piercing",
-                    "value": 3
-                }
-            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -189,19 +183,7 @@
                     }
                 ],
                 "value": 20
-            },
-            "weaknesses": [
-                {
-                    "exceptions": [],
-                    "type": "area-damage",
-                    "value": 5
-                },
-                {
-                    "exceptions": [],
-                    "type": "splash-damage",
-                    "value": 5
-                }
-            ]
+            }
         },
         "details": {
             "blurb": "",
@@ -210,10 +192,10 @@
                 "value": []
             },
             "level": {
-                "value": 3
+                "value": 1
             },
             "privateNotes": "",
-            "publicNotes": "<p>Tormonshilds that survive the tadpole stage cluster together in wriggling swarms that devour everything they encounter.</p><hr /><p>Concentrations of intense magical energy often result in unusual weather phenomena, typically violent storms or other natural disasters, but sometimes they also create new entirely life-forms. Tormonshilds are born during artificially created storms, when magical energy combines with rainfall to transform the droplets themselves into living creatures. Tormonshilds rarely survive long after their creation; most meet grisly ends at the hands of local predators or dissolve as the magic that fuels their physical bodies fades. A tormonshild that survives its initial weeks of life eventually grows into a pest that menaces the local environment.</p><h2>Magical Rainstorms</h2><p>The rainstorms that produce tormonshilds occur more regularly than most people realize. However, as the majority of tormonshild tadpoles fail to reach maturity, the existence of tormonshilds remains virtually unknown outside of specific areas. While the Mana Wastes regularly experiences magical storms, the region is particularly inhospitable for these creatures. Such storms frequently happen throughout the islands of Azlant, however, and the magical energies that seep from the ancient ruins create conditions ideal for young tormonshilds.</p>",
+            "publicNotes": "<p>A tormonshild begins life as a tadpole-like creature hardly largely than a human finger. In this state, the tormonshild is virtually defenseless, but the magic that flows through its body allows it to grow quickly. After a few days, it swells into its more familiar adolescent form. A fully grown tormonshild resembles a two-foot-long frog with six legs, a mouth too large for its body, and flesh the color of a storm cloud. Once grown, the tormonshild decimates the local wildlife, sometimes attacking creatures up to twice its size. Being true omnivores, tormonshilds also feed on plants, preferring juicier crops like tomatoes and fruit. Many a villager has known the anguish of losing their livestock, gardens, and even a beloved pet to a tormonshild infestation.</p><hr /><p>Concentrations of intense magical energy often result in unusual weather phenomena, typically violent storms or other natural disasters, but sometimes they also create new entirely life-forms. Tormonshilds are born during artificially created storms, when magical energy combines with rainfall to transform the droplets themselves into living creatures. Tormonshilds rarely survive long after their creation; most meet grisly ends at the hands of local predators or dissolve as the magic that fuels their physical bodies fades. A tormonshild that survives its initial weeks of life eventually grows into a pest that menaces the local environment.</p><h2>Magical Rainstorms</h2><p>The rainstorms that produce tormonshilds occur more regularly than most people realize. However, as the majority of tormonshild tadpoles fail to reach maturity, the existence of tormonshilds remains virtually unknown outside of specific areas. While the Mana Wastes regularly experiences magical storms, the region is particularly inhospitable for these creatures. Such storms frequently happen throughout the islands of Azlant, however, and the magical energies that seep from the ancient ruins create conditions ideal for young tormonshilds.</p>",
             "publication": {
                 "license": "ORC",
                 "remaster": true,
@@ -225,7 +207,7 @@
         },
         "perception": {
             "details": "",
-            "mod": 8,
+            "mod": 6,
             "senses": [
                 {
                     "type": "low-light-vision"
@@ -236,30 +218,30 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 11
+                "value": 9
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 10
+                "value": 8
             },
             "will": {
                 "saveDetail": "",
-                "value": 6
+                "value": 4
             }
         },
         "skills": {
             "acrobatics": {
-                "base": 11,
+                "base": 6,
                 "special": []
             },
             "athletics": {
-                "base": 7
+                "base": 5
             },
             "stealth": {
-                "base": 11,
+                "base": 6,
                 "special": [
                     {
-                        "base": 13,
+                        "base": 8,
                         "label": "in Water",
                         "predicate": [
                             "terrain:aquatic"
@@ -268,18 +250,17 @@
                 ]
             },
             "survival": {
-                "base": 6,
+                "base": 4,
                 "special": []
             }
         },
         "traits": {
             "rarity": "uncommon",
             "size": {
-                "value": "lg"
+                "value": "tiny"
             },
             "value": [
                 "aberration",
-                "swarm",
                 "water"
             ]
         }
