@@ -1,0 +1,148 @@
+{
+    "_id": "qZsz7vc0KLi2U23P",
+    "folder": "y72yXqNwZPVQejrH",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "dEcVaiB0of86UDl0",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Swarming Descent",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature that's not a worshipper of Camazotz enters the room</p><hr /><p><strong>Effect</strong> The hundreds of bats descend down into the room in a terrifying, shrieking mass. The swarm occupies a @Template[type:burst|distance:30] on the floor of the room. All enemies within this area must attempt a @Check[will|dc:17] save. On a failure, a creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure). The swarm then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": "object-immunities"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JdMwwLXQEjrscDfi",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Restore Follower",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> An ally is in the swarm's space</p>\n<p><strong>Trigger</strong> The swarm dealt damage to an enemy</p><hr /><p><strong>Effect</strong> The swarm takes some of the blood it drank from an enemy and feeds it to an ally in its space. The ally restores Hit Points equal to the highest damage the swarm dealt to an enemy this turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Camazotz's Swarm",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 19
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 26,
+                "temp": 0,
+                "value": 26
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 7
+            }
+        },
+        "details": {
+            "description": "<p>A massive swarm of bats flies throughout the room, hampering vision, attacking foes, and magically restoring Camazotz's followers.</p>",
+            "disable": "<p>@Check[nature|dc:17] (trained) to disperse the swarm or @Check[religion|dc:15] (trained) to disrupt Camazotz's connection, which disperses the swarm</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #213: Thirst for Blood"
+            },
+            "reset": "<p>The swarm disperses and returns to roost throughout the room 1 minute after all enemies leave the room. The swarm recovers 5 Hit Points per day thanks the power of Camazotz.</p>",
+            "routine": "<p>(2 actions) The swarm uses its first action to move up to 30 feet to envelop as many enemies as possible within its @Template[type:burst|distance:30] space. All enemies in the swarm's space become @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] while within the swarm. It then uses its second action to bite all enemies, dealing @Damage[(1d6+3)[piercing]|options:area-damage] damage (@Check[reflex|dc:17|basic] save) to all enemies in the space.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}
