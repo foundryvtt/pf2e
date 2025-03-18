@@ -177,7 +177,7 @@
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.RvBlSIJmxiqfCpR9"
             },
             "img": "icons/consumables/meat/fish-whole-blue.webp",
-            "name": "Feet to Fins",
+            "name": "Feet to Fins (At Will)",
             "sort": 400000,
             "system": {
                 "area": null,
@@ -304,7 +304,7 @@
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.MZGkMsPBztFN0pUO"
             },
             "img": "icons/magic/water/elemental-water.webp",
-            "name": "Water Breathing",
+            "name": "Water Breathing (At Will)",
             "sort": 600000,
             "system": {
                 "area": null,
@@ -459,7 +459,7 @@
                 "damageRolls": {
                     "IUa8gRVabCVG4EDb": {
                         "damage": "3d10+9",
-                        "damageType": "bludgeoning"
+                        "damageType": "force"
                     }
                 },
                 "description": {
@@ -514,10 +514,54 @@
             "type": "action"
         },
         {
+            "_id": "TQRYVmgV3OnOJuEy",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Keeper's Ward",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. All allies within 30 feet of the Keeper gain a +1 status bonus to saves against magical effects. The bonus increases to +2 if the effect originated from an aquatic creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "affects": "allies",
+                                "includesSelf": false,
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Keeper's Ward"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 30
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "CC8PAg7bKivDPDQE",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Bond with Mortal",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -592,6 +636,18 @@
                             "incorporeal",
                             "spirit"
                         ]
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            "bonded-with-mortal"
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "strike-damage"
+                        ],
+                        "value": "bludgeoning"
                     }
                 ],
                 "slug": null,
@@ -608,7 +664,7 @@
             "_id": "MsOUHwCmNIAAvGRO",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Bonded Strike",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -637,7 +693,7 @@
             "_id": "Ey5higHJLZ15TSFu",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Keeper's Touch",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -699,7 +755,7 @@
                 "details": "",
                 "max": 160,
                 "temp": 0,
-                "value": 10
+                "value": 160
             },
             "immunities": [
                 {
@@ -749,9 +805,9 @@
             "privateNotes": "",
             "publicNotes": "",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
-                "title": ""
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #213: Thirst for Blood"
             }
         },
         "initiative": {
@@ -763,6 +819,11 @@
             "senses": [
                 {
                     "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 120,
+                    "type": "wavesense"
                 }
             ]
         },
