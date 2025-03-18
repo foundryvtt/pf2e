@@ -45,7 +45,7 @@ class ABCPicker extends SvelteApplicationMixin<
         id: "{id}",
         classes: ["abc-picker"],
         position: { width: 350, height: 650 },
-        window: { icon: "fa-solid fa-atlas", contentClasses: ["standard-form", "compact"] },
+        window: { icon: "fa-solid fa-book-atlas", contentClasses: ["standard-form", "compact"] },
     };
 
     declare options: ABCPickerConfiguration;

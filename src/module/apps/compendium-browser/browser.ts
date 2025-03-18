@@ -63,7 +63,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundry.applications.api.
             controls: [
                 {
                     action: "openSettings",
-                    icon: "fa-solid fa-cogs",
+                    icon: "fa-solid fa-gears",
                     label: "PF2E.CompendiumBrowser.Settings.OpenSettings",
                 },
                 {

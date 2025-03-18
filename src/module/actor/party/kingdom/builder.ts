@@ -95,7 +95,7 @@ class KingdomBuilder extends FormApplication<Kingdom> {
                 buttons.unshift({
                     label: "PF2E.Kingmaker.KingdomBuilder.CancelCreation",
                     class: "cancel",
-                    icon: "fa-solid fa-times",
+                    icon: "fa-solid fa-xmark",
                     onclick: async () => {
                         await this.kingdom.update({ active: false });
                     },
