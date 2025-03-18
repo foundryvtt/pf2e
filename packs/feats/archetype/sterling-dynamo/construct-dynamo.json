@@ -1,0 +1,61 @@
+{
+    "_id": "xzesXSIXTqsVxm1e",
+    "folder": "DULNVvjAsYNNhNtn",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Construct Dynamo",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Access</strong> You are an automaton or are otherwise from the ancient Jistka Imperium.</p><hr /><p>You've learned the secrets of Jistkan construct prostheses, allowing you to incorporate construct components into your dynamo and gain a portion of their magic. You gain a +1 status bonus to saving throws against magic, and your dynamo Strikes become magical.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Sterling Dynamo Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:magical"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:sterling-dynamo"
+                ],
+                "property": "traits",
+                "value": "magical"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

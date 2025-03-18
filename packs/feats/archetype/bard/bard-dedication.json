@@ -1,0 +1,81 @@
+{
+    "_id": "dIH771mt4PcVTyAs",
+    "folder": "T32euTSZgw3VD50F",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Bard Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You cast spells like a bard and gain the Cast a Spell activity. You gain a spell repertoire with two common cantrips from the occult spell list or any other occult cantrips you've learned or discovered. You're trained in the spell attack modifier and spell DC statistics. Your key spellcasting attribute for bard archetype spells is Charisma, and they are occult bard spells. You become trained in Occultism and Performance; for each of these skills in which you were already trained, you instead become trained in a skill of your choice. Choose a muse as you would if you were a bard. You can take that muse's feats, but you don't gain the starting feat, spell or any other abilities the choice of muse grants.</p>\n<hr />\n<p><strong>Special</strong> You cannot select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.oBlKgVYRup5ORqx1]{Bard} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Charisma +2"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "filter": [
+                        "item:tag:bard-muse"
+                    ],
+                    "slugsAsValues": true
+                },
+                "flag": "dedicationMuse",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Bard.Muse.Prompt"
+            },
+            {
+                "key": "RollOption",
+                "option": "feature:{item|flags.pf2e.rulesSelections.dedicationMuse}"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.performance.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.occultism.rank",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "spellcasting": {
+                    "rank": 1
+                }
+            }
+        },
+        "traits": {
+            "otherTags": [
+                "spellcasting-multiclass-archetype"
+            ],
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication",
+                "multiclass"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -343,8 +343,15 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         })();
         this.#activateInventoryDragDrop(inventoryPanel);
 
+        // Allow use of search inputs when sheet is not editable
+        if (!this.isEditable && this.actor.testUserPermission(game.user, "OBSERVER")) {
+            for (const input of html.querySelectorAll<HTMLInputElement>("input[type=search]")) {
+                input.disabled = false;
+            }
+        }
+
         // Everything below here is only needed if the sheet is editable
-        if (!this.options.editable) return;
+        if (!this.isEditable) return;
 
         // Handlers for number inputs of properties subject to modification by AE-like rules elements
         const manualPropertyInputs = htmlQueryAll<HTMLInputElement | HTMLSelectElement>(
@@ -1076,7 +1083,15 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         data: DropCanvasItemDataPF2e,
     ): Promise<Item<ActorPF2e | null>[]> {
         const actor = this.actor;
-        const itemSource = item.toObject();
+
+        // Get the item source.
+        // If the item is from a compendium, adjust the size to be appropriate to the creature's
+        const itemSource = (() => {
+            const fromCompendium =
+                data?.uuid?.startsWith("Compendium.") || event.dataTransfer?.types.includes("from-browser");
+            const adjustedItem = item.isOfType("physical") && fromCompendium ? sizeItemForActor(item, actor) : item;
+            return adjustedItem.toObject();
+        })();
 
         // Set effect to unidentified if alt key is held
         const mystified = game.user.isGM && event.altKey;
@@ -1173,10 +1188,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 itemSource.system.equipped.carryType = "stowed";
             } else {
                 itemSource.system.equipped.carryType = "worn";
-            }
-            // If the item is from a compendium, adjust the size to be appropriate to the creature's
-            if (data?.uuid?.startsWith("Compendium.") || event.dataTransfer?.types.includes("from-browser")) {
-                itemSource.system = sizeItemForActor(item, actor)._source.system;
             }
         }
 

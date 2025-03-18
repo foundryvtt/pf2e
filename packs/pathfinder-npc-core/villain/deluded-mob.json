@@ -1,0 +1,447 @@
+{
+    "_id": "ct7EwIepldAqv572",
+    "folder": "bLzJy2YdGCGjheEH",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "5eNFXUwgvwkzlFgK",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Irrational",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The deluded mob is severely disconnected from reality. Diplomacy checks to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] or otherwise sway their worldview automatically fail.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2WUSYCBvaCJjNNCc",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.EawOw47nHueUPnYc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Troop Defenses",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Thresholds</strong> 50 (3 segments), 25 (2 segments)</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.TroopDefenses]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
+                },
+                "rules": [],
+                "slug": "troop-defenses",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1ax2TM4pDZI2SGog",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.MXI6zwrvbQNIv7ji"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Troop Movement",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Whenever a troop moves, you move one of its segments and the other segments follow behind it. At the end of the movement, you can group the other segments adjacent to the one you moved as you see fit, provided none of them moves farther than the moving segment. If you choose not to move the troop any distance, you can instead reshape the position of all the segments as long as one stays in place.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TtcgXNBYc4EFepM0",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Victim Complex",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>As they lose members, the deluded mob takes the opposition against them as proof that they're right, bolstering their resolve. The deluded mob gains a +2 circumstance bonus to Will saves at 50 or fewer Hit Points, or a +4 circumstance bonus at 25 HP or fewer.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "hp-remaining",
+                                    50
+                                ]
+                            }
+                        ],
+                        "selector": "will",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "upgrade",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "hp-remaining",
+                                    25
+                                ]
+                            }
+                        ],
+                        "selector": "will",
+                        "slug": "victim-complex",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "cVkvmZHTd8VjFwYT",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Flail Desperately",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The deluded mob uses their fists, wooden planks, and anything else they can pick up to attack each enemy in a @Template[type:emanation|distance:5] with fervor, if not coordination (@Check[reflex|dc:18|basic|options:area-effect] save). The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[1d8[piercing]|options:area-damage] or @Damage[1d8[bludgeoning]|options:area-damage]{bludgeoning damage}</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(1d8+6)[piercing]|options:area-damage,action:cost:2] or @Damage[(1d8+6)[bludgeoning]|options:area-damage,action:cost:2]{bludgeoning damage}</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(2d8+6)[piercing]|options:area-damage,action:cost:3] or @Damage[(2d8+6)[bludgeoning]|options:area-damage,action:cost:3]{bludgeoning damage}</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "93wHXWZVtAn5Jm53",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Surrounded",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When they feel cornered, the mob lashes out more recklessly. While the deluded mob is flanked, Flail Desperately and Throw Detritus are DC 17 and deal an additional 2 damage per action spent on the activity.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "surrounded",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "surrounded"
+                        ],
+                        "selector": [
+                            "flail-desperately-inline-dc",
+                            "throw-detritus-inline-dc"
+                        ],
+                        "value": -1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "surrounded"
+                        ],
+                        "selector": [
+                            "flail-desperately-inline-damage",
+                            "throw-detritus-inline-damage"
+                        ],
+                        "slug": "surrounded-damage",
+                        "value": 2
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "action:cost:2"
+                        ],
+                        "selectors": [
+                            "flail-desperately-inline-damage",
+                            "throw-detritus-inline-damage"
+                        ],
+                        "slug": "surrounded-damage",
+                        "value": 4
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "action:cost:3"
+                        ],
+                        "selectors": [
+                            "flail-desperately-inline-damage",
+                            "throw-detritus-inline-damage"
+                        ],
+                        "slug": "surrounded-damage",
+                        "value": 6
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aEZR3IjhkqAzFTzg",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Throw Detritus",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The deluded mob hurls detritus in a @Template[type:burst|distance:10] within 30 feet that deals @Damage[2d8[bludgeoning]|options:area-damage] damage with a @Check[reflex|dc:18|basic|options:area-effect] save. When the mob is reduced to 2 or fewer segments, this area decreases to a @Template[type:burst|distance:5].</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "eiWE3fZeLfljl256",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Conspiracy Lore",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 6
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Deluded Mob",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 1
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 1
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": -1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 19
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 75,
+                "temp": 0,
+                "value": 75
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 5
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
+            "level": {
+                "value": 4
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Pulled astray by lies, bribes, and propaganda, these desperate people are convinced to fight on their behalf of utter villains. Conspiracists, propagandists, masterminds, despots, and more take advantage of these mobs.</p><hr /><p>Villains pursue selfish and cruel goals, trampling over anyone in their way.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder NPC Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 7,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 7
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 12
+            },
+            "intimidation": {
+                "base": 9
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "grg"
+            },
+            "value": [
+                "human",
+                "humanoid",
+                "troop"
+            ]
+        }
+    },
+    "type": "npc"
+}

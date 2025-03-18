@@ -1,0 +1,85 @@
+{
+    "_id": "j9Rp4fOZIxizyvYy",
+    "folder": "mRzYxL4bECgRNZMu",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Viking Weapon Familiarity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>From childhood, you have been exposed to traditional viking combat techniques, and you soon learned to handle axe, sword, and shield in battle. Now, you can raid proudly alongside your fellows. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] reaction. Additionally, you have familiarity with the @UUID[Compendium.pf2e.equipment-srd.Item.Battle Axe], @UUID[Compendium.pf2e.equipment-srd.Item.Hatchet], @UUID[Compendium.pf2e.equipment-srd.Item.Longsword], @UUID[Compendium.pf2e.equipment-srd.Item.Shield Boss], @UUID[Compendium.pf2e.equipment-srd.Item.Shield Spikes], and @UUID[Compendium.pf2e.equipment-srd.Item.Shortsword]—for the purposes of proficiency, you treat any of these weapons as simple weapons.</p>\n<p>At 5th level, whenever you get a critical hit with one of these weapons, you get its critical specialization effect.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Viking Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Advanced Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Shield Block"
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:base:battle-axe",
+                            "item:base:hatchet",
+                            "item:base:longsword",
+                            "item:base:shield-boss",
+                            "item:base:shield-spikes",
+                            "item:base:shortsword"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.VikingWeapons",
+                "sameAs": "simple",
+                "slug": "viking-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:base:battle-axe",
+                            "item:base:hatchet",
+                            "item:base:longsword",
+                            "item:base:shield-boss",
+                            "item:base:shield-spikes",
+                            "item:base:shortsword"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

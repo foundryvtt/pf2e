@@ -1,0 +1,77 @@
+{
+    "_id": "ko8I8OCPddWA9U8v",
+    "img": "icons/magic/water/wave-water-explosion.webp",
+    "name": "Stance: Waterfowl Stance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Waterfowl Stance]</p>\n<p>While in Waterfowl Stance, the dandpatta, scimitar, talwar, and zulfikar gain the monk trait for you. When you Tumble Through a creature's space or Leap over a creature while wielding one of these weapons, you can deal that creature damage.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "rules": [
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:base:dandpatta",
+                            "item:base:scimitar",
+                            "item:base:talwar",
+                            "item:base:zulfikar"
+                        ]
+                    }
+                ],
+                "property": "traits",
+                "value": "monk"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "or": [
+                            "action:tumble-through",
+                            "action:leap",
+                            "action:high-jump",
+                            "action:long-jump"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "athletics",
+                    "acrobatics"
+                ],
+                "text": "PF2E.SpecificRule.Stance.Note.WaterfowlStance",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

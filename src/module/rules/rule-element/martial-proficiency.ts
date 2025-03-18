@@ -44,6 +44,7 @@ class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySc
                 choices: ["trained", "expert", "master", "legendary"],
             }),
             value: new ResolvableValueField({ required: false, initial: undefined }),
+            visible: new fields.BooleanField({ required: false, nullable: false, initial: true }),
         };
     }
 
@@ -60,6 +61,7 @@ class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySc
             maxRank: this.maxRank,
             value: 0,
             breakdown: "",
+            visible: this.visible,
         };
     }
 }
@@ -87,6 +89,8 @@ type MartialProficiencySchema = RuleElementSchema & {
     >;
     /** Initially a number indicating rank, changed into a `MartialProficiency` object for overriding as an AE-like */
     value: ResolvableValueField<false, false, false>;
+    /** Whether this proficiency is visible on the character sheet */
+    visible: fields.BooleanField<boolean, boolean, false, false, true>;
 };
 
 export { MartialProficiencyRuleElement };

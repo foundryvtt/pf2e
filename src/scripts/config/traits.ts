@@ -231,6 +231,7 @@ const creatureTraits = {
     serpentfolk: "PF2E.TraitSerpentfolk",
     seugathi: "PF2E.TraitSeugathi",
     shabti: "PF2E.TraitShabti",
+    shade: "PF2E.TraitShade",
     shadow: "PF2E.TraitShadow",
     shobhad: "PF2E.TraitShobhad",
     siktempora: "PF2E.TraitSiktempora",
@@ -502,6 +503,7 @@ const weaponTraits = {
     "thrown-20": "PF2E.TraitThrown20",
     "thrown-30": "PF2E.TraitThrown30",
     "thrown-40": "PF2E.TraitThrown40",
+    "thrown-50": "PF2E.TraitThrown50",
     "thrown-60": "PF2E.TraitThrown60",
     "thrown-80": "PF2E.TraitThrown80",
     "thrown-100": "PF2E.TraitThrown100",
@@ -534,6 +536,7 @@ const weaponTraits = {
     "volley-30": "PF2E.TraitVolley30",
     "volley-50": "PF2E.TraitVolley50",
     "volley-60": "PF2E.TraitVolley60",
+    wand: "PF2E.TraitWand",
 };
 
 const preciousMaterials: Record<PreciousMaterialType, string> = {
@@ -583,6 +586,7 @@ const npcAttackTraits = {
     ...weaponTraits,
     ...preciousMaterials,
     ...rangeTraits,
+    concentrate: "PF2E.TraitConcentrate",
     curse: "PF2E.TraitCurse",
     "deadly-2d8": "PF2E.TraitDeadly2D8",
     "deadly-3d8": "PF2E.TraitDeadly3D8",
@@ -594,6 +598,7 @@ const npcAttackTraits = {
     "deadly-3d12": "PF2E.TraitDeadly3D12",
     "deadly-4d12": "PF2E.TraitDeadly4D12",
     illusion: "PF2E.TraitIllusion",
+    impulse: "PF2E.TraitImpulse",
     incorporeal: "PF2E.TraitIncorporeal",
     radiation: "PF2E.TraitRadiation",
     "reach-0": "PF2E.TraitReach0",

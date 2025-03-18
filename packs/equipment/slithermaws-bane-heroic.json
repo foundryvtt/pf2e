@@ -1,0 +1,121 @@
+{
+    "_id": "2IRTceMDqmHfEwcf",
+    "img": "systems/pf2e/icons/equipment/armor/precious-metal-armor/elven-chain.webp",
+    "name": "Slithermaw's Bane (Heroic)",
+    "system": {
+        "acBonus": 2,
+        "apex": {
+            "attribute": "con"
+        },
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "category": "light",
+        "checkPenalty": 0,
+        "containerId": null,
+        "description": {
+            "gm": "<p><em>Slithermaw's Bane</em> is focused on Kyonin's safety and protection. It imparts the following edicts and anathema on the wielder. If they're violated, the artifact reverts to its non-artifact form until the wielder atones, either through the use of the atone ritual, or through a short side quest or influence encounter of your own design.</p><p><strong>Edicts</strong> kill Treerazer, protect elven lives, push back Tanglebriar's boundaries</p><p><strong>Anathema</strong> aid Treerazer, willingly betray Kyonin</p><h2>Choose Apex Attribute</h2><p><em>Slithermaw's Bane</em> is a powerful apex item, but the apex bonuses granted are more powerful than most. As with all apex items, a PC can only benefit from one apex item at a time. When your character creates the artifact, choose one attribute modifier. When you invest the artifact, you either increase that attribute modifier by 2 or increase it to +5, whichever would give you a higher value. Once you make this selection, you can't change it later.</p><hr /><p><em>Note: Select the apex attribute on the details tab of this item.</em></p><h2>Choose Heroic Skill</h2><p><em>Slithermaw's Bane</em> also bolsters one skill of your choice. When your character creates the artifact, choose one of the three skills listed for the artifact. As long as the artifact is invested by you, it grants you a +4 item bonus to checks with that skill.</p><h2>Heroic Recovery</h2><p>Finally, <em>Slithermaw's Bane</em> has 1 Recovery Point; this point replenishes once per day when its invested partner does their daily preparations. When the artifact's partner's @UUID[Compendium.pf2e.conditionitems.Item.Dying] value would reach an amount sufficient to kill them (usually 4), the artifact spends its Recovery Point, and the partner instead increases their @UUID[Compendium.pf2e.conditionitems.Item.Doomed] value by 1 and stabilizes at 0 Hit Points.</p>",
+            "value": "<p><strong>Perception</strong> [[/r 1d20+34 #Perception]]{+34}; precise low-light vision and hearing within 30 feet</p>\n<p><strong>Communication</strong> telepathy (partner only)</p>\n<p><strong>Skills</strong> Intimidation [[/r 1d20+35 #Intimidation]]{+35}, Society [[/r 1d20+33 #Society]]{+33}, Warfare [[/r 1d20+33 #Lore]]{+33}</p>\n<p><strong>Int</strong> +5, <strong>Wis</strong> +6, <strong>Cha</strong> +7</p>\n<p><strong>Will</strong> [[/r 1d20+34 #Will]]{+34}</p><hr /><p>The heroism of Kyloss Syndar, founder of Greengold and slayer of the demonic hydra Slithermaw, imprinted this suit of armor with a gleaming, prismatic sheen that sparkles under bright light. The telepathic voice of <em>Slithermaw's Bane</em> is boisterous and grandiose, encouraging his partner to take up leadership roles while also providing advice to maintain loyalty and strengthen bonds of friendship.</p>\n<p><em>Slithermaw's Bane</em> is a suit of <em>+3 major resilient greater fortification high-grade elven chain</em> that grants his wearer poison resistance 15, and the item bonus this resilient rune grants to saving throws versus poison increases by 1 to +4.</p><hr /><p><strong>Activate—Calistria's Sting</strong> <span class=\"action-glyph\">r</span> (concentrate, poison)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> A creature grapples you</p>\n<p><strong>Effect</strong> Poison wells up from the armor's links to seep into the triggering creature's body, causing it to suffer wracking pains as if it was being stung by thousands of angry wasps. The triggering creature takes @Damage[7d6[persistent,poison]] damage (@Check[fortitude|dc:34|basic] save); this persistent damage can't be ended as long as the triggering creature continues to grapple you. <em>Slithermaw's Bane</em> can't activate Calistria's Sting using his actions.</p><hr /><p><strong>Activate—Purge Toxins</strong> <span class=\"action-glyph\">2</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per minute</p>\n<p><strong>Effect</strong> <em>Slithermaw's Bane</em> attempts to counteract a disease or poison affliction affecting you, with a counteract rank of 9th and a [[/gmr 1d20+25 #Counteract]]{+25} modifier to the roll ([[/gmr 1d20+30 #Counteract]]{+30} modifier if the source of the disease or poison effect on you was created by a fiend).</p><hr /><p><strong>Activate—Terrain Adaptation</strong> <span class=\"action-glyph\">2</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Effect</strong> You alter the exterior of the armor to better adapt to the surrounding terrain: aquatic, arctic, desert, forest, mountain, plains, sky, swamp, or underground. You ignore difficult terrain within the chosen environment and gain a +2 circumstance bonus to saving throws against environmental hazards, natural disasters, and extreme temperatures that originate from that terrain. You're also protected from severe and extreme heat or severe and extreme cold (your choice when you activate this ability). This effect lasts until your next daily preparations or the next time you activate it, whichever comes first.</p>"
+        },
+        "dexCap": 3,
+        "group": "chain",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 20
+        },
+        "material": {
+            "grade": "high",
+            "type": "dawnsilver"
+        },
+        "price": {
+            "value": {}
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #212: A Voice in the Blight"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "poison",
+                "value": 15
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:poison"
+                ],
+                "selector": "saving-throw",
+                "slug": "resilient",
+                "value": 1
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "config": "skills",
+                    "predicate": [
+                        "skill:{choice|value}:rank:0"
+                    ]
+                },
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.skill}",
+                "type": "item",
+                "value": 4
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.abilities.{item|system.apex.attribute}.mod",
+                "value": 1
+            }
+        ],
+        "runes": {
+            "potency": 3,
+            "property": [
+                "greaterFortification"
+            ],
+            "resilient": 3
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": "high",
+                "type": "dawnsilver"
+            },
+            "runes": {
+                "potency": 3,
+                "property": [
+                    "greaterFortification"
+                ],
+                "resilient": 3
+            }
+        },
+        "speedPenalty": 0,
+        "strength": 1,
+        "traits": {
+            "rarity": "unique",
+            "value": [
+                "apex",
+                "artifact",
+                "flexible",
+                "intelligent",
+                "invested",
+                "magical"
+            ]
+        }
+    },
+    "type": "armor"
+}

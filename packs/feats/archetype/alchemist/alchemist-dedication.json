@@ -1,0 +1,89 @@
+{
+    "_id": "CJMkxlxHiHZQYDCz",
+    "folder": "Y1a1vNRrTclMC6Nw",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Alchemist Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You put your alchemical interest into practice. You become trained in alchemical bombs, the alchemist class DC, and Crafting; if you were already trained in Crafting, you instead become trained in a skill of your choice.</p>\n<p>You gain the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.Jkl5KOZih7MoMqAJ]{Quick Alchemy} benefits, creating up to 4 versatile vials during your daily preparations. Add the formulas for four additional common alchemical items to your formula book, in addition to those you gain from Alchemical Crafting.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.Ux0sa5SUBu616i5k]{Alchemist}</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Intelligence +2"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.crafting.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.attacks.weapon-base-alchemical-bomb.rank",
+                "value": 1
+            },
+            {
+                "itemUUID": "Compendium.pf2e.equipment-srd.Item.Versatile Vial",
+                "key": "SpecialResource",
+                "label": "PF2E.SpecificRule.Alchemist.VersatileVials",
+                "level": "ternary(gte(@actor.level, 18), 18, ternary(gte(@actor.level, 12), 12, ternary(gte(@actor.level, 4), 4, 1)))",
+                "max": 4,
+                "slug": "versatile-vials"
+            },
+            {
+                "craftableItems": [
+                    "item:trait:alchemical",
+                    "item:trait:consumable"
+                ],
+                "key": "CraftingAbility",
+                "slug": "quick-alchemy"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Alchemical Crafting"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Quick Alchemy"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "alchemist": {
+                    "attribute": "int",
+                    "rank": 1
+                }
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication",
+                "multiclass"
+            ]
+        }
+    },
+    "type": "feat"
+}

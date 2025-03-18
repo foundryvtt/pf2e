@@ -1,0 +1,86 @@
+{
+    "_id": "TdA3oVj79KxOm2Kd",
+    "folder": "K4qJOvrQVDDcIIBT",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Wind-Tossed Spell",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You enhance your spell with elemental air, using the wind to find your target and carry your magic around cover. If the next action you use is to Cast a Spell that requires a spell attack roll, you ignore the target's @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition and any cover they have from you. The spell gains the air trait.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Elementalist Dedication"
+                },
+                {
+                    "value": "air is in your elemental philosophy"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:wind-tossed-spell"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.WindTossedSpell"
+                    }
+                ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:wind-tossed-spell"
+                ],
+                "property": "traits",
+                "value": "air"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "wind-tossed-spell"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "air",
+                "archetype",
+                "concentrate",
+                "spellshape"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -73,6 +73,57 @@
                 "selectors": [
                     "firearm-weapon-group-damage"
                 ]
+            },
+            {
+                "definition": [
+                    "item:category:advanced",
+                    "item:ranged-usage:trait:combination",
+                    {
+                        "or": [
+                            "item:ranged-usage:group:crossbow",
+                            "item:ranged-usage:group:firearm"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "priority": 41,
+                "slug": "slingers-precision-advanced",
+                "value": "@actor.system.proficiencies.attacks.advanced-firearms-crossbows.rank",
+                "visible": false
+            },
+            {
+                "definition": [
+                    "item:category:martial",
+                    "item:ranged-usage:trait:combination",
+                    {
+                        "or": [
+                            "item:ranged-usage:group:crossbow",
+                            "item:ranged-usage:group:firearm"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "priority": 41,
+                "slug": "slingers-precision-martial",
+                "value": "@actor.system.proficiencies.attacks.martial-firearms-crossbows.rank",
+                "visible": false
+            },
+            {
+                "definition": [
+                    "item:category:simple",
+                    "item:ranged-usage:trait:combination",
+                    {
+                        "or": [
+                            "item:ranged-usage:group:crossbow",
+                            "item:ranged-usage:group:firearm"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "priority": 41,
+                "slug": "slingers-precision-simple",
+                "value": "@actor.system.proficiencies.attacks.simple-firearms-crossbows.rank",
+                "visible": false
             }
         ],
         "traits": {

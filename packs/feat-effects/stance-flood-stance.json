@@ -1,0 +1,71 @@
+{
+    "_id": "yBJPNp0mKjMkKe1w",
+    "img": "icons/magic/water/water-jet-wave-blue.webp",
+    "name": "Stance: Flood Stance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Flood Stance]</p>\n<p>The only Strikes you can make are flooded river unarmed attacks. These deal 1d8 bludgeoning damage; are in the brawling group; have the nonlethal, trip, unarmed, and water traits; and don’t take the normal penalty for being used underwater. They also gain the forceful trait while you’re underwater.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "img": "icons/magic/water/water-jet-wave-blue.webp",
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.Stance.Attack.FloodedRiver",
+                "range": null,
+                "replaceAll": true,
+                "slug": "flooded-river",
+                "traits": [
+                    "nonlethal",
+                    "trip",
+                    "unarmed",
+                    "water"
+                ]
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:flooded-river",
+                    "terrain:aquatic"
+                ],
+                "property": "traits",
+                "value": "forceful"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

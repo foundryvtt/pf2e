@@ -387,7 +387,7 @@ class TextEditorPF2e extends TextEditor {
             console.warn("Unable to resolve action", slug);
             return this.#invalidInlineAction(
                 ["unresolvable-action"],
-                "fas fa-unlink",
+                "fa-solid fa-link-slash",
                 game.i18n.format("PF2E.InlineAction.Warning.UnresolvableAction", { slug }),
             );
         }
@@ -694,9 +694,7 @@ class TextEditorPF2e extends TextEditor {
             // Let the inline roll function handle level base DCs
             // Don't save the result if we are matching a statistic
             const checkDC = params.dc === "@self.level" ? params.dc : getCheckDC({ name, params, item, actor });
-            if (!params.against) {
-                anchor.dataset.pf2Dc = checkDC;
-            }
+            if (!params.against) anchor.dataset.pf2Dc = checkDC;
 
             // When using fixed DCs/adjustments, parse and add them to render the real DC
             if (checkDC !== "@self.level") {
@@ -848,9 +846,9 @@ function getCheckDC({
     // We assume that we can actually display the dc if against is provided.
     // This function shouldn't be called otherwise.
     if (!params.dc && params.against && actor) {
-        const rollOptions = [item?.isOfType("action", "feat") ? `origin:action:slug:${item.slug}` : null].filter(
-            R.isTruthy,
-        );
+        const rollOptions = item?.isOfType("action", "feat")
+            ? [`origin:action:slug:${item.slug}`, ...item.getRollOptions("item")]
+            : [];
         const statistic = actor.getStatistic(params.against)?.clone({ rollOptions });
         return String(statistic?.dc.value ?? 0);
     }

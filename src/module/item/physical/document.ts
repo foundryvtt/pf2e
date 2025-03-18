@@ -39,7 +39,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
      * The cached container of this item, if in a container, or null
      * @ignore
      */
-    private declare _container?: ContainerPF2e<ActorPF2e> | null;
+    declare private _container?: ContainerPF2e<ActorPF2e> | null;
 
     /** Doubly-embedded adjustments, attachments, talismans etc. */
     declare subitems: Collection<PhysicalItemPF2e<TParent>>;

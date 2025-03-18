@@ -1,0 +1,3553 @@
+{
+    "_id": "POKpRKV1hwHfAY6k",
+    "folder": "yv4EbX3mN9jvGOvr",
+    "img": "systems/pf2e/icons/default-icons/character.svg",
+    "items": [
+        {
+            "_id": "JcOdFhB0P5qZQ3ys",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Assassin Lore",
+            "sort": 0,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 0
+                },
+                "proficient": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "fQMnzdG64KkxFQxn",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Warfare Lore",
+            "sort": 0,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 0
+                },
+                "proficient": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "tA6oUjx7S3C2PND2",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.heritages.Item.hFBwsVcSnNCJoimo"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "fleet": {
+                            "id": "ZiBXwVdutuN5yrxT",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/environment/people/group.webp",
+            "name": "Versatile Heritage",
+            "sort": 0,
+            "system": {
+                "ancestry": {
+                    "name": "Human",
+                    "slug": "human",
+                    "uuid": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
+                },
+                "description": {
+                    "value": "<p>Humanity's versatility and ambition have fueled its ascendance to be the most common ancestry in most nations throughout the world. Select a general feat of your choice for which you meet the prerequisites (as with your ancestry feat, you can select this general feat at any point during character creation).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:level:1",
+                                "item:trait:general"
+                            ],
+                            "itemType": "feat"
+                        },
+                        "flag": "versatileHeritage",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.GeneralTraining.Prompt",
+                        "selection": "Compendium.pf2e.feats-srd.Item.Fleet"
+                    },
+                    {
+                        "flag": "fleet",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.versatileHeritage}"
+                    }
+                ],
+                "slug": "versatile-heritage",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "heritage"
+        },
+        {
+            "_id": "ZiBXwVdutuN5yrxT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.Ux73dmoF8KnavyUD"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "tA6oUjx7S3C2PND2",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Fleet",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p>You move more quickly on foot. Your Speed increases by 5 feet.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "land-speed",
+                        "value": 5
+                    }
+                ],
+                "slug": "fleet",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "unrB4KtBUx01BqQr",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.backgrounds.Item.FKHut73XDUGTnKkP"
+            },
+            "img": "systems/pf2e/icons/default-icons/background.svg",
+            "name": "Field Medic",
+            "sort": 0,
+            "system": {
+                "boosts": {
+                    "0": {
+                        "selected": "wis",
+                        "value": [
+                            "con",
+                            "wis"
+                        ]
+                    },
+                    "1": {
+                        "selected": "str",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p>In the chaotic rush of battle, you learned to adapt to rapidly changing conditions as you administered to battle casualties. You patched up soldiers, guards, or other combatants, and learned a fair amount about the logistics of war.</p>\n<p>Choose two ability boosts. One must be to <strong>Constitution</strong> or <strong>Wisdom</strong>, and one is a free ability boost.</p>\n<p>You're trained in the Medicine skill and the Warfare Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Battle Medicine] skill feat.</p>"
+                },
+                "items": {
+                    "lzyme": {
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
+                        "level": 1,
+                        "name": "Battle Medicine",
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Battle Medicine"
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [],
+                "slug": "field-medic",
+                "trainedSkills": {
+                    "lore": [
+                        "Warfare Lore"
+                    ],
+                    "value": [
+                        "medicine"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "background"
+        },
+        {
+            "_id": "fVHGn4gQDeZWeajK",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.wYerMk6F1RZb0Fwt"
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Battle Medicine",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> You are holding or wearing healer's tools.</p>\n<hr />\n<p>You can patch up yourself or an adjacent ally, even in combat. Attempt a Medicine check with the same DC as for @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds], and restore a corresponding amount of Hit Points; this does not remove the @UUID[Compendium.pf2e.conditionitems.Item.Wounded] condition. As with Treat Wounds, you can attempt checks against higher DCs if you have the minimum proficiency rank. The target is then temporarily @UUID[Compendium.pf2e.feat-effects.Item.Effect: Battle Medicine Immunity]{immune} to your Battle Medicine for 1 day.</p>\n<p><strong>Editors note</strong> Paizo has clarified the usage of worn tools:</p>\n<blockquote>Worn tools should only take 1 hand to use, as you only draw the things you need from the kit and not the entire kit. This has been marked for future errata.</blockquote>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "unrB4KtBUx01BqQr",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Medicine"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [],
+                "slug": "battle-medicine",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "healing",
+                        "manipulate",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "PPHa8SWSA5wmw515",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.PodajLVxqYSAqVox"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "dragonStance": {
+                            "id": "SJKUesxOxi1xFcdI",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Natural Ambition",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestry",
+                "description": {
+                    "value": "<p>You were raised to be ambitious and always reach for the stars, leading you to progress quickly in your chosen field. You gain a 1st-level class feat for your class. You must meet the prerequisites, but you can select the feat later in the character creation process in order to determine which prerequisites you meet.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:level:1",
+                                "item:category:class",
+                                "item:trait:{actor|system.details.class.trait}",
+                                {
+                                    "or": [
+                                        "feature:dragon-instinct",
+                                        {
+                                            "not": "item:draconic-arrogance"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "nor": [
+                                        "item:animal-companion",
+                                        "item:animal-companion-druid",
+                                        "item:bardic-lore",
+                                        "item:fire-lung",
+                                        "item:lingering-composition",
+                                        "item:leshy-familiar",
+                                        "item:martial-performance",
+                                        "item:shore-step",
+                                        "item:steadying-stone",
+                                        "item:storm-born",
+                                        "item:versatile-performance",
+                                        "item:untamed-form"
+                                    ]
+                                }
+                            ],
+                            "itemType": "feat"
+                        },
+                        "flag": "naturalAmbition",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat",
+                        "selection": "Compendium.pf2e.feats-srd.Item.Dragon Stance"
+                    },
+                    {
+                        "flag": "dragonStance",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.naturalAmbition}"
+                    }
+                ],
+                "slug": "natural-ambition",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "human"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "SJKUesxOxi1xFcdI",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.8sy3sHwOHS4ImwvJ"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "PPHa8SWSA5wmw515",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Dragon Stance",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> You are unarmored</p>\n<hr />\n<p>You enter the stance of a dragon and make powerful leg strikes like a lashing dragon's tail. You can make dragon tail attacks that deal 1d10 bludgeoning damage. They are in the brawling group and have the backswing, nonlethal, and unarmed traits.</p>\n<p>While in Dragon Stance, you can ignore the first square of difficult terrain while Striding.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "You are unarmored"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Stance: Dragon Stance",
+                    "uuid": "Compendium.pf2e.feat-effects.Item.Stance: Dragon Stance"
+                },
+                "slug": "dragon-stance",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "monk",
+                        "stance"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "9D5F9Qz30BJtRGAQ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.49mBVNF4SK6iYdJm"
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Unconventional Weaponry",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestry",
+                "description": {
+                    "value": "<p>You've familiarized yourself with a particular weapon, potentially from another ancestry or culture. Choose an uncommon simple or martial weapon with a trait corresponding to an ancestry (such as dwarf, goblin, or orc) or that is common in another culture. You gain access to that weapon, and for the purpose of determining your proficiency, that weapon is a simple weapon. If you are trained in all martial weapons, you can choose an uncommon advanced weapon with such a trait. You gain access to that weapon, and for the purpose of determining your proficiency, that weapon is a martial weapon.</p>"
+                },
+                "level": {
+                    "taken": 5,
+                    "value": 1
+                },
+                "location": "ancestry-5",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [],
+                "slug": "unconventional-weaponry",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "human"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "tHvQrmSW7v3qIbVW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.3a07jkWezSuORSpS"
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Ki Strike",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>Your study of the flow of mystical energy allows you to harness it into your physical strikes. You gain the @UUID[Compendium.pf2e.spells-srd.Item.Inner Upheaval] ki spell and a focus pool of 1 Focus Point.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "class-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [],
+                "slug": "ki-strike",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "monk"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "n1Lv9FIIDxEtQwy8",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.8bMmGBO6gsMfWZk3"
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Stunning Fist",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>The focused power of your flurry threatens to overwhelm your opponent. When you target the same creature with two Strikes from your @UUID[Compendium.pf2e.actionspf2e.Item.Flurry of Blows], you can try to stun the creature. If either Strike hits and deals damage, the target must succeed at a Fortitude save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} on a critical failure). This is an incapacitation effect.</p>"
+                },
+                "level": {
+                    "taken": 2,
+                    "value": 2
+                },
+                "location": "class-2",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "Flurry of Blows"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "stunning-fist",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "stunning-fist"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "The target must succeed at a @Check[fortitude|against:monk|traits:incapacitation] save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} on a critical failure).",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": "stunning-fist",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "monk"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "FAt6Lo6nF8pDYnpW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.UuPZ7drPBnSmI8Eo"
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Red Mantis Assassin Dedication",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p><strong>Access</strong> You are from Mediogalti Island.</p>\n<hr />\n<p>You have learned how to stalk your foes and slay them with a sawtooth sabre. You become trained in Stealth and Assassin Lore; if you were already trained, you become an expert instead. Whenever your proficiency in any weapon increases to expert or beyond, you also gain that new proficiency with @UUID[Compendium.pf2e.equipment-srd.Item.Sawtooth Saber].</p>\n<hr />\n<p><strong>Special</strong> You cannot select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.CB9YE4P7A2Wty1IX]{Red Mantis Assassin} archetype.</p>"
+                },
+                "level": {
+                    "taken": 4,
+                    "value": 2
+                },
+                "location": "class-4",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in sawtooth sabres"
+                        },
+                        {
+                            "value": "deity is Achaekek"
+                        },
+                        {
+                            "value": "lawful evil alignment"
+                        },
+                        {
+                            "value": "member of the Red Mantis assassins"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Lost Omens World Guide"
+                },
+                "rules": [],
+                "slug": "red-mantis-assassin-dedication",
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "archetype",
+                        "dedication"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "wl7zCd3xyl1uaEEy",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.M2V1vqAziOkWV30B"
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Crimson Shroud",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> A number of times per day equal to your number of class feats from the Red Mantis assassin archetype</p>\n<hr />\n<p>You swathe yourself in a veil of red mist for 1 minute. While the shroud is active, you gain fast healing equal to half your level. You can Interact with your shroud, swirling it around you, to gain a +1 circumstance bonus to AC until the beginning of your next turn. Finally, if you die while the shroud is active, you can choose to have your entire body vanish into red mist, leaving behind only your gear; you make this choice when you activate Crimson Shroud.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Crimson Shroud]</p>"
+                },
+                "level": {
+                    "taken": 6,
+                    "value": 6
+                },
+                "location": "class-6",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "Red Mantis Assassin Dedication"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Lost Omens World Guide"
+                },
+                "rules": [],
+                "slug": "crimson-shroud",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "archetype",
+                        "healing",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "FgqUzEjkKfDDMWDd",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.W6Gl9ePmItfDHji0"
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Assurance (Medicine)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>Even in the worst circumstances, you can perform basic tasks. Choose a skill you're trained in. You can forgo rolling a skill check for that skill to instead receive a result of 10 + your proficiency bonus (do not apply any other bonuses, penalties, or modifiers).</p>\n<hr />\n<p><strong>Special</strong> You can select this feat multiple times. Each time, choose a different skill and gain the benefits for that skill.</p>"
+                },
+                "level": {
+                    "taken": 2,
+                    "value": 1
+                },
+                "location": "skill-2",
+                "maxTakable": null,
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in at least one skill"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "label": "PF2E.Skill.Acrobatics",
+                                "value": "acrobatics"
+                            },
+                            {
+                                "label": "PF2E.Skill.Arcana",
+                                "value": "arcana"
+                            },
+                            {
+                                "label": "PF2E.Skill.Athletics",
+                                "value": "athletics"
+                            },
+                            {
+                                "label": "PF2E.Skill.Crafting",
+                                "value": "crafting"
+                            },
+                            {
+                                "label": "PF2E.Skill.Deception",
+                                "value": "deception"
+                            },
+                            {
+                                "label": "PF2E.Skill.Diplomacy",
+                                "value": "diplomacy"
+                            },
+                            {
+                                "label": "PF2E.Skill.Intimidation",
+                                "value": "intimidation"
+                            },
+                            {
+                                "label": "PF2E.Skill.Medicine",
+                                "value": "medicine"
+                            },
+                            {
+                                "label": "PF2E.Skill.Nature",
+                                "value": "nature"
+                            },
+                            {
+                                "label": "PF2E.Skill.Occultism",
+                                "value": "occultism"
+                            },
+                            {
+                                "label": "PF2E.Skill.Performance",
+                                "value": "performance"
+                            },
+                            {
+                                "label": "PF2E.Skill.Religion",
+                                "value": "religion"
+                            },
+                            {
+                                "label": "PF2E.Skill.Society",
+                                "value": "society"
+                            },
+                            {
+                                "label": "PF2E.Skill.Stealth",
+                                "value": "stealth"
+                            },
+                            {
+                                "label": "PF2E.Skill.Survival",
+                                "value": "survival"
+                            },
+                            {
+                                "label": "PF2E.Skill.Thievery",
+                                "value": "thievery"
+                            },
+                            {
+                                "label": "PF2E.SkillLore",
+                                "value": "lore"
+                            }
+                        ],
+                        "flag": "assurance",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                        "selection": "medicine"
+                    },
+                    {
+                        "key": "SubstituteRoll",
+                        "label": "PF2E.SpecificRule.SubstituteRoll.Assurance",
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "slug": "assurance",
+                        "value": 10
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "predicate": [
+                            "substitute:assurance",
+                            {
+                                "not": "bonus:type:proficiency"
+                            }
+                        ],
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "suppress": true
+                    }
+                ],
+                "slug": "assurance",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fortune",
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "jtO77BrdxhpLo8ug",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.09PurtIanNUPfNRq"
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Combat Climber",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>Your techniques allow you to fight as you climb. You're not off-guard while Climbing and can Climb with a hand occupied. You must still use another hand and both legs to Climb.</p>"
+                },
+                "level": {
+                    "taken": 4,
+                    "value": 1
+                },
+                "location": "skill-4",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Athletics"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [],
+                "slug": "combat-climber",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "PUvN99Xgx73fPajg",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.8c61nOIr5AM3KxZi"
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Ward Medic",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>You've studied in large medical wards, treating several patients at once and tending to all their needs. When you use Treat Disease or Treat Wounds, you can treat up to two targets. If you're a master in Medicine, you can treat up to four targets, and if you're legendary, you can treat up to eight targets.</p>"
+                },
+                "level": {
+                    "taken": 6,
+                    "value": 2
+                },
+                "location": "skill-6",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "expert in Medicine"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [],
+                "slug": "ward-medic",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "x7fpRKQTSRtqWNn9",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.x9wxQ61HNkAVbDHr"
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Weapon Proficiency",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p>You become trained in all simple weapons. If you were already trained in all simple weapons, you become trained in all martial weapons. If you were already trained in all martial weapons, you become trained in one advanced weapon of your choice.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat more than once. Each time you do, you become trained in additional weapons as appropriate, following the above progression.</p>"
+                },
+                "level": {
+                    "taken": 3,
+                    "value": 1
+                },
+                "location": "general-3",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.proficiencies.attacks.martial.rank",
+                        "value": "min(1,@actor.system.proficiencies.attacks.simple.rank)"
+                    }
+                ],
+                "slug": "weapon-proficiency",
+                "subfeatures": {
+                    "proficiencies": {
+                        "simple": {
+                            "rank": 1
+                        }
+                    }
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "NBIOGc7OvDvzbPXy",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Focus Spells",
+            "sort": 0,
+            "system": {
+                "ability": {
+                    "value": "wis"
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "slug": "",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 0,
+                    "value": 0
+                },
+                "tradition": {
+                    "value": "divine"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "RINlrenH2khoN9kt",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.ZL8NTvB22NeEWhVG"
+            },
+            "img": "systems/pf2e/icons/spells/ki-strike.webp",
+            "name": "Ki Strike",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "1d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "untyped"
+                    }
+                },
+                "defense": null,
+                "description": {
+                    "value": "<p>You focus your ki into magical attacks. Make an unarmed Strike or Flurry of Blows (this doesn't change the limit on using only one flourish per turn).</p>\n<p>You gain a +1 status bonus to your attack rolls with the Strikes, and the Strikes deal 1d6 extra damage. This damage can be any of the following types of your choice, chosen each time you Strike: force, lawful (only if you're lawful), negative, or positive.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Inner Upheaval]{Spell Effect: Ki Strike}</p>\n<hr />\n<p><strong>Heightened (+4)</strong> The extra damage increases by 1d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 4,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "NBIOGc7OvDvzbPXy"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "ki-strike",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "concentrate",
+                        "focus",
+                        "monk"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "MvNAR8MQEC2Uv0b0",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.JNt7GmLCCVz5BiEI"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/javelin.webp",
+            "name": "Javelin",
+            "sort": 0,
+            "system": {
+                "baseItem": "javelin",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p>This thin spear is well balanced for throwing but is not designed for melee use.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "dart",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 3,
+                "range": 30,
+                "reload": {
+                    "value": "-"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "javelin",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "thrown"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "o2z0i5A9anQ620yy",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.wkzxLpSe7LN6c5Ld"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/sawtooth-saber.webp",
+            "name": "Sawtooth Saber",
+            "sort": 0,
+            "system": {
+                "baseItem": "sawtooth-saber",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "advanced",
+                "containerId": null,
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p>The signature weapon of the Red Mantis assassins, this curved blade is serrated like a saw, hence the name.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "sword",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 5
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "sawtooth-saber",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "twin"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "IFtZVbwoaKzz8orU",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FNDq4NFSN0g2HKWO"
+            },
+            "img": "icons/equipment/hand/gauntlet-simple-leather-brown-gold.webp",
+            "name": "Handwraps of Mighty Blows",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bonus": {
+                    "value": 1
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0
+                },
+                "category": "unarmed",
+                "containerId": null,
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "dice": 1,
+                    "die": "d4"
+                },
+                "description": {
+                    "value": "<p>As you invest these embroidered strips of cloth, you must meditate and slowly wrap them around your hands. These handwraps have weapon runes etched into them to give your unarmed attacks the benefits of those runes, making your unarmed attacks work like magic weapons. For example, <em>+1 striking handwraps of mighty blows</em> would give you a +1 item bonus to attack rolls with your unarmed attacks and increase the damage of your unarmed attacks from one weapon die to two (normally 2d4 instead of 1d4, but if your fists have a different weapon damage die or you have other unarmed attacks, use two of that die size instead).</p>\n<p>You can upgrade, add, and transfer runes to and from the handwraps just as you would for a weapon, and you can attach talismans to the handwraps. Treat the handwraps as melee weapons of the brawling group with light Bulk for these purposes. Property runes apply only when they would be applicable to the unarmed attack you're using. For example, a property that must be applied to a slashing weapon wouldn't function when you attacked with a fist, but you would gain its benefits if you attacked with a claw or some other slashing unarmed attack.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": true
+                },
+                "group": "brawling",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 2
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 35
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "handwraps-of-mighty-blows",
+                "splashDamage": {
+                    "value": null
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "invested",
+                        "magical",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                },
+                "usage": {
+                    "value": "worngloves"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "QNbDa80BHuURxzvN",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.dDIPA1WE9ESF67EB"
+            },
+            "img": "icons/equipment/chest/shirt-collared-pink.webp",
+            "name": "Explorer's Clothing",
+            "sort": 0,
+            "system": {
+                "acBonus": 0,
+                "baseItem": "explorers-clothing",
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "unarmored",
+                "checkPenalty": 0,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Adventurers who don't wear armor travel in durable clothing. Though it's not armor and uses your unarmored defense proficiency, it still has a Dex Cap and can grant an item bonus to AC if etched with potency runes.</p>"
+                },
+                "dexCap": 5,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": true
+                },
+                "group": "cloth",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "explorers-clothing",
+                "speedPenalty": 0,
+                "strength": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "comfort"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "WKDXQl51FTHbgq8H",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.o1zKhvYUUc1hE2AE"
+            },
+            "img": "icons/equipment/hand/glove-simple-cloth-white.webp",
+            "name": "Healer's Gloves",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>These clean, white gloves never show signs of blood, even when used to stitch up wounds or treat other ailments. They give you a +1 item bonus to Medicine checks.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> You can soothe the wounds of a willing, living, adjacent creature, restoring @Damage[(2d6+7)[healing]] Hit Points to that creature. This is a vitality healing effect. You can't harm undead with this healing.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": true
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 4
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 80
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "medicine",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
+                "size": "med",
+                "slug": "healers-gloves",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "worngloves"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "8lmhWXGwaJLeGDBQ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.s1vB3HdXjMigYAnY"
+            },
+            "img": "icons/containers/bags/pouch-gold-green.webp",
+            "name": "Healer's Tools",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to Administer First Aid, Treat Disease, Treat Poison, or Treat Wounds. If you wear your healer's tools, you can draw and replace them as part of the action that uses them.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 5
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "healers-tools",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "lhWR82GhlVFQFtL8",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.upzjwQ96cZG0Xlmx"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/religious-symbol-silver.webp",
+            "name": "Religious Symbol of Achaekek (Silver)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "has-religious-symbol",
+                        "requiresEquipped": false
+                    }
+                ],
+                "size": "med",
+                "slug": "religious-symbol-silver",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "p2wuS1flxOqpPmWD",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.BKdzb8hu3kZtKH3Z"
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bracelet-of-dashing.webp",
+            "name": "Bracelet of Dashing",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This jangling, silvery bracelet makes you lighter on your feet, giving you a +1 item bonus to Acrobatics checks.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> command</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You gain a +10-foot status bonus to Speed for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Bracelet of Dashing]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": true
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 58
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "acrobatics",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
+                "size": "med",
+                "slug": "bracelet-of-dashing",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "worn"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "3iFzYUSFDcLiyTg6",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ktjFOp3U0wQD9t0Z"
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/antidote.webp",
+            "name": "Antidote (Lesser)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "elixir",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p><hr /><p>An antidote protects you against toxins. Upon drinking an antidote, you gain a +2 item bonus to Fortitude saving throws against poisons for 6 hours.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Antidote]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "antidote-lesser",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir",
+                        "healing"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "UQm9VRR0T8s34Ivq",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.zM9VX3QwM81DzDUA"
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/bravos-brew.webp",
+            "name": "Bravo's Brew (Lesser)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "elixir",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p><hr /><p>This flask of foaming beer grants courage. For the next hour after drinking this elixir, you gain a +1 item bonus to Will saves, or +2 when attempting Will saves against fear.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Bravo's Brew]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 2
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 7
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "bravos-brew-lesser",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir",
+                        "mental"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "ucIy68akTqtwEyh4",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.bQPRKEpnLakJBAAh"
+            },
+            "img": "icons/consumables/potions/potion-tube-corked-glowing-red.webp",
+            "name": "Cat's Eye Elixir",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "elixir",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p><hr /><p>After you consume this elixir, your vision sharpens and you become sensitive to even the most minute movements.</p>\n<p>For the next minute, you reduce the flat check to target @UUID[Compendium.pf2e.conditionitems.Item.Hidden] creatures to @Check[flat|showDC:all|dc:5], and you don't need to attempt a flat check to target @UUID[Compendium.pf2e.conditionitems.Item.Concealed] creatures. These benefits apply only against creatures within 30 feet of you.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 2
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 7
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "cats-eye-elixir",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "4AGOiHRCj1KqTdzT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.88pGCHV0uKMskTVO"
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/darkvision-elixir.webp",
+            "name": "Darkvision Elixir (Lesser)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "elixir",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> (manipulate)</p>\n<hr />\n<p>After you drink this elixir, your sight becomes sharper in darkness. You gain darkvision for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Darkvision Elixir (Lesser)]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 2
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 6
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "darkvision-elixir-lesser",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "Zhstgo2XQiCuMAmC",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.mj9i9GeQTADByNPZ"
+            },
+            "img": "icons/consumables/potions/bottle-metal-yellow-gray.webp",
+            "name": "Juggernaut Mutagen (Moderate)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "mutagen",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p><hr /><p>Your body becomes sturdy and ponderous.</p>\n<p><strong>Benefit</strong> You gain a +2 item bonus to Fortitude saves and 10 temporary Hit Points. Whenever you are at maximum Hit Points for at least 1 full minute, you regain the temporary Hit Points.</p>\n<p><strong>Drawback</strong> You take a -2 penalty to Will saves, Perception checks and initiative rolls.</p>\n<p><strong>Duration</strong> 10 minute.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Juggernaut Mutagen (Moderate)]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 12
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "juggernaut-mutagen-moderate",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir",
+                        "mutagen",
+                        "polymorph"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "8NF3K6dNdHh5EcNA",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.jdDDqv9LbEYX2wAE"
+            },
+            "img": "systems/pf2e/icons/equipment/consumables/talismans/monkey-pin.webp",
+            "name": "Monkey Pin",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "talisman",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Usage</strong> affixed to armor</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Climb</p>\n<p><strong>Requirements</strong> You are trained in Athletics</p>\n<p>This small brass pin is in the shape of a monkey climbing a tree. When you activate this talisman, use a Climb action. If you succeed, you move your full Speed during the Climb. If you roll a critical failure, you get a failure instead.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 2
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 6
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "monkey-pin",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "magical",
+                        "talisman"
+                    ]
+                },
+                "usage": {
+                    "value": "affixed-to-armor"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "yAKmM24zn3lJoDTP",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.B6B7tBWJSqOBz5zz"
+            },
+            "img": "systems/pf2e/icons/equipment/treasure/currency/gold-pieces.webp",
+            "name": "Gold Pieces",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 5,
+                "rules": [],
+                "size": "med",
+                "slug": "gold-pieces",
+                "stackGroup": "coins",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
+            "_id": "BDGNVkwZjq6Ip8aX",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
+            },
+            "img": "icons/containers/bags/pack-leather-white-tan.webp",
+            "name": "Backpack",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "capacity": 4,
+                    "heldOrStowed": 0.1,
+                    "ignored": 2,
+                    "value": 0
+                },
+                "collapsed": false,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A backpack holds up to 4 Bulk of items and the first 2 Bulk of these items don't count against your Bulk limits. If you're carrying or stowing the pack rather than wearing it on your back, its Bulk is light instead of negligible</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "backpack",
+                "stowing": true,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "wornbackpack"
+                }
+            },
+            "type": "backpack"
+        },
+        {
+            "_id": "Z7hxnAg8dBGwhQxI",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.deities.Item.51kMMWaT6CqpGlGk"
+            },
+            "img": "systems/pf2e/icons/deities/achaekek.webp",
+            "name": "Achaekek",
+            "sort": 0,
+            "system": {
+                "attribute": [
+                    "dex",
+                    "str"
+                ],
+                "category": "deity",
+                "description": {
+                    "value": "<p>While Achaekek's divine genesis is heavily debated among scholars, it is believed that he was created-either by the power of a singular deity or a group of them-to eradicate those who would steal a god's divinity, and he has since become the enforcer of divine punishment. Known as He Who Walks in Blood, he slumbers in the blood of heretics and worshippers alike in an immense cleft carved into the base of the Boneyard's spire, a realm known as the Blood Vale. He keeps no formal relationships with any other deities, even his sister, Grandmother Spider, who repeatedly coaxes Achaekek to rebel against the gods and abandon his duties. In response, even though some gods disapprove of Achaekek's methods, few openly defy him.</p>\n<p><strong>Edicts</strong> conduct assassinations, spread the Red Mantis's infamy, wield sawtooth sabers in combat</p>\n<p><strong>Anathema</strong> kill a rightful ruler, become fixated on petty matters such as others' gender or ancestry, abandon an assassination contract you agreed to pursue</p>\n<p><strong>Areas of Concern</strong> assassins, divine punishments, and the Red Mantis</p>"
+                },
+                "domains": {
+                    "alternate": [],
+                    "primary": [
+                        "death",
+                        "might",
+                        "trickery",
+                        "zeal"
+                    ]
+                },
+                "font": [
+                    "harm"
+                ],
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Lost Omens Gods & Magic"
+                },
+                "rules": [],
+                "sanctification": {
+                    "modal": "can",
+                    "what": [
+                        "unholy"
+                    ]
+                },
+                "skill": [
+                    "stealth"
+                ],
+                "slug": "achaekek",
+                "spells": {
+                    "1": "Compendium.pf2e.spells-srd.Item.Sure Strike",
+                    "2": "Compendium.pf2e.spells-srd.Item.Invisibility",
+                    "4": "Compendium.pf2e.spells-srd.Item.Phantasmal Killer"
+                },
+                "weapons": [
+                    "sawtooth-saber"
+                ]
+            },
+            "type": "deity"
+        },
+        {
+            "_id": "OQBVv5WUE7AZ1pth",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.44F1mfJei4GY8f2X"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/crowbar.webp",
+            "name": "Crowbar",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "BDGNVkwZjq6Ip8aX",
+                "description": {
+                    "value": "<p>When Forcing Open an object that doesn't have an easy grip, a crowbar makes it easier to gain the necessary leverage. Without a crowbar, prying something open takes a -2 item penalty to the Athletics check to Force Open (similar to using a shoddy item).</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 5
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "AdjustModifier",
+                        "selector": "athletics",
+                        "slug": "no-crowbar",
+                        "suppress": true
+                    }
+                ],
+                "size": "med",
+                "slug": "crowbar",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "u3FiAH8YUZUkJLLv",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Jvp0x2Sc82WVpExT"
+            },
+            "img": "icons/containers/chest/chest-simple-box-red.webp",
+            "name": "Disguise Kit",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "BDGNVkwZjq6Ip8aX",
+                "description": {
+                    "value": "<p>This small wooden box contains cosmetics, false facial hair, spirit gum, and a few simple wigs. You usually need a disguise kit to set up a disguise in order to Impersonate someone using the Deception skill. If you've crafted a large number of disguises, you can replenish your cosmetics supply with replacement cosmetics suitable for the type of your disguise kit.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "disguise-kit",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "WEe074p4ggh5d7jf",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.6DCy7tEF1cxaIJMy"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/grapling-hook.webp",
+            "name": "Grappling Hook",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "BDGNVkwZjq6Ip8aX",
+                "description": {
+                    "value": "<p>You can throw a grappling hook with a rope tied to it to make a climb easier. To anchor a grappling hook, make an attack roll with the secret trait against a DC depending on the target, typically at least DC 20. On a success, your hook has a firm hold, but on a critical failure, the hook seems like it will hold but actually falls when you're partway up.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "grappling-hook",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "jDNFSrmMknicnbTZ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.WAsQ6WuMYUB77Uh0"
+            },
+            "img": "icons/tools/navigation/hourglass-yellow.webp",
+            "name": "Hourglass",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "BDGNVkwZjq6Ip8aX",
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "hourglass",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "EkkVcwoip03WQ6Sw",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.fyYnQf1NAx9fWFaS"
+            },
+            "img": "icons/sundries/survival/rope-wrapped-brown.webp",
+            "name": "Rope",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "BDGNVkwZjq6Ip8aX",
+                "description": {
+                    "value": "<p>50 feet of rope.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 5
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "rope",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "wY7TN0X1oBL7DscM",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UtRH6jt3iNFCgLLG"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/spyglass.webp",
+            "name": "Spyglass",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "BDGNVkwZjq6Ip8aX",
+                "description": {
+                    "value": "<p>A typical spyglass lets you see eight times farther than normal.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 20
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "spyglass",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "qPC9bSZZmk2GKYzA",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.y4WJY8rCbY6d1MET"
+            },
+            "img": "icons/weapons/wands/wand-carved-fire.webp",
+            "name": "Sunrod",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "other",
+                "containerId": "BDGNVkwZjq6Ip8aX",
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>This 1-foot-long, gold-tipped rod glows after it's struck on a hard surface. For the next 6 hours, it sheds bright light in a 20-foot radius (and dim light to the next 40 feet).</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "sunrod",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "light"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "JWDBSmmVTNEDcWYU",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classes.Item.YPxpk9JbMnKjbNLc"
+            },
+            "img": "systems/pf2e/icons/classes/monk.webp",
+            "name": "Monk",
+            "sort": 0,
+            "system": {
+                "ancestryFeatLevels": {
+                    "value": [
+                        1,
+                        5,
+                        9,
+                        13,
+                        17
+                    ]
+                },
+                "attacks": {
+                    "advanced": 0,
+                    "martial": 0,
+                    "other": {
+                        "name": "",
+                        "rank": 0
+                    },
+                    "simple": 1,
+                    "unarmed": 1
+                },
+                "classFeatLevels": {
+                    "value": [
+                        1,
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "defenses": {
+                    "heavy": 0,
+                    "light": 0,
+                    "medium": 0,
+                    "unarmored": 2
+                },
+                "description": {
+                    "value": "<p><em>The strength of your fist flows from your mind and spirit. You seek perfection-honing your body into a flawless instrument and your mind into an orderly bastion of wisdom. You're a fierce combatant renowned for martial arts skills and combat stances that grant you unique fighting moves. While the challenge of mastering many fighting styles drives you to great heights, you also enjoy meditating on philosophical questions and discovering new ways to obtain peace and enlightenment.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.kzxu2dI7tFxv6Ix6.JournalEntryPage.hGKd722Kn4ZxIOJs]{Monk}</em></p>"
+                },
+                "generalFeatLevels": {
+                    "value": [
+                        3,
+                        7,
+                        11,
+                        15,
+                        19
+                    ]
+                },
+                "hp": 10,
+                "items": {
+                    "1fw9s": {
+                        "img": "icons/magic/fire/flame-burning-embers-yellow.webp",
+                        "level": 3,
+                        "name": "Mystic Strikes",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Mystic Strikes"
+                    },
+                    "2yqet": {
+                        "img": "systems/pf2e/icons/features/classes/weapon-specialization.webp",
+                        "level": 7,
+                        "name": "Weapon Specialization",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Specialization"
+                    },
+                    "3ohvk": {
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
+                        "level": 11,
+                        "name": "Second Path to Perfection",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Second Path to Perfection"
+                    },
+                    "4ru9g": {
+                        "img": "icons/skills/melee/hand-grip-sword-orange.webp",
+                        "level": 15,
+                        "name": "Greater Weapon Specialization (Level 15)",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Greater Weapon Specialization"
+                    },
+                    "8tl8t": {
+                        "img": "systems/pf2e/icons/features/classes/incredible-movement.webp",
+                        "level": 3,
+                        "name": "Incredible Movement",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Incredible Movement"
+                    },
+                    "ai4sq": {
+                        "img": "icons/skills/melee/hand-grip-staff-yellow-brown.webp",
+                        "level": 5,
+                        "name": "Expert Strikes",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Expert Strikes"
+                    },
+                    "bgd0f": {
+                        "img": "icons/creatures/eyes/human-single-blue.webp",
+                        "level": 5,
+                        "name": "Alertness",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Alertness"
+                    },
+                    "c8q3r": {
+                        "img": "icons/skills/melee/unarmed-punch-fist-yellow-red.webp",
+                        "level": 1,
+                        "name": "Flurry of Blows",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Flurry of Blows"
+                    },
+                    "dzcvw": {
+                        "img": "systems/pf2e/icons/features/classes/graceful-legend.webp",
+                        "level": 17,
+                        "name": "Graceful Legend",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Graceful Legend"
+                    },
+                    "iqbky": {
+                        "img": "icons/skills/melee/unarmed-punch-fist.webp",
+                        "level": 1,
+                        "name": "Powerful Fist",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Powerful Fist"
+                    },
+                    "k3mxz": {
+                        "img": "icons/magic/defensive/illusion-evasion-echo-purple.webp",
+                        "level": 13,
+                        "name": "Graceful Mastery",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Graceful Mastery"
+                    },
+                    "t4zic": {
+                        "img": "icons/magic/unholy/silhouette-robe-evil-power.webp",
+                        "level": 9,
+                        "name": "Monk Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Monk Expertise"
+                    },
+                    "udbeu": {
+                        "img": "icons/magic/lightning/fist-unarmed-strike-blue-green.webp",
+                        "level": 9,
+                        "name": "Metal Strikes",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Metal Strikes"
+                    },
+                    "xcxpa": {
+                        "img": "systems/pf2e/icons/features/classes/adamantine-strikes.webp",
+                        "level": 17,
+                        "name": "Adamantine Strikes",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Adamantine Strikes"
+                    },
+                    "z0s0v": {
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
+                        "level": 7,
+                        "name": "Path to Perfection",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Path to Perfection"
+                    },
+                    "zeyz5": {
+                        "img": "icons/magic/unholy/strike-body-life-soul-purple.webp",
+                        "level": 19,
+                        "name": "Perfected Form",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Perfected Form"
+                    },
+                    "zgtbz": {
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
+                        "level": 15,
+                        "name": "Third Path to Perfection",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Third Path to Perfection"
+                    },
+                    "zl9gg": {
+                        "img": "icons/magic/fire/flame-burning-fist-strike.webp",
+                        "level": 13,
+                        "name": "Master Strikes",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Master Strikes"
+                    }
+                },
+                "keyAbility": {
+                    "selected": "str",
+                    "value": [
+                        "dex",
+                        "str"
+                    ]
+                },
+                "perception": 1,
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [],
+                "savingThrows": {
+                    "fortitude": 2,
+                    "reflex": 2,
+                    "will": 2
+                },
+                "skillFeatLevels": {
+                    "value": [
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "skillIncreaseLevels": {
+                    "value": [
+                        3,
+                        5,
+                        7,
+                        9,
+                        11,
+                        13,
+                        15,
+                        17,
+                        19
+                    ]
+                },
+                "slug": "monk",
+                "spellcasting": 0,
+                "trainedSkills": {
+                    "additional": 4,
+                    "value": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "class"
+        },
+        {
+            "_id": "Q9BPWlRKOtJDHX6Z",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
+            },
+            "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/human.svg",
+            "name": "Human",
+            "sort": 0,
+            "system": {
+                "additionalLanguages": {
+                    "count": 1,
+                    "custom": "",
+                    "value": []
+                },
+                "boosts": {
+                    "0": {
+                        "selected": "str",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    },
+                    "1": {
+                        "selected": "dex",
+                        "value": [
+                            "str",
+                            "dex",
+                            "con",
+                            "int",
+                            "wis",
+                            "cha"
+                        ]
+                    },
+                    "2": {
+                        "value": []
+                    }
+                },
+                "description": {
+                    "value": "<p><em>As unpredictable and varied as any of Golarion's peoples, humans have exceptional drive and the capacity to endure and expand. Though many civilizations thrived before humanity rose to prominence, humans have built some of the greatest and the most terrible societies throughout the course of history, and today they are the most populous people in the realms around the Inner Sea.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.45SK8rdbbxvEHfMn.JournalEntryPage.7pU8yM7yPMw92SY3]{Human}</em></p>"
+                },
+                "flaws": {
+                    "0": {
+                        "value": []
+                    }
+                },
+                "hp": 8,
+                "items": {},
+                "languages": {
+                    "custom": "",
+                    "value": [
+                        "common"
+                    ]
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "reach": 5,
+                "rules": [],
+                "size": "med",
+                "slug": "human",
+                "speed": 25,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "human",
+                        "humanoid"
+                    ]
+                },
+                "vision": "normal"
+            },
+            "type": "ancestry"
+        },
+        {
+            "_id": "SIJOOH5FWiVUvBY5",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.NLHHHiAcdnZ5ohc2"
+            },
+            "img": "icons/skills/melee/unarmed-punch-fist-yellow-red.webp",
+            "name": "Flurry of Blows",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Make two unarmed Strikes. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses. Apply your multiple attack penalty to the Strikes normally. As a flourish ability, you can use Flurry of Blows only once per turn.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "JWDBSmmVTNEDcWYU",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [],
+                "slug": "flurry-of-blows",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "flourish",
+                        "monk"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "owzpSE1AvpKGapay",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.SB8UJ8rZmvbcBweJ"
+            },
+            "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
+            "name": "Powerful Fist",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Your fists are deadly weapons. The damage die for your fist increases to 1d6 instead of 1d4. You don't take the normal –2 circumstance penalty when making a lethal attack with your fist or any other unarmed attacks.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "JWDBSmmVTNEDcWYU",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "fist": true,
+                        "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
+                        "key": "Strike"
+                    },
+                    {
+                        "itemId": "xxxxxxFISTxxxxxx",
+                        "key": "ItemAlteration",
+                        "mode": "upgrade",
+                        "property": "damage-dice-faces"
+                    }
+                ],
+                "slug": "powerful-fist",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "monk"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "Nu5HQsfzNqTBDCpH",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.D2AE8RfMlZ3D1FuV"
+            },
+            "img": "icons/magic/fire/flame-burning-embers-yellow.webp",
+            "name": "Mystic Strikes",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Focusing your will into your physical attacks imbues them with mystical energy. Your unarmed attacks become magical, allowing them to get past resistances to non-magical attacks. However, you still need an item such as @UUID[Compendium.pf2e.equipment-srd.Item.Handwraps of Mighty Blows]{Handwraps of Mighty Blows (+1)} to gain an item bonus to attack rolls or increase your attacks' weapon damage dice.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "JWDBSmmVTNEDcWYU",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "itemType": "weapon",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:category:unarmed",
+                                    {
+                                        "and": [
+                                            "item:trait:monk",
+                                            "feat:monastic-weaponry"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "property": "traits",
+                        "value": "magical"
+                    }
+                ],
+                "slug": "mystic-strikes",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "monk"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "KUXewTHv0lFRxuLb",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.Cq6NjvcKZOMySBVj"
+            },
+            "img": "systems/pf2e/icons/features/classes/incredible-movement.webp",
+            "name": "Incredible Movement",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You move like the wind. You gain a +10-foot status bonus to your Speed whenever you're not wearing armor. The bonus increases by 5 feet for every 4 levels you have beyond 3rd.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "JWDBSmmVTNEDcWYU",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "not": "self:armored"
+                            }
+                        ],
+                        "selector": "land-speed",
+                        "slug": "incredible-movement",
+                        "type": "status",
+                        "value": {
+                            "brackets": [
+                                {
+                                    "end": 6,
+                                    "start": 3,
+                                    "value": 10
+                                },
+                                {
+                                    "end": 10,
+                                    "start": 7,
+                                    "value": 15
+                                },
+                                {
+                                    "end": 14,
+                                    "start": 11,
+                                    "value": 20
+                                },
+                                {
+                                    "end": 18,
+                                    "start": 15,
+                                    "value": 25
+                                },
+                                {
+                                    "start": 19,
+                                    "value": 30
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "slug": "incredible-movement",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "monk"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "hJzCzjmMpniMZqwR",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.VgZIutWjFl8oZQFi"
+            },
+            "img": "icons/skills/melee/hand-grip-staff-yellow-brown.webp",
+            "name": "Expert Strikes",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You've practiced martial arts and have now surpassed your former skill. Your proficiency ranks for unarmed attacks and simple weapons increase to expert. When you get a critical hit with an unarmed attack in the brawling group, you get its critical specialization effect.</p>"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": "JWDBSmmVTNEDcWYU",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            "item:category:unarmed",
+                            "item:group:brawling"
+                        ]
+                    }
+                ],
+                "slug": "expert-strikes",
+                "subfeatures": {
+                    "proficiencies": {
+                        "simple": {
+                            "rank": 2
+                        },
+                        "unarmed": {
+                            "rank": 2
+                        }
+                    }
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "monk"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "lwXYm5GbVSufSjfE",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.D8CSi8c9XiRpVc5M"
+            },
+            "img": "icons/creatures/eyes/human-single-blue.webp",
+            "name": "Alertness",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Experience has made you increasingly aware of threats around you, and you react more quickly to danger. Your proficiency rank for Perception increases to expert.</p>"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": "JWDBSmmVTNEDcWYU",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [],
+                "slug": "alertness",
+                "subfeatures": {
+                    "proficiencies": {
+                        "perception": {
+                            "rank": 2
+                        }
+                    }
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "inventor",
+                        "magus"
+                    ]
+                }
+            },
+            "type": "feat"
+        }
+    ],
+    "name": "Yacob",
+    "system": {
+        "abilities": null,
+        "attributes": {
+            "hp": {
+                "temp": 0,
+                "value": 80
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "build": {
+            "attributes": {
+                "boosts": {
+                    "1": [
+                        "str",
+                        "wis",
+                        "dex",
+                        "con"
+                    ],
+                    "5": [
+                        "dex",
+                        "wis",
+                        "con",
+                        "int"
+                    ]
+                }
+            }
+        },
+        "crafting": {
+            "formulas": []
+        },
+        "customModifiers": {},
+        "details": {
+            "age": {
+                "value": ""
+            },
+            "alliance": "party",
+            "biography": {
+                "allies": "",
+                "anathema": [],
+                "appearance": "",
+                "attitude": "",
+                "backstory": "<p>Trained as a doctor, Yacob readily turns his medical mastery into deadly unarmed strikes that disable foes, crossing impossible distances in an instant to execute surprised targets or patch his allies' wounds.</p>\n<p>As a field medic in Taldor's phalanx, Yacob Kress served under a dozen egotistical, short-lived nobles during Taldor's recent succession wars. Time and again, these nobles' arrogance and ambition got soldiers killed, and Yacob was left healing those unlucky enough to survive and burying the rest. He became so bitter that when a Red Mantis assassin killed Yacob's latest patron before his eyes, the medic didn't seek revenge; he sought training. Intrigued, the assassin accepted, taking Yacob to Mediogalti island to learn Achaekek's deadly arts. Several years later, Yacob finds grim catharsis every time he executes an arrogant fool, as if taking revenge against his old Taldan commanders-though he prefers not to harm bystanders whenever he can help it.</p>\n<p><strong>Eteleon:</strong> This is the very assassin who eviscerated Yacob's commander and introduced the medic to the Red Mantis. The stoic Eteleon has provided Yacob with invaluable mentorship, and this is their first mission together. Yacob is eager to prove what he's learned.</p>\n<p><strong>Kangir:</strong> Yacob only knows Kangir by reputation, specifically as one of the foul champions responsible for the succession wars' \"Temple Canyon Tragedy.\" Yacob suppresses any grudge for the incident; that was a lifetime ago.</p>\n<p><strong>Zeah:</strong> Yacob and Zeah trained together as assassins. Surviving that harrowing education has forged an unspoken respect, bond, and light rivalry between the two.</p>",
+                "beliefs": "",
+                "birthPlace": "",
+                "campaignNotes": "",
+                "catchphrases": "",
+                "dislikes": "",
+                "edicts": [],
+                "enemies": "",
+                "likes": "",
+                "organizations": ""
+            },
+            "deity": {
+                "image": "systems/pf2e/icons/default-icons/deity.svg",
+                "value": "Achaekek"
+            },
+            "ethnicity": {
+                "value": ""
+            },
+            "gender": {
+                "value": "M/He/Him"
+            },
+            "height": {
+                "value": ""
+            },
+            "keyability": {
+                "value": "str"
+            },
+            "languages": {
+                "details": "",
+                "value": [
+                    "dwarven",
+                    "kelish"
+                ]
+            },
+            "level": {
+                "value": 6
+            },
+            "nationality": {
+                "value": ""
+            },
+            "weight": {
+                "value": ""
+            },
+            "xp": {
+                "max": 1000,
+                "min": 0,
+                "pct": 0,
+                "value": 0
+            }
+        },
+        "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
+        "pfs": {
+            "characterNumber": null,
+            "currentFaction": "EA",
+            "fame": 0,
+            "levelBump": false,
+            "playerNumber": null,
+            "reputation": {
+                "EA": 0,
+                "GA": 0,
+                "HH": 0,
+                "RO": 0,
+                "VS": 0,
+                "VW": 0
+            },
+            "school": "none"
+        },
+        "proficiencies": {
+            "attacks": {
+                "martial": {
+                    "rank": 1
+                },
+                "weapon-base-sawtooth-saber": {
+                    "custom": true,
+                    "rank": 2
+                }
+            }
+        },
+        "resources": {
+            "focus": {
+                "value": 1
+            },
+            "heroPoints": {
+                "max": 3,
+                "value": 1
+            }
+        },
+        "saves": {},
+        "skills": {
+            "acrobatics": {
+                "rank": 2
+            },
+            "arcana": {
+                "rank": 0
+            },
+            "athletics": {
+                "rank": 1
+            },
+            "crafting": {
+                "rank": 0
+            },
+            "deception": {
+                "rank": 1
+            },
+            "diplomacy": {
+                "rank": 0
+            },
+            "intimidation": {
+                "rank": 0
+            },
+            "medicine": {
+                "rank": 2
+            },
+            "nature": {
+                "rank": 1
+            },
+            "occultism": {
+                "rank": 0
+            },
+            "performance": {
+                "rank": 0
+            },
+            "religion": {
+                "rank": 1
+            },
+            "society": {
+                "rank": 0
+            },
+            "stealth": {
+                "rank": 1
+            },
+            "survival": {
+                "rank": 0
+            },
+            "thievery": {
+                "rank": 0
+            }
+        }
+    },
+    "type": "character"
+}

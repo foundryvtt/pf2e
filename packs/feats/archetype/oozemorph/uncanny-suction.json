@@ -1,0 +1,73 @@
+{
+    "_id": "MD33E76f2olLnDZb",
+    "folder": "ixijNjRlguTUPAd0",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Uncanny Suction",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your limbs produce strange, sucker-like growths that allow you to adhere to walls, objects, and most other surfaces. You gain a @UUID[Compendium.pf2e.actionspf2e.Item.Climb] Speed equal to your half your land Speed (minimum 5 feet). If you have the @UUID[Compendium.pf2e.feats-srd.Item.Quick Climb] feat, your climb Speed is equal to your land Speed. In addition, you gain a +2 circumstance bonus to your Reflex DC to avoid being @UUID[Compendium.pf2e.actionspf2e.Item.Disarm]{Disarmed}.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Oozemorph Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Adventure: The Slithering"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.oozemorphDedicationCount",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:disarm"
+                ],
+                "selector": "reflex-dc",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "climb",
+                "value": "max(5,floor(@actor.attributes.speed.total/2))"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "feat:quick-climb"
+                ],
+                "selector": "climb",
+                "value": "@actor.attributes.speed.total"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "selected": {
+                "archetype": "Archetype"
+            },
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

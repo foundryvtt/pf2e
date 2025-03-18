@@ -13,7 +13,7 @@
                     <span class="label">{{modifier.label}}</span>
                     <span class="data">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
                     {{#if modifier.custom}}
-                        <i class="fa-regular fa-times-circle remove-modifier" data-action="remove-modifier" data-slug="{{modifier.slug}}" title="{{localize "PF2E.RemoveModifierTitle"}}"></i>
+                        <i class="fa-regular fa-circle-xmark remove-modifier" data-action="remove-modifier" data-slug="{{modifier.slug}}" title="{{localize "PF2E.RemoveModifierTitle"}}"></i>
                     {{/if}}
                 </li>
             {{/if}}
@@ -22,7 +22,7 @@
             <li class="item add-modifier">
                 <div class="add-modifier-value">
                     <input type="number" placeholder="+1">
-                    <i class="fa-solid fa-plus-circle" data-action="increment"></i>
+                    <i class="fa-solid fa-circle-plus" data-action="increment"></i>
                     <i class="fa-solid fa-minus-circle" data-action="decrement"></i>
                 </div>
 

@@ -1,0 +1,47 @@
+{
+    "_id": "ixAmr0VkB6q6LpGq",
+    "img": "icons/weapons/polearms/spear-flared-silver-pink.webp",
+    "name": "Effect: Rod of Rule",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Rod of Rule]</p>\n<p>You take –2 circumstance penalty to saves against any of the origin's curriculum or sin spells.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:signature:{item|origin.signature}",
+                    "item:tag:runelord-curriculum-spell"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

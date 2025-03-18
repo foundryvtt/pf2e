@@ -9,7 +9,7 @@
                 <label class="option">
                     <input type="checkbox" name="{{key}}" {{checked choice.selected}} {{disabled choice.disabled}} />
                     <span>{{choice.label}}</span>
-                    {{#if choice.source}}<i class="fa-solid fa-info-circle" data-tooltip="{{choice.source}}" data-tooltip-direction="RIGHT"></i>{{/if}}
+                    {{#if choice.source}}<i class="fa-solid fa-circle-info" data-tooltip="{{choice.source}}" data-tooltip-direction="RIGHT"></i>{{/if}}
                 </label>
                 {{#if choice.rarity~}}
                     <div class="tags paizo-style">
@@ -35,7 +35,7 @@
         {{~/if}}
 
         <button type="submit">
-            <i class="fa-regular fa-save"></i>{{localize "DOCUMENT.Update" type=(localize documentType)}}
+            <i class="fa-regular fa-floppy-disk"></i>{{localize "DOCUMENT.Update" type=(localize documentType)}}
         </button>
     </footer>
 </form>

@@ -1,0 +1,166 @@
+{
+    "_id": "0IzwmjL0OIfDqInF",
+    "folder": "GEYMTBc61Q7Fksfo",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "pmDOUpL0n8AUC5mr",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Drop and Roll",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A lever at the top of the south tower is pulled</p>\n<hr />\n<p><strong>Effect</strong> A thick column of stone drops from above the gate, then uses crushing roll. The rolling stone cylinder trap rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "L0uejvdQuMKc68xL",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Speed 20 feet (west only)",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6zAnbkvb7WEkCJsR",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Crushing Roll",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The rolling stone cylinder is not @UUID[Compendium.pf2e.conditionitems.Item.Immobilized]</p>\n<hr />\n<p><strong>Effect</strong> The rolling stone cylinder trap moves its Speed west along the bridge. Creatures it moves past or lands on take @Damage[5d6[bludgeoning]] damage and are forced to move west to the first available space (@Check[reflex|dc:27|basic]). Creatures who critically succeed at the Reflex save are not damaged but are still moved west. If the rolling stone tries to move into a non-creature obstruction, such as a wall or barricade, it deals bludgeoning damage to the obstruction and only continues moving if the obstruction is destroyed, otherwise the trap stops.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Rolling Stone Cylinder Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 21
+            },
+            "emitsSound": "encounter",
+            "hardness": 14,
+            "hp": {
+                "details": "(BT 29)",
+                "max": 58,
+                "temp": 0,
+                "value": 58
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 18
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A 10-foot-long, 5-foot-thick column of stone thuds to the ground, just in front of the bridge. It immediately starts to roll down the bridge, quickly picking up speed.</p>",
+            "disable": "<p>@Check[thievery|dc:25] check to create a wedge to immobilize the column, @Check[athletics|dc:21] check to immobilize the column until the end of the creature's next turn, a creature can Climb over an @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] column with a successful @Check[athletics|dc:18] check.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder #194: Cult of the Cave Worm"
+            },
+            "reset": "",
+            "routine": "<p>(1 action) The rolling stone cylinder trap uses Crushing Roll.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 18
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

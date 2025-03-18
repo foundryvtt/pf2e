@@ -1,0 +1,65 @@
+{
+    "_id": "h5ZT9i79BFVJ0VfE",
+    "folder": "Y1a1vNRrTclMC6Nw",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Basic Concoction",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain a 1st- or 2nd-level alchemist feat.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Alchemist Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:category:class",
+                        "item:trait:alchemist",
+                        {
+                            "lte": [
+                                "item:level",
+                                2
+                            ]
+                        }
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "basicConcoction",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.basicConcoction}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

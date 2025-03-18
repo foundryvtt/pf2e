@@ -38,8 +38,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /** Has this document completed `DataModel` initialization? */
     declare initialized: boolean;
 
-    /** Additional item roll options set by rule elements */
-    declare rollOptions: Set<string>;
+    /** Additional item roll options not derived from an item's own data */
+    declare specialOptions: string[];
 
     /** The item that granted this item, if any */
     declare grantedBy: ItemPF2e<ActorPF2e> | null;
@@ -161,7 +161,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             `${prefix}:${slug}`,
             `${prefix}:slug:${slug}`,
             ...granterOptions,
-            ...Array.from(this.rollOptions).map((o) => `${prefix}:${o}`),
+            ...Array.from(this.specialOptions).map((o) => `${prefix}:${o}`),
             ...traitOptions.map((t) => `${prefix}:${t}`),
             ...otherTags.map((t) => `${prefix}:tag:${t}`),
         ];
@@ -245,7 +245,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     protected override _initialize(options?: Record<string, unknown>): void {
         this.initialized = false;
         this.rules = [];
-        this.rollOptions = new Set();
+        this.specialOptions = [];
 
         super._initialize(options);
     }
@@ -650,9 +650,20 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         for (const item of [...items]) {
             // Pre-load this item's self: roll options for predication by preCreate rule elements
             item.prepareActorData?.();
+            const rules = item.prepareRuleElements({ suppressWarnings: true });
+
+            // Mark suppressed feats as suppressed during preCreate.
+            // This must happen *after* rules are fetched, as suppressing kills the rules
+            // Our only goal is to prevent choice sets, which are not salvageable
+            const sourceId = item.sourceId;
+            if (sourceId && item.isOfType("feat")) {
+                item.suppressed ||=
+                    items.some(
+                        (i) => i.isOfType("feat") && i.system.subfeatures.suppressedFeatures.includes(sourceId),
+                    ) || actor.itemTypes.feat.some((f) => f.system.subfeatures.suppressedFeatures.includes(sourceId));
+            }
 
             const itemSource = item._source;
-            const rules = item.prepareRuleElements({ suppressWarnings: true });
             for (const rule of rules) {
                 const ruleSource = itemSource.system.rules[rules.indexOf(rule)] as RuleElementSource;
                 await rule.preCreate?.({

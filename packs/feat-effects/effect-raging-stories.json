@@ -1,0 +1,45 @@
+{
+    "_id": "1DT1CRjh6JfjnXQG",
+    "img": "icons/magic/fire/flame-burning-campfire-red.webp",
+    "name": "Effect: Raging Stories",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Raging Stories]</p>\n<p>Your melee Strikes deal 2 additional fire damage. The fire damage increases to 4 if you are a master of Religion and 6 if you are legendary.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "rules": [
+            {
+                "damageType": "fire",
+                "key": "FlatModifier",
+                "selector": [
+                    "melee-strike-damage"
+                ],
+                "value": "ternary(gte(@actor.skills.religion.rank,4),6,ternary(gte(@actor.skills.religion.rank,3),4,2))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

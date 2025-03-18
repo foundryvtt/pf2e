@@ -7,6 +7,7 @@ import type { AbilityItemPF2e } from "@item";
 import { AbilityTrait } from "@item/ability/types.ts";
 import { EffectTrait } from "@item/abstract-effect/types.ts";
 import { RangeData } from "@item/types.ts";
+import { WeaponDamage } from "@item/weapon/data.ts";
 import { WeaponTrait } from "@item/weapon/types.ts";
 import {
     extractDamageDice,
@@ -20,11 +21,12 @@ import { CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
 import { DamageModifierDialog } from "@system/damage/dialog.ts";
 import { createDamageFormula } from "@system/damage/formula.ts";
-import { DamageCategorization } from "@system/damage/helpers.ts";
+import { DamageCategorization, processBaseDamage } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import {
     BaseDamageData,
     DamageDamageContext,
+    DamageDiceFaces,
     DamageFormulaData,
     DamageType,
     SimpleDamageTemplate,
@@ -419,16 +421,32 @@ class ElementalBlast {
         }).resolve();
         if (!context.origin) return null;
 
+        const processedDamage: WeaponDamage = processBaseDamage(
+            "elemental-blast-damage",
+            {
+                category: null,
+                damageType: params.damageType,
+                dice: 1,
+                die: `d${blastConfig.dieFaces}`,
+                modifier: 0,
+                persistent: null,
+            },
+            { actor: context.origin.actor, item, domains, options: context.options },
+        );
         const baseDamage: BaseDamageData = {
             category: null,
-            damageType: params.damageType,
+            damageType: processedDamage.damageType,
             terms: [
                 {
-                    dice: { number: 1, faces: blastConfig.dieFaces },
                     modifier: 0,
+                    dice: {
+                        number: processedDamage.dice,
+                        faces: Number(processedDamage.die?.replace(/^d/, "")) as DamageDiceFaces,
+                    },
                 },
             ],
         };
+
         const damageSynthetics = processDamageCategoryStacking([baseDamage], {
             modifiers: extractModifiers(context.origin.actor.synthetics, domains, {
                 test: context.options,

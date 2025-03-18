@@ -1,0 +1,70 @@
+{
+    "_id": "nHoRM1gLL7MtIiCS",
+    "folder": "oGHn1RgWemXs5PgR",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Djinni Magic",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>The magic of djinn runs through your blood. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Gust of Wind] and @UUID[Compendium.pf2e.spells-srd.Item.Invisibility] once per day each as 2nd-rank arcane innate spells.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Ancestry Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:gust-of-wind",
+                            "item:slug:invisibility"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:gust-of-wind",
+                            "item:slug:invisibility"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:sylph"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sylph"
+            ]
+        }
+    },
+    "type": "feat"
+}

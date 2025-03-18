@@ -1,0 +1,142 @@
+{
+    "_id": "m0QKcE7scGy5f77t",
+    "folder": "afdlDlLAsVu7DaVp",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "tN4hthC7AnzxZkbs",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Battle Roar",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the haunt's area</p><hr /><p><strong>Effect</strong> The orc warriors roar in fury, dealing @Damage[(2d10+13)[sonic]] damage (@Check[fortitude|dc:28|basic] save) to all living creatures within the haunt, then rolls initiative. Creatures that critically fail their saves are @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} until Umbra's Last Stand is quelled.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TDqUXVMCmZEW0QxI",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Frozen Fists",
+            "sort": 0,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "hQkr6ePVOWB1y096": {
+                        "damage": "11",
+                        "damageType": "cold"
+                    },
+                    "qPuVCcuSYvSqnI1N": {
+                        "damage": "2d10",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "cold",
+                        "range-increment-60"
+                    ]
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Army of Mist",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(expert) or @UUID[Compendium.pf2e.spells-srd.Item.Detect Magic]</p>",
+                "value": 20
+            }
+        },
+        "details": {
+            "description": "<p>The wind intensifies and the seeping fog rushes forward in a stampede of ghostly orcs screaming wordless battle cries, weapons raised to slaughter their foes.</p>",
+            "disable": "<p>@Check[occultism|dc:28] (expert) to funnel the magic powering the mist back into itself, or @Check[religion|dc:30] (expert) to exorcise some of the trapped souls and weaken the storm; three total successes in any combination are required to disable the haunt</p>",
+            "isComplex": true,
+            "level": {
+                "value": 9
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #209: Destroyer's Doom"
+            },
+            "reset": "<p>The haunt deactivates 1 minute after all creatures leave the area of Fort Whiteskull but resets immediately. The army of mist resets 1 day after being disabled if the ancestor storm isn't put to rest.</p>",
+            "routine": "<p>(3 actions) The army of mist uses 3 actions to make frozen fists Strikes against three random creatures, favoring non-orcs or anyone who attempted to Disable it within the past round.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "haunt",
+                "occult"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -88,7 +88,7 @@
                         {{~else if (and (eq item.system.equipped.carryType "held") (eq item.system.equipped.handsHeld 2))}}<span class="fa-stack fa-fw fa-2xs"><i class="fa-solid fa-hand-back-fist fa-stack-2x"></i><i class="fa-solid fa-2 fa-inverse fa-stack-1x"></i></span>
                         {{~else if (eq item.system.equipped.carryType "stowed")}}<i class="fa-solid fa-box fa-fw"></i>
                         {{~else if (eq item.system.equipped.carryType "dropped")}}<i class="fa-solid fa-grip-lines fa-fw"></i>
-                        {{~else}}<i class="fa-solid fa-tshirt fa-fw"></i>{{/if~}}
+                        {{~else}}<i class="fa-solid fa-shirt fa-fw"></i>{{/if~}}
                     </a>
                 {{/if}}
                 {{#if item.isDamaged}}
@@ -96,7 +96,7 @@
                 {{/if}}
                 {{#if @root.user.isGM}}
                     {{#if item.isIdentified}}
-                        <a data-action="toggle-identified" data-tooltip="PF2E.identification.Mystify"><i class="fa-regular fa-question-circle fa-fw"></i></a>
+                        <a data-action="toggle-identified" data-tooltip="PF2E.identification.Mystify"><i class="fa-regular fa-circle-question fa-fw"></i></a>
                     {{else}}
                         <a data-action="toggle-identified" data-tooltip="PF2E.identification.Identify"><i class="fa-solid fa-question-circle fa-fw"></i></a>
                     {{/if}}

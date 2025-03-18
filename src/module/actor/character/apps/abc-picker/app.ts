@@ -1,7 +1,7 @@
 import type { CharacterPF2e } from "@actor";
-import type { ABCItemPF2e, DeityPF2e, ItemPF2e } from "@item";
+import type { ABCItemPF2e, DeityPF2e, HeritagePF2e, ItemPF2e } from "@item";
 import type { ItemType } from "@item/base/data/index.ts";
-import { Rarity } from "@module/data.ts";
+import { RARITIES, Rarity } from "@module/data.ts";
 import { SvelteApplicationMixin, type SvelteApplicationRenderContext } from "@module/sheet/mixin.svelte.ts";
 import { sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
@@ -19,6 +19,7 @@ interface ABCPickerConfiguration extends ApplicationConfiguration {
 
 interface ABCItemRef {
     name: string;
+    originalName?: string;
     img: ImageFilePath;
     uuid: ItemUUID;
     rarity?: { slug: Rarity; label: string };
@@ -44,7 +45,7 @@ class ABCPicker extends SvelteApplicationMixin<
         id: "{id}",
         classes: ["abc-picker"],
         position: { width: 350, height: 650 },
-        window: { icon: "fa-solid fa-atlas", contentClasses: ["standard-form", "compact"] },
+        window: { icon: "fa-solid fa-book-atlas", contentClasses: ["standard-form", "compact"] },
     };
 
     declare options: ABCPickerConfiguration;
@@ -74,7 +75,7 @@ class ABCPicker extends SvelteApplicationMixin<
         );
 
         const items = [...worldItems, ...packItems]
-            .filter((item): item is ABCItemPF2e<null> | DeityPF2e<null> => {
+            .filter((item): item is ABCItemPF2e<null> | HeritagePF2e<null> | DeityPF2e<null> => {
                 if (item.type !== itemType || item.parent) return false;
                 if (item.pack?.startsWith("pf2e-animal-companions.")) return false;
                 if (item.isOfType("heritage")) {
@@ -83,7 +84,14 @@ class ABCPicker extends SvelteApplicationMixin<
                 }
                 return true;
             })
-            .sort((a, b) => a.name.localeCompare(b.name));
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .sort(
+                (a: ItemPF2e<null> & { rarity?: Rarity }, b: ItemPF2e<null> & { rarity?: Rarity }) =>
+                    RARITIES.indexOf(a.rarity ?? "common") - RARITIES.indexOf(b.rarity ?? "common"),
+            );
+        if (items.every((i): i is HeritagePF2e<null> => i.isOfType("heritage"))) {
+            items.sort((a, b) => (a.isVersatile === b.isVersatile ? 0 : a.isVersatile ? 1 : -1));
+        }
 
         /** Resolve a "source", preferring publication title if set and resorting to fallbacks. */
         const resolveSource = (item: ItemPF2e): { name: string; publication: boolean } => {
@@ -110,6 +118,10 @@ class ABCPicker extends SvelteApplicationMixin<
             };
             if ("rarity" in item && item.rarity !== "common") {
                 ref.rarity = { slug: item.rarity, label: rarities[item.rarity] };
+            }
+            if (typeof item.flags.babele?.originalName === "string") {
+                // The Babele module stores the pre-translated name in a flag: use for searching.
+                ref.originalName = item.flags.babele.originalName;
             }
             return ref;
         });

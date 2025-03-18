@@ -1,0 +1,70 @@
+{
+    "_id": "8buK32r3i3aGyyOR",
+    "folder": "hd2GMVcUagrsm4Ob",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Shaitan Magic",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>The magic of shaitans runs through your blood. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Revealing Light] and @UUID[Compendium.pf2e.spells-srd.Item.Resist Energy] once per day each as 2nd-rank arcane innate spells.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Ancestry Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:revealing-light",
+                            "item:slug:resist-energy"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:revealing-light",
+                            "item:slug:resist-energy"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:oread"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "oread"
+            ]
+        }
+    },
+    "type": "feat"
+}

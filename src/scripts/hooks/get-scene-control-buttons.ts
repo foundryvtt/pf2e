@@ -40,7 +40,7 @@ export const GetSceneControlButtons = {
             const adjusterTool: SceneControlTool = {
                 name: "darkness-adjuster",
                 title: "CONTROLS.AdjustSceneDarkness",
-                icon: "fa-solid fa-adjust",
+                icon: "fa-solid fa-circle-half-stroke",
                 visible: game.user.isGM && game.pf2e.settings.rbv,
                 toggle: true,
                 active: false,

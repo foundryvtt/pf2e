@@ -1,0 +1,82 @@
+{
+    "_id": "Wwg9pqrgRHhWlxw9",
+    "img": "icons/weapons/axes/axe-double-ice-blue.webp",
+    "name": "Spell Effect: Kgalaserke's Axes",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Kgalaserke's Axes]</p>\n<p>You gain a +1 status bonus to attack rolls or a +2 circumstance bonus to damage against a creature that damaged you.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Actions.OneAction",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Actions.TwoActions",
+                        "value": 2
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Actions.Prompt",
+                "rollOption": "kgalaserkes-axes"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "kgalaserkes-axes:1"
+                ],
+                "selector": "attack-roll",
+                "slug": "kgalaserkes-axes-attack",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SpellEffectKgalaserkesAxes.ToggleLabel",
+                "option": "kgalaserkes-axes:damaged-by-target",
+                "predicate": [
+                    "kgalaserkes-axes:2"
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "kgalaserkes-axes:damaged-by-target"
+                ],
+                "selector": "damage",
+                "slug": "kgalaserkes-axes-damage",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

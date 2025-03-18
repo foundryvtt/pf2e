@@ -34,7 +34,11 @@ import type {
 import { MANDATORY_RANGED_GROUPS, MELEE_ONLY_TRAITS, RANGED_ONLY_TRAITS, THROWN_RANGES } from "./values.ts";
 
 class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
+    /** The shield to which this weapon is attached or is a part of */
     declare shield?: ShieldPF2e<TParent>;
+
+    /** The combination weapon that is an alternate form or usage of this weapon */
+    declare comboSibling?: WeaponPF2e<TParent>;
 
     /** The rule element that generated this weapon, if applicable */
     declare rule?: StrikeRuleElement;
@@ -45,10 +49,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     constructor(data: PreCreate<ItemSourcePF2e>, context: WeaponConstructionContext<TParent> = {}) {
         super(data, context);
-
-        if (context.shield) {
-            this.shield = context.shield;
-        }
+        if (context.shield) this.shield = context.shield;
     }
 
     /** Given this weapon is an alternative usage, whether it is melee or thrown */
@@ -300,6 +301,11 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 .map((e) => `${prefix}:${e[0]}`),
         );
 
+        if (this.comboSibling) {
+            const usagePrefix = this.comboSibling.isRanged ? "ranged-usage" : "melee-usage";
+            rollOptions.push(...this.comboSibling.getRollOptions(`${prefix}:${usagePrefix}`));
+        }
+
         return rollOptions;
     }
 
@@ -502,6 +508,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const clone = super.clone(data, context);
         if (context?.altUsage && clone instanceof WeaponPF2e) {
             clone.altUsageType = context.altUsage;
+            const comboSibling = this.system.traits.value.includes("combination") ? this : this.comboSibling;
+            if (comboSibling) clone.comboSibling = comboSibling;
         }
 
         return clone;

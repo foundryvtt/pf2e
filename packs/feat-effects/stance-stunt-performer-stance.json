@@ -1,0 +1,59 @@
+{
+    "_id": "Ei6ACyEsNGLidvSv",
+    "img": "icons/skills/movement/figure-running-gray.webp",
+    "name": "Stance: Stunt Performer Stance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Stunt Performer Stance]</p>\n<p>You gain a +2 circumstance bonus to Reflex saving throws and skill checks to Escape, as well as resistance 2 to all physical damage.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "check:statistic:reflex",
+                            "action:escape"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "reflex",
+                    "skill-check"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Resistance",
+                "type": "physical",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

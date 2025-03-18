@@ -596,7 +596,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             buttons.unshift({
                 label: "PF2E.Item.RefreshFromCompendium.Label",
                 class: "refresh-from-compendium",
-                icon: "fa-solid fa-sync-alt",
+                icon: "fa-solid fa-rotate",
                 onclick: () => {
                     const enabled = !this.item.system.rules.some(
                         (r) => typeof r.key === "string" && ["ChoiceSet", "GrantItem"].includes(r.key),

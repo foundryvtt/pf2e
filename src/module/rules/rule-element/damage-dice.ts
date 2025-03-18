@@ -39,7 +39,7 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
                 blank: false,
                 initial: null,
             }),
-            critical: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
+            critical: new fields.BooleanField({ required: false, nullable: true, initial: null }),
             category: new fields.StringField({
                 choices: ["persistent", "precision", "splash"],
                 required: false,
@@ -212,10 +212,14 @@ type DamageDiceRuleSchema = RuleElementSchema & {
     dieSize: fields.StringField<string, string, false, true, true>;
     /** The damage type */
     damageType: fields.StringField<string, string, false, true, true>;
-    /** True means the dice are added to critical without doubling; false means the dice are never added to
-     *  critical damage; omitted means add to normal damage and double on critical damage.
+    /**
+     * Control whether and how these damage dice are included in a roll depending on the result of the preceding check.
+     * - `true`: the dice are added only to critical damage rolls, without doubling.
+     * - `false`: the dice are added to both normal and critical damage rolls, without doubling.
+     * - `null` (default): the dice are added to both normal and critical damage rolls and are doubled in critical
+     *   damage rolls.
      */
-    critical: fields.BooleanField<boolean, boolean, false, true, false>;
+    critical: fields.BooleanField<boolean, boolean, false, true, true>;
     /** The damage category */
     category: fields.StringField<
         "persistent" | "precision" | "splash",

@@ -1,0 +1,51 @@
+{
+    "_id": "m3bDBF65IMjaUlo1",
+    "img": "icons/skills/toxins/poison-skull-herbs-bottle-pink.webp",
+    "name": "Effect: Conduct the Experiment",
+    "system": {
+        "description": {
+            "value": "<p>Your melee Strikes deal an extra 2d8 precision damage against the marked creature.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "conduct-the-experiment"
+            },
+            {
+                "category": "precision",
+                "diceNumber": 2,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:mark:conduct-the-experiment"
+                ],
+                "selector": "melee-strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

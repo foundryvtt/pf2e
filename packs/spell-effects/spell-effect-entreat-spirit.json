@@ -18,25 +18,65 @@
         "publication": {
             "license": "ORC",
             "remaster": true,
-            "title": "Pathfinder Lost Omens: Divine Mysteries"
+            "title": "Pathfinder Lost Omens Divine Mysteries"
         },
         "rules": [
             {
                 "choices": [
                     {
-                        "label": "PF2E.AbilityCha",
-                        "value": "cha"
+                        "label": "PF2E.Skill.Arcana",
+                        "value": "arcana"
                     },
                     {
-                        "label": "PF2E.AbilityInt",
-                        "value": "int"
+                        "label": "PF2E.Skill.Crafting",
+                        "value": "crafting"
                     },
                     {
-                        "label": "PF2E.AbilityWis",
-                        "value": "wis"
+                        "label": "PF2E.Skill.Deception",
+                        "value": "deception"
+                    },
+                    {
+                        "label": "PF2E.Skill.Diplomacy",
+                        "value": "diplomacy"
+                    },
+                    {
+                        "label": "PF2E.Skill.Intimidation",
+                        "value": "intimidation"
+                    },
+                    {
+                        "label": "PF2E.SkillLore",
+                        "value": "lore-skill-check"
+                    },
+                    {
+                        "label": "PF2E.Skill.Medicine",
+                        "value": "medicine"
+                    },
+                    {
+                        "label": "PF2E.Skill.Nature",
+                        "value": "nature"
+                    },
+                    {
+                        "label": "PF2E.Skill.Occultism",
+                        "value": "occultism"
+                    },
+                    {
+                        "label": "PF2E.Skill.Performance",
+                        "value": "performance"
+                    },
+                    {
+                        "label": "PF2E.Skill.Religion",
+                        "value": "religion"
+                    },
+                    {
+                        "label": "PF2E.Skill.Society",
+                        "value": "society"
+                    },
+                    {
+                        "label": "PF2E.Skill.Survival",
+                        "value": "survival"
                     }
                 ],
-                "flag": "attribute",
+                "flag": "skill",
                 "key": "ChoiceSet"
             },
             {
@@ -56,10 +96,10 @@
                 ],
                 "selector": [
                     "saving-throw",
-                    "{item|flags.pf2e.rulesSelections.attribute}-skill-check"
+                    "{item|flags.pf2e.rulesSelections.skill}"
                 ],
                 "type": "status",
-                "value": "ternary(gte(@item.rank,8),3,ternary(gte(@item.rank,4),2,1))"
+                "value": "ternary(gte(@item.level,8),3,ternary(gte(@item.level,4),2,1))"
             }
         ],
         "start": {

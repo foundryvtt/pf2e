@@ -1,0 +1,74 @@
+{
+    "_id": "ERBJL8rBEURa05N8",
+    "img": "icons/skills/trades/smithing-tongs-metal-red.webp",
+    "name": "Effect: Temper Armament",
+    "system": {
+        "description": {
+            "value": "<p>Tempering armor or a shield increases its Hardness by 1. Tempering a weapon grants the weapon a +1 circumstance bonus to damage rolls.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 3
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "armor",
+                        "shield",
+                        "weapon"
+                    ]
+                },
+                "flag": "temperArmament",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Item"
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.temperArmament}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:type:armor",
+                            "item:type:shield"
+                        ]
+                    }
+                ],
+                "property": "hardness",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:type:weapon"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.temperArmament}-damage",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

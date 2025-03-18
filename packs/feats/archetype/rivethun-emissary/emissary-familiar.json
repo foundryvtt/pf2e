@@ -1,0 +1,64 @@
+{
+    "_id": "GIMHF8VV1KKjuQRE",
+    "folder": "HyT3UBQkvWXmmQlR",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Emissary Familiar",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You forge a mystical bond with a spirit or create a spirit from a fragment of your own soul. You gain a familiar. If you already have a familiar, you gain the @UUID[Compendium.pf2e.feats-srd.Item.Enhanced Familiar] feat.</p>\n<p>Your familiar gains two additional familiar abilities each day, one of which must be used to select @UUID[Compendium.pf2e.familiar-abilities.Item.Synchronize Spirit].</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Rivethun Emissary Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "self:has-familiar"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Enhanced Familiar"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "self:has-familiar"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Pet"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.familiarAbilities.value",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

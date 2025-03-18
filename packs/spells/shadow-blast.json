@@ -8,60 +8,50 @@
             "value": ""
         },
         "counteraction": false,
-        "damage": {
-            "0": {
-                "applyMod": false,
-                "category": null,
-                "formula": "6d8",
-                "kinds": [
-                    "damage"
-                ],
-                "materials": [],
-                "type": "untyped"
-            }
-        },
+        "damage": {},
         "defense": null,
         "description": {
-            "value": "<p>You shape the shadow substance of the Netherworld into a blast. Choose acid, bludgeoning, cold, electricity, fire, force, piercing, slashing, sonic, or spirit damage; and choose a @Template[cone|distance:30], a @Template[burst|distance:15] within 120 feet, or a @Template[line|distance:50]. The blast deals 6d8 damage of the type you chose to each creature in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
+            "value": "<p>You shape the shadow substance of the Netherworld into a blast. Choose acid, bludgeoning, cold, electricity, fire, force, piercing, slashing, sonic, or spirit damage, and choose a @Template[cone|distance:30], a @Template[burst|distance:15] within 120 feet, or a @Template[line|distance:50]. The blast deals 6d8 damage of the type you chose to each creature in the area (@Damage[(@item.rank+1)d8[acid]], @Damage[(@item.rank+1)d8[bludgeoning]], @Damage[(@item.rank+1)d8[cold]], @Damage[(@item.rank+1)d8[electricity]], @Damage[(@item.rank+1)d8[fire]], @Damage[(@item.rank+1)d8[force]], @Damage[(@item.rank+1)d8[piercing]], @Damage[(@item.rank+1)d8[slashing]], @Damage[(@item.rank+1)d8[sonic]], or @Damage[(@item.rank+1)d8[spirit]]).</p><hr /><p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
         },
         "duration": {
             "sustained": false,
             "value": ""
-        },
-        "heightening": {
-            "damage": {
-                "0": "1d8"
-            },
-            "interval": 1,
-            "type": "interval"
         },
         "level": {
             "value": 5
         },
         "overlays": {
             "UTMlHk0o5FXLlwwM": {
-                "_id": "UTMlHk0o5FXLlwwM",
                 "name": "Shadow Blast (Will)",
                 "overlayType": "override",
                 "sort": 2,
                 "system": {
+                    "damage": {
+                        "0": {
+                            "category": null
+                        }
+                    },
                     "defense": {
                         "save": {
-                            "basic": false,
+                            "basic": true,
                             "statistic": "will"
                         }
                     }
                 }
             },
             "zjyfdrWBaUVi4O7b": {
-                "_id": "zjyfdrWBaUVi4O7b",
                 "name": "Shadow Blast (Reflex)",
                 "overlayType": "override",
                 "sort": 1,
                 "system": {
+                    "damage": {
+                        "0": {
+                            "category": null
+                        }
+                    },
                     "defense": {
                         "save": {
-                            "basic": false,
+                            "basic": true,
                             "statistic": "reflex"
                         }
                     }

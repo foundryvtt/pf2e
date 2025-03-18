@@ -12,6 +12,7 @@ import {
     PredicateField,
     StrictArrayField,
     StrictBooleanField,
+    StrictNumberField,
     StrictObjectField,
     StrictStringField,
 } from "@system/schema-data-fields.ts";
@@ -31,6 +32,7 @@ import {
     UninflatedChoiceSet,
 } from "./data.ts";
 import { ChoiceSetPrompt } from "./prompt.ts";
+import fields = foundry.data.fields;
 
 /**
  * Present a set of options to the user and assign their selection to an injectable property
@@ -73,11 +75,11 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         }
 
         // If ignored, disable this and all other rule elements on the item until a selection is made
-        if (this.ignored) {
+        if (this.ignored && !this.allowNoSelection) {
             for (const ruleData of this.item.system.rules) {
                 ruleData.ignored = true;
             }
-        } else {
+        } else if (this.selection !== null) {
             this.#setRollOption(this.selection);
 
             // Assign the selection to a flag on the parent item so that it may be referenced by other rules elements on
@@ -90,8 +92,6 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     }
 
     static override defineSchema(): ChoiceSetSchema {
-        const fields = foundry.data.fields;
-
         return {
             ...super.defineSchema(),
             choices: new DataUnionField(
@@ -116,6 +116,31 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                     }),
                 ],
                 { required: true, nullable: false, initial: undefined },
+            ),
+            selection: new DataUnionField(
+                [
+                    new StrictStringField<string, string, true, false, false>({
+                        required: true,
+                        nullable: false,
+                        initial: undefined,
+                    }),
+                    new StrictNumberField<number, number, true, false, false>({
+                        required: true,
+                        nullable: false,
+                        initial: undefined,
+                    }),
+                    new StrictBooleanField<true, false, false>({
+                        required: true,
+                        nullable: false,
+                        initial: undefined,
+                    }),
+                    new StrictObjectField<object, object, true, false, false>({
+                        required: true,
+                        nullable: false,
+                        initial: undefined,
+                    }),
+                ],
+                { required: false, nullable: true, initial: undefined },
             ),
             prompt: new fields.StringField({
                 required: false,
@@ -164,6 +189,9 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
             }
             return;
         }
+
+        // If this choice set is on a suppressed item, skip
+        if (this.item.isOfType("feat") && this.item.suppressed) return;
 
         const rollOptions = new Set([this.actor.getRollOptions(), this.item.getRollOptions("parent")].flat());
         const predicate = this.resolveInjectedProperties(this.predicate);
@@ -508,7 +536,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         // If the selection was a UUID, the roll option had its suffix appended at item creation
         const suffix = UUIDUtils.isItemUUID(selection) ? "" : `:${selection}`;
         this.actor.rollOptions.all[`${this.rollOption}${suffix}`] = true;
-        this.parent.rollOptions.add(`${this.rollOption}${suffix}`);
+        this.parent.specialOptions.push(`${this.rollOption}${suffix}`);
     }
 
     /**  Change the name of the parent item after a selection is made */

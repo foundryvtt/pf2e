@@ -22,10 +22,14 @@
         },
         "rules": [
             {
+                "key": "TokenMark",
+                "slug": "hunted-prey"
+            },
+            {
                 "domain": "all",
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
-                "option": "hunted-prey",
+                "option": "target:mark:hunted-prey",
                 "toggleable": true
             },
             {
@@ -33,7 +37,7 @@
                 "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
                 "predicate": [
                     "action:seek",
-                    "hunted-prey"
+                    "target:mark:hunted-prey"
                 ],
                 "selector": "perception",
                 "type": "circumstance",
@@ -44,7 +48,7 @@
                 "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
                 "predicate": [
                     "action:track",
-                    "hunted-prey"
+                    "target:mark:hunted-prey"
                 ],
                 "selector": "survival",
                 "type": "circumstance",
@@ -54,7 +58,7 @@
                 "key": "FlatModifier",
                 "label": "Vs. hunted prey",
                 "predicate": [
-                    "hunted-prey"
+                    "target:mark:hunted-prey"
                 ],
                 "selector": [
                     "deception",
@@ -69,7 +73,7 @@
                 "label": "Recall knowledge on hunted prey",
                 "predicate": [
                     "action:recall-knowledge",
-                    "hunted-prey"
+                    "target:mark:hunted-prey"
                 ],
                 "selector": "skill-check",
                 "type": "circumstance",
@@ -79,7 +83,7 @@
                 "key": "FlatModifier",
                 "label": "Vs. attacks from hunted prey",
                 "predicate": [
-                    "hunted-prey"
+                    "target:mark:hunted-prey"
                 ],
                 "selector": "ac",
                 "type": "circumstance",

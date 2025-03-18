@@ -1,0 +1,71 @@
+{
+    "_id": "Sr6CcCXceV8ALAmB",
+    "folder": "M6h36GdshAjMJpjQ",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Basic Fury",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain a 1st- or 2nd-level barbarian feat.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Barbarian Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.barbarian.archetypeFeatCount",
+                "value": 1
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:category:class",
+                        "item:trait:barbarian",
+                        {
+                            "lte": [
+                                "item:level",
+                                2
+                            ]
+                        }
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "basicFury",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.basicFury}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

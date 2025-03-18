@@ -1,0 +1,81 @@
+{
+    "_id": "ktzQ3WItAfMk25hM",
+    "img": "icons/equipment/feet/shoes-pointed-blue.webp",
+    "name": "Talented Tap Shoes",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>These stylish shoes were originally created by the Tappin' Toes Troupe, a group of tap-dancing Taldan bards who achieved massive popularity for their line dance routines. Notoriously lazy when it came to practicing choreography, the troupe enchanted their footwear to enhance their agility. Upon retirement, the troupe sold off their shoe designs, and talented tap shoes have become popular among professional dancers ever since. While wearing the shoes, you gain a +2 item bonus to Acrobatics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Balance] and @UUID[Compendium.pf2e.actionspf2e.Item.Tumble Through] an enemy's space and to Performance checks using dance.</p>\n<p><strong>Activate—Strut Your Stuff</strong> <span class=\"action-glyph\">1</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> You click the toes of your talented tap shoes on the ground, and for the next minute, whenever you succeed or critically succeed at a Reflex save to avoid a damaging effect, you can Stride half your Speed as a reaction. However, during this time, you take a –2 item penalty to Stealth checks to @UUID[Compendium.pf2e.actionspf2e.Item.Sneak].</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Talented Tap Shoes]</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 11
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 1250
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "check:statistic:acrobatics",
+                                    {
+                                        "or": [
+                                            "action:balance",
+                                            "action:tumble-through"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "check:statistic:performance",
+                                    "action:perform:dance"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "wornshoes"
+        }
+    },
+    "type": "equipment"
+}

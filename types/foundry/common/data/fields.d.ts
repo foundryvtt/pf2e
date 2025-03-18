@@ -107,6 +107,8 @@ export abstract class DataField<
 
     initial: this["options"]["initial"];
 
+    nullable: TNullable;
+
     /** The initially provided options which configure the data field */
     options: DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>;
 
@@ -696,7 +698,7 @@ export class ArrayField<
             SourcePropFromDataField<TElementField>
         >[] = SourcePropFromDataField<TElementField>[],
         TModelProp extends object = ModelPropFromDataField<TElementField>[],
-        TRequired extends boolean = false,
+        TRequired extends boolean = true,
         TNullable extends boolean = false,
         THasInitial extends boolean = true,
     >
@@ -765,7 +767,7 @@ export interface ArrayField<
     TElementField extends DataField,
     TSourceProp extends Partial<SourcePropFromDataField<TElementField>>[] = SourcePropFromDataField<TElementField>[],
     TModelProp extends object = ModelPropFromDataField<TElementField>[],
-    TRequired extends boolean = false,
+    TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true,
 > extends DataField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {

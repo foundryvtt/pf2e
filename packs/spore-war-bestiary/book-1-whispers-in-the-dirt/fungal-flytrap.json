@@ -1,0 +1,363 @@
+{
+    "_id": "67FHrUbWeN8uZva9",
+    "folder": "Tn34WCNkVEMEIfwP",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "mf1G3pa8hN8LNJ4n",
+            "_stats": {
+                "compendiumSource": "Actor.67FHrUbWeN8uZva9.Item.mf1G3pa8hN8LNJ4n"
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Leaf",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "greater-infestation"
+                    ]
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "8l4m6rzl95owpk4x394m": {
+                        "damage": "2d8+7",
+                        "damageType": "piercing"
+                    },
+                    "rrezadi3baslrrmjgpxo": {
+                        "damage": "2d6",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "reach-15"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "j6xu1V9riuAOrTpK",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 60 feet",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "A7AIAW82kyBDKhWn",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Quick Capture",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature hits or touches the flytrap.</p>\n<hr />\n<p><strong>Effect</strong> The flytrap makes a leaf Strike against the triggering creature. If it hits, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] in that leaf.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CBZgnwJ9S03gtLHf",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Focused Assault",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The flytrap attacks a single target with all four of its leaves. The flytrap makes one leaf Strike. On a success, the flytrap deals the damage from one leaf Strike plus an additional [[/r {1d8}]]{1d8 damage} for every leaf beyond the first. On a failure, the flytrap deals the damage from one leaf Strike. It deals no damage on a critical failure. This counts toward the flytrap's multiple attack penalty as a number of attacks equal to the number of leaves the flytrap has.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "focused-assault",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 3,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "focused-assault"
+                        ],
+                        "selector": "leaf-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QS36nnJeanAeIdKI",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Greater Infestation",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:29]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d8[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[3d8[persistent,poison]] damage and can hear root rotter thoughts within 30 feet as an imprecise sense (2 rounds)</p>\n<p><strong>Stage 3</strong> as stage 2, but @Damage[4d8[persistent,poison]] damage and arise as a root rotter upon death (2 rounds).</p>\n<p>This replaces the Grab and Swallow Whole abilities possessed by giant flytraps.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fungus",
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rZ6DDkGMLvCQH70m",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Hungry Flurry",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The flytrap makes four leaf Strikes at a -2 penalty, each against a different target. These attacks count toward the flytrap's multiple attack penalty, but the multiple attack penalty doesn't increase until after it makes all its attacks.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "option": "hungry-flurry",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "hungry-flurry"
+                        ],
+                        "selector": "leaf-attack",
+                        "value": -2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Fungal Flytrap",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -2
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 7
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 29
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 185,
+                "temp": 0,
+                "value": 185
+            },
+            "immunities": [],
+            "resistances": [
+                {
+                    "type": "acid",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "blurb": "Variant giant flytrap",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 10
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Because they blend in so well with surrounding foliage, giant flytraps can use the element of surprise to make quick strikes against unsuspecting adventurers and forest travelers.</p>\n<hr />\n<p>Flytraps eagerly feed on humanoids, monstrous insects, and larger prey.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #210: Whispers in the Dirt"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 17,
+            "senses": [
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "tremorsense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 21
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 15
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 23
+            },
+            "stealth": {
+                "base": 21,
+                "special": [
+                    {
+                        "base": 24,
+                        "label": "in undergrowth",
+                        "predicate": [
+                            "terrain:undergrowth"
+                        ]
+                    }
+                ]
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "huge"
+            },
+            "value": [
+                "fungus",
+                "mindless"
+            ]
+        }
+    },
+    "type": "npc"
+}

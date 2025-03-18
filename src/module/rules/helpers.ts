@@ -196,7 +196,7 @@ async function processPreUpdateActorHooks(
         await Promise.all(
             rules.map(
                 (r): Promise<{ create: ItemSourcePF2e[]; delete: string[] }> =>
-                    actor.items.has(r.item.id) ? r.preUpdateActor() : new Promise(() => ({ create: [], delete: [] })),
+                    actor.items.has(r.item.id) ? r.preUpdateActor() : Promise.resolve({ create: [], delete: [] }),
             ),
         )
     ).reduce(

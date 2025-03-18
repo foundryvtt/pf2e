@@ -1,0 +1,60 @@
+{
+    "_id": "Xiv87UvRqfLPqvin",
+    "folder": "pFo9tZOFFk8cOse6",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Kitharodian Actor Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Access</strong> You are from Taldor or have attended Kitharodian Academy.</p><hr /><p>You've studied classic Taldan theater and learned to embody various roles to a sublime degree. You become trained in Society and in Theater Lore; if you were already trained in either, you become an expert in that skill instead. In addition, when you attempt a Deception or Performance check to portray a famous figure, you gain a +2 circumstance bonus to your check. This bonus changes to +3 at 10th level and +4 at 17th level. However, you don't gain this bonus while Impersonating a figure whose death is common knowledge (as determined by the GM).</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Performance"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "portray-famous-figure"
+                ],
+                "selector": [
+                    "performance",
+                    "deception"
+                ],
+                "type": "circumstance",
+                "value": "ternary(gte(@actor.level,17), 4, ternary(gte(@actor.level,10), 3, 2))"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

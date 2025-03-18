@@ -3,7 +3,7 @@ import { AbstractEffectPF2e, AfflictionPF2e, ConditionPF2e, EffectPF2e } from "@
 import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
 import { createTooltipListener } from "@module/sheet/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene/token-document/document.ts";
-import { createHTMLElement, ErrorPF2e, htmlQuery, htmlQueryAll } from "@util";
+import { ErrorPF2e, createHTMLElement, htmlQuery, htmlQueryAll } from "@util";
 
 export class EffectsPanel extends Application {
     private get token(): TokenDocumentPF2e | null {

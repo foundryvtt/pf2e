@@ -1,0 +1,404 @@
+{
+    "_id": "U3J9rWvfdkgv9agr",
+    "folder": "5Uj7smob0in9RJLF",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "APto5WfClEC1vrKi",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Consume Vitality",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The klacktel would take vitality damage</p><hr /><p><strong>Effect</strong> The klacktel absorbs the vitality damage and takes no damage from the effect. It loses its void healing ability until the end of its next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZzOO6Q0idLGkVEAg",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Consumption Aura",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. The klacktel's void-infused mass draws living creatures toward it, as iron filings to a lodestone. Living creatures that begin their turn in the aura must attempt a @Check[fortitude|dc:39] save.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is pulled 5 feet toward the klacktel.</p>\n<p><strong>Failure</strong> The target is pulled 5 feet toward the klacktel and is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of their turn.</p>\n<p><strong>Critical Failure</strong> The target is pulled 10 feet toward the klacktel, is off-guard until the end of their turn, and is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "traits": [
+                            "divine",
+                            "void"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "divine",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "s6BHy3PY37m8BdBr",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sXQ3DXYUbqaK6vuL",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Extract Bones",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> A Small or larger dead body is in the klacktel's space</p><hr /><p><strong>Effect</strong> The klacktel destroys the corpse and adds its bones to its body, gaining 50 temporary HP for 1 hour and becoming @UUID[Compendium.pf2e.conditionitems.Item.Quickened] for 1 round. It can use the extra action to Stride.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Extract Bones",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Extract Bones"
+                },
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HbZ8mnTTiWF7cCHH",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Hungry Bones",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each enemy in the klacktel's space takes @Damage[4d8[bludgeoning]] damage and @Damage[4d8[void]] damage with a @Check[reflex|dc:42|basic] save.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "B2auHwBtEt98lDTK",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Void Beam",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The klacktel fires a beam of void energy in a @Template[type:line|distance:120]. All creatures in the area take @Damage[16d8[void]] damage (@Check[fortitude|dc:42|basic] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Klacktel",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 5
+            },
+            "con": {
+                "mod": 10
+            },
+            "dex": {
+                "mod": 6
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 7
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 46
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "void healing",
+                "max": 360,
+                "temp": 0,
+                "value": 360
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "death-effects"
+                },
+                {
+                    "exceptions": [],
+                    "type": "disease"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                },
+                {
+                    "exceptions": [],
+                    "type": "swarm-mind"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "bludgeoning",
+                    "value": 10
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "piercing",
+                    "value": 20
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "slashing",
+                    "value": 20
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 30
+                    },
+                    {
+                        "type": "swim",
+                        "value": 20
+                    }
+                ],
+                "value": 50
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 20
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 20
+                },
+                {
+                    "exceptions": [],
+                    "type": "holy",
+                    "value": 20
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 20
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>In places where the dead are discarded in such great volumes that the remains begin to feel more like terrain than bodies, in realms where void energy flows strong and seeks any fragment of once-life to infuse, in areas so suffused with negative emotions and agony like the Amaranthine Oubliette, it comes as no surprise that the cast-off remnants of prisoners over the eons have become monsters.</p>\n<p>Over the eons, past wardens of the Oubliette have allowed some of these deadly swarms to escape into other planes for their own inscrutable reasons. Once stranded elsewhere in the Great Beyond, the pain of being cut off from the Void drives the klacktel into a relentless rampage that stops only when it is destroyed.</p><h2>Cursed Treasure</h2><p>As a klacktel rolls over anything that comes within its path, rubble and discarded items inevitably become swept up into its mass, adding to the tangle of bones. When a klacktel is slain, the bones quickly rot away into foul-smelling tar, but those items still remaining in its mass that haven't been ground to powder clatter to the ground. Magical items that have lingered overlong within a klacktel can become corrupted and cursed.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #212: A Voice in the Blight"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 34,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 120,
+                    "type": "lifesense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 39
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 30
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 32
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 37
+            },
+            "stealth": {
+                "base": 36
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mindless",
+                "swarm",
+                "undead",
+                "unholy",
+                "void"
+            ]
+        }
+    },
+    "type": "npc"
+}

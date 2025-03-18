@@ -1,0 +1,494 @@
+{
+    "_id": "UKBR2GdXIdg66Nqm",
+    "folder": "YHnLuC10qNsncAVy",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "GMhOH686EV6bqjdE",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8x8zqH4pJKJRlyAj"
+            },
+            "img": "icons/equipment/finger/ring-crown-teal-gold.webp",
+            "name": "Moonstone Diadem",
+            "sort": 100000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This delicate and elegant diadem is woven of intricate silver wires set with three tear-shaped pearlescent moonstones. You gain a +1 item bonus to Religion checks.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">3</span> focus</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Requirements</strong> You are within 10 feet of a <em>moonstone pool</em></p>\n<hr />\n<p><strong>Effect</strong> You peer into the <em>moonstone pool</em> and gain access to all the visual history recorded within the receptacle by concentrating on the specific subject you wish to see. Conversely, you can choose to deposit your own memories into the pool by concentrating for 1 hour on the information you wish to impart.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 8
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 500
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #152: Legacy of the Lost God"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "religion",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
+                "size": "med",
+                "slug": "moonstone-diadem",
+                "traits": {
+                    "rarity": "rare",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "worncirclet"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "Qrev8Nd4NZoiDnJ7",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Ghostly Hand",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "15oz8dsl1r4pmq4ximuf": {
+                        "damage": "2d6+10",
+                        "damageType": "void"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "LRKpdpQoppWvEcLr",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Site Bound",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Ulthadar can't leave Moonstone Hall.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "erJjvQ0PRlmb1VLz",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Existential Agony",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. Creatures entering the aura or starting their turn in the aura must succeed at a @Check[will|dc:26] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute. On a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3}. As a reflection of Ulthadar's emotional state, this aura is active when Ulthadar is agitated or angry and is suppressed when he is calm.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "existential-agony-active"
+                        ],
+                        "radius": 30,
+                        "slug": "existential-agony",
+                        "traits": [
+                            "divine",
+                            "mental"
+                        ]
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "existential-agony-active",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Xmcr4PwRCrFQgjVC",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.unR8VVR4yyRnsmnB"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Rejuvenation",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>Ulthadar can't move on to the afterlife until Moonstone Hall is restored to a position of prominence within Escadar and staffed with new priests.</p>\n<hr />\n<p>When a ghost is destroyed, it re-forms after [[/br 2d4 #days]]{2d4 days} within the location it's bound to, fully healed. A ghost can be permanently destroyed only if someone determines the reason for its existence and sets right whatever prevents the spirit from resting.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "ghost-rejuvenation",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "B1S8agx9nAGw4Bxt",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wKH8WPFicTjEMDpB",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Draining Touch",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Ulthadar attempts to drain a living creature's life force. He makes a ghostly hand Strike but deals no damage on a hit. Instead, the target is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} for 1 day and Ulthadar regains @Damage[4[healing]] Hit Points.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "C5gIfV30l6HcWkwS",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Aroden Lore",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 18
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Ulthadar",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 3
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": 4
+            },
+            "str": {
+                "mod": -5
+            },
+            "wis": {
+                "mod": 6
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 24
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "void healing, rejuvenation",
+                "max": 95,
+                "temp": 0,
+                "value": 95
+            },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "vitality"
+                    ],
+                    "type": "all-damage",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 25
+                    }
+                ],
+                "value": 0
+            }
+        },
+        "details": {
+            "blurb": "Male ghost high priest of Aroden",
+            "languages": {
+                "details": "",
+                "value": [
+                    "azlanti",
+                    "common"
+                ]
+            },
+            "level": {
+                "value": 8
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder #152: Legacy of the Lost God"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 20,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 19
+            }
+        },
+        "skills": {
+            "arcana": {
+                "base": 16
+            },
+            "diplomacy": {
+                "base": 15
+            },
+            "religion": {
+                "base": 18
+            },
+            "society": {
+                "base": 16
+            },
+            "stealth": {
+                "base": 15
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "incorporeal",
+                "lawful",
+                "spirit",
+                "undead"
+            ]
+        }
+    },
+    "type": "npc"
+}

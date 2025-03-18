@@ -1,0 +1,71 @@
+{
+    "_id": "K7YK5ESDoreohCe8",
+    "folder": "xkWcbOJP5vW5cCw6",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Battle Harbinger Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You have trained extensively in combat, battlefield tactics, and stamina, focusing on being an exceptional warrior for your faith in exchange for less time studying the traditional spells and scriptures. You become trained in your choice of Athletics or Acrobatics, if you are already trained in both skills, you instead become trained in another skill of your choice. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Toughness] general feat. If you already have this feat, you gain another general feat of your choice.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.ceqrGkjnFSG5edH3]{Battle Harbinger (Class Archetype)}</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "location": "class-2",
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "battle creed"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Acrobatics",
+                        "value": "acrobatics"
+                    },
+                    {
+                        "label": "PF2E.Skill.Athletics",
+                        "value": "athletics"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Toughness"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "class",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,66 @@
+{
+    "_id": "2KZG1KvQjBgcSSNA",
+    "folder": "ecygCZjU63FUN433",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Listener's Boon",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Isthralei has given you a gift to assist you on your journey. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Domain Initiate] feat for the domain of fire, knowledge, protection, or travel. You can Refocus by spending 10 minutes telling stories of your travels or listening to others' stories of theirs. You gain the trained proficiency rank in spell attack modifier and spell DC, increasing to expert at 11th level.</p><hr /><p><strong>Special</strong> You can select this feat multiple times, selecting a different domain each time and gaining its domain spell.</p><hr /><p><em>PFS Note:</em> For the purposes of this feat, use charisma as your spellcasting attribute.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Campfire Chronicler Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.spellcasting.rank",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            11
+                        ]
+                    }
+                ],
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "spellcasting": {
+                    "attribute": null,
+                    "rank": 1
+                }
+            },
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

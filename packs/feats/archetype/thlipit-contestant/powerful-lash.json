@@ -1,0 +1,67 @@
+{
+    "_id": "dtkOVLILY8Ywl90I",
+    "folder": "WaWgZeXPbHxSltnE",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Powerful Lash",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've learned to swing your lash ever faster and in wider arcs. The damage die of your lash increases to 1d6 instead of 1d4 and it gains the sweep trait.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Thlipit Contestant Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:lash"
+                ],
+                "property": "traits",
+                "value": "sweep"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "upgrade": true
+                },
+                "predicate": [
+                    {
+                        "lte": [
+                            "item:damage:die:faces",
+                            6
+                        ]
+                    }
+                ],
+                "selector": "lash-damage"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

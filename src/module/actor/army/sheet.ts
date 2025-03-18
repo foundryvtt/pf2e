@@ -48,6 +48,9 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
 
         return {
             ...data,
+            description: await TextEditor.enrichHTML(actor.system.details.description, {
+                rollData: actor.getRollData(),
+            }),
             ac: {
                 value: actor.armorClass.value,
                 breakdown: actor.armorClass.breakdown,
@@ -311,6 +314,7 @@ class ArmyItemRenderer extends ItemSummaryRenderer<ArmyPF2e, ArmySheetPF2e> {
 }
 
 interface ArmySheetData extends ActorSheetDataPF2e<ArmyPF2e> {
+    description: string;
     ac: {
         value: number;
         breakdown: string;
