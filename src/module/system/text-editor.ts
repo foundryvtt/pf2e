@@ -387,7 +387,7 @@ class TextEditorPF2e extends TextEditor {
             console.warn("Unable to resolve action", slug);
             return this.#invalidInlineAction(
                 ["unresolvable-action"],
-                "fas fa-unlink",
+                "fa-solid fa-link-slash",
                 game.i18n.format("PF2E.InlineAction.Warning.UnresolvableAction", { slug }),
             );
         }

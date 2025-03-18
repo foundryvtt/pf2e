@@ -22,12 +22,12 @@
  *  content: "<p>You must choose either Option 1, or Option 2</p>",
  *  buttons: {
  *   one: {
- *    icon: '<i class="fas fa-check"></i>',
+ *    icon: '<i class="fa-solid fa-check"></i>',
  *    label: "Option One",
  *    callback: () => console.log("Chose One")
  *   },
  *   two: {
- *    icon: '<i class="fas fa-times"></i>',
+ *    icon: '<i class="fa-solid fa-xmark"></i>',
  *    label: "Option Two",
  *    callback: () => console.log("Chose Two")
  *   }
