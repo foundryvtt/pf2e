@@ -36,19 +36,39 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         return R.pick(this.system.uses, ["value", "max"]);
     }
 
+    #embeddedSpell: SpellPF2e<NonNullable<TParent>> | null | undefined;
+
     get embeddedSpell(): SpellPF2e<NonNullable<TParent>> | null {
         if (!this.actor) throw ErrorPF2e(`No owning actor found for "${this.name}" (${this.id})`);
-        if (!this.system.spell) return null;
+        if (this.#embeddedSpell !== undefined) {
+            return this.#embeddedSpell;
+        }
+        if (!this.system.spell) {
+            this.#embeddedSpell = null;
+            return null;
+        }
 
-        const spellSource = fu.mergeObject(this.system.spell, { "system.location.value": null }, { inplace: false });
-        const context = { parent: this.actor, parentItem: this };
-        const spell = new ItemProxyPF2e(spellSource, context) as SpellPF2e<NonNullable<TParent>>;
-        performLatePreparation(spell);
-        return spell;
+        try {
+            const spellSource = fu.mergeObject(
+                this.system.spell,
+                { "system.location.value": null },
+                { inplace: false },
+            );
+            const context = { parent: this.actor, parentItem: this };
+            const spell = new ItemProxyPF2e(spellSource, context) as SpellPF2e<NonNullable<TParent>>;
+            performLatePreparation(spell);
+            this.#embeddedSpell = spell;
+            return spell;
+        } catch (ex) {
+            this.#embeddedSpell = null;
+            console.error(ex);
+            return null;
+        }
     }
 
     override prepareBaseData(): void {
         super.prepareBaseData();
+        this.#embeddedSpell = undefined;
 
         this.system.uses.max ||= 1;
 
