@@ -16,6 +16,9 @@ import type { ConsumableCategory, ConsumableTrait, OtherConsumableTag } from "./
 import { DAMAGE_ONLY_CONSUMABLE_CATEGORIES, DAMAGE_OR_HEALING_CONSUMABLE_CATEGORIES } from "./values.ts";
 
 class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
+    /** A cached copy of embeddedSpell, lazily regenerated every data preparation cycle */
+    declare private _embeddedSpell: SpellPF2e<NonNullable<TParent>> | null | undefined;
+
     static override get validTraits(): Record<ConsumableTrait, string> {
         return CONFIG.PF2E.consumableTraits;
     }
@@ -36,15 +39,13 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         return R.pick(this.system.uses, ["value", "max"]);
     }
 
-    #embeddedSpell: SpellPF2e<NonNullable<TParent>> | null | undefined;
-
     get embeddedSpell(): SpellPF2e<NonNullable<TParent>> | null {
         if (!this.actor) throw ErrorPF2e(`No owning actor found for "${this.name}" (${this.id})`);
-        if (this.#embeddedSpell !== undefined) {
-            return this.#embeddedSpell;
+        if (this._embeddedSpell !== undefined) {
+            return this._embeddedSpell;
         }
         if (!this.system.spell) {
-            this.#embeddedSpell = null;
+            this._embeddedSpell = null;
             return null;
         }
 
@@ -57,10 +58,10 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             const context = { parent: this.actor, parentItem: this };
             const spell = new ItemProxyPF2e(spellSource, context) as SpellPF2e<NonNullable<TParent>>;
             performLatePreparation(spell);
-            this.#embeddedSpell = spell;
+            this._embeddedSpell = spell;
             return spell;
         } catch (ex) {
-            this.#embeddedSpell = null;
+            this._embeddedSpell = null;
             console.error(ex);
             return null;
         }
@@ -68,7 +69,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-        this.#embeddedSpell = undefined;
+        this._embeddedSpell = undefined;
 
         this.system.uses.max ||= 1;
 
