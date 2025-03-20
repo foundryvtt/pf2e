@@ -1,0 +1,104 @@
+{
+    "_id": "11vAC03iwc4CRkNK",
+    "folder": "566A2Pgwj6hPhayN",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "rn1gwgxGZgtLlssl",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Tumbling Down",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves into a space adjacent to the furniture pile</p><hr /><p><strong>Effect</strong> Part of the pile slides into a space the creature occupies, causing @Damage[(1d6+4)[bludgeoning]] damage with a @Check[reflex|dc:18|basic] save. The furniture pile rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Unstable Furniture Archway",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 15
+            },
+            "emitsSound": "encounter",
+            "hardness": 7,
+            "hp": {
+                "details": "",
+                "max": 34,
+                "temp": 0,
+                "value": 34
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "",
+                "value": 8
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>This unsteady pile of furniture is piled to the top of this usually high-ceilinged room. There looks to be some space to squeeze through to the other side, but even the slightest touch causes the stack to destabilize, and there's so much that once it begins to fall, it's difficult to stop.</p>",
+            "disable": "<p>@Check[athletics|dc:21] to knock the pile over in a safe direction or @Check[thievery|dc:19] (trained) to carefully rearrange the furniture to a stable configuration.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 2
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Society Scenario #6-13: All That Glitters"
+            },
+            "reset": "",
+            "routine": "<p>On its initiative, the pile expands into an adjacent space, dealing creatures in that space @Damage[(1d6+4)[bludgeoning]] damage with a @Check[reflex|dc:18|basic] save, pushing any creatures in that space into an adjacent empty space, and making that space impassable until cleared. If no adjacent empty space is available, the pile buries the creature, suffocating it. Clearing a space or pulling a creature out requires a @Check[athletics|dc:15] check.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 12
+            },
+            "reflex": {
+                "value": 5
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}
