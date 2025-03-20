@@ -1,0 +1,134 @@
+{
+    "_id": "0qjPbtT3NCRcYIWH",
+    "folder": "566A2Pgwj6hPhayN",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "BKwyqCSkj5RBfLVm",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Quake!",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves into a space with the handheld quaker or interacts with it</p><hr /><p><strong>Effect</strong> The handheld quaker vibrates visibly and rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "y25H9mfqjAEjl1NC",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Shaking Earth",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature within difficult terrain created by the quaker takes a –2 circumstance penalty to Reflex saves and actions with the Manipulate trait, including @UUID[Compendium.pf2e.actionspf2e.Item.Disable a Device]{Disable Device}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Handheld Quaker",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 15
+            },
+            "emitsSound": "encounter",
+            "hardness": 9,
+            "hp": {
+                "details": "",
+                "max": 32,
+                "temp": 0,
+                "value": 32
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "",
+                "value": 10
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>This small toy-like device has a hidden mechanism meant to be activated by the user, but the centuries have eroded its magical-mechanical components to the point that they activate at the slightest touch.</p>",
+            "disable": "<p>@Check[thievery|dc:18] (trained) to deactivate the mechanism; @Check[crafting|dc:16] (trained) to identify and repair the problem components; two successes are required to disable the hazard.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 2
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Society Scenario #6-13: All That Glitters"
+            },
+            "reset": "<p>The trap deactivates and resets if 1 minute passes without a creature being within 5' of the handheld quaker.</p>",
+            "routine": "<p>At its initiative, to determine what the quaker does, roll [[/gmr 1d4]] and consult the following table:</p><p>1: No action</p><p>2: A small quake: the terrain in a @Template[type:emanation|distance:10] centered on the quaker shakes briefly. A creature in an affected square is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] (@Check[reflex|dc:18] save).</p><p>3: A medium quake: the terrain within the vault shakes constantly, transforming it into difficult terrain until its next turn. A creature in an affected square is knocked prone and takes @Damage[1d10[bludgeoning]] damage from the fall (@Check[reflex|dc:18|basic] save).</p><p>4: A great quake: the terrain within the vault moves in waves, transforming it into greater difficult terrain until its next turn. A creature in an affected square is violently slammed to the ground, knocked prone, and takes @Damage[(1d10+4)[bludgeoning]] damage (@Check[reflex|dc:20|basic] save).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 12
+            },
+            "reflex": {
+                "value": 5
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}
