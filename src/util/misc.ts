@@ -358,7 +358,7 @@ function recursiveReplaceString(source: unknown, replace: (s: string) => string)
     if (typeof clone === "string") {
         return replace(clone);
     } else if (Array.isArray(clone)) {
-        return clone.map((e) => recursiveReplaceString(e, replace));
+        return clone.map((e): unknown => recursiveReplaceString(e, replace));
     } else if (R.isPlainObject(clone)) {
         for (const [key, value] of Object.entries(clone)) {
             clone[key] = recursiveReplaceString(value, replace);
