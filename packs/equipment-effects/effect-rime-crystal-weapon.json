@@ -4,7 +4,7 @@
     "name": "Effect: Rime Crystal - Weapon",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Rime Crystal]</p>\n<p>Your Strikes with the weapon deal an additional 1d4 cold damage.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Rime Crystal], @UUID[Compendium.pf2e.equipment-srd.Item.Rime Crystal (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Rime Crystal (Major)]</p>\n<p>Your Strikes with the weapon deal additional cold damage.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -22,6 +22,53 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:rime-crystal",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Rime Crystal"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:rime-crystal-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Rime Crystal (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:rime-crystal-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Rime Crystal (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "rime-crystal"
+            },
+            {
                 "choices": {
                     "includeHandwraps": true,
                     "ownedItems": true,
@@ -37,7 +84,33 @@
                 "damageType": "cold",
                 "diceNumber": 1,
                 "dieSize": "d4",
+                "hideIfDisabled": true,
                 "key": "DamageDice",
+                "predicate": [
+                    "rime-crystal:rime-crystal"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.rimeCrystalWeapon}-damage"
+            },
+            {
+                "damageType": "cold",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "rime-crystal:rime-crystal-greater"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.rimeCrystalWeapon}-damage"
+            },
+            {
+                "damageType": "cold",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "rime-crystal:rime-crystal-major"
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.rimeCrystalWeapon}-damage"
             }
         ],
