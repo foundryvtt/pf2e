@@ -126,9 +126,9 @@ declare global {
 
         protected override _onClickLeft(event: PlaceablesLayerPointerEvent<TObject>): void;
 
-        protected override _onDragLeftStart(event: PlaceablesLayerPointerEvent<TObject>): Promise<void>;
+        protected override _onDragLeftStart(event: PlaceablesLayerPointerEvent<TObject>): void;
 
-        protected override _onDragLeftMove(event: PlaceablesLayerPointerEvent<TObject>): Promise<void>;
+        protected override _onDragLeftMove(event: PlaceablesLayerPointerEvent<TObject>): void;
 
         protected override _onDragLeftCancel(event: PIXI.FederatedEvent): void;
 

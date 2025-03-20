@@ -5,7 +5,7 @@ import * as R from "remeda";
 
 export function registerHandlebarsHelpers(): void {
     Handlebars.registerHelper("pad", (value: unknown, length: number, character: string): string => {
-        return `${value}`.padStart(length, character);
+        return String(value).padStart(length, character);
     });
 
     Handlebars.registerHelper("add", (a: unknown, b: unknown): number => {
