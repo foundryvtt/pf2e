@@ -1,0 +1,43 @@
+{
+    "_id": "GD1ZD4Rl2hTPhvjL",
+    "folder": "Or0gl1uupwBBfqVM",
+    "img": "systems/pf2e/icons/actions/Passive.webp",
+    "name": "(Zombie, Shock) Arcing Strikes",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>When a shock zombie hits a creature with a melee attack, an arc of lighting leaps to a second creature, dealing @Damage[1d12[electricity]] damage. This secondary target must be within 10 feet of the shock zombie's original target and must be the creature closest to the original target (if multiple creatures are equidistant, the shock zombie chooses which to affect).</p>"
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #180: The Smoking Gun"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "selector": "melee-strike-attack-roll",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}",
+                "visibility": "owner"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "electricity"
+            ]
+        }
+    },
+    "type": "action"
+}
