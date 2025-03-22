@@ -4,7 +4,7 @@
     "name": "Spell Effect: Tangle Vine",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Tangle Vine]</p>\n<p>You take a -10-foot circumstance penalty to your Speeds.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Tangle Vine]</p>\n<p>You take a –10-foot circumstance penalty to your Speeds. On a critical success, you are also immobilized.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,10 +22,33 @@
         },
         "rules": [
             {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": "critical-success"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "tangle-vine"
+            },
+            {
                 "key": "FlatModifier",
-                "selector": "speed",
+                "selector": "all-speeds",
                 "type": "circumstance",
                 "value": -10
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "tangle-vine:critical-success"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Immobilized"
             }
         ],
         "start": {
