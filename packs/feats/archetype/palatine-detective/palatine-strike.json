@@ -29,7 +29,27 @@
             "remaster": true,
             "title": "Pathfinder Lost Omens Divine Mysteries"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "palatine-strike",
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "add",
+                "predicate": [
+                    "palatine-strike"
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "strike-damage",
+                    "inline-damage"
+                ],
+                "slug": "strategic-strike",
+                "value": 2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
