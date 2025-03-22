@@ -1,0 +1,88 @@
+{
+    "_id": "gBJtUhewnihlqxm7",
+    "folder": "zDlxATrLAlbYA2Mv",
+    "img": "systems/pf2e/icons/spells/roses-thorns.webp",
+    "name": "Rose's Thorns",
+    "system": {
+        "area": {
+            "type": "burst",
+            "value": 20
+        },
+        "cost": {
+            "value": ""
+        },
+        "counteraction": false,
+        "damage": {
+            "G3HdXE0YaAVaevwg": {
+                "applyMod": false,
+                "category": null,
+                "formula": "8d8",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "piercing"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "reflex"
+            }
+        },
+        "description": {
+            "value": "<p>Rose bushes with razor-sharp thorns sprout from the ground in the area. The rose bushes deal 8d8 piercing damage to each creature that's in the area when the spell is cast or that ends its turn in the area (basic Reflex save). A creature that critically fails its saving throw also takes @Damage[(ternary(gte(@item.rank,9),2,1))d8[persistent,bleed]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for 1 round or until the creature @UUID[Compendium.pf2e.actionspf2e.Item.Escape]{Escapes} (against your spell DC), whichever comes first. The area is difficult terrain and hazardous terrain. A creature that moves through the area takes @Damage[(ternary(gte(@item.rank,9),8,5))[piercing]] damage for every square of that area it moves into. Each time you sustain this spell, the radius of the burst increases by 5 feet.</p><hr /><p><strong>Heightened (9th)</strong> The initial damage increases to 12d8, the persistent bleed damage increases to 2d8, and the hazardous terrain damage increases to 8.</p>"
+        },
+        "duration": {
+            "sustained": true,
+            "value": "1 minute"
+        },
+        "heightening": {
+            "levels": {
+                "9": {
+                    "damage": {
+                        "G3HdXE0YaAVaevwg": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "12d8",
+                            "materials": [],
+                            "type": "piercing"
+                        }
+                    }
+                }
+            },
+            "type": "fixed"
+        },
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Firebrands"
+        },
+        "range": {
+            "value": "120 feet"
+        },
+        "requirements": "",
+        "rules": [],
+        "target": {
+            "value": ""
+        },
+        "time": {
+            "value": "2"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "traditions": [
+                "primal"
+            ],
+            "value": [
+                "concentrate",
+                "manipulate",
+                "plant"
+            ]
+        }
+    },
+    "type": "spell"
+}
