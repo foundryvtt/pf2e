@@ -1392,7 +1392,30 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     /** Overriden _render to maintain focus on tagify elements */
     protected override async _render(force?: boolean, options?: ActorSheetRenderOptionsPF2e): Promise<void> {
+        const focused = htmlQuery(this.element.get(0), ":focus");
+
         await maintainFocusInRender(this, () => super._render(force, options));
+
+        // If a data-property or data-item-property field was focused, find it again and refocus it
+        // Core foundry already handles property with a name field
+        if (focused && (!("name" in focused) || !focused.name)) {
+            const element = this.element.get(0);
+            const tagName = focused.tagName;
+            if (focused.dataset.property) {
+                const property = focused.dataset.property;
+                htmlQuery(element, `${tagName}[data-property="${property}"]`)?.focus();
+            } else if (focused.dataset.resource) {
+                const resource = focused.dataset.resource;
+                htmlQuery(element, `${tagName}[data-resource="${resource}"]`)?.focus();
+            } else if (focused.dataset.itemProperty && focused.dataset.itemId) {
+                const { itemProperty, itemId } = focused.dataset;
+                htmlQuery(
+                    element,
+                    `${tagName}[data-item-id="${itemId}"][data-item-property="${itemProperty}"]`,
+                )?.focus();
+            }
+        }
+
         if (options?.tab) {
             this.openTab(options.tab);
         }
