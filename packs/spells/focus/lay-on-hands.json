@@ -1,0 +1,114 @@
+{
+    "_id": "zNN9212H2FGfM7VS",
+    "folder": "wnvibtD90h7CStDC",
+    "img": "systems/pf2e/icons/spells/lay-on-hands.webp",
+    "name": "Lay on Hands",
+    "system": {
+        "area": null,
+        "cost": {
+            "value": ""
+        },
+        "counteraction": false,
+        "damage": {},
+        "defense": null,
+        "description": {
+            "value": "<p>Your hands become infused with powerful vitality, capable of healing a living creature or damaging an undead creature with a touch.</p><ul><li><strong>Willing Living Creature</strong> The target regains 6 Hit Points. If the target is someone other than yourself, it also gains a +2 status bonus to AC for 1 round.</li><li><strong>Undead Creature</strong> The target takes 1d6 vitality damage with a basic Fortitude save; on a failure, the target also takes a –2 status penalty to AC for 1 round.</li></ul><hr /><p><strong>Heightened (+1)</strong> The amount of healing increases by 6, and the damage to an undead target increases by 1d6.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Lay on Hands]</p>"
+        },
+        "duration": {
+            "sustained": false,
+            "value": ""
+        },
+        "level": {
+            "value": 1
+        },
+        "overlays": {
+            "a33QUFoKgoOprovO": {
+                "name": "Lay on Hands (Vs. Undead)",
+                "overlayType": "override",
+                "sort": 2,
+                "system": {
+                    "damage": {
+                        "37YW4ZGhxx7Y2mdI": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "1d6",
+                            "kinds": [
+                                "damage"
+                            ],
+                            "materials": [],
+                            "type": "vitality"
+                        }
+                    },
+                    "defense": {
+                        "save": {
+                            "basic": true,
+                            "statistic": "fortitude"
+                        }
+                    },
+                    "heightening": {
+                        "damage": {
+                            "37YW4ZGhxx7Y2mdI": "1d6"
+                        },
+                        "interval": 1,
+                        "type": "interval"
+                    }
+                }
+            },
+            "uLuOg62dVyxvbW66": {
+                "name": "Lay on Hands (Healing)",
+                "overlayType": "override",
+                "sort": 1,
+                "system": {
+                    "damage": {
+                        "b39tbePoPlJSzLku": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "6",
+                            "kinds": [
+                                "healing"
+                            ],
+                            "materials": [],
+                            "type": "vitality"
+                        }
+                    },
+                    "defense": null,
+                    "heightening": {
+                        "damage": {
+                            "b39tbePoPlJSzLku": "6"
+                        },
+                        "interval": 1,
+                        "type": "interval"
+                    }
+                }
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "range": {
+            "value": "touch"
+        },
+        "requirements": "",
+        "rules": [],
+        "target": {
+            "value": "1 willing living creature or 1 undead creature"
+        },
+        "time": {
+            "value": "1"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "traditions": [],
+            "value": [
+                "champion",
+                "focus",
+                "healing",
+                "manipulate",
+                "vitality"
+            ]
+        }
+    },
+    "type": "spell"
+}
