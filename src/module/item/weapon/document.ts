@@ -190,7 +190,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
      * Determines if the ranged weapon needs ammo to make a ranged attack.
      * This is useful for items such as the `Drake Rifle` which is Reload 1 but doesn't have a finite supply of ammo.
      *
-     * @returns {boolean} - `true` if the ranged non-throwable weapon has the `requireAmmoToFire` flag set to `true` or `undefined`, otherwise `false`.
+     * @returns {boolean} - `true` if the ranged non-throwable weapon has the `requireAmmoToFire` flag set to `true`, otherwise `false`.
      */
     get requiresAmmoToFire(): boolean {
         return (
