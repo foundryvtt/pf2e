@@ -4,7 +4,7 @@
     "name": "Effect: Sanguine Fang - Weapon",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Sanguine Fang]</p>\n<p>After you cast a necromancy spell by activating the <em>fang</em>, your Strikes with the weapon deal 1d4 persistent bleed damage until the end of your next turn.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Sanguine Fang], @UUID[Compendium.pf2e.equipment-srd.Item.Sanguine Fang (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Sanguine Fang (Major)]</p>\n<p>After you cast a necromancy spell by activating the <em>fang</em>, your Strikes with the weapon deal persistent bleed damage until the end of your next turn.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -22,6 +22,53 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:sanguine-fang",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Sanguine Fang"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:sanguine-fang-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Sanguine Fang (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:sanguine-fang-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Sanguine Fang (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "sanguine-fang"
+            },
+            {
                 "choices": {
                     "includeHandwraps": true,
                     "ownedItems": true,
@@ -37,7 +84,33 @@
                 "damageType": "bleed",
                 "diceNumber": 1,
                 "dieSize": "d4",
+                "hideIfDisabled": true,
                 "key": "DamageDice",
+                "predicate": [
+                    "sanguine-fang:sanguine-fang"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectSanguineFangWeapon}-damage"
+            },
+            {
+                "damageType": "bleed",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "sanguine-fang:sanguine-fang-greater"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectSanguineFangWeapon}-damage"
+            },
+            {
+                "damageType": "bleed",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "sanguine-fang:sanguine-fang-major"
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.effectSanguineFangWeapon}-damage"
             }
         ],

@@ -4,10 +4,10 @@
     "name": "Effect: Sanguine Fang - Armor",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Sanguine Fang]</p>\n<p>You gain resistance 3 to persistent bleed damage and a +2 item bonus on saving throws against effects with the void trait.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Sanguine Fang], @UUID[Compendium.pf2e.equipment-srd.Item.Sanguine Fang (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Sanguine Fang (Major)]</p>\n<p>You gain resistance to persistent bleed damage and an item bonus on saving throws against effects with the void trait.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -22,18 +22,95 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:sanguine-fang",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Sanguine Fang"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:sanguine-fang-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Sanguine Fang (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:sanguine-fang-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Sanguine Fang (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "sanguine-fang"
+            },
+            {
                 "key": "Resistance",
+                "predicate": [
+                    "sanguine-fang:sanguine-fang"
+                ],
                 "type": "bleed",
                 "value": 3
             },
             {
+                "key": "Resistance",
+                "predicate": [
+                    "sanguine-fang:sanguine-fang-greater"
+                ],
+                "type": "bleed",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "sanguine-fang:sanguine-fang-major"
+                ],
+                "type": "bleed",
+                "value": 10
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
-                    "void"
+                    "item:trait:void"
                 ],
                 "selector": "saving-throw",
+                "slug": "sanguine-fang-bonus",
                 "type": "item",
                 "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "sanguine-fang:sanguine-fang-major"
+                ],
+                "selector": "saving-throw",
+                "slug": "sanguine-fang-bonus",
+                "value": 3
             }
         ],
         "start": {
