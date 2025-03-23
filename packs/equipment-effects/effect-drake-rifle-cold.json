@@ -4,7 +4,7 @@
     "name": "Effect: Drake Rifle (Cold)",
     "system": {
         "description": {
-            "value": "<p><strong>Effect applied by</strong>@UUID[Compendium.pf2e.equipment-srd.Item.Drake Rifle (Cold)]</p><hr /><p><span>Frozen spittle clings to the target. The target takes a –10-foot status penalty to their Speeds for 1 minute.</span></p>"
+            "value": "<p><strong>Effect applied by</strong>@UUID[Compendium.pf2e.equipment-srd.Item.Drake Rifle (Cold)]</p>\n<p>You take a –10-foot status penalty to your Speeds</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,16 +16,14 @@
             "value": 4
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Drake Rifle (Cold)",
-                "selector": "speed",
-                "slug": "effect-drake-rifle-cold",
+                "selector": "all-speed",
                 "type": "status",
                 "value": -10
             }

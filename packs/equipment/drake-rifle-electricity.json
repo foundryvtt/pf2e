@@ -1,5 +1,5 @@
 {
-    "_id": "dRgOj6rJscddvySB",
+    "_id": "h1G2xCiMrHd7uFko",
     "img": "systems/pf2e/icons/default-icons/weapon.svg",
     "name": "Drake Rifle (Electricity)",
     "system": {
@@ -42,8 +42,8 @@
             }
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
         "quantity": 1,
@@ -51,16 +51,12 @@
         "reload": {
             "value": "1"
         },
-        "requireAmmoToFire": false,
         "rules": [
             {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "selector": "{item|_id}-damage",
-                "text": "On a critical hit, the spittle clings to the target and they take persistent damage of the same type as the weapon equal to @Damage[(1d4 + @item.system.damage.dice)[persistent,@item.system.damage.damageType]]{1d4 + the number of weapon damage dice}.",
-                "title": "{item|name}"
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "item:id:{item|_id}"
+                ]
             },
             {
                 "alternate": true,
@@ -68,7 +64,7 @@
                 "predicate": [
                     "item:id:{item|_id}"
                 ],
-                "text": "A drake rifle does not add critical specialization effects."
+                "text": "PF2E.SpecificRule.Equipment.DrakeRifle.CriticalSpecialization"
             }
         ],
         "runes": {
