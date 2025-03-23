@@ -14,7 +14,6 @@ const ARMOR_PROPERTY_RUNE_TYPES = new Set([
     "ethereal",
     "fireResistant",
     "fortification",
-    "glamered",
     "gliding",
     "greaterAcidResistant",
     "greaterAdvancing",
