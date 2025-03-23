@@ -162,6 +162,7 @@ interface WeaponSystemData
         /** A display label for use in any view */
         label: string | null;
     };
+    requireAmmoToFire: boolean;
     runes: WeaponRuneData;
     usage: WeaponUsageDetails;
     graspingAppendage: boolean;

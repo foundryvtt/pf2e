@@ -186,6 +186,18 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             : 0;
     }
 
+    /**
+     * Determines if the ranged weapon needs ammo to make a ranged attack.
+     * This is useful for items such as the `Drake Rifle` which is Reload 1 but doesn't have a finite supply of ammo.
+     *
+     * @returns {boolean} - `true` if the ranged non-throwable weapon has the `requireAmmoToFire` flag set to `true` or `undefined`, otherwise `false`.
+     */
+    get requiresAmmoToFire(): boolean {
+        return (
+            this.isRanged && !this.isThrowable && ![null, "-"].includes(this.reload) && this.system.requireAmmoToFire
+        );
+    }
+
     get ammo(): ConsumablePF2e<ActorPF2e> | WeaponPF2e<ActorPF2e> | null {
         const ammo = this.actor?.items.get(this.system.selectedAmmoId ?? "");
         return ammo?.isOfType("consumable", "weapon") ? ammo : null;
@@ -334,6 +346,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
               })
             : null;
 
+        this.system.requireAmmoToFire ??= true;
         this.system.selectedAmmoId ||= null;
         this.system.damage.die ||= null;
         this.system.damage.modifier ??= 0;

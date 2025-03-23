@@ -1,0 +1,51 @@
+{
+    "_id": "7SQ9i1BfByCs3ESa",
+    "img": "icons/magic/death/skull-poison-green.webp",
+    "name": "Effect: Drake Rifle (Poison)",
+    "system": {
+        "description": {
+            "value": "<p><strong>Effect applied by</strong>@UUID[Compendium.pf2e.equipment-srd.Item.Drake Rifle (Poison)]</p><hr /><p>Noxious vapors fill the target's lungs. The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 minute.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
