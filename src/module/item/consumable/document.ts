@@ -206,10 +206,17 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
                 await this.delete();
             } else {
                 // Deduct one from quantity if this item has one charge or doesn't have charges
-                await this.update({
-                    "system.quantity": Math.max(quantityRemaining - 1, 0),
-                    "system.uses.value": uses.max,
-                });
+                if (uses.max > 1) {
+                    await this.update({
+                        "system.quantity": Math.max(quantityRemaining - 1, 0),
+                        "system.uses.value": uses.max,
+                    });
+                } else {
+                    await this.update({
+                        "system.quantity": Math.max(quantityRemaining - thisMany, 0),
+                        "system.uses.value": uses.max,
+                    });
+                }
             }
         } else {
             // Deduct one charge
