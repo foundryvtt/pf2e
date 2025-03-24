@@ -32,6 +32,8 @@
                         data-filter="{{section.types}}"
                     ><i class="fa-solid fa-fw fa-search"></i></a>
                 </div>
+            {{else if (ne @root.actor.type "loot")}}
+                <div class="item-controls readonly"></div>
             {{/if}}
         </header>
         <ul class="items" data-item-list data-item-types="{{section.types}}"{{#if @root.isLootSheet}} data-loot{{/if}}>
