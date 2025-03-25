@@ -835,7 +835,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     override async getDescription(): Promise<ItemDescriptionData> {
         const description = await super.getDescription();
-        const prepend = await createDescriptionPrepend(this, { includeTraditions: false });
+        const prepend = await createDescriptionPrepend(this, { includeTraditions: !this.actor });
         description.value = `${prepend}\n${description.value}`;
         return description;
     }
