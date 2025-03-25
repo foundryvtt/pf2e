@@ -27,7 +27,10 @@
                 "rules": [
                     {
                         "key": "Aura",
-                        "radius": 30
+                        "radius": 30,
+                        "traits": [
+                            "auditory"
+                        ]
                     }
                 ],
                 "slug": null,
@@ -147,7 +150,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The troop's members throw a barrage of burning torches. Each creature in a @Template[type:burst|distance:10] within 30 feet of the troop takes @Damage[2d8[fire]] damage with a @Check[reflex|dc:20|basic] save. When the troop is reduced to 2 or fewer segments, this area decreases to a @Template[type:burst|distance:5].</p>"
+                    "value": "<p>The troop's members throw a barrage of burning torches. Each creature in a @Template[type:burst|distance:10] within 30 feet of the troop takes @Damage[2d8[fire]|options:area-damage] damage with a @Check[reflex|dc:20|basic|options:area-effect] save. When the troop is reduced to 2 or fewer segments, this area decreases to a @Template[type:burst|distance:5].</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -176,7 +179,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The goblin get gang uses dogslicers, horsechoppers, and burning torches to attack each enemy in a @Template[type:emanation|distance:5], with a @Check[reflex|dc:20|basic] save. The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[1d6[slashing], 1d6[fire]] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(1d6+6)[slashing], 1d6[fire]] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(1d6+9)[slashing], 1d6[fire]] damage</p>"
+                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The goblin get gang uses dogslicers, horsechoppers, and burning torches to attack each enemy in a @Template[type:emanation|distance:5], with a @Check[reflex|dc:20|basic|options:area-effect] save. The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[1d6[slashing],1d6[fire]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(1d6+6)[slashing],1d6[fire]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(1d6+9)[slashing],1d6[fire]|options:area-damage] damage</p>"
                 },
                 "frequency": {
                     "max": 1,
