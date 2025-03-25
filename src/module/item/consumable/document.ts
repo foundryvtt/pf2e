@@ -196,23 +196,20 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             }
         }
 
-        // Optionally destroy the item
+        // Optionally destroy the item or deduct charges or quantity
+        // Also keep ammunition if it has rule elements
         if (this.system.uses.autoDestroy && uses.value <= thisMany) {
-            const quantityRemaining = this.quantity;
-
-            // Keep ammunition if it has rule elements
+            const newQuantity = Math.max(this.quantity - (uses.max > 1 ? 1 : thisMany), 0);
             const isPreservedAmmo = this.category === "ammo" && this.system.rules.length > 0;
-            if (quantityRemaining <= 1 && !isPreservedAmmo) {
+            if (newQuantity <= 0 && !isPreservedAmmo) {
                 await this.delete();
             } else {
-                // Deduct one from quantity if this item has one charge or doesn't have charges
                 await this.update({
-                    "system.quantity": Math.max(quantityRemaining - thisMany, 0),
+                    "system.quantity": newQuantity,
                     "system.uses.value": uses.max,
                 });
             }
         } else {
-            // Deduct one charge
             await this.update({
                 "system.uses.value": Math.max(uses.value - thisMany, 0),
             });
