@@ -53,18 +53,12 @@
         },
         "rules": [
             {
-                "key": "CriticalSpecialization",
-                "predicate": [
-                    "item:id:{item|_id}"
-                ]
-            },
-            {
                 "alternate": true,
                 "key": "CriticalSpecialization",
                 "predicate": [
                     "item:id:{item|_id}"
                 ],
-                "text": "PF2E.SpecificRule.Equipment.DrakeRifle.CriticalSpecialization.Poison"
+                "text": "PF2E.SpecificRule.Equipment.DrakeRifle.CriticalSpecialization"
             },
             {
                 "key": "Note",
@@ -74,7 +68,32 @@
                 ],
                 "selector": "{item|_id}-damage",
                 "text": "PF2E.SpecificRule.Equipment.DrakeRifle.Note.Poison",
-                "title": "{item|name}"
+                "title": "PF2E.Check.Result.Degree.Check.success"
+            },
+            {
+                "category": "persistent",
+                "critical": true,
+                "damageType": "poison",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "label": "PF2E.ConditionTypePersistent",
+                "predicate": [
+                    "item:id:{item|_id}"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "critical": true,
+                "damageCategory": "persistent",
+                "key": "FlatModifier",
+                "label": "PF2E.ConditionTypePersistent",
+                "predicate": [
+                    "item:id:{item|_id}"
+                ],
+                "selector": "strike-damage",
+                "type": "item",
+                "value": "@weapon.system.damage.dice"
             }
         ],
         "runes": {
