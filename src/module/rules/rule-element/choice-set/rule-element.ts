@@ -382,11 +382,12 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
             );
 
         if (includeHandwraps) {
+            const handwrapsSlug = "handwraps-of-mighty-blows";
             choices.push(
                 ...this.actor.itemTypes.weapon
                     .filter(
                         (i) =>
-                            i.slug === "handwraps-of-mighty-blows" &&
+                            (i.slug === handwrapsSlug || i.system.traits.otherTags.includes(handwrapsSlug)) &&
                             predicate.test([...actorRollOptions, ...i.getRollOptions("item")]),
                     )
                     .map((h) => ({ img: h.img, label: h.name, value: "unarmed" })),

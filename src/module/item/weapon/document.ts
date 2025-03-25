@@ -57,8 +57,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     override get isEquipped(): boolean {
         const { category, slug, traits } = this.system;
+        const handwrapsSlug = "handwraps-of-mighty-blows";
         // Make unarmed "weapons" always equipped with the exception of handwraps
-        if (category === "unarmed" && slug !== "handwraps-of-mighty-blows") {
+        if (category === "unarmed" && slug !== handwrapsSlug && !traits.otherTags.includes(handwrapsSlug)) {
             return true;
         }
 
