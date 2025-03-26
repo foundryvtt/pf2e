@@ -386,7 +386,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                 ...this.actor.itemTypes.weapon
                     .filter(
                         (i) =>
-                            i.slug === "handwraps-of-mighty-blows" &&
+                            i.system.traits.otherTags.includes("handwraps-of-mighty-blows") &&
                             predicate.test([...actorRollOptions, ...i.getRollOptions("item")]),
                     )
                     .map((h) => ({ img: h.img, label: h.name, value: "unarmed" })),
