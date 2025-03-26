@@ -94,6 +94,13 @@ interface AuxiliaryInteractParams {
     hands?: ZeroToTwo;
 }
 
+interface AuxiliaryWeaponParryParams {
+    weapon: WeaponPF2e<CharacterPF2e>;
+    action: "parry";
+    annotation?: never;
+    hands?: never;
+}
+
 interface AuxiliaryShieldParams {
     weapon: WeaponPF2e<CharacterPF2e>;
     action: "end-cover" | "raise-a-shield" | "take-cover";
@@ -108,7 +115,11 @@ interface AuxiliaryReleaseParams {
     hands: 0 | 1;
 }
 
-type AuxiliaryActionParams = AuxiliaryInteractParams | AuxiliaryShieldParams | AuxiliaryReleaseParams;
+type AuxiliaryActionParams =
+    | AuxiliaryInteractParams
+    | AuxiliaryWeaponParryParams
+    | AuxiliaryShieldParams
+    | AuxiliaryReleaseParams;
 type AuxiliaryActionType = AuxiliaryActionParams["action"];
 type AuxiliaryActionPurpose = AuxiliaryActionParams["annotation"];
 
@@ -226,6 +237,14 @@ class WeaponAuxiliaryAction {
             }
         } else if (this.action === "end-cover") {
             await actor.itemTypes.effect.find((e) => e.sourceId === COVER_UUID)?.delete();
+        } else if (this.action === "parry") {
+            // Apply Effect: Parry
+            const alreadyParrying = actor.itemTypes.effect.some((e) => e.slug === "parry");
+            if (alreadyParrying) return;
+            const effect = await fromUuid("Compendium.pf2e.equipment-effects.Item.fRlvmul3LbLo2xvR");
+            if (effect instanceof EffectPF2e) {
+                await actor.createEmbeddedDocuments("Item", [{ ...effect.toObject(), _id: null }]);
+            }
         }
 
         if (!game.combat) return; // Only send out messages if in encounter mode
@@ -244,15 +263,14 @@ class WeaponAuxiliaryAction {
             glyph: this.glyph,
         };
 
-        const [traits, message] =
-            this.action === "raise-a-shield"
-                ? [[], `PF2E.Actions.${actionKey}.Content`]
-                : ["take-cover", "end-cover"].includes(this.action)
-                  ? [[], `PF2E.Actions.${actionKey}.${annotationKey}.Description`]
-                  : [
-                        [traitSlugToObject("manipulate", CONFIG.PF2E.actionTraits)],
-                        `PF2E.Actions.${actionKey}.${fullAnnotationKey}.Description`,
-                    ];
+        const [traits, message] = ["raise-a-shield", "parry"].includes(this.action)
+            ? [[], `PF2E.Actions.${actionKey}.Content`]
+            : ["take-cover", "end-cover"].includes(this.action)
+              ? [[], `PF2E.Actions.${actionKey}.${annotationKey}.Description`]
+              : [
+                    [traitSlugToObject("manipulate", CONFIG.PF2E.actionTraits)],
+                    `PF2E.Actions.${actionKey}.${fullAnnotationKey}.Description`,
+                ];
 
         const flavor = await renderTemplate(templates.flavor, { action: flavorAction, traits });
 

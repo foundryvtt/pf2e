@@ -1248,12 +1248,17 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         const auxiliaryActions: WeaponAuxiliaryAction[] = [];
         const isRealItem = this.items.has(weapon.id);
+        const traitsArray = weapon.system.traits.value;
 
         if (weapon.system.traits.toggles.modular.options.length > 0) {
             auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "modular" }));
         }
+        if (weapon.isEquipped) {
+            if (traitsArray.includes("parry") && !this.rollOptions.all["self:effect:parry"]) {
+                auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "parry" }));
+            }
+        }
         if (isRealItem && weapon.category !== "unarmed" && !weapon.parentItem) {
-            const traitsArray = weapon.system.traits.value;
             const usage = weapon.system.usage;
             const weaponAsShield = weapon.shield;
             const canWield2H =
