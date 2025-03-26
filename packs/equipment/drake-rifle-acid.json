@@ -77,21 +77,14 @@
                 "diceNumber": 1,
                 "dieSize": "d4",
                 "key": "DamageDice",
-                "label": "PF2E.ConditionTypePersistent",
-                "predicate": [
-                    "item:id:{item|_id}"
-                ],
-                "selector": "strike-damage"
+                "selector": "{item|id}-damage"
             },
             {
                 "critical": true,
                 "damageCategory": "persistent",
                 "key": "FlatModifier",
-                "label": "PF2E.ConditionTypePersistent",
-                "predicate": [
-                    "item:id:{item|_id}"
-                ],
-                "selector": "strike-damage",
+                "selector": "{item|id}-damage"
+            },
                 "type": "item",
                 "value": "@weapon.system.damage.dice"
             }
