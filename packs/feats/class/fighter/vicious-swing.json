@@ -27,12 +27,12 @@
         },
         "rules": [
             {
+                "diceNumber": "ternary(gte(@actor.level,18),3,ternary(gte(@actor.level,10),2,1))",
                 "key": "DamageDice",
                 "predicate": [
                     "vicious-swing"
                 ],
-                "selector": "melee-strike-damage",
-                "diceNumber": "ternary(gte(@actor.level,18),3,ternary(gte(@actor.level,10),2,1))"
+                "selector": "melee-strike-damage"
             },
             {
                 "domain": "damage",
