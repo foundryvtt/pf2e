@@ -355,7 +355,6 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
         // Ensure handwraps have otherTags set
         if (
-            this.system.category === "unarmed" &&
             this.system.slug === "handwraps-of-mighty-blows" &&
             !traits.otherTags.includes("handwraps-of-mighty-blows")
         ) {
