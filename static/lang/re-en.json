@@ -2668,10 +2668,14 @@
                     "Description": "You can use a ranged weapon to make a ranged Strike instead of a melee Strike for Retributive Strike. The enemy needs to be in range, but not in reach, and it must still be in your champion's aura. You can also make melee Strikes against enemies a bit farther away. If the enemy that triggered your reaction is outside your reach but is within 5 feet of your reach, as part of your reaction you can Step to put the enemy in your reach before making a melee Retributive Strike."
                 },
                 "RelentlessReaction": {
-                    "Grandeur": "The enemy also takes @Damage[(@actor.abilities.cha.mod)[persistent,spirit]] damage, and it can't recover from this persistent damage while affected by the revealing light from your Flash of Grandeur.",
-                    "Iniquity": "An enemy damaged by the initial reaction's damage also takes @Damage[(@actor.abilities.cha.mod)[persistent,spirit]] damage.",
+                    "Grandeur": "The enemy also takes @Damage[(@actor.abilities.cha.mod)[persistent,spirit]|traits:holy] damage, and it can't recover from this persistent damage while affected by the revealing light from your Flash of Grandeur.",
+                    "Iniquity": "An enemy damaged by the initial reaction's damage also takes @Damage[(@actor.abilities.cha.mod)[persistent,spirit]|traits:unholy] damage.",
                     "Liberation": "You punish those who ensnare your allies. If the triggering enemy was using any effects to make your ally grabbed, restrained, immobilized, or paralyzed when you used Liberating Step, that enemy takes @Damage[(@actor.abilities.cha.mod)[persistent,spirit]] damage",
-                    "ObedienceRedemption": "If the enemy refuses, it takes @Damage[(@actor.abilities.cha.mod)[persistent,spirit]] damage"
+                    "LiberationHoly": "You punish those who ensnare your allies. If the triggering enemy was using any effects to make your ally grabbed, restrained, immobilized, or paralyzed when you used Liberating Step, that enemy takes @Damage[(@actor.abilities.cha.mod)[persistent,spirit]|traits:holy] damage",
+                    "LiberationUnHoly": "You punish those who ensnare your allies. If the triggering enemy was using any effects to make your ally grabbed, restrained, immobilized, or paralyzed when you used Liberating Step, that enemy takes @Damage[(@actor.abilities.cha.mod)[persistent,spirit]|traits:unholy] damage",
+                    "ObedienceRedemption": "If the enemy refuses, it takes @Damage[(@actor.abilities.cha.mod)[persistent,spirit]] damage",
+                    "ObedienceRedemptionHoly": "If the enemy refuses, it takes @Damage[(@actor.abilities.cha.mod)[persistent,spirit]|traits:holy] damage",
+                    "ObedienceUnHoly": "If the enemy refuses, it takes @Damage[(@actor.abilities.cha.mod)[persistent,spirit]|traits:unholy] damage"
                 },
                 "RetributiveStrike": "Retributive Strike",
                 "Security": {
