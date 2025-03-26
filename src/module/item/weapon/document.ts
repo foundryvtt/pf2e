@@ -56,10 +56,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     altUsageType: "melee" | "thrown" | null = null;
 
     override get isEquipped(): boolean {
-        const { category, slug, traits } = this.system;
-        const handwrapsSlug = "handwraps-of-mighty-blows";
+        const { category, traits } = this.system;
         // Make unarmed "weapons" always equipped with the exception of handwraps
-        if (category === "unarmed" && slug !== handwrapsSlug && !traits.otherTags.includes(handwrapsSlug)) {
+        if (category === "unarmed" && !traits.otherTags.includes("handwraps-of-mighty-blows")) {
             return true;
         }
 
@@ -352,6 +351,15 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const traits = this.system.traits;
         if (this.system.category === "unarmed" && !traits.value.includes("unarmed")) {
             traits.value.push("unarmed");
+        }
+
+        // Ensure handwraps have otherTags set
+        if (
+            this.system.category === "unarmed" &&
+            this.system.slug === "handwraps-of-mighty-blows" &&
+            !traits.otherTags.includes("handwraps-of-mighty-blows")
+        ) {
+            traits.otherTags.push("handwraps-of-mighty-blows");
         }
 
         // Force a weapon to be ranged if it is among a set of certain groups or has a thrown trait
