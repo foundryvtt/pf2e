@@ -1,0 +1,129 @@
+{
+    "_id": "2u26bmArDPuoCljc",
+    "img": "icons/magic/air/weather-wind-gust.webp",
+    "name": "Effect: Remaining Air",
+    "system": {
+        "badge": {
+            "max": 20,
+            "type": "counter",
+            "value": 20
+        },
+        "description": {
+            "value": "<p>See @UUID[Compendium.pf2e.journals.JournalEntry.S55aqwWIzpQRFhcq.JournalEntryPage.OiRwxbfLNUniLg15#drowning-and-suffocating]{Drowning and Suffocating}</p>\n<p>You can hold your breath for a number of rounds equal to 5 + your Constitution modifier. Reduce your remaining air by 1 round at the end of each of your turns, or by 2 if you attacked or cast any spells that turn.</p>\n<p>You also lose 1 round worth of air each time you are critically hit or critically fail a save against a damaging effect. If you speak (including Casting a Spell) you lose all remaining air.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "badge-max",
+                "value": "5 + @actor.abilities.con.mod"
+            },
+            {
+                "key": "Note",
+                "selector": "attack",
+                "text": "PF2E.SpecificRule.RemainingAir.AttackOrSpells",
+                "title": "PF2E.SpecificRule.RemainingAir.Label"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.RemainingAir.Label",
+                "mode": "add",
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.RemainingAir.AttackOrSpells"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "not": "item:trait:subtle"
+                            }
+                        ],
+                        "text": "PF2E.SpecificRule.RemainingAir.Speak"
+                    }
+                ]
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.RemainingAir.Label",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:auditory"
+                ],
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.RemainingAir.Speak"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.RemainingAir.Label",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:auditory"
+                ],
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.RemainingAir.Speak"
+                    }
+                ]
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalFailure"
+                ],
+                "predicate": [
+                    "damaging-effect"
+                ],
+                "selector": "saving-throw",
+                "text": "PF2E.SpecificRule.RemainingAir.LoseOneRound",
+                "title": "PF2E.SpecificRule.RemainingAir.Label"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "damage-received",
+                "text": "PF2E.SpecificRule.RemainingAir.LoseOneRound",
+                "title": "PF2E.SpecificRule.RemainingAir.Label"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
