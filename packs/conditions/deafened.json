@@ -27,7 +27,28 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "perception-initiative",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "check:type:skill",
+                                    "item:trait:auditory"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "check:statistic:base:perception",
+                                    "check:statistic:initiative"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": [
+                    "perception",
+                    "skill-check"
+                ],
                 "slug": "deafened",
                 "type": "status",
                 "value": -2
@@ -35,6 +56,60 @@
             {
                 "key": "Immunity",
                 "type": "auditory"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:auditory"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.condition.deafened.note"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:auditory"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.condition.deafened.note"
+                    }
+                ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "item:trait:subtle"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.condition.deafened.note"
+                    }
+                ]
+            },
+            {
+                "adjustment": {
+                    "all": "to-critical-failure"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:trait:auditory"
+                ],
+                "selector": "perception"
             }
         ],
         "traits": {
