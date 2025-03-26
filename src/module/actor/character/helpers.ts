@@ -239,8 +239,8 @@ class WeaponAuxiliaryAction {
             await actor.itemTypes.effect.find((e) => e.sourceId === COVER_UUID)?.delete();
         } else if (this.action === "parry") {
             // Apply Effect: Parry
-            const alreadyRaised = actor.itemTypes.effect.some((e) => e.slug === "parry");
-            if (alreadyRaised) return;
+            const alreadyParrying = actor.itemTypes.effect.some((e) => e.slug === "parry");
+            if (alreadyParrying) return;
             const effect = await fromUuid("Compendium.pf2e.equipment-effects.Item.fRlvmul3LbLo2xvR");
             if (effect instanceof EffectPF2e) {
                 await actor.createEmbeddedDocuments("Item", [{ ...effect.toObject(), _id: null }]);
