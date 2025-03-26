@@ -405,7 +405,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         actor.conditions.set(condition.id, condition);
         condition.prepareSiblingData();
         condition.prepareActorData();
-        condition.rules = condition.prepareRuleElements();
+        condition.rules = condition.active ? condition.prepareRuleElements() : [];
         for (const rule of condition.rules) {
             rule.onApplyActiveEffects?.();
             rule.beforePrepareData?.();
