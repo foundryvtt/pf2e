@@ -27,7 +27,15 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "perception-initiative",
+                "predicate": [
+                    {
+                        "or": [
+                            "check:statistic:initiative",
+                            "item:trait:auditory"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
                 "slug": "deafened",
                 "type": "status",
                 "value": -2
@@ -35,6 +43,60 @@
             {
                 "key": "Immunity",
                 "type": "auditory"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:auditory"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.condition.deafened.note"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:auditory"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.condition.deafened.note"
+                    }
+                ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "item:trait:subtle"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.condition.deafened.note"
+                    }
+                ]
+            },
+            {
+                "adjustment": {
+                    "all": "to-critical-failure"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:trait:auditory"
+                ],
+                "selector": "perception"
             }
         ],
         "traits": {
