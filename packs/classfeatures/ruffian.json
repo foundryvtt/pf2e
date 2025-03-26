@@ -92,26 +92,10 @@
             {
                 "key": "CriticalSpecialization",
                 "predicate": [
+                    "item:tag:sneak-attack",
                     "target:condition:off-guard",
-                    "item:category:simple",
                     {
-                        "lte": [
-                            "item:damage:die:faces",
-                            8
-                        ]
-                    }
-                ]
-            },
-            {
-                "key": "CriticalSpecialization",
-                "predicate": [
-                    "target:condition:off-guard",
-                    "item:category:martial",
-                    {
-                        "lte": [
-                            "item:damage:die:faces",
-                            6
-                        ]
+                        "not": "item:category:unarmed"
                     }
                 ]
             }
