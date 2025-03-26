@@ -30,12 +30,25 @@
                 "predicate": [
                     {
                         "or": [
-                            "check:statistic:initiative",
-                            "item:trait:auditory"
+                            {
+                                "and": [
+                                    "check:type:skill",
+                                    "item:trait:auditory"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "check:statistic:base:perception",
+                                    "check:statistic:initiative"
+                                ]
+                            }
                         ]
                     }
                 ],
-                "selector": "skill-check",
+                "selector": [
+                    "perception",
+                    "skill-check"
+                ],
                 "slug": "deafened",
                 "type": "status",
                 "value": -2
