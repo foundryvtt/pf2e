@@ -211,6 +211,7 @@ const resistanceTypes = {
     slashing: "PF2E.Damage.RollFlavor.slashing",
     sonic: "PF2E.Damage.RollFlavor.sonic",
     spells: "PF2E.Damage.IWR.Type.spells",
+    "splash-damage": "PF2E.Damage.IWR.Type.splash-damage",
     spirit: "PF2E.Damage.RollFlavor.spirit",
     "unarmed-attacks": "PF2E.Damage.IWR.Type.unarmed-attacks",
     vitality: "PF2E.Damage.RollFlavor.vitality",
