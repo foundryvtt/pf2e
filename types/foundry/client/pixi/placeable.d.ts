@@ -19,12 +19,6 @@ declare global {
         /** A reference to the Scene embedded Document instance which this object represents */
         document: TDocument;
 
-        /**
-         * Track the field of vision for the placeable object.
-         * This is necessary to determine whether a player has line-of-sight towards a placeable object or vice-versa
-         */
-        vision: { fov: unknown; shape: unknown };
-
         /** A control icon for interacting with the object */
         controlIcon: ControlIcon;
 

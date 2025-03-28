@@ -55,7 +55,7 @@ const MetagameSettingsConfig = {
         onChange: (value: unknown) => {
             game.pf2e.settings.metagame.partyVision = !!value;
             if (canvas.ready && canvas.scene) {
-                canvas.perception.update({ initializeVision: true, refreshLighting: true }, true);
+                canvas.perception.update({ initializeVision: true, refreshLighting: true });
             }
         },
     },

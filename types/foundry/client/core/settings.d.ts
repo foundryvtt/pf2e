@@ -104,7 +104,6 @@ declare global {
          * @param key       The setting key to retrieve
          */
         get(module: "core", key: "compendiumConfiguration"): Record<string, { private: boolean; locked: boolean }>;
-        get(module: "core", key: "defaultToken"): Partial<foundry.data.PrototypeTokenSource>;
         get(module: "core", key: "fontSize"): number;
         get(module: "core", key: "noCanvas"): boolean;
         get(module: "core", key: "rollMode"): RollMode;
@@ -128,7 +127,6 @@ declare global {
 
     interface ClientSettingsMap extends Map<string, SettingConfig> {
         get(key: "core.chatBubblesPan"): SettingConfig & { default: boolean };
-        get(key: "core.defaultToken"): SettingConfig & { default: PreCreate<foundry.data.PrototypeTokenSource> };
         get(key: "core.dynamicTokenRingFitMode"): SettingConfig & { default: "grid" | "subject" };
         get(key: "core.notesDisplayToggle"): SettingConfig & { default: boolean };
     }
