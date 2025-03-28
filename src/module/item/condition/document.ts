@@ -236,6 +236,11 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         const deactivate = (condition: ConditionPF2e<ActorPF2e>): void => {
             condition.active = false;
             condition.system.references.overriddenBy.push({ id: this.id, type: "condition" as const });
+            // This is only needed if a late-arriving (typically in-memory) condition needs to deactivate
+            // already-processed condition in the actor's items collection
+            for (const rule of condition.rules) {
+                rule.ignored = true;
+            }
         };
 
         const conditions = this.actor.conditions.active;
