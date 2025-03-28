@@ -379,3 +379,19 @@ $adjusted-lower: #cc3311;
 .theme-dark .application {
     --visibility-gm-bg: var(--color-cool-4);
 }
+
+/**
+* Color properties backported from V13.
+* @todo remove in V13
+*/
+.application {
+    --color-text-secondary: var(--color-dark-3);
+    --color-text-subtle: var(--color-dark-4);
+    --table-row-color-even: rgba(255, 255, 255, 0.2);
+    --table-row-color-odd: transparent;
+
+    .theme-dark & {
+        --color-text-secondary: var(--color-light-3);
+        --color-text-subtle: var(--color-light-5);
+    }
+}
