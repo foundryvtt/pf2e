@@ -241,25 +241,26 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         const conditions = this.actor.conditions.active;
 
         const ofSameType = conditions.filter((c) => c !== this && c.key === this.key);
-        for (const condition of ofSameType) {
-            if (condition.slug === "persistent-damage") {
+        for (const other of ofSameType) {
+            const otherIsGTE = other.value === this.value || (other.value && this.value && other.value >= this.value);
+            if (other.slug === "persistent-damage") {
                 const thisValue = this.system.persistent?.expectedValue ?? 0;
-                const otherValue = condition.system.persistent?.expectedValue ?? 0;
-                if (thisValue >= otherValue) deactivate(condition);
-            } else if (this.value === condition.value && this.inMemoryOnly) {
-                // Defer to other, identical condition if this one is in-memory-only
-                deactivate(this);
-            } else if (this.value === condition.value && (!this.isLocked || condition.isLocked)) {
-                // Deactivate other equal valued conditions if this condition isn't locked or both are locked
-                deactivate(condition);
-            } else if (this.value && condition.value && this.value > condition.value) {
-                // Deactivate other conditions with a lower or equal value
-                deactivate(condition);
+                const otherValue = other.system.persistent?.expectedValue ?? 0;
+                if (thisValue >= otherValue) deactivate(other);
+            } else if (otherIsGTE && this.inMemoryOnly) {
+                // Defer to other, gte condition if this one is in-memory-only
+                return deactivate(this);
+            } else if (this.value === other.value && (!this.isLocked || other.isLocked)) {
+                // Deactivate other, equal-valued conditions if this condition isn't locked or both are locked
+                deactivate(other);
+            } else if (!otherIsGTE) {
+                // Deactivate other conditions of lower values
+                deactivate(other);
             }
         }
 
         // Deactivate conditions naturally overridden by this one
-        if (this.active && this.system.overrides.length > 0) {
+        if (this.system.overrides.length > 0) {
             const overridden = conditions.filter((c) => c.active && this.system.overrides.includes(c.key));
             for (const condition of overridden) {
                 deactivate(condition);
