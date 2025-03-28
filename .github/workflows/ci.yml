@@ -2,11 +2,11 @@ name: PF2e System CI
 
 on:
   pull_request:
-    branches: [master]
+    branches: [v13-dev]
   push:
-    branches: [master]
+    branches: [v13-dev]
   workflow_dispatch:
-    branches: [master]
+    branches: [v13-dev]
 
 jobs:
   build:
@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [20.x]
 
     steps:
       - uses: actions/checkout@v4

@@ -1,17 +1,18 @@
-<li class="directory-item document {{@root.documentCls}} flexrow" data-entry-id="{{this.id}}" data-document-id="{{this.id}}">
-    {{#if this.thumbnail}}
-        <img class="thumbnail" title="{{this.name}}" data-src="{{this.thumbnail}}"/>
+<li class="directory-item entry document {{@root.documentCls}} flexrow" data-entry-id="{{id}}">
+    {{#if thumbnail}}
+    <img class="thumbnail" src="{{thumbnail}}" alt="{{name}}" loading="lazy" />
     {{/if}}
-    <h4 class="entry-name document-name">
-        <a>{{this.name}}</a>
-        {{#if (ne this.type "loot")}}
-            {{#if (eq this.type "hazard")}}
-                <span class="actor-level">{{localize "PF2E.Actor.Hazard.Level" level=this.level}}</span>
-            {{else if (eq this.type "vehicle")}}
-                <span class="actor-level">{{localize "PF2E.vehicle.LevelN" level=this.level}}</span>
-            {{else}}
-                <span class="actor-level">{{localize "PF2E.LevelN" level=this.level}}</span>
-            {{/if}}
+    <a class="entry-name ellipsis" data-action="activateEntry">
+        <span>{{name}}</span>
+        {{#if (eq type "loot")}}
+        {{else if (eq type "npc")}}
+            <span class="actor-level">{{localize "PF2E.Actor.NPC.LevelN" level=level}}</span>
+        {{else if (eq type "hazard")}}
+            <span class="actor-level">{{localize "PF2E.Actor.Hazard.Level" level=level}}</span>
+        {{else if (eq type "vehicle")}}
+            <span class="actor-level">{{localize "PF2E.vehicle.LevelN" level=level}}</span>
+        {{else}}
+            <span class="actor-level">{{localize "PF2E.LevelN" level=level}}</span>
         {{/if}}
-    </h4>
+    </a>
 </li>

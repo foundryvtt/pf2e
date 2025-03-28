@@ -5,11 +5,9 @@
  * @see {@link ChatLog} The ChatLog sidebar directory
  */
 declare class Messages<TChatMessage extends ChatMessage = ChatMessage> extends WorldCollection<TChatMessage> {
-    /** @override */
-    static documentName: "ChatMessage";
+    static override documentName: "ChatMessage";
 
-    /** @override */
-    render(force?: boolean): void;
+    override render(force?: boolean): void;
 
     /**
      * If requested, dispatch a Chat Bubble UI for the newly created message
