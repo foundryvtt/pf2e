@@ -97,7 +97,7 @@ declare global {
          * A reference to the VisionSource object which defines this vision source area of effect.
          * This is undefined if the Token does not provide an active source of vision.
          */
-        vision: PointVisionSource;
+        vision: PointVisionSource<this> | undefined;
 
         /**
          * A reference to the LightSource object which defines this light source area of effect.

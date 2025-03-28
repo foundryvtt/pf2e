@@ -18,9 +18,8 @@ export class SceneDarknessAdjuster extends Application {
             id: "darkness-adjuster",
             title: "CONTROLS.AdjustSceneDarkness",
             template: "systems/pf2e/templates/system/scene-darkness-adjuster.hbs",
-            width: 400,
-            height: 45,
             minimizable: false,
+            popOut: false,
         };
     }
 
@@ -31,29 +30,29 @@ export class SceneDarknessAdjuster extends Application {
         };
     }
 
-    override render(force = false, options: RenderOptions & { scenes?: ScenePF2e[] } = {}): this {
-        if (!game.scenes.viewed) return this;
+    override async _render(force?: boolean, options: RenderOptions & { scenes?: ScenePF2e[] } = {}): Promise<void> {
+        if (!game.scenes.viewed) return;
 
         // Adjust position of this application's window
-        const controls = ui.controls.element[0];
-        const bounds = controls?.querySelector("li[data-tool=darkness-adjuster]")?.getBoundingClientRect();
-        if (!bounds) return this;
+        const controls = ui.controls.element;
+        const bounds = controls?.querySelector("button[data-tool=darknessAdjuster]")?.getBoundingClientRect();
+        if (!bounds) return;
 
-        options.left = bounds.right + 6;
-        options.top = bounds.top - 3;
-        if (this.rendered) return super.render(force, options);
+        const wasRendered = this.rendered;
+        await super._render(force, options);
+        if (!this.rendered) return;
 
-        super.render(force, options);
-        const $element = $("#darkness-adjuster");
-        $element.hide(0).fadeIn().promise();
-
-        return this;
+        const $element = this.element;
+        const element = $element[0];
+        element.style.left = `${bounds.right + 6}px`;
+        element.style.top = `${(options.top = bounds.top - 3)}px`;
+        if (!wasRendered) $element.fadeIn().promise();
     }
 
     /** Fade out before closing */
     override async close(options?: { force?: boolean } & Record<string, unknown>): Promise<void> {
         if (!this.rendered) return super.close(options);
-        await $("#darkness-adjuster").fadeOut().promise();
+        await this.element.fadeOut().promise();
         return super.close(options);
     }
 
@@ -84,11 +83,9 @@ export class SceneDarknessAdjuster extends Application {
         }
 
         // Disable the sun and moon thumbs for now
-        slider.querySelectorAll(".noUi-origin").forEach((thumb, index) => {
-            if (index !== 1) $(thumb).attr({ disabled: "disabled" });
-
-            if (game.scenes.viewed?.darknessSyncedToTime) {
-                thumb.setAttribute("disabled", "true");
+        slider.querySelectorAll<HTMLElement>(".noUi-origin").forEach((thumb, index) => {
+            if (index !== 1 || game.scenes.viewed?.darknessSyncedToTime) {
+                thumb.toggleAttribute("disabled", true);
             }
         });
 

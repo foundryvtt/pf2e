@@ -339,28 +339,28 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
     }
 
     protected override _getEntryContextOptions(): EntryContextOption[] {
-        const canApplyDamage: ContextOptionCondition = ($li: JQuery) => {
-            const message = game.messages.get($li[0].dataset.messageId, { strict: true });
+        const canApplyDamage: ContextOptionCondition = (li) => {
+            const message = game.messages.get(li.dataset.messageId, { strict: true });
             return canvas.tokens.controlled.length > 0 && message.rolls.some((r) => r instanceof DamageRoll);
         };
 
-        const canApplyTripleDamage: ContextOptionCondition = ($li: JQuery) =>
-            canApplyDamage($li) && game.pf2e.settings.critFumble.buttons;
+        const canApplyTripleDamage: ContextOptionCondition = (li) =>
+            canApplyDamage(li) && game.pf2e.settings.critFumble.buttons;
 
-        const canReroll: ContextOptionCondition = ($li: JQuery): boolean => {
-            const message = game.messages.get($li[0].dataset.messageId, { strict: true });
+        const canReroll: ContextOptionCondition = (li): boolean => {
+            const message = game.messages.get(li.dataset.messageId, { strict: true });
             return message.isRerollable;
         };
 
-        const canHeroPointReroll: ContextOptionCondition = ($li: JQuery): boolean => {
-            const message = game.messages.get($li[0].dataset.messageId, { strict: true });
+        const canHeroPointReroll: ContextOptionCondition = (li): boolean => {
+            const message = game.messages.get(li.dataset.messageId, { strict: true });
             const messageActor = message.actor;
             const actor = messageActor?.isOfType("familiar") ? messageActor.master : messageActor;
             return message.isRerollable && !!actor?.isOfType("character") && actor.heroPoints.value > 0;
         };
 
-        const canShowRollDetails: ContextOptionCondition = ($li: JQuery): boolean => {
-            const message = game.messages.get($li[0].dataset.messageId, { strict: true });
+        const canShowRollDetails: ContextOptionCondition = (li): boolean => {
+            const message = game.messages.get(li.dataset.messageId, { strict: true });
             return game.user.isGM && !!message.flags.pf2e.context;
         };
 
@@ -370,8 +370,8 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 name: "PF2E.ChatRollDetails.Select",
                 icon: fontAwesomeIcon("search").outerHTML,
                 condition: canShowRollDetails,
-                callback: ($li) => {
-                    const message = game.messages.get($li[0].dataset.messageId, { strict: true });
+                callback: (li) => {
+                    const message = game.messages.get(li.dataset.messageId, { strict: true });
                     message.showDetails();
                 },
             },
@@ -379,8 +379,8 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 name: "PF2E.DamageButton.FullContext",
                 icon: fontAwesomeIcon("heart-broken").outerHTML,
                 condition: canApplyDamage,
-                callback: ($li: JQuery) => {
-                    const message = game.messages.get($li[0].dataset.messageId, { strict: true });
+                callback: (li) => {
+                    const message = game.messages.get(li.dataset.messageId, { strict: true });
                     applyDamageFromMessage({ message });
                 },
             },
@@ -388,8 +388,8 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 name: "PF2E.DamageButton.HalfContext",
                 icon: fontAwesomeIcon("heart-broken").outerHTML,
                 condition: canApplyDamage,
-                callback: ($li: JQuery) => {
-                    const message = game.messages.get($li[0].dataset.messageId, { strict: true });
+                callback: (li) => {
+                    const message = game.messages.get(li.dataset.messageId, { strict: true });
                     applyDamageFromMessage({ message, multiplier: 0.5 });
                 },
             },
@@ -397,8 +397,8 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 name: "PF2E.DamageButton.DoubleContext",
                 icon: fontAwesomeIcon("heart-broken").outerHTML,
                 condition: canApplyDamage,
-                callback: ($li: JQuery) => {
-                    const message = game.messages.get($li[0].dataset.messageId, { strict: true });
+                callback: (li) => {
+                    const message = game.messages.get(li.dataset.messageId, { strict: true });
                     applyDamageFromMessage({ message, multiplier: 2 });
                 },
             },
@@ -406,8 +406,8 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 name: "PF2E.DamageButton.TripleContext",
                 icon: fontAwesomeIcon("heart-broken").outerHTML,
                 condition: canApplyTripleDamage,
-                callback: ($li: JQuery) => {
-                    const message = game.messages.get($li[0].dataset.messageId, { strict: true });
+                callback: (li) => {
+                    const message = game.messages.get(li.dataset.messageId, { strict: true });
                     applyDamageFromMessage({ message, multiplier: 3 });
                 },
             },
@@ -415,8 +415,8 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 name: "PF2E.DamageButton.HealingContext",
                 icon: fontAwesomeIcon("heart").outerHTML,
                 condition: canApplyDamage,
-                callback: ($li: JQuery) => {
-                    const message = game.messages.get($li[0].dataset.messageId, { strict: true });
+                callback: (li) => {
+                    const message = game.messages.get(li.dataset.messageId, { strict: true });
                     applyDamageFromMessage({ message, multiplier: -1 });
                 },
             },
@@ -424,8 +424,8 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 name: "PF2E.RerollMenu.HeroPoint",
                 icon: fontAwesomeIcon("hospital-symbol").outerHTML,
                 condition: canHeroPointReroll,
-                callback: ($li: JQuery) => {
-                    const message = game.messages.get($li[0].dataset.messageId, { strict: true });
+                callback: (li) => {
+                    const message = game.messages.get(li.dataset.messageId, { strict: true });
                     CheckPF2e.rerollFromMessage(message, { heroPoint: true });
                 },
             },
@@ -433,8 +433,8 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 name: "PF2E.RerollMenu.KeepNew",
                 icon: fontAwesomeIcon("dice").outerHTML,
                 condition: canReroll,
-                callback: ($li: JQuery) => {
-                    const message = game.messages.get($li[0].dataset.messageId, { strict: true });
+                callback: (li) => {
+                    const message = game.messages.get(li.dataset.messageId, { strict: true });
                     CheckPF2e.rerollFromMessage(message);
                 },
             },
@@ -442,8 +442,8 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 name: "PF2E.RerollMenu.KeepLower",
                 icon: fontAwesomeIcon("dice-one").outerHTML,
                 condition: canReroll,
-                callback: ($li: JQuery) => {
-                    const message = game.messages.get($li[0].dataset.messageId, { strict: true });
+                callback: (li) => {
+                    const message = game.messages.get(li.dataset.messageId, { strict: true });
                     CheckPF2e.rerollFromMessage(message, { keep: "lower" });
                 },
             },
@@ -451,8 +451,8 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 name: "PF2E.RerollMenu.KeepHigher",
                 icon: fontAwesomeIcon("dice-six").outerHTML,
                 condition: canReroll,
-                callback: ($li: JQuery) => {
-                    const message = game.messages.get($li[0].dataset.messageId, { strict: true });
+                callback: (li) => {
+                    const message = game.messages.get(li.dataset.messageId, { strict: true });
                     CheckPF2e.rerollFromMessage(message, { keep: "higher" });
                 },
             },

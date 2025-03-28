@@ -1,4 +1,6 @@
-export {};
+import type { DirectoryCollectionConstructor } from "./directory-collection-mixin.d.ts";
+
+declare const DirectoryCollectionMix: DirectoryCollectionConstructor;
 
 declare global {
     /**
@@ -6,8 +8,19 @@ declare global {
      * Each primary Document type has an associated subclass of WorldCollection which contains them.
      * @param data An array of data objects from which to create Document instances
      */
-    abstract class WorldCollection<TDocument extends WorldDocument> extends DocumentCollection<TDocument> {
-        constructor(data?: TDocument["_source"][]);
+    abstract class WorldCollection<TDocument extends WorldDocument> extends DirectoryCollectionMix<TDocument> {
+        /* -------------------------------------------- */
+        /*  Collection Properties                       */
+        /* -------------------------------------------- */
+
+        /** Reference the set of Folders which contain documents in this collection */
+        get folders(): Collection<Folder>;
+
+        /**
+         * Return a reference to the SidebarDirectory application for this WorldCollection, or null if it has not yet
+         * been created.
+         */
+        get directory(): DocumentDirectory<TDocument> | null;
 
         /** The source data is, itself, a mapping of IDs to data objects */
         protected readonly _source: TDocument["_source"];
@@ -49,28 +62,19 @@ declare global {
         initializeTree(): void;
 
         /** Sort two Entries by name, alphabetically. */
-        static _sortAlphabetical(a: Document, b: Document): number;
+        static _sortAlphabetical(a: { name: string }, b: { name: string }): number;
 
         /** Sort two Entries using their numeric sort fields. */
-        static _sortStandard(a: Document, b: Document): number;
+        static _sortStandard(a: { sort: number }, b: { sort: number }): number;
 
         /* -------------------------------------------- */
         /*  Collection Properties                       */
         /* -------------------------------------------- */
 
-        override get documentName(): string | null;
+        get documentName(): TDocument["documentName"];
 
         /** The base Document type which is contained within this WorldCollection */
-        static documentName: string | null;
-
-        /** Reference the set of Folders which contain documents in this collection */
-        get folders(): Collection<Folder>;
-
-        /**
-         * Return a reference to the SidebarDirectory application for this WorldCollection, or null if it has not yet
-         * been created.
-         */
-        get directory(): DocumentDirectory<TDocument> | null;
+        static documentName: string;
 
         /** Return a reference to the singleton instance of this WorldCollection, or null if it has not yet been created. */
         static get instance(): WorldCollection<WorldDocument>;
