@@ -1,10 +1,9 @@
 import { resetActors } from "@actor/helpers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ItemSheetPF2e, type ItemPF2e } from "@item";
-import { RulerPF2e } from "@module/canvas/ruler.ts";
 import { StatusEffects } from "@module/canvas/status-effects.ts";
 import { MigrationRunner } from "@module/migration/runner/index.ts";
-import { isImageOrVideoPath, tupleHasValue } from "@util";
+import { isImageOrVideoPath } from "@util";
 import { AutomationSettings } from "./automation.ts";
 import { HomebrewElements } from "./homebrew/menu.ts";
 import { MetagameSettings } from "./metagame.ts";
@@ -287,42 +286,18 @@ export function registerSettings(): void {
             game.pf2e.settings.gmVision = !!value;
             const color = value ? CONFIG.PF2E.Canvas.darkness.gmVision : CONFIG.PF2E.Canvas.darkness.default;
             CONFIG.Canvas.darknessColor = color;
-            if (ui.controls && canvas.activeLayer) {
-                ui.controls.initialize({ layer: canvas.activeLayer.constructor.layerOptions.name });
-            }
+            if (canvas.activeLayer) ui.controls.render({ reset: true });
             canvas.environment.initialize();
-            canvas.perception.update({ initializeVision: true }, true);
+            for (const token of canvas.tokens.placeables) {
+                token.initializeVisionSource();
+            }
+            canvas.perception.update({
+                refreshLighting: true,
+                refreshVision: true,
+                refreshSounds: true,
+                refreshOcclusion: true,
+            });
         },
-    });
-
-    // Called from hook to ensure keybindings are available
-    Hooks.once("canvasInit", () => {
-        if (RulerPF2e.hasModuleConflict) return;
-
-        const placeWaypointKey = ((): string => {
-            const action = game.keybindings.bindings.get("pf2e.placeWaypoint")?.at(0);
-            return action ? KeybindingsConfig._humanizeBinding(action) : "";
-        })();
-        game.settings.register("pf2e", "dragMeasurement", {
-            name: game.i18n.localize("PF2E.SETTINGS.DragMeasurement.Name"),
-            hint: game.i18n.format("PF2E.SETTINGS.DragMeasurement.Hint", { key: placeWaypointKey }),
-            scope: "world",
-            config: true,
-            type: String,
-            default: "never",
-            choices: {
-                always: "PF2E.SETTINGS.DragMeasurement.Always",
-                encounters: "PF2E.SETTINGS.DragMeasurement.Encounters",
-                never: "PF2E.SETTINGS.DragMeasurement.Never",
-            },
-            onChange: (value) => {
-                const options = ["always", "encounters", "never"] as const;
-                game.pf2e.settings.dragMeasurement = tupleHasValue(options, value)
-                    ? value
-                    : game.pf2e.settings.dragMeasurement;
-            },
-        });
-        game.pf2e.settings.dragMeasurement = game.settings.get("pf2e", "dragMeasurement");
     });
 
     game.settings.register("pf2e", "seenLastStopMessage", {

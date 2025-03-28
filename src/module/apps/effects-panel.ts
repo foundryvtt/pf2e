@@ -235,8 +235,13 @@ export class EffectsPanel extends Application {
         );
     }
 
-    override render(force?: boolean, options?: RenderOptions): this {
-        return super.render(force, options);
+    /** Move the panel to the right interface column. */
+    protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
+        await super._render(force, options);
+        const element = this.element[0];
+        if (force) {
+            document.getElementById("ui-right-column-1")?.appendChild(element);
+        }
     }
 }
 
