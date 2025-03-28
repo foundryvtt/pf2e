@@ -5,8 +5,7 @@ import { createHTMLElement, htmlQuery } from "@util";
 
 export class RenderTokenHUD {
     static listen(): void {
-        Hooks.on("renderTokenHUD", (_app, $html, data) => {
-            const html = $html[0];
+        Hooks.on("renderTokenHUD", (_app, html, data) => {
             game.pf2e.StatusEffects.onRenderTokenHUD(html, data);
 
             const token = canvas.scene?.tokens.get(data._id ?? "")?.object;

@@ -2,7 +2,7 @@ name: PF2e System CD
 
 on:
   workflow_dispatch:
-    branches: [release]
+    branches: [v13-dev]
 
 jobs:
   release:
@@ -10,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [20.x]
 
     steps:
       - uses: actions/checkout@v4
@@ -31,6 +31,7 @@ jobs:
       - name: Update Manifest
         run: |
           SYSTEM_VERSION=$(grep -oP '(?<="version": ")[^"]+' dist/system.json | tr -d '\n')
+          perl -pi -E "s|latest/download/system\\.json|download/$SYSTEM_VERSION/system.json|" dist/system.json
           perl -pi -E "s|latest/download/pf2e\\.zip|download/$SYSTEM_VERSION/pf2e.zip|" dist/system.json
           echo "systemVersion=$SYSTEM_VERSION" >> $GITHUB_ENV
 
@@ -49,9 +50,9 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           name: ${{ env.systemVersion }}
-          allowUpdates: false
+          allowUpdates: true
           draft: false
-          prerelease: false
+          prerelease: true
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: "./dist/system.json,./dist/pf2e.zip,./json-assets/json-assets.zip"
           tag: ${{ env.systemVersion }}

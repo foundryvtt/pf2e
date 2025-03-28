@@ -6,8 +6,7 @@
  * @see {@link CombatTracker} The CombatTracker sidebar directory
  */
 declare class CombatEncounters<TCombat extends Combat> extends WorldCollection<TCombat> {
-    /** @override */
-    static documentName: "Combat";
+    static override documentName: "Combat";
 
     /** Provide the settings object which configures the Combat entity */
     static get settings(): object;

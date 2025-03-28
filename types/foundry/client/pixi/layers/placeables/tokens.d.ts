@@ -1,4 +1,4 @@
-export {};
+import type TokenHUD from "../../../../client-esm/applications/hud/token-hud.d.mts";
 
 declare global {
     /** The Tokens Container */
@@ -22,7 +22,7 @@ declare global {
         /* -------------------------------------------- */
 
         /** Token objects on this layer utilize the TokenHUD */
-        override get hud(): TokenHUD<TObject>;
+        override get hud(): TokenHUD;
 
         /** An Array of tokens which belong to actors which are owned */
         get ownedTokens(): TObject[];

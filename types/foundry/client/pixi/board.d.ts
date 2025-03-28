@@ -139,7 +139,7 @@ declare global {
         overlay: OverlayCanvasGroup;
 
         /** The singleton HeadsUpDisplay container which overlays HTML rendering on top of this Canvas. */
-        hud: HeadsUpDisplay;
+        hud: foundry.applications.hud.HeadsUpDisplayContainer;
 
         /** Position of the mouse on stage. */
         mousePosition: PIXI.Point;

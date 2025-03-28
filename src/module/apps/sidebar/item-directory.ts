@@ -33,18 +33,16 @@ export class ItemDirectoryPF2e<TItem extends ItemPF2e<null>> extends ItemDirecto
         options.push({
             name: "PF2E.Item.Physical.Attach.SidebarContextMenuOption",
             icon: fontAwesomeIcon("paperclip").outerHTML,
-            condition: ($li) => {
-                const row = $li[0];
-                const item = game.items.get(row.dataset.documentId, { strict: true });
+            condition: (li) => {
+                const item = game.items.get(li.dataset.documentId, { strict: true });
                 return (
                     item.isOwner &&
                     item.isOfType("physical") &&
                     game.items.some((i) => i !== item && i.isOwner && i.isOfType("physical") && i.acceptsSubitem(item))
                 );
             },
-            callback: ($li) => {
-                const row = $li[0];
-                const item = game.items.get(row.dataset.documentId, { strict: true });
+            callback: (li) => {
+                const item = game.items.get(li.dataset.documentId, { strict: true });
                 if (
                     item.isOwner &&
                     item.isOfType("physical") &&

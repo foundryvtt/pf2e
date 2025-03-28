@@ -1,6 +1,8 @@
 import { ActorPF2e } from "@actor";
+import type { ApplicationConfiguration } from "@fvtt-client/applications/_types.d.ts";
+import { HandlebarsRenderOptions } from "@fvtt-client/applications/api/handlebars-application.ts";
 import { ItemPF2e } from "@item";
-import { ErrorPF2e, fontAwesomeIcon, htmlQuery } from "@util";
+import { ErrorPF2e, createHTMLElement, fontAwesomeIcon, htmlQuery } from "@util";
 import MiniSearch from "minisearch";
 import { CompendiumMigrationStatus } from "../compendium-migration-status.ts";
 
@@ -9,6 +11,20 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
     static readonly STOP_WORDS = new Set(["of", "th", "the"]);
 
     static #searchEngine: MiniSearch<CompendiumIndexData> | null = null;
+
+    /** Include ability to search and drag document search results */
+    static override DEFAULT_OPTIONS: DeepPartial<ApplicationConfiguration> = {
+        actions: {
+            onOpenBrowser: CompendiumDirectoryPF2e.#onOpenBrowser,
+        },
+    };
+
+    declare matchDragDrop: DragDrop;
+
+    static override PARTS = {
+        ...super.PARTS,
+        match: { template: "systems/pf2e/templates/sidebar/compendium-directory/search-result.hbs" },
+    };
 
     get searchEngine(): MiniSearch<CompendiumIndexData> {
         if (!CompendiumDirectoryPF2e.#searchEngine) {
@@ -42,18 +58,6 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
         return CompendiumDirectoryPF2e.#searchEngine;
     }
 
-    /** Include ability to search and drag document search results */
-    static override get defaultOptions(): ApplicationOptions {
-        const options = super.defaultOptions;
-        options.dragDrop.push({ dragSelector: "ol.document-matches > li.match" });
-
-        return {
-            ...options,
-            filters: [{ inputSelector: "input[type=search]", contentSelector: "ol.directory-list" }],
-            template: "systems/pf2e/templates/sidebar/compendium-directory.hbs",
-        };
-    }
-
     /** Create a drag preview that looks like the one generated from an open compendium */
     get #dragPreview(): HTMLElement {
         const preview = document.createElement("div");
@@ -66,26 +70,47 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
         return preview;
     }
 
-    override async getData(options?: Partial<ApplicationOptions>): Promise<CompendiumDirectoryDataPF2e> {
+    override async _prepareContext(options: HandlebarsRenderOptions): Promise<CompendiumDirectoryDataPF2e> {
         return {
-            ...(await super.getData(options)),
+            ...(await super._prepareContext(options)),
             searchContents: game.user.settings.searchPackContents,
             isV13: game.release.generation === 13,
         };
     }
 
+    protected override _onRender(
+        context: CompendiumDirectoryDataPF2e,
+        options: HandlebarsRenderOptions,
+    ): Promise<void> {
+        if (options.parts.includes("directory")) {
+            const matchesList = createHTMLElement("ol", { classes: ["document-matches"] });
+            const html = this.element;
+            html.querySelector("ol.directory-list")?.append(matchesList);
+            const browserButton = createHTMLElement("button", {
+                dataset: { action: "onOpenBrowser" },
+                children: [fontAwesomeIcon("magnifying-glass"), game.i18n.localize("PF2E.CompendiumBrowser.Title")],
+            });
+            html.querySelector(":scope > footer")?.append(browserButton);
+            this.matchDragDrop = new DragDrop({
+                dragSelector: ".directory-item",
+                dropSelector: ".directory-list",
+                permissions: {
+                    dragstart: this._canDragStart.bind(this),
+                    drop: this._canDragDrop.bind(this),
+                },
+                callbacks: {
+                    dragover: this._onDragOver.bind(this),
+                    dragstart: this._onDragStart.bind(this),
+                    drop: this._onDrop.bind(this),
+                },
+            }).bind(html);
+        }
+        return super._onRender(context, options);
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
-
-    override activateListeners($html: JQuery): void {
-        super.activateListeners($html);
-
-        // Hook in the compendium browser
-        $html[0].querySelector("footer > button")?.addEventListener("click", () => {
-            game.pf2e.compendiumBrowser.render(true);
-        });
-    }
 
     protected override _getEntryContextOptions(): EntryContextOption[] {
         const options = super._getEntryContextOptions();
@@ -93,16 +118,16 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
         options.push({
             name: "COMPENDIUM.MigrationStatus",
             icon: fontAwesomeIcon("info").outerHTML,
-            condition: ($li) => {
-                const compendium = game.packs.get($li.data("pack"), { strict: true });
+            condition: (li) => {
+                const compendium = game.packs.get(li.dataset.pack, { strict: true });
                 const actorOrItem =
                     compendium.documentClass === CONFIG.Actor.documentClass ||
                     compendium.documentClass === CONFIG.Item.documentClass;
                 const isSystemCompendium = compendium.metadata.packageType === "system";
                 return game.user.isGM && actorOrItem && !isSystemCompendium;
             },
-            callback: async ($li) => {
-                const compendium = game.packs.get($li.data("pack"), { strict: true }) as CompendiumCollection<
+            callback: async (li) => {
+                const compendium = game.packs.get(li.dataset.pack, { strict: true }) as CompendiumCollection<
                     ActorPF2e<null> | ItemPF2e<null>
                 >;
                 new CompendiumMigrationStatus(compendium).render(true);
@@ -113,10 +138,10 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
     }
 
     /** Add a context menu for content search results */
-    protected override _contextMenu($html: JQuery): void {
-        super._contextMenu($html);
+    protected override _contextMenu(html: HTMLElement): void {
+        super._contextMenu(html);
 
-        ContextMenu.create(this, $html, "ol.document-matches > li", [
+        ContextMenu.create(this, html, "ol.document-matches > li", [
             {
                 name: "COMPENDIUM.ImportEntry",
                 icon: fontAwesomeIcon("download").outerHTML,
@@ -152,15 +177,12 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
     /** System compendium search */
     protected override _onSearchFilter(event: KeyboardEvent, query: string, rgx: RegExp, listElem: HTMLElement): void {
         super._onSearchFilter(event, query, rgx, listElem);
-        const html = this.element[0];
+        const html = this.element;
 
         // Match documents within each compendium by name
         const docMatches = query.length > 0 ? this.searchEngine.search(query) : [];
-        const activeFilters = this.activeFilters;
-        const filteredMatches =
-            this.activeFilters.length > 0
-                ? docMatches.filter((m) => activeFilters.includes(m.documentType))
-                : docMatches;
+        const filters = this.activeFilters;
+        const filteredMatches = filters.size > 0 ? docMatches.filter((m) => filters.has(m.documentType)) : docMatches;
 
         // Create a list of document matches
         const matchTemplate = htmlQuery<HTMLTemplateElement>(html, ".compendium-search-match");
@@ -203,14 +225,12 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
         const matchesList = htmlQuery(html, "ol.document-matches");
         if (!matchesList) return;
         matchesList.replaceChildren(...listElements);
-        for (const dragDrop of this._dragDrop) {
-            dragDrop.bind(matchesList);
-        }
+        this.matchDragDrop.bind(matchesList);
     }
 
     /** Anyone can drag from search results */
-    protected override _canDragStart(): boolean {
-        return true;
+    protected override _canDragStart(selector: string): boolean {
+        return selector === "ol.document-matches" || super._canDragStart(selector);
     }
 
     /** Replicate the functionality of dragging a compendium document from an open `Compendium` */
@@ -261,6 +281,10 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
             this.searchEngine.addAll(contents);
         }
         console.debug("PF2e System | Finished compiling search index");
+    }
+
+    static async #onOpenBrowser(this: CompendiumDirectoryPF2e): Promise<void> {
+        game.pf2e.compendiumBrowser.render({ force: true });
     }
 }
 

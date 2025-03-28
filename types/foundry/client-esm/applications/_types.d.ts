@@ -91,18 +91,13 @@ export interface ApplicationRenderOptions {
      * If false, only applications which already exist are rendered.
      * @default false
      */
-    force?: boolean;
+    force: boolean;
     /** A specific position at which to render the Application */
-    position?: ApplicationPosition;
+    position: ApplicationPosition;
     /** Updates to the Application window frame */
-    window?: ApplicationWindowRenderOptions;
-    /**
-     * Some Application classes, for example the HandlebarsApplication, support re-rendering a subset of application
-     * parts instead of the full Application HTML.
-     */
-    parts?: string[];
+    window: ApplicationWindowRenderOptions;
     /** Is this render the first one for the application? This property is populated automatically. */
-    isFirstRender?: boolean;
+    isFirstRender: boolean;
 }
 
 export interface ApplicationWindowRenderOptions {

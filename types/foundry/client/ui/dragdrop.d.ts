@@ -80,7 +80,7 @@ declare global {
         dropSelector: string;
 
         /** A set of permission checking functions for each action of the Drag and Drop workflow */
-        permissions?: Record<string, DocumentOwnershipLevel>;
+        permissions?: Record<string, DocumentOwnershipLevel | ((selector: string) => boolean)>;
 
         /** A set of callback functions for each action of the Drag and Drop workflow */
         callbacks?: Partial<Record<DragDropAction, (event: DragEvent) => unknown>>;

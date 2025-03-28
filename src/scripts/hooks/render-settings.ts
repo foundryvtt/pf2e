@@ -1,15 +1,14 @@
 import { MigrationSummary } from "@module/apps/migration-summary.ts";
-import { ErrorPF2e, createHTMLElement, fontAwesomeIcon } from "@util";
+import { ErrorPF2e, createHTMLElement, fontAwesomeIcon, htmlQuery } from "@util";
 
 /** Attach system buttons and other knickknacks to the settings sidebar */
 export const RenderSettings = {
     listen: (): void => {
-        Hooks.on("renderSettings", async (_app, $html) => {
-            const html = $html[0];
+        Hooks.on("renderSettings", async (_app, html) => {
             // Additional system information resources
-            const systemRow = html.querySelector<HTMLLIElement>(".settings-sidebar li.system");
+            const systemRow = htmlQuery(html, "section.info .system");
             const systemInfo = systemRow?.cloneNode(false);
-            if (!(systemInfo instanceof HTMLLIElement)) {
+            if (!(systemInfo instanceof HTMLElement)) {
                 throw ErrorPF2e("Unexpected error attaching system information to settings sidebar");
             }
 
@@ -29,9 +28,8 @@ export const RenderSettings = {
                     label: "PF2E.SETTINGS.Sidebar.Discord",
                 },
             ].map((data): HTMLAnchorElement => {
-                const anchor = document.createElement("a");
+                const anchor = createHTMLElement("a", { children: [game.i18n.localize(data.label)] });
                 anchor.href = data.url;
-                anchor.innerText = game.i18n.localize(data.label);
                 anchor.target = "_blank";
                 return anchor;
             });
