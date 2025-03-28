@@ -127,7 +127,7 @@ type TokenSchema = {
             /** Whether or not this detection mode is presently enabled */
             enabled: fields.BooleanField;
             /** The maximum range in distance units at which this mode can detect targets */
-            range: fields.NumberField<number, number, true>;
+            range: fields.NumberField<number, number, true, true, true>;
         }>
     >;
     occludable: fields.SchemaField<{

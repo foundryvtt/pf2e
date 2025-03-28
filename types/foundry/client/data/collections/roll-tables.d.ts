@@ -7,8 +7,10 @@
 declare class RollTables extends WorldCollection<RollTable> {
     static override documentName: "RollTable";
 
-    override get directory(): RollTableDirectory;
-
     /** Register world settings related to RollTable entities */
     static registerSettings(): void;
+}
+
+declare interface RollTables extends WorldCollection<RollTable> {
+    get directory(): RollTableDirectory;
 }

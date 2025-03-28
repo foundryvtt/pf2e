@@ -35,12 +35,12 @@ declare global {
         renderPopout(...args: unknown[]): void;
     }
 
-    type ContextOptionCondition = (li: JQuery) => boolean;
+    type ContextOptionCondition = (li: HTMLElement) => boolean;
 
     interface EntryContextOption {
         name: string;
         icon: string;
         condition: ContextOptionCondition;
-        callback: (li: JQuery) => void;
+        callback: (li: HTMLElement) => void;
     }
 }
