@@ -28,7 +28,7 @@ export class AutomationSettings extends SettingsMenuPF2e {
                     for (const token of canvas.scene?.tokens ?? []) {
                         token.reset();
                     }
-                    canvas.perception.update({ initializeLighting: true, initializeVision: true }, true);
+                    canvas.perception.update({ initializeLighting: true, initializeVision: true });
                 },
             },
             iwr: {
