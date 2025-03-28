@@ -405,12 +405,8 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         actor.conditions.set(condition.id, condition);
         condition.prepareSiblingData();
         condition.prepareActorData();
-        condition.rules = condition.active ? condition.prepareRuleElements() : [];
-        for (const rule of condition.rules) {
-            rule.onApplyActiveEffects?.();
-            rule.beforePrepareData?.();
-            actor.rules.push(rule);
-        }
+        condition.rules = condition.prepareRuleElements();
+        actor.rules.push(...condition.rules);
     }
 
     /** If this item is being tracked, set an actor flag and add its item roll options to the `all` domain */
