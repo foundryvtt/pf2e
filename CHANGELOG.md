@@ -1,3 +1,16 @@
+## 6.11.1
+
+### Bugfixes
+
+- (stwlam) Fix issue where duplicate conditions may create duplicate description appends
+
+### Data Updates
+
+- (Ambrose) Clean up text for Oracle Mysteries, Animist Apparitions, and certain Magus features
+- (Dire Weasel) Add localization for Other usage
+- (kromko) Fix Beginner Box Caligni Hunter saving throws
+- (Rigo) Restore some deleted Menace under Otari actors and undo their redirects
+
 ## 6.11.0
 
 ### System Improvements
