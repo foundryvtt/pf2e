@@ -738,8 +738,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     async consumeAmmo(): Promise<void> {
         const ammo = this.ammo;
         if (ammo?.isOfType("consumable")) {
-            const deduction = this.system.traits.toggles.doubleBarrel.selected ? 2 : 1;
-            return ammo.consume(deduction);
+            return ammo.consume(this.ammoRequired);
         } else if (ammo?.isOfType("weapon")) {
             if (!ammo.system.usage.canBeAmmo) {
                 throw ErrorPF2e("attempted to consume weapon not usable as ammunition");
