@@ -1,4 +1,5 @@
 import "./apps/index.d.ts";
+import "./directory-tab-mixin.d.ts";
 import "./document-directory.d.ts";
 import "./package-configuration.d.ts";
 import "./sidebar-tab.d.ts";

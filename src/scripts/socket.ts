@@ -14,9 +14,9 @@ function activateSocketListener(): void {
                 }
                 break;
             case "refreshSceneControls":
-                if (!game.user.isGM && message.data.layer === ui.controls.control?.layer) {
+                if (!game.user.isGM && message.data.layer === ui.controls.control?.name) {
                     console.debug("PF2e System | Refreshing Scene Controls");
-                    ui.controls.initialize({ layer: message.data.layer });
+                    ui.controls.render();
                 }
                 break;
             case "showSheet": {

@@ -13,27 +13,32 @@ declare global {
          * When a refresh occurs, operations associated with each true flag are executed and the state is reset.
          */
         static FLAGS: {
-            initializeLighting: { propagate: ["refreshLighting"]; reset: [] };
-            refreshLighting: { propagate: ["refreshLightSources"]; reset: [] };
-            refreshLightSources: { propagate: []; reset: [] };
-            refreshVisionSources: { propagate: []; reset: [] };
-            refreshPrimary: { propagate: []; reset: [] };
-            initializeVision: {
-                propagate: [
-                    "refreshVision",
-                    "refreshTiles",
-                    "refreshLighting",
-                    "refreshLightSources",
-                    "refreshPrimary",
-                ];
-                reset: [];
-            };
-            refreshVision: { propagate: ["refreshVisionSources"]; reset: [] };
-            initializeSounds: { propagate: ["refreshSounds"]; reset: [] };
-            refreshSounds: { propagate: []; reset: [] };
-            refreshTiles: { propagate: ["refreshLightSources", "refreshVisionSources"]; reset: [] };
-            soundFadeDuration: { propagate: []; reset: [] };
-            forceUpdateFog: { propagate: []; reset: [] };
+            // Edges
+            refreshEdges: RenderFlag;
+
+            // Light and Darkness Sources
+            initializeLighting: { propagate: ["initializeDarknessSources", "initializeLightSources"] };
+            initializeDarknessSources: { propagate: ["refreshLighting", "refreshVision", "refreshEdges"] };
+            initializeLightSources: { propagate: ["refreshLighting", "refreshVision"] };
+            refreshLighting: { propagate: ["refreshLightSources"] };
+            refreshLightSources: RenderFlag;
+
+            // Vision
+            initializeVisionModes: { propagate: ["refreshVisionSources", "refreshLighting", "refreshPrimary"] };
+            initializeVision: { propagate: ["initializeVisionModes", "refreshVision"] };
+            refreshVision: { propagate: ["refreshVisionSources", "refreshOcclusionMask"] };
+            refreshVisionSources: RenderFlag;
+
+            // Primary Canvas Group
+            refreshPrimary: RenderFlag;
+            refreshOcclusion: { propagate: ["refreshOcclusionStates", "refreshOcclusionMask"] };
+            refreshOcclusionStates: RenderFlag;
+            refreshOcclusionMask: RenderFlag;
+
+            // Sound
+            initializeSounds: { propagate: ["refreshSounds"] };
+            refreshSounds: RenderFlag;
+            soundFadeDuration: RenderFlag;
         };
 
         /* -------------------------------------------- */
@@ -53,9 +58,8 @@ declare global {
         /**
          * Update perception manager flags which configure which behaviors occur on the next frame render.
          * @param flags      Flag values (true) to assign where the keys belong to PerceptionManager.FLAGS
-         * @param [v2=false] Opt-in to passing v2 flags, otherwise a backwards compatibility shim will be applied
          */
-        update(flags: { [K in keyof typeof PerceptionManager.FLAGS]?: true }, v2?: boolean): void;
+        update(flags: { [K in keyof typeof PerceptionManager.FLAGS]?: true }): void;
 
         /**
          * A helper function to perform an immediate initialization plus incremental refresh.
