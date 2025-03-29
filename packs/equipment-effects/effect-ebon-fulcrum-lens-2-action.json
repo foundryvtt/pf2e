@@ -28,15 +28,15 @@
             },
             {
                 "key": "FlatModifier",
-                "selector": [
-                    "ac",
-                    "attack",
-                    "class",
-                    "perception-dc",
-                    "saving-throw",
-                    "spell-dc",
-                    "inline-dc"
+                "predicate": [
+                    {
+                        "nand": [
+                            "check:type:skill",
+                            "origin:signature:{actor|signature}"
+                        ]
+                    }
                 ],
+                "selector": "all",
                 "type": "item",
                 "value": 1
             }
