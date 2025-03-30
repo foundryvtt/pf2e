@@ -1,0 +1,44 @@
+{
+    "_id": "1UHjPz8hgdnrN3zL",
+    "img": "icons/magic/control/debuff-energy-snare-green.webp",
+    "name": "Effect: Deny Fate",
+    "system": {
+        "description": {
+            "value": "<p>When you roll initiative, you automatically roll a 1.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 20
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #174: Shadows of the Ancients"
+        },
+        "rules": [
+            {
+                "key": "SubstituteRoll",
+                "removeAfterRoll": "if-enabled",
+                "required": true,
+                "selector": "initiative",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
