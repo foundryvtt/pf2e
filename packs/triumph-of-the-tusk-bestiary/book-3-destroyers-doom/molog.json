@@ -503,14 +503,22 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Molog rolls initiative</p><hr /><p><strong>Effect</strong> Molog attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] an observed foe.</p>"
+                    "value": "<p><strong>Trigger</strong> Molog rolls initiative</p><hr /><p><strong>Effect</strong> Molog attempts to [[/act demoralize]] an observed foe.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "initiative",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []

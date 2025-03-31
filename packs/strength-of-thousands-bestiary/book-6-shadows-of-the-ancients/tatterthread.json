@@ -1414,7 +1414,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>When Tatterthread rolls initiative, enemies she can see within 120 feet that are also rolling initiative automatically roll a 1.</p>"
+                    "value": "<p>When Tatterthread rolls initiative, enemies she can see within 120 feet that are also rolling initiative automatically roll a 1.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Deny Fate]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1425,7 +1425,9 @@
                     {
                         "key": "Note",
                         "selector": "initiative",
-                        "text": "<p><strong>{item|name}</strong></p><p>{item|system.description.value}</p>"
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
