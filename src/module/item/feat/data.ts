@@ -13,7 +13,7 @@ import type {
 } from "@item/base/data/system.ts";
 import type { ClassTrait } from "@item/class/types.ts";
 import type { WeaponCategory } from "@item/weapon/types.ts";
-import type { OneToFour, OneToThree, Rarity } from "@module/data.ts";
+import type { OneToFour, OneToThree } from "@module/data.ts";
 import { RarityField } from "@module/model.ts";
 import { LaxArrayField, NullCoercingNumberField, RecordField, SlugField } from "@system/schema-data-fields.ts";
 import { SourcePropFromDataField } from "types/foundry/common/data/fields.js";
@@ -246,7 +246,7 @@ type FeatSystemSchema = Omit<ItemSystemSchema, "traits"> & {
     }>;
     traits: fields.SchemaField<{
         value: fields.ArrayField<fields.StringField<FeatTrait, FeatTrait, true, false, false>>;
-        rarity: fields.StringField<Rarity, Rarity, true, false, true>;
+        rarity: RarityField;
         otherTags: fields.ArrayField<SlugField<true, false, false>, string[], string[], true, false, true>;
         toggles: fields.EmbeddedDataField<AbilityTraitToggles, false, false, false>;
     }>;
