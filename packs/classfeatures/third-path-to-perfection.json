@@ -51,7 +51,8 @@
                 ],
                 "flag": "pathToPerfection",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.PathToPerfection"
+                "prompt": "PF2E.SpecificRule.Prompt.PathToPerfection",
+                "rollOption": "third-path-to-perfection"
             },
             {
                 "key": "ActiveEffectLike",
@@ -65,6 +66,45 @@
                 },
                 "key": "AdjustDegreeOfSuccess",
                 "selector": "{item|flags.pf2e.rulesSelections.pathToPerfection}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "predicate": [
+                    "damaging-effect",
+                    "third-path-to-perfection:fortitude"
+                ],
+                "selector": "fortitude",
+                "text": "PF2E.SpecificRule.SaveCriticalFailureToFailure.FailureHalfDamage.Fortitude",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "predicate": [
+                    "damaging-effect",
+                    "third-path-to-perfection:reflex"
+                ],
+                "selector": "reflex",
+                "text": "PF2E.SpecificRule.SaveCriticalFailureToFailure.FailureHalfDamage.Reflex",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "predicate": [
+                    "damaging-effect",
+                    "third-path-to-perfection:will"
+                ],
+                "selector": "will",
+                "text": "PF2E.SpecificRule.SaveCriticalFailureToFailure.FailureHalfDamage.Will",
+                "title": "{item|name}"
             }
         ],
         "traits": {
