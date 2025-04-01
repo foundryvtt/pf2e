@@ -371,15 +371,15 @@ class WeaponDamagePF2e {
         }
 
         // Jousting trait
-        if (weaponTraits.some((t)=> t.startsWith("jousting-d")) && weapon.isOfType("weapon")) {
+        if (weaponTraits.some((t) => t.startsWith("jousting-d")) && weapon.isOfType("weapon")) {
             modifiers.push(
                 new ModifierPF2e({
                     ignored: true,
                     label: "PF2E.TraitJousting",
                     modifier: weapon._source.system.damage.dice + strikingDice,
                     slug: "jousting",
-                    type: "circumstance"
-                })
+                    type: "circumstance",
+                }),
             );
         }
 
