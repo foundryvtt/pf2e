@@ -19,16 +19,15 @@
         },
         "rules": [
             {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Goblin.IrongutGoblin.BonusToggle",
+                "option": "irongut-goblin-ingested",
+                "toggleable": true
+            },
+            {
                 "key": "FlatModifier",
-                "label": "Irongut Goblin (vs. afflictions & sickened)",
                 "predicate": [
-                    "ingested",
-                    {
-                        "or": [
-                            "affliction",
-                            "inflicts:sickened"
-                        ]
-                    }
+                    "irongut-goblin-ingested"
                 ],
                 "selector": "saving-throw",
                 "slug": "irongut-save-bonus",
@@ -36,19 +35,37 @@
                 "value": 2
             },
             {
-                "key": "Note",
+                "adjustment": {
+                    "success": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
                 "predicate": [
-                    "ingested",
+                    "irongut-goblin-ingested"
+                ],
+                "selector": "saving-throw"
+            },
+            {
+                "itemType": "consumable",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "self:condition:sickened",
                     {
                         "or": [
-                            "affliction",
-                            "sickened"
+                            "item:tag:alchemical-food",
+                            "item:trait:elixir",
+                            "item:trait:ingested",
+                            "item:trait:potion"
                         ]
                     }
                 ],
-                "selector": "fortitude",
-                "text": "If you roll a success on a save against an ingested affliction or to avoid gaining the sickened condition, treat it as a critical success",
-                "title": "{item|name}"
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Conditions.Sickened.AllowEatOrDrink"
+                    }
+                ]
             }
         ],
         "traits": {
