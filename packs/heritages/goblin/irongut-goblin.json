@@ -19,15 +19,15 @@
         },
         "rules": [
             {
-                "key": "RollOption",
-                "label": "PF2E.SpecificRule.Goblin.IrongutGoblin.BonusToggle",
-                "option": "irongut-goblin-ingested",
-                "toggleable": true
-            },
-            {
                 "key": "FlatModifier",
                 "predicate": [
-                    "irongut-goblin-ingested"
+                    "item:trait:ingested",
+                    {
+                        "or": [
+                            "inflicts:sickened",
+                            "item:type:affliction"
+                        ]
+                    }
                 ],
                 "selector": "saving-throw",
                 "slug": "irongut-save-bonus",
@@ -40,7 +40,13 @@
                 },
                 "key": "AdjustDegreeOfSuccess",
                 "predicate": [
-                    "irongut-goblin-ingested"
+                    "item:trait:ingested",
+                    {
+                        "or": [
+                            "inflicts:sickened",
+                            "item:type:affliction"
+                        ]
+                    }
                 ],
                 "selector": "saving-throw"
             },
