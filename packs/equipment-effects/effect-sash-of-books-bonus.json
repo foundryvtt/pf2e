@@ -1,0 +1,121 @@
+{
+    "_id": "P3lpqXMd5FbUF57c",
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/clandestine-cloak.webp",
+    "name": "Effect: Sash of Books (Bonus)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Sash of Books]</p>\n<p>You gain a +1 circumstance bonus to attack rolls against the marked creature and to your AC and saving throws against attacks and effects from the marked creature. This bonus increases to +2 if you critically succeeded your check to Recall Knowledge.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 17
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #192: Worst of All Possible Worlds"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "sash-of-books"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:context:check:outcome:2",
+                                    {
+                                        "not": {
+                                            "gte": [
+                                                "parent:context:check:outcome",
+                                                0
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:context:check:outcome:3",
+                                    {
+                                        "not": {
+                                            "gte": [
+                                                "parent:context:check:outcome",
+                                                0
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "critical-success"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "sash-of-books"
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Equipment.SashOfBooks.Label",
+                "predicate": [
+                    {
+                        "or": [
+                            "origin:mark:sash-of-books",
+                            "target:mark:sash-of-books"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "ac",
+                    "attack-roll",
+                    "saving-throw"
+                ],
+                "slug": "sash-of-books",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "sash-of-books:critical-success"
+                ],
+                "selectors": [
+                    "ac",
+                    "attack-roll",
+                    "saving-throw"
+                ],
+                "slug": "sash-of-books",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
