@@ -11,14 +11,27 @@
         },
         "category": "defensive",
         "description": {
-            "value": "<p><strong>Trigger</strong> An enemy damages your ally, and both are in your champion's aura</p><hr /><p><strong>Effect</strong> Imperious divine light flashes out from you to surround your foe. The ally gains resistance to all damage against the triggering damage equal to 2 + your level. For 1 round, the attacker is affected by @UUID[Compendium.pf2e.spells-srd.Item.Revealing Light].</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Champion's Resistance]</p><hr /><p><em>Note:</em> A creature affected by <em>revealing light</em> is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled]. If the creature was @UUID[Compendium.pf2e.conditionitems.Item.Invisible], it becomes @UUID[Compendium.pf2e.conditionitems.Item.Concealed] instead. If the creature was already concealed for any other reason, it is no longer concealed.</p>"
+            "value": "<p><strong>Trigger</strong> An enemy damages your ally, and both are in your champion's aura</p><hr /><p><strong>Effect</strong> Imperious divine light flashes out from you to surround your foe. The ally gains resistance to all damage against the triggering damage equal to 2 + your level. For 1 round, the attacker is affected by @UUID[Compendium.pf2e.spells-srd.Item.Revealing Light].</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Champion's Resistance]</p>"
         },
         "publication": {
             "license": "ORC",
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.RevealingLight.Label",
+                "mode": "add",
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.RevealingLight.Description"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "value": [
                 "champion",
