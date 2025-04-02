@@ -1,0 +1,98 @@
+{
+    "_id": "FGtLODbx0kwumWA2",
+    "folder": "08rFokNrUVoXpMQj",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "PeP5nsQ01O4ceIwt",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Disappearing Door",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the room</p><hr /><p><strong>Effect</strong> An illusory wall appears across the room's entrance. A creature who succeeds at @Check[perception|dc:30] check disbelieves the illusion, allowing them to leave the area. The haunt then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "illusion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Names of the Nameless",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained) to hear whispering voices</p>",
+                "value": 6
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The voices of the nameless dead intrude into the minds of the living.</p>",
+            "disable": "<p>@Check[perception|dc:26] to discern a name spoken by the nameless dead, or @Check[religion|dc:28] (expert) to put the nameless dead to rest. Speaking three names aloud disables the haunt. A creature that speaks any other name aloud must succeed at a @Check[will|dc:28] save or be @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 8
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Claws of the Tyrant"
+            },
+            "reset": "<p>If the haunt is disabled, divine light washes through the area. Living creatures in the area regain @Damage[4d8[healing]] Hit Points, and undead creatures in the area take @Damage[4d8[vitality]] damage. The haunt deactivates 1 minute after all creatures leave the area but resets immediately thereafter.</p>",
+            "routine": "<p>(1 action; auditory, divine, emotion, fear, mental) Spirits of the dead whisper their names into the minds of creatures in the room, dealing @Damage[(2d10+11)[mental]|options:area-damage] damage (@Check[will|dc:28|basic|options:area-effect] save). A creature that fails the save is also @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 0
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,57 @@
+{
+    "_id": "CqMaZrZfU3Qtf3MI",
+    "img": "icons/magic/nature/root-vine-entangled-hand.webp",
+    "name": "Effect: Slithering Vine",
+    "system": {
+        "description": {
+            "value": "<p>The stelemora increases the reach of their vine Strike by 10 feet until the end of their turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Claws of the Tyrant"
+        },
+        "rules": [
+            {
+                "itemType": "melee",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:vine"
+                ],
+                "property": "traits",
+                "value": "reach-20"
+            },
+            {
+                "itemType": "melee",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:slug:vine"
+                ],
+                "property": "traits",
+                "value": "reach-10"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

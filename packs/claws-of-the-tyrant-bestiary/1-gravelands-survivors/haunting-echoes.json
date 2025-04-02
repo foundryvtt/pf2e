@@ -1,0 +1,100 @@
+{
+    "_id": "dRxlbmvyHJmAg7IG",
+    "folder": "T0yMchnPf5eedIGX",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "HFIiR37nYRvEworM",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Manifest",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature the spirits knew in life enters the haunted area</p><hr /><p><strong>Effect</strong> The spirits manifest with a terrible wailing. Each creature in the area must succeed at a @Check[will|dc:20] save or be @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure). Frightened creatures are @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for as long as they remain frightened. The haunt then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Haunting Echoes",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 10
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The spirits of community members linger on after their tragic deaths.</p>",
+            "disable": "<p>@Check[diplomacy|dc:20] (untrained) to @UUID[Compendium.pf2e.actionspf2e.Item.Request] that the spirits leave or @Check[religion|dc:18] (trained) to exorcise the spirits</p>",
+            "isComplex": true,
+            "level": {
+                "value": 2
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Claws of the Tyrant"
+            },
+            "reset": "<p>The haunt falls silent for 24 hours once all frightened creatures die or reduce their frightened condition's value to 0. During this time, a creature that isn't frightened can exorcise the spirits with a @Check[religion|dc:18] check, permanently destroying the haunt.</p>",
+            "routine": "<p>(1 action; auditory, emotion, fear, mental) The haunt attempts an Intimidation check with a [[/gmr 1d20+11 #Intimidation]]{+11} modifier against the Will DC of each @UUID[Compendium.pf2e.conditionitems.Item.Frightened] creature as it bombards them with the voices of their dead loved ones.</p><hr><p><strong>Critical Success</strong> The creature takes @Damage[2d4[mental]] damage and its frightened condition increases by 1, to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}.</p><p><strong>Success</strong> The creature takes @Damage[1d4[mental]] damage.</p><p><strong>Failure</strong> The creature is unaffected.</p><p><strong>Critical Failure</strong> The creature's frightened condition is reduced by 1.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 0
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

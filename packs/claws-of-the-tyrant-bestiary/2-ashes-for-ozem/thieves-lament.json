@@ -1,0 +1,105 @@
+{
+    "_id": "i70NptUtfWO4s8uP",
+    "folder": "08rFokNrUVoXpMQj",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "OugJJ5Y9M82YMBm8",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Flash Flame",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Pick a Lock]{Pick the Lock} or fails to @UUID[Compendium.pf2e.actionspf2e.Item.Disable a Device]{Disable the Device}</p><hr /><p><strong>Effect</strong> The rune triggers, releasing a burst of flame from the lock. The triggering creature must attempt a @Check[reflex|dc:25] saving throw.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[(2d10+9)[fire]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[(4d10+18)[fire]] damage and their fingers are burned, imposing a –1 circumstance penalty to Thievery checks for 1 hour.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Burned Fingers]</p>\n<p><strong>Critical Failure</strong> As failure, and the creature's thieves' toolkit is broken.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Thieves' Lament",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 22
+            },
+            "emitsSound": "encounter",
+            "hardness": 14,
+            "hp": {
+                "details": "BT 36",
+                "max": 58,
+                "temp": 0,
+                "value": 58
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained) to spot the rune inside the lock</p>",
+                "value": 17
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A rune inscribed on the inside of the lock releases a burst of flame that burns the thief's hands and their tools.</p>",
+            "disable": "<p>@Check[thievery|dc:30] (expert) to scratch out the rune, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (4th rank; counteract DC 24) to counteract the runes</p>",
+            "isComplex": false,
+            "level": {
+                "value": 7
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Claws of the Tyrant"
+            },
+            "reset": "",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "value": 13
+            },
+            "reflex": {
+                "value": 17
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

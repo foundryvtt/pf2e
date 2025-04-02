@@ -1,13 +1,13 @@
 {
     "_id": "I5Fd4TkIKRJT6WXf",
     "img": "icons/magic/holy/saint-glass-portrait-halo.webp",
-    "name": "Effect: Aura of Righteousness (Planetar)",
+    "name": "Effect: Aura of Righteousness",
     "system": {
         "description": {
-            "value": "<p>Allies in the planetar's aura gain a +2 status bonus to AC against evil creatures and a +2 status bonus to damage rolls against evil creatures.</p>"
+            "value": "<p>You gain a +2 status bonus to AC against unholy creatures and a +2 status bonus to damage rolls against unholy creatures.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -16,15 +16,15 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Bestiary 2"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Claws of the Tyrant"
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "origin:trait:evil"
+                    "origin:trait:unholy"
                 ],
                 "selector": "ac",
                 "type": "status",
@@ -33,7 +33,7 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "target:trait:evil"
+                    "target:trait:unholy"
                 ],
                 "selector": "damage",
                 "type": "status",
