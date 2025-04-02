@@ -12,6 +12,7 @@ import { ItemProxyPF2e } from "@item";
 import { AbilitySystemData } from "@item/ability/index.ts";
 import { CampaignFeatureSystemData } from "@item/campaign-feature/data.ts";
 import { FeatSystemData } from "@item/feat/data.ts";
+import { HeritageSystemData } from "@item/heritage/data.ts";
 import { KitSystemData } from "@item/kit/data.ts";
 import { MeleeSystemData } from "@item/melee/data.ts";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
@@ -101,6 +102,7 @@ export const Load = {
         CONFIG.Item.dataModels.action = AbilitySystemData;
         CONFIG.Item.dataModels.campaignFeature = CampaignFeatureSystemData;
         CONFIG.Item.dataModels.feat = FeatSystemData;
+        CONFIG.Item.dataModels.heritage = HeritageSystemData;
         CONFIG.Item.dataModels.kit = KitSystemData;
         CONFIG.Item.dataModels.melee = MeleeSystemData;
 

@@ -20,13 +20,12 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Irongut Goblin (vs. afflictions & sickened)",
                 "predicate": [
-                    "ingested",
+                    "item:trait:ingested",
                     {
                         "or": [
-                            "affliction",
-                            "inflicts:sickened"
+                            "inflicts:sickened",
+                            "item:type:affliction"
                         ]
                     }
                 ],
@@ -36,19 +35,43 @@
                 "value": 2
             },
             {
-                "key": "Note",
+                "adjustment": {
+                    "success": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
                 "predicate": [
-                    "ingested",
+                    "item:trait:ingested",
                     {
                         "or": [
-                            "affliction",
-                            "sickened"
+                            "inflicts:sickened",
+                            "item:type:affliction"
                         ]
                     }
                 ],
-                "selector": "fortitude",
-                "text": "If you roll a success on a save against an ingested affliction or to avoid gaining the sickened condition, treat it as a critical success",
-                "title": "{item|name}"
+                "selector": "saving-throw"
+            },
+            {
+                "itemType": "consumable",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "self:condition:sickened",
+                    {
+                        "or": [
+                            "item:tag:alchemical-food",
+                            "item:trait:elixir",
+                            "item:trait:ingested",
+                            "item:trait:potion"
+                        ]
+                    }
+                ],
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Conditions.Sickened.AllowEatOrDrink"
+                    }
+                ]
             }
         ],
         "traits": {

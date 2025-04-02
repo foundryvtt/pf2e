@@ -4,7 +4,7 @@
     "name": "Effect: Ebon Fulcrum Lens (2 Action)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Ebon Fulcrum Lens]</p>\n<p>You're quickened for 1 minute and gain a +1 item bonus to attack rolls, saving throws, and DCs.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Ebon Fulcrum Lens]</p>\n<p>You're quickened and you gain a +1 item bonus to attack rolls, saving throws, and DCs.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -30,11 +30,13 @@
                 "key": "FlatModifier",
                 "selector": [
                     "ac",
-                    "attack",
+                    "athletics-dc",
+                    "attack-roll",
                     "class",
-                    "perception",
+                    "inline-dc",
+                    "perception-dc",
                     "saving-throw",
-                    "skill-check"
+                    "spell-dc"
                 ],
                 "type": "item",
                 "value": 1

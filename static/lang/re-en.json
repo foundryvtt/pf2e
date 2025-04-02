@@ -1289,6 +1289,11 @@
                 "DescriptionAddendum": "When the despot casts <em>charm</em>, <em>diabolic edict</em>, <em>enthrall</em>, or <em>floating flame</em>, either a target takes @Damage[(@item.rank)[fire]] damage, or the despot gains a +2 status bonus to Deception checks for 1 round."
             },
             "TreerazerPlantAttack": "Attack a Plant",
+            "TroffFrostknuckles": {
+                "IcicleStance": {
+                    "AboveTarget": "Icicle Stance — Above Target"
+                }
+            },
             "Tyrafdir": {
                 "DeceptiveJaws": "Deceptive Jaws"
             },
@@ -2628,11 +2633,11 @@
                 },
                 "ExaltedReaction": {
                     "Desecration": "Each enemy in your champion's aura takes a –1 status penalty to attack rolls against you until the start of your next turn. @UUID[Compendium.pf2e.feat-effects.Item.Ef63SlxSKlZmHosM]{Effect: Exalted Reaction (Desecrator)}",
-                    "Grandeur": "In addition to the enemy affected by Flash of Grandeur, each other enemy in your champion's aura is affected by the revealing light spell for 1 round.",
+                    "Grandeur": "In addition to the enemy affected by Flash of Grandeur, each other enemy in your champion's aura is affected by the _revealing light_ spell for 1 round.",
                     "Iniquity": "Each enemy in your champion's aura other than the triggering creature takes half the damage you deal to the triggering enemy.",
                     "Justice": "Each ally in your champion's aura with the target in their melee reach can spend a reaction to Strike the target with a –5 penalty.",
                     "Liberation": "In addition to the ally affected by Liberating Step, you and all other allies in your champion's aura can Step as a free action. You and your allies gain the benefit even if the ally who benefited from Liberating Step can't move",
-                    "Obedience": "Each enemy in your champion's aura other than the triggering creature must also either drop @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone} or take mental damage (each enemy chooses). These creatures take only minimum damage (typically @Damage[ternary(gte(@actor.level,19),6,ternary(gte(@actor.level,16),5,ternary(gte(@actor.level,12),4,ternary(gte(@actor.level,11),3)[mental]]), and the effects they take can't be adjusted by anything that changes your Iron Command. For instance, the Iron Repercussions feat couldn't turn the damage into persistent mental damage for creatures other than the triggering creature.",
+                    "Obedience": "Each enemy in your champion's aura other than the triggering creature must also either drop @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone} or take mental damage (each enemy chooses). These creatures take only minimum damage (typically @Damage[(ternary(gte(@actor.level,19),6,ternary(gte(@actor.level,16),5,ternary(gte(@actor.level,12),4,ternary(gte(@actor.level,11),3)))))[mental]] damage), and the effects they take can't be adjusted by anything that changes your Iron Command. For instance, the Iron Repercussions feat couldn't turn the damage into persistent mental damage for creatures other than the triggering creature.",
                     "Redemption": "If the enemy refuses, you can choose to grant the resistance to yourself and all allies in your champion's aura, including the triggering ally. If you do, the resistance is reduced by 2 for all @UUID[Compendium.pf2e.feat-effects.Item.GFLiTESBmoyQ3sLx]{Effect: Exalted Reaction (Redemption)}"
                 },
                 "EvilDamage": "Spirit Damage",
@@ -2668,10 +2673,14 @@
                     "Description": "You can use a ranged weapon to make a ranged Strike instead of a melee Strike for Retributive Strike. The enemy needs to be in range, but not in reach, and it must still be in your champion's aura. You can also make melee Strikes against enemies a bit farther away. If the enemy that triggered your reaction is outside your reach but is within 5 feet of your reach, as part of your reaction you can Step to put the enemy in your reach before making a melee Retributive Strike."
                 },
                 "RelentlessReaction": {
-                    "Grandeur": "The enemy also takes @Damage[(@actor.abilities.cha.mod)[persistent,spirit]] damage, and it can't recover from this persistent damage while affected by the revealing light from your Flash of Grandeur.",
-                    "Iniquity": "An enemy damaged by the initial reaction's damage also takes @Damage[(@actor.abilities.cha.mod)[persistent,spirit]] damage.",
+                    "Grandeur": "The enemy also takes @Damage[(@actor.abilities.cha.mod)[persistent,spirit]|traits:holy] damage, and it can't recover from this persistent damage while affected by the _revealing light_ from your Flash of Grandeur.",
+                    "Iniquity": "An enemy damaged by the initial reaction's damage also takes @Damage[(@actor.abilities.cha.mod)[persistent,spirit]|traits:unholy] damage.",
                     "Liberation": "You punish those who ensnare your allies. If the triggering enemy was using any effects to make your ally grabbed, restrained, immobilized, or paralyzed when you used Liberating Step, that enemy takes @Damage[(@actor.abilities.cha.mod)[persistent,spirit]] damage",
-                    "ObedienceRedemption": "If the enemy refuses, it takes @Damage[(@actor.abilities.cha.mod)[persistent,spirit]] damage"
+                    "LiberationHoly": "You punish those who ensnare your allies. If the triggering enemy was using any effects to make your ally grabbed, restrained, immobilized, or paralyzed when you used Liberating Step, that enemy takes @Damage[(@actor.abilities.cha.mod)[persistent,spirit]|traits:holy] damage",
+                    "LiberationUnholy": "You punish those who ensnare your allies. If the triggering enemy was using any effects to make your ally grabbed, restrained, immobilized, or paralyzed when you used Liberating Step, that enemy takes @Damage[(@actor.abilities.cha.mod)[persistent,spirit]|traits:unholy] damage",
+                    "ObedienceRedemption": "If the enemy refuses, it takes @Damage[(@actor.abilities.cha.mod)[persistent,spirit]] damage",
+                    "ObedienceRedemptionHoly": "If the enemy refuses, it takes @Damage[(@actor.abilities.cha.mod)[persistent,spirit]|traits:holy] damage",
+                    "ObedienceUnholy": "If the enemy refuses, it takes @Damage[(@actor.abilities.cha.mod)[persistent,spirit]|traits:unholy] damage"
                 },
                 "RetributiveStrike": "Retributive Strike",
                 "Security": {
@@ -2992,6 +3001,7 @@
             },
             "Conditions": {
                 "Sickened": {
+                    "AllowEatOrDrink": "You can eat and drink things when you're sickened.",
                     "Reduce": {
                         "criticalSuccess": "When you critically succeed at a Fortitude save to reduce your @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened} value, you reduce it by 3.",
                         "success": "When you succeed at a Fortitude save to reduce your @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened} value, you reduce it by 2."
@@ -3524,6 +3534,10 @@
                 "RootBoots": {
                     "GripGround": "Root Boots — Grip the Ground",
                     "WoodenSurfaceLabel": "Root Boots — Wooden Surface"
+                },
+                "SashOfBooks": {
+                    "Label": "Sash of Books",
+                    "Note": "Regardless of the result, you gain a +1 circumstance bonus to attack rolls against the creature and to your AC and saving throws against attacks and effects from the creature for 1 minute. @UUID[Compendium.pf2e.equipment-effects.Item.P3lpqXMd5FbUF57c]{Effect: Sash of Books (Bonus)}"
                 },
                 "ScapularOfShields": {
                     "CriticalImmunityLabel": "Activate Scapular of Shields to gain critical immunity.",
@@ -5166,6 +5180,10 @@
                     "Title": "Reflection of Water"
                 }
             },
+            "RevealingLight": {
+                "Description": "A creature affected by _revealing light_ is @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled}. If the creature was @UUID[Compendium.pf2e.conditionitems.Item.zJxUflt9np0q4yML]{Invisible}, it becomes @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealed} instead. If the creature was already concealed for any other reason, it is no longer concealed.",
+                "Label": "Revealing Light"
+            },
             "RivethunInvoker": {
                 "InvokeOffense": {
                     "Label": "Invoke Offense"
@@ -5251,7 +5269,9 @@
             },
             "SaveCriticalFailureToFailure": {
                 "FailureHalfDamage": {
-                    "Will": "When you roll a critical failure on a Will save, you get a failure instead. When you fail a Will save against an effect that deals damage, you take half damage."
+                    "Fortitude": "When you roll a failure on a Fortitude save against a damaging effect, you take half damage.",
+                    "Reflex": "When you roll a failure on a Reflex save against a damaging effect, you take half damage.",
+                    "Will": "When you roll a failure on a Will save against a damaging effect, you take half damage."
                 }
             },
             "SaveSuccessToCriticalSuccess": {

@@ -177,7 +177,15 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "initiative",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -357,9 +365,18 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "darkvision, scent (imprecise) 30 feet",
+            "details": "",
             "mod": 31,
-            "senses": []
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {},
         "saves": {
