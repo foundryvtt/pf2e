@@ -1,0 +1,144 @@
+{
+    "_id": "ii2idpmr4mWpeW7K",
+    "folder": "1hdNljMZCWQZtriy",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "5UCN7JrhmNv599Hb",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Spore Explosion",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature moves adjacent to the mold or damages the mold</p><hr /><p><strong>Effect</strong> All creatures within 15 feet of the mold are exposed to the flesh-eating spores.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0ZQZVsEpryKs0oeW",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Flesh-Eating Spores",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The flesh-eating spores leave red rings on the skin as they dissolve the target's flesh</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:44]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[4d10[void]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[6d10[void]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[8d10[void]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3} (1 round)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "contact",
+                        "poison",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Carnivorous Mold",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 40
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "BT 65",
+                "max": 130,
+                "temp": 0,
+                "value": 130
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 26
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "vitality",
+                    "value": 20
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>Spores explode onto nearby creatures, leaving welts as the mold dissolves exposed flesh.</p>",
+            "disable": "<p>@Check[religion|dc:42] (legendary) to neutralize the void energy that animates the mold, or @Check[survival|dc:36] (master) to remove the mold without triggering the spores</p>",
+            "isComplex": false,
+            "level": {
+                "value": 18
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Claws of the Tyrant"
+            },
+            "reset": "",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "value": 37
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 29
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental",
+                "fungus"
+            ]
+        }
+    },
+    "type": "hazard"
+}
