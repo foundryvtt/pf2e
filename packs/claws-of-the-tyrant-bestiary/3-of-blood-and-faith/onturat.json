@@ -757,14 +757,24 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>10 feet.</p>\n<p>A cloud of bone shards surrounds the skulltaker. When a creature moves into the emanation or begins its turn there, shard storm deals @Damage[4d6[slashing],4d6[void]]{4d6 slashing damage and 4d6 void damage} to the creature, with a @Check[reflex|dc:42|basic] save.</p>\n<p>If the creature has resistance or immunity to void damage, or an effect that protects it against death effects, or an effect that protects it against the doomed or drained condition, the creature must first succeed at a @Check[will|dc:42] save or have all such benefits suppressed for 1 minute.</p>"
+                    "value": "<p>10 feet.</p>\n<p>A cloud of bone shards surrounds the skulltaker. When a creature moves into the emanation or begins its turn there, shard storm deals @Damage[4d6[slashing],4d6[void]]{4d6 slashing damage and 4d6 void damage} to the creature, with a @Check[reflex|dc:42|basic] save.</p>\n<p>If the creature has resistance or immunity to void damage, or an effect that protects it against death effects, or an effect that protects it against the @UUID[Compendium.pf2e.conditionitems.Item.Doomed] or @UUID[Compendium.pf2e.conditionitems.Item.Drained] condition, the creature must first succeed at a @Check[will|dc:42] save or have all such benefits suppressed for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 10,
+                        "slug": "shard-storm",
+                        "traits": [
+                            "air",
+                            "divine"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
