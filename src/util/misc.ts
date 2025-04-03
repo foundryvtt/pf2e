@@ -25,18 +25,6 @@ function groupBy<T, R>(array: T[], criterion: (value: T) => R): Map<R, T[]> {
 }
 
 /**
- * Given an array, adds a certain amount of elements to it
- * until the desired length is being reached
- */
-function padArray<T>(array: T[], requiredLength: number, padWith: T): T[] {
-    const result = [...array];
-    for (let i = array.length; i < requiredLength; i += 1) {
-        result.push(padWith);
-    }
-    return result;
-}
-
-/**
  * Continually apply a function on the result of itself until times is reached
  *
  * @param func
@@ -429,7 +417,6 @@ export {
     localizer,
     objectHasKey,
     ordinalString,
-    padArray,
     parseHTML,
     recursiveReplaceString,
     setHasElement,
