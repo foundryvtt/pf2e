@@ -12,6 +12,17 @@ export function extendDragData(): void {
         const { dataTransfer, target: targetElement } = event;
         if (!(dataTransfer && targetElement instanceof HTMLAnchorElement)) return;
 
+        // Pass along the persistent damage formula so the drop-canvas-data hook can handle it
+        if (
+            targetElement.classList.contains("inline-roll") &&
+            "persistent" in targetElement.dataset &&
+            targetElement.dataset.formula
+        ) {
+            const data = { type: "PersistentDamage", formula: targetElement.dataset.formula };
+            dataTransfer.setData("text/plain", JSON.stringify(data));
+            return;
+        }
+
         if (targetElement.classList.contains("content-link")) {
             // If this is a content link for an item, we need to extend existing data
             const data: DropCanvasItemDataPF2e = JSON.parse(dataTransfer.getData("text/plain"));
@@ -21,13 +32,6 @@ export function extendDragData(): void {
             const name = targetElement.innerText.trim();
             const match = name.match(/[0-9]+/);
             if (match) data.value = Number(match[0]);
-
-            // Pass along the persistent damage formula so the drop-canvas-data hook can handle it
-            if ("persistent" in targetElement.dataset && targetElement.dataset.formula) {
-                const data = { type: "PersistentDamage", formula: targetElement.dataset.formula };
-                dataTransfer.setData("text/plain", JSON.stringify(data));
-                return;
-            }
 
             // Get actor / item / message for the element
             const { message, item: originItem, actor } = resolveActorAndItemFromHTML(targetElement);
