@@ -36,20 +36,6 @@ function padArray<T>(array: T[], requiredLength: number, padWith: T): T[] {
     return result;
 }
 
-/** Given an object, returns a new object with the same keys, but with each value converted by a function. */
-function mapValues<K extends string | number | symbol, V, R>(
-    object: Record<K, V>,
-    mapping: (value: V, key: K) => R,
-): Record<K, R> {
-    return Object.entries<V>(object).reduce(
-        (result, [key, value]) => {
-            result[key as K] = mapping(value, key as K);
-            return result;
-        },
-        {} as Record<K, R>,
-    );
-}
-
 /**
  * Continually apply a function on the result of itself until times is reached
  *
@@ -243,9 +229,11 @@ function ErrorPF2e(message: string): Error {
     return Error(`PF2e System | ${message}`);
 }
 
+let pluralRules: Intl.PluralRules;
+
 /** Returns the number in an ordinal format, like 1st, 2nd, 3rd, 4th, etc. */
 function ordinalString(value: number): string {
-    const pluralRules = new Intl.PluralRules(game.i18n.lang, { type: "ordinal" });
+    pluralRules ??= new Intl.PluralRules(game.i18n.lang, { type: "ordinal" });
     const suffix = game.i18n.localize(`PF2E.OrdinalSuffixes.${pluralRules.select(value)}`);
     return game.i18n.format("PF2E.OrdinalNumber", { value, suffix });
 }
@@ -439,7 +427,6 @@ export {
     isVideoFilePath,
     localizeList,
     localizer,
-    mapValues,
     objectHasKey,
     ordinalString,
     padArray,
