@@ -124,17 +124,15 @@ async function applyDamageFromMessage({
 
     for (const token of tokens) {
         if (!token.actor) continue;
-        const originOptionsForActor = [...originRollOptions];
         // Add roll option for ally/enemy status
         if (token.actor.alliance && message.actor) {
             const allyOrEnemy = token.actor.alliance === message.actor.alliance ? "ally" : "enemy";
-            originOptionsForActor.push(`origin:${allyOrEnemy}`);
+            messageRollOptions.push(`origin:${allyOrEnemy}`);
         }
 
         // If no target was acquired during a roll, set roll options for it during damage application
-        const optionsForOrigin = [...messageRollOptions];
-        if (!optionsForOrigin.some((o) => o.startsWith("target"))) {
-            optionsForOrigin.push(...token.actor.getSelfRollOptions("target"));
+        if (!messageRollOptions.some((o) => o.startsWith("target"))) {
+            messageRollOptions.push(...token.actor.getSelfRollOptions("target"));
         }
         const domain = multiplier > 0 ? "damage-received" : "healing-received";
         const ephemeralEffects =
@@ -145,14 +143,15 @@ async function applyDamageFromMessage({
                       target: token.actor,
                       item: message.item,
                       domains: [domain],
-                      options: optionsForOrigin,
+                      options: messageRollOptions,
                   })
                 : [];
         const contextClone = token.actor.getContextualClone(originRollOptions, ephemeralEffects);
         const rollOptions = new Set([
+            ...messageRollOptions.filter((o) => !/^(?:self|target)(?::|$)/.test(o)),
             ...effectRollOptions,
-            ...originOptionsForActor,
-            ...contextClone.getRollOptions([domain]),
+            ...originRollOptions,
+            ...contextClone.getSelfRollOptions(),
         ]);
 
         await contextClone.applyDamage({
