@@ -1,0 +1,125 @@
+{
+    "_id": "p5KpVsJVzhoJ4OrS",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/mnemonic-acid.webp",
+    "name": "Effect: Soothing Tonic",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Soothing Tonic (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Soothing Tonic (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Soothing Tonic (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Soothing Tonic (Major)]</p>\n<p>You gain fast healing.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:soothing-tonic-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Soothing Tonic (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:soothing-tonic-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Soothing Tonic (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:soothing-tonic-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Soothing Tonic (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:soothing-tonic-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Soothing Tonic (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "soothing-tonic"
+            },
+            {
+                "key": "FastHealing",
+                "predicate": [
+                    "soothing-tonic:soothing-tonic-lesser"
+                ],
+                "value": 1
+            },
+            {
+                "key": "FastHealing",
+                "predicate": [
+                    "soothing-tonic:soothing-tonic-moderate"
+                ],
+                "value": 3
+            },
+            {
+                "key": "FastHealing",
+                "predicate": [
+                    "soothing-tonic:soothing-tonic-greater"
+                ],
+                "value": 5
+            },
+            {
+                "key": "FastHealing",
+                "predicate": [
+                    "soothing-tonic:soothing-tonic-major"
+                ],
+                "value": 10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
