@@ -371,16 +371,27 @@ class WeaponDamagePF2e {
         }
 
         // Jousting trait
-        if (weaponTraits.some((t) => t.startsWith("jousting-d")) && weapon.isOfType("weapon")) {
+        for (const trait of weaponTraits.filter((t) => t.startsWith("jousting-d"))) {
             modifiers.push(
                 new ModifierPF2e({
                     ignored: true,
                     label: "PF2E.TraitJousting",
-                    modifier: weapon._source.system.damage.dice + strikingDice,
+                    modifier: baseDamage.dice,
                     slug: "jousting",
                     type: "circumstance",
                 }),
             );
+            if (weapon.isOfType("weapon") && weapon.handsHeld === 1) {
+                const dieSize = trait.substring(trait.indexOf("-") + 1) as DamageDieSize;
+                damageDice.push(
+                    new DamageDicePF2e({
+                        selector: `${weapon.id}-damage`,
+                        slug: "jousting",
+                        label: "PF2E.TraitJousting",
+                        override: { dieSize },
+                    }),
+                );
+            }
         }
 
         // Tearing trait
