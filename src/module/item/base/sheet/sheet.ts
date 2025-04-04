@@ -98,15 +98,11 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
 
         // Enrich content
         const enrichedContent: Record<string, string> = {};
-        const rollData = { ...this.item.getRollData(), ...this.actor?.getRollData() };
 
         // Get the source description in case this is an unidentified physical item
-        const description = await item.getDescription();
-        enrichedContent.description = await TextEditor.enrichHTML(description.value, {
-            rollData,
-            secrets: item.isOwner,
-        });
-        enrichedContent.gmNotes = await TextEditor.enrichHTML(description.gm.trim(), { rollData });
+        const description = await item.getDescription({ includeAddendum: false, secrets: item.isOwner });
+        enrichedContent.description = description.value;
+        enrichedContent.gmNotes = description.gm;
 
         const validTraits = this.validTraits;
         const hasRarity = !item.isOfType("action", "condition", "deity", "effect", "lore", "melee");

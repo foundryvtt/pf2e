@@ -177,12 +177,9 @@ class ChatCards {
                     return;
                 }
                 case "expand-description": {
-                    const { description } = item;
                     const element = htmlClosest(button, ".description");
                     if (element) {
-                        element.innerHTML = await TextEditor.enrichHTML(description, {
-                            rollData: item.getRollData(),
-                        });
+                        element.innerHTML = (await item.getDescription()).value;
                         element.scrollIntoView({ behavior: "smooth", block: "center" });
                     }
                     break;
