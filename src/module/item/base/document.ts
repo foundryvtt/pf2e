@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor/base.ts";
 import type { ContainerPF2e, PhysicalItemPF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
-import { ItemChatData, itemIsOfType } from "@item/helpers.ts";
+import { itemIsOfType, markdownToHTML } from "@item/helpers.ts";
 import { ItemOriginFlag } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
@@ -12,7 +12,16 @@ import { processGrantDeletions } from "@module/rules/rule-element/grant-item/hel
 import { eventToRollMode } from "@module/sheet/helpers.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
-import { ErrorPF2e, htmlClosest, isObject, localizer, setHasElement, sluggify, tupleHasValue } from "@util";
+import {
+    ErrorPF2e,
+    createHTMLElement,
+    htmlClosest,
+    isObject,
+    localizer,
+    setHasElement,
+    sluggify,
+    tupleHasValue,
+} from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { AfflictionSource } from "../affliction/data.ts";
@@ -432,7 +441,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /* -------------------------------------------- */
 
     /** Retrieves base description data before enriching. May be overriden to prepend or append additional data */
-    async getDescription(): Promise<ItemDescriptionData> {
+    protected async getDescriptionData(): Promise<ItemDescriptionData> {
         // Lazy load description alterations now that we need them
         const actor = this.actor;
         if (!this.system.description.initialized && actor) {
@@ -445,6 +454,74 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         return { ...this.system.description };
     }
 
+    /** Retrieves description and gm notes with all prepends and appends applied, and enriched */
+    async getDescription(htmlOptions: EnrichmentOptionsPF2e & { includeAddendum?: boolean } = {}): Promise<{
+        value: string;
+        gm: string;
+    }> {
+        const actor = this.actor;
+        const rollOptions = new Set([actor?.getRollOptions(), this.getRollOptions("item")].flat().filter(R.isTruthy));
+        const description = await this.getDescriptionData();
+        const includeAddendum = htmlOptions.includeAddendum ?? true;
+
+        const baseText = await (async (): Promise<string> => {
+            const override = description?.override;
+            if (!override) return description.value;
+            return override
+                .flatMap((line) => {
+                    if (!line.predicate.test(rollOptions)) return [];
+                    const hr = line.divider ? document.createElement("hr") : null;
+
+                    // Create paragraph element
+                    const paragraph = createHTMLElement("p");
+                    if (line.title) {
+                        paragraph.appendChild(
+                            createHTMLElement("strong", { children: [game.i18n.localize(line.title)] }),
+                        );
+                        paragraph.appendChild(new Text(" "));
+                    }
+                    const text = markdownToHTML(line.text);
+                    if (text) {
+                        paragraph.insertAdjacentHTML("beforeend", text);
+                    }
+
+                    return [hr, paragraph].map((e) => e?.outerHTML).filter(R.isTruthy);
+                })
+                .join("\n");
+        })();
+
+        const addenda = await (async (): Promise<string[]> => {
+            if (!includeAddendum || this.system.description.addenda.length === 0) return [];
+
+            const templatePath = "systems/pf2e/templates/items/partials/addendum.hbs";
+            return Promise.all(
+                description.addenda.flatMap((unfiltered) => {
+                    const addendum = {
+                        label: game.i18n.localize(unfiltered.label),
+                        contents: unfiltered.contents
+                            .filter((c) => c.predicate.test(rollOptions))
+                            .map((line) => {
+                                line.title &&= game.i18n.localize(line.title).trim();
+                                line.text = markdownToHTML(line.text);
+                                return line;
+                            }),
+                    };
+                    return addendum.contents.length > 0 ? renderTemplate(templatePath, { addendum }) : [];
+                }),
+            );
+        })();
+
+        const assembled = [baseText, addenda.length > 0 ? "\n<hr />\n" : null, ...addenda]
+            .filter(R.isTruthy)
+            .join("\n");
+        const rollData = fu.mergeObject(this.getRollData(), htmlOptions.rollData);
+
+        return {
+            value: await TextEditor.enrichHTML(assembled, { ...htmlOptions, rollData }),
+            gm: game.user.isGM ? await TextEditor.enrichHTML(description.gm, { ...htmlOptions, rollData }) : "",
+        };
+    }
+
     /**
      * Internal method that transforms data into something that can be used for chat.
      * Currently renders description text using enrichHTML.
@@ -453,7 +530,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         htmlOptions: EnrichmentOptionsPF2e = {},
         chatData: RawItemChatData,
     ): Promise<RawItemChatData> {
-        return new ItemChatData({ item: this, data: chatData, htmlOptions }).process();
+        const description = {
+            ...chatData.description,
+            ...(await this.getDescription(htmlOptions)),
+        };
+        return fu.mergeObject(chatData, { description }, { inplace: false });
     }
 
     async getChatData(
