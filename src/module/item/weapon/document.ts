@@ -7,6 +7,7 @@ import type { ConsumablePF2e, MeleePF2e, ShieldPF2e } from "@item";
 import { ItemProxyPF2e, PhysicalItemPF2e } from "@item";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import type { ItemSourcePF2e, MeleeSource, RawItemChatData } from "@item/base/data/index.ts";
+import type { ItemDescriptionData } from "@item/base/data/system.ts";
 import { performLatePreparation } from "@item/helpers.ts";
 import type { NPCAttackDamage } from "@item/melee/data.ts";
 import type { NPCAttackTrait } from "@item/melee/types.ts";
@@ -17,7 +18,8 @@ import type { RangeData } from "@item/types.ts";
 import type { StrikeRuleElement } from "@module/rules/rule-element/strike.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
-import { ErrorPF2e, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
+import { ErrorPF2e, objectHasKey, ordinalString, setHasElement, sluggify, tupleHasValue } from "@util";
+import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import type { WeaponDamage, WeaponFlags, WeaponSource, WeaponSystemData } from "./data.ts";
 import { processTwoHandTrait } from "./helpers.ts";
@@ -380,6 +382,13 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const mandatoryMelee = !mandatoryRanged && traits.value.some((t) => /^thrown-{1,3}$/.test(t));
         if (mandatoryMelee) this.system.range = null;
 
+        // Initialize staff spells if this weapon is a staff
+        if (traits.value.includes("staff")) {
+            this.system.staff = fu.mergeObject({ effect: "", spells: [] }, this.system.staff ?? {});
+        } else {
+            this.system.staff = null;
+        }
+
         // Final sweep: remove any non-sensical trait that may throw off later automation
         if (this.isMelee) {
             traits.value = traits.value.filter((t) => !RANGED_ONLY_TRAITS.has(t) && !t.startsWith("volley"));
@@ -446,6 +455,34 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
         // Upgrade dice faces if a two-hand trait is present and applicable
         processTwoHandTrait(this);
+    }
+
+    /** Get description with staff spells possibly included */
+    override async getDescriptionData(): Promise<ItemDescriptionData> {
+        const description = await super.getDescriptionData();
+        if (this.system.staff?.spells.length) {
+            const uuids = R.unique(this.system.staff.spells.map((s) => s.uuid));
+            const entriesByLevel = R.groupBy(
+                R.sortBy(this.system.staff.spells, (s) => s.rank),
+                (s) => (s.rank === "cantrips" ? 0 : s.rank),
+            );
+            const spellsByUUID = R.mapToObj(await UUIDUtils.fromUUIDs(uuids), (s) => [s.uuid, s]);
+            const append = await renderTemplate("systems/pf2e/templates/items/partials/staff-description-append.hbs", {
+                effect: this.system.staff.effect || game.i18n.localize("PF2E.Item.Weapon.Staff.DefaultEffect"),
+                spells: Object.values(entriesByLevel)
+                    .map((group) => {
+                        const rank = group[0].rank;
+                        const spells = group.map((e) => spellsByUUID[e.uuid]).filter((s) => !!s);
+                        const label =
+                            rank === "cantrips" ? game.i18n.localize("PF2E.TraitCantrip") : ordinalString(rank);
+                        return { label, spells: spells.map((s) => ({ link: s.link })) };
+                    })
+                    .filter((g) => g.spells.length),
+            });
+            description.value += `\n${append}`;
+        }
+
+        return description;
     }
 
     override async getChatData(
@@ -760,6 +797,12 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
         const traits = changed.system.traits ?? {};
         if ("value" in traits && Array.isArray(traits.value)) {
+            // Clean up staff spells automatically if the staff trait is removed and the list is empty
+            const spells = changed.system.staff?.spells ?? this._source.system.staff?.spells;
+            if (!traits.value.includes("staff") && !spells?.length) {
+                changed.system.staff = null;
+            }
+
             traits.value = traits.value.filter((t) => t in CONFIG.PF2E.weaponTraits);
         }
 
