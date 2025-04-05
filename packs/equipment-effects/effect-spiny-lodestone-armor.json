@@ -4,7 +4,7 @@
     "name": "Effect: Spiny Lodestone - Armor",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Spiny Lodestone]</p>\n<p>You gain a +1 item bonus to Athletics checks and resistance 2 to nonlethal damage.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Spiny Lodestone], @UUID[Compendium.pf2e.equipment-srd.Item.Spiny Lodestone (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Spiny Lodestone (Major)]</p>\n<p>You gain an item bonus to Athletics checks and resistance to nonlethal damage.</p>"
         },
         "duration": {
             "expiry": null,
@@ -22,15 +22,92 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:spiny-lodestone",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Spiny Lodestone"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:spiny-lodestone-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Spiny Lodestone (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:spiny-lodestone-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Spiny Lodestone (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "spiny-lodestone"
+            },
+            {
                 "key": "FlatModifier",
                 "selector": "athletics",
+                "slug": "spiny-lodestone-armor-bonus",
                 "type": "item",
                 "value": 1
             },
             {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "spiny-lodestone:spiny-lodestone-major"
+                ],
+                "selector": "athletics",
+                "slug": "spiny-lodestone-armor-bonus",
+                "value": 2
+            },
+            {
                 "key": "Resistance",
+                "predicate": [
+                    "spiny-lodestone:spiny-lodestone"
+                ],
                 "type": "nonlethal",
                 "value": 2
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "spiny-lodestone:spiny-lodestone-greater"
+                ],
+                "type": "nonlethal",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "spiny-lodestone:spiny-lodestone-major"
+                ],
+                "type": "nonlethal",
+                "value": 10
             }
         ],
         "start": {
