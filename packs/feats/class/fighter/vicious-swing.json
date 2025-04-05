@@ -27,18 +27,26 @@
         },
         "rules": [
             {
+                  "key": "RollOption",
+                  "domain": "all",
+                  "option": "strike-maneuver",
+                  "label": "Strike Maneuver",
+                  "toggleable": true,
+                  "mergeable": true,
+                  "suboptions": [
+                        {
+                            "label": "{item|name}",
+                            "value": "vicious-swing"
+                        }
+                  ]
+            },
+            {
                 "diceNumber": "ternary(gte(@actor.level,18),3,ternary(gte(@actor.level,10),2,1))",
                 "key": "DamageDice",
                 "predicate": [
-                    "vicious-swing"
+                    "strike-maneuver:vicious-swing"
                 ],
                 "selector": "melee-strike-damage"
-            },
-            {
-                "domain": "damage",
-                "key": "RollOption",
-                "option": "vicious-swing",
-                "toggleable": true
             }
         ],
         "traits": {

@@ -25,7 +25,32 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                  "key": "RollOption",
+                  "domain": "all",
+                  "option": "strike-maneuver",
+                  "label": "Strike Maneuver",
+                  "toggleable": true,
+                  "mergeable": true,
+                  "suboptions": [
+                        {
+                            "label": "{item|name}",
+                            "value": "debilitating-shot"
+                        }
+                  ]
+            },
+            {
+                "key": "Note",
+                "outcome": ["success", "criticalSuccess"],
+                "predicate": [
+                    "strike-maneuver:debilitating-shot",
+                ],
+                "selector": "ranged-strike-attack-roll",
+                "text": "PF2E.SpecificRule.Fighter.DebilitatingShot.Success",
+                "title": "PF2E.Check.Result.Degree.Check.success"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

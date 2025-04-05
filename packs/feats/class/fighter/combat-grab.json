@@ -25,7 +25,38 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                  "key": "RollOption",
+                  "domain": "all",
+                  "option": "strike-maneuver",
+                  "label": "Strike Maneuver",
+                  "toggleable": true,
+                  "mergeable": true,
+                  "suboptions": [
+                        {
+                            "label": "{item|name}",
+                            "value": "combat-grab"
+                        }
+                  ]
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "strike-maneuver:combat-grab",
+                    {
+                        "not": "hands-free:0"
+                    }
+                ],
+                "selector": "melee-strike-attack-roll",
+                "text": "PF2E.SpecificRule.Fighter.CombatGrab.Success",
+                "title": "PF2E.Check.Result.Degree.Check.success"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

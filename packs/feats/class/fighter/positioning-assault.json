@@ -25,7 +25,30 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "domain": "all",
+                "option": "strike-maneuver",
+                "label": "Strike Maneuver",
+                "toggleable": true,
+                "mergeable": true,
+                "suboptions": [
+                        {
+                            "label": "{item|name}",
+                            "value": "positioning-assault"
+                        }
+                ]
+            },
+            {
+                "key": "Note",
+                "selector": "melee-strike-attack-roll",
+                "title": "PF2E.Check.Result.Degree.Check.success",
+                "text": "PF2E.SpecificRule.Fighter.PositioningAssault.Success",
+                "outcome": ["success", "criticalSuccess"],
+                "predicate": ["strike-maneuver:positioning-assault", "item:hands-held:2"]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

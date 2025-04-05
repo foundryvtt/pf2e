@@ -25,7 +25,33 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "domain": "all",
+                "option": "strike-maneuver",
+                "label": "Strike Maneuver",
+                "toggleable": true,
+                "mergeable": true,
+                "suboptions": [
+                        {
+                            "label": "{item|name}",
+                            "value": "parting-shot"
+                        }
+                ]
+            },
+            {
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "strike-maneuver:parting-shot",
+                ],
+                "selectors": [
+                    "ranged-strike-attack-roll",
+                    "ranged-strike-damage"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

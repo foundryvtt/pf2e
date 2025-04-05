@@ -29,7 +29,69 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                  "key": "RollOption",
+                  "domain": "all",
+                  "option": "strike-maneuver",
+                  "label": "Strike Maneuver",
+                  "toggleable": true,
+                  "mergeable": true,
+                  "suboptions": [
+                        {
+                            "label": "{item|name}",
+                            "value": "disarming-twist"
+                        }
+                  ]
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "strike-maneuver:disarming-twist",
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.Actions.Disarm.Notes.criticalSuccess",
+                "title": "PF2E.Check.Result.Degree.Check.criticalSuccess"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "strike-maneuver:disarming-twist",
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.Actions.Disarm.Notes.success",
+                "title": "PF2E.Check.Result.Degree.Check.success"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "predicate": [
+                    "strike-maneuver:disarming-twist",
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Fighter.DisarmingTwist.Failure",
+                "title": "PF2E.Check.Result.Degree.Check.failure"
+            },
+            {
+                "key": "FlatModifier",
+                "label": "{item|name} (Disarming Stance)",
+                "predicate": [
+                    "strike-maneuver:disarming-twist",
+                    "self:effect:stance-disarming-stance"
+                ],
+                "selector": "strike-attack-roll",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

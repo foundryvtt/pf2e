@@ -3916,14 +3916,92 @@
                 }
             },
             "Fighter": {
+                "AdvantageousAssault": {
+                    "Failure": "You deal damage to the target equal to @Damage[@item.system.damage.die[@item.system.damage.damageType]]{the number of weapon damage dice}, or @Damage[@item.system.damage.die+2[@item.system.damage.damageType]]{that number + 2} if you're wielding the weapon in two hands. This damage has the same damage type as the weapon."
+                },
                 "BrutalFinish": {
-                    "Note": "You deal @Damage[(ternary(gte(@actor.level,18),2,1))@item.system.damage.die[@item.system.damage.damageType]] damage."
+                    "Failure": "You deal @Damage[(ternary(gte(@actor.level,18),2,1))@item.system.damage.die[@item.system.damage.damageType]] damage."
+                },
+                "BrutishShove": {
+                    "Success": "If the target is your size or smaller, that creature is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of your current turn, and you can automatically @UUID[Compendium.pf2e.actionspf2e.Item.Shove] it, with the same benefits as the Shove action (including the critical success effect, if your Strike was a critical hit). If you move to follow the target, your movement doesn't trigger reactions.",
+                    "Failure": "The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of your current turn."
+                },
+                "CertainStrike": {
+                    "Failure": "Your attack deals any damage it would have dealt on a hit, excluding all damage dice. (This removes damage dice from weapon runes, spells, and special abilities, in addition to weapon damage dice.)"
+                },
+                "CombatAssessment": {
+                    "Success": "You can immediately attempt a check to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] about the target. The target is temporarily immune to Combat Assessment for 1 day.",
+                    "CriticalSuccess": "You can immediately attempt a check to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] about the target, you gain a +2 circumstance bonus to the check to Recall Knowledge. The target is temporarily immune to Combat Assessment for 1 day."
+                },
+                "CombatGrab": {
+                    "Success": "You grab the target using your free hand. The creature remains @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] until the end of your next turn or until it @UUID[Compendium.pf2e.actionspf2e.Item.Escape]{Escapes}, whichever comes first."
                 },
                 "DazingBlow": {
-                    "Note": "If the Strike hits, the creature must attempt a @Check[fortitude|against:class|traits:incapacitation] save against your class DC; this is an incapacitation effect.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 3}."
+                    "Success": "The creature must attempt a @Check[fortitude|against:class|traits:incapacitation] save against your class DC; this is an incapacitation effect.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 3}."
+                },
+                "DebilitatingShot": {
+                    "Success": "If the strike deals damage, the target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until the end of its next turn."
+                },
+                "DisarmingTwist": {
+                    "Failure": "The target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of your current turn."
+                },
+                "DisorientingOpening": {
+                    "Success": "When you hit a creature as part of a Reactive Strike, that creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of your next turn."
+                },
+                "DisruptingStance": {
+                    "Success": "You disrupt the triggering action."
                 },
                 "DoubleSlice": {
                     "SecondAttackLabel": "Double Slice Second Attack"
+                },
+                "ExactingStrike": {
+                    "Failure": "This attack doesn't count toward your multiple attack penalty."
+                },
+                "FellingStrike": {
+                    "Success": "If the strike deals damage to a flying target, the target falls up to 120 feet. The fall is gradual enough that if it causes the target to hit the ground, the target takes no damage from the fall.",
+                    "CriticalSuccess": "If the strike deals damage to a flying target, the target falls up to 120 feet. The fall is gradual enough that if it causes the target to hit the ground, the target takes no damage from the fall. The target can't Fly, @UUID[Compendium.pf2e.actionspf2e.Item.Leap], levitate, or otherwise leave the ground until the end of your next turn."
+                },
+                "FlingingCharge": {
+                    "Success": "The target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the next melee attack that you attempt against it before the end of your current turn."
+                },
+                "GuidingFinish": {
+                    "Success": "You can @UUID[Compendium.pf2e.actionspf2e.Item.Reposition] the target up to 10 feet. You can move the target through your space during this movement.",
+                    "Failure": "You can force the creature to move as you would on a success, but you can move the target only 5 feet."
+                },
+                "GuidingRiposte": {
+                    "Success": "You can @UUID[Compendium.pf2e.actionspf2e.Item.Reposition] up to 10 feet."
+                },
+                "IncredibleAim": {
+                    "Note": "You ignore the target's @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition."
+                },
+                "IncredibleRicochet": {
+                    "Note": "You ignore the target's @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition and all cover."
+                },
+                "PositioningAssault": {
+                    "Success": "You @UUID[Compendium.pf2e.actionspf2e.Item.Reposition] the target 5 feet."
+                },
+                "RevealingStab": {
+                    "Note": "If the target is @UUID[Compendium.pf2e.conditionitems.Item.Concealed], you don't need to attempt a flat check to target it, and if it's @UUID[Compendium.pf2e.conditionitems.Item.Hidden], the DC of the flat check to target it is 5.",
+                    "Success": "If you deal damage, you can drive the weapon you attacked with into the target (if it's corporeal), revealing its current position. You Release the weapon, and it becomes lodged in the target. If the target is concealed, no flat check is needed to target it, and if it's hidden, the DC of the flat check to target it is 5, and the creature can't become undetected. These benefits apply only for observers who can see your weapon stuck in the target. If the target is @UUID[Compendium.pf2e.conditionitems.Item.Invisible], the weapon remains visible while lodged in it.</p>\n<p>This benefit lasts until the weapon is removed from the creature. An adjacent creature or the target can remove the weapon with two Interact actions."
+                },
+                "SeverSpace": {
+                    "Note": "After the Strike, regardless of whether it succeeded, the world rushes to fill the space you destroyed, bringing you and the target adjacent to each other. You can choose to teleport to the closest space adjacent to the target or to attempt to teleport the target adjacent to you. If you choose the target, they can negate the teleportation if they succeed at a Fortitude save against your class DC."
+                },
+                "ShatterDefenses": {
+                    "Success": "If the strike deals damage, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until its frightened condition ends.",
+                    "SuccessOffGuard": "If the strike deals damage, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until its frightened condition ends, and it can't reduce its frightened value below 1 until the start of your next turn."
+                },
+                "SlamDown": {
+                    "Success": "If it hits and deals damage, you can attempt an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Trip] the creature you hit.",
+                    "SuccessTwoHanded": "If it hits and deals damage, you can attempt an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Trip] the creature you hit. You can ignore Trip's requirement that you have a hand free."
+                },
+                "SleekReposition": {
+                    "Success": "You can automatically @UUID[Compendium.pf2e.actionspf2e.Item.Reposition] the target, with the same benefits as the Reposition action (including the critical success effect, if your Strike was a critical hit). If you used a weapon with reach, use the weapon's reach for this Reposition.",
+                    "SuccessPolearm": "You can automatically @UUID[Compendium.pf2e.actionspf2e.Item.Reposition] the target, with the same benefits as the Reposition action (including the critical success effect, if your Strike was a critical hit). If you used a weapon with reach, use the weapon's reach for this Reposition. You can ignore Reposition's requirement that you have a hand free.",
+                    "Failure": "The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of your current turn."
+                },
+                "SnaggingStrike": {
+                    "Failure": "The target is off-guard until the start of your next turn or until it's no longer within the reach of your hand, whichever comes first."
                 }
             },
             "FighterWeaponMasteryLegend": {
@@ -5156,6 +5234,9 @@
                     "CriticalSuccess": "If the target is evil, it is also @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 2} until the start of your next turn on a critical hit.",
                     "Success": "If the target is evil, it is also @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 1} until the start of your next turn on a hit."
                 }
+            },
+            "ReactiveStrike": {
+                "CriticalSuccess": "You disrupt the triggering action."
             },
             "RemainingAir": {
                 "AttackOrSpells": "If you attack or Cast any spells, you reduce your remaining air by 2 instead of 1 at the end of your turn.",

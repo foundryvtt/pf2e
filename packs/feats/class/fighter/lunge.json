@@ -27,10 +27,18 @@
         },
         "rules": [
             {
-                "domain": "all",
                 "key": "RollOption",
-                "option": "lunge",
-                "toggleable": true
+                "domain": "all",
+                "option": "strike-maneuver",
+                "label": "Strike Maneuver",
+                "toggleable": true,
+                "mergeable": true,
+                "suboptions": [
+                        {
+                            "label": "{item|name}",
+                            "value": "lunge"
+                        }
+                ]
             },
             {
                 "key": "ActiveEffectLike",
@@ -38,7 +46,7 @@
                 "path": "system.attributes.reach.base",
                 "phase": "afterDerived",
                 "predicate": [
-                    "lunge"
+                    "strike-maneuver:lunge"
                 ],
                 "value": 5
             }

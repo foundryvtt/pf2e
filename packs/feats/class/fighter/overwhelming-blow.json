@@ -27,18 +27,29 @@
         },
         "rules": [
             {
-                "domain": "all",
                 "key": "RollOption",
-                "label": "PF2E.SpecificRule.OverwhelmingBlow.CriticalHit",
-                "option": "overwhelming-blow",
-                "toggleable": true
+                "domain": "all",
+                "option": "strike-maneuver",
+                "label": "Strike Maneuver",
+                "toggleable": true,
+                "mergeable": true,
+                "suboptions": [
+                        {
+                            "label": "{item|name}",
+                            "value": "overwhelming-blow"
+                        },
+                        {
+                            "label": "PF2E.SpecificRule.OverwhelmingBlow.CriticalHit",
+                            "value": "overwhelming-blow-crit"
+                        }
+                ]
             },
             {
                 "itemType": "weapon",
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "overwhelming-blow"
+                    "strike-maneuver:overwhelming-blow-crit"
                 ],
                 "property": "traits",
                 "value": "deadly-d12"

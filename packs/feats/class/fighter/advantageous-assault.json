@@ -27,15 +27,23 @@
         },
         "rules": [
             {
-                "domain": "strike-damage",
                 "key": "RollOption",
-                "option": "advantageous-assault",
-                "toggleable": true
+                "domain": "all",
+                "option": "strike-maneuver",
+                "label": "Strike Maneuver",
+                "toggleable": true,
+                "mergeable": true,
+                "suboptions": [
+                        {
+                            "label": "{item|name}",
+                            "value": "advantageous-assault"
+                        }
+                ]
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "advantageous-assault",
+                    "strike-maneuver:advantageous-assault",
                     {
                         "or": [
                             "target:condition:grabbed",
@@ -64,6 +72,14 @@
                 "selector": "strike-damage",
                 "slug": "advantageous-assault",
                 "value": 2
+            },
+            {
+                "key": "Note",
+                "selector": "strike-attack-roll",
+                "title": "PF2E.Check.Result.Degree.Check.failure",
+                "text": "PF2E.SpecificRule.Fighter.AdvantageousAssault.Failure",
+                "outcome": ["failure"],
+                "predicate": ["strike-maneuver:advantageous-assault"]
             }
         ],
         "traits": {

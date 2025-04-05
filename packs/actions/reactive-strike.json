@@ -18,7 +18,56 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                  "key": "RollOption",
+                  "domain": "all",
+                  "option": "strike-maneuver",
+                  "label": "Strike Maneuver",
+                  "toggleable": true,
+                  "mergeable": true,
+                  "suboptions": [
+                        {
+                            "label": "{item|name}",
+                            "value": "reactive-strike"
+                        }
+                  ]
+            },
+            {
+                  "key": "RollOption",
+                  "domain": "all",
+                  "option": "reactive-strike-trigger",
+                  "label": "Reactive Strike Trigger",
+                  "toggleable": true,
+                  "mergeable": true,
+                  "suboptions": [
+                        {
+                            "label": "{item|name}",
+                            "value": "manipulate"
+                        },
+                        {
+                            "label": "{item|name}",
+                            "value": "move"
+                        }
+                        {
+                            "label": "{item|name}",
+                            "value": "ranged-attack"
+                        }
+                  ],
+                  "predicate": "strike-maneuver:reactive-strike"
+            },
+            {
+                "key": "Note",
+                "outcome": ["criticalSuccess"],
+                "predicate": [
+                    "strike-maneuver:reactive-strike",
+                    "reactive-strike-trigger:manipulate"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.ReactiveStrike.CriticalSuccess",
+                "title": "PF2E.Check.Result.Degree.Check.criticalSuccess"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []

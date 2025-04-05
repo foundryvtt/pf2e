@@ -20,7 +20,58 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                  "key": "RollOption",
+                  "domain": "all",
+                  "option": "reactive-strike-trigger",
+                  "label": "Reactive Strike Trigger",
+                  "toggleable": true,
+                  "mergeable": true,
+                  "suboptions": [
+                        {
+                            "label": "{item|name}",
+                            "value": "manipulate"
+                        },
+                        {
+                            "label": "{item|name}",
+                            "value": "concentrate"
+                        }
+                  ],
+                  "predicate": "strike-maneuver:reactive-strike"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "strike-maneuver:reactive-strike",
+                    {
+                        "or": [
+                            "reactive-strike-trigger:manipulate",
+                            "reactive-strike-trigger:concentrate"
+                        ]
+                    }
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Fighter.DisruptiveStance.Success",
+                "title": "PF2E.Check.Result.Degree.Check.success"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "strike-maneuver:reactive-strike",
+                    "reactive-strike-trigger:concentrate"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Fighter.DisruptiveStance.Success",
+                "title": "PF2E.Check.Result.Degree.Check.success"
+            }
+        ],
         "start": {
             "initiative": null,
             "value": 0

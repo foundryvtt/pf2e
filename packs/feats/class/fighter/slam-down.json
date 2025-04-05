@@ -29,7 +29,38 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "domain": "all",
+                "option": "strike-maneuver",
+                "label": "Strike Maneuver",
+                "toggleable": true,
+                "mergeable": true,
+                "suboptions": [
+                        {
+                            "label": "{item|name}",
+                            "value": "slam-down"
+                        }
+                ]
+            },
+            {
+                "key": "Note",
+                "selector": "melee-strike-attack-roll",
+                "title": "PF2E.Check.Result.Degree.Check.success",
+                "text": "PF2E.SpecificRule.Fighter.SlamDown.Success",
+                "outcome": ["success", "criticalSuccess"],
+                "predicate": ["strike-maneuver:slam-down", { "not": "item:hands-held:2" }]
+            },
+            {
+                "key": "Note",
+                "selector": "melee-strike-attack-roll",
+                "title": "PF2E.Check.Result.Degree.Check.success",
+                "text": "PF2E.SpecificRule.Fighter.SlamDown.SuccessTwoHanded",
+                "outcome": ["success", "criticalSuccess"],
+                "predicate": ["strike-maneuver:slam-down", "item:hands-held:2"]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

@@ -25,7 +25,30 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "domain": "all",
+                "option": "strike-maneuver",
+                "label": "Strike Maneuver",
+                "toggleable": true,
+                "mergeable": true,
+                "suboptions": [
+                        {
+                            "label": "{item|name}",
+                            "value": "exacting-strike"
+                        }
+                ]
+            },
+            {
+                "key": "Note",
+                "selector": "strike-attack-roll",
+                "title": "PF2E.Check.Result.Degree.Check.failure",
+                "text": "PF2E.SpecificRule.Fighter.ExactingStrike.Failure",
+                "outcome": ["failure"],
+                "predicate": ["strike-maneuver:exacting-strike"]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
