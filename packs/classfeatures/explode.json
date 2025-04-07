@@ -46,6 +46,24 @@
                         "text": "PF2E.SpecificRule.Inventor.Unstable.Note"
                     }
                 ]
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "label": "PF2E.TraitUnstable",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:unstable",
+                    {
+                        "not": "self:effect:unstable-check-failure"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Inventor.Unstable.Note"
+                    }
+                ]
             }
         ],
         "traits": {
