@@ -1,0 +1,60 @@
+{
+    "_id": "4q8Of8NM9DC8kWyK",
+    "img": "icons/tools/smithing/pincers.webp",
+    "name": "Effect: Tooth Tug",
+    "system": {
+        "description": {
+            "value": "<p>You take a –1 status penalty to Charisma-based skill checks and must succeed at a DC 5 flat check to Cast a Spell unless that spell has the subtle trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "cha-skill-check",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "item:trait:subtle"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.NPCAbility.ToothFairy.ToothTug.Note"
+                    }
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}
