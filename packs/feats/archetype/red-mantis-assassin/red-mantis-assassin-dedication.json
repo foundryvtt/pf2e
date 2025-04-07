@@ -44,7 +44,7 @@
                         "predicate": [
                             "skill:stealth:rank:0"
                         ],
-                        "value": "trained"
+                        "value": 1
                     },
                     {
                         "label": "PF2E.Skill.Diplomacy",
@@ -56,30 +56,18 @@
                                 ]
                             }
                         ],
-                        "value": "expert"
+                        "value": 2
                     }
                 ],
+                "flag": "rank",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.Skill",
-                "rollOption": "red-mantis-assassin-stealth"
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.stealth.rank",
-                "predicate": [
-                    "red-mantis-assassin-stealth:trained"
-                ],
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.skills.stealth.rank",
-                "predicate": [
-                    "red-mantis-assassin-stealth:expert"
-                ],
-                "value": 2
+                "value": "@item.flags.pf2e.rulesSelections.rank"
             },
             {
                 "adjustName": false,
