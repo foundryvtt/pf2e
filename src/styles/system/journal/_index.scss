@@ -1,4 +1,20 @@
 .journal-entry-page {
+    .journal-header {
+        gap: 1rem;
+
+        [name="system.code"] {
+            inline-size: 3em;
+            text-align: center;
+        }
+
+        .page-level {
+            margin-inline-start: 0;
+        }
+    }
+    [data-map-location-code]::before {
+        content: attr(data-map-location-code) ": ";
+    }
+
     .journal-page-content {
         @include journal-styling;
         @import "critical-fumble-deck";

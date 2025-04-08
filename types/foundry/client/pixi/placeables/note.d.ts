@@ -13,6 +13,9 @@ declare class Note<
     /** The associated JournalEntry which is referenced by this Note */
     get entry(): JournalEntry;
 
+    /** The specific JournalEntryPage within the associated JournalEntry referenced by this Note. */
+    get page(): JournalEntryPage;
+
     /** The text label used to annotate this Note */
     get text(): string;
 
