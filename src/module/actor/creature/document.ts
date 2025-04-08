@@ -255,7 +255,7 @@ abstract class CreaturePF2e<
 
         // Add spell collections from spell consumables if a matching spellcasting ability is found
         const spellConsumables = this.itemTypes.consumable.filter(
-            (c) => ["scroll", "wand"].includes(c.category) && c.isIdentified && !c.isStowed,
+            (c) => ["scroll", "wand"].includes(c.category) && c.isIdentified,
         );
         for (const consumable of spellConsumables) {
             const spell = consumable.embeddedSpell;
