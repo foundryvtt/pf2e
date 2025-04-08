@@ -227,16 +227,11 @@ export class EffectsPanel extends Application {
 
     async #getViewData(effects: AfflictionPF2e[] | EffectPF2e[] | ConditionPF2e[]): Promise<EffectViewData[]> {
         return await Promise.all(
-            effects.map(async (effect) => {
-                const actor = "actor" in effect ? effect.actor : null;
-                return {
-                    effect,
-                    description: await TextEditor.enrichHTML(effect.description, {
-                        rollData: { actor, item: effect },
-                    }),
-                    remaining: effect instanceof EffectPF2e ? this.#getRemainingDurationLabel(effect) : null,
-                };
-            }),
+            effects.map(async (effect) => ({
+                effect,
+                description: (await effect.getDescription()).value,
+                remaining: effect instanceof EffectPF2e ? this.#getRemainingDurationLabel(effect) : null,
+            })),
         );
     }
 
