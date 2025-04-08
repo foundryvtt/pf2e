@@ -97,6 +97,11 @@ function computeSightAndDetectionForRBV(token: TokenDocumentPF2e | PrototypeToke
         const range = scene?.flags.pf2e.hearingRange ?? null;
         token.detectionModes.push({ id: "hearing", enabled: true, range });
     }
+
+    const thoughtsense = actor.perception.senses.get("thoughtsense");
+    if (thoughtsense && thoughtsense.acuity !== "vague") {
+        token.detectionModes.push({ id: "senseThoughts", enabled: true, range: thoughtsense.range });
+    }
 }
 
 /** Returns true if this token has the default actor image or the default image for its actor type */
