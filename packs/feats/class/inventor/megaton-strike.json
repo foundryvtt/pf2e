@@ -34,6 +34,11 @@
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.Inventor.Unstable.UnstableFunction.Label",
                 "option": "unstable-state",
+                "toggleable": true
+            },
+            {
+                "key": "RollOption",
+                "option": "megaton-strike",
                 "predicate": [
                     {
                         "not": "feature:construct-innovation"
@@ -42,23 +47,11 @@
                 "toggleable": true
             },
             {
-                "domain": "all",
-                "key": "RollOption",
-                "option": "megaton",
-                "predicate": [
-                    {
-                        "not": "feature:construct-innovation"
-                    }
-                ],
-                "toggleable": true,
-                "value": true
-            },
-            {
                 "key": "AdjustStrike",
                 "mode": "add",
                 "predicate": [
-                    "megaton",
-                    "unstable-state"
+                    "unstable-state",
+                    "megaton-strike"
                 ],
                 "property": "traits",
                 "value": "unstable"
@@ -67,10 +60,7 @@
                 "diceNumber": "ternary(gte(@actor.level, 18), 3, ternary(gte(@actor.level, 10), 2, 1))",
                 "key": "DamageDice",
                 "predicate": [
-                    "megaton",
-                    {
-                        "not": "unstable-state"
-                    },
+                    "megaton-strike",
                     {
                         "or": [
                             {
@@ -88,40 +78,28 @@
                         ]
                     }
                 ],
-                "selector": "strike-damage"
+                "selector": "strike-damage",
+                "slug": "megaton-strike"
             },
             {
-                "diceNumber": "ternary(gte(@actor.level, 18), 4, ternary(gte(@actor.level, 10), 3, 2))",
-                "key": "DamageDice",
+                "key": "DamageAlteration",
+                "mode": "add",
                 "predicate": [
-                    "megaton",
-                    "unstable-state",
-                    {
-                        "or": [
-                            {
-                                "and": [
-                                    "feature:weapon-innovation",
-                                    "item:id:{actor|flags.pf2e.innovationId}"
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "feature:armor-innovation",
-                                    "item:melee"
-                                ]
-                            }
-                        ]
-                    }
+                    "unstable-state"
                 ],
-                "selector": "strike-damage"
+                "property": "dice-number",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "megaton-strike",
+                "value": 1
             },
             {
-                "itemType": "feat",
+                "itemId": "{item|id}",
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "unstable-state",
-                    "item:megaton-strike"
+                    "unstable-state"
                 ],
                 "property": "traits",
                 "value": "unstable"
