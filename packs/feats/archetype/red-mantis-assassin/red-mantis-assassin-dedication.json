@@ -37,10 +37,62 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Stealth",
+                        "predicate": [
+                            "skill:stealth:rank:0"
+                        ],
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.Skill.Diplomacy",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:stealth:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": 2
+                    }
+                ],
+                "flag": "rank",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.stealth.rank",
-                "value": 1
+                "value": "@item.flags.pf2e.rulesSelections.rank"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitUnholy",
+                        "value": "unholy"
+                    },
+                    {
+                        "label": "PF2E.NoneOption",
+                        "value": "none"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Sanctification",
+                "rollOption": "sanctification"
+            },
+            {
+                "add": [
+                    "unholy"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "sanctification:unholy"
+                ]
             }
         ],
         "traits": {
