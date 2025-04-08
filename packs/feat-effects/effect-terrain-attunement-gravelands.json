@@ -1,0 +1,51 @@
+{
+    "_id": "ag1Ix1cnhcV4k9iu",
+    "img": "icons/environment/settlement/graveyard-tombstone-night.webp",
+    "name": "Effect: Terrain Attunement (Gravelands)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Speak for the Gravelands]</p>\n<p>You gain a +1 status bonus to saving throws against spells and abilities of haunts and undead creatures.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 14
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Claws of the Tyrant"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "origin:trait:haunt",
+                            "origin:trait:undead"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
