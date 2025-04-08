@@ -1,0 +1,105 @@
+{
+    "_id": "NRg5egDZsVqHiX1c",
+    "img": "systems/pf2e/icons/spells/chromatic-image.webp",
+    "name": "Custom Mixed Heritage",
+    "system": {
+        "ancestry": null,
+        "description": {
+            "value": "<p>You can work with your GM to create a mixed heritage for an ancestry other than elf or orc. A custom mixed-ancestry heritage is an uncommon heritage. Choose an ancestry to tie to the heritage. You gain any traits of that ancestry and a new trait for your combined ancestry, similar to how the @UUID[Compendium.pf2e.heritages.N36ZR4lh9eCazDaN]{Aiuvarin} heritage grants the \"elf\" and \"aiuvarin\" traits. You also gain low-light vision if the ancestry tied to the heritage has low-light vision or darkvision. The heritage lets you select ancestry feats for the chosen ancestry in addition to those from your base ancestry.</p>\n<p>Characters of mixed Elven and Orcish ancestries should use the @UUID[Compendium.pf2e.heritages.N36ZR4lh9eCazDaN]{Aiuvarin} and @UUID[Compendium.pf2e.deities.39z55kowQFOUH2v0]{Droskar} heritages.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "filter": [
+                        "item:type:ancestry"
+                    ],
+                    "itemType": "ancestry",
+                    "slugsAsValues": true
+                },
+                "flag": "heritage",
+                "key": "ChoiceSet",
+                "prompt": "Select an Ancestry",
+                "rollOption": "heritage"
+            },
+            {
+                "add": [
+                    "{item|flags.pf2e.rulesSelections.heritage}"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.details.ancestry.versatile",
+                "value": "{item|flags.pf2e.rulesSelections.heritage}"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.details.ancestry.countsAs",
+                "value": "{item|flags.pf2e.rulesSelections.heritage}"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    {
+                        "or": [
+                            "heritage:android",
+                            "heritage:automaton",
+                            "heritage:azarketi",
+                            "heritage:catfolk",
+                            "heritage:dwarf",
+                            "heritage:fetchling",
+                            "heritage:fleshwarp",
+                            "heritage:ghoran",
+                            "heritage:gnoll",
+                            "heritage:gnome",
+                            "heritage:goblin",
+                            "heritage:grippli",
+                            "heritage:hobgoblin",
+                            "heritage:kitsune",
+                            "heritage:kobold",
+                            "heritage:leshy",
+                            "heritage:nagaji",
+                            "heritage:poppet",
+                            "heritage:ratfolk",
+                            "heritage:shisk",
+                            "heritage:shoony",
+                            "heritage:sprite",
+                            "heritage:strix",
+                            "heritage:tengu",
+                            "heritage:vishkanya"
+                        ]
+                    }
+                ],
+                "selector": "lowLightVision"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "heritage:elf"
+                ],
+                "replaceSelf": true,
+                "uuid": "Compendium.pf2e.heritages.Item.Aiuvarin"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "heritage:orc"
+                ],
+                "replaceSelf": true,
+                "uuid": "Compendium.pf2e.heritages.Item.Dromaar"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}
