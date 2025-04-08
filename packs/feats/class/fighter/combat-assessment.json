@@ -27,6 +27,44 @@
         },
         "rules": [
             {
+                  "key": "RollOption",
+                  "domain": "all",
+                  "option": "strike-maneuver",
+                  "label": "Strike Maneuver",
+                  "toggleable": true,
+                  "mergeable": true,
+                  "suboptions": [
+                        {
+                            "label": "{item|name}",
+                            "value": "combat-assessment"
+                        }
+                  ]
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "strike-maneuver:combat-assessment",
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Fighter.CombatAssessment.Success",
+                "title": "PF2E.Check.Result.Degree.Check.success"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "strike-maneuver:combat-assessment",
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Fighter.CombatAssessment.CriticalSuccess",
+                "title": "PF2E.Check.Result.Degree.Check.criticalSuccess"
+            },
+            {
                 "key": "FlatModifier",
                 "label": "Combat Assessment (critical hit)",
                 "predicate": [

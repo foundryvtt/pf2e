@@ -27,15 +27,23 @@
         },
         "rules": [
             {
-                "domain": "ranged-attack-roll",
-                "key": "RollOption",
-                "option": "double-shot",
-                "toggleable": true
+                  "key": "RollOption",
+                  "domain": "all",
+                  "option": "strike-maneuver",
+                  "label": "Strike Maneuver",
+                  "toggleable": true,
+                  "mergeable": true,
+                  "suboptions": [
+                        {
+                            "label": "{item|name}",
+                            "value": "double-shot"
+                        }
+                  ]
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "double-shot",
+                    "strike-maneuver:double-shot",
                     "item:reload:0"
                 ],
                 "selector": "ranged-attack-roll",

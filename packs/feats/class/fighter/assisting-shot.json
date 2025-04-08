@@ -31,10 +31,18 @@
         },
         "rules": [
             {
-                "domain": "all",
-                "key": "RollOption",
-                "option": "assisting-shot",
-                "toggleable": true
+                  "key": "RollOption",
+                  "domain": "all",
+                  "option": "strike-maneuver",
+                  "label": "Strike Maneuver",
+                  "toggleable": true,
+                  "mergeable": true,
+                  "suboptions": [
+                        {
+                            "label": "{item|name}",
+                            "value": "assisting-shot"
+                        }
+                  ]
             },
             {
                 "key": "Note",
@@ -43,7 +51,7 @@
                     "success"
                 ],
                 "predicate": [
-                    "assisting-shot"
+                    "strike-maneuver:assisting-shot"
                 ],
                 "selector": "ranged-attack-roll",
                 "text": "{item|system.description.value}",

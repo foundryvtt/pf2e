@@ -29,7 +29,23 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "domain": "all",
+                "option": "strike-maneuver",
+                "label": "Strike Maneuver",
+                "toggleable": true,
+                "mergeable": true,
+                "suboptions": [
+                        {
+                            "label": "{item|name}",
+                            "value": "dueling-riposte"
+                        }
+                ],
+                "predicate": "effect:dueling-parry"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

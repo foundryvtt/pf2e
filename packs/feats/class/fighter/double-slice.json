@@ -27,16 +27,27 @@
         },
         "rules": [
             {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "PF2E.SpecificRule.Fighter.DoubleSlice.SecondAttackLabel",
-                "option": "double-slice-second",
-                "toggleable": true
+                  "key": "RollOption",
+                  "domain": "all",
+                  "option": "strike-maneuver",
+                  "label": "Strike Maneuver",
+                  "toggleable": true,
+                  "mergeable": true,
+                  "suboptions": [
+                        {
+                            "label": "{item|name}",
+                            "value": "double-slice"
+                        },
+                        {
+                            "label": "PF2E.SpecificRule.Fighter.DoubleSlice.SecondAttackLabel",
+                            "value": "double-slice-second"
+                        }
+                  ]
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "double-slice-second",
+                    "strike-maneuver:double-slice-second",
                     {
                         "not": "agile"
                     }

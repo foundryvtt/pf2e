@@ -25,7 +25,37 @@
             "remaster": false,
             "title": "Pathfinder #168: King of the Mountain"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "domain": "all",
+                "option": "strike-maneuver",
+                "label": "Strike Maneuver",
+                "toggleable": true,
+                "mergeable": true,
+                "suboptions": [
+                        {
+                            "label": "{item|name}",
+                            "value": "sever-space"
+                        }
+                ]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.attributes.reach.base",
+                "phase": "afterDerived",
+                "predicate": ["strike-maneuver:sever-space"],
+                "value": 80
+            }
+            {
+                "key": "Note",
+                "selector": "melee-strike-attack-roll",
+                "title": "{item|name}",
+                "text": "PF2E.SpecificRule.Fighter.SeverSpace.Note",
+                "predicate": ["strike-maneuver:sever-space"]
+            }
+        ],
         "traits": {
             "rarity": "uncommon",
             "value": [

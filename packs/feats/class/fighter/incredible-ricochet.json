@@ -29,7 +29,29 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "domain": "all",
+                "option": "strike-maneuver",
+                "label": "Strike Maneuver",
+                "toggleable": true,
+                "mergeable": true,
+                "suboptions": [
+                        {
+                            "label": "{item|name}",
+                            "value": "incredible-ricochet"
+                        }
+                ]
+            },
+            {
+                "key": "Note",
+                "predicate": [ "strike-maneuver:incredible-ricochet" ],
+                "selector": "attack",
+                "text": "PF2E.SpecificRule.Fighter.IncredibleRicochet.Note",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

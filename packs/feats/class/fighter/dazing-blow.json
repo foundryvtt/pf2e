@@ -27,10 +27,18 @@
         },
         "rules": [
             {
-                "domain": "all",
-                "key": "RollOption",
-                "option": "dazing-blow",
-                "toggleable": true
+                  "key": "RollOption",
+                  "domain": "all",
+                  "option": "strike-maneuver",
+                  "label": "Strike Maneuver",
+                  "toggleable": true,
+                  "mergeable": true,
+                  "suboptions": [
+                        {
+                            "label": "{item|name}",
+                            "value": "dazing-blow"
+                        }
+                  ]
             },
             {
                 "key": "DamageDice",
@@ -38,7 +46,7 @@
                     "damageType": "bludgeoning"
                 },
                 "predicate": [
-                    "dazing-blow"
+                    "strike-maneuver:dazing-blow"
                 ],
                 "selector": "strike-damage"
             },
@@ -49,10 +57,10 @@
                     "success"
                 ],
                 "predicate": [
-                    "dazing-blow"
+                    "strike-maneuver:dazing-blow"
                 ],
-                "selector": "strike-attack-roll",
-                "text": "PF2E.SpecificRule.Fighter.DazingBlow.Note",
+                "selector": "melee-strike-attack-roll",
+                "text": "PF2E.SpecificRule.Fighter.DazingBlow.Success",
                 "title": "{item|name}"
             }
         ],

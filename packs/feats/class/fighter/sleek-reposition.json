@@ -25,7 +25,58 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "domain": "all",
+                "option": "strike-maneuver",
+                "label": "Strike Maneuver",
+                "toggleable": true,
+                "mergeable": true,
+                "suboptions": [
+                        {
+                            "label": "{item|name}",
+                            "value": "sleek-reposition"
+                        }
+                ]
+            },
+            {
+                "key": "Note",
+                "selector": "melee-strike-attack-roll",
+                "title": "PF2E.Check.Result.Degree.Check.success",
+                "text": "PF2E.SpecificRule.Fighter.SleekReposition.Success",
+                "outcome": ["success", "criticalSuccess"],
+                "predicate": [
+                    "strike-maneuver:sleek-reposition",
+                    { "lt": ["self:size", "target:size"] },
+                    "item:traits:finesse",
+                    { "not": "item:group:polearm" }
+                ]
+            },
+            {
+                "key": "Note",
+                "selector": "melee-strike-attack-roll",
+                "title": "PF2E.Check.Result.Degree.Check.success",
+                "text": "PF2E.SpecificRule.Fighter.SleekReposition.SuccessPolearm",
+                "outcome": ["success", "criticalSuccess"],
+                "predicate": [
+                    "strike-maneuver:sleek-reposition",
+                    { "lt": ["self:size", "target:size"] },
+                    "item:group:polearm"
+                ]
+            },
+            {
+                "key": "Note",
+                "selector": "melee-strike-attack-roll",
+                "title": "PF2E.Check.Result.Degree.Check.success",
+                "text": "PF2E.SpecificRule.Fighter.SleekReposition.Failure",
+                "outcome": ["failure"],
+                "predicate": [
+                    "strike-maneuver:sleek-reposition",
+                    { "or": ["item:traits:finesse", "item:group:polearm"] }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
