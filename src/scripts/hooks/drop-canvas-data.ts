@@ -8,7 +8,7 @@ export const DropCanvasData = {
             const dropTarget = [...canvas.tokens.placeables]
                 .sort((a, b) => b.document.sort - a.document.sort)
                 .sort((a, b) => b.document.elevation - a.document.elevation)
-                .find((t) => t.bounds.contains(data.x, data.y) && t.visible);
+                .find((t) => t.visible && t.bounds.contains(data.x, data.y));
 
             const actor = dropTarget?.actor;
             if (actor) {
