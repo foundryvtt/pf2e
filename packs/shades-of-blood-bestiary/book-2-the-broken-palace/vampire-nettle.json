@@ -1,0 +1,300 @@
+{
+    "_id": "pc4ZQaxSYoHWxYTP",
+    "folder": "8R36jkMt1xJlUV6E",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "hK6gcvE9qa1mGsy3",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Vine",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "MgeNRtOnJjfikpd5": {
+                        "damage": "1d4+5",
+                        "damageType": "slashing"
+                    },
+                    "ocUGEIG86lmbhXhn": {
+                        "category": "persistent",
+                        "damage": "1d4",
+                        "damageType": "bleed"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "A5VQ8cGwIh3ZLOrn",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Alluring Scent",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. The vampire nettle exudes an enticing scent that no two creatures find exactly alike, other than in its alluring nature. A living creature that enters the aura or that starts its turn in the area must attempt a @Check[will|dc:15] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to alluring scent for 24 hours.</p>\n<p><strong>Success</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} until the start of its next turn.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Fascinated], and it must spend each of its actions to move closer to the vampire nettle as expediently as possible, while avoiding obvious dangers. If a fascinated creature is adjacent to a vampire nettle, it stays still and doesn't act. If attacked by the vampire nettle, the creature is freed from captivation at the end of the vampire nettle's turn.</p>\n<p><strong>Critical Failure</strong> As failure, but if attacked by the vampire nettle, the creature can attempt a new save at the start of its next turn, rather than being freed at the end of the vampire nettle's turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "traits": [
+                            "emotion",
+                            "incapacitation",
+                            "mental",
+                            "occult",
+                            "olfactory"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "incapacitation",
+                        "mental",
+                        "occult",
+                        "olfactory"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uxospgEA0IhoPxCZ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Absorb Blood",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The vampire nettle is adjacent to a creature taking persistent bleed damage</p><hr /><p><strong>Effect</strong> The vampire nettle's central stalk dips into the wound and drinks blood. The vampire nettle gains 2d6 temporary Hit Points for 1 hour. The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 hour if it fails a @Check[fortitude|dc:18] save (@UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MiVEfX0oV0nsEoqx",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Bloodless Guardian",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A living humanoid that dies while under the effects of alluring scent rises as a @UUID[Compendium.pf2e.pathfinder-monster-core.Actor.Zombie Shambler] after [[/gmr 1d4 #rounds]]{1d4 rounds}. The zombie isn't controlled by the vampire nettle but typically remains in the area to guard the plant for [[/gmr 1d4 #days]]{1d4 days} before wandering off. At some point within 1 week after leaving, the zombie collapses, and a new, fully grown vampire nettle erupts from its chest.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Vampire Nettle",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -5
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 3
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 17
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 36,
+                "temp": 0,
+                "value": 36
+            },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "bludgeoning",
+                    "value": 5
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "piercing",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 10
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 5
+                },
+                {
+                    "exceptions": [],
+                    "type": "slashing",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 2
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>While the aptly named vampire nettle isn't undead, it tends to grow in places frequented by vampires, and this sinister plant's presence is often a key indicator that a graveyard houses more than just the dead. A vampire nettle appears as a coil of thorny vines with narrow, triangular leaves. A single stalk emerges from the plant's central mass, growing to a height of about three feet. The flower that droops from the tip of this stalk is usually white, but for the 24 hours after the nettle feeds, the flower's petals turn blood red.</p>\n<p>Due to their affinity with undead, vampire nettles are often found in abandoned burial grounds. Nettles that grow above graves sometimes send roots deep into the ground to suck additional nutrients from the bodies buried below; these vampire nettles often have the elite monster adjustments.</p><h2>Vampire Admirers</h2><p>Many vampires are fond of vampire nettles and are unaffected by the plant's intoxicating scent. Some have been known to drink from the nettle's flower, claiming that the blood takes on a pleasant piquancy akin to notes of a fine wine.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #214: The Broken Palace"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 8,
+            "senses": [
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "tremorsense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 7
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 8
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 7,
+                "special": []
+            },
+            "stealth": {
+                "base": 7,
+                "special": [
+                    {
+                        "base": 9,
+                        "label": "in undergrowth",
+                        "predicate": [
+                            "terrain:undergrowth"
+                        ]
+                    }
+                ]
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "mindless",
+                "plant"
+            ]
+        }
+    },
+    "type": "npc"
+}

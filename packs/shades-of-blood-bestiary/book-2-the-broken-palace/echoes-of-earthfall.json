@@ -1,0 +1,99 @@
+{
+    "_id": "LwkDBAyZuiE1KVSG",
+    "folder": "8R36jkMt1xJlUV6E",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "QpHO5QXqEFyWbXTt",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Final Cries of Horror",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature attempts to exit the room</p><hr /><p><strong>Effect</strong> The cavern erupts into terrified cries as a deep rumbling fills the room. All creatures in area <strong>C12</strong> must succeed at a @Check[will|dc:22] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure). The haunt then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Echoes of Earthfall",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 13
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Bodiless screams arise as the room rumbles and shakes, as if in the grip of an earthquake.</p>",
+            "disable": "<p>@Check[religion|dc:23] (expert) to exorcise the spirits or @Check[intimidation|dc:23] to stand resolute and show the spirits there's nothing to fear; three total successes are required to disable this haunt.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #214: The Broken Palace"
+            },
+            "reset": "<p>The haunt deactivates once no living creatures are in the cave at the end of a round, then resets 1 hour later as the spiritual energy rebuilds to a breaking point.</p>",
+            "routine": "<p>(1 action; illusion, mental) A thunderous explosion rocks the room as the ceiling appears to split open and collapse. This cave-in is an illusion formed from the memories of the dead, but it can inflict real damage. All creatures in the room must attempt a @Check[will|dc:22|traits:illusion,mental] save.</p><hr><p><strong>Critical Success</strong> The creature is unaffected.</p><p><strong>Success</strong> The creature takes @Damage[1d10[mental]] damage.</p><p><strong>Failure</strong> The creature takes @Damage[(1d10+6)[mental]] damage and believes the room is filling with rubble—they're @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until the start of their next turn as they spend their energy navigating the illusory rockfall.</p><p><strong>Critical Failure</strong> The creature takes @Damage[(2d10+12)[mental]] damage and believes they're pinned by rubble—they're @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] until the start of their next turn.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 0
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}
