@@ -29,7 +29,27 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "dragons-flight",
+                "predicate": [
+                    {
+                        "not": "feat:true-dragons-flight"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "dragons-flight"
+                ],
+                "selector": "fly",
+                "value": "20"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

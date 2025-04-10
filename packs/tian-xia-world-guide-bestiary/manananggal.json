@@ -566,7 +566,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The manananggal has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]</p>\n<hr />\n<p><strong>Effect</strong> The manananggal drives their tongue into the grabbed creature to drink its blood. This deals @Damage[4d6] damage, and the manananggal gains temporary Hit Points equal to the damage dealt. A creature whose blood is drained by a manananggal is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} until it receives healing (of any kind or amount).</p>"
+                    "value": "<p><strong>Requirements</strong> The manananggal has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]</p>\n<hr />\n<p><strong>Effect</strong> The manananggal drives their tongue into the grabbed creature to drink its blood. This deals @Damage[4d6[untyped]] damage, and the manananggal gains temporary Hit Points equal to the damage dealt. A creature whose blood is drained by a manananggal is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} until it receives healing (of any kind or amount).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -595,7 +595,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A manananggal typically resembles a living humanoid. They don't appear as an aberration at first glance and receive a +4 status bonus to their Deception DC when Impersonating a humanoid. At any time, but especially at night, a manananggal can, as a 3-action activity with the manipulate trait, rip their upper torso from their bottom half, leaving the lower torso limp and helpless but allowing the upper torso to fly free. A manananggal can separate their body at any time, but they risk further damage if they do so during the day.</p>\n<p>The manananggal's upper and lower halves share the same pool of HP. If its lower half is damaged, the manananggal is immediately aware of the attack. Each minute a manananggal remains separated after sunrise and before sunset, it takes @Damage[2d6] points of damage until it reattaches its upper and lower torsos or is destroyed, whichever comes first.</p>"
+                    "value": "<p>A manananggal typically resembles a living humanoid. They don't appear as an aberration at first glance and receive a +4 status bonus to their Deception DC when @UUID[Compendium.pf2e.actionspf2e.Item.Impersonate]{Impersonating} a humanoid. At any time, but especially at night, a manananggal can, as a 3-action activity with the manipulate trait, rip their upper torso from their bottom half, leaving the lower torso limp and helpless but allowing the upper torso to fly free. A manananggal can separate their body at any time, but they risk further damage if they do so during the day.</p>\n<p>The manananggal's upper and lower halves share the same pool of HP. If its lower half is damaged, the manananggal is immediately aware of the attack. Each minute a manananggal remains separated after sunrise and before sunset, it takes @Damage[2d6[untyped]] points of damage until it reattaches its upper and lower torsos or is destroyed, whichever comes first.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -616,6 +616,18 @@
                         ],
                         "selector": "fly",
                         "value": 80
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:impersonate",
+                            {
+                                "not": "separated-body"
+                            }
+                        ],
+                        "selector": "deception",
+                        "type": "status",
+                        "value": 4
                     }
                 ],
                 "slug": null,
@@ -759,19 +771,7 @@
                 "base": 18
             },
             "deception": {
-                "base": 16,
-                "special": [
-                    {
-                        "base": 20,
-                        "label": "to impersonate",
-                        "predicate": [
-                            "action:impersonate",
-                            {
-                                "not": "separated-body"
-                            }
-                        ]
-                    }
-                ]
+                "base": 16
             },
             "religion": {
                 "base": 13
