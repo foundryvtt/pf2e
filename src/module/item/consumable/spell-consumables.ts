@@ -95,7 +95,6 @@ async function createConsumableFromSpell(
     traits.value.sort();
 
     consumableSource.name = getNameForSpellConsumable(type, spell.name, heightenedLevel);
-    const description = consumableSource.system.description.value;
 
     consumableSource.system.description.value = (() => {
         const paragraphElement = document.createElement("p");
@@ -104,7 +103,7 @@ async function createConsumableFromSpell(
         const containerElement = document.createElement("div");
         const hrElement = document.createElement("hr");
         containerElement.append(paragraphElement, hrElement);
-        hrElement.insertAdjacentHTML("afterend", description);
+        hrElement.insertAdjacentHTML("afterend", `@Embed[${consumableSource._stats.compendiumSource} inline]`);
 
         return containerElement.innerHTML;
     })();
