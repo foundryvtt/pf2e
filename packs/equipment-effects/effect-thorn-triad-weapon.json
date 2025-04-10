@@ -4,7 +4,7 @@
     "name": "Effect: Thorn Triad - Weapon",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Thorn Triad]</p>\n<p>Your Strikes with the weapon deal an additional 1d4 persistent bleed damage.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Thorn Triad], @UUID[Compendium.pf2e.equipment-srd.Item.Thorn Triad (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Thorn Triad (Major)]</p>\n<p>Your Strikes with the weapon deal an additional persistent bleed damage.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -22,6 +22,54 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:thorn-triad",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Thorn Triad"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:thorn-triad-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Thorn Triad (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:thorn-triad-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Thorn Triad (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "priority": 50,
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "thorn-triad"
+            },
+            {
                 "choices": {
                     "includeHandwraps": true,
                     "ownedItems": true,
@@ -38,6 +86,29 @@
                 "diceNumber": 1,
                 "dieSize": "d4",
                 "key": "DamageDice",
+                "predicate": [
+                    "thorn-triad:thorn-triad"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectThornTriadWeapon}-damage"
+            },
+            {
+                "damageType": "bleed",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "thorn-triad:thorn-triad-greater"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectThornTriadWeapon}-damage"
+            },
+            {
+                "damageType": "bleed",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    "thorn-triad:thorn-triad-major"
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.effectThornTriadWeapon}-damage"
             }
         ],
