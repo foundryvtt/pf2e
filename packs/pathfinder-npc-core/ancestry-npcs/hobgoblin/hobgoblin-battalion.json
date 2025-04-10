@@ -113,7 +113,11 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The battalion thrusts their spears at each enemy in a @Template[type:emanation|distance:5] with a @Check[reflex|dc:21|basic] save. The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[(1d6+2)[slashing]] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(2d6+5)[slashing]] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(3d12+7)[slashing]] damage</p>"
+                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The battalion thrusts their spears at each enemy in a @Template[type:emanation|distance:5] with a @Check[reflex|dc:21|basic|options:area-effect] save. The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[(1d6+2)[slashing]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(2d6+5)[slashing]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(3d12+7)[slashing]|options:area-damage] damage</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
                 },
                 "publication": {
                     "license": "ORC",
@@ -142,7 +146,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The hobgoblin battalion's archers draw or reload their crossbows, then launch a ranged attack in the form of a volley. This volley is a @Template[type:burst|distance:10] within 120 feet that deals @Damage[2d8[piercing]] damage with a @Check[reflex|dc:21|basic] save. When the hobgoblin battalion is reduced to 2 or fewer segments, this area is reduced to a @Template[type:burst|distance:5].</p>"
+                    "value": "<p>The hobgoblin battalion's archers draw or reload their crossbows, then launch a ranged attack in the form of a volley. This volley is a @Template[type:burst|distance:10] within 120 feet that deals @Damage[2d8[piercing]|options:area-damage] damage with a @Check[reflex|dc:21|basic|options:area-effect] save. When the hobgoblin battalion is reduced to 2 or fewer segments, this area is reduced to a @Template[type:burst|distance:5].</p>"
                 },
                 "publication": {
                     "license": "ORC",
