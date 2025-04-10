@@ -29,7 +29,28 @@
             "remaster": true,
             "title": "Pathfinder Lost Omens Rival Academies"
         },
-        "rules": [],
+        "rules": [
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "origin:trait:haunt",
+                            "origin:trait:spirit",
+                            "origin:trait:undead"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "damage:type:void",
+                            "damage:type:spirit"
+                        ]
+                    }
+                ],
+                "key": "Resistance",
+                "type": "custom",
+                "value": "@actor.level"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

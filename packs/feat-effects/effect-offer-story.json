@@ -4,7 +4,7 @@
     "name": "Effect: Offer Story",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Offer Story]</p>\n<p>You gain a +1 status bonus to AC and Will saves.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Offer Story]</p>\n<p>You gain a +1 status bonus to AC and Will saves.</p>\n<p>If the origin has @UUID[Compendium.pf2e.feats-srd.Item.Illuminating Stories], then you can choose to gain a status bonus on skill checks to Recall Knowledge instead.</p>\n<p>If the origin has @UUID[Compendium.pf2e.feats-srd.Item.Raging Stories], you can choose to deal additional fire damage with your melee Strikes instead.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -13,7 +13,7 @@
             "value": 1
         },
         "level": {
-            "value": 1
+            "value": 2
         },
         "publication": {
             "license": "ORC",
@@ -22,13 +22,82 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.CampfireChronicler.OfferStory.ChoiceLabels.BaseBenefit",
+                        "value": "ac-will"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.CampfireChronicler.OfferStory.ChoiceLabels.RagingStories",
+                        "predicate": [
+                            "parent:origin:item:tag:raging-stories"
+                        ],
+                        "value": "raging-stories"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.CampfireChronicler.OfferStory.ChoiceLabels.IlluminatingStories",
+                        "predicate": [
+                            "parent:origin:item:tag:illuminating-stories"
+                        ],
+                        "value": "illuminating-stories"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.CampfireChronicler.OfferStory.ChoiceLabels.FlickeringStories",
+                        "predicate": [
+                            "parent:origin:item:tag:flickering-stories"
+                        ],
+                        "value": "flickering-stories"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Benefit",
+                "rollOption": "offer-story"
+            },
+            {
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
+                "predicate": [
+                    "offer-story:ac-will"
+                ],
                 "selector": [
                     "ac",
                     "will"
                 ],
+                "slug": "offer-story-ac-will",
                 "type": "status",
                 "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "offer-story:illuminating-stories"
+                ],
+                "selector": "skill-check",
+                "slug": "offer-story-illuminating-stories",
+                "type": "status",
+                "value": "ternary(gte(@item.origin.system.skills.religion.rank,4),3,ternary(gte(@item.origin.system.skills.religion.rank,3),2,1))"
+            },
+            {
+                "damageType": "fire",
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "offer-story:raging-stories"
+                ],
+                "selector": [
+                    "melee-strike-damage"
+                ],
+                "slug": "offer-story-raging-stories",
+                "value": "ternary(gte(@item.origin.system.skills.religion.rank,4),6,ternary(gte(@item.origin.system.skills.religion.rank,3),4,2))"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "offer-story:flickering-stories"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Concealed"
             }
         ],
         "start": {

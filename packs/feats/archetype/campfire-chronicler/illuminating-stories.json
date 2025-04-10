@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Stories serve as beacons in the night, illuminating valuable knowledge even if the tale itself misses the mark. When you Offer a Story about any topic, you can choose that illumination in place of the normal benefits of Offer Story. You receive a +1 status bonus on checks to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] for the duration and can Recall Knowledge about the topic of the story as a free action. The creature you share a story with can choose this benefit even if you did not.</p>\n<p>The bonus increases to +2 if you are a master of Religion and +3 if you are legendary.</p>"
+            "value": "<p>Stories serve as beacons in the night, illuminating valuable knowledge even if the tale itself misses the mark. When you @UUID[Compendium.pf2e.actionspf2e.Item.Offer Story]{Offer a Story} about any topic, you can choose that illumination in place of the normal benefits of Offer Story. You receive a +1 status bonus on checks to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] for the duration and can Recall Knowledge about the topic of the story as a free action. The creature you share a story with can choose this benefit even if you did not.</p>\n<p>The bonus increases to +2 if you are a master of Religion and +3 if you are legendary.</p>"
         },
         "level": {
             "value": 6
@@ -29,7 +29,18 @@
             "remaster": true,
             "title": "Pathfinder Lost Omens Rival Academies"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:offer-story"
+                ],
+                "property": "other-tags",
+                "value": "illuminating-stories"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
