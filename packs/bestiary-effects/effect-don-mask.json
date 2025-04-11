@@ -1,0 +1,111 @@
+{
+    "_id": "Nwgp2UbfTXHxuInm",
+    "img": "icons/commodities/bones/skull-lizard-brown.webp",
+    "name": "Effect: Don Mask",
+    "system": {
+        "description": {
+            "value": "<p>The mummer gains a primal boon:</p><ul><li><strong>Fiery Akkarok</strong> The mummer's melee Strikes deal an additional 2d6 fire damage.</li><li><strong>Hazi Zephyr-Borne</strong> The mummer gains a fly Speed of 20 feet.</li><li><strong>King of Storms</strong> The mummer gains the Reactive Strike reaction that can be used only with their tail.</li><li><strong>Nessek, the Wave Dancer</strong> The mummer's claw Strikes deal an additional 2d4 persistent bleed damage.</li><li><strong>Zalok, Who was Called to Black Harbor</strong> The mummer gains a +10-foot status bonus to their land Speed and swim Speed.</li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.NPCAbility.IruxiMaskedMummer.DonMask.Akkarok",
+                        "value": "akkarok"
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.IruxiMaskedMummer.DonMask.Hazi",
+                        "value": "hazi"
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.IruxiMaskedMummer.DonMask.KingOfStorms",
+                        "value": "king-of-storms"
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.IruxiMaskedMummer.DonMask.Nessek",
+                        "value": "nessek"
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.IruxiMaskedMummer.DonMask.Zalok",
+                        "value": "zalok"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "label": "PF2E.NPCAbility.IruxiMaskedMummer.DonMask.Prompt",
+                "rollOption": "don-mask"
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "don-mask:akkarok"
+                ],
+                "selector": "melee-strike-damage"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "don-mask:hazi"
+                ],
+                "selector": "fly",
+                "value": 20
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "don-mask:king-of-storms"
+                ],
+                "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Reactive Strike"
+            },
+            {
+                "damageType": "bleed",
+                "diceNumber": 2,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "don-mask:nessek"
+                ],
+                "selector": "claw-damage"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "don-mask:zalok"
+                ],
+                "selector": [
+                    "land-speed",
+                    "swim-speed"
+                ],
+                "type": "status",
+                "value": 10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
