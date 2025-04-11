@@ -380,6 +380,13 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const mandatoryMelee = !mandatoryRanged && traits.value.some((t) => /^thrown-{1,3}$/.test(t));
         if (mandatoryMelee) this.system.range = null;
 
+        // Initialize staff spells if this weapon is a staff
+        if (traits.value.includes("staff")) {
+            this.system.staff = fu.mergeObject({ effect: "", spells: [] }, this.system.staff ?? {});
+        } else {
+            this.system.staff = null;
+        }
+
         // Final sweep: remove any non-sensical trait that may throw off later automation
         if (this.isMelee) {
             traits.value = traits.value.filter((t) => !RANGED_ONLY_TRAITS.has(t) && !t.startsWith("volley"));

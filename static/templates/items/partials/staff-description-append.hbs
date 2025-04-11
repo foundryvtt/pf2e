@@ -1,0 +1,13 @@
+<hr />
+<p><strong>{{localize "PF2E.Item.Activation.Activate"}}</strong> {{localize "PF2E.Item.Activation.Cast"}}</p>
+<p><strong>{{localize "PF2E.Item.Activation.Effect"}}</strong> {{effect}}</p>
+<ul>
+    {{#each spells as |section|}}
+        <li>
+            <strong>{{section.label}}</strong>
+            {{#each section.spells as |spell|}}
+                {{{spell.link}}}
+            {{/each}}
+        </li>
+    {{/each}}
+</ul>
