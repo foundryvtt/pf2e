@@ -1,19 +1,19 @@
 {
-    "_id": "NAdAO5ElcSlSBkza",
-    "img": "icons/magic/nature/root-vine-wood-blue.webp",
-    "name": "Effect: Root in Place",
+    "_id": "lhgGLGL8phfu0bOL",
+    "img": "icons/environment/traps/trap-jaw-green.webp",
+    "name": "Effect: Construct Trap",
     "system": {
         "description": {
-            "value": "<p>Your Speed is reduced to 0 and you gain a +1 circumstance bonus to AC and 2 temporary Hit Points.</p>"
+            "value": "<p>You take a –5 status penalty to all Speeds.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "rounds",
+            "unit": "minutes",
             "value": 1
         },
         "level": {
-            "value": 1
+            "value": 2
         },
         "publication": {
             "license": "ORC",
@@ -23,18 +23,9 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "ac",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
-                "key": "TempHP",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "land-speed",
-                "value": -25
+                "selector": "all-speeds",
+                "type": "status",
+                "value": -5
             }
         ],
         "start": {
