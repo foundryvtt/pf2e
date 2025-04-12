@@ -29,7 +29,31 @@
             "remaster": true,
             "title": "Pathfinder Lost Omens Rival Academies"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:recall-knowledge",
+                    "proficiency:untrained",
+                    "tales-of-the-road"
+                ],
+                "selector": "lore-skill-check",
+                "slug": "tales-of-the-road-proficiency",
+                "type": "proficiency",
+                "value": "@actor.level"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:recall-knowledge",
+                    "tales-of-the-road"
+                ],
+                "selector": "skill-check",
+                "slug": "tales-of-the-road-circumstance",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
