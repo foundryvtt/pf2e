@@ -1,6 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
+import { RollInspector } from "@module/apps/roll-inspector/app.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { isDefaultTokenImage } from "@scene/helpers.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
@@ -12,7 +13,6 @@ import { createHTMLElement, htmlQuery, htmlQueryAll, parseHTML } from "@util";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards.ts";
 import { ChatMessageFlagsPF2e, ChatMessageSourcePF2e } from "./data.ts";
 import * as Listeners from "./listeners/index.ts";
-import { RollInspector } from "./roll-inspector.ts";
 
 class ChatMessagePF2e extends ChatMessage {
     /** Set some flags/flag scopes early. */
@@ -156,7 +156,7 @@ class ChatMessagePF2e extends ChatMessage {
 
     async showDetails(): Promise<void> {
         if (!this.flags.pf2e.context) return;
-        new RollInspector(this).render(true);
+        new RollInspector({ message: this }).render(true);
     }
 
     /** Get the token of the speaker if possible */

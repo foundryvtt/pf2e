@@ -322,7 +322,8 @@
                 "traits": {
                     "value": [
                         "finesse",
-                        "sweep"
+                        "sweep",
+                        "unarmed"
                     ]
                 }
             },
@@ -331,7 +332,7 @@
         {
             "_id": "sD8nNesP62YzR687",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claws",
+            "name": "Claw",
             "sort": 600000,
             "system": {
                 "attackEffects": {
@@ -360,6 +361,7 @@
                     "value": [
                         "agile",
                         "finesse",
+                        "unarmed",
                         "versatile-p"
                     ]
                 }
@@ -385,7 +387,7 @@
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p><span class=\"action-glyph\">2</span></p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -447,7 +449,11 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p><hr /><p><strong>Effect</strong> The mummer dons a ceremonial skull mask, calling an ancestral spirit to come to their aid. The spirit answers with a spell the mummer can cast as a primal innate spell (5th rank, DC 27) as part of the Don Mask activity. The mummer also gains a primal boon that lasts for 1 minute. After the minute is over or the mask is removed, the spell and boon end if either is still active, and the mummer is @UUID[Compendium.pf2e.conditionitems.Item.Fatigued]. The most common legendary spirits the masks can invoke are:</p><ul><li><strong>Fiery Akkarok</strong> (tyrannosaurus mask); <strong>Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Blazing Bolt] (3-action version); <strong>Boon</strong> The mummer's melee Strikes deal an additional @Damage[2d6[fire]] damage.</li><li><strong>Hazi Zephyr-Borne</strong> (griffon or iruxi mask); <strong>Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Wall of Wind]; <strong>Boon</strong> The mummer gains a fly Speed of 20 feet.</li><li><strong>King of Storms</strong> (roc or horned dragon mask); <strong>Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Howling Blizzard]; <strong>Boon</strong> The mummer gains the Reactive Strike reaction that can be used only with their tail.</li><li><strong>Nessek, the Wave Dancer</strong> (mosasaur mask); <strong>Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Slither]; <strong>Boon</strong> The mummer's claw Strikes deal an additional @Damage[2d4[persistent,bleed]] damage.</li><li><p><strong>Zalok, Who was Called to Black Harbor</strong> (naga or spinosaurus mask); <strong>Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Hydraulic Torrent]; Boon The mummer gains a +10-foot status bonus to their land Speed and swim Speed.</p>\n</li></ul>"
+                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p><hr /><p><strong>Effect</strong> The mummer dons a ceremonial skull mask, calling an ancestral spirit to come to their aid. The spirit answers with a spell the mummer can cast as a primal innate spell (5th rank, DC 27) as part of the Don Mask activity. The mummer also gains a primal boon that lasts for 1 minute. After the minute is over or the mask is removed, the spell and boon end if either is still active, and the mummer is @UUID[Compendium.pf2e.conditionitems.Item.Fatigued]. The most common legendary spirits the masks can invoke are:</p><ul><li><p><strong>Fiery Akkarok</strong> (tyrannosaurus mask)</p><ul><li><strong>Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Blazing Bolt] (3-action version)</li><li><strong>Boon</strong> The mummer's melee Strikes deal an additional 2d6 fire damage.</li></ul></li><li><p><strong>Hazi Zephyr-Borne</strong> (griffon or iruxi mask)</p><ul><li><strong>Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Wall of Wind]</li><li><strong>Boon</strong> The mummer gains a fly Speed of 20 feet.</li></ul></li><li><p><strong>King of Storms</strong> (roc or horned dragon mask)</p><ul><li><strong>Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Howling Blizzard]</li><li><strong>Boon</strong> The mummer gains the @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Reactive Strike] reaction that can be used only with their tail.</li></ul></li><li><p><strong>Nessek, the Wave Dancer</strong> (mosasaur mask)</p><ul><li><strong>Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Slither]</li><li><strong>Boon</strong> The mummer's claw Strikes deal an additional 2d4 persistent bleed damage.</li></ul></li><li><p><strong>Zalok, Who was Called to Black Harbor</strong> (naga or spinosaurus mask)</p><ul><li><strong>Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Hydraulic Torrent]</li><li><strong>Boon</strong> The mummer gains a +10-foot status bonus to their land Speed and swim Speed.</li></ul></li></ul>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT10M"
                 },
                 "publication": {
                     "license": "ORC",
@@ -455,9 +461,15 @@
                     "title": ""
                 },
                 "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Don Mask",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Don Mask"
+                },
                 "slug": null,
                 "traits": {
-                    "value": []
+                    "value": [
+                        "primal"
+                    ]
                 }
             },
             "type": "action"
@@ -483,7 +495,28 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "starry-presence",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "starry-presence"
+                        ],
+                        "radius": 30,
+                        "slug": "starry-presence",
+                        "traits": [
+                            "illusion",
+                            "light",
+                            "mental",
+                            "primal"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -646,7 +679,7 @@
             }
         },
         "traits": {
-            "rarity": "common",
+            "rarity": "uncommon",
             "size": {
                 "value": "med"
             },

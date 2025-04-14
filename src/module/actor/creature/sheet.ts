@@ -197,7 +197,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             const slotIndex = Number(row?.dataset.slotId) || 0;
             const entryId = row?.dataset.entryId;
             const collection = actor.spellcasting.collections.get(entryId, { strict: true });
-            return collection.unprepareSpell(groupId, slotIndex);
+            return collection.prepareSpell(null, groupId, slotIndex);
         };
 
         // Set expended state of a spell slot

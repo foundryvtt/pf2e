@@ -356,15 +356,18 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     }
 
     /** Saves the prepared spell slot data to the spellcasting entry  */
-    async prepareSpell(spell: SpellPF2e, groupId: SpellSlotGroupId, spellSlot: number): Promise<Maybe<this>> {
+    async prepareSpell(spell: SpellPF2e | null, groupId: SpellSlotGroupId, spellSlot: number): Promise<Maybe<this>> {
         const result = this.spells?.prepareSpell(spell, groupId, spellSlot);
         return result ? this : null;
     }
 
-    /** Removes the spell slot and updates the spellcasting entry */
+    /** @deprecated Removes the spell slot and updates the spellcasting entry */
     async unprepareSpell(groupId: SpellSlotGroupId, slotId: number): Promise<Maybe<this>> {
-        const result = this.spells?.unprepareSpell(groupId, slotId);
-        return result ? this : null;
+        foundry.utils.logCompatibilityWarning(
+            "SpellcastingEntryPF2e#unprepareSpell() is deprecated. Use SpellcastingEntryPF2e#prepareSpell() with a null spell instead.",
+            { since: "6.11.2", until: "7.0.0" },
+        );
+        return this.prepareSpell(null, groupId, slotId);
     }
 
     /** Sets the expended state of a spell slot and updates the spellcasting entry */
