@@ -1,12 +1,16 @@
 import type { ActorPF2e } from "@actor";
 import { ItemPF2e, ItemProxyPF2e, type ContainerPF2e } from "@item";
 import type { ItemSourcePF2e, PhysicalItemSource, RawItemChatData, TraitChatData } from "@item/base/data/index.ts";
+import type { ItemDescriptionData } from "@item/base/data/system.ts";
 import { MystifiedTraits } from "@item/base/data/values.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
+import type { EquipmentSystemSource } from "@item/equipment/data.ts";
+import type { WeaponSystemSource } from "@item/weapon/data.ts";
 import type { Rarity, Size, ZeroToTwo } from "@module/data.ts";
 import type { EffectSpinoff } from "@module/rules/rule-element/effect-spinoff/spinoff.ts";
 import type { UserPF2e } from "@module/user/document.ts";
-import { ErrorPF2e, isObject, tupleHasValue } from "@util";
+import { ErrorPF2e, isObject, ordinalString, tupleHasValue } from "@util";
+import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { getUnidentifiedPlaceholderImage } from "../identification.ts";
 import { Bulk } from "./bulk.ts";
@@ -596,6 +600,36 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         };
     }
 
+    /** Get description with staff spells possibly included */
+    override async getDescriptionData(): Promise<ItemDescriptionData> {
+        const description = await super.getDescriptionData();
+        if (!this.isOfType("weapon", "equipment")) return description;
+
+        if (this.system.staff?.spells.length) {
+            const uuids = R.unique(this.system.staff.spells.map((s) => s.uuid));
+            const entriesByLevel = R.groupBy(
+                R.sortBy(this.system.staff.spells, (s) => s.rank),
+                (s) => (s.rank === "cantrips" ? 0 : s.rank),
+            );
+            const spellsByUUID = R.mapToObj(await UUIDUtils.fromUUIDs(uuids), (s) => [s.uuid, s]);
+            const append = await renderTemplate("systems/pf2e/templates/items/partials/staff-description-append.hbs", {
+                effect: this.system.staff.effect || game.i18n.localize("PF2E.Item.Weapon.Staff.DefaultEffect"),
+                spells: Object.values(entriesByLevel)
+                    .map((group) => {
+                        const rank = group[0].rank;
+                        const spells = group.map((e) => spellsByUUID[e.uuid]).filter((s) => !!s);
+                        const label =
+                            rank === "cantrips" ? game.i18n.localize("PF2E.TraitCantrip") : ordinalString(rank);
+                        return { label, spells: spells.map((s) => ({ link: s.link })) };
+                    })
+                    .filter((g) => g.spells.length),
+            });
+            description.value += `\n${append}`;
+        }
+
+        return description;
+    }
+
     override async getChatData(): Promise<RawItemChatData> {
         const { type, grade } = this.system.material;
         const material =
@@ -802,6 +836,16 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             delete changed.system?.apex;
             (changed.system satisfies object | undefined) ??= {}; // workaround of `DeepPartial` limitations
             changed.system = fu.mergeObject(changed.system!, { "-=apex": null });
+        }
+
+        // Clean up staff spells automatically if the staff trait is removed and the list is empty
+        const traits = changed.system.traits ?? {};
+        if ("value" in traits && Array.isArray(traits.value) && this.isOfType("weapon", "equipment")) {
+            const systemData = changed.system as DeepPartial<WeaponSystemSource | EquipmentSystemSource>;
+            const spells = systemData.staff?.spells ?? this._source.system.staff?.spells;
+            if (!traits.value.includes("staff") && !spells?.length) {
+                systemData.staff = null;
+            }
         }
 
         return super._preUpdate(changed, operation, user);
