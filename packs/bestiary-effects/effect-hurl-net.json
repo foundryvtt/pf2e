@@ -4,28 +4,62 @@
     "name": "Effect: Hurl Net",
     "system": {
         "description": {
-            "value": "<p>The creature takes a -10-foot circumstance penalty to its Speeds.</p>"
+            "value": "<p>On a hit, you are off-guard and take a –10-foot circumstance penalty to your Speeds. On a critical hit, you are restrained instead.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
         },
         "level": {
-            "value": 3
+            "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Bestiary 3"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
         },
         "rules": [
             {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Attack.criticalSuccess",
+                        "value": "critical-success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Attack.success",
+                        "value": "success"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "hurl-net"
+            },
+            {
                 "key": "FlatModifier",
-                "selector": "speed",
+                "predicate": [
+                    "hurl-net:success"
+                ],
+                "selector": "all-speeds",
                 "type": "circumstance",
                 "value": -10
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "hurl-net:success"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "hurl-net:critical-success"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Restrained"
             }
         ],
         "start": {

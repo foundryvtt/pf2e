@@ -1,10 +1,10 @@
 {
-    "_id": "94ZHsHjS1OWHa2rg",
-    "img": "icons/skills/wounds/blood-drip-droplet-red.webp",
-    "name": "Effect: Scent of Blood",
+    "_id": "T7GQbAbS6jh7Au15",
+    "img": "icons/creatures/unholy/demon-horned-black-yellow.webp",
+    "name": "Effect: Harness Wickedness",
     "system": {
         "description": {
-            "value": "<p>You 10 temporary HP and a +4 status bonus to damage rolls with your unarmed attacks, but become off-guard.</p>"
+            "value": "<p>Your Strikes deal an additional die of damage and gain the unholy trait. You also gains 10 temporary Hit Points, a +5-foot status bonus to Speed, and weakness 5 to holy.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -13,7 +13,7 @@
             "value": 1
         },
         "level": {
-            "value": 1
+            "value": 7
         },
         "publication": {
             "license": "ORC",
@@ -22,19 +22,30 @@
         },
         "rules": [
             {
+                "diceNumber": 1,
+                "key": "DamageDice",
+                "selector": "strike-damage"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "unholy"
+            },
+            {
                 "key": "TempHP",
                 "value": 10
             },
             {
                 "key": "FlatModifier",
-                "selector": "damage",
+                "selector": "land-speed",
                 "type": "status",
-                "value": 4
+                "value": 5
             },
             {
-                "inMemoryOnly": true,
-                "key": "GrantItem",
-                "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                "key": "Weakness",
+                "type": "holy",
+                "value": 5
             }
         ],
         "start": {
