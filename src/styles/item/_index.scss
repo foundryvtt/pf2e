@@ -255,11 +255,6 @@
                 &.details {
                     padding: var(--space-4) var(--space-8) 0;
 
-                    button {
-                        height: 2rem;
-                        line-height: normal;
-                    }
-
                     &.no-sidebar .form-group > label {
                         flex: 0 0 12em;
                         white-space: wrap;
@@ -418,6 +413,11 @@
                     border: 1px solid var(--color-border-light-2);
                     box-shadow: none;
                 }
+            }
+
+            button {
+                height: 2rem;
+                line-height: normal;
             }
         }
 
@@ -610,6 +610,45 @@
             }
         }
 
+        .staff {
+            .item-ref-group {
+                margin-top: 0;
+            }
+
+            .staff-spells {
+                h3 {
+                    padding-top: var(--space-4);
+                }
+            }
+
+            // Set styling for inline editors
+            .editor {
+                min-height: 2rem;
+
+                .editor-edit {
+                    top: var(--space-2);
+                }
+
+                // Remove some elements that don't make sense for this simpler text
+                .editor-menu .text {
+                    &:has(button.icon.tables) {
+                        display: none;
+                    }
+                    &:has(button[data-action="image"]) {
+                        display: none;
+                    }
+                }
+
+                .editor-container {
+                    margin: var(--space-8) var(--space-4);
+                    min-height: 5rem;
+                    p:first-of-type {
+                        margin: 0;
+                    }
+                }
+            }
+        }
+
         @import "abc-sheet";
         @import "activations";
         @import "mystification";
@@ -672,10 +711,6 @@
 
     &.spell form {
         @import "spell-sheet";
-    }
-
-    &.weapon form {
-        @import "weapon-sheet";
     }
 }
 

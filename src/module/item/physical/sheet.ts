@@ -177,10 +177,10 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         const itemsByUuid = R.mapToObj(items, (i) => [i.uuid, i]);
 
         const allSpellGroups: SpellSlotGroupId[] = ["cantrips", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        const effectText = staff.effect || game.i18n.localize("PF2E.Item.Weapon.Staff.DefaultEffect");
 
         return {
-            defaultEffect: game.i18n.localize("PF2E.Item.Weapon.Staff.DefaultEffect"),
-            effect: staff.effect,
+            effect: `<strong>${game.i18n.localize("PF2E.Item.Activation.Effect")}</strong> ${effectText}`,
             spells: allSpellGroups.map((rank) => ({
                 rank,
                 label: getSpellRankLabel(rank),
@@ -324,6 +324,15 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
             formData["system.baseItem"] = null;
         }
 
+        // If the saved staff effect text only has a single paragraph, remove the paragraph html elements
+        const effect = formData["system.staff.effect"];
+        if (effect && typeof effect === "string") {
+            const hasOneParagraph = effect.match(/<p>/)?.length === 1;
+            if (hasOneParagraph) {
+                formData["system.staff.effect"] = effect.replace(/^<p>(.*)<\/p>$/, "$1");
+            }
+        }
+
         // Convert price from a string to an actual object
         if ("system.price.value" in formData) {
             formData["system.price.value"] = CoinsPF2e.fromString(String(formData["system.price.value"]));
@@ -374,7 +383,6 @@ interface MaterialSheetData {
 }
 
 interface StaffSheetData {
-    defaultEffect: string;
     effect: string;
     spells: StaffSpellRankSheetData[];
 }

@@ -5,10 +5,7 @@
             <label class="short">{{localize "PF2E.Item.Activation.Activate"}}</label>
             <span>{{localize "PF2E.Item.Activation.Cast"}}</span>
         </div>
-        <div class="form-group">
-            <label class="short">{{localize "PF2E.Item.Activation.Effect"}}</label>
-            <span class="contenteditable-input" contenteditable="plaintext-only" placeholder="{{staff.defaultEffect}}" data-property="system.staff.effect">{{staff.effect}}</span>
-        </div>
+        {{editor staff.effect target="system.staff.effect" button=true editable=editable engine="prosemirror"}}
         <div class="item-ref-group">
             {{#each staff.spells as |section|}}
                 <div data-rank="{{section.rank}}" class="staff-spells">
