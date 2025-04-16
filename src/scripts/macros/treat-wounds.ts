@@ -48,7 +48,7 @@ async function treatWounds(options: ActionDefaultOptions): Promise<void> {
     const naturalMedicine = CheckFeat(actor, "natural-medicine");
     const domIdAppend = fu.randomID(); // Attached to element id attributes for DOM uniqueness
     const riskySurgeryChecked = actor.getRollOptions(["medicine"]).includes("risky-surgery") ? " checked" : "";
-    const dialog = new Dialog({
+    const dialog = new foundry.appv1.api.Dialog({
         title: game.i18n.localize("PF2E.Actions.TreatWounds.Label"),
         content: `
 <div>${game.i18n.localize("PF2E.Actions.TreatWounds.Label")}</div>
@@ -164,7 +164,7 @@ async function treat(
             // Ensure the message is fully rendered in the chat log before updating the flag
             Hooks.once("renderChatMessage", (m) => {
                 if (m.id !== message.id) return;
-                const flags = foundry.utils.mergeObject(
+                const flags = fu.mergeObject(
                     m._source.flags,
                     { pf2e: { treatWoundsMacroFlag: { bonus } } },
                     { inplace: false },
@@ -221,7 +221,7 @@ async function treatWoundsMacroCallback({
     }
 
     const speaker = ChatMessagePF2e.getSpeaker({ actor });
-    const flags = foundry.utils.mergeObject(message.toObject().flags, { pf2e: { origin: { messageId: message.id } } });
+    const flags = fu.mergeObject(message.toObject().flags, { pf2e: { origin: { messageId: message.id } } });
 
     if (riskySurgery) {
         ChatMessagePF2e.create({

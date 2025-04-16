@@ -16,12 +16,13 @@ import { getDamageDiceOverrideLabel, getDamageDiceValueLabel } from "./helpers.t
 import { DamageRoll } from "./roll.ts";
 import { DamageCategoryUnique, DamageDamageContext, DamageDieSize, DamageFormulaData, DamageType } from "./types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_TYPE_ICONS } from "./values.ts";
+import appv1 = foundry.appv1;
 
 /**
  * Dialog for excluding certain modifiers before rolling damage.
  * @category Other
  */
-class DamageModifierDialog extends Application {
+class DamageModifierDialog extends appv1.api.Application {
     formulaData: DamageFormulaData;
     context: DamageDamageContext;
 
@@ -54,7 +55,7 @@ class DamageModifierDialog extends Application {
         };
     }
 
-    static override get defaultOptions(): ApplicationOptions {
+    static override get defaultOptions(): appv1.api.ApplicationV1Options {
         return {
             ...super.defaultOptions,
             template: "systems/pf2e/templates/chat/damage/damage-modifier-dialog.hbs",

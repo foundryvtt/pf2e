@@ -2,14 +2,15 @@ import { ActorPF2e } from "@actor/base.ts";
 import type { CraftingAbility } from "@actor/character/crafting/ability.ts";
 import { CharacterPF2e } from "@actor/character/document.ts";
 import { ResourceData } from "@actor/creature/index.ts";
+import type { ApplicationConfiguration, ApplicationRenderOptions } from "@client/applications/_types.d.mts";
+import type ApplicationV2 from "@client/applications/api/application.d.mts";
+import type { ItemUUID } from "@client/documents/item.d.mts";
 import { AbilityItemPF2e, FeatPF2e, PhysicalItemPF2e } from "@item";
 import { ItemType, TraitChatData } from "@item/base/data/index.ts";
 import { Rarity } from "@module/data.ts";
 import { SvelteApplicationMixin, type SvelteApplicationRenderContext } from "@module/sheet/mixin.svelte.ts";
 import MiniSearch from "minisearch";
 import * as R from "remeda";
-import { ApplicationConfiguration, ApplicationRenderOptions } from "types/foundry/client-esm/applications/_types.js";
-import type ApplicationV2 from "types/foundry/client-esm/applications/api/application.js";
 import Root from "./app.svelte";
 
 interface FormulaPickerConfiguration extends ApplicationConfiguration {
@@ -74,7 +75,7 @@ class FormulaPicker extends SvelteApplicationMixin<
     }
 
     async resolveSelection(): Promise<PhysicalItemPF2e | null> {
-        this.render(true);
+        this.render({ force: true });
         return new Promise((resolve) => {
             this.#resolve = resolve;
         });

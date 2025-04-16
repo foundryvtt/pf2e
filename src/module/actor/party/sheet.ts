@@ -1,24 +1,29 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { HitPointsSummary } from "@actor/base.ts";
-import { Language, ResourceData } from "@actor/creature/index.ts";
+import type { HitPointsSummary } from "@actor/base.ts";
+import type { Language, ResourceData } from "@actor/creature/index.ts";
 import { isReallyPC } from "@actor/helpers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
-import { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e } from "@actor/sheet/data-types.ts";
+import type { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e } from "@actor/sheet/data-types.ts";
 import { condenseSenses } from "@actor/sheet/helpers.ts";
 import { DistributeCoinsPopup } from "@actor/sheet/popups/distribute-coins-popup.ts";
+import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
+import type { ActorUUID } from "@client/documents/abstract/_module.d.mts";
+import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
 import { ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { Bulk } from "@item/physical/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
-import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
-import { ZeroToFour } from "@module/data.ts";
+import type { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import type { ZeroToFour } from "@module/data.ts";
 import { SheetOptions, createSheetTags, eventToRollParams } from "@module/sheet/helpers.ts";
-import { SocketMessage } from "@scripts/socket.ts";
-import { SettingsMenuOptions } from "@system/settings/menu.ts";
+import type { SocketMessage } from "@scripts/socket.ts";
+import type { SettingsMenuOptions } from "@system/settings/menu.ts";
+import { TextEditorPF2e } from "@system/text-editor.ts";
 import { createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, signedInteger } from "@util";
 import { createTooltipster } from "@util/destroyables.ts";
 import * as R from "remeda";
 import { PartyPF2e } from "./document.ts";
+import appv1 = foundry.appv1;
 
 interface PartySheetRenderOptions extends ActorSheetRenderOptionsPF2e {
     actors?: boolean;
@@ -54,7 +59,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         explorationSidebar: "exploration-sidebar.hbs",
     };
 
-    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
+    protected override _getHeaderButtons(): appv1.api.ApplicationV1HeaderButton[] {
         const buttons = super._getHeaderButtons();
         if (game.user.isGM) {
             buttons.unshift({
@@ -324,9 +329,10 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 htmlQuery(memberElem, "a[data-action=remove-member]")?.addEventListener("click", async (event) => {
                     const confirmed = event.ctrlKey
                         ? true
-                        : await Dialog.confirm({
-                              title: game.i18n.localize("PF2E.Actor.Party.RemoveMember.Title"),
+                        : await foundry.applications.api.DialogV2.confirm({
+                              window: { title: "PF2E.Actor.Party.RemoveMember.Title" },
                               content: game.i18n.localize("PF2E.Actor.Party.RemoveMember.Content"),
+                              yes: { default: true },
                           });
                     if (confirmed && actor) {
                         this.document.removeMembers(actor);
@@ -388,7 +394,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             (async () => {
                 const content = createHTMLElement("div", {
                     classes: ["item-summary"],
-                    innerHTML: await TextEditor.enrichHTML(document.description, { rollData }),
+                    innerHTML: await TextEditorPF2e.enrichHTML(document.description, { rollData }),
                 });
                 createTooltipster(activityElem, {
                     contentAsHTML: true,
@@ -469,10 +475,10 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             if (!templateName) continue;
 
             const template = `systems/pf2e/templates/actors/party/regions/${templateName}`;
-            const result = await renderTemplate(template, data);
+            const result = await fa.handlebars.renderTemplate(template, data);
 
             region.innerHTML = result;
-            if (this._state !== Application.RENDER_STATES.RENDERING) {
+            if (this._state !== appv1.api.Application.RENDER_STATES.RENDERING) {
                 this.activateListeners($(region));
             }
 
@@ -495,7 +501,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
     protected override async _renderInner(
         data: Record<string, unknown>,
-        options: RenderOptions,
+        options: appv1.api.AppV1RenderOptions,
     ): Promise<JQuery<HTMLElement>> {
         const result = await super._renderInner(data, options);
         await this.#renderRegions(result[0], data);

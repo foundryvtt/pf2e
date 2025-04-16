@@ -2,12 +2,14 @@ import { ActorPF2e, ArmyPF2e, CreaturePF2e, type PartyPF2e } from "@actor";
 import type { FeatGroup } from "@actor/character/feats/index.ts";
 import { MODIFIER_TYPES } from "@actor/modifiers.ts";
 import { ActorSheetPF2e, SheetClickActionHandlers } from "@actor/sheet/base.ts";
-import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
+import type { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
+import type { ApplicationV1HeaderButton } from "@client/appv1/api/application-v1.d.mts";
+import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
 import { ItemPF2e, type CampaignFeaturePF2e } from "@item";
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import type { ItemSourcePF2e } from "@item/base/data/index.ts";
+import type { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
-import { ValueAndMax } from "@module/data.ts";
+import type { ValueAndMax } from "@module/data.ts";
 import {
     AdjustedValue,
     SheetOption,
@@ -17,8 +19,9 @@ import {
     getAdjustedValue,
     getAdjustment,
 } from "@module/sheet/helpers.ts";
-import { SocketMessage } from "@scripts/socket.ts";
+import type { SocketMessage } from "@scripts/socket.ts";
 import { Statistic } from "@system/statistic/index.ts";
+import { TextEditorPF2e } from "@system/text-editor.ts";
 import {
     ErrorPF2e,
     SORTABLE_BASE_OPTIONS,
@@ -105,7 +108,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         };
     }
 
-    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
+    protected override _getHeaderButtons(): ApplicationV1HeaderButton[] {
         const buttons = super._getHeaderButtons();
         if (game.user.isGM) {
             buttons.unshift({
@@ -207,7 +210,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     return this.#prepareSettlement(id, data!);
                 }),
             ),
-            eventText: await TextEditor.enrichHTML(kingdom.event.text, {
+            eventText: await TextEditorPF2e.enrichHTML(kingdom.event.text, {
                 rollData: this.actor.getRollData(),
             }),
             settlementTypes: KINGDOM_SETTLEMENT_TYPE_LABELS,
@@ -236,7 +239,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     async #prepareArmies(): Promise<ArmySheetData[]> {
         const data = this.kingdom.armies.map(async (a) => ({
             document: a,
-            link: await TextEditor.enrichHTML(a.link),
+            link: await TextEditorPF2e.enrichHTML(a.link),
             consumption: getAdjustedValue(a.system.consumption, a._source.system.consumption, {
                 better: "lower",
             }),
@@ -260,7 +263,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         return {
             ...settlement,
             id,
-            description: await TextEditor.enrichHTML(settlement.description, {
+            description: await TextEditorPF2e.enrichHTML(settlement.description, {
                 rollData: this.actor.getRollData(),
             }),
             editing: this.#editingSettlements[id] ?? false,
@@ -359,9 +362,10 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     ...ChatMessagePF2e.getSpeaker(this.actor),
                     alias: this.kingdom.name,
                 },
-                content: await renderTemplate("systems/pf2e/templates/actors/party/kingdom/collection.hbs", {
-                    ...calculateKingdomCollectionData(this.kingdom),
-                }),
+                content: await fa.handlebars.renderTemplate(
+                    "systems/pf2e/templates/actors/party/kingdom/collection.hbs",
+                    calculateKingdomCollectionData(this.kingdom),
+                ),
             });
         });
 
@@ -527,7 +531,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             const settlement = this.kingdom.settlements[id];
             if (!settlement) return;
 
-            const newHTML = await renderTemplate(
+            const newHTML = await fa.handlebars.renderTemplate(
                 "systems/pf2e/templates/actors/party/kingdom/partials/settlement.hbs",
                 {
                     ...(await this.getData()),
@@ -568,9 +572,10 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             if (!settlement) return;
             const result =
                 event?.ctrlKey ||
-                (await Dialog.confirm({
-                    title: game.i18n.localize("PF2E.DeleteItemTitle"),
+                (await foundry.applications.api.DialogV2.confirm({
+                    window: { title: "PF2E.DeleteItemTitle", icon: "fa-solid fa-trash" },
                     content: `<p>${game.i18n.format("PF2E.DeleteQuestion", { name: `"${settlement.name}"` })}</p>`,
+                    no: { default: true },
                 }));
             if (result) {
                 this.kingdom.update({ [`settlements.-=${id}`]: null });

@@ -44,7 +44,7 @@
     <div class="subsection shield{{#if data.attributes.shield.broken}} broken" data-tooltip="PF2E.Item.Physical.Broken{{/if}}">
         <header>
             <label>
-                <i class="fa-solid fa-fw fa-user-shield{{#if data.attributes.shield.broken}} broken{{/if}}"></i>
+                <i class="fa-solid fa-user-shield fa-fw{{#if data.attributes.shield.broken}} broken{{/if}}" inert></i>
                 <span>{{localize "PF2E.ShieldLabel"}}</span>
             </label>
 
@@ -127,7 +127,7 @@
 <div class="subsection initiative">
     <header>
         <label>
-            <i class="fa-solid fa-swords fa-fw"></i>
+            <i class="fa-solid fa-swords fa-fw" inert></i>
             <span data-tooltip="{{data.initiative.breakdown}}">{{localize "PF2E.InitiativeLabel"}}</span>
         </label>
         <a class="roll{{#unless editable}} disabled{{/unless}}" data-action="roll-initiative" data-tooltip="{{data.initiative.breakdown}}">
@@ -148,7 +148,7 @@
     <div class="subsection resources">
         <header>
             <label>
-                <i class="fa-solid fa-fw fa-toolbox"></i>
+                <i class="fa-solid fa-toolbox fa-fw" inert></i>
                 <span>{{localize "PF2E.Actor.Resources"}}</span>
             </label>
         </header>
@@ -180,7 +180,7 @@
 <div class="subsection iwr">
     <header>
         <label{{#unless data.attributes.immunities}} class="empty"{{/unless}}>
-            <i class="fa-solid fa-fw fa-ankh"></i>
+            <i class="fa-solid fa-ankh fa-fw" inert></i>
             <span>{{localize "PF2E.ImmunitiesLabel"}}</span>
         </label>
         {{#if editable}}
@@ -200,7 +200,7 @@
 <div class="subsection iwr">
     <header>
         <label{{#unless data.attributes.weaknesses}} class="empty"{{/unless}}>
-            <i class="fa-solid fa-fw fa-heart-broken"></i>
+            <i class="fa-solid fa-heart-crack fa-fw" inert></i>
             <span>{{localize "PF2E.WeaknessesLabel"}}</span>
         </label>
         {{#if editable}}
@@ -220,7 +220,7 @@
 <div class="subsection iwr">
     <header>
         <label{{#unless data.attributes.resistances}} class="empty"{{/unless}}>
-            <i class="fa-solid fa-fw fa-shield-virus"></i>
+            <i class="fa-solid fa-shield-virus fa-fw" inert></i>
             <span>{{localize "PF2E.ResistancesLabel"}}</span>
         </label>
         {{#if editable}}

@@ -1,14 +1,15 @@
 import { ActorPF2e } from "@actor";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
+import type { ClientDocument } from "@client/documents/abstract/client-document.d.mts";
 import { ItemPF2e } from "@item";
-import { AbilityTrait } from "@item/ability/types.ts";
+import type { AbilityTrait } from "@item/ability/types.ts";
 import { EFFECT_AREA_SHAPES } from "@item/spell/values.ts";
 import { ChatMessageFlagsPF2e, ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { calculateDC } from "@module/dc.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { resolveActorAndItemFromHTML, resolveSheetDocument } from "@scripts/helpers.ts";
-import { CheckDC } from "@system/degree-of-success.ts";
+import type { CheckDC } from "@system/degree-of-success.ts";
 import { Statistic, StatisticRollParameters } from "@system/statistic/index.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, getActionGlyph, htmlClosest, htmlQueryAll, sluggify, splitListString, tupleHasValue } from "@util";
@@ -145,7 +146,7 @@ export class InlineRollLinks {
                     return parentActor?.canUserModify(game.user, "update") ? [parentActor] : [];
                 case "party":
                     if (parentActor?.isOfType("party")) return [parentActor];
-                    return [game.actors.party].filter(R.isTruthy);
+                    return [game.actors.party ?? []].flat();
             }
 
             // If this is inside a sheet, return the actor always
@@ -298,7 +299,7 @@ export class InlineRollLinks {
                         : statistic.check.type === "attack-roll"
                           ? "PF2E.ActionsCheck.x-attack-roll"
                           : "PF2E.ActionsCheck.x";
-                args.label = await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
+                args.label = await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
                     glyph: getActionGlyph(item.actionCost),
                     subtitle: game.i18n.format(subtitleLocKey, { type: statistic.label }),
                     title: item.name,
@@ -333,7 +334,7 @@ export class InlineRollLinks {
         const { actor, item, message } = resolveActorAndItemFromHTML(link);
         const data: DeepPartial<foundry.documents.MeasuredTemplateSource> = JSON.parse(pf2TemplateData ?? "{}");
         data.distance ||= Number(pf2Distance);
-        data.fillColor ||= game.user.color;
+        data.fillColor ||= game.user.color.toString();
         data.t = templateConversion[pf2EffectArea];
 
         switch (data.t) {

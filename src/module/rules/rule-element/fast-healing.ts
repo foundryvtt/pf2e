@@ -37,7 +37,7 @@ class FastHealingRuleElement extends RuleElementPF2e<FastHealingRuleSchema> {
         };
     }
 
-    static override validateJoint(data: SourceFromSchema<FastHealingRuleSchema>): void {
+    static override validateJoint(data: fields.SourceFromSchema<FastHealingRuleSchema>): void {
         super.validateJoint(data);
 
         if (data.type === "fast-healing") {
@@ -108,7 +108,7 @@ interface FastHealingRuleElement
 
 type FastHealingType = "fast-healing" | "regeneration";
 
-type FastHealingSource = SourceFromSchema<FastHealingRuleSchema>;
+type FastHealingSource = fields.SourceFromSchema<FastHealingRuleSchema>;
 
 export { FastHealingRuleElement };
 export type { FastHealingSource, FastHealingType };

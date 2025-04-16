@@ -1,60 +1,56 @@
-<ol class="party-list">
-    {{> party party=activeParty}}
-    {{#if placePartiesInSubfolder}}
-        <li class="directory-item folder-like other-parties flexcol{{#unless extraFolders.otherParties}} collapsed{{/unless}}" data-entry-id="otherParties">
-            <header class="flexrow" data-action="toggle-extra-folder">
-                <h3 class="noborder">
-                    <i class="icon fa-solid fa-folder-open"></i>
-                    {{localize "PF2E.Actor.Party.Sidebar.OtherParties"}}
-                </h3>
+<ol class="directory-list plain parties">
+    {{#if activeParty~}}
+        {{> partyEntry party=activeParty}}
+    {{~/if}}
+    {{#if (gt parties.length 1)~}}
+        <li class="directory-item folder other-parties flexcol{{#if extraFolders.otherParties}} expanded{{/if}}"
+            data-entry-id="otherParties">
+            <header class="folder-header party-folder" data-action="togglePartyFolder">
+                <i class="fa-solid fa-folder-open fa-fw" inert></i>
+                <span class="folder-name ellipsis">{{localize "PF2E.Actor.Party.Sidebar.OtherParties"}}</span>
                 {{#if @root.canCreateEntry}}
-                    <a class="create-button" data-action="create-party" data-tooltip="{{localize "PF2E.Actor.Party.Sidebar.CreateParty"}}">
-                        <i class="fa-solid fa-users"></i>
-                        <i class="fa-solid fa-plus"></i>
-                    </a>
+                    <button type="button" class="create-button create-entry icon icon-plus fa-solid fa-user"
+                        data-action="createParty" data-tooltip="PF2E.Actor.Party.Sidebar.CreateParty"></button>
                 {{/if}}
             </header>
             <ol class="subdirectory">
                 {{#each parties as |party|}}
-                    {{> party party=party}}
+                    {{> partyEntry party=party}}
                 {{/each}}
             </ol>
         </li>
-    {{else}}
+    {{~else~}}
         {{#each parties as |party|}}
-            {{> party party=party}}
+            {{> partyEntry party=party}}
         {{/each}}
-    {{/if}}
+    {{~/if}}
 </ol>
 
-{{#*inline "party"}}
-    <li class="directory-item party folder-like flexcol{{#unless (lookup @root.extraFolders party.id)}} collapsed{{/unless}}{{#if party.active}} activated{{/if}}" data-entry-id="{{party.id}}" data-document-id="{{party.id}}">
-        <header class="party-header flexrow" data-document-id="{{party.id}}" data-action="toggle-extra-folder">
-            <!-- Drag Preview only -->
-            <img src="{{party.img}}" class="hidden">
-            <h3 class="noborder">
-                <i class="icon folder fa-solid fa-folder-open"></i>
-                <a class="left-control" data-action="open-sheet" data-tooltip="{{localize "PF2E.Actor.Party.Sidebar.OpenSheet"}}"><i class="icon fa-solid fa-file"></i></a>
-                <span>{{party.name}}</span>
-                {{#if (and @root.user.isGM (not party.active))}}
-                    <a class="activate-party" data-action="activate-party" data-tooltip="{{localize "PF2E.Actor.Party.Sidebar.ActivateParty"}}"><i class="fa-regular fa-star"></i></a>
-                {{/if}}
-            </h3>
+{{#*inline "partyEntry"}}
+    <li class="directory-item folder flexcol{{#if (lookup @root.extraFolders party.id)}} expanded{{/if}}"
+        data-party data-entry-id="{{party.id}}">
+        <header class="folder-header{{#if party.active}} active{{/if}}" data-action="togglePartyFolder">
+            <i class="fa-solid fa-folder-open fa-fw" inert></i>
+            <button type="button" class="inline-control icon fa-solid fa-file" data-action="openPartySheet"
+                data-tooltip="PF2E.Actor.Party.Sidebar.OpenSheet"></button>
+            {{!-- Drag Preview only --}}
+            <img src="{{party.img}}" hidden />
+            <span class="folder-name ellipsis">{{party.name}}</span>
+            {{#if (and @root.user.isGM (not party.active))}}
+                <button class="icon icon-plus fa-regular fa-start" data-action="activateParty"
+                    data-tooltip="PF2E.Actor.Party.Sidebar.ActivateParty"></button>
+            {{/if}}
             {{#if @root.canCreateEntry}}
-                <a class="create-button" data-action="create-member" data-tooltip="{{localize "PF2E.Actor.Party.Sidebar.CreateMember"}}">
-                    <i class="fa-solid fa-user"></i>
-                    <i class="fa-solid fa-plus"></i>
-                </a>
+                <button type="button" class="create-button create-entry icon icon-plus fa-solid fa-user"
+                    data-action="createMember" data-tooltip="PF2E.Actor.Party.Sidebar.CreateMember"></button>
             {{/if}}
         </header>
-
-        <ol class="subdirectory">
-            {{#each party.members}}
-            {{> (lookup @root "entryPartial")}}
-            {{/each~}}
-            {{#unless party.members}}
+        <ol class="subdirectory plain">
+            {{#each party.members~}}
+            {{> "systems/pf2e/templates/sidebar/actor-document-partial.hbs"}}
+            {{else}}
                 <li class="blank" data-entry-id="">{{localize "PF2E.Actor.Party.NoMembers"}}</li>
-            {{/unless}}
+            {{/each}}
         </ol>
     </li>
 {{/inline}}

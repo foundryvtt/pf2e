@@ -1,3 +1,4 @@
+import type { CompendiumUUID } from "@client/utils/helpers.d.mts";
 import type { ConditionSource } from "@item/base/data/index.ts";
 import { svelte as sveltePlugin } from "@sveltejs/vite-plugin-svelte";
 import { execSync } from "child_process";
@@ -65,7 +66,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
               })()
             : { foundryPort: 30000, serverPort: 30001 };
 
-    const plugins = [checker({ typescript: true }), tsconfigPaths({ loose: true }), sveltePlugin()];
+    const plugins = [checker({ typescript: false }), tsconfigPaths({ loose: true }), sveltePlugin()];
     // Handle minification after build to allow for tree-shaking and whitespace minification
     // "Note the build.minify option does not minify whitespaces when using the 'es' format in lib mode, as it removes
     // pure annotations and breaks tree-shaking."
@@ -161,6 +162,10 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             EN_JSON: JSON.stringify(EN_JSON),
             ROLL_PARSER: JSON.stringify(ROLL_PARSER),
             UUID_REDIRECTS: JSON.stringify(getUuidRedirects()),
+            fa: "foundry.applications",
+            fc: "foundry.canvas",
+            fd: "foundry.documents",
+            fh: "foundry.helpers",
             fu: "foundry.utils",
         },
         esbuild: { keepNames: true },

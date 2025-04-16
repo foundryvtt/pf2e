@@ -4,8 +4,9 @@ import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
 import { createTooltipListener } from "@module/sheet/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { ErrorPF2e, createHTMLElement, htmlQuery, htmlQueryAll } from "@util";
+import appv1 = foundry.appv1;
 
-export class EffectsPanel extends Application {
+export class EffectsPanel extends appv1.api.Application {
     private get token(): TokenDocumentPF2e | null {
         return canvas.tokens.controlled.at(0)?.document ?? null;
     }
@@ -20,7 +21,7 @@ export class EffectsPanel extends Application {
      */
     refresh = fu.debounce(this.render.bind(this), 100);
 
-    static override get defaultOptions(): ApplicationOptions {
+    static override get defaultOptions(): appv1.api.ApplicationV1Options {
         return {
             ...super.defaultOptions,
             id: "pf2e-effects-panel",
@@ -31,7 +32,7 @@ export class EffectsPanel extends Application {
         };
     }
 
-    override async getData(options?: ApplicationOptions): Promise<EffectsPanelViewData> {
+    override async getData(options?: appv1.api.AppV1RenderOptions): Promise<EffectsPanelViewData> {
         const { actor } = this;
         if (!actor || !game.user.settings.showEffectPanel) {
             return {
@@ -124,7 +125,10 @@ export class EffectsPanel extends Application {
                 if (!viewData) throw ErrorPF2e("Error creating view data for effect");
 
                 const content = createHTMLElement("div", {
-                    innerHTML: await renderTemplate("systems/pf2e/templates/system/effects/tooltip.hbs", viewData),
+                    innerHTML: await fa.handlebars.renderTemplate(
+                        "systems/pf2e/templates/system/effects/tooltip.hbs",
+                        viewData,
+                    ),
                 }).firstElementChild;
                 if (!(content instanceof HTMLElement)) return null;
 
@@ -236,7 +240,7 @@ export class EffectsPanel extends Application {
     }
 
     /** Move the panel to the right interface column. */
-    protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
+    protected override async _render(force?: boolean, options?: appv1.api.AppV1RenderOptions): Promise<void> {
         await super._render(force, options);
         const element = this.element[0];
         if (force) {

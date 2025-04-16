@@ -1,0 +1,35 @@
+import { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import { BaseSetting } from "./_module.mjs";
+import { ClientDocument } from "./abstract/client-document.mjs";
+
+declare const ClientBaseSetting: new (
+    ...args: any
+) => InstanceType<typeof BaseSetting> & InstanceType<typeof ClientDocument<null>>;
+
+/**
+ * The client-side Setting document which extends the common BaseSetting model.
+ *
+ * @see {@link WorldSettings}       The world-level collection of Setting documents
+ */
+export default class Setting extends ClientBaseSetting {
+    /** The setting configuration for this setting document. */
+    get config(): SettingsConfig | undefined;
+
+    protected override _initialize(options?: object): void;
+
+    protected override _onCreate(data: this["_source"], options: DatabaseCreateOperation<null>, userId: string): void;
+
+    protected override _onUpdate(
+        changed: DeepPartial<this["_source"]>,
+        options: DatabaseUpdateOperation<null>,
+        userId: string,
+    ): void;
+
+    /**
+     * Cast the value of the Setting into its defined type.
+     * The initialized type of the Setting document.
+     */
+    protected _castType(): unknown;
+}
+
+export {};

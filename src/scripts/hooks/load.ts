@@ -179,7 +179,7 @@ export const Load = {
         });
 
         function rerenderApps(path: string): void {
-            const apps = [...Object.values(ui.windows), ...foundry.applications.instances.values(), ui.sidebar];
+            const apps = [...Object.values(ui.windows), ...foundry.applications.instances.values()];
             for (const app of apps) {
                 if (path.endsWith(".json") && app instanceof ActorSheetPF2e) {
                     resetActors([app.actor]);
@@ -190,7 +190,7 @@ export const Load = {
             if (path.includes("system/effects")) game.pf2e.effectPanel.render();
         }
 
-        // HMR for template files
+        // HMR for localization and template files
         if (import.meta.hot) {
             import.meta.hot.on("lang-update", async ({ path }: { path: string }): Promise<void> => {
                 const lang = await fu.fetchJsonWithTimeout(path);
@@ -212,7 +212,7 @@ export const Load = {
             import.meta.hot.on("template-update", async ({ path }: { path: string }): Promise<void> => {
                 const apply = async (): Promise<void> => {
                     delete Handlebars.partials[path];
-                    await getTemplate(path);
+                    await fa.handlebars.getTemplate(path);
                     rerenderApps(path);
                 };
                 if (game.ready) {

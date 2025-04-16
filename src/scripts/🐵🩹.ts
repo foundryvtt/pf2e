@@ -1,13 +1,7 @@
-import { TextEditorPF2e } from "@system/text-editor.ts";
+import type { ProseMirrorMenu } from "@common/prosemirror/menu.d.mts";
 import * as R from "remeda";
-import type { ProseMirrorMenu } from "types/foundry/common/prosemirror/menu.d.ts";
 
 function monkeyPatchFoundry(): void {
-    TextEditor.enrichHTML = TextEditorPF2e.enrichHTML;
-    TextEditor._enrichContentLinks = TextEditorPF2e._enrichContentLinks;
-    TextEditor._createInlineRoll = TextEditorPF2e._createInlineRoll;
-    TextEditor._onClickInlineRoll = TextEditorPF2e._onClickInlineRoll;
-
     foundry.prosemirror.ProseMirrorMenu.prototype._isMarkActive = isMarkActive;
     foundry.prosemirror.ProseMirrorMenu.prototype._isNodeActive = isNodeActive;
     foundry.prosemirror.ProseMirrorMenu.prototype._toggleTextBlock = toggleTextBlock;

@@ -2,8 +2,9 @@ import type { ActorPF2e } from "@actor";
 import type { PhysicalItemPF2e } from "@item";
 import { CoinsPF2e } from "@item/physical/coins.ts";
 import { htmlQuery } from "@util";
+import appv1 = foundry.appv1;
 
-class ItemTransferDialog extends FormApplication<PhysicalItemPF2e, MoveLootOptions> {
+class ItemTransferDialog extends appv1.api.FormApplication<PhysicalItemPF2e, MoveLootOptions> {
     #resolve: ((value: MoveLootFormData | null) => void) | null = null;
 
     static override get defaultOptions(): MoveLootOptions {
@@ -123,7 +124,7 @@ class ItemTransferDialog extends FormApplication<PhysicalItemPF2e, MoveLootOptio
     }
 }
 
-interface MoveLootOptions extends FormApplicationOptions {
+interface MoveLootOptions extends appv1.api.FormApplicationOptions {
     targetActor?: ActorPF2e;
     newStack: boolean;
     lockStack: boolean;
@@ -136,7 +137,7 @@ interface MoveLootFormData {
     isPurchase: boolean;
 }
 
-interface PopupData extends FormApplicationData {
+interface PopupData extends appv1.api.FormApplicationData {
     item: PhysicalItemPF2e;
     quantity: number;
     canGift: boolean;

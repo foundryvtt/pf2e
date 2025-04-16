@@ -2,6 +2,7 @@ import { ErrorPF2e, htmlQuery, htmlQueryAll, ordinalString, tupleHasValue } from
 import { DateTime } from "luxon";
 import { animateDarkness } from "./animate-darkness.ts";
 import { TimeChangeMode, TimeOfDay } from "./time-of-day.ts";
+import appv1 = foundry.appv1;
 
 interface WorldClockData {
     date: string;
@@ -11,7 +12,7 @@ interface WorldClockData {
     sign: "+" | "-";
 }
 
-export class WorldClock extends Application {
+export class WorldClock extends appv1.api.Application {
     /** Is the ctrl key currently held down? */
     private ctrlKeyDown = false;
 
@@ -65,7 +66,7 @@ export class WorldClock extends Application {
         return this.worldCreatedOn.plus({ seconds: game.time.worldTime });
     }
 
-    static override get defaultOptions(): ApplicationOptions {
+    static override get defaultOptions(): appv1.api.ApplicationV1Options {
         return fu.mergeObject(super.defaultOptions, {
             id: "world-clock",
             width: 400,
@@ -121,7 +122,7 @@ export class WorldClock extends Application {
         }
     }
 
-    override getData(options?: ApplicationOptions): WorldClockData {
+    override getData(options?: appv1.api.ApplicationV1Options): WorldClockData {
         const date =
             this.dateTheme === "CE"
                 ? this.worldTime.toLocaleString(DateTime.DATE_HUGE)
@@ -142,8 +143,8 @@ export class WorldClock extends Application {
         return { date, time, options, user: game.user, sign };
     }
 
-    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
-        const settingsButton: ApplicationHeaderButton[] = game.user.isGM
+    protected override _getHeaderButtons(): appv1.api.ApplicationV1HeaderButton[] {
+        const settingsButton: appv1.api.ApplicationV1HeaderButton[] = game.user.isGM
             ? [
                   {
                       label: "PF2E.SETTINGS.Settings",

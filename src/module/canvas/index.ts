@@ -14,14 +14,13 @@ import { MeasuredTemplatePF2e } from "./measured-template.ts";
 import { RegionPF2e } from "./region.ts";
 import { TokenPF2e } from "./token/object.ts";
 
-export type CanvasPF2e = Canvas<
+export type CanvasPF2e = foundry.canvas.Canvas<
     ScenePF2e,
     AmbientLightPF2e<AmbientLightDocumentPF2e<ScenePF2e>>,
     MeasuredTemplatePF2e<MeasuredTemplateDocumentPF2e<ScenePF2e>>,
     TokenPF2e<TokenDocumentPF2e<ScenePF2e>>,
     EffectsCanvasGroupPF2e,
-    RegionPF2e<RegionDocumentPF2e<ScenePF2e>>,
-    Ruler<TokenPF2e>
+    RegionPF2e<RegionDocumentPF2e<ScenePF2e>>
 >;
 
 export * from "./helpers.ts";

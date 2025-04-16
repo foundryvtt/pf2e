@@ -1,4 +1,5 @@
 import type { ActorType, CharacterPF2e } from "@actor";
+import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
 import { ItemPF2e } from "@item";
 import { PredicateField } from "@system/schema-data-fields.ts";
 import { sluggify } from "@util";
@@ -177,8 +178,8 @@ type PreparedFormulaSchema = {
     isSignatureItem: fields.BooleanField<boolean, boolean, false, false, false>;
 };
 
-type CraftingAbilityRuleData = Omit<SourceFromSchema<CraftingAbilityRuleSchema>, "preparedFormulas"> & {
-    prepared: (Partial<SourceFromSchema<PreparedFormulaSchema>> & { uuid: string })[];
+type CraftingAbilityRuleData = Omit<fields.SourceFromSchema<CraftingAbilityRuleSchema>, "preparedFormulas"> & {
+    prepared: (Partial<fields.SourceFromSchema<PreparedFormulaSchema>> & { uuid: string })[];
 };
 
 interface CraftingAbilityRuleSource extends RuleElementSource {

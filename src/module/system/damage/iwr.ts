@@ -1,6 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { Immunity, NON_DAMAGE_WEAKNESSES, Resistance, Weakness } from "@actor/data/iwr.ts";
 import { ResistanceType } from "@actor/types.ts";
+import type { Rolled } from "@client/dice/_module.d.mts";
 import { DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
 import { tupleHasValue } from "@util";
 import * as R from "remeda";

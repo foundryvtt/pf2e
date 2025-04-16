@@ -1,6 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import { resetActors } from "@actor/helpers.ts";
-import type { PlaceableHUDContext } from "@fvtt-client/applications/hud/placeable-hud.d.mts";
+import type { PlaceableHUDContext } from "@client/applications/hud/placeable-hud.d.mts";
 import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
 import { ConditionSlug } from "@item/condition/types.ts";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
@@ -9,6 +9,7 @@ import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import type { EncounterPF2e } from "@module/encounter/index.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import { StatusEffectIconTheme } from "@scripts/config/index.ts";
+import { TextEditorPF2e } from "@system/text-editor.ts";
 import { createHTMLElement, fontAwesomeIcon, htmlQueryAll, objectHasKey, setHasElement } from "@util";
 import * as R from "remeda";
 
@@ -297,12 +298,13 @@ export class StatusEffects {
         const conditions = await Promise.all(
             token.actor.conditions.active.map(async (c) => ({
                 ...R.pick(c, ["name", "img"]),
-                description: await TextEditor.enrichHTML(c.description),
+                description: await TextEditorPF2e.enrichHTML(c.description),
             })),
         );
         if (conditions.length === 0) return null;
 
-        const content = await renderTemplate("systems/pf2e/templates/chat/participant-conditions.hbs", { conditions });
+        const templatePath = "systems/pf2e/templates/chat/participant-conditions.hbs";
+        const content = await fa.handlebars.renderTemplate(templatePath, { conditions });
         const messageSource: Partial<foundry.documents.ChatMessageSource> = {
             author: game.user.id,
             speaker: ChatMessagePF2e.getSpeaker({ token }),

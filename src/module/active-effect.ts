@@ -1,7 +1,8 @@
 import type { ActorPF2e } from "@actor";
+import type { DatabaseCreateOperation } from "@common/abstract/_types.d.mts";
+import type { EffectDurationSource } from "@common/documents/active-effect.d.mts";
 import type { AbstractEffectPF2e, ItemPF2e } from "@item";
 import * as R from "remeda";
-import type { EffectDurationSource } from "types/foundry/common/documents/active-effect.d.ts";
 
 export class ActiveEffectPF2e<TParent extends ActorPF2e | ItemPF2e | null> extends ActiveEffect<TParent> {
     /** Create an active effect from an (abstract) effect for use in token effect icons */

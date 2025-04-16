@@ -7,7 +7,7 @@ export class EffectTracker {
     effects: EffectPF2e<ActorPF2e>[] = [];
 
     /** A separate collection of aura effects, including ones with unlimited duration */
-    auraEffects: Collection<EffectPF2e<ActorPF2e>> = new Collection();
+    auraEffects: Collection<string, EffectPF2e<ActorPF2e>> = new Collection();
 
     #insert(effect: EffectPF2e<ActorPF2e>, duration: { expired: boolean; remaining: number }): void {
         if (this.effects.length === 0) {

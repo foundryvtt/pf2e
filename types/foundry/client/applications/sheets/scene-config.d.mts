@@ -1,0 +1,55 @@
+import { ApplicationFormConfiguration, ApplicationTabsConfiguration } from "../_types.mjs";
+import DocumentSheetV2, { DocumentSheetConfiguration } from "../api/document-sheet.mjs";
+import HandlebarsApplicationMixin, {
+    HandlebarsRenderOptions,
+    HandlebarsTemplatePart,
+} from "../api/handlebars-application.mjs";
+import FormDataExtended from "../ux/form-data-extended.mjs";
+
+/**
+ * The Application responsible for configuring a single Scene document.
+ */
+export default class SceneConfig<TDocument extends Scene> extends HandlebarsApplicationMixin(DocumentSheetV2) {
+    static override DEFAULT_OPTIONS: DeepPartial<DocumentSheetConfiguration>;
+
+    static override PARTS: Record<string, HandlebarsTemplatePart>;
+
+    static override TABS: Record<string, ApplicationTabsConfiguration>;
+
+    override _prepareContext(options: HandlebarsRenderOptions): Promise<Record<string, unknown>>;
+
+    protected override _preparePartContext(
+        partId: string,
+        context: Record<string, unknown>,
+        options: HandlebarsRenderOptions,
+    ): Promise<Record<string, unknown>>;
+
+    override changeTab(
+        tab: string,
+        group: string,
+        options?: { event?: Event; navElement?: HTMLElement; force?: boolean; updatePosition?: boolean },
+    ): void;
+
+    protected _prepareSubmitData(
+        event: SubmitEvent,
+        form: HTMLFormElement,
+        formData: FormDataExtended,
+        updateData?: Record<string, unknown>,
+    ): Record<string, unknown>;
+
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
+    protected override _onRender(context: object, options: HandlebarsRenderOptions): Promise<void>;
+
+    protected override _onChangeForm(formConfig: ApplicationFormConfiguration, event: Event): void;
+
+    protected override _onClose(options: HandlebarsRenderOptions): void;
+}
+
+export default interface SceneConfig<TDocument extends Scene> {
+    options: DocumentSheetConfiguration<TDocument>;
+
+    get document(): TDocument;
+}

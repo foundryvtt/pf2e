@@ -1,8 +1,7 @@
 import type { MeasuredTemplatePF2e } from "../measured-template.ts";
 
-export class TemplateLayerPF2e<
-    TObject extends MeasuredTemplatePF2e = MeasuredTemplatePF2e,
-> extends TemplateLayer<TObject> {
+export class TemplateLayerPF2e<TObject extends MeasuredTemplatePF2e = MeasuredTemplatePF2e> extends foundry.canvas
+    .layers.TemplateLayer<TObject> {
     /** Preview event listeners that can be referenced across methods */
     #previewListeners: TemplatePreviewEventListeners | null = null;
 
@@ -44,7 +43,7 @@ export class TemplateLayerPF2e<
         const { x, y } = canvas.grid.getSnappedPoint(destination, { mode: template.snappingMode });
         destination.x = x;
         destination.y = y;
-        const ray = new Ray(origin, destination);
+        const ray = new fc.geometry.Ray(origin, destination);
         const ratio = dimensions.size / dimensions.distance;
         const document = template.document;
 

@@ -50,12 +50,13 @@ async function importDocuments(actor: ActorPF2e, items: ItemPF2e[], skipDialog: 
     }
 
     if (!skipDialog) {
-        const result = await Dialog.confirm({
-            title: game.i18n.localize("PF2E.Kingmaker.Kingdom.ImportDialog.Title"),
+        const result = await foundry.applications.api.DialogV2.confirm({
+            window: { title: "PF2E.Kingmaker.Kingdom.ImportDialog.Title", icon: "fa-solid cloud-arrow-down" },
             content: game.i18n.format("PF2E.Kingmaker.Kingdom.ImportDialog.Content", {
                 added: createData.length,
                 updated: updateData.length,
             }),
+            yes: { default: true },
         });
         if (!result) return;
     }

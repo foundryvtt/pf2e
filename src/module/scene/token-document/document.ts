@@ -1,6 +1,7 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import type { PrototypeTokenPF2e } from "@actor/data/base.ts";
 import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
+import type { TokenAnimationOptions } from "@client/_types.d.mts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
@@ -10,13 +11,10 @@ import { objectHasKey, sluggify } from "@util";
 import * as R from "remeda";
 import type { ScenePF2e } from "../document.ts";
 import { TokenAura } from "./aura/index.ts";
-import { DetectionModeEntry, TokenFlagsPF2e } from "./data.ts";
+import type { DetectionModeEntry, TokenFlagsPF2e } from "./data.ts";
 import type { TokenConfigPF2e } from "./sheet.ts";
 
 class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
-    /** Has this document completed `DataModel` initialization? */
-    declare initialized: boolean;
-
     declare auras: Map<string, TokenAura>;
 
     /** The most recently used animation for later use when a token override is reverted. */
@@ -205,21 +203,8 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     }
 
     protected override _initialize(options?: Record<string, unknown>): void {
-        this.initialized = false;
         this.auras = new Map();
         super._initialize(options);
-    }
-
-    /**
-     * If embedded, don't prepare data if the parent hasn't finished initializing.
-     * @removeme in V13
-     */
-    override prepareData(): void {
-        if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
-            return;
-        }
-        this.initialized = true;
-        super.prepareData();
     }
 
     /** If rules-based vision is enabled, disable manually configured vision radii */
@@ -348,7 +333,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         user: User<Actor<null>>,
     ): Promise<boolean | void> {
         if (this.actor?.allowSynthetics === false && data.actorLink === false) {
-            this.updateSource({ actorLink: true });
+            this._source.actorLink = true;
         }
 
         return super._preCreate(data, options, user);

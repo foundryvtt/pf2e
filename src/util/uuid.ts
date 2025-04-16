@@ -1,19 +1,31 @@
 import type { ActorPF2e } from "@actor";
+import type {
+    ActorUUID,
+    CompendiumActorUUID,
+    CompendiumItemUUID,
+    EmbeddedItemUUID,
+    ItemUUID,
+    TokenDocumentUUID,
+    WorldItemUUID,
+} from "@client/documents/abstract/_module.d.mts";
+import type { CompendiumIndexData } from "@client/documents/collections/compendium-collection.d.mts";
+import type { CompendiumUUID } from "@client/utils/_module.d.mts";
+import type Document from "@common/abstract/document.d.mts";
 import type { ItemPF2e } from "@item";
 import * as R from "remeda";
 
 class UUIDUtils {
     /** Retrieve multiple documents by UUID */
-    static async fromUUIDs(uuids: ActorUUID[], options?: { relative?: Maybe<ClientDocument> }): Promise<ActorPF2e[]>;
-    static async fromUUIDs(uuids: ItemUUID[], options?: { relative?: Maybe<ClientDocument> }): Promise<ItemPF2e[]>;
-    static async fromUUIDs(uuids: string[], options?: { relative?: Maybe<ClientDocument> }): Promise<ClientDocument[]>;
-    static async fromUUIDs(uuids: string[], options?: { relative?: Maybe<ClientDocument> }): Promise<ClientDocument[]> {
+    static async fromUUIDs(uuids: ActorUUID[], options?: { relative?: Maybe<Document> }): Promise<ActorPF2e[]>;
+    static async fromUUIDs(uuids: ItemUUID[], options?: { relative?: Maybe<Document> }): Promise<ItemPF2e[]>;
+    static async fromUUIDs(uuids: string[], options?: { relative?: Maybe<Document> }): Promise<Document[]>;
+    static async fromUUIDs(uuids: string[], options?: { relative?: Maybe<Document> }): Promise<Document[]> {
         const resolvedUUIDs = R.unique(uuids).flatMap((u) => fu.parseUuid(u, options).uuid ?? []);
 
         // These can't be retrieved via `fromUuidSync`: separate and retrieve directly via `fromUuid`
         const packEmbeddedLinks = resolvedUUIDs.filter((u) => {
             const parsed = fu.parseUuid(u, options);
-            return parsed.collection instanceof CompendiumCollection && parsed.embedded.length > 0;
+            return parsed.collection instanceof fd.collections.CompendiumCollection && parsed.embedded.length > 0;
         });
         const packEmbeddedDocs = (await Promise.all(packEmbeddedLinks.map((u) => fromUuid(u)))).filter(R.isTruthy);
 
@@ -23,7 +35,7 @@ class UUIDUtils {
             .filter(R.isTruthy);
 
         const worldDocsAndCacheHits = documentsAndIndexData.filter(
-            (d): d is ClientDocument => d instanceof foundry.abstract.Document,
+            (d): d is Document => d instanceof foundry.abstract.Document,
         );
         const indexEntries = documentsAndIndexData.filter(
             (d): d is CompendiumIndexData => !(d instanceof foundry.abstract.Document),
@@ -65,7 +77,7 @@ class UUIDUtils {
         if (typeof uuid !== "string") return false;
         try {
             const parseResult = fu.parseUuid(uuid);
-            const isCompendiumUUID = parseResult.collection instanceof CompendiumCollection;
+            const isCompendiumUUID = parseResult.collection instanceof fd.collections.CompendiumCollection;
             return isCompendiumUUID && (docType ? uuid.includes(`.${docType}.`) : true);
         } catch {
             return false;

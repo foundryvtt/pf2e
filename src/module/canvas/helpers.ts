@@ -1,3 +1,4 @@
+import type { Point } from "@common/_types.d.mts";
 import type { TokenPF2e } from "./index.ts";
 
 /**
@@ -122,7 +123,7 @@ function measureDistance(p0: Point, p1: Point): number {
         return canvas.grid.measurePath([p0, p1]).distance;
     }
 
-    return measureDistanceOnGrid(new Ray(p0, p1));
+    return measureDistanceOnGrid(new fc.geometry.Ray(p0, p1));
 }
 
 /**

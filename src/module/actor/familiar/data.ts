@@ -14,8 +14,13 @@ import { ActorSystemModel, ActorSystemSchema } from "@actor/data/model.ts";
 import type { ModifierPF2e } from "@actor/modifiers.ts";
 import type { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
+import type {
+    ModelPropFromDataField,
+    ModelPropsFromSchema,
+    SourceFromDataField,
+    SourceFromSchema,
+} from "@common/data/fields.d.mts";
 import type { StatisticTraceData } from "@system/statistic/data.ts";
-import type { ModelPropFromDataField, SourcePropFromDataField } from "types/foundry/common/data/fields.d.ts";
 import type { FamiliarPF2e } from "./document.ts";
 import fields = foundry.data.fields;
 
@@ -117,13 +122,13 @@ interface FamiliarSystemSource extends SourceFromSchema<FamiliarSystemSchema> {
     schema?: object;
 }
 
-interface FamiliarAttributesSource extends SourcePropFromDataField<FamiliarSystemSchema["attributes"]> {
+interface FamiliarAttributesSource extends SourceFromDataField<FamiliarSystemSchema["attributes"]> {
     immunities?: never;
     weaknesses?: never;
     resistances?: never;
 }
 
-interface FamiliarDetailsSource extends SourcePropFromDataField<FamiliarSystemSchema["details"]> {
+interface FamiliarDetailsSource extends SourceFromDataField<FamiliarSystemSchema["details"]> {
     alliance?: never;
     languages?: never;
     level?: never;

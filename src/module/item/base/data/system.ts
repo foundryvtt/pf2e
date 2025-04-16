@@ -1,7 +1,7 @@
+import type * as fields from "@common/data/fields.d.mts";
 import type { MigrationRecord, OneToThree, PublicationData, Rarity } from "@module/data.ts";
 import type { RuleElementSource } from "@module/rules/index.ts";
 import type { Predicate } from "@system/predication.ts";
-import type * as fields from "types/foundry/common/data/fields.d.ts";
 import type { ItemTrait } from "../types.ts";
 import type { ItemType } from "./index.ts";
 
