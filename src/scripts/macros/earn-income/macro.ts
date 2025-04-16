@@ -10,7 +10,7 @@ function showEarnIncomePopup(actor: ActorPF2e | undefined): void {
 
     const skills = Object.values(actor.skills).filter((s) => s.proficient);
 
-    new Dialog({
+    new foundry.appv1.api.Dialog({
         title: "Earn Income",
         content: askSkillPopupTemplate(skills),
         buttons: {

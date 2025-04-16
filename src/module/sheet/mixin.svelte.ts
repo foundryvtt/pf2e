@@ -1,12 +1,6 @@
 import * as svelte from "svelte";
-import type {
-    ApplicationConfiguration,
-    ApplicationRenderContext,
-    ApplicationRenderOptions,
-} from "types/foundry/client-esm/applications/_types.d.ts";
-import type ApplicationV2 from "types/foundry/client-esm/applications/api/application.d.ts";
 
-interface SvelteApplicationRenderContext {
+interface SvelteApplicationRenderContext extends fa.ApplicationRenderContext {
     /** State data tracked by the root component: objects herein must be plain object. */
     state: object;
     /** This application instance */
@@ -15,10 +9,12 @@ interface SvelteApplicationRenderContext {
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 function SvelteApplicationMixin<
-    TBase extends AbstractConstructorOf<ApplicationV2> & { DEFAULT_OPTIONS: DeepPartial<ApplicationConfiguration> },
+    TBase extends AbstractConstructorOf<fa.api.ApplicationV2> & {
+        DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration>;
+    },
 >(Base: TBase) {
     abstract class SvelteApplication extends Base {
-        static override DEFAULT_OPTIONS: DeepPartial<ApplicationConfiguration> = {
+        static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
             classes: ["pf2e"],
         };
 
@@ -33,14 +29,14 @@ function SvelteApplicationMixin<
 
         protected override async _renderHTML(
             context: SvelteApplicationRenderContext,
-        ): Promise<ApplicationRenderContext> {
+        ): Promise<SvelteApplicationRenderContext> {
             return context;
         }
 
         protected override _replaceHTML(
             result: SvelteApplicationRenderContext,
             content: HTMLElement,
-            options: ApplicationRenderOptions,
+            options: fa.ApplicationRenderOptions,
         ): void {
             Object.assign(this.$state, result.state);
             if (options.isFirstRender) {
@@ -48,7 +44,7 @@ function SvelteApplicationMixin<
             }
         }
 
-        protected override _onClose(options: ApplicationRenderOptions): void {
+        protected override _onClose(options: fa.ApplicationRenderOptions): void {
             super._onClose(options);
             svelte.unmount(this.#mount);
         }

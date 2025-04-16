@@ -1,6 +1,7 @@
 import { AbilityViewData, ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { createAbilityViewData } from "@actor/sheet/helpers.ts";
 import { VehiclePF2e } from "@actor/vehicle/index.ts";
+import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
 import { ItemPF2e } from "@item";
 import { AdjustedValue, getAdjustedValue } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, getActionIcon, htmlClosest, htmlQuery, htmlQueryAll } from "@util";

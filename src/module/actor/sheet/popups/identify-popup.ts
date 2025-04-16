@@ -2,9 +2,10 @@ import { IdentifyAlchemyDCs, IdentifyMagicDCs, getItemIdentificationDCs } from "
 import type { PhysicalItemPF2e } from "@item/physical/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import * as R from "remeda";
+import appv1 = foundry.appv1;
 
-export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
-    static override get defaultOptions(): FormApplicationOptions {
+export class IdentifyItemPopup extends appv1.api.FormApplication<PhysicalItemPF2e> {
+    static override get defaultOptions(): appv1.api.FormApplicationOptions {
         return {
             ...super.defaultOptions,
             id: "identify-item",
@@ -49,7 +50,8 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
                   ? "identify-alchemy"
                   : "recall-knowledge";
 
-            const content = await renderTemplate("systems/pf2e/templates/actors/identify-item-chat-skill-checks.hbs", {
+            const path = "systems/pf2e/templates/actors/identify-item-chat-skill-checks.hbs";
+            const content = await fa.handlebars.renderTemplate(path, {
                 identifiedName,
                 action,
                 skills: R.omit(dcs, ["dc"]),
@@ -69,7 +71,7 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
     }
 }
 
-interface IdentifyPopupData extends FormApplicationData {
+interface IdentifyPopupData extends appv1.api.FormApplicationData {
     isMagic: boolean;
     isAlchemical: boolean;
     dcs: IdentifyMagicDCs | IdentifyAlchemyDCs;

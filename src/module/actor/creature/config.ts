@@ -1,11 +1,12 @@
 import { ALLIANCES } from "@actor/creature/values.ts";
 import { createSheetOptions, SheetOptions } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, setHasElement } from "@util";
-import { BaseCreatureSource, CreatureSystemSource, CreatureActorType } from "./data.ts";
+import { BaseCreatureSource, CreatureActorType, CreatureSystemSource } from "./data.ts";
 import type { CreaturePF2e } from "./document.ts";
+import appv1 = foundry.appv1;
 
 /** A DocumentSheet presenting additional, per-actor settings */
-abstract class CreatureConfig<TActor extends CreaturePF2e> extends DocumentSheet<TActor> {
+abstract class CreatureConfig<TActor extends CreaturePF2e> extends appv1.api.DocumentSheet<TActor> {
     override get title(): string {
         const namespace = this.actor.isOfType("character") ? "Character" : "NPC";
         return game.i18n.localize(`PF2E.Actor.${namespace}.Configure.Title`);
@@ -19,13 +20,15 @@ abstract class CreatureConfig<TActor extends CreaturePF2e> extends DocumentSheet
         return this.object;
     }
 
-    static override get defaultOptions(): DocumentSheetOptions {
+    static override get defaultOptions(): appv1.api.DocumentSheetV1Options {
         const options = super.defaultOptions;
         options.width = 450;
         return options;
     }
 
-    override async getData(options: Partial<DocumentSheetOptions> = {}): Promise<CreatureConfigData<TActor>> {
+    override async getData(
+        options: Partial<appv1.api.DocumentSheetV1Options> = {},
+    ): Promise<CreatureConfigData<TActor>> {
         const source: BaseCreatureSource<CreatureActorType, CreatureSystemSource> = this.actor._source;
         const alliance =
             source.system.details?.alliance === null ? "neutral" : (source.system.details?.alliance ?? "default");
@@ -66,7 +69,7 @@ abstract class CreatureConfig<TActor extends CreaturePF2e> extends DocumentSheet
     }
 }
 
-interface CreatureConfigData<TActor extends CreaturePF2e> extends DocumentSheetData<TActor> {
+interface CreatureConfigData<TActor extends CreaturePF2e> extends appv1.api.DocumentSheetData<TActor> {
     alliances: SheetOptions;
 }
 

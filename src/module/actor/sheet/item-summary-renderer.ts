@@ -1,6 +1,9 @@
 import type { ActorPF2e } from "@actor/base.ts";
+import type Application from "@client/appv1/api/application-v1.d.mts";
+import type { ClientDocument } from "@client/documents/abstract/client-document.d.mts";
 import { AbstractEffectPF2e, ItemPF2e } from "@item";
 import type { RawItemChatData } from "@item/base/data/index.ts";
+import { TextEditorPF2e } from "@system/text-editor.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, htmlSelectorFor } from "@util";
 
 /**
@@ -105,13 +108,13 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
             return `@UUID[${uuid}]{${name}}`;
         })();
 
-        const summary = await renderTemplate("systems/pf2e/templates/actors/partials/item-summary.hbs", {
+        const summary = await fa.handlebars.renderTemplate("systems/pf2e/templates/actors/partials/item-summary.hbs", {
             item,
             description: chatData.description,
             identified: game.user.isGM || !(item.isOfType("physical") || isEffect) || item.isIdentified,
             isCreature: item.actor?.isOfType("creature"),
             chatData,
-            selfEffect: selfEffectLink && (await TextEditor.enrichHTML(selfEffectLink)),
+            selfEffect: selfEffectLink && (await TextEditorPF2e.enrichHTML(selfEffectLink)),
         });
 
         container.innerHTML = summary;

@@ -30,6 +30,7 @@ export const RenderSettings = {
             ].map((data): HTMLAnchorElement => {
                 const anchor = createHTMLElement("a", { children: [game.i18n.localize(data.label)] });
                 anchor.href = data.url;
+                anchor.rel = "nofollow noopener";
                 anchor.target = "_blank";
                 return anchor;
             });
@@ -37,9 +38,9 @@ export const RenderSettings = {
             systemRow?.after(systemInfo);
 
             // Add PF2e section (which has license and troubleshooting)
-            const header = createHTMLElement("h2", { children: [game.system.title] });
-            const pf2eSettings = createHTMLElement("div");
-            html.querySelector("#settings-documentation")?.after(header, pf2eSettings);
+            const header = createHTMLElement("h4", { classes: ["divider"], children: [game.system.title] });
+            const pf2eSettings = createHTMLElement("section", { classes: ["pf2e", "flexcol"], children: [header] });
+            html.querySelector("section.documentation")?.after(pf2eSettings);
 
             // Paizo License and remaster information
             const licenseButton = document.createElement("button");
@@ -52,10 +53,9 @@ export const RenderSettings = {
             const remasterButton = document.createElement("button");
             remasterButton.type = "button";
             remasterButton.append(fontAwesomeIcon("rocket"), game.i18n.localize("PF2E.SETTINGS.Sidebar.Remaster"));
-            remasterButton.addEventListener("click", () => {
-                fromUuid("Compendium.pf2e.journals.JournalEntry.6L2eweJuM8W7OCf2").then((entry) => {
-                    entry?.sheet.render(true);
-                });
+            remasterButton.addEventListener("click", async () => {
+                const entry = await fromUuid("Compendium.pf2e.journals.JournalEntry.6L2eweJuM8W7OCf2");
+                entry?.sheet.render(true);
             });
 
             pf2eSettings.append(licenseButton, remasterButton);

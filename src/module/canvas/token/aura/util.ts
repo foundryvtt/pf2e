@@ -1,7 +1,7 @@
+import type BaseEffectSource from "@client/canvas/sources/base-effect-source.d.mts";
 import { EffectAreaSquare } from "@module/canvas/effect-area-square.ts";
 import { measureDistanceCuboid } from "@module/canvas/helpers.ts";
 import { TokenDocumentPF2e } from "@scene";
-import type BaseEffectSource from "types/foundry/client-esm/canvas/sources/base-effect-source.d.ts";
 import type { TokenPF2e } from "../index.ts";
 
 export function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {

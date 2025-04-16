@@ -5,15 +5,15 @@ import {
     StrictBooleanField,
     StrictStringField,
 } from "@system/schema-data-fields.ts";
-import type * as fields from "types/foundry/common/data/fields.d.ts";
 import type { AELikeDataPrepPhase } from "../ae-like.ts";
 import type { ResolvableValueField, RuleElementSchema } from "../data.ts";
 import type { RollOptionRuleElement } from "./rule-element.ts";
+import fields = foundry.data.fields;
 
 class Suboption extends foundry.abstract.DataModel<RollOptionRuleElement, SuboptionSchema> {
     static override defineSchema(): fields.DataSchema {
         return {
-            label: new foundry.data.fields.StringField({ required: true, nullable: false, blank: false }),
+            label: new fields.StringField({ required: true, nullable: false, blank: false }),
             value: new StrictStringField({ required: true, nullable: false, blank: false }),
             predicate: new PredicateField(),
         };

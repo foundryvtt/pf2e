@@ -15,6 +15,7 @@ import { extractModifierAdjustments, extractModifiers } from "@module/rules/help
 import type { UserPF2e } from "@module/user/document.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
+import { TextEditorPF2e } from "@system/text-editor.ts";
 import { createHTMLElement, signedInteger, sluggify } from "@util";
 import * as R from "remeda";
 import type { NPCFlags, NPCSource, NPCSystemData } from "./data.ts";
@@ -437,7 +438,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         const formatNoteText = (item: ItemPF2e<this | null>): Promise<string> => {
             // Call enrichHTML with the correct item context
             const rollData = item.getRollData();
-            return TextEditor.enrichHTML(item.description, { rollData });
+            return TextEditorPF2e.enrichHTML(item.description, { rollData });
         };
 
         for (const attackEffect of attack.attackEffects) {

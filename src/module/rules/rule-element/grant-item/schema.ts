@@ -1,5 +1,5 @@
+import type * as fields from "@common/data/fields.d.mts";
 import type { SlugField, StrictArrayField } from "@system/schema-data-fields.ts";
-import type * as fields from "types/foundry/common/data/fields.d.ts";
 import type { RuleElementSchema } from "../data.ts";
 import type { ItemAlteration } from "../item-alteration/alteration.ts";
 

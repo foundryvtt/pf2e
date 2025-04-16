@@ -1,7 +1,8 @@
 import { PhysicalItemPF2e } from "@item";
 import { htmlQuery, sluggify } from "@util";
+import appv1 = foundry.appv1;
 
-class SelectItemDialog extends Application {
+class SelectItemDialog extends appv1.api.Application {
     #item: PhysicalItemPF2e | null = null;
 
     #resolve: (value: PhysicalItemPF2e | null) => void;
@@ -14,7 +15,7 @@ class SelectItemDialog extends Application {
         this.#resolve = resolve;
     }
 
-    static override get defaultOptions(): ApplicationOptions {
+    static override get defaultOptions(): appv1.api.ApplicationV1Options {
         return { ...super.defaultOptions, width: 270 };
     }
 
@@ -29,7 +30,9 @@ class SelectItemDialog extends Application {
         return game.i18n.localize(`PF2E.Actions.${key}.SelectItemDialog.Title`);
     }
 
-    override async getData(options: Partial<ApplicationOptions> = {}): Promise<{ item: PhysicalItemPF2e | null }> {
+    override async getData(
+        options: Partial<appv1.api.ApplicationV1Options> = {},
+    ): Promise<{ item: PhysicalItemPF2e | null }> {
         options.classes = [`select-${this.#action}-item-dialog`];
 
         return {

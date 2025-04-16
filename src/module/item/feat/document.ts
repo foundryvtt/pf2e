@@ -3,12 +3,15 @@ import type { CraftingAbility } from "@actor/character/crafting/ability.ts";
 import { ClassDCData } from "@actor/character/data.ts";
 import type { FeatGroup } from "@actor/character/feats/index.ts";
 import type { SenseData } from "@actor/creature/index.ts";
+import { DocumentHTMLEmbedConfig } from "@client/applications/ux/text-editor.mjs";
+import { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
 import { ItemPF2e, type HeritagePF2e } from "@item";
 import { getActionCostRollOptions, normalizeActionChangeData, processSanctification } from "@item/ability/helpers.ts";
 import { ActionCost, Frequency, RawItemChatData } from "@item/base/data/index.ts";
 import { Rarity } from "@module/data.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "@module/rules/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";
+import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
 import * as R from "remeda";
 import { FeatSource, FeatSystemData } from "./data.ts";
@@ -298,7 +301,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     override async getChatData(
         this: FeatPF2e<ActorPF2e>,
-        htmlOptions: EnrichmentOptions = {},
+        htmlOptions: EnrichmentOptionsPF2e = {},
     ): Promise<RawItemChatData> {
         const actor = this.actor;
         const classSlug = actor.isOfType("character") && actor.class?.slug;
@@ -344,12 +347,12 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         return rollOptions;
     }
 
-    protected override embedHTMLString(_config: DocumentHTMLEmbedConfig, _options: EnrichmentOptions): string {
+    protected override embedHTMLString(config: DocumentHTMLEmbedConfig & { hr?: boolean }): string {
         const list = this.system.prerequisites?.value?.map((item) => item.value).join(", ") ?? "";
         return (
             (list
                 ? `<p><strong>${game.i18n.localize("PF2E.FeatPrereqLabel")}</strong> ${list}</p>` +
-                  (_config.hr === false ? "" : "<hr>")
+                  (config.hr === false ? "" : "<hr>")
                 : "") + this.description
         );
     }

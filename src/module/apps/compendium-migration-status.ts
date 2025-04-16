@@ -3,12 +3,13 @@ import type { ItemPF2e } from "@item";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { htmlQuery } from "@util";
 import * as R from "remeda";
+import appv1 = foundry.appv1;
 
 /** Dialog used to view compendium data and migrate them. */
-class CompendiumMigrationStatus extends Application {
+class CompendiumMigrationStatus extends appv1.api.Application {
     compendium: CompendiumCollection<ActorPF2e<null> | ItemPF2e<null>>;
 
-    static override get defaultOptions(): ApplicationOptions {
+    static override get defaultOptions(): appv1.api.ApplicationV1Options {
         const options = super.defaultOptions;
         options.template = "systems/pf2e/templates/system/compendium-migration-status.hbs";
         options.classes = ["compendium-migration-status"];
@@ -26,7 +27,7 @@ class CompendiumMigrationStatus extends Application {
         return `compendium-info-${this.compendium.metadata.id}`;
     }
 
-    override async getData(options?: Partial<ApplicationOptions> | undefined): Promise<object> {
+    override async getData(options?: Partial<appv1.api.ApplicationV1Options> | undefined): Promise<object> {
         // Attempt to get the raw schema version from source data.
         // We pass a random string as a field to work around a stale index bug (as of 11.309)
         // https://github.com/foundryvtt/foundryvtt/issues/9984

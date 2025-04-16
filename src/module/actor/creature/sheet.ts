@@ -1,6 +1,8 @@
 import type { ActorPF2e, CreaturePF2e } from "@actor";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog.ts";
+import type { ApplicationV1HeaderButton } from "@client/appv1/api/application-v1.d.mts";
+import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
 import { ItemPF2e, type SpellPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ITEM_CARRY_TYPES } from "@item/base/data/values.ts";
@@ -268,11 +270,17 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         handlers["spellcasting-remove"] = async (event): Promise<ItemPF2e<TActor> | void> => {
             const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
             const item = actor.items.get(itemId, { strict: true });
-            const title = game.i18n.localize("PF2E.DeleteSpellcastEntryTitle");
-            const content = await renderTemplate("systems/pf2e/templates/actors/delete-spellcasting-dialog.hbs");
+            const content = await fa.handlebars.renderTemplate(
+                "systems/pf2e/templates/actors/delete-spellcasting-dialog.hbs",
+            );
 
             // Render confirmation modal dialog
-            if (await Dialog.confirm({ title, content })) {
+            if (
+                await foundry.applications.api.DialogV2.confirm({
+                    window: { title: "PF2E.DeleteSpellcastEntryTitle", icon: "fa-solid fa-trash" },
+                    content,
+                })
+            ) {
                 return item.delete();
             }
         };
@@ -456,7 +464,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
     }
 
     /** Replace sheet config with a special PC config form application */
-    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
+    protected override _getHeaderButtons(): ApplicationV1HeaderButton[] {
         const buttons = super._getHeaderButtons();
         if (!this.actor.isOfType("character", "npc")) return buttons;
 

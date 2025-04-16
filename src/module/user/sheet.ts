@@ -1,11 +1,10 @@
+import type { ApplicationTab } from "@client//applications/_module.d.mts";
+import type { DocumentSheetRenderOptions } from "@client/applications/api/document-sheet.d.mts";
 import { htmlQueryAll } from "@util";
-import { ApplicationTab } from "types/foundry/client-esm/applications/_types.js";
-import type { DocumentSheetRenderOptions } from "types/foundry/client-esm/applications/api/document-sheet.d.ts";
-import { UserConfigData } from "types/foundry/client-esm/applications/sheets/user-config.js";
 import type { UserPF2e } from "./document.ts";
 
 /** Player-specific settings, stored as flags on each User */
-class UserConfigPF2e extends foundry.applications.sheets.UserConfig<UserPF2e> {
+class UserConfigPF2e extends fa.sheets.UserConfig<UserPF2e> {
     static override PARTS = {
         tabs: {
             template: "templates/generic/tab-navigation.hbs",
@@ -58,7 +57,7 @@ class UserConfigPF2e extends foundry.applications.sheets.UserConfig<UserPF2e> {
     }
 }
 
-interface UserConfigDataPF2e extends UserConfigData<UserPF2e> {
+interface UserConfigDataPF2e extends fa.sheets.UserConfigData<UserPF2e> {
     tabs: Partial<ApplicationTab>[];
     tabGroups: Record<string, string>;
 }

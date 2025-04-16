@@ -6,7 +6,7 @@ import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
 let auraCheckLock = Promise.resolve();
 
 /** Check for auras containing newly-placed or moved tokens */
-const checkAuras = foundry.utils.debounce(async function (this: ScenePF2e): Promise<void> {
+const checkAuras = fu.debounce(async function (this: ScenePF2e): Promise<void> {
     if (!(canvas.ready && this.isInFocus && this.grid.type === CONST.GRID_TYPES.SQUARE)) {
         return;
     }

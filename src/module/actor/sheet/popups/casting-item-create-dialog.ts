@@ -3,8 +3,9 @@ import { SpellPF2e } from "@item";
 import { SpellConsumableItemType } from "@item/consumable/spell-consumables.ts";
 import { OneToTen } from "@module/data.ts";
 import { ErrorPF2e } from "@util";
+import appv1 = foundry.appv1;
 
-interface FormInputData extends FormApplicationData<ActorPF2e> {
+interface FormInputData extends appv1.api.FormApplicationData<ActorPF2e> {
     itemTypeOptions?: object;
     validLevels?: number[];
     itemType?: SpellConsumableItemType;
@@ -24,14 +25,14 @@ const itemTypeOptions = Object.fromEntries(
     ]),
 );
 
-export class CastingItemCreateDialog extends FormApplication<ActorPF2e> {
+export class CastingItemCreateDialog extends appv1.api.FormApplication<ActorPF2e> {
     onSubmitCallback: CastingItemCreateCallback;
     spell: SpellPF2e;
     formDataCache: FormOutputData;
 
     constructor(
         object: ActorPF2e,
-        options: Partial<FormApplicationOptions>,
+        options: Partial<appv1.api.FormApplicationOptions>,
         callback: CastingItemCreateCallback,
         spell: SpellPF2e,
     ) {
@@ -45,7 +46,7 @@ export class CastingItemCreateDialog extends FormApplication<ActorPF2e> {
         this.onSubmitCallback = callback;
     }
 
-    static override get defaultOptions(): FormApplicationOptions {
+    static override get defaultOptions(): appv1.api.FormApplicationOptions {
         const options = super.defaultOptions;
 
         options.classes = [];

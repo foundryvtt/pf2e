@@ -38,7 +38,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
         };
     }
 
-    static override validateJoint(data: SourceFromSchema<ItemAlterationRuleSchema>): void {
+    static override validateJoint(data: fields.SourceFromSchema<ItemAlterationRuleSchema>): void {
         super.validateJoint(data);
 
         if (!data.itemId && !data.itemType) {

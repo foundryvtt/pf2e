@@ -89,7 +89,7 @@ class CampaignFeatureSystemData extends ItemSystemModel<CampaignFeaturePF2e, Cam
 
 interface CampaignFeatureSystemData
     extends ItemSystemModel<CampaignFeaturePF2e, CampaignFeatureSystemSchema>,
-        Omit<ModelPropsFromSchema<CampaignFeatureSystemSchema>, "description"> {}
+        Omit<fields.ModelPropsFromSchema<CampaignFeatureSystemSchema>, "description"> {}
 
 type CampaignFeatureSystemSchema = Omit<ItemSystemSchema, "traits"> & {
     level: fields.SchemaField<{
@@ -118,7 +118,7 @@ type CampaignFeatureSystemSchema = Omit<ItemSystemSchema, "traits"> & {
     frequency: FrequencyField;
 };
 
-type CampaignFeatureSystemSource = SourceFromSchema<CampaignFeatureSystemSchema> & {
+type CampaignFeatureSystemSource = fields.SourceFromSchema<CampaignFeatureSystemSchema> & {
     schema?: ItemSystemSource["schema"];
 };
 

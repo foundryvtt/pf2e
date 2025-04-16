@@ -130,8 +130,8 @@ type TempHPRuleSchema = RuleElementSchema & {
     /** World events in which temporary HP is added or renewed */
     events: fields.SchemaField<
         TempHPEventsSchema,
-        SourceFromSchema<TempHPEventsSchema>,
-        ModelPropsFromSchema<TempHPEventsSchema>,
+        fields.SourceFromSchema<TempHPEventsSchema>,
+        fields.ModelPropsFromSchema<TempHPEventsSchema>,
         true,
         false,
         true

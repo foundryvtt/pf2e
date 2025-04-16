@@ -1,5 +1,6 @@
 import { ActorPF2e } from "@actor/base.ts";
 import { Coins } from "@item/physical/data.ts";
+import appv1 = foundry.appv1;
 
 interface AddCoinsFormData extends Coins {
     combineStacks: boolean;
@@ -8,8 +9,8 @@ interface AddCoinsFormData extends Coins {
 /**
  * @category Other
  */
-export class AddCoinsPopup extends FormApplication<ActorPF2e> {
-    static override get defaultOptions(): FormApplicationOptions {
+export class AddCoinsPopup extends appv1.api.FormApplication<ActorPF2e> {
+    static override get defaultOptions(): appv1.api.FormApplicationOptions {
         return {
             ...super.defaultOptions,
             id: "add-coins",

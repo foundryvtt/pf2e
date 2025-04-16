@@ -1,4 +1,5 @@
 import { ActorProxyPF2e } from "@actor";
+import type { DataField } from "@common/data/fields.d.mts";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { isBracketedValue } from "@module/rules/helpers.ts";
 import { RuleElements, type RuleElementPF2e, type RuleElementSource } from "@module/rules/index.ts";
@@ -8,7 +9,6 @@ import type { LaxSchemaField } from "@system/schema-data-fields.ts";
 import { createHTMLElement, fontAwesomeIcon, htmlClosest, htmlQuery, htmlQueryAll, isObject } from "@util";
 import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
-import type { DataField } from "types/foundry/common/data/fields.d.ts";
 import type { ItemSheetPF2e } from "../index.ts";
 
 interface RuleElementFormOptions<TSource extends RuleElementSource, TObject extends RuleElementPF2e | null> {

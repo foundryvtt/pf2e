@@ -1,5 +1,8 @@
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
 import type { NPCAttributesSource, NPCSystemSource } from "@actor/npc/data.ts";
+import type { CompendiumMetadata } from "@client/documents/collections/compendium-collection.d.mts";
+import type { CompendiumDocumentType } from "@client/utils/_module.d.mts";
+import type { DocumentStatsData } from "@common/data/fields.d.mts";
 import type { AbilitySource, ItemSourcePF2e, ItemType, SpellcastingEntrySource } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import type { ItemInstances } from "@item/types.ts";
@@ -11,7 +14,6 @@ import { JSDOM } from "jsdom";
 import path from "path";
 import process from "process";
 import * as R from "remeda";
-import { DocumentStatsData } from "types/foundry/common/data/fields.js";
 import systemJSON from "../../static/system.json" assert { type: "json" };
 import templateJSON from "../../static/template.json" assert { type: "json" };
 import { CompendiumPack, isActorSource, isItemSource } from "./compendium-pack.ts";

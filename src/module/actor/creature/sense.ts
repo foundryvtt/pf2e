@@ -1,8 +1,8 @@
 import type { ActorPF2e } from "@actor";
-import type { NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
 import type { SenseData } from "./data.ts";
 import type { SenseAcuity, SenseType } from "./index.ts";
 import { SENSES_WITH_MANDATORY_ACUITIES, SENSE_ACUITIES, SENSE_TYPES } from "./values.ts";
+import fields = foundry.data.fields;
 
 class Sense extends foundry.abstract.DataModel<ActorPF2e, SenseSchema> {
     constructor(data: SenseConstructorParams, options: DataModelConstructionOptions<ActorPF2e>) {
@@ -13,7 +13,6 @@ class Sense extends foundry.abstract.DataModel<ActorPF2e, SenseSchema> {
     }
 
     static override defineSchema(): SenseSchema {
-        const fields = foundry.data.fields;
         return {
             type: new fields.StringField({
                 required: true,
@@ -104,7 +103,7 @@ class Sense extends foundry.abstract.DataModel<ActorPF2e, SenseSchema> {
     }
 }
 
-interface Sense extends foundry.abstract.DataModel<ActorPF2e, SenseSchema>, ModelPropsFromSchema<SenseSchema> {
+interface Sense extends foundry.abstract.DataModel<ActorPF2e, SenseSchema>, fields.ModelPropsFromSchema<SenseSchema> {
     range: number;
 }
 
@@ -114,10 +113,10 @@ type SenseConstructorParams = Partial<Omit<SenseData, "range" | "type">> & {
 };
 
 type SenseSchema = {
-    type: StringField<SenseType, SenseType, true, false, false>;
-    acuity: StringField<SenseAcuity, SenseAcuity, true, false, true>;
-    range: NumberField<number, number, true, true, true>;
-    source: StringField<string, string, false, true, true>;
+    type: fields.StringField<SenseType, SenseType, true, false, false>;
+    acuity: fields.StringField<SenseAcuity, SenseAcuity, true, false, true>;
+    range: fields.NumberField<number, number, true, true, true>;
+    source: fields.StringField<string, string, false, true, true>;
 };
 
 type LabeledSenseData<TModel extends Sense = Sense> = RawObject<TModel> & {

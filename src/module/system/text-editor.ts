@@ -2,6 +2,7 @@ import type { ActorPF2e } from "@actor";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
+import type { EnrichmentOptions } from "@client/applications/ux/text-editor.d.mts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { AbilityTrait } from "@item/ability/types.ts";
 import { EFFECT_AREA_SHAPES } from "@item/spell/values.ts";
@@ -41,44 +42,30 @@ import { DamageRoll } from "./damage/roll.ts";
 import { DamageDamageContext, DamageFormulaData, SimpleDamageTemplate } from "./damage/types.ts";
 import { Statistic } from "./statistic/index.ts";
 
-const superEnrichHTML = TextEditor.enrichHTML;
-const superCreateInlineRoll = TextEditor._createInlineRoll;
-const superOnClickInlineRoll = TextEditor._onClickInlineRoll;
-
 /** Censor enriched HTML according to metagame knowledge settings */
-class TextEditorPF2e extends TextEditor {
-    static override enrichHTML(
-        content: string | null,
-        options: EnrichmentOptionsPF2e & { async: true },
-    ): Promise<string>;
-    static override enrichHTML(content: string | null, options: EnrichmentOptionsPF2e & { async: false }): string;
-    static override enrichHTML(content: string | null, options: EnrichmentOptionsPF2e): string | Promise<string>;
-    static override enrichHTML(
-        this: typeof TextEditor,
-        content: string | null,
-        options: EnrichmentOptionsPF2e = {},
-    ): string | Promise<string> {
+class TextEditorPF2e extends foundry.applications.ux.TextEditor {
+    static override async enrichHTML(content: string | null, options: EnrichmentOptionsPF2e = {}): Promise<string> {
         options.secrets ??= game.user.isGM;
 
         // Remove tags from @Localize only enriches.
         // Those often include HTML, including <p>, and <p> tags cannot be nested.
         content = content?.replace(/^\s*<p>@Localize\[([\w.]+)\]<\/p>\s*$/, "@Localize[$1]") ?? null;
 
-        const enriched = superEnrichHTML.apply(this, [content, options]);
+        const enriched = await super.enrichHTML(content, options);
         if (typeof enriched === "string" && (options.processVisibility ?? true)) {
             return TextEditorPF2e.processUserVisibility(enriched, options);
         }
 
-        return Promise.resolve().then(async () => TextEditorPF2e.processUserVisibility(await enriched, options));
+        return TextEditorPF2e.processUserVisibility(enriched, options);
     }
 
     /** Replace core static method to conditionally handle parsing of inline damage rolls */
     static override async _createInlineRoll(
         match: RegExpMatchArray,
         rollData: Record<string, unknown>,
-        options: EvaluateRollParams = {},
+        options: EnrichmentOptionsPF2e = {},
     ): Promise<HTMLAnchorElement | null> {
-        const anchor = await superCreateInlineRoll.apply(this, [match, rollData, options]);
+        const anchor = await super._createInlineRoll(match, rollData, options);
         const formula = anchor?.dataset.formula;
         const rollModes = ["roll", ...Object.values(CONST.DICE_ROLL_MODES)];
         if (!formula || !rollModes.includes(anchor.dataset.mode ?? "")) {
@@ -116,10 +103,10 @@ class TextEditorPF2e extends TextEditor {
     }
 
     /** Replace core static method to conditionally handle inline damage roll clicks */
-    static override async _onClickInlineRoll(event: MouseEvent): Promise<ChatMessage | void> {
+    static override async _onClickInlineRoll(event: PointerEvent): Promise<ChatMessage | undefined> {
         const anchor = event.currentTarget ?? null;
         if (!(anchor instanceof HTMLAnchorElement && anchor.dataset.formula && "damageRoll" in anchor.dataset)) {
-            return superOnClickInlineRoll.apply(this, [event]);
+            return super._onClickInlineRoll(event);
         }
 
         // Get the speaker and roll data from the clicked sheet or chat message
@@ -129,8 +116,8 @@ class TextEditorPF2e extends TextEditor {
         const message = game.messages.get(messageElem?.dataset.messageId ?? "");
 
         const [actor, rollData] = ((): [ActorPF2e | null, Record<string, unknown>] => {
-            if (message?.actor) {
-                return [message.actor, message.getRollData()];
+            if (message?.speakerActor) {
+                return [message.speakerActor, message.getRollData()];
             }
             if (app instanceof ActorSheetPF2e) {
                 const itemId = anchor.dataset.itemId;
@@ -190,7 +177,7 @@ class TextEditorPF2e extends TextEditor {
                 })();
                 const name =
                     subtitle && item?.isOfType("action", "feat") && item.actionCost
-                        ? await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
+                        ? await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
                               glyph: getActionGlyph(item.actionCost),
                               subtitle,
                               title: item.name,
@@ -205,7 +192,8 @@ class TextEditorPF2e extends TextEditor {
         }
 
         const roll = new DamageRoll(anchor.dataset.formula, rollData, options);
-        return roll.toMessage({ speaker, flavor: roll.options.flavor }, { rollMode });
+        const flavor = roll.options.flavor ? roll.options.flavor : undefined;
+        return roll.toMessage({ speaker, flavor }, { rollMode });
     }
 
     static processUserVisibility(content: string, options: EnrichmentOptionsPF2e): string {
@@ -283,7 +271,7 @@ class TextEditorPF2e extends TextEditor {
             return null;
         }
         const result = document.createElement("span");
-        result.innerHTML = await TextEditor.enrichHTML(content, options);
+        result.innerHTML = await TextEditorPF2e.enrichHTML(content, options);
         return result;
     }
 
@@ -503,13 +491,13 @@ class TextEditorPF2e extends TextEditor {
 
         // traits
         const additionalTraits = splitListString(params["traits"] ?? "").filter(
-            (trait): trait is AbilityTrait => trait in CONFIG.PF2E.actionTraits,
+            (t): t is AbilityTrait => t in CONFIG.PF2E.actionTraits,
         );
         const traits = R.unique([variant?.traits ?? action.traits, additionalTraits].flat());
 
         // traits as tooltip
         element.dataset["tooltip"] = traits
-            .map((trait) => game.i18n.localize(CONFIG.PF2E.actionTraits[trait] || trait))
+            .map((t) => game.i18n.localize(CONFIG.PF2E.actionTraits[t] || t))
             .sort()
             .join(", ");
 

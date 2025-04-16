@@ -7,8 +7,9 @@ import type { ZeroToTwo } from "@module/data.ts";
 import type { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
 import type { RollTwiceOption } from "./check/index.ts";
 import type { CheckDC, DEGREE_OF_SUCCESS_STRINGS } from "./degree-of-success.ts";
+import dice = foundry.dice;
 
-interface RollDataPF2e extends RollOptions {
+interface RollDataPF2e extends dice.RollOptions {
     rollerId?: string;
     totalModifier?: number;
     /** Whether to show roll formula and tooltip to players */
@@ -24,7 +25,7 @@ interface RollParameters {
     /** Optional DC data for the roll */
     dc?: CheckDC | null;
     /** Callback called when the roll occurs. */
-    callback?: (roll: Rolled<Roll>) => void | Promise<void>;
+    callback?: (roll: dice.Rolled<Roll>) => void | Promise<void>;
     /** Additional modifiers */
     modifiers?: ModifierPF2e[];
     /** Whether to create a message from the roll */

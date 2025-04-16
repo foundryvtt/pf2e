@@ -8,7 +8,7 @@ import { Statistic, type RollOptionConfig } from "./statistic.ts";
 
 class PerceptionStatistic<TActor extends ActorPF2e = ActorPF2e> extends Statistic<TActor> {
     /** Special senses possessed by the actor */
-    senses: Collection<Sense>;
+    senses: Collection<string, Sense>;
 
     /** Whether the actor has standard vision */
     hasVision: boolean;

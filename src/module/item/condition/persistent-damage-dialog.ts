@@ -6,8 +6,9 @@ import { DAMAGE_TYPE_ICONS } from "@system/damage/values.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 import * as R from "remeda";
 import type { PersistentDamagePF2e } from "./document.ts";
+import appv1 = foundry.appv1;
 
-class PersistentDamageDialog extends Application<PersistentDamageDialogOptions> {
+class PersistentDamageDialog extends appv1.api.Application<PersistentDamageDialogOptions> {
     constructor(
         private actor: ActorPF2e,
         options: Partial<PersistentDamageDialogOptions> = {},
@@ -16,7 +17,7 @@ class PersistentDamageDialog extends Application<PersistentDamageDialogOptions> 
         actor.apps[this.appId] = this;
     }
 
-    static override get defaultOptions(): ApplicationOptions {
+    static override get defaultOptions(): appv1.api.ApplicationV1Options {
         return {
             ...super.defaultOptions,
             classes: ["persistent-damage-dialog"],
@@ -154,7 +155,7 @@ class PersistentDamageDialog extends Application<PersistentDamageDialogOptions> 
     }
 }
 
-interface PersistentDamageDialogOptions extends ApplicationOptions {
+interface PersistentDamageDialogOptions extends appv1.api.ApplicationV1Options {
     editing?: string;
 }
 
