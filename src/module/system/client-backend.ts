@@ -1,16 +1,20 @@
 import { ActorPF2e } from "@actor";
+import type { CompendiumIndexData } from "@client/documents/collections/compendium-collection.d.mts";
+import type { DocumentConstructionContext } from "@common/_types.d.mts";
+import type { DatabaseGetOperation, Document } from "@common/abstract/_module.d.mts";
 import { ItemPF2e } from "@item";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
-import type { UserPF2e } from "@module/user/document.ts";
 import * as R from "remeda";
-import type { DatabaseGetOperation } from "types/foundry/common/abstract/_types.d.ts";
 
 class ClientDatabaseBackendPF2e extends foundry.data.ClientDatabaseBackend {
-    protected override async _getDocuments(
-        documentClass: typeof foundry.abstract.Document,
-        operation: DatabaseGetOperation<foundry.abstract.Document | null>,
-        user?: UserPF2e,
-    ): Promise<(DeepPartial<ClientDocument["_source"]> & CompendiumIndexData)[] | foundry.abstract.Document[]> {
+    protected override async _getDocuments<TDocument extends Document>(
+        documentClass: AbstractConstructorOf<TDocument> & {
+            documentName: string;
+            fromSource(data: object, options: DocumentConstructionContext<Document | null>): Document;
+        },
+        operation: DatabaseGetOperation<TDocument["parent"]>,
+        user?: User,
+    ): Promise<(DeepPartial<Document["_source"]> & CompendiumIndexData)[] | Document[]> {
         const type = documentClass.documentName;
         if (
             !["Actor", "Item"].includes(type) ||
@@ -24,7 +28,7 @@ class ClientDatabaseBackendPF2e extends foundry.data.ClientDatabaseBackend {
         // Dispatch the request
         const request = { action: "get", type, operation };
         const response = new foundry.abstract.DocumentSocketResponse(
-            await SocketInterface.dispatch("modifyDocument", request),
+            await fh.SocketInterface.dispatch("modifyDocument", request),
         );
 
         // Create Document objects

@@ -1,8 +1,13 @@
 import type { ActorPF2e } from "@actor";
 import type { SkillSlug } from "@actor/types.ts";
+import type {
+    DatabaseCreateOperation,
+    DatabaseDeleteOperation,
+    DatabaseUpdateOperation,
+} from "@common/abstract/_types.d.mts";
+import type { CombatantSource } from "@common/documents/combatant.d.mts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { ErrorPF2e } from "@util";
-import type { CombatantSource } from "types/foundry/common/documents/combatant.d.ts";
 import type { EncounterPF2e } from "./index.ts";
 
 class CombatantPF2e<

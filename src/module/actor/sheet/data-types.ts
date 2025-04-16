@@ -2,6 +2,8 @@ import type { ActorPF2e } from "@actor/base.ts";
 import type { TraitViewData } from "@actor/data/base.ts";
 import type { ActorSizePF2e } from "@actor/data/size.ts";
 import type { InventoryBulk } from "@actor/inventory/index.ts";
+import type { AppV1RenderOptions } from "@client/appv1/api/application-v1.d.mts";
+import type { ActorSheetData } from "@client/appv1/sheets/actor-sheet.d.mts";
 import type { PhysicalItemPF2e } from "@item";
 import type { Frequency } from "@item/base/data/index.ts";
 import type { Coins } from "@item/physical/data.ts";
@@ -80,7 +82,7 @@ interface AbilityViewData {
     };
 }
 
-interface ActorSheetRenderOptionsPF2e extends RenderOptions {
+interface ActorSheetRenderOptionsPF2e extends AppV1RenderOptions {
     /** What tab to switch to when rendering the sheet */
     tab?: string;
 }

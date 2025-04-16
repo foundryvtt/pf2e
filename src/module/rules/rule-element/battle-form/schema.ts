@@ -1,7 +1,7 @@
 import type { CreatureTrait } from "@actor/creature/index.ts";
 import type { SenseAcuity, SenseType } from "@actor/creature/types.ts";
+import type * as fields from "@common/data/fields.d.mts";
 import type { RecordField } from "@system/schema-data-fields.ts";
-import type * as fields from "types/foundry/common/data/fields.d.ts";
 import type { ResolvableValueField, RuleElementSchema } from "../data.ts";
 import type { ImmunityRuleElement, ResistanceRuleElement, WeaknessRuleElement } from "../iwr/index.ts";
 import type { BattleFormSkills, BattleFormSpeeds, BattleFormStrike } from "./types.ts";
@@ -22,8 +22,8 @@ type BattleFormRuleOverrideSchema = {
     traits: fields.ArrayField<fields.StringField<CreatureTrait, CreatureTrait, true, false, false>>;
     armorClass: fields.SchemaField<
         OverrideACSchema,
-        SourceFromSchema<OverrideACSchema>,
-        ModelPropsFromSchema<OverrideACSchema>,
+        fields.SourceFromSchema<OverrideACSchema>,
+        fields.ModelPropsFromSchema<OverrideACSchema>,
         false,
         false,
         true

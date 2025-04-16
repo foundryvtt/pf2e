@@ -8,12 +8,13 @@ import { ZeroToTen } from "@module/data.ts";
 import { ErrorPF2e, htmlClosest, htmlQueryAll } from "@util";
 import MiniSearch from "minisearch";
 import * as R from "remeda";
+import appv1 = foundry.appv1;
 
 /**
  * Sheet used to render the the spell list for prepared casting.
  * It overrides the actor sheet to inherit important drag/drop behavior for actor items (the spells).
  */
-class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TActor, ItemPF2e> {
+class SpellPreparationSheet<TActor extends CreaturePF2e> extends appv1.sheets.ActorSheet<TActor, ItemPF2e> {
     /** Implementation used to handle the toggling and rendering of item summaries */
     itemRenderer = new ItemSummaryRenderer(this);
 
@@ -26,12 +27,12 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
         searchOptions: { combineWith: "AND", prefix: true },
     });
 
-    constructor(item: SpellcastingEntryPF2e<TActor>, options: Partial<ActorSheetOptions>) {
+    constructor(item: SpellcastingEntryPF2e<TActor>, options: Partial<appv1.sheets.ActorSheetOptions>) {
         super(item.actor, options);
         this.item = item;
     }
 
-    static override get defaultOptions(): ActorSheetOptions {
+    static override get defaultOptions(): appv1.sheets.ActorSheetOptions {
         return {
             ...super.defaultOptions,
             classes: ["default", "sheet", "spellcasting-entry", "preparation"],
@@ -58,7 +59,7 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
      * This being an actor sheet saves us from most drag and drop re-implementation,
      * but we still have a gotcha in the form of the header buttons.
      */
-    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
+    protected override _getHeaderButtons(): appv1.api.ApplicationV1HeaderButton[] {
         return super._getHeaderButtons().filter((b) => b.class === "close");
     }
 
@@ -173,14 +174,17 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
     }
 
     /** Override of inner render function to maintain item summary state */
-    protected override async _renderInner(data: Record<string, unknown>, options: RenderOptions): Promise<JQuery> {
+    protected override async _renderInner(
+        data: Record<string, unknown>,
+        options: appv1.api.AppV1RenderOptions,
+    ): Promise<JQuery> {
         return this.itemRenderer.saveAndRestoreState(() => {
             return super._renderInner(data, options);
         });
     }
 }
 
-interface SpellPreparationSheetData<TActor extends CreaturePF2e> extends ActorSheetData<TActor> {
+interface SpellPreparationSheetData<TActor extends CreaturePF2e> extends appv1.sheets.ActorSheetData<TActor> {
     owner: boolean;
     entry: SpellcastingSheetData;
     maxRank: ZeroToTen;

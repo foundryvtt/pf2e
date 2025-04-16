@@ -1,4 +1,5 @@
-import { SaveType } from "@actor/types.ts";
+import type { SaveType } from "@actor/types.ts";
+import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
 import {
     AbstractEffectSystemData,
     AbstractEffectSystemSource,
@@ -7,9 +8,9 @@ import {
     EffectContextData,
     TimeUnit,
 } from "@item/abstract-effect/index.ts";
-import { BaseItemSourcePF2e, ItemFlagsPF2e } from "@item/base/data/system.ts";
-import { ConditionSlug } from "@item/condition/index.ts";
-import { DamageCategoryUnique, DamageType } from "@system/damage/index.ts";
+import type { BaseItemSourcePF2e, ItemFlagsPF2e } from "@item/base/data/system.ts";
+import type { ConditionSlug } from "@item/condition/index.ts";
+import type { DamageCategoryUnique, DamageType } from "@system/damage/index.ts";
 
 type AfflictionSource = BaseItemSourcePF2e<"affliction", AfflictionSystemSource> & {
     flags: DeepPartial<AfflictionFlags>;

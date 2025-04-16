@@ -1,3 +1,5 @@
+import type { ApplicationV1HeaderButton } from "@client/appv1/api/application-v1.d.mts";
+import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery } from "@util";
 import type { CharacterStrike } from "../data.ts";
@@ -107,7 +109,7 @@ class AttackPopout<TActor extends CharacterPF2e> extends CharacterSheetPF2e<TAct
         }
     }
 
-    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
+    protected override _getHeaderButtons(): ApplicationV1HeaderButton[] {
         // Remove all buttons except the close button. `Close` is a core translation key
         return super._getHeaderButtons().filter((b) => b.label === "Close");
     }

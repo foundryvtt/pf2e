@@ -1,4 +1,5 @@
 import type { AttributeString } from "@actor/types.ts";
+import type { ActorUUID, ItemUUID, TokenDocumentUUID } from "@client/documents/abstract/_module.d.mts";
 import type { ItemSystemData, ItemSystemSource, ItemTraitsNoRarity } from "@item/base/data/system.ts";
 import type { MagicTradition } from "@item/spell/index.ts";
 import type { CheckRoll } from "@system/check/index.ts";

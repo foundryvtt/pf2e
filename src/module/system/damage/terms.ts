@@ -1,14 +1,13 @@
+import type { Evaluated } from "@client/dice/terms/term.d.mts";
 import * as R from "remeda";
-import type { DiceTerm, Die, FunctionTerm, PoolTerm, RollTerm } from "types/foundry/client-esm/dice/terms/module.d.ts";
 import { isSystemDamageTerm, isUnsimplifableArithmetic, renderComponentDamage, simplifyTerm } from "./helpers.ts";
 import { DamageInstance } from "./roll.ts";
-
-const terms = foundry.dice.terms;
+import terms = foundry.dice.terms;
 
 class ArithmeticExpression extends terms.RollTerm<ArithmeticExpressionData> {
     operator: ArithmeticOperator;
 
-    operands: [RollTerm, RollTerm];
+    operands: [terms.RollTerm, terms.RollTerm];
 
     constructor(termData: ArithmeticExpressionData) {
         super(termData);
@@ -21,13 +20,16 @@ class ArithmeticExpression extends terms.RollTerm<ArithmeticExpressionData> {
                 Object.values(CONFIG.Dice.terms).find((t) => t.name === datum.class) ??
                 terms.Die;
             return simplifyTerm(TermCls.fromData(datum));
-        }) as [RollTerm, RollTerm];
+        }) as [terms.RollTerm, terms.RollTerm];
     }
 
     static override SERIALIZE_ATTRIBUTES = ["operator", "operands"];
 
-    static override fromData<TTerm extends RollTerm>(this: ConstructorOf<TTerm>, data: TermDataOf<TTerm>): TTerm;
-    static override fromData(data: RollTermData): RollTerm {
+    static override fromData<TTerm extends terms.RollTerm>(
+        this: ConstructorOf<TTerm>,
+        data: terms.TermDataOf<TTerm>,
+    ): TTerm;
+    static override fromData(data: terms.RollTermData): terms.RollTerm {
         return super.fromData({ ...data, class: "ArithmeticExpression" });
     }
 
@@ -58,7 +60,7 @@ class ArithmeticExpression extends terms.RollTerm<ArithmeticExpressionData> {
         }
     }
 
-    get dice(): DiceTerm[] {
+    get dice(): terms.DiceTerm[] {
         return this.operands.flatMap((o) =>
             o instanceof terms.DiceTerm
                 ? o
@@ -189,21 +191,21 @@ class ArithmeticExpression extends terms.RollTerm<ArithmeticExpressionData> {
     }
 }
 
-interface ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
+interface ArithmeticExpression extends terms.RollTerm<ArithmeticExpressionData> {
     constructor: typeof ArithmeticExpression;
 }
 
-interface ArithmeticExpressionData extends RollTermData {
+interface ArithmeticExpressionData extends terms.RollTermData {
     class?: "ArithmeticExpression";
     operator: ArithmeticOperator;
-    operands: [RollTermData, RollTermData];
+    operands: [terms.RollTermData, terms.RollTermData];
 }
 
 type ArithmeticOperator = "+" | "-" | "*" | "/" | "%";
 
 /** A parenthetically-exclosed expression as a single arithmetic term or number */
 class Grouping extends terms.RollTerm<GroupingData> {
-    term: RollTerm;
+    term: terms.RollTerm;
 
     constructor(termData: GroupingData) {
         const TermCls =
@@ -229,16 +231,19 @@ class Grouping extends terms.RollTerm<GroupingData> {
 
     static override SERIALIZE_ATTRIBUTES = ["term"];
 
-    static override fromData<TTerm extends RollTerm>(this: ConstructorOf<TTerm>, data: TermDataOf<TTerm>): TTerm;
-    static override fromData(data: RollTermData): RollTerm {
+    static override fromData<TTerm extends terms.RollTerm>(
+        this: ConstructorOf<TTerm>,
+        data: terms.TermDataOf<TTerm>,
+    ): TTerm;
+    static override fromData(data: terms.RollTermData): terms.RollTerm {
         return super.fromData({ ...data, class: "Grouping" });
     }
 
-    get dice(): DiceTerm[] {
+    get dice(): terms.DiceTerm[] {
         if (this.term instanceof terms.DiceTerm) return [this.term];
 
         const childDice = "dice" in this.term ? this.term.dice : null;
-        return Array.isArray(childDice) && childDice.every((d): d is DiceTerm => d instanceof terms.DiceTerm)
+        return Array.isArray(childDice) && childDice.every((d): d is terms.DiceTerm => d instanceof terms.DiceTerm)
             ? childDice
             : [];
     }
@@ -295,7 +300,7 @@ class Grouping extends terms.RollTerm<GroupingData> {
     }
 
     /** Whether the data of the child term is a critical hit doubling */
-    #dataIsCriticalDoubling(data: RollTermData): data is ArithmeticExpressionData {
+    #dataIsCriticalDoubling(data: terms.RollTermData): data is ArithmeticExpressionData {
         return (
             "operator" in data &&
             data.operator === "*" &&
@@ -345,9 +350,9 @@ class Grouping extends terms.RollTerm<GroupingData> {
     }
 }
 
-interface GroupingData extends RollTermData {
+interface GroupingData extends terms.RollTermData {
     class?: "Grouping";
-    term: RollTermData;
+    term: terms.RollTermData;
 }
 
 /**
@@ -355,18 +360,18 @@ interface GroupingData extends RollTermData {
  * `Die` as soon it is able (guaranteed after evaluation)
  */
 class IntermediateDie extends terms.RollTerm<IntermediateDieData> {
-    number: number | FunctionTerm | Grouping;
+    number: number | terms.FunctionTerm | Grouping;
 
-    faces: number | FunctionTerm | Grouping;
+    faces: number | terms.FunctionTerm | Grouping;
 
-    die: Die | null;
+    die: terms.Die | null;
 
     constructor(data: IntermediateDieData) {
         super(data);
 
         const setTerm = (
-            termData: number | NumericTermData | FunctionTermData | GroupingData,
-        ): number | FunctionTerm | Grouping => {
+            termData: number | terms.NumericTermData | terms.FunctionTermData | GroupingData,
+        ): number | terms.FunctionTerm | Grouping => {
             if (typeof termData === "number") return termData;
 
             const TermCls = CONFIG.Dice.termTypes[termData.class ?? "NumericTerm"];
@@ -387,12 +392,12 @@ class IntermediateDie extends terms.RollTerm<IntermediateDieData> {
                 console.warn(`Unexpected term type: ${term.constructor.name}`);
             }
 
-            return term as FunctionTerm;
+            return term as terms.FunctionTerm;
         };
 
         this.number = setTerm(data.number);
         this.faces = setTerm(data.faces);
-        this.die = ((): Die | null => {
+        this.die = ((): terms.Die | null => {
             if (data.die) return terms.Die.fromData({ ...data.die, class: "Die" });
             if (typeof this.number === "number" && typeof this.faces === "number") {
                 return terms.Die.fromData({
@@ -419,7 +424,7 @@ class IntermediateDie extends terms.RollTerm<IntermediateDieData> {
         return this.isDeterministic ? Number(this.number) * Number(this.faces) : this.die?.total;
     }
 
-    get dice(): Die[] {
+    get dice(): terms.Die[] {
         return this.die ? [this.die] : [];
     }
 
@@ -486,17 +491,17 @@ class IntermediateDie extends terms.RollTerm<IntermediateDieData> {
     }
 }
 
-interface IntermediateDieData extends RollTermData {
+interface IntermediateDieData extends terms.RollTermData {
     class?: string;
-    number: number | NumericTermData | FunctionTermData | GroupingData;
-    faces: number | NumericTermData | FunctionTermData | GroupingData;
+    number: number | terms.NumericTermData | terms.FunctionTermData | GroupingData;
+    faces: number | terms.NumericTermData | terms.FunctionTermData | GroupingData;
     die?: DieData | null;
 }
 
 class InstancePool extends terms.PoolTerm {
     /** Work around upstream bug in which method attempts to construct `Roll`s from display formulas */
-    static override fromRolls<TTerm extends PoolTerm>(this: ConstructorOf<TTerm>, rolls?: Roll[]): TTerm;
-    static override fromRolls(rolls: DamageInstance[] = []): PoolTerm {
+    static override fromRolls<TTerm extends terms.PoolTerm>(this: ConstructorOf<TTerm>, rolls?: Roll[]): TTerm;
+    static override fromRolls(rolls: DamageInstance[] = []): terms.PoolTerm {
         const allEvaluated = rolls.every((r) => r._evaluated);
         const noneEvaluated = !rolls.some((r) => r._evaluated);
         if (!(allEvaluated || noneEvaluated)) return super.fromRolls(rolls);
@@ -513,7 +518,7 @@ class InstancePool extends terms.PoolTerm {
     }
 }
 
-interface InstancePool extends PoolTerm {
+interface InstancePool extends terms.PoolTerm {
     rolls: DamageInstance[];
 }
 

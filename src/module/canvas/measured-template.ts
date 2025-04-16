@@ -8,7 +8,7 @@ import type { TemplateLayerPF2e } from "./layer/template.ts";
 
 class MeasuredTemplatePF2e<
     TDocument extends MeasuredTemplateDocumentPF2e<ScenePF2e | null> = MeasuredTemplateDocumentPF2e<ScenePF2e | null>,
-> extends MeasuredTemplate<TDocument> {
+> extends fc.placeables.MeasuredTemplate<TDocument> {
     get actor(): ActorPF2e | null {
         return this.document.actor;
     }
@@ -167,7 +167,7 @@ class MeasuredTemplatePF2e<
                 };
 
                 if (areaShape === "cone") {
-                    const ray = new Ray(origin, destination);
+                    const ray = new fc.geometry.Ray(origin, destination);
                     const rayAngle = (360 + ((ray.angle / (Math.PI / 180)) % 360)) % 360;
                     if (ray.distance > 0 && !withinAngle(minAngle, maxAngle, rayAngle)) {
                         continue;
@@ -200,7 +200,7 @@ interface PointCollision extends Point {
 
 interface MeasuredTemplatePF2e<
     TDocument extends MeasuredTemplateDocumentPF2e<ScenePF2e | null> = MeasuredTemplateDocumentPF2e<ScenePF2e | null>,
-> extends MeasuredTemplate<TDocument> {
+> extends fc.placeables.MeasuredTemplate<TDocument> {
     get layer(): TemplateLayerPF2e<this>;
 }
 

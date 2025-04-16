@@ -14,7 +14,7 @@ function takeABreather(): void {
         return;
     }
 
-    new Dialog({
+    new foundry.appv1.api.Dialog({
         title: "Take a Breather",
         content: "<div>Rest for 10 minutes, spend a resolve point, and regain stamina?</div>",
         buttons: {

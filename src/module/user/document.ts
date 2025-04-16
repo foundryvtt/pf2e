@@ -1,10 +1,12 @@
 import type { ActorPF2e } from "@actor";
+import type UserTargets from "@client/canvas/placeables/tokens/targets.d.mts";
+import type { DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
 import * as R from "remeda";
-import { UserFlagsPF2e, UserSourcePF2e } from "./data.ts";
+import type { UserFlagsPF2e, UserSourcePF2e } from "./data.ts";
 
-class UserPF2e extends User<ActorPF2e<null>> {
+class UserPF2e extends User {
     override prepareData(): void {
         super.prepareData();
         if (canvas.ready && canvas.tokens.controlled.length > 0) {
@@ -67,7 +69,8 @@ class UserPF2e extends User<ActorPF2e<null>> {
     }
 }
 
-interface UserPF2e extends User<ActorPF2e<null>> {
+interface UserPF2e extends User {
+    character: ActorPF2e<null> | null;
     targets: UserTargets<TokenPF2e<TokenDocumentPF2e<ScenePF2e>>>;
     flags: UserFlagsPF2e;
     readonly _source: UserSourcePF2e;

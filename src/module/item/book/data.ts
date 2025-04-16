@@ -1,3 +1,4 @@
+import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
 import type { EquipmentTrait } from "@item/equipment/data.ts";
 import type {
     BasePhysicalItemSource,

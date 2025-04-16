@@ -1,5 +1,6 @@
 import type { BoostFlawState } from "@actor/character/apps/attribute-builder.ts";
 import type { SocketMessage } from "@scripts/socket.ts";
+import { TextEditorPF2e } from "@system/text-editor.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, objectHasKey, tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { PartyPF2e } from "../document.ts";
@@ -15,6 +16,7 @@ import {
     KingdomCHGData,
     getKingdomCHGData,
 } from "./values.ts";
+import appv1 = foundry.appv1;
 
 const KINGDOM_BUILD_CATEGORIES = ["charter", "heartland", "government"] as const;
 const KINGDOM_BOOST_LEVELS = [1, 5, 10, 15, 20] as const;
@@ -22,14 +24,14 @@ type KingdomBuildCategory = (typeof KINGDOM_BUILD_CATEGORIES)[number];
 type CurrentSelections = Record<KingdomBuildCategory, string | null>;
 
 /** Dialog used to create and edit the charter, heartland, government, and ability scores  */
-class KingdomBuilder extends FormApplication<Kingdom> {
+class KingdomBuilder extends appv1.api.FormApplication<Kingdom> {
     selected: CurrentSelections = {
         charter: null,
         heartland: null,
         government: null,
     };
 
-    static override get defaultOptions(): FormApplicationOptions {
+    static override get defaultOptions(): appv1.api.FormApplicationOptions {
         return {
             ...super.defaultOptions,
             classes: ["sheet", "kingdom-builder"],
@@ -78,7 +80,7 @@ class KingdomBuilder extends FormApplication<Kingdom> {
         return this.actor.isOwner;
     }
 
-    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
+    protected override _getHeaderButtons(): appv1.api.ApplicationV1HeaderButton[] {
         const buttons = super._getHeaderButtons();
         if (game.user.isGM) {
             buttons.unshift({
@@ -146,7 +148,7 @@ class KingdomBuilder extends FormApplication<Kingdom> {
                     selected,
                     active: getActiveForCategory(category),
                     buildEntry,
-                    featLink: featItem ? await TextEditor.enrichHTML(featItem.link) : null,
+                    featLink: featItem ? await TextEditorPF2e.enrichHTML(featItem.link) : null,
                     stale:
                         !buildEntry || !savedEntry ? buildEntry !== savedEntry : !R.isDeepEqual(buildEntry, savedEntry),
                 };
@@ -354,11 +356,11 @@ class KingdomBuilder extends FormApplication<Kingdom> {
     }
 }
 
-interface KingdomBuilder extends FormApplication<Kingdom> {
+interface KingdomBuilder extends appv1.api.FormApplication<Kingdom> {
     render(force?: boolean, options?: KingdomBuilderRenderOptions): this;
 }
 
-interface KingdomBuilderRenderOptions extends RenderOptions {
+interface KingdomBuilderRenderOptions extends appv1.api.AppV1RenderOptions {
     tab?: string | null;
 }
 

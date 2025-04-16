@@ -1,12 +1,13 @@
+import type { DocumentSheetV1Options } from "@client/appv1/api/document-sheet-v1.d.mts";
 import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 import { damageCategoriesUnique } from "@scripts/config/damage.ts";
-import { DamageCategoryUnique } from "@system/damage/types.ts";
+import type { DamageCategoryUnique } from "@system/damage/types.ts";
 import { htmlClosest, htmlQueryAll } from "@util";
 import type { MeleePF2e } from "./index.ts";
 
 export class MeleeSheetPF2e extends ItemSheetPF2e<MeleePF2e> {
-    override async getData(options?: Partial<DocumentSheetOptions>): Promise<MeleeSheetData> {
+    override async getData(options?: Partial<DocumentSheetV1Options>): Promise<MeleeSheetData> {
         const sheetData = await super.getData(options);
 
         // In case of weak/elite adjustments, display source values for attack modifier and damage formulas

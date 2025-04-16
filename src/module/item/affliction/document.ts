@@ -1,4 +1,6 @@
 import { ActorPF2e } from "@actor";
+import type { DocumentConstructionContext } from "@common/_types.d.mts";
+import type { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
 import { ConditionPF2e, ItemPF2e } from "@item";
 import { calculateRemainingDuration } from "@item/abstract-effect/helpers.ts";
 import { AbstractEffectPF2e, EffectBadgeCounter } from "@item/abstract-effect/index.ts";

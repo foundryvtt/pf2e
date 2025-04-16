@@ -1,4 +1,5 @@
 import { DeferredValueParams } from "@actor/modifiers.ts";
+import type Document from "@common/abstract/document.d.mts";
 import { ItemPF2e } from "@item";
 import { ConditionSource, EffectSource } from "@item/base/data/index.ts";
 import { UUIDUtils } from "@util/uuid.ts";
@@ -23,7 +24,7 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
         };
     }
 
-    static override validateJoint(data: SourceFromSchema<EphemeralEffectSchema>): void {
+    static override validateJoint(data: fields.SourceFromSchema<EphemeralEffectSchema>): void {
         super.validateJoint(data);
 
         if (data.selectors.length === 0) {
@@ -50,8 +51,7 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
                 this.failValidation(`"${uuid}" does not look like a UUID`);
                 return null;
             }
-            const effect: ClientDocument | null =
-                game.pf2e.ConditionManager.conditions.get(uuid) ?? (await fromUuid(uuid));
+            const effect: Document | null = game.pf2e.ConditionManager.conditions.get(uuid) ?? (await fromUuid(uuid));
             if (!(effect instanceof ItemPF2e && effect.isOfType("condition", "effect"))) {
                 this.failValidation(`unable to find effect or condition item with uuid "${uuid}"`);
                 return null;
@@ -101,7 +101,7 @@ type EphemeralEffectSchema = RuleElementSchema & {
     adjustName: fields.BooleanField<boolean, boolean, true, false, true>;
     alterations: fields.ArrayField<
         fields.EmbeddedDataField<ItemAlteration>,
-        SourceFromSchema<ItemAlterationSchema>[],
+        fields.SourceFromSchema<ItemAlterationSchema>[],
         ItemAlteration[],
         false,
         false,

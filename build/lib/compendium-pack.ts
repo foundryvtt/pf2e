@@ -1,15 +1,17 @@
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
+import type { CompendiumActorUUID, CompendiumItemUUID, ItemUUID } from "@client/documents/abstract/_module.d.mts";
+import type { CompendiumDocumentType } from "@client/utils/_module.d.mts";
+import type { DocumentStatsData, DocumentStatsSchema, SourceFromSchema } from "@common/data/fields.d.mts";
 import type { ItemSourcePF2e, MeleeSource } from "@item/base/data/index.ts";
 import { FEAT_OR_FEATURE_CATEGORIES } from "@item/feat/values.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { SIZES } from "@module/data.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import type { RuleElementSource } from "@module/rules/index.ts";
-import { isObject, recursiveReplaceString, setHasElement, sluggify, tupleHasValue } from "@util/misc.ts";
+import { recursiveReplaceString, setHasElement, sluggify, tupleHasValue } from "@util/misc.ts";
 import fs from "fs";
 import path from "path";
 import * as R from "remeda";
-import type { DocumentStatsData, DocumentStatsSchema } from "types/foundry/common/data/fields.d.ts";
 import systemJSON from "../../static/system.json";
 import coreIconsJSON from "../core-icons.json";
 import "./foundry-utils.ts";
@@ -33,7 +35,10 @@ interface REMaybeWithUUIDs extends RuleElementSource {
 
 function isActorSource(docSource: PackEntry): docSource is ActorSourcePF2e {
     return (
-        "system" in docSource && isObject(docSource.system) && "items" in docSource && Array.isArray(docSource.items)
+        "system" in docSource &&
+        R.isPlainObject(docSource.system) &&
+        "items" in docSource &&
+        Array.isArray(docSource.items)
     );
 }
 
@@ -41,7 +46,7 @@ function isItemSource(docSource: PackEntry): docSource is ItemSourcePF2e {
     return (
         "system" in docSource &&
         "type" in docSource &&
-        isObject(docSource.system) &&
+        R.isPlainObject(docSource.system) &&
         !("text" in docSource) && // JournalEntryPage
         !isActorSource(docSource)
     );
@@ -344,7 +349,7 @@ class CompendiumPack {
                 source.system.items;
             for (const entry of Object.values(items)) {
                 entry.uuid = CompendiumPack.convertUUID(entry.uuid, convertOptions);
-                if (isObject(entry.items)) {
+                if (R.isPlainObject(entry.items)) {
                     for (const subentry of Object.values(entry.items)) {
                         subentry.uuid = CompendiumPack.convertUUID(subentry.uuid, convertOptions);
                     }
@@ -443,7 +448,7 @@ class CompendiumPack {
     }
 
     #isDocumentSource(maybeDocSource: unknown): maybeDocSource is PackEntry {
-        if (!isObject(maybeDocSource)) return false;
+        if (!R.isPlainObject(maybeDocSource)) return false;
         const checks = Object.entries({
             name: (data: { name?: unknown }) => typeof data.name === "string",
         });
@@ -466,7 +471,7 @@ class CompendiumPack {
     }
 
     #isFolderSource(maybeFolderSource: unknown): maybeFolderSource is DBFolder {
-        return isObject(maybeFolderSource) && "_id" in maybeFolderSource && "folder" in maybeFolderSource;
+        return R.isPlainObject(maybeFolderSource) && "_id" in maybeFolderSource && "folder" in maybeFolderSource;
     }
 
     #isFoldersData(folderData: unknown[]): folderData is DBFolder[] {

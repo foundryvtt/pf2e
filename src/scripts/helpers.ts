@@ -1,4 +1,5 @@
 import { ActorPF2e } from "@actor";
+import type { ClientDocument } from "@client/documents/abstract/client-document.d.mts";
 import { ItemPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { htmlClosest } from "@util";

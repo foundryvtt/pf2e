@@ -3,6 +3,7 @@ import type { ConsumablePF2e } from "@item";
 import { TrickMagicItemDifficultyData, calculateTrickMagicItemCheckDC } from "@item/consumable/spell-consumables.ts";
 import { TRICK_MAGIC_SKILLS, TrickMagicItemEntry, TrickMagicItemSkill } from "@item/spellcasting-entry/trick.ts";
 import { ErrorPF2e, fontAwesomeIcon, localizer } from "@util";
+import appv1 = foundry.appv1;
 
 export class TrickMagicItemPopup {
     /** The wand or scroll being "tricked" */
@@ -37,15 +38,15 @@ export class TrickMagicItemPopup {
             label: game.i18n.localize(CONFIG.PF2E.skills[value].label),
             modifier: this.actor.skills[value].check.mod,
         }));
-        const buttons = skills.reduce((accumulated: Record<string, DialogButton>, skill) => {
-            const button: DialogButton = {
+        const buttons = skills.reduce((accumulated: Record<string, appv1.api.DialogButton>, skill) => {
+            const button: appv1.api.DialogButton = {
                 icon: fontAwesomeIcon("dice-d20").outerHTML,
                 label: `${skill.label} (${skill.modifier < 0 ? "" : "+"}${skill.modifier})`,
                 callback: () => this.#handleTrickItem(skill.value),
             };
             return { ...accumulated, [skill.value]: button };
         }, {});
-        new Dialog(
+        new appv1.api.Dialog(
             {
                 title: this.#localize("Title"),
                 content: `<p>${this.#localize("Label")}</p>`,

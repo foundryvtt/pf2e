@@ -1,3 +1,6 @@
+import type { TokenAnimationOptions, TokenResourceData, TokenShape } from "@client/canvas/placeables/token.d.mts";
+import type { TokenUpdateOperation } from "@client/documents/token.d.mts";
+import type { Point } from "@common/_types.d.mts";
 import { EffectPF2e } from "@item";
 import type { UserPF2e } from "@module/user/document.ts";
 import type { TokenDocumentPF2e } from "@scene";
@@ -7,7 +10,7 @@ import { measureDistanceCuboid, squareAtPoint } from "../index.ts";
 import { AuraRenderers } from "./aura/index.ts";
 import { FlankingHighlightRenderer } from "./flanking-highlight/renderer.ts";
 
-class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
+class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends fc.placeables.Token<TDocument> {
     /** Visual representation and proximity-detection facilities for auras */
     readonly auras: AuraRenderers;
 
@@ -16,7 +19,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     constructor(document: TDocument) {
         super(document);
-
         this.auras = new AuraRenderers(this);
         Object.defineProperty(this, "auras", { configurable: false, writable: false }); // It's ours, Kim!
         this.flankingHighlight = new FlankingHighlightRenderer(this);
@@ -180,11 +182,13 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         const [centerA, centerB] = [flankerA.center, flankerB.center];
         const { bounds } = flankee;
 
+        const Ray = fc.geometry.Ray;
         const left = new Ray({ x: bounds.left, y: bounds.top }, { x: bounds.left, y: bounds.bottom });
         const right = new Ray({ x: bounds.right, y: bounds.top }, { x: bounds.right, y: bounds.bottom });
         const top = new Ray({ x: bounds.left, y: bounds.top }, { x: bounds.right, y: bounds.top });
         const bottom = new Ray({ x: bounds.left, y: bounds.bottom }, { x: bounds.right, y: bounds.bottom });
-        const intersectsSide = (side: Ray): boolean => fu.lineSegmentIntersects(centerA, centerB, side.A, side.B);
+        const intersectsSide = (side: fc.geometry.Ray): boolean =>
+            fu.lineSegmentIntersects(centerA, centerB, side.A, side.B);
 
         return (intersectsSide(left) && intersectsSide(right)) || (intersectsSide(top) && intersectsSide(bottom));
     }
@@ -518,12 +522,12 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         if (!this.mesh) return;
 
         const configuredTint = this.document.texture.tint ?? Color.fromString("#FFFFFF");
-        if (this.mesh.tint !== 0 && this.detectionFilter instanceof OutlineOverlayFilter) {
+        if (this.mesh.tint !== 0 && this.detectionFilter instanceof fc.rendering.filters.OutlineOverlayFilter) {
             this.mesh.tint = 0;
         } else if (
             this.mesh.tint === 0 &&
             configuredTint.toString() !== "#000000" &&
-            !(this.detectionFilter instanceof OutlineOverlayFilter)
+            !(this.detectionFilter instanceof fc.rendering.filters.OutlineOverlayFilter)
         ) {
             this.mesh.tint = Number(configuredTint);
         }
@@ -591,7 +595,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     }
 }
 
-interface TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
+interface TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends fc.placeables.Token<TDocument> {
     get layer(): TokenLayerPF2e<this>;
 }
 

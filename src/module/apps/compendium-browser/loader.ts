@@ -1,4 +1,9 @@
-import { Progress } from "@system/progress.ts";
+import type CompendiumCollection from "@client/documents/collections/compendium-collection.d.mts";
+import type {
+    CompendiumDocument,
+    CompendiumIndex,
+    CompendiumIndexData,
+} from "@client/documents/collections/compendium-collection.d.mts";
 import { localizer, sluggify } from "@util";
 import type { CompendiumBrowserSources } from "./browser.ts";
 
@@ -18,14 +23,18 @@ class PackLoader {
         const localize = localizer("PF2E.ProgressBar");
         const sources = this.#getSources();
 
-        const progress = new Progress({ max: packs.length });
+        const progress = ui.notifications.info("", { progress: true });
+        const increment = 1 / packs.length;
         for (const packId of packs) {
             const pack = game.packs.get(packId);
             if (!pack) {
-                progress.advance();
+                progress.update({ pct: progress.pct + increment });
                 continue;
             }
-            progress.advance({ label: localize("LoadingPack", { pack: pack.metadata.label }) });
+            progress.update({
+                message: localize("LoadingPack", { pack: pack.metadata.label }),
+                pct: progress.pct + increment,
+            });
             if (pack.documentName === documentType) {
                 const index = await pack.getIndex({ fields: indexFields });
                 const firstResult: Partial<CompendiumIndexData> = index.contents.at(0) ?? {};
@@ -39,7 +48,7 @@ class PackLoader {
                 }
             }
         }
-        progress.close({ label: localize("LoadingComplete") });
+        progress.update({ message: localize("LoadingComplete"), pct: 1 });
     }
 
     /** Set art provided by a module if any is available */
@@ -72,7 +81,7 @@ class PackLoader {
             return index;
         }
 
-        const filteredIndex = new Collection<CompendiumIndexData>();
+        const filteredIndex = new Collection<string, CompendiumIndexData>();
         const knownSources = Object.values(this.sourcesSettings.sources).map((value) => value?.name);
 
         for (const data of index) {
@@ -110,7 +119,8 @@ class PackLoader {
 
     async #loadSources(packs: string[]): Promise<void> {
         const localize = localizer("PF2E.ProgressBar");
-        const progress = new Progress({ max: packs.length });
+        const progress = ui.notifications.info("", { progress: true });
+        const increment = 1 / packs.length;
 
         const loadedSources = new Set<string>();
         const indexFields = ["system.publication.title", "system.source.value"];
@@ -119,10 +129,13 @@ class PackLoader {
         for (const packId of packs) {
             const pack = game.packs.get(packId);
             if (!pack || !knownDocumentTypes.includes(pack.documentName)) {
-                progress.advance();
+                progress.update({ pct: progress.pct + increment });
                 continue;
             }
-            progress.advance({ label: localize("LoadingPack", { pack: pack?.metadata.label ?? "" }) });
+            progress.update({
+                message: localize("LoadingPack", { pack: pack?.metadata.label ?? "" }),
+                pct: progress.pct + increment,
+            });
             const index = await pack.getIndex({ fields: indexFields });
 
             for (const element of index) {
@@ -133,7 +146,7 @@ class PackLoader {
             }
         }
 
-        progress.close({ label: localize("LoadingComplete") });
+        progress.update({ message: localize("LoadingComplete"), pct: 1 });
         const loadedSourcesArray = Array.from(loadedSources).sort();
         this.loadedSources = loadedSourcesArray;
     }

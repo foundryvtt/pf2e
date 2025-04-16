@@ -1,6 +1,11 @@
 .chat-message {
     @import "action", "check", "damage", "reroll";
 
+    hr {
+        border-top: 2px groove white;
+        margin: 0.5em 0;
+    }
+
     .message-header.with-image {
         display: grid;
         grid-template:
@@ -119,7 +124,11 @@
             }
 
             .dice-tooltip[data-visibility="gm"] {
-                padding: var(--space-2) var(--space-2) 0;
+                padding: var(--space-2) var(--space-3) 0;
+            }
+            &:not(.expanded) .dice-tooltip {
+                background: transparent;
+                border-color: transparent;
             }
         }
     }

@@ -1,3 +1,5 @@
+import type Localization from "@client/helpers/localization.d.mts";
+import type { TranslationDictionaryValue } from "@client/helpers/localization.d.mts";
 import type { ActionCost } from "@item/base/data/system.ts";
 import * as R from "remeda";
 import type Sortable from "sortablejs";
@@ -280,6 +282,7 @@ function fontAwesomeIcon(
     const glyphClass = glyph.startsWith("fa-") ? glyph : `fa-${glyph}`;
     const icon = document.createElement("i");
     icon.classList.add(styleClass, glyphClass);
+    icon.inert = true;
     if (fixedWidth) icon.classList.add("fa-fw");
 
     return icon;
@@ -364,16 +367,19 @@ function configFromLocalization<T extends Record<string, TranslationDictionaryVa
 
 /** Does the parameter look like an image file path? */
 function isImageFilePath(path: unknown): path is ImageFilePath {
-    return typeof path === "string" && ImageHelper.hasImageExtension(path);
+    return typeof path === "string" && fh.media.ImageHelper.hasImageExtension(path);
 }
 
 /** Does the parameter look like a video file path? */
 function isVideoFilePath(path: unknown): path is VideoFilePath {
-    return typeof path === "string" && VideoHelper.hasVideoExtension(path);
+    return typeof path === "string" && fh.media.VideoHelper.hasVideoExtension(path);
 }
 
 function isImageOrVideoPath(path: unknown): path is ImageFilePath | VideoFilePath {
-    return typeof path === "string" && (ImageHelper.hasImageExtension(path) || VideoHelper.hasVideoExtension(path));
+    return (
+        typeof path === "string" &&
+        (fh.media.ImageHelper.hasImageExtension(path) || fh.media.VideoHelper.hasVideoExtension(path))
+    );
 }
 
 const SORTABLE_BASE_OPTIONS: Sortable.Options = {

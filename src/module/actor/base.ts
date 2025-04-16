@@ -4,10 +4,18 @@ import {
     ActorInstances,
     ApplyDamageParams,
     AuraData,
-    EmbeddedItemInstances,
     SaveType,
     UnaffectedType,
 } from "@actor/types.ts";
+import type { DialogV2Configuration } from "@client/applications/api/dialog.d.mts";
+import type { ActorUUID } from "@client/documents/abstract/_module.d.mts";
+import type { DocumentConstructionContext } from "@common/_types.d.mts";
+import type {
+    DatabaseCreateOperation,
+    DatabaseDeleteOperation,
+    DatabaseUpdateOperation,
+    Document,
+} from "@common/abstract/_module.d.mts";
 import type { AbstractEffectPF2e, ArmorPF2e, ConditionPF2e, ContainerPF2e, PhysicalItemPF2e, ShieldPF2e } from "@item";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
@@ -78,7 +86,7 @@ import { ItemTransfer } from "./item-transfer.ts";
 import { applyStackingRules } from "./modifiers.ts";
 import type { ActorSheetPF2e } from "./sheet/base.ts";
 import type { ActorSpellcasting } from "./spellcasting.ts";
-import type { ActorRechargeData, ActorType } from "./types.ts";
+import type { ActorRechargeData, ActorType, EmbeddedItemInstances } from "./types.ts";
 import {
     ACTOR_TYPES,
     CREATURE_ACTOR_TYPES,
@@ -92,9 +100,6 @@ import {
  * @category Actor
  */
 class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends Actor<TParent> {
-    /** Has this document completed `DataModel` initialization? */
-    declare initialized: boolean;
-
     /** A UUIDv5 hash digest of the foundry UUID */
     declare signature: string;
 
@@ -128,36 +133,21 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** Skill checks for the actor if supported by the actor type */
     declare skills?: Record<string, Statistic<this>>;
 
-    /** A cached copy of `Actor#itemTypes`, lazily regenerated every data preparation cycle */
-    declare private _itemTypes: EmbeddedItemInstances<this> | null;
-
     constructor(data: PreCreate<ActorSourcePF2e>, context: DocumentConstructionContext<TParent> = {}) {
         super(data, context);
 
-        Object.defineProperties(this, {
-            // Prevent object-recursing code from getting into `_itemTypes`,
-            _itemTypes: {
-                configurable: false,
-                enumerable: false,
-            },
-            // Add debounced checkAreaEffects method
-            checkAreaEffects: {
-                value: fu.debounce(checkAreaEffects, 50),
-            },
+        // Add debounced checkAreaEffects method
+        Object.defineProperty(this, "checkAreaEffects", {
+            value: fu.debounce(checkAreaEffects, 50),
         });
     }
 
-    static override getDefaultArtwork(actorData: foundry.documents.ActorSource): {
+    static override getDefaultArtwork(actorData: ActorSourcePF2e): {
         img: ImageFilePath;
         texture: { src: ImageFilePath | VideoFilePath };
     } {
         const img: ImageFilePath = `systems/pf2e/icons/default-icons/${actorData.type}.svg`;
         return { img, texture: { src: img } };
-    }
-
-    /** Cache the return data before passing it to the caller */
-    override get itemTypes(): EmbeddedItemInstances<this> {
-        return (this._itemTypes ??= super.itemTypes as EmbeddedItemInstances<this>);
     }
 
     get allowedItemTypes(): (ItemType | "physical")[] {
@@ -603,37 +593,38 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Don't allow the user to create in-development actor types. */
-    static override createDialog<TDocument extends foundry.abstract.Document>(
+    static override createDialog<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
         data?: Record<string, unknown>,
-        context?: {
-            parent?: TDocument["parent"];
-            pack?: Collection<TDocument> | null;
-            types?: ActorType[];
-        } & Partial<FormApplicationOptions>,
+        createOptions?: Partial<DatabaseCreateOperation<Document | null>>,
+        options?: {
+            folders?: { id: string; name: string }[];
+            types?: string[];
+            template?: string;
+            context?: object;
+        } & Partial<DialogV2Configuration>,
     ): Promise<TDocument | null>;
     static override createDialog(
         data?: Record<string, unknown>,
-        context: {
-            parent?: TokenDocument | null;
-            pack?: Collection<Actor> | null;
+        createOptions?: Partial<DatabaseCreateOperation<TokenDocumentPF2e | null>>,
+        options: {
+            folders?: { id: string; name: string }[];
             types?: string[];
-        } & Partial<FormApplicationOptions> = {},
+            template?: string;
+            context?: object;
+        } & Partial<DialogV2Configuration> = {},
     ): Promise<Actor | null> {
-        context.types &&= R.unique(context.types);
-        context.types ??= [...ACTOR_TYPES];
+        options.types &&= R.unique(options.types);
+        options.types ??= [...ACTOR_TYPES];
 
         // Determine omitted types. Army is hidden in most games, and party is hidden in folders
         const omittedTypes = game.settings.get("pf2e", "campaignType") !== "kingmaker" ? ["army"] : [];
-        if (data?.folder) {
-            omittedTypes.push("party");
-        }
-
+        if (data?.folder) omittedTypes.push("party");
         for (const type of omittedTypes) {
-            context.types.findSplice((t) => t === type);
+            options.types.findSplice((t) => t === type);
         }
 
-        return super.createDialog(data, context);
+        return super.createDialog(data, createOptions, options);
     }
 
     /**
@@ -710,7 +701,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return super.createDocuments(sources, operation);
     }
 
-    static override updateDocuments<TDocument extends foundry.abstract.Document>(
+    static override updateDocuments<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
         updates?: Record<string, unknown>[],
         operation?: Partial<DatabaseUpdateOperation<TDocument["parent"]>>,
@@ -751,9 +742,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     protected override _initialize(options?: Record<string, unknown>): void {
-        this.initialized = false;
-
-        this._itemTypes = null;
         this.armorClass = null;
         this.auras = new Map();
         this.conditions = new ActorConditions();
@@ -792,18 +780,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         super._initialize(options);
     }
 
-    /**
-     * Never prepare data except as part of `DataModel` initialization. If embedded, don't prepare data if the parent is
-     * not yet initialized. See https://github.com/foundryvtt/foundryvtt/issues/7987
-     * @todo remove in V13
-     */
     override prepareData(): void {
-        if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
-            return;
-        }
         // Set after data model is initialized so that `this.id` will be defined (and `this.uuid` will be complete)
         this.signature ??= UUIDv5(this.uuid ?? "", "e9fa1461-0edc-4791-826e-08633f1c6ef7"); // magic number as namespace
-        this.initialized = true;
         super.prepareData();
 
         // Split spellcasting entry into those that extend a magic tradition and those that don't.
@@ -832,7 +811,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
 
         this.preparePrototypeToken();
-        if (this.initialized && canvas.ready) {
+        if (canvas.ready) {
             // Work around `t.actor` potentially being a lazy getter for a synthetic actor (viz. this one)
             const thisTokenIsControlled = canvas.tokens.controlled.some(
                 (t) => t.document === this.parent || (t.document.actorLink && t.actor === this),
@@ -1376,7 +1355,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         ) as ConditionPF2e<this>[];
 
         const canUndoDamage = !!(damageResult.totalApplied || shieldDamage || persistentCreated.length);
-        const content = await renderTemplate("systems/pf2e/templates/chat/damage/damage-taken.hbs", {
+        const content = await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/damage/damage-taken.hbs", {
             breakdown,
             statements,
             persistent: persistentCreated.map((p) => p.system.persistent?.damage.formula).filter(R.isTruthy),
@@ -1388,7 +1367,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         });
         const flavor = await (async (): Promise<string | undefined> => {
             if (breakdown.length || notes.length) {
-                return renderTemplate("systems/pf2e/templates/chat/damage/damage-taken-flavor.hbs", {
+                return fa.handlebars.renderTemplate("systems/pf2e/templates/chat/damage/damage-taken-flavor.hbs", {
                     breakdown,
                     notes: RollNotePF2e.notesToHTML(notes)?.outerHTML,
                 });
@@ -1834,7 +1813,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     protected override async _preUpdate(
-        changed: DeepPartial<ActorSourcePF2e>,
+        changed: DeepPartial<this["_source"]>,
         operation: ActorUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
@@ -1844,7 +1823,13 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         // Always announce HP changes for player-owned actors as floaty text (via `damageTaken` option)
         const currentHP = this._source.system.attributes?.hp?.value;
         const updatedHP = changed.system?.attributes?.hp?.value ?? currentHP;
-        if (!operation.damageTaken && this.hasPlayerOwner && currentHP && updatedHP && updatedHP !== currentHP) {
+        if (
+            !operation.damageTaken &&
+            this.hasPlayerOwner &&
+            currentHP &&
+            typeof updatedHP === "number" &&
+            updatedHP !== currentHP
+        ) {
             const damageTaken = -1 * (updatedHP - currentHP);
             const currentLevel = this._source.system.details.level?.value;
             const updatedLevel = changed.system?.details?.level?.value ?? currentLevel;
@@ -1911,6 +1896,8 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     prototypeToken: PrototypeTokenPF2e<this>;
 
     get sheet(): ActorSheetPF2e<ActorPF2e>;
+
+    get itemTypes(): EmbeddedItemInstances<this>;
 
     update(
         data: Record<string, unknown>,

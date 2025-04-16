@@ -2,14 +2,14 @@ import { htmlClosest, htmlQueryAll } from "@util";
 
 export const RenderCombatTrackerConfig = {
     listen: (): void => {
-        Hooks.on("renderCombatTrackerConfig", async (app, $html) => {
-            // Add "death icon" and "actors dead at zero" settings
-            const html = $html[0];
+        Hooks.on("renderCombatTrackerConfig", async (app, html) => {
+            // Add "death icon" and "actors dead at zero"
             const appWindow = htmlClosest(html, "#combat-config");
             if (appWindow) appWindow.style.height = "";
 
             const template = await (async () => {
-                const markup = await renderTemplate("systems/pf2e/templates/sidebar/encounter-tracker/config.hbs", {
+                const path = "systems/pf2e/templates/sidebar/encounter-tracker/config.hbs";
+                const markup = await fa.handlebars.renderTemplate(path, {
                     values: {
                         deathIcon: game.settings.get("pf2e", "deathIcon"),
                         actorsDeadAtZero: game.settings.get("pf2e", "automation.actorsDeadAtZero"),
@@ -29,7 +29,7 @@ export const RenderCombatTrackerConfig = {
             lastFormGroup?.after(...(template?.content.children ?? []));
 
             // Reactivate listeners to make the file picker work
-            app.activateListeners($html);
+            app.activateListeners(html);
         });
     },
 };

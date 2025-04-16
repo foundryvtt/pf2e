@@ -1,5 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import type { EffectPF2e } from "@item";
+import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { getSelectedActors } from "@util/token-actor-utils.ts";
 import { BaseAction, BaseActionData, BaseActionVariant, BaseActionVariantData } from "./base.ts";
 import { ActionCost, ActionUseOptions } from "./types.ts";
@@ -65,19 +66,16 @@ class SimpleActionVariant extends BaseActionVariant {
         const name = this.name
             ? `${game.i18n.localize(this.#action.name)} - ${game.i18n.localize(this.name)}`
             : game.i18n.localize(this.#action.name);
-        const flavor = await renderTemplate("systems/pf2e/templates/actors/actions/simple/chat-message-flavor.hbs", {
-            effect,
-            glyph: this.glyph,
-            name,
-            traits,
-        });
+        const templatePath = "systems/pf2e/templates/actors/actions/simple/chat-message-flavor.hbs";
+        const flavor = await fa.handlebars.renderTemplate(templatePath, { effect, glyph: this.glyph, name, traits });
         const results: SimpleActionResult[] = [];
         for (const actor of actors) {
             const data = {
                 flavor,
                 speaker: ChatMessage.getSpeaker({ actor }),
             };
-            const message = (options.message?.create ?? true) ? await ChatMessage.create(data) : new ChatMessage(data);
+            const message =
+                (options.message?.create ?? true) ? await ChatMessagePF2e.create(data) : new ChatMessagePF2e(data);
             const item =
                 effect && actor.isOwner
                     ? ((await actor.createEmbeddedDocuments("Item", [effect.toObject()]))[0] as EffectPF2e)

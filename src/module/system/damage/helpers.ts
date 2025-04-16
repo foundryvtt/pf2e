@@ -5,7 +5,6 @@ import { WeaponDamage } from "@item/weapon/data.ts";
 import { extractDamageAlterations, extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { ErrorPF2e, fontAwesomeIcon, signedInteger, tupleHasValue } from "@util";
 import * as R from "remeda";
-import type { Die, NumericTerm, RollTerm } from "types/foundry/client-esm/dice/terms/module.d.ts";
 import { combinePartialTerms } from "./formula.ts";
 import { DamageInstance, DamageRoll } from "./roll.ts";
 import { ArithmeticExpression, Grouping, IntermediateDie } from "./terms.ts";
@@ -25,6 +24,7 @@ import {
     DAMAGE_DIE_SIZES,
 } from "./values.ts";
 import { ConvertedNPCDamage } from "./weapon.ts";
+import terms = foundry.dice.terms;
 
 function nextDamageDieSize(next: { upgrade: DamageDieSize }): DamageDieSize;
 function nextDamageDieSize(next: { downgrade: DamageDieSize }): DamageDieSize;
@@ -191,7 +191,7 @@ function extractBaseDamage(roll: DamageRoll): BaseDamageData[] {
 
     /** Internal function to recursively extract terms from a parsed DamageInstance's head term */
     function recursiveExtractTerms(
-        expression: RollTerm,
+        expression: terms.RollTerm,
         { category = null }: { category?: DamageCategoryUnique | null } = {},
     ): DamagePartialWithCategory[] {
         // If this expression introduces a category, override it when recursing
@@ -264,7 +264,7 @@ function extractBaseDamage(roll: DamageRoll): BaseDamageData[] {
 }
 
 /** Create a span element for displaying splash damage */
-function renderComponentDamage(term: RollTerm): HTMLElement {
+function renderComponentDamage(term: terms.RollTerm): HTMLElement {
     if (!["precision", "splash"].includes(term.flavor)) {
         throw ErrorPF2e("Unexpected error rendering damage roll");
     }
@@ -284,11 +284,11 @@ function renderComponentDamage(term: RollTerm): HTMLElement {
     return span;
 }
 
-function isSystemDamageTerm(term: RollTerm): term is ArithmeticExpression | Grouping {
+function isSystemDamageTerm(term: terms.RollTerm): term is ArithmeticExpression | Grouping {
     return term instanceof ArithmeticExpression || term instanceof Grouping;
 }
 
-function deepFindTerms(term: RollTerm, { flavor }: { flavor: string }): RollTerm[] {
+function deepFindTerms(term: terms.RollTerm, { flavor }: { flavor: string }): terms.RollTerm[] {
     const childTerms =
         term instanceof Grouping ? [term.term] : term instanceof ArithmeticExpression ? term.operands : [];
     return [
@@ -308,13 +308,13 @@ function damageDieSizeToFaces(size: string): DamageDiceFaces | null {
  * Create or retrieve a simplified term from a more-complex one, given that it can be done without information loss.
  * @returns A simplified term, if possible, or otherwise the original
  */
-function simplifyTerm<T extends RollTerm>(term: T): T | Die | NumericTerm {
+function simplifyTerm<T extends terms.RollTerm>(term: T): T | terms.Die | terms.NumericTerm {
     // `IntermediateDie`s typically resolve themselves to `Die`s immediately upon construction
     if (term instanceof IntermediateDie) {
         return term.die ?? term;
     }
 
-    const shouldPreserve = (t: RollTerm) =>
+    const shouldPreserve = (t: terms.RollTerm) =>
         !t.isDeterministic || t instanceof foundry.dice.terms.NumericTerm || isUnsimplifableArithmetic(t);
     if (shouldPreserve(term) || (term instanceof Grouping && shouldPreserve(term.term))) {
         return term;
@@ -340,7 +340,7 @@ function simplifyTerm<T extends RollTerm>(term: T): T | Die | NumericTerm {
 }
 
 /** Is the passed term an arithmetic expression that shouldn't be simplified? */
-function isUnsimplifableArithmetic(term: RollTerm): boolean {
+function isUnsimplifableArithmetic(term: terms.RollTerm): boolean {
     return (
         term instanceof ArithmeticExpression && (term.operator === "*" || term.operands.some((o) => o.options.flavor))
     );

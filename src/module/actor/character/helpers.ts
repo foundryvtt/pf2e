@@ -46,7 +46,7 @@ class PCAttackTraitHelpers extends AttackTraitHelpers {
     }
 
     static override createAttackModifiers({ item, domains }: CreateAttackModifiersParams): ModifierPF2e[] {
-        const { actor } = item;
+        const actor = item.actor;
         if (!actor) throw ErrorPF2e("The weapon must be embedded");
 
         const traitsAndTags = [item.system.traits.value, item.system.traits.otherTags].flat().filter(R.isTruthy);
@@ -272,9 +272,9 @@ class WeaponAuxiliaryAction {
                     `PF2E.Actions.${actionKey}.${fullAnnotationKey}.Description`,
                 ];
 
-        const flavor = await renderTemplate(templates.flavor, { action: flavorAction, traits });
+        const flavor = await fa.handlebars.renderTemplate(templates.flavor, { action: flavorAction, traits });
 
-        const content = await renderTemplate(templates.content, {
+        const content = await fa.handlebars.renderTemplate(templates.content, {
             imgPath: weapon.img,
             message: game.i18n.format(message, {
                 actor: actor.name,
