@@ -98,12 +98,10 @@ export class TemplateLayerPF2e<
                     const origin = preview.position;
                     const ray = new Ray(origin, destination);
                     if (ray.distance < canvas.grid.size / 4) return;
-                    if (preview.document.t === "cone" && !event.ctrlKey) {
-                        const snapAngle = Math.PI / 4;
+                    if (preview.document.t === "cone" && !(event.ctrlKey || event.metaKey)) {
+                        const snapAngle = Math.PI / (canvas.grid.isHexagonal ? 6 : 4);
                         preview.document.updateSource({
-                            direction: Math.toDegrees(
-                                Math.floor((ray.angle + Math.PI * 0.125) / snapAngle) * snapAngle,
-                            ),
+                            direction: Math.toDegrees(Math.floor(ray.angle / snapAngle + 0.5) * snapAngle),
                         });
                     } else {
                         preview.document.updateSource({ direction: Math.toDegrees(ray.angle) });
