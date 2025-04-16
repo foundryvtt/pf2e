@@ -1,3 +1,4 @@
+import type { CollectionGetOptions } from "@common/utils/collection.d.mts";
 import type { ConditionPF2e } from "@item";
 import type { ConditionSlug, PersistentDamagePF2e } from "@item/condition/index.ts";
 import { DelegatedCollection } from "@util";

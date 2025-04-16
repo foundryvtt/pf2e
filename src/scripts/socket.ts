@@ -1,5 +1,6 @@
 import { PartyPF2e } from "@actor";
 import { ItemTransfer, ItemTransferData } from "@actor/item-transfer.ts";
+import type { AppV1RenderOptions } from "@client/appv1/api/application-v1.d.mts";
 import { ErrorPF2e } from "@util";
 
 function activateSocketListener(): void {
@@ -32,7 +33,7 @@ function activateSocketListener(): void {
                     return document.campaign?.renderSheet?.({ tab, type });
                 }
 
-                document.sheet.render(true, { tab } as RenderOptions);
+                document.sheet.render(true, { tab } as AppV1RenderOptions);
 
                 break;
             }

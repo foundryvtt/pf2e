@@ -1,10 +1,12 @@
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import type { CompendiumDocumentType } from "@client/utils/_module.d.mts";
+import type { SourceFromSchema } from "@common/data/fields.d.mts";
+import type { TableResultSource } from "@common/documents/_module.d.mts";
+import type { JournalEntryPageSchema } from "@common/documents/journal-entry-page.d.mts";
+import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { tupleHasValue } from "@util";
 import type { AbstractSublevel } from "abstract-level";
 import { ClassicLevel, type DatabaseOptions } from "classic-level";
 import * as R from "remeda";
-import type { JournalEntryPageSchema } from "types/foundry/common/documents/journal-entry-page.d.ts";
-import type { TableResultSource } from "types/foundry/common/documents/module.d.ts";
 import systemJSON from "../../static/system.json" assert { type: "json" };
 import { PackError } from "./helpers.ts";
 import { PackEntry } from "./types.ts";

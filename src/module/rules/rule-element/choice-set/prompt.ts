@@ -1,4 +1,5 @@
 import type { ActorPF2e } from "@actor";
+import type { ApplicationV1Options } from "@client/appv1/api/application-v1.d.mts";
 import { ItemPF2e } from "@item";
 import {
     PickableThing,
@@ -6,7 +7,7 @@ import {
     PickAThingPrompt,
     PromptTemplateData,
 } from "@module/apps/pick-a-thing-prompt.ts";
-import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import type { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import type { Predicate } from "@system/predication.ts";
 import { createHTMLElement, ErrorPF2e, htmlQuery, htmlQueryAll, sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
@@ -30,7 +31,7 @@ class ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, string | num
         this.allowedDrops = this.containsItems ? data.allowedDrops : null;
     }
 
-    static override get defaultOptions(): ApplicationOptions {
+    static override get defaultOptions(): ApplicationV1Options {
         return {
             ...super.defaultOptions,
             classes: ["choice-set-prompt"],

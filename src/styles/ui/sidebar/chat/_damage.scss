@@ -25,7 +25,7 @@
                     padding: 0 2ch;
 
                     .increased-from {
-                        color: var(--color-text-dark-2);
+                        color: var(--color-dark-2);
                         font-size: var(--font-size-16);
                         font-weight: normal;
                         vertical-align: 15%;
@@ -70,7 +70,7 @@
                     .dice {
                         .part-formula,
                         .part-total {
-                            color: var(--color-text-dark-secondary);
+                            color: var(--color-text-secondary);
                         }
                     }
 
@@ -109,30 +109,31 @@
 
     .damage-application {
         display: flex;
+        gap: 0.25rem;
         justify-content: center;
         margin-top: 3px;
         order: 3;
 
         button {
+            --button-size: 2em;
+            --button-text-color: var(--color-text-primary);
             align-items: center;
             display: flex;
             flex-direction: column;
+            flex-grow: 1;
             font-size: var(--font-size-18);
-            height: 2em;
+            gap: var(--space-2);
             justify-content: space-around;
-            line-height: unset;
-            padding: 0;
-
+            padding: 1px 0 0;
             &.half-damage {
                 position: relative;
-
-                i.fa-heart-broken {
+                > i {
                     -moz-background-clip: text;
                     -moz-text-fill-color: transparent;
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
                     background-clip: text;
-                    background-image: linear-gradient(to right, var(--text-dark) 50%, var(--color-text-light-6) 50%);
+                    background-image: linear-gradient(to right, var(--color-text-primary) 50%, #999 50%);
                 }
             }
 

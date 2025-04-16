@@ -1,3 +1,4 @@
+import type { ModelPropsFromSchema } from "@common/data/fields.d.mts";
 import type { AbilityItemPF2e, FeatPF2e } from "@item";
 import type { FeatSystemData } from "@item/feat/data.ts";
 import { DamageAlteration } from "@module/rules/rule-element/damage-alteration/alteration.ts";

@@ -1,92 +1,79 @@
 import { resetActors } from "@actor/helpers.ts";
+import type { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
 import { WorldClock } from "@module/apps/world-clock/app.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
-import { SettingsMenuOptions } from "@system/settings/menu.ts";
-import { ErrorPF2e, createHTMLElement, htmlQuery, htmlQueryAll } from "@util";
+import type { SettingsMenuOptions } from "@system/settings/menu.ts";
+import { ErrorPF2e, htmlQuery, htmlQueryAll } from "@util";
 import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
 import type { ScenePF2e } from "./document.ts";
 
-export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TDocument> {
-    get scene(): TDocument {
-        return this.document;
+export class SceneConfigPF2e<TDocument extends ScenePF2e> extends fa.sheets.SceneConfig<TDocument> {
+    static override DEFAULT_OPTIONS: DeepPartial<fa.api.DocumentSheetConfiguration> = {
+        sheetConfig: false,
+        actions: { openRbvSetting: SceneConfigPF2e.#openRbvSetting },
+    };
+
+    static override TABS = (() => {
+        const tabsConfig = super.TABS;
+        tabsConfig["sheet"].tabs.push({ id: "pf2e", icon: "action-glyph", label: "PF2E.Pathfinder" });
+        return tabsConfig;
+    })();
+
+    protected override _configureRenderParts(
+        options: fa.api.HandlebarsRenderOptions,
+    ): Record<string, fa.api.HandlebarsTemplatePart> {
+        const parts = super._configureRenderParts(options);
+        const footer = parts.footer;
+        delete parts.footer;
+        parts.pf2e = { template: "systems/pf2e/templates/scene/pf2e-panel.hbs" };
+        parts.footer = footer;
+        return parts;
     }
 
-    protected override async _renderInner(
-        data: FormApplicationData<TDocument>,
-        options: RenderOptions,
-    ): Promise<JQuery> {
-        const $html = await super._renderInner(data, options);
-        const html = $html[0];
-
-        // Rules-based vision
-        const [tab, panel] = await (async (): Promise<HTMLTemplateElement[]> => {
-            const hbsPath = "systems/pf2e/templates/scene/sheet-partials.hbs";
+    /** Prepare context data for the pf2e tab */
+    protected override async _preparePartContext(
+        partId: string,
+        context: Record<string, unknown>,
+        options: fa.api.HandlebarsRenderOptions,
+    ): Promise<Record<string, unknown>> {
+        const partContext = await super._preparePartContext(partId, context, options);
+        if (partId === "pf2e") {
             const worldDefault = game.i18n.localize(
                 game.pf2e.settings.rbv
                     ? "PF2E.SETTINGS.EnabledDisabled.Enabled"
                     : "PF2E.SETTINGS.EnabledDisabled.Disabled",
             );
-            const rbvOptions: FormSelectOption[] = [
+            partContext.rbvOptions = [
                 {
                     value: "",
                     label: game.i18n.format("PF2E.SETTINGS.EnabledDisabled.Default", { worldDefault }),
                 },
                 { value: "true", label: game.i18n.localize("PF2E.SETTINGS.EnabledDisabled.Enabled") },
                 { value: "false", label: game.i18n.localize("PF2E.SETTINGS.EnabledDisabled.Disabled") },
-            ];
-            const templates = await renderTemplate(hbsPath, {
-                scene: this.scene,
-                rbvOptions,
-                environmentTypes: this.document.flags.pf2e.environmentTypes ?? [],
-            });
-
-            return htmlQueryAll(createHTMLElement("div", { innerHTML: templates }), "template");
-        })();
-
-        const tabs = htmlQuery(html, "nav.tabs");
-        const ambientTabContent = htmlQuery(html, ".tab[data-tab=ambience]");
-        if (!tabs || !ambientTabContent) {
-            throw ErrorPF2e("Unexpected error in scene configuration");
+            ] satisfies FormSelectOption[];
+            partContext.environmentTypes = this.document.flags.pf2e.environmentTypes ?? [];
         }
-
-        // Add new tab and content, throwing a type error if it fails
-        tabs.append(...tab.content.children);
-        ambientTabContent.after(...panel.content.children);
-
-        return $(html);
+        return partContext;
     }
 
-    /* -------------------------------------------- */
-    /*  Event Listeners and Handlers                */
-    /* -------------------------------------------- */
-
-    override activateListeners($html: JQuery): void {
-        super.activateListeners($html);
-        const html = $html[0];
-
-        // Open world automation settings
-        htmlQuery(html, "button[data-action=world-rbv-setting]")?.addEventListener("click", () => {
-            const menu = game.settings.menus.get("pf2e.automation");
-            if (menu) {
-                const options: Partial<SettingsMenuOptions> = { highlightSetting: "rulesBasedVision" };
-                const app = new menu.type(undefined, options);
-                app.render(true);
-            }
-        });
-
-        tagify(htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="flags.pf2e.environmentTypes"]'), {
+    protected override async _onRender(
+        context: Record<string, unknown>,
+        options: fa.api.HandlebarsRenderOptions,
+    ): Promise<void> {
+        await super._onRender(context, options);
+        this.#activateRBVListeners();
+        tagify(htmlQuery<HTMLTagifyTagsElement>(this.element, 'tagify-tags[name="flags.pf2e.environmentTypes"]'), {
             whitelist: CONFIG.PF2E.environmentTypes,
             enforceWhitelist: true,
         });
-
-        this.#activateRBVListeners(html);
     }
 
     /** Hide Global Illumination settings when rules-based vision is enabled. */
-    #activateRBVListeners(html: HTMLElement): void {
+    #activateRBVListeners(): void {
         if (!this.document.rulesBasedVision) return;
 
+        const html = this.element;
         const globalLight = html.querySelector<HTMLInputElement>('input[name="environment.globalLight.enabled"]');
         const globalLightThreshold = htmlQueryAll<HTMLInputElement>(
             html,
@@ -136,28 +123,44 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
     }
 
     /** Intercept flag update and change to boolean/null. */
-    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        const rbvSetting = formData["flags.pf2e.rulesBasedVision"];
-        formData["flags.pf2e.rulesBasedVision"] = rbvSetting === "true" ? true : rbvSetting === "false" ? false : null;
+    protected override async _processSubmitData(
+        event: SubmitEvent,
+        form: HTMLFormElement,
+        submitData: Record<string, unknown>,
+        options?: Partial<DatabaseCreateOperation<null>> | Partial<DatabaseUpdateOperation<null>>,
+    ): Promise<void> {
+        const rbvSetting = submitData["flags.pf2e.rulesBasedVision"];
+        submitData["flags.pf2e.rulesBasedVision"] =
+            rbvSetting === "true" ? true : rbvSetting === "false" ? false : null;
 
-        const hearingRange = formData["flags.pf2e.hearingRange"];
-        formData["flags.pf2e.hearingRange"] =
+        const hearingRange = submitData["flags.pf2e.hearingRange"];
+        submitData["flags.pf2e.hearingRange"] =
             typeof hearingRange === "number" ? Math.ceil(Math.clamp(hearingRange || 5, 5, 3000) / 5) * 5 : null;
 
         const terrainChanged = !R.isDeepEqual(
-            formData["flags.pf2e.environmentTypes"],
-            this.scene._source.flags?.pf2e?.environmentTypes ?? [],
+            submitData["flags.pf2e.environmentTypes"],
+            this.document._source.flags?.pf2e?.environmentTypes ?? [],
         );
 
-        await super._updateObject(event, formData);
+        await super._processSubmitData(event, form, submitData, options);
 
         if (terrainChanged) {
             // Scene terrain changed. Reset all affected actors
-            for (const token of this.scene.tokens) {
+            for (const token of this.document.tokens) {
                 if (token.actor) resetActors([token.actor], { tokens: true });
             }
         }
         // Rerender scene region legend to update the scene terrain tags
         canvas.scene?.apps["region-legend"]?.render();
+    }
+
+    /** Open the Automation settings menu and highlight the rules-based vision field. */
+    static #openRbvSetting(this: SceneConfigPF2e<ScenePF2e>): void {
+        const menu = game.settings.menus.get("pf2e.automation");
+        if (menu) {
+            const options: Partial<SettingsMenuOptions> = { highlightSetting: "rulesBasedVision" };
+            const app = new menu.type(undefined, options);
+            app.render(true);
+        }
     }
 }

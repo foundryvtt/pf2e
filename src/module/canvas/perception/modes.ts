@@ -1,11 +1,13 @@
+import type { CanvasVisibilityTest } from "@client/_types.d.mts";
+import type { TokenDetectionMode } from "@client/canvas/perception/detection-mode.d.mts";
 import { TokenPF2e } from "../token/object.ts";
 import type { PointVisionSourcePF2e } from "./point-vision-source.ts";
 
-const darkvision = new VisionMode({
+const darkvision = new fc.perception.VisionMode({
     id: "darkvision",
     label: "VISION.ModeDarkvision",
     canvas: {
-        shader: ColorAdjustmentsSamplerShader,
+        shader: fc.rendering.shaders.ColorAdjustmentsSamplerShader,
         uniforms: { enable: true, contrast: 0, saturation: -1.0, brightness: 0 },
     },
     lighting: {
@@ -13,7 +15,7 @@ const darkvision = new VisionMode({
             // from core-bundled darkvision mode: maybe restore?
             // [VisionMode.LIGHTING_LEVELS.DIM]: VisionMode.LIGHTING_LEVELS.BRIGHT,
         },
-        background: { visibility: VisionMode.LIGHTING_VISIBILITY.REQUIRED },
+        background: { visibility: fc.perception.VisionMode.LIGHTING_VISIBILITY.REQUIRED },
     },
     vision: {
         darkness: { adaptive: true },
@@ -21,17 +23,17 @@ const darkvision = new VisionMode({
     },
 });
 
-class LightPerceptionMode extends DetectionModeLightPerception {
+class LightPerceptionMode extends fc.perception.DetectionModeLightPerception {
     constructor() {
         super({
             id: "lightPerception",
             label: "DETECTION.LightPerception",
-            type: DetectionMode.DETECTION_TYPES.SIGHT,
+            type: fc.perception.DetectionMode.DETECTION_TYPES.SIGHT,
         });
     }
 
-    protected override _canDetect(visionSource: PointVisionSourcePF2e, target: PlaceableObject): boolean {
-        if (target instanceof PlaceableObject && target.document.hidden) return false;
+    protected override _canDetect(visionSource: PointVisionSourcePF2e, target: fc.placeables.PlaceableObject): boolean {
+        if (target instanceof fc.placeables.PlaceableObject && target.document.hidden) return false;
         if (target instanceof TokenPF2e && target.actor?.hasCondition("hidden", "undetected", "unnoticed")) {
             return false;
         }
@@ -40,17 +42,17 @@ class LightPerceptionMode extends DetectionModeLightPerception {
     }
 }
 
-class VisionDetectionMode extends DetectionModeBasicSight {
+class VisionDetectionMode extends fc.perception.DetectionModeDarkvision {
     constructor() {
         super({
             id: "basicSight",
             label: "DETECTION.BasicSight",
-            type: DetectionMode.DETECTION_TYPES.SIGHT,
+            type: fc.perception.DetectionMode.DETECTION_TYPES.SIGHT,
         });
     }
 
-    protected override _canDetect(visionSource: PointVisionSourcePF2e, target: PlaceableObject): boolean {
-        if (target instanceof PlaceableObject && target.document.hidden) return false;
+    protected override _canDetect(visionSource: PointVisionSourcePF2e, target: fc.placeables.PlaceableObject): boolean {
+        if (target instanceof fc.placeables.PlaceableObject && target.document.hidden) return false;
         if (target instanceof TokenPF2e && target.actor?.hasCondition("hidden", "undetected", "unnoticed")) {
             return false;
         }
@@ -59,17 +61,17 @@ class VisionDetectionMode extends DetectionModeBasicSight {
     }
 }
 
-class HearingDetectionMode extends DetectionMode {
+class HearingDetectionMode extends fc.perception.DetectionMode {
     constructor() {
         super({
             id: "hearing",
             label: "PF2E.Actor.Creature.Sense.Type.Hearing",
-            type: DetectionMode.DETECTION_TYPES.SOUND,
+            type: fc.perception.DetectionMode.DETECTION_TYPES.SOUND,
         });
     }
 
-    static override getDetectionFilter(): OutlineOverlayFilter {
-        const filter = (this._detectionFilter ??= OutlineOverlayFilter.create({
+    static override getDetectionFilter(): fc.rendering.filters.OutlineOverlayFilter {
+        const filter = (this._detectionFilter ??= fc.rendering.filters.OutlineOverlayFilter.create({
             wave: true,
             knockout: false,
         }));
@@ -77,7 +79,7 @@ class HearingDetectionMode extends DetectionMode {
         return filter;
     }
 
-    protected override _canDetect(visionSource: PointVisionSourcePF2e, target: PlaceableObject): boolean {
+    protected override _canDetect(visionSource: PointVisionSourcePF2e, target: fc.placeables.PlaceableObject): boolean {
         // Not if the target isn't a token
         if (!(target instanceof TokenPF2e)) return false;
 
@@ -105,7 +107,7 @@ class HearingDetectionMode extends DetectionMode {
     protected override _testLOS(
         visionSource: PointVisionSourcePF2e,
         _mode: TokenDetectionMode,
-        _target: PlaceableObject,
+        _target: fc.placeables.PlaceableObject,
         test: CanvasVisibilityTestPF2e,
     ): boolean {
         test.loh ??= new Map();
@@ -118,30 +120,30 @@ class HearingDetectionMode extends DetectionMode {
 
 declare namespace HearingDetectionMode {
     // eslint-disable-next-line no-var
-    var _detectionFilter: OutlineOverlayFilter | undefined;
+    var _detectionFilter: fc.rendering.filters.OutlineOverlayFilter | undefined;
 }
 
 interface CanvasVisibilityTestPF2e extends CanvasVisibilityTest {
     loh?: Map<PointVisionSourcePF2e, boolean>;
 }
 
-class DetectionModeTremorPF2e extends DetectionModeTremor {
+class DetectionModeTremorPF2e extends fc.perception.DetectionModeTremor {
     constructor() {
         super({
             id: "feelTremor",
             label: "DETECTION.FeelTremor",
             walls: false,
-            type: DetectionMode.DETECTION_TYPES.MOVE,
+            type: fc.perception.DetectionMode.DETECTION_TYPES.MOVE,
         });
     }
 
-    static override getDetectionFilter(): OutlineOverlayFilter {
+    static override getDetectionFilter(): fc.rendering.filters.OutlineOverlayFilter {
         const filter = super.getDetectionFilter();
         filter.thickness = 1;
         return filter;
     }
 
-    protected override _canDetect(visionSource: PointVisionSourcePF2e, target: PlaceableObject): boolean {
+    protected override _canDetect(visionSource: PointVisionSourcePF2e, target: fc.placeables.PlaceableObject): boolean {
         return (
             super._canDetect(visionSource, target) &&
             target instanceof TokenPF2e &&

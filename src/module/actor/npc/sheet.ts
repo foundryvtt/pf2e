@@ -7,11 +7,13 @@ import { createAbilityViewData } from "@actor/sheet/helpers.ts";
 import { RecallKnowledgePopup } from "@actor/sheet/popups/recall-knowledge-popup.ts";
 import { MovementType } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, MOVEMENT_TYPES, SAVE_TYPES } from "@actor/values.ts";
+import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
 import { createTagifyTraits, eventToRollParams } from "@module/sheet/helpers.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { DicePF2e } from "@scripts/dice.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import type { StatisticRollParameters } from "@system/statistic/index.ts";
+import { TextEditorPF2e } from "@system/text-editor.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, localizeList, setHasElement, sortLabeledRecord } from "@util";
 import { tagify, traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
@@ -52,11 +54,11 @@ abstract class AbstractNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
         const sheetData = (await super.getData(options)) as PrePrepSheetData;
 
         const rollData = this.actor.getRollData();
-        sheetData.enrichedContent.publicNotes = await TextEditor.enrichHTML(sheetData.data.details.publicNotes, {
+        sheetData.enrichedContent.publicNotes = await TextEditorPF2e.enrichHTML(sheetData.data.details.publicNotes, {
             rollData,
             secrets: this.actor.isOwner,
         });
-        sheetData.enrichedContent.privateNotes = await TextEditor.enrichHTML(sheetData.data.details.privateNotes, {
+        sheetData.enrichedContent.privateNotes = await TextEditorPF2e.enrichHTML(sheetData.data.details.privateNotes, {
             rollData,
         });
 
@@ -329,7 +331,7 @@ class NPCSheetPF2e extends AbstractNPCSheet {
                         traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits),
                     );
                     const rollData = item.getRollData();
-                    const description = await TextEditor.enrichHTML(item.description, { rollData });
+                    const description = await TextEditorPF2e.enrichHTML(item.description, { rollData });
                     const damageFormula = item.dealsDamage ? String(await attack.damage?.({ getFormula: true })) : null;
                     const effects = ((): string => {
                         const list = attack.additionalEffects.map((e) => game.i18n.localize(e.label));
@@ -430,10 +432,10 @@ class NPCSheetPF2e extends AbstractNPCSheet {
                     .filter((m) => m.flags.pf2e.linkedWeapon === itemId)
                     .map((m) => m.id);
                 if (existing.length > 0) {
-                    const proceed = await Dialog.confirm({
-                        title: game.i18n.localize("PF2E.Actor.NPC.GenerateAttack.Confirm.Title"),
+                    const proceed = await foundry.applications.api.DialogV2.confirm({
+                        window: { title: "PF2E.Actor.NPC.GenerateAttack.Confirm.Title", icon: "fa-solid hammer-crash" },
                         content: game.i18n.localize("PF2E.Actor.NPC.GenerateAttack.Confirm.Content"),
-                        defaultYes: false,
+                        no: { default: true },
                     });
                     if (proceed) {
                         await actor.deleteEmbeddedDocuments("Item", existing, { render: false });

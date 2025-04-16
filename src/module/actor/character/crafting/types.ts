@@ -1,5 +1,6 @@
-import { PhysicalItemPF2e } from "@item";
-import { Predicate, RawPredicate } from "@system/predication.ts";
+import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
+import type { PhysicalItemPF2e } from "@item";
+import type { Predicate, RawPredicate } from "@system/predication.ts";
 
 interface CraftingFormulaData {
     uuid: ItemUUID;

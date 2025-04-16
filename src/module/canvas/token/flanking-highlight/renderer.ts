@@ -132,7 +132,7 @@ class FlankingHighlightRenderer {
         style.fill = this.lineColor;
         style.stroke = 0x000000;
 
-        const text = new PreciseText(this.labelText, style);
+        const text = new fc.containers.PreciseText(this.labelText, style);
         text.anchor.set(0.5, 0.5);
 
         // Rotate text to match line, ensuring it is not upside-down

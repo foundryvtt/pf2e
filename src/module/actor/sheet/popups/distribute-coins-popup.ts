@@ -1,8 +1,9 @@
 import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
+import appv1 = foundry.appv1;
 
-interface PopupData extends FormApplicationData<ActorPF2e> {
+interface PopupData extends appv1.api.FormApplicationData<ActorPF2e> {
     selection?: string[];
     actorInfo?: {
         id: string;
@@ -19,12 +20,12 @@ interface PopupFormData extends FormData {
 /**
  * @category Other
  */
-export class DistributeCoinsPopup extends FormApplication<ActorPF2e, DistributeCoinsOptions> {
+export class DistributeCoinsPopup extends appv1.api.FormApplication<ActorPF2e, DistributeCoinsOptions> {
     constructor(actor: ActorPF2e, options: Partial<DistributeCoinsOptions> = {}) {
         super(actor, options);
     }
 
-    static override get defaultOptions(): FormApplicationOptions {
+    static override get defaultOptions(): appv1.api.FormApplicationOptions {
         const options = super.defaultOptions;
         options.id = "distribute-coins";
         options.classes = [];
@@ -117,7 +118,7 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e, DistributeC
     /** Prevent Foundry from converting the actor IDs to boolean values */
     protected override async _onSubmit(
         event: Event,
-        options: OnSubmitFormOptions = {},
+        options: appv1.api.OnSubmitFormOptions = {},
     ): Promise<Record<string, unknown> | false> {
         const actorIds: string[] = Array.from(this.form.elements).flatMap((element) =>
             element instanceof HTMLInputElement && element.name === "actorIds" && element.checked ? element.value : [],
@@ -127,7 +128,7 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e, DistributeC
     }
 }
 
-interface DistributeCoinsOptions extends FormApplicationOptions {
+interface DistributeCoinsOptions extends appv1.api.FormApplicationOptions {
     /** An optional initial list of recipients to receive coins */
     recipients?: ActorPF2e[];
 }

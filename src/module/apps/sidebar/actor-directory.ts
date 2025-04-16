@@ -1,21 +1,24 @@
 import { ActorPF2e, CreaturePF2e, PartyPF2e } from "@actor";
 import { CREATURE_ACTOR_TYPES } from "@actor/values.ts";
+import type {
+    HandlebarsRenderOptions,
+    HandlebarsTemplatePart,
+} from "@client/applications/api/handlebars-application.d.mts";
 import { fontAwesomeIcon, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 import * as R from "remeda";
-import type { HandlebarsRenderOptions } from "types/foundry/client-esm/applications/api/handlebars-application.ts";
-import type { DocumentDirectoryConfiguration } from "types/foundry/client-esm/applications/sidebar/document-directory.d.mts";
+import sidebar = foundry.applications.sidebar;
 
 /** Extend ActorDirectory to show more information */
-class ActorDirectoryPF2e extends foundry.applications.sidebar.tabs.ActorDirectory<ActorPF2e<null>> {
-    static override _entryPartial = "systems/pf2e/templates/sidebar/actor-document-partial.hbs";
-
-    /** Any additional "folder like" elements (such as parties) that are maintained separately */
-    #extraFolders: Record<string, boolean> = {};
-
-    /** If we are currently dragging a party. Needed because dragenter/dragover doesn't contain the drag source. */
-    #draggingParty = false;
-
-    static override DEFAULT_OPTIONS: Partial<DocumentDirectoryConfiguration> = {
+class ActorDirectoryPF2e extends sidebar.tabs.ActorDirectory<ActorPF2e<null>> {
+    static override DEFAULT_OPTIONS: Partial<sidebar.DocumentDirectoryConfiguration> = {
+        actions: {
+            togglePartyFolder: ActorDirectoryPF2e.#togglePartyFolder,
+            openPartySheet: ActorDirectoryPF2e.#openPartySheet,
+            activateParty: ActorDirectoryPF2e.#activateParty,
+            createParty: ActorDirectoryPF2e.#createParty,
+            createMember: ActorDirectoryPF2e.#createPartyMember,
+            openCompendiumBrowser: () => game.pf2e.compendiumBrowser.openTab("bestiary"),
+        },
         renderUpdateKeys: [
             "system.details.level.value",
             "system.attributes.adjustment",
@@ -24,33 +27,73 @@ class ActorDirectoryPF2e extends foundry.applications.sidebar.tabs.ActorDirector
         ],
     };
 
-    override async _prepareContext(options: HandlebarsRenderOptions): Promise<object> {
-        const activeParty = game.actors.party;
+    static override PARTS = ((): Record<string, HandlebarsTemplatePart> => {
+        const parts = super.PARTS;
+        return {
+            header: parts.header,
+            parties: { template: "systems/pf2e/templates/sidebar/party-document-partial.hbs" },
+            directory: parts.directory,
+            footer: parts.footer,
+        };
+    })();
 
-        if (!options.isFirstRender && activeParty && game.settings.get("pf2e", "activePartyFolderState")) {
+    protected static override _entryPartial = "systems/pf2e/templates/sidebar/actor-document-partial.hbs";
+
+    /** Any additional "folder like" elements (such as parties) that are maintained separately */
+    #extraFolders: Record<string, boolean> = {};
+
+    /** If we are currently dragging a party. Needed because dragenter/dragover doesn't contain the drag source. */
+    #draggingParty = false;
+
+    override async _preparePartContext(
+        partId: string,
+        context: object,
+        options: HandlebarsRenderOptions,
+    ): Promise<object> {
+        const partContext = await super._preparePartContext(partId, context, options);
+        if (partId !== "parties") return partContext;
+
+        const activeParty = game.actors.party;
+        if (options.isFirstRender && activeParty && game.settings.get("pf2e", "activePartyFolderState")) {
             this.#extraFolders[activeParty.id] = true;
         }
-
         const parties = R.sortBy(
             this.collection.filter((a): a is PartyPF2e<null> => a.isOfType("party") && a !== activeParty),
             (p) => p.sort,
         );
-
-        return Object.assign(await super._prepareContext(options), {
-            activeParty,
-            parties,
-            placePartiesInSubfolder: parties.length > 1,
-            extraFolders: this.#extraFolders,
-        });
+        return Object.assign(partContext, { activeParty, parties, extraFolders: this.#extraFolders });
     }
 
-    saveActivePartyFolderState(): void {
+    protected override async _prepareFooterContext(
+        context: object & { buttons?: object[] },
+        options: HandlebarsRenderOptions,
+    ): Promise<void> {
+        await super._prepareFooterContext(context, options);
+        if (game.user.isGM) {
+            context.buttons ??= [];
+            context.buttons.push({
+                type: "button",
+                icon: "fa-solid fa-magnifying-glass",
+                label: "PF2E.CompendiumBrowser.BestiaryBrowser",
+                action: "openCompendiumBrowser",
+            });
+        }
+    }
+
+    async saveActivePartyFolderState(): Promise<void> {
         game.settings.set("pf2e", "activePartyFolderState", this.#extraFolders[game.actors.party?.id ?? ""] ?? true);
     }
 
     override async _onRender(context: object, options: HandlebarsRenderOptions): Promise<void> {
         await super._onRender(context, options);
         const html = this.element;
+
+        // Move the party list into the directory part
+        if (options.parts.includes("directory")) {
+            const partiesPart = this.parts["parties"];
+            partiesPart.remove();
+            this.parts["directory"].prepend(partiesPart);
+        }
 
         // Strip actor level from actors we lack proper observer permission for
         for (const element of htmlQueryAll(html, "li.directory-item.actor")) {
@@ -59,95 +102,11 @@ class ActorDirectoryPF2e extends foundry.applications.sidebar.tabs.ActorDirector
                 element.querySelector("span.actor-level")?.remove();
             }
         }
-
-        // Implements folder-like collapse/expand functionality for folder-likes.
-        for (const folderLike of htmlQueryAll(html, ".folder-like")) {
-            const header = htmlQuery(folderLike, ":scope > header");
-            if (!header) continue;
-
-            for (const eventType of ["dragenter", "dragleave", "dragend"] as const) {
-                folderLike.addEventListener(eventType, (event) => {
-                    this.#onDragHighlightFolderLike(folderLike, event);
-                });
-            }
-
-            header.addEventListener("click", (event) => {
-                const folderEl = htmlClosest(event.target, ".folder-like");
-                const entryId = htmlClosest(event.target, "[data-entry-id]")?.dataset.entryId ?? "";
-                if (folderEl && entryId) {
-                    event.stopPropagation();
-                    this.#extraFolders[entryId] = folderEl.classList.contains("collapsed");
-                    folderEl.classList.toggle("collapsed", !this.#extraFolders[entryId]);
-                    if (this.isPopout) this.setPosition();
-
-                    this.saveActivePartyFolderState();
-                }
-            });
-
-            // Alternative open sheet button (used by parties)
-            const openSheetLink = htmlQuery(header, "a[data-action=open-sheet]");
-            openSheetLink?.addEventListener("click", (event) => {
-                event.stopPropagation();
-                const documentId = htmlClosest(openSheetLink, "[data-document-id]")?.dataset.documentId;
-                const document = game.actors.get(documentId ?? "");
-                document?.sheet.render(true);
-            });
-
-            // Register event to create an actor as a new party member
-            const createMemberLink = htmlQuery(header, "a[data-action=create-member]");
-            createMemberLink?.addEventListener("click", async (event) => {
-                event.preventDefault();
-                event.stopPropagation();
-                const documentId = htmlClosest(createMemberLink, "[data-document-id]")?.dataset.documentId;
-                const party = game.actors.get(documentId ?? "");
-                if (!party?.isOfType("party")) return;
-
-                const button = event.currentTarget as HTMLElement;
-                const actor = await ActorPF2e.createDialog(
-                    {},
-                    {
-                        width: 320,
-                        left: window.innerWidth - 630,
-                        top: button?.offsetTop ?? 0,
-                        types: [...CREATURE_ACTOR_TYPES],
-                    },
-                );
-
-                // If the actor was created, add as a member and force the party folder open
-                if (actor?.isOfType("creature")) {
-                    this.#extraFolders[party.id] = true;
-                    await party.addMembers(actor);
-                }
-            });
-
-            // Register event to create a new party
-            const createPartyLink = htmlQuery(header, "a[data-action=create-party]");
-            createPartyLink?.addEventListener("click", async (event) => {
-                event.stopPropagation();
-                const actor = await ActorPF2e.create({ type: "party", name: "New Party" });
-                actor?.sheet.render(true);
-
-                const header = htmlClosest(createPartyLink, ".folder-like");
-                const entryId = header?.dataset.entryId;
-                if (entryId) {
-                    this.#extraFolders[entryId] = true;
-                    this.render();
-                }
-            });
-
-            const activatePartyLink = htmlQuery(header, "a[data-action=activate-party]");
-            activatePartyLink?.addEventListener("click", (event) => {
-                event.stopPropagation();
-                const documentId = htmlClosest(activatePartyLink, "[data-document-id]")?.dataset.documentId ?? "";
-                if (game.actors.has(documentId)) {
-                    game.settings.set("pf2e", "activeParty", documentId);
-                    this.saveActivePartyFolderState();
-                }
-            });
-        }
-
-        this.#appendBrowseButton(html);
     }
+
+    /* -------------------------------------------- */
+    /*  Event Handlers                              */
+    /* -------------------------------------------- */
 
     /** Overriden so matched actors in a party reveal their party "folder" as well */
     protected override _onSearchFilter(event: KeyboardEvent, query: string, rgx: RegExp, html: HTMLElement): void {
@@ -199,21 +158,7 @@ class ActorDirectoryPF2e extends foundry.applications.sidebar.tabs.ActorDirector
         if (event.type === "dragenter" && this.#draggingParty) {
             return event.stopPropagation();
         }
-
         super._onDragHighlight(event);
-    }
-
-    #onDragHighlightFolderLike(folderLike: HTMLElement, event: DragEvent): void {
-        event.stopPropagation();
-        if (this.#draggingParty) return;
-
-        // Remove current drop target
-        if (event.type === "dragleave") {
-            const element = document.elementFromPoint(event.clientX, event.clientY);
-            if (element?.closest(".folder-like") === folderLike) return;
-        }
-
-        folderLike?.classList.toggle("droptarget", event.type === "dragenter");
     }
 
     protected override async _handleDroppedEntry(target: HTMLElement, data: ActorSidebarDropData): Promise<void> {
@@ -234,42 +179,15 @@ class ActorDirectoryPF2e extends foundry.applications.sidebar.tabs.ActorDirector
         }
     }
 
-    /** Inject parties without having to alter a core template */
-    protected override async _renderHTML(
-        context: object,
-        options: HandlebarsRenderOptions,
-    ): Promise<Record<string, HTMLElement>> {
-        const parts = await super._renderHTML(context, options);
-        const directory = parts.directory;
-
-        // Add parties to sidebar (if any exist)
-        if (game.actors.some((a) => a.isOfType("party"))) {
-            const partyHTML = await renderTemplate(
-                "systems/pf2e/templates/sidebar/party-document-partial.hbs",
-                context,
-            );
-            directory.querySelector(".directory-list")?.prepend(partyHTML);
-
-            // Inject any additional data for specific party implementations
-            for (const header of htmlQueryAll(directory, ".party")) {
-                const party = game.actors.get(header.dataset.documentId ?? "");
-                const sidebarButtons = party?.isOfType("party") ? (party.campaign?.createSidebarButtons?.() ?? []) : [];
-                header.querySelector("header h3")?.after(...sidebarButtons);
-            }
-        }
-
-        return parts;
-    }
-
     protected override _getEntryContextOptions(): ContextMenuEntry[] {
         const entries = super._getEntryContextOptions();
         entries.push({
             name: "PF2E.Actor.Party.Sidebar.RemoveMember",
             icon: fontAwesomeIcon("bus").outerHTML,
-            condition: ($li) => $li.closest(".party").length > 0 && !$li.closest(".party-header").length,
-            callback: ($li) => {
-                const actorId = $li.data("document-id");
-                const partyId = $li.closest(".party").data("document-id");
+            condition: (li) => !!li.closest("[data-party]") && !li.closest(".party-header"),
+            callback: (li) => {
+                const actorId = li.dataset.entryId;
+                const partyId = li.closest<HTMLElement>("[data-party]")?.dataset.entryId;
                 const actor = game.actors.get(actorId ?? "");
                 const party = game.actors.get(partyId ?? "");
                 if (actor && party instanceof PartyPF2e) {
@@ -277,25 +195,60 @@ class ActorDirectoryPF2e extends foundry.applications.sidebar.tabs.ActorDirector
                 }
             },
         });
-
         return entries;
     }
 
-    /** Append a button to open the bestiary browser for GMs */
-    #appendBrowseButton(html: HTMLElement): void {
-        if (!game.user.isGM) return;
+    static async #togglePartyFolder(this: ActorDirectoryPF2e, event: PointerEvent): Promise<void> {
+        const folderEl = htmlClosest(event.target, "header");
+        const entryEl = htmlClosest(folderEl, "li");
+        const partyId = entryEl?.dataset.entryId ?? "";
+        if (entryEl && partyId) {
+            this.#extraFolders[partyId] = !entryEl.classList.contains("expanded");
+            entryEl.classList.toggle("expanded", this.#extraFolders[partyId]);
+            if (this.isPopout) this.setPosition();
+            await this.saveActivePartyFolderState();
+        }
+    }
 
-        const browseButton = document.createElement("button");
-        browseButton.type = "button";
-        browseButton.append(
-            fontAwesomeIcon("search", { fixedWidth: true }),
-            " ",
-            game.i18n.localize("PF2E.CompendiumBrowser.BestiaryBrowser"),
-        );
-        browseButton.addEventListener("click", () => {
-            game.pf2e.compendiumBrowser.openTab("bestiary");
-        });
-        htmlQuery(html, "footer.directory-footer")?.append(browseButton);
+    static async #openPartySheet(this: ActorDirectoryPF2e, event: PointerEvent): Promise<void> {
+        const documentId = htmlClosest(event.target, "[data-entry-id]")?.dataset.entryId;
+        const document = game.actors.get(documentId ?? "");
+        document?.sheet.render(true);
+    }
+
+    static async #activateParty(this: ActorDirectoryPF2e, event: PointerEvent): Promise<void> {
+        const documentId = htmlClosest(event.target, "[data-entry-id]")?.dataset.entryId ?? "";
+        if (game.actors.has(documentId)) {
+            game.settings.set("pf2e", "activeParty", documentId);
+            this.saveActivePartyFolderState();
+        }
+    }
+
+    static async #createParty(this: ActorDirectoryPF2e, event: PointerEvent): Promise<void> {
+        await ActorPF2e.createDialog({ type: "party" });
+        const partyId = htmlClosest(event.target, "[data-entry-id")?.dataset.entryId;
+        if (partyId) {
+            this.#extraFolders[partyId] = true;
+            this.render({ parts: ["parties"] });
+        }
+    }
+
+    static async #createPartyMember(this: ActorDirectoryPF2e, event: PointerEvent, button: HTMLElement): Promise<void> {
+        const documentId = htmlClosest(event.target, "[data-entry-id]")?.dataset.entryId;
+        const party = game.actors.get(documentId ?? "");
+        if (!party?.isOfType("party")) return;
+
+        const options = {
+            types: [...CREATURE_ACTOR_TYPES],
+            position: { width: 320, left: window.innerWidth - 630, top: button.offsetTop ?? 0 },
+        };
+        const actor = await ActorPF2e.createDialog({ prototypeToken: { actorLink: true } }, {}, options);
+
+        // If the actor was created, add as a member and force the party folder open
+        if (actor?.isOfType("creature")) {
+            this.#extraFolders[party.id] = true;
+            await party.addMembers(actor);
+        }
     }
 }
 

@@ -3,9 +3,11 @@ import type { UserPF2e } from "@module/user/document.ts";
 import { Predicate } from "@system/predication.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 import Tagify from "@yaireo/tagify";
+import appv1 = foundry.appv1;
 
 /** Prompt the user to pick from a number of options */
-abstract class PickAThingPrompt<TItem extends ItemPF2e, TThing extends string | number | object> extends Application {
+abstract class PickAThingPrompt<TItem extends ItemPF2e, TThing extends string | number | object> extends appv1.api
+    .Application {
     protected item: TItem;
 
     #resolve?: (value: PickableThing<TThing> | null) => void;
@@ -34,7 +36,7 @@ abstract class PickAThingPrompt<TItem extends ItemPF2e, TThing extends string | 
         return this.item.actor;
     }
 
-    static override get defaultOptions(): ApplicationOptions {
+    static override get defaultOptions(): appv1.api.ApplicationV1Options {
         return {
             ...super.defaultOptions,
             classes: ["pick-a-thing-prompt"],

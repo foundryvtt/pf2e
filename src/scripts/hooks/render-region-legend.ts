@@ -7,9 +7,14 @@ export const RenderRegionLegend = {
             if (!environmentTypes || environmentTypes.length === 0) return;
 
             const template = await (async () => {
-                const markup = await renderTemplate("systems/pf2e/templates/scene/region-legend-partial.hbs", {
-                    environmentTypes: environmentTypes.map((t) => game.i18n.localize(CONFIG.PF2E.environmentTypes[t])),
-                });
+                const markup = await fa.handlebars.renderTemplate(
+                    "systems/pf2e/templates/scene/region-legend-partial.hbs",
+                    {
+                        environmentTypes: environmentTypes.map((t) =>
+                            game.i18n.localize(CONFIG.PF2E.environmentTypes[t]),
+                        ),
+                    },
+                );
                 const tempElem = document.createElement("div");
                 tempElem.innerHTML = markup;
                 return tempElem.firstElementChild instanceof HTMLTemplateElement ? tempElem.firstElementChild : null;

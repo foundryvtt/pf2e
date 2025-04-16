@@ -10,8 +10,8 @@ class RarityField extends fields.StringField<Rarity, Rarity, true, false, true> 
 
 class PublicationField extends fields.SchemaField<
     PublicationSchema,
-    SourceFromSchema<PublicationSchema>,
-    ModelPropsFromSchema<PublicationSchema>,
+    fields.SourceFromSchema<PublicationSchema>,
+    fields.ModelPropsFromSchema<PublicationSchema>,
     true,
     false,
     true

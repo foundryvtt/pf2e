@@ -1,5 +1,6 @@
+import type { SceneControlTool } from "@client/applications/ui/scene-controls.d.mts";
 import { SceneDarknessAdjuster } from "@module/apps/scene-darkness-adjuster.ts";
-import type { SceneControlTool } from "types/foundry/client-esm/applications/ui/scene-controls.d.mts";
+import applications = foundry.applications;
 
 /** Insert system tool buttons to the control bar */
 export const GetSceneControlButtons = {
@@ -60,7 +61,7 @@ export const GetSceneControlButtons = {
             const gmVisionTool = ((): SceneControlTool => {
                 const binding = game.keybindings.actions.get("pf2e.gmVision")?.editable?.[0];
                 const gmVisionLabel = game.i18n.localize("PF2E.Keybinding.GMVision.Label");
-                const bindingLabel = binding ? KeybindingsConfig._humanizeBinding(binding) : "";
+                const bindingLabel = binding ? applications.sidebar.apps.ControlsConfig.humanizeBinding(binding) : "";
                 const gmVisionIcon = (active = game.pf2e.settings.gmVision): string =>
                     active ? "fa-solid fa-lightbulb-cfl-on" : "fa-solid fa-lightbulb-cfl";
 

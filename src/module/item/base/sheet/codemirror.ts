@@ -5,9 +5,9 @@ import { syntaxTree } from "@codemirror/language";
 import { linter } from "@codemirror/lint";
 import { Extension } from "@codemirror/state";
 import { keymap } from "@codemirror/view";
+import type { DataSchema } from "@common/abstract/_types.d.mts";
 import { RuleElements } from "@module/rules/index.ts";
 import { EditorView, basicSetup } from "codemirror";
-import type { DataSchema } from "types/foundry/common/data/fields.d.ts";
 
 export const CodeMirror = {
     EditorView,

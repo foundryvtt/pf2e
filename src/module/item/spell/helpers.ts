@@ -92,7 +92,7 @@ async function createDescriptionPrepend(
         defense: defenseLabel,
         duration: durationLabel,
     };
-    const rendered = await renderTemplate(templatePath, formatArgs);
+    const rendered = await fa.handlebars.renderTemplate(templatePath, formatArgs);
 
     return rendered.trim();
 }

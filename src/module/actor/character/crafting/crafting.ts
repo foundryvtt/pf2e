@@ -9,7 +9,7 @@ import type { CraftingAbilityData, CraftingFormula } from "./types.ts";
 /** Caches and performs operations on elements related to crafting */
 class CharacterCrafting {
     actor: CharacterPF2e;
-    abilities = new Collection<CraftingAbility>();
+    abilities = new Collection<string, CraftingAbility>();
 
     #formulas: CraftingFormula[] | null = null;
 

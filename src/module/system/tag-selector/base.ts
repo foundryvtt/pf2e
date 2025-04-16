@@ -3,8 +3,9 @@ import type { ItemPF2e } from "@item";
 import { htmlQueryAll, sortStringRecord } from "@util";
 import * as R from "remeda";
 import type { SelectableTagField } from "./index.ts";
+import appv1 = foundry.appv1;
 
-abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends DocumentSheet<
+abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends appv1.api.DocumentSheet<
     TDocument,
     TagSelectorOptions
 > {
@@ -73,7 +74,7 @@ abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends D
     }
 }
 
-interface TagSelectorOptions extends DocumentSheetOptions {
+interface TagSelectorOptions extends appv1.api.DocumentSheetV1Options {
     /* The value object to update; e.g., "system.traits" */
     objectProperty?: string;
     /** Is the target data property a flat array rather than a `value` object? */
@@ -82,7 +83,7 @@ interface TagSelectorOptions extends DocumentSheetOptions {
     customChoices?: Record<string, string>;
 }
 
-interface TagSelectorData<TDocument extends ActorPF2e | ItemPF2e> extends DocumentSheetData<TDocument> {
+interface TagSelectorData<TDocument extends ActorPF2e | ItemPF2e> extends appv1.api.DocumentSheetData<TDocument> {
     documentType: string;
 }
 

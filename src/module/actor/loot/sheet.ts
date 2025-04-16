@@ -1,7 +1,9 @@
 import type { LootPF2e } from "@actor";
-import { transferItemsBetweenActors } from "@actor/helpers.js";
+import { transferItemsBetweenActors } from "@actor/helpers.ts";
 import type { ActorSheetDataPF2e, InventoryItem, SheetInventory } from "@actor/sheet/data-types.ts";
+import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
 import type { PhysicalItemPF2e } from "@item";
+import { TextEditorPF2e } from "@system/text-editor.ts";
 import { htmlClosest, htmlQuery } from "@util";
 import { ActorSheetPF2e } from "../sheet/base.ts";
 import { DistributeCoinsPopup } from "../sheet/popups/distribute-coins-popup.ts";
@@ -31,7 +33,7 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
 
         // Enrich content
         const rollData = this.actor.getRollData();
-        sheetData.enrichedContent.description = await TextEditor.enrichHTML(sheetData.data.details.description, {
+        sheetData.enrichedContent.description = await TextEditorPF2e.enrichHTML(sheetData.data.details.description, {
             rollData,
         });
 

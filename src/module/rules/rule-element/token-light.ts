@@ -1,5 +1,5 @@
-import type { LightDataSchema } from "types/foundry/common/data/data.d.ts";
-import type { SchemaField } from "types/foundry/common/data/fields.d.ts";
+import type { LightDataSchema } from "@common/data/data.d.mts";
+import type { SchemaField } from "@common/data/fields.d.mts";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
 import fields = foundry.data.fields;
@@ -21,7 +21,7 @@ class TokenLightRuleElement extends RuleElementPF2e<TokenLightRuleSchema> {
         };
     }
 
-    getLightData(): SourceFromSchema<LightDataSchema> | null {
+    getLightData(): fields.SourceFromSchema<LightDataSchema> | null {
         const light = this.value;
 
         light.color &&= this.resolveInjectedProperties(light.color);
@@ -71,7 +71,7 @@ type TokenLightRuleSchema = RuleElementSchema & {
     value: SchemaField<TokenLightValueSchema>;
 };
 
-type TokenLightRuleSource = SourceFromSchema<TokenLightRuleSchema>;
+type TokenLightRuleSource = fields.SourceFromSchema<TokenLightRuleSchema>;
 
 export { TokenLightRuleElement };
 export type { TokenLightRuleSource };
