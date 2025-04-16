@@ -85,7 +85,7 @@ class MeleeSystemData extends ItemSystemModel<MeleePF2e, NPCAttackSystemSchema> 
 
 interface MeleeSystemData
     extends ItemSystemModel<MeleePF2e, NPCAttackSystemSchema>,
-        Omit<ModelPropsFromSchema<NPCAttackSystemSchema>, "description"> {}
+        Omit<fields.ModelPropsFromSchema<NPCAttackSystemSchema>, "description"> {}
 
 type NPCAttackSystemSchema = Omit<ItemSystemSchema, "traits"> & {
     traits: fields.SchemaField<{
@@ -120,12 +120,12 @@ type NPCAttackSystemSchema = Omit<ItemSystemSchema, "traits"> & {
     }>;
 };
 
-type MeleeSystemSource = SourceFromSchema<NPCAttackSystemSchema> & {
+type MeleeSystemSource = fields.SourceFromSchema<NPCAttackSystemSchema> & {
     level?: never;
     schema?: ItemSystemSource["schema"];
 };
 
-type NPCAttackDamage = SourceFromSchema<NPCAttackSystemSchema>["damageRolls"]["string"];
+type NPCAttackDamage = fields.SourceFromSchema<NPCAttackSystemSchema>["damageRolls"]["string"];
 type NPCAttackTraits = ItemTraitsNoRarity<NPCAttackTrait>;
 
 export { MeleeSystemData };

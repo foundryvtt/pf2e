@@ -1,9 +1,10 @@
 import type { ActorPF2e } from "@actor";
 import { transferItemsBetweenActors } from "@actor/helpers.js";
 import { ErrorPF2e } from "@util";
+import appv1 = foundry.appv1;
 
-class LootNPCsPopup extends FormApplication<ActorPF2e> {
-    static override get defaultOptions(): FormApplicationOptions {
+class LootNPCsPopup extends appv1.api.FormApplication<ActorPF2e> {
+    static override get defaultOptions(): appv1.api.FormApplicationOptions {
         const options = super.defaultOptions;
         options.id = "loot-NPCs";
         options.classes = [];
@@ -47,7 +48,7 @@ class LootNPCsPopup extends FormApplication<ActorPF2e> {
     }
 }
 
-interface PopupData extends FormApplicationData<ActorPF2e> {
+interface PopupData extends appv1.api.FormApplicationData<ActorPF2e> {
     tokenInfo: {
         id: string;
         name: string;

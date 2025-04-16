@@ -1,6 +1,8 @@
 import { ActorSystemSource } from "@actor/data/base.ts";
+import type { ClientDocument } from "@client/documents/abstract/client-document.d.mts";
+import type { DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
+import type { ActorDeltaSource } from "@common/documents/actor-delta.d.mts";
 import { ItemPF2e } from "@item";
-import type { ActorDeltaSource } from "types/foundry/common/documents/actor-delta.d.ts";
 import type { TokenDocumentPF2e } from "./document.ts";
 
 class ActorDeltaPF2e<TParent extends TokenDocumentPF2e | null> extends ActorDelta<TParent> {

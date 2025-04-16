@@ -1,17 +1,7 @@
 import { htmlQuery, htmlQueryAll, localizer, objectHasKey } from "@util";
-import type {
-    ApplicationConfiguration,
-    ApplicationRenderOptions,
-} from "types/foundry/client-esm/applications/_types.ts";
-import type {
-    HandlebarsRenderOptions,
-    HandlebarsTemplatePart,
-} from "types/foundry/client-esm/applications/api/handlebars-application.ts";
 import type { PackInfo, TabName } from "./data.ts";
 
-const foundryApp = foundry.applications.api;
-
-class CompendiumBrowserSettingsApp extends foundryApp.HandlebarsApplicationMixin(foundryApp.ApplicationV2) {
+class CompendiumBrowserSettingsApp extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV2) {
     #tabSettings: Record<TabName, CompendiumBrowserSettingsData> = {
         action: {
             label: "PF2E.CompendiumBrowser.TabAction",
@@ -36,7 +26,7 @@ class CompendiumBrowserSettingsApp extends foundryApp.HandlebarsApplicationMixin
         },
     };
 
-    static override DEFAULT_OPTIONS: DeepPartial<ApplicationConfiguration> = {
+    static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
         id: "compendium-browser-settings",
         classes: ["compendium-browser"],
         tag: "form",
@@ -55,7 +45,7 @@ class CompendiumBrowserSettingsApp extends foundryApp.HandlebarsApplicationMixin
         },
     };
 
-    static override PARTS: Record<string, HandlebarsTemplatePart> = {
+    static override PARTS: Record<string, fa.api.HandlebarsTemplatePart> = {
         mainWindow: {
             template: "systems/pf2e/templates/compendium-browser/settings/settings.hbs",
             scrollable: [".settings-container"],
@@ -68,14 +58,18 @@ class CompendiumBrowserSettingsApp extends foundryApp.HandlebarsApplicationMixin
 
     protected override async _preFirstRender(
         context: Record<string, unknown>,
-        options: ApplicationRenderOptions,
+        options: fa.ApplicationRenderOptions,
     ): Promise<void> {
         await super._preFirstRender(context, options);
         const browser = game.pf2e.compendiumBrowser;
         return browser.packLoader.updateSources(browser.loadedPacksAll());
     }
 
-    protected override _attachPartListeners(partId: string, html: HTMLElement, options: HandlebarsRenderOptions): void {
+    protected override _attachPartListeners(
+        partId: string,
+        html: HTMLElement,
+        options: fa.api.HandlebarsRenderOptions,
+    ): void {
         super._attachPartListeners(partId, html, options);
 
         const sourceSearch = htmlQuery<HTMLInputElement>(html, "input[data-element=setting-sources-search]");
@@ -109,16 +103,15 @@ class CompendiumBrowserSettingsApp extends foundryApp.HandlebarsApplicationMixin
         const deleteButton = htmlQuery<HTMLInputElement>(html, "button[data-action=settings-sources-delete]");
         deleteButton?.addEventListener("click", async () => {
             const localize = localizer("PF2E.SETTINGS.CompendiumBrowserSources");
-            const confirm = await Dialog.confirm({
-                title: localize("DeleteAllTitle"),
+            const confirm = await foundry.applications.api.DialogV2.confirm({
+                window: { title: localize("DeleteAllTitle") },
                 content: `
                     <p>
                         ${localize("DeleteAllQuestion")}
                     </p>
                     <p>
                         ${localize("DeleteAllInfo")}
-                    </p>
-                    `,
+                    </p>`,
             });
 
             if (confirm) {
@@ -128,12 +121,12 @@ class CompendiumBrowserSettingsApp extends foundryApp.HandlebarsApplicationMixin
                 await browser.resetInitializedTabs();
                 await this.render();
                 this.changeTab("source", "settings", { force: true });
-                browser.render(true);
+                browser.render({ force: true });
             }
         });
     }
 
-    protected override async _prepareContext(_options: ApplicationRenderOptions): Promise<object> {
+    protected override async _prepareContext(_options: fa.api.HandlebarsRenderOptions): Promise<object> {
         if (game.settings.get("pf2e", "campaignType") === "none") {
             this.#tabSettings.campaignFeature.hidden = true;
         }
@@ -171,11 +164,7 @@ class CompendiumBrowserSettingsApp extends foundryApp.HandlebarsApplicationMixin
         };
     }
 
-    static async #onSubmit(
-        _event: SubmitEvent | Event,
-        _form: HTMLFormElement,
-        formData: FormDataExtended,
-    ): Promise<void> {
+    static async #onSubmit(_event: Event, _form: HTMLFormElement, formData: fa.ux.FormDataExtended): Promise<void> {
         const browser = game.pf2e.compendiumBrowser;
         const settings = browser.settings;
         const getCheckboxValue = (key: string): boolean => {

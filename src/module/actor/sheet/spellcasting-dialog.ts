@@ -4,14 +4,15 @@ import { SpellcastingEntryPF2e } from "@item";
 import type { SpellcastingEntrySource, SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data.ts";
 import { ordinalString } from "@util";
 import * as R from "remeda";
+import appv1 = foundry.appv1;
 
 /** Dialog to create or edit spellcasting entries. It works on a clone of spellcasting entry, but will not persist unless the changes are accepted */
-class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryPF2e<CreaturePF2e>> {
-    constructor(object: SpellcastingEntryPF2e<CreaturePF2e>, options?: Partial<FormApplicationOptions>) {
+class SpellcastingCreateAndEditDialog extends appv1.api.FormApplication<SpellcastingEntryPF2e<CreaturePF2e>> {
+    constructor(object: SpellcastingEntryPF2e<CreaturePF2e>, options?: Partial<appv1.api.FormApplicationOptions>) {
         super(object.clone({}, { keepId: true }), options);
     }
 
-    static override get defaultOptions(): FormApplicationOptions {
+    static override get defaultOptions(): appv1.api.FormApplicationOptions {
         return {
             ...super.defaultOptions,
             id: "spellcasting-dialog",
@@ -156,7 +157,8 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
     }
 }
 
-interface SpellcastingCreateAndEditDialogSheetData extends FormApplicationData<SpellcastingEntryPF2e<CreaturePF2e>> {
+interface SpellcastingCreateAndEditDialogSheetData
+    extends appv1.api.FormApplicationData<SpellcastingEntryPF2e<CreaturePF2e>> {
     actor: CreaturePF2e;
     system: SpellcastingEntrySystemSource;
     magicTraditions: typeof CONFIG.PF2E.magicTraditions;

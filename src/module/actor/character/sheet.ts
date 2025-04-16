@@ -5,8 +5,9 @@ import { MODIFIER_TYPES, createProficiencyModifier } from "@actor/modifiers.ts";
 import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { AbilityViewData, InventoryItem } from "@actor/sheet/data-types.ts";
 import { condenseSenses, createAbilityViewData } from "@actor/sheet/helpers.ts";
-import { AttributeString, SaveType, SkillSlug } from "@actor/types.ts";
+import type { AttributeString, SaveType, SkillSlug } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
+import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
 import type {
     AncestryPF2e,
     BackgroundPF2e,
@@ -32,6 +33,7 @@ import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { craft } from "@system/action-macros/crafting/craft.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
+import { TextEditorPF2e } from "@system/text-editor.ts";
 import {
     ErrorPF2e,
     fontAwesomeIcon,
@@ -351,12 +353,12 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         const biography = (sheetData.biography = actor.system.details.biography);
         const enrichmentOptions = { rollData, secrets: actor.isOwner, async: true };
         const enrichPromises = {
-            appearance: TextEditor.enrichHTML(biography.appearance, enrichmentOptions),
-            backstory: TextEditor.enrichHTML(biography.backstory, enrichmentOptions),
-            campaignNotes: TextEditor.enrichHTML(biography.campaignNotes, enrichmentOptions),
-            allies: TextEditor.enrichHTML(biography.allies, enrichmentOptions),
-            enemies: TextEditor.enrichHTML(biography.enemies, enrichmentOptions),
-            organizations: TextEditor.enrichHTML(biography.organizations, enrichmentOptions),
+            appearance: TextEditorPF2e.enrichHTML(biography.appearance, enrichmentOptions),
+            backstory: TextEditorPF2e.enrichHTML(biography.backstory, enrichmentOptions),
+            campaignNotes: TextEditorPF2e.enrichHTML(biography.campaignNotes, enrichmentOptions),
+            allies: TextEditorPF2e.enrichHTML(biography.allies, enrichmentOptions),
+            enemies: TextEditorPF2e.enrichHTML(biography.enemies, enrichmentOptions),
+            organizations: TextEditorPF2e.enrichHTML(biography.organizations, enrichmentOptions),
         };
         await Promise.all(Object.values(enrichPromises));
         for (const [key, content] of Object.entries(enrichPromises)) {
@@ -566,15 +568,15 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         // A(H)BCD context menu
         if (mainPanel && this.isEditable) {
-            new ContextMenu(
+            new fa.ux.ContextMenu(
                 mainPanel,
                 ".detail-item-control",
                 [
                     {
                         name: "PF2E.EditItemTitle",
                         icon: fontAwesomeIcon("edit").outerHTML,
-                        callback: ($target) => {
-                            const itemId = htmlClosest($target[0], "[data-item-id]")?.dataset.itemId;
+                        callback: (target) => {
+                            const itemId = htmlClosest(target, "[data-item-id]")?.dataset.itemId;
                             const item = this.actor.items.get(itemId, { strict: true });
                             item.sheet.render(true, { focus: true });
                         },
@@ -582,8 +584,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                     {
                         name: "PF2E.DeleteItemTitle",
                         icon: fontAwesomeIcon("trash").outerHTML,
-                        callback: ($target) => {
-                            const itemId = htmlClosest($target[0], "[data-item-id]")?.dataset.itemId;
+                        callback: (target) => {
+                            const itemId = htmlClosest(target, "[data-item-id]")?.dataset.itemId;
                             const item = this.actor.items.get(itemId, { strict: true });
                             this.deleteItem(item);
                         },
@@ -591,6 +593,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 ],
                 {
                     eventName: "click",
+                    jQuery: false,
                     // Position the menu to the left of the anchor
                     onOpen: () => {
                         Promise.resolve().then(() => {
@@ -951,7 +954,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const actor = this.actor;
             const abilitySlug = htmlClosest(anchor, "[data-ability]")?.dataset.ability;
             const ability = actor.crafting.abilities.get(abilitySlug ?? "", { strict: true });
-            new FormulaPicker({ actor, ability, mode: "prepare" }).render(true);
+            new FormulaPicker({ actor, ability, mode: "prepare" }).render({ force: true });
         };
 
         handlers["craft-item"] = async (event, anchor) => {
@@ -1066,8 +1069,14 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const content = `<p class="note">${game.i18n.format("PF2E.CraftingTab.RemoveFormulaDialogQuestion", {
                 name,
             })}</p>`;
-            const title = game.i18n.localize("PF2E.CraftingTab.RemoveFormulaDialogTitle");
-            if (event.ctrlKey || (await Dialog.confirm({ title, content }))) {
+            if (
+                event.ctrlKey ||
+                event.metaKey ||
+                (await foundry.applications.api.DialogV2.confirm({
+                    window: { title: "PF2E.CraftingTab.RemoveFormulaDialogTitle", icon: "fa-solid fa-trash" },
+                    content,
+                }))
+            ) {
                 const actorFormulas = this.actor.toObject().system.crafting?.formulas ?? [];
                 actorFormulas.findSplice((f) => f.uuid === uuid);
                 return this.actor.update({ "system.crafting.formulas": actorFormulas });
@@ -1088,8 +1097,13 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const name = this.#knownFormulas[uuid]?.item.name;
             const question = game.i18n.format("PF2E.CraftingTab.UnprepareFormulaDialogQuestion", { name });
             const content = `<p class="hint">${question}</p>`;
-            const title = game.i18n.localize("PF2E.CraftingTab.UnprepareFormulaDialogTitle");
-            if (event.ctrlKey || (await Dialog.confirm({ title, content }))) {
+            if (
+                event.ctrlKey ||
+                (await foundry.applications.api.DialogV2.confirm({
+                    window: { title: "PF2E.CraftingTab.UnprepareFormulaDialogTitle" },
+                    content,
+                }))
+            ) {
                 return ability.unprepareFormula(Number(index));
             }
         };
@@ -1393,7 +1407,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     }
 
     override async _onDrop(event: DragEvent): Promise<boolean | void> {
-        const dropData = TextEditor.getDragEventData(event);
+        const dropData = TextEditorPF2e.getDragEventData(event);
         if (R.isPlainObject(dropData.pf2e) && dropData.pf2e.type === "CraftingFormula") {
             const dropAbilitySlug = typeof dropData.ability === "string" ? dropData.ability : null;
             if (!dropAbilitySlug) {

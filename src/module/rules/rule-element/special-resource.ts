@@ -3,13 +3,20 @@ import type { CharacterResources } from "@actor/character/data.ts";
 import { CORE_RESOURCES } from "@actor/character/values.ts";
 import { applyActorUpdate } from "@actor/helpers.ts";
 import type { ActorCommitData } from "@actor/types.ts";
+import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
+import type Document from "@common/abstract/document.d.mts";
 import { ItemProxyPF2e, PhysicalItemPF2e } from "@item";
 import type { PhysicalItemSource } from "@item/base/data/index.ts";
 import { AnyChoiceField } from "@system/schema-data-fields.ts";
 import { sluggify } from "@util";
 import { createBatchRuleElementUpdate } from "../helpers.ts";
 import { RuleElementPF2e, type RuleElementOptions } from "./base.ts";
-import { ResolvableValueField, type RuleElementSchema, type RuleElementSource } from "./data.ts";
+import {
+    ModelPropsFromRESchema,
+    ResolvableValueField,
+    type RuleElementSchema,
+    type RuleElementSource,
+} from "./data.ts";
 import fields = foundry.data.fields;
 
 const INVALID_RESOURCES: (keyof CharacterResources)[] = [...CORE_RESOURCES, "crafting", "infusedReagents"];
@@ -186,7 +193,7 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
     }
 
     async #createItem(uuid: string, level: number | null): Promise<PhysicalItemSource | null> {
-        const grantedItem: ClientDocument | null = await (async () => {
+        const grantedItem: Document | null = await (async () => {
             try {
                 return (await fromUuid(uuid))?.clone() ?? null;
             } catch (error) {
@@ -213,7 +220,7 @@ class SpecialResourceRuleElement extends RuleElementPF2e<SpecialResourceSchema> 
 
 interface SpecialResourceRuleElement
     extends RuleElementPF2e<SpecialResourceSchema>,
-        Omit<ModelPropsFromSchema<SpecialResourceSchema>, "label"> {
+        ModelPropsFromRESchema<SpecialResourceSchema> {
     slug: string;
     max: number;
     get actor(): CreaturePF2e;

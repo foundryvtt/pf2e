@@ -1,5 +1,7 @@
 import type { CharacterPF2e } from "@actor";
 import { ResourceData } from "@actor/creature/index.ts";
+import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
+import type { DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { PhysicalItemSource } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";

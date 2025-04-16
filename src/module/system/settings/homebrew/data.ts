@@ -1,10 +1,10 @@
 import type { Language } from "@actor/creature/index.ts";
 import { LANGUAGES_BY_RARITY, LANGUAGE_RARITIES } from "@actor/creature/values.ts";
 import { AttributeString } from "@actor/types.ts";
+import type { ModelPropsFromSchema, SetField, StringField } from "@common/data/fields.d.mts";
 import { BaseArmorType } from "@item/armor/types.ts";
 import type { BaseWeaponType } from "@item/weapon/types.ts";
 import * as R from "remeda";
-import type { SetField, StringField } from "types/foundry/common/data/fields.d.ts";
 import type { MenuTemplateData } from "../menu.ts";
 
 const HOMEBREW_ELEMENT_KEYS = [

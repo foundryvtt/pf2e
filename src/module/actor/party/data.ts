@@ -1,6 +1,12 @@
 import type { ActorAttributes, ActorDetails, BaseActorSourcePF2e } from "@actor/data/base.ts";
 import { ActorSystemModel, ActorSystemSchema } from "@actor/data/model.ts";
-import type { ModelPropFromDataField, SourcePropFromDataField } from "types/foundry/common/data/fields.d.ts";
+import type { ActorUUID } from "@client/documents/abstract/_module.d.mts";
+import type {
+    ModelPropFromDataField,
+    ModelPropsFromSchema,
+    SourceFromDataField,
+    SourceFromSchema,
+} from "@common/data/fields.d.mts";
 import type { PartyPF2e } from "./document.ts";
 import { Kingdom } from "./kingdom/model.ts";
 import type { KingdomSchema } from "./kingdom/schema.ts";
@@ -62,7 +68,7 @@ interface PartySystemSource extends SourceFromSchema<PartySystemSchema> {
     schema?: never;
 }
 
-interface PartyDetailsSource extends SourcePropFromDataField<PartySystemSchema["details"]> {
+interface PartyDetailsSource extends SourceFromDataField<PartySystemSchema["details"]> {
     readonly alliance?: never;
     readonly level?: never;
 }

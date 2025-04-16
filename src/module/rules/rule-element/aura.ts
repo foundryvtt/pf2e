@@ -1,6 +1,7 @@
 import { userColorForActor } from "@actor/helpers.ts";
 import type { AuraAppearanceData, AuraData, AuraEffectData, SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
+import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import { DataUnionField, PredicateField, StrictArrayField } from "@system/schema-data-fields.ts";
 import { isImageOrVideoPath, sluggify } from "@util";
@@ -378,8 +379,8 @@ type AuraSchema = RuleElementSchema & {
     /** References to effects included in this aura */
     effects: StrictArrayField<
         fields.SchemaField<AuraEffectSchema>,
-        SourceFromSchema<AuraEffectSchema>[],
-        ModelPropsFromSchema<AuraEffectSchema>[],
+        fields.SourceFromSchema<AuraEffectSchema>[],
+        fields.ModelPropsFromSchema<AuraEffectSchema>[],
         true,
         false,
         true
@@ -390,8 +391,8 @@ type AuraSchema = RuleElementSchema & {
      */
     appearance: fields.SchemaField<
         AuraAppearanceSchema,
-        SourceFromSchema<AuraAppearanceSchema>,
-        ModelPropsFromSchema<AuraAppearanceSchema>,
+        fields.SourceFromSchema<AuraAppearanceSchema>,
+        fields.ModelPropsFromSchema<AuraAppearanceSchema>,
         true,
         false,
         true
@@ -481,8 +482,8 @@ type AuraAppearanceSchema = {
     /** Configuration for a texture (image or video) drawn as part of the aura */
     texture: fields.SchemaField<
         AuraTextureSchema,
-        SourceFromSchema<AuraTextureSchema>,
-        ModelPropsFromSchema<AuraTextureSchema>,
+        fields.SourceFromSchema<AuraTextureSchema>,
+        fields.ModelPropsFromSchema<AuraTextureSchema>,
         false,
         true,
         true
@@ -498,8 +499,8 @@ type AuraTextureSchema = {
     /** A manual x/y translation of the texture resource */
     translation: fields.SchemaField<
         XYPairSchema,
-        SourceFromSchema<XYPairSchema>,
-        ModelPropsFromSchema<XYPairSchema>,
+        fields.SourceFromSchema<XYPairSchema>,
+        fields.ModelPropsFromSchema<XYPairSchema>,
         false,
         true,
         true
@@ -515,7 +516,7 @@ type XYPairSchema = {
     y: fields.NumberField<number, number, true, false, false>;
 };
 
-interface AuraEffectREData extends ModelPropsFromSchema<AuraEffectSchema> {
+interface AuraEffectREData extends fields.ModelPropsFromSchema<AuraEffectSchema> {
     includesSelf: boolean;
     removeOnExit: boolean;
 }

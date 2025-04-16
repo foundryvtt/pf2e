@@ -5,7 +5,6 @@ import { RollNotePF2e } from "@module/notes.ts";
 import { DamageCategoryUnique, DamageType } from "@system/damage/types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 import * as R from "remeda";
-import type { SchemaField } from "types/foundry/common/data/fields.d.ts";
 import { CritSpecEffect } from "../synthetics.ts";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleValue } from "./data.ts";
@@ -71,7 +70,7 @@ class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
         };
     }
 
-    static override validateJoint(data: SourceFromSchema<CritSpecRuleSchema>): void {
+    static override validateJoint(data: fields.SourceFromSchema<CritSpecRuleSchema>): void {
         super.validateJoint(data);
 
         if (data.alternate && !data.text && !data.damageDice && !data.modifier) {
@@ -204,7 +203,7 @@ type CritSpecRuleSchema = RuleElementSchema & {
     /** Alternative note text: if not provided, the standard one for a given weapon group is used */
     text: fields.StringField<string, string, false, true, true>;
     /** Alternative damage dice */
-    damageDice: SchemaField<
+    damageDice: fields.SchemaField<
         {
             number: ResolvableValueField<true, false, false>;
             faces: fields.NumberField<DamageDieFaces, DamageDieFaces, true, false, false>;

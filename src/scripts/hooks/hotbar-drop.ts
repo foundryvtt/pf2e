@@ -1,13 +1,12 @@
+import type { ActorUUID } from "@client/documents/actor.d.mts";
 import { ItemPF2e } from "@item";
 import { MacroPF2e } from "@module/macro.ts";
 import { createActionMacro, createToggleEffectMacro } from "@scripts/macros/hotbar.ts";
 import { ErrorPF2e } from "@util";
 import * as R from "remeda";
-import type Hotbar from "types/foundry/client-esm/applications/ui/hotbar.d.mts";
-
 export class HotbarDrop {
     static listen(): void {
-        Hooks.on("hotbarDrop", (_hotbar: Hotbar<Macro>, data: HotbarDropData, slot): false | void => {
+        Hooks.on("hotbarDrop", (_hotbar: fa.ui.Hotbar<Macro>, data: HotbarDropData, slot): false | void => {
             // A melee item dropped on the hotbar is to instead generate an action macro
             if (data.type === "Item" && data.itemType === "melee" && typeof data.index === "number") {
                 data.type = "Action";

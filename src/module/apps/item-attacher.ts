@@ -1,3 +1,4 @@
+import type { ApplicationV1Options } from "@client/appv1/api/application-v1.d.mts";
 import type { PhysicalItemPF2e } from "@item";
 import { PickAThingPrompt, PickableThing } from "@module/apps/pick-a-thing-prompt.ts";
 import { RollNotePF2e } from "@module/notes.ts";
@@ -6,7 +7,7 @@ import { ErrorPF2e } from "@util";
 
 /** A prompt for the user to select an item to receive an attachment */
 class ItemAttacher<TItem extends PhysicalItemPF2e> extends PickAThingPrompt<TItem, PhysicalItemPF2e> {
-    static override get defaultOptions(): ApplicationOptions {
+    static override get defaultOptions(): ApplicationV1Options {
         return {
             ...super.defaultOptions,
             template: "systems/pf2e/templates/items/item-attacher.hbs",
@@ -107,7 +108,7 @@ class ItemAttacher<TItem extends PhysicalItemPF2e> extends PickAThingPrompt<TIte
         const dc = { value: 10, visible: true };
         const args: StatisticRollParameters = {
             dc,
-            label: await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
+            label: await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
                 glyph: null,
                 subtitle: game.i18n.format("PF2E.ActionsCheck.x", { type: statistic.label }),
                 title: this.title,

@@ -2,6 +2,7 @@ import type { ActorPF2e } from "@actor";
 import type { StrikeData } from "@actor/data/base.ts";
 import { iterateAllItems } from "@actor/helpers.js";
 import type { InitiativeRollResult } from "@actor/initiative.ts";
+import type { AppV1RenderOptions } from "@client/appv1/api/application-v1.d.mts";
 import type { PhysicalItemPF2e } from "@item";
 import { AbstractEffectPF2e, ItemPF2e, SpellPF2e } from "@item";
 import type { AbilityTrait, ActionCategory } from "@item/ability/types.ts";
@@ -31,6 +32,7 @@ import {
     TagSelectorOptions,
     TagSelectorType,
 } from "@system/tag-selector/index.ts";
+import { TextEditorPF2e } from "@system/text-editor.ts";
 import {
     ErrorPF2e,
     SORTABLE_BASE_OPTIONS,
@@ -63,13 +65,17 @@ import { IdentifyItemPopup } from "./popups/identify-popup.ts";
 import { ItemTransferDialog } from "./popups/item-transfer-dialog.ts";
 import { IWREditor } from "./popups/iwr-editor.ts";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup.ts";
+import appv1 = foundry.appv1;
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
  * This sheet is an Abstract layer which is not used.
  * @category Actor
  */
-abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
+abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends appv1.sheets.ActorSheet<TActor, ItemPF2e> {
+    /** Ignore deprecation warning */
+    protected static override _warnedAppV1 = true;
+
     /** Index all items and subitems in this actor for searching. Indexed by UUID because subitems may share ids across different parents */
     #inventorySearchEngine = new MiniSearch<Pick<PhysicalItemPF2e<TActor>, "uuid" | "name">>({
         fields: ["name"],
@@ -78,7 +84,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         searchOptions: { combineWith: "AND", prefix: true },
     });
 
-    static override get defaultOptions(): ActorSheetOptions {
+    static override get defaultOptions(): appv1.sheets.ActorSheetOptions {
         const options = super.defaultOptions;
         options.dragDrop = [
             { dragSelector: "[data-foundry-list] [data-drag-handle]" },
@@ -95,7 +101,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     /** @todo fixme for V13 */
-    constructor(actor: TActor, options?: Partial<ActorSheetOptions>) {
+    constructor(actor: TActor, options?: Partial<appv1.sheets.ActorSheetOptions>) {
         super(actor, options);
 
         // On initial opening, adjust width according to `fontSize` setting
@@ -114,7 +120,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         return !this.actor.isOwner && this.actor.isLootableBy(game.user);
     }
 
-    override async getData(options: Partial<ActorSheetOptions> = this.options): Promise<ActorSheetDataPF2e<TActor>> {
+    override async getData(
+        options: Partial<appv1.sheets.ActorSheetOptions> = this.options,
+    ): Promise<ActorSheetDataPF2e<TActor>> {
         options.id ||= this.id;
         options.editable = this.isEditable;
         options.sheetConfig &&=
@@ -606,7 +614,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 const actor = this.actor;
                 const itemEl = htmlClosest(anchor, "[data-item-id]");
                 const collectionId = itemEl?.dataset.entryId;
-                const collection: { get: Collection<ItemPF2e>["get"] } = collectionId
+                const collection: { get: Collection<string, ItemPF2e>["get"] } = collectionId
                     ? (actor.spellcasting?.collections.get(collectionId, { strict: true }) ?? actor.items)
                     : actor.items;
 
@@ -639,8 +647,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             },
             "show-image": () => {
                 const actor = this.actor;
-                const title = actor.token?.name ?? actor.prototypeToken?.name ?? actor.name;
-                return new ImagePopout(actor.img, { title, uuid: actor.uuid }).render(true);
+                const window = { title: actor.token?.name ?? actor.prototypeToken?.name ?? actor.name };
+                return new fa.apps.ImagePopout({ src: actor.img, window, uuid: actor.uuid }).render({ force: true });
             },
             "toggle-summary": (_, anchor): Promise<void> | void => {
                 const selectors = ["subitem-id", "item-id", "action-index"].map((s) => `[data-${s}]`).join(",");
@@ -707,7 +715,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
                 const content = document.createElement("p");
                 content.innerText = game.i18n.format("PF2E.SellItemQuestion", { item: item.name });
-                return new Dialog({
+                return new foundry.appv1.api.Dialog({
                     title: game.i18n.localize("PF2E.SellItemConfirmHeader"),
                     content: content.outerHTML,
                     buttons: {
@@ -877,11 +885,13 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const siblings = [...itemsInList];
         siblings.splice(siblings.indexOf(sourceItem), 1);
         type SortingUpdate = { _id: string; "system.containerId": string | null; sort?: number };
-        const sortingUpdates: SortingUpdate[] = SortingHelpers.performIntegerSort(sourceItem, {
-            siblings,
-            target: targetBefore ?? targetAfter,
-            sortBefore: !targetBefore,
-        }).map((u) => ({ _id: u.target.id, "system.containerId": container?.id ?? null, sort: u.update.sort }));
+        const sortingUpdates: SortingUpdate[] = fu
+            .performIntegerSort(sourceItem, {
+                siblings,
+                target: targetBefore ?? targetAfter,
+                sortBefore: !targetBefore,
+            })
+            .map((u) => ({ _id: u.target.id, "system.containerId": container?.id ?? null, sort: u.update.sort }));
         if (!sortingUpdates.some((u) => u._id === sourceItem.id)) {
             sortingUpdates.push({ _id: sourceItem.id, "system.containerId": container?.id ?? null });
         }
@@ -1036,7 +1046,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     override async _onDrop(event: DragEvent): Promise<boolean | void> {
-        const dropData = TextEditor.getDragEventData(event);
+        const dropData = TextEditorPF2e.getDragEventData(event);
         if (this.actor && dropData.type === "PersistentDamage" && "formula" in dropData) {
             // Add persistent damage. If the actor type doesn't support conditions, it'll be rejected
             const roll = new DamageRoll(String(dropData.formula));
@@ -1333,9 +1343,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     /** Render confirmation dialog to sell all treasure */
     async #onClickSellAllTreasure(): Promise<void> {
-        const content = await renderTemplate("systems/pf2e/templates/actors/sell-all-treasure-dialog.hbs");
+        const content = await fa.handlebars.renderTemplate(
+            "systems/pf2e/templates/actors/sell-all-treasure-dialog.hbs",
+        );
 
-        new Dialog({
+        new foundry.appv1.api.Dialog({
             title: game.i18n.localize("PF2E.SellAllTreasureTitle"),
             content,
             buttons: {
@@ -1403,7 +1415,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     /** Override of inner render function to maintain item summary state */
-    protected override async _renderInner(data: Record<string, unknown>, options: RenderOptions): Promise<JQuery> {
+    protected override async _renderInner(data: Record<string, unknown>, options: AppV1RenderOptions): Promise<JQuery> {
         return this.itemRenderer.saveAndRestoreState(() => {
             return super._renderInner(data, options);
         });
@@ -1470,7 +1482,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 }
 
-interface ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
+interface ActorSheetPF2e<TActor extends ActorPF2e> extends appv1.sheets.ActorSheet<TActor, ItemPF2e> {
     prepareItems?(sheetData: ActorSheetDataPF2e<TActor>): Promise<void>;
     render(force?: boolean, options?: ActorSheetRenderOptionsPF2e): this;
 }

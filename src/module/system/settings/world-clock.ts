@@ -1,5 +1,8 @@
+import type { SettingRegistration } from "@client/helpers/client-settings.d.mts";
+import type { SettingConfig } from "@common/_types.d.mts";
 import { htmlQuery, localizer } from "@util";
 import { DateTime } from "luxon";
+import appv1 = foundry.appv1;
 
 type SettingsKey =
     | "dateTheme"
@@ -16,7 +19,7 @@ interface FormInputData extends Omit<SettingConfig, "config" | "namespace" | "sc
     isDateTime: boolean;
 }
 
-interface TemplateData extends FormApplicationData {
+interface TemplateData extends appv1.api.FormApplicationData {
     settings: FormInputData[];
 }
 
@@ -30,8 +33,8 @@ interface UpdateData {
     showClockButton: boolean;
 }
 
-export class WorldClockSettings extends FormApplication {
-    static override get defaultOptions(): FormApplicationOptions {
+export class WorldClockSettings extends appv1.api.FormApplication {
+    static override get defaultOptions(): appv1.api.FormApplicationOptions {
         return fu.mergeObject(super.defaultOptions, {
             title: CONFIG.PF2E.SETTINGS.worldClock.name,
             id: "world-clock-settings",
@@ -109,17 +112,21 @@ export class WorldClockSettings extends FormApplication {
         const localize = localizer("PF2E.SETTINGS.WorldClock");
         const title = localize("ResetWorldTime.Name");
         $html.find("button.reset-world-time").on("click", async () => {
-            const template = await renderTemplate(
+            const template = await fa.handlebars.renderTemplate(
                 "systems/pf2e/templates/system/settings/world-clock/confirm-reset.hbs",
             );
-            Dialog.confirm({
-                title: title,
-                content: template,
-                yes: () => {
-                    game.time.advance(-1 * game.time.worldTime);
-                    this.close();
+            foundry.applications.api.DialogV2.confirm({
+                window: {
+                    title,
                 },
-                defaultYes: false,
+                content: template,
+                yes: {
+                    callback: () => {
+                        game.time.advance(-1 * game.time.worldTime);
+                        this.close();
+                    },
+                    default: false,
+                },
             });
         });
 

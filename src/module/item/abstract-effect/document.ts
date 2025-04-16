@@ -1,4 +1,5 @@
 import type { ActorPF2e } from "@actor";
+import type { DatabaseCreateOperation, DatabaseDeleteOperation } from "@common/abstract/_types.d.mts";
 import { ItemPF2e } from "@item";
 import type { AfflictionSource, AfflictionSystemData } from "@item/affliction/data.ts";
 import type { ConditionSource, ConditionSystemData } from "@item/condition/data.ts";

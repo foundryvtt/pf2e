@@ -154,5 +154,5 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/system/settings/basic-setting.hbs",
     ];
 
-    loadTemplates(templatePaths);
+    fa.handlebars.loadTemplates(templatePaths);
 }

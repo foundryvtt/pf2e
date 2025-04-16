@@ -1,3 +1,4 @@
+import type { ApplicationV1HeaderButton, AppV1RenderOptions } from "@fvtt-client/appv1/api/application-v1.d.mts";
 import { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { Rarity } from "@module/data.ts";
@@ -35,12 +36,16 @@ import * as R from "remeda";
 import type * as TinyMCE from "tinymce";
 import { CodeMirror } from "./codemirror.ts";
 import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-element-form/index.ts";
+import appv1 = foundry.appv1;
 
-class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOptions> {
+class ItemSheetPF2e<TItem extends ItemPF2e> extends appv1.sheets.ItemSheet<TItem, ItemSheetOptions> {
     constructor(item: TItem, options: Partial<ItemSheetOptions> = {}) {
         super(item, options);
         this.options.classes.push(this.item.type);
     }
+
+    /** Ignore deprecation warning */
+    protected static override _warnedAppV1 = true;
 
     static override get defaultOptions(): ItemSheetOptions {
         const options = super.defaultOptions;
@@ -132,7 +137,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             item,
             isPhysical: false,
             data: item.system,
-            fieldRootId: this.item.collection.has(this.item.id) ? this.id : foundry.utils.randomID(),
+            fieldRootId: this.item.collection?.has(this.item.id) ? this.id : fu.randomID(),
             fieldIdPrefix: `field-${this.appId}-`,
             enrichedContent,
             limited: this.item.limited,
@@ -350,7 +355,8 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         // Add implementation for viewing an item's roll options
         const viewRollOptionsElement = htmlQuery(rulesPanel, "a[data-action=view-roll-options]");
         viewRollOptionsElement?.addEventListener("click", async () => {
-            const content = await renderTemplate("systems/pf2e/templates/system/roll-options-tooltip.hbs", {
+            const path = "systems/pf2e/templates/system/roll-options-tooltip.hbs";
+            const content = await fa.handlebars.renderTemplate(path, {
                 description: game.i18n.localize("PF2E.Item.Rules.Hint.RollOptions"),
                 rollOptions: R.sortBy(this.item.getRollOptions("item").sort(), (o) => o.includes(":")),
             });
@@ -583,7 +589,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
     }
 
     /** Add button to refresh from compendium if setting is enabled. */
-    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
+    protected override _getHeaderButtons(): ApplicationV1HeaderButton[] {
         const buttons = super._getHeaderButtons();
 
         if (
@@ -640,7 +646,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
     }
 
     /** Overriden _render to maintain focus on tagify elements */
-    protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
+    protected override async _render(force?: boolean, options?: AppV1RenderOptions): Promise<void> {
         await maintainFocusInRender(this, () => super._render(force, options));
 
         // Maintain last rules panel scroll position when opening/closing the codemirror editor
@@ -655,7 +661,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
     }
 }
 
-interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
+interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends appv1.sheets.ItemSheetData<TItem> {
     /** The item type label that shows at the top right (for example, "Feat" for "Feat 6") */
     itemType: string | null;
     showTraits: boolean;
@@ -693,7 +699,7 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem>
     proficiencyRanks: typeof CONFIG.PF2E.proficiencyLevels;
 }
 
-interface ItemSheetOptions extends DocumentSheetOptions {
+interface ItemSheetOptions extends appv1.api.DocumentSheetV1Options {
     hasSidebar: boolean;
 }
 

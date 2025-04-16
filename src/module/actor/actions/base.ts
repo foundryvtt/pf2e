@@ -95,7 +95,8 @@ abstract class BaseActionVariant implements ActionVariant {
             label: traitLabels[trait] ?? trait,
             slug: trait,
         }));
-        const content = await renderTemplate("/systems/pf2e/templates/actors/actions/base/chat-message-content.hbs", {
+        const templatePath = "/systems/pf2e/templates/actors/actions/base/chat-message-content.hbs";
+        const content = await fa.handlebars.renderTemplate(templatePath, {
             description,
             glyph: this.glyph,
             name,
@@ -158,7 +159,7 @@ abstract class BaseAction<TData extends BaseActionVariantData, TAction extends B
         return getActionGlyph(this.cost ?? "");
     }
 
-    get variants(): Collection<TAction> {
+    get variants(): Collection<string, TAction> {
         const variants: [string, TAction][] = this.#variants.map((variant) => [variant.slug, variant]);
         return new Collection(variants);
     }

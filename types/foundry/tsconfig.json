@@ -5,16 +5,27 @@
         "moduleResolution": "NodeNext",
         "lib": [
             "ESNext",
-            "DOM"
+            "DOM",
+            "DOM.Iterable"
         ],
         "strict": true,
+        "skipLibCheck": false,
         "noImplicitOverride": true,
         "noEmit": true,
         "esModuleInterop": true,
-        "allowImportingTsExtensions": true
+        "paths": {
+            "@common/*": [
+                "./common/*"
+            ],
+            "@client/*": [
+                "./client/*"
+            ]
+        }
     },
-    "files": [
-        "index.d.ts",
-        "util.d.ts"
+    "include": [
+        "common/**/*",
+        "client/**/*.d.mts",
+        "util.d.mts",
+        "client/canvas/groups/canvas-group-mixin.mts"
     ]
 }

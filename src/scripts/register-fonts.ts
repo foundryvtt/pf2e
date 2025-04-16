@@ -131,17 +131,6 @@ export function registerFonts(): void {
         ],
     };
 
-    // Replace core Signika font with latin-extended coverage
-    CONFIG.fontDefinitions["Signika"] = {
-        editor: true,
-        fonts: [
-            { urls: ["systems/pf2e/fonts/signika-v19-latin-ext_latin-regular.woff2"], style: "normal", weight: "400" },
-            { urls: ["systems/pf2e/fonts/signika-v19-latin-ext_latin-500.woff2"], style: "normal", weight: "500" },
-            { urls: ["systems/pf2e/fonts/signika-v19-latin-ext_latin-600.woff2"], style: "normal", weight: "600" },
-            { urls: ["systems/pf2e/fonts/signika-v19-latin-ext_latin-700.woff2"], style: "normal", weight: "700" },
-        ],
-    };
-
     CONFIG.fontDefinitions["Vollkorn"] = {
         editor: true,
         fonts: [
@@ -169,8 +158,9 @@ export function registerFonts(): void {
     };
 
     // Core fonts without cross-OS compatibility
+    delete CONFIG.fontDefinitions["Arial"];
     delete CONFIG.fontDefinitions["Courier"];
+    delete CONFIG.fontDefinitions["Courier New"];
     delete CONFIG.fontDefinitions["Times"];
-    // Clear legacy fonts array
-    CONFIG._fontFamilies = [];
+    delete CONFIG.fontDefinitions["Times New Roman"];
 }

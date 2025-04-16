@@ -1,8 +1,8 @@
 import type { CreaturePF2e } from "@actor";
 import { ModifierPF2e } from "@actor/modifiers.ts";
-import { AttributeString } from "@actor/types.ts";
+import type { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES } from "@actor/values.ts";
-import { MagicTradition } from "@item/spell/types.ts";
+import type { MagicTradition } from "@item/spell/types.ts";
 import { ItemSpellcasting } from "@item/spellcasting-entry/item-spellcasting.ts";
 import { Predicate, RawPredicate } from "@system/predication.ts";
 import { PredicateField, SlugField } from "@system/schema-data-fields.ts";
@@ -10,7 +10,7 @@ import { Statistic, StatisticData } from "@system/statistic/index.ts";
 import { tupleHasValue } from "@util";
 import * as R from "remeda";
 import { RuleElementPF2e } from "../index.ts";
-import type { RuleElementSchema } from "./data.ts";
+import type { ModelPropsFromRESchema, RuleElementSchema } from "./data.ts";
 import fields = foundry.data.fields;
 
 /** Create a special-purpose statistic for use in checks and as a DC */
@@ -127,7 +127,7 @@ class SpecialStatisticRuleElement extends RuleElementPF2e<SpecialStatisticSchema
 
 interface SpecialStatisticRuleElement
     extends RuleElementPF2e<SpecialStatisticSchema>,
-        Omit<ModelPropsFromSchema<SpecialStatisticSchema>, "label"> {
+        ModelPropsFromRESchema<SpecialStatisticSchema> {
     slug: string;
 
     get actor(): CreaturePF2e;

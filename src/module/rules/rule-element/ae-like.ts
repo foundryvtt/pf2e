@@ -1,8 +1,8 @@
 import * as R from "remeda";
-import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 import fields = foundry.data.fields;
+import validation = foundry.data.validation;
 
 /**
  * Make a numeric modification to an arbitrary property in a similar way as `ActiveEffect`s
@@ -49,7 +49,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
 
     static PHASES = ["applyAEs", "beforeDerived", "afterDerived", "beforeRoll"] as const;
 
-    static override validateJoint(data: SourceFromSchema<AELikeSchema>): void {
+    static override validateJoint(data: fields.SourceFromSchema<AELikeSchema>): void {
         super.validateJoint(data);
 
         if (data.merge) {
@@ -145,7 +145,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
         current: TCurrent,
         change: TCurrent extends (infer TValue)[] ? TValue : TCurrent,
         merge?: boolean,
-    ): (TCurrent extends (infer TValue)[] ? TValue : TCurrent) | DataModelValidationFailure;
+    ): (TCurrent extends (infer TValue)[] ? TValue : TCurrent) | validation.DataModelValidationFailure;
     static getNewValue(mode: AELikeChangeMode, current: unknown, change: unknown, merge = false): unknown {
         const { DataModelValidationFailure } = foundry.data.validation;
 

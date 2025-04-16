@@ -1,4 +1,5 @@
 import type { CreatureTrait } from "@actor/creature/index.ts";
+import { ItemUUID } from "@client/documents/abstract/_module.mjs";
 import { ItemSystemModel, ItemSystemSchema } from "@item/base/data/model.ts";
 import type { BaseItemSourcePF2e, ItemSystemSource } from "@item/base/data/system.ts";
 import { RarityField } from "@module/model.ts";
@@ -42,7 +43,7 @@ class HeritageSystemData extends ItemSystemModel<HeritagePF2e, HeritageSystemSch
 
 interface HeritageSystemData
     extends ItemSystemModel<HeritagePF2e, HeritageSystemSchema>,
-        Omit<ModelPropsFromSchema<HeritageSystemSchema>, "description"> {
+        Omit<fields.ModelPropsFromSchema<HeritageSystemSchema>, "description"> {
     level?: never;
 }
 
@@ -54,8 +55,8 @@ type HeritageSystemSchema = Omit<ItemSystemSchema, "traits"> & {
     }>;
     ancestry: fields.SchemaField<
         HeritageAncestrySchema,
-        SourceFromSchema<HeritageAncestrySchema>,
-        ModelPropsFromSchema<HeritageAncestrySchema>,
+        fields.SourceFromSchema<HeritageAncestrySchema>,
+        fields.ModelPropsFromSchema<HeritageAncestrySchema>,
         true,
         true
     >;
@@ -67,7 +68,7 @@ type HeritageAncestrySchema = {
     uuid: fields.DocumentUUIDField<ItemUUID, true, false>;
 };
 
-type HeritageSystemSource = SourceFromSchema<HeritageSystemSchema> & {
+type HeritageSystemSource = fields.SourceFromSchema<HeritageSystemSchema> & {
     level?: never;
     schema?: ItemSystemSource["schema"];
 };

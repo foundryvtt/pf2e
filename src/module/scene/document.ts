@@ -1,3 +1,5 @@
+import type { ClientDocument } from "@client/documents/abstract/client-document.d.mts";
+import type { DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
 import { LightLevels, SceneFlagsPF2e } from "./data.ts";
 import { checkAuras } from "./helpers.ts";
 import type {
@@ -7,12 +9,10 @@ import type {
     TileDocumentPF2e,
 } from "./index.ts";
 import { TokenDocumentPF2e } from "./index.ts";
-import type { SceneConfigPF2e } from "./sheet.ts";
+import { SceneConfigPF2e } from "./sheet.ts";
+// import type { SceneConfigPF2e } from "./sheet.ts";
 
 class ScenePF2e extends Scene {
-    /** Has this document completed `DataModel` initialization? */
-    declare initialized: boolean;
-
     /** Is the rules-based vision setting enabled? */
     get rulesBasedVision(): boolean {
         if (!this.tokenVision) return false;
@@ -53,20 +53,12 @@ class ScenePF2e extends Scene {
         return (this.active && !soleUserIsGM) || (this.isView && soleUserIsGM);
     }
 
-    protected override _initialize(options?: Record<string, unknown>): void {
-        this.initialized = false;
-        super._initialize(options);
-    }
-
     /**
      * Prevent double data preparation of child documents.
      * @removeme in V13
      */
     override prepareData(): void {
-        if (game.release.generation === 12 && this.initialized) return;
-        this.initialized = true;
         super.prepareData();
-
         Promise.resolve().then(() => {
             this.checkAuras();
         });
@@ -132,12 +124,12 @@ class ScenePF2e extends Scene {
         }
     }
 
-    protected override _onUpdateDescendantDocuments(
-        parent: this,
+    protected override _onUpdateDescendantDocuments<TParent extends ClientDocument>(
+        parent: TParent,
         collection: string,
-        documents: ClientDocument[],
-        changes: object[],
-        options: DatabaseUpdateOperation<this>,
+        documents: ClientDocument<TParent>[],
+        changes: Record<string, unknown>[],
+        options: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void {
         super._onUpdateDescendantDocuments(parent, collection, documents, changes, options, userId);

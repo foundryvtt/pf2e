@@ -1,6 +1,8 @@
 import type { ActorPF2e } from "@actor";
+import type { MathFunctionName } from "@client/dice/terms/function.d.mts";
+import type { EnfolderableDocument } from "@client/documents/folder.d.mts";
+import type * as fields from "@common/data/fields.d.mts";
 import type { ItemPF2e } from "@item";
-import type * as fields from "types/foundry/common/data/fields.d.ts";
 
 /** The size property of creatures and equipment */
 const SIZES = ["tiny", "sm", "med", "lg", "huge", "grg"] as const;
@@ -85,7 +87,7 @@ type MigrationDataField = fields.SchemaField<{
     >;
 }>;
 
-type MigratedDocumentMigrationRecord = fields.SourcePropFromDataField<MigrationDataField>;
+type MigratedDocumentMigrationRecord = fields.SourceFromDataField<MigrationDataField>;
 
 type MigrationRecord = NewDocumentMigrationRecord | MigratedDocumentMigrationRecord;
 

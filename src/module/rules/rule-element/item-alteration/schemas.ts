@@ -1,3 +1,4 @@
+import type { DataFieldOptions } from "@common/data/_types.d.mts";
 import type { ItemPF2e } from "@item";
 import type { ItemSourcePF2e, ItemType } from "@item/base/data/index.ts";
 import type { ItemTrait } from "@item/base/types.ts";
@@ -5,39 +6,27 @@ import { itemIsOfType } from "@item/helpers.ts";
 import { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/values.ts";
 import { RARITIES } from "@module/data.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import { DamageDiceFaces, type DamageType } from "@system/damage/types.ts";
+import type { DamageDiceFaces, DamageType } from "@system/damage/types.ts";
 import { DAMAGE_DICE_FACES } from "@system/damage/values.ts";
 import { PredicateField, SlugField, StrictNumberField } from "@system/schema-data-fields.ts";
 import { tupleHasValue } from "@util";
 import * as R from "remeda";
-import type {
-    ArrayField,
-    BooleanField,
-    DataField,
-    DataFieldOptions,
-    ModelPropFromDataField,
-    NumberField,
-    SchemaField,
-    SourcePropFromDataField,
-    StringField,
-} from "types/foundry/common/data/fields.d.ts";
-import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
 import type { AELikeChangeMode } from "../ae-like.ts";
-
-const { fields, validation } = foundry.data;
+import fields = foundry.data.fields;
+import validation = foundry.data.validation;
 
 /** A `SchemaField` reappropriated for validation of specific item alterations */
 class ItemAlterationValidator<TSchema extends AlterationSchema> extends fields.SchemaField<TSchema> {
     #validateForItem?: (
         item: ItemPF2e | ItemSourcePF2e,
         alteration: MaybeAlterationData,
-    ) => DataModelValidationFailure | void;
+    ) => validation.DataModelValidationFailure | void;
 
     operableOnInstances: boolean;
 
     operableOnSource: boolean;
 
-    constructor(fields: TSchema, options: AlterationFieldOptions<SourceFromSchema<TSchema>> = {}) {
+    constructor(fields: TSchema, options: AlterationFieldOptions<fields.SourceFromSchema<TSchema>> = {}) {
         super(fields, options);
         if (options.validateForItem) this.#validateForItem = options.validateForItem;
         this.operableOnInstances = options.operableOnInstances ?? true;
@@ -49,8 +38,8 @@ class ItemAlterationValidator<TSchema extends AlterationSchema> extends fields.S
      * Errors will bubble all the way up to the originating parent rule element
      */
     isValid(data: { item: ItemPF2e | ItemSourcePF2e; alteration: MaybeAlterationData }): data is {
-        item: ItemOrSource<SourceFromSchema<TSchema>["itemType"]>;
-        alteration: SourceFromSchema<TSchema>;
+        item: ItemOrSource<fields.SourceFromSchema<TSchema>["itemType"]>;
+        alteration: fields.SourceFromSchema<TSchema>;
     } {
         const alteration = (data.alteration = fu.mergeObject(this.getInitialValue(), data.alteration));
         const failure = this.validate(alteration);
@@ -79,7 +68,7 @@ type ItemOrSource<TItemType extends ItemType> =
 
 type MaybeAlterationData = { mode: string; itemType: string; value: unknown };
 
-const itemHasCounterBadge = (item: ItemPF2e | ItemSourcePF2e): DataModelValidationFailure | void => {
+const itemHasCounterBadge = (item: ItemPF2e | ItemSourcePF2e): validation.DataModelValidationFailure | void => {
     const hasBadge = itemIsOfType(item, "condition")
         ? typeof item.system.value.value === "number"
         : itemIsOfType(item, "effect")
@@ -263,8 +252,8 @@ const ITEM_ALTERATION_VALIDATORS = {
         }),
         value: new fields.ArrayField<
             DescriptionElementField,
-            SourcePropFromDataField<DescriptionValueField>,
-            ModelPropFromDataField<DescriptionValueField>,
+            fields.SourceFromDataField<DescriptionValueField>,
+            fields.ModelPropFromDataField<DescriptionValueField>,
             true,
             false,
             false
@@ -359,7 +348,7 @@ const ITEM_ALTERATION_VALIDATORS = {
             } as const),
         },
         {
-            validateForItem(item): DataModelValidationFailure | void {
+            validateForItem(item): validation.DataModelValidationFailure | void {
                 if (item.system.slug !== "persistent-damage") {
                     return new validation.DataModelValidationFailure({
                         message: "item must be a persistent damage condition",
@@ -398,7 +387,7 @@ const ITEM_ALTERATION_VALIDATORS = {
             ),
         },
         {
-            validateForItem(item): DataModelValidationFailure | void {
+            validateForItem(item): validation.DataModelValidationFailure | void {
                 if (item.system.slug !== "persistent-damage") {
                     return new validation.DataModelValidationFailure({
                         message: "item must be a persistent damage condition",
@@ -530,7 +519,7 @@ const ITEM_ALTERATION_VALIDATORS = {
             }),
         },
         {
-            validateForItem: (item, alteration): DataModelValidationFailure | void => {
+            validateForItem: (item, alteration): validation.DataModelValidationFailure | void => {
                 const documentClasses: Record<string, typeof ItemPF2e> = CONFIG.PF2E.Item.documentClasses;
                 const validTraits = documentClasses[item.type].validTraits;
                 const value = alteration.value;
@@ -544,12 +533,12 @@ const ITEM_ALTERATION_VALIDATORS = {
     ),
 };
 
-interface AlterationFieldOptions<TSourceProp extends SourceFromSchema<AlterationSchema>>
+interface AlterationFieldOptions<TSourceProp extends fields.SourceFromSchema<AlterationSchema>>
     extends DataFieldOptions<TSourceProp, true, false, false> {
     validateForItem?: (
         item: ItemPF2e | ItemSourcePF2e,
         alteration: MaybeAlterationData,
-    ) => DataModelValidationFailure | void;
+    ) => validation.DataModelValidationFailure | void;
     /** Whether this alteration can be used with an `ItemPF2e` instance */
     operableOnInstances?: boolean;
     /** Whether this alteration can be used with item source data */
@@ -557,29 +546,29 @@ interface AlterationFieldOptions<TSourceProp extends SourceFromSchema<Alteration
 }
 
 type AlterationSchema = {
-    itemType: StringField<ItemType, ItemType, true, false, false>;
-    mode: StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
-    value: DataField<Exclude<JSONValue, undefined>, Exclude<JSONValue, undefined>, true, boolean, boolean>;
+    itemType: fields.StringField<ItemType, ItemType, true, false, false>;
+    mode: fields.StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
+    value: fields.DataField<Exclude<JSONValue, undefined>, Exclude<JSONValue, undefined>, true, boolean, boolean>;
 };
 
 type PersistentDamageValueSchema = {
-    formula: StringField<string, string, true, false, false>;
-    damageType: StringField<DamageType, DamageType, true, false, false>;
-    dc: NumberField<number, number, true, false, true>;
+    formula: fields.StringField<string, string, true, false, false>;
+    damageType: fields.StringField<DamageType, DamageType, true, false, false>;
+    dc: fields.NumberField<number, number, true, false, true>;
 };
 
-type DescriptionValueField = ArrayField<
+type DescriptionValueField = fields.ArrayField<
     DescriptionElementField,
-    SourcePropFromDataField<DescriptionElementField>[],
-    ModelPropFromDataField<DescriptionElementField>[],
+    fields.SourceFromDataField<DescriptionElementField>[],
+    fields.ModelPropFromDataField<DescriptionElementField>[],
     true,
     false,
     false
 >;
-type DescriptionElementField = SchemaField<{
-    title: StringField<string, string, false, true, true>;
-    text: StringField<string, string, true, false, false>;
-    divider: BooleanField<boolean, boolean, false, false, true>;
+type DescriptionElementField = fields.SchemaField<{
+    title: fields.StringField<string, string, false, true, true>;
+    text: fields.StringField<string, string, true, false, false>;
+    divider: fields.BooleanField<boolean, boolean, false, false, true>;
     predicate: PredicateField<false>;
 }>;
 

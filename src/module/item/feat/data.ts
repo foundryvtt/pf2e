@@ -1,5 +1,7 @@
 import type { Language, SenseAcuity, SenseType } from "@actor/creature/types.ts";
 import type { AttributeString, SaveType } from "@actor/types.ts";
+import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
+import type { SourceFromDataField } from "@common/data/fields.d.mts";
 import { FrequencyField, SelfEffectReference } from "@item/ability/index.ts";
 import { AbilityTraitToggles } from "@item/ability/trait-toggles.ts";
 import type { ArmorCategory } from "@item/armor/types.ts";
@@ -15,8 +17,7 @@ import type { ClassTrait } from "@item/class/types.ts";
 import type { WeaponCategory } from "@item/weapon/types.ts";
 import type { OneToFour, OneToThree } from "@module/data.ts";
 import { RarityField } from "@module/model.ts";
-import { LaxArrayField, NullCoercingNumberField, RecordField, SlugField } from "@system/schema-data-fields.ts";
-import { SourcePropFromDataField } from "types/foundry/common/data/fields.js";
+import { LaxArrayField, RecordField, SlugField } from "@system/schema-data-fields.ts";
 import type { FeatPF2e } from "./document.ts";
 import type { FeatOrFeatureCategory, FeatTrait } from "./types.ts";
 import fields = foundry.data.fields;
@@ -113,7 +114,7 @@ class FeatSystemData extends ItemSystemModel<FeatPF2e, FeatSystemSchema> {
                 }),
             }),
             actions: new fields.SchemaField({
-                value: new NullCoercingNumberField({ required: true, nullable: true, choices: [1, 2, 3] as const }),
+                value: new fields.NumberField({ required: true, nullable: true, choices: [1, 2, 3] as const }),
             }),
             prerequisites: new fields.SchemaField({
                 value: new fields.ArrayField(
@@ -237,7 +238,7 @@ class FeatSystemData extends ItemSystemModel<FeatPF2e, FeatSystemSchema> {
 
 interface FeatSystemData
     extends ItemSystemModel<FeatPF2e, FeatSystemSchema>,
-        Omit<ModelPropsFromSchema<FeatSystemSchema>, "description"> {}
+        Omit<fields.ModelPropsFromSchema<FeatSystemSchema>, "description"> {}
 
 type FeatSystemSchema = Omit<ItemSystemSchema, "traits"> & {
     level: fields.SchemaField<{
@@ -259,7 +260,7 @@ type FeatSystemSchema = Omit<ItemSystemSchema, "traits"> & {
         value: fields.StringField<ActionType, ActionType, true, false, true>;
     }>;
     actions: fields.SchemaField<{
-        value: NullCoercingNumberField<OneToThree, OneToThree, true, true, true>;
+        value: fields.NumberField<OneToThree, OneToThree, true, true, true>;
     }>;
     prerequisites: fields.SchemaField<{
         value: fields.ArrayField<
@@ -346,9 +347,9 @@ type SensesField = RecordField<
     }>
 >;
 
-type SenseSubfeature = SourcePropFromDataField<FeatSystemSchema["subfeatures"]>["senses"];
+type SenseSubfeature = SourceFromDataField<FeatSystemSchema["subfeatures"]>["senses"];
 
-type FeatSystemSource = SourceFromSchema<FeatSystemSchema> & {
+type FeatSystemSource = fields.SourceFromSchema<FeatSystemSchema> & {
     schema?: ItemSystemSource["schema"];
 };
 

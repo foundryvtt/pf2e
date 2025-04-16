@@ -6,6 +6,10 @@ import type { AutomaticBonusProgression } from "@actor/character/automatic-bonus
 import type { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import type { FeatGroupData } from "@actor/character/feats/index.ts";
 import type { CheckModifier, ModifierPF2e, ModifierType, StatisticModifier } from "@actor/modifiers.ts";
+import type Hotbar from "@client/applications/ui/hotbar.d.mts";
+import type Config from "@client/config.d.mts";
+import type WallDocument from "@client/documents/wall.d.mts";
+import type { CompendiumUUID } from "@client/utils/_module.d.mts";
 import type { ItemPF2e, PhysicalItemPF2e } from "@item";
 import type { ConditionSource } from "@item/condition/data.ts";
 import type { CoinsPF2e } from "@item/physical/helpers.ts";
@@ -69,8 +73,8 @@ import type {
 } from "@system/settings/homebrew/index.ts";
 import type { TextEditorPF2e } from "@system/text-editor.ts";
 import type { sluggify } from "@util";
-import type EnJSON from "static/lang/en.json";
-import type Hotbar from "types/foundry/client-esm/applications/ui/hotbar.d.mts";
+import type EnJSON from "../static/lang/en.json";
+import Game = foundry.Game;
 
 interface GamePF2e
     extends Game<
@@ -85,7 +89,7 @@ interface GamePF2e
     > {
     pf2e: {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-        actions: Record<string, Function> & Collection<Action>;
+        actions: Record<string, Function> & Collection<string, Action>;
         compendiumBrowser: CompendiumBrowser;
         licenseViewer: LicenseViewer;
         worldClock: WorldClock;
@@ -234,13 +238,16 @@ declare global {
     namespace globalThis {
         // eslint-disable-next-line no-var
         var game: GamePF2e;
-        // eslint-disable-next-line no-var
-        var fu: typeof foundry.utils;
+        export import fa = foundry.applications;
+        export import fc = foundry.canvas;
+        export import fd = foundry.documents;
+        export import fh = foundry.helpers;
+        export import fu = foundry.utils;
 
         // eslint-disable-next-line no-var
         var ui: FoundryUI<
             ActorDirectoryPF2e,
-            ItemDirectory<ItemPF2e<null>>,
+            foundry.applications.sidebar.tabs.ItemDirectory<ItemPF2e<null>>,
             ChatLogPF2e,
             CompendiumDirectoryPF2e,
             EncounterTrackerPF2e<EncounterPF2e | null>,

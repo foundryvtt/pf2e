@@ -32,20 +32,20 @@
     /** Shows the roll options for a specific modifier */
     async function showOptionsTooltip(element: HTMLElement, object: ModifierPF2e | DamageDicePF2e) {
         const rollOptions = R.sortBy(object.getRollOptions().sort(), (o) => o.includes(":"));
-        const content = await renderTemplate("systems/pf2e/templates/system/roll-options-tooltip.hbs", {
+        const content = await fa.handlebars.renderTemplate("systems/pf2e/templates/system/roll-options-tooltip.hbs", {
             description: game.i18n.localize("PF2E.ChatRollDetails.DiceRollOptionsHint"),
             rollOptions,
         });
         game.tooltip.dismissLockedTooltips();
         game.tooltip.activate(element, {
-            content: createHTMLElement("div", { innerHTML: content }),
+            html: createHTMLElement("div", { innerHTML: content }),
             locked: true,
             direction: "RIGHT",
         });
     }
 </script>
 
-<div class="content" data-tooltip-class="pf2e">
+<div class="content standard-form" data-tooltip-class="pf2e">
     <section class="summary">
         <div class="type">
             <span>{localize("PF2E.Roll.Type")}:</span>
@@ -66,7 +66,7 @@
             bind:value={searchTerm}
             placeholder={localize("PF2E.CompendiumBrowser.Filter.SearchPlaceholder")}
         />
-        <ul>
+        <ul class="scrollable">
             {#each results.rollOptions as option}
                 <li>{option}</li>
             {/each}
@@ -154,7 +154,7 @@
 
     .content {
         display: grid;
-        gap: var(--space-8);
+        gap: 1rem;
         grid-template-rows: auto minmax(0, 1fr);
         grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
         height: 100%;
@@ -198,11 +198,9 @@
 
         > ul {
             background-color: var(--table-row-color-odd);
-            border: 1px solid var(--color-border-dark-tertiary);
+            border: 1px solid var(--color-border);
             border-radius: 3px;
-            overflow: auto;
             width: 100%;
-            scrollbar-gutter: stable;
 
             li:nth-child(even of :not([hidden])) {
                 background-color: var(--table-row-color-even);
@@ -220,12 +218,12 @@
             flex: 1;
 
             li {
-                line-height: 1.5em;
+                line-height: 1.65em;
+                margin: 0;
                 overflow-x: hidden;
-                padding-left: var(--space-8);
+                padding-left: var(--space-4);
                 text-overflow: ellipsis;
                 user-select: text;
-                margin: 0;
             }
 
             .sub-list .header {

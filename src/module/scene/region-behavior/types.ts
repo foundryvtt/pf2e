@@ -1,3 +1,4 @@
+import type { RegionEvent } from "@client/documents/region.d.mts";
 import type { UserPF2e } from "@module/user/document.ts";
 import type {
     EnvironmentBehaviorType,

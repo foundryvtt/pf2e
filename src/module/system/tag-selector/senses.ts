@@ -6,10 +6,11 @@ import {
     SENSE_ACUITIES,
     SENSE_TYPES,
 } from "@actor/creature/values.ts";
+import type { OnSubmitFormOptions } from "@client/appv1/api/form-application-v1.d.mts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { BaseTagSelector, TagSelectorData, TagSelectorOptions } from "./base.ts";
-import { SelectableTagField } from "./index.ts";
+import type { SelectableTagField } from "./index.ts";
 
 class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
     protected objectProperty = "system.perception.senses";

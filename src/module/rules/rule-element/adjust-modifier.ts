@@ -48,7 +48,7 @@ class AdjustModifierRuleElement extends RuleElementPF2e<AdjustModifierSchema> {
         };
     }
 
-    static override validateJoint(data: SourceFromSchema<AdjustModifierSchema>): void {
+    static override validateJoint(data: fields.SourceFromSchema<AdjustModifierSchema>): void {
         super.validateJoint(data);
 
         const { DataModelValidationError } = foundry.data.validation;

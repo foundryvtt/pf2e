@@ -6,8 +6,9 @@ import { maintainFocusInRender } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, setHasElement, signedInteger, tupleHasValue } from "@util";
 import { createTooltipster } from "@util/destroyables.ts";
 import * as R from "remeda";
+import appv1 = foundry.appv1;
 
-class AttributeBuilder extends Application {
+class AttributeBuilder extends appv1.api.Application {
     actor: CharacterPF2e;
 
     #abpEnabled: boolean;
@@ -19,7 +20,7 @@ class AttributeBuilder extends Application {
         actor.apps[this.appId] = this;
     }
 
-    static override get defaultOptions(): ApplicationOptions {
+    static override get defaultOptions(): appv1.api.ApplicationV1Options {
         return {
             ...super.defaultOptions,
             classes: ["attribute-builder"],
@@ -34,7 +35,9 @@ class AttributeBuilder extends Application {
         return `attribute-builder-${this.actor.uuid}`;
     }
 
-    override async getData(options: Partial<FormApplicationOptions> = {}): Promise<AttributeBuilderSheetData> {
+    override async getData(
+        options: Partial<appv1.api.FormApplicationOptions> = {},
+    ): Promise<AttributeBuilderSheetData> {
         const { actor } = this;
         const build = actor.system.build.attributes;
 
@@ -274,7 +277,7 @@ class AttributeBuilder extends Application {
     }
 
     /** Maintain focus on manual entry inputs */
-    protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
+    protected override async _render(force?: boolean, options?: appv1.api.AppV1RenderOptions): Promise<void> {
         return maintainFocusInRender(this, () => super._render(force, options));
     }
 

@@ -1,3 +1,4 @@
+import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
 import { ItemPF2e } from "@item";
 import { EffectContextData } from "@item/abstract-effect/index.ts";
 
