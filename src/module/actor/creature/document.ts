@@ -5,6 +5,7 @@ import { CreatureSource } from "@actor/data/index.ts";
 import { MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import { ActorSpellcasting } from "@actor/spellcasting.ts";
 import { MovementType, SaveType, SkillSlug } from "@actor/types.ts";
+import type { DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
 import { ArmorPF2e, ItemPF2e, type PhysicalItemPF2e, type ShieldPF2e } from "@item";
 import { ArmorSource, ItemType } from "@item/base/data/index.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
@@ -40,7 +41,13 @@ import {
     VisionLevels,
 } from "./data.ts";
 import { imposeEncumberedCondition, setImmunitiesFromTraits } from "./helpers.ts";
-import { CreatureTrait, CreatureType, CreatureUpdateOperation, GetReachParameters, ResourceData } from "./types.ts";
+import type {
+    CreatureTrait,
+    CreatureType,
+    CreatureUpdateOperation,
+    GetReachParameters,
+    ResourceData,
+} from "./types.ts";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 abstract class CreaturePF2e<
@@ -248,9 +255,6 @@ abstract class CreaturePF2e<
     }
 
     override prepareData(): void {
-        if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
-            return;
-        }
         super.prepareData();
 
         // Add spell collections from spell consumables if a matching spellcasting ability is found

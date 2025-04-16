@@ -1,6 +1,8 @@
+import type { CollectionGetOptions } from "@common/utils/collection.d.mts";
+
 /** A proxy for a Collection that does not inherit from it, allowing it to work for getProperty() calls */
 export class DelegatedCollection<V> {
-    #data: Collection<V>;
+    #data: Collection<string, V>;
 
     constructor(entries: [string, V][] = []) {
         this.#data = new Collection(entries);

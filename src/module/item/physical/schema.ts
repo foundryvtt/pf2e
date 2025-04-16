@@ -2,7 +2,7 @@ import { CoinsPF2e } from "./coins.ts";
 import type { Price } from "./index.ts";
 import fields = foundry.data.fields;
 
-class PriceField extends fields.SchemaField<PriceSchema, SourceFromSchema<PriceSchema>, Price> {
+class PriceField extends fields.SchemaField<PriceSchema, fields.SourceFromSchema<PriceSchema>, Price> {
     constructor() {
         const denominationField = (): fields.NumberField<number, number, false, false, false> =>
             new fields.NumberField({ required: false, nullable: false, initial: undefined });
@@ -46,7 +46,7 @@ class PriceField extends fields.SchemaField<PriceSchema, SourceFromSchema<PriceS
         );
     }
 
-    override initialize(source: SourceFromSchema<PriceSchema>): Price {
+    override initialize(source: fields.SourceFromSchema<PriceSchema>): Price {
         const initialized = super.initialize(source);
         initialized.value = new CoinsPF2e(initialized.value);
         initialized.sizeSensitive ??= false;
@@ -54,7 +54,7 @@ class PriceField extends fields.SchemaField<PriceSchema, SourceFromSchema<PriceS
     }
 }
 
-type CoinsField = fields.SchemaField<CoinsSchema, SourceFromSchema<CoinsSchema>, CoinsPF2e, true, false, true>;
+type CoinsField = fields.SchemaField<CoinsSchema, fields.SourceFromSchema<CoinsSchema>, CoinsPF2e, true, false, true>;
 
 type CoinsSchema = {
     cp: fields.NumberField<number, number, false, false, false>;

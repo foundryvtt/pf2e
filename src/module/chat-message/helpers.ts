@@ -51,7 +51,7 @@ async function createUseActionMessage(
     }
 
     const speaker = ChatMessagePF2e.getSpeaker({ actor, token });
-    const flavor = await renderTemplate("systems/pf2e/templates/chat/action/flavor.hbs", {
+    const flavor = await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/action/flavor.hbs", {
         action: { title: item.name, glyph: getActionGlyph(actionCost) },
         item,
         traits: item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),
@@ -68,7 +68,7 @@ async function createUseActionMessage(
 
         return tempDiv.innerText.slice(0, previewLength);
     })();
-    const content = await renderTemplate("systems/pf2e/templates/chat/action/collapsed.hbs", {
+    const content = await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/action/collapsed.hbs", {
         actor: item.actor,
         description: {
             full: descriptionPreview && descriptionPreview.length < previewLength ? item.description : null,
@@ -176,8 +176,8 @@ interface ApplyDamageFromMessageParams {
 }
 
 async function shiftAdjustDamage(message: ChatMessagePF2e, multiplier: number, rollIndex: number): Promise<void> {
-    const content = await renderTemplate("systems/pf2e/templates/chat/damage/adjustment-dialog.hbs");
-    const AdjustmentDialog = class extends Dialog {
+    const content = await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/damage/adjustment-dialog.hbs");
+    const AdjustmentDialog = class extends foundry.appv1.api.Dialog {
         override activateListeners($html: JQuery): void {
             super.activateListeners($html);
             $html[0].querySelector("input")?.focus();

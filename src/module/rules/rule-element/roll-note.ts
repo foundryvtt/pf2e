@@ -1,8 +1,8 @@
+import type { StringField } from "@common/data/fields.d.mts";
 import { RollNotePF2e } from "@module/notes.ts";
-import { UserVisibility } from "@scripts/ui/user-visibility.ts";
+import type { UserVisibility } from "@scripts/ui/user-visibility.ts";
 import { DEGREE_OF_SUCCESS_STRINGS, DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import { DataUnionField, StrictStringField } from "@system/schema-data-fields.ts";
-import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 import fields = foundry.data.fields;

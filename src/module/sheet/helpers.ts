@@ -1,4 +1,7 @@
 import { ActorPF2e } from "@actor";
+import type Application from "@client/appv1/api/application-v1.d.mts";
+import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
+import type { TooltipDirection } from "@client/helpers/interaction/tooltip-manager.d.mts";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { htmlClosest, htmlQuery, sortLabeledRecord } from "@util";
 import * as R from "remeda";
@@ -172,7 +175,7 @@ function createTooltipListener(
         /** If given, the tooltip will spawn on elements that match this selector */
         selector?: string;
         locked?: boolean;
-        direction?: TooltipActivationOptions["direction"];
+        direction?: TooltipDirection;
         cssClass?: string;
         render: (element: HTMLElement) => Promise<HTMLElement | null>;
     },
@@ -194,7 +197,7 @@ function createTooltipListener(
 
             // A very crude implementation only designed for align top. Make it more flexible if we need to later
             if (options.align === "top") {
-                const pad = TooltipManager.TOOLTIP_MARGIN_PX;
+                const pad = fh.interaction.TooltipManager.TOOLTIP_MARGIN_PX;
                 const actualTooltip = options.locked ? content.closest("aside") : game.tooltip.tooltip;
                 if (actualTooltip) {
                     const bounds = target.getBoundingClientRect();

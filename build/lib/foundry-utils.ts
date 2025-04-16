@@ -6,26 +6,30 @@
  * @return The clone of that data
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function deepClone<T>(original: T): T extends Set<any> | Map<any, any> | Collection<any> ? never : T {
+function deepClone<T>(original: T): T extends Set<any> | Map<any, any> | Collection<string, any> ? never : T {
     // Simple types
     if (typeof original !== "object" || original === null)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return original as T extends Set<any> | Map<any, any> | Collection<any> ? never : T;
+        return original as T extends Set<any> | Map<any, any> | Collection<string, any> ? never : T;
 
     // Arrays
     if (original instanceof Array)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return original.map(deepClone) as unknown as T extends Set<any> | Map<any, any> | Collection<any> ? never : T;
+        return original.map(deepClone) as unknown as T extends Set<any> | Map<any, any> | Collection<string, any>
+            ? never
+            : T;
 
     // Dates
     if (original instanceof Date)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return new Date(original) as unknown as T extends Set<any> | Map<any, any> | Collection<any> ? never : T;
+        return new Date(original) as unknown as T extends Set<any> | Map<any, any> | Collection<string, any>
+            ? never
+            : T;
 
     // Unsupported advanced objects
     if ((original as { constructor: unknown }).constructor !== Object)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return original as T extends Set<any> | Map<any, any> | Collection<any> ? never : T;
+        return original as T extends Set<any> | Map<any, any> | Collection<string, any> ? never : T;
 
     // Other objects
     const clone: Record<string, unknown> = {};
@@ -33,7 +37,7 @@ function deepClone<T>(original: T): T extends Set<any> | Map<any, any> | Collect
         clone[k] = deepClone(original[k as keyof typeof original]);
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return clone as unknown as T extends Set<any> | Map<any, any> | Collection<any> ? never : T;
+    return clone as unknown as T extends Set<any> | Map<any, any> | Collection<string, any> ? never : T;
 }
 
 /**

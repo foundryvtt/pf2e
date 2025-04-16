@@ -1,8 +1,9 @@
 import type { ActorPF2e } from "@actor";
-import { RawItemChatData } from "@item/base/data/index.ts";
+import type { RawItemChatData } from "@item/base/data/index.ts";
 import { PhysicalItemPF2e } from "@item/physical/index.ts";
+import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { objectHasKey } from "@util";
-import { EquipmentSource, EquipmentSystemData, EquipmentTrait } from "./data.ts";
+import type { EquipmentSource, EquipmentSystemData, EquipmentTrait } from "./data.ts";
 
 class EquipmentPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     static override get validTraits(): Record<EquipmentTrait, string> {
@@ -11,7 +12,7 @@ class EquipmentPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
 
     override async getChatData(
         this: EquipmentPF2e<ActorPF2e>,
-        htmlOptions: EnrichmentOptions = {},
+        htmlOptions: EnrichmentOptionsPF2e = {},
     ): Promise<RawItemChatData> {
         return this.processChatData(htmlOptions, {
             ...(await super.getChatData()),

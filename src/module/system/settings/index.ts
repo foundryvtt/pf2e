@@ -9,6 +9,7 @@ import { HomebrewElements } from "./homebrew/menu.ts";
 import { MetagameSettings } from "./metagame.ts";
 import { VariantRulesSettings } from "./variant-rules.ts";
 import { WorldClockSettings } from "./world-clock.ts";
+import fields = foundry.data.fields;
 
 export function registerSettings(): void {
     if (BUILD_MODE === "development") {
@@ -333,7 +334,7 @@ function registerTrackingSettings(): void {
         type: String,
         default: "",
         onChange: () => {
-            ui.actors.render(true);
+            ui.actors.render({ parts: ["parties"] });
         },
     });
 
@@ -342,8 +343,7 @@ function registerTrackingSettings(): void {
         name: "Active Party Opened or closed",
         scope: "client",
         config: false,
-        type: Boolean,
-        default: true,
+        type: new fields.BooleanField({ required: true, nullable: false, initial: true }),
     });
 
     game.settings.register("pf2e", "worldSystemVersion", {

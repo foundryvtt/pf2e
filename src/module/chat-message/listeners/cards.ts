@@ -2,6 +2,7 @@ import { ActorPF2e } from "@actor";
 import { craftItem, craftSpellConsumable } from "@actor/character/crafting/helpers.ts";
 import { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
+import type { Rolled } from "@client/dice/roll.d.mts";
 import { EffectPF2e, PhysicalItemPF2e, type ItemPF2e } from "@item";
 import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
 import { EffectSource } from "@item/effect/data.ts";

@@ -1,3 +1,5 @@
+import type { SchemaField } from "@common/data/fields.d.mts";
+import type { ActorSchema } from "@common/documents/actor.d.mts";
 import { MystifiedTraits } from "@item/base/data/values.ts";
 import {
     ActorDirectoryPF2e,
@@ -15,10 +17,9 @@ import { registerKeybindings } from "@scripts/register-keybindings.ts";
 import { registerTemplates } from "@scripts/register-templates.ts";
 import { SetGamePF2e } from "@scripts/set-game-pf2e.ts";
 import { registerSettings } from "@system/settings/index.ts";
+import { TextEditorPF2e } from "@system/text-editor.ts";
 import { htmlQueryAll } from "@util";
 import * as R from "remeda";
-import type { SchemaField } from "types/foundry/common/data/fields.d.ts";
-import { ActorSchema } from "types/foundry/common/documents/actor.js";
 
 export const Init = {
     listen: (): void => {
@@ -38,11 +39,11 @@ export const Init = {
             // Assign the PF2e Sidebar subclasses
             CONFIG.ui.actors = ActorDirectoryPF2e;
             CONFIG.ui.items = ItemDirectoryPF2e;
+            CONFIG.ui.chat = ChatLogPF2e;
             CONFIG.ui.combat = EncounterTrackerPF2e;
             CONFIG.ui.compendium = CompendiumDirectoryPF2e;
 
             if (game.release.generation === 12) {
-                CONFIG.ui.chat = ChatLogPF2e;
                 CONFIG.Token.prototypeSheetClass = TokenConfigPF2e;
             }
 
@@ -126,6 +127,7 @@ export const Init = {
             });
 
             // Register custom enricher
+            CONFIG.ux.TextEditor = TextEditorPF2e;
             CONFIG.TextEditor.enrichers.push({
                 pattern: /@(Check|Localize|Template)\[([^\]]+)\](?:{([^}]+)})?/g,
                 enricher: (match, options) => game.pf2e.TextEditor.enrichString(match, options),

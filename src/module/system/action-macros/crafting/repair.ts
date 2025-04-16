@@ -49,8 +49,7 @@ async function repair(options: RepairActionOptions): Promise<void> {
         content: async (title) => {
             if (item) {
                 const templatePath = "systems/pf2e/templates/system/actions/repair/item-heading-partial.hbs";
-                const templateData = { item };
-                const content = await renderTemplate(templatePath, templateData);
+                const content = await fa.handlebars.enderTemplate(templatePath, { item });
                 return title + content;
             }
             return;
@@ -129,11 +128,11 @@ async function onRepairChatCardEvent(
             afterRepairHitPoints: afterRepair,
             maximumHitPoints: item.system.hp.max,
         });
-        await ChatMessage.create({ content, speaker });
+        await ChatMessagePF2e.create({ content, speaker });
     } else if (repair === "roll-damage") {
         const roll = await Roll.create("2d6").evaluate();
         const templatePath = "systems/pf2e/templates/system/actions/repair/roll-damage-chat-message.hbs";
-        const flavor = await renderTemplate(templatePath, {
+        const flavor = await fa.handlebars.renderTemplate(templatePath, {
             damage: {
                 dealt: Math.max(0, roll.total - item.system.hardness),
                 rolled: roll.total,
@@ -165,7 +164,7 @@ async function onRepairChatCardEvent(
             await ChatMessage.create({ content, speaker });
         } else {
             const templatePath = "systems/pf2e/templates/system/actions/repair/roll-damage-chat-message.hbs";
-            const content = await renderTemplate(templatePath, {
+            const content = await fa.handlebars.renderTemplate(templatePath, {
                 damage: {
                     dealt: 0,
                     rolled: message?.rolls.at(0)?.total ?? 0,
@@ -185,7 +184,7 @@ async function renderRepairResult(
 ): Promise<string> {
     const templatePath = "systems/pf2e/templates/system/actions/repair/repair-result-partial.hbs";
     const label = game.i18n.format(buttonLabel, { value });
-    return renderTemplate(templatePath, { item, label, result, value });
+    return fa.handlebars.renderTemplate(templatePath, { item, label, result, value });
 }
 
 interface RepairActionOptions extends SkillActionOptions {

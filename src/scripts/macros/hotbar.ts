@@ -1,12 +1,14 @@
 import { ActorPF2e } from "@actor";
 import { AttackPopout } from "@actor/character/apps/attack-popout.ts";
 import { ElementalBlast } from "@actor/character/elemental-blast.ts";
+import type { ActorUUID } from "@client/documents/abstract/_module.d.mts";
 import { ItemPF2e, type ConditionPF2e, type EffectPF2e } from "@item";
 import { EffectTrait } from "@item/abstract-effect/types.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { createUseActionMessage } from "@module/chat-message/helpers.ts";
 import { MacroPF2e } from "@module/macro.ts";
 import { eventToRollMode } from "@module/sheet/helpers.ts";
+import { TextEditorPF2e } from "@system/text-editor.ts";
 import { objectHasKey } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 
@@ -158,11 +160,11 @@ export async function rollActionMacro({
 
     const meleeOrRanged = strike.item.isMelee ? "melee" : "ranged";
     const identifier = `${strike.item.id}.${strike.slug}.${meleeOrRanged}`;
-    const description = await TextEditor.enrichHTML(game.i18n.localize(strike.description));
+    const description = await TextEditorPF2e.enrichHTML(game.i18n.localize(strike.description));
 
     const templateData = { actor, strike, identifier, description };
 
-    const content = await renderTemplate("systems/pf2e/templates/chat/strike-card.hbs", templateData);
+    const content = await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/strike-card.hbs", templateData);
     const token = actor.token ?? actor.getActiveTokens(true, true).shift() ?? null;
     const chatData: PreCreate<foundry.documents.ChatMessageSource> = {
         speaker: ChatMessagePF2e.getSpeaker({ actor, token }),

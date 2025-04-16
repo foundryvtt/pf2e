@@ -56,7 +56,7 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
         }
     }
 
-    static override validateJoint(data: SourceFromSchema<FlatModifierSchema>): void {
+    static override validateJoint(data: fields.SourceFromSchema<FlatModifierSchema>): void {
         super.validateJoint(data);
         if (data.selector.length === 0) {
             throw Error("selector: must have at least 1");

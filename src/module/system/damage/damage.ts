@@ -1,15 +1,16 @@
 import type { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
+import type { RollJSON, Rolled } from "@client/dice/_module.d.mts";
 import type { ItemPF2e } from "@item";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import { ChatMessagePF2e, DamageDamageContextFlag } from "@module/chat-message/index.ts";
-import { ZeroToThree } from "@module/data.ts";
+import type { ZeroToThree } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractNotes } from "@module/rules/helpers.ts";
 import { DEGREE_OF_SUCCESS, DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
 import { createHTMLElement, objectHasKey } from "@util";
 import { DamageRoll, DamageRollData } from "./roll.ts";
-import { DamageDamageContext, DamageTemplate } from "./types.ts";
+import type { DamageDamageContext, DamageTemplate } from "./types.ts";
 
 /** Create a chat message containing a damage roll */
 export class DamagePF2e {
@@ -36,7 +37,7 @@ export class DamagePF2e {
         let flavor = data.name.startsWith("<h4")
             ? data.name
             : data.name || subtitle
-              ? await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
+              ? await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
                     title: data.name,
                     outcome,
                     subtitle,

@@ -1,6 +1,6 @@
 import { resetActors } from "@actor/helpers.ts";
-import type { RegionEventType } from "types/foundry/client-esm/data/region-behaviors/base.d.ts";
-import type { SetField, StringField } from "types/foundry/common/data/fields.d.ts";
+import type { RegionEventType } from "@client/data/region-behaviors/base.d.mts";
+import type { ModelPropsFromSchema, SetField, SourceFromSchema, StringField } from "@common/data/fields.d.mts";
 import { RegionBehaviorPF2e } from "./document.ts";
 import { RegionEventPF2e } from "./types.ts";
 

@@ -32,7 +32,7 @@ class EnvironmentFeatureBehaviorType extends foundry.data.regionBehaviors.Region
 
 interface EnvironmentFeatureBehaviorType
     extends foundry.data.regionBehaviors.RegionBehaviorType<EnvironmentFeatureTypeSchema, RegionBehaviorPF2e | null>,
-        ModelPropsFromSchema<EnvironmentFeatureTypeSchema> {}
+        fields.ModelPropsFromSchema<EnvironmentFeatureTypeSchema> {}
 
 type EnvironmentFeatureTypeSchema = {
     terrain: fields.SchemaField<{

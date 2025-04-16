@@ -6,8 +6,7 @@ import { createHTMLElement, htmlQuery } from "@util";
  */
 export const RenderSettingsConfig = {
     listen: (): void => {
-        Hooks.on("renderSettingsConfig", (_app, $html) => {
-            const html = $html[0];
+        Hooks.on("renderSettingsConfig", (_app, html) => {
             const lockedSettings = ["core.gridTemplates", "core.coneTemplateType"];
             for (const locked of lockedSettings) {
                 const element = htmlQuery(html, `div[data-setting-id="${locked}"]`);

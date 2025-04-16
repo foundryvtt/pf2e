@@ -1,7 +1,9 @@
 import { resetActors } from "@actor/helpers.ts";
+import type { SettingRegistration } from "@client/helpers/client-settings.d.mts";
 import { htmlQuery, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { SettingsTemplateData, settingsToSheetData } from "./menu.ts";
+import appv1 = foundry.appv1;
 
 const SETTINGS: Record<string, SettingRegistration> = {
     gradualBoostsVariant: {
@@ -122,8 +124,8 @@ const SETTINGS: Record<string, SettingRegistration> = {
     },
 };
 
-export class VariantRulesSettings extends FormApplication {
-    static override get defaultOptions(): FormApplicationOptions {
+export class VariantRulesSettings extends appv1.api.FormApplication {
+    static override get defaultOptions(): appv1.api.FormApplicationOptions {
         const options = super.defaultOptions;
         options.classes.push("sheet");
 

@@ -6,11 +6,6 @@ import { SvelteApplicationMixin } from "@module/sheet/mixin.svelte.ts";
 import { ErrorPF2e, setHasElement } from "@util";
 import * as R from "remeda";
 import { untrack } from "svelte";
-import type {
-    ApplicationConfiguration,
-    ApplicationHeaderControlsEntry,
-    ApplicationRenderOptions,
-} from "types/foundry/client-esm/applications/_types.ts";
 import App from "./components/app.svelte";
 import { BrowserTab, BrowserTabs, ContentTabName, PackInfo, SourceInfo, TabData, TabName } from "./data.ts";
 import { PackLoader } from "./loader.ts";
@@ -18,7 +13,7 @@ import { CompendiumBrowserSettingsApp } from "./settings.ts";
 import { BrowserFilter } from "./tabs/data.ts";
 import * as browserTabs from "./tabs/index.ts";
 
-class CompendiumBrowser extends SvelteApplicationMixin(foundry.applications.api.ApplicationV2) {
+class CompendiumBrowser extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     /** The amount of rendered result items for initial loading and per load operation */
     static RESULT_LIMIT = 100;
 
@@ -33,7 +28,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundry.applications.api.
     tabs: BrowserTabs;
     tabsArray: BrowserTab[];
 
-    constructor(options: Partial<ApplicationConfiguration> = {}) {
+    constructor(options: Partial<fa.ApplicationConfiguration> = {}) {
         super(options);
 
         this.tabs = {
@@ -51,7 +46,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundry.applications.api.
         this.initCompendiumList();
     }
 
-    static override DEFAULT_OPTIONS: DeepPartial<ApplicationConfiguration> = {
+    static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
         id: "compendium-browser",
         classes: ["compendium-browser"],
         position: {
@@ -95,25 +90,25 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundry.applications.api.
             },
             openSettings: () => {
                 game.pf2e.compendiumBrowser.toggleControls();
-                new CompendiumBrowserSettingsApp().render(true);
+                new CompendiumBrowserSettingsApp().render({ force: true });
             },
         },
     };
 
-    protected override _onFirstRender(context: object, options: ApplicationRenderOptions): void {
+    protected override _onFirstRender(context: object, options: fa.ApplicationRenderOptions): void {
         super._onFirstRender(context, options);
         // Reset visible tabs when the browser was fully closed
         this.#setVisibleTabs();
     }
 
-    protected override _onClose(options: ApplicationRenderOptions): void {
+    protected override _onClose(options: fa.ApplicationRenderOptions): void {
         super._onClose(options);
         for (const tab of this.tabsArray) {
             tab.filterData.search.text = "";
         }
     }
 
-    protected override _getHeaderControls(): ApplicationHeaderControlsEntry[] {
+    protected override _getHeaderControls(): fa.ApplicationHeaderControlsEntry[] {
         const controls = super._getHeaderControls();
         const gmControls = ["addToRollTable", "createRollTable", "openSettings"];
         for (const control of controls) {
@@ -124,7 +119,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundry.applications.api.
         return controls;
     }
 
-    protected override async _prepareContext(_options: ApplicationRenderOptions): Promise<CompendiumBrowserContext> {
+    protected override async _prepareContext(_options: fa.ApplicationRenderOptions): Promise<CompendiumBrowserContext> {
         return {
             state: {
                 activeTabName: "",

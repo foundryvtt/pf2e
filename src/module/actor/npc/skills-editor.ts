@@ -2,14 +2,15 @@ import type { NPCPF2e } from "@actor";
 import { NPCSkillData, NPCSource } from "@actor/npc/data.ts";
 import { LoreSource } from "@item/base/data/index.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, objectHasKey } from "@util";
+import appv1 = foundry.appv1;
 
 /** Specialized form to setup skills for an NPC character. */
-export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
+export class NPCSkillsEditor extends appv1.api.DocumentSheet<NPCPF2e> {
     get actor(): NPCPF2e {
         return this.object;
     }
 
-    static override get defaultOptions(): DocumentSheetOptions {
+    static override get defaultOptions(): appv1.api.DocumentSheetV1Options {
         return {
             ...super.defaultOptions,
             classes: ["pf2e", "npc-skills-editor"],
@@ -30,7 +31,7 @@ export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
     }
 
     /** Prepare data to be sent to HTML. */
-    override async getData(options?: Partial<DocumentSheetOptions>): Promise<EditorData> {
+    override async getData(options?: Partial<appv1.api.DocumentSheetV1Options>): Promise<EditorData> {
         const allSkills = Object.values(this.actor.system.skills);
 
         return {
@@ -167,7 +168,7 @@ export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
     }
 
     /** Maintain focus since upstream only operates on named elements */
-    protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
+    protected override async _render(force?: boolean, options?: appv1.api.AppV1RenderOptions): Promise<void> {
         const focusedElement = htmlQuery<HTMLInputElement | HTMLSelectElement>(this.form, "input:focus, select:focus");
         await super._render(force, options);
 
@@ -182,7 +183,7 @@ export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
     }
 }
 
-interface EditorData extends DocumentSheetData<NPCPF2e> {
+interface EditorData extends appv1.api.DocumentSheetData<NPCPF2e> {
     actor: NPCPF2e;
     trainedSkills: NPCSkillData[];
     loreSkills: NPCSkillData[];

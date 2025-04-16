@@ -1,5 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { handleKingdomChatMessageEvents } from "@actor/party/kingdom/chat.ts";
+import { ContextMenuCondition, ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";
+import type { ChatMessageSource } from "@common/documents/chat-message.d.mts";
 import type { ShieldPF2e } from "@item";
 import { applyDamageFromMessage } from "@module/chat-message/helpers.ts";
 import { AppliedDamageFlag, ChatMessagePF2e } from "@module/chat-message/index.ts";
@@ -8,10 +10,9 @@ import { TokenDocumentPF2e } from "@scene";
 import { CheckPF2e } from "@system/check/index.ts";
 import { looksLikeDamageRoll } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import { fontAwesomeIcon, htmlClosest, htmlQuery, objectHasKey } from "@util";
-import type { ChatMessageSource } from "types/foundry/common/documents/chat-message.d.ts";
+import { htmlClosest, htmlQuery, objectHasKey } from "@util";
 
-class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
+class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
@@ -314,7 +315,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
     }
 
     async #onClickSetAsInitiative(message: ChatMessagePF2e): Promise<void> {
-        const { actor, token } = message;
+        const { speakerActor: actor, token } = message;
         if (!token) {
             ui.notifications.error(
                 game.i18n.format("PF2E.Encounter.NoTokenInScene", {
@@ -338,28 +339,28 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         );
     }
 
-    protected override _getEntryContextOptions(): EntryContextOption[] {
-        const canApplyDamage: ContextOptionCondition = (li) => {
+    protected override _getEntryContextOptions(): ContextMenuEntry[] {
+        const canApplyDamage: (li: HTMLElement) => boolean = (li) => {
             const message = game.messages.get(li.dataset.messageId, { strict: true });
             return canvas.tokens.controlled.length > 0 && message.rolls.some((r) => r instanceof DamageRoll);
         };
 
-        const canApplyTripleDamage: ContextOptionCondition = (li) =>
+        const canApplyTripleDamage: ContextMenuCondition = (li) =>
             canApplyDamage(li) && game.pf2e.settings.critFumble.buttons;
 
-        const canReroll: ContextOptionCondition = (li): boolean => {
+        const canReroll: ContextMenuCondition = (li) => {
             const message = game.messages.get(li.dataset.messageId, { strict: true });
             return message.isRerollable;
         };
 
-        const canHeroPointReroll: ContextOptionCondition = (li): boolean => {
+        const canHeroPointReroll: ContextMenuCondition = (li) => {
             const message = game.messages.get(li.dataset.messageId, { strict: true });
             const messageActor = message.actor;
             const actor = messageActor?.isOfType("familiar") ? messageActor.master : messageActor;
             return message.isRerollable && !!actor?.isOfType("character") && actor.heroPoints.value > 0;
         };
 
-        const canShowRollDetails: ContextOptionCondition = (li): boolean => {
+        const canShowRollDetails: ContextMenuCondition = (li) => {
             const message = game.messages.get(li.dataset.messageId, { strict: true });
             return game.user.isGM && !!message.flags.pf2e.context;
         };
@@ -368,7 +369,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         options.push(
             {
                 name: "PF2E.ChatRollDetails.Select",
-                icon: fontAwesomeIcon("search").outerHTML,
+                icon: fa.fields.createFontAwesomeIcon("face-monocle").outerHTML,
                 condition: canShowRollDetails,
                 callback: (li) => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
@@ -377,7 +378,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             },
             {
                 name: "PF2E.DamageButton.FullContext",
-                icon: fontAwesomeIcon("heart-broken").outerHTML,
+                icon: fa.fields.createFontAwesomeIcon("heart-broken").outerHTML,
                 condition: canApplyDamage,
                 callback: (li) => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
@@ -386,7 +387,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             },
             {
                 name: "PF2E.DamageButton.HalfContext",
-                icon: fontAwesomeIcon("heart-broken").outerHTML,
+                icon: fa.fields.createFontAwesomeIcon("heart-broken").outerHTML,
                 condition: canApplyDamage,
                 callback: (li) => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
@@ -395,7 +396,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             },
             {
                 name: "PF2E.DamageButton.DoubleContext",
-                icon: fontAwesomeIcon("heart-broken").outerHTML,
+                icon: fa.fields.createFontAwesomeIcon("heart-broken").outerHTML,
                 condition: canApplyDamage,
                 callback: (li) => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
@@ -404,7 +405,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             },
             {
                 name: "PF2E.DamageButton.TripleContext",
-                icon: fontAwesomeIcon("heart-broken").outerHTML,
+                icon: fa.fields.createFontAwesomeIcon("heart-broken").outerHTML,
                 condition: canApplyTripleDamage,
                 callback: (li) => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
@@ -413,7 +414,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             },
             {
                 name: "PF2E.DamageButton.HealingContext",
-                icon: fontAwesomeIcon("heart").outerHTML,
+                icon: fa.fields.createFontAwesomeIcon("heart").outerHTML,
                 condition: canApplyDamage,
                 callback: (li) => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
@@ -422,7 +423,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             },
             {
                 name: "PF2E.RerollMenu.HeroPoint",
-                icon: fontAwesomeIcon("hospital-symbol").outerHTML,
+                icon: fa.fields.createFontAwesomeIcon("hospital-symbol").outerHTML,
                 condition: canHeroPointReroll,
                 callback: (li) => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
@@ -431,7 +432,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             },
             {
                 name: "PF2E.RerollMenu.KeepNew",
-                icon: fontAwesomeIcon("dice").outerHTML,
+                icon: fa.fields.createFontAwesomeIcon("dice").outerHTML,
                 condition: canReroll,
                 callback: (li) => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
@@ -440,7 +441,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             },
             {
                 name: "PF2E.RerollMenu.KeepLower",
-                icon: fontAwesomeIcon("dice-one").outerHTML,
+                icon: fa.fields.createFontAwesomeIcon("dice-one").outerHTML,
                 condition: canReroll,
                 callback: (li) => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
@@ -449,7 +450,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             },
             {
                 name: "PF2E.RerollMenu.KeepHigher",
-                icon: fontAwesomeIcon("dice-six").outerHTML,
+                icon: fa.fields.createFontAwesomeIcon("dice-six").outerHTML,
                 condition: canReroll,
                 callback: (li) => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });

@@ -1,7 +1,9 @@
 import { StrikeData } from "@actor/data/base.ts";
 import { ActorSheetPF2e, SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
+import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
 import { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
+import { TextEditorPF2e } from "@system/text-editor.ts";
 import { htmlClosest, htmlQuery } from "@util/dom.ts";
 import { tagify, traitSlugToObject } from "@util/tags.ts";
 import type { HazardPF2e } from "./document.ts";
@@ -43,7 +45,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         // Enrich content
         const rollData = this.actor.getRollData();
         const enrich = async (content?: string): Promise<string> => {
-            return TextEditor.enrichHTML(content ?? "", { rollData });
+            return TextEditorPF2e.enrichHTML(content ?? "", { rollData });
         };
 
         sheetData.enrichedContent = fu.mergeObject(sheetData.enrichedContent, {
@@ -58,7 +60,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         for (const attack of strikesWithDescriptions) {
             if (attack.description.length > 0) {
                 const rollData = attack.item.getRollData();
-                attack.description = await TextEditor.enrichHTML(attack.description, { rollData });
+                attack.description = await TextEditorPF2e.enrichHTML(attack.description, { rollData });
             }
             attack.damageFormula = String(await attack.damage?.({ getFormula: true }));
         }

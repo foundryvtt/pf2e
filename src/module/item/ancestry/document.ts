@@ -3,6 +3,7 @@ import { SenseData } from "@actor/creature/index.ts";
 import { CreatureTrait } from "@actor/creature/types.ts";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
 import { AttributeString } from "@actor/types.ts";
+import type { DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
 import { ABCItemPF2e, type FeatPF2e } from "@item";
 import { Size } from "@module/data.ts";
 import type { UserPF2e } from "@module/user/document.ts";
