@@ -4,6 +4,8 @@ import { ActorInitiative } from "@actor/initiative.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { Kingdom } from "@actor/party/kingdom/model.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
+import type { Rolled } from "@client/dice/_module.d.mts";
+import type { DatabaseDeleteOperation } from "@common/abstract/_types.d.mts";
 import { type CampaignFeaturePF2e } from "@item";
 import type { ItemSourcePF2e, ItemType } from "@item/base/data/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
@@ -60,9 +62,6 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
     }
 
     override prepareData(): void {
-        if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
-            return;
-        }
         super.prepareData();
         this.kingdom?.notifyUpdate();
     }

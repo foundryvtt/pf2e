@@ -1,30 +1,32 @@
+import type { Notification } from "@client/applications/ui/notifications.d.mts";
+
 /**
- * Quick and dirty API around the Loading bar.
- * Does not handle conflicts; multiple instances of this class will fight for the same loading bar, but once all but
- * once are completed, the bar should return to normal
- *
+ * An alternative API for Notification loading bars
  * @category Other
  */
 class Progress {
     value = 0;
+
     readonly max: number;
-    /** An initial label: overridable while advancing */
+
     label: string;
 
-    constructor({ max, label }: { max: number; label?: string }) {
-        this.label = label ?? "";
+    notification: Notification;
+
+    constructor({ max, label = "" }: { max: number; label?: string }) {
         this.max = max;
+        this.label = label;
+        this.notification = ui.notifications.info(this.label, { progress: true });
     }
 
     advance({ by = 1, label = this.label }: { by?: number; label?: string } = {}): void {
         if (this.value === this.max) return;
         this.value += Math.abs(by);
-        const pct = Math.floor((this.value / this.max) * 100);
-        SceneNavigation.displayProgressBar({ label, pct });
+        this.notification.update({ message: label, pct: this.value / this.max });
     }
 
     close({ label = "" } = {}): void {
-        SceneNavigation.displayProgressBar({ label, pct: 100 });
+        this.notification.update({ message: label, pct: 1 });
     }
 }
 

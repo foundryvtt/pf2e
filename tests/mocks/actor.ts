@@ -1,6 +1,8 @@
 import type { ActorPF2e } from "@actor";
 import { ActorSystemSource } from "@actor/data/base.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
+import type { DocumentConstructionContext } from "@common/_types.d.mts";
+import type { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
 import type { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
@@ -22,10 +24,7 @@ export class MockActor {
 
     _itemGuid = 1;
 
-    constructor(
-        data: ActorSourcePF2e,
-        public options: DocumentConstructionContext<null> = {},
-    ) {
+    constructor(data: ActorSourcePF2e, _options: DocumentConstructionContext<null> = {}) {
         this._source = fu.duplicate(data);
         this._source.items ??= [];
         this.prepareData();

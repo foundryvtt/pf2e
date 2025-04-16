@@ -2,7 +2,7 @@ import type { ActorPF2e } from "@actor";
 import type { ShieldPF2e } from "./document.ts";
 
 function setActorShieldData(shield: ShieldPF2e<ActorPF2e>): void {
-    const { actor } = shield;
+    const actor = shield.actor;
     const isEquippedShield = shield.isEquipped && actor.heldShield === shield;
     if (!isEquippedShield || !actor.isOfType("character", "npc")) {
         return;
@@ -12,7 +12,7 @@ function setActorShieldData(shield: ShieldPF2e<ActorPF2e>): void {
         return;
     }
 
-    const { hitPoints } = shield;
+    const hitPoints = shield.hitPoints;
     attributes.shield = {
         itemId: shield.id,
         name: shield.name,

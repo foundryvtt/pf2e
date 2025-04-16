@@ -1,3 +1,4 @@
+import type { AppV1RenderOptions } from "@client/appv1/api/application-v1.d.mts";
 import { combatantAndTokenDoc } from "@module/doc-helpers.ts";
 import type { CombatantPF2e, EncounterPF2e, RolledCombatant } from "@module/encounter/index.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
@@ -14,12 +15,13 @@ import {
     parseHTML,
 } from "@util";
 import Sortable from "sortablejs";
+import tabs = fa.sidebar.tabs;
 
-export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> extends CombatTracker<TEncounter> {
+export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> extends tabs.CombatTracker<TEncounter> {
     #sortable: Sortable | null = null;
 
     /** Show encounter analysis data if obtainable */
-    protected override async _renderInner(data: object, options: RenderOptions): Promise<JQuery> {
+    protected override async _renderInner(data: object, options: AppV1RenderOptions): Promise<JQuery> {
         const $html = await super._renderInner(data, options);
         if (!game.user.isGM) return $html;
         const metrics = this.viewed?.metrics;
@@ -48,12 +50,8 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
             return { label, tooltip };
         })();
 
-        const threatAward = parseHTML(
-            await renderTemplate("systems/pf2e/templates/sidebar/encounter-tracker/threat-award.hbs", {
-                threat,
-                award,
-            }),
-        );
+        const templatePath = "systems/pf2e/templates/sidebar/encounter-tracker/threat-award.hbs";
+        const threatAward = parseHTML(await fa.handlebars.renderTemplate(templatePath, { threat, award }));
         const html = $html[0];
         htmlQuery(html, "nav.encounters")?.after(threatAward);
 

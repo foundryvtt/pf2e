@@ -9,12 +9,12 @@ import { nextDamageDieSize } from "@system/damage/helpers.ts";
 import { objectHasKey } from "@util";
 import { Duration } from "luxon";
 import * as R from "remeda";
-import type { StringField } from "types/foundry/common/data/fields.d.ts";
-import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
 import { AELikeChangeMode, AELikeRuleElement } from "../ae-like.ts";
 import type { RuleElementPF2e } from "../base.ts";
 import { ResolvableValueField } from "../data.ts";
 import { ITEM_ALTERATION_VALIDATORS } from "./schemas.ts";
+import fields = foundry.data.fields;
+import validation = foundry.data.validation;
 
 class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlterationSchema> {
     static VALID_PROPERTIES = [
@@ -49,7 +49,6 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
     ] as const;
 
     static override defineSchema(): ItemAlterationSchema {
-        const fields = foundry.data.fields;
         return {
             mode: new fields.StringField({
                 required: true,
@@ -444,9 +443,9 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         mode: "upgrade" | "downgrade" | "override" | string,
         current: FrequencyInterval,
         newValue: string,
-    ): FrequencyInterval | DataModelValidationFailure {
+    ): FrequencyInterval | validation.DataModelValidationFailure {
         if (!objectHasKey(CONFIG.PF2E.frequencies, newValue)) {
-            return new foundry.data.validation.DataModelValidationFailure({ invalidValue: current, fallback: false });
+            return new validation.DataModelValidationFailure({ invalidValue: current, fallback: false });
         }
         if (mode === "override") return newValue;
 
@@ -466,11 +465,11 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
 
 interface ItemAlteration
     extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlterationSchema>,
-        ModelPropsFromSchema<ItemAlterationSchema> {}
+        fields.ModelPropsFromSchema<ItemAlterationSchema> {}
 
 type ItemAlterationSchema = {
-    mode: StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
-    property: StringField<ItemAlterationProperty, ItemAlterationProperty, true, false, false>;
+    mode: fields.StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
+    property: fields.StringField<ItemAlterationProperty, ItemAlterationProperty, true, false, false>;
     value: ResolvableValueField<true, true, false>;
 };
 

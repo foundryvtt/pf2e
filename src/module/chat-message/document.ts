@@ -1,5 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
+import type { Rolled } from "@client/dice/roll.d.mts";
+import type { ChatMessageCreateOperation } from "@common/documents/chat-message.d.mts";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { RollInspector } from "@module/apps/roll-inspector/app.ts";
 import type { UserPF2e } from "@module/user/index.ts";
@@ -45,9 +47,9 @@ class ChatMessagePF2e extends ChatMessage {
         return !(isCheck || fromRollTable);
     }
 
-    /** Get the actor associated with this chat message */
+    /** An alias for `speakerActor` */
     get actor(): ActorPF2e | null {
-        return ChatMessagePF2e.getSpeakerActor(this.speaker);
+        return this.speakerActor;
     }
 
     /** If this is a check or damage roll, it will have target information */
@@ -66,7 +68,7 @@ class ChatMessagePF2e extends ChatMessage {
     }
 
     /** If the message came from dynamic inline content in a journal entry, the entry's ID may be used to retrieve it */
-    get journalEntry(): JournalEntry | null {
+    get journalEntry(): fd.JournalEntry | null {
         const uuid = this.flags.pf2e.journalEntry;
         if (!uuid) return null;
 
@@ -89,7 +91,7 @@ class ChatMessagePF2e extends ChatMessage {
     get isRerollable(): boolean {
         const roll = this.rolls[0];
         return !!(
-            this.actor?.isOwner &&
+            this.speakerActor?.isOwner &&
             (this.isAuthor || this.isOwner) &&
             roll instanceof CheckRoll &&
             roll.isRerollable
@@ -98,7 +100,7 @@ class ChatMessagePF2e extends ChatMessage {
 
     /** Get the owned item associated with this chat message */
     get item(): ItemPF2e<ActorPF2e> | null {
-        const actor = this.actor;
+        const actor = this.speakerActor;
         if (this.flags.pf2e.context?.type === "self-effect") {
             const item = actor?.items.get(this.flags.pf2e.context.item);
             return item ?? null;
@@ -131,7 +133,7 @@ class ChatMessagePF2e extends ChatMessage {
 
     /** If this message was for a strike, return the strike. Strikes will change in a future release */
     get _strike(): StrikeData | null {
-        const actor = this.actor;
+        const actor = this.speakerActor;
 
         // Get strike data from the roll identifier
         const roll = this.rolls.find((r): r is Rolled<CheckRoll> => r instanceof CheckRoll);
@@ -156,7 +158,7 @@ class ChatMessagePF2e extends ChatMessage {
 
     async showDetails(): Promise<void> {
         if (!this.flags.pf2e.context) return;
-        new RollInspector({ message: this }).render(true);
+        new RollInspector({ message: this }).render({ force: true });
     }
 
     /** Get the token of the speaker if possible */
@@ -168,29 +170,24 @@ class ChatMessagePF2e extends ChatMessage {
     }
 
     override getRollData(): Record<string, unknown> {
-        const { actor, item } = this;
-        return { ...actor?.getRollData(), ...item?.getRollData() };
+        const { speakerActor, item } = this;
+        return { ...speakerActor?.getRollData(), ...item?.getRollData() };
     }
 
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    override async getHTML(): Promise<JQuery> {
-        const actor = this.actor;
+    override async renderHTML(): Promise<HTMLElement> {
+        const actor = this.speakerActor;
 
         // Enrich flavor, which is skipped by upstream
         if (this.isContentVisible) {
             const rollData = this.getRollData();
-            this.flavor = await TextEditorPF2e.enrichHTML(this.flavor, {
-                async: true,
-                rollData,
-                processVisibility: false,
-            });
+            this.flavor = await TextEditorPF2e.enrichHTML(this.flavor, { rollData, processVisibility: false });
         }
 
-        const $html = await super.getHTML();
-        const html = $html[0];
+        const html = await super.renderHTML();
 
         // Attach actor image to header. Use token if its an image type with a non-default image, otherwise actor image
         // For non-image types consider video thumbnails using game.video.createThumbnail() depending on cache performance
@@ -201,7 +198,7 @@ class ChatMessagePF2e extends ChatMessage {
 
             const [imageUrl, scale] = (() => {
                 const tokenImage = token.texture.src;
-                const hasTokenImage = tokenImage && ImageHelper.hasImageExtension(tokenImage);
+                const hasTokenImage = tokenImage && fh.media.ImageHelper.hasImageExtension(tokenImage);
                 if (!hasTokenImage || isDefaultTokenImage(token)) {
                     return [actor.img, 1];
                 }
@@ -248,7 +245,7 @@ class ChatMessagePF2e extends ChatMessage {
         }
 
         await Listeners.DamageTaken.listen(this, html);
-        CriticalHitAndFumbleCards.appendButtons(this, $html);
+        CriticalHitAndFumbleCards.appendButtons(this, html);
         Listeners.ChatCards.listen(this, html);
         Listeners.DegreeOfSuccessHighlights.listen(this, html);
         if (canvas.ready || !game.settings.get("core", "noCanvas")) {
@@ -259,16 +256,16 @@ class ChatMessagePF2e extends ChatMessage {
         const roll = this.rolls[0];
         if (actor?.isOwner && roll instanceof DamageRoll && roll.options.evaluatePersistent) {
             const damageType = roll.instances.find((i) => i.persistent)?.type;
-            const condition = damageType ? this.actor?.getCondition(`persistent-damage-${damageType}`) : null;
+            const condition = damageType ? this.speakerActor?.getCondition(`persistent-damage-${damageType}`) : null;
             if (condition) {
                 const template = "systems/pf2e/templates/chat/persistent-damage-recovery.hbs";
-                const section = parseHTML(await renderTemplate(template));
+                const section = parseHTML(await fa.handlebars.renderTemplate(template));
                 html.querySelector(".message-content")?.append(section);
                 html.dataset.actorIsTarget = "true";
             }
 
             htmlQuery(html, "[data-action=recover-persistent-damage]")?.addEventListener("click", () => {
-                const { actor } = this;
+                const actor = this.speakerActor;
                 if (!actor) return;
 
                 const damageType = roll.instances.find((i) => i.persistent)?.type;
@@ -291,7 +288,7 @@ class ChatMessagePF2e extends ChatMessage {
         // Remove revert damage button based on user permissions
         const appliedDamageFlag = this.flags.pf2e.appliedDamage;
         if (!appliedDamageFlag?.isReverted) {
-            if (!this.actor?.isOwner) {
+            if (!this.speakerActor?.isOwner) {
                 htmlQuery(html, "button[data-action=revert-damage]")?.remove();
             }
         }
@@ -304,7 +301,7 @@ class ChatMessagePF2e extends ChatMessage {
             UserVisibilityPF2e.process(html, { document: actor ?? this, message: this });
         }
 
-        return $(html);
+        return html;
     }
 
     /** Highlight the message's corresponding token on the canvas */
@@ -330,7 +327,7 @@ class ChatMessagePF2e extends ChatMessage {
         }
 
         // If this is a rest notification, re-render sheet for anyone currently viewing it
-        if (operation.restForTheNight) this.actor?.render();
+        if (operation.restForTheNight) this.speakerActor?.render();
     }
 }
 
@@ -338,6 +335,7 @@ interface ChatMessagePF2e extends ChatMessage {
     author: UserPF2e | null;
     flags: ChatMessageFlagsPF2e;
     readonly _source: ChatMessageSourcePF2e;
+    get speakerActor(): ActorPF2e | null;
 }
 
 declare namespace ChatMessagePF2e {

@@ -1,3 +1,4 @@
+import type CompendiumCollection from "@client/documents/collections/compendium-collection.d.mts";
 import { ChatMessagePF2e } from "./index.ts";
 
 export class CriticalHitAndFumbleCards {
@@ -50,7 +51,7 @@ export class CriticalHitAndFumbleCards {
             });
     }
 
-    static appendButtons(message: ChatMessagePF2e, $html: JQuery): void {
+    static appendButtons(message: ChatMessagePF2e, html: HTMLElement): void {
         this.appendButtonsOption ??= game.pf2e.settings.critFumble.buttons;
         if (this.appendButtonsOption && (message.isAuthor || game.user.isGM) && message.isContentVisible) {
             const type = message.flags.pf2e.context?.type ?? "";
@@ -83,7 +84,7 @@ export class CriticalHitAndFumbleCards {
                     event.currentTarget.blur();
                 });
 
-                $html.find(".dice-total").wrapInner('<span id="value"></span>').append($container);
+                $(html).find(".dice-total").wrapInner('<span id="value"></span>').append($container);
             }
         }
     }

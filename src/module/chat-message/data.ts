@@ -1,4 +1,6 @@
 import type { RawDamageDice, RawModifier } from "@actor/modifiers.ts";
+import type { DocumentUUID } from "@client/utils/_module.d.mts";
+import type { ChatMessageFlags } from "@common/documents/chat-message.d.mts";
 import { ItemType, SpellSource } from "@item/base/data/index.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { ZeroToTwo } from "@module/data.ts";
@@ -6,7 +8,6 @@ import { RollNoteSource } from "@module/notes.ts";
 import { CheckCheckContext } from "@system/check/index.ts";
 import { DamageDamageContext } from "@system/damage/types.ts";
 import { DegreeAdjustmentsRecord, DegreeOfSuccessString } from "@system/degree-of-success.ts";
-import type { ChatMessageFlags } from "types/foundry/common/documents/chat-message.d.ts";
 
 type ChatMessageSourcePF2e = foundry.documents.ChatMessageSource & {
     flags: ChatMessageFlagsPF2e;

@@ -291,7 +291,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                             `Spell ${this.item.name} (${this.item.uuid}) does not have a variant with id: ${id}`,
                         );
                     }
-                    new Dialog({
+                    new foundry.appv1.api.Dialog({
                         title: game.i18n.localize("PF2E.Item.Spell.Variants.DeleteDialogTitle"),
                         content: `<p>${game.i18n.format("PF2E.Item.Spell.Variants.DeleteDialogText", {
                             variantName: variant.name,
@@ -378,7 +378,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                         );
                         siblings.push(targetVariant);
 
-                        const sorting = SortingHelpers.performIntegerSort(sourceVariant, {
+                        const sorting = fu.performIntegerSort(sourceVariant, {
                             target: targetVariant,
                             siblings,
                             sortKey: "sort",

@@ -98,8 +98,8 @@ class Kingdom extends DataModel<PartySystemData, KingdomSchema> implements Party
             event.stopPropagation();
 
             if (!this.active) {
-                const startBuilding = await Dialog.confirm({
-                    title: game.i18n.localize("PF2E.Kingmaker.KingdomBuilder.Title"),
+                const startBuilding = await foundry.applications.api.DialogV2.confirm({
+                    window: { title: "PF2E.Kingmaker.KingdomBuilder.Title", icon: "fa-solid fa-castle" },
                     content: `<p>${game.i18n.localize("PF2E.Kingmaker.KingdomBuilder.ActivationMessage")}</p>`,
                 });
                 if (startBuilding) {

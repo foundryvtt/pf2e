@@ -42,8 +42,8 @@ import { sluggify } from "@util";
 export const SetGamePF2e = {
     onInit: (): void => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-        type ActionCollection = Record<string, Function> & Collection<Action>;
-        const actions = new Collection<Action>(
+        type ActionCollection = Record<string, Function> & Collection<string, Action>;
+        const actions = new Collection<string, Action>(
             SystemActions.map((action) => [action.slug, action]),
         ) as ActionCollection;
         // keep the old action functions around until everything has been converted

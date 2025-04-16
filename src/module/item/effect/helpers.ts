@@ -1,11 +1,11 @@
-import { EffectSource } from "./data.ts";
+import type { EffectSource } from "./data.ts";
 
 /** Create the source data for a gag Disintegrate spell effect */
 const createDisintegrateEffect = (): PreCreate<EffectSource> => {
     const rule = {
         key: "TokenImage",
         value: "systems/pf2e/icons/effects/fine-powder.svg",
-        animation: { transition: TextureTransitionFilter.TYPES.DOTS },
+        animation: { transition: fc.rendering.filters.TextureTransitionFilter.TYPES.DOTS },
     };
     return {
         _id: null,

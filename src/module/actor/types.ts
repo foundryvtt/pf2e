@@ -1,8 +1,9 @@
 import type * as ActorInstance from "@actor";
 import type { ActorPF2e } from "@actor";
+import type { Rolled } from "@client/dice/roll.d.mts";
 import type { ItemPF2e } from "@item";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { ItemInstances } from "@item/types.ts";
 import type { RollNotePF2e } from "@module/notes.ts";
 import type { ItemAlteration } from "@module/rules/rule-element/item-alteration/alteration.ts";
@@ -148,8 +149,8 @@ export type {
     AuraEffectData,
     DCSlug,
     EmbeddedItemInstances,
-    ImmunityType,
     IWRType,
+    ImmunityType,
     MovementType,
     ResistanceType,
     SaveType,

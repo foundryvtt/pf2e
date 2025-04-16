@@ -26,10 +26,10 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
     })();
     if (
         !options.skipDialog &&
-        !(await Dialog.confirm({
-            title: localize("Label"),
+        !(await foundry.applications.api.DialogV2.confirm({
+            window: { title: localize("Label") },
             content: promptMessage,
-            defaultYes: true,
+            yes: { default: true },
         }))
     ) {
         return [];

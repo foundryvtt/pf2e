@@ -1,8 +1,18 @@
 import { ActorPF2e } from "@actor/base.ts";
+import type { DocumentHTMLEmbedConfig } from "@client/applications/ux/text-editor.d.mts";
+import type { FormApplicationOptions } from "@client/appv1/api/form-application-v1.d.mts";
+import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
+import type { DocumentConstructionContext } from "@common/_types.d.mts";
+import type {
+    DatabaseCreateOperation,
+    DatabaseDeleteOperation,
+    DatabaseUpdateOperation,
+    Document,
+} from "@common/abstract/_module.d.mts";
 import type { ContainerPF2e, PhysicalItemPF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
 import { itemIsOfType, markdownToHTML } from "@item/helpers.ts";
-import { ItemOriginFlag } from "@module/chat-message/data.ts";
+import type { ItemOriginFlag } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
@@ -11,7 +21,7 @@ import { RuleElementOptions, RuleElementPF2e, RuleElementSource, RuleElements } 
 import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers.ts";
 import { eventToRollMode } from "@module/sheet/helpers.ts";
 import type { UserPF2e } from "@module/user/document.ts";
-import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
+import { EnrichmentOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
 import {
     ErrorPF2e,
     createHTMLElement,
@@ -24,10 +34,10 @@ import {
 } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
-import { AfflictionSource } from "../affliction/data.ts";
+import type { AfflictionSource } from "../affliction/data.ts";
 import { PHYSICAL_ITEM_TYPES } from "../physical/values.ts";
 import { MAGIC_TRADITIONS } from "../spell/values.ts";
-import { ItemInstances } from "../types.ts";
+import type { ItemInstances } from "../types.ts";
 import type {
     ConditionSource,
     EffectSource,
@@ -44,9 +54,6 @@ import type { ItemSheetPF2e } from "./sheet/sheet.ts";
 
 /** The basic `Item` subclass for the system */
 class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {
-    /** Has this document completed `DataModel` initialization? */
-    declare initialized: boolean;
-
     /** Additional item roll options not derived from an item's own data */
     declare specialOptions: string[];
 
@@ -90,7 +97,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     /** Check whether this item is in-memory-only on an actor rather than being a world item or embedded and stored */
     get inMemoryOnly(): boolean {
-        return !this.collection.has(this.id);
+        return !this.collection?.has(this.id);
     }
 
     /**
@@ -234,7 +241,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                     actor: this.actor,
                     token: this.actor.getActiveTokens(false, true).at(0),
                 }),
-                content: await renderTemplate(template, templateData),
+                content: await fa.handlebars.renderTemplate(template, templateData),
                 flags: { pf2e: { origin: this.getOriginData() } },
             },
             rollMode,
@@ -252,24 +259,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     protected override _initialize(options?: Record<string, unknown>): void {
-        this.initialized = false;
         this.rules = [];
         this.specialOptions = [];
 
         super._initialize(options);
-    }
-
-    /**
-     * Never prepare data except as part of `DataModel` initialization. If embedded, don't prepare data if the parent is
-     * not yet initialized. See https://github.com/foundryvtt/foundryvtt/issues/7987
-     * @todo remove in V13
-     */
-    override prepareData(): void {
-        if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
-            return;
-        }
-        this.initialized = true;
-        super.prepareData();
     }
 
     /** Ensure the presence of the pf2e flag scope with default properties and values */
@@ -506,7 +499,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                                 return line;
                             }),
                     };
-                    return addendum.contents.length > 0 ? renderTemplate(templatePath, { addendum }) : [];
+                    return addendum.contents.length > 0 ? fa.handlebars.renderTemplate(templatePath, { addendum }) : [];
                 }),
             );
         })();
@@ -517,8 +510,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const rollData = fu.mergeObject(this.getRollData(), htmlOptions.rollData);
 
         return {
-            value: await TextEditor.enrichHTML(assembled, { ...htmlOptions, rollData }),
-            gm: game.user.isGM ? await TextEditor.enrichHTML(description.gm, { ...htmlOptions, rollData }) : "",
+            value: await TextEditorPF2e.enrichHTML(assembled, { ...htmlOptions, rollData }),
+            gm: game.user.isGM ? await TextEditorPF2e.enrichHTML(description.gm, { ...htmlOptions, rollData }) : "",
         };
     }
 
@@ -572,7 +565,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         data?: Record<string, unknown>,
         context?: {
             parent?: TDocument["parent"];
-            pack?: Collection<TDocument> | null;
+            pack?: Collection<string, TDocument> | null;
             types?: ItemType[];
         } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
@@ -580,7 +573,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         data: { folder?: string } = {},
         context: {
             parent?: ActorPF2e | null;
-            pack?: Collection<ItemPF2e<null>> | null;
+            pack?: Collection<string, ItemPF2e<null>> | null;
             types?: string[];
         } & Partial<FormApplicationOptions> = {},
     ): Promise<Item | null> {
@@ -784,12 +777,12 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     static override async deleteDocuments<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         ids?: string[],
-        operation?: Partial<DatabaseCreateOperation<TDocument["parent"]>>,
+        operation?: Partial<DatabaseDeleteOperation<TDocument["parent"]>>,
     ): Promise<TDocument[]>;
     static override async deleteDocuments(
         ids: string[] = [],
-        operation: Partial<DatabaseCreateOperation<ActorPF2e | null>> = {},
-    ): Promise<foundry.abstract.Document[]> {
+        operation: Partial<DatabaseDeleteOperation<ActorPF2e | null>> = {},
+    ): Promise<Document[]> {
         ids = Array.from(new Set(ids));
         const actor = operation.parent;
         if (actor) {
@@ -1015,25 +1008,17 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** To be overridden by subclasses to extend the HTML string that will become part of the embed */
-    protected embedHTMLString(_config: DocumentHTMLEmbedConfig, _options: EnrichmentOptions): string {
+    protected embedHTMLString(_config: DocumentHTMLEmbedConfig, _options: EnrichmentOptionsPF2e): string {
         return this.description;
     }
 
-    async _buildEmbedHTML(config: DocumentHTMLEmbedConfig, options: EnrichmentOptions): Promise<HTMLCollection> {
-        // As per foundry.js: JournalEntryPage#_embedTextPage
-        options = { ...options, relativeTo: this };
-        const {
-            secrets = options.secrets,
-            documents = options.documents,
-            links = options.links,
-            rolls = options.rolls,
-            embeds = options.embeds,
-        } = config;
-        foundry.utils.mergeObject(options, { secrets, documents, links, rolls, embeds });
-
-        // Get correct HTML
+    protected override async _buildEmbedHTML(
+        config: DocumentHTMLEmbedConfig,
+        options: EnrichmentOptionsPF2e = {},
+    ): Promise<HTMLCollection> {
+        options.relativeTo = this;
         const container = document.createElement("div");
-        container.innerHTML = await TextEditor.enrichHTML(this.embedHTMLString(config, options), options);
+        container.innerHTML = await TextEditorPF2e.enrichHTML(this.embedHTMLString(config, options), options);
         return container.children;
     }
 }

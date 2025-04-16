@@ -1,13 +1,16 @@
 import { ActorPF2e } from "@actor";
-import type { ApplicationConfiguration } from "@fvtt-client/applications/_types.d.ts";
-import { HandlebarsRenderOptions } from "@fvtt-client/applications/api/handlebars-application.ts";
+import type { ApplicationConfiguration } from "@client/applications/_types.d.mts";
+import type { HandlebarsRenderOptions } from "@client/applications/api/handlebars-application.d.mts";
+import type CompendiumCollection from "@client/documents/collections/compendium-collection.d.mts";
+import type { CompendiumIndexData } from "@client/documents/collections/compendium-collection.d.mts";
 import { ItemPF2e } from "@item";
 import { ErrorPF2e, createHTMLElement, fontAwesomeIcon, htmlQuery } from "@util";
 import MiniSearch from "minisearch";
 import { CompendiumMigrationStatus } from "../compendium-migration-status.ts";
+import tabs = foundry.applications.sidebar.tabs;
 
 /** Extend CompendiumDirectory to support a search bar */
-class CompendiumDirectoryPF2e extends CompendiumDirectory {
+class CompendiumDirectoryPF2e extends tabs.CompendiumDirectory {
     static readonly STOP_WORDS = new Set(["of", "th", "the"]);
 
     static #searchEngine: MiniSearch<CompendiumIndexData> | null = null;
@@ -19,7 +22,7 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
         },
     };
 
-    declare matchDragDrop: DragDrop;
+    declare matchDragDrop: fa.ux.DragDrop;
 
     static override PARTS = {
         ...super.PARTS,
@@ -46,7 +49,10 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
                     }
                     return Array.from(wordSegmenter.segment(term))
                         .map((t) =>
-                            SearchFilter.cleanQuery(t.segment.toLocaleLowerCase(game.i18n.lang)).replace(/['"]/g, ""),
+                            fa.ux.SearchFilter.cleanQuery(t.segment.toLocaleLowerCase(game.i18n.lang)).replace(
+                                /['"]/g,
+                                "",
+                            ),
                         )
                         .filter((t) => t.length > 1);
                 },
@@ -91,7 +97,7 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
                 children: [fontAwesomeIcon("magnifying-glass"), game.i18n.localize("PF2E.CompendiumBrowser.Title")],
             });
             html.querySelector(":scope > footer")?.append(browserButton);
-            this.matchDragDrop = new DragDrop({
+            this.matchDragDrop = new fa.ux.DragDrop({
                 dragSelector: ".directory-item",
                 dropSelector: ".directory-list",
                 permissions: {
@@ -145,16 +151,16 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
             {
                 name: "COMPENDIUM.ImportEntry",
                 icon: fontAwesomeIcon("download").outerHTML,
-                condition: ($li) => {
-                    const { uuid } = $li.get(0)?.dataset ?? {};
+                condition: (li) => {
+                    const uuid = li.dataset.uuid;
                     if (!uuid) throw ErrorPF2e("Unexpected missing uuid");
                     const collection = game.packs.get(fromUuidSync(uuid)?.pack ?? "", { strict: true });
                     const documentClass = collection.documentClass as unknown as typeof foundry.abstract.Document;
 
                     return documentClass.canUserCreate(game.user);
                 },
-                callback: ($li) => {
-                    const { uuid } = $li.get(0)?.dataset ?? {};
+                callback: (li) => {
+                    const uuid = li.dataset.uuid;
                     if (!uuid) throw ErrorPF2e("Unexpected missing uuid");
                     const packCollection = game.packs.get(fromUuidSync(uuid)?.pack ?? "", { strict: true });
                     const worldCollection = game.collections.get(packCollection.documentName, { strict: true });
@@ -288,11 +294,11 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
     }
 }
 
-interface CompendiumDirectoryPF2e extends CompendiumDirectory {
+interface CompendiumDirectoryPF2e extends tabs.CompendiumDirectory {
     constructor: typeof CompendiumDirectoryPF2e;
 }
 
-interface CompendiumDirectoryDataPF2e extends CompendiumDirectoryData {
+interface CompendiumDirectoryDataPF2e extends tabs.CompendiumDirectoryContext {
     searchContents: boolean;
     isV13: boolean;
 }

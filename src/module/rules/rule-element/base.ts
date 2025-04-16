@@ -1,5 +1,9 @@
 import type { ActorPF2e, ActorType } from "@actor";
 import type { CheckModifier, DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
+import type { Rolled } from "@client/dice/roll.d.mts";
+import type { DatabaseCreateOperation, DatabaseDeleteOperation } from "@common/abstract/_types.d.mts";
+import type { DataModelValidationOptions } from "@common/abstract/data.d.mts";
+import type { ModelPropsFromSchema } from "@common/data/fields.d.mts";
 import { ItemPF2e, type WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { reduceItemName } from "@item/helpers.ts";
@@ -8,7 +12,6 @@ import { CheckCheckContext, CheckRoll } from "@system/check/index.ts";
 import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-fields.ts";
 import { tupleHasValue } from "@util";
 import * as R from "remeda";
-import type { DataModelValidationOptions } from "types/foundry/common/abstract/data.d.ts";
 import { isBracketedValue } from "../helpers.ts";
 import { BracketedValue, RuleElementSchema, RuleElementSource, RuleValue } from "./data.ts";
 

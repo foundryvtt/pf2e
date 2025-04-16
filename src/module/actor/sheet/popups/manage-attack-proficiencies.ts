@@ -3,15 +3,15 @@ import type { CharacterPF2e } from "@actor/character/document.ts";
 import { fontAwesomeIcon, htmlClosest, htmlQuery, localizer, objectHasKey } from "@util";
 
 async function add(actor: CharacterPF2e): Promise<void> {
+    const message = game.i18n.localize("PF2E.AddCombatProficiency.Message");
     const weaponGroups = CONFIG.PF2E.weaponGroups;
     const baseWeapons = CONFIG.PF2E.baseWeaponTypes;
-    const template = await renderTemplate("systems/pf2e/templates/actors/add-combat-proficiency-dialog.hbs", {
-        message: game.i18n.localize("PF2E.AddCombatProficiency.Message"),
-        weaponGroups,
-        baseWeapons,
-    });
+    const template = await fa.handlebars.renderTemplate(
+        "systems/pf2e/templates/actors/add-combat-proficiency-dialog.hbs",
+        { message, weaponGroups, baseWeapons },
+    );
 
-    const dialog = new Dialog({
+    const dialog = new foundry.appv1.api.Dialog({
         title: game.i18n.localize("PF2E.AddCombatProficiency.Title"),
         content: template,
         buttons: {
@@ -52,13 +52,15 @@ function remove(actor: CharacterPF2e, event: MouseEvent): void {
 
     const localize = localizer("PF2E.RemoveCombatProficiency");
     const message = localize("Message", { proficiency: name });
-    Dialog.confirm({
-        title: localize("Title"),
+    foundry.applications.api.DialogV2.confirm({
+        window: { title: localize("Title") },
         content: `<p>${message}</p>`,
-        defaultYes: false,
-        yes: () => {
-            if (!(key in (actor._source.system.proficiencies?.attacks ?? {}))) return;
-            actor.update({ [`system.proficiencies.attacks.-=${key}`]: null });
+        yes: {
+            callback: () => {
+                if (!(key in (actor._source.system.proficiencies?.attacks ?? {}))) return;
+                actor.update({ [`system.proficiencies.attacks.-=${key}`]: null });
+            },
+            default: false,
         },
     });
 }

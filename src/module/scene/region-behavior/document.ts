@@ -1,4 +1,5 @@
 import { resetActors } from "@actor/helpers.ts";
+import type { DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
 import type { RegionDocumentPF2e } from "@scene";
 import type { EnvironmentBehaviorType } from "./environment.ts";
 

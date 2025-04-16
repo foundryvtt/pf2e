@@ -1,4 +1,7 @@
-import { isImageFilePath, isImageOrVideoPath, isObject } from "@util";
+import type { CompendiumDocument } from "@client/documents/collections/compendium-collection.d.mts";
+import type { CompendiumUUID } from "@client/utils/_module.d.mts";
+import { isImageFilePath, isImageOrVideoPath } from "@util";
+import * as R from "remeda";
 
 /** A mapping of module-provided art to be used for compendium actors and their prototype tokens */
 class ModuleArt {
@@ -88,22 +91,22 @@ class ModuleArt {
 
     #isModuleArt(record: unknown): record is ModuleArtRecord {
         return (
-            isObject(record) &&
+            R.isPlainObject(record) &&
             Object.values(record).every(
                 (packToArt) =>
-                    isObject(packToArt) &&
+                    R.isPlainObject(packToArt) &&
                     Object.values(packToArt).every(
                         (art: unknown) =>
                             // `art` is an object with `actor` and `token` properties, and `actor.img` is an image
                             // file path
-                            isObject(art) &&
+                            R.isPlainObject(art) &&
                             "actor" in art &&
                             typeof isImageFilePath(art.actor) &&
                             "token" in art &&
                             // `token` is an image/video file path, or it is an object with an image/video file path
                             // along with (optionally) `scale` and/or `randomImg`
                             (isImageOrVideoPath(art.token) ||
-                                (isObject(art.token) &&
+                                (R.isPlainObject(art.token) &&
                                     "img" in art.token &&
                                     isImageOrVideoPath(art.token.img) &&
                                     (!("scale" in art.token) ||

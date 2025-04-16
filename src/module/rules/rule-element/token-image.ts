@@ -131,7 +131,7 @@ class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema> {
         this.actor.synthetics.tokenOverrides.texture = texture;
 
         const subjectTexture = this.resolveInjectedProperties(this.ring?.subject.texture ?? "");
-        if (this.ring && ImageHelper.hasImageExtension(subjectTexture)) {
+        if (this.ring && fh.media.ImageHelper.hasImageExtension(subjectTexture)) {
             this.actor.synthetics.tokenOverrides.ring = {
                 subject: {
                     scale: this.ring.subject.scale,

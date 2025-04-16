@@ -1,5 +1,6 @@
 import { ActorPF2e, type CreaturePF2e } from "@actor";
 import { resetActors } from "@actor/helpers.ts";
+import type { DataModelValidationOptions } from "@common/abstract/data.d.mts";
 import { ItemType } from "@item/base/data/index.ts";
 import { RuleElementPF2e } from "@module/rules/index.ts";
 import { RuleElementSchema } from "@module/rules/rule-element/data.ts";
@@ -8,7 +9,6 @@ import type { TokenDocumentPF2e } from "@scene/index.ts";
 import type { Statistic } from "@system/statistic/index.ts";
 import { tupleHasValue } from "@util";
 import * as R from "remeda";
-import type { DataModelValidationOptions } from "types/foundry/common/abstract/data.d.ts";
 import { PartySource, PartySystemData } from "./data.ts";
 import { Kingdom } from "./kingdom/model.ts";
 import { PartySheetRenderOptions } from "./sheet.ts";

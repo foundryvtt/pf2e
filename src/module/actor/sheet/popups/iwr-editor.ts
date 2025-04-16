@@ -1,11 +1,13 @@
 import type { ActorPF2e } from "@actor";
 import { Immunity, IWRSource, Resistance, Weakness } from "@actor/data/iwr.ts";
 import { ImmunityType, IWRType, ResistanceType, WeaknessType } from "@actor/types.ts";
+import type { ApplicationV1HeaderButton } from "@client/appv1/api/application-v1.d.mts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
+import appv1 = foundry.appv1;
 
-class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREditorOptions> {
+class IWREditor<TActor extends ActorPF2e> extends appv1.api.DocumentSheet<TActor, IWREditorOptions> {
     category: ListCategory;
 
     types: Record<string, string>;
@@ -24,7 +26,7 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
         }[this.category];
     }
 
-    static override get defaultOptions(): DocumentSheetOptions {
+    static override get defaultOptions(): appv1.api.DocumentSheetV1Options {
         return {
             ...super.defaultOptions,
             closeOnSubmit: false,
@@ -141,7 +143,7 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
     /* -------------------------------------------- */
 
     /** Exclude sheet selection and compendium import */
-    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
+    protected override _getHeaderButtons(): ApplicationV1HeaderButton[] {
         return super._getHeaderButtons().filter((b) => b.class === "close");
     }
 
@@ -181,15 +183,15 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
     }
 }
 
-interface IWREditorOptions extends DocumentSheetOptions {
+interface IWREditorOptions extends appv1.api.DocumentSheetV1Options {
     category: ListCategory;
 }
 
-interface IWREditorConstructorOptions extends Partial<DocumentSheetOptions> {
+interface IWREditorConstructorOptions extends Partial<appv1.api.DocumentSheetV1Options> {
     category: ListCategory;
 }
 
-interface IWREditorData<TActor extends ActorPF2e> extends DocumentSheetData<TActor> {
+interface IWREditorData<TActor extends ActorPF2e> extends appv1.api.DocumentSheetData<TActor> {
     header: string;
     category: ListCategory;
     list: Immunity[] | Weakness[] | Resistance[];

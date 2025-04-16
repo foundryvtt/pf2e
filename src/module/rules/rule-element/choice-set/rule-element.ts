@@ -1,12 +1,15 @@
 import type { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
 import { iterateAllItems } from "@actor/helpers.ts";
+import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
+import type CompendiumCollection from "@client/documents/collections/compendium-collection.d.mts";
+import type { CompendiumIndex } from "@client/documents/collections/compendium-collection.d.mts";
+import type { DocumentUUID } from "@client/utils/_module.d.mts";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { PickableThing } from "@module/apps/pick-a-thing-prompt.ts";
 import { processChoicesFromData } from "@module/rules/helpers.ts";
 import { Predicate } from "@system/predication.ts";
-import { Progress } from "@system/progress.ts";
 import {
     DataUnionField,
     PredicateField,
@@ -451,12 +454,16 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                           p.metadata.type === "Item" && p.index.some((e) => e.type === itemType),
                   );
 
-        const progress = new Progress({ max: packs.length });
+        const progress = ui.notifications.info("", { progress: true });
+        const increment = 1 / packs.length;
         const localize = localizer("PF2E.ProgressBar");
         // Retrieve index fields from matching compendiums and use them for predicate testing
         const indexData: CompendiumIndex[] = [];
         for (const pack of packs) {
-            progress.advance({ label: localize("LoadingPack", { pack: pack.metadata.label }) });
+            progress.update({
+                message: localize("LoadingPack", { pack: pack.metadata.label }),
+                pct: progress.pct + increment,
+            });
             indexData.push(
                 await pack.getIndex({
                     fields: [
@@ -478,7 +485,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                 }),
             );
         }
-        progress.close({ label: localize("LoadingComplete") });
+        progress.update({ message: localize("LoadingComplete"), pct: 1 });
 
         const parentRollOptions = this.item.getRollOptions("parent");
         const filteredItems = indexData
@@ -487,7 +494,9 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
             .map((source) => {
                 const parsedUUID = fu.parseUuid(source.uuid);
                 const pack =
-                    parsedUUID.collection instanceof CompendiumCollection ? parsedUUID.collection.metadata.id : null;
+                    parsedUUID.collection instanceof fd.collections.CompendiumCollection
+                        ? parsedUUID.collection.metadata.id
+                        : null;
                 return new ItemProxyPF2e(fu.deepClone(source), { pack });
             })
             .concat(game.items.filter((i) => i.type === itemType))

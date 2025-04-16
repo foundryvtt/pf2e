@@ -1,7 +1,8 @@
-import { AttributeString, SkillSlug } from "@actor/types.ts";
-import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource, OtherTagsOnly } from "@item/base/data/system.ts";
-import { BaseWeaponType } from "@item/weapon/types.ts";
-import { DeityDomain, Sanctification } from "./types.ts";
+import type { AttributeString, SkillSlug } from "@actor/types.ts";
+import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
+import type { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource, OtherTagsOnly } from "@item/base/data/system.ts";
+import type { BaseWeaponType } from "@item/weapon/types.ts";
+import type { DeityDomain, Sanctification } from "./types.ts";
 
 type DeitySource = BaseItemSourcePF2e<"deity", DeitySystemSource>;
 

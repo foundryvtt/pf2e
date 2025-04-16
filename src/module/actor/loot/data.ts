@@ -1,6 +1,6 @@
 import { BaseActorSourcePF2e, FlankingData } from "@actor/data/base.ts";
 import { ActorSystemModel, ActorSystemSchema } from "@actor/data/model.ts";
-import { ModelPropFromDataField } from "types/foundry/common/data/fields.js";
+import type { ModelPropFromDataField, ModelPropsFromSchema, SourceFromSchema } from "@common/data/fields.d.mts";
 import type { LootPF2e } from "./document.ts";
 import fields = foundry.data.fields;
 

@@ -1,3 +1,4 @@
+import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
 import { ItemSystemModel, ItemSystemSchema } from "@item/base/data/model.ts";
 import type {
     ActionType,
@@ -138,7 +139,7 @@ class AbilitySystemData extends ItemSystemModel<AbilityItemPF2e, AbilitySystemSc
 
 interface AbilitySystemData
     extends ItemSystemModel<AbilityItemPF2e, AbilitySystemSchema>,
-        Omit<ModelPropsFromSchema<AbilitySystemSchema>, "description"> {}
+        Omit<fields.ModelPropsFromSchema<AbilitySystemSchema>, "description"> {}
 
 type AbilitySystemSchema = Omit<ItemSystemSchema, "traits"> & {
     traits: fields.SchemaField<{
@@ -183,7 +184,7 @@ type FrequencySchema = {
     per: fields.StringField<FrequencyInterval, FrequencyInterval, true, false, true>;
 };
 
-type AbilitySystemSource = SourceFromSchema<AbilitySystemSchema> & {
+type AbilitySystemSource = fields.SourceFromSchema<AbilitySystemSchema> & {
     level?: never;
     schema?: ItemSystemSource["schema"];
 };
