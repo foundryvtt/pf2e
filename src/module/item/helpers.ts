@@ -68,7 +68,9 @@ function markdownToHTML(markdown: string): string {
         .replaceAll("⟦", "[")
         .replaceAll("⟧", "]");
 
-    return TextEditor.truncateHTML(createHTMLElement("div", { innerHTML: stringyHTML })).innerHTML.trim();
+    return fa.ux.TextEditor.implementation
+        .truncateHTML(createHTMLElement("div", { innerHTML: stringyHTML }))
+        .innerHTML.trim();
 }
 
 export { itemIsOfType, markdownToHTML, performLatePreparation, reduceItemName };

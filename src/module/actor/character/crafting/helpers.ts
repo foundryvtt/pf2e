@@ -1,4 +1,5 @@
 import type { ActorPF2e, CharacterPF2e } from "@actor";
+import type { Rolled } from "@client/dice/_module.d.mts";
 import type { ConsumablePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { ItemProxyPF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
@@ -8,7 +9,9 @@ import { OneToTen } from "@module/data.ts";
 import { getIncomeForLevel } from "@scripts/macros/earn-income/calculate.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { DegreeOfSuccess } from "@system/degree-of-success.ts";
+import { TextEditorPF2e } from "@system/text-editor.ts";
 import { fontAwesomeIcon } from "@util";
+import appv1 = foundry.appv1;
 
 /** Implementation of Crafting rules on https://2e.aonprd.com/Actions.aspx?ID=43 */
 
@@ -37,7 +40,7 @@ async function prepStrings(costs: Costs, item: PhysicalItemPF2e) {
         lostMaterials: game.i18n.format("PF2E.Actions.Craft.Details.LostMaterials", {
             cost: costs.lostMaterials.toString(),
         }),
-        itemLink: await TextEditor.enrichHTML(item.link, { rollData }),
+        itemLink: await TextEditorPF2e.enrichHTML(item.link, { rollData }),
     };
 }
 
@@ -123,11 +126,12 @@ export async function craftSpellConsumable(
             },
             {} as Record<number, SpellPF2e<ActorPF2e>[]>,
         );
-    const content = await renderTemplate("systems/pf2e/templates/actors/crafting-select-spell-dialog.hbs", {
-        spells: validSpells,
-    });
+    const content = await fa.handlebars.renderTemplate(
+        "systems/pf2e/templates/actors/crafting-select-spell-dialog.hbs",
+        { spells: validSpells },
+    );
 
-    new Dialog({
+    new appv1.api.Dialog({
         title: game.i18n.localize("PF2E.Actions.Craft.SelectSpellDialog.Title"),
         content,
         buttons: {
@@ -170,7 +174,7 @@ export async function renderCraftingInline(
 
     const daysForZeroCost = degreeOfSuccess > 1 ? calculateDaysToNoCost(costs) : 0;
 
-    return await renderTemplate("systems/pf2e/templates/chat/crafting-result.hbs", {
+    return await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/crafting-result.hbs", {
         daysForZeroCost: daysForZeroCost,
         strings: await prepStrings(costs, item),
         item,

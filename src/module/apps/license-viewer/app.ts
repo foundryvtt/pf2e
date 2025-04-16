@@ -1,5 +1,7 @@
-export class LicenseViewer extends Application {
-    static override get defaultOptions(): ApplicationOptions {
+import appv1 = foundry.appv1;
+
+export class LicenseViewer extends appv1.api.Application {
+    static override get defaultOptions(): appv1.api.ApplicationV1Options {
         return fu.mergeObject(super.defaultOptions, {
             id: "license-viewer",
             title: game.i18n.localize("PF2E.LicenseViewer.Label"),

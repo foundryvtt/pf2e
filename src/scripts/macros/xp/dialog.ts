@@ -145,15 +145,14 @@ const askLevelPopupTemplate = (): string => {
 function showXP(partyLevel: number, partySize: number, npcLevels: number[], hazards: HazardPF2e[]): void {
     const pwol = game.pf2e.settings.variants.pwol.enabled;
     const xp = game.pf2e.gm.calculateXP(partyLevel, partySize, npcLevels, hazards, { pwol });
-    new Dialog({
+    new foundry.appv1.api.Dialog({
         title: "XP",
         content: dialogTemplate(xp),
-        buttons: {},
     }).render(true);
 }
 
 function askPartyLevelAndSize(npcLevels: number[], hazards: HazardPF2e[]): void {
-    new Dialog({
+    new foundry.appv1.api.Dialog({
         title: "Party Information",
         content: askLevelPopupTemplate,
         buttons: {

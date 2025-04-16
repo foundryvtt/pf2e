@@ -1,4 +1,11 @@
 import type { ActorPF2e } from "@actor";
+import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
+import type { DocumentConstructionContext } from "@common/_types.d.mts";
+import type {
+    DatabaseCreateOperation,
+    DatabaseDeleteOperation,
+    DatabaseUpdateOperation,
+} from "@common/abstract/_types.d.mts";
 import { ItemPF2e, ItemProxyPF2e, type ContainerPF2e } from "@item";
 import type { ItemSourcePF2e, PhysicalItemSource, RawItemChatData, TraitChatData } from "@item/base/data/index.ts";
 import { MystifiedTraits } from "@item/base/data/values.ts";
@@ -42,7 +49,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     declare private _container?: ContainerPF2e<ActorPF2e> | null;
 
     /** Doubly-embedded adjustments, attachments, talismans etc. */
-    declare subitems: Collection<PhysicalItemPF2e<TParent>>;
+    declare subitems: Collection<string, PhysicalItemPF2e<TParent>>;
 
     /** A map of effect spinoff objects, which can be used to create new effects from using certain items */
     effectSpinoffs: Map<string, EffectSpinoff>;
@@ -553,7 +560,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             return;
         }
 
-        const sorting = SortingHelpers.performIntegerSort(this, {
+        const sorting = fu.performIntegerSort(this, {
             target: relativeTo,
             siblings,
             sortBefore,

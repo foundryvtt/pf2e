@@ -1,8 +1,9 @@
 import { ActorPF2e } from "@actor";
+import type { DatabaseCreateOperation, DatabaseDeleteOperation } from "@common/abstract/_types.d.mts";
 import { ItemPF2e } from "@item";
 import type { EffectAreaShape } from "@item/spell/types.ts";
 import type { MeasuredTemplatePF2e } from "@module/canvas/measured-template.ts";
-import { ItemOriginFlag } from "@module/chat-message/data.ts";
+import type { ItemOriginFlag } from "@module/chat-message/data.ts";
 import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { toggleClearTemplatesButton } from "@module/chat-message/helpers.ts";
 import type { ScenePF2e } from "./document.ts";

@@ -1,10 +1,11 @@
 import type { ActorPF2e } from "@actor";
+import type { DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
 import { ErrorPF2e } from "@util";
 import * as R from "remeda";
 import type { SpellOverlay, SpellOverlayType, SpellSource } from "./data.ts";
 import type { SpellPF2e } from "./document.ts";
 
-class SpellOverlayCollection extends Collection<SpellOverlay> {
+class SpellOverlayCollection extends Collection<string, SpellOverlay> {
     readonly spell: SpellPF2e;
 
     constructor(spell: SpellPF2e, entries?: Record<string, SpellOverlay>) {

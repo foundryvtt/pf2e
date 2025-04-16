@@ -1,4 +1,5 @@
-import type { TokenSchema } from "types/foundry/common/documents/token.d.ts";
+import type { ModelPropsFromSchema } from "@common/data/fields.d.mts";
+import type { TokenSchema } from "@common/documents/token.d.mts";
 
 type TokenFlagsPF2e = DocumentFlags & {
     pf2e: {

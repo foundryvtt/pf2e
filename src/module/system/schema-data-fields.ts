@@ -1,23 +1,22 @@
+import type { DataSchema } from "@common/abstract/_types.d.mts";
+import type DataModel from "@common/abstract/data.d.mts";
+import type {
+    ArrayFieldOptions,
+    DataFieldOptions,
+    DataFieldValidationOptions,
+    ObjectFieldOptions,
+    StringFieldOptions,
+} from "@common/data/_types.d.mts";
+import type {
+    CleanFieldOptions,
+    MaybeSchemaProp,
+    ModelPropFromDataField,
+    SourceFromDataField,
+    SourceFromSchema,
+} from "@common/data/fields.d.mts";
 import { Predicate, PredicateStatement, RawPredicate, StatementValidator } from "@system/predication.ts";
 import { SlugCamel, objectHasKey, sluggify } from "@util";
 import * as R from "remeda";
-import type DataModel from "types/foundry/common/abstract/data.d.ts";
-import type {
-    ArrayFieldOptions,
-    CleanFieldOptions,
-    DataField,
-    DataFieldOptions,
-    DataFieldValidationOptions,
-    DataSchema,
-    MaybeSchemaProp,
-    ModelPropFromDataField,
-    NumberField,
-    ObjectFieldOptions,
-    SourcePropFromDataField,
-    StringField,
-    StringFieldOptions,
-} from "types/foundry/common/data/fields.d.ts";
-import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
 import fields = foundry.data.fields;
 import validation = foundry.data.validation;
 
@@ -84,19 +83,6 @@ class StrictNumberField<
     }
 }
 
-/** @todo Remove in V13 */
-class NullCoercingNumberField<
-    TSourceProp extends number = number,
-    TModelProp extends NonNullable<JSONValue> = TSourceProp,
-    TRequired extends boolean = false,
-    TNullable extends boolean = true,
-    THasInitial extends boolean = true,
-> extends fields.NumberField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
-    protected override _cast(value: unknown): unknown {
-        return value === "" && this.nullable ? null : Number(value);
-    }
-}
-
 /** A `BooleanField` that does not cast the source value */
 class StrictBooleanField<
     TRequired extends boolean = false,
@@ -109,8 +95,8 @@ class StrictBooleanField<
 }
 
 class StrictArrayField<
-    TElementField extends DataField,
-    TSourceProp extends Partial<SourcePropFromDataField<TElementField>>[] = SourcePropFromDataField<TElementField>[],
+    TElementField extends fields.DataField,
+    TSourceProp extends Partial<SourceFromDataField<TElementField>>[] = SourceFromDataField<TElementField>[],
     TModelProp extends object = ModelPropFromDataField<TElementField>[],
     TRequired extends boolean = true,
     TNullable extends boolean = false,
@@ -142,8 +128,8 @@ class StrictArrayField<
 
 /** An array field that will prune invalid elements without complaint */
 class LaxArrayField<
-    TElementField extends DataField,
-    TSourceProp extends Partial<SourcePropFromDataField<TElementField>>[] = SourcePropFromDataField<TElementField>[],
+    TElementField extends fields.DataField,
+    TSourceProp extends Partial<SourceFromDataField<TElementField>>[] = SourceFromDataField<TElementField>[],
     TModelProp extends object = ModelPropFromDataField<TElementField>[],
     TRequired extends boolean = true,
     TNullable extends boolean = false,
@@ -152,7 +138,7 @@ class LaxArrayField<
     protected override _validateElements(
         value: unknown[],
         options?: DataFieldValidationOptions,
-    ): void | DataModelValidationFailure {
+    ): void | validation.DataModelValidationFailure {
         const failure = super._validateElements(value, options);
         if (!failure) return failure;
 
@@ -192,7 +178,11 @@ class AnyChoiceField<
         if (this.options.nullable && value === null) return;
 
         const choices =
-            this.options.choices instanceof Function ? this.options.choices() : (this.options.choices ?? []);
+            "choices" in this.options
+                ? typeof this.options.choices === "function"
+                    ? this.options.choices()
+                    : (this.options.choices ?? [])
+                : null;
         const isValid = Array.isArray(choices) ? choices.includes(value) : objectHasKey(choices, value);
         if (!isValid) {
             throw new Error(`${value} is not a valid choice`);
@@ -201,13 +191,13 @@ class AnyChoiceField<
 }
 
 class DataUnionField<
-    TField extends DataField,
+    TField extends fields.DataField,
     TRequired extends boolean = boolean,
     TNullable extends boolean = boolean,
     THasInitial extends boolean = boolean,
 > extends fields.DataField<
-    TField extends DataField<infer TSourceProp> ? TSourceProp : never,
-    TField extends DataField<infer _TSourceProp, infer TModelProp> ? TModelProp : never,
+    TField extends fields.DataField<infer TSourceProp> ? TSourceProp : never,
+    TField extends fields.DataField<infer _TSourceProp, infer TModelProp> ? TModelProp : never,
     TRequired,
     TNullable,
     THasInitial
@@ -217,7 +207,7 @@ class DataUnionField<
     constructor(
         fields: TField[],
         options: DataFieldOptions<
-            TField extends DataField<infer TSourceProp> ? TSourceProp : never,
+            TField extends fields.DataField<infer TSourceProp> ? TSourceProp : never,
             TRequired,
             TNullable,
             THasInitial
@@ -252,7 +242,7 @@ class DataUnionField<
     protected override _validateType(
         value: unknown,
         options?: DataFieldValidationOptions | undefined,
-    ): boolean | void | DataModelValidationFailure {
+    ): boolean | void | validation.DataModelValidationFailure {
         for (const field of this.fields) {
             const result = field.validate(value, options);
             if (result instanceof validation.DataModelValidationFailure) {
@@ -281,12 +271,14 @@ class DataUnionField<
 }
 
 type MaybeUnionSchemaProp<
-    TField extends DataField,
+    TField extends fields.DataField,
     TRequired extends boolean,
     TNullable extends boolean,
     THasInitial extends boolean,
 > = MaybeSchemaProp<
-    TField extends DataField<infer _TSourceProp, infer TModelProp, boolean, boolean, boolean> ? TModelProp : never,
+    TField extends fields.DataField<infer _TSourceProp, infer TModelProp, boolean, boolean, boolean>
+        ? TModelProp
+        : never,
     TRequired,
     TNullable,
     THasInitial
@@ -349,7 +341,7 @@ class PredicateStatementField extends fields.DataField<PredicateStatement, Predi
     }
 
     /** No casting is available for a predicate statement */
-    protected _cast(value: unknown): unknown {
+    protected override _cast(value: unknown): unknown {
         return value;
     }
 
@@ -384,8 +376,10 @@ class PredicateField<
 }
 
 type RecordFieldModelProp<
-    TKeyField extends StringField<string, string, true, false, false> | NumberField<number, number, true, false, false>,
-    TValueField extends DataField,
+    TKeyField extends
+        | fields.StringField<string, string, true, false, false>
+        | fields.NumberField<number, number, true, false, false>,
+    TValueField extends fields.DataField,
     TDense extends boolean = false,
 > = TDense extends true
     ? Record<ModelPropFromDataField<TKeyField>, ModelPropFromDataField<TValueField>>
@@ -396,21 +390,25 @@ type RecordFieldModelProp<
             | Partial<Record<ModelPropFromDataField<TKeyField>, ModelPropFromDataField<TValueField>>>;
 
 type RecordFieldSourceProp<
-    TKeyField extends StringField<string, string, true, false, false> | NumberField<number, number, true, false, false>,
-    TValueField extends DataField,
+    TKeyField extends
+        | fields.StringField<string, string, true, false, false>
+        | fields.NumberField<number, number, true, false, false>,
+    TValueField extends fields.DataField,
     /** Whether this is to be treated as a "dense" record; i.e., any valid key should return a value */
     TDense extends boolean = false,
 > = TDense extends true
-    ? Record<SourcePropFromDataField<TKeyField>, SourcePropFromDataField<TValueField>>
+    ? Record<SourceFromDataField<TKeyField>, SourceFromDataField<TValueField>>
     : TDense extends false
-      ? Partial<Record<SourcePropFromDataField<TKeyField>, SourcePropFromDataField<TValueField>>>
+      ? Partial<Record<SourceFromDataField<TKeyField>, SourceFromDataField<TValueField>>>
       :
-            | Record<SourcePropFromDataField<TKeyField>, SourcePropFromDataField<TValueField>>
-            | Partial<Record<SourcePropFromDataField<TKeyField>, SourcePropFromDataField<TValueField>>>;
+            | Record<SourceFromDataField<TKeyField>, SourceFromDataField<TValueField>>
+            | Partial<Record<SourceFromDataField<TKeyField>, SourceFromDataField<TValueField>>>;
 
 class RecordField<
-    TKeyField extends StringField<string, string, true, false, false> | NumberField<number, number, true, false, false>,
-    TValueField extends DataField,
+    TKeyField extends
+        | fields.StringField<string, string, true, false, false>
+        | fields.NumberField<number, number, true, false, false>,
+    TValueField extends fields.DataField,
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true,
@@ -452,7 +450,9 @@ class RecordField<
 
     protected _isValidKeyFieldType(
         keyField: unknown,
-    ): keyField is StringField<string, string, true, false, false> | NumberField<number, number, true, false, false> {
+    ): keyField is
+        | fields.StringField<string, string, true, false, false>
+        | fields.NumberField<number, number, true, false, false> {
         if (keyField instanceof fields.StringField || keyField instanceof fields.NumberField) {
             if (keyField.options.required !== true || keyField.options.nullable === true) {
                 throw new Error(`key field must be required and non-nullable`);
@@ -465,7 +465,7 @@ class RecordField<
     protected _validateValues(
         values: Record<string, unknown>,
         options?: DataFieldValidationOptions,
-    ): DataModelValidationFailure | void {
+    ): validation.DataModelValidationFailure | void {
         const failures = new validation.DataModelValidationFailure();
         for (const [key, value] of Object.entries(values)) {
             // If this is a deletion key for a partial update, skip
@@ -500,7 +500,7 @@ class RecordField<
     protected override _validateType(
         values: unknown,
         options?: DataFieldValidationOptions,
-    ): boolean | DataModelValidationFailure | void {
+    ): boolean | validation.DataModelValidationFailure | void {
         if (!R.isPlainObject(values)) {
             return new validation.DataModelValidationFailure({ message: "must be an Object" });
         }
@@ -542,7 +542,6 @@ export {
     DataUnionField,
     LaxArrayField,
     LaxSchemaField,
-    NullCoercingNumberField,
     NullField,
     PredicateField,
     RecordField,

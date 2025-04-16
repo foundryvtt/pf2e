@@ -1,7 +1,9 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
+import type { AppV1RenderOptions } from "@client/appv1/api/application-v1.d.mts";
 import type { PhysicalItemPF2e } from "@item";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { SheetOptions, createSheetTags, getAdjustment } from "@module/sheet/helpers.ts";
+import { TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, localizer, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { detachSubitem } from "./helpers.ts";
@@ -30,13 +32,13 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
 
         // Enrich content
         const rollData = { ...item.getRollData(), ...this.actor?.getRollData() };
-        sheetData.enrichedContent.unidentifiedDescription = await TextEditor.enrichHTML(
+        sheetData.enrichedContent.unidentifiedDescription = await TextEditorPF2e.enrichHTML(
             sheetData.item.system.identification.unidentified.data.description.value,
             { rollData },
         );
         const activations: PhysicalItemSheetData<TItem>["activations"] = [];
         for (const action of item.activations) {
-            const description = await TextEditor.enrichHTML(action.description.value, { rollData });
+            const description = await TextEditorPF2e.enrichHTML(action.description.value, { rollData });
             activations.push({
                 action,
                 id: action.id,
@@ -121,7 +123,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
     }
 
     /** If the item is unidentified, prevent players from opening this sheet. */
-    override render(force?: boolean, options?: RenderOptions): this {
+    override render(force?: boolean, options?: AppV1RenderOptions): this {
         if (!this.item.isIdentified && !game.user.isGM) {
             ui.notifications.warn(this.item.description);
             return this;

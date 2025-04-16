@@ -1,5 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
+import type WorldCollection from "@client/documents/abstract/world-collection.d.mts";
+import type CompendiumCollection from "@client/documents/collections/compendium-collection.d.mts";
 import type { ItemPF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { MacroPF2e } from "@module/macro.ts";

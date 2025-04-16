@@ -1,3 +1,13 @@
+import type {
+    DiceTermResult,
+    EvaluateRollParams,
+    RollJSON,
+    RollOptions,
+    RollParseNode,
+    RollRenderOptions,
+    Rolled,
+} from "@client/dice/_module.d.mts";
+import type { DiceTerm, NumericTermData, PoolTermData, RollTerm, RollTermData } from "@client/dice/terms/_module.d.mts";
 import { DamageRollFlag } from "@module/chat-message/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
@@ -5,8 +15,6 @@ import { RollDataPF2e } from "@system/rolls.ts";
 import { ErrorPF2e, fontAwesomeIcon, tupleHasValue } from "@util";
 import type Peggy from "peggy";
 import * as R from "remeda";
-import type { RollParseNode } from "types/foundry/client-esm/dice/_types.d.mts";
-import type { DiceTerm, RollTerm } from "types/foundry/client-esm/dice/terms/module.d.ts";
 import { DamageCategorization, deepFindTerms, renderComponentDamage, simplifyTerm } from "./helpers.ts";
 import { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie } from "./terms.ts";
 import { DamageCategory, DamageIRBypassData, DamageTemplate, DamageType, MaterialDamageEffect } from "./types.ts";
@@ -232,7 +240,7 @@ class DamageRoll extends AbstractDamageRoll {
             }));
         const showBreakdown = this.options.showBreakdown;
 
-        return renderTemplate(this.constructor.TOOLTIP_TEMPLATE, { instances, showBreakdown });
+        return fa.handlebars.renderTemplate(this.constructor.TOOLTIP_TEMPLATE, { instances, showBreakdown });
     }
 
     /** Work around upstream issue in which display base formula is used for chat messages instead of display formula */
@@ -275,7 +283,7 @@ class DamageRoll extends AbstractDamageRoll {
             user: game.user,
         };
 
-        return renderTemplate(template, chatData);
+        return fa.handlebars.renderTemplate(template, chatData);
     }
 
     override alter(multiplier: number, addend: number, { multiplyNumeric = true } = {}): this {
@@ -348,7 +356,7 @@ class DamageInstance extends AbstractDamageRoll {
     constructor(formula: string, data = {}, { flavor = "damage,healing", ...options }: DamageInstanceData = {}) {
         super(formula.trim(), data, { flavor, ...options });
 
-        const flavorIdentifiers = flavor.replace(/[^a-z,_-]/g, "").split(",");
+        const flavorIdentifiers = flavor?.replace(/[^a-z,_-]/g, "").split(",") ?? [];
         this.type = flavorIdentifiers.find((i): i is DamageType => i in CONFIG.PF2E.damageTypes) ?? "untyped";
         this.persistent = flavorIdentifiers.includes("persistent") || flavorIdentifiers.includes("bleed");
         this.materials = new Set(

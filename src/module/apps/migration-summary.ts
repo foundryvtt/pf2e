@@ -1,7 +1,9 @@
 import { MigrationRunner } from "@module/migration/index.ts";
+import { TextEditorPF2e } from "@system/text-editor.ts";
+import appv1 = foundry.appv1;
 
 /** A summary window that opens after a system migration completes */
-export class MigrationSummary extends Application<MigrationSummaryOptions> {
+export class MigrationSummary extends appv1.api.Application<MigrationSummaryOptions> {
     /** Is a remigration currently running? */
     #isRemigrating = false;
 
@@ -21,7 +23,7 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
         }
     }
 
-    static override get defaultOptions(): ApplicationOptions {
+    static override get defaultOptions(): appv1.api.ApplicationV1Options {
         return {
             ...super.defaultOptions,
             id: "migration-summary",
@@ -44,7 +46,7 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
         const canRemigrate =
             this.options.troubleshoot || actors.successful < actors.total || items.successful < items.total;
 
-        const helpResourcesText = await TextEditor.enrichHTML(
+        const helpResourcesText = await TextEditorPF2e.enrichHTML(
             game.i18n.localize("PF2E.Migrations.Summary.HelpResources"),
         );
 
@@ -103,7 +105,7 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
     }
 }
 
-interface MigrationSummaryOptions extends ApplicationOptions {
+interface MigrationSummaryOptions extends appv1.api.ApplicationV1Options {
     troubleshoot: boolean;
 }
 

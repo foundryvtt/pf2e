@@ -1,12 +1,13 @@
 import { ActorPF2e } from "@actor";
 import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
+import type { DocumentSheetV1Options } from "@client/appv1/api/document-sheet-v1.d.mts";
 import { ErrorPF2e, fontAwesomeIcon, htmlQuery } from "@util";
 import type { TokenDocumentPF2e } from "./index.ts";
 
-class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<TDocument> {
+class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends fa.sheets.TokenConfig<TDocument> {
     #sightInputNames = ["angle", "brightness", "range", "saturation", "visionMode"].map((n) => `sight.${n}`);
 
-    static override get defaultOptions(): DocumentSheetOptions {
+    static override get defaultOptions(): DocumentSheetV1Options {
         return {
             ...super.defaultOptions,
             template: "systems/pf2e/templates/scene/token/sheet.hbs",
@@ -32,7 +33,7 @@ class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<T
         return isCreature && (this.token.rulesBasedVision || (this.isPrototype && game.pf2e.settings.rbv));
     }
 
-    override async getData(options?: DocumentSheetOptions): Promise<TokenConfigDataPF2e<TDocument>> {
+    override async getData(options?: DocumentSheetV1Options): Promise<TokenConfigDataPF2e<TDocument>> {
         const data = await super.getData(options);
         return {
             ...data,

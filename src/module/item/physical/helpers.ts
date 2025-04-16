@@ -228,9 +228,10 @@ async function detachSubitem(subitem: PhysicalItemPF2e, skipConfirm: boolean): P
     const localize = localizer("PF2E.Item.Physical.Attach.Detach");
     const confirmed =
         skipConfirm ||
-        (await Dialog.confirm({
-            title: localize("Label"),
+        (await foundry.applications.api.DialogV2.confirm({
+            window: { title: localize("Label") },
             content: createHTMLElement("p", { children: [localize("Prompt", { attachable: subitem.name })] }).outerHTML,
+            yes: { default: true },
         }));
 
     if (confirmed) {

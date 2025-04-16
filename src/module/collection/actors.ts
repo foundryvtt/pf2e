@@ -1,13 +1,14 @@
 import { ActorPF2e, PartyPF2e } from "@actor";
 
-export class ActorsPF2e<TActor extends ActorPF2e<null>> extends Actors<TActor> {
+export class ActorsPF2e<TActor extends ActorPF2e<null>> extends fd.collections.Actors<TActor> {
     /** The world's active party, if one exists */
     get party(): PartyPF2e<null> | null {
         const activePartyId = game.settings.get("pf2e", "activeParty");
         const actor = this.get(activePartyId);
         return actor?.isOfType("party")
             ? actor
-            : ((this as Actors<ActorPF2e<null>>).find<PartyPF2e<null>>((a) => a.isOfType("party")) ?? null);
+            : ((this as fd.collections.Actors<ActorPF2e<null>>).find<PartyPF2e<null>>((a) => a.isOfType("party")) ??
+                  null);
     }
 
     /** Overrwriten to omit actors in parties, which are rendered separately */

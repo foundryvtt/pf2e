@@ -1,7 +1,9 @@
+import type { SettingRegistration } from "@client/helpers/client-settings.d.mts";
 import { htmlClosest, htmlQuery } from "@util";
 import * as R from "remeda";
+import appv1 = foundry.appv1;
 
-abstract class SettingsMenuPF2e extends FormApplication {
+abstract class SettingsMenuPF2e extends appv1.api.FormApplication {
     static readonly namespace: string;
 
     protected cache: Record<string, unknown> & { clear(): void } = (() => {
@@ -16,7 +18,7 @@ abstract class SettingsMenuPF2e extends FormApplication {
         return data;
     })();
 
-    static override get defaultOptions(): FormApplicationOptions {
+    static override get defaultOptions(): appv1.api.FormApplicationOptions {
         const options = super.defaultOptions;
         options.classes.push("settings-menu", "sheet");
 
@@ -130,7 +132,7 @@ abstract class SettingsMenuPF2e extends FormApplication {
     }
 }
 
-interface SettingsMenuPF2e extends FormApplication {
+interface SettingsMenuPF2e extends appv1.api.FormApplication {
     constructor: typeof SettingsMenuPF2e;
     options: SettingsMenuOptions;
 }
@@ -147,11 +149,11 @@ interface SettingsTemplateData extends PartialSettingsData {
     isCheckbox: boolean;
 }
 
-interface MenuTemplateData extends FormApplicationData {
+interface MenuTemplateData extends appv1.api.FormApplicationData {
     settings: Record<string, SettingsTemplateData>;
 }
 
-interface SettingsMenuOptions extends FormApplicationOptions {
+interface SettingsMenuOptions extends appv1.api.FormApplicationOptions {
     highlightSetting?: string;
 }
 

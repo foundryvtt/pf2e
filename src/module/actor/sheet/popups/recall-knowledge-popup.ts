@@ -1,15 +1,16 @@
 import { CreatureIdentificationData } from "@module/recall-knowledge.ts";
 import { localizeList } from "@util";
+import appv1 = foundry.appv1;
 
-export class RecallKnowledgePopup extends Application {
+export class RecallKnowledgePopup extends appv1.api.Application {
     #identificationData: CreatureIdentificationData;
 
-    constructor(options: Partial<ApplicationOptions>, data: CreatureIdentificationData) {
+    constructor(options: Partial<appv1.api.ApplicationV1Options>, data: CreatureIdentificationData) {
         super(options);
         this.#identificationData = data;
     }
 
-    static override get defaultOptions(): ApplicationOptions {
+    static override get defaultOptions(): appv1.api.ApplicationV1Options {
         return {
             ...super.defaultOptions,
             id: "recall-knowledge-breakdown",

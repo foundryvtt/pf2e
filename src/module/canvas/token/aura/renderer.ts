@@ -117,7 +117,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         this.textureContainer = new PIXI.Graphics();
 
         const texture = await (async (): Promise<PIXI.Texture | null> => {
-            const maybeTexture = await loadTexture(data.src, { fallback: "icons/svg/hazard.svg" });
+            const maybeTexture = await fc.loadTexture(data.src, { fallback: "icons/svg/hazard.svg" });
             if (!(maybeTexture instanceof PIXI.Texture)) return null;
 
             const globalVideo = isVideoFilePath(data.src) ? game.video.getVideoSource(maybeTexture) : null;
@@ -180,7 +180,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         const bounds = this.token.mechanicalBounds;
         const gridUnits = canvas.scene?.grid.units.trim() || game.system.grid.units;
         const label = [this.radius, gridUnits].join("");
-        const text = new PreciseText(label, style);
+        const text = new fc.containers.PreciseText(label, style);
         const center = { x: bounds.x + bounds.width / 2, y: bounds.y + bounds.height / 2 };
         const textOffset = Math.sqrt(style.fontSize);
         text.position.set(center.x + textOffset, center.y - this.radiusPixels - style.fontSize - textOffset);

@@ -7,8 +7,9 @@ import { htmlQuery, signedInteger, tupleHasValue } from "@util";
 import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
 import { getActions, loreSkillsFromActors } from "./helpers.ts";
+import appv1 = foundry.appv1;
 
-interface CheckPromptDialogOptions extends ApplicationOptions {
+interface CheckPromptDialogOptions extends appv1.api.ApplicationV1Options {
     actors: CharacterPF2e[];
 }
 
@@ -28,11 +29,11 @@ interface TagifyValue {
     value: string;
 }
 
-class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
+class CheckPromptDialog extends appv1.api.Application<CheckPromptDialogOptions> {
     #actions?: Record<string, string>;
     #lores?: Record<string, string>;
 
-    static override get defaultOptions(): ApplicationOptions {
+    static override get defaultOptions(): appv1.api.ApplicationV1Options {
         return {
             ...super.defaultOptions,
             classes: ["dialog"],

@@ -2,6 +2,7 @@ import { ActorPF2e } from "@actor";
 import { TraitViewData } from "@actor/data/base.ts";
 import type { CheckModifier } from "@actor/modifiers.ts";
 import type { RollOrigin, RollTarget } from "@actor/roll-context/types.ts";
+import type Die from "@client/dice/terms/die.d.mts";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import { reduceItemName } from "@item/helpers.ts";
 import { ActorTokenFlag, ChatMessageSourcePF2e, CheckContextChatFlag } from "@module/chat-message/data.ts";
@@ -24,7 +25,6 @@ import {
 } from "@util";
 import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
-import type { Die } from "types/foundry/client-esm/dice/terms/die.d.ts";
 import {
     DEGREE_OF_SUCCESS_STRINGS,
     DegreeAdjustmentsRecord,
@@ -784,7 +784,7 @@ class CheckPF2e {
         })();
 
         // Render the template and replace quasi-XML nodes with visibility-data-containing HTML elements
-        const rendered = await renderTemplate("systems/pf2e/templates/chat/check/target-dc-result.hbs", {
+        const rendered = await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/check/target-dc-result.hbs", {
             dc: dcData,
             result: resultData,
         });

@@ -1,6 +1,7 @@
-import { ActorSourcePF2e } from "@actor/data/index.ts";
+import type { ActorSourcePF2e } from "@actor/data/index.ts";
 import { CREATURE_ACTOR_TYPES } from "@actor/values.ts";
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import type { CompendiumDocument } from "@client/documents/collections/compendium-collection.d.mts";
+import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { MigrationBase } from "@module/migration/base.ts";

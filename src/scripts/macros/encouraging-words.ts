@@ -69,7 +69,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
         roll();
     };
 
-    const dialog = new Dialog({
+    const dialog = new foundry.appv1.api.Dialog({
         title: localize("Title"),
         content: `
     <div>${localize("ContentMain")}</div>

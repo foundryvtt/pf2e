@@ -3,7 +3,8 @@
     <header>
         <div class="image-container">
             <img class="actor-image" src="{{actor.img}}" data-edit="img" />
-            <a class="hover-icon" data-action="show-image" data-tooltip="SIDEBAR.CharArt"><i class="fa-solid fa-image fa-fw"></i></a>
+            <a class="hover-icon" data-action="show-image"
+               data-tooltip aria-label="{{localize "SIDEBAR.CharArt"}}"><i class="fa-solid fa-image fa-fw" inert></i></a>
         </div>
 
         <div class="header-content">
@@ -82,7 +83,7 @@
 {{#*inline "headerDetails"}}
     <div class="hp-section">
         <div class="label">
-            <i class="fa-solid fa-heart"></i>
+            <i class="fa-solid fa-heart" inert></i>
             <h4>{{localize "PF2E.HitPointsHeader"}}</h4>
         </div>
         <div class="value">
@@ -96,13 +97,13 @@
             </div>
         </div>
         <div class="label">
-            <i class="fa-solid fa-heart-broken"></i>
+            <i class="fa-solid fa-heart-brack" inert></i>
             <h4>{{localize "PF2E.condition.dying.name"}}</h4>
         </div>
         <div class="value dying-section">
             {{#if data.attributes.dying.value}}
                 <a class="rollable roll-icon" data-action="recovery-check" data-tooltip="PF2E.Check.Specific.Recovery">
-                    <i class="fa-solid fa-dice-d20"></i>
+                    <i class="fa-solid fa-dice-d20" inert></i>
                 </a>
             {{/if}}
             <a
@@ -118,7 +119,10 @@
             <div class="defenses-list">
                 <div class="ac" data-tooltip="{{data.attributes.ac.breakdown}}">
                     <div class="name">{{localize "PF2E.ArmorClassShortLabel"}}</div>
-                    <div class="value"><i class="fa-solid fa-shield-blank"></i>{{numberFormat data.attributes.ac.value decimals=0 sign=false}}</div>
+                    <div class="value">
+                        <i class="fa-solid fa-shield-blank" inert></i>
+                        {{numberFormat data.attributes.ac.value decimals=0 sign=false}}
+                    </div>
                 </div>
                 {{#each data.saves as |save|}}
                     <a class="save" data-action="roll-check" data-statistic="{{save.slug}}" data-tooltip="{{save.breakdown}}">
@@ -140,7 +144,8 @@
             <div class="skills-content">
                 {{#if data.master.id}}
                     <div class="skills-list">
-                        <a data-action="roll-check" data-statistic="perception" data-tooltip="{{data.perception.breakdown}}">
+                        <a data-action="roll-check" data-statistic="perception"
+                            data-tooltip aria-label="{{data.perception.breakdown}}">
                             <div class="mod">{{numberFormat data.perception.totalModifier sign=true}}</div>
                             <div class="name">{{localize "PF2E.Familiar.Perception"}}</div>
                         </a>
@@ -244,7 +249,9 @@
         <div class="section-header">
             <h4>{{localize "PF2E.Familiar.AbilitiesLabel"}}</h4>
             <div class="controls">
-                <a data-action="browse-abilities" data-action-category="familiar"><i class="fa-solid fa-search"></i> {{localize "PF2E.BrowseLabel"}}</a>
+                <a data-action="browse-abilities" data-action-category="familiar">
+                    <i class="fa-solid fa-search" inert></i> {{localize "PF2E.BrowseLabel"}}
+                </a>
             </div>
         </div>
         <div class="section-body">

@@ -1,7 +1,7 @@
 export class MockChatMessage {
-    _source: foundry.documents.ChatMessageSource;
+    _source: fd.ChatMessageSource;
 
-    constructor(data: foundry.documents.ChatMessageSource) {
+    constructor(data: fd.ChatMessageSource) {
         this._source = fu.duplicate(data);
     }
 }

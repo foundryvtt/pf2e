@@ -25,26 +25,28 @@ export function steelYourResolve(options: ActionDefaultOptions): void {
         return;
     }
 
-    Dialog.confirm({
-        title: localize("Title"),
+    foundry.applications.api.DialogV2.confirm({
+        window: { title: localize("Title") },
         content: localize("Content"),
-        yes: () => {
-            const sp = actor.system.attributes.hp.sp ?? { value: 0, max: 0 };
-            const resolve = actor.system.resources.resolve ?? { value: 0, max: 0 };
-            const spRatio = `${sp.value}/${sp.max}`;
-            const recoverStamina = localize("RecoverStamina", { name: actor.name, ratio: spRatio });
-            const noStamina = localize("NoStamina", { name: actor.name });
-            if (resolve.value > 0) {
-                toChat(actor.name, recoverStamina);
-                const newSP = sp.value + Math.floor(sp.max / 2);
-                actor.update({
-                    "system.attributes.hp.sp.value": Math.min(newSP, sp.max),
-                    "system.resources.resolve.value": resolve.value - 1,
-                });
-            } else {
-                toChat(actor.name, noStamina);
-            }
+        yes: {
+            callback: () => {
+                const sp = actor.system.attributes.hp.sp ?? { value: 0, max: 0 };
+                const resolve = actor.system.resources.resolve ?? { value: 0, max: 0 };
+                const spRatio = `${sp.value}/${sp.max}`;
+                const recoverStamina = localize("RecoverStamina", { name: actor.name, ratio: spRatio });
+                const noStamina = localize("NoStamina", { name: actor.name });
+                if (resolve.value > 0) {
+                    toChat(actor.name, recoverStamina);
+                    const newSP = sp.value + Math.floor(sp.max / 2);
+                    actor.update({
+                        "system.attributes.hp.sp.value": Math.min(newSP, sp.max),
+                        "system.resources.resolve.value": resolve.value - 1,
+                    });
+                } else {
+                    toChat(actor.name, noStamina);
+                }
+            },
+            default: true,
         },
-        defaultYes: true,
     });
 }

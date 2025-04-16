@@ -1,1 +1,0 @@
-import "./base.d.ts";

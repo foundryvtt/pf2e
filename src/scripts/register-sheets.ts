@@ -37,15 +37,16 @@ import { UserConfigPF2e } from "@module/user/sheet.ts";
 import { SceneConfigPF2e } from "@scene/sheet.ts";
 import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { TokenConfigPF2e } from "@scene/token-document/sheet.ts";
+import appv1 = foundry.appv1;
 
 export function registerSheets(): void {
     const sheetLabel = game.i18n.localize("PF2E.SheetLabel");
 
-    Scenes.registerSheet("pf2e", SceneConfigPF2e, { makeDefault: true });
-    DocumentSheetConfig.registerSheet(TokenDocumentPF2e, "pf2e", TokenConfigPF2e, { makeDefault: true });
+    fd.collections.Scenes.registerSheet("pf2e", SceneConfigPF2e, { makeDefault: true });
+    fa.apps.DocumentSheetConfig.registerSheet(TokenDocumentPF2e, "pf2e", TokenConfigPF2e, { makeDefault: true });
 
     // ACTOR
-    Actors.unregisterSheet("core", ActorSheet);
+    fd.collections.Actors.unregisterSheet("core", appv1.sheets.ActorSheet);
 
     const localizeType = (type: string) => {
         const docType = type in CONFIG.PF2E.Actor.documentClasses ? "Actor" : "Item";
@@ -53,71 +54,71 @@ export function registerSheets(): void {
     };
 
     // PC
-    Actors.registerSheet("pf2e", CharacterSheetPF2e, {
+    fd.collections.Actors.registerSheet("pf2e", CharacterSheetPF2e, {
         types: ["character"],
         label: game.i18n.format(sheetLabel, { type: localizeType("character") }),
         makeDefault: true,
     });
 
     // NPC
-    Actors.registerSheet("pf2e", NPCSheetPF2e, {
+    fd.collections.Actors.registerSheet("pf2e", NPCSheetPF2e, {
         types: ["npc"],
         label: game.i18n.format(sheetLabel, { type: localizeType("npc") }),
         makeDefault: true,
     });
-    Actors.registerSheet("pf2e", SimpleNPCSheet, {
+    fd.collections.Actors.registerSheet("pf2e", SimpleNPCSheet, {
         types: ["npc"],
         label: "PF2E.Actor.NPC.SimpleSheet",
         canBeDefault: false,
     });
 
     // Hazard
-    Actors.registerSheet("pf2e", HazardSheetPF2e, {
+    fd.collections.Actors.registerSheet("pf2e", HazardSheetPF2e, {
         types: ["hazard"],
         label: game.i18n.format(sheetLabel, { type: localizeType("hazard") }),
     });
 
     // Loot
-    Actors.registerSheet("pf2e", LootSheetPF2e, {
+    fd.collections.Actors.registerSheet("pf2e", LootSheetPF2e, {
         types: ["loot"],
         label: game.i18n.format(sheetLabel, { type: localizeType("loot") }),
         makeDefault: true,
     });
 
     // Familiar
-    Actors.registerSheet("pf2e", FamiliarSheetPF2e, {
+    fd.collections.Actors.registerSheet("pf2e", FamiliarSheetPF2e, {
         types: ["familiar"],
         label: game.i18n.format(sheetLabel, { type: localizeType("familiar") }),
         makeDefault: true,
     });
 
     // Vehicle
-    Actors.registerSheet("pf2e", VehicleSheetPF2e, {
+    fd.collections.Actors.registerSheet("pf2e", VehicleSheetPF2e, {
         types: ["vehicle"],
         label: game.i18n.format(sheetLabel, { type: localizeType("vehicle") }),
         makeDefault: true,
     });
 
     // Party
-    Actors.registerSheet("pf2e", PartySheetPF2e, {
+    fd.collections.Actors.registerSheet("pf2e", PartySheetPF2e, {
         types: ["party"],
         label: game.i18n.format(sheetLabel, { type: localizeType("party") }),
         makeDefault: true,
     });
 
     // Army
-    Actors.registerSheet("pf2e", ArmySheetPF2e, {
+    fd.collections.Actors.registerSheet("pf2e", ArmySheetPF2e, {
         types: ["army"],
         label: game.i18n.format(sheetLabel, { type: localizeType("army") }),
         makeDefault: true,
     });
 
     // ITEM
-    Items.unregisterSheet("core", ItemSheet);
+    fd.collections.Items.unregisterSheet("core", appv1.sheets.ItemSheet);
 
     const itemTypes = ["lore", "spellcastingEntry"];
     for (const itemType of itemTypes) {
-        Items.registerSheet("pf2e", ItemSheetPF2e, {
+        fd.collections.Items.registerSheet("pf2e", ItemSheetPF2e, {
             types: [itemType],
             label: game.i18n.format(sheetLabel, { type: localizeType(itemType) }),
             makeDefault: true,
@@ -150,7 +151,7 @@ export function registerSheets(): void {
         ["weapon", WeaponSheetPF2e],
     ] as const;
     for (const [type, Sheet] of sheetEntries) {
-        Items.registerSheet("pf2e", Sheet, {
+        fd.collections.Items.registerSheet("pf2e", Sheet, {
             types: [type],
             label: game.i18n.format(sheetLabel, { type: localizeType(type) }),
             makeDefault: true,
@@ -160,7 +161,7 @@ export function registerSheets(): void {
     // Add any missing physical item sheets
     for (const itemType of PHYSICAL_ITEM_TYPES) {
         if (sheetEntries.some(([type, _sheet]) => itemType === type)) continue;
-        Items.registerSheet("pf2e", PhysicalItemSheetPF2e, {
+        fd.collections.Items.registerSheet("pf2e", PhysicalItemSheetPF2e, {
             types: [itemType],
             label: game.i18n.format(sheetLabel, { type: localizeType(itemType) }),
             makeDefault: true,
@@ -168,16 +169,16 @@ export function registerSheets(): void {
     }
 
     // JOURNAL ENTRY
-    Journal.unregisterSheet("core", JournalSheet);
-    Journal.registerSheet("pf2e", JournalSheetPF2e, {
+    fd.collections.Journal.unregisterSheet("core", appv1.sheets.JournalSheet);
+    fd.collections.Journal.registerSheet("pf2e", JournalSheetPF2e, {
         label: () =>
             game.i18n.format("SHEETS.DefaultDocumentSheet", { document: game.i18n.localize("DOCUMENT.JournalEntry") }),
         makeDefault: true,
     });
 
     // USER
-    Users.unregisterSheet("core", foundry.applications.sheets.UserConfig);
-    Users.registerSheet("pf2e", UserConfigPF2e, {
+    fd.collections.Users.unregisterSheet("core", foundry.applications.sheets.UserConfig);
+    fd.collections.Users.registerSheet("pf2e", UserConfigPF2e, {
         makeDefault: true,
         label: () => game.i18n.format("SHEETS.DefaultDocumentSheet", { document: game.i18n.localize("DOCUMENT.User") }),
     });

@@ -20,8 +20,6 @@
         "esModuleInterop": true,
         "sourceMap": true,
         "isolatedModules": true,
-        "baseUrl": ".",
-        "rootDir": ".",
         "outDir": "dist",
         "allowUnusedLabels": false,
         "removeComments": false,
@@ -30,53 +28,63 @@
         "noErrorTruncation": true,
         "paths": {
             "@actor": [
-                "src/module/actor/index.ts"
+                "./src/module/actor/index.ts"
             ],
             "@actor/*": [
-                "src/module/actor/*"
+                "./src/module/actor/*"
             ],
             "@item": [
-                "src/module/item/index.ts"
+                "./src/module/item/index.ts"
             ],
             "@item/*": [
-                "src/module/item/*"
+                "./src/module/item/*"
             ],
             "@scene": [
-                "src/module/scene/index.ts"
+                "./src/module/scene/index.ts"
             ],
             "@scene/*": [
-                "src/module/scene/*"
+                "./src/module/scene/*"
             ],
             "@system/*": [
-                "src/module/system/*"
+                "./src/module/system/*"
             ],
             "@module/*": [
-                "src/module/*"
+                "./src/module/*"
             ],
             "@scripts/*": [
-                "src/scripts/*"
+                "./src/scripts/*"
             ],
-            "@fvtt-client/*": [
-                "types/foundry/client-esm/*"
+            "@common/*": [
+                "./types/foundry/common/*"
+            ],
+            "@client/*": [
+                "./types/foundry/client/*"
             ],
             "@util": [
-                "src/util/index.ts"
+                "./src/util/index.ts"
             ],
             "@util/*": [
-                "src/util/*"
+                "./src/util/*"
             ]
         },
         "types": [
             "jest",
             "jquery",
             "node",
+            "showdown",
             "tooltipster"
         ],
         "typeRoots": [
-            "node_modules/@types",
-            "types/foundry"
+            "./node_modules/@types"
         ]
     },
+    "include": [
+        "./build/**/*",
+        "./src/**/*",
+        "./tests/**/*.ts",
+        "./types/foundry/global-external.d.mts",
+        "./vite.config.ts"
+    ],
     "watchOptions": {
         "fallbackPolling": "dynamicpriority",
         "excludeDirectories": [

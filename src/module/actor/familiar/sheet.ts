@@ -1,11 +1,12 @@
 import type { CharacterPF2e } from "@actor";
-import { CreatureSheetData } from "@actor/creature/index.ts";
+import type { CreatureSheetData } from "@actor/creature/index.ts";
 import { CreatureSheetPF2e } from "@actor/creature/sheet.ts";
-import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
-import { AbilityViewData } from "@actor/sheet/data-types.ts";
+import type { SheetClickActionHandlers } from "@actor/sheet/base.ts";
+import type { AbilityViewData } from "@actor/sheet/data-types.ts";
 import { createAbilityViewData } from "@actor/sheet/helpers.ts";
+import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
-import { StatisticTraceData } from "@system/statistic/index.ts";
+import type { StatisticTraceData } from "@system/statistic/index.ts";
 import * as R from "remeda";
 import type { FamiliarPF2e } from "./document.ts";
 

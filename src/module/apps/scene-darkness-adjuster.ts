@@ -3,8 +3,9 @@ import { fontAwesomeIcon } from "@util";
 import noUiSlider, { PipsMode, API as Slider } from "nouislider";
 import "nouislider/dist/nouislider.min.css";
 import { WorldClock } from "./world-clock/index.ts";
+import appv1 = foundry.appv1;
 
-export class SceneDarknessAdjuster extends Application {
+export class SceneDarknessAdjuster extends appv1.api.Application {
     static readonly instance = new this();
 
     #slider?: Slider;
@@ -12,7 +13,7 @@ export class SceneDarknessAdjuster extends Application {
     /** Temporarily disable the system's "refreshLighting" hook  */
     #noRefreshHook = false;
 
-    static override get defaultOptions(): ApplicationOptions {
+    static override get defaultOptions(): appv1.api.ApplicationV1Options {
         return {
             ...super.defaultOptions,
             id: "darkness-adjuster",
@@ -23,14 +24,17 @@ export class SceneDarknessAdjuster extends Application {
         };
     }
 
-    override async getData(options: Partial<ApplicationOptions> = {}): Promise<object> {
+    override async getData(options: Partial<appv1.api.ApplicationV1Options> = {}): Promise<object> {
         return {
             ...(await super.getData(options)),
             darknessSyncedToTime: !!game.scenes.viewed?.darknessSyncedToTime,
         };
     }
 
-    override async _render(force?: boolean, options: RenderOptions & { scenes?: ScenePF2e[] } = {}): Promise<void> {
+    override async _render(
+        force?: boolean,
+        options: appv1.api.AppV1RenderOptions & { scenes?: ScenePF2e[] } = {},
+    ): Promise<void> {
         if (!game.scenes.viewed) return;
 
         // Adjust position of this application's window
