@@ -141,9 +141,11 @@ function getPropertyRuneModifierAdjustments(runes: WeaponPropertyRuneType[]): Mo
 }
 
 function getPropertyRuneSkillModifiers(runes: ArmorPropertyRuneType[]): Record<string, ModifierObjectParams>[] {
-    return runes.map((r) => Object.fromEntries(
-        Object.entries(RUNE_DATA.armor.property[r].skill ?? {}).map(([skill, mod]) => [skill, { slug: r, ...mod }])
-    ));
+    return runes.map((r) =>
+        Object.fromEntries(
+            Object.entries(RUNE_DATA.armor.property[r].skill ?? {}).map(([skill, mod]) => [skill, { slug: r, ...mod }]),
+        ),
+    );
 }
 
 type RuneDiceProperty = "slug" | "damageType" | "category" | "predicate" | "critical";
@@ -646,7 +648,12 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
     },
     greaterSlick: {
         skill: {
-            acrobatics: { label: "PF2E.ArmorPropertyRuneGreaterSlick", modifier: 2, type: "item", predicate: [{"or": ["action:escape","action:squeeze"]}] },
+            acrobatics: {
+                label: "PF2E.ArmorPropertyRuneGreaterSlick",
+                modifier: 2,
+                type: "item",
+                predicate: [{ or: ["action:escape", "action:squeeze"] }],
+            },
         },
         name: "PF2E.ArmorPropertyRuneGreaterSlick",
         level: 8,
@@ -748,7 +755,12 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
     },
     majorSlick: {
         skill: {
-            acrobatics: { label: "PF2E.ArmorPropertyRuneMajorSlick", modifier: 3, type: "item", predicate: [{"or": ["action:escape","action:squeeze"]}] },
+            acrobatics: {
+                label: "PF2E.ArmorPropertyRuneMajorSlick",
+                modifier: 3,
+                type: "item",
+                predicate: [{ or: ["action:escape", "action:squeeze"] }],
+            },
         },
         name: "PF2E.ArmorPropertyRuneMajorSlick",
         level: 16,
@@ -866,7 +878,12 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
     },
     slick: {
         skill: {
-            acrobatics: { label: "PF2E.ArmorPropertyRuneSlick", modifier: 1, type: "item", predicate: [{"or": ["action:escape","action:squeeze"]}] },
+            acrobatics: {
+                label: "PF2E.ArmorPropertyRuneSlick",
+                modifier: 1,
+                type: "item",
+                predicate: [{ or: ["action:escape", "action:squeeze"] }],
+            },
         },
         name: "PF2E.ArmorPropertyRuneSlick",
         level: 5,
