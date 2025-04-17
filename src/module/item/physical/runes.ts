@@ -140,6 +140,12 @@ function getPropertyRuneModifierAdjustments(runes: WeaponPropertyRuneType[]): Mo
     return runes.flatMap((r) => RUNE_DATA.weapon.property[r].damage?.adjustments ?? []);
 }
 
+function getPropertyRuneSkillModifiers(runes: ArmorPropertyRuneType[]): Record<string, ModifierObjectParams>[] {
+    return runes.map((r) => Object.fromEntries(
+        Object.entries(RUNE_DATA.armor.property[r].skill ?? {}).map(([skill, mod]) => [skill, { slug: r, ...mod }])
+    ));
+}
+
 type RuneDiceProperty = "slug" | "damageType" | "category" | "predicate" | "critical";
 type RuneAdditionalDamageDice = Partial<Pick<DamageDiceParameters, RuneDiceProperty>> &
     Required<Pick<DamageDiceParameters, "diceNumber" | "dieSize">>;
@@ -402,7 +408,10 @@ interface PropertyRuneData<TSlug extends string> extends RuneData {
     slug: TSlug;
 }
 
-interface ArmorPropertyRuneData<TSlug extends ArmorPropertyRuneType> extends PropertyRuneData<TSlug> {}
+interface ArmorPropertyRuneData<TSlug extends ArmorPropertyRuneType> extends PropertyRuneData<TSlug> {
+    /** Modifiers **/
+    skill?: Record<string, ModifierObjectParams>;
+}
 
 interface WeaponPropertyRuneData<TSlug extends WeaponPropertyRuneType> extends PropertyRuneData<TSlug> {
     attack?: {
@@ -625,6 +634,9 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         traits: ["magical"],
     },
     greaterShadow: {
+        skill: {
+            stealth: { label: "PF2E.ArmorPropertyRuneGreaterShadow", modifier: 2, type: "item" },
+        },
         name: "PF2E.ArmorPropertyRuneGreaterShadow",
         level: 9,
         price: 650,
@@ -633,6 +645,9 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         traits: ["magical"],
     },
     greaterSlick: {
+        skill: {
+            acrobatics: { label: "PF2E.ArmorPropertyRuneGreaterSlick", modifier: 2, type: "item", predicate: [{"or": ["action:escape","action:squeeze"]}] },
+        },
         name: "PF2E.ArmorPropertyRuneGreaterSlick",
         level: 8,
         price: 450,
@@ -721,6 +736,9 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         traits: ["magical"],
     },
     majorShadow: {
+        skill: {
+            stealth: { label: "PF2E.ArmorPropertyRuneMajorShadow", modifier: 3, type: "item" },
+        },
         name: "PF2E.ArmorPropertyRuneMajorShadow",
         level: 17,
         price: 14_000,
@@ -729,6 +747,9 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         traits: ["magical"],
     },
     majorSlick: {
+        skill: {
+            acrobatics: { label: "PF2E.ArmorPropertyRuneMajorSlick", modifier: 3, type: "item", predicate: [{"or": ["action:escape","action:squeeze"]}] },
+        },
         name: "PF2E.ArmorPropertyRuneMajorSlick",
         level: 16,
         price: 9000,
@@ -817,6 +838,9 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         traits: ["dwarf", "magical", "saggorak"],
     },
     shadow: {
+        skill: {
+            stealth: { label: "PF2E.ArmorPropertyRuneShadow", modifier: 1, type: "item" },
+        },
         name: "PF2E.ArmorPropertyRuneShadow",
         level: 5,
         price: 55,
@@ -841,6 +865,9 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         traits: ["magical"],
     },
     slick: {
+        skill: {
+            acrobatics: { label: "PF2E.ArmorPropertyRuneSlick", modifier: 1, type: "item", predicate: [{"or": ["action:escape","action:squeeze"]}] },
+        },
         name: "PF2E.ArmorPropertyRuneSlick",
         level: 5,
         price: 45,
@@ -2304,9 +2331,10 @@ export {
     getPropertyRuneDamage,
     getPropertyRuneDegreeAdjustments,
     getPropertyRuneModifierAdjustments,
+    getPropertyRuneSkillModifiers,
     getPropertyRuneSlots,
     getPropertyRuneStrikeAdjustments,
     getRuneValuationData,
     prunePropertyRunes,
 };
-export type { RuneData, WeaponPropertyRuneData };
+export type { RuneData, ArmorPropertyRuneData, WeaponPropertyRuneData };

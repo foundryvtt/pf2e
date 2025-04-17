@@ -31,7 +31,11 @@ import { WeaponPF2e } from "@item";
 import { AbilityTrait } from "@item/ability/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import type { ItemType } from "@item/base/data/index.ts";
-import { getPropertyRuneDegreeAdjustments, getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
+import {
+    getPropertyRuneDegreeAdjustments,
+    getPropertyRuneStrikeAdjustments,
+    getPropertyRuneSkillModifiers,
+} from "@item/physical/runes.ts";
 import { WeaponSource } from "@item/weapon/data.ts";
 import { processTwoHandTrait } from "@item/weapon/helpers.ts";
 import { WeaponCategory } from "@item/weapon/types.ts";
@@ -873,6 +877,23 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
             // Add a penalty for attempting to Force Open without a crowbar or similar tool
             if (skillSlug === "athletics") modifiers.push(createForceOpenPenalty(this, domains));
+
+            // Add modifiers from worn armor's property runes
+            if (wornArmor) {
+                const runes = getPropertyRuneSkillModifiers(wornArmor.system.runes.property);
+                for (const rune of runes) {
+                    const skillModifier = rune[skillSlug];
+                    if (skillModifier !== undefined) {
+                        const propertyRuneModifier = new ModifierPF2e({
+                            ...skillModifier,
+                            domains: [...domains, ...(skillModifier.domains ?? [])],
+                            // adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, domains, skillModifier.slug),
+                        });
+
+                        modifiers.push(propertyRuneModifier);
+                    }
+                }
+            }
 
             const statistic = new Statistic(this, {
                 slug: skillSlug,
