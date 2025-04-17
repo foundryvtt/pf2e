@@ -281,7 +281,7 @@
                     "remaster": true,
                     "title": "Pathfinder Player Core 2"
                 },
-                "quantity": 1,
+                "quantity": 2,
                 "rules": [],
                 "size": "med",
                 "slug": "hampering-snare",
@@ -320,7 +320,7 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 13
+                    "value": 14
                 },
                 "damageRolls": {
                     "vxS26mYgJGoUVw5M": {
@@ -363,7 +363,7 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 13
+                    "value": 14
                 },
                 "damageRolls": {
                     "sY9CkJQMaAHSgcuO": {
@@ -386,7 +386,7 @@
                         "disarm",
                         "finesse",
                         "nonlethal",
-                        "reach-10",
+                        "reach",
                         "trip"
                     ]
                 }
@@ -433,10 +433,51 @@
             "type": "melee"
         },
         {
+            "_id": "Vyjc348MEF8eDk6S",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Insistent Command",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When the gamekeeper rolls a success to [[/act command-an-animal]], they get a critical success instead; if they roll a critical failure, they get a failure instead.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "adjustment": {
+                            "criticalFailure": "one-degree-better",
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "action:command-an-animal"
+                        ],
+                        "selector": "skill-check"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "z14fU7mise4W1BMI",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Play Chicken",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -465,7 +506,7 @@
             "_id": "K8GiCfuGTZ5WMvO2",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Animal Tandem",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "action"

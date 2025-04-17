@@ -209,21 +209,13 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "materials",
-                        "selector": "wakizashi-damage",
-                        "value": "cold-iron"
-                    }
-                ],
+                "rules": [],
                 "slug": "wakizashi",
                 "traits": {
                     "value": [
                         "agile",
+                        "cold-iron",
                         "deadly-d8",
-                        "finesse",
                         "versatile-p"
                     ]
                 }
@@ -266,7 +258,28 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Katana",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "slug": "base",
+                        "value": 10
+                    }
+                ],
                 "slug": "katana",
                 "traits": {
                     "value": [
@@ -374,6 +387,23 @@
                 },
                 "rules": [
                     {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "feinting-failure",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "feinting-failure"
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "strike-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    },
+                    {
                         "category": "precision",
                         "diceNumber": 1,
                         "dieSize": "d6",
@@ -405,7 +435,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The tengu bladesmith Interacts to draw a weapon in the sword group, then attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] a weapon held by a foe within reach. The weapon the tengu bladesmith draws gains the disarm trait for this attempt.</p>"
+                    "value": "<p>The tengu bladesmith Interacts to draw a weapon in the sword group, then attempts to [[/act disarm]] a weapon held by a foe within reach. The weapon the tengu bladesmith draws gains the disarm trait for this attempt.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -447,7 +477,7 @@
             "type": "lore"
         }
     ],
-    "name": "Tengu Blacksmith",
+    "name": "Tengu Bladesmith",
     "system": {
         "abilities": {
             "cha": {

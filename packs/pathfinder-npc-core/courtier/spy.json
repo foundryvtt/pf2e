@@ -604,7 +604,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>The spy has positioned themself to seem a trusted ally, gaining a +2 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.Gather Information] or to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] among the nobles of that court.</p>"
+                    "value": "<p>The spy has positioned themself to seem a trusted ally, gaining a +2 circumstance bonus to [[/act gather-information options=nobles-ally]] or to [[/act make-an-impression options=nobles-ally]] among the nobles of that court.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -613,30 +613,17 @@
                 },
                 "rules": [
                     {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "nobles-ally",
-                        "toggleable": true
-                    },
-                    {
                         "key": "FlatModifier",
-                        "label": "To Make an Impression",
                         "predicate": [
                             "nobles-ally",
-                            "action:make-an-impression"
+                            {
+                                "or": [
+                                    "action:gather-information",
+                                    "action:make-an-impression"
+                                ]
+                            }
                         ],
-                        "selector": "diplomacy",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "To Gather Information",
-                        "predicate": [
-                            "nobles-ally",
-                            "action:gather-information"
-                        ],
-                        "selector": "diplomacy",
+                        "selector": "skill-check",
                         "type": "circumstance",
                         "value": 2
                     }
@@ -662,7 +649,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> Once per round.</p>\n<hr />\n<p><strong>Effect</strong> The spy draws a weapon and then Strikes with it. The target of the strike is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the attack.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The spy draws a weapon and then Strikes with it. The target of the strike is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the attack.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -674,7 +661,25 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "hidden-blade",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "hidden-blade"
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "strike-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -699,7 +704,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The spy deals an additional 2d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                    "value": "<p>The spy deals an extra 2d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "publication": {
                     "license": "ORC",
