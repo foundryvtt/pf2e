@@ -35,6 +35,7 @@ import {
     getPropertyRuneDegreeAdjustments,
     getPropertyRuneStrikeAdjustments,
     getPropertyRuneSkillModifiers,
+    getPropertyRuneSpeedModifiers,
 } from "@item/physical/runes.ts";
 import { WeaponSource } from "@item/weapon/data.ts";
 import { processTwoHandTrait } from "@item/weapon/helpers.ts";
@@ -880,18 +881,15 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
             // Add modifiers from worn armor's property runes
             if (wornArmor) {
-                const runes = getPropertyRuneSkillModifiers(wornArmor.system.runes.property);
-                for (const rune of runes) {
-                    const skillModifier = rune[skillSlug];
-                    if (skillModifier !== undefined) {
-                        const propertyRuneModifier = new ModifierPF2e({
-                            ...skillModifier,
-                            domains: [...domains, ...(skillModifier.domains ?? [])],
-                            // adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, domains, skillModifier.slug),
-                        });
+                const modifierData = getPropertyRuneSkillModifiers(wornArmor.system.runes.property)[skillSlug];
+                if (modifierData !== undefined) {
+                    const modifier = new ModifierPF2e({
+                        ...modifierData,
+                        domains: [...domains, ...(modifierData.domains ?? [])],
+                        adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, domains, modifierData.slug ?? ''),
+                    });
 
-                        modifiers.push(propertyRuneModifier);
-                    }
+                    modifiers.push(modifier);
                 }
             }
 
@@ -981,6 +979,23 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (armorPenalty) {
             statistic.push(armorPenalty);
             statistic.calculateTotal(new Set(this.getRollOptions(["all-speeds", "speed", `${movementType}-speed`])));
+        }
+
+        // Add modifiers from worn armor's property runes
+        if (wornArmor) {
+            const modifierData = getPropertyRuneSpeedModifiers(wornArmor.system.runes.property)[movementType];
+            if (modifierData !== undefined) {
+                const modifier = new ModifierPF2e({
+                    ...modifierData,
+                      adjustments: extractModifierAdjustments(
+                          this.synthetics.modifierAdjustments,
+                          ["all-speeds", "speed", `${movementType}-speed`],
+                          modifierData.slug ?? '',
+                      ),
+                });
+
+                statistic.push(modifier);
+            }
         }
 
         // A hindering penalty can't be removed or mitigated

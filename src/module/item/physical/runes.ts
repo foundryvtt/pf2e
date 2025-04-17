@@ -140,10 +140,17 @@ function getPropertyRuneModifierAdjustments(runes: WeaponPropertyRuneType[]): Mo
     return runes.flatMap((r) => RUNE_DATA.weapon.property[r].damage?.adjustments ?? []);
 }
 
-function getPropertyRuneSkillModifiers(runes: ArmorPropertyRuneType[]): Record<string, ModifierObjectParams>[] {
-    return runes.map((r) =>
-        Object.fromEntries(
-            Object.entries(RUNE_DATA.armor.property[r].skill ?? {}).map(([skill, mod]) => [skill, { slug: r, ...mod }]),
+function getPropertyRuneSkillModifiers(runes: ArmorPropertyRuneType[]): Record<string, ModifierObjectParams> {
+    return Object.fromEntries(
+        runes.flatMap((r) =>
+            Object.entries(RUNE_DATA.armor.property[r].modifiers?.skill ?? {}).map(([skill, mod]) => [skill, { slug: r, ...mod }]),
+        ),
+    );
+}
+function getPropertyRuneSpeedModifiers(runes: ArmorPropertyRuneType[]): Record<string, ModifierObjectParams> {
+    return Object.fromEntries(
+        runes.flatMap((r) =>
+            Object.entries(RUNE_DATA.armor.property[r].modifiers?.speed ?? {}).map(([speed, mod]) => [speed, { slug: r, ...mod }]),
         ),
     );
 }
@@ -412,7 +419,10 @@ interface PropertyRuneData<TSlug extends string> extends RuneData {
 
 interface ArmorPropertyRuneData<TSlug extends ArmorPropertyRuneType> extends PropertyRuneData<TSlug> {
     /** Modifiers **/
-    skill?: Record<string, ModifierObjectParams>;
+    modifiers?: {
+        skill?: Record<string, ModifierObjectParams>;
+        speed?: Record<string, ModifierObjectParams>;
+    };
 }
 
 interface WeaponPropertyRuneData<TSlug extends WeaponPropertyRuneType> extends PropertyRuneData<TSlug> {
@@ -636,8 +646,10 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         traits: ["magical"],
     },
     greaterShadow: {
-        skill: {
-            stealth: { label: "PF2E.ArmorPropertyRuneGreaterShadow", modifier: 2, type: "item" },
+        modifiers: {
+            skill: {
+                stealth: { label: "PF2E.ArmorPropertyRuneGreaterShadow", modifier: 2, type: "item" },
+            },
         },
         name: "PF2E.ArmorPropertyRuneGreaterShadow",
         level: 9,
@@ -647,12 +659,14 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         traits: ["magical"],
     },
     greaterSlick: {
-        skill: {
-            acrobatics: {
-                label: "PF2E.ArmorPropertyRuneGreaterSlick",
-                modifier: 2,
-                type: "item",
-                predicate: [{ or: ["action:escape", "action:squeeze"] }],
+        modifiers: {
+            skill: {
+                acrobatics: {
+                    label: "PF2E.ArmorPropertyRuneGreaterSlick",
+                    modifier: 2,
+                    type: "item",
+                    predicate: [{ or: ["action:escape", "action:squeeze"] }],
+                },
             },
         },
         name: "PF2E.ArmorPropertyRuneGreaterSlick",
@@ -743,8 +757,10 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         traits: ["magical"],
     },
     majorShadow: {
-        skill: {
-            stealth: { label: "PF2E.ArmorPropertyRuneMajorShadow", modifier: 3, type: "item" },
+        modifiers: {
+            skill: {
+                stealth: { label: "PF2E.ArmorPropertyRuneMajorShadow", modifier: 3, type: "item" },
+            },
         },
         name: "PF2E.ArmorPropertyRuneMajorShadow",
         level: 17,
@@ -754,12 +770,14 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         traits: ["magical"],
     },
     majorSlick: {
-        skill: {
-            acrobatics: {
-                label: "PF2E.ArmorPropertyRuneMajorSlick",
-                modifier: 3,
-                type: "item",
-                predicate: [{ or: ["action:escape", "action:squeeze"] }],
+        modifiers: {
+            skill: {
+                acrobatics: {
+                    label: "PF2E.ArmorPropertyRuneMajorSlick",
+                    modifier: 3,
+                    type: "item",
+                    predicate: [{ or: ["action:escape", "action:squeeze"] }],
+                },
             },
         },
         name: "PF2E.ArmorPropertyRuneMajorSlick",
@@ -850,8 +868,10 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         traits: ["dwarf", "magical", "saggorak"],
     },
     shadow: {
-        skill: {
-            stealth: { label: "PF2E.ArmorPropertyRuneShadow", modifier: 1, type: "item" },
+        modifiers: {
+            skill: {
+                stealth: { label: "PF2E.ArmorPropertyRuneShadow", modifier: 1, type: "item" },
+            },
         },
         name: "PF2E.ArmorPropertyRuneShadow",
         level: 5,
@@ -877,12 +897,14 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         traits: ["magical"],
     },
     slick: {
-        skill: {
-            acrobatics: {
-                label: "PF2E.ArmorPropertyRuneSlick",
-                modifier: 1,
-                type: "item",
-                predicate: [{ or: ["action:escape", "action:squeeze"] }],
+        modifiers: {
+            skill: {
+                acrobatics: {
+                    label: "PF2E.ArmorPropertyRuneSlick",
+                    modifier: 1,
+                    type: "item",
+                    predicate: [{ or: ["action:escape", "action:squeeze"] }],
+                },
             },
         },
         name: "PF2E.ArmorPropertyRuneSlick",
@@ -893,6 +915,16 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         traits: ["magical"],
     },
     soaring: {
+        modifiers: {
+            speed: {
+                fly: {
+                    label: "PF2E.ArmorPropertyRuneSoaring",
+                    modifier: 10,
+                    type: "item",
+                    predicate: ["speed:fly"],
+                },
+            },
+        },
         name: "PF2E.ArmorPropertyRuneSoaring",
         level: 14,
         price: 3750,
@@ -2349,6 +2381,7 @@ export {
     getPropertyRuneDegreeAdjustments,
     getPropertyRuneModifierAdjustments,
     getPropertyRuneSkillModifiers,
+    getPropertyRuneSpeedModifiers,
     getPropertyRuneSlots,
     getPropertyRuneStrikeAdjustments,
     getRuneValuationData,
