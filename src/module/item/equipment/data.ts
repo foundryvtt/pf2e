@@ -5,7 +5,6 @@ import type {
     PhysicalItemTraits,
     PhysicalSystemData,
     PhysicalSystemSource,
-    StaffData,
 } from "@item/physical/data.ts";
 import type { EquipmentTrait } from "./types.ts";
 
@@ -16,9 +15,6 @@ interface EquipmentSystemSource extends Investable<PhysicalSystemSource> {
     usage: { value: string };
     /** Doubly-embedded adjustments, attachments, talismans etc. */
     subitems: PhysicalItemSource[];
-
-    /** If this is a staff, the number of charges and what spells is available on this staff */
-    staff: StaffData | null;
 }
 
 interface EquipmentTraits extends PhysicalItemTraits<EquipmentTrait> {}

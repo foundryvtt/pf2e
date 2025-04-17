@@ -9,10 +9,9 @@ import type {
     PhysicalItemTraits,
     PhysicalSystemData,
     PhysicalSystemSource,
-    StaffData,
     UsageDetails,
 } from "@item/physical/index.ts";
-import type { ZeroToFour } from "@module/data.ts";
+import { ZeroToFour } from "@module/data.ts";
 import { DamageDieSize, DamageType } from "@system/damage/index.ts";
 import type { WeaponTraitToggles } from "./trait-toggles.ts";
 import type {
@@ -89,9 +88,6 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
 
     /** Doubly-embedded adjustments, attachments, talismans etc. */
     subitems: PhysicalItemSource[];
-
-    /** If this is a staff, the number of charges and what spells is available on this staff */
-    staff: StaffData | null;
 
     // Refers to custom damage, *not* property runes
     property1: {

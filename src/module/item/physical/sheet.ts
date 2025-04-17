@@ -1,25 +1,18 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
-import { ItemPF2e, type EquipmentPF2e, type PhysicalItemPF2e, type WeaponPF2e } from "@item";
+import type { PhysicalItemPF2e } from "@item";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
-import { SpellSlotGroupId } from "@item/spellcasting-entry/collection.ts";
-import { coerceToSpellGroupId, getSpellRankLabel } from "@item/spellcasting-entry/helpers.ts";
 import { SheetOptions, createSheetTags, getAdjustment } from "@module/sheet/helpers.ts";
-import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, localizer, tupleHasValue } from "@util";
-import { UUIDUtils } from "@util/uuid.ts";
+import { ErrorPF2e, htmlClosest, htmlQuery, localizer, tupleHasValue } from "@util";
 import * as R from "remeda";
-import type { ItemActivation, StaffSpellData } from "./data.ts";
 import { detachSubitem } from "./helpers.ts";
-import { CoinsPF2e, MaterialValuationData } from "./index.ts";
+import { CoinsPF2e, ItemActivation, MaterialValuationData } from "./index.ts";
 import { PRECIOUS_MATERIAL_GRADES } from "./values.ts";
 
 class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
     static override get defaultOptions(): ItemSheetOptions {
         const options = super.defaultOptions;
         options.classes.push("physical");
-        options.dragDrop ??= [];
-        options.dragDrop.push({ dropSelector: ".staff-spells" });
-        options.hasSidebar = true;
-        return options;
+        return { ...options, hasSidebar: true };
     }
 
     /** Show the identified data for editing purposes */
@@ -169,51 +162,6 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         return { value, materials };
     }
 
-    protected async prepareStaffSpells(item: WeaponPF2e | EquipmentPF2e): Promise<StaffSheetData | null> {
-        const staff = item.system.staff;
-        if (!staff) return null;
-
-        const items = await UUIDUtils.fromUUIDs(R.unique(staff.spells.map((s) => s.uuid)));
-        const itemsByUuid = R.mapToObj(items, (i) => [i.uuid, i]);
-
-        const allSpellGroups: SpellSlotGroupId[] = ["cantrips", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-        return {
-            defaultEffect: game.i18n.localize("PF2E.Item.Weapon.Staff.DefaultEffect"),
-            effect: staff.effect,
-            spells: allSpellGroups.map((rank) => ({
-                rank,
-                label: getSpellRankLabel(rank),
-                spells:
-                    staff.spells
-                        .filter((s) => s.rank === rank)
-                        .map((data) => {
-                            const spell = itemsByUuid[data.uuid];
-                            return {
-                                img: spell?.img ?? data.img,
-                                name: spell?.name ?? data.name,
-                                uuid: data.uuid,
-                                rank,
-                                fromWorld: data.uuid.startsWith("Item."),
-                                linked: !!spell,
-                            };
-                        }) ?? [],
-            })),
-        };
-    }
-
-    /**
-     * Clean up staff data completely if this sheet was closed.
-     * Doing it here instead of _preUpdate() allows a window of recovery of accidental deletion.
-     */
-    override close(options?: { force?: boolean | undefined }): Promise<void> {
-        if (!this.item.system.traits.value.includes("staff") && "staff" in this.item._source.system) {
-            this.item.update({ "system.staff": null });
-        }
-
-        return super.close(options);
-    }
-
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
@@ -243,67 +191,6 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
                     throw ErrorPF2e("Unexpected control options");
             }
         });
-
-        const item = this.item;
-        if (item.isOfType("weapon", "equipment")) {
-            const staffSpellRemoves = htmlQueryAll(html, "[data-action=remove-staff-spell]");
-            for (const element of staffSpellRemoves) {
-                const uuid = htmlClosest(element, "[data-uuid]")?.dataset.uuid;
-                const rank = coerceToSpellGroupId(htmlClosest(element, "[data-rank]")?.dataset.rank);
-                element.addEventListener("click", () => {
-                    const spells = item.system.staff?.spells.filter((s) => !(s.uuid === uuid && s.rank === rank));
-                    if (spells) {
-                        item.update({ system: { staff: { spells } } });
-                    }
-                });
-            }
-        }
-    }
-
-    protected override async _onDrop(event: DragEvent): Promise<void> {
-        if (!this.isEditable) return;
-
-        const item = await (async (): Promise<ItemPF2e | null> => {
-            try {
-                const dataString = event.dataTransfer?.getData("text/plain");
-                const dropData = JSON.parse(dataString ?? "");
-                return (await ItemPF2e.fromDropData(dropData)) ?? null;
-            } catch {
-                return null;
-            }
-        })();
-
-        // Handle dragging an item to a staff
-        const staffSpellsElement = htmlClosest(event.target, ".staff-spells");
-        if (staffSpellsElement && item?.isOfType("spell") && this.item.isOfType("weapon", "equipment")) {
-            const savedSpells = this.item._source.system.staff?.spells ?? [];
-            const rank = item.isCantrip ? "cantrips" : coerceToSpellGroupId(staffSpellsElement.dataset.rank);
-            if (savedSpells.some((s) => s.uuid === item.uuid && s.rank === rank)) {
-                ui.notifications.warn("Spell already exists at this rank");
-                return;
-            } else if (typeof rank === "number" && rank < item.baseRank) {
-                ui.notifications.warn(
-                    game.i18n.format("PF2E.Item.Spell.Warning.InvalidRank", {
-                        spell: item.name,
-                        spellRank: getSpellRankLabel(item.baseRank),
-                        targetRank: getSpellRankLabel(rank),
-                    }),
-                );
-                return;
-            }
-
-            if (rank !== null) {
-                const spells: StaffSpellData[] = R.sortBy(
-                    [...savedSpells, { img: item.img, name: item.name, rank, uuid: item.uuid }],
-                    (s) => (s.rank === "cantrips" ? 0 : s.rank),
-                );
-                await this.item.update({ system: { staff: { spells } } });
-            }
-
-            return;
-        }
-
-        super._onDrop(event);
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
@@ -373,26 +260,5 @@ interface MaterialSheetData {
     materials: MaterialSheetEntry[];
 }
 
-interface StaffSheetData {
-    defaultEffect: string;
-    effect: string;
-    spells: StaffSpellRankSheetData[];
-}
-
-interface StaffSpellRankSheetData {
-    rank: SpellSlotGroupId;
-    label: string;
-    spells: SpellBrief[];
-}
-
-interface SpellBrief {
-    uuid: ItemUUID;
-    rank: SpellSlotGroupId;
-    name: string;
-    img: ImageFilePath;
-    fromWorld: boolean;
-    linked: boolean;
-}
-
 export { PhysicalItemSheetPF2e };
-export type { MaterialSheetData, MaterialSheetEntry, PhysicalItemSheetData, StaffSheetData };
+export type { MaterialSheetData, MaterialSheetEntry, PhysicalItemSheetData };
