@@ -140,6 +140,14 @@ function getPropertyRuneModifierAdjustments(runes: WeaponPropertyRuneType[]): Mo
     return runes.flatMap((r) => RUNE_DATA.weapon.property[r].damage?.adjustments ?? []);
 }
 
+function getPropertyRuneSaveModifiers(runes: ArmorPropertyRuneType[]): Record<string, ModifierObjectParams> {
+    return Object.fromEntries(
+        runes.flatMap((r) =>
+            Object.entries(RUNE_DATA.armor.property[r].modifiers?.save ?? {}).map(([save, mod]) => [save, { slug: r, ...mod }]),
+        ),
+    );
+}
+
 function getPropertyRuneSkillModifiers(runes: ArmorPropertyRuneType[]): Record<string, ModifierObjectParams> {
     return Object.fromEntries(
         runes.flatMap((r) =>
@@ -147,6 +155,7 @@ function getPropertyRuneSkillModifiers(runes: ArmorPropertyRuneType[]): Record<s
         ),
     );
 }
+
 function getPropertyRuneSpeedModifiers(runes: ArmorPropertyRuneType[]): Record<string, ModifierObjectParams> {
     return Object.fromEntries(
         runes.flatMap((r) =>
@@ -420,6 +429,7 @@ interface PropertyRuneData<TSlug extends string> extends RuneData {
 interface ArmorPropertyRuneData<TSlug extends ArmorPropertyRuneType> extends PropertyRuneData<TSlug> {
     /** Modifiers **/
     modifiers?: {
+        save?: Record<string, ModifierObjectParams>;
         skill?: Record<string, ModifierObjectParams>;
         speed?: Record<string, ModifierObjectParams>;
     };
@@ -478,6 +488,16 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         traits: ["magical"],
     },
     antimagic: {
+        modifiers: {
+            save: {
+                all: {
+                    label: "PF2E.ArmorPropertyRuneAntimagic",
+                    modifier: 1,
+                    type: "status",
+                    predicate: ["magical"],
+                },
+            },
+        },
         name: "PF2E.ArmorPropertyRuneAntimagic",
         level: 15,
         price: 6500,
@@ -2380,6 +2400,7 @@ export {
     getPropertyRuneDamage,
     getPropertyRuneDegreeAdjustments,
     getPropertyRuneModifierAdjustments,
+    getPropertyRuneSaveModifiers,
     getPropertyRuneSkillModifiers,
     getPropertyRuneSpeedModifiers,
     getPropertyRuneSlots,
