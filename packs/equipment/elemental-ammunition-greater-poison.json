@@ -1,0 +1,76 @@
+{
+    "_id": "oS43VwmYZlSLxx1G",
+    "img": "icons/magic/unholy/orb-droplet-pink.webp",
+    "name": "Elemental Ammunition (Greater, Poison)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "category": "ammo",
+        "containerId": null,
+        "damage": null,
+        "description": {
+            "value": "<p><strong>Ammunition</strong> any</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p><hr /><p>When activated, the reservoir of alchemical reagents in elemental ammunition atomizes on impact, dealing 3d4 persistent poison damage to the target and 3 splash poison damage in addition to the damage the attack normally deals. Each damage type requires a different formula, and the ammunition gains a trait matching the damage type.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 11
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 210
+            }
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "category": "persistent",
+                "damageType": "poison",
+                "diceNumber": 3,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "selector": "{item|id}-damage"
+            },
+            {
+                "damageCategory": "splash",
+                "damageType": "poison",
+                "key": "FlatModifier",
+                "selector": "{item|id}-damage",
+                "value": 3
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "alchemical",
+                "consumable",
+                "poison",
+                "splash"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        },
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
+        }
+    },
+    "type": "consumable"
+}
