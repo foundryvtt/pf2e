@@ -1,3 +1,72 @@
+.item-ref-group {
+    ul.item-refs {
+        border: 1px solid var(--color-border-light-2);
+        border-radius: 3px;
+        padding: 0;
+        margin: 0;
+
+        &.empty {
+            height: 1.75rem;
+
+            > li {
+                font-style: italic;
+                font-weight: 500;
+                opacity: 0.75;
+
+                .image-placeholder {
+                    background: rgba(black, 0.1);
+                    border: 1px solid var(--color-disabled);
+                    border-radius: 2px;
+                    box-sizing: border-box;
+                    height: 1.625rem;
+                }
+            }
+        }
+
+        > li {
+            align-items: center;
+            display: grid;
+            grid-template-columns: 1.625rem auto 2em 1em;
+            padding: var(--space-1);
+
+            &:nth-of-type(even) {
+                background-color: rgba(120, 100, 82, 0.1);
+            }
+
+            .name {
+                display: block;
+                height: 1em;
+                line-height: 1em;
+                margin-left: 0.25em;
+
+                i.fa-globe {
+                    padding: 0 var(--space-3);
+                }
+            }
+
+            .level {
+                font-weight: 500;
+                height: 1.25em;
+                text-align: center;
+            }
+
+            a.remove {
+                padding: 0 var(--space-2);
+            }
+        }
+
+        ul {
+            grid-column: 1 / 5;
+            margin-top: 0;
+            padding-left: 0.5em;
+
+            &:empty {
+                display: none;
+            }
+        }
+    }
+}
+
 .form-group > label a.small-button {
     padding-left: var(--space-4);
     font-size: 0.9em;

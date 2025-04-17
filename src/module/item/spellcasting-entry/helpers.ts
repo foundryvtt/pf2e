@@ -1,7 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import type { OneToTen, ZeroToTen } from "@module/data.ts";
 import { Statistic } from "@system/statistic/statistic.ts";
-import { ordinalString } from "@util/misc.ts";
 import * as R from "remeda";
 import type { SpellSlotGroupId } from "./collection.ts";
 import type { SpellcastingEntry } from "./types.ts";
@@ -39,11 +38,4 @@ function coerceToSpellGroupId(value: unknown): SpellSlotGroupId | null {
     return numericValue.between(1, 10) ? (numericValue as OneToTen) : null;
 }
 
-/** Returns the label for a rank header, such as "1st Rank" */
-function getSpellRankLabel(group: "cantrips" | number): string {
-    return group === 0 || group === "cantrips"
-        ? game.i18n.localize("PF2E.Actor.Creature.Spellcasting.Cantrips")
-        : game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(group) });
-}
-
-export { coerceToSpellGroupId, createCounteractStatistic, getSpellRankLabel, spellSlotGroupIdToNumber };
+export { coerceToSpellGroupId, createCounteractStatistic, spellSlotGroupIdToNumber };

@@ -9,17 +9,6 @@ class EquipmentPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         return CONFIG.PF2E.equipmentTraits;
     }
 
-    override prepareBaseData(): void {
-        super.prepareBaseData();
-
-        // Initialize staff spells if this item is a staff
-        if (this.system.traits.value.includes("staff")) {
-            this.system.staff = fu.mergeObject({ effect: "", spells: [] }, this.system.staff ?? {});
-        } else {
-            this.system.staff = null;
-        }
-    }
-
     override async getChatData(
         this: EquipmentPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptions = {},

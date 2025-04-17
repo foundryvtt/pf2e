@@ -136,17 +136,6 @@
                 scrollbar-gutter: stable;
             }
 
-            .contenteditable-input {
-                background-color: rgba(255, 255, 255, 0.5);
-                border: 1px solid rgb(118, 118, 118);
-                color: var(--color-text-dark-input);
-                padding: 1px 2px;
-                &[placeholder]:empty::before {
-                    content: attr(placeholder);
-                    color: #555;
-                }
-            }
-
             @import "sidebar";
         }
 
@@ -315,7 +304,7 @@
                 font-weight: 600;
             }
 
-            .form-group > label:first-of-type:not(.short) {
+            .form-group > label:first-of-type {
                 flex-basis: 11em;
             }
 
@@ -537,79 +526,6 @@
             }
         }
 
-        .item-ref-group {
-            ul.item-refs {
-                border: 1px solid var(--color-border-light-2);
-                border-radius: 3px;
-                padding: 0;
-                margin: 0;
-
-                &.empty {
-                    height: 1.75rem;
-
-                    > li {
-                        font-style: italic;
-                        font-weight: 500;
-                        opacity: 0.75;
-
-                        .image-placeholder {
-                            background: rgba(black, 0.1);
-                            border: 1px solid var(--color-disabled);
-                            border-radius: 2px;
-                            box-sizing: border-box;
-                            height: 1.625rem;
-                        }
-                    }
-                }
-
-                > li {
-                    align-items: center;
-                    display: grid;
-                    grid-template: "img name level controls" / 1.625rem auto 2em 1em;
-                    padding: var(--space-1);
-
-                    &:nth-of-type(even) {
-                        background-color: rgba(120, 100, 82, 0.1);
-                    }
-
-                    .name {
-                        display: block;
-                        height: 1em;
-                        line-height: 1em;
-                        margin-left: 0.25em;
-
-                        i.fa-solid {
-                            padding: 0 var(--space-3);
-                            + i.fa-solid {
-                                padding-left: 0;
-                            }
-                        }
-                    }
-
-                    .level {
-                        font-weight: 500;
-                        height: 1.25em;
-                        text-align: center;
-                    }
-
-                    a.remove {
-                        grid-area: controls;
-                        padding: 0 var(--space-2);
-                    }
-                }
-
-                ul {
-                    grid-column: 1 / 5;
-                    margin-top: 0;
-                    padding-left: 0.5em;
-
-                    &:empty {
-                        display: none;
-                    }
-                }
-            }
-        }
-
         @import "abc-sheet";
         @import "activations";
         @import "mystification";
@@ -672,10 +588,6 @@
 
     &.spell form {
         @import "spell-sheet";
-    }
-
-    &.weapon form {
-        @import "weapon-sheet";
     }
 }
 

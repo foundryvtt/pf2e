@@ -2,17 +2,16 @@ import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bon
 import { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
 import {
     MATERIAL_DATA,
+    MaterialSheetData,
+    PhysicalItemSheetData,
     PhysicalItemSheetPF2e,
     RUNE_DATA,
     getPropertyRuneSlots,
-    type MaterialSheetData,
-    type PhysicalItemSheetData,
-    type StaffSheetData,
 } from "@item/physical/index.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, htmlQueryAll, objectHasKey, setHasElement, sortStringRecord, tupleHasValue } from "@util";
 import * as R from "remeda";
-import type { ComboWeaponMeleeUsage, SpecificWeaponData, WeaponPersistentDamage } from "./data.ts";
+import { ComboWeaponMeleeUsage, SpecificWeaponData, WeaponPersistentDamage } from "./data.ts";
 import type { WeaponPF2e } from "./document.ts";
 import { MANDATORY_RANGED_GROUPS, WEAPON_RANGES } from "./values.ts";
 
@@ -123,7 +122,6 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             weaponMAP: CONFIG.PF2E.weaponMAP,
             weaponRanges,
             weaponReload: CONFIG.PF2E.weaponReload,
-            staff: await this.prepareStaffSpells(this.item),
         };
     }
 
@@ -226,5 +224,4 @@ interface WeaponSheetData extends PhysicalItemSheetData<WeaponPF2e> {
     weaponMAP: typeof CONFIG.PF2E.weaponMAP;
     weaponRanges: Record<number, string>;
     weaponReload: typeof CONFIG.PF2E.weaponReload;
-    staff: StaffSheetData | null;
 }
