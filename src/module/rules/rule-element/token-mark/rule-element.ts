@@ -44,7 +44,10 @@ class TokenMarkRuleElement extends RuleElementPF2e<TokenMarkSchema> {
 
     override beforePrepareData(): void {
         if (UUIDUtils.isTokenUUID(this.uuid) && this.test()) {
-            this.actor.synthetics.tokenMarks.set(this.uuid, this.slug);
+            const tokenMarks = this.actor.synthetics.tokenMarks;
+            const slugs = tokenMarks.get(this.uuid) ?? [];
+            slugs.push(this.slug);
+            tokenMarks.set(this.uuid, slugs);
         }
     }
 
