@@ -217,6 +217,7 @@
 
         > ul {
             white-space: nowrap;
+            flex: 1;
 
             li {
                 line-height: 1.5em;
