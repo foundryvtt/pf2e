@@ -4,7 +4,7 @@
     "name": "Effect: Aurochs' Endurance",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Aurochs Jerky]</p>\n<p>You gain a +2 item bonus to saving throws against effects that would fatigue you.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Aurochs Jerky]</p>\n<p>You suppress the fatigued condition and you gain a +2 item bonus to saving throws against effects that would fatigue you.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -21,6 +21,14 @@
             "title": "Pathfinder #208: Hoof, Cinder, and Storm"
         },
         "rules": [
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "penalty:slug:fatigued"
+                ],
+                "selector": "all",
+                "suppress": true
+            },
             {
                 "key": "FlatModifier",
                 "predicate": [
