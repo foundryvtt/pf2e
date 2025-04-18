@@ -479,7 +479,9 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         tagify(htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.otherTags"]'), { maxTags: 6 });
 
         // Handle select and input elements that show modified prepared values until focused
-        const modifiedPropertyFields = htmlQueryAll<HTMLSelectElement | HTMLInputElement>(html, "[data-property]");
+        const modifiedPropertyFields = html.querySelectorAll<HTMLSelectElement | HTMLInputElement>(
+            "input[data-property], select[data-property]",
+        );
         for (const input of modifiedPropertyFields) {
             const propertyPath = input.dataset.property ?? "";
             const baseValue =
