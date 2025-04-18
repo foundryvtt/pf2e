@@ -1,0 +1,62 @@
+{
+    "_id": "2Cdf49eccdwBh40X",
+    "img": "icons/equipment/back/cloak-collared-leaves-green.webp",
+    "name": "Effect: Shed Cinders",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Cindergrass Cloak]</p>\n<p>The cloak's resistance to fire increases to 15 against the triggering effect. Your flat check to remove persistent fire damage is 10 instead of 15.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #208: Hoof, Cinder, and Storm"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "shed-cinders",
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "shed-cinders"
+                ],
+                "type": "fire",
+                "value": 15
+            },
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "downgrade",
+                "predicate": [
+                    "item:damage:type:fire"
+                ],
+                "property": "pd-recovery-dc",
+                "value": 10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
