@@ -810,7 +810,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 if (modifierData !== undefined) {
                     const modifier = new ModifierPF2e({
                         ...modifierData,
-                        adjustments: extractModifierAdjustments(this.synthetics.modifierAdjustments, selectors, modifierData.slug ?? ''),
+                        adjustments: extractModifierAdjustments(
+                            this.synthetics.modifierAdjustments,
+                            selectors,
+                            modifierData.slug ?? "",
+                        ),
                     });
 
                     modifiers.push(modifier);
@@ -901,7 +905,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     const modifier = new ModifierPF2e({
                         ...modifierData,
                         domains: [...domains, ...(modifierData.domains ?? [])],
-                        adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, domains, modifierData.slug ?? ''),
+                        adjustments: extractModifierAdjustments(
+                            synthetics.modifierAdjustments,
+                            domains,
+                            modifierData.slug ?? "",
+                        ),
                     });
 
                     modifiers.push(modifier);
@@ -1002,11 +1010,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             if (modifierData !== undefined) {
                 const modifier = new ModifierPF2e({
                     ...modifierData,
-                      adjustments: extractModifierAdjustments(
-                          this.synthetics.modifierAdjustments,
-                          ["all-speeds", "speed", `${movementType}-speed`],
-                          modifierData.slug ?? '',
-                      ),
+                    adjustments: extractModifierAdjustments(
+                        this.synthetics.modifierAdjustments,
+                        ["all-speeds", "speed", `${movementType}-speed`],
+                        modifierData.slug ?? "",
+                    ),
                 });
 
                 statistic.push(modifier);

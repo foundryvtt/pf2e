@@ -143,7 +143,10 @@ function getPropertyRuneModifierAdjustments(runes: WeaponPropertyRuneType[]): Mo
 function getPropertyRuneSaveModifiers(runes: ArmorPropertyRuneType[]): Record<string, ModifierObjectParams> {
     return Object.fromEntries(
         runes.flatMap((r) =>
-            Object.entries(RUNE_DATA.armor.property[r].modifiers?.save ?? {}).map(([save, mod]) => [save, { slug: r, ...mod }]),
+            Object.entries(RUNE_DATA.armor.property[r].modifiers?.save ?? {}).map(([save, mod]) => [
+                save,
+                { slug: r, ...mod },
+            ]),
         ),
     );
 }
@@ -151,7 +154,10 @@ function getPropertyRuneSaveModifiers(runes: ArmorPropertyRuneType[]): Record<st
 function getPropertyRuneSkillModifiers(runes: ArmorPropertyRuneType[]): Record<string, ModifierObjectParams> {
     return Object.fromEntries(
         runes.flatMap((r) =>
-            Object.entries(RUNE_DATA.armor.property[r].modifiers?.skill ?? {}).map(([skill, mod]) => [skill, { slug: r, ...mod }]),
+            Object.entries(RUNE_DATA.armor.property[r].modifiers?.skill ?? {}).map(([skill, mod]) => [
+                skill,
+                { slug: r, ...mod },
+            ]),
         ),
     );
 }
@@ -159,7 +165,10 @@ function getPropertyRuneSkillModifiers(runes: ArmorPropertyRuneType[]): Record<s
 function getPropertyRuneSpeedModifiers(runes: ArmorPropertyRuneType[]): Record<string, ModifierObjectParams> {
     return Object.fromEntries(
         runes.flatMap((r) =>
-            Object.entries(RUNE_DATA.armor.property[r].modifiers?.speed ?? {}).map(([speed, mod]) => [speed, { slug: r, ...mod }]),
+            Object.entries(RUNE_DATA.armor.property[r].modifiers?.speed ?? {}).map(([speed, mod]) => [
+                speed,
+                { slug: r, ...mod },
+            ]),
         ),
     );
 }
