@@ -57,7 +57,7 @@ interface RuleElementSynthetics<TActor extends ActorPF2e = ActorPF2e> {
     striking: Record<string, StrikingSynthetic[]>;
     toggles: Record<string, Record<string, RollOptionToggle>>;
     tokenEffectIcons: ActiveEffectPF2e<TActor>[];
-    tokenMarks: Map<TokenDocumentUUID, string>;
+    tokenMarks: Map<TokenDocumentUUID, string[]>;
     tokenOverrides: DeepPartial<Pick<TokenSource, "light" | "name">> & {
         alpha?: number | null;
         texture?:
