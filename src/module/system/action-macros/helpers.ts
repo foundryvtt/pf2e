@@ -181,6 +181,7 @@ class ActionMacroHelpers {
                     glyph: options.actionGlyph,
                     subtitle,
                     title: options.title,
+                    simpleTitle: options.simpleTitle,
                 });
 
                 const actionTraits = (options.traits ?? []).filter(

@@ -36,6 +36,8 @@ interface ActionVariant {
 
 interface ActionUseOptions extends ActionVariantUseOptions {
     variant: string;
+    title?: string;
+    simpleTitle?: boolean;
 }
 
 interface Action {

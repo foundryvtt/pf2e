@@ -95,7 +95,7 @@ export class InlineRollLinks {
     }
 
     static #onClickInlineAction(event: MouseEvent, link: HTMLAnchorElement | HTMLSpanElement): void {
-        const { pf2Action, pf2Glyph, pf2Variant, pf2Dc, pf2ShowDc, pf2Skill, pf2Options, pf2Traits } = link.dataset;
+        const { pf2Action, pf2Glyph, pf2Variant, pf2Dc, pf2ShowDc, pf2Skill, pf2Options, pf2Traits, pf2Title, pf2SimpleTitle } = link.dataset;
 
         const slug = sluggify(pf2Action ?? "");
         const visibility = pf2ShowDc ?? "all";
@@ -110,7 +110,7 @@ export class InlineRollLinks {
         if (slug && game.pf2e.actions.has(slug)) {
             game.pf2e.actions
                 .get(slug)
-                ?.use({ event, variant: pf2Variant, difficultyClass, rollOptions, statistic: pf2Skill, traits })
+                ?.use({ event, variant: pf2Variant, title: pf2Title, simpleTitle: Boolean(pf2SimpleTitle), difficultyClass, rollOptions, statistic: pf2Skill, traits })
                 .catch((reason: string) => ui.notifications.warn(reason));
         } else {
             const action = game.pf2e.actions[pf2Action ? sluggify(pf2Action, { camel: "dromedary" }) : ""];
@@ -123,6 +123,8 @@ export class InlineRollLinks {
                     rollOptions,
                     skill: pf2Skill,
                     traits,
+                    title: pf2Title,
+                    simpleTitle: Boolean(pf2SimpleTitle)
                 });
             } else {
                 console.warn(`PF2e System | Skip executing unknown action '${pf2Action}'`);
