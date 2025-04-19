@@ -386,19 +386,6 @@
                 flex: 0 1 auto;
             }
 
-            input,
-            select {
-                &.adjusted-higher:not(:focus) {
-                    color: $adjusted-higher;
-                    font-weight: 700;
-                }
-
-                &.adjusted-lower:not(:focus) {
-                    color: $adjusted-lower;
-                    font-weight: 700;
-                }
-            }
-
             select.readonly {
                 opacity: 0.7;
                 pointer-events: none;
@@ -501,10 +488,29 @@
             }
         }
 
-        input {
-            &.adjusted:not(:focus) {
+        input:not(:focus),
+        select {
+            &.adjusted-higher,
+            &.adjusted {
+                color: var(--color-pf-text-adjusted-higher);
+            }
+
+            &.adjusted-lower {
+                color: var(--color-pf-text-adjusted-lower);
+            }
+
+            &.adjusted-higher,
+            &.adjusted-lower,
+            &.adjusted {
                 font-weight: 700;
-                color: $adjusted-higher;
+
+                option:not(:checked) {
+                    color: var(--input-text-color);
+                }
+
+                option:checked {
+                    font-weight: 700;
+                }
             }
         }
 
