@@ -131,7 +131,7 @@ export class InlineRollLinks {
     }
 
     static async #onClickInlineCheck(event: MouseEvent, link: HTMLAnchorElement | HTMLSpanElement): Promise<void> {
-        const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Adjustment, pf2Roller, pf2RollOptions } = link.dataset;
+        const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2ActionLabel, pf2Adjustment, pf2Roller, pf2RollOptions } = link.dataset;
         const against = link.dataset.against || link.dataset.pf2Defense; // pf2Defense is only checked for backwards compat
         const overrideTraits = "overrideTraits" in link.dataset;
         const targetOwner = "targetOwner" in link.dataset;
@@ -286,6 +286,7 @@ export class InlineRollLinks {
                 target: dc?.statistic ? targetActor : null,
                 item,
                 traits: abilityTraits,
+                title: pf2ActionLabel,
             };
 
             // Use a special header for checks against defenses
