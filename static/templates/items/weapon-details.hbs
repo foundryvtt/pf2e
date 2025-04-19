@@ -96,7 +96,7 @@
                     name="system.runes.property.{{index}}"
                     id="{{../fieldIdPrefix}}runes-property-{{index}}"
                     {{disabled slot.disabled}}
-                    {{#if @root.item.isSpecific}}class="readonly"{{/if}}
+                    class="{{#if @root.item.isSpecific}}readonly{{/if}}{{#if slot.adjusted}} adjusted{{/if}}"
                 >
                     {{selectOptions
                         @root.runeTypes.property

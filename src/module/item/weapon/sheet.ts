@@ -31,6 +31,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         ).map((i) => ({
             slug: runes.property[i] ?? null,
             label: RUNE_DATA.weapon.property[runes.property[i]]?.name ?? null,
+            adjusted: runes.property[i] && !weapon._source.system.runes.property.includes(runes.property[i]),
             disabled: i > 0 && !runes.property[i - 1],
         }));
 
@@ -175,8 +176,16 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             formData["system.-=meleeUsage"] = null;
         }
 
+        // Convert property runes to array, making sure we don't save prepared data
+        // We assume that new prepared values never come before original source values
         const propertyRuneIndices = [0, 1, 2, 3] as const;
-        const propertyRuneUpdates = propertyRuneIndices.flatMap((i) => formData[`system.runes.property.${i}`] ?? []);
+        const propertyRuneUpdates = propertyRuneIndices.flatMap((i) => {
+            const key = `system.runes.property.${i}`;
+            const sourceValue = fu.getProperty(weapon._source, key);
+            const wasAdjusted = fu.getProperty(weapon, key) !== sourceValue;
+            const isEventSource = event.target && "name" in event.target && event.target.name === key;
+            return (wasAdjusted && !isEventSource ? sourceValue : formData[key]) ?? [];
+        });
         if (propertyRuneUpdates.length > 0) {
             formData[`system.runes.property`] = propertyRuneUpdates.filter(R.isTruthy);
             for (const index of propertyRuneIndices) {
@@ -191,6 +200,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
 interface PropertyRuneSheetSlot {
     slug: string | null;
     label: string | null;
+    adjusted: boolean;
     disabled: boolean;
 }
 
