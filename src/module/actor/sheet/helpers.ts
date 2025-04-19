@@ -85,18 +85,11 @@ function createAbilityViewData(item: AbilityItemPF2e | FeatPF2e): AbilityViewDat
  *
  * @param input reference to the input field
  * @param delta the amount of change to apply to the input's current value
- * @param [min] minimum input value
- * @param [max] maximum input value; if "0", do not limit the value
- * @param [triggerChange] if true, dispatches a change event after this operation is complete
  * @returns the new value of the input field
  */
-function applyDeltaToInput(
-    input: HTMLInputElement,
-    delta: number,
-    min: number = 0,
-    max: number = 0,
-    triggerChange: boolean = true,
-): string {
+function applyDeltaToInput(input: HTMLInputElement, delta: number): string {
+    const min = Number(input.dataset.min) || 0;
+    const max = Number(input.dataset.max) || 0;
     const oldValue = Number(input.value) || min;
 
     if (max > 0) {
@@ -105,9 +98,7 @@ function applyDeltaToInput(
         input.value = String(Math.max(oldValue + delta, min));
     }
 
-    if (triggerChange) {
-        fu.debounce((el: HTMLInputElement) => el.dispatchEvent(new Event("change", { bubbles: true })), 0)(input);
-    }
+    fu.debounce((el: HTMLInputElement) => el.dispatchEvent(new Event("change", { bubbles: true })), 0)(input);
 
     return input.value;
 }

@@ -531,14 +531,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             });
 
             deltaInput.addEventListener("keydown", (event: KeyboardEvent) => {
-                const min = Number(deltaInput.dataset.min) || 0;
-                const max = Number(deltaInput.dataset.max) || 0;
-                const stepSize = Number(deltaInput.dataset.step) || 1;
-
                 if (event.key === "ArrowUp") {
-                    applyDeltaToInput(deltaInput, +stepSize, min, max);
+                    applyDeltaToInput(deltaInput, 1);
                 } else if (event.key === "ArrowDown") {
-                    applyDeltaToInput(deltaInput, -stepSize, min, max);
+                    applyDeltaToInput(deltaInput, -1);
                 }
             });
 
@@ -547,12 +543,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                     event.preventDefault();
                     event.stopPropagation();
 
-                    const min = Number(deltaInput.dataset.min) || 0;
-                    const max = Number(deltaInput.dataset.max) || 0;
-                    const stepSize = Number(deltaInput.dataset.step) || 1;
-                    const step = stepSize * Math.sign(-1 * event.deltaY);
-
-                    applyDeltaToInput(deltaInput, step, min, max);
+                    const step = Math.sign(-1 * event.deltaY);
+                    applyDeltaToInput(deltaInput, step);
                 }
             });
         }
