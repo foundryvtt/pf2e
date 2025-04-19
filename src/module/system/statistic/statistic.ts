@@ -75,7 +75,8 @@ class Statistic<TActor extends ActorPF2e = ActorPF2e> extends BaseStatistic<TAct
         // If this is a character with a proficiency, add a proficiency modifier
         const proficiencyModifier =
             actor.isOfType("character") && typeof data.rank === "number"
-                ? createProficiencyModifier({ actor, rank: data.rank, domains })
+                ? (data.modifiers.find((m) => m.type === "proficiency") ??
+                  createProficiencyModifier({ actor, rank: data.rank, domains }))
                 : null;
 
         // Add the auto-generated modifiers, overriding any already existing copies
