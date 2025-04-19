@@ -81,13 +81,13 @@ function createAbilityViewData(item: AbilityItemPF2e | FeatPF2e): AbilityViewDat
 }
 
 /**
- * Applies a delta change to the value of an input element
+ * Applies a delta change to the numeric value of an input element. If the input field has a min or max data property,
+ * the delta change is limited to those values.
  *
  * @param input reference to the input field
  * @param delta the amount of change to apply to the input's current value
- * @returns the new value of the input field
  */
-function applyDeltaToInput(input: HTMLInputElement, delta: number): string {
+function applyDeltaToInput(input: HTMLInputElement, delta: number): void {
     const min = Number(input.dataset.min) || 0;
     const max = Number(input.dataset.max) || 0;
     const oldValue = Number(input.value) || min;
@@ -99,8 +99,6 @@ function applyDeltaToInput(input: HTMLInputElement, delta: number): string {
     }
 
     fu.debounce((el: HTMLInputElement) => el.dispatchEvent(new Event("change", { bubbles: true })), 0)(input);
-
-    return input.value;
 }
 
 export { applyDeltaToInput, condenseSenses, createAbilityViewData, createBulkPerLabel, onClickCreateSpell };
