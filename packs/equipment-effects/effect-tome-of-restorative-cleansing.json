@@ -1,0 +1,121 @@
+{
+    "_id": "r1IsOaxM5tgVU29b",
+    "img": "icons/sundries/books/book-embossed-spiral-purple-white.webp",
+    "name": "Effect: Tome of Restorative Cleansing",
+    "system": {
+        "badge": {
+            "evaluate": true,
+            "reevaluate": null,
+            "type": "formula",
+            "value": "(@actor.flags.pf2e.spellheart.tomeOfRestorativeCleansing)d8"
+        },
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Tome of Restorative Cleansing (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Tome of Restorative Cleansing (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Tome of Restorative Cleansing (Greater)]</p>\n<p>You gain temporary Hit Points.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:tome-of-restorative-cleansing-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Tome of Restorative Cleansing (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:tome-of-restorative-cleansing-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Tome of Restorative Cleansing (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:tome-of-restorative-cleansing-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Tome of Restorative Cleansing (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "tome-of-restorative-cleansing"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.spellheart.tomeOfRestorativeCleansing",
+                "predicate": [
+                    "tome-of-restorative-cleansing:tome-of-restorative-cleansing-lesser"
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.spellheart.tomeOfRestorativeCleansing",
+                "predicate": [
+                    "tome-of-restorative-cleansing:tome-of-restorative-cleansing-moderate"
+                ],
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.spellheart.tomeOfRestorativeCleansing",
+                "predicate": [
+                    "tome-of-restorative-cleansing:tome-of-restorative-cleansing-greater"
+                ],
+                "value": 3
+            },
+            {
+                "key": "TempHP",
+                "value": "@item.badge.value"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
