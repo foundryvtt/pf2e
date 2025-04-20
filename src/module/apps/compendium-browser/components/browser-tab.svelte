@@ -1,4 +1,5 @@
 <script lang="ts">
+    import * as R from "remeda";
     import Filters from "./filters.svelte";
     import ResultItem from "./result-item.svelte";
     import { ErrorPF2e } from "@util";
@@ -30,6 +31,11 @@
         if (tab.isGMOnly && !game.user.isGM) {
             props.state.activeTabName = "";
             console.error("PF2e System | This browser tab is flagged as GM-only!");
+        }
+
+        // Force evaluation of tab.results to fix reactivity after a tab is switched to for the first time
+        if (activeTabName) {
+            R.constant(tab.results);
         }
     });
 </script>
