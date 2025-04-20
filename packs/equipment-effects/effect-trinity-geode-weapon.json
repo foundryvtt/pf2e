@@ -4,7 +4,7 @@
     "name": "Effect: Trinity Geode - Weapon",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Trinity Geode]</p>\n<p>Your Strikes with the weapon deal an additional 1d4 bludgeoning damage.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Trinity Geode], @UUID[Compendium.pf2e.equipment-srd.Item.Trinity Geode (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Trinity Geode (Major)]</p>\n<p>Your Strikes with the weapon deal additional bludgeoning damage.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -22,6 +22,53 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:trinity-geode",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Trinity Geode"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:trinity-geode-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Trinity Geode (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:trinity-geode-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Trinity Geode (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "trinity-geode"
+            },
+            {
                 "choices": {
                     "includeHandwraps": true,
                     "ownedItems": true,
@@ -37,7 +84,33 @@
                 "damageType": "bludgeoning",
                 "diceNumber": 1,
                 "dieSize": "d4",
+                "hideIfDisabled": true,
                 "key": "DamageDice",
+                "predicate": [
+                    "trinity-geode:trinity-geode"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectTrinityGeodeWeapon}-damage"
+            },
+            {
+                "damageType": "bludgeoning",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "trinity-geode:trinity-geode-greater"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectTrinityGeodeWeapon}-damage"
+            },
+            {
+                "damageType": "bludgeoning",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "trinity-geode:trinity-geode-major"
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.effectTrinityGeodeWeapon}-damage"
             }
         ],
