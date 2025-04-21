@@ -47,54 +47,43 @@ export interface PlaceablesLayerOptions extends CanvasLayerOptions {
     quadtree: boolean;
 }
 
-type _CanvasVisionContainerSight = {
-    /** FOV that should not be committed to fog exploration. */
-    preview: PIXI.Graphics;
-};
-
 /**
  * The sight part of {@link foundry.canvas.layers.types.CanvasVisionContainer}.
  * The blend mode is MAX_COLOR.
  */
-export type CanvasVisionContainerSight = PIXI.Graphics & _CanvasVisionContainerSight;
-
-type _CanvasVisionContainerLight = {
+export interface CanvasVisionContainerSight extends PIXI.Graphics {
     /** FOV that should not be committed to fog exploration. */
     preview: PIXI.Graphics;
-    /** The sprite with the texture of FOV of cached light sources. */
-    cached: SpriteMesh;
-    /** The light perception polygons of vision sources and the FOV of vision sources that provide vision. */
-    mask: PIXI.Graphics & {
-        preview: PIXI.Graphics;
-    };
-};
+}
 
 /**
  * The light part of {@link foundry.canvas.layers.types.CanvasVisionContainer}.
  * The blend mode is MAX_COLOR.
  */
-export type CanvasVisionContainerLight = PIXI.Graphics & _CanvasVisionContainerLight;
-
-type _CanvasVisionContainerDarkness = {
-    /** Darkness source erasing fog of war. */
-    darkness: PIXI.Graphics;
-};
+export interface CanvasVisionContainerLight extends PIXI.Graphics {
+    /** FOV that should not be committed to fog exploration. */
+    preview: PIXI.Graphics;
+    /** The sprite with the texture of FOV of cached light sources. */
+    cached: SpriteMesh;
+    /** The light perception polygons of vision sources and the FOV of vision sources that provide vision. */
+    mask: CanvasVisionContainerSight;
+}
 
 /**
- * @typedef {PIXI.LegacyGraphics & _CanvasVisionContainerDarkness} CanvasVisionContainerDarkness
  * The sight part of {@link foundry.canvas.layers.types.CanvasVisionContainer}.
  * The blend mode is ERASE.
  */
-export type CanvasVisionContainerDarkness = PIXI.Graphics & _CanvasVisionContainerDarkness;
+export interface CanvasVisionContainerDarkness extends PIXI.Graphics {
+    /** Darkness source erasing fog of war. */
+    darkness: PIXI.Graphics;
+}
 
-type _CanvasVisionContainer = {
+/** The currently visible areas. */
+export interface CanvasVisionContainer extends PIXI.Container {
     /** Areas visible because of light sources and light perception. */
     light: CanvasVisionContainerLight;
     /** Areas visible because of FOV of vision sources. */
     sight: CanvasVisionContainerSight;
     /** Areas visible because of FOV of vision sources. */
     darkness: CanvasVisionContainerDarkness;
-};
-
-/** The currently visible areas. */
-export type CanvasVisionContainer = PIXI.Container & _CanvasVisionContainer;
+}
