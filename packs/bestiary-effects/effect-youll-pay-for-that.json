@@ -4,7 +4,7 @@
     "name": "Effect: You'll Pay for That",
     "system": {
         "description": {
-            "value": "<p>The kingpin issues a vendetta against the enemy. Each of the kingpin's allies who hears the command gains a +5 status bonus to their next damage roll against that enemy.</p>"
+            "value": "<p>You gain a +5 status bonus to your next damage roll against the marked enemy.</p>"
         },
         "duration": {
             "expiry": null,
@@ -13,7 +13,7 @@
             "value": -1
         },
         "level": {
-            "value": 1
+            "value": 12
         },
         "publication": {
             "license": "ORC",
@@ -22,12 +22,17 @@
         },
         "rules": [
             {
-                "affects": "origin",
-                "key": "EphemeralEffect",
-                "selectors": [
-                    "damage"
+                "key": "TokenMark",
+                "slug": "youll-pay-for-that"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:youll-pay-for-that"
                 ],
-                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: You'll Pay for That (Damage)"
+                "selector": "damage",
+                "type": "status",
+                "value": 5
             }
         ],
         "start": {

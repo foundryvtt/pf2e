@@ -95,10 +95,10 @@
         {
             "_id": "J6pEtnroh9yPMU7W",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Jvp0x2Sc82WVpExT"
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.YhkomhtKBK3i9C7Q"
             },
-            "img": "icons/containers/chest/chest-simple-box-red.webp",
-            "name": "Disguise Kit",
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/disguisekit-elite.webp",
+            "name": "Disguise Kit (Elite)",
             "sort": 200000,
             "system": {
                 "baseItem": null,
@@ -107,7 +107,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This small wooden box contains cosmetics, false facial hair, spirit gum, and a few simple wigs. You usually need a disguise kit to set up a disguise in order to Impersonate someone using the Deception skill. If you've crafted a large number of disguises, you can replenish your cosmetics supply with replacement cosmetics suitable for the type of your disguise kit. You can draw and replace a worn disguise kit as part of the action that uses it.</p>"
+                    "value": "<p>This small wooden box contains cosmetics, false facial hair, spirit gum, and a few simple wigs. You usually need a disguise kit to set up a disguise in order to Impersonate someone using the Deception skill. An elite disguise kit adds a +1 item bonus to relevant checks. If you've crafted a large number of disguises, you can replenish your cosmetics supply with replacement cosmetics suitable for the type of your disguise kit. You can draw and replace a worn disguise kit as part of the action that uses it.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -119,7 +119,7 @@
                     "value": 0
                 },
                 "level": {
-                    "value": 0
+                    "value": 3
                 },
                 "material": {
                     "grade": null,
@@ -127,7 +127,7 @@
                 },
                 "price": {
                     "value": {
-                        "gp": 2
+                        "gp": 40
                     }
                 },
                 "publication": {
@@ -136,9 +136,20 @@
                     "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "Elite Disguise Kit (Impersonate)",
+                        "predicate": [
+                            "action:impersonate"
+                        ],
+                        "selector": "deception",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
                 "size": "med",
-                "slug": "disguise-kit",
+                "slug": "disguise-kit-elite",
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -362,7 +373,6 @@
                             "action:sense-motive"
                         ],
                         "selector": "perception",
-                        "type": "circumstance",
                         "value": 4
                     }
                 ],
@@ -413,10 +423,7 @@
                                 ]
                             }
                         ],
-                        "selector": [
-                            "diplomacy",
-                            "deception"
-                        ],
+                        "selector": "skill-check",
                         "value": 0
                     }
                 ],
@@ -470,7 +477,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>If the master of disguise and the creature they're Impersonating are in each others' presence, the genuine creature must Lie if they're vouching for their own identity, and are treated as though they were Impersonating themself if someone Seeks in an attempt to pierce their disguise. The genuine creature can use their Deception modifier, Diplomacy modifier, or a +15 modifier, whichever is highest.</p>"
+                    "value": "<p>If the master of disguise and the creature they're @UUID[Compendium.pf2e.actionspf2e.Item.Impersonate]{Impersonating} are in each others' presence, the genuine creature must @UUID[Compendium.pf2e.actionspf2e.Item.Lie] if they're vouching for their own identity, and are treated as though they were Impersonating themself if someone @UUID[Compendium.pf2e.actionspf2e.Item.Seek]{Seeks} in an attempt to pierce their disguise. The genuine creature can use their Deception modifier, Diplomacy modifier, or a +15 modifier, whichever is highest.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -499,7 +506,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The master of disguise creates a disguise and Impersonates. They gain a +5 status bonus to Deception checks to Impersonate or to tell a Lie that helps them maintain their disguise. When a spell or magical effect tries to read their mind, detect whether they're lying, or reveal their identity, they can attempt a Deception check against the spell or effect's DC. If they succeed, the effect reveals information appropriate to their cover identity or nothing (the GM determines which).</p>"
+                    "value": "<p>The master of disguise creates a disguise and Impersonates. They gain a +5 status bonus to Deception checks to [[/act impersonate]] or to tell a [[/act lie]] that helps them maintain their disguise. When a spell or magical effect tries to read their mind, detect whether they're lying, or reveal their identity, they can attempt a @Check[deception] check against the spell or effect's DC. If they succeed, the effect reveals information appropriate to their cover identity or nothing (the GM determines which).</p>"
                 },
                 "publication": {
                     "license": "ORC",
