@@ -1,9 +1,10 @@
-import { DocumentSheetConfiguration, DocumentSheetV2 } from "../api/document-sheet.mjs";
 import {
+    DocumentSheetConfiguration,
+    DocumentSheetV2,
     HandlebarsApplicationMixin,
     HandlebarsRenderOptions,
     HandlebarsTemplatePart,
-} from "../api/handlebars-application.mjs";
+} from "../api/_module.mjs";
 
 /** A generic application for configuring permissions for various Document types. */
 export default class DocumentOwnershipConfig extends HandlebarsApplicationMixin(DocumentSheetV2) {

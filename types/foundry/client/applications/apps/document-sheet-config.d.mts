@@ -1,13 +1,10 @@
+import { Application } from "@client/appv1/api/_module.mjs";
 import { ClientDocument } from "@client/documents/abstract/client-document.mjs";
 import { DataField } from "@common/data/fields.mjs";
 import { ApplicationFormConfiguration, ApplicationRenderContext } from "../_types.mjs";
+import { HandlebarsApplicationMixin, HandlebarsRenderOptions, HandlebarsTemplatePart } from "../api/_module.mjs";
 import ApplicationV2 from "../api/application.mjs";
-import { DocumentSheetConfiguration, DocumentSheetV2 } from "../api/document-sheet.mjs";
-import {
-    HandlebarsApplicationMixin,
-    HandlebarsRenderOptions,
-    HandlebarsTemplatePart,
-} from "../api/handlebars-application.mjs";
+import DocumentSheetV2, { DocumentSheetConfiguration } from "../api/document-sheet.mjs";
 
 export interface DefaultSheetDescriptor {
     /** The identifier of the default sheet. */
@@ -120,7 +117,7 @@ export default class DocumentSheetConfig extends HandlebarsApplicationMixin(Docu
     static registerSheet(
         documentClass: typeof ClientDocument,
         scope: string,
-        sheetClass: typeof Application | typeof ApplicationV2,
+        sheetClass: AbstractConstructorOf<Application> | AbstractConstructorOf<ApplicationV2>,
         options?: SheetRegistrationOptions,
     ): void;
 
@@ -130,7 +127,7 @@ export default class DocumentSheetConfig extends HandlebarsApplicationMixin(Docu
      * @param scope            A unique namespace scope for this sheet.
      * @param sheetClass       An Application class used to render the sheet.
      * @param [options]
-     * @param [options.types]  The sub-types this sheet should be removed for, otherwise all sub-types are unregistered.
+     * @param options.types  The sub-types this sheet should be removed for, otherwise all sub-types are unregistered.
      */
     static unregisterSheet(
         documentClass: typeof ClientDocument,

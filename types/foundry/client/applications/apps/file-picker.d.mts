@@ -6,38 +6,38 @@ import {
     ApplicationTabsConfiguration,
     FormFooterButton,
 } from "../_types.mjs";
+import { HandlebarsApplicationMixin, HandlebarsRenderOptions, HandlebarsTemplatePart } from "../api/_module.mjs";
 import ApplicationV2 from "../api/application.mjs";
-import {
-    HandlebarsApplicationMixin,
-    HandlebarsRenderOptions,
-    HandlebarsTemplatePart,
-} from "../api/handlebars-application.mjs";
 
 export type FilePickerSource = "data" | "public" | "s3";
 
+type FilePickerFileType = (typeof FilePicker.FILE_TYPES)[number];
+
+type FilerPickerDisplayMode = (typeof FilePicker.DISPLAY_MODES)[number];
+
 export interface FilePickerConfiguration extends ApplicationConfiguration {
     /** A type of file to target. Default: `"any"` */
-    type?: (typeof FilePicker.FILE_TYPES)[number];
+    type: FilePickerFileType;
     /** A current file source in "data", "public", or "s3". */
-    activeSource?: FilePickerSource;
+    activeSource: FilePickerSource;
     /** A callback function to trigger once a file has been selected */
-    callback?: Function;
+    callback: Function;
     /** */
-    current?: string;
+    current: string;
     /** A flag which permits explicitly disallowing upload, `true` by default */
-    allowUpload?: boolean;
+    allowUpload: boolean;
     /** An HTML form field that the result of this selection is applied to */
     field: HTMLElement;
     /** An HTML button element which triggers the display of this picker */
     button: HTMLButtonElement;
     /**  */
-    favorites?: Record<string, FavoriteFolder>;
+    favorites: Record<string, FavoriteFolder>;
     /** The picker display mode in FilePicker.DISPLAY_MODES */
-    displayMode?: string;
+    displayMode: string;
     /** Display the tile size configuration. */
-    tileSize?: boolean;
+    tileSize: boolean;
     /** Redirect to the root directory rather than starting in the source directory of one of these files. */
-    redirectToRoot?: string[];
+    redirectToRoot: string[];
 }
 
 export interface FavoriteFolder {
@@ -75,7 +75,7 @@ interface FilePickerContext {
     canUpload: boolean;
     canSelect: boolean;
     dirs: string[];
-    displayMode: (typeof FilePicker.DISPLAY_MODES)[number];
+    displayMode: FilerPickerDisplayMode;
     extensions: string[];
     files: string[];
     isS3: boolean;
@@ -111,7 +111,7 @@ export default class FilePicker extends HandlebarsApplicationMixin(ApplicationV2
     static LAST_TILE_SIZE: number | null;
 
     /** Record the last-configured display mode so that re-opening a different FilePicker instance uses the same mode. */
-    static LAST_DISPLAY_MODE: (typeof FilePicker.DISPLAY_MODES)[number];
+    static LAST_DISPLAY_MODE: FilerPickerDisplayMode;
 
     /** Enumerate the allowed FilePicker display modes */
     static DISPLAY_MODES: ["list", "thumbs", "tiles", "images"];
@@ -137,7 +137,7 @@ export default class FilePicker extends HandlebarsApplicationMixin(ApplicationV2
     callback: Function | null;
 
     /** The general file type which controls the set of extensions which will be accepted */
-    type: (typeof FilePicker.FILE_TYPES)[number];
+    type: FilePickerFileType;
 
     /** The target HTML element this file picker is bound to */
     field: HTMLElement | null;
@@ -146,10 +146,10 @@ export default class FilePicker extends HandlebarsApplicationMixin(ApplicationV2
     button: HTMLButtonElement | null;
 
     /** The display mode of the FilePicker UI */
-    displayMode: (typeof FilePicker.DISPLAY_MODES)[number];
+    displayMode: FilerPickerDisplayMode;
 
     /** The file sources available for browsing */
-    sources: Record<Partial<FilePickerSource>, { target: string; bucket?: string; buckets?: string[] }>;
+    sources: Partial<Record<FilePickerSource, { target: string; bucket?: string; buckets?: string[] }>>;
 
     activeSource: FilePickerSource;
 
@@ -272,7 +272,7 @@ export default class FilePicker extends HandlebarsApplicationMixin(ApplicationV2
     browse(
         target?: string,
         options?: {
-            type?: (typeof FilePicker.FILE_TYPES)[number];
+            type?: FilePickerFileType;
             extensions?: string[];
             wildcard?: boolean;
             render?: boolean;
@@ -293,7 +293,7 @@ export default class FilePicker extends HandlebarsApplicationMixin(ApplicationV2
 
     protected override _tearDown(options: ApplicationClosingOptions): void;
 
-    protected _onRender(context: FilePickerContext, options: HandlebarsRenderOptions): Promise<void>;
+    protected override _onRender(context: FilePickerContext, options: HandlebarsRenderOptions): Promise<void>;
 
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
