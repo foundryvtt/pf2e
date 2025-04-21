@@ -320,6 +320,7 @@
                     "value": null
                 },
                 "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>As long as Armag wields <em>Ovinrbaane</em> and is raging, the combination of the sword's magic and Armag's furious conviction that he is the true Armag protects him from death. His eyes and the sword's blade weep with blood and glow with red light at this time. As long as these conditions persist, he never increases beyond @UUID[Compendium.pf2e.conditionitems.Item.Dying]{Dying 3} and is not rendered @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]. Instead, Armag becomes @UUID[Compendium.pf2e.conditionitems.Item.Confused] and continues to fight. If <em>Ovinrbaane</em> is taken from him (such as via a successful @UUID[Compendium.pf2e.actionspf2e.Item.Disarm]), or if his rage ends while he is dying, he immediately dies regardless of his dying condition value. If he's healed to at least 1 Hit Point, the confusion effect immediately ends.</p>"
                 },
@@ -328,7 +329,26 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "damage:category:physical",
+                            {
+                                "or": [
+                                    "item:type:melee",
+                                    "item:type:weapon"
+                                ]
+                            },
+                            {
+                                "not": "item:category:unarmed"
+                            }
+                        ],
+                        "key": "Resistance",
+                        "label": "PF2E.IWR.Custom.PhysicalWeaponsOnly",
+                        "type": "custom",
+                        "value": 10
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -558,15 +578,6 @@
                 "temp": 0,
                 "value": 300
             },
-            "resistances": [
-                {
-                    "exceptions": [
-                        "weapons"
-                    ],
-                    "type": "physical",
-                    "value": 10
-                }
-            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
