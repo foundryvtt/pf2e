@@ -1,12 +1,9 @@
-import { htmlClosest, htmlQueryAll } from "@util";
+import { htmlQueryAll } from "@util";
 
 export const RenderCombatTrackerConfig = {
     listen: (): void => {
         Hooks.on("renderCombatTrackerConfig", async (_app, html) => {
             // Add "death icon" and "actors dead at zero"
-            const appWindow = htmlClosest(html, "#combat-config");
-            if (appWindow) appWindow.style.height = "";
-
             const template = await (async () => {
                 const path = "systems/pf2e/templates/sidebar/encounter-tracker/config.hbs";
                 const markup = await fa.handlebars.renderTemplate(path, {
