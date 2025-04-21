@@ -1,4 +1,5 @@
-import { ApplicationFormConfiguration, ApplicationTabsConfiguration } from "../_types.mjs";
+import Scene from "@client/documents/scene.mjs";
+import { ApplicationClosingOptions, ApplicationFormConfiguration, ApplicationTabsConfiguration } from "../_types.mjs";
 import DocumentSheetV2, { DocumentSheetConfiguration } from "../api/document-sheet.mjs";
 import HandlebarsApplicationMixin, {
     HandlebarsRenderOptions,
@@ -45,7 +46,7 @@ export default class SceneConfig<TDocument extends Scene> extends HandlebarsAppl
 
     protected override _onChangeForm(formConfig: ApplicationFormConfiguration, event: Event): void;
 
-    protected override _onClose(options: HandlebarsRenderOptions): void;
+    protected override _onClose(options: ApplicationClosingOptions): void;
 }
 
 export default interface SceneConfig<TDocument extends Scene> {

@@ -1,5 +1,7 @@
-import Document from "../../../common/abstract/document.mjs";
+import { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import Document from "@common/abstract/document.mjs";
 import {
+    ApplicationClosingOptions,
     ApplicationConfiguration,
     ApplicationFormConfiguration,
     ApplicationHeaderControlsEntry,
@@ -58,7 +60,7 @@ export default abstract class DocumentSheetV2<
 
     protected override _onRender(context: object, options: TRenderOptions): Promise<void>;
 
-    protected override _onClose(options: TRenderOptions): void;
+    protected override _onClose(options: ApplicationClosingOptions): void;
 
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */

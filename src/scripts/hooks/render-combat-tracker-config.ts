@@ -2,7 +2,7 @@ import { htmlClosest, htmlQueryAll } from "@util";
 
 export const RenderCombatTrackerConfig = {
     listen: (): void => {
-        Hooks.on("renderCombatTrackerConfig", async (app, html) => {
+        Hooks.on("renderCombatTrackerConfig", async (_app, html) => {
             // Add "death icon" and "actors dead at zero"
             const appWindow = htmlClosest(html, "#combat-config");
             if (appWindow) appWindow.style.height = "";
@@ -27,9 +27,6 @@ export const RenderCombatTrackerConfig = {
             const formGroups = htmlQueryAll(html, ".form-group");
             const lastFormGroup = formGroups.at(-1);
             lastFormGroup?.after(...(template?.content.children ?? []));
-
-            // Reactivate listeners to make the file picker work
-            app.activateListeners(html);
         });
     },
 };

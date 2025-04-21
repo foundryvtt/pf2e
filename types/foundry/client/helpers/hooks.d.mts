@@ -1,3 +1,4 @@
+import type { CombatTrackerConfig } from "@client/applications/apps/_module.mjs";
 import Canvas from "@client/canvas/board.mjs";
 import Token from "@client/canvas/placeables/token.mjs";
 import {
