@@ -1,12 +1,36 @@
 import { SceneDimensions } from "@client/_types.mjs";
 import { Point } from "@common/_types.mjs";
 import { GridlessGrid, HexagonalGrid, SquareGrid } from "@common/grid/_module.mjs";
-import { AmbientLightDocument, MeasuredTemplateDocument, Scene } from "../documents/_module.mjs";
+import {
+    AmbientLightDocument,
+    MeasuredTemplateDocument,
+    RegionDocument,
+    Scene,
+    TokenDocument,
+} from "../documents/_module.mjs";
 import { CanvasEdges } from "./geometry/edges/edges.mjs";
-import { EffectsCanvasGroup, EnvironmentCanvasGroup, InterfaceCanvasGroup } from "./groups/_module.mjs";
+import {
+    CanvasVisibility,
+    EffectsCanvasGroup,
+    EnvironmentCanvasGroup,
+    InterfaceCanvasGroup,
+    PrimaryCanvasGroup,
+    RenderedCanvasGroup,
+} from "./groups/_module.mjs";
 import { Ruler } from "./interaction/_module.mjs";
 import { PingOptions } from "./interaction/_types.mjs";
 import MouseInteractionManager from "./interaction/mouse-handler.mjs";
+import {
+    CanvasLayer,
+    ControlsLayer,
+    DrawingsLayer,
+    InteractionLayer,
+    NotesLayer,
+    PlaceablesLayer,
+    SoundsLayer,
+    TilesLayer,
+    WallsLayer,
+} from "./layers/_module.mjs";
 import { FogManager, PerceptionManager } from "./perception/_module.mjs";
 import { AmbientLight, MeasuredTemplate, Region, Token } from "./placeables/_module.mjs";
 
