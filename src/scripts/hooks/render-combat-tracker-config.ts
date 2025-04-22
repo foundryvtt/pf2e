@@ -1,12 +1,10 @@
-import { htmlClosest, htmlQueryAll } from "@util";
+import type HTMLFilePickerElement from "@client/applications/elements/file-picker.mjs";
+import { htmlQuery, htmlQueryAll } from "@util";
 
 export const RenderCombatTrackerConfig = {
     listen: (): void => {
-        Hooks.on("renderCombatTrackerConfig", async (app, html) => {
+        Hooks.on("renderCombatTrackerConfig", async (_app, html) => {
             // Add "death icon" and "actors dead at zero"
-            const appWindow = htmlClosest(html, "#combat-config");
-            if (appWindow) appWindow.style.height = "";
-
             const template = await (async () => {
                 const path = "systems/pf2e/templates/sidebar/encounter-tracker/config.hbs";
                 const markup = await fa.handlebars.renderTemplate(path, {
@@ -28,8 +26,19 @@ export const RenderCombatTrackerConfig = {
             const lastFormGroup = formGroups.at(-1);
             lastFormGroup?.after(...(template?.content.children ?? []));
 
-            // Reactivate listeners to make the file picker work
-            app.activateListeners(html);
+            html.addEventListener("submit", async () => {
+                const newIcon = htmlQuery<HTMLFilePickerElement>(html, "file-picker[name=deathIcon]")?.value;
+                const newDeadAtZero = htmlQuery<HTMLSelectElement>(html, "select[name=actorsDeadAtZero]")?.value;
+
+                if (newIcon && newIcon !== game.settings.get("pf2e", "deathIcon")) {
+                    await game.settings.set("pf2e", "deathIcon", newIcon);
+                }
+
+                const currentDeadAtZero = game.settings.get("pf2e", "automation.actorsDeadAtZero");
+                if (newDeadAtZero && currentDeadAtZero !== newDeadAtZero) {
+                    await game.settings.set("pf2e", "automation.actorsDeadAtZero", newDeadAtZero);
+                }
+            });
         });
     },
 };

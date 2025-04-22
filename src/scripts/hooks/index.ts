@@ -1,5 +1,4 @@
 import { CanvasReady } from "./canvas-ready.ts";
-import { CloseCombatTrackerConfig } from "./close-combat-tracker-config.ts";
 import { CloseWorldClockSettings } from "./close-world-clock-settings.ts";
 import { DiceSoNiceReady } from "./dice-so-nice-ready.ts";
 import { DiceSoNiceRollStart } from "./dice-so-nice-roll-start.ts";
@@ -27,7 +26,6 @@ export const HooksPF2e = {
         const listeners: { listen(): void }[] = [
             Load, // Run this first since it's not an actual hook listener
             CanvasReady,
-            CloseCombatTrackerConfig,
             CloseWorldClockSettings,
             DiceSoNiceReady,
             DiceSoNiceRollStart,
