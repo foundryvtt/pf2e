@@ -57,7 +57,7 @@ export type PointArray = [x: number, y: number];
 /**
  * A 3D point, expessed as {x, y, elevation}.
  */
-interface ElevatedPoint extends Point {
+export interface ElevatedPoint extends Point {
     /** The elevation in grid units */
     elevation: number;
 }
