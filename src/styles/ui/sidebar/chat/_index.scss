@@ -120,15 +120,15 @@
         .dice-roll {
             .dice-result > [data-visibility="gm"] {
                 background: var(--visibility-gm-bg);
-                border: 1px dotted rgba(75, 74, 68, 0.5);
+                outline: 1px dotted rgba(75, 74, 68, 0.5);
             }
 
-            .dice-tooltip[data-visibility="gm"] {
+            &.expanded .dice-tooltip[data-visibility="gm"] .wrapper {
                 padding: var(--space-2) var(--space-3) 0;
             }
             &:not(.expanded) .dice-tooltip {
                 background: transparent;
-                border-color: transparent;
+                outline-color: transparent;
             }
         }
     }
