@@ -1,4 +1,5 @@
-<div class="dice-tooltip"{{#unless showBreakdown}} data-visibility="gm"{{/unless}} style="display: none">
+<div class="dice-tooltip"{{#unless showBreakdown}} data-visibility="gm"{{/unless}}>
+    <div class="wrapper">
     {{#each instances as |instance|}}
         <section class="tooltip-part damage instance color {{instance.type}}">
             <header>
@@ -8,7 +9,7 @@
                 <div class="dice">
                     <header class="part-header flexrow">
                         {{#if dice.icon}}
-                            <span class="part-method" data-tooltip="{{dice.method}}" aria-label="{{localize dice.method}}">{{{dice.icon}}}</span>
+                            <span class="part-method" data-tooltip aria-label="{{localize dice.method}}">{{{dice.icon}}}</span>
                         {{/if}}
                         <span class="part-formula">{{dice.formula}}</span>
                         <span class="part-total">{{dice.total}}</span>
@@ -22,4 +23,5 @@
             {{/each}}
         </section>
     {{/each}}
+    </div>
 </div>
