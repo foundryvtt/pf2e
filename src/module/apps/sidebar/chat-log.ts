@@ -34,8 +34,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         options: fa.api.HandlebarsRenderOptions,
     ): Promise<void> {
         await super._onRender(context, options);
-
-        const log = document.getElementById("chat-log");
+        const log = htmlQuery(this.element, "ol.chat-log");
         if (!log) throw ErrorPF2e("Unexpected failure to find ChatLog element");
         log.dataset.tooltipDirection = "UP";
         log.addEventListener("dblclick", async (event): Promise<void> => {
