@@ -70,7 +70,9 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return offsets.sort((a, b) => a.j - b.j).sort((a, b) => a.i - b.i);
     }
 
-    /** Increase center-to-center point tolerance to be more compliant with 2e rules */
+    /**
+     * Is this Token visible to the user? Increase center-to-center point tolerance to be more compliant with 2e rules.
+     */
     override get isVisible(): boolean {
         // Clear the detection filter
         this.detectionFilter = null;
