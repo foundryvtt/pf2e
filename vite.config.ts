@@ -163,6 +163,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             ROLL_PARSER: JSON.stringify(ROLL_PARSER),
             UUID_REDIRECTS: JSON.stringify(getUuidRedirects()),
             fa: "foundry.applications",
+            fav1: "foundry.appv1",
             fc: "foundry.canvas",
             fd: "foundry.documents",
             fh: "foundry.helpers",

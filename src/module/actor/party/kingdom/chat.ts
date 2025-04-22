@@ -3,7 +3,7 @@ import { createHTMLElement, fontAwesomeIcon, htmlClosest, htmlQuery } from "@uti
 import { Kingdom } from "./model.ts";
 
 /** Handler for kingdom chat messages. Does nothing if there is no kingdom */
-export async function handleKingdomChatMessageEvents(options: KingdomChatMessageParams): Promise<void> {
+export async function handleKingdomChatMessageEvent(options: KingdomChatMessageParams): Promise<void> {
     const { event, message } = options;
     const party = message.actor ?? game.actors.party;
     if (!party?.isOfType("party") || !(party?.campaign instanceof Kingdom)) {
