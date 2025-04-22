@@ -153,12 +153,14 @@ export interface ApplicationClosingOptions {
     closeKey?: boolean;
 }
 
+export type ApplicationClickHandler = (event: PointerEvent, target: HTMLElement) => void | Promise<void>;
+
 /**
  * An on-click action supported by the Application
  * @param event The originating click event
  * @param target The capturing HTML element which defines the [data-action]
  */
-export type ApplicationClickAction = (event: PointerEvent, target: HTMLElement) => Promise<void>;
+export type ApplicationClickAction = ApplicationClickHandler | { handler: ApplicationClickHandler; buttons: number[] };
 
 /**
  * A form submission handler method.
