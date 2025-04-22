@@ -37,8 +37,20 @@
     <div class="browser-tab" data-tooltip-class="pf2e">
         <div class="landing-page">{game.i18n.localize("PF2E.CompendiumBrowser.Hint")}</div>
     </div>
-{:else}
-    <BrowserTab bind:activeTabName={state.activeTabName} {state} />
+{:else if state.activeTabName === "action"}
+    <BrowserTab tabName={"action"} {state} />
+{:else if state.activeTabName === "bestiary"}
+    <BrowserTab tabName={"bestiary"} {state} />
+{:else if state.activeTabName === "campaignFeature"}
+    <BrowserTab tabName={"campaignFeature"} {state} />
+{:else if state.activeTabName === "equipment"}
+    <BrowserTab tabName={"equipment"} {state} />
+{:else if state.activeTabName === "feat"}
+    <BrowserTab tabName={"feat"} {state} />
+{:else if state.activeTabName === "hazard"}
+    <BrowserTab tabName={"hazard"} {state} />
+{:else if state.activeTabName === "spell"}
+    <BrowserTab tabName={"spell"} {state} />
 {/if}
 
 <style lang="scss">

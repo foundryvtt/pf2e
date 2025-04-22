@@ -7,9 +7,9 @@
     import type { KitPF2e, PhysicalItemPF2e } from "@item";
     import type { ContentTabName } from "../data.ts";
 
-    const props: { activeTabName: ContentTabName | ""; entry: CompendiumBrowserIndexData } = $props();
+    const props: { tabName: ContentTabName | ""; entry: CompendiumBrowserIndexData } = $props();
     const entry = props.entry;
-    const activeTabName = props.activeTabName;
+    const tabName = props.tabName;
 
     async function onClickButton(uuid: string, action: "buy-item" | "open-sheet" | "take-item"): Promise<void> {
         switch (action) {
@@ -184,7 +184,7 @@
             <span data-tooltip="PF2E.Item.Spell.Rank.Label">{entry.rank}</span>
         </div>
     {/if}
-    {#if activeTabName === "equipment"}
+    {#if tabName === "equipment"}
         <button
             class="equipment-action flat"
             aria-label="take item"

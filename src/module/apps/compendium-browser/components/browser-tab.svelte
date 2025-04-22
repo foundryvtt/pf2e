@@ -1,27 +1,22 @@
 <script lang="ts">
-    import * as R from "remeda";
     import Filters from "./filters.svelte";
     import ResultItem from "./result-item.svelte";
-    import { ErrorPF2e } from "@util";
     import { CompendiumBrowser, type CompendiumBrowserState } from "../browser.ts";
     import type { ContentTabName } from "../data.ts";
 
-    type BrowserTabProps = { activeTabName: ContentTabName; state: CompendiumBrowserState };
+    type BrowserTabProps = { tabName: ContentTabName; state: CompendiumBrowserState };
 
-    const { activeTabName = $bindable(), ...props }: BrowserTabProps = $props();
-    if (!activeTabName) {
-        throw ErrorPF2e(`Invalid tab name: "${activeTabName}"!`);
-    }
+    const props: BrowserTabProps = $props();
+    let resultList: HTMLUListElement;
+    const tabName = props.tabName;
     const browser = game.pf2e.compendiumBrowser;
-    const tab = $derived(browser.tabs[activeTabName]);
+    const tab = browser.tabs[tabName];
 
     function resetFilters(): void {
         tab.resetFilters();
     }
 
     function onscroll(): void {
-        if (!activeTabName) return;
-        const resultList = props.state.resultList;
         if (resultList.scrollTop + resultList.clientHeight >= resultList.scrollHeight - 5) {
             tab.resultLimit += CompendiumBrowser.RESULT_LIMIT;
         }
@@ -32,19 +27,14 @@
             props.state.activeTabName = "";
             console.error("PF2e System | This browser tab is flagged as GM-only!");
         }
-
-        // Force evaluation of tab.results to fix reactivity after a tab is switched to for the first time
-        if (activeTabName) {
-            R.constant(tab.results);
-        }
     });
 </script>
 
-<div class="browser-tab" data-tab-name={activeTabName} data-tooltip-class="pf2e">
+<div class="browser-tab" data-tab-name={tabName} data-tooltip-class="pf2e">
     <Filters bind:filter={tab.filterData} {resetFilters} />
-    <ul class="result-list" {onscroll} bind:this={props.state.resultList}>
+    <ul class="result-list" {onscroll} bind:this={resultList}>
         {#each tab.results.slice(0, tab.resultLimit) as entry (entry.uuid)}
-            <ResultItem {activeTabName} {entry} />
+            <ResultItem {tabName} {entry} />
         {/each}
     </ul>
 </div>

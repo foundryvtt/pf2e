@@ -3,7 +3,7 @@ import { ActionType, ItemType } from "@item/base/data/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/index.ts";
 import { SvelteApplicationMixin } from "@module/sheet/mixin.svelte.ts";
-import { ErrorPF2e, setHasElement } from "@util";
+import { ErrorPF2e, htmlQuery, setHasElement } from "@util";
 import * as R from "remeda";
 import { untrack } from "svelte";
 import type {
@@ -128,7 +128,6 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundry.applications.api.
         return {
             state: {
                 activeTabName: "",
-                resultList: document.createElement("ul"), // This is required to make the value bindable
             },
         };
     }
@@ -150,7 +149,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(foundry.applications.api.
 
     resetListElement(): void {
         untrack(() => (this.activeTab.resultLimit = CompendiumBrowser.RESULT_LIMIT));
-        this.$state.resultList?.scrollTo({ top: 0, behavior: "instant" });
+        htmlQuery(this.element, "ul.result-list")?.scrollTo({ top: 0, behavior: "instant" });
     }
 
     async openTab(tabName: TabName, options?: CompendiumBrowserOpenTabOptions): Promise<void> {
@@ -350,8 +349,6 @@ interface CompendiumBrowserContext {
 interface CompendiumBrowserState {
     /** Changing this will trigger a tab rerender. An empty string will show the landing page */
     activeTabName: ContentTabName | "";
-    /** The result list HTML element */
-    resultList: HTMLUListElement;
 }
 
 type CompendiumBrowserSettings = TabData<Record<string, PackInfo | undefined>>;
