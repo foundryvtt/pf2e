@@ -26,7 +26,7 @@ export const RenderCombatTrackerConfig = {
             const lastFormGroup = formGroups.at(-1);
             lastFormGroup?.after(...(template?.content.children ?? []));
 
-            htmlQuery(html, "footer > button[type=submit]")?.addEventListener("click", async () => {
+            html.addEventListener("submit", async () => {
                 const newIcon = htmlQuery<HTMLFilePickerElement>(html, "file-picker[name=deathIcon]")?.value;
                 const newDeadAtZero = htmlQuery<HTMLSelectElement>(html, "select[name=actorsDeadAtZero]")?.value;
 
