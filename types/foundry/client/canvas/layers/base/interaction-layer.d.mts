@@ -39,7 +39,7 @@ export default class InteractionLayer extends CanvasLayer {
     /** The inner _deactivate method which may be defined by each InteractionLayer subclass. */
     protected _deactivate(): void;
 
-    override _draw(options: object): Promise<void>;
+    protected override _draw(options: object): Promise<void>;
 
     /** Get the zIndex that should be used for ordering this layer vertically relative to others in the same Container. */
     getZIndex(): number;

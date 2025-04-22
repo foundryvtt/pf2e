@@ -1,4 +1,12 @@
-import type { ApplicationConfiguration, ApplicationPosition, ApplicationRenderOptions } from "../_types.mjs";
+import { PlaceablesLayer } from "@client/canvas/layers/_module.mjs";
+import PlaceableObject from "@client/canvas/placeables/placeable-object.mjs";
+import { CanvasDocument } from "@client/documents/abstract/canvas-document.mjs";
+import type {
+    ApplicationClosingOptions,
+    ApplicationConfiguration,
+    ApplicationPosition,
+    ApplicationRenderOptions,
+} from "../_types.mjs";
 import type ApplicationV2 from "../api/application.mjs";
 import FormDataExtended from "../ux/form-data-extended.mjs";
 
@@ -31,7 +39,7 @@ export default abstract class BasePlaceableHUD extends ApplicationV2<
 
     protected override _onRender(context: object, options: ApplicationRenderOptions): Promise<void>;
 
-    protected override _preClose(options: ApplicationRenderOptions): Promise<void>;
+    protected override _preClose(options: ApplicationClosingOptions): Promise<void>;
 
     /**
      * Insert the application HTML element into the DOM.
