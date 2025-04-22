@@ -36,7 +36,7 @@ type HookParamsCanvasInit = HookParameters<"canvasInit", [Canvas]>;
 type HookParamsCanvasReady = HookParameters<"canvasReady", [Canvas]>;
 type HookParamsReady = HookParameters<"ready", never>;
 
-type HookParamsClose<T extends ApplicationV2, N extends string> = HookParameters<`close${N}`, [T, HTMLElement]>;
+type HookParamsClose<T extends ApplicationV2, N extends string> = HookParameters<`close${N}`, [T]>;
 type HookParamsDeleteCombat = HookParameters<"deleteCombat", [Combat, { [key: string]: unknown }, string]>;
 type HookParamsDropCanvasData = HookParameters<"dropCanvasData", [Canvas, DropCanvasData]>;
 type HookParamsGetChatLogEntryContext = HookParameters<"getChatLogEntryContext", [HTMLElement, EntryContextOptios[]]>;

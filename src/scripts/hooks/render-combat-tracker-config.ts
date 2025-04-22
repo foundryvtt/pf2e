@@ -1,4 +1,5 @@
-import { htmlQueryAll } from "@util";
+import type HTMLFilePickerElement from "@client/applications/elements/file-picker.mjs";
+import { htmlQuery, htmlQueryAll } from "@util";
 
 export const RenderCombatTrackerConfig = {
     listen: (): void => {
@@ -24,6 +25,20 @@ export const RenderCombatTrackerConfig = {
             const formGroups = htmlQueryAll(html, ".form-group");
             const lastFormGroup = formGroups.at(-1);
             lastFormGroup?.after(...(template?.content.children ?? []));
+
+            htmlQuery(html, "footer > button[type=submit]")?.addEventListener("click", async () => {
+                const newIcon = htmlQuery<HTMLFilePickerElement>(html, "file-picker[name=deathIcon]")?.value;
+                const newDeadAtZero = htmlQuery<HTMLSelectElement>(html, "select[name=actorsDeadAtZero]")?.value;
+
+                if (newIcon && newIcon !== game.settings.get("pf2e", "deathIcon")) {
+                    await game.settings.set("pf2e", "deathIcon", newIcon);
+                }
+
+                const currentDeadAtZero = game.settings.get("pf2e", "automation.actorsDeadAtZero");
+                if (newDeadAtZero && currentDeadAtZero !== newDeadAtZero) {
+                    await game.settings.set("pf2e", "automation.actorsDeadAtZero", newDeadAtZero);
+                }
+            });
         });
     },
 };
