@@ -1,3 +1,4 @@
+import Item from "@client/documents/item.mjs";
 import DocumentSheetV2, { DocumentSheetConfiguration } from "../api/document-sheet.mjs";
 
 /** A base class for providing Item Sheet behavior using ApplicationV2. */

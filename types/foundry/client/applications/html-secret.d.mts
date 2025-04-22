@@ -1,4 +1,4 @@
-import DocumentSheet from "../appv1/api/document-sheet-v1.mjs";
+import { ClientDocument } from "@client/documents/abstract/client-document.mjs";
 
 export interface HTMLSecretContentCallback {
     /**

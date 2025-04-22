@@ -6,6 +6,7 @@ import {
     ApplicationPosition,
     ApplicationRenderContext,
     ApplicationRenderOptions,
+    ApplicationTab,
     ApplicationTabsConfiguration,
 } from "../_types.mjs";
 
@@ -153,6 +154,12 @@ export default abstract class ApplicationV2<
     protected _prepareContext(options: TRenderOptions): Promise<TRenderContext>;
 
     /**
+     * Prepare application tab data for a single tab group.
+     * @param group The ID of the tab group to prepare
+     */
+    protected _prepareTabs(group: string): Record<string, ApplicationTab>;
+
+    /**
      * Configure the array of header control menu options
      */
     protected _getHeaderControls(): ApplicationHeaderControlsEntry[];
@@ -220,6 +227,12 @@ export default abstract class ApplicationV2<
      * @param element                 The element to be removed
      */
     protected _removeElement(element: HTMLElement): void;
+
+    /**
+     * Remove elements from the DOM and trigger garbage collection as part of application closure.
+     * @param options
+     */
+    protected _tearDown(options: ApplicationClosingOptions): void;
 
     /* -------------------------------------------- */
     /*  Positioning                                 */
