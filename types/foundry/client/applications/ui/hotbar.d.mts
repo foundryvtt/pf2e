@@ -1,6 +1,9 @@
-import type Document from "../../../common/abstract/document.mjs";
-import type { ApplicationConfiguration } from "../_types.mjs";
-import type { ApplicationV2, HandlebarsApplicationMixin, HandlebarsTemplatePart } from "../api/_module.mjs";
+import { Macro, RollTable } from "@client/documents/_module.mjs";
+import { DocumentUUID } from "@client/utils/_module.mjs";
+import Document from "@common/abstract/document.mjs";
+import { ApplicationConfiguration } from "../_types.mjs";
+import { ApplicationV2, HandlebarsApplicationMixin, HandlebarsTemplatePart } from "../api/_module.mjs";
+import { ContextMenuEntry } from "../ux/context-menu.mjs";
 
 interface HotbarSlotData {
     slot: number;
@@ -19,7 +22,7 @@ interface HotbarSlotData {
  * The number keys 1 through 0 activate numbered hotbar slots.
  * @alias Hotbar
  */
-export default class Hotbar<TMacro extends Macro> extends HandlebarsApplicationMixin(ApplicationV2) {
+export default class Hotbar<TMacro extends Macro = Macro> extends HandlebarsApplicationMixin(ApplicationV2) {
     static override DEFAULT_OPTIONS: ApplicationConfiguration;
 
     static override PARTS: Record<string, HandlebarsTemplatePart>;

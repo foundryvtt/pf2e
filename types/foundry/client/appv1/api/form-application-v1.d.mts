@@ -127,7 +127,7 @@ export default abstract class FormApplication<
      */
     activateEditor(
         name: string,
-        options?: EditorCreateOptions,
+        options?: { engine?: "prosemirror" | "tinymice" },
         initialContent?: string,
     ): Promise<TinyMCE.Editor | ProseMirror.EditorView>;
 

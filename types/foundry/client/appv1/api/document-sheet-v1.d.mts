@@ -1,5 +1,7 @@
+import User from "@client/documents/user.mjs";
+import Document from "@common/abstract/document.mjs";
 import * as TinyMCE from "tinymce";
-import HTMLSecret from "../../applications/html-secret.d.mts";
+import HTMLSecret from "../../applications/html-secret.mjs";
 import { AppV1RenderOptions, ApplicationV1HeaderButton } from "./application-v1.mjs";
 import FormApplication, { FormApplicationOptions } from "./form-application-v1.mjs";
 
@@ -18,7 +20,7 @@ export interface DocumentSheetV1Options extends FormApplicationOptions {
  * @deprecated since v13
  */
 export default class DocumentSheet<
-    TDocument extends foundry.abstract.Document = foundry.abstract.Document,
+    TDocument extends Document = Document,
     TOptions extends DocumentSheetV1Options = DocumentSheetV1Options,
 > extends FormApplication<TDocument, TOptions> {
     constructor(object: TDocument, options?: Partial<TOptions>);
@@ -42,7 +44,7 @@ export default class DocumentSheet<
 
     override activateEditor(
         name: string,
-        options?: EditorCreateOptions,
+        options?: { engine?: "prosemirror" | "tinymice" },
         initialContent?: string,
     ): Promise<TinyMCE.Editor | ProseMirror.EditorView>;
 
