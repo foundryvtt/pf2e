@@ -4,7 +4,7 @@
     "name": "Effect: Swig",
     "system": {
         "description": {
-            "value": "<p>The dockhand gains a +2 item bonus to melee damage rolls and saving throws against fear but is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard].</p>"
+            "value": "<p>You gain a +2 item bonus to melee damage rolls and saving throws against fear but are off-guard.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -24,6 +24,15 @@
             {
                 "key": "FlatModifier",
                 "selector": "melee-strike-damage",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:fear"
+                ],
+                "selector": "saving-throw",
                 "type": "item",
                 "value": 2
             },
