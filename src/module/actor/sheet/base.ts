@@ -1,8 +1,10 @@
 import type { ActorPF2e } from "@actor";
 import type { StrikeData } from "@actor/data/base.ts";
-import { iterateAllItems } from "@actor/helpers.js";
+import { iterateAllItems } from "@actor/helpers.ts";
 import type { InitiativeRollResult } from "@actor/initiative.ts";
 import type { AppV1RenderOptions } from "@client/appv1/api/application-v1.d.mts";
+import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
+import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
 import type { PhysicalItemPF2e } from "@item";
 import { AbstractEffectPF2e, ItemPF2e, SpellPF2e } from "@item";
 import type { AbilityTrait, ActionCategory } from "@item/ability/types.ts";
@@ -65,14 +67,13 @@ import { IdentifyItemPopup } from "./popups/identify-popup.ts";
 import { ItemTransferDialog } from "./popups/item-transfer-dialog.ts";
 import { IWREditor } from "./popups/iwr-editor.ts";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup.ts";
-import appv1 = foundry.appv1;
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
  * This sheet is an Abstract layer which is not used.
  * @category Actor
  */
-abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends appv1.sheets.ActorSheet<TActor, ItemPF2e> {
+abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.ActorSheet<TActor, ItemPF2e> {
     /** Ignore deprecation warning */
     protected static override _warnedAppV1 = true;
 
@@ -84,7 +85,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends appv1.sheets.Act
         searchOptions: { combineWith: "AND", prefix: true },
     });
 
-    static override get defaultOptions(): appv1.sheets.ActorSheetOptions {
+    static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         options.dragDrop = [
             { dragSelector: "[data-foundry-list] [data-drag-handle]" },
@@ -101,7 +102,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends appv1.sheets.Act
     }
 
     /** @todo fixme for V13 */
-    constructor(actor: TActor, options?: Partial<appv1.sheets.ActorSheetOptions>) {
+    constructor(actor: TActor, options?: Partial<ActorSheetOptions>) {
         super(actor, options);
 
         // On initial opening, adjust width according to `fontSize` setting
@@ -120,9 +121,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends appv1.sheets.Act
         return !this.actor.isOwner && this.actor.isLootableBy(game.user);
     }
 
-    override async getData(
-        options: Partial<appv1.sheets.ActorSheetOptions> = this.options,
-    ): Promise<ActorSheetDataPF2e<TActor>> {
+    override async getData(options: Partial<ActorSheetOptions> = this.options): Promise<ActorSheetDataPF2e<TActor>> {
         options.id ||= this.id;
         options.editable = this.isEditable;
         options.sheetConfig &&=
@@ -1482,7 +1481,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends appv1.sheets.Act
     }
 }
 
-interface ActorSheetPF2e<TActor extends ActorPF2e> extends appv1.sheets.ActorSheet<TActor, ItemPF2e> {
+interface ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.ActorSheet<TActor, ItemPF2e> {
     prepareItems?(sheetData: ActorSheetDataPF2e<TActor>): Promise<void>;
     render(force?: boolean, options?: ActorSheetRenderOptionsPF2e): this;
 }

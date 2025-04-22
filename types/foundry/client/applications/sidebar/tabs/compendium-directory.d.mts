@@ -1,6 +1,13 @@
-import { ApplicationConfiguration } from "../../_types.mjs";
-import ApplicationV2 from "../../api/application.mjs";
-import HandlebarsApplicationMixin, { HandlebarsRenderOptions } from "../../api/handlebars-application.mjs";
+import { ApplicationConfiguration } from "@client/applications/_types.mjs";
+import { ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";
+import CompendiumCollection, {
+    CompendiumDocument,
+    CompendiumIndexData,
+    CompendiumMetadata,
+} from "@client/documents/collections/compendium-collection.mjs";
+import User from "@client/documents/user.mjs";
+import { CompendiumDocumentType } from "@client/utils/_module.mjs";
+import { ApplicationV2, HandlebarsApplicationMixin, HandlebarsRenderOptions } from "../../api/_module.mjs";
 
 export default class CompendiumDirectory extends HandlebarsApplicationMixin(ApplicationV2) {
     static override DEFAULT_OPTIONS: DeepPartial<ApplicationConfiguration>;
@@ -46,7 +53,7 @@ export default class CompendiumDirectory extends HandlebarsApplicationMixin(Appl
      * Get the sidebar directory entry context options
      * @return The sidebar entry context options
      */
-    protected _getEntryContextOptions(): EntryContextOption[];
+    protected _getEntryContextOptions(): ContextMenuEntry[];
 
     /** Handle a Compendium Pack creation request */
     protected _onCreateCompendium(event: Event): Promise<boolean>;
