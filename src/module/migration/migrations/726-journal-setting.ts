@@ -21,6 +21,6 @@ export class Migration726JournalSetting extends MigrationBase {
         if (!theme) return;
 
         const base = theme === "pf2eTheme" ? "pf2e.JournalSheetStyledPF2e" : "pf2e.JournalSheetPF2e";
-        DocumentSheetConfig.updateDefaultSheets({ JournalEntry: { base } });
+        fa.apps.DocumentSheetConfig.updateDefaultSheets({ JournalEntry: { base } });
     }
 }
