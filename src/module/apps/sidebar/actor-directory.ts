@@ -4,13 +4,15 @@ import type {
     HandlebarsRenderOptions,
     HandlebarsTemplatePart,
 } from "@client/applications/api/handlebars-application.d.mts";
-import { fontAwesomeIcon, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
+import type { ContextMenuEntry } from "@client/applications/ux/context-menu.d.mts";
+import type { ActorUUID } from "@client/documents/abstract/_module.d.mts";
+import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
+import { htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 import * as R from "remeda";
-import sidebar = foundry.applications.sidebar;
 
 /** Extend ActorDirectory to show more information */
-class ActorDirectoryPF2e extends sidebar.tabs.ActorDirectory<ActorPF2e<null>> {
-    static override DEFAULT_OPTIONS: Partial<sidebar.DocumentDirectoryConfiguration> = {
+class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>> {
+    static override DEFAULT_OPTIONS: Partial<fa.sidebar.DocumentDirectoryConfiguration> = {
         actions: {
             togglePartyFolder: ActorDirectoryPF2e.#togglePartyFolder,
             openPartySheet: ActorDirectoryPF2e.#openPartySheet,
@@ -183,7 +185,7 @@ class ActorDirectoryPF2e extends sidebar.tabs.ActorDirectory<ActorPF2e<null>> {
         const entries = super._getEntryContextOptions();
         entries.push({
             name: "PF2E.Actor.Party.Sidebar.RemoveMember",
-            icon: fontAwesomeIcon("bus").outerHTML,
+            icon: fa.fields.createFontAwesomeIcon("bus").outerHTML,
             condition: (li) => !!li.closest("[data-party]") && !li.closest(".party-header"),
             callback: (li) => {
                 const actorId = li.dataset.entryId;
@@ -194,7 +196,7 @@ class ActorDirectoryPF2e extends sidebar.tabs.ActorDirectory<ActorPF2e<null>> {
                     party.removeMembers(actor.uuid);
                 }
             },
-        });
+        } satisfies ContextMenuEntry);
         return entries;
     }
 

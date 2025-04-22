@@ -1,10 +1,12 @@
 import { Folder, WorldDocument } from "@client/documents/_module.mjs";
 import { DirectoryCollection } from "@client/documents/abstract/directory-collection-mixin.mjs";
 import { CompendiumIndexData } from "@client/documents/collections/compendium-collection.mjs";
+import { DropCanvasData } from "@client/helpers/hooks.mjs";
 import type Document from "@common/abstract/document.mjs";
 import type { ApplicationConfiguration, ApplicationRenderContext } from "../_types.mjs";
 import type HandlebarsApplicationMixin from "../api/handlebars-application.mjs";
 import type { HandlebarsRenderOptions, HandlebarsTemplatePart } from "../api/handlebars-application.mjs";
+import { ContextMenuEntry } from "../ux/context-menu.mjs";
 import type AbstractSidebarTab from "./sidebar-tab.mjs";
 
 export interface DocumentDirectoryConfiguration extends ApplicationConfiguration {
