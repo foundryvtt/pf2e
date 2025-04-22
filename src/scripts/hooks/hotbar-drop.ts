@@ -1,9 +1,11 @@
-import type { ActorUUID } from "@client/documents/actor.d.mts";
+import type { ActorUUID } from "@client/documents/abstract/_module.d.mts";
+import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
 import { ItemPF2e } from "@item";
 import { MacroPF2e } from "@module/macro.ts";
 import { createActionMacro, createToggleEffectMacro } from "@scripts/macros/hotbar.ts";
 import { ErrorPF2e } from "@util";
 import * as R from "remeda";
+
 export class HotbarDrop {
     static listen(): void {
         Hooks.on("hotbarDrop", (_hotbar: fa.ui.Hotbar<Macro>, data: HotbarDropData, slot): false | void => {
