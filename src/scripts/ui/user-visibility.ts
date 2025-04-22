@@ -1,3 +1,4 @@
+import { ClientDocument } from "@client/documents/abstract/client-document.mjs";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { TokenDocumentPF2e } from "@scene";
 import { htmlQueryAll, objectHasKey } from "@util";
