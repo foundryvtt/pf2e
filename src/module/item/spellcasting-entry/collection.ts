@@ -135,15 +135,6 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<string, Spell
         return result ? this : null;
     }
 
-    /** @deprecated Clear the spell slot and updates the spellcasting entry */
-    async unprepareSpell(groupId: SpellSlotGroupId, slotIndex: number): Promise<this | null> {
-        fu.logCompatibilityWarning(
-            "SpellCollection#unprepareSpell() is deprecated. Use SpellCollection#prepareSpell() with a null spell instead.",
-            { since: "6.11.2", until: "7.0.0" },
-        );
-        return this.prepareSpell(null, groupId, slotIndex);
-    }
-
     /** Sets the expended state of a spell slot and updates the spellcasting entry */
     async setSlotExpendedState(groupId: SpellSlotGroupId, slotIndex: number, value: boolean): Promise<this | null> {
         this.#assertEntryIsDocument(this.entry);
