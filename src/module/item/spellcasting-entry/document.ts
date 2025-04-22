@@ -438,21 +438,6 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
 
         return super._preUpdate(changed, options, user);
     }
-
-    /* -------------------------------------------- */
-    /*  Deprecations and Compatibility              */
-    /* -------------------------------------------- */
-
-    /**
-     * @deprecated
-     */
-    getSpellData(): Promise<SpellcastingSheetData> {
-        fu.logCompatibilityWarning(
-            "SpellcastingEntryPF2e#getSpellData() is deprecated. Use SpellcastingEntryPF2e#getSheetData() instead.",
-            { since: "6.7.1", until: "7.0.0" },
-        );
-        return this.getSheetData();
-    }
 }
 
 interface SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
