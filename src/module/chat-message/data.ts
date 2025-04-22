@@ -1,4 +1,5 @@
 import type { RawDamageDice, RawModifier } from "@actor/modifiers.ts";
+import type { ActorUUID, TokenDocumentUUID } from "@client/documents/abstract/_module.d.mts";
 import type { DocumentUUID } from "@client/utils/_module.d.mts";
 import type { ChatMessageFlags } from "@common/documents/chat-message.d.mts";
 import { ItemType, SpellSource } from "@item/base/data/index.ts";

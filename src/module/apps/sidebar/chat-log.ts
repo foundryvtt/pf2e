@@ -1,90 +1,47 @@
 import { ActorPF2e } from "@actor";
-import { handleKingdomChatMessageEvents } from "@actor/party/kingdom/chat.ts";
+import { handleKingdomChatMessageEvent } from "@actor/party/kingdom/chat.ts";
+import type { ApplicationRenderContext } from "@client/applications/_types.d.mts";
 import { ContextMenuCondition, ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";
-import type { ChatMessageSource } from "@common/documents/chat-message.d.mts";
+import { Rolled } from "@client/dice/_module.mjs";
+import type { ChatMessageCreateOperation, ChatMessageSource } from "@common/documents/chat-message.d.mts";
 import type { ShieldPF2e } from "@item";
 import { applyDamageFromMessage } from "@module/chat-message/helpers.ts";
-import { AppliedDamageFlag, ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { CombatantPF2e } from "@module/encounter/index.ts";
 import { TokenDocumentPF2e } from "@scene";
 import { CheckPF2e } from "@system/check/index.ts";
 import { looksLikeDamageRoll } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import { htmlClosest, htmlQuery, objectHasKey } from "@util";
+import { ErrorPF2e, htmlClosest, htmlQuery, objectHasKey } from "@util";
 
 class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
+    static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
+        actions: {
+            applyDamage: ChatLogPF2e.#onClickApplyDamage,
+            findToken: ChatLogPF2e.#onClickFindToken,
+            kingdomAction: ChatLogPF2e.#onClickKingdomAction,
+            revertDamage: ChatLogPF2e.#onClickRevertDamage,
+            shieldBlock: ChatLogPF2e.#onClickShieldBlock,
+        } satisfies Record<string, fa.ApplicationClickAction>,
+    };
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    override activateListeners($html: JQuery<HTMLElement>): void {
-        super.activateListeners($html);
-        const html = $html[0];
+    override async _onRender(
+        context: ApplicationRenderContext,
+        options: fa.api.HandlebarsRenderOptions,
+    ): Promise<void> {
+        await super._onRender(context, options);
 
-        const log = htmlQuery(html, "#chat-log");
-        if (log) log.dataset.tooltipDirection = "UP";
-
-        this.activateClickListener(html);
-
-        html.addEventListener("dblclick", async (event): Promise<void> => {
+        const log = document.getElementById("chat-log");
+        if (!log) throw ErrorPF2e("Unexpected failure to find ChatLog element");
+        log.dataset.tooltipDirection = "UP";
+        log.addEventListener("dblclick", async (event): Promise<void> => {
             const { message } = ChatLogPF2e.#messageFromEvent(event);
             const senderEl = message ? htmlClosest(event.target, ".message-sender") : null;
-            if (senderEl && message) return this.#onClickSender(message, event);
-        });
-    }
-
-    /** Separate public method so as to be accessible from renderChatPopout hook */
-    activateClickListener(html: HTMLElement): void {
-        html.addEventListener("click", async (event): Promise<void> => {
-            const { message, element: messageEl } = ChatLogPF2e.#messageFromEvent(event);
-            if (!message) return;
-
-            const senderEl = message ? htmlClosest(event.target, ".message-sender, .portrait") : null;
-            if (senderEl && message) return this.#onClickSender(message, event);
-
-            const button = htmlClosest(event.target, "button[data-action]");
-            if (!button) return;
-
-            if (message.isDamageRoll) {
-                const button = htmlClosest(event.target, "button");
-                if (!button) return;
-
-                if (button.dataset.action === "shield-block") {
-                    return this.#onClickShieldBlock(button, messageEl);
-                }
-
-                const actions = [
-                    "apply-damage",
-                    "apply-healing",
-                    "double-damage",
-                    "half-damage",
-                    "triple-damage",
-                ] as const;
-                for (const action of actions) {
-                    if (button.dataset.action === action) {
-                        const index = htmlClosest(button, ".damage-application")?.dataset.rollIndex;
-                        return this.#onClickDamageButton(message, action, event.shiftKey, index);
-                    }
-                }
-            } else if (button.dataset.action === "revert-damage") {
-                const appliedDamageFlag = message?.flags.pf2e.appliedDamage;
-                if (appliedDamageFlag) {
-                    const reverted = await this.#onClickRevertDamage(appliedDamageFlag);
-                    if (reverted) {
-                        htmlQuery(messageEl, "span.statements")?.classList.add("reverted");
-                        button.remove();
-                        await message.update({
-                            "flags.pf2e.appliedDamage.isReverted": true,
-                            content: htmlQuery(messageEl, ".message-content")?.innerHTML ?? message.content,
-                        });
-                    }
-                }
-            }
-
-            // Handle any kingdom events if this message contains any
-            if (message && messageEl) {
-                handleKingdomChatMessageEvents({ event, message, messageEl });
-            }
+            if (senderEl && message) return ChatLogPF2e.#onClickFindToken(event);
         });
     }
 
@@ -145,57 +102,48 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         return element && message ? { element, message } : { element: null, message: null };
     }
 
-    #onClickDamageButton(
-        message: ChatMessagePF2e,
-        action: DamageButtonAction,
-        shiftKey: boolean,
-        index?: string,
-    ): void {
-        const multiplier = (() => {
-            switch (action) {
-                case "apply-healing":
-                    return -1;
-                case "half-damage":
-                    return 0.5;
-                case "apply-damage":
-                    return 1;
-                case "double-damage":
-                    return 2;
-                case "triple-damage":
-                    return 3;
-            }
-        })();
-
-        applyDamageFromMessage({
+    static async #onClickApplyDamage(this: ChatLogPF2e, event: PointerEvent, button: HTMLElement): Promise<void> {
+        const { message } = ChatLogPF2e.#messageFromEvent(event);
+        if (!message) throw ErrorPF2e("Unexpected failure to acquire message");
+        const multiplier = Number(button.dataset.multiplier);
+        const rollIndex = Number(htmlClosest(button, "[data-roll-index]")?.dataset.rollIndex) || 0;
+        return applyDamageFromMessage({
             message,
             multiplier,
+            rollIndex,
             addend: 0,
-            promptModifier: shiftKey,
-            rollIndex: Number(index) || 0,
+            promptModifier: event.shiftKey,
         });
     }
 
-    async #onClickRevertDamage(flag: AppliedDamageFlag): Promise<boolean> {
-        const actorOrToken = fromUuidSync(flag.uuid);
-        const actor =
-            actorOrToken instanceof ActorPF2e
-                ? actorOrToken
-                : actorOrToken instanceof TokenDocumentPF2e
-                  ? actorOrToken.actor
-                  : null;
-        if (actor) {
-            await actor.undoDamage(flag);
-            ui.notifications.info(
-                game.i18n.format(`PF2E.RevertDamage.${flag.isHealing ? "Healing" : "Damage"}Message`, {
-                    actor: actor.name,
-                }),
-            );
-            return true;
-        }
-        return false;
+    static async #onClickKingdomAction(this: ChatLogPF2e, event: PointerEvent): Promise<void> {
+        const { message, element: messageEl } = ChatLogPF2e.#messageFromEvent(event);
+        if (message && messageEl) return handleKingdomChatMessageEvent({ event, message, messageEl });
     }
 
-    #onClickShieldBlock(shieldButton: HTMLButtonElement, messageEl: HTMLLIElement): void {
+    static async #onClickRevertDamage(this: ChatLogPF2e, event: PointerEvent, button: HTMLElement): Promise<void> {
+        const { message, element } = ChatLogPF2e.#messageFromEvent(event);
+        const appliedDamage = message?.flags.pf2e.appliedDamage;
+        if (!appliedDamage) return;
+        const actor = fromUuidSync(appliedDamage.uuid);
+        if (!(actor instanceof ActorPF2e)) return;
+
+        await actor.undoDamage(appliedDamage);
+        ui.notifications.info(
+            game.i18n.format(`PF2E.RevertDamage.${appliedDamage.isHealing ? "Healing" : "Damage"}Message`, {
+                actor: actor.name,
+            }),
+        );
+        htmlQuery(element, "span.statements")?.classList.add("reverted");
+        button.remove();
+        await message.update({
+            "flags.pf2e.appliedDamage.isReverted": true,
+            content: htmlQuery(element, ".message-content")?.innerHTML ?? message.content,
+        });
+    }
+
+    static async #onClickShieldBlock(event: PointerEvent, button: HTMLElement): Promise<void> {
+        const { element: messageEl } = ChatLogPF2e.#messageFromEvent(event);
         const getTokens = (): TokenDocumentPF2e[] => {
             const tokens = game.user.getActiveTokens();
             if (tokens.length === 0) {
@@ -209,8 +157,8 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         };
 
         // Add a tooltipster instance to the shield button if needed.
-        if (!shieldButton.classList.contains("tooltipstered")) {
-            const $shieldButton = $(shieldButton).tooltipster({
+        if (!button.classList.contains("tooltipstered")) {
+            const $shieldButton = $(button).tooltipster({
                 animation: "fade",
                 trigger: "click",
                 arrow: false,
@@ -227,7 +175,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
 
                     const nonBrokenShields = getNonBrokenShields(tokens);
                     const hasMultipleShields = tokens.length === 1 && nonBrokenShields.length > 1;
-                    const shieldActivated = shieldButton.classList.contains("shield-activated");
+                    const shieldActivated = button.classList.contains("shield-activated");
 
                     // More than one shield and no selection. Show tooltip.
                     if (hasMultipleShields && !shieldActivated) {
@@ -235,15 +183,15 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                     }
 
                     // More than one shield and one was previously selected. Remove selection and show tooltip.
-                    if (hasMultipleShields && shieldButton.dataset.shieldId) {
-                        shieldButton.attributes.removeNamedItem("data-shield-id");
-                        shieldButton.classList.remove("shield-activated");
+                    if (hasMultipleShields && button.dataset.shieldId) {
+                        button.attributes.removeNamedItem("data-shield-id");
+                        button.classList.remove("shield-activated");
                         CONFIG.PF2E.chatDamageButtonShieldToggle = false;
                         return true;
                     }
 
                     // Normal toggle behaviour. Tooltip is suppressed.
-                    shieldButton.classList.toggle("shield-activated");
+                    button.classList.toggle("shield-activated");
                     CONFIG.PF2E.chatDamageButtonShieldToggle = !CONFIG.PF2E.chatDamageButtonShieldToggle;
                     return false;
                 },
@@ -251,7 +199,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                     const tokens = getTokens();
                     const nonBrokenShields = getNonBrokenShields(tokens);
                     const multipleShields = tokens.length === 1 && nonBrokenShields.length > 1;
-                    const shieldActivated = shieldButton.classList.contains("shield-activated");
+                    const shieldActivated = button.classList.contains("shield-activated");
 
                     // If the actor is wielding more than one shield, have the user pick which shield to use for blocking.
                     if (multipleShields && !shieldActivated) {
@@ -266,8 +214,8 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                             input.name = "shield-id";
                             input.value = shield.id;
                             input.addEventListener("click", () => {
-                                shieldButton.dataset.shieldId = input.value;
-                                shieldButton.classList.add("shield-activated");
+                                button.dataset.shieldId = input.value;
+                                button.classList.add("shield-activated");
                                 CONFIG.PF2E.chatDamageButtonShieldToggle = true;
                                 instance.close();
                             });
@@ -297,20 +245,20 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         }
     }
 
-    #onClickSender(message: ChatMessagePF2e, event: MouseEvent): void {
-        if (!canvas) return;
-        const token = message.token?.object;
-        if (token?.isVisible && token.isOwner) {
-            if (token.controlled) {
-                token.release();
-            } else {
-                token.control({ releaseOthers: !event.shiftKey });
-            }
-            // If a double click, also pan to the token
-            if (event.type === "dblclick") {
-                const scale = Math.max(1, canvas.stage.scale.x);
-                canvas.animatePan({ ...token.center, scale, duration: 1000 });
-            }
+    static async #onClickFindToken(event: MouseEvent): Promise<void> {
+        if (!canvas.ready) return;
+        const { message } = ChatLogPF2e.#messageFromEvent(event);
+        const token = message?.token?.object;
+        if (!token?.isVisible || !token.isOwner) return;
+        if (token.controlled) {
+            token.release();
+        } else {
+            token.control({ releaseOthers: !event.shiftKey });
+        }
+        // If a double click, also pan to the token
+        if (event.type === "dblclick") {
+            const scale = Math.max(1, canvas.stage.scale.x);
+            canvas.animatePan({ ...token.center, scale, duration: 1000 });
         }
     }
 
@@ -462,7 +410,5 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         return options;
     }
 }
-
-type DamageButtonAction = "apply-healing" | "half-damage" | "apply-damage" | "double-damage" | "triple-damage";
 
 export { ChatLogPF2e };

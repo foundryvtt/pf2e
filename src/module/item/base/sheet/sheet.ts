@@ -1,4 +1,6 @@
-import type { ApplicationV1HeaderButton, AppV1RenderOptions } from "@fvtt-client/appv1/api/application-v1.d.mts";
+import { FormSelectOption } from "@client/applications/forms/fields.mjs";
+import type { ApplicationV1HeaderButton, AppV1RenderOptions } from "@client/appv1/api/application-v1.d.mts";
+import { ItemSheetData } from "@client/appv1/sheets/item-sheet.mjs";
 import { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { Rarity } from "@module/data.ts";
@@ -36,9 +38,8 @@ import * as R from "remeda";
 import type * as TinyMCE from "tinymce";
 import { CodeMirror } from "./codemirror.ts";
 import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-element-form/index.ts";
-import appv1 = foundry.appv1;
 
-class ItemSheetPF2e<TItem extends ItemPF2e> extends appv1.sheets.ItemSheet<TItem, ItemSheetOptions> {
+class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem, ItemSheetOptions> {
     constructor(item: TItem, options: Partial<ItemSheetOptions> = {}) {
         super(item, options);
         this.options.classes.push(this.item.type);
@@ -263,7 +264,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends appv1.sheets.ItemSheet<TItem
 
     override async activateEditor(
         name: string,
-        options: EditorCreateOptions = {},
+        options: { engine?: "prosemirror" | "tinymice" } = {},
         initialContent = "",
     ): Promise<TinyMCE.Editor | ProseMirror.EditorView> {
         // Ensure the source description is edited rather than a prepared one
@@ -661,7 +662,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends appv1.sheets.ItemSheet<TItem
     }
 }
 
-interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends appv1.sheets.ItemSheetData<TItem> {
+interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
     /** The item type label that shows at the top right (for example, "Feat" for "Feat 6") */
     itemType: string | null;
     showTraits: boolean;
@@ -699,7 +700,7 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends appv1.sheets.ItemShe
     proficiencyRanks: typeof CONFIG.PF2E.proficiencyLevels;
 }
 
-interface ItemSheetOptions extends appv1.api.DocumentSheetV1Options {
+interface ItemSheetOptions extends fav1.api.DocumentSheetV1Options {
     hasSidebar: boolean;
 }
 
