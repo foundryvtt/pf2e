@@ -366,7 +366,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per turn</p><hr /><p><strong>Effect</strong> The inspector Demoralizes a creature and asks a question. On a success, the next Strike the inspector attempts against that target deals an additional <code>@Damage[1d6[precision]] </code>precision damage. If the target spends an action on their next turn to answer the question, either truthfully or by succeeding at a @Check[deception|dc:25] check, they are temporarily immune to the inspector's Unavoidable Question for 1 minute.</p>"
+                    "value": "<p><strong>Frequency</strong> once per turn</p><hr /><p><strong>Effect</strong> The inspector [[/act demoralize]]{Demoralizes} a creature and asks a question. On a success, the next Strike the inspector attempts against that target deals an additional 1d6 precision damage. If the target spends an action on their next turn to answer the question, either truthfully or by succeeding at a @Check[deception|dc:25] check, they are temporarily immune to the inspector's Unavoidable Question for 1 minute.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -377,7 +377,24 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "unavoidable-question",
+                        "toggleable": true
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "unavoidable-question"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [

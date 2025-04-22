@@ -1,0 +1,50 @@
+{
+    "_id": "GPcmgpyTtPoXu5N1",
+    "img": "icons/skills/social/thumbsup-approval-like.webp",
+    "name": "Effect: Words of Encouragement",
+    "system": {
+        "description": {
+            "value": "<p>You ignore any circumstance and status penalties you have.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "penalty:type:circumstance",
+                            "penalty:type:status"
+                        ]
+                    }
+                ],
+                "selector": "all",
+                "suppress": true
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

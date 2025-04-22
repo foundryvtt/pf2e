@@ -77,16 +77,20 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
 
     /** Create a textual breakdown of what applied this condition */
     get breakdown(): string | null {
-        if (!this.active) return null;
+        const actor = this.actor;
+        if (!this.active || !actor) return null;
 
-        const granters = R.unique(
-            (
-                this.actor?.conditions.bySlug(this.slug).map((condition) => {
-                    const { appliedBy } = condition;
-                    return !appliedBy?.isOfType("condition") || appliedBy?.active ? appliedBy : null;
-                }) ?? []
-            ).filter(R.isTruthy),
-        );
+        const granters = !this.appliedBy
+            ? []
+            : R.unique(
+                  actor.conditions
+                      .bySlug(this.slug)
+                      .map((condition) => {
+                          const appliedBy = condition.appliedBy;
+                          return !appliedBy?.isOfType("condition") || appliedBy?.active ? appliedBy : null;
+                      })
+                      .filter(R.isNonNull),
+              );
 
         const list = granters
             .map((p) => reduceItemName(p.name))
@@ -232,31 +236,38 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         const deactivate = (condition: ConditionPF2e<ActorPF2e>): void => {
             condition.active = false;
             condition.system.references.overriddenBy.push({ id: this.id, type: "condition" as const });
+            // This is only needed if a late-arriving (typically in-memory) condition needs to deactivate
+            // already-processed condition in the actor's items collection
+            for (const rule of condition.rules) {
+                rule.ignored = true;
+            }
         };
 
         const conditions = this.actor.conditions.active;
 
-        // Deactivate conditions naturally overridden by this one
-        if (this.system.overrides.length > 0) {
-            const overridden = conditions.filter((c) => this.system.overrides.includes(c.key));
-            for (const condition of overridden) {
-                deactivate(condition);
+        const ofSameType = conditions.filter((c) => c !== this && c.key === this.key);
+        for (const other of ofSameType) {
+            const otherIsGTE = other.value === this.value || (other.value && this.value && other.value >= this.value);
+            if (other.slug === "persistent-damage") {
+                const thisValue = this.system.persistent?.expectedValue ?? 0;
+                const otherValue = other.system.persistent?.expectedValue ?? 0;
+                if (thisValue >= otherValue) deactivate(other);
+            } else if (otherIsGTE && this.inMemoryOnly) {
+                // Defer to other, gte condition if this one is in-memory-only
+                return deactivate(this);
+            } else if (this.value === other.value && (!this.isLocked || other.isLocked)) {
+                // Deactivate other, equal-valued conditions if this condition isn't locked or both are locked
+                deactivate(other);
+            } else if (!otherIsGTE) {
+                // Deactivate other conditions of lower values
+                deactivate(other);
             }
         }
 
-        const ofSameType = conditions.filter((c) => c !== this && c.key === this.key);
-        for (const condition of ofSameType) {
-            if (condition.slug === "persistent-damage") {
-                const thisValue = this.system.persistent?.expectedValue ?? 0;
-                const otherValue = condition.system.persistent?.expectedValue ?? 0;
-                if (thisValue >= otherValue) {
-                    deactivate(condition);
-                }
-            } else if (this.value === condition.value && (!this.isLocked || condition.isLocked)) {
-                // Deactivate other equal valued conditions if this condition isn't locked or both are locked
-                deactivate(condition);
-            } else if (this.value && condition.value && this.value > condition.value) {
-                // Deactivate other conditions with a lower or equal value
+        // Deactivate conditions naturally overridden by this one
+        if (this.system.overrides.length > 0) {
+            const overridden = conditions.filter((c) => c.active && this.system.overrides.includes(c.key));
+            for (const condition of overridden) {
                 deactivate(condition);
             }
         }

@@ -1,0 +1,101 @@
+{
+    "_id": "zDQmjp5YSwZtrgX9",
+    "img": "icons/creatures/mammals/wolf-howl-moon-gray.webp",
+    "name": "Effect: Fanged Rune Animal Form",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Fanged (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Fanged (Major)]</p>\n<p>You gain low-light vision and item bonus to your speed. A <em>major</em> rune also grants imprecise scent to a range of 30 feet.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens The Grand Bazaar"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:fanged-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Fanged (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:fanged-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Fanged (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "fanged"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "land-speed",
+                "slug": "fanged-speed-bonus",
+                "type": "item",
+                "value": 5
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "fanged:fanged-major"
+                ],
+                "selector": "land-speed",
+                "slug": "fanged-speed-bonus",
+                "value": 10
+            },
+            {
+                "key": "Sense",
+                "selector": "low-light-vision"
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    "fanged:fanged-major"
+                ],
+                "range": 30,
+                "selector": "scent"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

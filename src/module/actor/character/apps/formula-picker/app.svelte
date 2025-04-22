@@ -85,7 +85,7 @@
                                         formula.item.uuid,
                                         Number(event.currentTarget.value || 0),
                                     );
-                                    event.currentTarget.value = formula.quantity || null;
+                                    event.currentTarget.value = String(formula.quantity || "");
                                 }}
                             />
                             <button

@@ -1,10 +1,7 @@
 import type { ActorPF2e } from "@actor";
-import type { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { createHTMLElement, setHasElement } from "@util";
-import * as R from "remeda";
 import { processSanctification } from "./ability/helpers.ts";
-import type { ItemSourcePF2e, ItemType, RawItemChatData } from "./base/data/index.ts";
-import { ItemDescriptionData } from "./base/data/system.ts";
+import type { ItemSourcePF2e, ItemType } from "./base/data/index.ts";
 import type { ItemPF2e } from "./base/document.ts";
 import type { PhysicalItemPF2e } from "./physical/document.ts";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values.ts";
@@ -58,113 +55,20 @@ function performLatePreparation(item: ItemPF2e): void {
     }
 }
 
-/** A helper class to finalize data for item summaries and chat cards */
-class ItemChatData {
-    item: ItemPF2e;
-    data: RawItemChatData;
-    htmlOptions: EnrichmentOptionsPF2e;
+let mdConverter: showdown.Converter | null = null;
 
-    /** A showdown markdown converter */
-    static #mdConverter: showdown.Converter | null = null;
+function markdownToHTML(markdown: string): string {
+    const converter = (mdConverter ??= new showdown.Converter());
+    const htmlStripped = createHTMLElement("div", { innerHTML: game.i18n.localize(markdown).trim() }).innerText;
+    // Prevent markdown converter from treating Foundry content links as markdown links
+    const withSubbedBrackets = htmlStripped.replaceAll("[", "⟦").replaceAll("]", "⟧");
+    const stringyHTML = converter
+        .makeHtml(withSubbedBrackets)
+        .replace(/<\/?p[^>]*>/g, "")
+        .replaceAll("⟦", "[")
+        .replaceAll("⟧", "]");
 
-    constructor({ item, data, htmlOptions = {} }: ItemChatDataConstructorOptions) {
-        this.item = item;
-        this.data = data;
-        this.htmlOptions = htmlOptions;
-    }
-
-    /** Sanitized and convert stringy markdown into stringy HTML, with any initial HTML content stripped */
-    static markdownToHTML(markdown: string): string {
-        const converter = (ItemChatData.#mdConverter ??= new showdown.Converter());
-        const htmlStripped = createHTMLElement("div", { innerHTML: game.i18n.localize(markdown).trim() }).innerText;
-        // Prevent markdown converter from treating Foundry content links as markdown links
-        const withSubbedBrackets = htmlStripped.replaceAll("[", "⟦").replaceAll("]", "⟧");
-        const stringyHTML = converter
-            .makeHtml(withSubbedBrackets)
-            .replace(/<\/?p[^>]*>/g, "")
-            .replaceAll("⟦", "[")
-            .replaceAll("⟧", "]");
-
-        return TextEditor.truncateHTML(createHTMLElement("div", { innerHTML: stringyHTML })).innerHTML.trim();
-    }
-
-    async process(): Promise<RawItemChatData> {
-        const description = {
-            ...this.data.description,
-            ...(await this.#prepareDescription()),
-        };
-        return fu.mergeObject(this.data, { description }, { inplace: false });
-    }
-
-    async #prepareDescription(): Promise<Pick<ItemDescriptionData, "value" | "gm">> {
-        const item = this.item;
-        const actor = item.actor;
-        const rollOptions = new Set([actor?.getRollOptions(), item.getRollOptions("item")].flat().filter(R.isTruthy));
-        const description = await this.item.getDescription();
-
-        const baseText = await (async (): Promise<string> => {
-            const override = description?.override;
-            if (!override) return description.value;
-            return override
-                .flatMap((line) => {
-                    if (!line.predicate.test(rollOptions)) return [];
-                    const hr = line.divider ? document.createElement("hr") : null;
-
-                    // Create paragraph element
-                    const paragraph = createHTMLElement("p");
-                    if (line.title) {
-                        paragraph.appendChild(
-                            createHTMLElement("strong", { children: [game.i18n.localize(line.title)] }),
-                        );
-                        paragraph.appendChild(new Text(" "));
-                    }
-                    const text = ItemChatData.markdownToHTML(line.text);
-                    if (text) {
-                        paragraph.insertAdjacentHTML("beforeend", text);
-                    }
-
-                    return [hr, paragraph].map((e) => e?.outerHTML).filter(R.isTruthy);
-                })
-                .join("\n");
-        })();
-
-        const addenda = await (async (): Promise<string[]> => {
-            if (item.system.description.addenda.length === 0) return [];
-
-            const templatePath = "systems/pf2e/templates/items/partials/addendum.hbs";
-            return Promise.all(
-                description.addenda.flatMap((unfiltered) => {
-                    const addendum = {
-                        label: game.i18n.localize(unfiltered.label),
-                        contents: unfiltered.contents
-                            .filter((c) => c.predicate.test(rollOptions))
-                            .map((line) => {
-                                line.title &&= game.i18n.localize(line.title).trim();
-                                line.text = ItemChatData.markdownToHTML(line.text);
-                                return line;
-                            }),
-                    };
-                    return addendum.contents.length > 0 ? renderTemplate(templatePath, { addendum }) : [];
-                }),
-            );
-        })();
-
-        const assembled = [baseText, addenda.length > 0 ? "\n<hr />\n" : null, ...addenda]
-            .filter(R.isTruthy)
-            .join("\n");
-        const rollData = fu.mergeObject(this.item.getRollData(), this.htmlOptions.rollData);
-
-        return {
-            value: await TextEditor.enrichHTML(assembled, { ...this.htmlOptions, rollData }),
-            gm: game.user.isGM ? await TextEditor.enrichHTML(description.gm, { ...this.htmlOptions, rollData }) : "",
-        };
-    }
+    return TextEditor.truncateHTML(createHTMLElement("div", { innerHTML: stringyHTML })).innerHTML.trim();
 }
 
-interface ItemChatDataConstructorOptions {
-    item: ItemPF2e;
-    data: RawItemChatData;
-    htmlOptions?: EnrichmentOptionsPF2e;
-}
-
-export { ItemChatData, itemIsOfType, performLatePreparation, reduceItemName };
+export { itemIsOfType, markdownToHTML, performLatePreparation, reduceItemName };

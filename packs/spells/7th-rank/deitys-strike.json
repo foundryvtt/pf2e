@@ -1,0 +1,86 @@
+{
+    "_id": "x9RIFhquazom4p02",
+    "folder": "xqlqJ6eeiNtWb7bq",
+    "img": "icons/weapons/axes/axe-double-white-red.webp",
+    "name": "Deity's Strike",
+    "system": {
+        "area": null,
+        "cost": {
+            "value": ""
+        },
+        "counteraction": false,
+        "damage": {
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "7d12",
+                "kinds": [
+                    "damage"
+                ],
+                "type": "force"
+            }
+        },
+        "defense": {
+            "passive": {
+                "statistic": "ac"
+            },
+            "save": {
+                "basic": true,
+                "statistic": "reflex"
+            }
+        },
+        "description": {
+            "value": "<p>A manifested version of your deity's favored weapon appears in the air above and attacks the target, using your spell attack roll. On a hit, the weapon deals 7d12 force damage, or double damage on a critical hit.</p>\n<p>After the attack, whether it succeeds or fails, divine energy bursts from the weapon in a shock wave. It emits in a @Template[line|distance:30|width:10]{10-foot-wide, 30-foot-long line} starting from the target and continuing in a direction you choose. Choose an alignment your deity has (chaotic, evil, good, or lawful). Your target and any other creatures within the area of the spell take @Damage[(ternary(gte(@item.rank,9),6,5))d6[spirit]|shortLabel] damage of the chosen alignment type, with a basic Reflex save. The spell gains the trait of the alignment you choose. If your deity is true neutral, the weapon doesn't create a shock wave.</p><hr /><p><strong>Heightened (9th)</strong> The force damage increases by 1d12 and the alignment damage increases by 1d6.</p>"
+        },
+        "duration": {
+            "sustained": false,
+            "value": ""
+        },
+        "heightening": {
+            "levels": {
+                "9": {
+                    "damage": {
+                        "0": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "8d12",
+                            "type": "force"
+                        }
+                    }
+                }
+            },
+            "type": "fixed"
+        },
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "range": {
+            "value": "500 feet"
+        },
+        "requirements": "You have a deity.",
+        "rules": [],
+        "target": {
+            "value": "1 creature"
+        },
+        "time": {
+            "value": "2"
+        },
+        "traits": {
+            "rarity": "common",
+            "traditions": [
+                "divine"
+            ],
+            "value": [
+                "concentrate",
+                "force",
+                "manipulate"
+            ]
+        }
+    },
+    "type": "spell"
+}

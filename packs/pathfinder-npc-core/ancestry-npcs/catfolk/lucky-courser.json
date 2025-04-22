@@ -390,7 +390,7 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 19
+                    "value": 20
                 },
                 "damageRolls": {
                     "F5pBGVDGVzstcF9I": {
@@ -413,7 +413,7 @@
                         "disarm",
                         "finesse",
                         "nonlethal",
-                        "reach-10",
+                        "reach",
                         "trip"
                     ]
                 }
@@ -571,7 +571,8 @@
                         ],
                         "selector": "initiative",
                         "text": "{item|description}",
-                        "title": "{item|name} <span class=\"action-glyph\">F</span>"
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
@@ -646,7 +647,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The lucky courser can @UUID[Compendium.pf2e.actionspf2e.Item.Hide] and @UUID[Compendium.pf2e.actionspf2e.Item.Sneak] in any natural terrain and in lesser cover from allies.</p>"
+                    "value": "<p>The lucky courser can [[/act hide]] and [[/act sneak]] in any natural terrain and in lesser cover from allies.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -676,6 +677,10 @@
                 "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The lucky courser can Interact to reload their arbalest, Step, and Strike, taking the actions in any order. The Step ignores difficult terrain.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
                 },
                 "publication": {
                     "license": "ORC",

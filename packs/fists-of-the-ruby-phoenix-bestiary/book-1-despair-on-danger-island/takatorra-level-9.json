@@ -348,15 +348,14 @@
                 },
                 "rules": [
                     {
-                        "definition": [
-                            "item:melee"
-                        ],
-                        "key": "AdjustStrike",
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
                         "mode": "add",
                         "predicate": [
-                            "blade-barrage"
+                            "blade-barrage",
+                            "item:melee"
                         ],
-                        "property": "weapon-traits",
+                        "property": "traits",
                         "value": "forceful"
                     },
                     {
@@ -368,10 +367,9 @@
                     {
                         "key": "Note",
                         "predicate": [
-                            "blade-barrage",
-                            "item:melee"
+                            "blade-barrage"
                         ],
-                        "selector": "strike-damage",
+                        "selector": "melee-strike-damage",
                         "text": "{item|system.description.value}",
                         "title": "{item|name}",
                         "visibility": "owner"

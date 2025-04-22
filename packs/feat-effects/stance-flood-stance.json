@@ -4,7 +4,7 @@
     "name": "Stance: Flood Stance",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Flood Stance]</p>\n<p>The only Strikes you can make are flooded river unarmed attacks. These deal 1d8 bludgeoning damage; are in the brawling group; have the nonlethal, trip, unarmed, and water traits; and don’t take the normal penalty for being used underwater. They also gain the forceful trait while you’re underwater.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Flood Stance]</p>\n<p>The only Strikes you can make are flooded river unarmed attacks. These deal 1d8 bludgeoning damage; are in the brawling group; have the nonlethal, trip, unarmed, and water traits; and don't take the normal penalty for being used underwater. They also gain the forceful trait while you're underwater.</p>"
         },
         "duration": {
             "expiry": null,
@@ -45,15 +45,14 @@
                 ]
             },
             {
-                "definition": [
-                    "item:slug:flooded-river"
-                ],
-                "key": "AdjustStrike",
+                "itemType": "weapon",
+                "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
+                    "item:slug:flooded-river",
                     "terrain:aquatic"
                 ],
-                "property": "weapon-traits",
+                "property": "traits",
                 "value": "forceful"
             }
         ],

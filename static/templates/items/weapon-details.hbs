@@ -23,7 +23,7 @@
         <label for="{{fieldIdPrefix}}range">
             {{localize "PF2E.TraitRange"}}
             {{#if mandatoryMelee}}
-                <i class="fa-solid fa-info-circle" data-tooltip="PF2E.Item.Weapon.MandatoryMelee"></i>
+                <i class="fa-solid fa-circle-info" data-tooltip="PF2E.Item.Weapon.MandatoryMelee"></i>
             {{/if}}
         </label>
         <select name="system.range" id="{{fieldIdPrefix}}range" data-dtype="Number" {{disabled mandatoryMelee}}>
@@ -96,7 +96,7 @@
                     name="system.runes.property.{{index}}"
                     id="{{../fieldIdPrefix}}runes-property-{{index}}"
                     {{disabled slot.disabled}}
-                    {{#if @root.item.isSpecific}}class="readonly"{{/if}}
+                    class="{{#if @root.item.isSpecific}}readonly{{/if}}{{#if slot.adjusted}} adjusted{{/if}}"
                 >
                     {{selectOptions
                         @root.runeTypes.property
@@ -112,7 +112,7 @@
         <div class="form-group">
             <label for="{{fieldIdPrefix}}specific" class="large">
                 {{localize "PF2E.Item.Weapon.SpecificMagicWeapon.Label"}}
-                <i class="fa-solid fa-info-circle" data-tooltip="PF2E.Item.Weapon.SpecificMagicWeapon.Hint"></i>
+                <i class="fa-solid fa-circle-info" data-tooltip="PF2E.Item.Weapon.SpecificMagicWeapon.Hint"></i>
             </label>
             <input
                 type="checkbox"
@@ -129,13 +129,13 @@
 <fieldset>
     <legend>
         {{localize "PF2E.DamageLabel"}}
-        <i class="fa-solid fa-info-circle" data-tooltip="PF2E.WeaponBaseDamageTitle"></i>
+        <i class="fa-solid fa-circle-info" data-tooltip="PF2E.WeaponBaseDamageTitle"></i>
     </legend>
 
     <div class="form-group">
         <label for="{{fieldIdPrefix}}damage-dice-number">
             {{localize "PF2E.WeaponBaseLabel"}}
-            {{#if adjustedDiceHint}}<i class="fa-solid fa-info-circle" data-tooltip="{{adjustedDiceHint}}"></i>{{/if}}
+            {{#if adjustedDiceHint}}<i class="fa-solid fa-circle-info" data-tooltip="{{adjustedDiceHint}}"></i>{{/if}}
         </label>
 
         <div class="dice-data">
@@ -196,7 +196,7 @@
 <fieldset>
     <legend>
         {{localize "PF2E.WeaponCustomDamageLabel"}}
-        <i class="fa-solid fa-info-circle" data-tooltip="PF2E.WeaponCustomDamageTitle"></i>
+        <i class="fa-solid fa-circle-info" data-tooltip="PF2E.WeaponCustomDamageTitle"></i>
     </legend>
     <div class="form-group">
         <label>{{localize "Description"}}</label>
@@ -258,7 +258,7 @@
     <ol class="form-list">
         <h3>
             {{localize "PF2E.Item.Weapon.MeleeUsage.Label"}}
-            <i class="fa-solid fa-info-circle" data-tooltip="PF2E.Item.Weapon.MeleeUsage.Hint"></i>
+            <i class="fa-solid fa-circle-info" data-tooltip="PF2E.Item.Weapon.MeleeUsage.Hint"></i>
         </h3>
         <div class="form-group">
             <label>{{localize "PF2E.WeaponGroupLabel"}}</label>
@@ -296,7 +296,7 @@
 <div class="form-group stacked">
     <label>
         {{localize "PF2E.Item.Physical.OtherTags.Label"}}
-        <i class="fa-solid fa-info-circle" data-tooltip="PF2E.Item.Physical.OtherTags.Hint"></i>
+        <i class="fa-solid fa-circle-info" data-tooltip="PF2E.Item.Physical.OtherTags.Hint"></i>
         {{#if editable}}
             <a class="tag-selector" data-tag-selector="basic" data-config-types="otherWeaponTags" data-title="PF2E.Item.Physical.OtherTags.Label" data-property="system.traits.otherTags"><i class="fa-solid fa-edit"></i></a>
         {{/if}}
@@ -311,7 +311,7 @@
     <div class="form-group">
         <label>
             {{localize "PF2E.Item.Weapon.CanBeAmmo.Label"}}
-            <i class="fa-solid fa-info-circle" data-tooltip-width="300" data-tooltip="PF2E.Item.Weapon.CanBeAmmo.Hint"></i>
+            <i class="fa-solid fa-circle-info" data-tooltip-width="300" data-tooltip="PF2E.Item.Weapon.CanBeAmmo.Hint"></i>
         </label>
         <input type="checkbox" name="system.usage.canBeAmmo" {{checked item.system.usage.canBeAmmo}} />
     </div>

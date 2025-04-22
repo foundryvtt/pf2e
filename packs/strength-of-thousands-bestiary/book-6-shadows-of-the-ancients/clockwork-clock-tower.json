@@ -40,7 +40,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "reach-30"
+                        "reach-30",
+                        "unarmed"
                     ]
                 },
                 "weaponType": {
@@ -85,7 +86,8 @@
                     "rarity": "common",
                     "value": [
                         "agile",
-                        "reach-20"
+                        "reach-20",
+                        "unarmed"
                     ]
                 },
                 "weaponType": {
@@ -141,14 +143,22 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The clockwork clock tower rolls initiative</p>\n<hr />\n<p><strong>Effect</strong> The clock tower chimes, and all non-clockwork creatures within 300 feet who can hear it must succeed at a @Check[will|dc:42] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure).</p>"
+                    "value": "<p><strong>Trigger</strong> The clockwork clock tower rolls initiative</p>\n<hr />\n<p><strong>Effect</strong> The clock tower chimes, and all non-clockwork creatures within 300 feet who can hear it must succeed at a @Check[will|dc:42|options:inflicts:slowed] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "initiative",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

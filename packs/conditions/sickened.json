@@ -4,7 +4,7 @@
     "name": "Sickened",
     "system": {
         "description": {
-            "value": "<p>You feel ill. Sickened always includes a value. You take a status penalty equal to this value on all your checks and DCs. You can't willingly ingest anything—including elixirs and potions—while sickened.</p>\n<p>You can spend a single action retching in an attempt to recover, which lets you immediately attempt a Fortitude save against the DC of the effect that made you sickened. On a success, you reduce your sickened value by 1 (or by 2 on a critical success).</p>"
+            "value": "<p>You feel ill. Sickened always includes a value. You take a status penalty equal to this value on all your checks and DCs. You can't willingly ingest anything—including elixirs and potions—while sickened.</p>\n<p>You can spend a single action retching in an attempt to recover, which lets you immediately attempt a @Check[fortitude] save against the DC of the effect that made you sickened. On a success, you reduce your sickened value by 1 (or by 2 on a critical success).</p>"
         },
         "duration": {
             "expiry": null,
@@ -31,6 +31,28 @@
                 "slug": "sickened",
                 "type": "status",
                 "value": "-@item.badge.value"
+            },
+            {
+                "itemType": "consumable",
+                "key": "ItemAlteration",
+                "label": "PF2E.condition.sickened.name",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:tag:alchemical-food",
+                            "item:trait:elixir",
+                            "item:trait:ingested",
+                            "item:trait:potion"
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.condition.sickened.note"
+                    }
+                ]
             }
         ],
         "traits": {

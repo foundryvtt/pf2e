@@ -245,7 +245,7 @@ export function registerSettings(): void {
         name: "PF2E.SETTINGS.Homebrew.Name",
         label: "PF2E.SETTINGS.Homebrew.Label",
         hint: "PF2E.SETTINGS.Homebrew.Hint",
-        icon: "fa-solid fa-beer",
+        icon: "fa-solid fa-beer-mug-empty",
         type: HomebrewElements,
         restricted: true,
     });

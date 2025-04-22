@@ -11,13 +11,13 @@
         <div class="container temp-hp">
             <label for="{{options.id}}-pc-hp-temp" class="sidebar_label">{{localize "PF2E.TempHitPointsShortLabel"}}</label>
             <div class="data-value">
-                <input name="system.attributes.hp.temp" id="{{options.id}}-pc-hp-temp" type="number" value="{{data.attributes.hp.temp}}" placeholder="0" />
+                <input name="system.attributes.hp.temp" id="{{options.id}}-pc-hp-temp" type="text" value="{{data.attributes.hp.temp}}" placeholder="0" data-dtype="Number" data-allow-delta data-min="0" />
             </div>
         </div>
         <div class="container current-hp">
             <label for="{{options.id}}-pc-hp" class="sidebar_label">{{localize "PF2E.CurrentHitPointsShortLabel"}}</label>
             <div class="data-value">
-                <input name="system.attributes.hp.value" id="{{options.id}}-pc-hp" type="number" value="{{data.attributes.hp.value}}" placeholder="10" />
+                <input name="system.attributes.hp.value" id="{{options.id}}-pc-hp" type="text" value="{{data.attributes.hp.value}}" placeholder="10" data-dtype="Number" data-allow-delta data-min="0" data-max="{{data.attributes.hp.max}}" />
             </div>
         </div>
         <div class="container max-hp">
@@ -121,10 +121,11 @@
             {{#if data.attributes.shield.hp.max}}
                 <input
                     id="{{@root.options.id}}-shield-hp"
-                    type="number"
+                    type="text"
                     placeholder="0"
                     name="system.attributes.shield.hp.value"
                     value="{{data.attributes.shield.hp.value}}"
+                    data-dtype="Number" data-allow-delta data-max="{{data.attributes.shield.hp.max}}"
                     {{disabled (not data.attributes.shield.hp.max)}}
                 />
             {{else}}
@@ -183,10 +184,10 @@
         <div class="status">
             {{#if data.attributes.shield.destroyed}}
                 <span class="sidebar_label">{{localize "PF2E.Item.Physical.Destroyed"}}</span>
-                <i class="fa-regular fa-times-circle"></i>
+                <i class="fa-regular fa-circle-xmark"></i>
             {{else}}
                 <span class="sidebar_label">{{localize "PF2E.Item.Physical.Broken"}}</span>
-                {{#if data.attributes.shield.broken}}<i class="fa-regular fa-times-circle"></i>{{else}}<i class="fa-regular fa-circle"></i>{{/if}}
+                {{#if data.attributes.shield.broken}}<i class="fa-regular fa-circle-xmark"></i>{{else}}<i class="fa-regular fa-circle"></i>{{/if}}
             {{/if}}
         </div>
     </div>
@@ -203,7 +204,7 @@
         {{#each specialResources as |resource|}}
             <li class="special-resource">
                 <span class="label">{{resource.label}}</span>
-                <input type="text" data-resource="{{resource.slug}}" value="{{resource.value}}" />
+                <input type="text" data-dtype="Number" data-allow-delta data-min="0" data-max="{{resource.max}}" data-resource="{{resource.slug}}" value="{{resource.value}}" />
                 / {{resource.max}}
             </li>
         {{/each}}
@@ -294,7 +295,7 @@
     <h2>{{localize "PF2E.ImmunitiesLabel"}}</h2>
     {{#if editable}}
         <button type="button" data-action="edit-immunities">
-            <i class="fa-solid fa-edit"></i> {{localize "PF2E.Edit"}}
+            <i class="fa-solid fa-pen-to-square"></i> {{localize "PF2E.Edit"}}
         </a>
     {{/if}}
 </header>
@@ -309,7 +310,7 @@
     <h2>{{localize "PF2E.WeaknessesLabel"}}</h2>
     {{#if editable}}
         <button type="button" data-action="edit-weaknesses">
-            <i class="fa-solid fa-edit"></i> {{localize "PF2E.Edit"}}
+            <i class="fa-solid fa-pen-to-square"></i> {{localize "PF2E.Edit"}}
         </button>
     {{/if}}
 </header>
@@ -324,7 +325,7 @@
     <h2>{{localize "PF2E.ResistancesLabel"}}</h2>
     {{#if editable}}
         <button type="button" data-action="edit-resistances">
-            <i class="fa-solid fa-edit"></i> {{localize "PF2E.Edit"}}
+            <i class="fa-solid fa-pen-to-square"></i> {{localize "PF2E.Edit"}}
         </button>
     {{/if}}
 </header>

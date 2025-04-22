@@ -589,13 +589,13 @@
                         "key": "DamageAlteration",
                         "mode": "upgrade",
                         "predicate": [
-                            "two-handed",
-                            "dice:slug:base"
+                            "two-handed"
                         ],
                         "property": "dice-faces",
                         "selectors": [
                             "{item|_id}-damage"
                         ],
+                        "slug": "base",
                         "value": 6
                     }
                 ],
@@ -950,10 +950,9 @@
                         "dieSize": "d8",
                         "key": "DamageDice",
                         "predicate": [
-                            "item:ranged",
                             "tormenting-shot"
                         ],
-                        "selector": "strike-damage"
+                        "selector": "ranged-strike-damage"
                     },
                     {
                         "damageType": "bleed",
@@ -961,11 +960,10 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "item:ranged",
                             "target:condition:frightened",
                             "tormenting-shot"
                         ],
-                        "selector": "strike-damage"
+                        "selector": "ranged-strike-damage"
                     }
                 ],
                 "slug": null,

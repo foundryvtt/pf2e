@@ -1,5 +1,3 @@
-@import "roll-inspector";
-
 .chat-message {
     @import "action", "check", "damage", "reroll";
 
@@ -99,6 +97,20 @@
 
     > .message-content {
         @import "conditions";
+
+        .addendum {
+            @include frame-elegant;
+            background: rgba($alt-dark, 0.1);
+            border-radius: 2px;
+            color: var(--color-pf-alternate-darker);
+            padding: var(--space-4);
+
+            h4 {
+                font-weight: 600;
+                margin: 0 0 var(--space-4) 0;
+                text-align: center;
+            }
+        }
 
         .dice-roll {
             .dice-result > [data-visibility="gm"] {

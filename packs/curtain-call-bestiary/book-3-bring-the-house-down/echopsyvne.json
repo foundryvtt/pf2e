@@ -151,7 +151,8 @@
                     "value": [
                         "agile",
                         "finesse",
-                        "magical"
+                        "magical",
+                        "unarmed"
                     ]
                 }
             },
@@ -277,7 +278,15 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "initiative",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -456,9 +465,13 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "darkvision",
+            "details": "",
             "mod": 31,
-            "senses": []
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {

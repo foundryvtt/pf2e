@@ -314,7 +314,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "agile"
+                        "agile",
+                        "unarmed"
                     ]
                 },
                 "weaponType": {
@@ -360,7 +361,9 @@
                 "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "unarmed"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -564,10 +567,7 @@
                             "success",
                             "criticalSuccess"
                         ],
-                        "predicate": [
-                            "item:melee"
-                        ],
-                        "selector": "strike-damage",
+                        "selector": "melee-strike-damage",
                         "text": "{item|system.description.value}",
                         "title": "{item|name}",
                         "visibility": "owner"
@@ -611,10 +611,7 @@
                             "success",
                             "criticalSuccess"
                         ],
-                        "predicate": [
-                            "item:ranged"
-                        ],
-                        "selector": "strike-damage",
+                        "selector": "ranged-strike-damage",
                         "text": "{item|system.description.value}",
                         "title": "{item|name}",
                         "visibility": "owner"

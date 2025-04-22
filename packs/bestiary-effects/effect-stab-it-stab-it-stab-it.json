@@ -1,0 +1,49 @@
+{
+    "_id": "Sv99eNoXedd9Zw26",
+    "img": "icons/skills/melee/blood-slash-foam-red.webp",
+    "name": "Effect: Stab it! Stab it! Stab it!",
+    "system": {
+        "description": {
+            "value": "<p>Your attacks against the marked target deal 1 additional damage dice.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "stab-it-stab-it-stab-it"
+            },
+            {
+                "diceNumber": 1,
+                "key": "DamageDice",
+                "predicate": [
+                    "target:mark:stab-it-stab-it-stab-it"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

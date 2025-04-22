@@ -237,7 +237,8 @@
                     "rarity": "common",
                     "value": [
                         "agile",
-                        "nonlethal"
+                        "nonlethal",
+                        "unarmed"
                     ]
                 },
                 "weaponType": {
@@ -453,7 +454,7 @@
                             {
                                 "nor": [
                                     "agile",
-                                    "ranged"
+                                    "item:ranged"
                                 ]
                             }
                         ],
@@ -543,12 +544,13 @@
                 },
                 "rules": [
                     {
-                        "definition": [
+                        "itemType": "weapon",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
                             "item:thrown"
                         ],
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "weapon-traits",
+                        "property": "traits",
                         "value": "deadly-d6"
                     }
                 ],

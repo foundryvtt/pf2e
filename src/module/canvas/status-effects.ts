@@ -235,7 +235,8 @@ export class StatusEffects {
             }
 
             const condition = actor.conditions
-                .bySlug(slug, { active: true, temporary: false })
+                .bySlug(slug, { temporary: false })
+                .sort((a, b) => Number(b.active) - Number(a.active))
                 .find((c) => c.isInHUD && !c.system.references.parent);
 
             if (event.type === "click") {

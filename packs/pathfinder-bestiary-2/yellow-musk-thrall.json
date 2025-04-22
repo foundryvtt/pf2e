@@ -39,7 +39,9 @@
                 "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "unarmed"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -145,15 +147,14 @@
                         "toggleable": true
                     },
                     {
-                        "definition": [
-                            "item:melee"
-                        ],
-                        "key": "AdjustStrike",
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
                         "mode": "add",
                         "predicate": [
-                            "limb-extension"
+                            "limb-extension",
+                            "item:melee"
                         ],
-                        "property": "weapon-traits",
+                        "property": "traits",
                         "value": "reach"
                     }
                 ],

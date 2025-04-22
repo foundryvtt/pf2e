@@ -882,6 +882,7 @@ const hazardTraits = {
     mechanical: "PF2E.TraitMechanical",
     poison: "PF2E.TraitPoison",
     polymorph: "PF2E.TraitPolymorph",
+    snare: "PF2E.TraitSnare",
     steam: "PF2E.TraitSteam",
     technological: "PF2E.TraitTechnological",
     teleportation: "PF2E.TraitTeleportation",

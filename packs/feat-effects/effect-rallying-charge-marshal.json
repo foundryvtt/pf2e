@@ -1,0 +1,41 @@
+{
+    "_id": "wjNNHgX6ceKLbn8Q",
+    "img": "icons/sundries/flags/banner-flag-red-white.webp",
+    "name": "Effect: Rallying Charge (Marshal)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Rallying Charge (Marshal)]</p>\n<p>You gain temporary hit points equal to the Charisma modifier of the creature that used Rallying Charge.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "@item.origin.abilities.cha.mod"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

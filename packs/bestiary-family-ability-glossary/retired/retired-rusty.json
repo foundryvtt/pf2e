@@ -1,0 +1,46 @@
+{
+    "_id": "NmiklEFz8kLCvF6L",
+    "folder": "ajbMJTedYM5szcSp",
+    "img": "systems/pf2e/icons/actions/Passive.webp",
+    "name": "(Retired) Rusty",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": null,
+        "description": {
+            "value": "<p>The NPC is out of practice. They take a –1 status penalty to all their rolls and DCs. The NPC also rolls twice on initiative rolls and takes the lower result; this is a misfortune effect.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "self:effect:still-got-it"
+                    }
+                ],
+                "selector": "all",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "removeAfterRoll": false,
+                "selector": "initiative"
+            }
+        ],
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "action"
+}

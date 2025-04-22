@@ -1,0 +1,193 @@
+{
+    "_id": "HWkNWxoEkPlcr7WU",
+    "folder": "1hdNljMZCWQZtriy",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "w0xgVIhX2MN072Ry",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Deadbolts",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature approaches within 10 feet of the cleansing suite's eastern doors</p><hr /><p><strong>Effect</strong> The doors to the chamber slam shut and seal with deadbolts. The hazard rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hjkn3ZiydhISo99p",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Rune Against Evil",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The hazard fills the chamber with holy energy that deals @Damage[(6d6+20)[spirit]] damage (@Check[fortitude|dc:41|basic] save) to creatures with the unholy trait.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "holy"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rTkODjVASokivl6k",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Rune Against Magic",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The hazard casts @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (9th rank, counteract [[/r 1d20+31 #Counteract]]{+31}) that targets a spell or effect on each creature in the chamber.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HZ5OFkYXR855LkwR",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Rune Against Scrying",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The hazard casts @UUID[Compendium.pf2e.spells-srd.Item.Detect Scrying]. If it detects a scrying effect in the chamber, it casts @UUID[Compendium.pf2e.spells-srd.Item.Hidden Mind] on each affected creature and @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] on the effect (9th rank, counteract [[/r 1d20+31 #Counteract]]{+31}).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "detection",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Cleansing Suite",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 40
+            },
+            "emitsSound": "encounter",
+            "hardness": 31,
+            "hp": {
+                "details": "(runes) BT 65",
+                "max": 130,
+                "temp": 0,
+                "value": 130
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 27
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Deadbolts inside the doors clunk as three glowing runes appear on the ceiling.</p>",
+            "disable": "<p>@Check[arcana|dc:42], @Check[nature|dc:42], @Check[occultism|dc:42], or @Check[religion|dc:42] to erase the runes, or @Check[crafting|dc:46] or @Check[thievery|dc:46] to destroy the runes, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (9th rank, counteract DC 41); each rune requires a success to remove (three runes total)</p>",
+            "isComplex": true,
+            "level": {
+                "value": 19
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Claws of the Tyrant"
+            },
+            "reset": "<p>1 minute after the hazard activates, the deadbolts unlock and the hazard resets.</p>",
+            "routine": "<p>(3 actions) The cleansing suite activates one of its runes. The hazard can't activate the same rune more than once per turn. Disabling a rune removes one of the hazard's actions and prevents the hazard from activating that rune.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 0
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "divine",
+                "holy",
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

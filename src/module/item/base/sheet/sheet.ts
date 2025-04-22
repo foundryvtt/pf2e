@@ -98,15 +98,11 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
 
         // Enrich content
         const enrichedContent: Record<string, string> = {};
-        const rollData = { ...this.item.getRollData(), ...this.actor?.getRollData() };
 
         // Get the source description in case this is an unidentified physical item
-        const description = await item.getDescription();
-        enrichedContent.description = await TextEditor.enrichHTML(description.value, {
-            rollData,
-            secrets: item.isOwner,
-        });
-        enrichedContent.gmNotes = await TextEditor.enrichHTML(description.gm.trim(), { rollData });
+        const description = await item.getDescription({ includeAddendum: false, secrets: item.isOwner });
+        enrichedContent.description = description.value;
+        enrichedContent.gmNotes = description.gm;
 
         const validTraits = this.validTraits;
         const hasRarity = !item.isOfType("action", "condition", "deity", "effect", "lore", "melee");
@@ -483,7 +479,9 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         tagify(htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.otherTags"]'), { maxTags: 6 });
 
         // Handle select and input elements that show modified prepared values until focused
-        const modifiedPropertyFields = htmlQueryAll<HTMLSelectElement | HTMLInputElement>(html, "[data-property]");
+        const modifiedPropertyFields = html.querySelectorAll<HTMLSelectElement | HTMLInputElement>(
+            "input[data-property], select[data-property]",
+        );
         for (const input of modifiedPropertyFields) {
             const propertyPath = input.dataset.property ?? "";
             const baseValue =
@@ -596,7 +594,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             buttons.unshift({
                 label: "PF2E.Item.RefreshFromCompendium.Label",
                 class: "refresh-from-compendium",
-                icon: "fa-solid fa-sync-alt",
+                icon: "fa-solid fa-rotate",
                 onclick: () => {
                     const enabled = !this.item.system.rules.some(
                         (r) => typeof r.key === "string" && ["ChoiceSet", "GrantItem"].includes(r.key),

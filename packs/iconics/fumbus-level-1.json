@@ -2409,13 +2409,11 @@
                     {
                         "key": "DamageAlteration",
                         "mode": "upgrade",
-                        "predicate": [
-                            "dice:slug:base"
-                        ],
                         "property": "dice-number",
                         "selectors": [
                             "{item|id}-damage"
                         ],
+                        "slug": "base",
                         "value": "ternary(gte(@item.level,18),4,ternary(gte(@item.level,12),3,ternary(gte(@item.level,4),2,1)))"
                     },
                     {

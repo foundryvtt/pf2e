@@ -1,0 +1,136 @@
+{
+    "_id": "pMTltbI3S3UIuFaR",
+    "folder": "wnvibtD90h7CStDC",
+    "img": "systems/pf2e/icons/spells/sunblade.webp",
+    "name": "Sun Blade",
+    "system": {
+        "area": null,
+        "cost": {
+            "value": ""
+        },
+        "counteraction": false,
+        "damage": {
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "1d4",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "fire"
+            }
+        },
+        "defense": null,
+        "description": {
+            "value": "<p>You fire a ray of burning sunlight from your weapon. You must be wielding a sword or spear to cast <em>sun blade</em>, and you perform this spell's somatic component with the weapon. Make a spell attack roll. The ray deals 1d4 fire damage. If the target is unholy, the ray deals an additional 1d4 spirit damage, and if the target is undead, the ray deals an additional 1d4 vitality damage (both effects apply against creatures that are both unholy and undead). If you are in an area of bright natural sunlight, increase the die size of each damage die by one step (from d4 to d6).</p>\n<hr />\n<p><strong>Critical Success</strong> The ray deals double damage.</p>\n<p><strong>Success</strong> The ray deals full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4 fire, 1d4 spirit, and 1d4 vitality (or 1d6 of each type of damage in bright natural sunlight).</p>"
+        },
+        "duration": {
+            "sustained": false,
+            "value": ""
+        },
+        "heightening": {
+            "damage": {
+                "0": "1d4"
+            },
+            "interval": 1,
+            "type": "interval"
+        },
+        "level": {
+            "value": 2
+        },
+        "overlays": {
+            "CuGW0j3SYzsrf89R": {
+                "name": "Sun Blade",
+                "overlayType": "override",
+                "sort": 1,
+                "system": {
+                    "damage": {
+                        "0": {
+                            "category": ""
+                        }
+                    },
+                    "defense": {
+                        "save": {
+                            "statistic": ""
+                        }
+                    },
+                    "rules": []
+                }
+            },
+            "zkpyb1D8OCsASYRi": {
+                "name": "Sun Blade (Bright Natural Sunlight)",
+                "overlayType": "override",
+                "sort": 2,
+                "system": {
+                    "damage": {
+                        "0": {
+                            "category": "",
+                            "formula": "1d6"
+                        }
+                    },
+                    "defense": {
+                        "save": {
+                            "statistic": ""
+                        }
+                    },
+                    "heightening": {
+                        "damage": {
+                            "0": "1d6"
+                        }
+                    },
+                    "rules": []
+                }
+            }
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Character Guide"
+        },
+        "range": {
+            "value": "60 feet"
+        },
+        "requirements": "",
+        "rules": [
+            {
+                "damageType": "spirit",
+                "diceNumber": "@item.level -1",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:trait:unholy"
+                ],
+                "selector": "{item|_id}-damage"
+            },
+            {
+                "damageType": "vitality",
+                "diceNumber": "@spell.level -1",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:mode:undead"
+                ],
+                "selector": "{item|_id}-damage"
+            }
+        ],
+        "target": {
+            "value": "1 creature"
+        },
+        "time": {
+            "value": "2"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "traditions": [],
+            "value": [
+                "attack",
+                "concentrate",
+                "fire",
+                "focus",
+                "light",
+                "manipulate",
+                "vitality"
+            ]
+        }
+    },
+    "type": "spell"
+}

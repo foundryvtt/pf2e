@@ -1567,35 +1567,32 @@
                         "value": 5
                     },
                     {
-                        "definition": [
-                            "item:melee"
-                        ],
-                        "key": "AdjustStrike",
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
                         "mode": "add",
                         "predicate": [
-                            "arcane-cascade"
+                            "arcane-cascade",
+                            "item:melee"
                         ],
-                        "property": "weapon-traits",
+                        "property": "traits",
                         "value": "arcane"
                     },
                     {
                         "damageType": "force",
                         "key": "FlatModifier",
                         "predicate": [
-                            "arcane-cascade",
-                            "item:melee"
+                            "arcane-cascade"
                         ],
-                        "selector": "strike-damage",
+                        "selector": "melee-strike-damage",
                         "slug": "arcane-cascade",
                         "value": 2
                     },
                     {
                         "key": "Note",
                         "predicate": [
-                            "arcane-cascade",
-                            "item:melee"
+                            "arcane-cascade"
                         ],
-                        "selector": "strike-damage",
+                        "selector": "melee-strike-damage",
                         "text": "PF2E.NPCAbility.BladeMagus.ArcaneCascade.Note",
                         "title": "{item|name}",
                         "visibility": "owner"

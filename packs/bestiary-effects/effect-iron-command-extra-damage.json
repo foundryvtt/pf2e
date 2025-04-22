@@ -1,0 +1,67 @@
+{
+    "_id": "upPUhhjz3stTWRsy",
+    "img": "icons/magic/unholy/hand-claw-glow-orange.webp",
+    "name": "Effect: Iron Command (Extra Damage)",
+    "system": {
+        "description": {
+            "value": "<p>Seldeg's Strikes against the triggering creature deal an additional 3 damage until the end of his next turn. Seldeg chooses whether the additional damage is spirit or void each time he uses this reaction.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Claws of the Tyrant"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "iron-command-extra-damage"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitSpirit",
+                        "value": "spirit"
+                    },
+                    {
+                        "label": "PF2E.TraitVoid",
+                        "value": "void"
+                    }
+                ],
+                "flag": "ironCommandDamage",
+                "key": "ChoiceSet",
+                "label": "PF2E.SpecificRule.Prompt.DamageType"
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.ironCommandDamage}",
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:iron-command-extra-damage"
+                ],
+                "selector": "strike-damage",
+                "slug": "champions-extra-damage",
+                "value": 3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -469,14 +469,30 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When an Aspis Guard rolls initiative using Deception or Stealth, they can attempt to Demoralize one creature as a free action.</p>"
+                    "value": "<p>When an Aspis Guard rolls initiative using Deception or Stealth, they can attempt to [[/act demoralize]] one creature as a free action.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "check:statistic:base:deception",
+                                    "check:statistic:base:stealth"
+                                ]
+                            }
+                        ],
+                        "selector": "initiative",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

@@ -3,7 +3,7 @@ import { ItemPF2e, SpellPF2e, SpellcastingEntryPF2e } from "@item";
 import { OneToTen, ValueAndMax, ZeroToTen } from "@module/data.ts";
 import { ErrorPF2e, groupBy, localizer, ordinalString } from "@util";
 import * as R from "remeda";
-import { spellSlotGroupIdToNumber } from "./helpers.ts";
+import { getSpellRankLabel, spellSlotGroupIdToNumber } from "./helpers.ts";
 import { BaseSpellcastingEntry, SpellPrepEntry, SpellcastingSlotGroup } from "./types.ts";
 
 class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TActor>> {
@@ -113,50 +113,35 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
         return null;
     }
 
-    /** Save the prepared spell slot data to the spellcasting entry  */
-    async prepareSpell(spell: SpellPF2e, groupId: SpellSlotGroupId, slotIndex: number): Promise<this | null> {
+    /** Add or remove a prepared spell to the spellcasting entry */
+    async prepareSpell(spell: SpellPF2e | null, groupId: SpellSlotGroupId, slotIndex: number): Promise<this | null> {
         this.#assertEntryIsDocument(this.entry);
 
-        if ((groupId === "cantrips") !== spell.isCantrip) {
-            this.#warnInvalidDrop("cantrip-mismatch", { spell });
-            return null;
-        } else if (groupId !== "cantrips" && spell.baseRank > groupId) {
-            this.#warnInvalidDrop("invalid-rank", { spell, groupId });
-            return null;
-        }
-
-        if (CONFIG.debug.hooks) {
-            console.debug(
-                `PF2e System | Updating location for spell ${spell.name} to match spellcasting entry ${this.id}`,
-            );
+        if (spell) {
+            if ((groupId === "cantrips") !== spell.isCantrip) {
+                this.#warnInvalidDrop("cantrip-mismatch", { spell });
+                return null;
+            } else if (groupId !== "cantrips" && spell.baseRank > groupId) {
+                this.#warnInvalidDrop("invalid-rank", { spell, groupId });
+                return null;
+            }
         }
 
         const groupNumber = spellSlotGroupIdToNumber(groupId);
         const slots = fu.deepClone(this.entry.system.slots[`slot${groupNumber}`].prepared);
         const expended = slots[slotIndex].expended;
-        slots[slotIndex] = { id: spell.id, expended };
+        slots[slotIndex] = { id: spell?.id ?? null, expended };
         const result = await this.entry.update({ [`system.slots.slot${groupNumber}.prepared`]: slots });
-
         return result ? this : null;
     }
 
-    /** Clear the spell slot and updates the spellcasting entry */
+    /** @deprecated Clear the spell slot and updates the spellcasting entry */
     async unprepareSpell(groupId: SpellSlotGroupId, slotIndex: number): Promise<this | null> {
-        this.#assertEntryIsDocument(this.entry);
-
-        const groupNumber = spellSlotGroupIdToNumber(groupId);
-        if (CONFIG.debug.hooks === true) {
-            console.debug(
-                `PF2e System | Updating spellcasting entry ${this.id} to remove spellslot ${slotIndex} for spell rank ${groupNumber}`,
-            );
-        }
-
-        const slots = fu.deepClone(this.entry.system.slots[`slot${groupNumber}`].prepared);
-        const expended = slots[slotIndex].expended;
-        slots[slotIndex] = { id: null, expended };
-        const result = await this.entry.update({ [`system.slots.slot${groupNumber}.prepared`]: slots });
-
-        return result ? this : null;
+        foundry.utils.logCompatibilityWarning(
+            "SpellCollection#unprepareSpell() is deprecated. Use SpellCollection#prepareSpell() with a null spell instead.",
+            { since: "6.11.2", until: "7.0.0" },
+        );
+        return this.prepareSpell(null, groupId, slotIndex);
     }
 
     /** Sets the expended state of a spell slot and updates the spellcasting entry */
@@ -327,7 +312,7 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
         return {
             groups,
             flexibleAvailable,
-            prepList: prepList ? this.getSpellPrepList(spells) : null,
+            prepList: prepList ? this.#getSpellPrepList(spells) : null,
         };
     }
 
@@ -347,7 +332,7 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
         return { groups, prepList: null };
     }
 
-    protected getSpellPrepList(spells: SpellPF2e<TActor>[]): Record<ZeroToTen, SpellPrepEntry[]> {
+    #getSpellPrepList(spells: SpellPF2e<TActor>[]): Record<ZeroToTen, SpellPrepEntry[]> {
         const indices = Array.fromRange(11) as ZeroToTen[];
         const prepList: Record<ZeroToTen, SpellPrepEntry[]> = R.mapToObj(indices, (i) => [i, []]);
         if (this.entry.category !== "prepared") return prepList;
@@ -367,8 +352,8 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
     #warnInvalidDrop(warning: DropWarningType, { spell, groupId }: WarnInvalidDropParams): void {
         const localize = localizer("PF2E.Item.Spell.Warning");
         if (warning === "invalid-rank" && typeof groupId === "number") {
-            const spellRank = game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(spell.baseRank) });
-            const targetRank = game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(groupId) });
+            const spellRank = getSpellRankLabel(spell.baseRank);
+            const targetRank = getSpellRankLabel(groupId);
             ui.notifications.warn(localize("InvalidRank", { spell: spell.name, spellRank, targetRank }));
         } else if (warning === "cantrip-mismatch") {
             const locKey = spell.isCantrip ? "CantripToRankedSlots" : "NonCantripToCantrips";

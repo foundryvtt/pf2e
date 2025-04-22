@@ -1,0 +1,61 @@
+{
+    "_id": "5Su0OWWN5VLL3fsw",
+    "img": "icons/sundries/gaming/playing-cards-brown.webp",
+    "name": "Effect: Press On",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.journals.JournalEntry.BSp4LUSaOmUyjBko.JournalEntryPage.zcBCxlvPCpmjt5IS]{Press On}</p>\n<p>You ignore penalties to checks and DCs from conditions.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Hero Point Deck"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "penalty:slug:blinded",
+                            "penalty:slug:clumsy",
+                            "penalty:slug:deafened",
+                            "penalty:slug:drained",
+                            "penalty:slug:enfeebled",
+                            "penalty:slug:fascinated",
+                            "penalty:slug:fatigued",
+                            "penalty:slug:frightened",
+                            "penalty:slug:off-guard",
+                            "penalty:slug:prone",
+                            "penalty:slug:sickened",
+                            "penalty:slug:stupefied",
+                            "penalty:slug:unconscious"
+                        ]
+                    }
+                ],
+                "selector": "all",
+                "suppress": true
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

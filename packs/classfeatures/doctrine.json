@@ -29,7 +29,25 @@
                 "adjustName": false,
                 "choices": {
                     "filter": [
-                        "item:tag:cleric-doctrine"
+                        "item:tag:cleric-doctrine",
+                        {
+                            "or": [
+                                {
+                                    "and": [
+                                        "class:cleric",
+                                        "item:tag:cleric-doctrine"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:tag:cleric-doctrine",
+                                        {
+                                            "not": "item:tag:class-archetype"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
                     ]
                 },
                 "flag": "doctrine",

@@ -50,7 +50,6 @@
                 "diceNumber": "ternary(gte(@actor.level, 18), 3, ternary(gte(@actor.level, 10), 2, 1))",
                 "key": "DamageDice",
                 "predicate": [
-                    "melee",
                     {
                         "or": [
                             "unarmed",
@@ -64,13 +63,12 @@
                     },
                     "one-inch-punch:two"
                 ],
-                "selector": "strike-damage"
+                "selector": "melee-strike-damage"
             },
             {
                 "diceNumber": "ternary(gte(@actor.level, 18), 6, ternary(gte(@actor.level, 10), 4, 2))",
                 "key": "DamageDice",
                 "predicate": [
-                    "melee",
                     {
                         "or": [
                             "unarmed",
@@ -84,7 +82,7 @@
                     },
                     "one-inch-punch:three"
                 ],
-                "selector": "strike-damage"
+                "selector": "melee-strike-damage"
             }
         ],
         "traits": {

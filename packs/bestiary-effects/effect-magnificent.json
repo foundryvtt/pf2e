@@ -1,0 +1,64 @@
+{
+    "_id": "OBzvZ9LoZLiPyHEW",
+    "img": "icons/skills/trades/academics-study-reading-book.webp",
+    "name": "Effect: Magnificent…!",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +1 status bonus to attack and damage rolls against the marked creature.</p>\n<p>The scholar deals an extra 3d6 precision damage with their weapon and unarmed Strikes that hit that creature.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 13
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "magnificent"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:magnificent"
+                ],
+                "selector": [
+                    "attack",
+                    "damage"
+                ],
+                "type": "status",
+                "value": 1
+            },
+            {
+                "category": "precision",
+                "diceNumber": 3,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "self:signature:{item|origin.signature}",
+                    "target:mark:magnificent"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

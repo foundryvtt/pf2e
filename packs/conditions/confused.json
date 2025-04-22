@@ -47,6 +47,20 @@
                 "inMemoryOnly": true,
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:type:spell",
+                            "origin:action:trait:attack"
+                        ]
+                    }
+                ],
+                "selector": "damage-received",
+                "text": "PF2E.condition.confused.note",
+                "title": "{item|name}"
             }
         ],
         "traits": {

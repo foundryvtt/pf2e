@@ -207,8 +207,8 @@ class TravelSpeedSheet extends FormApplication<object, TravelSpeedSheetOptions> 
         });
     }
 
-    override getData() {
-        const sheetData = super.getData();
+    override async getData() {
+        const sheetData = await super.getData();
         let data: SheetData;
         if (this.formData === undefined) {
             data = this.getInitialFormData(this.options.actors);

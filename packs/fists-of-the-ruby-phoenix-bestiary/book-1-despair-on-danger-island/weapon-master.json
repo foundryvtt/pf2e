@@ -287,13 +287,13 @@
                         "key": "DamageAlteration",
                         "mode": "upgrade",
                         "predicate": [
-                            "two-handed",
-                            "dice:slug:base"
+                            "two-handed"
                         ],
                         "property": "dice-faces",
                         "selectors": [
                             "{item|_id}-damage"
                         ],
+                        "slug": "base",
                         "value": 10
                     }
                 ],
@@ -474,12 +474,11 @@
                     {
                         "key": "EphemeralEffect",
                         "predicate": [
-                            "melee",
                             "swift-blow"
                         ],
                         "selectors": [
-                            "strike-attack-roll",
-                            "strike-damage"
+                            "melee-strike-attack-roll",
+                            "melee-strike-damage"
                         ],
                         "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
                     },
@@ -489,10 +488,9 @@
                         "dieSize": "d8",
                         "key": "DamageDice",
                         "predicate": [
-                            "melee",
                             "swift-blow"
                         ],
-                        "selector": "strike-damage"
+                        "selector": "melee-strike-damage"
                     }
                 ],
                 "slug": null,

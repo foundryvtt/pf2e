@@ -1,0 +1,125 @@
+{
+    "_id": "Ogso0WqodeFG27L1",
+    "folder": "wXS0eAMOesKusxel",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Speak for the Gravelands",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Access</strong> You're a member of the Vellumis Scholars.</p><hr /><p>You have learned much of what the Gravelands need and are confident in your ability to speak for them. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Geomancer Dedication] archetype feat, even if you normally couldn't take another dedication feat until you take more feats from your current archetype. You can benefit from the following Gravelands terrain attunement when in the Gravelands.</p>\n<p><strong>Gravelands</strong> (vitality) You gain a +1 status bonus to saving throws against the spells and abilities of haunts and undead creatures for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Terrain Attunement (Gravelands)]</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Halcyon Speaker Dedication"
+                },
+                {
+                    "value": "trained in Nature"
+                },
+                {
+                    "value": "can cast at least one spell with the vitality trait"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Claws of the Tyrant"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Geomancer Dedication"
+            },
+            {
+                "disabledIf": [
+                    "attunement-shift"
+                ],
+                "disabledValue": false,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Geomancer.TerrainAttunement.Label",
+                "mergeable": true,
+                "option": "terrain-attunement",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "PF2E.Terrain.Gravelands",
+                        "value": "gravelands"
+                    }
+                ],
+                "toggleable": "totm"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Geomancer.AttunementShift",
+                "mergeable": true,
+                "option": "attunement-shift",
+                "placement": "spellcasting",
+                "predicate": [
+                    "feat:attunement-shift"
+                ],
+                "priority": 49,
+                "suboptions": [
+                    {
+                        "label": "PF2E.Terrain.Gravelands",
+                        "value": "gravelands"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Geomancer.Dedication.Label",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:vitality",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "terrain:gravelands",
+                                    {
+                                        "not": "attunement-shift"
+                                    }
+                                ]
+                            },
+                            "terrain-attunement:gravelands",
+                            "attunement-shift:gravelands"
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Geomancer.TerrainAttunement.Gravelands"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Terrain Attunement (Gravelands)]"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

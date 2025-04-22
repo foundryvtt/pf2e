@@ -1,0 +1,430 @@
+{
+    "_id": "UuXREGQxhDv8KQFq",
+    "folder": "8R36jkMt1xJlUV6E",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "2uFjJXVNJAes7huQ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Pseudopod",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "h7VGPrHidypEeXum": {
+                        "damage": "2d8+7",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "EcM9IICqUbnMg1N3",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tendril",
+            "sort": 200000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "jelly-blood"
+                    ]
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "HdS4vD7tnOCcEMW1": {
+                        "damage": "2d8+2",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "reach-10",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "RSxBHYJk59i2y1nU",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Amphibious Motion Sense",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A creeping clot can feel nearby motion through vibrations in air and water.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AhmTdTBQ9ySoyJFX",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Clot Armor",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The creeping clot is not immersed in liquid</p><hr /><p><strong>Effect</strong> The creeping clot remains motionless for 1 minute, causing its outer mass to form a thick shell of clotted plasm. Its Armor Class increases to 22 and it becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}. Though the creeping clot remains immune to the additional damage from a critical hit, its clot armor is destroyed automatically upon taking a critical hit, taking 50 damage from a single Strike, or as soon as it is immersed in liquid.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "clot-armor",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "clot-armor"
+                        ],
+                        "selector": "ac",
+                        "value": 10
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "clot-armor"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0YRryyeELmUwglyQ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Jelly Blood",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:22]</p>\n<p><strong>Stage 1</strong> target gains resistance 5 to bleed damage (1 hour)</p>\n<p><strong>Stage 2</strong> as stage 1 plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 day)</p>\n<p><strong>Stage 3</strong> as stage 2 plus @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 4</strong> as stage 2 plus @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 day)</p>\n<p><strong>Stage 5</strong> as stage 2 plus @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] (1 hour)</p>\n<p><strong>Stage 6</strong> dead</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "disease"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kfTLLOfSogk258QV",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Tendril Feeding",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The creeping clot has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]</p><hr /><p><strong>Effect</strong> The creeping clot burrows tendrils into the grabbed creature. The creature takes @Damage[(2d8+2)[piercing]] damage (@Check[fortitude|dc:22|basic] save) and is exposed to jelly blood.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "eSj1h2Ng97Xg4RHj",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Tendril Storm",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The creeping clot doesn't have clot armor</p><hr /><p><strong>Effect</strong> The creeping clot extends dozens of whipping, slashing tendrils, attacking all creatures in reach. The clot makes a tendril Strike against each enemy within its tendril reach. Each attack counts toward the clot's multiple attack penalty, but the multiple attack penalty doesn't increase until after all the attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TgQ85hua1hYAgFI7",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Creeping Clot",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -5
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": -5
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 12
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 150,
+                "temp": 0,
+                "value": 150
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "acid"
+                },
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "bludgeoning"
+                },
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "mental"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                },
+                {
+                    "exceptions": [],
+                    "type": "visual"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 15
+                    },
+                    {
+                        "type": "swim",
+                        "value": 30
+                    }
+                ],
+                "value": 20
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 5
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>The unsettling creeping clot appears like a disgusting mound of half- coagulated blood that seeps a constant red effluvium, which in turn is slurped up by the clot's slithering feelers before the stain can spread more than a few inches from its central mass. When it senses danger, a creeping clot can form a protective shell of hardened ooze that makes it look like an enormous scab.</p>\n<p>It's a common misconception that a creeping clot feeds on blood. In fact, this crusty ooze absorbs minerals from flesh and blood alike by burrowing its tendrils into a creature, a process that creates painful—and sometimes fatal—blood clotting within the victim's body.</p><h2>Farming Clots</h2><p>A creeping clot's toxin can be harvested as a useful (if risky) medicinal. A successful @Check[medicine|dc:22] or @Check[survival|dc:22] check and 10 minutes of work on a creeping clot that's been dead for no more than 1 hour produces 1 dose of creeping clot serum (2 doses on a critical success). A critical failure exposes the harvesting creature to the clot's jelly blood. A dose of creeping slot serum spoils after 24 hours. If a dose of creeping clot serum is used while @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid]{Administering First Aid} to stop bleeding, the Medicine check gains a +3 item bonus, but on a critical failure, the victim is exposed to jelly blood.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #214: The Broken Palace"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "amphibious motion sense (precise) 60 feet,",
+            "mod": 7,
+            "senses": [],
+            "vision": false
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 4
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 7
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 13
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "amphibious",
+                "mindless",
+                "ooze"
+            ]
+        }
+    },
+    "type": "npc"
+}

@@ -1,0 +1,76 @@
+{
+    "_id": "xUMgX1vrP4EfLlw2",
+    "img": "icons/magic/fire/barrier-shield-explosion-yellow.webp",
+    "name": "Elemental Ammunition (Moderate, Fire)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "category": "ammo",
+        "containerId": null,
+        "damage": null,
+        "description": {
+            "value": "<p><strong>Ammunition</strong> any</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p><hr /><p>When activated, the reservoir of alchemical reagents in elemental ammunition atomizes on impact, dealing 2d4 persistent fire damage to the target and 2 splash fire damage in addition to the damage the attack normally deals. Each damage type requires a different formula, and the ammunition gains a trait matching the damage type.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 5
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 21
+            }
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "category": "persistent",
+                "damageType": "fire",
+                "diceNumber": 2,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "selector": "{item|id}-damage"
+            },
+            {
+                "damageCategory": "splash",
+                "damageType": "fire",
+                "key": "FlatModifier",
+                "selector": "{item|id}-damage",
+                "value": 2
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "alchemical",
+                "consumable",
+                "fire",
+                "splash"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        },
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
+        }
+    },
+    "type": "consumable"
+}

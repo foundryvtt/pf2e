@@ -1,0 +1,116 @@
+{
+    "_id": "1cbIe569UD6paXad",
+    "img": "icons/creatures/abilities/mouth-teeth-tongue-purple.webp",
+    "name": "Effect: Engulf and Swallow Whole",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Engulf] or @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Swallow Whole]</p>\n<p>You are grabbed, slowed 1, and you have to hold your breath or start suffocating. You can only attack the origin with unarmed attacks or with weapons of light Bulk or less, and the origin is off-guard against the attack. If the origin takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, you cut yourself free.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core"
+        },
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Grabbed"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.other-effects.Item.Effect: Remaining Air"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "nor": [
+                            "item:bulk:light",
+                            "item:bulk:negligible",
+                            "item:category:unarmed"
+                        ]
+                    }
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.SwallowWhole.InvalidAttack",
+                "title": "{item|name}"
+            },
+            {
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "target:signature:{item|origin.signature}",
+                    {
+                        "or": [
+                            "item:bulk:light",
+                            "item:bulk:negligible",
+                            "item:category:unarmed"
+                        ]
+                    }
+                ],
+                "selectors": "strike-attack-roll",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:type:spell",
+                            {
+                                "and": [
+                                    "item:type:weapon",
+                                    "target:signature:{item|origin.signature}",
+                                    {
+                                        "or": [
+                                            "item:bulk:light",
+                                            "item:bulk:negligible",
+                                            "item:category:unarmed"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:damage:type:piercing",
+                            "item:damage:type:slashing"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "strike-damage",
+                    "spell-damage"
+                ],
+                "text": "PF2E.SpecificRule.SwallowWhole.RuptureDamage",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

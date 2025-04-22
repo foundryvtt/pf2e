@@ -40,7 +40,9 @@
                 "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "unarmed"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -82,7 +84,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "agile"
+                        "agile",
+                        "unarmed"
                     ]
                 },
                 "weaponType": {
@@ -344,12 +347,13 @@
                 },
                 "rules": [
                     {
-                        "definition": [
+                        "itemType": "weapon",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
                             "item:thrown"
                         ],
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "weapon-traits",
+                        "property": "traits",
                         "value": "deadly-d6"
                     }
                 ],

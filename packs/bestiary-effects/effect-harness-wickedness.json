@@ -1,0 +1,63 @@
+{
+    "_id": "T7GQbAbS6jh7Au15",
+    "img": "icons/creatures/unholy/demon-horned-black-yellow.webp",
+    "name": "Effect: Harness Wickedness",
+    "system": {
+        "description": {
+            "value": "<p>Your Strikes deal an additional die of damage and gain the unholy trait. You also gains 10 temporary Hit Points, a +5-foot status bonus to Speed, and weakness 5 to holy.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "diceNumber": 1,
+                "key": "DamageDice",
+                "selector": "strike-damage"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "unholy"
+            },
+            {
+                "key": "TempHP",
+                "value": 10
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "land-speed",
+                "type": "status",
+                "value": 5
+            },
+            {
+                "key": "Weakness",
+                "type": "holy",
+                "value": 5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

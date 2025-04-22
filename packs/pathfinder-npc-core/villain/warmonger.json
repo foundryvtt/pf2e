@@ -414,7 +414,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>The warmonger treats the value of any drained, dying, enfeebled, sickened, and wounded conditions affecting them as 1 lower. The warmonger still has the condition and must remove it normally.</p>"
+                    "value": "<p>The warmonger treats the value of any @UUID[Compendium.pf2e.conditionitems.Item.Drained], @UUID[Compendium.pf2e.conditionitems.Item.Dying], @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled], @UUID[Compendium.pf2e.conditionitems.Item.Sickened], and @UUID[Compendium.pf2e.conditionitems.Item.Wounded] conditions affecting them as 1 lower. The warmonger still has the condition and must remove it normally.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -540,38 +540,18 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The warmonger singles out one enemy to bring down with ranged attacks until the end of the current turn. The warmonger's ranged Strikes against that creature gain a +1 circumstance bonus to the attack roll and deal an extra 3d6 precision damage. Each time the warmonger hits that creature with a ranged Strike, the creature takes a –10-foot penalty to its Speeds for 1 minute and falls 20 feet if it's flying.</p>"
+                    "value": "<p>The warmonger singles out one enemy to bring down with ranged attacks until the end of the current turn. The warmonger's ranged Strikes against that creature gain a +1 circumstance bonus to the attack roll and deal an extra 3d6 precision damage. Each time the warmonger hits that creature with a ranged Strike, the creature takes a –10-foot penalty to its Speeds for 1 minute and falls 20 feet if it's flying.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Sight Prey (Speed Penalty)]</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "key": "RollOption",
-                        "option": "sight-prey",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "sight-prey"
-                        ],
-                        "selector": "ranged-strike-attack-roll",
-                        "value": 1
-                    },
-                    {
-                        "category": "precision",
-                        "diceNumber": 3,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "sight-prey"
-                        ],
-                        "selector": "ranged-strike-damage"
-                    }
-                ],
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Sight Prey",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Sight Prey"
+                },
                 "slug": null,
                 "traits": {
                     "value": [

@@ -988,7 +988,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The grandmaster has at least 1 Focus Point</p><hr /><p><strong>Effect</strong> The grandmaster casts touch of death (spending 1 Focus Point as normal). Any time the target attempts a Fortitude save against this touch of death, the grandmaster takes 40 damage and is permanently @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}. If the target gets a critical success, it's @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}; if it gets a success or failure the stunned condition it gains is increased by 1, and any damage it takes is increased by 40.</p>"
+                    "value": "<p><strong>Requirements</strong> The grandmaster has at least 1 Focus Point</p><hr /><p><strong>Effect</strong> The grandmaster casts @UUID[Compendium.pf2e.spells-srd.Item.Touch of Death] (spending 1 Focus Point as normal). Any time the target attempts a Fortitude save against this <em>touch of death</em>, the grandmaster takes @Damage[40] damage and is permanently @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}. If the target gets a critical success, it's @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}; if it gets a success or failure the stunned condition it gains is increased by 1, and any damage it takes is increased by 40.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -1013,18 +1013,43 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 3
+                    "value": 2
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The grandmaster makes a single, carefully controlled unarmed Strike that deals 2 additional dice of damage, or 4 additional dice if the grandmaster spent 3 actions. If this damages the target, the grandmaster can choose to make the target attempt a @Check[fortitude|dc:38] save.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is pushed back 5 feet.</p>\n<p><strong>Failure</strong> The target is pushed back 10 feet.</p>\n<p><strong>Critical Failure</strong> The target is pushed back 10 feet for each action the grandmaster spent on One-Millimeter Punch.</p>"
+                    "value": "<p><span class=\"action-glyph\">2</span> or <span class=\"action-glyph\">3</span></p>\n<p>The grandmaster makes a single, carefully controlled unarmed Strike that deals 2 additional dice of damage, or 4 additional dice if the grandmaster spent 3 actions. If this damages the target, the grandmaster can choose to make the target attempt a @Check[fortitude|dc:38] save.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is pushed back 5 feet.</p>\n<p><strong>Failure</strong> The target is pushed back 10 feet.</p>\n<p><strong>Critical Failure</strong> The target is pushed back 10 feet for each action the grandmaster spent on One-Millimeter Punch.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "one-millimeter-punch",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.SpecificRule.Actions.TwoActions",
+                                "value": "2"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.Actions.ThreeActions",
+                                "value": "4"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": "@item.flags.pf2e.rulesSelections.oneMillimeterPunch",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "one-millimeter-punch"
+                        ],
+                        "selector": "unarmed-damage"
+                    }
+                ],
                 "slug": "one-millimeter-punch",
                 "traits": {
                     "value": []

@@ -29,7 +29,25 @@
                 "adjustName": false,
                 "choices": {
                     "filter": [
-                        "item:tag:oracle-mystery"
+                        "item:tag:oracle-mystery",
+                        {
+                            "or": [
+                                {
+                                    "and": [
+                                        "class:oracle",
+                                        "item:tag:oracle-mystery"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:tag:oracle-mystery",
+                                        {
+                                            "not": "item:tag:class-archetype"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
                     ]
                 },
                 "flag": "mystery",

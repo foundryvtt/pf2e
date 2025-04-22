@@ -1,0 +1,54 @@
+{
+    "_id": "pVd4mbG2u8Y1mqgL",
+    "img": "icons/magic/air/weather-clouds.webp",
+    "name": "Effect: Cloud of Allergens",
+    "system": {
+        "description": {
+            "value": "<p>You take a –1 circumstance penalty to skill checks that have the concentration trait and all Perception checks while inside the cloud.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Paizo Blog: Foolish Housekeeping and Other Articles"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "perception",
+                "slug": "cloud-of-allergens-perception-penalty",
+                "type": "circumstance",
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:concentrate"
+                ],
+                "selector": "skill-check",
+                "slug": "cloud-of-allergens-skill-penalty",
+                "type": "circumstance",
+                "value": -1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -293,35 +293,12 @@
                 },
                 "rules": [
                     {
+                        "diceNumber": "ternary(gte(@actor.level,18),3,ternary(gte(@actor.level,10),2,1))",
                         "key": "DamageDice",
                         "predicate": [
-                            "melee",
                             "power-attack"
                         ],
-                        "selector": "strike-damage",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 9,
-                                    "value": {
-                                        "diceNumber": 1
-                                    }
-                                },
-                                {
-                                    "end": 17,
-                                    "start": 10,
-                                    "value": {
-                                        "diceNumber": 2
-                                    }
-                                },
-                                {
-                                    "start": 18,
-                                    "value": {
-                                        "diceNumber": 3
-                                    }
-                                }
-                            ]
-                        }
+                        "selector": "melee-strike-damage"
                     },
                     {
                         "domain": "damage",

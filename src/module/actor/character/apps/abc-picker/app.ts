@@ -45,7 +45,7 @@ class ABCPicker extends SvelteApplicationMixin<
         id: "{id}",
         classes: ["abc-picker"],
         position: { width: 350, height: 650 },
-        window: { icon: "fa-solid fa-atlas", contentClasses: ["standard-form", "compact"] },
+        window: { icon: "fa-solid fa-book-atlas", contentClasses: ["standard-form", "compact"] },
     };
 
     declare options: ABCPickerConfiguration;
@@ -78,6 +78,7 @@ class ABCPicker extends SvelteApplicationMixin<
             .filter((item): item is ABCItemPF2e<null> | HeritagePF2e<null> | DeityPF2e<null> => {
                 if (item.type !== itemType || item.parent) return false;
                 if (item.pack?.startsWith("pf2e-animal-companions.")) return false;
+                if (item.system.traits.value?.includes("eidolon")) return false;
                 if (item.isOfType("heritage")) {
                     const ancestrySlug = actor.ancestry ? (actor.ancestry.slug ?? sluggify(actor.ancestry.name)) : null;
                     return item.system.ancestry?.slug === ancestrySlug || item.system.ancestry === null;

@@ -37,7 +37,8 @@
                 "slug": null,
                 "traits": {
                     "value": [
-                        "reach-15"
+                        "reach-15",
+                        "unarmed"
                     ]
                 },
                 "weaponType": {
@@ -79,7 +80,8 @@
                 "slug": null,
                 "traits": {
                     "value": [
-                        "agile"
+                        "agile",
+                        "unarmed"
                     ]
                 },
                 "weaponType": {
@@ -145,7 +147,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>When the majungasaurus rolls initiative using Stealth, it can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] each creature within @Template[emanation|distance:30]{30 feet} as a free action. Regardless of the effect, each creature is then temporarily immune for 1 hour.</p>"
+                    "value": "<p>When the majungasaurus rolls initiative using Stealth, it can attempt to [[/act demoralize]] each creature within @Template[emanation|distance:30]{30 feet} as a free action. Regardless of the effect, each creature is then temporarily immune for 1 hour.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -263,9 +265,18 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "low-light vision, scent (imprecise) 30 feet",
+            "details": "",
             "mod": 12,
-            "senses": []
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {},
         "saves": {

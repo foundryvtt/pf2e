@@ -16,7 +16,7 @@ import {
 } from "@module/rules/helpers.ts";
 import { CritSpecEffect, PotencySynthetic, StrikingSynthetic } from "@module/rules/synthetics.ts";
 import { DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
-import { mapValues, objectHasKey, sluggify } from "@util";
+import { objectHasKey, sluggify } from "@util";
 import * as R from "remeda";
 import { DamageModifierDialog } from "./dialog.ts";
 import { createDamageFormula, parseTermsFromSimpleFormula } from "./formula.ts";
@@ -545,8 +545,8 @@ class WeaponDamagePF2e {
             modifiers: [...damageDice, ...testedModifiers],
             damage: {
                 ...formulaData,
-                formula: mapValues(computedFormulas, (formula) => formula?.formula ?? null),
-                breakdown: mapValues(computedFormulas, (formula) => formula?.breakdown ?? []),
+                formula: R.mapValues(computedFormulas, (v) => v?.formula ?? null),
+                breakdown: R.mapValues(computedFormulas, (v) => v?.breakdown ?? []),
             },
         };
     }

@@ -1,0 +1,79 @@
+{
+    "_id": "Tlb2xfEhGLHjwPHy",
+    "img": "icons/creatures/birds/dove-pigeon-flying-white.webp",
+    "name": "Effect: A Little Bird Told Me...",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.A Little Bird Told Me...]</p>\n<p>You transform into a small bird, such as a finch or a sparrow. You gain the following statistics and abilities:</p>\n<p>AC = 20 + your level. Ignore your armor's check penalty and Speed reduction.</p>\n<p>Fly speed 25 feet.</p>\n<p>Weakness 5 to physical damage.</p>\n<p>Low-light vision and imprecise scent 30 feet.</p>\n<p>Acrobatics and Stealth modifiers of +10, unless your own is higher; Athletics modifier –4.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Paizo Blog: Foolish Housekeeping and Other Articles"
+        },
+        "rules": [
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "ignoreCheckPenalty": true,
+                        "ignoreSpeedReduction": true,
+                        "modifier": "15 + @actor.level"
+                    },
+                    "senses": {
+                        "low-light-vision": {},
+                        "scent": {
+                            "acuity": "imprecise",
+                            "range": 30
+                        }
+                    },
+                    "size": "tiny",
+                    "skills": {
+                        "acrobatics": {
+                            "modifier": 10
+                        },
+                        "athletics": {
+                            "modifier": -4,
+                            "ownIfHigher": false
+                        },
+                        "stealth": {
+                            "modifier": 10
+                        }
+                    },
+                    "speeds": {
+                        "fly": 25
+                    },
+                    "traits": [
+                        "animal"
+                    ],
+                    "weaknesses": [
+                        {
+                            "type": "physical",
+                            "value": 5
+                        }
+                    ]
+                }
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

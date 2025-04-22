@@ -2075,14 +2075,22 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Worknesh rolls initiative</p>\n<p><strong>Requirements</strong> Worknesh can perceive at least one foe within 60 feet</p>\n<hr />\n<p><strong>Effect</strong> Worknesh yells a mighty rallying cry. Worknesh attempts an Intimidation check to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] a single foe within 60 feet. If successful, any of her allies within 30 feet can Stride up to double their speed as their first action on their first turn of the combat.</p>"
+                    "value": "<p><strong>Trigger</strong> Worknesh rolls initiative</p>\n<p><strong>Requirements</strong> Worknesh can perceive at least one foe within 60 feet</p>\n<hr />\n<p><strong>Effect</strong> Worknesh yells a mighty rallying cry. Worknesh attempts an Intimidation check to [[/act demoralize]] a single foe within 60 feet. If successful, any of her allies within 30 feet can Stride up to double their speed as their first action on their first turn of the combat.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "initiative",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

@@ -1,0 +1,103 @@
+{
+    "_id": "6DfLZBl8wKIV03Iq",
+    "folder": "D7UVaOiB40wTR6kv",
+    "img": "icons/magic/fire/explosion-embers-evade-silhouette.webp",
+    "name": "Ignition",
+    "system": {
+        "area": null,
+        "cost": {
+            "value": ""
+        },
+        "counteraction": false,
+        "damage": {
+            "cQDyW0QpjJ38MlSi": {
+                "applyMod": false,
+                "category": null,
+                "formula": "2d4",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "fire"
+            }
+        },
+        "defense": null,
+        "description": {
+            "value": "<p>You snap your fingers and point at a target, which begins to smolder. Make a spell attack roll against the target's AC, dealing 2d4 fire damage on a hit. If the target is within your melee reach, you can choose to make a melee spell attack with the flame instead of a ranged spell attack, which increases all the spell's damage dice to d6s.</p><hr /><p><strong>Critical Success</strong> The target takes double damage and 1d4 persistent fire damage.</p>\n<p><strong>Success</strong> The target takes full damage.</p><hr /><p><strong>Heightened (+1)</strong> The initial damage increases by 1d4 and the persistent fire damage on a critical hit increases by 1d4.</p>\n<p>@Damage[(@item.rank)d4[persistent,fire]]{Scaling Persistent Fire Damage}</p>\n<p>@Damage[(@item.rank)d6[persistent,fire]]{Scaling Persistent Fire Damage (Melee)}</p>"
+        },
+        "duration": {
+            "sustained": false,
+            "value": ""
+        },
+        "heightening": {
+            "damage": {
+                "cQDyW0QpjJ38MlSi": "1d4"
+            },
+            "interval": 1,
+            "type": "interval"
+        },
+        "level": {
+            "value": 1
+        },
+        "overlays": {
+            "eOCNn2ohYAvsYZjn": {
+                "_id": "eOCNn2ohYAvsYZjn",
+                "overlayType": "override",
+                "sort": 1,
+                "system": {}
+            },
+            "xYyA7CV1GaFTRjBQ": {
+                "_id": "xYyA7CV1GaFTRjBQ",
+                "name": "Ignition (Melee)",
+                "overlayType": "override",
+                "sort": 2,
+                "system": {
+                    "damage": {
+                        "cQDyW0QpjJ38MlSi": {
+                            "formula": "2d6"
+                        }
+                    },
+                    "heightening": {
+                        "damage": {
+                            "cQDyW0QpjJ38MlSi": "1d6"
+                        }
+                    },
+                    "range": {
+                        "value": "touch"
+                    }
+                }
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "range": {
+            "value": "30 feet"
+        },
+        "requirements": "",
+        "rules": [],
+        "target": {
+            "value": "1 creature"
+        },
+        "time": {
+            "value": "2"
+        },
+        "traits": {
+            "rarity": "common",
+            "traditions": [
+                "arcane",
+                "primal"
+            ],
+            "value": [
+                "attack",
+                "cantrip",
+                "concentrate",
+                "fire",
+                "manipulate"
+            ]
+        }
+    },
+    "type": "spell"
+}

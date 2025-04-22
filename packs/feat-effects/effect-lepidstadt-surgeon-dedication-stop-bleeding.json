@@ -1,0 +1,45 @@
+{
+    "_id": "45nzYsMBTP6PIxDN",
+    "img": "icons/skills/wounds/blood-cells-vessel-red-orange.webp",
+    "name": "Effect: Lepidstadt Surgeon Dedication (Stop Bleeding)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Lepidstadt Surgeon Dedication]</p>\n<p>You roll your flat check to recover from persistent bleed damage twice and take the better result.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Rival Academies"
+        },
+        "rules": [
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    "item:damage:type:bleed"
+                ],
+                "selector": "pd-recovery-check"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -4,7 +4,7 @@
     "name": "Effect: Rime Crystal - Armor",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Rime Crystal]</p>\n<p>You gain resistance 2 to cold.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Rime Crystal], @UUID[Compendium.pf2e.equipment-srd.Item.Rime Crystal (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Rime Crystal (Major)]</p>\n<p>You gain resistance to cold.</p>"
         },
         "duration": {
             "expiry": null,
@@ -22,9 +22,75 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:rime-crystal",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Rime Crystal"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:rime-crystal-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Rime Crystal (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:rime-crystal-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Rime Crystal (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "rime-crystal"
+            },
+            {
                 "key": "Resistance",
+                "predicate": [
+                    "rime-crystal:rime-crystal"
+                ],
                 "type": "cold",
                 "value": 2
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "rime-crystal:rime-crystal-greater"
+                ],
+                "type": "cold",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "rime-crystal:rime-crysta-majorl"
+                ],
+                "type": "cold",
+                "value": 10
             }
         ],
         "start": {

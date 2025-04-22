@@ -387,7 +387,7 @@ class TextEditorPF2e extends TextEditor {
             console.warn("Unable to resolve action", slug);
             return this.#invalidInlineAction(
                 ["unresolvable-action"],
-                "fas fa-unlink",
+                "fa-solid fa-link-slash",
                 game.i18n.format("PF2E.InlineAction.Warning.UnresolvableAction", { slug }),
             );
         }
@@ -549,10 +549,15 @@ class TextEditorPF2e extends TextEditor {
               ? "all"
               : "gm";
 
+        // Determine traits. If overrideTraits is given and looks like a list of traits, we use that as a trait list
         const basic = "basic" in rawParams;
         const overrideTraits = "overrideTraits" in rawParams;
         const rawTraits = splitListString(rawParams.traits ?? "");
+        if (rawParams.overrideTraits && rawParams.overrideTraits?.trim()?.toLowerCase() !== "true") {
+            rawTraits.push(...splitListString(rawParams.overrideTraits));
+        }
         const traits = R.unique(overrideTraits ? rawTraits : [rawTraits, item?.system.traits.value ?? []].flat());
+
         const rollerRole = tupleHasValue(["origin", "target"], rawParams.rollerRole)
             ? rawParams.rollerRole
             : tupleHasValue(SAVE_TYPES, type)

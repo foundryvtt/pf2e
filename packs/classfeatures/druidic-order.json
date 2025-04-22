@@ -29,7 +29,25 @@
                 "adjustName": false,
                 "choices": {
                     "filter": [
-                        "item:tag:druid-order"
+                        "item:tag:druid-order",
+                        {
+                            "or": [
+                                {
+                                    "and": [
+                                        "class:druid",
+                                        "item:tag:druid-order"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:tag:druid-order",
+                                        {
+                                            "not": "item:tag:class-archetype"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
                     ]
                 },
                 "flag": "druidicOrder",

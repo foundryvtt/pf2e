@@ -1,0 +1,129 @@
+{
+    "_id": "KFq5wnjdzyrycEnB",
+    "img": "icons/consumables/food/candy-taffy-blue-white.webp",
+    "name": "Effect: Silver Crescent",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Silver Crescent (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Silver Crescent (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Silver Crescent (Greater)]</p>\n<p>You shed cool, white light like a torch, and gain an item bonus to saving throws against olfactory effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:silver-crescent-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Silver Crescent (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:silver-crescent-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Silver Crescent (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:silver-crescent-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Silver Crescent (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "silver-crescent"
+            },
+            {
+                "key": "TokenLight",
+                "value": {
+                    "animation": {
+                        "intensity": 1,
+                        "speed": 2,
+                        "type": "pulse"
+                    },
+                    "attenuation": 0.4,
+                    "bright": 20,
+                    "color": "#343434",
+                    "dim": 40,
+                    "shadows": 0.2
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:olfactory"
+                ],
+                "selector": "saving-throw",
+                "slug": "silver-crescent-bonus",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "silver-crescent:silver-crescent-moderate"
+                ],
+                "selector": "saving-throw",
+                "slug": "silver-crescent-bonus",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "silver-crescent:silver-crescent-greater"
+                ],
+                "selector": "saving-throw",
+                "slug": "silver-crescent-bonus",
+                "value": 3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

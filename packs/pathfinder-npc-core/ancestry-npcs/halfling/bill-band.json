@@ -17,7 +17,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>The halfling gains a +2 circumstance bonus when using the @UUID[Compendium.pf2e.actionspf2e.Item.Seek] action to find @UUID[Compendium.pf2e.conditionitems.Item.Hidden] or undetected creatures within 30 feet of them. Whenever the halfling targets a creature that is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] or hidden from them, reduce the DC of the flat check to 3 for a concealed target or 9 for a hidden one.</p>"
+                    "value": "<p>The halfling gains a +2 circumstance bonus when using the @UUID[Compendium.pf2e.actionspf2e.Item.Seek] action to find @UUID[Compendium.pf2e.conditionitems.Item.Hidden] or @UUID[Compendium.pf2e.conditionitems.Item.Undetected] creatures within 30 feet of them. Whenever the halfling targets a creature that is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] or hidden from them, reduce the DC of the flat check to @Check[flat|dc:3] for a concealed target or @Check[flat|dc:9] for a hidden one.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -57,7 +57,7 @@
         {
             "_id": "fUkzezYofKOCiL3t",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+3 status vs. Intimidation checks",
+            "name": "+3 Status vs. Intimidation Checks",
             "sort": 200000,
             "system": {
                 "actionType": {
@@ -115,7 +115,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Troops are composed of many individuals, represented by four \"segments\" on a battle grid. Each segment is 10 feet on each side and as tall as the individual members of the troop. Segments must remain contiguous. Each one has to share at least 5 feet of one of its edges with another segment—being adjacent on a diagonal isn't sufficient! You can measure flanking, cover, and the like using the center of any segment.</p>\n<p>A troop has two Hit Point thresholds in its HP entry and loses segments as it crosses thresholds. Typically, the higher threshold is at 2/3 of the troop's maximum Hit Points and the lower is at 1/3 of its maximum. Once the troop drops below the higher threshold, it loses one segment, leaving three segments (12 squares) remaining and setting the first threshold as the troop's new maximum Hit Points. This repeats when the troop drops below the lower threshold, leaving two segments (8 squares). At 0 Hit Points, the troop disperses entirely, with the few remaining members surrendering, @UUID[Compendium.pf2e.conditionitems.Item.Fleeing], or easily dispatched, as determined by the GM. Typically the creature who caused the troop to lose a segment decides which to remove, or the GM decides when a specific creature wasn't responsible. To restore lost segments and maximum Hit Points, a troop needs to spend downtime to use long-term treatment on casualties or recruit new members to replace the fallen.</p>\n<p>Troops are typically immune to non-damaging effects that target a single creature, such as a charm spell or the @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] action. An ability that can target 5 or more creatures can target an entire segment, increasing to two segments if it can target 10 or more creatures and to the entire troop if it can target 20 or more creatures. An ability that affects all creatures in a certain range affects all segments in range (make any checks or saves separately for each segment). As examples, an 8thrank charm spell (with 10 targets) can affect two segments, and an ability that Demoralizes all creatures within 30 feet of you would affect all segments that are fully within that range. A non-damaging ability that would prevent a segment from acting, cause them to flee, or otherwise make them unable to function as part of the troop for a round or more removes the segment entirely. The troop loses a number of HP required to bring it to the next threshold. If an ability both deals damage and has a non-damaging effect, apply the damage then the rest of the effect.</p>"
+                    "value": "<p><strong>Thresholds</strong> 60 (3 segments), 30 (2 segments)</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.TroopDefenses]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -176,7 +176,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The bill-band deliberately gets under the feet of their opponents, proving they are greater than the sum of their parts. The bill-band attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Trip] all creatures in or adjacent to their space. They roll one Athletics check and compare the result to the Reflex DC of each target.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The bill-band deliberately gets under the feet of their opponents, proving they are greater than the sum of their parts. The bill-band attempts to [[/act trip]] all creatures in or adjacent to their space. They roll one Athletics check and compare the result to the Reflex DC of each target.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -209,7 +209,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The bill-band launches a barrage of lit firecrackers that, upon impact, burst into light and sound. Each creature in a @Template[type:burst|distance:10] within 60 feet takes @Damage[1d12[sonic]] damage with a @Check[reflex|dc:19|basic] save. A creature that fails its save is also @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round. When the bill-band is reduced to 2 or fewer segments, this area decreases to a @Template[type:burst|distance:5].</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The bill-band launches a barrage of lit firecrackers that, upon impact, burst into light and sound. Each creature in a @Template[type:burst|distance:10] within 60 feet takes @Damage[1d12[sonic]|options:area-damage] damage with a @Check[reflex|dc:19|basic|options:area-effect] save. A creature that fails its save is also @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round. When the bill-band is reduced to 2 or fewer segments, this area decreases to a @Template[type:burst|distance:5].</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -260,7 +260,7 @@
         {
             "_id": "mZkWPJLkxc4o0vyq",
             "img": "systems/pf2e/icons/actions/OneThreeActions.webp",
-            "name": "Stick It to ’Em!",
+            "name": "Stick It to 'Em!",
             "sort": 800000,
             "system": {
                 "actionType": {
@@ -271,7 +271,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The bill-band swings barely coordinated fists and feet at each enemy in their space and in a @Template[type:emanation|distance:5], with a @Check[reflex|dc:19|basic] save. The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[1d6[bludgeoning]] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(2d6+4)[bludgeoning]] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(3d6+6)[bludgeoning]] damage</p>"
+                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The bill-band swings barely coordinated fists and feet at each enemy in their space and in a @Template[type:emanation|distance:5], with a @Check[reflex|dc:19|basic|options:area-effect] save. The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[1d6[bludgeoning]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(2d6+4)[bludgeoning]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(3d6+6)[bludgeoning]|options:area-damage] damage</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -289,6 +289,32 @@
                 }
             },
             "type": "action"
+        },
+        {
+            "_id": "45HKjGK2whPR2ein",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Sports Lore",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Bill-Band",
@@ -322,13 +348,13 @@
                 "value": "+3 status vs. Intimidation checks"
             },
             "hp": {
-                "details": " (4 segments); Thresholds 60 (3 segments), 30 (2 segments)",
+                "details": "(4 segments); Thresholds 60 (3 segments), 30 (2 segments)",
                 "max": 90,
                 "temp": 0,
                 "value": 90
             },
             "speed": {
-                "details": " overwhelming scrum, troop movement",
+                "details": "overwhelming scrum, troop movement",
                 "otherSpeeds": [],
                 "value": 25
             },
@@ -349,7 +375,10 @@
             "blurb": "",
             "languages": {
                 "details": "",
-                "value": []
+                "value": [
+                    "common",
+                    "halfling"
+                ]
             },
             "level": {
                 "value": 5

@@ -22,6 +22,29 @@
                 "key": "Resistance",
                 "type": "poison",
                 "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "itemType": "consumable",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "self:condition:sickened",
+                    {
+                        "or": [
+                            "item:tag:alchemical-food",
+                            "item:trait:elixir",
+                            "item:trait:ingested",
+                            "item:trait:potion"
+                        ]
+                    }
+                ],
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Conditions.Sickened.AllowEatOrDrink"
+                    }
+                ]
             }
         ],
         "traits": {

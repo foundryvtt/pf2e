@@ -1,0 +1,105 @@
+{
+    "_id": "9iJaD4S7ptUeq5vO",
+    "folder": "4fJHnYFqH0VjZXPv",
+    "img": "icons/magic/light/explosion-star-glow-yellow.webp",
+    "name": "Positive Attunement",
+    "system": {
+        "area": null,
+        "cost": {
+            "value": ""
+        },
+        "counteraction": false,
+        "damage": {
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "1d8",
+                "kinds": [
+                    "healing"
+                ],
+                "materials": [],
+                "type": "untyped"
+            }
+        },
+        "defense": null,
+        "description": {
+            "value": "<p>You attune a creature to the Forge of Creation, connecting its life force without fully transporting it. The creature's appearance becomes more brightly colored. If the creature is living, it heals 1d8 Hit Points immediately and at the end of each of your turns. Effects that increase healing only increase the initial healing.</p>\n<p>If the creature is undead or has void healing, it instead takes 1d8 vitality damage, depending on the result of its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is damaged once and the spell ends.</p>\n<p><strong>Failure</strong> The creature is damaged immediately and at the end of each of your turns (so twice in the round you Cast the Spell).</p>\n<p><strong>Critical Failure</strong> As failure, and the damage is doubled.</p>\n<hr />\n<p><strong>Heightened (+3)</strong> The damage and healing each increase by 1d8.</p>"
+        },
+        "duration": {
+            "sustained": true,
+            "value": "1 minute"
+        },
+        "heightening": {
+            "damage": {
+                "0": "1d8"
+            },
+            "interval": 3,
+            "type": "interval"
+        },
+        "level": {
+            "value": 3
+        },
+        "overlays": {
+            "QDQIFtc8RxaD9iS7": {
+                "_id": "QDQIFtc8RxaD9iS7",
+                "name": "Positive Attunement (Healing)",
+                "overlayType": "override",
+                "sort": 1,
+                "system": {}
+            },
+            "kHaktf2Oiv8TRiCV": {
+                "_id": "kHaktf2Oiv8TRiCV",
+                "name": "Positive Attunement (Damage)",
+                "overlayType": "override",
+                "sort": 2,
+                "system": {
+                    "damage": {
+                        "0": {
+                            "category": null,
+                            "kinds": [
+                                "damage"
+                            ],
+                            "type": "vitality"
+                        }
+                    },
+                    "defense": {
+                        "save": {
+                            "basic": false,
+                            "statistic": "will"
+                        }
+                    }
+                }
+            }
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "range": {
+            "value": "touch"
+        },
+        "requirements": "",
+        "rules": [],
+        "target": {
+            "value": "1 living or undead creature"
+        },
+        "time": {
+            "value": "2"
+        },
+        "traits": {
+            "rarity": "common",
+            "traditions": [
+                "divine",
+                "primal"
+            ],
+            "value": [
+                "concentrate",
+                "healing",
+                "manipulate",
+                "vitality"
+            ]
+        }
+    },
+    "type": "spell"
+}

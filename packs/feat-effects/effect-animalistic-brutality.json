@@ -1,0 +1,75 @@
+{
+    "_id": "wQy8QddWBtzXYjw3",
+    "img": "icons/creatures/abilities/bear-roar-bite-brown.webp",
+    "name": "Effect: Animalistic Brutality",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Animalistic Brutality]</p>\n<p>Your unarmed attack from bestial rage gains one of the following traits until you stop raging: backswing, forceful, parry, razing, or sweep.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitBackswing",
+                        "value": "backswing"
+                    },
+                    {
+                        "label": "PF2E.TraitForceful",
+                        "value": "forceful"
+                    },
+                    {
+                        "label": "PF2E.TraitParry",
+                        "value": "parry"
+                    },
+                    {
+                        "label": "PF2E.TraitRazing",
+                        "value": "razing"
+                    },
+                    {
+                        "label": "PF2E.TraitSweep",
+                        "value": "sweep"
+                    }
+                ],
+                "flag": "trait",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Trait"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:instinct-unarmed-strike"
+                ],
+                "property": "traits",
+                "value": "{item|flags.pf2e.rulesSelections.trait}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,45 @@
+{
+    "_id": "UsWJ13sDyOgOGWvm",
+    "folder": "Ui6movgfR7B9yRus",
+    "img": "systems/pf2e/icons/actions/Passive.webp",
+    "name": "(Cryptid, Experimental) Augmented",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>An experimental cryptid is partially artificial and designed in a way to specifically prevent biological afflictions and instant death. It gains a +2 circumstance bonus to saving throws against death effects, disease, and poison.</p>"
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:death",
+                            "item:trait:disease",
+                            "item:trait:poison"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "action"
+}

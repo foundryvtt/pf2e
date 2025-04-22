@@ -498,41 +498,18 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The surgeon attempts a Medicine check against the Fortitude DC of one living creature they can see within 60 feet.</p>\n<p>On a success, the surgeon's melee Strikes deal an extra 1d6 precision damage against that creature (2d6 on a critical success) until 1 minute passes or the surgeon critically hits that creature, whichever comes first.</p>\n<p>Using this action again ends any previous one. A surgeon can target an individual creature no more than once per day with this ability.</p>"
+                    "value": "<p>The surgeon attempts a @Check[medicine|against:fortitude] check against the Fortitude DC of one living creature they can see within 60 feet.</p>\n<p>On a success, the surgeon's melee Strikes deal an extra 1d6 precision damage against that creature (2d6 on a critical success) until 1 minute passes or the surgeon critically hits that creature, whichever comes first.</p>\n<p>Using this action again ends any previous one. A surgeon can target an individual creature no more than once per day with this ability.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "medical-malpractice",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.Check.Result.Degree.Check.success",
-                                "value": "1"
-                            },
-                            {
-                                "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
-                                "value": "2"
-                            }
-                        ],
-                        "toggleable": true
-                    },
-                    {
-                        "category": "precision",
-                        "diceNumber": "@item.flags.pf2e.rulesSelections.medicalMalpractice",
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "medical-malpractice"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Medical Malpractice",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Medical Malpractice"
+                },
                 "slug": null,
                 "traits": {
                     "value": []

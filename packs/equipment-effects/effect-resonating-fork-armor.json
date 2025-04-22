@@ -4,7 +4,7 @@
     "name": "Effect: Resonating Fork - Armor",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Resonating Fork]</p>\n<p>You gain resistance 2 to sonic damage and a +1 item bonus to saving throws against effects with the auditory or sonic trait.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Resonating Fork], @UUID[Compendium.pf2e.equipment-srd.Item.Resonating Fork (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Resonating Fork (Major)]</p>\n<p>You gain resistance to sonic damage and an item bonus to saving throws against effects with the auditory or sonic trait.</p>"
         },
         "duration": {
             "expiry": null,
@@ -22,23 +22,105 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:resonating-fork",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Resonating Fork"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:resonating-fork-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Resonating Fork (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:resonating-fork-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Resonating Fork (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "resonating-fork"
+            },
+            {
                 "key": "Resistance",
+                "predicate": [
+                    "resonating-fork:resonating-fork"
+                ],
                 "type": "sonic",
                 "value": 2
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "resonating-fork:resonating-fork-greater"
+                ],
+                "type": "sonic",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "resonating-fork:resonating-fork-major"
+                ],
+                "type": "sonic",
+                "value": 10
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
                     {
                         "or": [
-                            "auditory",
-                            "sonic"
+                            "item:trait:auditory",
+                            "item:trait:sonic"
                         ]
                     }
                 ],
                 "selector": "saving-throw",
+                "slug": "resonating-fork-armor-bonus",
                 "type": "item",
                 "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "resonating-fork:resonating-fork-greater",
+                            "resonating-fork:resonating-fork-major"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "resonating-fork-armor-bonus",
+                "value": 2
             }
         ],
         "start": {

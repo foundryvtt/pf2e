@@ -63,7 +63,7 @@
         {{#if @root.editable}}
             <div class="item-controls">
                 {{#if (and canBeEquipped isInvestable)}}
-                    <a class="toggle-invested{{#if item.isInvested}} active{{/if}}{{#if notifyInvestment}} notify{{/if}}" data-action="toggle-invested" data-tooltip="PF2E.ui.equipmentInvested">
+                    <a class="invested {{#if item.isInvested}} active{{/if}}{{#if notifyInvestment}} notify{{/if}}" data-action="toggle-invested" data-tooltip="PF2E.ui.equipmentInvested">
                         <i class="fa-solid fa-gem fa-fw"></i>
                     </a>
                 {{/if}}
@@ -84,11 +84,7 @@
                         data-tooltip="PF2E.Actor.Inventory.CarryType.OpenMenu"
                         data-action="open-carry-type-menu"
                     >
-                        {{~#if (and (eq item.system.equipped.carryType "held") (eq item.system.equipped.handsHeld 1))}}<span class="fa-stack fa-fw fa-2xs"><i class="fa-solid fa-hand-back-fist fa-stack-2x"></i><i class="fa-solid fa-1 fa-inverse fa-stack-1x"></i></span>
-                        {{~else if (and (eq item.system.equipped.carryType "held") (eq item.system.equipped.handsHeld 2))}}<span class="fa-stack fa-fw fa-2xs"><i class="fa-solid fa-hand-back-fist fa-stack-2x"></i><i class="fa-solid fa-2 fa-inverse fa-stack-1x"></i></span>
-                        {{~else if (eq item.system.equipped.carryType "stowed")}}<i class="fa-solid fa-box fa-fw"></i>
-                        {{~else if (eq item.system.equipped.carryType "dropped")}}<i class="fa-solid fa-grip-lines fa-fw"></i>
-                        {{~else}}<i class="fa-solid fa-tshirt fa-fw"></i>{{/if~}}
+                        {{> equipIcon equipped=item.system.equipped}}
                     </a>
                 {{/if}}
                 {{#if item.isDamaged}}
@@ -96,7 +92,7 @@
                 {{/if}}
                 {{#if @root.user.isGM}}
                     {{#if item.isIdentified}}
-                        <a data-action="toggle-identified" data-tooltip="PF2E.identification.Mystify"><i class="fa-regular fa-question-circle fa-fw"></i></a>
+                        <a data-action="toggle-identified" data-tooltip="PF2E.identification.Mystify"><i class="fa-regular fa-circle-question fa-fw"></i></a>
                     {{else}}
                         <a data-action="toggle-identified" data-tooltip="PF2E.identification.Identify"><i class="fa-solid fa-question-circle fa-fw"></i></a>
                     {{/if}}
@@ -113,6 +109,23 @@
                 {{#if (or @root.owner (ne @root.actor.type "loot"))}}
                     <a data-action="delete-item" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
                 {{/if}}
+            </div>
+        {{else if (ne @root.actor.type "loot")}}
+            <div class="item-controls readonly">
+                {{#if (and canBeEquipped isInvestable)}}
+                    <span class="invested {{#if item.isInvested}} active{{/if}}" data-tooltip="PF2E.InvestedLabel">
+                        <i class="fa-solid fa-gem fa-fw"></i>
+                    </span>
+                {{/if}}
+                {{#unless item.isStowed}}
+                    <span class="item-carry-type {{#if item.isEquipped}} active{{/if}}">
+                        {{#if isSubitem}}
+                            <i class="fa-solid fa-paperclip"></i>
+                        {{else if (not item.isStowed)}}
+                            {{> equipIcon equipped=item.system.equipped}}
+                        {{/if}}
+                    </span>
+                {{/unless}}
             </div>
         {{/if}}
 
@@ -146,3 +159,11 @@
         </ul>
     {{/if}}
 </li>
+
+{{#*inline "equipIcon"}}
+    {{~#if (and (eq equipped.carryType "held") (eq equipped.handsHeld 1))}}<span class="fa-stack fa-fw fa-2xs"><i class="fa-solid fa-hand-back-fist fa-stack-2x"></i><i class="fa-solid fa-1 fa-inverse fa-stack-1x"></i></span>
+    {{~else if (and (eq equipped.carryType "held") (eq equipped.handsHeld 2))}}<span class="fa-stack fa-fw fa-2xs"><i class="fa-solid fa-hand-back-fist fa-stack-2x"></i><i class="fa-solid fa-2 fa-inverse fa-stack-1x"></i></span>
+    {{~else if (eq equipped.carryType "stowed")}}<i class="fa-solid fa-box fa-fw"></i>
+    {{~else if (eq equipped.carryType "dropped")}}<i class="fa-solid fa-grip-lines fa-fw"></i>
+    {{~else}}<i class="fa-solid fa-shirt fa-fw"></i>{{/if~}}
+{{/inline}}

@@ -9,7 +9,7 @@
         "actions": {
             "value": 3
         },
-        "category": null,
+        "category": "offensive",
         "description": {
             "value": "<p>You shoot an arrow that multiplies into a dense cloud of weapons. Make one ranged Strike with a –2 penalty against each enemy you are aware of within a cone as long as your weapon's first range increment. Roll the damage only once for all targets, and all the Strike's damage is spirit damage instead of its normal type. Each attack counts toward your multiple attack penalty, the penalty doesn't increase until you have made all your attacks.</p>"
         },
@@ -18,7 +18,41 @@
             "remaster": true,
             "title": "Pathfinder War of Immortals"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "heaven-rains-an-ending",
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "heaven-rains-an-ending"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "ranged-strike-damage"
+                ],
+                "value": "spirit"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "heaven-rains-an-ending"
+                ],
+                "selector": "ranged-strike-attack-roll",
+                "value": -2
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "exemplar-spirit-damage",
+                "predicate": [
+                    "heaven-rains-an-ending"
+                ]
+            }
+        ],
         "traits": {
             "value": [
                 "transcendence"

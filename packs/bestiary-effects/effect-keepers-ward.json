@@ -1,0 +1,56 @@
+{
+    "_id": "SCQZCtRTHBqqOUOA",
+    "img": "icons/magic/water/projectile-water-ice-orb.webp",
+    "name": "Effect: Keeper's Ward",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +1 status bonus to saves against magical effects. The bonus increases to +2 if the effect originated from an aquatic creature.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #213: Thirst for Blood"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:magical"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "origin:trait:aquatic"
+                ],
+                "selector": "saving-throw",
+                "slug": "effect-keepers-ward",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

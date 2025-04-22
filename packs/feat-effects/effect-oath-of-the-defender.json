@@ -27,8 +27,25 @@
                 ],
                 "key": "Resistance",
                 "label": "PF2E.IWR.Custom.DamageFromSwornCreatures",
+                "predicate": [
+                    {
+                        "not": "self:effect:champions-resistance"
+                    }
+                ],
                 "type": "custom",
                 "value": "2 + floor((@item.origin.level - 2)/5)"
+            },
+            {
+                "definition": [
+                    "origin:trait:{item|origin.flags.pf2e.oathOfTheDefender}"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.DamageFromSwornCreatures",
+                "predicate": [
+                    "self:effect:champions-resistance"
+                ],
+                "type": "custom",
+                "value": "7 + @item.origin.level"
             }
         ],
         "start": {

@@ -31,6 +31,7 @@
         }
     }
 
+    // Controls the sizing of the columns, to sync the header and rows
     .inventory-list,
     ul.items {
         display: flex;
@@ -72,6 +73,10 @@
             font-size: var(--font-size-12);
             gap: 1px;
             justify-content: end;
+            &.readonly {
+                flex-basis: 2.5rem;
+                padding-right: var(--space-2);
+            }
         }
     }
 
@@ -255,18 +260,12 @@
                     color: var(--text-dark);
                     font-size: var(--font-size-13);
 
-                    > a {
-                        &.toggle-invested,
-                        &.item-carry-type {
-                            color: rgba(black, 0.5);
+                    .invested,
+                    .item-carry-type {
+                        color: rgba(black, 0.5);
 
-                            &.active {
-                                color: var(--color-pf-secondary);
-                            }
-                        }
-
-                        &.item-carry-type {
-                            text-align: right;
+                        &.active {
+                            color: var(--color-pf-secondary);
                         }
 
                         // Hands-held with interior number
@@ -278,6 +277,12 @@
                                 left: var(--space-1);
                                 position: relative;
                             }
+                        }
+                    }
+
+                    > a {
+                        &.item-carry-type {
+                            text-align: right;
                         }
 
                         &.detach {

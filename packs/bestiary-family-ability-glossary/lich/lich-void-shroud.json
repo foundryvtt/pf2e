@@ -1,0 +1,54 @@
+{
+    "_id": "yWNcEsEJIoeXKBnk",
+    "folder": "HJkeRGwjpoGj9wy3",
+    "img": "systems/pf2e/icons/actions/Passive.webp",
+    "name": "(Lich) Void Shroud",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "defensive",
+        "description": {
+            "value": "<p>30 feet. The lich is surrounded by an aura of death, drawing forth souls to be consumed by the lich's constant hunger.</p>\n<p>Living creatures in the emanation take a -2 status penalty to saves against fear and death effects. In addition, any creature that starts its turn in the area gains the @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} condition unless it succeeds at a @Check[will|dc:] save against the lich's spell DC-4.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Void Shroud]</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core"
+        },
+        "rules": [
+            {
+                "effects": [
+                    {
+                        "affects": "all",
+                        "events": [
+                            "enter"
+                        ],
+                        "includesSelf": false,
+                        "predicate": [
+                            "target:mode:living"
+                        ],
+                        "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Void Shroud"
+                    }
+                ],
+                "key": "Aura",
+                "radius": 30,
+                "slug": "lich-void-shroud",
+                "traits": [
+                    "death"
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "aura",
+                "death"
+            ]
+        }
+    },
+    "type": "action"
+}

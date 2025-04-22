@@ -19,7 +19,7 @@
                             {{disabled (not vision.editable)}}
                         />
                         <label for="{{@root.options.id}}-vision">{{localize "PF2E.Actor.Creature.Sense.Type.Vision"}}</label>
-                        {{#if vision.source}}<i class="fa-solid fa-info-circle" data-tooltip="{{vision.source}}"></i>{{/if}}
+                        {{#if vision.source}}<i class="fa-solid fa-circle-info" data-tooltip="{{vision.source}}"></i>{{/if}}
                     </div>
                 </td>
                 <td class="acuity">
@@ -45,7 +45,7 @@
                                 {{disabled choice.source}}
                             />
                             <label for="{{@root.options.id}}-{{key}}">{{choice.label}}</label>
-                            {{#if choice.source}}<i class="fa-solid fa-info-circle" data-tooltip="{{choice.source}}"></i>{{/if}}
+                            {{#if choice.source}}<i class="fa-solid fa-circle-info" data-tooltip="{{choice.source}}"></i>{{/if}}
                         </div>
                     </td>
                     <td class="acuity">
@@ -74,6 +74,6 @@
     </table>
 
     <button type="submit" class="trait-footer">
-        <i class="fa-regular fa-save"></i>{{localize "DOCUMENT.Update" type=(localize documentType)}}
+        <i class="fa-regular fa-floppy-disk"></i>{{localize "DOCUMENT.Update" type=(localize documentType)}}
     </button>
 </form>

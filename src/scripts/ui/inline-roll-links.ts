@@ -7,12 +7,12 @@ import { EFFECT_AREA_SHAPES } from "@item/spell/values.ts";
 import { ChatMessageFlagsPF2e, ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { calculateDC } from "@module/dc.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
+import { resolveActorAndItemFromHTML, resolveSheetDocument } from "@scripts/helpers.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { Statistic, StatisticRollParameters } from "@system/statistic/index.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, getActionGlyph, htmlClosest, htmlQueryAll, sluggify, splitListString, tupleHasValue } from "@util";
 import { getSelectedActors } from "@util/token-actor-utils.ts";
-import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 
 const inlineSelector = ["action", "check", "effect-area"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
@@ -138,8 +138,7 @@ export class InlineRollLinks {
 
         if (!pf2Check) return;
 
-        const foundryDoc = resolveDocument(link);
-        const parentActor = resolveActor(foundryDoc);
+        const { actor: parentActor, item: itemFromDoc, sheetActor } = resolveActorAndItemFromHTML(link);
         const actors = ((): ActorPF2e[] => {
             switch (pf2Roller) {
                 case "self":
@@ -150,9 +149,8 @@ export class InlineRollLinks {
             }
 
             // If this is inside a sheet, return the actor always
-            const actorFromSheet = resolveActor(resolveSheetDocument(link));
-            if (actorFromSheet && !actorFromSheet.isOfType("loot", "party") && actorFromSheet.isOwner) {
-                return [actorFromSheet];
+            if (sheetActor && !sheetActor.isOfType("loot", "party") && sheetActor.isOwner) {
+                return [sheetActor];
             }
 
             // If the rolling actor is a party actor, return it (likely kingmaker)
@@ -243,19 +241,12 @@ export class InlineRollLinks {
             // (2) The item is an action or,
             // (1) The check is a saving throw and the item is not a weapon.
             // Exclude weapons so that roll notes on strikes from incapacitation abilities continue to work.
-            const item = (() => {
-                const itemFromDoc =
-                    foundryDoc instanceof ItemPF2e
-                        ? foundryDoc
-                        : foundryDoc instanceof ChatMessagePF2e
-                          ? foundryDoc.item
-                          : null;
-
-                return itemFromDoc?.isOfType("action", "feat", "campaignFeature") ||
-                    (isSavingThrow && !itemFromDoc?.isOfType("weapon"))
-                    ? itemFromDoc
+            const item =
+                itemFromDoc?.actor &&
+                (itemFromDoc.isOfType("action", "feat", "campaignFeature") ||
+                    (isSavingThrow && !itemFromDoc?.isOfType("weapon")))
+                    ? (itemFromDoc as ItemPF2e<ActorPF2e>)
                     : null;
-            })();
 
             const dc = ((): CheckDC | null => {
                 const dcValue = pf2Dc === "@self.level" ? calculateDC(rollingActor.level) : Number(pf2Dc ?? "NaN");
@@ -339,7 +330,7 @@ export class InlineRollLinks {
             return;
         }
 
-        const foundryDoc = resolveDocument(link);
+        const { actor, item, message } = resolveActorAndItemFromHTML(link);
         const data: DeepPartial<foundry.documents.MeasuredTemplateSource> = JSON.parse(pf2TemplateData ?? "{}");
         data.distance ||= Number(pf2Distance);
         data.fillColor ||= game.user.color;
@@ -370,16 +361,10 @@ export class InlineRollLinks {
             flags.pf2e.areaShape = pf2EffectArea;
         }
 
-        const messageId =
-            foundryDoc instanceof ChatMessagePF2e
-                ? foundryDoc.id
-                : (htmlClosest(link, "[data-message-id]")?.dataset.messageId ?? null);
-        if (messageId) {
-            flags.pf2e.messageId = messageId;
+        if (message) {
+            flags.pf2e.messageId = message.id;
         }
 
-        const actor = resolveActor(foundryDoc);
-        const item = foundryDoc instanceof ItemPF2e ? foundryDoc : null;
         if (item) {
             const origin = item.getOriginData();
             flags.pf2e.origin = origin;
@@ -402,9 +387,8 @@ export class InlineRollLinks {
             return;
         }
 
-        const foundryDoc = resolveDocument(target);
-        const actor = resolveActor(foundryDoc);
-        const defaultVisibility = (actor ?? foundryDoc)?.hasPlayerOwner ? "all" : "gm";
+        const { actor, appDocument } = resolveActorAndItemFromHTML(target);
+        const defaultVisibility = (actor ?? appDocument)?.hasPlayerOwner ? "all" : "gm";
         const content = (() => {
             if (target.parentElement?.dataset?.pf2Checkgroup !== undefined) {
                 const content = htmlQueryAll(target.parentElement, inlineSelector)
@@ -425,8 +409,8 @@ export class InlineRollLinks {
         // the origin flag.
         const message = game.messages.get(htmlClosest(target, "[data-message-id]")?.dataset.messageId ?? "");
         const flags: DeepPartial<ChatMessageFlagsPF2e> =
-            foundryDoc instanceof JournalEntry
-                ? { pf2e: { journalEntry: foundryDoc.uuid } }
+            appDocument instanceof JournalEntry
+                ? { pf2e: { journalEntry: appDocument.uuid } }
                 : message?.flags.pf2e.origin
                   ? { pf2e: { origin: fu.deepClone(message.flags.pf2e.origin) } }
                   : {};
@@ -436,39 +420,13 @@ export class InlineRollLinks {
 
     /** Give inline damage-roll links from items flavor text of the item name */
     static flavorDamageRolls(html: HTMLElement, document: ClientDocument | null = null): void {
-        const actor = resolveActor(document ?? resolveDocument(html));
+        const actor = resolveActor(document ?? resolveActorAndItemFromHTML(html).actor);
         for (const rollLink of htmlQueryAll(html, "a.inline-roll[data-damage-roll]")) {
             const itemId = htmlClosest(rollLink, "[data-item-id]")?.dataset.itemId;
             const item = actor?.items.get(itemId ?? "");
             if (item) rollLink.dataset.flavor ||= item.name;
         }
     }
-}
-
-function resolveSheetDocument(html: HTMLElement): ClientDocument | null {
-    const sheet: { id?: string; document?: unknown } | null =
-        ui.windows[Number(html.closest<HTMLElement>(".app.sheet")?.dataset.appid)] ?? null;
-    const doc = sheet?.document;
-    return doc && (doc instanceof ActorPF2e || doc instanceof ItemPF2e || doc instanceof JournalEntry) ? doc : null;
-}
-
-/** Attempt to derive the related document via the sheet or chat message, handling any item summaries */
-function resolveDocument(html: HTMLElement): ClientDocument | null {
-    // If an item UUID is provided, utilize it
-    if (UUIDUtils.isItemUUID(html.dataset.itemUuid)) {
-        const document = fromUuidSync(html.dataset.itemUuid);
-        if (document instanceof foundry.abstract.Document) return document;
-    }
-
-    // Attempt to figure out the document from the sheet. This might be an item description or actor notes.
-    const sheetDocument = resolveSheetDocument(html);
-    if (sheetDocument) {
-        return sheetDocument;
-    }
-
-    // Return the chat message if there is one
-    const messageId = htmlClosest(html, "[data-message-id]")?.dataset.messageId;
-    return messageId ? (game.messages.get(messageId) ?? null) : null;
 }
 
 /** Retrieve an actor via a passed document. Handles item owners and chat message actors. */

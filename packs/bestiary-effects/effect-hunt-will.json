@@ -1,0 +1,87 @@
+{
+    "_id": "9Uwt9cfXOKAl8cD5",
+    "img": "icons/skills/targeting/crosshair-pointed-orange.webp",
+    "name": "Effect: Hunt Will",
+    "system": {
+        "description": {
+            "value": "<p>The steed gains a +2 circumstance bonus to Perception checks to Seek the prey and to Survival checks to Track the prey. The first time the steed hits its designated prey in a round, it deals an additional 1d8 precision damage.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Claws of the Tyrant"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "hunt-will"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
+                "option": "target:mark:hunt-will",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
+                "predicate": [
+                    "action:seek",
+                    "target:mark:hunt-will"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
+                "predicate": [
+                    "action:track",
+                    "target:mark:hunt-will"
+                ],
+                "selector": "survival",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Ranger.HuntersEdge.FirstAttack",
+                "option": "first-attack",
+                "toggleable": true
+            },
+            {
+                "category": "precision",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    "first-attack"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

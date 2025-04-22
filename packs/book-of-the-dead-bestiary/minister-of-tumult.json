@@ -254,7 +254,8 @@
                     "rarity": "common",
                     "value": [
                         "agile",
-                        "finesse"
+                        "finesse",
+                        "unarmed"
                     ]
                 },
                 "weaponType": {
@@ -564,7 +565,15 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "initiative",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -659,15 +668,14 @@
                         "value": 1
                     },
                     {
-                        "definition": [
-                            "item:slug:claw"
-                        ],
-                        "key": "AdjustStrike",
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
                         "mode": "add",
                         "predicate": [
-                            "stance-of-death:cloudless-void"
+                            "stance-of-death:cloudless-void",
+                            "item:slug:claw"
                         ],
-                        "property": "weapon-traits",
+                        "property": "traits",
                         "value": "reach"
                     },
                     {

@@ -37,7 +37,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "agile"
+                        "agile",
+                        "unarmed"
                     ]
                 },
                 "weaponType": {
@@ -97,7 +98,25 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "pull-arm",
+                        "toggleable": true
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "pull-arm",
+                            "item:slug:claw"
+                        ],
+                        "property": "traits",
+                        "value": "reach-10"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

@@ -615,15 +615,14 @@
                         "toggleable": true
                     },
                     {
-                        "definition": [
-                            "item:melee"
-                        ],
-                        "key": "AdjustStrike",
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
                         "mode": "add",
                         "predicate": [
-                            "lunge"
+                            "lunge",
+                            "item:melee"
                         ],
-                        "property": "weapon-traits",
+                        "property": "traits",
                         "value": "reach"
                     }
                 ],
@@ -670,10 +669,9 @@
                         "diceNumber": 1,
                         "key": "DamageDice",
                         "predicate": [
-                            "melee",
                             "power-attack"
                         ],
-                        "selector": "strike-damage"
+                        "selector": "melee-strike-damage"
                     }
                 ],
                 "slug": "power-attack",

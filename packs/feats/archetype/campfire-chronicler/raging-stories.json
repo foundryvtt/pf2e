@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>When you @UUID[Compendium.pf2e.actionspf2e.Item.Offer Story]{Offer a Story} about wild chances and fighting against all odds, you can wrap yourself in spectral flame in place of the normal benefits. The action then gains the fire trait. Your melee Strikes for the duration deal 2 additional fire damage. The creature you share a story with can choose this benefit even if you did not.</p>\n<p>The fire damage increases to 4 if you are a master of Religion and 6 if you are legendary.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Raging Stories]</p>"
+            "value": "<p>When you @UUID[Compendium.pf2e.actionspf2e.Item.Offer Story]{Offer a Story} about wild chances and fighting against all odds, you can wrap yourself in spectral flame in place of the normal benefits. The action then gains the fire trait. Your melee Strikes for the duration deal 2 additional fire damage. The creature you share a story with can choose this benefit even if you did not.</p>\n<p>The fire damage increases to 4 if you are a master of Religion and 6 if you are legendary.</p>"
         },
         "level": {
             "value": 4
@@ -29,7 +29,18 @@
             "remaster": true,
             "title": "Pathfinder Lost Omens Rival Academies"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:offer-story"
+                ],
+                "property": "other-tags",
+                "value": "raging-stories"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

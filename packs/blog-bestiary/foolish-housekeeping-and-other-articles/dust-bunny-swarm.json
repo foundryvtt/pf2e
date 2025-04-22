@@ -1,0 +1,232 @@
+{
+    "_id": "bupIhMxa1zvWI91a",
+    "folder": "lY1sdnEUT9RW0tYU",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "F4YsaMzZsgKzc6Xi",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Cloud of Allergens",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The swarm rolls initiative</p><hr /><p><strong>Effect</strong> The dust bunnies stir, kicking up a cloud in a @Template[type:burst|distance:15] centered on the swarm that lasts for 1 minute. Creatures who enter or start their turn in this cloud must attempt a @Check[fortitude|dc:16] save or take a –1 circumstance penalty to skill checks that have the concentration trait and all Perception checks as their sensory organs become impaired.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Cloud of Allergens]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "initiative",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wwIOz9e1Fphh2cf5",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Dust to Dust",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When a dust bunny swarm is destroyed, it re-forms after [[/gmr 2d4 #days]]{2d4 days} in the area in which it was destroyed unless the location has been significantly cleaned of all dust and debris.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "j2nCivZK4wIqZeYv",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Pummeling Dust",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each enemy in the swarm's space takes @Damage[1d6[bludgeoning]] damage with a @Check[reflex|dc:16|basic] save. A creature that fails its save cannot use reactions for 1 round as they sneeze uncontrollably.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Dust Bunny Swarm",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 7
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 0
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 13
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 16,
+                "temp": 0,
+                "value": 16
+            },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [
+                        "bludgeoning"
+                    ],
+                    "type": "physical",
+                    "value": 6
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 30
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 4
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 4
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 1
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Dust bunnies in particular are prone to swarming. This can occur when a large number are left alone for a long period of time and are then disturbed by adventurers or a returning wizard. Other times, a singular dust bunny familiar grows in such numbers (and they will rapidly reproduce!) that a wizard cannot hope to keep them all placated with food and attention. In this situation, they will unionize in rebellion against their master.</p>\n<p>It is paramount that you do not allow a dust bunny to multiply, for once a swarm has formed, they are nigh impossible to get rid of. While relatively easy to disperse and unlikely to kill anyone, they will re-form within the week unless the area is immaculately cleaned.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Paizo Blog: Foolish Housekeeping and Other Articles"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 7,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 7
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 5
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 3
+            }
+        },
+        "skills": {
+            "arcana": {
+                "base": 0,
+                "special": []
+            },
+            "athletics": {
+                "base": 3,
+                "special": []
+            },
+            "stealth": {
+                "base": 7,
+                "special": []
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "construct",
+                "swarm"
+            ]
+        }
+    },
+    "type": "npc"
+}

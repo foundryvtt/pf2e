@@ -1023,10 +1023,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const { itemTypes, synthetics } = this;
 
         // Acquire the character's handwraps of mighty blows and apply its runes to all unarmed attacks
-        const handwrapsSlug = "handwraps-of-mighty-blows";
         const handwraps = itemTypes.weapon.find(
             (w) =>
-                (w.slug === handwrapsSlug || w.system.traits.otherTags.includes(handwrapsSlug)) &&
+                w.system.traits.otherTags.includes("handwraps-of-mighty-blows") &&
                 w.category === "unarmed" &&
                 w.isEquipped &&
                 w.isInvested,
@@ -1078,9 +1077,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             .filter(R.isNonNull);
         // Exclude handwraps as a strike
         const weapons = [
-            itemTypes.weapon.filter(
-                (w) => w.slug !== handwrapsSlug && !w.system.traits.otherTags.includes(handwrapsSlug),
-            ),
+            itemTypes.weapon.filter((w) => !w.system.traits.otherTags.includes("handwraps-of-mighty-blows")),
             syntheticWeapons,
             basicUnarmed ?? [],
             // Generate a shield attacks from the character's shields
@@ -1251,12 +1248,17 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         const auxiliaryActions: WeaponAuxiliaryAction[] = [];
         const isRealItem = this.items.has(weapon.id);
+        const traitsArray = weapon.system.traits.value;
 
         if (weapon.system.traits.toggles.modular.options.length > 0) {
             auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "modular" }));
         }
+        if (weapon.isEquipped) {
+            if (traitsArray.includes("parry") && !this.rollOptions.all["self:effect:parry"]) {
+                auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "parry" }));
+            }
+        }
         if (isRealItem && weapon.category !== "unarmed" && !weapon.parentItem) {
-            const traitsArray = weapon.system.traits.value;
             const usage = weapon.system.usage;
             const weaponAsShield = weapon.shield;
             const canWield2H =

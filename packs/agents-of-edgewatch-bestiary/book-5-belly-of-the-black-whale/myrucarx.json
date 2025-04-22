@@ -772,7 +772,8 @@
                     "rarity": "common",
                     "value": [
                         "magical",
-                        "reach-15"
+                        "reach-15",
+                        "unarmed"
                     ]
                 },
                 "weaponType": {
@@ -891,14 +892,25 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>When attempting a save against a light effect, a myrucarx gets a result one degree of success lower than it rolled. A myrucarx caught in sunlight is stunned 2 and clumsy 2.</p>"
+                    "value": "<p>When attempting a save against a light effect, a myrucarx gets a result one degree of success lower than it rolled. A myrucarx caught in sunlight is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2} and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "adjustment": {
+                            "all": "one-degree-worse"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "item:trait:light"
+                        ],
+                        "selector": "saving-throw"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

@@ -22,36 +22,112 @@
         },
         "rules": [
             {
+                "adjustName": false,
                 "choices": [
                     {
-                        "label": "PF2E.SpecificRule.Equipment.Bomb.Type.Lesser",
-                        "value": 1
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:inflammation-flask-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Inflammation Flask (Lesser)"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Equipment.Bomb.Type.Moderate",
-                        "value": 2
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:inflammation-flask-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Inflammation Flask (Moderate)"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Equipment.Bomb.Type.Greater",
-                        "value": 3
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:inflammation-flask-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Inflammation Flask (Greater)"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Equipment.Bomb.Type.Major",
-                        "value": 4
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:inflammation-flask-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Inflammation Flask (Major)"
                     }
                 ],
-                "flag": "weakness",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Equipment.Bomb.Choice"
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "inflammation-flask"
             },
             {
                 "key": "Weakness",
+                "predicate": [
+                    "inflammation-flask:inflammation-flask-lesser"
+                ],
                 "type": [
                     "acid",
                     "fire",
                     "slashing"
                 ],
-                "value": "{item|flags.pf2e.rulesSelections.weakness}"
+                "value": 1
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "inflammation-flask:inflammation-flask-moderate"
+                ],
+                "type": [
+                    "acid",
+                    "fire",
+                    "slashing"
+                ],
+                "value": 2
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "inflammation-flask:inflammation-flask-greater"
+                ],
+                "type": [
+                    "acid",
+                    "fire",
+                    "slashing"
+                ],
+                "value": 3
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "inflammation-flask:inflammation-flask-major"
+                ],
+                "type": [
+                    "acid",
+                    "fire",
+                    "slashing"
+                ],
+                "value": 4
             }
         ],
         "start": {

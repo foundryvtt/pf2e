@@ -6,11 +6,12 @@ import type {
     PredicateField,
     StrictArrayField,
     StrictBooleanField,
+    StrictNumberField,
     StrictObjectField,
     StrictStringField,
 } from "@system/schema-data-fields.ts";
-import type { BooleanField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import type { RuleElementSchema, RuleElementSource } from "../data.ts";
+import fields = foundry.data.fields;
 
 type ChoiceSetSchema = RuleElementSchema & {
     /**
@@ -25,8 +26,17 @@ type ChoiceSetSchema = RuleElementSchema & {
         false,
         false
     >;
+    selection: DataUnionField<
+        | StrictStringField<string, string, true, false, false>
+        | StrictNumberField<number, number, true, false, false>
+        | StrictBooleanField<true, false, false>
+        | StrictObjectField<object, object, true, false, false>,
+        false,
+        true,
+        false
+    >;
     /** The prompt to present in the ChoiceSet application window */
-    prompt: StringField<string, string, false, false, true>;
+    prompt: fields.StringField<string, string, false, false, true>;
     /** Whether the parent item's name should be adjusted to reflect the choice made */
     adjustName: DataUnionField<
         StrictBooleanField<true, false, false> | StrictStringField<string, string, true, false, false>,
@@ -38,16 +48,16 @@ type ChoiceSetSchema = RuleElementSchema & {
      * The name of the flag that will contain the user's selection. If not set, it defaults to the camel-casing of the
      * parent item's slug, falling back to name.
      */
-    flag: StringField<string, string, false, false, false>;
+    flag: fields.StringField<string, string, false, false, false>;
     /**
      * Whether to propagate the flag to the actor: instead of `flags.pf2e.rulesSelections.${flag}`, it will take the
      * form of `flags.pf2e.${flag}`.
      */
-    actorFlag: BooleanField<boolean, boolean, false, false, true>;
+    actorFlag: fields.BooleanField<boolean, boolean, false, false, true>;
     /** An optional roll option to be set from the selection */
-    rollOption: StringField<string, string, false, true, true>;
+    rollOption: fields.StringField<string, string, false, true, true>;
     /** A predicate indicating valid dropped item selections */
-    allowedDrops: SchemaField<
+    allowedDrops: fields.SchemaField<
         AllowedDropsSchema,
         SourceFromSchema<AllowedDropsSchema>,
         ModelPropsFromSchema<AllowedDropsSchema>,
@@ -60,7 +70,7 @@ type ChoiceSetSchema = RuleElementSchema & {
 };
 
 type AllowedDropsSchema = {
-    label: StringField<string, string, true, true, true>;
+    label: fields.StringField<string, string, true, true, true>;
     predicate: PredicateField;
 };
 

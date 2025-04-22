@@ -4,7 +4,7 @@
     "name": "Effect: Trinity Geode - Armor",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Trinity Geode]</p>\n<p>You gain resistance 1 to physical damage (except adamantine), or double the resistance for a non-cantrip spell.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Trinity Geode], @UUID[Compendium.pf2e.equipment-srd.Item.Trinity Geode (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Trinity Geode (Major)]</p>\n<p>You gain resistance to physical damage (except adamantine), or double the resistance for a non-cantrip spell.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -22,14 +22,95 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:trinity-geode",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Trinity Geode"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:trinity-geode-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Trinity Geode (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:trinity-geode-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Trinity Geode (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "trinity-geode"
+            },
+            {
                 "choices": [
                     {
                         "label": "PF2E.TraitCantrip",
+                        "predicate": [
+                            "trinity-geode:trinity-geode"
+                        ],
                         "value": 1
                     },
                     {
+                        "label": "PF2E.TraitCantrip",
+                        "predicate": [
+                            "trinity-geode:trinity-geode-greater"
+                        ],
+                        "value": 3
+                    },
+                    {
+                        "label": "PF2E.TraitCantrip",
+                        "predicate": [
+                            "trinity-geode:trinity-geode-major"
+                        ],
+                        "value": 5
+                    },
+                    {
                         "label": "PF2E.SpecificRule.Label.NonCantrip",
+                        "predicate": [
+                            "trinity-geode:trinity-geode"
+                        ],
                         "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Label.NonCantrip",
+                        "predicate": [
+                            "trinity-geode:trinity-geode-greater"
+                        ],
+                        "value": 6
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Label.NonCantrip",
+                        "predicate": [
+                            "trinity-geode:trinity-geode-major"
+                        ],
+                        "value": 10
                     }
                 ],
                 "flag": "spellCategory",

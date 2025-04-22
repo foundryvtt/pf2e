@@ -420,12 +420,13 @@
                         "selector": "strike-damage"
                     },
                     {
-                        "definition": [
+                        "itemType": "weapon",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
                             "item:base:trident"
                         ],
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "weapon-traits",
+                        "property": "traits",
                         "value": "fatal-d10"
                     }
                 ],
@@ -470,10 +471,9 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "self:effect:rage",
-                            "melee"
+                            "self:effect:rage"
                         ],
-                        "selector": "strike-damage",
+                        "selector": "melee-strike-damage",
                         "value": 2
                     }
                 ],

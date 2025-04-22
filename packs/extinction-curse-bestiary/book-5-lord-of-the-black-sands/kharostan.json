@@ -653,13 +653,13 @@
                         "key": "DamageAlteration",
                         "mode": "upgrade",
                         "predicate": [
-                            "two-handed",
-                            "dice:slug:base"
+                            "two-handed"
                         ],
                         "property": "dice-faces",
                         "selectors": [
                             "{item|_id}-damage"
                         ],
+                        "slug": "base",
                         "value": 12
                     }
                 ],
@@ -717,6 +717,7 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
+                        "unarmed",
                         "unholy"
                     ]
                 },
@@ -977,10 +978,7 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": [
-                            "melee"
-                        ],
-                        "selector": "strike-damage",
+                        "selector": "melee-strike-damage",
                         "text": "{item|system.description.value}",
                         "title": "{item|name}",
                         "visibility": "owner"
@@ -1059,10 +1057,9 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "melee",
                             "self:effect:rage"
                         ],
-                        "selector": "strike-damage",
+                        "selector": "melee-strike-damage",
                         "value": 12
                     },
                     {

@@ -670,15 +670,16 @@
                 },
                 "rules": [
                     {
-                        "definition": [
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
                             "item:melee",
                             {
                                 "not": "item:category:unarmed"
                             }
                         ],
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "weapon-traits",
+                        "property": "traits",
                         "value": "shove"
                     },
                     {
@@ -735,10 +736,9 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "melee",
                             "target:condition:prone"
                         ],
-                        "selector": "strike-damage"
+                        "selector": "melee-strike-damage"
                     }
                 ],
                 "slug": null,

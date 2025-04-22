@@ -9,7 +9,7 @@
         "actions": {
             "value": 2
         },
-        "category": null,
+        "category": "offensive",
         "description": {
             "value": "<p>Make two Strikes with the gleaming blade, each against the same target and using your current multiple attack penalty. If the @UUID[Compendium.pf2e.classfeatures.Item.Gleaming Blade] doesn't have the agile trait, the second Strike takes a –2 penalty. If both attacks hit, you combine their damage, which is all dealt as spirit damage.</p>\n<p>You add any precision damage only once. Combine the damage from both Strikes and apply resistances and weaknesses only once. This counts as two attacks when calculating your multiple attack penalty.</p>"
         },
@@ -71,6 +71,14 @@
                 ],
                 "selector": "attack",
                 "value": -2
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "exemplar-spirit-damage",
+                "predicate": [
+                    "flowing-spirit-strike"
+                ]
             }
         ],
         "traits": {

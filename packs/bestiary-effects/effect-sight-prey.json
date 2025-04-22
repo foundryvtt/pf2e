@@ -1,0 +1,74 @@
+{
+    "_id": "tuFMtIJXeI4yAXeD",
+    "img": "icons/skills/targeting/crosshair-mark-rough-pink.webp",
+    "name": "Effect: Sight Prey",
+    "system": {
+        "description": {
+            "value": "<p>The warmonger's ranged Strikes against the marked creature gain a +1 circumstance bonus to the attack roll and deal an extra 3d6 precision damage. Each time the warmonger hits that creature with a ranged Strike, the creature takes a –10-foot penalty to its Speeds for 1 minute and falls 20 feet if it's flying.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "sight-prey"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:sight-prey"
+                ],
+                "selector": "ranged-strike-attack-roll",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "category": "precision",
+                "diceNumber": 3,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:mark:sight-prey"
+                ],
+                "selector": "ranged-strike-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "predicate": [
+                    "target:mark:sight-prey"
+                ],
+                "selector": "ranged-strike-attack-roll",
+                "text": "PF2E.NPCAbility.Warmonger.SightPrey.Note",
+                "title": "{item|name}",
+                "visibility": "owner"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

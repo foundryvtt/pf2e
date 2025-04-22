@@ -56,11 +56,7 @@
                 "predicate": [
                     "self:action:trait:unstable"
                 ],
-                "selector": [
-                    "inline-damage",
-                    "inline-healing",
-                    "strike-attack-roll"
-                ],
+                "selector": "strike-attack-roll",
                 "text": "PF2E.SpecificRule.Inventor.Unstable.Note",
                 "title": "PF2E.TraitUnstable"
             },
@@ -91,6 +87,42 @@
                 ],
                 "text": "PF2E.SpecificRule.Inventor.Unstable.FlatCheck.CriticalFailure",
                 "title": "PF2E.Check.Result.Degree.Check.criticalFailure"
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "label": "PF2E.TraitUnstable",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:unstable",
+                    {
+                        "not": "self:effect:unstable-check-failure"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Inventor.Unstable.Note"
+                    }
+                ]
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "label": "PF2E.TraitUnstable",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:unstable",
+                    {
+                        "not": "self:effect:unstable-check-failure"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Inventor.Unstable.Note"
+                    }
+                ]
             }
         ],
         "subfeatures": {

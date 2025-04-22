@@ -833,9 +833,9 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return ChatMessagePF2e.create(messageSource, { renderSheet: false });
     }
 
-    override async getDescription(): Promise<ItemDescriptionData> {
-        const description = await super.getDescription();
-        const prepend = await createDescriptionPrepend(this, { includeTraditions: false });
+    override async getDescriptionData(): Promise<ItemDescriptionData> {
+        const description = await super.getDescriptionData();
+        const prepend = await createDescriptionPrepend(this, { includeTraditions: !this.actor });
         description.value = `${prepend}\n${description.value}`;
         return description;
     }

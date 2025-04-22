@@ -329,7 +329,7 @@
         {
             "_id": "APRPzp0ZL4lcquwz",
             "img": "icons/commodities/flowers/clover-purple.webp",
-            "name": "Poisonous herb",
+            "name": "Poisonous Herb",
             "sort": 500000,
             "system": {
                 "baseItem": null,
@@ -418,10 +418,10 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": "longspear",
+                "slug": "pitchfork",
                 "traits": {
                     "value": [
-                        "reach-10"
+                        "reach"
                     ]
                 }
             },
@@ -463,7 +463,6 @@
                 "traits": {
                     "value": [
                         "agile",
-                        "finesse",
                         "trip"
                     ]
                 }
@@ -595,14 +594,34 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The agriculturalist quickly turns some of their supplies of poisonous herbs into an herbal poison, then applies it to a melee weapon or piece of ammunition in their possession. The next successful attack with a weapon poisoned this way deals an additional @Damage[1d6[poison]] damage. The applied poison fades after its damage is applied to an attack or 1 minute passes, whichever happens first.</p>"
+                    "value": "<p>The agriculturalist quickly turns some of their supplies of poisonous herbs into an herbal poison, then applies it to a melee weapon or piece of ammunition in their possession. The next successful attack with a weapon poisoned this way deals an additional 1d6 poison damage. The applied poison fades after its damage is applied to an attack or 1 minute passes, whichever happens first.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "herbal-poison",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "poison",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "herbal-poison",
+                            {
+                                "not": "item:category:unarmed"
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -623,11 +642,11 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": 2
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The orc agriculturalist attempts a Farming Lore or Nature check to determine whether an object is poison or has been poisoned. The DC is the poison's DC (if any), or the standard DC of the poison's level. On a critical success, they also learn the number and types of poison involved.</p>"
+                    "value": "<p>The orc agriculturalist attempts a @Check[farming-lore] or @Check[nature] check to determine whether an object is poison or has been poisoned. The DC is the poison's DC (if any), or the standard DC of the poison's level. On a critical success, they also learn the number and types of poison involved.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -670,9 +689,6 @@
         }
     ],
     "name": "Orc Agriculturist",
-    "prototypeToken": {
-        "name": "Orc Gamekeeper"
-    },
     "system": {
         "abilities": {
             "cha": {

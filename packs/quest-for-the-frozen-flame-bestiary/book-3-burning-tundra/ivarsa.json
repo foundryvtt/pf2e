@@ -1570,35 +1570,32 @@
                         "value": 6
                     },
                     {
-                        "definition": [
-                            "item:melee"
-                        ],
-                        "key": "AdjustStrike",
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
                         "mode": "add",
                         "predicate": [
-                            "arcane-cascade"
+                            "arcane-cascade",
+                            "item:melee"
                         ],
-                        "property": "weapon-traits",
+                        "property": "traits",
                         "value": "arcane"
                     },
                     {
                         "damageType": "fire",
                         "key": "FlatModifier",
                         "predicate": [
-                            "arcane-cascade",
-                            "item:melee"
+                            "arcane-cascade"
                         ],
-                        "selector": "strike-damage",
+                        "selector": "melee-strike-damage",
                         "slug": "arcane-cascade",
                         "value": 2
                     },
                     {
                         "key": "Note",
                         "predicate": [
-                            "arcane-cascade",
-                            "item:melee"
+                            "arcane-cascade"
                         ],
-                        "selector": "strike-damage",
+                        "selector": "melee-strike-damage",
                         "text": "PF2E.NPCAbility.Ivarsa.ArcaneCascade.Note",
                         "title": "{item|name}",
                         "visibility": "owner"
@@ -1663,7 +1660,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Ivarsa channels a spell into a punch or axe swing to deliver a magically charged attack. She casts @UUID[Compendium.pf2e.spells-srd.Item.Produce Flame] or @UUID[Compendium.pf2e.spells-srd.Item.Ray of Frost]. The effects of the spell don't occur immediately but are imbued into her attack instead. She makes a melee Strike with a weapon or unarmed attack, which gains the arcane trait. Her spell is coupled with the attack, using her attack roll to determine the effects of both the Strike and the spell. This counts as two attacks for her multiple attack penalty, but the penalty isn't applied until after she has completed the Spellstrike. After she uses Spellstrike, Ivarsa can't do so again until she recharges this ability as a single action, which has the concentrate trait. She also recharges her Spellstrike when she casts thunderous strike.</p>"
+                    "value": "<p>Ivarsa channels a spell into a punch or axe swing to deliver a magically charged attack. She casts @UUID[Compendium.pf2e.spells-srd.Item.Ignition] or @UUID[Compendium.pf2e.spells-srd.Item.Ray of Frost]. The effects of the spell don't occur immediately but are imbued into her attack instead. She makes a melee Strike with a weapon or unarmed attack, which gains the arcane trait. Her spell is coupled with the attack, using her attack roll to determine the effects of both the Strike and the spell. This counts as two attacks for her multiple attack penalty, but the penalty isn't applied until after she has completed the Spellstrike. After she uses Spellstrike, Ivarsa can't do so again until she recharges this ability as a single action, which has the concentrate trait. She also recharges her Spellstrike when she casts thunderous strike.</p>"
                 },
                 "publication": {
                     "license": "OGL",

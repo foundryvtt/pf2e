@@ -270,14 +270,30 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>When the Onyx Alliance enforcer rolls initiative using Deception or Stealth, they can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] one creature as a free action.</p>"
+                    "value": "<p>When the Onyx Alliance enforcer rolls initiative using Deception or Stealth, they can attempt to [[/act demoralize]] one creature as a free action.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "check:statistic:base:deception",
+                                    "check:statistic:base:stealth"
+                                ]
+                            }
+                        ],
+                        "selector": "initiative",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

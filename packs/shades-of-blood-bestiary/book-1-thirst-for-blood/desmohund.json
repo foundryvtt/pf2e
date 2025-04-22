@@ -1,0 +1,381 @@
+{
+    "_id": "wWG6YZdae68YNR3E",
+    "folder": "y72yXqNwZPVQejrH",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "0vw894nJM42qGvg8",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fangs",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "0Lo3yckVDSji6eKT": {
+                        "damage": "1d6+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "cG0vHT1LswVikyTn",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Wing",
+            "sort": 200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "EIFXET3fRkEgwr7Z": {
+                        "damage": "1d4+3",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "sw3mJuvwKGo039Wd",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Echolocation",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A desmohund can use its hearing as a precise sense at the listed range.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nriFKQbhz90t0LOv",
+            "_stats": {
+                "compendiumSource": "Actor.wWG6YZdae68YNR3E.Item.nriFKQbhz90t0LOv"
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Wing Guard",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The desmohund is hit or critically hit by an attack made by a creature the desmohund can see</p><hr /><p><strong>Effect</strong> The desmohund uses its wing to intercept the attack and reduce the power of the blow, gaining a +2 circumstance bonus to AC against the triggering attack.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "wing-guard",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "wing-guard"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4DdDzF8sIX94MRVh",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Flying Leap",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The desmohund Leaps 10 feet into the air and then Glides.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XZZgl8g3TWSUWU5e",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Glide",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The desmohund glides through the air, moving 5 feet toward the ground and up to 30 feet forward. Provided the desmohund spends at least 1 action Gliding each round, they remain in the air at the end of each turn. When determining damage from falls, a desmohund always treats falls as if they were 20 feet shorter.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "move"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Kj7kAJAqIkNJPH3j",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Pack Attack",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The desmohund's Strikes deal 1d4 extra damage to creatures within the reach of at least two of the desmohund's allies.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "pack-attack",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "pack-attack"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Desmohund",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 1
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 3
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 16
+            },
+            "adjustment": null,
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 20,
+                "temp": 0,
+                "value": 20
+            },
+            "speed": {
+                "details": "Glide",
+                "otherSpeeds": [],
+                "value": 30
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 1
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>In folklore, bats and wolves are common elements of vampire stories—sometimes even the focus of such tales. The veil of night, however, conceals a wide array of vampiric creatures. Neither wholly wolf nor bat, desmohunds, also called vampire hounds, use their limited flight to swiftly close the gap between themselves and fleeing prey. This rapid movement, along with a penchant for hunting in perfect darkness, is often the cause of a survivor's confusion when asked to describe just what it was that attacked them.</p>\n<p>As their common name suggests, vampire hounds share a strong affinity with vampires. While the hounds can subsist entirely on flesh, they have a particular taste for blood. A desmohund attack is brutal and violent. The creature tears their victim apart, allowing the blood to generously pool on the ground before lapping it up. Only after the blood is consumed do the beasts begin devouring flesh.</p>\n<p>Desmohunds are surprisingly loyal and often defend their masters to the death. Though they generally serve vampires, it isn't unheard of for the living to keep such creatures as pets, especially in areas like Ustalav, Nidal, and the Darklands, where they can sometimes be found prowling the grounds of foreboding estates.</p>\n<p>Vampire hunters carry a variety of tools to stalk and destroy their favored prey, but clever ones also carry items that can work against a vampire's allies too. Therefore, some carry bags of cinnamon or vials of eucalyptus oil to confuse and irritate desmohunds' keen sense of smell.</p><h2>Divine Origins</h2><p>Sources differ on the origin of desmohunds. Some legends state that Urgathoa created the first vampire hounds as pets to keep her company in undeath. Others claim that Nin distilled the best parts of vampires and wolves to create a nigh-unstoppable hunter. One story posits that Lamashtu created the first desmohunds, but Zura the Vampire Queen stole them from Lamashtu's realm of Kurnugia, claiming the creatures as her own. The only common thread among these tales is each god's insistence that they were the true creators of desmohunds, suggesting that there's an unknown reason the gods would vie for such a title.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #213: Thirst for Blood"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 10,
+            "senses": [
+                {
+                    "acuity": "precise",
+                    "range": 30,
+                    "type": "echolocation"
+                },
+                {
+                    "type": "low-light-vision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 7
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 4
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 7
+            },
+            "athletics": {
+                "base": 6
+            },
+            "stealth": {
+                "base": 7
+            },
+            "survival": {
+                "base": 5
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "animal"
+            ]
+        }
+    },
+    "type": "npc"
+}

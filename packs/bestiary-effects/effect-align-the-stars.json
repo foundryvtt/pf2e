@@ -1,0 +1,69 @@
+{
+    "_id": "MLwB5v5DffmfUTWe",
+    "img": "icons/magic/light/projectile-stars-blue.webp",
+    "name": "Effect: Align the Stars",
+    "system": {
+        "description": {
+            "value": "<p>If you are an ally, you gain a +2 circumstance bonus to AC. If you are an enemy, other creatures gain a +4 circumstance bonus to damage rolls against you.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #213: Thirst for Blood"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "value": "yes"
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": "no"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.NPCAbility.Inizkar.AlignTheStars.Prompt",
+                "rollOption": "inizkar-ally"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "inizkar-ally:yes"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "selectors": [
+                    "damage"
+                ],
+                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Align the Stars (Ephemeral)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

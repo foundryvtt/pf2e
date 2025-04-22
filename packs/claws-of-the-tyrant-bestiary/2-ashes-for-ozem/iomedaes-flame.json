@@ -1,0 +1,95 @@
+{
+    "_id": "3wLksd7BQeyxygyR",
+    "folder": "08rFokNrUVoXpMQj",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "buBc1U42d1MxsENr",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Flaring Flame",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves into the radius of the flame's light or starts its turn in the radius</p><hr /><p><strong>Effect</strong> <em>Iomedae's Flame</em> flares, producing an effect determined by the flame's current color. Followers of Iomedae treat the result of all saving throws against the flame's effects as one step better. The effects are cumulative; a creature that enters the radius of the red flame also triggers the effect of the white, yellow, and blue flames.</p>\n<p><strong>White Flame</strong> The flame casts @UUID[Compendium.pf2e.spells-srd.Item.Revealing Light] (DC 28).</p>\n<p><strong>Yellow Flame</strong> The flame casts @UUID[Compendium.pf2e.spells-srd.Item.Fear] (DC 28) on each creature in the light's radius.</p>\n<p><strong>Blue Flame</strong> The flame flickers as winds buffet creatures in the area. Any creature in the flame's light takes @Damage[8d4[bludgeoning]|options:area-damage] damage (@Check[reflex|dc:28|basic|options:area-effect] save). This damage has the nonlethal trait against living creatures.</p>\n<p><strong>Red Flame</strong> The flame releases a sudden pulse of intense heat. Any creature in the flame's light takes @Damage[4d6[fire],4d6[spirit]|options:area-damage|traits:holy]{4d6 fire damage and 4d6 spirit damage} (@Check[fortitude|dc:28|basic|options:area-effect] save). This damage has the holy trait.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Iomedae's Flame",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 12
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A magical flame changes color in response to Fort Ozem's alert status, with a @Template[emanation|distance:10]{10-foot radius}.</p>",
+            "disable": "<p>@Check[arcana|dc:30], @Check[nature|dc:30], @Check[occultism|dc:30], or @Check[religion|dc:30] (expert) to snuff out the flame with opposing magic; each success reduces the flame's color one step (from red to blue, blue to yellow, and so on). A critical success reduces the flame's color two steps. A success while the flame is white permanently disables the hazard.</p>",
+            "isComplex": false,
+            "level": {
+                "value": 9
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Claws of the Tyrant"
+            },
+            "reset": "<p>The hazard resets automatically each round. After 1 hour, the flame reverts to its default status of a white flame.</p>",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "value": 0
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

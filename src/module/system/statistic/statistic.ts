@@ -75,7 +75,8 @@ class Statistic<TActor extends ActorPF2e = ActorPF2e> extends BaseStatistic<TAct
         // If this is a character with a proficiency, add a proficiency modifier
         const proficiencyModifier =
             actor.isOfType("character") && typeof data.rank === "number"
-                ? createProficiencyModifier({ actor, rank: data.rank, domains })
+                ? (data.modifiers.find((m) => m.type === "proficiency") ??
+                  createProficiencyModifier({ actor, rank: data.rank, domains }))
                 : null;
 
         // Add the auto-generated modifiers, overriding any already existing copies
@@ -418,7 +419,6 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         const selfToken = args.token ?? self.getActiveTokens(true, true).shift() ?? null;
         const selfIsTarget = self === args.target || (!args.target && this.type === "saving-throw");
         const item = args.item ?? null;
-        const originToken = selfIsTarget ? args.origin?.getActiveTokens(true, true).shift() : selfToken;
         const targetToken = selfIsTarget
             ? selfToken
             : (args.target?.getActiveTokens(true, true)?.find((t) => t.actor?.isOfType("army", "creature", "hazard")) ??
@@ -444,6 +444,9 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             const contextItem = item?.isOfType("action", "melee", "spell", "weapon") ? item : null;
             const optionSet = new Set(args.extraRollOptions ?? []);
 
+            const originalOrigin = selfIsTarget ? args.origin : self;
+            const originToken = selfIsTarget ? originalOrigin?.getActiveTokens(true, true).shift() : selfToken;
+
             if (selfIsTargeting) {
                 return new CheckContext({
                     origin: {
@@ -468,7 +471,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                         statistic: this.parent,
                     },
                     origin: {
-                        actor: originToken?.actor ?? null,
+                        actor: originToken?.actor ?? originalOrigin ?? null,
                         token: originToken,
                         item: contextItem,
                     },

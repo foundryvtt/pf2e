@@ -1,4 +1,5 @@
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import { resolveActorAndItemFromHTML } from "@scripts/helpers.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { htmlClosest } from "@util";
 
@@ -8,31 +9,42 @@ import { htmlClosest } from "@util";
  */
 export function extendDragData(): void {
     document.body.addEventListener("dragstart", (event): void => {
-        const { dataTransfer, target } = event;
-        if (!(dataTransfer && target instanceof HTMLAnchorElement)) return;
+        const { dataTransfer, target: targetElement } = event;
+        if (!(dataTransfer && targetElement instanceof HTMLAnchorElement)) return;
 
-        if (target.classList.contains("content-link")) {
+        // Pass along the persistent damage formula so the drop-canvas-data hook can handle it
+        if (
+            targetElement.classList.contains("inline-roll") &&
+            "persistent" in targetElement.dataset &&
+            targetElement.dataset.formula
+        ) {
+            const data = { type: "PersistentDamage", formula: targetElement.dataset.formula };
+            dataTransfer.setData("text/plain", JSON.stringify(data));
+            return;
+        }
+
+        if (targetElement.classList.contains("content-link")) {
             // If this is a content link for an item, we need to extend existing data
             const data: DropCanvasItemDataPF2e = JSON.parse(dataTransfer.getData("text/plain"));
             if (data.type !== "Item") return;
 
             // Add value field to TextEditor#_onDragEntityLink data. This is mainly used for conditions.
-            const name = target.innerText.trim();
+            const name = targetElement.innerText.trim();
             const match = name.match(/[0-9]+/);
             if (match) data.value = Number(match[0]);
 
-            const messageId = htmlClosest(target, "li.chat-message")?.dataset.messageId;
-            const message = game.messages.get(messageId ?? "");
+            // Get actor / item / message for the element
+            const { message, item: originItem, actor } = resolveActorAndItemFromHTML(targetElement);
+            const token = message?.token ?? actor?.token;
 
             // Detect spell rank of containing element, if available
-            const containerElement = htmlClosest(target, "[data-cast-rank]");
+            const containerElement = htmlClosest(targetElement, "[data-cast-rank]");
             const castRank = Number(containerElement?.dataset.castRank) || message?.flags.pf2e.origin?.castRank || 0;
             if (castRank > 0) data.level = castRank;
 
-            if (message?.actor) {
-                const { actor, token, target } = message;
-                const roll = message.rolls.at(-1);
-                const originItem = message.item;
+            if (actor) {
+                const roll = message?.rolls.at(-1);
+                const target = message?.target;
                 const spellcasting =
                     originItem?.isOfType("spell") && originItem.spellcasting
                         ? {
@@ -50,7 +62,7 @@ export function extendDragData(): void {
                         token: token?.uuid ?? null,
                         item: originItem?.uuid ?? null,
                         spellcasting,
-                        rollOptions: message.flags.pf2e.origin?.rollOptions ?? [],
+                        rollOptions: message?.flags.pf2e.origin?.rollOptions ?? [],
                     },
                     target: target ? { actor: target.actor.uuid, token: target.token.uuid } : null,
                     roll: roll
@@ -62,10 +74,6 @@ export function extendDragData(): void {
                 };
             }
 
-            dataTransfer.setData("text/plain", JSON.stringify(data));
-        } else if ("persistent" in target.dataset && target.dataset.formula) {
-            // Pass along the persistent damage formula so the drop-canvas-data hook can handle it
-            const data = { type: "PersistentDamage", formula: target.dataset.formula };
             dataTransfer.setData("text/plain", JSON.stringify(data));
         }
     });

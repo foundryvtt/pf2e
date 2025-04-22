@@ -1224,7 +1224,7 @@
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU"
             },
             "img": "icons/weapons/staves/staff-simple.webp",
-            "name": "+1 Broom (functions as a staf)",
+            "name": "+1 Broom (functions as a staff)",
             "sort": 1800000,
             "system": {
                 "baseItem": "staff",
@@ -1409,11 +1409,11 @@
                     "value": 13
                 },
                 "damageRolls": {
-                    "2az1GZIXkvuRbQ7e": {
+                    "0": {
                         "damage": "1d4+6",
                         "damageType": "bludgeoning"
                     },
-                    "tEHvtoUD5y4D9CTq": {
+                    "1": {
                         "damage": "1d6",
                         "damageType": "void"
                     }
@@ -1426,7 +1426,26 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Broom",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": "staff",
                 "traits": {
                     "value": [
@@ -1455,13 +1474,13 @@
                     "value": 12
                 },
                 "damageRolls": {
-                    "JBn1ArSQZFVasOz4": {
-                        "damage": "1d6",
-                        "damageType": "void"
-                    },
-                    "Pe7zMLZ7gK01WEZV": {
+                    "0": {
                         "damage": "1d4+6",
                         "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "void"
                     }
                 },
                 "description": {
@@ -1502,13 +1521,13 @@
                     "value": 12
                 },
                 "damageRolls": {
-                    "4Z8Jl06vAbze3Sbs": {
-                        "damage": "1d6",
-                        "damageType": "void"
-                    },
-                    "XLmYcqEOsRQOIwQ5": {
+                    "0": {
                         "damage": "1d4+6",
                         "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "void"
                     }
                 },
                 "description": {
@@ -1524,8 +1543,52 @@
                 "traits": {
                     "value": [
                         "agile",
+                        "finesse",
                         "thrown-10",
                         "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "0KZhsY19lNCOaapo",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 2300000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d4+6",
+                        "damageType": "bludgeoning"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "void"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
                     ]
                 }
             },
@@ -1535,7 +1598,7 @@
             "_id": "HnUH2oxiJLoIgEyf",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Verdant Burst",
-            "sort": 2300000,
+            "sort": 2400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1546,7 +1609,7 @@
                 "category": "defensive",
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When the gourd leshy witch dies, a burst of primal energy explodes from their body, restoring @Damage[4d8[healing, vitality]|shortLabel] Hit Points to each plant creature in a @Template[type:emanation|distance:30]. This area immediately fills with gourds, becoming difficult terrain. If the terrain is not a viable environment for these plants, they wither after 24 hours.</p>"
+                    "value": "<p>When the gourd leshy witch dies, a burst of primal energy explodes from their body, restoring @Damage[4d8[healing,vitality]|shortLabel] Hit Points to each plant creature in a @Template[type:emanation|distance:30]. This area immediately fills with gourds, becoming difficult terrain. If the terrain is not a viable environment for these plants, they wither after 24 hours.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -1572,7 +1635,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Change Shape",
-            "sort": 2400000,
+            "sort": 2500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1582,7 +1645,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The gourd leshy witch transforms into a Small gourd. This ability otherwise uses the effects of one with plants.</p>"
+                    "value": "<p>The gourd leshy witch transforms into a Small gourd. This ability otherwise uses the effects of @UUID[Compendium.pf2e.spells-srd.Item.One with Plants].</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -1605,7 +1668,7 @@
             "_id": "gph5kKQ1rfac9Ri3",
             "img": "systems/pf2e/icons/actions/OneTwoActions.webp",
             "name": "Short Flight",
-            "sort": 2500000,
+            "sort": 2600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1615,7 +1678,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The gourd leshy witch is wielding a broom</p><hr /><p><strong>Effect</strong> The gourd leshy hops on their broom, which briefly takes flight. The witch Flies 20 feet (or 40 feet if they spend 2 actions), though they must end this movement on solid ground or fall at the end of their turn.</p>"
+                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">2</span></p>\n<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The gourd leshy witch is wielding a broom</p><hr /><p><strong>Effect</strong> The gourd leshy hops on their broom, which briefly takes flight. The witch Flies 20 feet (or 40 feet if they spend 2 actions), though they must end this movement on solid ground or fall at the end of their turn.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -1641,7 +1704,7 @@
             "_id": "yLrhpgFiKuvDYdnJ",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Sweeping Spell",
-            "sort": 2600000,
+            "sort": 2700000,
             "system": {
                 "actionType": {
                     "value": "action"

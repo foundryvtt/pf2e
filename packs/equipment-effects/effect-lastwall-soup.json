@@ -4,7 +4,7 @@
     "name": "Effect: Lastwall Soup",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Lastwall Soup]</p>\n<p>The creature gains a +2 item bonus to Stealth checks and DCs against undead.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Lastwall Soup], @UUID[Compendium.pf2e.equipment-srd.Item.Lastwall Soup (Improved)], @UUID[Compendium.pf2e.equipment-srd.Item.Lastwall Soup (Greater)]</p>\n<p>The creature gains an item bonus to Stealth checks and DCs against undead. If <em>greater</em>, you also gain 10 temporary hit points.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,8 +22,54 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:lastwall-soup",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Lastwall Soup"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:lastwall-soup-improved",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Lastwall Soup (Improved)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:lastwall-soup-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Lastwall Soup (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "lastwall-soup"
+            },
+            {
                 "key": "FlatModifier",
-                "label": "Lastwall Soup (vs. undead)",
                 "predicate": [
                     {
                         "or": [
@@ -33,8 +79,36 @@
                     }
                 ],
                 "selector": "stealth",
+                "slug": "lastwall-soup-bonus",
                 "type": "item",
                 "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "lastwall-soup:lastwall-soup-improved"
+                ],
+                "selector": "stealth",
+                "slug": "lastwall-soup-bonus",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "lastwall-soup:lastwall-soup-greater"
+                ],
+                "selector": "stealth",
+                "slug": "lastwall-soup-bonus",
+                "value": 4
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "lastwall-soup:lastwall-soup-greater"
+                ],
+                "value": 10
             }
         ],
         "start": {

@@ -275,7 +275,8 @@
                     "value": [
                         "agile",
                         "finesse",
-                        "nonlethal"
+                        "nonlethal",
+                        "unarmed"
                     ]
                 }
             },
@@ -327,14 +328,28 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>Whenever the tripkee fiend keeper critically hits an unholy creature, they reduce the value of their stupefied condition by 1.</p>"
+                    "value": "<p>Whenever the tripkee fiend keeper critically hits an unholy creature, they reduce the value of their @UUID[Compendium.pf2e.conditionitems.Item.Stupefied] condition by 1.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "target:trait:unholy"
+                        ],
+                        "selector": "attack-roll",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -393,6 +408,10 @@
                     "title": ""
                 },
                 "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Harness Wickedness",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Harness Wickedness"
+                },
                 "slug": null,
                 "traits": {
                     "value": [
@@ -542,7 +561,7 @@
             },
             "value": [
                 "grippli",
-                "human"
+                "humanoid"
             ]
         }
     },

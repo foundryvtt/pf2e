@@ -1,0 +1,119 @@
+{
+    "_id": "8Uzc9WKqRr755S5d",
+    "folder": "T8AzYUgNIAgTJ9Iz",
+    "img": "icons/magic/water/orb-ice-web.webp",
+    "name": "Horizon Thunder Sphere",
+    "system": {
+        "area": null,
+        "cost": {
+            "value": ""
+        },
+        "counteraction": false,
+        "damage": {
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "3d6",
+                "kinds": [
+                    "damage"
+                ],
+                "type": "electricity"
+            }
+        },
+        "defense": null,
+        "description": {
+            "value": "<p>You gather magical energy into your palm, forming a concentrated ball of electricity that crackles and rumbles like impossibly distant thunder. Make a ranged spell attack roll against your target's AC. On a success, you deal 3d6 electricity damage. On a critical success, the target takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round. The number of actions you spend when Casting this Spell determines the range and other parameters.</p>\n<p><span class=\"action-glyph\">2</span> This spell has a range of 30 feet.</p>\n<p><span class=\"action-glyph\">3</span> This spell has a range of 60 feet and deals half damage on a failure (but not a critical failure) as the electricity lashes out and jolts the target.</p>\n<p><strong>Two Rounds</strong> If you spend 3 actions Casting the Spell, you can avoid finishing the spell and spend another 3 actions on your next turn to empower the spell even further. If you do, after attacking the target, whether you hit or miss, the ball of lightning explodes, dealing @Damage[(@item.rank*2)d6[electricity]] damage to all other creatures in a @Template[emanation|distance:10] around the target (basic Reflex save). Additionally, you spark with electricity for 1 minute, dealing @Damage[(@item.rank)[electricity]] damage to creatures that Grab you or that hit you with an unarmed Strike or a non-reach melee weapon.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The initial damage on a hit, as well as the burst damage for two-round casting time, each increase by 2d6, and the damage creatures take if they Grapple or hit you while you're in your sparking state increases by 1.</p>"
+        },
+        "duration": {
+            "sustained": false,
+            "value": ""
+        },
+        "heightening": {
+            "damage": {
+                "0": "2d6"
+            },
+            "interval": 1,
+            "type": "interval"
+        },
+        "level": {
+            "value": 1
+        },
+        "overlays": {
+            "9uy5xd2ogc2syzwz": {
+                "_id": "9uy5xd2ogc2syzwz",
+                "overlayType": "override",
+                "sort": 1,
+                "system": {
+                    "range": {
+                        "value": "30 feet"
+                    },
+                    "time": {
+                        "value": "2"
+                    }
+                }
+            },
+            "ozuci5q5wwe0o0s8": {
+                "_id": "ozuci5q5wwe0o0s8",
+                "overlayType": "override",
+                "sort": 2,
+                "system": {
+                    "range": {
+                        "value": "60 feet"
+                    },
+                    "time": {
+                        "value": "3"
+                    }
+                }
+            },
+            "px43dahs3eb2rukw": {
+                "_id": "px43dahs3eb2rukw",
+                "overlayType": "override",
+                "sort": 3,
+                "system": {
+                    "defense": {
+                        "save": {
+                            "basic": true,
+                            "statistic": "reflex"
+                        }
+                    },
+                    "range": {
+                        "value": "60 feet"
+                    },
+                    "time": {
+                        "value": "2 rounds"
+                    }
+                }
+            }
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "range": {
+            "value": "varies"
+        },
+        "requirements": "",
+        "rules": [],
+        "target": {
+            "value": "1 creature"
+        },
+        "time": {
+            "value": "2 to 2 rounds"
+        },
+        "traits": {
+            "rarity": "common",
+            "traditions": [
+                "arcane",
+                "primal"
+            ],
+            "value": [
+                "attack",
+                "concentrate",
+                "electricity",
+                "manipulate"
+            ]
+        }
+    },
+    "type": "spell"
+}

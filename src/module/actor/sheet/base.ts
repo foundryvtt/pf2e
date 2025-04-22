@@ -55,7 +55,7 @@ import type {
     InventoryItem,
     SheetInventory,
 } from "./data-types.ts";
-import { createBulkPerLabel, onClickCreateSpell } from "./helpers.ts";
+import { applyDeltaToInput, createBulkPerLabel, onClickCreateSpell } from "./helpers.ts";
 import { ItemSummaryRenderer } from "./item-summary-renderer.ts";
 import { AddCoinsPopup } from "./popups/add-coins-popup.ts";
 import { CastingItemCreateDialog } from "./popups/casting-item-create-dialog.ts";
@@ -523,10 +523,29 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         // Only allow digits & leading plus and minus signs for `data-allow-delta` inputs,
         // thus emulating input[type="number"]
+        // Also enable delta adjustment by arrow key and mousewheel
         for (const deltaInput of htmlQueryAll<HTMLInputElement>(html, "input[data-allow-delta]")) {
             deltaInput.addEventListener("input", () => {
                 const match = /[+-]?\d*/.exec(deltaInput.value)?.at(0);
                 deltaInput.value = match ?? deltaInput.value;
+            });
+
+            deltaInput.addEventListener("keydown", (event: KeyboardEvent) => {
+                if (event.key === "ArrowUp") {
+                    applyDeltaToInput(deltaInput, 1);
+                } else if (event.key === "ArrowDown") {
+                    applyDeltaToInput(deltaInput, -1);
+                }
+            });
+
+            deltaInput.addEventListener("wheel", (event: WheelEvent) => {
+                if (deltaInput === document.activeElement) {
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    const step = Math.sign(-1 * event.deltaY);
+                    applyDeltaToInput(deltaInput, step);
+                }
             });
         }
 
@@ -1392,7 +1411,30 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     /** Overriden _render to maintain focus on tagify elements */
     protected override async _render(force?: boolean, options?: ActorSheetRenderOptionsPF2e): Promise<void> {
+        const focused = htmlQuery(this.element.get(0), ":focus");
+
         await maintainFocusInRender(this, () => super._render(force, options));
+
+        // If a data-property or data-item-property field was focused, find it again and refocus it
+        // Core foundry already handles property with a name field
+        if (focused && (!("name" in focused) || !focused.name)) {
+            const element = this.element.get(0);
+            const tagName = focused.tagName;
+            if (focused.dataset.property) {
+                const property = focused.dataset.property;
+                htmlQuery(element, `${tagName}[data-property="${property}"]`)?.focus();
+            } else if (focused.dataset.resource) {
+                const resource = focused.dataset.resource;
+                htmlQuery(element, `${tagName}[data-resource="${resource}"]`)?.focus();
+            } else if (focused.dataset.itemProperty && focused.dataset.itemId) {
+                const { itemProperty, itemId } = focused.dataset;
+                htmlQuery(
+                    element,
+                    `${tagName}[data-item-id="${itemId}"][data-item-property="${itemProperty}"]`,
+                )?.focus();
+            }
+        }
+
         if (options?.tab) {
             this.openTab(options.tab);
         }

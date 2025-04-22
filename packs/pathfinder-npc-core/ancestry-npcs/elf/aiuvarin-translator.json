@@ -319,11 +319,29 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": "staff",
                 "traits": {
                     "value": [
-                        "monk",
                         "two-hand-d8"
                     ]
                 }
@@ -425,14 +443,39 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>The translator gains a +5 circumstance bonus to skill checks involving translating or deciphering languages. If the translator rolls a critical failure on a check to Decipher Writing, they get a failure instead.</p>"
+                    "value": "<p>The translator gains a +5 circumstance bonus to skill checks involving translating or deciphering languages. If the translator rolls a critical failure on a check to @UUID[Compendium.pf2e.actionspf2e.Item.Decipher Writing], they get a failure instead.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:decipher-language",
+                                    "action:translate"
+                                ]
+                            }
+                        ],
+                        "selector": "skill-check",
+                        "type": "circumstance",
+                        "value": 5
+                    },
+                    {
+                        "adjustment": {
+                            "criticalFailure": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "action:decipher-writing"
+                        ],
+                        "selector": "skill-check"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -549,7 +592,7 @@
                 "details": "",
                 "max": 12,
                 "temp": 0,
-                "value": 10
+                "value": 12
             },
             "speed": {
                 "otherSpeeds": [],

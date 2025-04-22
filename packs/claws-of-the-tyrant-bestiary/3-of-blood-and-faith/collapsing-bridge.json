@@ -1,0 +1,105 @@
+{
+    "_id": "AypBlM89idHzzukP",
+    "folder": "1hdNljMZCWQZtriy",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "iTT9cDhYnN9VxK3E",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Bridge Collapse",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A Medium or larger creature steps onto the bridge's weak point</p><hr /><p><strong>Effect</strong> The bridge collapses in the creature's square, then rolls initiative. The DC to @UUID[Compendium.pf2e.actionspf2e.Item.Grab an Edge] on the bridge is 38. Once the bridge begins to collapse, the river's @UUID[Compendium.pf2e.actionspf2e.Item.Swim] DC increases to 36 as the water churns with the falling debris. A creature that starts its turn swimming within 15 feet of the bridge takes @Damage[10d6[bludgeoning]] damage (@Check[reflex|dc:41|basic] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Collapsing Bridge",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 39
+            },
+            "emitsSound": "encounter",
+            "hardness": 25,
+            "hp": {
+                "details": "BT 52",
+                "max": 104,
+                "temp": 0,
+                "value": 104
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 28
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Metal supports twist and shear off the bridge, causing stretches of the structure to collapse.</p>",
+            "disable": "<p>@Check[engineering-lore|dc:40] to identify and reinforce weak points, @Check[crafting|dc:43] (master) to construct secondary supports, or @Check[athletics|dc:45] (legendary) to reinforce the bridge with found materials; three successes are required to halt the collapse</p>",
+            "isComplex": true,
+            "level": {
+                "value": 16
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Claws of the Tyrant"
+            },
+            "reset": "",
+            "routine": "<p>(1 action) The collapse radiates out from the damaged section of the bridge. All squares adjacent to a collapsed section also fall into the water.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 30
+            },
+            "reflex": {
+                "value": 25
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

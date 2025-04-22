@@ -42,6 +42,65 @@
                 "inMemoryOnly": true,
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.conditionitems.Item.Immobilized"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:manipulate"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.condition.restrained.note"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:manipulate"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.condition.restrained.note"
+                    }
+                ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:manipulate"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.condition.restrained.note"
+                    }
+                ]
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "nor": [
+                            "action:escape",
+                            "action:force-open"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "attack",
+                    "skill-check"
+                ],
+                "text": "PF2E.condition.restrained.note",
+                "title": "{item|name}"
             }
         ],
         "traits": {

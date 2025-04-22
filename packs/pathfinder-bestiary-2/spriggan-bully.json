@@ -618,26 +618,24 @@
                         "value": "large"
                     },
                     {
-                        "definition": [
-                            "item:melee"
-                        ],
-                        "key": "AdjustStrike",
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
                         "mode": "add",
                         "predicate": [
-                            "enraged-growth"
+                            "enraged-growth",
+                            "item:melee"
                         ],
-                        "property": "weapon-traits",
+                        "property": "traits",
                         "value": "reach"
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "enraged-growth",
-                            "melee"
+                            "enraged-growth"
                         ],
                         "selector": [
-                            "strike-attack-roll",
-                            "strike-damage"
+                            "melee-strike-attack-roll",
+                            "melee-strike-damage"
                         ],
                         "type": "status",
                         "value": 2
@@ -692,15 +690,14 @@
                         "value": 2
                     },
                     {
-                        "definition": [
-                            "item:slug:morningstar"
-                        ],
-                        "key": "AdjustStrike",
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
                         "mode": "add",
                         "predicate": [
-                            "bullys-bludgeon"
+                            "bullys-bludgeon",
+                            "item:slug:morningstar"
                         ],
-                        "property": "weapon-traits",
+                        "property": "traits",
                         "value": "nonlethal"
                     }
                 ],

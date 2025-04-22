@@ -1,0 +1,53 @@
+{
+    "_id": "WK55ybwI2Tn5OW5x",
+    "img": "icons/skills/targeting/crosshair-mark-rough-pink.webp",
+    "name": "Effect: Sight Prey (Speed Penalty)",
+    "system": {
+        "badge": {
+            "labels": [
+                "-10 ft.",
+                "-20 ft.",
+                "-30 ft.",
+                "-40 ft."
+            ],
+            "loop": false,
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p>You take a penalty to your Speeds.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "all-speeds",
+                "value": "-10*@item.badge.value"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

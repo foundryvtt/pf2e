@@ -1,3 +1,118 @@
+## 6.11.1
+
+### Bugfixes
+
+- (stwlam) Fix issue where duplicate conditions may create duplicate description appends
+
+### Data Updates
+
+- (Ambrose) Clean up text for Oracle Mysteries, Animist Apparitions, and certain Magus features
+- (Dire Weasel) Add localization for Other usage
+- (kromko) Fix Beginner Box Caligni Hunter saving throws
+- (Rigo) Restore some deleted Menace under Otari actors and undo their redirects
+
+## 6.11.0
+
+### System Improvements
+
+- (Supe) Add auxiliary action for parry in the strikes list
+- (Supe) Show conditions and effects in simple NPC sheet
+- (Supe) Show equip status when viewing actor sheets using observer permissions
+
+### Bugfixes
+
+- (Dire Weasel) Fix ChoiceSets not including variant Handwraps of Mighty Blows
+- (stwlam) Always set flags for null-selection choice-sets
+- (stwlam) Fix handling of `allowNoSelection` in ChoiceSet REs
+- (stwlam) Prevent effect panel from blocking canvas inputs when clicking in the empty area
+- (stwlam) Prevent duplicate rule applications from overlapping conditions
+- (Supe) Fix class archetypes like runelord prompting for suppressed features like arcane thesis
+- (Supe) Fix spell consumable item activations when at least one fails validation
+- (Supe) Fix spell variants with breakpoint heightens always max heightening when cast without a rank
+- (Supe) Get origin data when dragging effects from the actor sheet
+- (Supe) Show spell traditions in description again for unowned actors
+
+### Data Updates
+
+- (Abaddon) Fix various missing sources
+- (Ambrose) Add `Hunting Spider Venom` to Remaster changes journal and improve grammar on class kit entry
+- (Ambrose) Add damage note to the Confused condition
+- (Ambrose) Add effect to Wrathful Storm
+- (Ambrose) Add Sanguinomancer entry to the Archetype journal
+- (Ambrose) Add Stunning Appearance Note automation for Startling Appearance (Vigilante)
+- (Ambrose) Condense several equipment effects
+- (Ambrose) Fix statistics on several NPCs
+- (Ambrose) Update `Ranger Expertise` class feature to account for Vindicator Class Archetype
+- (Ambrose) Update Class archetype class features and corresponding journal entries
+- (Ambrose) Update Dragon Form Spell heightening text to match Player Core and add scaling to Breath Weapon inlines
+- (Ambrose) Update Illusory Shroud spell effect description
+- (Ambrose) Update Tempest Gaze automation
+- (Dire Weasel) Add effect for Sage's Analysis, Snap Out of It! (Marshal)
+- (Dire Weasel) Add effects and other improvements for NPC Core actors
+- (Dire Weasel) Add some missing condition links
+- (Dire Weasel) Brush up Bonds of Iron NPC ability
+- (Dire Weasel) Fix action type and cost of Distracting Performance
+- (Dire Weasel) Fix resistances for Dragon Shape feat
+- (Dire Weasel) Link self effect to Reflective Ripple Stance
+- (Dire Weasel) Remove self-reference from Tumble Through action description
+- (In3luki) Fix spell category filter in Compendium Browser
+- (Intervencion) Remove Improved Grab from Fungal Flytrap's Focused Assault
+- (Korin) Update Vishkanyan language to Vishkanya
+- (kromko) Fix Elemental Magic RE localization keys
+- (Michael Luger) Fix minor typo in Far-Flung Fetch
+- (MrVauxs) Fix Kholo Weapon Familiarity
+- (ottyn) Add missing spell statistics to additional NPC Core Actors
+- (rectulo) Add TraitDescriptionShade in en.json
+- (rectulo) Delete Perpetual potency class feature in Alchemist Class in journals
+- (rectulo) Fix a typo in witch lessons
+- (rectulo) Fix description of Investigator in journals
+- (rectulo) Fix description of revolutionary innovation
+- (rectulo) Fix traits of summoning handscroll
+- (Rigo) Add Aid degree of success adjustment to Headbands of Translocation
+- (Rigo) Add Asmodeus' divine font
+- (Rigo) Add effect for Coven Spell's status damage to spells
+- (Rigo) Add effect for Hero Point Deck's Press On and fix Class Might's Flat Modifier
+- (Rigo) Add effects to track remaining air and Swallow Whole
+- (Rigo) Add immobilize on critical success to Tangle Vine effect
+- (Rigo) Add increased Oath of the Defender's champion's resistance
+- (Rigo) Add Lead Constitution to Gunslinger's granted features
+- (Rigo) Add links to Fireball in Firestarter Pellets
+- (Rigo) Add missing price to Steadfast Sentinel
+- (Rigo) Add missing spell statistics to Demonologist
+- (Rigo) Add NPC attitude-tracking effect
+- (Rigo) Add PFS 3/25 clarifications for Rival Academies
+- (Rigo) Add reminder notes to deafened, grabbed, restrained and sickened conditions
+- (Rigo) Add resistance on a success to Anima Invocation's spell effect
+- (Rigo) Add Strategic Strike dice number increase to Palatine Strike
+- (Rigo) Extend ruffian's critical specialization to all sneak attack-qualifying weapons
+- (Rigo) Grant Spellstrike with Spellstriker feat
+- (Rigo) Implement Horn of Plenty's daily crafting
+- (Rigo) Link Powerful Leap and Quick Jump in Leap the Falls
+- (Rigo) Move Tome Implement's Recall Knowledge improvement from Adept to Paragon benefit
+- (Rigo) Move trait Adjust Strike rule elements to Item Alteration
+- (Rigo) Remove `dice:slug:base` predicates in favor of using slug field
+- (Rigo) Remove check and speed penalty, and strength requirement from Reinforced Chassis
+- (Rigo) Remove remaining rule element-based implementation of Apex items
+- (Rigo) Tag Runelord sin and curriculum spells for Rod of Rule and Sinbladed Spell automation
+- (Rigo) Update Bands of Force's Flat Modifier slug
+- (Rigo) Update Entreat Spirit effect to choose an int-, wis-, or cha-based skill
+- (Rigo) Update Reinforced Chassis AC bonus alteration to be additive with other increases
+- (Supe) Automate bonus increase for Flowing Palm Deflection
+- (Tikael) Add automation to Sojiruh's Manifest Armor ability
+- (Tikael) Add damage to Hypnopompic Terrors spell
+- (Tikael) Add unarmed trait to unarmed NPC strikes
+- (Tikael) Automate Sanctified Soul and Heaven Rains an Ending
+- (Tikael) Change instances of metamagic in descriptions to spellshape
+- (Tikael) Clean up Champion deity rule elements
+- (Tikael) Clean up Eldritch Trickster implementation
+- (Tikael) Fix activation wording on high level Symbol of Conflict
+- (Tikael) Fix scaling on Shard Strike bleed damage
+- (Tikael) Improve automation of Vapor Form spell effect
+- (websterguy) Fix Enlarge and Enlarge Companion effects to apply bonus to all melee damage
+- (websterguy) Update Change Formation icon to Two Actions
+- (websterguy) Use melee and ranged selectors instead of predicates where possible
+- (Weion) Improve automation of Drake Rifle
+
 ## 6.10.2
 
 ### Bugfixes

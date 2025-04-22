@@ -1,5 +1,5 @@
 import { CreatureIdentificationData } from "@module/recall-knowledge.ts";
-import { localizeList, padArray } from "@util";
+import { localizeList } from "@util";
 
 export class RecallKnowledgePopup extends Application {
     #identificationData: CreatureIdentificationData;
@@ -36,11 +36,11 @@ export class RecallKnowledgePopup extends Application {
     }
 
     #padAttempts(attempts: number[]): string[] {
-        return padArray(
-            attempts.map((attempt) => attempt.toString()),
-            6,
-            "-",
-        );
+        const result = attempts.map((a) => a.toString());
+        for (let i = result.length; i < 6; i++) {
+            result.push("-");
+        }
+        return result;
     }
 }
 

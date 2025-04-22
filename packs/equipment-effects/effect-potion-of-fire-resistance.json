@@ -1,0 +1,108 @@
+{
+    "_id": "34gtdURRTZMS5bDK",
+    "img": "systems/pf2e/icons/equipment/consumables/potions/potion-of-fire-resistance.webp",
+    "name": "Effect: Potion of Fire Resistance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Potion of Fire Resistance (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Potion of Fire Resistance (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Potion of Fire Resistance (Greater)]</p>\n<p>You gain resistance to fire damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:potion-of-fire-resistance-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Potion of Fire Resistance (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:potion-of-fire-resistance-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Potion of Fire Resistance (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:potion-of-fire-resistance-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Potion of Fire Resistance (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "potion-of-fire-resistance"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "potion-of-fire-resistance:potion-of-fire-resistance-lesser"
+                ],
+                "type": "fire",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "potion-of-fire-resistance:potion-of-fire-resistance-moderate"
+                ],
+                "type": "fire",
+                "value": 10
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "potion-of-fire-resistance:potion-of-fire-resistance-greater"
+                ],
+                "type": "fire",
+                "value": 15
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

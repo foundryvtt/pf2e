@@ -1,0 +1,59 @@
+{
+    "_id": "EIERHL5oo4OlBkAZ",
+    "img": "systems/pf2e/icons/features/feats/overdrive-critical-success.webp",
+    "name": "Effect: Yobnobby Overdrive",
+    "system": {
+        "description": {
+            "value": "<p>Yobnobby deals additional damage on her strikes.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #214: The Broken Palace"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": 5
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": 3
+                    }
+                ],
+                "flag": "damage",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "selector": "strike-damage",
+                "slug": "overdrive",
+                "value": "@item.flags.pf2e.rulesSelections.damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

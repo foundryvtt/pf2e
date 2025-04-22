@@ -1,0 +1,108 @@
+{
+    "_id": "nBGodDOQTCWBXjNd",
+    "img": "systems/pf2e/icons/equipment/consumables/potions/potion-of-sonic-resistance.webp",
+    "name": "Effect: Potion of Sonic Resistance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Potion of Sonic Resistance (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Potion of Sonic Resistance (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Potion of Sonic Resistance (Greater)]</p>\n<p>You gain resistance against sonic damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:potion-of-sonic-resistance-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Potion of Sonic Resistance (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:potion-of-sonic-resistance-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Potion of Sonic Resistance (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:potion-of-sonic-resistance-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Potion of Sonic Resistance (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "potion-of-sonic-resistance"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "potion-of-sonic-resistance:potion-of-sonic-resistance-lesser"
+                ],
+                "type": "sonic",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "potion-of-sonic-resistance:potion-of-sonic-resistance-moderate"
+                ],
+                "type": "sonic",
+                "value": 10
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "potion-of-sonic-resistance:potion-of-sonic-resistance-greater"
+                ],
+                "type": "sonic",
+                "value": 15
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -647,7 +647,8 @@
                         "key": "Note",
                         "selector": "initiative",
                         "text": "{item|description}",
-                        "title": "{item|name}"
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
@@ -674,7 +675,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Dwarves are often calm and collected in the face of imminent danger. At the end of the general's turn, reduce its frightened condition by 2 instead of 1.</p>"
+                    "value": "<p>Dwarves are often calm and collected in the face of imminent danger. At the end of the general's turn, reduce its @UUID[Compendium.pf2e.conditionitems.Item.Frightened] condition by 2 instead of 1.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -840,6 +841,10 @@
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The dwarf general Strides twice. If they end their movement within melee reach of at least one enemy, they can make a melee Strike against that enemy.</p>"
                 },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
@@ -912,13 +917,13 @@
             },
             "hp": {
                 "details": "",
-                "max": 20,
+                "max": 150,
                 "temp": 0,
-                "value": 20
+                "value": 150
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": 25
+                "value": 20
             }
         },
         "details": {

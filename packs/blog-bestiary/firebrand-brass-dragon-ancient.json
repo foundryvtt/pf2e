@@ -140,7 +140,8 @@
                     "value": [
                         "fire",
                         "magical",
-                        "reach-15"
+                        "reach-15",
+                        "unarmed"
                     ]
                 },
                 "weaponType": {
@@ -185,7 +186,8 @@
                     "value": [
                         "agile",
                         "magical",
-                        "reach-10"
+                        "reach-10",
+                        "unarmed"
                     ]
                 },
                 "weaponType": {
@@ -252,14 +254,22 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The Brass Dragon rolls initiative.</p>\n<hr />\n<p><strong>Effect</strong> The Brass Dragon roars out a mighty challenge and attempts to Demoralize a creature it can see.</p>"
+                    "value": "<p><strong>Trigger</strong> The Brass Dragon rolls initiative.</p>\n<hr />\n<p><strong>Effect</strong> The Brass Dragon roars out a mighty challenge and attempts to [[/act demoralize]] a creature it can see.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "initiative",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

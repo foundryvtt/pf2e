@@ -1,0 +1,428 @@
+{
+    "_id": "OZRvOYnkvEVlTx90",
+    "folder": "08rFokNrUVoXpMQj",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "fYENQgIBa5MPDbUf",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Vine",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "KL6Jc7SgPn9nDVo3": {
+                        "damage": "2d8+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "gLPT3J6TlO8yBFXs",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Seed Pod",
+            "sort": 200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "fdCS7L7ARuxGbI02": {
+                        "damage": "2d10+8",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "pkz9syqKyaD4ziPh",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 20 (Deactivated by Fire)",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "fire"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 20
+                    }
+                ],
+                "slug": "regeneration",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dKRpWpRxUQwIeoTT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.g26YiEIfSHCpLocV"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Constrict",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Damage[(1d8+8)[bludgeoning]], @Check[fortitude|dc:25|basic]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "constrict",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "U1H6IaFK6NGOz0ky",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Flurry of Vines",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The stelemora makes two vine Strikes at a –2 penalty, each against a different target. These attacks count toward the stelemora's multiple attack penalty, but the multiple attack penalty doesn't increase until after they make all their attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "flurry-of-vines",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "flurry-of-vines"
+                        ],
+                        "selector": "vine-attack-roll",
+                        "value": -2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SRGoxwx5tAD6AfH8",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Slithering Vine",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The stelemora increases the reach of their vine Strike by 10 feet until the end of their turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Slithering Vine",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Slithering Vine"
+                },
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zN8cQA7lf6mwgSxi",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Sow and Sprout",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The stelemora implants a seed inside a creature they're grappling. The target must attempt a @Check[fortitude|dc:25] save.</p>\n<p><strong>Success</strong> The stelemora fails to implant a seed, and the target is unaffected.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. While sickened, the target also takes @Damage[4d6[persistent,piercing]] damage as flowering vines sprout through its flesh. The target can't end the persistent damage until it recovers from the sickened condition.</p>\n<p><strong>Critical Failure</strong> As failure, except the target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fy5ygiykXTnoglRW",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Tangle of Vines",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Until the next time they act, the stelemora appears to be a normal tangle of flowering vines. They have an automatic result of 35 (38 in forests) on Deception checks and DCs to pass as a non-creature plant.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Stelemora",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 3
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": 1
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 6
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 24
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 188,
+                "temp": 0,
+                "value": 188
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "cold-iron",
+                    "value": 10
+                },
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "fey"
+                ]
+            },
+            "level": {
+                "value": 7
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Stelemoras are nature-loving fey dedicated to beautifying the natural world by ensnaring unsuspecting creatures and transforming their bodies into elaborate topiaries from the inside out. Aside from their bulbous, spiked seed pods, stelemoras are composed entirely of vines, which they can grow, retract, and shed at will. Stelemoras regrow damaged vines at an alarming rate, allowing them to recover from nearly any injury over time.</p>\n<p>Young stelemoras travel the world looking for a piece of wilderness to call their own. Once they select a proper spot, they use their vines to snare passing creatures, holding their target still as they forcibly implant their seeds inside the victim. The implanted seeds then take root, using the creature itself as fertilizer and slowly transforming its body into a mass of vines and leaves. Once they complete their work, the stelemora sheds their vines and regrows in a new location to begin their next masterpiece.</p>\n<p>While stelemoras prefer to fill their gardens with once-living creatures, they entomb inanimate objects in vines if they can't capture their preferred subjects. Stelemoras have also been known to transform statues, treasure chests, and even entire buildings into topiaries in order to lure in their favored prey.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Claws of the Tyrant"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 17,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 17
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 17,
+                "special": []
+            },
+            "nature": {
+                "base": 17,
+                "special": []
+            },
+            "stealth": {
+                "base": 15,
+                "special": [
+                    {
+                        "base": 18,
+                        "label": "in forests",
+                        "predicate": [
+                            "terrain:forests"
+                        ]
+                    }
+                ]
+            },
+            "survival": {
+                "base": 16,
+                "special": []
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "fey",
+                "plant"
+            ]
+        }
+    },
+    "type": "npc"
+}

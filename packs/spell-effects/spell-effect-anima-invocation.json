@@ -4,7 +4,7 @@
     "name": "Spell Effect: Anima Invocation",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Anima Invocation (Modified)]</p>\n<p><strong>Critical Success</strong> You gain resistance 10 to all damage and a +4 status bonus to saves against effects created by evil creatures. Your Strikes gain the effects of the <em>ghost touch</em> rune and deal an additional 1d10 spirit damage.</p>\n<p><strong>Success</strong> You gain resistance 5 to all damage and a +2 status bonus to saves against effects created by evil creatures. Your Strikes gain the effects of the <em>ghost touch</em> rune and deal an additional 1 spirit damage.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Anima Invocation (Modified)]</p>\n<p>You gain resistance to all damage and a status bonus to saves against effects created by evil creatures. Your Strikes gain the effects of the <em>ghost touch</em> rune and deal additional spirit damage.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -13,7 +13,7 @@
             "value": 1
         },
         "level": {
-            "value": 1
+            "value": 10
         },
         "publication": {
             "license": "OGL",
@@ -33,27 +33,17 @@
                         "value": "success"
                     }
                 ],
-                "flag": "outcome",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
                 "rollOption": "anima-invocation"
             },
             {
-                "key": "AdjustStrike",
-                "mode": "add",
-                "property": "property-runes",
-                "value": "ghost-touch"
-            },
-            {
-                "key": "FlatModifier",
+                "key": "Resistance",
                 "predicate": [
-                    "anima-invocation:critical-success",
-                    "origin:trait:evil"
+                    "anima-invocation:success"
                 ],
-                "selector": "saving-throw",
-                "slug": "anima-invocation-save-critical",
-                "type": "status",
-                "value": 4
+                "type": "all-damage",
+                "value": 5
             },
             {
                 "key": "Resistance",
@@ -64,34 +54,51 @@
                 "value": 10
             },
             {
-                "damageType": "spirit",
-                "diceNumber": 1,
-                "dieSize": "d10",
-                "key": "DamageDice",
-                "predicate": [
-                    "anima-invocation:critical-success"
-                ],
-                "selector": "strike-damage"
-            },
-            {
                 "key": "FlatModifier",
                 "predicate": [
-                    "anima-invocation:success",
                     "origin:trait:evil"
                 ],
                 "selector": "saving-throw",
-                "slug": "anima-invocation-save-success",
+                "slug": "anima-invocation-saves",
                 "type": "status",
                 "value": 2
             },
             {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "anima-invocation:critical-success"
+                ],
+                "selector": "saving-throw",
+                "slug": "anima-invocation-saves",
+                "value": 4
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "property-runes",
+                "value": "ghost-touch"
+            },
+            {
                 "damageType": "spirit",
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
                 "predicate": [
                     "anima-invocation:success"
                 ],
                 "selector": "strike-damage",
                 "value": 1
+            },
+            {
+                "damageType": "spirit",
+                "diceNumber": 1,
+                "dieSize": "d10",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "anima-invocation:critical-success"
+                ],
+                "selector": "strike-damage"
             }
         ],
         "start": {

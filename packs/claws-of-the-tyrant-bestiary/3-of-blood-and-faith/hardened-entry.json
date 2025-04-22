@@ -1,0 +1,105 @@
+{
+    "_id": "e2xLxGriCpIUzLPc",
+    "folder": "1hdNljMZCWQZtriy",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "pqOGRQ907qwLJm5c",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Falling Portcullis",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature Strides beneath the portcullis while it is raised</p><hr /><p><strong>Effect</strong> The portcullis slams down, driving its sharpened ends through a grate in the floor. Creatures directly beneath the portcullis take @Damage[(3d12+20)[piercing]] damage (@Check[reflex|dc:40|basic] save). The portcullis is made of adamantine and has Hardness 31 and 120 HP (BT 60). The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Hardened Entry",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 42
+            },
+            "emitsSound": "encounter",
+            "hardness": 29,
+            "hp": {
+                "details": "BT 55",
+                "max": 110,
+                "temp": 0,
+                "value": 110
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 35
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A portcullis drops from the ceiling, landing with a heavy thunk. Seconds later, a cloud of acid rises from a metal grate in the floor.</p>",
+            "disable": "<p>@Check[athletics|dc:45] to prevent the portcullis from dropping, @Check[crafting|dc:48] (master) to create a compound to neutralize the cloud of acid, or @Check[thievery|dc:35] (expert) to jam the pressure plate</p>",
+            "isComplex": true,
+            "level": {
+                "value": 18
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Claws of the Tyrant"
+            },
+            "reset": "<p>Once triggered, the trap must be manually reset by raising the portcullis. Once all the vials are smashed, the trap can't use its routine again until the vials are replaced.</p>",
+            "routine": "<p>(1 action) A cloud of acidic vapor rises from the grate beneath the portcullis in a @Template[type:emanation|distance:5]. Any creature that enters the area or starts its turn inside the cloud takes @Damage[(3d12+20)[acid]] damage (@Check[fortitude|dc:40|basic] save). A creature that critically fails the save also takes @Damage[1d12[persistent,acid]] damage. Each time the hazard uses this routine beyond the first, increase the radius of the emanation by 5 feet.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 33
+            },
+            "reflex": {
+                "value": 27
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

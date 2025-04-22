@@ -1,0 +1,47 @@
+{
+    "_id": "0bwavSwP7XUMO9J1",
+    "img": "icons/commodities/treasure/token-runed-mem-red.webp",
+    "name": "Effect: Strength Through Pain",
+    "system": {
+        "description": {
+            "value": "<p>Granted by Lung Bloodstone of Arazni</p>\n<p>You gain a +1 status bonus to your next Strike or spell attack.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Claws of the Tyrant"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "removeAfterRoll": "if-enabled",
+                "selector": [
+                    "strike-attack-roll",
+                    "spell-attack-roll"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
