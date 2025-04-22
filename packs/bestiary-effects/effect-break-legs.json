@@ -33,7 +33,13 @@
             },
             {
                 "definition": [
-                    "origin:signature:{item|origin.signature}"
+                    "origin:signature:{item|origin.signature}",
+                    {
+                        "or": [
+                            "item:type:melee",
+                            "item:type:weapon"
+                        ]
+                    }
                 ],
                 "key": "Weakness",
                 "label": "{item|name}",
