@@ -1,4 +1,5 @@
 import { DataField } from "@common/data/fields.mjs";
+import { NumberInputConfig, SelectInputConfig } from "./forms/fields.mjs";
 
 /* -------------------------------------------- */
 /*  HTML Template Loading                       */
