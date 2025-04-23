@@ -52,7 +52,6 @@ export default class TokenLayer<TObject extends Token = Token> extends Placeable
 
     set occlusionMode(value: TokenOcclusionMode);
 
-    /** @inheritdoc */
     override get hookName(): string;
 
     /* -------------------------------------------- */
@@ -80,13 +79,13 @@ export default class TokenLayer<TObject extends Token = Token> extends Placeable
         dz: MinusOneToOne,
     ): ({ _id: string } & ElevatedPoint)[];
 
-    override _draw(options: object): Promise<void>;
+    protected override _draw(options: object): Promise<void>;
 
     override tearDown(options?: object): Promise<this>;
 
-    override _activate(): void;
+    protected override _activate(): void;
 
-    override _deactivate(): void;
+    protected override _deactivate(): void;
 
     /**
      * Target all Token instances which fall within a coordinate rectangle.
@@ -156,7 +155,7 @@ export default class TokenLayer<TObject extends Token = Token> extends Placeable
 
     static override prepareSceneControls(): SceneControl;
 
-    override _highlightObjects(active: boolean): void;
+    protected override _highlightObjects(active: boolean): void;
 
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */

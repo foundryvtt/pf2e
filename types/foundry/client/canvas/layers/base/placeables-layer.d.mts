@@ -110,12 +110,12 @@ export default class PlaceablesLayer<TObject extends PlaceableObject = Placeable
     /*  Rendering
     /* -------------------------------------------- */
 
-    override _highlightObjects(active: boolean): void;
+    protected override _highlightObjects(active: boolean): void;
 
     /** Obtain an iterable of objects which should be added to this PlaceablesLayer */
     getDocuments(): this["documentCollection"];
 
-    override _draw(options?: object): Promise<void>;
+    protected override _draw(options?: object): Promise<void>;
 
     /**
      * Draw a single placeable object

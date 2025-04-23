@@ -1,13 +1,13 @@
 import { PlaceablesLayer } from "@client/canvas/layers/_module.mjs";
 import PlaceableObject from "@client/canvas/placeables/placeable-object.mjs";
 import { CanvasDocument } from "@client/documents/abstract/canvas-document.mjs";
-import type {
+import {
     ApplicationClosingOptions,
     ApplicationConfiguration,
     ApplicationPosition,
     ApplicationRenderOptions,
 } from "../_types.mjs";
-import type ApplicationV2 from "../api/application.mjs";
+import ApplicationV2 from "../api/application.mjs";
 import FormDataExtended from "../ux/form-data-extended.mjs";
 
 /** An abstract base class for displaying a heads-up-display interface bound to a Placeable Object on the Canvas. */
