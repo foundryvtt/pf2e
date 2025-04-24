@@ -15,7 +15,7 @@ import { DoorControl } from "./canvas/containers/_module.mjs";
 import ClockwiseSweepPolygon from "./canvas/geometry/clockwise-sweep.mjs";
 import EffectsCanvasGroup from "./canvas/groups/effects.mjs";
 import InterfaceCanvasGroup from "./canvas/groups/interface.mjs";
-import { Ruler } from "./canvas/interaction/_module.mjs";
+import { AlertPing, ArrowPing, ChevronPing, PulsePing, Ruler } from "./canvas/interaction/_module.mjs";
 import * as layers from "./canvas/layers/_module.mjs";
 import * as perception from "./canvas/perception/_module.mjs";
 import type {
@@ -625,6 +625,39 @@ export default interface Config<
                 >["animateTime"];
                 darknessShader: typeof PIXI.Shader;
             };
+        };
+
+        pings: {
+            types: {
+                PULSE: "pulse";
+                ALERT: "alert";
+                PULL: "chevron";
+                ARROW: "arrow";
+            };
+            styles: {
+                alert: {
+                    class: AlertPing;
+                    color: string;
+                    size: number;
+                    duration: number;
+                };
+                arrow: {
+                    class: ArrowPing;
+                    size: number;
+                    duration: number;
+                };
+                chevron: {
+                    class: ChevronPing;
+                    size: number;
+                    duration: number;
+                };
+                pulse: {
+                    class: PulsePing;
+                    size: number;
+                    duration: number;
+                };
+            };
+            pullSpeed: number;
         };
 
         /** The set of VisionMode definitions which are available to be used for Token vision. */
