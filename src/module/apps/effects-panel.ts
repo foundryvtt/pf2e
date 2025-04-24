@@ -4,15 +4,14 @@ import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
 import { createTooltipListener } from "@module/sheet/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { ErrorPF2e, createHTMLElement, htmlQuery, htmlQueryAll } from "@util";
-import appv1 = foundry.appv1;
 
-export class EffectsPanel extends appv1.api.Application {
-    private get token(): TokenDocumentPF2e | null {
+export class EffectsPanel extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV2) {
+    get #token(): TokenDocumentPF2e | null {
         return canvas.tokens.controlled.at(0)?.document ?? null;
     }
 
-    private get actor(): ActorPF2e | null {
-        return this.token?.actor ?? game.user?.character ?? null;
+    get #actor(): ActorPF2e | null {
+        return this.#token?.actor ?? game.user?.character ?? null;
     }
 
     /**
@@ -21,19 +20,25 @@ export class EffectsPanel extends appv1.api.Application {
      */
     refresh = fu.debounce(this.render.bind(this), 100);
 
-    static override get defaultOptions(): appv1.api.ApplicationV1Options {
-        return {
-            ...super.defaultOptions,
-            id: "pf2e-effects-panel",
-            popOut: false,
-            template: "systems/pf2e/templates/system/effects/panel.hbs",
-            // foundry does not let scrollY be the root component, so we wrap it
-            scrollY: [".effects-list"],
-        };
-    }
+    static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
+        id: "effects-panel",
+        tag: "article",
+        window: {
+            frame: false,
+            positioned: false,
+        },
+    };
 
-    override async getData(options?: appv1.api.AppV1RenderOptions): Promise<EffectsPanelViewData> {
-        const { actor } = this;
+    static override PARTS: Record<string, fa.api.HandlebarsTemplatePart> = {
+        main: {
+            template: "systems/pf2e/templates/system/effects/panel.hbs",
+            scrollable: [""],
+            root: true,
+        },
+    };
+
+    protected override async _prepareContext(): Promise<EffectsPanelViewData> {
+        const actor = this.#actor;
         if (!actor || !game.user.settings.showEffectPanel) {
             return {
                 afflictions: [],
@@ -45,115 +50,12 @@ export class EffectsPanel extends appv1.api.Application {
         }
 
         return {
-            ...(await super.getData(options)),
             afflictions: await this.#getViewData(actor.itemTypes.affliction ?? []),
             conditions: await this.#getViewData(actor.conditions.active),
             effects: await this.#getViewData(actor.itemTypes.effect),
             actor,
             user: { isGM: game.user.isGM },
         };
-    }
-
-    override activateListeners($html: JQuery): void {
-        super.activateListeners($html);
-        const html = $html[0];
-
-        for (const effectEl of htmlQueryAll(html, ".effect-item[data-item-id]")) {
-            const actor = this.actor;
-            const itemId = effectEl.dataset.itemId ?? "";
-            const effect = actor?.conditions.get(itemId) ?? actor?.items.get(itemId);
-            const iconElem = effectEl.querySelector(":scope > .icon");
-            if (!actor || !effect || !iconElem) continue;
-
-            // Increase or render persistent-damage dialog on left click
-            iconElem.addEventListener("click", async () => {
-                if (actor && effect.isOfType("condition") && effect.slug === "persistent-damage") {
-                    await effect.onEndTurn({ token: this.token });
-                } else if (effect instanceof AbstractEffectPF2e) {
-                    await effect.increase();
-                }
-            });
-
-            // Remove effect or decrease its badge value on right-click
-            iconElem.addEventListener("contextmenu", async () => {
-                if (effect instanceof AbstractEffectPF2e) {
-                    await effect.decrease();
-                } else {
-                    // Failover in case of a stale effect
-                    this.refresh();
-                }
-            });
-
-            // Uses a scale transform to fit the text within the box
-            // Note that the value container cannot have padding or measuring will fail.
-            // They cannot be inline elements pre-computation, but must be post-computation (for ellipses)
-            const valueContainer = htmlQuery(iconElem, ".value");
-            const textElement = htmlQuery(valueContainer, "strong");
-            if (valueContainer && textElement) {
-                const minScale = 0.75;
-                const parentWidth = valueContainer.clientWidth;
-                const scale = textElement.clientWidth
-                    ? Math.clamp(parentWidth / textElement.clientWidth, minScale, 1)
-                    : 1;
-                if (scale < 1) {
-                    valueContainer.style.transformOrigin = "left";
-                    valueContainer.style.transform = `scaleX(${scale})`;
-
-                    // Unfortunately, width is pre scaling, so we need to scale it back up
-                    // +1 prevents certain scenarios where ellipses will show even above min scale.
-                    valueContainer.style.width = `${(1 / scale) * 100 + 1}%`;
-                }
-
-                textElement.style.display = "inline";
-            }
-        }
-
-        // Add tooltip listener for effects panel entries
-        createTooltipListener(html, {
-            selector: ".effect-item[data-item-id]",
-            locked: true,
-            direction: "LEFT",
-            cssClass: "pf2e effect-info",
-            align: "top",
-            render: async (effectEl) => {
-                const actor = this.actor;
-                const itemId = effectEl.dataset.itemId ?? "";
-                const effect = actor?.conditions.get(itemId) ?? actor?.items.get(itemId);
-                if (!actor || !effect) return null;
-
-                const viewData = (await this.#getViewData([effect]))[0];
-                if (!viewData) throw ErrorPF2e("Error creating view data for effect");
-
-                const content = createHTMLElement("div", {
-                    innerHTML: await fa.handlebars.renderTemplate(
-                        "systems/pf2e/templates/system/effects/tooltip.hbs",
-                        viewData,
-                    ),
-                }).firstElementChild;
-                if (!(content instanceof HTMLElement)) return null;
-
-                content.querySelector("[data-action=recover-persistent-damage]")?.addEventListener("click", () => {
-                    if (effect.isOfType("condition")) {
-                        effect.rollRecovery();
-                    }
-                });
-
-                content.querySelector("[data-action=edit]")?.addEventListener("click", () => {
-                    if (effect.isOfType("condition") && effect.slug === "persistent-damage") {
-                        new PersistentDialog(actor, { editing: effect.id }).render(true);
-                    } else {
-                        effect.sheet.render(true);
-                    }
-                });
-
-                // Send effect to chat
-                content.querySelector("[data-action=send-to-chat]")?.addEventListener("click", () => {
-                    effect.toMessage();
-                });
-
-                return content;
-            },
-        });
     }
 
     #getRemainingDurationLabel(effect: EffectPF2e): string {
@@ -240,12 +142,114 @@ export class EffectsPanel extends appv1.api.Application {
     }
 
     /** Move the panel to the right interface column. */
-    protected override async _render(force?: boolean, options?: appv1.api.AppV1RenderOptions): Promise<void> {
-        await super._render(force, options);
-        const element = this.element[0];
-        if (force) {
-            document.getElementById("ui-right-column-1")?.appendChild(element);
+    override async _onRender(context: object, options: fa.ApplicationRenderOptions): Promise<void> {
+        await super._onRender(context, options);
+        const html = this.element;
+        if (options?.force) {
+            document.getElementById("ui-right-column-1")?.appendChild(html);
         }
+
+        for (const effectEl of htmlQueryAll(html, ".effect-item[data-item-id]")) {
+            const actor = this.#actor;
+            const itemId = effectEl.dataset.itemId ?? "";
+            const effect = actor?.conditions.get(itemId) ?? actor?.items.get(itemId);
+            const iconElem = effectEl.querySelector(":scope > .icon");
+            if (!actor || !effect || !iconElem) continue;
+
+            // Increase or render persistent-damage dialog on left click
+            iconElem.addEventListener("click", async () => {
+                if (actor && effect.isOfType("condition") && effect.slug === "persistent-damage") {
+                    await effect.onEndTurn({ token: this.#token });
+                } else if (effect instanceof AbstractEffectPF2e) {
+                    await effect.increase();
+                }
+            });
+
+            // Remove effect or decrease its badge value on right-click
+            iconElem.addEventListener("contextmenu", async () => {
+                if (effect instanceof AbstractEffectPF2e) {
+                    await effect.decrease();
+                } else {
+                    // Failover in case of a stale effect
+                    this.refresh();
+                }
+            });
+
+            // Uses a scale transform to fit the text within the box
+            // Note that the value container cannot have padding or measuring will fail.
+            // They cannot be inline elements pre-computation, but must be post-computation (for ellipses)
+            const valueContainer = htmlQuery(iconElem, ".value");
+            const textElement = htmlQuery(valueContainer, "strong");
+            if (valueContainer && textElement) {
+                const minScale = 0.75;
+                const parentWidth = valueContainer.clientWidth;
+                const scale = textElement.clientWidth
+                    ? Math.clamp(parentWidth / textElement.clientWidth, minScale, 1)
+                    : 1;
+                if (scale < 1) {
+                    valueContainer.style.transformOrigin = "left";
+                    valueContainer.style.transform = `scaleX(${scale})`;
+
+                    // Unfortunately, width is pre scaling, so we need to scale it back up
+                    // +1 prevents certain scenarios where ellipses will show even above min scale.
+                    valueContainer.style.width = `${(1 / scale) * 100 + 1}%`;
+                }
+
+                textElement.style.display = "inline";
+            }
+        }
+
+        // Add tooltip listener for effects panel entries
+        // The uiConfig setting doesn't handle browser default, so we poach the interface theme from the DOM
+        // If we don't include the application class, theme-dark has errors
+        const interfaceElement = document.querySelector("#interface");
+        const themeClass =
+            [...(interfaceElement?.classList.values() ?? [])].find((c) => c.startsWith("theme-")) ?? "theme-dark";
+        createTooltipListener(html, {
+            selector: ".effect-item[data-item-id]",
+            locked: true,
+            direction: "LEFT",
+            cssClass: `pf2e effect-info application themed ${themeClass}`,
+            align: "top",
+            render: async (effectEl) => {
+                const actor = this.#actor;
+                const itemId = effectEl.dataset.itemId ?? "";
+                const effect = actor?.conditions.get(itemId) ?? actor?.items.get(itemId);
+                if (!actor || !effect) return null;
+
+                const viewData = (await this.#getViewData([effect]))[0];
+                if (!viewData) throw ErrorPF2e("Error creating view data for effect");
+
+                const content = createHTMLElement("div", {
+                    innerHTML: await fa.handlebars.renderTemplate(
+                        "systems/pf2e/templates/system/effects/tooltip.hbs",
+                        viewData,
+                    ),
+                }).firstElementChild;
+                if (!(content instanceof HTMLElement)) return null;
+
+                content.querySelector("[data-action=recover-persistent-damage]")?.addEventListener("click", () => {
+                    if (effect.isOfType("condition")) {
+                        effect.rollRecovery();
+                    }
+                });
+
+                content.querySelector("[data-action=edit]")?.addEventListener("click", () => {
+                    if (effect.isOfType("condition") && effect.slug === "persistent-damage") {
+                        new PersistentDialog(actor, { editing: effect.id }).render(true);
+                    } else {
+                        effect.sheet.render(true);
+                    }
+                });
+
+                // Send effect to chat
+                content.querySelector("[data-action=send-to-chat]")?.addEventListener("click", () => {
+                    effect.toMessage();
+                });
+
+                return content;
+            },
+        });
     }
 }
 

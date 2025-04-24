@@ -15,7 +15,7 @@ export const CanvasReady = {
 
         Hooks.on("canvasReady", () => {
             // Effect Panel singleton application
-            game.pf2e.effectPanel.render(true);
+            game.pf2e.effectPanel.render({ force: true });
             if (!canvas.scene) return;
 
             if (game.ready) canvas.scene.reset();
