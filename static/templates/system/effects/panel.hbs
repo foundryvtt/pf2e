@@ -1,21 +1,19 @@
-<article id="effects-panel">
-    <div class="effects-list">
-        {{#each afflictions as |affliction|}}
-            {{> effect this=affliction}}
-        {{/each}}
+<article>
+    {{#each afflictions as |affliction|}}
+        {{> effect this=affliction}}
+    {{/each}}
 
-        {{#if (and afflictions.length conditions.length)}}<hr />{{/if}}
+    {{#if (and afflictions.length conditions.length)}}<hr />{{/if}}
 
-        {{#each conditions as |condition|}}
-            {{> effect this=condition}}
-        {{/each}}
+    {{#each conditions as |condition|}}
+        {{> effect this=condition}}
+    {{/each}}
 
-        {{#if (and conditions.length effects.length)}}<hr />{{/if}}
+    {{#if (and conditions.length effects.length)}}<hr />{{/if}}
 
-        {{#each effects as |effect|}}
-            {{> effect this=effect}}
-        {{/each}}
-    </div>
+    {{#each effects as |effect|}}
+        {{> effect this=effect}}
+    {{/each}}
 </article>
 
 {{#*inline "effect"}}
