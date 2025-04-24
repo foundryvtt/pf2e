@@ -37,7 +37,8 @@ $degree-failure-critical: rgb(255, 0, 0);
 /* ----------------------------------------- */
 
 body,
-.app {
+.app,
+.themed.theme-light {
     /* Global */
     --color-pf-primary: #{$primary-color};
     --color-pf-primary-dark: #{color.adjust($primary-color, $lightness: -5%)};
@@ -69,8 +70,6 @@ body,
     --color-disabled: var(--color-text-dark-4);
 
     // Inline links and user visibility
-    --inline-link-bg: #ddd;
-    --inline-repost-bg: #{color.adjust(#ddd, $lightness: 5%)};
     --visibility-gm-bg: #e8e8ef;
     --visibility-owner-bg: #ddebe1;
     --blind-roll: #f5eaf5;
@@ -377,6 +376,7 @@ body,
     }
 }
 
-.theme-dark .application {
+body.theme-dark .application,
+.themed.theme-dark {
     --visibility-gm-bg: var(--color-cool-4);
 }
