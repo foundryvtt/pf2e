@@ -67,4 +67,5 @@ export default abstract class CanvasLayer extends PIXI.Container {
 export interface CanvasLayerOptions {
     name: string;
     baseClass: string;
+    zIndex: number;
 }
