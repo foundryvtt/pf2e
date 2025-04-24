@@ -1,3 +1,5 @@
+import { Token } from "@client/canvas/placeables/_module.mjs";
+import Actor from "@client/documents/actor.mjs";
 import type { ApplicationConfiguration, ApplicationPosition } from "../_types.mjs";
 import type HandlebarsApplicationMixin from "../api/handlebars-application.mjs";
 import type { HandlebarsRenderOptions, HandlebarsTemplatePart } from "../api/handlebars-application.mjs";

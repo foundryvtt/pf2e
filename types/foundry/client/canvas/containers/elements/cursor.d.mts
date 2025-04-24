@@ -1,5 +1,5 @@
 import User from "@client/documents/user.mjs";
-import { Point } from "@common/types.mjs";
+import { Point } from "@common/_types.mjs";
 
 /**
  * A single Mouse Cursor

@@ -710,10 +710,10 @@ export interface TokenRulerData {
     pendingWaypoints: TokenMeasuredMovementWaypoint[];
 
     /** Movement planned by Users */
-    plannedMovement: Record<string, TokenRulerPlannedMovement>;
+    plannedMovement: Record<string, TokenPlannedMovement>;
 }
 
-export interface TokenRulerPlannedMovement {
+export interface TokenPlannedMovement {
     /** The found path, which goes through all but the unreachable waypoints */
     foundPath: TokenMeasuredMovementWaypoint[];
 
