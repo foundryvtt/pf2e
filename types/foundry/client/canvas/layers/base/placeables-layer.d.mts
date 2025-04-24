@@ -7,14 +7,14 @@ import PlaceableObject from "../../placeables/placeable-object.mjs";
 import { CanvasHistoryEvent, PlaceablesLayerOptions } from "../_types.mjs";
 import InteractionLayer from "./interaction-layer.mjs";
 
-type MinusOneToOne = -1 | 0 | 1;
+export type MinusOneToOne = -1 | 0 | 1;
 
 /**
  * A subclass of Canvas Layer which is specifically designed to contain multiple PlaceableObject instances,
  * each corresponding to an embedded Document.
  * @category Canvas
  */
-export default class PlaceablesLayer<TPlaceable extends PlaceableObject> extends InteractionLayer {
+export default class PlaceablesLayer<TObject extends PlaceableObject = PlaceableObject> extends InteractionLayer {
     /** Sort order for placeables belonging to this layer. */
     static SORT_ORDER: number;
 
@@ -24,16 +24,16 @@ export default class PlaceablesLayer<TPlaceable extends PlaceableObject> extends
     objects: PIXI.Container | null;
 
     /** Preview Object Placement */
-    preview: TPlaceable | null;
+    preview: TObject | null;
 
     /** Keep track of history so that CTRL+Z can undo changes. */
-    history: CanvasHistoryEvent<TPlaceable>[];
+    history: CanvasHistoryEvent<TObject>[];
 
     /** Keep track of objects copied with CTRL+C/X which can be pasted later. */
     clipboard: { objects: PlaceableObject[]; cut: boolean };
 
-    /** A Quadtree which partitions and organizes Walls into quadrants for efficient target identification. */
-    quadtree: CanvasQuadtree<TPlaceable> | null;
+    /** A Quadtree which partitions and organizes objects into quadrants for efficient target identification. */
+    quadtree: CanvasQuadtree<TObject> | null;
 
     /* -------------------------------------------- */
     /*  Attributes                                  */
@@ -54,7 +54,7 @@ export default class PlaceablesLayer<TPlaceable extends PlaceableObject> extends
     };
 
     /** Obtain a reference to the Collection of embedded Document instances within the currently viewed Scene */
-    get documentCollection(): DocumentCollection<TPlaceable["document"]> | null;
+    get documentCollection(): DocumentCollection<TObject["document"]> | null;
 
     /** Obtain a reference to the PlaceableObject class definition which represents the Document type in this layer. */
     static get placeableClass(): AbstractConstructorOf<PlaceableObject>;
@@ -63,24 +63,24 @@ export default class PlaceablesLayer<TPlaceable extends PlaceableObject> extends
     get hud(): BasePlaceableHUD | null;
 
     /** A convenience method for accessing the placeable object instances contained in this layer */
-    get placeables(): TPlaceable[];
+    get placeables(): TObject[];
 
     /** An Array of placeable objects in this layer which have the _controlled attribute  */
-    get controlled(): TPlaceable[];
+    get controlled(): TObject[];
 
     /**
      * Iterates over placeable objects that are eligible for control/select.
      * @yields A placeable object
      */
-    controllableObjects(): Generator<TPlaceable>;
+    controllableObjects(): Generator<TObject>;
 
     /** Track the set of PlaceableObjects on this layer which are currently controlled. */
-    get controlledObjects(): Map<string, TPlaceable>;
+    get controlledObjects(): Map<string, TObject>;
 
     /** Track the PlaceableObject on this layer which is currently hovered upon. */
-    get hover(): TPlaceable | null;
+    get hover(): TObject | null;
 
-    set hover(object: TPlaceable);
+    set hover(object: TObject);
 
     /** Track whether "highlight all objects" is currently active */
     highlightObjects: boolean;
@@ -110,18 +110,18 @@ export default class PlaceablesLayer<TPlaceable extends PlaceableObject> extends
     /*  Rendering
     /* -------------------------------------------- */
 
-    override _highlightObjects(active: boolean): void;
+    protected override _highlightObjects(active: boolean): void;
 
     /** Obtain an iterable of objects which should be added to this PlaceablesLayer */
     getDocuments(): this["documentCollection"];
 
-    override _draw(options?: object): Promise<void>;
+    protected override _draw(options?: object): Promise<void>;
 
     /**
      * Draw a single placeable object
      * @param document The Document instance used to create the placeable object
      */
-    createObject(document: TPlaceable["document"]): TPlaceable;
+    createObject(document: TObject["document"]): TObject;
 
     protected override _tearDown(options?: object): Promise<void>;
 
@@ -142,14 +142,14 @@ export default class PlaceablesLayer<TPlaceable extends PlaceableObject> extends
      * @param objectId The ID of the contained object to retrieve
      * @returns  The object instance, or undefined
      */
-    get(objectId: string): TPlaceable | undefined;
+    get(objectId: string): TObject | undefined;
 
     /**
      * Acquire control over all PlaceableObject instances which are visible and controllable within the layer.
      * @param options  Options passed to the control method of each object
      * @returns  An array of objects that were controlled
      */
-    controlAll(options?: { releaseOthers?: boolean }): TPlaceable[];
+    controlAll(options?: { releaseOthers?: boolean }): TObject[];
 
     /**
      * Release all controlled PlaceableObject instance from this layer.
@@ -176,7 +176,7 @@ export default class PlaceablesLayer<TPlaceable extends PlaceableObject> extends
         snap?: number;
         ids?: string[];
         includeLocked: boolean;
-    }): Promise<TPlaceable[]>;
+    }): Promise<TObject[]>;
 
     /**
      * Simultaneously move multiple PlaceableObjects via keyboard movement offsets.
@@ -199,7 +199,7 @@ export default class PlaceablesLayer<TPlaceable extends PlaceableObject> extends
         rotate?: boolean;
         ids?: string[];
         includeLocked?: boolean;
-    }): Promise<TPlaceable[]>;
+    }): Promise<TObject[]>;
 
     /**
      * Prepare the updates and update options for moving the given placeable objects via keyboard.
@@ -207,7 +207,7 @@ export default class PlaceablesLayer<TPlaceable extends PlaceableObject> extends
      * @internal
      */
     _prepareKeyboardMovementUpdates(
-        objects: TPlaceable[],
+        objects: TObject[],
         dx: MinusOneToOne,
         dy: MinusOneToOne,
         dz: MinusOneToOne,
@@ -219,7 +219,7 @@ export default class PlaceablesLayer<TPlaceable extends PlaceableObject> extends
      * @internal
      */
     _prepareKeyboardRotationUpdates(
-        objects: TPlaceable[],
+        objects: TObject[],
         dx: MinusOneToOne,
         dy: MinusOneToOne,
         dz: MinusOneToOne,
@@ -239,7 +239,7 @@ export default class PlaceablesLayer<TPlaceable extends PlaceableObject> extends
      * @throws  If any explicitly requested ID is not valid
      * @internal
      */
-    _getMovableObjects(ids?: string[], includeLocked?: boolean): TPlaceable[];
+    _getMovableObjects(ids?: string[], includeLocked?: boolean): TObject[];
 
     /**
      * An internal helper method to identify the array of PlaceableObjects which can be copied/cut.
@@ -248,21 +248,21 @@ export default class PlaceablesLayer<TPlaceable extends PlaceableObject> extends
      * @returns  An array of objects which can be copied/cut
      * @internal
      */
-    _getCopyableObjects(options: { cut?: boolean }): TPlaceable[];
+    _getCopyableObjects(options: { cut?: boolean }): TObject[];
 
     /**
      * Undo a change to the objects in this layer
      * This method is typically activated using CTRL+Z while the layer is active
      * @returns  An array of documents which were modified by the undo operation
      */
-    undoHistory(): Promise<TPlaceable["document"]>;
+    undoHistory(): Promise<TObject["document"]>;
 
     /**
      * A helper method to prompt for deletion of all PlaceableObject instances within the Scene
      * Renders a confirmation dialogue to confirm with the requester that all objects will be deleted
      * @returns  An array of Document objects which were deleted by the operation
      */
-    deleteAll(): Promise<TPlaceable["document"]>;
+    deleteAll(): Promise<TObject["document"]>;
 
     /**
      * Record a new CRUD event in the history log so that it can be undone later.
@@ -292,7 +292,7 @@ export default class PlaceablesLayer<TPlaceable extends PlaceableObject> extends
      * @param options.cut  Cut instead of copy?
      * @returns  The Array of copied PlaceableObject instances
      */
-    copyObjects(options?: { cut: boolean }): Readonly<TPlaceable[]>;
+    copyObjects(options?: { cut: boolean }): Readonly<TObject[]>;
 
     /**
      * Paste currently copied PlaceableObjects back to the layer by creating new copies
@@ -302,7 +302,7 @@ export default class PlaceablesLayer<TPlaceable extends PlaceableObject> extends
      * @param [options.snap=true]     Snap the resulting objects to the grid. Default is true.
      * @returns  An Array of created Document instances
      */
-    pasteObjects(position: Point, options?: { hidden?: boolean; snap?: boolean }): Promise<TPlaceable["document"]>;
+    pasteObjects(position: Point, options?: { hidden?: boolean; snap?: boolean }): Promise<TObject["document"]>;
 
     /**
      * Select all PlaceableObject instances which fall within a coordinate rectangle.
@@ -338,10 +338,10 @@ export default class PlaceablesLayer<TPlaceable extends PlaceableObject> extends
      * @returns  An array of updated data once the operation is complete
      */
     updateAll(
-        transformation: Record<string, unknown> | ((obj: TPlaceable) => Record<string, unknown>),
-        condition: ((obj: TPlaceable) => boolean) | null,
+        transformation: Record<string, unknown> | ((obj: TObject) => Record<string, unknown>),
+        condition: ((obj: TObject) => boolean) | null,
         options?: object,
-    ): Promise<TPlaceable["document"]>;
+    ): Promise<TObject["document"]>;
 
     /**
      * Get the world-transformed drop position.
@@ -363,27 +363,27 @@ export default class PlaceablesLayer<TPlaceable extends PlaceableObject> extends
      * @internal
      */
     _createPreview(
-        createData: DeepPartial<TPlaceable["document"]["_source"]>,
+        createData: DeepPartial<TObject["document"]["_source"]>,
         options?: { renderSheet?: boolean; top?: number; left?: number },
-    ): Promise<TPlaceable>;
+    ): Promise<TObject>;
 
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    protected override _onClickLeft(event: PIXI.FederatedEvent): void;
+    protected override _onClickLeft(event: PlaceablesLayerPointerEvent<TObject>): void;
 
-    protected override _canDragLeftStart(user: User, event: PIXI.FederatedEvent): boolean;
+    protected override _canDragLeftStart(user: User, event: PlaceablesLayerPointerEvent<TObject>): boolean;
 
-    protected override _onDragLeftStart(event: PIXI.FederatedEvent): void;
+    protected override _onDragLeftStart(event: PlaceablesLayerPointerEvent<TObject>): void;
 
-    protected override _onDragLeftMove(event: PIXI.FederatedEvent): void;
+    protected override _onDragLeftMove(event: PlaceablesLayerPointerEvent<TObject>): void;
 
-    protected override _onDragLeftDrop(event: PIXI.FederatedEvent): void;
+    protected override _onDragLeftDrop(event: PlaceablesLayerPointerEvent<TObject>): void;
 
-    protected override _onDragLeftCancel(event: PIXI.FederatedEvent): void;
+    protected override _onDragLeftCancel(event: PlaceablesLayerPointerEvent<TObject>): void;
 
-    protected override _onClickRight(event: PIXI.FederatedEvent): void;
+    protected override _onClickRight(event: PlaceablesLayerPointerEvent<TObject>): void;
 
     protected override _onMouseWheel(event: WheelEvent): void;
 
@@ -395,7 +395,7 @@ export default class PlaceablesLayer<TPlaceable extends PlaceableObject> extends
      * @param documents  The documents that will be deleted on confirmation.
      * @returns  True if the deletion is confirmed to proceed.
      */
-    protected _confirmDeleteKey(documents: TPlaceable["document"][]): Promise<boolean>;
+    protected _confirmDeleteKey(documents: TObject["document"][]): Promise<boolean>;
 
     protected override _onSelectAllKey(event: KeyboardEvent): boolean;
 
@@ -408,4 +408,22 @@ export default class PlaceablesLayer<TPlaceable extends PlaceableObject> extends
     protected override _onCopyKey(event: KeyboardEvent): boolean;
 
     protected override _onPasteKey(event: KeyboardEvent): boolean;
+}
+
+export interface PlaceablesLayerEvent<TObject extends PlaceableObject> extends PIXI.FederatedEvent {
+    interactionData: PlaceableInteractionData<TObject>;
+}
+
+export interface PlaceablesLayerPointerEvent<TObject extends PlaceableObject> extends PIXI.FederatedPointerEvent {
+    interactionData: PlaceableInteractionData<TObject>;
+}
+
+export interface PlaceableInteractionData<TObject extends PlaceableObject> {
+    clearPreviewContainer: boolean;
+    preview?: TObject | null;
+    clones?: TObject[];
+    dragHandle?: unknown;
+    object: TObject;
+    origin: Point;
+    destination: Point;
 }
