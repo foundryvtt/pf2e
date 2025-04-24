@@ -1,3 +1,4 @@
+import { SceneDimensions } from "@client/_types.mjs";
 import Color from "@common/utils/color.mjs";
 import { GridHighlight, GridMesh } from "../containers/_module.mjs";
 import CanvasLayer, { CanvasLayerOptions } from "./base/canvas-layer.mjs";
@@ -50,7 +51,7 @@ export default class GridLayer extends CanvasLayer {
      * Define a new Highlight graphic
      * @param name The name for the referenced highlight layer
      */
-    addHighlightLayer(name: string): HighlightLayer | undefined;
+    addHighlightLayer(name: string): GridHighlight | undefined;
 
     /**
      * Clear a specific Highlight graphic
@@ -67,7 +68,7 @@ export default class GridLayer extends CanvasLayer {
      * Obtain the highlight layer graphic by name
      * @param {string} name     The name for the referenced highlight layer
      */
-    getHighlightLayer(name: string): HighlightLayer | undefined;
+    getHighlightLayer(name: string): GridHighlight | undefined;
 
     /**
      * Add highlighting for a specific grid position to a named highlight graphic
