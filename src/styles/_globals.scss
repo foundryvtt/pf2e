@@ -161,17 +161,17 @@ table.pf2-table {
 }
 
 @mixin inline-link {
-    background: var(--inline-link-bg);
+    background: var(--content-link-background);
     border-radius: 2px;
-    border: 1px solid var(--color-border-dark-tertiary);
+    border: 1px solid var(--content-link-border-color);
     box-sizing: border-box;
-    color: var(--color-text-dark-primary);
+    color: var(--content-link-text-color);
     padding: 0 var(--space-4);
     white-space: nowrap;
     word-break: break-all;
 
     > i.icon {
-        color: var(--color-text-dark-inactive);
+        color: var(var(--color-text-dark-inactive));
         margin-right: var(--space-4);
     }
 }
@@ -338,17 +338,15 @@ span[data-pf2-effect-area] {
 
 i[data-pf2-repost] {
     @include quick-transition;
-    background: var(--inline-repost-bg);
-    color: var(--color-text-dark-inactive);
-    border-left: 1px solid var(--color-border-dark-tertiary);
-    background: #fff9;
+    color: var(--color-text-subtle);
+    border-left: 1px solid var(--content-link-border-color);
     padding: var(--space-2);
     margin-left: var(--space-2);
     text-shadow: none;
 
     &:hover {
-        color: var(--text-light);
-        text-shadow: 0 0 2px var(--text-dark);
+        color: var(--color-text-selection);
+        text-shadow: 0 0 2px var(--color-text-emphatic);
     }
 }
 
@@ -445,6 +443,11 @@ aside.locked-tooltip.pf2e {
     font-size: var(--font-size-14);
     padding: var(--space-4) 0;
     text-align: left;
+
+    &.themed {
+        background: var(--background);
+        color: var(--color-text-primary);
+    }
 
     h1,
     h2,
