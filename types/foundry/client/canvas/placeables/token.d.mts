@@ -1,4 +1,4 @@
-import type { TokenRulerPlannedMovement } from "@client/_types.mjs";
+import { TokenPlannedMovement } from "@client/_types.mjs";
 import { TokenDocument, User } from "@client/documents/_module.mjs";
 import { ColorSource, Point } from "@common/_types.mjs";
 import { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
@@ -6,12 +6,14 @@ import Color from "@common/utils/color.mjs";
 import { CanvasAnimationAttribute, CanvasAnimationOptions } from "../animation/_types.mjs";
 import { PreciseText } from "../containers/_module.mjs";
 import PolygonVertex from "../geometry/edges/vertex.mjs";
-import type { TokenLayer } from "../layers/_module.mjs";
+import { TokenLayer } from "../layers/_module.mjs";
+import { PlaceablesLayerPointerEvent } from "../layers/base/placeables-layer.mjs";
 import PrimarySpriteMesh from "../primary/primary-sprite-mesh.mjs";
+import { TextureTransitionType } from "../rendering/filters/transition.mjs";
 import { PointLightSource, PointVisionSource, VisionSourceData } from "../sources/_module.mjs";
 import PlaceableObject, { PlaceableShape } from "./placeable-object.mjs";
 import Region, { RegionMovementSegment, RegionMovementWaypoint } from "./region.mjs";
-import type BaseTokenRuler from "./tokens/base-ruler.mjs";
+import { BaseTokenRuler } from "./tokens/_module.mjs";
 
 /** A Token is an implementation of PlaceableObject that represents an Actor within a viewed Scene on the game canvas. */
 export default class Token<TDocument extends TokenDocument = TokenDocument> extends PlaceableObject<TDocument> {
@@ -95,7 +97,7 @@ export default class Token<TDocument extends TokenDocument = TokenDocument> exte
     /**
      * The ruler data.
      */
-    protected _plannedMovement: Record<string, TokenRulerPlannedMovement>;
+    protected _plannedMovement: Record<string, TokenPlannedMovement>;
 
     /** Track the set of User documents which are currently targeting this Token */
     targeted: Set<User>;
