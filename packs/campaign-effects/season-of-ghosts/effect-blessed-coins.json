@@ -1,0 +1,75 @@
+{
+    "_id": "A1VCJqeusccB7OOH",
+    "folder": "nYejRh5pL5dk5R7M",
+    "img": "icons/commodities/currency/coins-engraved-copper.webp",
+    "name": "Effect: Blessed Coins",
+    "system": {
+        "description": {
+            "value": "<p>You are granted a +1 item bonus to skill checks you attempt with the deities' divine skills.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #196: The Summer That Never Was"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "config": "skills"
+                },
+                "flag": "skillOne",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "config": "skills"
+                },
+                "flag": "skillTwo",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "config": "skills"
+                },
+                "flag": "skillThree",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "{item|flags.pf2e.rulesSelections.skillOne}",
+                    "{item|flags.pf2e.rulesSelections.skillTwo}",
+                    "{item|flags.pf2e.rulesSelections.skillThree}"
+                ],
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
