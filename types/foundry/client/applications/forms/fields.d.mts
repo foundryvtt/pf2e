@@ -1,3 +1,4 @@
+import { FormGroupConfig, FormInputConfig } from "@common/data/_types.mjs";
 import { HTMLMultiSelectElement } from "../elements/multi-select.mjs";
 
 /** Create a standardized form field group. */
@@ -76,53 +77,6 @@ export type CustomFormInput = (
     config: FormInputConfig,
 ) => HTMLElement | HTMLCollection;
 
-export interface FormGroupConfig {
-    /** A text label to apply to the form group */
-    label: string;
-    /** An optional units string which is appended to the label */
-    units?: string;
-    /** An HTML element or collection of elements which provide the inputs for the group  */
-    input: HTMLElement | HTMLCollection;
-    /** Hint text displayed as part of the form group */
-    hint?: string;
-    /**
-     *  Some parent CSS id within which field names are unique. If provided, this root ID
-     *  is used to automatically assign "id" attributes to input elements and "for" attributes
-     *  to corresponding labels
-     */
-    rootId?: string;
-    /** An array of CSS classes applied to the form group element */
-    classes?: string[];
-    /** Is the "stacked" class applied to the form group. Default: `false` */
-    stacked?: boolean;
-    /**
-     *  Should labels or other elements within this form group be automatically localized?
-     *  Default: `false`
-     */
-    localize?: boolean;
-    /** A custom form group widget function which replaces the default group HTML generation */
-    widget?: CustomFormGroup;
-}
-
-export interface FormInputConfig<TValue extends string | number | boolean = string | number | boolean> {
-    /** The name of the form element */
-    name: string;
-    /** The current value of the form element */
-    value: TValue;
-    /** Is the field required? Default: `false` */
-    required?: boolean;
-    /** Is the field disabled? Default: `false` */
-    disabled?: boolean;
-    /** Is the field readonly? Default: `false` */
-    readonly?: boolean;
-    /** Localize values of this field? Default: `false`*/
-    localize?: boolean;
-    /** Additional dataset attributes to assign to the input */
-    dataset?: Record<string, string>;
-    /** A placeholder value, if supported by the element type */
-    placeholder?: string;
-}
-
 export interface EditorInputConfig extends FormInputConfig<string> {
     /** Default: `prosemirror` */
     engine?: string;
@@ -138,7 +92,7 @@ export interface EditorInputConfig extends FormInputConfig<string> {
 export interface FormSelectOption {
     value: string;
     label: string;
-    /** An optional `optrgoup` for this option */
+    /** An optional `optgoup` for this option */
     group?: string;
     disabled?: boolean;
     selected?: boolean;

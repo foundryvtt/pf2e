@@ -1,73 +1,58 @@
+import type { HandlebarsRenderOptions } from "@client/applications/api/handlebars-application.d.mts";
 import { ScenePF2e } from "@scene/index.ts";
-import { fontAwesomeIcon } from "@util";
+import { ErrorPF2e, fontAwesomeIcon } from "@util";
 import noUiSlider, { PipsMode, API as Slider } from "nouislider";
 import "nouislider/dist/nouislider.min.css";
 import { WorldClock } from "./world-clock/index.ts";
-import appv1 = foundry.appv1;
 
-export class SceneDarknessAdjuster extends appv1.api.Application {
-    static readonly instance = new this();
+export class SceneDarknessAdjuster extends fa.api.ApplicationV2 {
+    static get instance(): SceneDarknessAdjuster {
+        return (this.#instance ??= new this());
+    }
+
+    static #instance: SceneDarknessAdjuster | null = null;
+
+    static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
+        tag: "article",
+        id: "darkness-adjuster",
+        classes: ["application"],
+        window: { title: "CONTROLS.AdjustSceneDarkness", frame: false, positioned: false },
+    };
 
     #slider?: Slider;
 
     /** Temporarily disable the system's "refreshLighting" hook  */
     #noRefreshHook = false;
 
-    static override get defaultOptions(): appv1.api.ApplicationV1Options {
-        return {
-            ...super.defaultOptions,
-            id: "darkness-adjuster",
-            title: "CONTROLS.AdjustSceneDarkness",
-            template: "systems/pf2e/templates/system/scene-darkness-adjuster.hbs",
-            minimizable: false,
-            popOut: false,
-        };
+    override async render(options?: Partial<HandlebarsRenderOptions & { scenes?: ScenePF2e[] }>): Promise<this> {
+        return game.scenes.viewed ? super.render(options) : this;
     }
 
-    override async getData(options: Partial<appv1.api.ApplicationV1Options> = {}): Promise<object> {
-        return {
-            ...(await super.getData(options)),
-            darknessSyncedToTime: !!game.scenes.viewed?.darknessSyncedToTime,
-        };
+    protected override async _renderHTML(_context: object): Promise<HTMLElement> {
+        if (!game.scenes.viewed) throw ErrorPF2e("Unexpected render call without viewed scene");
+
+        const result = document.createElement("div");
+        result.className = "slider";
+        if (game.scenes.viewed.darknessSyncedToTime) result.setAttribute("disabled", "");
+        return result;
     }
 
-    override async _render(
-        force?: boolean,
-        options: appv1.api.AppV1RenderOptions & { scenes?: ScenePF2e[] } = {},
-    ): Promise<void> {
-        if (!game.scenes.viewed) return;
-
-        // Adjust position of this application's window
+    protected override _replaceHTML(
+        result: HTMLElement,
+        element: HTMLElement,
+        options: fa.ApplicationRenderOptions,
+    ): void {
+        element.replaceChildren(result);
         const controls = ui.controls.element;
         const bounds = controls?.querySelector("button[data-tool=darknessAdjuster]")?.getBoundingClientRect();
-        if (!bounds) return;
-
-        const wasRendered = this.rendered;
-        await super._render(force, options);
-        if (!this.rendered) return;
-
-        const $element = this.element;
-        const element = $element[0];
-        element.style.left = `${bounds.right + 6}px`;
-        element.style.top = `${(options.top = bounds.top - 3)}px`;
-        if (!wasRendered) $element.fadeIn().promise();
-    }
-
-    /** Fade out before closing */
-    override async close(options?: { force?: boolean } & Record<string, unknown>): Promise<void> {
-        if (!this.rendered) return super.close(options);
-        await this.element.fadeOut().promise();
-        return super.close(options);
-    }
-
-    override activateListeners($html: JQuery): void {
-        if (!game.scenes.viewed) return;
-        const html = $html[0];
-        const slider = html.querySelector<HTMLElement>(".slider")!;
-
-        this.#slider = noUiSlider.create(slider, {
+        // Adjust position of this application's window
+        if (bounds) {
+            element.style.left = `${bounds.right + 6}px`;
+            element.style.top = `${(options.position.top = bounds.top - 3)}px`;
+        }
+        this.#slider = noUiSlider.create(result, {
             range: { min: 0, max: 1 },
-            start: [0.25, game.scenes.viewed.environment.darknessLevel, 0.75],
+            start: [0.25, game.scenes.viewed?.environment.darknessLevel ?? 0, 0.75],
             connect: [true, false, false, true],
             behaviour: "snap-unconstrained-snap",
             pips: {
@@ -83,11 +68,16 @@ export class SceneDarknessAdjuster extends appv1.api.Application {
             synchronized.className = "message";
             const message = WorldClock.createSyncedMessage();
             synchronized.append(message);
-            slider.append(synchronized);
+            result.append(synchronized);
         }
+    }
+
+    protected override async _onRender(context: object, options: fa.api.HandlebarsRenderOptions): Promise<void> {
+        await super._onRender(context, options);
+        if (!this.#slider) return;
 
         // Disable the sun and moon thumbs for now
-        slider.querySelectorAll<HTMLElement>(".noUi-origin").forEach((thumb, index) => {
+        this.#slider.target.querySelectorAll<HTMLElement>(".noUi-origin").forEach((thumb, index) => {
             if (index !== 1 || game.scenes.viewed?.darknessSyncedToTime) {
                 thumb.toggleAttribute("disabled", true);
             }
@@ -117,20 +107,18 @@ export class SceneDarknessAdjuster extends appv1.api.Application {
         });
 
         // Set styling and FA icons
-        slider.querySelectorAll(".noUi-handle").forEach((handle, index) => {
+        this.#slider.target.querySelectorAll(".noUi-handle").forEach((handle, index) => {
             const decoration: Record<number, [string, HTMLElement | null]> = {
                 0: ["threshold_bright-light", fontAwesomeIcon("sun")],
                 1: ["darkness-level", null],
                 2: ["threshold_darkness", fontAwesomeIcon("moon", { fixedWidth: true })],
             };
-            const $handle = $(handle);
             const [cssClass, icon] = decoration[index];
-            if (icon) $handle.append(icon);
-
-            $handle.addClass(cssClass);
+            if (icon) handle.append(icon);
+            handle.classList.add(cssClass);
         });
 
-        slider.querySelectorAll(".noUi-connect").forEach((connect, index) => {
+        this.#slider.target.querySelectorAll(".noUi-connect").forEach((connect, index) => {
             const classes: Record<number, string> = {
                 0: "range_bright-light",
                 1: "range_darkness",

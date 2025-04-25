@@ -15,12 +15,14 @@ class EnvironmentBehaviorType extends foundry.data.regionBehaviors.RegionBehavio
         return {
             environmentTypes: new fields.SetField(
                 new fields.StringField({
+                    required: true,
                     blank: true,
                     choices: () => CONFIG.PF2E.environmentTypes,
                 }),
                 { label: "PF2E.Region.Environment.Type.Label", hint: "PF2E.Region.Environment.Type.Hint" },
             ),
             mode: new fields.StringField({
+                required: true,
                 blank: false,
                 choices: () => ({
                     add: "PF2E.Region.Environment.Mode.Add.Label",
@@ -46,8 +48,8 @@ interface EnvironmentBehaviorType
         ModelPropsFromSchema<EnvironmentTypeSchema> {}
 
 type EnvironmentTypeSchema = {
-    environmentTypes: SetField<StringField>;
-    mode: StringField<"add" | "remove" | "override">;
+    environmentTypes: SetField<StringField<string, string, true>>;
+    mode: StringField<"add" | "remove" | "override", "add" | "remove" | "override", true>;
 };
 
 type EnvironmentTypeData = ModelPropsFromSchema<EnvironmentTypeSchema>;
