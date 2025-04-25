@@ -14,7 +14,7 @@ interface CanvasBaseDrawing<TParent extends Scene | null> extends InstanceType<t
  * @see {@link Scene}               The Scene document type which contains Drawing embedded documents
  * @see {@link DrawingConfig}       The Drawing configuration application
  */
-export default class DrawingDocument<TParent extends Scene | null> extends CanvasBaseDrawing<TParent> {
+export default class DrawingDocument<TParent extends Scene | null = Scene | null> extends CanvasBaseDrawing<TParent> {
     /** Define an elevation property on the Drawing Document which in the future will become a part of its data schema. */
     accessor elevation: number;
 
@@ -22,7 +22,8 @@ export default class DrawingDocument<TParent extends Scene | null> extends Canva
     override get isOwner(): boolean;
 }
 
-export default interface DrawingDocument<TParent extends Scene | null> extends CanvasBaseDrawing<TParent> {
+export default interface DrawingDocument<TParent extends Scene | null = Scene | null>
+    extends CanvasBaseDrawing<TParent> {
     readonly _object: Drawing<this> | null;
 }
 
