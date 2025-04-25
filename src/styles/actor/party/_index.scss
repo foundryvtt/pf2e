@@ -130,7 +130,8 @@
     }
 
     .content {
-        overflow: hidden scroll;
+        overflow: hidden auto;
+        scrollbar-gutter: stable;
         flex: 1;
     }
 
@@ -191,7 +192,7 @@
     }
 
     .sidebar {
-        overflow: hidden scroll;
+        overflow: hidden auto;
         border-right: 1px solid #888;
         box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
         display: flex;
@@ -199,6 +200,7 @@
         gap: 8px;
         height: 100%;
         padding: 0.5rem;
+        scrollbar-gutter: stable;
         width: 13.5rem;
 
         .box-list {
@@ -285,6 +287,7 @@
 
     .tag-light {
         --tag-color: var(--color-proficiency-untrained);
+        --button-size: 1.25rem;
 
         align-items: center;
         border-radius: 2px;
@@ -294,7 +297,7 @@
         font: 700 var(--font-size-13) / 1.25rem var(--sans-serif);
         font-variant: all-small-caps;
         gap: 0.125rem;
-        height: 1.25rem;
+        height: var(--button-size);
         margin: 0;
         padding: 0 0.25rem;
         white-space: nowrap;
