@@ -1,5 +1,11 @@
-import { Point } from "../../../common/_types.d.mts";
-import RenderFlags, { RenderFlag } from "../interaction/render-flags.mjs";
+import { CanvasDocument } from "@client/documents/abstract/canvas-document.mjs";
+import User from "@client/documents/user.mjs";
+import { Point } from "@common/_types.mjs";
+import { DatabaseCreateOperation, DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import { ControlIcon } from "../containers/_module.mjs";
+import { MouseInteractionManager, RenderFlag, RenderFlags } from "../interaction/_module.mjs";
+import { PlaceablesLayer } from "../layers/_module.mjs";
+import { PlaceablesLayerPointerEvent } from "../layers/base/placeables-layer.mjs";
 
 /**
  * An Abstract Base Class which defines a Placeable Object which represents an Entity placed on the Canvas

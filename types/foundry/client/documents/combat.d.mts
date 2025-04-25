@@ -3,7 +3,7 @@ import { DatabaseCreateOperation, DatabaseDeleteOperation, DatabaseUpdateOperati
 import Document from "@common/abstract/document.mjs";
 import { ChatMessageCreateOperation } from "@common/documents/chat-message.mjs";
 import BaseCombat, { CombatSource } from "@common/documents/combat.mjs";
-import ClientDocumentMixin, { ClientDocument } from "./abstract/client-document.mjs";
+import { ClientDocument } from "./abstract/client-document.mjs";
 import Combatant from "./combatant.mjs";
 
 declare const ClientBaseCombat: new (
@@ -17,7 +17,7 @@ interface ClientBaseCombat extends InstanceType<typeof ClientBaseCombat> {}
  * Each Combat document contains CombatData which defines its data schema.
  * @param [data={}] Initial data provided to construct the Combat document
  */
-export default class Combat extends ClientDocumentMixin(BaseCombat) {
+export default class Combat extends ClientBaseCombat {
     constructor(data: PreCreate<CombatSource>, context?: DocumentConstructionContext<null>);
 
     /** Track the sorted turn order of this combat encounter */
@@ -261,7 +261,7 @@ export default class Combat extends ClientDocumentMixin(BaseCombat) {
     protected _onStartTurn(combatant: Combatant<this>): Promise<void>;
 }
 
-export default interface Combat {
+export default interface Combat extends ClientBaseCombat {
     // readonly combatants: foundry.abstract.EmbeddedCollection<Combatant<this>>;
 }
 

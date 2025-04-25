@@ -1,4 +1,5 @@
 import { AuraAppearanceData, AuraData, AuraEffectData } from "@actor/types.ts";
+import type { Point } from "@common/_types.d.mts";
 import { ItemTrait } from "@item/base/data/system.ts";
 import { EffectAreaSquare } from "@module/canvas/effect-area-square.ts";
 import { measureDistanceCuboid } from "@module/canvas/index.ts";

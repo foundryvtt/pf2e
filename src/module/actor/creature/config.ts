@@ -22,6 +22,7 @@ abstract class CreatureConfig<TActor extends CreaturePF2e> extends appv1.api.Doc
 
     static override get defaultOptions(): appv1.api.DocumentSheetV1Options {
         const options = super.defaultOptions;
+        options.sheetConfig = false;
         options.width = 450;
         return options;
     }

@@ -1,10 +1,12 @@
 import type { ActorPF2e } from "@actor";
 import type { CraftingAbility } from "@actor/character/crafting/ability.ts";
+import type { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
 import { ItemPF2e } from "@item";
 import type { ActionCost, Frequency, RawItemChatData } from "@item/base/data/index.ts";
 import type { RangeData } from "@item/types.ts";
 import type { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";
+import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { sluggify } from "@util";
 import type { AbilitySource, AbilitySystemData } from "./data.ts";
 import { getActionCostRollOptions, normalizeActionChangeData, processSanctification } from "./helpers.ts";
@@ -81,7 +83,7 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
 
     override async getChatData(
         this: AbilityItemPF2e<ActorPF2e>,
-        htmlOptions: EnrichmentOptions = {},
+        htmlOptions: EnrichmentOptionsPF2e = {},
     ): Promise<RawItemChatData> {
         return this.processChatData(htmlOptions, {
             ...this.system,

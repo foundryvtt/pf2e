@@ -57,7 +57,7 @@ class ModuleArt {
         }
 
         const apps = Object.values(ui.windows).filter(
-            (w): w is Compendium<CompendiumDocument> => w instanceof Compendium,
+            (w): w is fa.sidebar.apps.Compendium<CompendiumDocument> => w instanceof fa.sidebar.apps.Compendium,
         );
         for (const compendium of apps) {
             compendium.render();

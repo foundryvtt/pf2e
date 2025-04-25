@@ -10,6 +10,8 @@ import {
     DataFieldValidationOptions,
     DocumentUUIDFieldOptions,
     FilePathFieldOptions,
+    FormGroupConfig,
+    FormInputConfig,
     JavaScriptFieldOptions,
     NumberFieldOptions,
     ObjectFieldOptions,
@@ -100,6 +102,25 @@ export abstract class DataField<
         value?: unknown,
         options?: Record<string, unknown>,
     ): unknown;
+
+    /**
+     * Add types of the source to the data if they are missing.
+     * @param source The source data
+     * @param changes The partial data
+     * @param options Additional options
+     * @param options.source The root data model source
+     * @param options.changes The root data model changes
+     * @internal
+     */
+    _addTypes(source: object, changes: object, options?: { source?: object; changes?: object }): void;
+
+    /**
+     * Recursively traverse a schema and retrieve a field specification by a given path
+     * @param path The field path as an array of strings
+     * @returns The corresponding DataField definition for that field, or undefined
+     * @internal
+     */
+    _getField(path: string[]): this | undefined;
 
     /* -------------------------------------------- */
     /*  Field Cleaning                              */
@@ -254,12 +275,6 @@ export abstract class DataField<
      * @returns An exported representation of the field
      */
     toObject(value: TModelProp): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
-
-    /**
-     * Recursively traverse a schema and retrieve a field specification by a given path
-     * @param path The field path as an array of strings
-     */
-    protected _getField(path: string[]): DataField | undefined;
 
     /* -------------------------------------------- */
     /*  Form Field Integration                      */
@@ -662,7 +677,7 @@ export class TypedObjectField<TField extends DataField = DataField> extends Obje
 
     protected override _validateType(data: object, options?: object): DataModelValidationFailure | void;
 
-    protected override _validateModel(changes: Record<string, unknown>, options?: object): void;
+    override _validateModel(changes: Record<string, unknown>, options?: object): void;
 
     initialize(value: object, model: unknown, options?: object): Record<string, SourceFromDataField<TField>>;
 
@@ -674,18 +689,19 @@ export class TypedObjectField<TField extends DataField = DataField> extends Obje
         options: abstract.DataModelUpdateOptions,
     ): void;
 
-    protected override _updateCommit(source: object, key: string, value: unknown, diff: unknown, options: object): void;
+    override _updateCommit(source: object, key: string, value: unknown, diff: unknown, options: object): void;
 
     override toObject(value: unknown): Record<string, SourceFromDataField<TField>>;
 
-    override apply(fn: Function, data?: object, options?: object): void;
+    override apply(
+        fn: string | ((field: this, value?: unknown, options?: Record<string, unknown>) => unknown),
+        data?: object,
+        options?: Record<string, unknown>,
+    ): unknown;
 
-    protected override _addTypes(source, changes, options = {}) {
-        if (getType(source) !== "Object" || getType(changes) !== "Object") return;
-        for (const key in changes) this.element._addTypes(source[key], changes[key], options);
-    }
+    override _addTypes(source: object, changes: object, options?: object): void;
 
-    protected override _getField(path: string): unknown;
+    override _getField(path: string[]): this | undefined;
 
     /**
      * Migrate this field's candidate source data.
@@ -1205,16 +1221,14 @@ export class IntegerSortField<
 /**
  * A subclass of {@link foundry.data.fields.TypedObjectField} that is used specifically for the Document "flags" field.
  */
-class DocumentFlagsField extends TypedObjectField {
+export class DocumentFlagsField extends TypedObjectField<ObjectField<Record<string, unknown>>> {
     /**
-     * @param {DataFieldOptions} [options]    Options which configure the behavior of the field
-     * @param {DataFieldContext} [context]    Additional context which describes the field
+     * @param options Options which configure the behavior of the field
+     * @param context Additional context which describes the field
      */
-    constructor(options?: DataFieldOptions, context?: DataFieldContext);
+    constructor(options?: ObjectFieldOptions<Record<string, unknown>>, context?: DataFieldContext);
 
-    static override get _defaults() {
-        return Object.assign(super._defaults, { validateKey: foundry.packages.BasePackage.validateId });
-    }
+    static override get _defaults(): ObjectFieldOptions<Record<string, Record<string, unknown>>>;
 }
 
 /**
@@ -1368,7 +1382,7 @@ export class TypedSchemaField<
     /** The types of this field. */
     types: TTypes;
 
-    protected override _getField(path: string[]): DataField;
+    override _getField(path: string[]): this;
 
     /* -------------------------------------------- */
     /*  Data Field Methods                          */

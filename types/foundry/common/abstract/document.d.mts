@@ -149,12 +149,12 @@ export default abstract class Document<
      * @param context.keepId Keep the original Document ID? Otherwise the ID will become undefined
      * @returns The cloned Document instance
      */
-    // override clone(
-    //     data: Record<string, unknown> | undefined,
-    //     context: DocumentCloneContext & { save: true },
-    // ): Promise<this>;
+    override clone(
+        data: Record<string, unknown> | undefined,
+        context: DocumentCloneContext & { save: true },
+    ): Promise<this>;
     override clone(data?: Record<string, unknown>, context?: DocumentCloneContext & { save?: false }): this;
-    // override clone(data?: Record<string, unknown>, context?: DocumentCloneContext): this | Promise<this>;
+    override clone(data?: Record<string, unknown>, context?: DocumentCloneContext): this | Promise<this>;
 
     /**
      * For Documents which include game system data, migrate the system data object to conform to its latest data model.

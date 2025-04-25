@@ -1,4 +1,5 @@
-import { Scene, TileDocument } from "@client/documents/_module.mjs";
+import { Scene, TileDocument, User } from "@client/documents/_module.mjs";
+import { DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
 import { TileSource } from "@common/documents/tile.mjs";
 import { ResizeHandle } from "../containers/_module.mjs";
 import PrimarySpriteMesh from "../primary/primary-sprite-mesh.mjs";
