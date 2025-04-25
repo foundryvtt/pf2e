@@ -1,8 +1,17 @@
 import type { ActorPF2e } from "@actor";
 import type { PrototypeTokenPF2e } from "@actor/data/base.ts";
 import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
-import type { TokenAnimationOptions } from "@client/_types.d.mts";
+import type { TrackedAttributesDescription } from "@client/_types.d.mts";
+import type { TokenResourceData } from "@client/canvas/placeables/token.d.mts";
+import type { TokenUpdateOperation } from "@client/documents/token.d.mts";
+import type { Point } from "@common/_types.d.mts";
+import type {
+    DatabaseCreateOperation,
+    DatabaseDeleteOperation,
+    DatabaseUpdateOperation,
+} from "@common/abstract/_types.d.mts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
+import { TokenAnimationOptionsPF2e } from "@module/canvas/token/object.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { DifficultTerrainGrade, EnvironmentFeatureRegionBehavior, RegionDocumentPF2e } from "@scene";
@@ -18,7 +27,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     declare auras: Map<string, TokenAura>;
 
     /** The most recently used animation for later use when a token override is reverted. */
-    #lastAnimation: TokenAnimationOptions | null = null;
+    #lastAnimation: TokenAnimationOptionsPF2e | null = null;
 
     /** Returns if the token is in combat, though some actors have different conditions */
     override get inCombat(): boolean {
@@ -330,12 +339,11 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     protected override _preCreate(
         data: this["_source"],
         options: DatabaseCreateOperation<TParent>,
-        user: User<Actor<null>>,
+        user: User,
     ): Promise<boolean | void> {
         if (this.actor?.allowSynthetics === false && data.actorLink === false) {
             this._source.actorLink = true;
         }
-
         return super._preCreate(data, options, user);
     }
 
@@ -343,12 +351,11 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     protected override _preUpdate(
         data: Record<string, unknown>,
         options: TokenUpdateOperation<TParent>,
-        user: User<Actor<null>>,
+        user: User,
     ): Promise<boolean | void> {
         if (this.actor?.allowSynthetics === false && (data.actorLink ?? this.actorLink) === false) {
             data.actorLink = true;
         }
-
         return super._preUpdate(data, options, user);
     }
 

@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor";
+import { CharacterPF2e } from "@actor";
 import type {
     BaseCreatureSource,
     CreatureAttributes,
@@ -43,7 +43,7 @@ class FamiliarSystemData extends ActorSystemModel<FamiliarPF2e, FamiliarSystemSc
         return {
             ...super.defineSchema(),
             master: new fields.SchemaField({
-                id: new fields.ForeignDocumentField(ActorPF2e, {
+                id: new fields.ForeignDocumentField(CharacterPF2e, {
                     idOnly: true,
                     required: true,
                     nullable: true,

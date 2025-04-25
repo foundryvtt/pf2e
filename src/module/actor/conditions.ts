@@ -7,7 +7,7 @@ import type { ActorPF2e } from "./base.ts";
 /** A wrapper for collections of conditions on an actor, filterable by whether they're active or stored/temporary */
 class ActorConditions<TActor extends ActorPF2e> extends DelegatedCollection<ConditionPF2e<TActor>> {
     /** A secondary map by condition slug */
-    #slugMap = new Collection<ConditionPF2e<TActor>[]>();
+    #slugMap = new Collection<string, ConditionPF2e<TActor>[]>();
 
     /** Whether this collection is finalized following actor data preparation */
     #finalized = false;

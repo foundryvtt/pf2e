@@ -1,4 +1,5 @@
 import { CharacterPF2e } from "@actor";
+import type { Rolled } from "@client/dice/_module.d.mts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { ActionDefaultOptions } from "@system/action-macros/index.ts";
 import type { Statistic } from "@system/statistic/index.ts";

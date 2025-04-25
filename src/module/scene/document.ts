@@ -1,5 +1,5 @@
-import type { ClientDocument } from "@client/documents/abstract/client-document.d.mts";
-import type { DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
+import type { SceneUpdateOperation } from "@client/documents/scene.d.mts";
+import type { DatabaseDeleteOperation, DatabaseUpdateOperation, Document } from "@common/abstract/_module.d.mts";
 import { LightLevels, SceneFlagsPF2e } from "./data.ts";
 import { checkAuras } from "./helpers.ts";
 import type {
@@ -9,8 +9,7 @@ import type {
     TileDocumentPF2e,
 } from "./index.ts";
 import { TokenDocumentPF2e } from "./index.ts";
-import { SceneConfigPF2e } from "./sheet.ts";
-// import type { SceneConfigPF2e } from "./sheet.ts";
+import type { SceneConfigPF2e } from "./sheet.ts";
 
 class ScenePF2e extends Scene {
     /** Is the rules-based vision setting enabled? */
@@ -124,12 +123,12 @@ class ScenePF2e extends Scene {
         }
     }
 
-    protected override _onUpdateDescendantDocuments<TParent extends ClientDocument>(
-        parent: TParent,
+    protected override _onUpdateDescendantDocuments<P extends Document>(
+        parent: P,
         collection: string,
-        documents: ClientDocument<TParent>[],
+        documents: Document<P>[],
         changes: Record<string, unknown>[],
-        options: DatabaseUpdateOperation<TParent>,
+        options: DatabaseUpdateOperation<P>,
         userId: string,
     ): void {
         super._onUpdateDescendantDocuments(parent, collection, documents, changes, options, userId);
@@ -139,15 +138,15 @@ class ScenePF2e extends Scene {
         }
     }
 
-    protected override _onDeleteDescendantDocuments(
-        parent: this,
+    protected override _onDeleteDescendantDocuments<P extends Document>(
+        parent: P,
         collection: string,
-        documents: foundry.abstract.Document[],
+        documents: Document<P>[],
         ids: string[],
-        operation: DatabaseDeleteOperation<this>,
+        options: DatabaseDeleteOperation<P>,
         userId: string,
     ): void {
-        super._onDeleteDescendantDocuments(parent, collection, documents, ids, operation, userId);
+        super._onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId);
 
         // Upstream will only refresh lighting if the delete token's source is emitting light: handle cases where
         // the token's prepared data light data was overridden from TokenLight REs.

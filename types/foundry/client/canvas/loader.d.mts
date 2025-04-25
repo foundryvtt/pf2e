@@ -1,3 +1,5 @@
+import Scene from "@client/documents/scene.mjs";
+
 /** A Loader class which helps with loading video and image textures. */
 export default class TextureLoader {
     /** The duration in milliseconds for which a texture will remain cached */
