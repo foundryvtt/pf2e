@@ -1,19 +1,19 @@
 {
-    "_id": "X40cigEVNNMBtOre",
-    "img": "systems/pf2e/icons/spells/enhance-senses.webp",
-    "name": "Effect: Kingpin's Presence",
+    "_id": "T13bc44lsaOUjJa9",
+    "img": "icons/commodities/currency/coins-plain-pouch-gold.webp",
+    "name": "Effect: Interest is Due!",
     "system": {
         "description": {
-            "value": "<p>You gain a +2 status bonus to saving throws against mental effects.</p>"
+            "value": "<p>Your Strike deals an an additional 1d6 mental damage.</p>"
         },
         "duration": {
-            "expiry": null,
+            "expiry": "turn-start",
             "sustained": false,
-            "unit": "unlimited",
-            "value": -1
+            "unit": "rounds",
+            "value": 1
         },
         "level": {
-            "value": 12
+            "value": 1
         },
         "publication": {
             "license": "ORC",
@@ -22,13 +22,11 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "predicate": [
-                    "item:trait:mental"
-                ],
-                "selector": "saving-throw",
-                "type": "status",
-                "value": 2
+                "damageType": "mental",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "strike-damage"
             }
         ],
         "start": {

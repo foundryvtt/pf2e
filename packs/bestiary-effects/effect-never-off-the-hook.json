@@ -1,10 +1,10 @@
 {
-    "_id": "X40cigEVNNMBtOre",
-    "img": "systems/pf2e/icons/spells/enhance-senses.webp",
-    "name": "Effect: Kingpin's Presence",
+    "_id": "hJJzppHOKE6g6iEJ",
+    "img": "icons/commodities/currency/coin-plain-gold.webp",
+    "name": "Effect: Never off the Hook",
     "system": {
         "description": {
-            "value": "<p>You gain a +2 status bonus to saving throws against mental effects.</p>"
+            "value": "<p>You take a –3 circumstance penalty to your Will DC against the origin's attempts to Demoralize or Coerce you.</p>"
         },
         "duration": {
             "expiry": null,
@@ -13,7 +13,7 @@
             "value": -1
         },
         "level": {
-            "value": 12
+            "value": 2
         },
         "publication": {
             "license": "ORC",
@@ -24,11 +24,17 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "item:trait:mental"
+                    "origin:signature:{item|origin.signature}",
+                    {
+                        "or": [
+                            "action:coerce",
+                            "action:demoralize"
+                        ]
+                    }
                 ],
-                "selector": "saving-throw",
-                "type": "status",
-                "value": 2
+                "selector": "will-dc",
+                "type": "circumstance",
+                "value": -3
             }
         ],
         "start": {
