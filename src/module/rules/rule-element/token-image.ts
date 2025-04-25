@@ -1,3 +1,4 @@
+import type { TextureTransitionType } from "@client/canvas/rendering/filters/transition.d.mts";
 import { isImageOrVideoPath } from "@util";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, RuleElementSchema } from "./data.ts";
@@ -93,7 +94,7 @@ class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema> {
                         required: false,
                         blank: false,
                         nullable: false,
-                        choices: Object.values(TextureTransitionFilter.TYPES),
+                        choices: Object.values(fc.rendering.filters.TextureTransitionFilter.TYPES),
                         initial: undefined,
                     }),
                     easing: new fields.StringField({

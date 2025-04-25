@@ -2,6 +2,7 @@ import { ActorPF2e } from "@actor";
 import { TraitViewData } from "@actor/data/base.ts";
 import type { CheckModifier } from "@actor/modifiers.ts";
 import type { RollOrigin, RollTarget } from "@actor/roll-context/types.ts";
+import type { Rolled } from "@client/dice/_module.d.mts";
 import type Die from "@client/dice/terms/die.d.mts";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import { reduceItemName } from "@item/helpers.ts";

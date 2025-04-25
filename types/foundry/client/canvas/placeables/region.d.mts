@@ -1,6 +1,9 @@
+import { RegionPolygonTree, RegionShape } from "@client/data/region-shapes/_module.mjs";
+import { RegionDocument, Scene, User } from "@client/documents/_module.mjs";
+import { Point } from "@common/_types.mjs";
 import * as ClipperLib from "js-angusj-clipper";
-import { Point } from "../../../common/_types.d.mts";
 import PlaceableObject from "./placeable-object.mjs";
+import RegionGeometry from "./regions/geometry.mjs";
 
 /**
  * A Region is an implementation of PlaceableObject which represents a Region document

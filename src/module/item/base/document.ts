@@ -2,6 +2,7 @@ import { ActorPF2e } from "@actor/base.ts";
 import type { DocumentHTMLEmbedConfig } from "@client/applications/ux/text-editor.d.mts";
 import type { FormApplicationOptions } from "@client/appv1/api/form-application-v1.d.mts";
 import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
+import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
 import type { DocumentConstructionContext } from "@common/_types.d.mts";
 import type {
     DatabaseCreateOperation,
@@ -600,7 +601,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** Include the item type along with data from upstream */
-    override toDragData(): { type: string; itemType: string; [key: string]: unknown } {
+    override toDragData(): DropCanvasData & { itemType: string } {
         return { ...super.toDragData(), itemType: this.type };
     }
 
@@ -815,6 +816,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     protected override async _preCreate(
         data: this["_source"],
         options: DatabaseCreateOperation<TParent>,
+        user: fd.BaseUser,
+    ): Promise<boolean | void>;
+    protected override async _preCreate(
+        data: this["_source"],
+        options: DatabaseCreateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
         // Sort traits
@@ -844,6 +850,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** Keep `TextEditor` and anything else up to no good from setting this item's description to `null` */
+    protected override async _preUpdate(
+        changed: DeepPartial<this["_source"]>,
+        options: DatabaseUpdateOperation<TParent>,
+        user: fd.BaseUser,
+    ): Promise<boolean | void>;
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DatabaseUpdateOperation<TParent>,
