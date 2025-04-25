@@ -1,6 +1,5 @@
 import { BaseActorSourcePF2e, FlankingData } from "@actor/data/base.ts";
 import { ActorSystemModel, ActorSystemSchema } from "@actor/data/model.ts";
-import type { ModelPropFromDataField, ModelPropsFromSchema, SourceFromSchema } from "@common/data/fields.d.mts";
 import type { LootPF2e } from "./document.ts";
 import fields = foundry.data.fields;
 
@@ -34,7 +33,9 @@ class LootSystemData extends ActorSystemModel<LootPF2e, LootSystemSchema> {
     }
 }
 
-interface LootSystemData extends ActorSystemModel<LootPF2e, LootSystemSchema>, ModelPropsFromSchema<LootSystemSchema> {
+interface LootSystemData
+    extends ActorSystemModel<LootPF2e, LootSystemSchema>,
+        fields.ModelPropsFromSchema<LootSystemSchema> {
     details: LootDetails;
     traits?: never;
     attributes: LootAttributes;
@@ -52,13 +53,13 @@ type LootSystemSchema = ActorSystemSchema & {
 };
 
 /** The system-level data of loot actors. */
-interface LootSystemSource extends SourceFromSchema<LootSystemSchema> {
+interface LootSystemSource extends fields.SourceFromSchema<LootSystemSchema> {
     attributes?: never;
     traits?: never;
     schema?: never;
 }
 
-interface LootDetails extends ModelPropFromDataField<LootSystemSchema["details"]> {
+interface LootDetails extends fields.ModelPropFromDataField<LootSystemSchema["details"]> {
     alliance: null;
 }
 

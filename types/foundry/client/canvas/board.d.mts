@@ -7,6 +7,7 @@ import {
     RegionDocument,
     Scene,
     TokenDocument,
+    User,
 } from "../documents/_module.mjs";
 import { CanvasEdges } from "./geometry/edges/edges.mjs";
 import {
@@ -172,7 +173,7 @@ export default class Canvas<
     forceSnapVertices: boolean;
 
     // Layers
-    controls: ControlsLayer<TRuler>;
+    controls: ControlsLayer<User>;
     drawings: DrawingsLayer;
     lighting: TAmbientLight["layer"];
     notes: NotesLayer;

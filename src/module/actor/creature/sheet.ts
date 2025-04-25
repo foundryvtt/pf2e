@@ -1,6 +1,7 @@
 import type { ActorPF2e, CreaturePF2e } from "@actor";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog.ts";
+import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import type { ApplicationV1HeaderButton } from "@client/appv1/api/application-v1.d.mts";
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
 import { ItemPF2e, type SpellPF2e } from "@item";
@@ -297,11 +298,12 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         const itemId = htmlClosest(anchor, "[data-item-id]")?.dataset.itemId;
         const item = this.actor.inventory.get(itemId, { strict: true });
         const hasStowingContainers = this.actor.itemTypes.backpack.some((i) => i.system.stowing && !i.isInContainer);
+        const templatePath = "systems/pf2e/templates/actors/partials/carry-type.hbs";
         const templateArgs = { item, hasStowingContainers };
-        const template = await renderTemplate("systems/pf2e/templates/actors/partials/carry-type.hbs", templateArgs);
-        const content = createHTMLElement("ul", { innerHTML: template });
+        const template = await fa.handlebars.renderTemplate(templatePath, templateArgs);
+        const html = createHTMLElement("ul", { innerHTML: template });
 
-        content.addEventListener("click", (event) => {
+        html.addEventListener("click", (event) => {
             const menuOption = htmlClosest(event.target, "a[data-carry-type]");
             if (!menuOption) return;
 
@@ -327,7 +329,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             }
         });
 
-        game.tooltip.activate(anchor, { cssClass: "pf2e carry-type-menu", content, locked: true });
+        game.tooltip.activate(anchor, { cssClass: "pf2e carry-type-menu", html, locked: true });
     }
 
     protected override async _onDropItem(event: DragEvent, data: DropCanvasItemDataPF2e): Promise<ItemPF2e[]> {

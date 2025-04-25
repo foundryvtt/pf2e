@@ -1,3 +1,7 @@
+import Sound from "@client/audio/sound.mjs";
+import { AmbientSoundDocument, Scene, User } from "@client/documents/_module.mjs";
+import { DatabaseCreateOperation, DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import { ControlIcon } from "../containers/_module.mjs";
 import PointSoundSource from "../sources/point-sound-source.mjs";
 import PlaceableObject from "./placeable-object.mjs";
 
