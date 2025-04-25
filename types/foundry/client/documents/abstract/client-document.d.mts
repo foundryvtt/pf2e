@@ -222,11 +222,11 @@ export class ClientDocument<TParent extends Document | null = Document | null> e
      * @param options    Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
-    protected _preCreateDescendantDocuments<TParent extends Document>(
-        parent: TParent,
+    protected _preCreateDescendantDocuments<P extends Document>(
+        parent: P,
         collection: string,
         data: object[],
-        options: DatabaseCreateOperation<TParent>,
+        options: DatabaseCreateOperation<P>,
         userId: string,
     ): void;
 
@@ -239,12 +239,12 @@ export class ClientDocument<TParent extends Document | null = Document | null> e
      * @param options    Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
-    protected _onCreateDescendantDocuments<TParent extends Document>(
-        parent: TParent,
+    protected _onCreateDescendantDocuments<P extends Document>(
+        parent: P,
         collection: string,
-        documents: Document<TParent>,
+        documents: Document<P>[],
         data: object[],
-        options: DatabaseCreateOperation<TParent>,
+        options: DatabaseCreateOperation<P>,
         userId: string,
     ): void;
 
@@ -256,11 +256,11 @@ export class ClientDocument<TParent extends Document | null = Document | null> e
      * @param options    Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
-    protected _preUpdateDescendantDocuments<TParent extends Document>(
-        parent: TParent,
+    protected _preUpdateDescendantDocuments<P extends Document>(
+        parent: P,
         collection: string,
         changes: Record<string, unknown>[],
-        options: DatabaseUpdateOperation<TParent>,
+        options: DatabaseUpdateOperation<P>,
         userId: string,
     ): void;
 
@@ -273,12 +273,12 @@ export class ClientDocument<TParent extends Document | null = Document | null> e
      * @param options Options which modified the update operation
      * @param userId The ID of the User who triggered the operation
      */
-    protected _onUpdateDescendantDocuments<TParent extends Document>(
-        parent: TParent,
+    protected _onUpdateDescendantDocuments<P extends Document>(
+        parent: P,
         collection: string,
-        documents: Document<TParent>[],
+        documents: Document<P>[],
         changes: Record<string, unknown>[],
-        options: DatabaseUpdateOperation<TParent>,
+        options: DatabaseUpdateOperation<P>,
         userId: string,
     ): void;
 
@@ -291,11 +291,11 @@ export class ClientDocument<TParent extends Document | null = Document | null> e
      * @param userId     The ID of the User who triggered the operation
      * @protected
      */
-    protected _preDeleteDescendantDocuments<TParent extends Document>(
-        parent: TParent,
+    protected _preDeleteDescendantDocuments<P extends Document>(
+        parent: P,
         collection: string,
         ids: string[],
-        options: DatabaseDeleteOperation<TParent>,
+        options: DatabaseDeleteOperation<P>,
         userId: string,
     ): void;
 
@@ -308,12 +308,12 @@ export class ClientDocument<TParent extends Document | null = Document | null> e
      * @param options    Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
-    protected _onDeleteDescendantDocuments<TParent extends Document>(
-        parent: TParent,
+    protected _onDeleteDescendantDocuments<P extends Document>(
+        parent: P,
         collection: string,
-        documents: Document<TParent>[],
+        documents: Document<P>[],
         ids: string[],
-        options: DatabaseDeleteOperation<TParent>,
+        options: DatabaseDeleteOperation<P>,
         userId: string,
     ): void;
 

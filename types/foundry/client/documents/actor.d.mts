@@ -250,17 +250,17 @@ declare class Actor<TParent extends TokenDocument | null = TokenDocument | null>
     protected override _onCreateDescendantDocuments(
         parent: this,
         collection: "effects" | "items",
-        documents: ActiveEffect<this>[] | Item<this>[],
-        result: ActiveEffect<this>["_source"][] | Item<this>["_source"][],
+        documents: ActiveEffect<Item<this>>[] | Item<this>[],
+        result: ActiveEffect<Item<this>>["_source"][] | Item<this>["_source"][],
         options: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
-    protected override _onCreateDescendantDocuments<TParent extends Document>(
-        parent: TParent,
+    protected override _onCreateDescendantDocuments<TP extends Document>(
+        parent: TP,
         collection: string,
-        documents: Document<TParent>,
+        documents: Document<TP>[],
         data: object[],
-        options: DatabaseCreateOperation<TParent>,
+        options: DatabaseCreateOperation<TP>,
         userId: string,
     ): void;
 
@@ -272,12 +272,12 @@ declare class Actor<TParent extends TokenDocument | null = TokenDocument | null>
         options: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
-    protected override _onUpdateDescendantDocuments<TParent extends Document>(
-        parent: TParent,
+    protected _onUpdateDescendantDocuments<TP extends Document>(
+        parent: TP,
         collection: string,
-        documents: Document[],
+        documents: Document<TP>[],
         changes: Record<string, unknown>[],
-        options: DatabaseUpdateOperation<TParent>,
+        options: DatabaseUpdateOperation<TP>,
         userId: string,
     ): void;
 
