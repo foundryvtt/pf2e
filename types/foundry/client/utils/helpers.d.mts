@@ -61,14 +61,14 @@ export type DocumentUUID = WorldDocumentUUID | CompendiumUUID | TokenDocumentUUI
  *                                           null.
  * @throws If the uuid resolves to a Document that cannot be retrieved synchronously, and the strict option is true.
  */
-export function fromUuidSync(
+export function fromUuidSync<TResult extends Document | object = Document | object>(
     uuid: string,
     options?: {
         relative?: Document;
         invalid?: boolean;
         strict?: boolean;
     },
-): Document | object | null;
+): TResult | null;
 
 /**
  * Return a reference to the Document class implementation which is configured for use.

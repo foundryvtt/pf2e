@@ -1,3 +1,4 @@
+import Item from "@client/documents/item.mjs";
 import DocumentSheet, { DocumentSheetData, DocumentSheetV1Options } from "../api/document-sheet-v1.mjs";
 
 /**
@@ -38,7 +39,7 @@ export default class ItemSheet<TItem extends Item, TOptions extends DocumentShee
     override activateListeners(html: JQuery): void;
 }
 
-declare interface ItemSheetData<TItem extends Item> extends DocumentSheetData<TItem> {
+export interface ItemSheetData<TItem extends Item> extends DocumentSheetData<TItem> {
     item: TItem;
     data: object;
 }

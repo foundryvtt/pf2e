@@ -1,8 +1,8 @@
 import { ActorPF2e } from "@actor";
 import { handleKingdomChatMessageEvent } from "@actor/party/kingdom/chat.ts";
 import type { ApplicationRenderContext } from "@client/applications/_types.d.mts";
-import { ContextMenuCondition, ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";
-import { Rolled } from "@client/dice/_module.mjs";
+import type { ContextMenuCondition, ContextMenuEntry } from "@client/applications/ux/context-menu.d.mts";
+import type { RollJSON, Rolled } from "@client/dice/_module.d.mts";
 import type { ChatMessageCreateOperation, ChatMessageSource } from "@common/documents/chat-message.d.mts";
 import type { ShieldPF2e } from "@item";
 import { applyDamageFromMessage } from "@module/chat-message/helpers.ts";
@@ -21,6 +21,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
             findToken: ChatLogPF2e.#onClickFindToken,
             kingdomAction: ChatLogPF2e.#onClickKingdomAction,
             revertDamage: ChatLogPF2e.#onClickRevertDamage,
+            setAsInitiative: ChatLogPF2e.#onClickSetAsInitiative,
             shieldBlock: ChatLogPF2e.#onClickShieldBlock,
         } satisfies Record<string, fa.ApplicationClickAction>,
     };
@@ -42,17 +43,6 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
             const senderEl = message ? htmlClosest(event.target, ".message-sender") : null;
             if (senderEl && message) return ChatLogPF2e.#onClickFindToken(event);
         });
-    }
-
-    /** Handle clicks of "Set as initiative" buttons */
-    protected override _onDiceRollClick(event: JQuery.ClickEvent): void {
-        const message = ChatLogPF2e.#messageFromEvent(event.originalEvent).message;
-        if (message && htmlClosest(event.target, "button[data-action=set-as-initiative]")) {
-            event.stopPropagation();
-            this.#onClickSetAsInitiative(message);
-        } else {
-            return super._onDiceRollClick(event);
-        }
     }
 
     /** Replace parent method in order to use DamageRoll class as needed */
@@ -113,6 +103,25 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
             addend: 0,
             promptModifier: event.shiftKey,
         });
+    }
+
+    static async #onClickSetAsInitiative(this: ChatLogPF2e, event: PointerEvent): Promise<void> {
+        const { message } = ChatLogPF2e.#messageFromEvent(event);
+        if (!message) return;
+        const { speakerActor: actor, token } = message ?? {};
+        if (!token) {
+            ui.notifications.error("PF2E.Encounter.NoTokenInScene", {
+                format: { actor: message.actor?.name ?? message.author?.name ?? "" },
+            });
+            return;
+        }
+        if (!actor?.isOwner) return;
+        const combatant = await CombatantPF2e.fromActor(actor);
+        if (!combatant) return;
+        const value = message.rolls.at(0)?.total ?? 0;
+        const statistic = message.flags.pf2e.modifierName ? String(message.flags.pf2e.modifierName) : undefined;
+        await combatant.encounter.setInitiative(combatant.id, value, statistic);
+        ui.notifications.info("PF2E.Encounter.InitiativeSet", { format: { actor: token.name, initiative: value } });
     }
 
     static async #onClickKingdomAction(this: ChatLogPF2e, event: PointerEvent): Promise<void> {
@@ -259,31 +268,6 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
             const scale = Math.max(1, canvas.stage.scale.x);
             canvas.animatePan({ ...token.center, scale, duration: 1000 });
         }
-    }
-
-    async #onClickSetAsInitiative(message: ChatMessagePF2e): Promise<void> {
-        const { speakerActor: actor, token } = message;
-        if (!token) {
-            ui.notifications.error(
-                game.i18n.format("PF2E.Encounter.NoTokenInScene", {
-                    actor: message.actor?.name ?? message.author?.name ?? "",
-                }),
-            );
-            return;
-        }
-        if (!actor) return;
-        const combatant = await CombatantPF2e.fromActor(actor);
-        if (!combatant) return;
-        const value = message.rolls.at(0)?.total ?? 0;
-        await combatant.encounter.setInitiative(
-            combatant.id,
-            value,
-            message.flags.pf2e.modifierName ? String(message.flags.pf2e.modifierName) : undefined,
-        );
-
-        ui.notifications.info(
-            game.i18n.format("PF2E.Encounter.InitiativeSet", { actor: token.name, initiative: value }),
-        );
     }
 
     protected override _getEntryContextOptions(): ContextMenuEntry[] {

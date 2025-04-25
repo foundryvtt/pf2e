@@ -4,6 +4,7 @@ import type { Abilities } from "@actor/creature/data.ts";
 import type { InitiativeTraceData } from "@actor/initiative.ts";
 import type { StatisticModifier } from "@actor/modifiers.ts";
 import type { ActorAlliance, AttributeString, SkillSlug } from "@actor/types.ts";
+import type { Rolled } from "@client/dice/roll.d.mts";
 import type { MeleePF2e, WeaponPF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { MigrationRecord, Rarity, Size, ValueAndMaybeMax, ZeroToTwo } from "@module/data.ts";
@@ -314,9 +315,9 @@ export type {
     HitPointsStatistic,
     InitiativeData,
     PrototypeTokenPF2e,
-    Rollable,
     RollFunction,
     RollOptionFlags,
+    Rollable,
     StrikeData,
     TraitViewData,
 };

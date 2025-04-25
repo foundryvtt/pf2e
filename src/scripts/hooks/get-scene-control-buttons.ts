@@ -50,9 +50,9 @@ export const GetSceneControlButtons = {
                 onChange: (): void => {
                     const adjuster = SceneDarknessAdjuster.instance;
                     if (adjuster.rendered) {
-                        adjuster.close({ force: true });
+                        adjuster.close();
                     } else {
-                        adjuster.render(true);
+                        adjuster.render({ force: true });
                     }
                 },
             };

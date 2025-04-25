@@ -4,6 +4,11 @@ import { RollInitiativeOptionsPF2e } from "@actor/data/index.ts";
 import { isReallyPC, resetActors } from "@actor/helpers.ts";
 import { InitiativeRollResult } from "@actor/initiative.ts";
 import { SkillSlug } from "@actor/types.ts";
+import type {
+    DatabaseCreateOperation,
+    DatabaseDeleteOperation,
+    DatabaseUpdateOperation,
+} from "@common/abstract/_types.d.mts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
 import { calculateXP } from "@scripts/macros/index.ts";
 import { ThreatRating } from "@scripts/macros/xp/index.ts";
@@ -19,6 +24,7 @@ class EncounterPF2e extends Combat {
     declare metrics: EncounterMetrics | null;
 
     /** Sort combatants by initiative rolls, falling back to tiebreak priority and then finally combatant ID (random) */
+    protected override _sortCombatants(a: Combatant<this, TokenDocument>, b: Combatant<this, TokenDocument>): number;
     protected override _sortCombatants(
         a: CombatantPF2e<this, TokenDocumentPF2e>,
         b: CombatantPF2e<this, TokenDocumentPF2e>,
@@ -216,7 +222,7 @@ class EncounterPF2e extends Combat {
         if (this.turn !== null) await this.update({ turn: this.turns.findIndex((c) => c.id === currentId) });
     }
 
-    override async setInitiative(id: string, value: number, statistic?: string): Promise<void> {
+    override async setInitiative(id: string, value: number, statistic: string | null = null): Promise<void> {
         const combatant = this.combatants.get(id, { strict: true });
         if (combatant.actor?.isOfType("character", "npc")) {
             return this.setMultipleInitiatives([

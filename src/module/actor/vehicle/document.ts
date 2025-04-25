@@ -1,6 +1,7 @@
 import { setHitPointsRollOptions } from "@actor/helpers.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ActorDimensions } from "@actor/types.ts";
+import type { DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
 import { ItemType } from "@item/base/data/index.ts";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import type { UserPF2e } from "@module/user/index.ts";

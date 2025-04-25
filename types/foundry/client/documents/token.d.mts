@@ -8,7 +8,17 @@ import {
 import Document from "@common/abstract/document.mjs";
 import Collection from "@common/utils/collection.mjs";
 import Token, { TokenAnimationOptions, TokenResourceData } from "../canvas/placeables/token.mjs";
-import { Actor, ActorDelta, BaseToken, Combat, Combatant, RegionDocument, Scene, User } from "./_module.mjs";
+import {
+    Actor,
+    ActorDelta,
+    BaseToken,
+    Combat,
+    Combatant,
+    RegionDocument,
+    Scene,
+    TrackedAttributesDescription,
+    User,
+} from "./_module.mjs";
 import { TokenDocumentUUID } from "./abstract/_module.mjs";
 import { CanvasDocument } from "./abstract/canvas-document.mjs";
 import { ClientDocument } from "./abstract/client-document.mjs";
@@ -171,7 +181,7 @@ export default class TokenDocument<TParent extends Scene | null = Scene | null> 
     protected override _onCreateDescendantDocuments<TParent extends Document>(
         parent: TParent,
         collection: string,
-        documents: Document<TParent>,
+        documents: Document<TParent>[],
         data: object[],
         options: DatabaseCreateOperation<TParent>,
         userId: string,
@@ -239,11 +249,6 @@ export interface TokenUpdateOperation<TParent extends Scene | null> extends Data
     pan?: boolean;
     teleport?: boolean;
     animation?: TokenAnimationOptions;
-}
-
-export interface TrackedAttributesDescription {
-    bar: string[][];
-    value: string[][];
 }
 
 export {};

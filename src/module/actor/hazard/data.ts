@@ -169,7 +169,7 @@ class HazardSystemData extends ActorSystemModel<HazardPF2e, HazardSystemSchema> 
 
 interface HazardSystemData
     extends ActorSystemModel<HazardPF2e, HazardSystemSchema>,
-        ModelPropsFromSchema<HazardSystemSchema> {
+        fields.ModelPropsFromSchema<HazardSystemSchema> {
     traits: HazardTraits;
     attributes: HazardAttributes;
     details: HazardDetails;
@@ -180,7 +180,11 @@ interface HazardSystemData
 type HazardSystemSchema = ActorSystemSchema & {
     /** Traits, languages, and other information. */
     traits: fields.SchemaField<HazardTraitsSchema>;
-    attributes: fields.SchemaField<HazardAttributesSchema, SourceFromSchema<HazardAttributesSchema>, HazardAttributes>;
+    attributes: fields.SchemaField<
+        HazardAttributesSchema,
+        fields.SourceFromSchema<HazardAttributesSchema>,
+        HazardAttributes
+    >;
     details: fields.SchemaField<HazardDetailsSchema>;
     saves: fields.SchemaField<{
         fortitude: fields.SchemaField<HazardSaveDataSchema>;
@@ -197,7 +201,7 @@ type HazardTraitsSchema = {
     }>;
 };
 
-interface HazardTraits extends ModelPropsFromSchema<HazardTraitsSchema> {
+interface HazardTraits extends fields.ModelPropsFromSchema<HazardTraitsSchema> {
     size: ActorSizePF2e;
 }
 
@@ -206,7 +210,7 @@ type HazardSaveDataSchema = {
 };
 
 type HazardAttributesSchema = {
-    hp: fields.SchemaField<ActorHitPointsSchema, SourceFromSchema<ActorHitPointsSchema>, ActorHitPoints>;
+    hp: fields.SchemaField<ActorHitPointsSchema, fields.SourceFromSchema<ActorHitPointsSchema>, ActorHitPoints>;
     ac: fields.SchemaField<{
         value: fields.NumberField<number, number, true, false, true>;
     }>;
@@ -245,7 +249,7 @@ type HazardAttributesSchema = {
     >;
 };
 
-type HazardAttributesSource = SourceFromSchema<HazardAttributesSchema>;
+type HazardAttributesSource = fields.SourceFromSchema<HazardAttributesSchema>;
 
 type HazardDetailsSchema = {
     description: fields.StringField<string, string, true, false, true>;
@@ -261,7 +265,7 @@ type HazardDetailsSchema = {
 };
 
 /** The raw information contained within the actor data object for hazards. */
-interface HazardSystemSource extends SourceFromSchema<HazardSystemSchema> {
+interface HazardSystemSource extends fields.SourceFromSchema<HazardSystemSchema> {
     schema?: never;
 }
 
@@ -287,7 +291,7 @@ interface HazardStealthTraceData extends Omit<StatisticTraceData, "dc" | "totalM
     details: string;
 }
 
-interface HazardDetails extends ActorDetails, SourceFromSchema<HazardDetailsSchema> {
+interface HazardDetails extends ActorDetails, fields.SourceFromSchema<HazardDetailsSchema> {
     alliance: null;
 }
 

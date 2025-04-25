@@ -158,9 +158,6 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
      * weakness or resistance as indication.
      */
     override prepareData(): void {
-        if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
-            return;
-        }
         super.prepareData();
 
         const weaknessesAndResistances = new Set(

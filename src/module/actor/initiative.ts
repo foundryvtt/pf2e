@@ -1,6 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { createPonderousPenalty } from "@actor/character/helpers.ts";
 import { InitiativeData } from "@actor/data/base.ts";
+import type { Rolled } from "@client/dice/_module.d.mts";
 import { ZeroToTwo } from "@module/data.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { CheckRoll } from "@system/check/index.ts";

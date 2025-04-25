@@ -1,6 +1,5 @@
-import { FormSelectOption } from "@client/applications/forms/fields.mjs";
+import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import type { ApplicationV1HeaderButton, AppV1RenderOptions } from "@client/appv1/api/application-v1.d.mts";
-import { ItemSheetData } from "@client/appv1/sheets/item-sheet.mjs";
 import { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { Rarity } from "@module/data.ts";
@@ -40,7 +39,7 @@ import { CodeMirror } from "./codemirror.ts";
 import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-element-form/index.ts";
 
 class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem, ItemSheetOptions> {
-    constructor(item: TItem, options: Partial<ItemSheetOptions> = {}) {
+    constructor(item: TItem, options: Partial<fav1.sheets.ItemSheetData<TItem>> = {}) {
         super(item, options);
         this.options.classes.push(this.item.type);
     }
@@ -662,7 +661,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
     }
 }
 
-interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
+interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheetData<TItem> {
     /** The item type label that shows at the top right (for example, "Feat" for "Feat 6") */
     itemType: string | null;
     showTraits: boolean;

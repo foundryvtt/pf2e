@@ -1,10 +1,12 @@
 import type { CombatTrackerConfig } from "@client/applications/apps/_module.mjs";
+import { ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";
 import Canvas from "@client/canvas/board.mjs";
 import Token from "@client/canvas/placeables/token.mjs";
 import {
     Actor,
     Combat,
     Item,
+    JournalEntry,
     JournalEntryPage,
     Macro,
     Scene,
@@ -16,7 +18,7 @@ import { DatabaseCreateOperation } from "@common/abstract/_types.mjs";
 import Document from "@common/abstract/document.mjs";
 import type ApplicationV2 from "../applications/api/application.mjs";
 import type TokenHUD from "../applications/hud/token-hud.mjs";
-import { CompendiumDirectory, ItemDirectory } from "../applications/sidebar/tabs/_module.mjs";
+import { ChatLog, CompendiumDirectory, ItemDirectory } from "../applications/sidebar/tabs/_module.mjs";
 import type ActorDirectory from "../applications/sidebar/tabs/actor-directory.mjs";
 import type Hotbar from "../applications/ui/hotbar.mjs";
 import type SceneControls from "../applications/ui/scene-controls.mjs";
@@ -39,7 +41,7 @@ type HookParamsReady = HookParameters<"ready", never>;
 type HookParamsClose<T extends ApplicationV2, N extends string> = HookParameters<`close${N}`, [T]>;
 type HookParamsDeleteCombat = HookParameters<"deleteCombat", [Combat, { [key: string]: unknown }, string]>;
 type HookParamsDropCanvasData = HookParameters<"dropCanvasData", [Canvas, DropCanvasData]>;
-type HookParamsGetChatLogEntryContext = HookParameters<"getChatLogEntryContext", [HTMLElement, EntryContextOptios[]]>;
+type HookParamsGetChatLogEntryContext = HookParameters<"getChatLogEntryContext", [HTMLElement, ContextMenuEntry[]]>;
 type HookParamsGetSceneControlButtons = HookParameters<"getSceneControlButtons", [Record<string, SceneControl>]>;
 type HookParamsHotbarDrop = HookParameters<"hotbarDrop", [Hotbar<Macro>, DropCanvasData, string]>;
 type HookParamsLightingRefresh = HookParameters<"lightingRefresh", [LightingLayer]>;
@@ -108,7 +110,6 @@ export default class Hooks {
     static on(...args: HookParamsRender<ActorDirectory<Actor<null>>, "ActorDirectory">): number;
     static on(...args: HookParamsRender<ItemDirectory<Item<null>>, "ItemDirectory">): number;
     static on(...args: HookParamsRender<SceneControls, "SceneControls">): number;
-    static on(...args: HookParamsRender<Settings, "Settings">): number;
     static on(...args: HookParamsRender<SettingsConfig, "SettingsConfig">): number;
     static on(...args: HookParamsRender<TokenHUD, "TokenHUD">): number;
     static on(
@@ -160,7 +161,6 @@ export default class Hooks {
         ...args: HookParamsRender<JournalTextPageSheet<JournalEntryPage<JournalEntry | null>>, "JournalTextPageSheet">
     ): number;
     static once(...args: HookParamsRender<SceneControls, "SceneControls">): number;
-    static once(...args: HookParamsRender<Settings, "Settings">): number;
     static once(...args: HookParamsRender<TokenHUD, "TokenHUD">): number;
     static once(...args: HookParamsTargetToken): number;
     static once(...args: HookParamsUpdate<Combat, "Combat">): number;
