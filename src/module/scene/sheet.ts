@@ -1,5 +1,5 @@
 import { resetActors } from "@actor/helpers.ts";
-import type { FormSelectOption } from "@client/applications/forms/fields.mjs";
+import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import type { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
 import { WorldClock } from "@module/apps/world-clock/app.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";

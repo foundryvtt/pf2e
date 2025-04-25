@@ -1,9 +1,4 @@
-import CalendarData, { TimeComponents } from "@client/data/calendar.mjs";
-
-/**
- * @import {CalendarConfig, CalendarData, TimeComponents, TimeFormatter} from "@client/data/calendar.mjs"
- * @import Game from "../game.mjs";
- */
+import { CalendarData, TimeComponents } from "@client/data/_module.mjs";
 
 /**
  * A singleton class at which keeps the official Server and World time stamps.

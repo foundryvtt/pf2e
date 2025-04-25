@@ -1,5 +1,5 @@
 import type { CreatureTrait } from "@actor/creature/index.ts";
-import { ItemUUID } from "@client/documents/abstract/_module.mjs";
+import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
 import { ItemSystemModel, ItemSystemSchema } from "@item/base/data/model.ts";
 import type { BaseItemSourcePF2e, ItemSystemSource } from "@item/base/data/system.ts";
 import { RarityField } from "@module/model.ts";

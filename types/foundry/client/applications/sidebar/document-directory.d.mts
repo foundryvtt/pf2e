@@ -1,4 +1,4 @@
-import { Folder, WorldDocument } from "@client/documents/_module.mjs";
+import { Adventure, Folder, WorldDocument } from "@client/documents/_module.mjs";
 import { DirectoryCollection } from "@client/documents/abstract/directory-collection-mixin.mjs";
 import { CompendiumIndexData } from "@client/documents/collections/compendium-collection.mjs";
 import { DropCanvasData } from "@client/helpers/hooks.mjs";
@@ -22,7 +22,7 @@ export interface DocumentDirectoryConfiguration extends ApplicationConfiguration
  * @mixes HandlebarsApplication
  * @alias DocumentDirectory
  */
-export default class DocumentDirectory<TDocument extends WorldDocument> extends HandlebarsApplicationMixin(
+export default class DocumentDirectory<TDocument extends WorldDocument | Adventure> extends HandlebarsApplicationMixin(
     AbstractSidebarTab<DocumentDirectoryConfiguration, HandlebarsRenderOptions>,
 ) {
     constructor(options: Partial<DocumentDirectoryConfiguration>);
@@ -72,7 +72,10 @@ export default class DocumentDirectory<TDocument extends WorldDocument> extends 
     /** Get context menu entries for folders in this directory. */
     protected _getFolderContextOptions(): ContextMenuEntry[];
 
-    protected override _onFirstRender(context: object, options: HandlebarsRenderOptions): Promise<void>;
+    protected override _onFirstRender(
+        context: ApplicationRenderContext,
+        options: HandlebarsRenderOptions,
+    ): Promise<void>;
 
     protected override _prepareContext(options: HandlebarsRenderOptions): Promise<object>;
 

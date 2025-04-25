@@ -1,7 +1,11 @@
 import { ActorPF2e } from "@actor";
-import type { ItemPF2e } from "@item";
+import type {
+    DatabaseCreateOperation,
+    DatabaseDeleteOperation,
+    DatabaseUpdateOperation,
+} from "@common/abstract/_types.d.mts";
+import type Document from "@common/abstract/document.d.mts";
 import { ItemType } from "@item/base/data/index.ts";
-import { ActiveEffectPF2e } from "@module/active-effect.ts";
 import { UserPF2e } from "@module/user/document.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
 import { LootSource, LootSystemData } from "./data.ts";
@@ -89,9 +93,7 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
     /* -------------------------------------------- */
 
     protected override _onCreate(data: LootSource, options: DatabaseCreateOperation<TParent>, userId: string): void {
-        if (game.user.id === userId) {
-            this.toggleTokenHiding();
-        }
+        if (game.user.id === userId) this.toggleTokenHiding();
         super._onCreate(data, options, userId);
     }
 
@@ -100,38 +102,32 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void {
-        if (game.user.id === userId && changed.system?.hiddenWhenEmpty !== undefined) {
-            this.toggleTokenHiding();
-        }
+        if (game.user.id === userId && changed.system?.hiddenWhenEmpty !== undefined) this.toggleTokenHiding();
         super._onUpdate(changed, operation, userId);
     }
 
-    protected override _onCreateDescendantDocuments(
-        parent: this,
-        collection: "effects" | "items",
-        documents: ActiveEffectPF2e<this>[] | ItemPF2e<this>[],
-        result: ActiveEffectPF2e<this>["_source"][] | ItemPF2e<this>["_source"][],
-        operation: DatabaseCreateOperation<this>,
+    protected override _onCreateDescendantDocuments<P extends Document>(
+        parent: P,
+        collection: string,
+        documents: Document<P>[],
+        data: object[],
+        options: DatabaseCreateOperation<P>,
         userId: string,
     ): void {
-        if (game.user.id === userId) {
-            this.toggleTokenHiding();
-        }
-        super._onCreateDescendantDocuments(parent, collection, documents, result, operation, userId);
+        if (game.user.id === userId) this.toggleTokenHiding();
+        super._onCreateDescendantDocuments(parent, collection, documents, data, options, userId);
     }
 
-    protected override _onDeleteDescendantDocuments(
-        parent: this,
-        collection: "items" | "effects",
-        documents: ActiveEffectPF2e<this>[] | ItemPF2e<this>[],
+    protected override _onDeleteDescendantDocuments<P extends Document>(
+        parent: P,
+        collection: string,
+        documents: Document<P>[],
         ids: string[],
-        operation: DatabaseDeleteOperation<this>,
+        options: DatabaseDeleteOperation<P>,
         userId: string,
     ): void {
-        if (game.user.id === userId) {
-            this.toggleTokenHiding();
-        }
-        super._onDeleteDescendantDocuments(parent, collection, documents, ids, operation, userId);
+        if (game.user.id === userId) this.toggleTokenHiding();
+        super._onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId);
     }
 }
 
