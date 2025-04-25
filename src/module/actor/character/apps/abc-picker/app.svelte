@@ -39,149 +39,123 @@
     }, 200);
 </script>
 
-<header class="search">
+<search>
     <i class="fa-solid fa-search"></i>
     <input type="search" spellcheck="false" placeholder={searchPlaceholder} onkeyup={searchItems} />
-</header>
+</search>
 
-<ul>
+<menu class="scrollable">
     {#each data.items as item}
-        <li data-uuid={item.uuid} data-original-name={item.originalName || null}>
-            <button
-                type="button"
-                class="flat name-source"
-                class:omit-rarity={!item.rarity}
-                data-tooltip="PF2E.Actor.Character.ABCPicker.Tooltip.ViewSheet"
-                onclick={viewItemSheet}
-            >
-                <img src={item.img} loading="lazy" alt="Class icon" />
-                <div class="name">{item.name}</div>
-                {#if item.rarity}
-                    <div class="tags paizo-style">
-                        <span class="tag rarity {item.rarity.slug}">{item.rarity.label}</span>
-                    </div>
-                {/if}
-                <div class="source" class:publication={item.source.publication}>{item.source.name}</div>
-            </button>
-            <button
-                type="button"
-                class="confirm"
-                aria-labelledby="tooltip"
-                data-tooltip="PF2E.Actor.Character.ABCPicker.Tooltip.ConfirmSelection"
-                onclick={saveSelection}
-            >
-                <i class="fa-solid fa-check"></i>
-            </button>
+        <li data-uuid={item.uuid} class:no-rarity={!item.rarity} data-original-name={item.originalName || null}>
+            <img src={item.img} loading="lazy" alt="Class icon" />
+            <div class="name">{item.name}</div>
+            {#if item.rarity}
+                <div class="tags paizo-style">
+                    <span class="tag rarity {item.rarity.slug}">{item.rarity.label}</span>
+                </div>
+            {/if}
+            <div class="source" class:publication={item.source.publication}>
+                {item.source.name}
+            </div>
+            <div class="buttons">
+                <button
+                    type="button"
+                    class="confirm icon fa-solid fa-check"
+                    data-tooltip
+                    aria-label={game.i18n.localize("PF2E.Actor.Character.ABCPicker.Tooltip.ConfirmSelection")}
+                    onclick={saveSelection}
+                ></button>
+                <button
+                    type="button"
+                    class="icon fa-solid fa-memo-pad"
+                    data-tooltip
+                    aria-label={game.i18n.localize("PF2E.Actor.Character.ABCPicker.Tooltip.ViewSheet")}
+                    onclick={viewItemSheet}
+                ></button>
+            </div>
         </li>
     {/each}
-</ul>
+</menu>
 
 <style>
-    header.search {
+    search {
         align-items: center;
-        border-bottom: 1px solid var(--color-border);
         flex-flow: row nowrap;
         gap: var(--space-8);
         justify-content: start;
-        padding: var(--space-8) var(--space-8);
-
+        padding: var(--space-8) var(--space-8) 0;
         input::placeholder {
             color: var(--color-light-5);
         }
     }
 
-    ul {
+    menu {
+        --scroll-margin: 0;
         flex-flow: column nowrap;
-        height: 100%;
-        list-style: none;
-        margin: 0;
-        overflow: hidden scroll;
-        padding: var(--space-4) 0;
 
         > li {
+            column-gap: var(--space-8);
+            display: grid;
+            grid-template:
+                "icon name buttons"
+                "icon rarity buttons"
+                "icon source buttons" / 48px 3fr 1fr;
             align-items: center;
             border-top: 1px solid var(--color-border);
-            display: flex;
-            margin: 0;
-            padding: var(--space-1) var(--space-6) var(--space-4);
+            padding: var(--space-4);
 
-            button.name-source {
-                column-gap: var(--space-8);
-                display: grid;
-                flex: 1;
-                height: unset;
-                justify-content: start;
-                grid-template:
-                    "icon name" auto
-                    "icon rarity" auto
-                    "icon source" auto / 3rem auto;
-
-                &.omit-rarity {
-                    grid-template:
-                        "icon name"
-                        "icon source" / 3rem auto;
-
-                    > .name {
-                        align-self: end;
-                    }
-
-                    > .source {
-                        align-self: start;
-                    }
-                }
-
-                img {
-                    border: none;
-                    height: 3rem;
-                    grid-area: icon;
-                    width: 3rem;
-                }
-
-                .name {
-                    grid-area: name;
-                    color: var(--color-text-primary);
-                    padding-left: var(--space-1);
-                }
-
-                .tags {
-                    grid-area: rarity;
-                    padding: 0;
-                }
-
-                .source {
-                    color: var(--color-form-hint);
-                    font-size: var(--font-size-12);
-                    grid-area: source;
-                    padding-left: var(--space-1);
-                    &.no-rarity {
-                        grid-row: span 2;
-                        align-self: start;
-                    }
-
-                    &.publication {
-                        font-style: italic;
-                    }
-                }
-
-                &:hover .tag.rarity {
-                    text-shadow: 0 0 8px var(--color-shadow-primary);
-                }
+            &.no-rarity {
+                grid-template-areas:
+                    "icon name buttons"
+                    "icon source buttons";
             }
 
-            button.confirm {
-                color: darkgreen;
+            img {
+                border: none;
+                height: 3rem;
+                grid-area: icon;
+                width: 3rem;
+            }
+
+            .name {
+                align-self: end;
+                grid-area: name;
+                color: var(--color-text-primary);
+                padding-left: var(--space-1);
+            }
+
+            .tags {
+                grid-area: rarity;
+                padding: 0;
+            }
+
+            .source {
+                align-self: start;
+                color: var(--color-form-hint);
                 font-size: var(--font-size-12);
-                height: 1.5rem;
-                width: 1.5rem;
-                margin-left: auto;
-                visibility: hidden;
-                i {
-                    margin-right: 0;
+                grid-area: source;
+                padding-left: var(--space-1);
+                &.publication {
+                    font-style: italic;
+                }
+            }
+            &.no-rarity {
+                .source {
+                    align-self: start;
                 }
             }
 
-            &:hover button.confirm {
-                visibility: visible;
+            .buttons {
+                align-self: center;
+                display: flex;
+                flex-flow: row nowrap;
+                font-size: var(--font-size-12);
+                gap: var(--space-4);
+                grid-area: buttons;
+
+                button.confirm {
+                    color: darkgreen;
+                }
             }
         }
     }

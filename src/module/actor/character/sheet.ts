@@ -593,6 +593,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 ],
                 {
                     eventName: "click",
+                    fixed: true,
                     jQuery: false,
                     // Position the menu to the left of the anchor
                     onOpen: () => {

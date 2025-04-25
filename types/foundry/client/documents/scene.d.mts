@@ -4,7 +4,7 @@ import { DatabaseCreateOperation, DatabaseDeleteOperation, DatabaseUpdateOperati
 import Document from "@common/abstract/document.mjs";
 import { BaseScene, NoteSource, RegionSource, TokenSource } from "@common/documents/_module.mjs";
 import SceneConfig from "../applications/sheets/scene-config.mjs";
-import { TokenDocument, User } from "./_module.mjs";
+import { User } from "./_module.mjs";
 import { ClientDocument } from "./abstract/client-document.mjs";
 import CompendiumCollection from "./collections/compendium-collection.mjs";
 
@@ -93,50 +93,28 @@ export default class Scene extends ClientBaseScene {
      */
     protected _onActivate(active: boolean): Promise<this>;
 
-    protected override _preCreateDescendantDocuments(
-        parent: this,
-        collection: "tokens",
-        data: foundry.documents.TokenSource[],
-        options: DatabaseCreateOperation<this>,
-        userId: string,
-    ): void;
-    protected override _preCreateDescendantDocuments<TParent extends Document>(
-        parent: TParent,
+    protected override _preCreateDescendantDocuments<P extends Document>(
+        parent: P,
         collection: string,
         data: object[],
-        options: DatabaseCreateOperation<TParent>,
+        options: DatabaseCreateOperation<P>,
         userId: string,
     ): void;
 
-    protected override _preUpdateDescendantDocuments(
-        parent: this,
-        collection: "tokens",
-        changes: object[],
-        options: DatabaseUpdateOperation<this>,
-        userId: string,
-    ): void;
-    protected override _preUpdateDescendantDocuments<TParent extends Document>(
-        parent: TParent,
+    protected override _preUpdateDescendantDocuments<P extends Document>(
+        parent: P,
         collection: string,
         changes: Record<string, unknown>[],
-        options: DatabaseUpdateOperation<TParent>,
+        options: DatabaseUpdateOperation<P>,
         userId: string,
     ): void;
 
-    protected override _onUpdateDescendantDocuments(
-        parent: this,
-        collection: "tokens",
-        documents: TokenDocument<this>[],
-        changes: object[],
-        options: DatabaseUpdateOperation<this>,
-        userId: string,
-    ): void;
-    protected override _onUpdateDescendantDocuments<TParent extends ClientDocument>(
-        parent: TParent,
+    protected _onUpdateDescendantDocuments<P extends Document>(
+        parent: P,
         collection: string,
-        documents: ClientDocument<TParent>[],
+        documents: Document<P>[],
         changes: Record<string, unknown>[],
-        options: DatabaseUpdateOperation<TParent>,
+        options: DatabaseUpdateOperation<P>,
         userId: string,
     ): void;
 

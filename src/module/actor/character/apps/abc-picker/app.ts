@@ -44,7 +44,7 @@ class ABCPicker extends SvelteApplicationMixin<
         id: "{id}",
         classes: ["abc-picker"],
         position: { width: 350, height: 650 },
-        window: { icon: "fa-solid fa-book-atlas", contentClasses: ["standard-form", "compact"] },
+        window: { contentClasses: ["standard-form", "compact"] },
     };
 
     declare options: ABCPickerConfiguration;
@@ -58,7 +58,7 @@ class ABCPicker extends SvelteApplicationMixin<
 
     protected override _initializeApplicationOptions(options: Partial<ABCPickerConfiguration>): ABCPickerConfiguration {
         const initialized = super._initializeApplicationOptions(options) as ABCPickerConfiguration;
-        initialized.window.icon = `fa-solid ${CONFIG.Item.typeIcons[initialized.itemType]}`;
+        initialized.window.icon = CONFIG.Item.typeIcons[initialized.itemType];
         initialized.uniqueId = `abc-picker-${initialized.itemType}-${initialized.actor.uuid}`;
         return initialized;
     }

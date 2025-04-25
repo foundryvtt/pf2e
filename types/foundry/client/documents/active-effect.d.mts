@@ -7,7 +7,7 @@ import BaseActiveEffect, {
     EffectChangeData,
     EffectDurationData,
 } from "@common/documents/active-effect.mjs";
-import { Actor, BaseActor, BaseItem, Item, User } from "./_module.mjs";
+import { Actor, BaseActor, BaseItem, BaseUser, Item, User } from "./_module.mjs";
 import { ClientDocument } from "./abstract/client-document.mjs";
 
 declare const ClientBaseActiveEffect: new <TParent extends BaseActor | BaseItem | null>(
@@ -177,6 +177,11 @@ export default class ActiveEffect<TParent extends Actor | Item | null> extends C
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
+    protected override _preCreate(
+        data: this["_source"],
+        operation: DatabaseCreateOperation<TParent>,
+        user: BaseUser,
+    ): Promise<boolean | void>;
     protected override _preCreate(
         data: this["_source"],
         operation: DatabaseCreateOperation<TParent>,

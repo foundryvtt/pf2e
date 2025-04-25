@@ -1,4 +1,4 @@
-import type HTMLFilePickerElement from "@client/applications/elements/file-picker.mjs";
+import type HTMLFilePickerElement from "@client/applications/elements/file-picker.d.mts";
 import { htmlQuery, htmlQueryAll } from "@util";
 
 export const RenderCombatTrackerConfig = {

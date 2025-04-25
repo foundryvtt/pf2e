@@ -248,9 +248,7 @@ class ChatMessagePF2e extends ChatMessage {
         CriticalHitAndFumbleCards.appendButtons(this, html);
         Listeners.ChatCards.listen(this, html);
         Listeners.DegreeOfSuccessHighlights.listen(this, html);
-        if (canvas.ready || !game.settings.get("core", "noCanvas")) {
-            Listeners.SetAsInitiative.listen(this, html);
-        }
+        if (canvas.ready || !game.settings.get("core", "noCanvas")) this.#appendSetAsInitiative(html);
 
         // Add persistent damage recovery button and listener (if evaluating persistent)
         const roll = this.rolls[0];
@@ -302,6 +300,28 @@ class ChatMessagePF2e extends ChatMessage {
         }
 
         return html;
+    }
+
+    /**
+     * Append a button allowing the author of the message to set a check roll as initiative.
+     * @param html The in-process element for the message
+     */
+    #appendSetAsInitiative(html: HTMLElement): void {
+        if ((this.blind || !this.isAuthor) && !game.user.isGM) return;
+
+        const hasCheckRoll = this.rolls.some(
+            (r) => r instanceof CheckRoll && ["skill-check", "perception-check"].includes(r.options.type ?? ""),
+        );
+        if (!hasCheckRoll) return;
+        if (!this.token?.actor) return;
+        const button = createHTMLElement("button", {
+            classes: ["set-as-initiative", "icon", "fa-solid", "fa-swords"],
+            dataset: { action: "setAsInitiative", tooltip: true },
+        });
+        button.type = "button";
+        button.ariaLabel = game.i18n.format("PF2E.Check.SetAsInitiative", { actor: this.token.name });
+        const selector = this.isReroll ? ".reroll-second .dice-total" : ".dice-total";
+        html.querySelector(selector)?.appendChild(button);
     }
 
     /** Highlight the message's corresponding token on the canvas */
