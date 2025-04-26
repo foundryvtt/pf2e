@@ -7,7 +7,7 @@ import type {
 import type { ContextMenuEntry } from "@client/applications/ux/context-menu.d.mts";
 import type { ActorUUID } from "@client/documents/abstract/_module.d.mts";
 import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
-import { htmlClosest, htmlQuery, htmlQueryAll } from "@util";
+import { htmlClosest, htmlQueryAll } from "@util";
 import * as R from "remeda";
 
 /** Extend ActorDirectory to show more information */
@@ -87,18 +87,18 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
     }
 
     override async _onRender(context: object, options: HandlebarsRenderOptions): Promise<void> {
-        await super._onRender(context, options);
-        const html = this.element;
-
         // Move the party list into the directory part
+        // This must occur before super._onRender() so that drag/drop is registered correctly
         if (options.parts.includes("directory")) {
             const partiesPart = this.parts["parties"];
             partiesPart.remove();
             this.parts["directory"].prepend(partiesPart);
         }
 
+        await super._onRender(context, options);
+
         // Strip actor level from actors we lack proper observer permission for
-        for (const element of htmlQueryAll(html, "li.directory-item.actor")) {
+        for (const element of htmlQueryAll(this.element, "li.directory-item.actor")) {
             const actor = game.actors.get(element.dataset.entryId, { strict: true });
             if (!actor.testUserPermission(game.user, "OBSERVER")) {
                 element.querySelector("span.actor-level")?.remove();
@@ -107,25 +107,37 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
     }
 
     /* -------------------------------------------- */
-    /*  Event Handlers                              */
+    /*  Public API                                  */
+    /* -------------------------------------------- */
+
+    /** Collapses all open folders in this directory, including parties */
+    override collapseAll(): void {
+        super.collapseAll();
+        for (const el of htmlQueryAll(this.element, ".directory-item.folder[data-party]")) {
+            el.classList.remove("expanded");
+            delete this.#extraFolders[el.dataset.entryId ?? ""];
+        }
+    }
+
+    /* -------------------------------------------- */
+    /*  Event Listeners & Handlers                  */
     /* -------------------------------------------- */
 
     /** Overriden so matched actors in a party reveal their party "folder" as well */
     protected override _onSearchFilter(event: KeyboardEvent, query: string, rgx: RegExp, html: HTMLElement): void {
+        // The super method will close all party folders, we will need to open them up again
         super._onSearchFilter(event, query, rgx, html);
 
-        const folderLikes = htmlQueryAll(html, ".folder-like");
+        const folderLikes = htmlQueryAll(html, ".parties .folder");
         for (const folderLike of folderLikes) {
             const hasMatch =
                 query !== "" && htmlQueryAll(folderLike, ".actor").some((li) => li.style.display !== "none");
             if (hasMatch) {
-                folderLike.removeAttribute("style");
-                folderLike.classList.remove("collapsed");
-                const folderLikeHeader = htmlQuery(folderLike, ":scope > header");
-                if (folderLikeHeader) folderLikeHeader.removeAttribute("style");
+                folderLike.style.display = "flex";
+                folderLike.classList.add("expanded");
             } else {
                 const entryId = folderLike.dataset.entryId ?? "";
-                folderLike.classList.toggle("collapsed", !this.#extraFolders[entryId]);
+                folderLike.classList.toggle("expanded", !!this.#extraFolders[entryId]);
             }
         }
     }
@@ -144,7 +156,7 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
         super._onDragStart(event);
 
         // Add additional party metadata to the drag event
-        const fromParty = htmlClosest(event.target, ".party")?.dataset.documentId;
+        const fromParty = htmlClosest(event.target, "[data-party]")?.dataset.entryId;
         if (fromParty) {
             const data: ActorSidebarDropData = JSON.parse(event.dataTransfer.getData("text/plain"));
             data.fromParty = fromParty;
@@ -167,7 +179,7 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
         await super._handleDroppedEntry(target, data);
 
         // Handle dragging members to and from parties (if relevant)
-        const toPartyId = htmlClosest(target, ".party")?.dataset.documentId;
+        const toPartyId = htmlClosest(target, "[data-party]")?.dataset.entryId;
         if (toPartyId !== data.fromParty && data.uuid) {
             const toParty = game.actors.get(toPartyId ?? "");
             const fromParty = game.actors.get(data.fromParty ?? "");
@@ -181,12 +193,26 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
         }
     }
 
+    /** Overriden to not fire folder events on party actors */
+    protected override _createContextMenus(): void {
+        this._createContextMenu(this._getFolderContextOptions, ".folder:not([data-party]) .folder-header", {
+            fixed: true,
+            hookName: "getFolderContextOptions",
+            parentClassHooks: false,
+        });
+        this._createContextMenu(this._getEntryContextOptions, ".directory-item[data-entry-id]", {
+            fixed: true,
+            hookName: `get${this.documentName}ContextOptions`,
+            parentClassHooks: false,
+        });
+    }
+
     protected override _getEntryContextOptions(): ContextMenuEntry[] {
         const entries = super._getEntryContextOptions();
         entries.push({
             name: "PF2E.Actor.Party.Sidebar.RemoveMember",
             icon: fa.fields.createFontAwesomeIcon("bus").outerHTML,
-            condition: (li) => !!li.closest("[data-party]") && !li.closest(".party-header"),
+            condition: (li) => !!li.closest("[data-party]") && !li.closest(".folder-header"),
             callback: (li) => {
                 const actorId = li.dataset.entryId;
                 const partyId = li.closest<HTMLElement>("[data-party]")?.dataset.entryId;
@@ -228,10 +254,10 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
 
     static async #createParty(this: ActorDirectoryPF2e, event: PointerEvent): Promise<void> {
         await ActorPF2e.createDialog({ type: "party" });
-        const partyId = htmlClosest(event.target, "[data-entry-id")?.dataset.entryId;
+        const partyId = htmlClosest(event.target, "[data-entry-id]")?.dataset.entryId;
         if (partyId) {
             this.#extraFolders[partyId] = true;
-            this.render({ parts: ["parties"] });
+            this.render();
         }
     }
 
