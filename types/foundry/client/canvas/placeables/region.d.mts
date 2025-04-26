@@ -1,7 +1,10 @@
-import { RegionPolygonTree, RegionShape } from "@client/data/region-shapes/_module.mjs";
-import { RegionDocument, Scene, User } from "@client/documents/_module.mjs";
-import { Point } from "@common/_types.mjs";
+import { RegionPolygonTree } from "@client/data/region-shapes/polygon-tree.mjs";
+import { RegionShape } from "@client/data/region-shapes/shape.mjs";
+import RegionDocument from "@client/documents/region.mjs";
+import Scene from "@client/documents/scene.mjs";
+import User from "@client/documents/user.mjs";
 import * as ClipperLib from "js-angusj-clipper";
+import { Point } from "../../../common/_types.mjs";
 import PlaceableObject from "./placeable-object.mjs";
 import RegionGeometry from "./regions/geometry.mjs";
 

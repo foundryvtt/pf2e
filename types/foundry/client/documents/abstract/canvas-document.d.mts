@@ -1,3 +1,4 @@
+import { PlaceablesLayer } from "@client/canvas/layers/_module.mjs";
 import PlaceableObject from "@client/canvas/placeables/placeable-object.mjs";
 import {
     DatabaseCreateOperation,
