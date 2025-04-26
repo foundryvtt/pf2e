@@ -66,6 +66,9 @@ export default class DocumentDirectory<TDocument extends WorldDocument | Adventu
 
     protected override _configureRenderParts(options: HandlebarsRenderOptions): Record<string, HandlebarsTemplatePart>;
 
+    /** Register context menu entries and fire hooks. */
+    protected _createContextMenus(): void;
+
     /** Get context menu entries for entries in this directory. */
     protected _getEntryContextOptions(): ContextMenuEntry[];
 
