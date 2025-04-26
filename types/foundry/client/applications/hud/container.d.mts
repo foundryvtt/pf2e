@@ -1,3 +1,4 @@
+import { ChatBubbles } from "@client/canvas/animation/_module.mjs";
 import type { ApplicationConfiguration, ApplicationRenderOptions } from "../_types.mjs";
 import type ApplicationV2 from "../api/application.mjs";
 import type DrawingHUD from "./drawing-hud.mjs";

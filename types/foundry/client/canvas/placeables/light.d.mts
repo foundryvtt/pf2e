@@ -1,6 +1,7 @@
 import { AmbientLightDocument, Scene, User } from "@client/documents/_module.mjs";
 import { DatabaseCreateOperation, DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
 import { ControlIcon } from "../containers/_module.mjs";
+import { LightingLayer } from "../layers/_module.mjs";
 import { PointDarknessSource, PointLightSource } from "../sources/_module.mjs";
 import PlaceableObject from "./placeable-object.mjs";
 
