@@ -9,6 +9,8 @@ import {
     ApplicationTab,
     ApplicationTabsConfiguration,
 } from "../_types.mjs";
+import type ContextMenu from "../ux/context-menu.d.mts";
+import type { ContextMenuEntry } from "../ux/context-menu.d.mts";
 
 /** The Application class is responsible for rendering an HTMLElement into the Foundry Virtual Tabletop user interface. */
 export default abstract class ApplicationV2<
@@ -420,4 +422,20 @@ export default abstract class ApplicationV2<
      * @param  timeout A timeout in milliseconds in case the transitionend event does not occur
      */
     protected _awaitTransition(element: HTMLElement, timeout: number): Promise<void>;
+
+    /**
+     * Create a ContextMenu instance used in this Application.
+     * @param handler A handler function that provides initial context options
+     * @param selector A CSS selector to which the ContextMenu will be bound
+     * @param options Additional options which affect ContextMenu construction
+     * @param options.container A parent HTMLElement which contains the selector target
+     * @param options.hookName The hook name
+     * @param options.parentClassHooks Whether to call hooks for the parent classes in the inheritance chain.
+     * @returns A created ContextMenu or null if no menu items were defined
+     */
+    protected _createContextMenu(
+        handler: () => ContextMenuEntry[],
+        selector: string,
+        options?: Record<string, unknown> & { container?: HTMLElement; hookName?: string; parentClassHooks?: boolean },
+    ): ContextMenu | null;
 }
