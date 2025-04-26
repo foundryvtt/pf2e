@@ -3,6 +3,7 @@ import { DatabaseCreateOperation, DatabaseDeleteOperation, DatabaseUpdateOperati
 import { DoorControl } from "../containers/_module.mjs";
 import { Ray } from "../geometry/_module.mjs";
 import MouseInteractionManager from "../interaction/mouse-handler.mjs";
+import { WallsLayer } from "../layers/_module.mjs";
 import { PlaceableObject, Tile } from "./_module.mjs";
 
 /**
