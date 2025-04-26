@@ -16,17 +16,6 @@ export interface AmbientSoundEffect {
     intensity: number;
 }
 
-interface PlayAtPositionOptions {
-    volume?: number;
-    easing?: boolean;
-    walls?: boolean;
-    gmAlways?: boolean;
-    baseEffect?: AmbientSoundEffect;
-    muffledEffect?: AmbientSoundEffect;
-    sourceData?: DeepPartial<PointEffectSourceData>;
-    playbackOptions?: SoundPlaybackOptions;
-}
-
 /**
  * This Canvas Layer provides a container for AmbientSound objects.
  * @category Canvas
@@ -152,7 +141,16 @@ export default class SoundsLayer<TObject extends AmbientSound = AmbientSound> ex
         src: string,
         origin: Point | ElevatedPoint,
         radius: number,
-        options?: PlayAtPositionOptions,
+        options?: {
+            volume?: number;
+            easing?: boolean;
+            walls?: boolean;
+            gmAlways?: boolean;
+            baseEffect?: AmbientSoundEffect;
+            muffledEffect?: AmbientSoundEffect;
+            sourceData?: DeepPartial<PointEffectSourceData>;
+            playbackOptions?: SoundPlaybackOptions;
+        },
     ): Promise<Sound | null>;
 
     /**
@@ -160,7 +158,7 @@ export default class SoundsLayer<TObject extends AmbientSound = AmbientSound> ex
      * @param args  Arguments passed to SoundsLayer#playAtPosition
      * @returns  A Promise which resolves once playback for the initiating client has completed
      */
-    emitAtPosition(args?: PlayAtPositionOptions): Promise<void>;
+    emitAtPosition(args: Parameters<this["playAtPosition"]>): Promise<Sound | null>;
 
     static override prepareSceneControls(): SceneControl;
 

@@ -47,8 +47,8 @@ export default class RegionLegend extends HandlebarsApplicationMixin(Application
 
     /**
      * Highlight a hovered region in the legend.
-     * @param {Region} region    The Region
-     * @param {boolean} hover    Whether they are being hovered in or out.
+     * @param region  The Region
+     * @param hover   Whether they are being hovered in or out.
      * @internal
      */
     _hoverRegion(region: Region, hover: boolean): void;
