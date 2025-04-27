@@ -1,16 +1,13 @@
 <script lang="ts">
-    import ClearFilterButton from "./partials/clear-filter-button.svelte";
     import type { Snippet } from "svelte";
-    import type { CheckboxData, RangesInputData, LevelData } from "../../tabs/data.ts";
 
     interface Props {
         children: Snippet;
         clearButton?: {
-            data: CheckboxData | RangesInputData | LevelData;
             options: {
-                name?: string;
                 visible: boolean;
             };
+            clear: () => void;
         };
         isExpanded?: boolean;
         label: string;
@@ -35,8 +32,10 @@
         {:else}
             {game.i18n.localize(props.label)}
         {/if}
-        {#if props.clearButton}
-            <ClearFilterButton data={props.clearButton.data} options={props.clearButton.options} />
+        {#if props.clearButton?.options.visible}
+            <button type="button" class="clear-filter" onclick={() => props.clearButton?.clear()}>
+                {game.i18n.localize("PF2E.CompendiumBrowser.Filter.ClearFilter")}
+            </button>
         {/if}
     </legend>
     {#if isExpanded === undefined || isExpanded}
@@ -72,6 +71,17 @@
                     margin-right: 0.25em;
                     margin-left: unset;
                 }
+            }
+
+            button.clear-filter {
+                &:not(:hover) {
+                    background-color: var(--background);
+                }
+                line-height: 1.5em;
+                position: absolute;
+                right: var(--space-10);
+                top: var(--space-1);
+                width: auto;
             }
         }
     }
