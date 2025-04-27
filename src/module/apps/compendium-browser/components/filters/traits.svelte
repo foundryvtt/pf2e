@@ -135,7 +135,7 @@
         display: flex;
 
         input[type="radio"] {
-            margin: 0 5px 0 3px;
+            margin-top: 0;
         }
     }
 </style>
