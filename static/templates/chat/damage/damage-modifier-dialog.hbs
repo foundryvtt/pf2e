@@ -107,7 +107,7 @@
 </form>
 
 {{#*inline "modifier-row"}}
-    <div class="dialog-row{{#unless modifier.enabled}} disabled{{#if modifier.hideIfDisabled}} hidden{{/if}}{{/unless}}">
+    <div class="dialog-row{{#unless modifier.enabled}} off{{#if modifier.hideIfDisabled}} hidden{{/if}}{{/unless}}">
         <span class="mod">{{modifier.label}}</span>
         <span class="type"><span class="tag">{{localize (concat "PF2E.ModifierType." modifier.type)}}</span></span>
         <div class="value" data-tooltip="{{modifier.typeLabel}}">
@@ -125,7 +125,7 @@
 {{/inline}}
 
 {{#*inline "dice-row"}}
-    <div class="dialog-row{{#unless dice.enabled}} disabled{{#if dice.hideIfDisabled}} hidden{{/if}}{{/unless}}">
+    <div class="dialog-row{{#unless dice.enabled}} off{{#if dice.hideIfDisabled}} hidden{{/if}}{{/unless}}">
         <span class="mod">{{dice.label}}</span>
         <div class="value" data-tooltip="{{dice.typeLabel}}">
             <span class="dice-type damage color{{#if dice.damageType}} {{dice.damageType}}{{/if}}">
