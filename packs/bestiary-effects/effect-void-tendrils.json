@@ -1,0 +1,45 @@
+{
+    "_id": "dl8qj25dK6PtO5Y7",
+    "img": "icons/magic/unholy/beams-impact-pink.webp",
+    "name": "Effect: Void Tendrils",
+    "system": {
+        "description": {
+            "value": "<p>When you would be healed by a vitality effect, the healing is reduced by 15.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 15
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:vitality"
+                ],
+                "selector": "healing-received",
+                "value": -15
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
