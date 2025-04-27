@@ -1,10 +1,10 @@
 {
-    "_id": "yHI1DhZkAyqwRpDh",
-    "img": "icons/magic/symbols/rune-sigil-black-pink.webp",
-    "name": "Effect: Mark of Fate",
+    "_id": "dl8qj25dK6PtO5Y7",
+    "img": "icons/magic/unholy/beams-impact-pink.webp",
+    "name": "Effect: Void Tendrils",
     "system": {
         "description": {
-            "value": "<p>You gain weakness 10 to unholy and take a –2 circumstance penalty to Charisma-based skill checks against followers of Urgathoa.</p>"
+            "value": "<p>When you would be healed by a vitality effect, the healing is reduced by 15.</p>"
         },
         "duration": {
             "expiry": null,
@@ -24,16 +24,10 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "urgathoa-follower"
+                    "item:trait:vitality"
                 ],
-                "selector": "cha-skill-check",
-                "type": "circumstance",
-                "value": -2
-            },
-            {
-                "key": "Weakness",
-                "type": "unholy",
-                "value": 10
+                "selector": "healing-received",
+                "value": -15
             }
         ],
         "start": {
