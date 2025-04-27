@@ -57,7 +57,7 @@
     value={traits.selected.map((s) => s.value)}
 />
 <div class="filter-conjunction">
-    <label>
+    <label class="checkbox">
         <input
             type="radio"
             name="filter-conjunction-and"
@@ -67,7 +67,7 @@
         />
         {game.i18n.localize("PF2E.CompendiumBrowser.Filter.Conjunction.AndLabel")}
     </label>
-    <label>
+    <label class="checkbox">
         <input
             type="radio"
             name="filter-conjunction-or"
@@ -135,7 +135,6 @@
         display: flex;
 
         input[type="radio"] {
-            --checkbox-size: var(--font-size-15);
             margin: 0 5px 0 3px;
         }
     }

@@ -7,10 +7,10 @@
         </div>
         <div class="substitutions">
             {{#each substitutions as |sub index|}}
-                <div class="dialog-row{{#if (and (not sub.toggleable) (not sub.selected))}} disabled{{/if}}">
+                <div class="dialog-row{{#if (and (not sub.toggleable) (not sub.selected))}} off{{/if}}">
                     <span class="mod">{{sub.label}}</span>
                     <span class="type">{{sub.value}}</span>
-                    <div class="exclude{{#if (and (not sub.toggleable) sub.selected)}} disabled{{/if}}">
+                    <div class="exclude{{#if (and (not sub.toggleable) sub.selected)}} off{{/if}}">
                         <label class="toggle">
                             <input type="checkbox" {{disabled (not sub.toggleable)}} data-sub-index="{{index}}" {{checked sub.selected}} />
                             <span class="widget"></span>
@@ -29,7 +29,7 @@
     </div>
     <div class="modifier-container">
         {{#each modifiers as |modifier idx|}}
-            <div class="dialog-row{{#unless modifier.enabled}} disabled{{#if modifier.hideIfDisabled}} hidden{{/if}}{{/unless}}">
+            <div class="dialog-row{{#unless modifier.enabled}} off{{#if modifier.hideIfDisabled}} hidden{{/if}}{{/unless}}">
                 <span class="mod">{{modifier.label}}</span>
                 <span class="type"><span class="tag">{{localize (concat "PF2E.ModifierType." modifier.type)}}</span></span>
                 <span class="value">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
