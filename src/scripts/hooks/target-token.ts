@@ -1,3 +1,4 @@
+import { EncounterTrackerPF2e } from "@module/apps/sidebar/encounter-tracker.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import { getSelectedActors } from "@util/token-actor-utils.ts";
 
@@ -5,7 +6,7 @@ export const TargetToken = {
     listen: (): void => {
         Hooks.on("targetToken", (user, token): void => {
             const tokenDocument = token.document as TokenDocumentPF2e;
-            ui.combat.refreshTargetDisplay(tokenDocument);
+            EncounterTrackerPF2e.refreshTargetDisplay(tokenDocument);
 
             // Draw flanking highlights if applicable
             const actors = getSelectedActors({ include: ["creature"] });

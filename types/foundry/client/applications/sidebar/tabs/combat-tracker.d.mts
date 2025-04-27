@@ -13,7 +13,10 @@ import AbstractSidebarTab from "../sidebar-tab.mjs";
  * @extends {AbstractSidebarTab}
  * @mixes HandlebarsApplication
  */
-export default class CombatTracker extends HandlebarsApplicationMixin(AbstractSidebarTab) {
+export default class CombatTracker<
+    TCombat extends Combat | null = Combat | null,
+    TCombatant extends Combatant<TCombat> = Combatant<TCombat>,
+> extends HandlebarsApplicationMixin(AbstractSidebarTab) {
     static override DEFAULT_OPTIONS: DeepPartial<ApplicationConfiguration>;
 
     static override tabName: "combat";
@@ -27,12 +30,12 @@ export default class CombatTracker extends HandlebarsApplicationMixin(AbstractSi
     /**
      * The list combats applicable to the active Scene.
      */
-    get combats(): Combat[];
+    get combats(): TCombat[];
 
     /**
      * Record the currently tracked combat encounter.
      */
-    get viewed(): Combat | null;
+    get viewed(): TCombat | null;
 
     set viewed(combat);
 
@@ -54,7 +57,7 @@ export default class CombatTracker extends HandlebarsApplicationMixin(AbstractSi
      * @returns The image URL.
      * @protected
      */
-    protected _getCombatantThumbnail(combatant: Combatant): Promise<string>;
+    protected _getCombatantThumbnail(combatant: TCombatant): Promise<string>;
 
     protected override _onFirstRender(
         context: ApplicationRenderContext,
@@ -86,7 +89,7 @@ export default class CombatTracker extends HandlebarsApplicationMixin(AbstractSi
      * @param combatant The Combatant whose turn is being prepared.
      * @param index The index of this entry in the turn order.
      */
-    protected _prepareTurnContext(combat: Combat, combatant: Combatant, index: number): Promise<object>;
+    protected _prepareTurnContext(combat: TCombat, combatant: TCombatant, index: number): Promise<object>;
 
     /* -------------------------------------------- */
     /*  Event Listeners & Handlers                  */
@@ -111,7 +114,7 @@ export default class CombatTracker extends HandlebarsApplicationMixin(AbstractSi
      * @param event The triggering event.
      * @param target The action target element.
      */
-    protected _onCombatCycle(event: PointerEvent, target: HTMLElement): Promise<Combat>;
+    protected _onCombatCycle(event: PointerEvent, target: HTMLElement): Promise<TCombat>;
 
     /**
      * Create a new combat.
@@ -125,7 +128,7 @@ export default class CombatTracker extends HandlebarsApplicationMixin(AbstractSi
      * @param event The triggering event.
      * @param target The action target element.
      */
-    protected _onCombatantControl(event: PointerEvent, target: HTMLElement): unknown;
+    protected _onCombatantControl(event: PointerEvent, target: HTMLElement): void;
 
     /**
      * Handle hovering over a combatant in the tracker.
@@ -150,37 +153,37 @@ export default class CombatTracker extends HandlebarsApplicationMixin(AbstractSi
      * Handle panning to a combatant's token.
      * @param combatant The combatant.
      */
-    protected _onPanToCombatant(combatant: Combatant): Promise<boolean>;
+    protected _onPanToCombatant(combatant: TCombatant): Promise<boolean>;
 
     /**
      * Handle pinging a combatant's token.
      * @param combatant The combatant.
      */
-    protected _onPingCombatant(combatant: Combatant): Promise<boolean>;
+    protected _onPingCombatant(combatant: TCombatant): Promise<boolean>;
 
     /**
      * Handle rolling initiative for a single combatant.
      * @param combatant The combatant.
      */
-    protected _onRollInitiative(combatant: Combatant): Promise<Combat>;
+    protected _onRollInitiative(combatant: TCombatant): Promise<TCombat>;
 
     /**
      * Handle toggling the defeated status effect on a combatant token.
      * @param combatant The combatant.
      */
-    protected _onToggleDefeatedStatus(combatant: Combatant): Promise<void>;
+    protected _onToggleDefeatedStatus(combatant: TCombatant): Promise<void>;
 
     /**
      * Toggle a combatant's hidden state in the tracker.
      * @param combatant The combatant.
      */
-    protected _onToggleHidden(combatant: Combatant): Promise<Combatant | undefined>;
+    protected _onToggleHidden(combatant: TCombatant): Promise<TCombatant | undefined>;
 
     /**
      * Handle updating a combatant's initiative in-sheet.
      * @param event The triggering change event.
      */
-    protected _onUpdateInitiative(event: Event): Promise<Combatant<Combat> | undefined> | undefined;
+    protected _onUpdateInitiative(event: Event): Promise<TCombatant | undefined> | undefined;
 
     /* -------------------------------------------- */
     /*  Public API                                  */
@@ -191,7 +194,7 @@ export default class CombatTracker extends HandlebarsApplicationMixin(AbstractSi
      * @param combatant The Combatant.
      * @param hover Whether they are being hovered in or out.
      */
-    hoverCombatant(combatant: Combatant, hover: boolean): void;
+    hoverCombatant(combatant: TCombatant, hover: boolean): void;
 
     /**
      * Is the token of the combatant visible?
