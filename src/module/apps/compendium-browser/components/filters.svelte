@@ -5,7 +5,7 @@
     import Level from "./filters/level.svelte";
     import Ranges from "./filters/ranges.svelte";
     import Checkboxes from "./filters/checkboxes.svelte";
-    import type { BrowserFilter } from "../tabs/data.ts";
+    import type { BrowserFilter, CheckboxData, LevelData, RangesInputData } from "../tabs/data.ts";
 
     interface FilterProps {
         filter: BrowserFilter;
@@ -24,6 +24,29 @@
         if (!data) return;
         filter.order.type = data.type;
         filter.order.direction = "asc";
+    }
+
+    function getClearFunction(
+        data: CheckboxData | RangesInputData | LevelData,
+        options?: { name?: string },
+    ): () => void {
+        return () => {
+            if ("selected" in data) {
+                for (const opt of data.selected) {
+                    data.options[opt].selected = false;
+                }
+                data.selected = [];
+            } else if ("from" in data) {
+                data.from = data.min;
+                data.to = data.max;
+                data.changed = false;
+            } else if ("values" in data && options?.name) {
+                const activeTab = game.pf2e.compendiumBrowser.activeTab;
+                if (!activeTab) return;
+                data.values = activeTab.parseRangeFilterInput(options.name, data.defaultMin, data.defaultMax);
+                data.changed = false;
+            }
+        };
     }
 
     const onSearch = fu.debounce((event: Event) => {
@@ -87,7 +110,10 @@
     {#each Object.entries(filter.checkboxes) as [key, checkbox]}
         <FilterContainer
             isExpanded={checkbox.isExpanded}
-            clearButton={{ data: checkbox, options: { visible: checkbox.selected.length > 0 } }}
+            clearButton={{
+                options: { visible: checkbox.selected.length > 0 },
+                clear: getClearFunction(checkbox),
+            }}
             label={checkbox.label}
         >
             <Checkboxes bind:checkbox={filter.checkboxes[key as keyof BrowserFilter["checkboxes"]]} />
@@ -96,7 +122,10 @@
     {#if filter.source}
         <FilterContainer
             isExpanded={filter.source.isExpanded}
-            clearButton={{ data: filter.source, options: { visible: filter.source.selected.length > 0 } }}
+            clearButton={{
+                options: { visible: filter.source.selected.length > 0 },
+                clear: getClearFunction(filter.source),
+            }}
             label="PF2E.CompendiumBrowser.Filter.Source"
         >
             <Checkboxes bind:checkbox={filter.source} searchable />
@@ -106,7 +135,7 @@
         {#each R.entries(filter.ranges) as [name, range]}
             <FilterContainer
                 isExpanded={range.isExpanded}
-                clearButton={{ data: range, options: { visible: range.changed, name } }}
+                clearButton={{ options: { visible: range.changed }, clear: getClearFunction(range, { name }) }}
                 label={range.label}
             >
                 <Ranges bind:range={filter.ranges[name]} {name} />
@@ -116,7 +145,10 @@
     {#if "level" in filter}
         <FilterContainer
             isExpanded={filter.level.isExpanded}
-            clearButton={{ data: filter.level, options: { visible: filter.level.changed } }}
+            clearButton={{
+                options: { visible: filter.level.changed },
+                clear: getClearFunction(filter.level),
+            }}
             label="PF2E.CompendiumBrowser.Filter.Levels"
         >
             <Level bind:level={filter.level} />
@@ -172,6 +204,10 @@
                     margin-right: unset;
                 }
             }
+        }
+
+        .clear-filters {
+            width: 100%;
         }
     }
 </style>

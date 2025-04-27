@@ -121,6 +121,8 @@
     }
 
     .sv-item--btn {
+        min-height: unset;
+        height: unset;
         min-width: 11px;
 
         i {
@@ -133,6 +135,7 @@
         display: flex;
 
         input[type="radio"] {
+            --checkbox-size: var(--font-size-15);
             margin: 0 5px 0 3px;
         }
     }
