@@ -851,7 +851,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>In the deific champion's hands, a shield gains the moderate reinforcing rune, giving it Hardness 8, 84 HP, and BT 42.</p>"
+                    "value": "<p>In the deific champion's hands, a shield gains the <em>@UUID[Compendium.pf2e.equipment-srd.Item.Reinforcing Rune (Moderate)]{moderate reinforcing rune}</em>, giving it Hardness 8, 84 HP, and BT 42.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -909,7 +909,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>15 feet.</p>\n<p>Any follower of Iomedae in the aura knows the champion is a champion of Iomedae. At the end of the champion's turn, each ally in the aura reduces its @UUID[Compendium.pf2e.conditionitems.Item.Frightened] value by 1. The aura can be suppressed or resumed with a single action, which has the concentrate trait, and ends if the champion falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious].</p>"
+                    "value": "<p>15 feet.</p>\n<p>Any follower of @UUID[Compendium.pf2e.deities.Item.Iomedae] in the aura knows the champion is a champion of Iomedae. At the end of the champion's turn, each ally in the aura reduces its @UUID[Compendium.pf2e.conditionitems.Item.Frightened] value by 1. The aura can be suppressed or resumed with a single action, which has the concentrate trait, and ends if the champion falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious].</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -918,7 +918,16 @@
                 },
                 "rules": [
                     {
+                        "key": "RollOption",
+                        "option": "champions-aura",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
                         "key": "Aura",
+                        "predicate": [
+                            "champions-aura"
+                        ],
                         "radius": 15,
                         "traits": [
                             "divine"
@@ -978,7 +987,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> An enemy damages the deific champion's ally, and both are in the deific champion's aura</p><hr /><p><strong>Effect</strong> The ally gains resistance 14 to all damage against the triggering damage. If the enemy is within reach, the deific champion makes a melee Strike against it. Each ally in the champion's aura can spend a reaction to Strike the target with a –5 penalty.</p>"
+                    "value": "<p><strong>Trigger</strong> An enemy damages the deific champion's ally, and both are in the deific champion's aura</p><hr /><p><strong>Effect</strong> The ally gains resistance 14 to all damage against the triggering damage. If the enemy is within reach, the deific champion makes a melee Strike against it. Each ally in the champion's aura can spend a reaction to Strike the target with a –5 penalty.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Exalted Retributive Strike]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -1096,7 +1105,7 @@
         },
         {
             "_id": "Qah8iLjN3hok7tMx",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Will Not Falter",
             "sort": 2200000,
             "system": {
@@ -1104,11 +1113,11 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": 2
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Effect</strong> The deific champion declares their devotion to their deity and their cause. They Stride, then make a melee Strike. If the Strike hits an enemy, all allies within their champion's aura gain a +2 status bonus to attack rolls and saving throws against fear until the start of the deific champion's next turn.</p>"
+                    "value": "<p><strong>Effect</strong> The deific champion declares their devotion to their deity and their cause. They Stride, then make a melee Strike. If the Strike hits an enemy, all allies within their champion's aura gain a +2 status bonus to attack rolls and saving throws against fear until the start of the deific champion's next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Will Not Falter]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -1162,7 +1171,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": 25
+                "value": 20
             }
         },
         "details": {

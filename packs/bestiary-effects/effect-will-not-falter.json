@@ -1,19 +1,19 @@
 {
-    "_id": "Fjyhw3lhuHCz01xS",
-    "img": "icons/environment/people/cleric-orange.webp",
-    "name": "Effect: Steward of the Faithful",
+    "_id": "N402OXwxrqVkcK87",
+    "img": "icons/skills/melee/sword-shield-stylized-white.webp",
+    "name": "Effect: Will Not Falter",
     "system": {
         "description": {
-            "value": "<p>Each ally in the aura who worships Pharasma gains resistance 5 to void and a +1 status bonus to Will saves, Diplomacy checks, and Medicine checks.</p>"
+            "value": "<p>You gain a +2 status bonus to attack rolls and saving throws against fear.</p>"
         },
         "duration": {
-            "expiry": null,
+            "expiry": "turn-start",
             "sustained": false,
-            "unit": "unlimited",
-            "value": -1
+            "unit": "rounds",
+            "value": 1
         },
         "level": {
-            "value": 9
+            "value": 12
         },
         "publication": {
             "license": "ORC",
@@ -22,19 +22,19 @@
         },
         "rules": [
             {
-                "key": "Resistance",
-                "type": "void",
-                "value": 5
+                "key": "FlatModifier",
+                "selector": "attack-roll",
+                "type": "status",
+                "value": 2
             },
             {
                 "key": "FlatModifier",
-                "selector": [
-                    "will",
-                    "diplomacy",
-                    "medicine"
+                "predicate": [
+                    "item:trait:fear"
                 ],
+                "selector": "saving-throw",
                 "type": "status",
-                "value": 1
+                "value": 2
             }
         ],
         "start": {

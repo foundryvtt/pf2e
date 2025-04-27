@@ -1559,7 +1559,7 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 30
+                    "value": 28
                 },
                 "damageRolls": {
                     "tzaAiZjqjetk4lbJ": {
@@ -1580,7 +1580,9 @@
                 "traits": {
                     "value": [
                         "deadly-d10",
-                        "trip"
+                        "magical",
+                        "trip",
+                        "unholy"
                     ]
                 }
             },
@@ -1626,10 +1628,53 @@
             "type": "melee"
         },
         {
+            "_id": "D6c1dAJPVPCqasW6",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Grave Pulse",
+            "sort": 2000000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "pnpTyvA4CCU3BPzu": {
+                        "damage": "3d6",
+                        "damageType": "cold"
+                    },
+                    "wiBv1nj6LOgh4WF5": {
+                        "damage": "2d8",
+                        "damageType": "void"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "cold",
+                        "range-120",
+                        "unholy",
+                        "void"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
             "_id": "ersYW9GoqQBCo3Y9",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Mark of Fate",
-            "sort": 2000000,
+            "sort": 2100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1640,7 +1685,7 @@
                 "category": "interaction",
                 "deathNote": true,
                 "description": {
-                    "value": "<p>A creature that slays the deific vessel must succeed at a @Check[will|dc:35] save or be visibly marked as anathema to Urgathoa. It gains weakness 10 to unholy and takes a –2 circumstance penalty to Charisma-based skill checks against followers of Urgathoa. Creatures attempting to @UUID[Compendium.pf2e.actionspf2e.Item.Gather Information] about or @UUID[Compendium.pf2e.actionspf2e.Item.Track] the marked creature gain a +2 circumstance bonus to their checks.</p>\n<p>The mark can't be hidden and can be removed only by participating in an atone ritual led by a worshipper of Urgathoa who is 12th level or higher.</p><hr /><p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Mark of Fate]</p>"
+                    "value": "<p>A creature that slays the deific vessel must succeed at a @Check[will|dc:35] save or be visibly marked as anathema to @UUID[Compendium.pf2e.deities.Item.Urgathoa]. It gains weakness 10 to unholy and takes a –2 circumstance penalty to Charisma-based skill checks against followers of Urgathoa. Creatures attempting to @UUID[Compendium.pf2e.actionspf2e.Item.Gather Information] about or @UUID[Compendium.pf2e.actionspf2e.Item.Track] the marked creature gain a +2 circumstance bonus to their checks.</p>\n<p>The mark can't be hidden and can be removed only by participating in an atone ritual led by a worshipper of Urgathoa who is 12th level or higher.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Mark of Fate]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -1662,7 +1707,7 @@
             "_id": "BtWL2jwtSXGzNE4t",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Limited Lifespan",
-            "sort": 2100000,
+            "sort": 2200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1672,7 +1717,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>The deific vessel takes 25 damage at the end of its turn if it Cast a Spell, used Borrow Time, or made a Strike that turn. This damage ignores resistance.</p>"
+                    "value": "<p>The deific vessel takes @Damage[25[untyped]] damage at the end of its turn if it Cast a Spell, used Borrow Time, or made a Strike that turn. This damage ignores resistance.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -1693,7 +1738,7 @@
             "_id": "hNH13IdYBvGGYvmU",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Shattered Vessel",
-            "sort": 2200000,
+            "sort": 2300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1704,7 +1749,7 @@
                 "category": "defensive",
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When the deific vessel dies, the divine power barely contained within their form explodes outward, dealing @Damage[6d8[spirit]] damage to each creature in a @Template[type:emanation|distance:30] with a @Check[reflex|dc:33|basic] save.</p>"
+                    "value": "<p>When the deific vessel dies, the divine power barely contained within their form explodes outward, dealing @Damage[6d8[spirit]|options:area-damage] damage to each creature in a @Template[type:emanation|distance:30] with a @Check[reflex|dc:33|basic|options:area-effect] save.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -1726,7 +1771,7 @@
             "_id": "Yd7AfIigOJ1wFY1W",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Void Tendrils",
-            "sort": 2300000,
+            "sort": 2400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1736,7 +1781,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>30 feet.</p>\n<p>When a creature in the aura would be healed by a vitality effect, the healing is reduced by 15 and the deific vessel regains 15 Hit Points.</p>"
+                    "value": "<p>30 feet.</p>\n<p>When a creature in the aura would be healed by a vitality effect, the healing is reduced by 15 and the deific vessel regains @Damage[15[healing]] Hit Points.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -1768,7 +1813,7 @@
             "_id": "6ZsxIxGeLF5aLgdy",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Borrow Time",
-            "sort": 2400000,
+            "sort": 2500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1778,7 +1823,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The vessel chooses two different creatures in their void tendrils aura. Each one must be either undead or the vessel themself. One target loses 25 HP and the other regains that many HP. If a target is unwilling, it can negate the transfer with a successful @Check[fortitude|dc:39] save.</p>"
+                    "value": "<p>The vessel chooses two different creatures in their void tendrils aura. Each one must be either undead or the vessel themself. One target loses @Damage[25[untyped]] HP and the other regains that many HP. If a target is unwilling, it can negate the transfer with a successful @Check[fortitude|dc:39] save.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -1800,7 +1845,7 @@
             "_id": "M5xuaa8XeJZWeK9g",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Grave Chill",
-            "sort": 2500000,
+            "sort": 2600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1810,7 +1855,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The vessel's unarmed attacks and scythe gain the <em>+2 decaying frost greater striking</em> runes when used by the vessel, and their Strikes gain the death trait.</p>"
+                    "value": "<p>The vessel's unarmed attacks and scythe gain the <em>+2 @UUID[Compendium.pf2e.equipment-srd.Item.Decaying] @UUID[Compendium.pf2e.equipment-srd.Item.Frost] greater striking</em> runes when used by the vessel, and their Strikes gain the death trait.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -1822,24 +1867,11 @@
                         "itemType": "melee",
                         "key": "ItemAlteration",
                         "mode": "add",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "item:trait:unarmed",
-                                    "item:slug:scythe"
-                                ]
-                            }
-                        ],
                         "property": "traits",
                         "value": "death"
                     },
                     {
-                        "damageType": "cold",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "label": "PF2E.WeaponPropertyRune.frost.Name",
-                        "predicate": [
+                        "definition": [
                             {
                                 "or": [
                                     "item:trait:unarmed",
@@ -1847,15 +1879,13 @@
                                 ]
                             }
                         ],
-                        "selector": "strike-damage"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "frost"
                     },
                     {
-                        "damageType": "void",
-                        "diceNumber": 1,
-                        "dieSize": "d4",
-                        "key": "DamageDice",
-                        "label": "PF2E.WeaponPropertyRune.decaying.Name",
-                        "predicate": [
+                        "definition": [
                             {
                                 "or": [
                                     "item:trait:unarmed",
@@ -1863,7 +1893,10 @@
                                 ]
                             }
                         ],
-                        "selector": "strike-damage"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "decaying"
                     }
                 ],
                 "slug": null,
@@ -1879,7 +1912,7 @@
             "_id": "9cfdpzMYnXw10O8r",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Undead Lore",
-            "sort": 2600000,
+            "sort": 2700000,
             "system": {
                 "description": {
                     "value": ""
@@ -1938,6 +1971,24 @@
                 "temp": 0,
                 "value": 300
             },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "death-effects"
+                },
+                {
+                    "exceptions": [],
+                    "type": "disease"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                }
+            ],
             "resistances": [
                 {
                     "doubleVs": [],

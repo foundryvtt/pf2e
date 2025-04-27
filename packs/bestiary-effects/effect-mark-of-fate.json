@@ -1,10 +1,10 @@
 {
     "_id": "yHI1DhZkAyqwRpDh",
-    "img": "systems/pf2e/icons/spells/message-rune.webp",
+    "img": "icons/magic/symbols/rune-sigil-black-pink.webp",
     "name": "Effect: Mark of Fate",
     "system": {
         "description": {
-            "value": "<p>A creature that slays the deific vessel is visibly marked as anathema to Urgathoa. It gains weakness 10 to unholy and takes a –2 circumstance penalty to Charisma-based skill checks against followers of Urgathoa. Creatures attempting to @UUID[Compendium.pf2e.actionspf2e.Item.Gather Information] about or @UUID[Compendium.pf2e.actionspf2e.Item.Track] the marked creature gain a +2 circumstance bonus to their checks.</p>\n<p>The mark can't be hidden and can be removed only by participating in an atone ritual led by a worshipper of Urgathoa who is 12th level or higher.</p>"
+            "value": "<p>You gain weakness 10 to unholy and take a –2 circumstance penalty to Charisma-based skill checks against followers of Urgathoa.</p>"
         },
         "duration": {
             "expiry": null,
@@ -13,7 +13,7 @@
             "value": -1
         },
         "level": {
-            "value": 1
+            "value": 15
         },
         "publication": {
             "license": "ORC",
@@ -24,10 +24,9 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "cha-based",
                     "urgathoa-follower"
                 ],
-                "selector": "all",
+                "selector": "cha-skill-check",
                 "type": "circumstance",
                 "value": -2
             },
