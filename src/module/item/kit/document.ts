@@ -1,5 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { ActorSizePF2e } from "@actor/data/size.ts";
+import type { DatabaseUpdateOperation } from "@common/abstract/_module.d.mts";
+import type { ItemUUID } from "@common/documents/_module.d.mts";
 import { ItemPF2e, type PhysicalItemPF2e } from "@item";
 import type { ClassTrait } from "@item/class/types.ts";
 import { Price } from "@item/physical/data.ts";

@@ -1,4 +1,6 @@
-import DocumentCollection from "@client/documents/abstract/document-collection.mjs";
+import { ClientDocument, DocumentCollection } from "@client/documents/abstract/_module.mjs";
+import Document from "@common/abstract/document.mjs";
+import { CompatibilityMode } from "@common/constants.mjs";
 
 /**
  * Wrap a callback in a debounced timeout.
@@ -269,7 +271,7 @@ export function randomID(length?: number): string;
  * @returns Returns the Collection, Document Type, and Document ID to resolve the parent
  *          document, as well as the remaining Embedded Document parts, if any.
  */
-export function parseUuid(uuid: Maybe<string>, options?: { relative?: Maybe<ClientDocument> }): ResolvedUUID;
+export function parseUuid(uuid: Maybe<string>, options?: { relative?: Maybe<Document> }): ResolvedUUID;
 
 export interface ResolvedUUID {
     uuid?: string;

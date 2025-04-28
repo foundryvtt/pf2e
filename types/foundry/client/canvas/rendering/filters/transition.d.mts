@@ -85,7 +85,13 @@ export default class TextureTransitionFilter extends AbstractBaseFilter {
      */
     set targetTexture(targetTexture: PIXI.Texture<PIXI.Resource>);
 
-    apply(filterManager: any, input: any, output: any, clear: any): void;
+    apply(
+        filterManager: PIXI.FilterSystem,
+        input: PIXI.RenderTexture,
+        output: PIXI.RenderTexture,
+        clearMode?: PIXI.CLEAR_MODES,
+        _currentState?: PIXI.FilterState,
+    ): void;
 }
 
-export type TextureTransitionType = keyof typeof TextureTransitionFilter.TYPES;
+export type TextureTransitionType = (typeof TextureTransitionFilter.TYPES)[keyof typeof TextureTransitionFilter.TYPES];

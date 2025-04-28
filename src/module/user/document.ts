@@ -45,9 +45,9 @@ class UserPF2e extends User {
         return canvas.tokens.controlled.filter((t) => t.isOwner).map((t) => t.document);
     }
 
-    /** Alternative to calling `#updateTokenTargets()` with no argument or an empty array */
+    /** Alternative to calling `updateTokenTargets` with no argument or an empty array */
     clearTargets(): void {
-        this.updateTokenTargets();
+        this._onUpdateTokenTargets();
     }
 
     protected override _onUpdate(

@@ -1,8 +1,14 @@
 import { CompendiumDocumentType, CompendiumUUID } from "@client/utils/helpers.mjs";
-import { DatabaseCreateOperation, DatabaseOperation, DatabaseUpdateOperation } from "@common/abstract/_module.mjs";
+import {
+    DatabaseAction,
+    DatabaseCreateOperation,
+    DatabaseOperation,
+    DatabaseUpdateOperation,
+} from "@common/abstract/_module.mjs";
+import { DocumentOwnershipLevel, DocumentOwnershipString, ImageFilePath } from "@common/constants.mjs";
 import Collection from "@common/utils/collection.mjs";
 import { ApplicationRenderOptions } from "../../applications/_types.mjs";
-import { Actor, Cards, Item, JournalEntry, Macro, Playlist, RollTable, Scene } from "../_module.mjs";
+import { Actor, Cards, Item, JournalEntry, Macro, Playlist, RollTable, Scene, User } from "../_module.mjs";
 import DocumentCollection from "../abstract/document-collection.mjs";
 
 /**
@@ -170,7 +176,13 @@ export default abstract class CompendiumCollection<
     ): void;
 
     /** Follow-up actions taken when Documents within this Compendium pack are modified */
-    protected _onModifyContents(documents: TDocument[], options: DatabaseOperation<null>, userId: string): void;
+    override _onModifyContents(
+        action: DatabaseAction,
+        documents: TDocument[],
+        result: unknown[],
+        operation: DatabaseOperation<null>,
+        user: User,
+    ): void;
 }
 
 export interface CompendiumMetadata<T extends CompendiumDocument = CompendiumDocument> {

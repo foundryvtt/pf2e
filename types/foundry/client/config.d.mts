@@ -1,10 +1,14 @@
 import { DataSchema, Document, TypeDataModel } from "@common/abstract/_module.mjs";
+import { AudioFilePath, ImageFilePath, RollMode } from "@common/constants.mjs";
 import type * as TinyMCE from "tinymce";
 import { DocumentConstructionContext } from "../common/_types.mjs";
 import { ActiveEffectSource } from "../common/documents/active-effect.mjs";
 import DocumentSheetV2 from "./applications/api/document-sheet.mjs";
+import CameraViews from "./applications/apps/av/cameras.mjs";
 import HTMLEnrichedContentElement from "./applications/elements/enriched-content.mjs";
-import { CompendiumDirectory, ItemDirectory } from "./applications/sidebar/tabs/_module.mjs";
+import * as sidebar from "./applications/sidebar/_module.mjs";
+import { CompendiumDirectory } from "./applications/sidebar/tabs/_module.mjs";
+import { MainMenu, Notifications, SceneNavigation } from "./applications/ui/_module.mjs";
 import Hotbar from "./applications/ui/hotbar.mjs";
 import { EnrichmentOptions } from "./applications/ux/text-editor.mjs";
 import ActorSheet from "./appv1/sheets/actor-sheet.mjs";
@@ -18,6 +22,7 @@ import InterfaceCanvasGroup from "./canvas/groups/interface.mjs";
 import { AlertPing, ArrowPing, ChevronPing, PulsePing, Ruler } from "./canvas/interaction/_module.mjs";
 import * as layers from "./canvas/layers/_module.mjs";
 import * as perception from "./canvas/perception/_module.mjs";
+import * as placeables from "./canvas/placeables/_module.mjs";
 import type {
     GlobalLightSource,
     PointDarknessSource,
@@ -63,11 +68,11 @@ export default interface Config<
     TActiveEffect extends documents.ActiveEffect<TActor | TItem | null>,
     TActor extends documents.Actor<TTokenDocument | null>,
     TActorDelta extends documents.ActorDelta<TTokenDocument | null>,
-    TChatLog extends ChatLog,
+    TChatLog extends sidebar.tabs.ChatLog,
     TChatMessage extends documents.ChatMessage,
     TCombat extends documents.Combat,
     TCombatant extends documents.Combatant<TCombat | null, TTokenDocument | null>,
-    TCombatTracker extends CombatTracker<TCombat | null>,
+    TCombatTracker extends sidebar.tabs.CombatTracker<TCombat | null>,
     TCompendiumDirectory extends CompendiumDirectory,
     THotbar extends Hotbar<TMacro>,
     TItem extends documents.Item<TActor | null>,
@@ -79,7 +84,7 @@ export default interface Config<
     TTokenDocument extends documents.TokenDocument<TScene | null>,
     TWallDocument extends documents.WallDocument<TScene | null>,
     TScene extends documents.Scene,
-    TUser extends documents.User<documents.Actor<null>>,
+    TUser extends documents.User,
     TEffectsCanvasGroup extends EffectsCanvasGroup,
 > {
     /** Configure debugging flags to display additional information */
@@ -167,13 +172,13 @@ export default interface Config<
     /** Configuration for the Folder document */
     Folder: {
         documentClass: typeof documents.Folder;
-        collection: typeof Folders;
+        collection: typeof collections.Folders;
     };
 
     /** Configuration for the ChatMessage document */
     ChatMessage: {
         batchSize: number;
-        collection: typeof Messages;
+        collection: typeof collections.Messages;
         documentClass: {
             new (data: PreCreate<TChatMessage["_source"]>, context?: DocumentConstructionContext<null>): TChatMessage;
         };
@@ -186,7 +191,7 @@ export default interface Config<
         documentClass: {
             new (data: PreCreate<TItem["_source"]>, context?: DocumentConstructionContext<TItem["parent"]>): TItem;
         };
-        collection: typeof Items;
+        collection: typeof collections.Items;
         dataModels: Record<string, ConstructorOf<TypeDataModel<documents.Item, DataSchema>>>;
         typeIcons: Record<string, string>;
         typeLabels: Record<string, string | undefined>;
@@ -211,7 +216,7 @@ export default interface Config<
         documentClass: {
             new (data: PreCreate<TCombat["_source"]>, context?: DocumentConstructionContext<null>): TCombat;
         };
-        collection: typeof CombatEncounters;
+        collection: typeof collections.CombatEncounters;
         defeatedStatusId: string;
         sidebarIcon: string;
         initiative: {
@@ -370,7 +375,7 @@ export default interface Config<
     /** Configuration for the Wall embedded document type and its representation on the game Canvas */
     Wall: {
         documentClass: ConstructorOf<TWallDocument>;
-        objectClass: ConstructorOf<Wall<TWallDocument>>;
+        objectClass: ConstructorOf<placeables.Wall<TWallDocument>>;
     };
 
     /* -------------------------------------------- */
@@ -780,20 +785,20 @@ export default interface Config<
         compendium: ConstructorOf<TCompendiumDirectory>;
         controls: typeof foundry.applications.ui.SceneControls;
         hotbar: ConstructorOf<THotbar>;
-        items: ConstructorOf<ItemDirectory<documents.Item<null>>>;
-        // journal: typeof JournalDirectory;
-        // macros: typeof MacroDirectory;
+        items: ConstructorOf<sidebar.tabs.ItemDirectory<documents.Item<null>>>;
+        journal: typeof sidebar.tabs.JournalDirectory;
+        macros: typeof sidebar.tabs.MacroDirectory;
         menu: typeof MainMenu;
         nav: typeof SceneNavigation;
         notifications: typeof Notifications;
         pause: typeof foundry.applications.ui.GamePause;
         players: typeof PlayerList;
-        // playlists: typeof PlaylistDirectory;
-        // scenes: typeof SceneDirectory;
-        settings: typeof Settings;
-        sidebar: typeof Sidebar;
-        tables: typeof RollTableDirectory;
-        // webrtc: typeof CameraViews;
+        playlists: typeof sidebar.tabs.PlaylistDirectory;
+        scenes: typeof sidebar.tabs.SceneDirectory;
+        settings: typeof sidebar.tabs.Settings;
+        sidebar: typeof sidebar.Sidebar;
+        tables: typeof sidebar.tabs.RollTableDirectory;
+        webrtc: typeof CameraViews;
     };
 }
 

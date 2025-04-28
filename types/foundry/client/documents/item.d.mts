@@ -2,8 +2,7 @@ import { DatabaseCreateOperation, DatabaseDeleteOperation } from "@common/abstra
 import Document from "@common/abstract/document.mjs";
 import { DocumentSheetV1Options } from "../appv1/api/document-sheet-v1.mjs";
 import ItemSheet from "../appv1/sheets/item-sheet.mjs";
-import { Actor, BaseItem, User } from "./_module.mjs";
-import { ItemUUID } from "./abstract/_module.mjs";
+import { Actor, BaseItem, ItemUUID, User } from "./_module.mjs";
 import { ClientDocument } from "./abstract/client-document.mjs";
 
 declare const ClientBaseItem: new <TParent extends Actor | null>(

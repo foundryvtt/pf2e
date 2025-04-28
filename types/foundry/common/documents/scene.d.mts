@@ -1,4 +1,5 @@
 import { DatabaseOperation } from "@common/abstract/_types.mjs";
+import { GridType, ImageFilePath, VideoFilePath } from "@common/constants.mjs";
 import type { Document, DocumentMetadata, EmbeddedCollection } from "../abstract/_module.d.mts";
 import type * as data from "../data/data.mjs";
 import type * as fields from "../data/fields.mjs";

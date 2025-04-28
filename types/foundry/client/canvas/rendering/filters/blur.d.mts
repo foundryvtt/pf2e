@@ -1,126 +1,152 @@
 /**
  * Apply a vertical or horizontal gaussian blur going inward by using alpha as the penetrating channel.
- * @param {boolean} horizontal      If the pass is horizontal (true) or vertical (false).
- * @param {number} [strength=8]     Strength of the blur (distance of sampling).
- * @param {number} [quality=4]      Number of passes to generate the blur. More passes = Higher quality = Lower Perf.
- * @param {number} [resolution=PIXI.Filter.defaultResolution]  Resolution of the filter.
- * @param {number} [kernelSize=5]   Number of kernels to use. More kernels = Higher quality = Lower Perf.
  */
 export class AlphaBlurFilterPass extends PIXI.Filter {
     /**
-     * The kernels containing the gaussian constants.
-     * @type {Record<number, number[]>}
+     * @param horizontal If the pass is horizontal (true) or vertical (false).
+     * @param strength Strength of the blur (distance of sampling).
+     * @param quality Number of passes to generate the blur. More passes = Higher quality = Lower Perf.
+     * @param resolution Resolution of the filter.
+     * @param kernelSize Number of kernels to use. More kernels = Higher quality = Lower Perf.
      */
-    static GAUSSIAN_VALUES: Record<number, number[]>;
-    /**
-     * The fragment template generator
-     * @param {number} kernelSize   The number of kernels to use.
-     * @returns {string}            The generated fragment shader.
-     */
-    static fragTemplate(kernelSize: number): string;
-    /**
-     * The vertex template generator
-     * @param {number} kernelSize   The number of kernels to use.
-     * @param {boolean} horizontal  If the vertex should handle horizontal or vertical pass.
-     * @returns {string}            The generated vertex shader.
-     */
-    static vertTemplate(kernelSize: number, horizontal: boolean): string;
-    /**
-     * Generating the dynamic part of the blur in the fragment
-     * @param {number} kernelSize   The number of kernels to use.
-     * @returns {string}            The dynamic blur part.
-     */
-    static generateBlurFragSource(kernelSize: number): string;
-    /**
-     * Generating the dynamic part of the blur in the vertex
-     * @param {number} kernelSize   The number of kernels to use.
-     * @param {boolean} horizontal  If the vertex should handle horizontal or vertical pass.
-     * @returns {string}            The dynamic blur part.
-     */
-    static generateBlurVertSource(kernelSize: number, horizontal: boolean): string;
-    constructor(horizontal: any, strength?: number, quality?: number, resolution?: number | null, kernelSize?: number);
+    constructor(horizontal: boolean, strength?: number, quality?: number, resolution?: number, kernelSize?: number);
+
     /**
      * If the pass is horizontal (true) or vertical (false).
-     * @type {boolean}
      */
     horizontal: boolean;
+
     /**
      * Strength of the blur (distance of sampling).
-     * @type {number}
      */
     strength: number;
+
     /**
      * The number of passes to generate the blur.
-     * @type {number}
      */
     passes: number;
-    set quality(value: number);
+
     /**
      * The quality of the filter is defined by its number of passes.
-     * @returns {number}
      */
     get quality(): number;
-    set blur(value: number);
+
+    set quality(value);
+
     /**
      * The strength of the blur filter in pixels.
-     * @returns {number}
      */
     get blur(): number;
-    /** @override */
-    override apply(filterManager: any, input: any, output: any, clearMode: any): any;
+
+    set blur(value);
+
+    /**
+     * The kernels containing the gaussian constants.
+     */
+    static GAUSSIAN_VALUES: Record<number, number[]>;
+
+    /**
+     * The fragment template generator
+     * @param kernelSize The number of kernels to use.
+     * @returns The generated fragment shader.
+     */
+    static fragTemplate(kernelSize: number): string;
+
+    /**
+     * The vertex template generator
+     * @param kernelSize The number of kernels to use.
+     * @param horizontal If the vertex should handle horizontal or vertical pass.
+     * @returns The generated vertex shader.
+     */
+    static vertTemplate(kernelSize: number, horizontal: boolean): string;
+
+    /**
+     * Generating the dynamic part of the blur in the fragment
+     * @param kernelSize The number of kernels to use.
+     * @returns The dynamic blur part.
+     */
+    static generateBlurFragSource(kernelSize: number): string;
+
+    /**
+     * Generating the dynamic part of the blur in the vertex
+     * @param kernelSize The number of kernels to use.
+     * @param horizontal If the vertex should handle horizontal or vertical pass.
+     * @returns The dynamic blur part.
+     */
+    static generateBlurVertSource(kernelSize: number, horizontal: boolean): string;
+
+    override apply(
+        filterManager: PIXI.FilterSystem,
+        input: PIXI.RenderTexture,
+        output: PIXI.RenderTexture,
+        clearMode?: PIXI.CLEAR_MODES,
+        _currentState?: PIXI.FilterState,
+    ): void;
 }
+
 /**
  * Apply a gaussian blur going inward by using alpha as the penetrating channel.
- * @param {number} [strength=8]     Strength of the blur (distance of sampling).
- * @param {number} [quality=4]      Number of passes to generate the blur. More passes = Higher quality = Lower Perf.
- * @param {number} [resolution=PIXI.Filter.defaultResolution]  Resolution of the filter.
- * @param {number} [kernelSize=5]   Number of kernels to use. More kernels = Higher quality = Lower Perf.
  */
 export default class AlphaBlurFilter extends PIXI.Filter {
-    constructor(strength?: number, quality?: number, resolution?: number | null, kernelSize?: number);
-    blurXFilter: AlphaBlurFilterPass;
-    blurYFilter: AlphaBlurFilterPass;
-    _repeatEdgePixels: boolean;
-    set quality(value: number);
     /**
-     * The quality of blur defines the number of passes used by subsidiary filters.
-     * @type {number}
+     * @param {number} [strength=8]     Strength of the blur (distance of sampling).
+     * @param {number} [quality=4]      Number of passes to generate the blur. More passes = Higher quality = Lower Perf.
+     * @param {number} [resolution=PIXI.Filter.defaultResolution]  Resolution of the filter.
+     * @param {number} [kernelSize=5]   Number of kernels to use. More kernels = Higher quality = Lower Perf.
      */
-    get quality(): number;
-    set blur(value: number);
-    /**
-     * The amount of blur is forwarded to the X and Y filters.
-     * @type {number}
-     */
-    get blur(): number;
-    /** @override */
-    override apply(filterManager: any, input: any, output: any, clearMode: any): void;
+    constructor(strength?: number, quality?: number, resolution?: number, kernelSize?: number);
+
+    override apply(
+        filterManager: PIXI.FilterSystem,
+        input: PIXI.RenderTexture,
+        output: PIXI.RenderTexture,
+        clearMode?: PIXI.CLEAR_MODES,
+        _currentState?: PIXI.FilterState,
+    ): void;
+
     /**
      * Update the filter padding according to the blur strength value (0 if _repeatEdgePixels is active)
      */
     updatePadding(): void;
-    set repeatEdgePixels(value: boolean);
+
+    /**
+     * The amount of blur is forwarded to the X and Y filters.
+     */
+    get blur(): number;
+
+    set blur(value);
+
+    /**
+     * The quality of blur defines the number of passes used by subsidiary filters.
+     */
+    get quality(): number;
+
+    set quality(value);
+
     /**
      * Whether to repeat edge pixels, adding padding to the filter area.
-     * @type {boolean}
      */
     get repeatEdgePixels(): boolean;
-    set blurX(value: number);
+
+    set repeatEdgePixels(value);
+
     /**
      * Provided for completeness with PIXI.BlurFilter
-     * @type {number}
      */
     get blurX(): number;
-    set blurY(value: number);
+
+    set blurX(value);
+
     /**
      * Provided for completeness with PIXI.BlurFilter
-     * @type {number}
      */
     get blurY(): number;
-    set blendMode(value: number);
+
+    set blurY(value);
     /**
      * Provided for completeness with PIXI.BlurFilter
-     * @type {number}
      */
     get blendMode(): number;
+
+    set blendMode(value);
 }

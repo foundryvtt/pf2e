@@ -1,5 +1,7 @@
 import type { SkillSlug } from "@actor/types.ts";
-import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
+import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
+import type { ItemUUID } from "@client/documents/_module.d.mts";
+import type { ImageFilePath } from "@common/constants.d.mts";
 import { ItemPF2e, SpellPF2e, type DeityPF2e } from "@item";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";

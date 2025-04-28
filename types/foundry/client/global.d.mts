@@ -1,4 +1,5 @@
 import * as constants from "@common/constants.mjs";
+import "gsap";
 import "handlebars";
 import clipperlib from "js-angusj-clipper";
 import PixiJS from "pixi.js";

@@ -1,6 +1,7 @@
 import Roll, { Rolled } from "@client/dice/roll.mjs";
 import { DocumentConstructionContext } from "@common/_types.mjs";
 import { DatabaseCreateOperation, DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import { RollMode } from "@common/constants.mjs";
 import BaseChatMessage, { ChatMessageSource, ChatSpeakerData } from "@common/documents/chat-message.mjs";
 import { Actor, BaseActor, BaseUser, Scene, TokenDocument, User } from "./_module.mjs";
 import { ClientDocument } from "./abstract/client-document.mjs";

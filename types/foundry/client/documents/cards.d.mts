@@ -1,3 +1,4 @@
+import { ImageFilePath } from "@common/constants.mjs";
 import { BaseCards } from "./_module.mjs";
 import ClientDocumentMixin from "./abstract/client-document.mjs";
 import Card from "./card.mjs";

@@ -1,5 +1,7 @@
-import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import type { ActorSourcePF2e } from "@actor/data/index.ts";
+import type { CompendiumDocumentType } from "@client/utils/_module.d.mts";
+import type { ActorUUID, ItemUUID } from "@common/documents/_module.d.mts";
+import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { recursiveReplaceString } from "@util";
 import * as R from "remeda";
@@ -20,7 +22,9 @@ export class Migration841V11UUIDFormat extends MigrationBase {
             if (explicitDocType) return explicitDocType;
             if ("game" in globalThis) {
                 const { collection } = fu.parseUuid(uuid) ?? {};
-                return collection instanceof CompendiumCollection ? (collection.metadata.type ?? null) : null;
+                return collection instanceof fd.collections.CompendiumCollection
+                    ? (collection.metadata.type ?? null)
+                    : null;
             }
             return null;
         })();

@@ -3,7 +3,7 @@ import type { CharacterResources } from "@actor/character/data.ts";
 import { CORE_RESOURCES } from "@actor/character/values.ts";
 import { applyActorUpdate } from "@actor/helpers.ts";
 import type { ActorCommitData } from "@actor/types.ts";
-import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
+import type { ItemUUID } from "@client/documents/_module.d.mts";
 import type Document from "@common/abstract/document.d.mts";
 import { ItemProxyPF2e, PhysicalItemPF2e } from "@item";
 import type { PhysicalItemSource } from "@item/base/data/index.ts";

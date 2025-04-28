@@ -1,5 +1,5 @@
-import { Adventure, Folder, WorldDocument } from "@client/documents/_module.mjs";
-import { DirectoryCollection } from "@client/documents/abstract/directory-collection-mixin.mjs";
+import { Folder } from "@client/documents/_module.mjs";
+import { DirectoryCollection, DirectoryMixinEntry } from "@client/documents/abstract/directory-collection-mixin.mjs";
 import { CompendiumIndexData } from "@client/documents/collections/compendium-collection.mjs";
 import { DropCanvasData } from "@client/helpers/hooks.mjs";
 import type Document from "@common/abstract/document.mjs";
@@ -18,11 +18,8 @@ export interface DocumentDirectoryConfiguration extends ApplicationConfiguration
 
 /**
  * An abstract class for rendering a foldered directory of Documents.
- * @template {ClientDocument} TDocument
- * @mixes HandlebarsApplication
- * @alias DocumentDirectory
  */
-export default class DocumentDirectory<TDocument extends WorldDocument | Adventure> extends HandlebarsApplicationMixin(
+export default class DocumentDirectory<TDocument extends DirectoryMixinEntry> extends HandlebarsApplicationMixin(
     AbstractSidebarTab<DocumentDirectoryConfiguration, HandlebarsRenderOptions>,
 ) {
     constructor(options: Partial<DocumentDirectoryConfiguration>);
@@ -214,7 +211,7 @@ export default class DocumentDirectory<TDocument extends WorldDocument | Adventu
      * @param entry     The dropped entry.
      * @param [updates] Modifications to the creation data.
      */
-    protected _createDroppedEntry(entry: DirectoryMixinEntry, updates?: object): Promise<TDocument | undefined>;
+    protected _createDroppedEntry(entry: TDocument, updates?: object): Promise<TDocument | undefined>;
 
     /**
      * Import a dropped folder and its children into this collection if they do not already exist.
@@ -238,7 +235,7 @@ export default class DocumentDirectory<TDocument extends WorldDocument | Adventu
      * @param entry  The entry.
      * @param folder The target folder ID.
      */
-    protected _entryBelongsToFolder(entry: DirectoryMixinEntry, folder: string): boolean;
+    protected _entryBelongsToFolder(entry: TDocument, folder: string): boolean;
 
     /**
      * Get drag data for an entry in this directory.
@@ -306,6 +303,6 @@ export default class DocumentDirectory<TDocument extends WorldDocument | Adventu
     collapseAll(): void;
 }
 
-export default interface DocumentDirectory<TDocument extends WorldDocument> {
+export default interface DocumentDirectory<TDocument extends DirectoryMixinEntry> {
     render(options?: Partial<HandlebarsRenderOptions>): Promise<this>;
 }

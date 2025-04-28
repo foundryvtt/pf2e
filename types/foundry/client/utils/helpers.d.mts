@@ -1,5 +1,12 @@
-import { Actor, Item, TokenDocument, WorldDocumentUUID } from "@client/documents/_module.mjs";
-import { ActorUUID, ItemUUID, TokenDocumentUUID } from "@client/documents/abstract/_module.mjs";
+import {
+    Actor,
+    ActorUUID,
+    Item,
+    ItemUUID,
+    TokenDocument,
+    TokenDocumentUUID,
+    WorldDocumentUUID,
+} from "@client/documents/_module.mjs";
 import { ClientDocument } from "@client/documents/abstract/client-document.mjs";
 import { CompendiumDocument } from "@client/documents/collections/compendium-collection.mjs";
 import Document from "@common/abstract/document.mjs";
@@ -122,4 +129,4 @@ export function timeSince(timeStamp: Date | string): string;
  * @param {string} htmlString
  * @returns {HTMLCollection|HTMLElement}
  */
-export function parseHTML(htmlString: string): HTMLCollection | HTMLElement;
+export function parseHTML<THTML extends HTMLCollection | HTMLElement>(htmlString: string): THTML;

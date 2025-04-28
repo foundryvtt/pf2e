@@ -1,13 +1,14 @@
 import { CompendiumDocumentType } from "@client/utils/helpers.mjs";
+import { DataSchema } from "@common/abstract/_types.mjs";
+import { DocumentOwnershipLevel, PackageAvailabilityCode, PackageType, UserRole } from "@common/constants.mjs";
+import { DataFieldOptions, ObjectFieldOptions } from "@common/data/_module.mjs";
 import type DataModel from "../abstract/data.mjs";
 import type * as fields from "../data/fields.mjs";
 import { PackageManifestData } from "./_types.mjs";
 
 /** A custom SchemaField for defining package compatibility versions. */
 export class PackageCompatibility extends fields.SchemaField<PackageCompatibilitySchema> {
-    constructor(
-        options: fields.DataFieldOptions<fields.SourceFromSchema<PackageCompatibilitySchema>, true, false, true>,
-    );
+    constructor(options: DataFieldOptions<fields.SourceFromSchema<PackageCompatibilitySchema>, true, false, true>);
 }
 
 type PackageCompatibilitySchema = {
@@ -21,9 +22,7 @@ type PackageCompatibilitySchema = {
 
 /** A custom SchemaField for defining package relationships. */
 export class PackageRelationships extends fields.SchemaField<PackageRelationshipsSchema> {
-    constructor(
-        options?: fields.DataFieldOptions<fields.SourceFromSchema<PackageRelationshipsSchema>, true, false, true>,
-    );
+    constructor(options?: DataFieldOptions<fields.SourceFromSchema<PackageRelationshipsSchema>, true, false, true>);
 }
 
 type PackageRelationshipsSchema = {
@@ -42,7 +41,7 @@ type PackageRelationshipsSchema = {
  * It may be required to be a specific type of package, by passing the packageType option to the constructor.
  */
 export class RelatedPackage extends fields.SchemaField<RelatedPackageSchema> {
-    constructor(options?: fields.DataFieldOptions<fields.SourceFromSchema<RelatedPackageSchema>, true, false, true>);
+    constructor(options?: DataFieldOptions<fields.SourceFromSchema<RelatedPackageSchema>, true, false, true>);
 }
 
 type RelatedPackageSchema = {
@@ -55,7 +54,7 @@ type RelatedPackageSchema = {
 
 /** A custom SchemaField for defining the folder structure of the included compendium packs. */
 export class PackageCompendiumFolder extends fields.SchemaField<PackageCompendiumFolderSchema> {
-    constructor(options?: fields.DataFieldOptions<PackageCompendiumFolderSchema, true, false, true>);
+    constructor(options?: DataFieldOptions<PackageCompendiumFolderSchema, true, false, true>);
 }
 
 type PackageCompendiumFolderSchema = {
@@ -67,7 +66,7 @@ type PackageCompendiumFolderSchema = {
 
 /** A special ObjectField which captures a mapping of USER_ROLES to DOCUMENT_OWNERSHIP_LEVELS. */
 export class CompendiumOwnershipField extends fields.ObjectField<Record<UserRole, DocumentOwnershipLevel>> {
-    static override get _defaults(): fields.ObjectFieldOptions<
+    static override get _defaults(): ObjectFieldOptions<
         Record<UserRole, DocumentOwnershipLevel>,
         boolean,
         boolean,
@@ -182,7 +181,7 @@ export default abstract class BasePackage<TDataSchema extends BasePackageSchema>
      */
     static validateId(id: string): void;
 
-    static override migrateData(source: Record<string, unknown>): fields.SourceFromSchema<fields.DataSchema>;
+    static override migrateData(source: Record<string, unknown>): fields.SourceFromSchema<DataSchema>;
 
     /**
      * Retrieve the latest Package manifest from a provided remote location.

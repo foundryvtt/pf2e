@@ -30,7 +30,7 @@ export default class BaseSystem extends packages.BasePackage<BaseSystemSchema> {
 
 export default interface BaseSystem
     extends packages.BasePackage<BaseSystemSchema>,
-        ModelPropsFromSchema<BaseSystemSchema> {
+        fields.ModelPropsFromSchema<BaseSystemSchema> {
     version: string;
 }
 

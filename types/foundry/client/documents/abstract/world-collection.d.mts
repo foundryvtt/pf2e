@@ -1,9 +1,11 @@
+import ApplicationV2 from "@client/applications/api/application.mjs";
+import DocumentSheetConfig from "@client/applications/apps/document-sheet-config.mjs";
 import DocumentDirectory from "@client/applications/sidebar/document-directory.mjs";
 import { Application, DocumentSheet } from "@client/appv1/api/_module.mjs";
 import { DatabaseCreateOperation } from "@common/abstract/_module.mjs";
 import Collection from "@common/utils/collection.mjs";
 import DocumentSheetV2 from "../../applications/api/document-sheet.mjs";
-import { Folder, WorldDocument } from "../_module.mjs";
+import { Folder, Setting, WorldDocument } from "../_module.mjs";
 import CompendiumCollection from "../collections/compendium-collection.mjs";
 import { DirectoryCollectionConstructor } from "./directory-collection-mixin.mjs";
 
@@ -15,7 +17,7 @@ export const DirectoryCollectionMix: DirectoryCollectionConstructor;
  * @param data An array of data objects from which to create Document instances
  */
 export default abstract class WorldCollection<
-    TDocument extends WorldDocument,
+    TDocument extends WorldDocument | Setting,
 > extends DirectoryCollectionMix<TDocument> {
     /* -------------------------------------------- */
     /*  Collection Properties                       */
@@ -34,7 +36,7 @@ export default abstract class WorldCollection<
     protected readonly _source: TDocument["_source"];
 
     /** An Array of application references which will be automatically updated when the collection content changes */
-    apps: Application[];
+    apps: (Application | ApplicationV2)[];
 
     /**
      * Initialize the WorldCollection object by constructing its contained Document instances

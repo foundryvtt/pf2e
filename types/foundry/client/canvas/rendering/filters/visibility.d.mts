@@ -1,9 +1,12 @@
+import AbstractBaseMaskFilter from "./base-mask-filter.mjs";
+
 /**
  * Apply visibility coloration according to the baseLine color.
  * Uses very lightweight gaussian vertical and horizontal blur filter passes.
  */
 export default class VisibilityFilter extends AbstractBaseMaskFilter {
-    /** @override */
+    constructor(...args: any[]);
+
     static override defaultUniforms: {
         exploredColor: number[];
         unexploredColor: number[];
@@ -14,24 +17,30 @@ export default class VisibilityFilter extends AbstractBaseMaskFilter {
         overlayMatrix: PIXI.Matrix;
         hasOverlayTexture: boolean;
     };
-    /** @override */
+
     static override create(initialUniforms?: {}, options?: {}): VisibilityFilter;
-    /** @override */
-    static override fragmentShader(options: any): string;
-    constructor(...args: any[]);
+
+    static override fragmentShader(options?: object): string;
+
+    get blur(): number;
+
     /**
      * Set the blur strength
-     * @param {number} value    blur strength
+     * @param value blur strength
      */
-    set blur(value: number);
-    get blur(): number;
-    /** @override */
-    override apply(filterManager: any, input: any, output: any, clear: any): void;
+    set blur(value);
+
+    apply(
+        filterManager: PIXI.FilterSystem,
+        input: PIXI.RenderTexture,
+        output: PIXI.RenderTexture,
+        clearMode?: PIXI.CLEAR_MODES,
+        _currentState?: PIXI.FilterState,
+    ): void;
+
     /**
      * Calculate the fog overlay sprite matrix.
-     * @param {PIXI.FilterSystem} filterManager
+     * @param filterManager
      */
     calculateMatrix(filterManager: PIXI.FilterSystem): void;
-    #private;
 }
-import AbstractBaseMaskFilter from "./base-mask-filter.mjs";
