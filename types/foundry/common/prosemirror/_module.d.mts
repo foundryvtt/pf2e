@@ -1,14 +1,9 @@
 /** @module prosemirror */
 
 import * as collab from "prosemirror-collab";
-import { baseKeymap } from "prosemirror-commands";
-import { dropCursor } from "prosemirror-dropcursor";
-import { gapCursor } from "prosemirror-gapcursor";
-import { history } from "prosemirror-history";
 import { keymap } from "prosemirror-keymap";
 import { DOMSerializer, Schema } from "prosemirror-model";
 import { AllSelection, EditorState, Plugin, PluginKey, TextSelection } from "prosemirror-state";
-import { columnResizing, tableEditing } from "prosemirror-tables";
 import { Step } from "prosemirror-transform";
 import { EditorView } from "prosemirror-view";
 import ProseMirrorClickHandler from "./click-handler.mjs";
@@ -21,31 +16,30 @@ import ProseMirrorImagePlugin from "./image-plugin.mjs";
 import ProseMirrorInputRules from "./input-rules.mjs";
 import ProseMirrorKeyMaps from "./keymaps.mjs";
 import ProseMirrorMenu from "./menu.mjs";
-import ProseMirrorPasteTransformer from "./paste-transformer.mjs";
 import ProseMirrorPlugin from "./plugin.mjs";
 import { schema as defaultSchema } from "./schema.mjs";
 import { parseHTMLString, serializeHTMLString } from "./util.mjs";
 
-const dom = {
-    parser: DOMParser.fromSchema(defaultSchema),
-    serializer: DOMSerializer.fromSchema(defaultSchema),
-    parseString: parseHTMLString,
-    serializeString: serializeHTMLString,
+declare const dom: {
+    parser: DOMParser;
+    serializer: DOMSerializer;
+    parseString: parseHTMLString;
+    serializeString: serializeHTMLString;
 };
 
-const defaultPlugins = {
-    inputRules: ProseMirrorInputRules.build(defaultSchema),
-    keyMaps: ProseMirrorKeyMaps.build(defaultSchema),
-    menu: ProseMirrorMenu.build(defaultSchema),
-    isDirty: ProseMirrorDirtyPlugin.build(defaultSchema),
-    clickHandler: ProseMirrorClickHandler.build(defaultSchema),
-    pasteTransformer: ProseMirrorPasteTransformer.build(defaultSchema),
-    baseKeyMap: keymap(baseKeymap),
-    dropCursor: dropCursor(),
-    gapCursor: gapCursor(),
-    history: history(),
-    columnResizing: columnResizing(),
-    tables: tableEditing(),
+declare const defaultPlugins: {
+    inputRules: ProseMirror.Plugin;
+    keyMaps: ProseMirror.Plugin;
+    menu: ProseMirror.Plugin;
+    isDirty: ProseMirror.Plugin;
+    clickHandler: ProseMirror.Plugin;
+    pasteTransformer: ProseMirror.Plugin;
+    baseKeyMap: ProseMirror.Plugin;
+    dropCursor: ProseMirror.Plugin;
+    gapCursor: ProseMirror.Plugin;
+    history: ProseMirror.Plugin;
+    columnResizing: ProseMirror.Plugin;
+    tables: ProseMirror.Plugin;
 };
 
 export * as commands from "prosemirror-commands";

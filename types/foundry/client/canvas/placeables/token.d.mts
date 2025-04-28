@@ -2,6 +2,7 @@ import { TokenPlannedMovement } from "@client/_types.mjs";
 import { TokenDocument, User } from "@client/documents/_module.mjs";
 import { ColorSource, Point } from "@common/_types.mjs";
 import { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import { TokenDisplayMode, WallRestrictionType } from "@common/constants.mjs";
 import Color from "@common/utils/color.mjs";
 import { CanvasAnimationAttribute, CanvasAnimationOptions } from "../animation/_types.mjs";
 import { PreciseText } from "../containers/_module.mjs";

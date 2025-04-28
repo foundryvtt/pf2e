@@ -70,6 +70,8 @@ export const ACTIVE_EFFECT_MODES: Readonly<{
     OVERRIDE: 5;
 }>;
 
+export type ActiveEffectChangeMode = (typeof ACTIVE_EFFECT_MODES)[keyof typeof ACTIVE_EFFECT_MODES];
+
 /**
  * Define the string name used for the base document type when specific sub-types are not defined by the system
  */
@@ -115,6 +117,8 @@ export const CANVAS_PERFORMANCE_MODES: Readonly<{
     MAX: 3;
 }>;
 
+export type CanvasPerformanceMode = (typeof CANVAS_PERFORMANCE_MODES)[keyof typeof CANVAS_PERFORMANCE_MODES];
+
 /**
  * Valid Chat Message styles which affect how the message is presented in the chat log.
  */
@@ -138,6 +142,8 @@ export const CHAT_MESSAGE_STYLES: Readonly<{
      */
     EMOTE: 3;
 }>;
+
+export type ChatMessageStyle = (typeof CHAT_MESSAGE_STYLES)[keyof typeof CHAT_MESSAGE_STYLES];
 
 /**
  * Define the set of languages which have built-in support in the core software
@@ -165,6 +171,8 @@ export const COMPATIBILITY_MODES: Readonly<{
      */
     FAILURE: 3;
 }>;
+
+export type CompatibilityMode = (typeof COMPATIBILITY_MODES)[keyof typeof COMPATIBILITY_MODES];
 
 /**
  * Configure custom cursor images to use when interacting with the application.
@@ -315,6 +323,8 @@ export const WORLD_DOCUMENT_TYPES: readonly [
     "User",
 ];
 
+export type WorldDocumentType = (typeof WORLD_DOCUMENT_TYPES)[number];
+
 /**
  * The allowed primary Document types which may exist within a Compendium pack.
  * @type {string[]}
@@ -359,6 +369,9 @@ export const DOCUMENT_OWNERSHIP_LEVELS: Readonly<{
      */
     OWNER: 3;
 }>;
+
+export type DocumentOwnershipString = keyof typeof DOCUMENT_OWNERSHIP_LEVELS;
+export type DocumentOwnershipLevel = (typeof DOCUMENT_OWNERSHIP_LEVELS)[DocumentOwnershipString];
 
 /**
  * Meta ownership levels that are used in the UI but never stored.
@@ -405,6 +418,8 @@ export const DICE_ROLL_MODES: Readonly<{
     SELF: "selfroll";
 }>;
 
+export type RollMode = (typeof DICE_ROLL_MODES)[keyof typeof DICE_ROLL_MODES];
+
 /**
  * The allowed fill types which a Drawing object may display
  * @see https://foundryvtt.com/article/drawings/
@@ -424,6 +439,8 @@ export const DRAWING_FILL_TYPES: Readonly<{
     PATTERN: 2;
 }>;
 
+export type DrawingFillType = (typeof DRAWING_FILL_TYPES)[keyof typeof DRAWING_FILL_TYPES];
+
 /**
  * Define the allowed Document types which Folders may contain
  */
@@ -439,6 +456,8 @@ export const FOLDER_DOCUMENT_TYPES: readonly [
     "Macro",
     "Compendium",
 ];
+
+export type FolderDocumentType = (typeof FOLDER_DOCUMENT_TYPES)[number];
 
 /**
  * The maximum allowed level of depth for Folder nesting
@@ -465,10 +484,13 @@ export const MOVEMENT_DIRECTIONS: Readonly<{
     ASCEND: 32;
 }>;
 
+export type MovementDirection = (typeof MOVEMENT_DIRECTIONS)[keyof typeof MOVEMENT_DIRECTIONS];
+
 /**
  * The minimum allowed grid size which is supported by the software
  */
 export const GRID_MIN_SIZE: 20;
+
 /**
  * The allowed Grid types which are supported by the software
  * @see https://foundryvtt.com/article/scenes/
@@ -499,6 +521,8 @@ export const GRID_TYPES: Readonly<{
      */
     HEXEVENQ: 5;
 }>;
+
+export type GridType = (typeof GRID_TYPES)[keyof typeof GRID_TYPES];
 
 /**
  * The different rules to define and measure diagonal distance/cost in a square grid.
@@ -540,6 +564,8 @@ export const GRID_DIAGONALS: Readonly<{
      */
     ILLEGAL: 6;
 }>;
+
+export type GridDiagonal = (typeof GRID_DIAGONALS)[keyof typeof GRID_DIAGONALS];
 
 /**
  * The grid snapping modes.
@@ -618,6 +644,8 @@ export const GRID_SNAPPING_MODES: Readonly<{
     SIDE_MIDPOINT: 61440;
 }>;
 
+export type GridSnappingMode = (typeof GRID_SNAPPING_MODES)[keyof typeof GRID_SNAPPING_MODES];
+
 /**
  * A list of supported setup URL names
  */
@@ -627,6 +655,8 @@ export const SETUP_VIEWS: readonly ["auth", "license", "setup", "players", "join
  * An Array of valid MacroAction scope values
  */
 export const MACRO_SCOPES: readonly ["global", "actors", "actor"];
+
+export type MacroScope = (typeof MACRO_SCOPES)[number];
 
 /**
  * An enumeration of valid Macro types
@@ -642,6 +672,8 @@ export const MACRO_TYPES: Readonly<{
      */
     CHAT: "chat";
 }>;
+
+export type MacroType = (typeof MACRO_TYPES)[keyof typeof MACRO_TYPES];
 
 /**
  * The allowed channels for audio playback.
@@ -675,6 +707,8 @@ export const PLAYLIST_MODES: Readonly<{
     SIMULTANEOUS: 2;
 }>;
 
+export type PlaylistMode = (typeof PLAYLIST_MODES)[keyof typeof PLAYLIST_MODES];
+
 /**
  * The available sort modes for an audio Playlist.
  * @see https://foundryvtt.com/article/playlists/
@@ -691,6 +725,8 @@ export const PLAYLIST_SORT_MODES: Readonly<{
     MANUAL: "m";
 }>;
 
+export type PlaylistSortMode = "a" | "m";
+
 /**
  * The available modes for searching within a DirectoryCollection
  */
@@ -699,10 +735,14 @@ export const DIRECTORY_SEARCH_MODES: Readonly<{
     NAME: "name";
 }>;
 
+export type DirectorySearchMode = "full" | "name";
+
 /**
  * The allowed package types
  */
 export const PACKAGE_TYPES: readonly ["world", "system", "module"];
+
+export type PackageType = (typeof PACKAGE_TYPES)[number];
 
 /**
  * Encode the reasons why a package may be available or unavailable for use
@@ -754,11 +794,13 @@ export const PACKAGE_AVAILABILITY_CODES: Readonly<{
     REQUIRES_DEPENDENCY_UPDATE: 10;
 }>;
 
+export type PackageAvailabilityCode = (typeof PACKAGE_AVAILABILITY_CODES)[keyof typeof PACKAGE_AVAILABILITY_CODES];
+
 /**
  * A safe password string which can be displayed
- * @type {"••••••••••••••••"}
  */
-export const PASSWORD_SAFE_STRING: "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022";
+export const PASSWORD_SAFE_STRING: "••••••••••••••••";
+
 /**
  * The allowed software update channels
  */
@@ -781,6 +823,8 @@ export const SOFTWARE_UPDATE_CHANNELS: Readonly<{
     prototype: "SETUP.UpdatePrototype";
 }>;
 
+export type SoftwareUpdateChannel = keyof typeof SOFTWARE_UPDATE_CHANNELS;
+
 /**
  * The default sorting density for manually ordering child objects within a parent
  */
@@ -800,6 +844,8 @@ export const TABLE_RESULT_TYPES: Readonly<{
     DOCUMENT: "document";
 }>;
 
+export type TableResultType = (typeof TABLE_RESULT_TYPES)[keyof typeof TABLE_RESULT_TYPES];
+
 /**
  * The allowed formats of a Journal Entry Page.
  * @see https://foundryvtt.com/article/journal/
@@ -814,6 +860,8 @@ export const JOURNAL_ENTRY_PAGE_FORMATS: Readonly<{
      */
     MARKDOWN: 2;
 }>;
+
+export type JournalEntryPageFormat = (typeof JOURNAL_ENTRY_PAGE_FORMATS)[keyof typeof JOURNAL_ENTRY_PAGE_FORMATS];
 
 /**
  * Define the valid anchor locations for a Tooltip displayed on a Placeable Object
@@ -841,6 +889,8 @@ export const TEXT_ANCHOR_POINTS: Readonly<{
      */
     RIGHT: 4;
 }>;
+
+export type TextAnchorPoint = (typeof TEXT_ANCHOR_POINTS)[keyof typeof TEXT_ANCHOR_POINTS];
 
 /**
  * Define the valid occlusion modes which a tile can use
@@ -894,6 +944,8 @@ export const TILE_OCCLUSION_MODES: Readonly<{
      */
     VISION: 4;
 }>;
+
+export type TileOcclusionMode = (typeof TILE_OCCLUSION_MODES)[keyof typeof TILE_OCCLUSION_MODES];
 
 /**
  * The occlusion modes that define the set of tokens that trigger occlusion.
@@ -952,6 +1004,8 @@ export const TOKEN_DISPLAY_MODES: Readonly<{
     ALWAYS: 50;
 }>;
 
+export type TokenDisplayMode = (typeof TOKEN_DISPLAY_MODES)[keyof typeof TOKEN_DISPLAY_MODES];
+
 /**
  * The allowed Token disposition types
  * @see https://foundryvtt.com/article/tokens/
@@ -974,6 +1028,8 @@ export const TOKEN_DISPOSITIONS: Readonly<{
      */
     FRIENDLY: 1;
 }>;
+
+export type TokenDisposition = (typeof TOKEN_DISPOSITIONS)[keyof typeof TOKEN_DISPOSITIONS];
 
 /**
  * The allowed token turn markers modes.
@@ -1023,6 +1079,8 @@ export const TOKEN_SHAPES: Readonly<{
     RECTANGLE_2: 5;
 }>;
 
+export type TokenShapeType = (typeof TOKEN_SHAPES)[keyof typeof TOKEN_SHAPES];
+
 /**
  * Define the allowed User permission levels.
  * Each level is assigned a value in ascending order. Higher levels grant more permissions.
@@ -1054,6 +1112,8 @@ export const USER_ROLES: Readonly<{
     GAMEMASTER: 4;
 }>;
 
+export type UserRoleName = keyof typeof USER_ROLES;
+
 /**
  * Invert the User Role mapping to recover role names from a role integer
  * @type {{0: "NONE"; 1: "PLAYER"; 2: "TRUSTED"; 3: "ASSISTANT"; 4: "GAMEMASTER"}}
@@ -1066,6 +1126,9 @@ export const USER_ROLE_NAMES: {
     3: "ASSISTANT";
     4: "GAMEMASTER";
 };
+
+export type UserRole = keyof typeof USER_ROLE_NAMES;
+
 /**
  * An enumeration of the allowed types for a MeasuredTemplate embedded document
  * @see https://foundryvtt.com/article/measurement/
@@ -1088,6 +1151,8 @@ export const MEASURED_TEMPLATE_TYPES: Readonly<{
      */
     RAY: "ray";
 }>;
+
+export type MeasuredTemplateType = (typeof MEASURED_TEMPLATE_TYPES)[keyof typeof MEASURED_TEMPLATE_TYPES];
 
 /**
  * Define the recognized User capabilities which individual Users or role levels may be permitted to perform
@@ -1239,6 +1304,8 @@ export const USER_PERMISSIONS: Readonly<{
     };
 }>;
 
+export type UserPermission = keyof typeof USER_PERMISSIONS;
+
 /**
  * The allowed directions of effect that a Wall can have
  * @see https://foundryvtt.com/article/walls/
@@ -1257,6 +1324,8 @@ export const WALL_DIRECTIONS: Readonly<{
      */
     RIGHT: 2;
 }>;
+
+export type WallDirection = (typeof WALL_DIRECTIONS)[keyof typeof WALL_DIRECTIONS];
 
 /**
  * The allowed door types which a Wall may contain
@@ -1277,6 +1346,8 @@ export const WALL_DOOR_TYPES: Readonly<{
     SECRET: 2;
 }>;
 
+export type WallDoorType = (typeof WALL_DOOR_TYPES)[keyof typeof WALL_DOOR_TYPES];
+
 /**
  * The allowed door states which may describe a Wall that contains a door
  * @see https://foundryvtt.com/article/walls/
@@ -1296,6 +1367,8 @@ export const WALL_DOOR_STATES: Readonly<{
     LOCKED: 2;
 }>;
 
+export type WallDoorState = (typeof WALL_DOOR_STATES)[keyof typeof WALL_DOOR_STATES];
+
 /**
  * The possible ways to interact with a door
  */
@@ -1305,6 +1378,8 @@ export const WALL_DOOR_INTERACTIONS: readonly ["open", "close", "lock", "unlock"
  * The wall properties which restrict the way interaction occurs with a specific wall
  */
 export const WALL_RESTRICTION_TYPES: readonly ["light", "sight", "sound", "move"];
+
+export type WallRestrictionType = (typeof WALL_RESTRICTION_TYPES)[number];
 
 /**
  * The types of sensory collision which a Wall may impose
@@ -1333,6 +1408,8 @@ export const WALL_SENSE_TYPES: Readonly<{
     DISTANCE: 40;
 }>;
 
+export type WallSenseType = (typeof WALL_SENSE_TYPES)[keyof typeof WALL_SENSE_TYPES];
+
 /**
  * The types of movement collision which a Wall may impose
  * @see https://foundryvtt.com/article/walls/
@@ -1347,6 +1424,8 @@ export const WALL_MOVEMENT_TYPES: Readonly<{
      */
     NORMAL: 20;
 }>;
+
+export type WallMovementType = (typeof WALL_MOVEMENT_TYPES)[keyof typeof WALL_MOVEMENT_TYPES];
 
 /**
  * The possible precedence values a Keybinding might run in
@@ -1392,6 +1471,8 @@ export const IMAGE_FILE_EXTENSIONS: Readonly<{
     webp: "image/webp";
 }>;
 
+export type ImageFileExtension = keyof typeof IMAGE_FILE_EXTENSIONS;
+
 /**
  * The supported file extensions for video-type files, and their corresponding mime types.
  */
@@ -1401,6 +1482,8 @@ export const VIDEO_FILE_EXTENSIONS: Readonly<{
     ogv: "video/ogg";
     webm: "video/webm";
 }>;
+
+export type VideoFileExtension = keyof typeof VIDEO_FILE_EXTENSIONS;
 
 /**
  * The supported file extensions for audio-type files, and their corresponding mime types.
@@ -1416,6 +1499,8 @@ export const AUDIO_FILE_EXTENSIONS: Readonly<{
     wav: "audio/wav";
     webm: "audio/webm";
 }>;
+
+export type AudioFileExtension = keyof typeof AUDIO_FILE_EXTENSIONS;
 
 /**
  * The supported file extensions for text files, and their corresponding mime types.
@@ -1503,6 +1588,8 @@ export const UPLOADABLE_FILE_EXTENSIONS: Readonly<{
     webp: "image/webp";
 }>;
 
+export type FileExtension = keyof typeof UPLOADABLE_FILE_EXTENSIONS;
+
 /**
  * An enumeration of file type categories which can be selected.
  */
@@ -1568,6 +1655,8 @@ export const FILE_CATEGORIES: Readonly<{
         usdz: "model/vnd.usdz+zip";
     }>;
 }>;
+
+export type FileCategory = keyof typeof FILE_CATEGORIES;
 
 /**
  * The list of file categories that are "media".
@@ -2132,64 +2221,12 @@ export const SETTING_SCOPES: Readonly<{
  */
 export const CLIPPER_SCALING_FACTOR: 100;
 
-declare global {
-    interface UserPermission {
-        label: string;
-        hint: string;
-        disableGM: boolean;
-        defaultRole: UserRole;
-    }
+export type DrawingShapeType = "r" | "e" | "t" | "p" | "f";
+export type ShapeDataType = keyof typeof data.BaseShapeData.TYPES;
+export type UserAction = "create" | "update" | "delete";
 
-    type ActiveEffectChangeMode = (typeof ACTIVE_EFFECT_MODES)[keyof typeof ACTIVE_EFFECT_MODES];
-    type AudioFileExtension = keyof typeof AUDIO_FILE_EXTENSIONS;
-    type CanvasPerformanceMode = (typeof CANVAS_PERFORMANCE_MODES)[keyof typeof CANVAS_PERFORMANCE_MODES];
-    type ChatMessageStyle = (typeof CHAT_MESSAGE_STYLES)[keyof typeof CHAT_MESSAGE_STYLES];
-    type CompatibilityMode = (typeof COMPATIBILITY_MODES)[keyof typeof COMPATIBILITY_MODES];
-    type DirectorySearchMode = (typeof DIRECTORY_SEARCH_MODES)[keyof typeof DIRECTORY_SEARCH_MODES];
-    type DocumentOwnershipLevel = (typeof DOCUMENT_OWNERSHIP_LEVELS)[DocumentOwnershipString];
-    type DocumentOwnershipString = keyof typeof DOCUMENT_OWNERSHIP_LEVELS;
-    type DrawingFillType = (typeof DRAWING_FILL_TYPES)[keyof typeof DRAWING_FILL_TYPES];
-    type DrawingShapeType = "r" | "e" | "t" | "p" | "f";
-    type FileCategory = keyof typeof FILE_CATEGORIES;
-    type FileExtension = keyof typeof UPLOADABLE_FILE_EXTENSIONS;
-    type FolderDocumentType = (typeof FOLDER_DOCUMENT_TYPES)[number];
-    type GridDiagonal = (typeof GRID_DIAGONALS)[keyof typeof GRID_DIAGONALS];
-    type GridType = (typeof GRID_TYPES)[keyof typeof GRID_TYPES];
-    type GridSnappingMode = (typeof GRID_SNAPPING_MODES)[keyof typeof GRID_SNAPPING_MODES];
-    type ImageFileExtension = keyof typeof IMAGE_FILE_EXTENSIONS;
-    type JournalEntryPageFormat = (typeof JOURNAL_ENTRY_PAGE_FORMATS)[keyof typeof JOURNAL_ENTRY_PAGE_FORMATS];
-    type MacroScope = (typeof MACRO_SCOPES)[number];
-    type MacroType = (typeof MACRO_TYPES)[keyof typeof MACRO_TYPES];
-    type MeasuredTemplateType = (typeof MEASURED_TEMPLATE_TYPES)[keyof typeof MEASURED_TEMPLATE_TYPES];
-    type MovementDirection = (typeof MOVEMENT_DIRECTIONS)[keyof typeof MOVEMENT_DIRECTIONS];
-    type PackageAvailabilityCode = (typeof PACKAGE_AVAILABILITY_CODES)[keyof typeof PACKAGE_AVAILABILITY_CODES];
-    type PackageType = (typeof PACKAGE_TYPES)[number];
-    type PlaylistMode = (typeof PLAYLIST_MODES)[keyof typeof PLAYLIST_MODES];
-    type PlaylistSortMode = (typeof PLAYLIST_SORT_MODES)[keyof typeof PLAYLIST_SORT_MODES];
-    type RollMode = (typeof DICE_ROLL_MODES)[keyof typeof DICE_ROLL_MODES];
-    type ShapeDataType = keyof typeof data.BaseShapeData.TYPES;
-    type SoftwareUpdateChannel = (typeof SOFTWARE_UPDATE_CHANNELS)[keyof typeof SOFTWARE_UPDATE_CHANNELS];
-    type TableResultType = (typeof TABLE_RESULT_TYPES)[keyof typeof TABLE_RESULT_TYPES];
-    type TextAnchorPoint = (typeof TEXT_ANCHOR_POINTS)[keyof typeof TEXT_ANCHOR_POINTS];
-    type TileOcclusionMode = (typeof TILE_OCCLUSION_MODES)[keyof typeof TILE_OCCLUSION_MODES];
-    type TokenDisplayMode = (typeof TOKEN_DISPLAY_MODES)[keyof typeof TOKEN_DISPLAY_MODES];
-    type TokenDisposition = (typeof TOKEN_DISPOSITIONS)[keyof typeof TOKEN_DISPOSITIONS];
-    type TokenShapeType = (typeof TOKEN_SHAPES)[keyof typeof TOKEN_SHAPES];
-    type UserAction = "create" | "update" | "delete";
-    type UserPermissionString = keyof typeof USER_PERMISSIONS;
-    type UserRole = keyof typeof USER_ROLE_NAMES;
-    type UserRoleName = keyof typeof USER_ROLES;
-    type VideoFileExtension = keyof typeof VIDEO_FILE_EXTENSIONS;
-    type WallDirection = (typeof WALL_DIRECTIONS)[keyof typeof WALL_DIRECTIONS];
-    type WallDoorState = (typeof WALL_DOOR_STATES)[keyof typeof WALL_DOOR_STATES];
-    type WallDoorType = (typeof WALL_DOOR_TYPES)[keyof typeof WALL_DOOR_TYPES];
-    type WallMovementType = (typeof WALL_MOVEMENT_TYPES)[keyof typeof WALL_MOVEMENT_TYPES];
-    type WallRestrictionType = (typeof WALL_RESTRICTION_TYPES)[number];
-    type WallSenseType = (typeof WALL_SENSE_TYPES)[keyof typeof WALL_SENSE_TYPES];
-
-    type HexColorString = `#${string}`;
-    type AudioFilePath = `${string}.${AudioFileExtension}`;
-    type ImageFilePath = `${string}.${ImageFileExtension}`;
-    type VideoFilePath = `${string}.${VideoFileExtension}`;
-    type FilePath = AudioFilePath | ImageFilePath | VideoFilePath;
-}
+export type HexColorString = `#${string}`;
+export type AudioFilePath = `${string}.${AudioFileExtension}`;
+export type ImageFilePath = `${string}.${ImageFileExtension}`;
+export type VideoFilePath = `${string}.${VideoFileExtension}`;
+export type FilePath = AudioFilePath | ImageFilePath | VideoFilePath;

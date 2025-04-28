@@ -1,4 +1,6 @@
+import RegionBehavior from "@client/documents/region-behavior.mjs";
 import { RegionEvent } from "@client/documents/region.mjs";
+import { DataSchema } from "@common/abstract/_types.mjs";
 import type TypeDataModel from "@common/abstract/type-data.d.mts";
 import type { REGION_EVENTS } from "@common/constants.mjs";
 import type * as fields from "@common/data/fields.mjs";
@@ -10,7 +12,7 @@ import type * as fields from "@common/data/fields.mjs";
  *
  */
 export abstract class RegionBehaviorType<
-    TSchema extends fields.DataSchema = fields.DataSchema,
+    TSchema extends DataSchema = DataSchema,
     TParent extends RegionBehavior | null = RegionBehavior | null,
 > extends TypeDataModel<TParent, TSchema> {
     /**

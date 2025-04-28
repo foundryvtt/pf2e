@@ -1,5 +1,6 @@
 import { DatabaseCreateOperation, DatabaseDeleteOperation } from "@common/abstract/_types.mjs";
 import Document from "@common/abstract/document.mjs";
+import { RollMode } from "@common/constants.mjs";
 import { ChatMessageCreateOperation } from "@common/documents/chat-message.mjs";
 import Roll from "../dice/roll.mjs";
 import { BaseRollTable, ChatMessage, Folder, TableResult } from "./_module.mjs";

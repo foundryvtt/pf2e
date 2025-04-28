@@ -1,4 +1,4 @@
-import { Point } from "../_types.d.mts";
+import { Point } from "../_types.mjs";
 import { HexagonalGrid } from "./hexagonal.mjs";
 
 /**

@@ -1,4 +1,4 @@
-import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
+import type { ItemUUID } from "@client/documents/_module.d.mts";
 import { ItemPF2e, type AfflictionPF2e, type ConditionPF2e } from "@item";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";

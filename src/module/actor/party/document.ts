@@ -1,6 +1,7 @@
 import { ActorPF2e, type CreaturePF2e } from "@actor";
 import { resetActors } from "@actor/helpers.ts";
 import type { DataModelValidationOptions } from "@common/abstract/data.d.mts";
+import type { UserAction } from "@common/constants.d.mts";
 import { ItemType } from "@item/base/data/index.ts";
 import { RuleElementPF2e } from "@module/rules/index.ts";
 import { RuleElementSchema } from "@module/rules/rule-element/data.ts";

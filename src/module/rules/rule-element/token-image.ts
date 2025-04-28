@@ -1,4 +1,5 @@
 import type { TextureTransitionType } from "@client/canvas/rendering/filters/transition.d.mts";
+import { HexColorString, ImageFilePath, VideoFilePath } from "@common/constants.mjs";
 import { isImageOrVideoPath } from "@util";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, RuleElementSchema } from "./data.ts";
@@ -101,6 +102,7 @@ class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema> {
                         required: false,
                         blank: false,
                         nullable: false,
+                        choices: ["easeInOutCosine", "easeOutCircle", "easeInCircle"] as const,
                         initial: undefined,
                     }),
                     name: new fields.StringField({
@@ -207,19 +209,25 @@ type TokenImageRuleSchema = RuleElementSchema & {
         {
             duration: fields.NumberField<number, number, false, false, false>;
             transition: fields.StringField<TextureTransitionType, TextureTransitionType, false, false, false>;
-            easing: fields.StringField<string, string, false, false, false>;
+            easing: fields.StringField<
+                "easeInOutCosine" | "easeOutCircle" | "easeInCircle",
+                "easeInOutCosine" | "easeOutCircle" | "easeInCircle",
+                false,
+                false,
+                false
+            >;
             name: fields.StringField<string, string, false, false, false>;
         },
         {
             duration: number | undefined;
             transition: TextureTransitionType | undefined;
-            easing: string | undefined;
+            easing: "easeInOutCosine" | "easeOutCircle" | "easeInCircle" | undefined;
             name: string | undefined;
         },
         {
             duration: number | undefined;
             transition: TextureTransitionType | undefined;
-            easing: string | undefined;
+            easing: "easeInOutCosine" | "easeOutCircle" | "easeInCircle" | undefined;
             name: string | undefined;
         },
         false,

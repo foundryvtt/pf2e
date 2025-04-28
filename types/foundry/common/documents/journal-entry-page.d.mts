@@ -1,3 +1,4 @@
+import { DocumentOwnershipLevel, JournalEntryPageFormat } from "@common/constants.mjs";
 import type * as abstract from "../abstract/_module.d.mts";
 import type * as fields from "../data/fields.mjs";
 import type { BaseJournalEntry, BaseUser } from "./_module.mjs";

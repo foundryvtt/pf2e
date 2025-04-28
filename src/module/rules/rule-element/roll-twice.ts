@@ -34,11 +34,8 @@ class RollTwiceRuleElement extends RuleElementPF2e<RollTwiceRuleSchema> {
             return;
         }
 
-        const expireEffects = game.settings.get("pf2e", "automation.effectExpiration");
-        const removeExpired = game.settings.get("pf2e", "automation.removeExpiredEffects");
-        const removeAfterRoll =
-            this.removeAfterRoll ?? ((expireEffects || removeExpired) && this.item.isOfType("effect"));
-
+        const removeExpired = game.pf2e.settings.automation.removeEffects;
+        const removeAfterRoll = this.removeAfterRoll ?? (removeExpired && this.item.isOfType("effect"));
         const rolledTwice = roll?.dice.some((d) => ["kh", "kl"].some((m) => d.modifiers.includes(m))) ?? false;
         if (
             !(
@@ -55,11 +52,7 @@ class RollTwiceRuleElement extends RuleElementPF2e<RollTwiceRuleSchema> {
             rule.ignored = true;
         }
 
-        if (removeExpired) {
-            await this.item.delete();
-        } else if (expireEffects) {
-            await this.item.update({ "system.duration.value": -1, "system.expired": true });
-        }
+        if (removeExpired) await this.item.delete();
     }
 }
 

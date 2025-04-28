@@ -1,4 +1,5 @@
 import Scene from "@client/documents/scene.mjs";
+import { ImageFilePath } from "@common/constants.mjs";
 
 /** A Loader class which helps with loading video and image textures. */
 export default class TextureLoader {

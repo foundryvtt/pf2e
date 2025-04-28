@@ -1,5 +1,6 @@
 import Token from "@client/canvas/placeables/token.mjs";
 import TokenDocument from "@client/documents/token.mjs";
+import { DataSchema } from "@common/abstract/_types.mjs";
 import DataModel from "@common/abstract/data.mjs";
 import * as fields from "@common/data/fields.mjs";
 import { TokenMeasureMovementPathOptions, TokenMovementCostFunction } from "../_types.mjs";
@@ -7,10 +8,7 @@ import { TokenMeasureMovementPathOptions, TokenMovementCostFunction } from "../_
 /**
  * The base TerrainData.
  */
-export abstract class BaseTerrainData<TSchema extends fields.DataSchema = fields.DataSchema> extends DataModel<
-    null,
-    TSchema
-> {
+export abstract class BaseTerrainData<TSchema extends DataSchema = DataSchema> extends DataModel<null, TSchema> {
     /**
      * Create the terrain data from the given array of terrain effects.
      * The type of the terrain effects and data is system-defined.

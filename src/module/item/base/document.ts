@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor/base.ts";
 import type { DocumentHTMLEmbedConfig } from "@client/applications/ux/text-editor.d.mts";
 import type { FormApplicationOptions } from "@client/appv1/api/form-application-v1.d.mts";
-import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
+import type { ItemUUID } from "@client/documents/_module.d.mts";
 import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
 import type { DocumentConstructionContext } from "@common/_types.d.mts";
 import type {
@@ -10,6 +10,7 @@ import type {
     DatabaseUpdateOperation,
     Document,
 } from "@common/abstract/_module.d.mts";
+import type { ImageFilePath, RollMode } from "@common/constants.d.mts";
 import type { ContainerPF2e, PhysicalItemPF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
 import { itemIsOfType, markdownToHTML } from "@item/helpers.ts";
@@ -105,7 +106,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
      * Set a source ID on a dropped embedded item without a full data reset
      * This is currently necessary as of 10.291 due to system measures to prevent premature data preparation
      */
-    static override async fromDropData<TDocument extends foundry.abstract.Document>(
+    static override async fromDropData<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
         data: object,
         options?: Record<string, unknown>,
@@ -215,7 +216,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
      * follow-up options for attack rolls, effect application, etc.
      */
     async toMessage(
-        event?: Maybe<Event | JQuery.TriggeredEvent>,
+        event?: Maybe<Event>,
         options: { rollMode?: RollMode | "roll"; create?: boolean; data?: Record<string, unknown> } = {},
     ): Promise<ChatMessagePF2e | undefined> {
         if (!this.actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);
@@ -233,8 +234,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         };
 
         // Basic chat message data
-        const originalEvent = event instanceof Event ? event : event?.originalEvent;
-        const rollMode = options.rollMode ?? eventToRollMode(originalEvent);
+        const rollMode = options.rollMode ?? eventToRollMode(event);
         const chatData = ChatMessagePF2e.applyRollMode(
             {
                 style: CONST.CHAT_MESSAGE_STYLES.OTHER,
@@ -255,7 +255,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** A shortcut to `item.toMessage(..., { create: true })`, kept for backward compatibility */
-    async toChat(event?: JQuery.TriggeredEvent): Promise<ChatMessagePF2e | undefined> {
+    async toChat(event?: Event): Promise<ChatMessagePF2e | undefined> {
         return this.toMessage(event, { create: true });
     }
 

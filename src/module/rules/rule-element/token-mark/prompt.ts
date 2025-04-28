@@ -1,3 +1,4 @@
+import type { HookParamsTargetToken } from "@client/helpers/hooks.d.mts";
 import { TokenPF2e } from "@module/canvas/index.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import { Predicate } from "@system/predication.ts";
