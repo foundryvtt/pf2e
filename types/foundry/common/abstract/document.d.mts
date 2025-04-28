@@ -1,8 +1,14 @@
 import { DocumentUUID } from "@client/utils/helpers.mjs";
 import { DocumentConstructionContext } from "@common/_types.mjs";
+import {
+    DocumentOwnershipLevel,
+    DocumentOwnershipString,
+    UserAction,
+    UserPermission,
+    UserRoleName,
+} from "@common/constants.mjs";
 import BaseUser from "@common/documents/user.mjs";
 import { AppV1RenderOptions } from "../../client/appv1/api/application-v1.mjs";
-import * as CONST from "../constants.mjs";
 import { DataField, SourceFromSchema } from "../data/fields.mjs";
 import * as abstract from "./_module.mjs";
 import {
@@ -697,10 +703,7 @@ export default abstract class Document<
     toObject(source?: boolean): this["_source"] | RawObject<this>;
 }
 
-type MetadataPermission =
-    | keyof typeof CONST.USER_ROLES
-    | keyof typeof CONST.USER_PERMISSIONS
-    | ((...args: unknown[]) => boolean);
+type MetadataPermission = UserRoleName | UserPermission | ((...args: unknown[]) => boolean);
 
 export interface DocumentMetadata {
     name: string;

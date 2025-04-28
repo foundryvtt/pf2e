@@ -1,5 +1,4 @@
 import type { ActorPF2e } from "@actor";
-import { resetActors } from "@actor/helpers.ts";
 import type { EffectPF2e } from "@item";
 import type { EncounterPF2e } from "@module/encounter/index.ts";
 
@@ -94,12 +93,10 @@ export class EffectTracker {
 
         const actorsToUpdate = new Set(this.effects.filter((e) => e.isExpired).map((e) => e.actor));
 
-        if (game.settings.get("pf2e", "automation.removeExpiredEffects")) {
+        if (game.pf2e.settings.automation.removeEffects) {
             for (const actor of actorsToUpdate) {
                 await this.#removeExpired(actor);
             }
-        } else if (game.settings.get("pf2e", "automation.effectExpiration")) {
-            resetActors(actorsToUpdate);
         }
     }
 
@@ -114,9 +111,8 @@ export class EffectTracker {
 
     /** Expire or remove on-encounter-end effects */
     async onEncounterEnd(encounter: EncounterPF2e): Promise<void> {
-        const autoRemoveExpired = game.settings.get("pf2e", "automation.removeExpiredEffects");
-        const autoExpireEffects = !autoRemoveExpired && game.settings.get("pf2e", "automation.effectExpiration");
-        if (!(autoExpireEffects || autoRemoveExpired)) return;
+        const autoRemoveExpired = game.pf2e.settings.automation.removeEffects;
+        if (!autoRemoveExpired) return;
 
         const actors = encounter.combatants.contents
             .flatMap((c) => c.actor ?? [])
@@ -125,15 +121,8 @@ export class EffectTracker {
         for (const actor of actors) {
             const expiresNow = actor.itemTypes.effect.filter((e) => e.system.duration.unit === "encounter");
             if (expiresNow.length === 0) continue;
-
-            if (autoExpireEffects) {
-                const updates = expiresNow.map((e) => ({ _id: e.id, "system.expired": true }));
-                await actor.updateEmbeddedDocuments("Item", updates);
-            } else {
-                const deletes = expiresNow.map((e) => e.id);
-                await actor.deleteEmbeddedDocuments("Item", deletes);
-            }
-
+            const deletes = expiresNow.map((e) => e.id);
+            await actor.deleteEmbeddedDocuments("Item", deletes);
             for (const effect of expiresNow) {
                 this.unregister(effect);
             }

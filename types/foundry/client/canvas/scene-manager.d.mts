@@ -1,3 +1,5 @@
+import Scene from "@client/documents/scene.mjs";
+
 /**
  * A framework for imbuing special scripted behaviors into a single specific Scene.
  * Managed scenes are registered in CONFIG.Canvas.managedScenes.

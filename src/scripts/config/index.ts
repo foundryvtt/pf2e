@@ -854,10 +854,6 @@ export const PF2ECONFIG = {
                 name: "PF2E.SETTINGS.Automation.IWR.Name",
                 hint: "PF2E.SETTINGS.Automation.IWR.Hint",
             },
-            effectExpiration: {
-                name: "PF2E.SETTINGS.Automation.EffectExpiration.Name",
-                hint: "PF2E.SETTINGS.Automation.EffectExpiration.Hint",
-            },
             removeExpiredEffects: {
                 name: "PF2E.SETTINGS.Automation.RemoveExpiredEffects.Name",
                 hint: "PF2E.SETTINGS.Automation.RemoveExpiredEffects.Hint",

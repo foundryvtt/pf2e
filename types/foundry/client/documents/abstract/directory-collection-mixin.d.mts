@@ -1,8 +1,10 @@
 import Document from "@common/abstract/document.mjs";
 import Collection from "@common/utils/collection.mjs";
-import { Folder, WorldDocument } from "../_module.mjs";
+import { Folder, Setting, WorldDocument } from "../_module.mjs";
 import CompendiumCollection from "../collections/compendium-collection.mjs";
 import DocumentCollection from "./document-collection.mjs";
+
+export type DirectoryMixinEntry = WorldDocument | Setting | CompendiumCollection;
 
 /**
  * A mixin which adds directory functionality to a DocumentCollection, such as folders, tree structures, and sorting.
@@ -17,8 +19,8 @@ export default function DirectoryCollectionMixin<
  * An extension of the Collection class which adds behaviors specific to tree-based collections of entries and folders.
  */
 export declare abstract class DirectoryCollection<
-    TObject extends WorldDocument | CompendiumCollection = WorldDocument | CompendiumCollection,
-> extends Collection<string, TObject> {
+    TEntry extends DirectoryMixinEntry = DirectoryMixinEntry,
+> extends Collection<string, TEntry> {
     /** Reference the set of Folders which contain documents in this collection */
     abstract get folders(): Collection<string, Folder>;
 
@@ -43,7 +45,7 @@ export declare abstract class DirectoryCollection<
     /**
      * Return a reference to list of entries which are visible to the User in this tree
      */
-    protected _getVisibleTreeContents(): TObject[];
+    protected _getVisibleTreeContents(): TEntry[];
 
     /** Initialize the tree by categorizing folders and entries into a hierarchical tree structure. */
     initializeTree(): void;
@@ -72,11 +74,11 @@ export declare abstract class DirectoryCollection<
     protected static _sortStandard(a: { sort: number }, b: { sort: number }): number;
 }
 
-export type DirectoryCollectionAndDocumentCollection = DirectoryCollection<WorldDocument> &
-    DocumentCollection<WorldDocument>;
+export type DirectoryCollectionAndDocumentCollection = DirectoryCollection<DirectoryMixinEntry> &
+    DocumentCollection<Document>;
 
 export interface DirectoryCollectionConstructor extends DirectoryCollectionAndDocumentCollection {
-    new <TDocument extends WorldDocument>(
-        ...args: ConstructorParameters<ConstructorOf<TDocument>>
-    ): DirectoryCollection<TDocument> & DocumentCollection<TDocument>;
+    new <TEntry extends DirectoryMixinEntry>(
+        ...args: ConstructorParameters<ConstructorOf<TEntry>>
+    ): DirectoryCollection<TEntry> & DocumentCollection<Document>;
 }

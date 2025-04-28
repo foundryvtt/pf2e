@@ -1,11 +1,13 @@
 import type { ActorPF2e } from "@actor";
 import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
-import { AttributeString } from "@actor/types.ts";
+import type { AttributeString } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
-import { Rolled } from "@client/dice/roll.d.mts";
-import { DocumentConstructionContext } from "@common/_types.d.mts";
-import { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
+import type { Rolled } from "@client/dice/roll.d.mts";
+import type { DocumentConstructionContext } from "@common/_types.d.mts";
+import type { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
+import type { MeasuredTemplateType, RollMode } from "@common/constants.d.mts";
+import type { ItemUUID } from "@common/documents/_module.d.mts";
 import type { ConsumablePF2e } from "@item";
 import { ItemPF2e } from "@item";
 import { processSanctification } from "@item/ability/helpers.ts";
@@ -253,7 +255,9 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return Math.max(this.baseRank, slotNumber ?? this.rank) as OneToTen;
     }
 
-    override getRollData(rollOptions: { castRank?: number | string } = {}): NonNullable<EnrichmentOptions["rollData"]> {
+    override getRollData(
+        rollOptions: { castRank?: number | string } = {},
+    ): NonNullable<EnrichmentOptionsPF2e["rollData"]> {
         const spellRank = Number(rollOptions?.castRank) || null;
         const castRank = Math.max(this.baseRank, spellRank || this.rank);
 
@@ -556,7 +560,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const templateData: DeepPartial<foundry.documents.MeasuredTemplateSource> = {
             t: templateType,
             distance: (Number(area.value) / 5) * canvas.dimensions.distance,
-            fillColor: game.user.color,
+            fillColor: game.user.color.toString(),
             flags: {
                 pf2e: {
                     messageId: message?.id,
@@ -786,7 +790,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     override async toMessage(
-        event?: Maybe<MouseEvent | JQuery.TriggeredEvent>,
+        event?: Maybe<MouseEvent>,
         { create = true, data, rollMode }: SpellToMessageOptions = {},
     ): Promise<ChatMessagePF2e | undefined> {
         // NOTE: The parent toMessage() pulls "contextual data" from the DOM dataset.
@@ -970,7 +974,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     async rollAttack(
         this: SpellPF2e<ActorPF2e>,
-        event: MouseEvent | JQuery.ClickEvent,
+        event: MouseEvent,
         attackNumber = 1,
         context: StatisticRollParameters = {},
     ): Promise<Rolled<CheckRoll> | null> {
@@ -994,7 +998,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     async rollDamage(
         this: SpellPF2e<ActorPF2e>,
-        event: MouseEvent | JQuery.ClickEvent,
+        event: MouseEvent,
         mapIncreases?: ZeroToTwo,
     ): Promise<Rolled<DamageRoll> | null> {
         const element = htmlClosest(event.target, "[data-cast-rank]");
@@ -1027,8 +1031,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     /** Roll counteract check */
-    async rollCounteract(event?: MouseEvent | JQuery.ClickEvent): Promise<Rolled<CheckRoll> | null> {
-        event = event instanceof Event ? event : event?.originalEvent;
+    async rollCounteract(event?: MouseEvent): Promise<Rolled<CheckRoll> | null> {
         const actor: ActorPF2e | null = this.actor;
         if (!actor?.isOfType("character", "npc")) {
             return null;

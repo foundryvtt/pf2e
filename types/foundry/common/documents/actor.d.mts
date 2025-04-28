@@ -1,4 +1,4 @@
-import { ActorUUID } from "@client/documents/actor.mjs";
+import { ImageFilePath, VideoFilePath } from "@common/constants.mjs";
 import { DocumentConstructionContext } from "../_types.mjs";
 import * as abstract from "../abstract/_module.mjs";
 import { DatabaseCreateOperation, DatabaseUpdateOperation } from "../abstract/_types.mjs";
@@ -114,7 +114,7 @@ type ActorSchema<
     /** An object of optional key/value flags */
     flags: fields.ObjectField<DocumentFlags>;
     /** An object of creation and access information. */
-    _stats: fields.DocumentStatsField<ActorUUID>;
+    _stats: fields.DocumentStatsField<documents.ActorUUID>;
 };
 
 export type ActorSource<

@@ -1,4 +1,4 @@
-import type { ActorUUID } from "@client/documents/abstract/_module.d.mts";
+import type { ActorUUID } from "@client/documents/_module.d.mts";
 import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
 import { ItemPF2e } from "@item";
 import { MacroPF2e } from "@module/macro.ts";

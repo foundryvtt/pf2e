@@ -1,3 +1,5 @@
+import { AudioFilePath, HexColorString, ImageFilePath, VideoFilePath } from "@common/constants.mjs";
+
 /** Test whether a string is a valid 16 character UID */
 export function isValidId(id: string): boolean;
 

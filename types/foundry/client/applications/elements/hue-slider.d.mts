@@ -1,3 +1,4 @@
+import { FormInputConfig } from "@common/data/_types.mjs";
 import AbstractFormInputElement from "./form-element.mjs";
 
 /**
@@ -29,5 +30,5 @@ export default class HTMLHueSelectorSlider extends AbstractFormInputElement<numb
     /**
      * Create a HTMLHueSelectorSlider using provided configuration data.
      */
-    static create(config: FormInputConfig): HTMLHueSelectorSlider;
+    static create(config: FormInputConfig<HexColorString>): HTMLHueSelectorSlider;
 }
