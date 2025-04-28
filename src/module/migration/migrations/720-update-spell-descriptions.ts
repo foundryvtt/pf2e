@@ -1,3 +1,4 @@
+import type { CompendiumItemUUID } from "@common/documents/_module.d.mts";
 import { SpellPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { setHasElement } from "@util";

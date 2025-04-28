@@ -8,7 +8,6 @@ export class AutomationSettings extends SettingsMenuPF2e {
     static override readonly SETTINGS = [
         "rulesBasedVision",
         "iwr",
-        "effectExpiration",
         "removeExpiredEffects",
         "flankingDetection",
         "encumbrance",
@@ -41,27 +40,11 @@ export class AutomationSettings extends SettingsMenuPF2e {
                     game.pf2e.settings.iwr = !!value;
                 },
             },
-            effectExpiration: {
-                prefix: "automation.",
-                name: CONFIG.PF2E.SETTINGS.automation.effectExpiration.name,
-                hint: CONFIG.PF2E.SETTINGS.automation.effectExpiration.hint,
-                default: true,
-                type: Boolean,
-                onChange: () => {
-                    for (const actor of game.actors) {
-                        actor.reset();
-                        actor.sheet.render(false);
-                        for (const token of actor.getActiveTokens()) {
-                            token.drawEffects();
-                        }
-                    }
-                },
-            },
             removeExpiredEffects: {
                 prefix: "automation.",
                 name: CONFIG.PF2E.SETTINGS.automation.removeExpiredEffects.name,
                 hint: CONFIG.PF2E.SETTINGS.automation.removeExpiredEffects.hint,
-                default: false,
+                default: true,
                 type: Boolean,
             },
             flankingDetection: {

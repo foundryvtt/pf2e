@@ -5,7 +5,7 @@ import {
     ActorDirectoryPF2e,
     ChatLogPF2e,
     CompendiumDirectoryPF2e,
-    EncounterTrackerPF2e,
+    EncounterTracker,
     ItemDirectoryPF2e,
 } from "@module/apps/sidebar/index.ts";
 import { setPerceptionModes } from "@module/canvas/perception/modes.ts";
@@ -40,7 +40,7 @@ export const Init = {
             CONFIG.ui.actors = ActorDirectoryPF2e;
             CONFIG.ui.items = ItemDirectoryPF2e;
             CONFIG.ui.chat = ChatLogPF2e;
-            CONFIG.ui.combat = EncounterTrackerPF2e;
+            CONFIG.ui.combat = EncounterTracker;
             CONFIG.ui.compendium = CompendiumDirectoryPF2e;
 
             if (game.release.generation === 12) {

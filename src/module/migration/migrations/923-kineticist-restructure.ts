@@ -1,11 +1,12 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
+import type { ItemUUID } from "@common/documents/_module.d.mts";
 import type { ItemPF2e } from "@item";
-import { FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
+import type { FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
-import { RuleElementSource } from "@module/rules/index.ts";
-import { ChoiceSetSource } from "@module/rules/rule-element/choice-set/data.ts";
-import { GrantItemSource } from "@module/rules/rule-element/grant-item/rule-element.ts";
-import { ElementTrait } from "@scripts/config/traits.ts";
+import type { RuleElementSource } from "@module/rules/index.ts";
+import type { ChoiceSetSource } from "@module/rules/rule-element/choice-set/data.ts";
+import type { GrantItemSource } from "@module/rules/rule-element/grant-item/rule-element.ts";
+import type { ElementTrait } from "@scripts/config/traits.ts";
 import { objectHasKey, recursiveReplaceString, sluggify, tupleHasValue } from "@util/misc.ts";
 import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
@@ -188,7 +189,7 @@ export class Migration923KineticistRestructure extends MigrationBase {
         }
     }
 
-    #elementMap: Map<string, ItemUUID> = new Map([
+    #elementMap = new Map<string, ItemUUID>([
         ["air", "Compendium.pf2e.classfeatures.Item.X11Y3T1IzmtNqGMV"],
         ["earth", "Compendium.pf2e.classfeatures.Item.dEm00L1XFXFCH2wS"],
         ["fire", "Compendium.pf2e.classfeatures.Item.PfeDtJBJdUun0THS"],

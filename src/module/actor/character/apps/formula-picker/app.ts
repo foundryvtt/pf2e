@@ -4,7 +4,7 @@ import { CharacterPF2e } from "@actor/character/document.ts";
 import { ResourceData } from "@actor/creature/index.ts";
 import type { ApplicationConfiguration, ApplicationRenderOptions } from "@client/applications/_types.d.mts";
 import type ApplicationV2 from "@client/applications/api/application.d.mts";
-import type { ItemUUID } from "@client/documents/item.d.mts";
+import type { ItemUUID } from "@common/documents/_module.d.mts";
 import { AbilityItemPF2e, FeatPF2e, PhysicalItemPF2e } from "@item";
 import { ItemType, TraitChatData } from "@item/base/data/index.ts";
 import { Rarity } from "@module/data.ts";

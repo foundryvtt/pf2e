@@ -56,7 +56,7 @@ abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElement
         return new StrictArrayField(exceptionField);
     }
 
-    static override validateJoint(source: SourceFromSchema<IWRRuleSchema>): void {
+    static override validateJoint(source: fields.SourceFromSchema<IWRRuleSchema>): void {
         super.validateJoint(source);
 
         if (source.type.some((t) => t === "custom")) {

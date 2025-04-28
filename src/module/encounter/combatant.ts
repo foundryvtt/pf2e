@@ -14,9 +14,6 @@ class CombatantPF2e<
     TParent extends EncounterPF2e | null = EncounterPF2e | null,
     TTokenDocument extends TokenDocumentPF2e | null = TokenDocumentPF2e | null,
 > extends Combatant<TParent, TTokenDocument> {
-    /** Has this document completed `DataModel` initialization? */
-    declare initialized: boolean;
-
     static override async createDocuments<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data?: (TDocument | PreCreate<TDocument["_source"]>)[],
@@ -172,27 +169,9 @@ class CombatantPF2e<
         Hooks.callAll("pf2e.endTurn", this, encounter, game.user.id);
     }
 
-    protected override _initialize(options?: Record<string, unknown>): void {
-        this.initialized = false;
-        super._initialize(options);
-    }
-
-    /**
-     * If embedded, don't prepare data if the parent hasn't finished initializing.
-     * @todo remove in V13
-     */
-    override prepareData(): void {
-        if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
-            return;
-        }
-        this.initialized = true;
-        super.prepareData();
-    }
-
     override prepareBaseData(): void {
         super.prepareBaseData();
-
-        this.flags.pf2e = fu.mergeObject(this.flags.pf2e ?? {}, { overridePriority: {} });
+        this.flags.pf2e = Object.assign(this.flags.pf2e ?? {}, { overridePriority: {} });
         this.flags.pf2e.roundOfLastTurn ??= null;
         this.flags.pf2e.initiativeStatistic ??= null;
     }

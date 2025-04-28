@@ -1,3 +1,4 @@
+import { DocumentOwnershipLevel, DocumentOwnershipString, ImageFilePath, VideoFilePath } from "@common/constants.mjs";
 import type Document from "../abstract/document.mjs";
 import type { DocumentMetadata } from "../abstract/document.mjs";
 import type * as fields from "../data/fields.mjs";

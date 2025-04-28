@@ -1,3 +1,4 @@
+import { DataSchema } from "@common/abstract/_types.mjs";
 import type * as fields from "@common/data/fields.mjs";
 import { RegionBehaviorType } from "./base.mjs";
 
@@ -10,4 +11,4 @@ export interface SuppressWeatherRegionBehaviorType
     extends RegionBehaviorType<SuppressWeatherRegionBehaviorTypeSchema>,
         fields.ModelPropsFromSchema<SuppressWeatherRegionBehaviorTypeSchema> {}
 
-export type SuppressWeatherRegionBehaviorTypeSchema = fields.DataSchema;
+export type SuppressWeatherRegionBehaviorTypeSchema = DataSchema;

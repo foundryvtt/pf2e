@@ -308,7 +308,7 @@ export default abstract class ApplicationV2<
      * @returns                       Return false to prevent rendering
      * @throws {Error}                An Error to display a warning message
      */
-    protected _canRender(options: TRenderOptions): false | void;
+    protected _canRender(options: TRenderOptions): boolean | void;
 
     /**
      * Actions performed before a first render of the Application.

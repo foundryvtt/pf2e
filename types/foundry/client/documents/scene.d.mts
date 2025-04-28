@@ -2,6 +2,7 @@ import { SceneDimensions } from "@client/_types.mjs";
 import { TokenAnimationOptions } from "@client/canvas/placeables/token.mjs";
 import { DatabaseCreateOperation, DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
 import Document from "@common/abstract/document.mjs";
+import { ImageFilePath } from "@common/constants.mjs";
 import { BaseScene, NoteSource, RegionSource, TokenSource } from "@common/documents/_module.mjs";
 import SceneConfig from "../applications/sheets/scene-config.mjs";
 import { User } from "./_module.mjs";

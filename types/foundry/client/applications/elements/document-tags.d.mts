@@ -1,4 +1,5 @@
 import { DocumentUUID } from "@client/utils/_module.mjs";
+import { FormInputConfig } from "@common/data/_types.mjs";
 import AbstractFormInputElement from "./form-element.mjs";
 
 /**
@@ -38,7 +39,7 @@ export default class HTMLDocumentTagsElement extends AbstractFormInputElement<
 }
 
 declare global {
-    interface DocumentTagsInputConfig extends FormInputConfig {
+    interface DocumentTagsInputConfig extends FormInputConfig<string[]> {
         /** A specific document type in CONST.ALL_DOCUMENT_TYPES */
         type?: string;
         /**

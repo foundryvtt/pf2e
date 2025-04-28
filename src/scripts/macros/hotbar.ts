@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { AttackPopout } from "@actor/character/apps/attack-popout.ts";
 import { ElementalBlast } from "@actor/character/elemental-blast.ts";
-import type { ActorUUID } from "@client/documents/abstract/_module.d.mts";
+import type { ActorUUID } from "@client/documents/_module.d.mts";
 import { ItemPF2e, type ConditionPF2e, type EffectPF2e } from "@item";
 import { EffectTrait } from "@item/abstract-effect/types.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";

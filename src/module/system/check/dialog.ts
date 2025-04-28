@@ -1,17 +1,17 @@
 import { MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import type { ApplicationV1Options } from "@client/appv1/api/application-v1.d.mts";
+import type { RollMode } from "@common/constants.d.mts";
 import type { RollSubstitution } from "@module/rules/synthetics.ts";
 import { ErrorPF2e, htmlQuery, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { RollTwiceOption } from "../rolls.ts";
 import type { CheckCheckContext } from "./types.ts";
-import appv1 = foundry.appv1;
 
 /**
  * Dialog for excluding certain modifiers before rolling a check.
  * @category Other
  */
-export class CheckModifiersDialog extends appv1.api.Application {
+export class CheckModifiersDialog extends fav1.api.Application {
     /** The check which is being edited. */
     check: StatisticModifier;
     /** Relevant context for this roll, like roll options. */

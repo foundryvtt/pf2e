@@ -1,7 +1,15 @@
+import { ApplicationRenderOptions } from "@client/applications/_types.mjs";
 import ApplicationV2 from "@client/applications/api/application.mjs";
 import Application, { AppV1RenderOptions } from "@client/appv1/api/application-v1.mjs";
-import { DatabaseCreateOperation, DatabaseUpdateOperation, Document } from "@common/abstract/_module.mjs";
+import {
+    DatabaseAction,
+    DatabaseCreateOperation,
+    DatabaseOperation,
+    DatabaseUpdateOperation,
+    Document,
+} from "@common/abstract/_module.mjs";
 import Collection from "@common/utils/collection.mjs";
+import User from "../user.mjs";
 
 /**
  * A Collection of Document objects within the Foundry Virtual Tabletop framework.
@@ -38,7 +46,7 @@ export default abstract class DocumentCollection<TDocument extends Document> ext
     override set(id: string, document: TDocument): this;
 
     /** Render any Applications associated with this DocumentCollection. */
-    render(force: boolean, options?: AppV1RenderOptions): void;
+    render(force: boolean, options?: AppV1RenderOptions | ApplicationRenderOptions): void;
 
     /* -------------------------------------------- */
     /*  Database Operations                         */
@@ -134,5 +142,22 @@ export default abstract class DocumentCollection<TDocument extends Document> ext
         result: string[],
         options: DatabaseCreateOperation<null>,
         userId: string,
+    ): void;
+
+    /**
+     * Follow-up actions to take when a database operation modifies Documents in this DocumentCollection.
+     * @param action The database action performed
+     * @param documents The array of modified Documents
+     * @param result The result of the database operation
+     * @param operation Database operation details
+     * @param user The User who performed the operation
+     * @internal
+     */
+    _onModifyContents(
+        action: DatabaseAction,
+        documents: TDocument[],
+        result: unknown[],
+        operation: DatabaseOperation<null>,
+        user: User,
     ): void;
 }

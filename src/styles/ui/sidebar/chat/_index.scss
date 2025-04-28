@@ -24,10 +24,9 @@
             padding: 0.125rem 0.125rem 0.125rem 0;
             img {
                 border: none;
-                height: 2.25rem;
+                height: 36px;
                 object-fit: contain;
-                pointer-events: none;
-                width: 2.25rem;
+                width: 36px;
             }
 
             &.actor-image {
@@ -39,21 +38,19 @@
         }
 
         h4.message-sender {
-            grid-area: name;
-            color: var(--color-text-dark-primary);
-            line-height: 1;
-            font-size: var(--font-size-15);
+            align-self: end;
+            color: var(--color-text-secondary);
             font-weight: 500;
-            margin-top: auto;
+            grid-area: name;
+            line-height: 1;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
         .user {
+            align-self: center;
             grid-area: user;
             font-size: var(--font-size-12);
-            line-height: 1;
-            padding-top: var(--space-2);
         }
 
         .message-metadata {
