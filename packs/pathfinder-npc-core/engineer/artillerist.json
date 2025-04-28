@@ -622,10 +622,52 @@
             "type": "action"
         },
         {
+            "_id": "BKAZUyxs7ojI3Lc0",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Siege Weapons Expert",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The artillerist gains a +2 bonus to @Check[perception|options:siege-weapon] if the artillerist is crewing a siege weapon. Additionally, they gain a +2 bonus to @Check[engineering-lore|options:siege-weapon] and @Check[explosive-lore|options:siege-weapon] for siege weapons.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "siege-weapon"
+                        ],
+                        "selector": [
+                            "perception",
+                            "engineering-lore",
+                            "explosive-lore"
+                        ],
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "axHGPBgPqDgvP4Ej",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Bombard",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -656,7 +698,7 @@
             "_id": "jHcmiLruhO5cf2uj",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Engineering Lore",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "description": {
                     "value": ""
@@ -682,7 +724,7 @@
             "_id": "NgI500OpopDEPzxl",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Explosive Lore",
-            "sort": 1400000,
+            "sort": 1500000,
             "system": {
                 "description": {
                     "value": ""
@@ -769,7 +811,7 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "",
+            "details": "(+10 if the artillerist is crewing a siege weapon)",
             "mod": 8,
             "senses": []
         },

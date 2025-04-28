@@ -67,7 +67,7 @@
                 },
                 "rules": [],
                 "runes": {
-                    "potency": 0,
+                    "potency": 1,
                     "property": [],
                     "striking": 0
                 },
@@ -155,7 +155,7 @@
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.pRoikbRo5HFW6YUB"
             },
             "img": "icons/equipment/chest/breastplate-gorget-steel-white.webp",
-            "name": "Steel Plating",
+            "name": "Steel Plating (Functions as Half Plate)",
             "sort": 300000,
             "system": {
                 "acBonus": 5,
@@ -167,7 +167,7 @@
                 "checkPenalty": -3,
                 "containerId": null,
                 "description": {
-                    "value": "<p>Functions as @UUID[Compendium.pf2e.equipment-srd.Item.Half Plate].</p>"
+                    "value": "<p>Half plate consists of most of the upper body plates used in full plate, with lighter or sparser steel plate protection for the arms and legs. This provides some of the protection of full plate with greater flexibility and speed. A suit of this armor comes with an undercoat of @UUID[Compendium.pf2e.equipment-srd.Item.Padded Armor] and a pair of @UUID[Compendium.pf2e.equipment-srd.Item.Gauntlet]{gauntlets}.</p>"
                 },
                 "dexCap": 1,
                 "equipped": {
@@ -207,7 +207,7 @@
                     "resilient": 0
                 },
                 "size": "med",
-                "slug": "steel-plating",
+                "slug": "half-plate",
                 "speedPenalty": -10,
                 "strength": 3,
                 "traits": {
@@ -468,7 +468,7 @@
                 "traits": {
                     "value": [
                         "concussive",
-                        "range-increment-30",
+                        "range-increment-20",
                         "reload-1",
                         "scatter-5"
                     ]
@@ -565,6 +565,14 @@
                         "selector": "land-speed",
                         "type": "status",
                         "value": 10
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "extend-legs"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
                     }
                 ],
                 "slug": null,
