@@ -2,7 +2,13 @@ import Note from "@client/canvas/placeables/note.mjs";
 import { DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
 import JournalSheet from "../appv1/sheets/journal-sheet.mjs";
 import { BaseJournalEntry } from "./_module.mjs";
-import ClientDocumentMixin from "./abstract/client-document.mjs";
+import { ClientDocument } from "./abstract/client-document.mjs";
+
+declare const ClientBaseJournalEntry: new (
+    ...args: any
+) => InstanceType<typeof BaseJournalEntry> & InstanceType<typeof ClientDocument<null>>;
+
+interface ClientBaseJournalEntry extends InstanceType<typeof ClientBaseJournalEntry> {}
 
 /**
  * The client-side JournalEntry document which extends the common BaseJournalEntry model.
@@ -10,7 +16,7 @@ import ClientDocumentMixin from "./abstract/client-document.mjs";
  * @see {@link Journal}                       The world-level collection of JournalEntry documents
  * @see {@link JournalSheet}                  The JournalEntry configuration application
  */
-export default class JournalEntry extends ClientDocumentMixin(BaseJournalEntry) {
+export default class JournalEntry extends ClientBaseJournalEntry {
     /* -------------------------------------------- */
     /*  Properties                                  */
     /* -------------------------------------------- */
@@ -62,7 +68,7 @@ export default class JournalEntry extends ClientDocumentMixin(BaseJournalEntry) 
     protected override _onDelete(options: DatabaseDeleteOperation<null>, userId: string): void;
 }
 
-export default interface JournalEntry {
+export default interface JournalEntry extends ClientBaseJournalEntry {
     // readonly pages: foundry.abstract.EmbeddedCollection<JournalEntryPage<this>>;
 
     get sheet(): JournalSheet<this>;

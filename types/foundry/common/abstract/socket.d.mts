@@ -1,3 +1,4 @@
+import { SocketResponse } from "@common/_types.mjs";
 import { DatabaseAction, DatabaseOperation, DocumentSocketRequest } from "./_types.mjs";
 import Document from "./document.mjs";
 
@@ -9,7 +10,7 @@ export default class DocumentSocketResponse {
      * Prepare a response for an incoming request.
      * @param request The incoming request that is being responded to
      */
-    constructor(request: DocumentSocketRequest);
+    constructor(request: DocumentSocketRequest | SocketResponse);
 
     /** The type of Document being transacted. */
     type: string;

@@ -63,8 +63,8 @@ class ItemAlterationValidator<TSchema extends AlterationSchema> extends fields.S
 }
 
 type ItemOrSource<TItemType extends ItemType> =
-    | InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][TItemType]>
-    | InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][TItemType]>["_source"];
+    | InstanceType<(typeof CONFIG.PF2E.Item.documentClasses)[TItemType]>
+    | InstanceType<(typeof CONFIG.PF2E.Item.documentClasses)[TItemType]>["_source"];
 
 type MaybeAlterationData = { mode: string; itemType: string; value: unknown };
 
@@ -272,7 +272,7 @@ const ITEM_ALTERATION_VALIDATORS = {
                     initial: undefined,
                 } as const),
                 divider: new fields.BooleanField({ required: false }),
-                predicate: new PredicateField({ required: false }),
+                predicate: new PredicateField({ required: false, initial: () => [] }),
             }) satisfies DescriptionElementField,
             { required: true, nullable: false, initial: undefined } as const,
         ) satisfies DescriptionValueField,

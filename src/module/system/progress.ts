@@ -1,4 +1,4 @@
-import type { Notification } from "@client/applications/ui/notifications.d.mts";
+import type { ProgressNotification } from "@client/applications/ui/notifications.d.mts";
 
 /**
  * An alternative API for Notification loading bars
@@ -11,7 +11,7 @@ class Progress {
 
     label: string;
 
-    notification: Notification;
+    notification: ProgressNotification;
 
     constructor({ max, label = "" }: { max: number; label?: string }) {
         this.max = max;

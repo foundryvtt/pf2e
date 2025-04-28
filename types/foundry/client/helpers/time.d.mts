@@ -19,7 +19,6 @@ export default class GameTime {
 
     /**
      * The "Earth" calendar instance for IRL timekeeping.
-     * @type {CalendarData}
      */
     get earthCalendar(): CalendarData;
 
@@ -56,17 +55,17 @@ export default class GameTime {
 
     /**
      * Advance or rewind the world time according to a delta amount expressed either in seconds or as components.
-     * @param {TimeComponents|number} delta     The number of seconds to advance (or rewind if negative) by
-     * @param {object} [options]                Additional options passed to game.settings.set
-     * @returns {Promise<number>}               The new game time
+     * @param delta The number of seconds to advance (or rewind if negative) by
+     * @param options Additional options passed to game.settings.set
+     * @returns The new game time
      */
     advance(delta: TimeComponents | number, options?: object): Promise<number>;
 
     /**
      * Directly set the world time to a certain value expressed either in seconds or as components.
-     * @param {TimeComponents|number} time      The desired world time
-     * @param {object} [options]                Additional options passed to game.settings.set
-     * @returns {Promise<number>}               The new game time
+     * @param time The desired world time
+     * @param options Additional options passed to game.settings.set
+     * @returns The new game time
      */
     set(time: TimeComponents | number, options?: object): Promise<number>;
 

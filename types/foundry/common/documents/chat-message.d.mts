@@ -1,5 +1,6 @@
 import Roll from "@client/dice/roll.mjs";
 import { DatabaseCreateOperation } from "@common/abstract/_types.mjs";
+import { AudioFilePath, ChatMessageStyle, DocumentOwnershipLevel, RollMode } from "@common/constants.mjs";
 import type { Document, DocumentMetadata } from "../abstract/_module.d.mts";
 import type * as fields from "../data/fields.mjs";
 import type BaseUser from "./user.mjs";

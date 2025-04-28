@@ -10,7 +10,8 @@ import type {
     ModifierPF2e,
 } from "@actor/modifiers.ts";
 import type { MovementType } from "@actor/types.ts";
-import type { TokenDocumentUUID } from "@client/documents/abstract/_module.d.mts";
+import type { TokenDocumentUUID } from "@client/documents/_module.d.mts";
+import type { ImageFilePath, VideoFilePath } from "@common/constants.d.mts";
 import type { TokenSource } from "@common/documents/token.d.mts";
 import type { MeleePF2e, WeaponPF2e } from "@item";
 import type { AbilityTrait } from "@item/ability/index.ts";

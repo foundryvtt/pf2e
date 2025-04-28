@@ -1,6 +1,7 @@
 import type { ActorPF2e } from "@actor";
+import type { ItemUUID } from "@common/documents/_module.d.mts";
 import { ConditionPF2e } from "@item";
-import { ConditionSource } from "@item/condition/data.ts";
+import type { ConditionSource } from "@item/condition/data.ts";
 import { ConditionSlug } from "@item/condition/types.ts";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";

@@ -1,5 +1,5 @@
 import type { ActorType, CharacterPF2e } from "@actor";
-import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
+import type { ItemUUID } from "@client/documents/_module.d.mts";
 import { ItemPF2e } from "@item";
 import { PredicateField } from "@system/schema-data-fields.ts";
 import { sluggify } from "@util";

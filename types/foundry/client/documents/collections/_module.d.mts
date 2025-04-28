@@ -1,6 +1,6 @@
 export { default as Actors } from "./actors.mjs";
 export { default as CardStacks } from "./card-stacks.mjs";
-export { default as ChatMessages } from "./chat-messages.mjs";
+export { default as Messages } from "./chat-messages.mjs";
 export { default as CombatEncounters } from "./combat-encounters.mjs";
 export { default as FogExplorations } from "./fog-explorations.mjs";
 export { default as Folders } from "./folders.mjs";

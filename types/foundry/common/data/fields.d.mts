@@ -1,4 +1,5 @@
 import { DocumentUUID } from "@client/utils/helpers.mjs";
+import { DocumentOwnershipLevel, FilePath, HexColorString } from "@common/constants.mjs";
 import * as abstract from "../abstract/_module.mjs";
 import { EffectChangeData } from "../documents/active-effect.mjs";
 import Collection from "../utils/collection.mjs";

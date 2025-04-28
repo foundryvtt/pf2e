@@ -1,4 +1,5 @@
 import { DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import { ImageFilePath } from "@common/constants.mjs";
 import type { Document, DocumentMetadata } from "../abstract/_module.d.mts";
 import type * as fields from "../data/fields.mjs";
 import type * as documents from "./_module.mjs";

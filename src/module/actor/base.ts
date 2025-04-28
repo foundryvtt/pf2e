@@ -8,7 +8,7 @@ import {
     UnaffectedType,
 } from "@actor/types.ts";
 import type { DialogV2Configuration } from "@client/applications/api/dialog.d.mts";
-import type { ActorUUID } from "@client/documents/abstract/_module.d.mts";
+import type { ActorUUID } from "@client/documents/_module.d.mts";
 import type { DocumentConstructionContext } from "@common/_types.d.mts";
 import type {
     DatabaseCreateOperation,
@@ -16,6 +16,7 @@ import type {
     DatabaseUpdateOperation,
     Document,
 } from "@common/abstract/_module.d.mts";
+import type { ImageFilePath } from "@common/constants.d.mts";
 import type { AbstractEffectPF2e, ArmorPF2e, ConditionPF2e, ContainerPF2e, PhysicalItemPF2e, ShieldPF2e } from "@item";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";

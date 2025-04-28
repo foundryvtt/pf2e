@@ -1,5 +1,6 @@
 import Note from "@client/canvas/placeables/note.mjs";
 import { DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import { DocumentOwnershipLevel } from "@common/constants.mjs";
 import { JournalPageSheet } from "../appv1/sheets/journal-page-sheet.mjs";
 import { BaseJournalEntryPage } from "./_module.mjs";
 import { ClientDocument } from "./abstract/client-document.mjs";

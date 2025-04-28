@@ -1,4 +1,6 @@
-import { Point, Rectangle } from "../_types.d.mts";
+import { GridType, MovementDirection } from "@common/constants.mjs";
+import { Color, ColorSource } from "pixi.js";
+import { Point, Rectangle } from "../_types.mjs";
 
 /** The base grid class. */
 export abstract class BaseGrid {

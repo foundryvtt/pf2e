@@ -1,5 +1,6 @@
 import type { ModifierPF2e } from "@actor/modifiers.ts";
 import type { RollOrigin, RollTarget } from "@actor/roll-context/types.ts";
+import type { RollMode } from "@common/constants.d.mts";
 import type { AbilityTrait } from "@item/ability/types.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import type { CheckContextChatFlag } from "@module/chat-message/index.ts";
@@ -19,7 +20,7 @@ interface RollDataPF2e extends dice.RollOptions {
 /** Possible parameters of a RollFunction */
 interface RollParameters {
     /** The triggering event */
-    event?: MouseEvent | JQuery.TriggeredEvent;
+    event?: MouseEvent;
     /** Any options which should be used in the roll. */
     options?: string[] | Set<string>;
     /** Optional DC data for the roll */

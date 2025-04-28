@@ -5,6 +5,8 @@ import { ActorSheetPF2e, SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import type { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import type { ApplicationV1HeaderButton } from "@client/appv1/api/application-v1.d.mts";
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
+import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
+import type { ActorUUID } from "@common/documents/_module.d.mts";
 import { ItemPF2e, type CampaignFeaturePF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";

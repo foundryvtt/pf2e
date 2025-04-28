@@ -1,3 +1,4 @@
+import type { DataSchema } from "@common/abstract/_types.d.mts";
 import {
     DataUnionField,
     PredicateField,
@@ -11,7 +12,7 @@ import type { RollOptionRuleElement } from "./rule-element.ts";
 import fields = foundry.data.fields;
 
 class Suboption extends foundry.abstract.DataModel<RollOptionRuleElement, SuboptionSchema> {
-    static override defineSchema(): fields.DataSchema {
+    static override defineSchema(): DataSchema {
         return {
             label: new fields.StringField({ required: true, nullable: false, blank: false }),
             value: new StrictStringField({ required: true, nullable: false, blank: false }),
@@ -30,7 +31,7 @@ class Suboption extends foundry.abstract.DataModel<RollOptionRuleElement, Subopt
 
 interface Suboption
     extends foundry.abstract.DataModel<RollOptionRuleElement, SuboptionSchema>,
-        ModelPropsFromSchema<SuboptionSchema> {}
+        fields.ModelPropsFromSchema<SuboptionSchema> {}
 
 type RollOptionSchema = RuleElementSchema & {
     domain: fields.StringField<string, string, true, false, true>;
@@ -40,8 +41,8 @@ type RollOptionSchema = RuleElementSchema & {
     suboptions: DataUnionField<
         | fields.SchemaField<
               SuboptionConfigSchema,
-              SourceFromSchema<SuboptionConfigSchema>,
-              ModelPropsFromSchema<SuboptionConfigSchema>,
+              fields.SourceFromSchema<SuboptionConfigSchema>,
+              fields.ModelPropsFromSchema<SuboptionConfigSchema>,
               false,
               false
           >
@@ -83,7 +84,7 @@ type SuboptionSchema = {
     value: fields.StringField<string, string, true, false, false>;
     predicate: PredicateField;
 };
-type SuboptionSource = SourceFromSchema<SuboptionSchema>;
+type SuboptionSource = fields.SourceFromSchema<SuboptionSchema>;
 type SuboptionField = fields.EmbeddedDataField<Suboption, true, false, false>;
 
 type SuboptionConfigSchema = {

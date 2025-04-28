@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
 import { iterateAllItems } from "@actor/helpers.ts";
-import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
+import type { ItemUUID } from "@client/documents/_module.d.mts";
 import type CompendiumCollection from "@client/documents/collections/compendium-collection.d.mts";
 import type { CompendiumIndex } from "@client/documents/collections/compendium-collection.d.mts";
 import type { DocumentUUID } from "@client/utils/_module.d.mts";

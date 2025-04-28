@@ -1,3 +1,4 @@
+import { ImageFilePath, ShapeDataType, TileOcclusionMode, VideoFilePath } from "@common/constants.mjs";
 import DataModel from "../abstract/data.mjs";
 import * as documents from "../documents/_module.mjs";
 import { TokenSchema } from "../documents/token.mjs";

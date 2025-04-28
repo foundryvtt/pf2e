@@ -1,4 +1,6 @@
-import { BaseGrid } from "./base.d.mts";
+import { Point, Rectangle } from "@common/_types.mjs";
+import { MovementDirection } from "@common/constants.mjs";
+import { BaseGrid } from "./base.mjs";
 
 /** The hexagonal grid class. */
 export class HexagonalGrid extends BaseGrid {

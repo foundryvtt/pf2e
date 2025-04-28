@@ -1,3 +1,4 @@
+import { TileOcclusionMode } from "@common/constants.mjs";
 import type { Document, DocumentMetadata } from "../abstract/_module.d.mts";
 import type { TextureData } from "../data/data.mjs";
 import type * as fields from "../data/fields.mjs";
