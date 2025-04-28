@@ -15,6 +15,7 @@ import {
     DatabaseUpdateOperation,
 } from "@common/abstract/_module.mjs";
 import Document from "@common/abstract/document.mjs";
+import { DocumentOwnershipLevel } from "@common/constants.mjs";
 import CompendiumCollection from "../collections/compendium-collection.mjs";
 import User from "../user.mjs";
 

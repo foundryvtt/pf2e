@@ -1,4 +1,5 @@
 import { DamageDicePF2e, MODIFIER_TYPES, ModifierPF2e, applyStackingRules } from "@actor/modifiers.ts";
+import type { RollMode } from "@common/constants.d.mts";
 import { DEGREE_OF_SUCCESS, DEGREE_OF_SUCCESS_STRINGS, DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
 import {
     ErrorPF2e,
@@ -16,13 +17,12 @@ import { getDamageDiceOverrideLabel, getDamageDiceValueLabel } from "./helpers.t
 import { DamageRoll } from "./roll.ts";
 import { DamageCategoryUnique, DamageDamageContext, DamageDieSize, DamageFormulaData, DamageType } from "./types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_TYPE_ICONS } from "./values.ts";
-import appv1 = foundry.appv1;
 
 /**
  * Dialog for excluding certain modifiers before rolling damage.
  * @category Other
  */
-class DamageModifierDialog extends appv1.api.Application {
+class DamageModifierDialog extends fav1.api.Application {
     formulaData: DamageFormulaData;
     context: DamageDamageContext;
 
@@ -55,7 +55,7 @@ class DamageModifierDialog extends appv1.api.Application {
         };
     }
 
-    static override get defaultOptions(): appv1.api.ApplicationV1Options {
+    static override get defaultOptions(): fav1.api.ApplicationV1Options {
         return {
             ...super.defaultOptions,
             template: "systems/pf2e/templates/chat/damage/damage-modifier-dialog.hbs",

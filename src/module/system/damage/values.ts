@@ -1,3 +1,4 @@
+import { ImageFilePath } from "@common/constants.mjs";
 import { DamageCategory, DamageType } from "./types.ts";
 
 const PHYSICAL_DAMAGE_TYPES = ["bludgeoning", "piercing", "slashing", "bleed"] as const;

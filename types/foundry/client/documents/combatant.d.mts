@@ -1,3 +1,4 @@
+import { DocumentOwnershipLevel, DocumentOwnershipString } from "@common/constants.mjs";
 import Roll, { Rolled } from "../dice/roll.mjs";
 import { BaseCombatant, Combat, TokenDocument, User } from "./_module.mjs";
 import { ClientDocument } from "./abstract/client-document.mjs";

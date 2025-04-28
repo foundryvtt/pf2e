@@ -1,4 +1,4 @@
-import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
+import type { ItemUUID } from "@client/documents/_module.d.mts";
 import type { PhysicalItemPF2e } from "@item";
 import type { Predicate, RawPredicate } from "@system/predication.ts";
 

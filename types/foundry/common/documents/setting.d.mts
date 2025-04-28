@@ -1,5 +1,6 @@
 import type { Document, DocumentMetadata, MetadataPermission } from "../abstract/_module.d.mts";
 import type * as fields from "../data/fields.mjs";
+import BaseUser from "./user.mjs";
 
 /**
  * The Document definition for a Setting.
@@ -17,6 +18,8 @@ export default class BaseSetting extends Document<null, SettingSchema> {
     static override get metadata(): SettingMetadata;
 
     static override defineSchema(): SettingSchema;
+
+    static canUserCreate(user: BaseUser): boolean;
 }
 
 export default interface BaseSetting extends Document<null, SettingSchema>, fields.ModelPropsFromSchema<SettingSchema> {

@@ -1,8 +1,14 @@
+import AbstractBaseFilter from "./base-filter.mjs";
+
 /**
  * This class defines an interface for masked custom filters
  */
 export default class AbstractBaseMaskFilter extends AbstractBaseFilter {
-    /** @override */
-    override apply(filterManager: any, input: any, output: any, clear: any, currentState: any): void;
+    apply(
+        filterManager: PIXI.FilterSystem,
+        input: PIXI.RenderTexture,
+        output: PIXI.RenderTexture,
+        clearMode?: PIXI.CLEAR_MODES,
+        _currentState?: PIXI.FilterState,
+    ): void;
 }
-import AbstractBaseFilter from "./base-filter.mjs";

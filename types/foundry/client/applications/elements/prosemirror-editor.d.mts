@@ -1,4 +1,6 @@
-import { AbstractFormInputElement } from "./form-element.mjs";
+import { DocumentUUID } from "@client/utils/_module.mjs";
+import { FormInputConfig } from "@common/data/_types.mjs";
+import AbstractFormInputElement from "./form-element.mjs";
 
 /**
  * A custom HTML element responsible displaying a ProseMirror rich text editor.

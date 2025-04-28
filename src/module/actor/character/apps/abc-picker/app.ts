@@ -1,5 +1,6 @@
 import type { CharacterPF2e } from "@actor";
-import type { ItemUUID } from "@client/documents/item.d.mts";
+import type { ImageFilePath } from "@common/constants.d.mts";
+import type { ItemUUID } from "@common/documents/_module.mts";
 import type { ABCItemPF2e, DeityPF2e, HeritagePF2e, ItemPF2e } from "@item";
 import type { ItemType } from "@item/base/data/index.ts";
 import { RARITIES, Rarity } from "@module/data.ts";

@@ -1,6 +1,6 @@
 import { EffectPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
-import { ActionDefaultOptions } from "@system/action-macros/index.ts";
+import type { ActionDefaultOptions } from "@system/action-macros/index.ts";
 import { ErrorPF2e, localizer } from "@util";
 
 /** Effect: Raise a Shield */
