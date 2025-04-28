@@ -65,46 +65,13 @@
             "type": "action"
         },
         {
-            "_id": "R8ZkjNeENgYmeTSg",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.OvqohW9YuahnFaiX"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Form Up",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FormUp]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 3"
-                },
-                "rules": [],
-                "slug": "form-up",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "Hm79knbJle7MMtLb",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.RJbI07QSiYp0SF9A"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Troop Defenses",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -134,7 +101,7 @@
             "_id": "hzjHms1gdMFgSbQT",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Earth Glide",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -163,7 +130,7 @@
             "_id": "kRzkn90J5Ky2v7Io",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Pummeling Boulders",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -173,7 +140,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The avalanche legion unleashes an onslaught of blows against each enemy within 5 feet (@Check[reflex|dc:28|basic] save). The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[2d8[bludgeoning]] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(3d8+8)[bludgeoning]] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(4d8+11)[bludgeoning]] damage</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The avalanche legion unleashes an onslaught of blows against each enemy in a @Template[emanation|distance:5] (@Check[reflex|dc:28|basic] save). The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[2d8[bludgeoning]] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(3d8+8)[bludgeoning]] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(4d8+11)[bludgeoning]] damage</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -197,7 +164,7 @@
             "_id": "2yFauo5guCRGqBMo",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Spinning Stones",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -207,7 +174,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The avalanche legion spins in place, kicking up a barrage of stones. Each creature in a @Template[burst|distance:10] within 30 feet of the troop takes @Damage[(2d12+10)[bludgeoning]] damage (@Check[reflex|dc:28|basic] save). When the troop is reduced to 8 or fewer squares, this area decreases to a @Template[burst|distance:5].</p>"
+                    "value": "<p>The avalanche legion spins in place, kicking up a barrage of stones. Each creature in a @Template[burst|distance:10] within 30 feet of the troop takes @Damage[(1d12+8)[bludgeoning]] damage (@Check[reflex|dc:28|basic] save). When the troop is reduced to 2 or fewer segments, this area decreases to a @Template[burst|distance:5].</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -226,7 +193,7 @@
             "_id": "umlBJNRh2jqhdPoK",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Trample into the Earth",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -255,7 +222,7 @@
             "_id": "1nWKzGImfTWoo3F7",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Troop Movement",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -312,7 +279,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "16 squares Thresholds 160 (12 squares), 80 (8 squares)",
+                "details": "16 squares Thresholds 160 (3 segments), 80 (2 segments)",
                 "max": 240,
                 "temp": 0,
                 "value": 240
@@ -349,12 +316,12 @@
                 {
                     "exceptions": [],
                     "type": "area-damage",
-                    "value": 15
+                    "value": 10
                 },
                 {
                     "exceptions": [],
                     "type": "splash-damage",
-                    "value": 8
+                    "value": 10
                 }
             ]
         },
