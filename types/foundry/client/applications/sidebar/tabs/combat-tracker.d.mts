@@ -13,7 +13,9 @@ import AbstractSidebarTab from "../sidebar-tab.mjs";
  * @extends {AbstractSidebarTab}
  * @mixes HandlebarsApplication
  */
-export default class CombatTracker extends HandlebarsApplicationMixin(AbstractSidebarTab) {
+export default class CombatTracker<TCombat extends Combat | null = Combat | null> extends HandlebarsApplicationMixin(
+    AbstractSidebarTab,
+) {
     static override DEFAULT_OPTIONS: DeepPartial<ApplicationConfiguration>;
 
     static override tabName: "combat";
@@ -27,12 +29,12 @@ export default class CombatTracker extends HandlebarsApplicationMixin(AbstractSi
     /**
      * The list combats applicable to the active Scene.
      */
-    get combats(): Combat[];
+    get combats(): NonNullable<TCombat>[];
 
     /**
      * Record the currently tracked combat encounter.
      */
-    get viewed(): Combat | null;
+    get viewed(): TCombat;
 
     set viewed(combat);
 
@@ -86,7 +88,7 @@ export default class CombatTracker extends HandlebarsApplicationMixin(AbstractSi
      * @param combatant The Combatant whose turn is being prepared.
      * @param index The index of this entry in the turn order.
      */
-    protected _prepareTurnContext(combat: Combat, combatant: Combatant, index: number): Promise<object>;
+    protected _prepareTurnContext(combat: NonNullable<TCombat>, combatant: Combatant, index: number): Promise<object>;
 
     /* -------------------------------------------- */
     /*  Event Listeners & Handlers                  */
@@ -125,7 +127,7 @@ export default class CombatTracker extends HandlebarsApplicationMixin(AbstractSi
      * @param event The triggering event.
      * @param target The action target element.
      */
-    protected _onCombatantControl(event: PointerEvent, target: HTMLElement): unknown;
+    protected _onCombatantControl(event: PointerEvent, target: HTMLElement): Promise<void>;
 
     /**
      * Handle hovering over a combatant in the tracker.

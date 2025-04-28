@@ -1,6 +1,7 @@
 import { CraftingFormulaData, PreparedFormulaData } from "@actor/character/crafting/types.ts";
 import { CharacterSystemSource } from "@actor/character/data.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
+import type { CompendiumItemUUID } from "@common/documents/_module.d.mts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { CraftingAbilityRuleSource } from "@module/rules/rule-element/crafting-ability.ts";
 import { sluggify } from "@util/misc.ts";
@@ -78,6 +79,6 @@ interface CraftingAbilityRuleSourceMaybeOld extends CraftingAbilityRuleSource {
 }
 
 interface PreparedFormulaDataMaybeOld extends PreparedFormulaData {
-    itemUUID?: ItemUUID;
+    itemUUID?: CompendiumItemUUID;
     sort?: number;
 }

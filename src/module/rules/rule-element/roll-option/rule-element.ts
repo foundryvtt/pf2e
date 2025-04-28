@@ -14,6 +14,7 @@ import { AELikeRuleElement } from "../ae-like.ts";
 import { RuleElementOptions, RuleElementPF2e } from "../base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSource } from "../data.ts";
 import { Suboption, type RollOptionSchema } from "./data.ts";
+import fields = foundry.data.fields;
 
 /**
  * Set a roll option at a specificed domain
@@ -53,8 +54,6 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     }
 
     static override defineSchema(): RollOptionSchema {
-        const fields = foundry.data.fields;
-
         // This rule element behaves much like an override AE-like, so set its default priority to 50
         const baseSchema = super.defineSchema();
         baseSchema.priority.initial = AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES.override;
@@ -120,7 +119,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         };
     }
 
-    static override validateJoint(source: SourceFromSchema<RollOptionSchema>): void {
+    static override validateJoint(source: fields.SourceFromSchema<RollOptionSchema>): void {
         super.validateJoint(source);
         const subOptionsIsEmpty = Array.isArray(source.suboptions) && source.suboptions.length === 0;
 
@@ -455,13 +454,10 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
             this.value &&
             this.actor.items.has(this.item.id) &&
             domains.includes(this.domain) &&
-            rollOptions.has(option)
+            rollOptions.has(option) &&
+            game.pf2e.settings.automation.removeEffects
         ) {
-            if (game.settings.get("pf2e", "automation.removeExpiredEffects")) {
-                await this.item.delete();
-            } else if (game.settings.get("pf2e", "automation.effectExpiration")) {
-                await this.item.update({ "system.duration.value": -1, "system.expired": true });
-            }
+            await this.item.delete();
         }
     }
 }

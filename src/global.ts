@@ -11,6 +11,7 @@ import type Config from "@client/config.d.mts";
 import type WallDocument from "@client/documents/wall.d.mts";
 import type { CompendiumUUID } from "@client/utils/_module.d.mts";
 import type { SettingConfig } from "@common/_types.d.mts";
+import type { ImageFilePath, RollMode, UserRole } from "@common/constants.d.mts";
 import type { ItemPF2e, PhysicalItemPF2e } from "@item";
 import type { ConditionSource } from "@item/condition/data.ts";
 import type { CoinsPF2e } from "@item/physical/helpers.ts";
@@ -26,7 +27,7 @@ import type {
     ActorDirectoryPF2e,
     ChatLogPF2e,
     CompendiumDirectoryPF2e,
-    EncounterTrackerPF2e,
+    EncounterTracker,
 } from "@module/apps/sidebar/index.ts";
 import type { WorldClock } from "@module/apps/world-clock/app.ts";
 import type { CanvasPF2e, EffectsCanvasGroupPF2e } from "@module/canvas/index.ts";
@@ -83,7 +84,6 @@ interface ClientSettingsPF2e extends fh.ClientSettings {
     get(module: "core", key: "noCanvas"): boolean;
     get(module: "core", key: "rollMode"): RollMode;
     get(module: "pf2e", setting: "automation.actorsDeadAtZero"): "neither" | "npcsOnly" | "pcsOnly" | "both";
-    get(module: "pf2e", setting: "automation.effectExpiration"): boolean;
     get(module: "pf2e", setting: "automation.encumbrance"): boolean;
     get(module: "pf2e", setting: "automation.flankingDetection"): boolean;
     get(module: "pf2e", setting: "automation.iwr"): boolean;
@@ -215,6 +215,7 @@ interface GamePF2e
             automation: {
                 /** Flanking detection */
                 flanking: boolean;
+                removeEffects: boolean;
             };
             /** Campaign feat slots */
             campaign: {
@@ -286,7 +287,7 @@ type ConfiguredConfig = Config<
     ChatMessagePF2e,
     EncounterPF2e,
     CombatantPF2e<EncounterPF2e | null, TokenDocumentPF2e>,
-    EncounterTrackerPF2e<EncounterPF2e | null>,
+    EncounterTracker<EncounterPF2e | null>,
     CompendiumDirectoryPF2e,
     Hotbar<MacroPF2e>,
     ItemPF2e,
@@ -333,7 +334,7 @@ declare global {
             foundry.applications.sidebar.tabs.ItemDirectory<ItemPF2e<null>>,
             ChatLogPF2e,
             CompendiumDirectoryPF2e,
-            EncounterTrackerPF2e<EncounterPF2e | null>,
+            EncounterTracker<EncounterPF2e | null>,
             Hotbar<MacroPF2e>
         >;
 

@@ -1,4 +1,5 @@
 import ChatMessage from "@client/documents/chat-message.mjs";
+import { RollMode } from "@common/constants.mjs";
 import { ChatMessageSource } from "@common/documents/chat-message.mjs";
 import { RollOptions, RollParseNode } from "./_types.mjs";
 import { DiceTerm, FunctionTerm, OperatorTerm, PoolTerm, RollTerm, RollTermData } from "./terms/_module.mjs";

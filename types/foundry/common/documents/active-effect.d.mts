@@ -1,8 +1,14 @@
-import { ActorUUID, ItemUUID } from "@client/documents/abstract/_module.mjs";
 import { DatabaseCreateOperation } from "@common/abstract/_types.mjs";
+import {
+    ActiveEffectChangeMode,
+    DocumentOwnershipLevel,
+    DocumentOwnershipString,
+    ImageFilePath,
+    UserAction,
+} from "@common/constants.mjs";
 import type { Document, DocumentMetadata } from "../abstract/_module.d.mts";
 import type * as fields from "../data/fields.mjs";
-import type { BaseActor, BaseItem, BaseUser } from "./_module.mjs";
+import type { ActorUUID, BaseActor, BaseItem, BaseUser, ItemUUID } from "./_module.mjs";
 
 /**
  * The ActiveEffect document model.

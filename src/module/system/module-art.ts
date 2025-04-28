@@ -1,5 +1,6 @@
 import type { CompendiumDocument } from "@client/documents/collections/compendium-collection.d.mts";
 import type { CompendiumUUID } from "@client/utils/_module.d.mts";
+import type { ImageFilePath, VideoFilePath } from "@common/constants.d.mts";
 import { isImageFilePath, isImageOrVideoPath } from "@util";
 import * as R from "remeda";
 

@@ -3,7 +3,7 @@
  * @category Mixins
  * @param TShader The parent ShaderClass class being mixed.
  */
-export default function BaseShaderMixin(TShader: typeof PIXI.Shader): {
+export default function BaseShaderMixin(TShader: typeof PIXI.Filter | typeof PIXI.Shader): {
     new (
         program: PIXI.Program,
         uniforms?: PIXI.utils.Dict<any>,
@@ -49,44 +49,37 @@ export default function BaseShaderMixin(TShader: typeof PIXI.Shader): {
      * => angle: Angle in radians
      * => smoothness: Smoothness of the pie
      * => l: Length of the pie.
-     * @type {string}
      */
     PIE: string;
 
     /**
      * A conventional pseudo-random number generator with the "golden" numbers, based on uv position
-     * @type {string}
      */
     PRNG_LEGACY: string;
 
     /**
      * A pseudo-random number generator based on uv position which does not use cos/sin
      * This PRNG replaces the old PRNG_LEGACY to workaround some driver bugs
-     * @type {string}
      */
     PRNG: string;
 
     /**
      * A Vec2 pseudo-random generator, based on uv position
-     * @type {string}
      */
     PRNG2D: string;
 
     /**
      * A Vec3 pseudo-random generator, based on uv position
-     * @type {string}
      */
     PRNG3D: string;
 
     /**
      * A conventional noise generator
-     * @type {string}
      */
     NOISE: string;
 
     /**
      * Convert a Hue-Saturation-Brightness color to RGB - useful to convert polar coordinates to RGB
-     * @type {string}
      */
     HSB2RGB: string;
 

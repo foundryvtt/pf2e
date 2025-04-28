@@ -39,6 +39,8 @@ $degree-failure-critical: rgb(255, 0, 0);
 body,
 .app,
 .themed.theme-light {
+    --color-text-tertiary: var(--color-dark-4);
+
     /* Global */
     --color-pf-primary: #{$primary-color};
     --color-pf-primary-dark: #{color.adjust($primary-color, $lightness: -5%)};
@@ -67,7 +69,7 @@ body,
     --bg: #{$light-background-color};
     --bg-dark: #{$less-light-background-color};
     --sub: #{$sub-color};
-    --color-disabled: var(--color-text-dark-4);
+    --color-disabled: var(--color-text-subtle);
 
     // Inline links and user visibility
     --visibility-gm-bg: #e8e8ef;
@@ -82,7 +84,7 @@ body,
 
     /* Text */
     --text-dark: var(--color-cool-4);
-    --text-light: #f5efe0;
+    --text-light: var(--color-light-1);
     --text-light-disabled: #a6a092;
     --color-text-dark-input: #333;
     --color-text-dark-improved: #006644;
@@ -356,7 +358,7 @@ body,
                 background-color: var(--color-bg-physical); // Improve contrast with bright color
                 border-color: var(--color-border-vitality);
                 color: var(--color-text-vitality);
-                text-shadow: 1px 1px var(--color-text-dark-1);
+                text-shadow: 1px 1px var(--color-shadow-dark);
 
                 i[class^="fa-"] {
                     color: var(--color-border-vitality);
@@ -378,5 +380,6 @@ body,
 
 body.theme-dark .application,
 .themed.theme-dark {
+    --color-text-tertiary: var(--color-light-4);
     --visibility-gm-bg: var(--color-cool-4);
 }

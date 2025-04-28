@@ -158,7 +158,7 @@ export default class Game<
     items: collections.Items<TItem>;
     journal: collections.Journal;
     macros: collections.Macros<TMacro>;
-    messages: collections.ChatMessages<TChatMessage>;
+    messages: collections.Messages<TChatMessage>;
     packs: Collection<
         string,
         collections.CompendiumCollection<TActor | TItem | JournalEntry | TMacro | Playlist | RollTable | TScene>

@@ -1,5 +1,5 @@
 import type { AttributeString, SkillSlug } from "@actor/types.ts";
-import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
+import type { ItemUUID } from "@client/documents/_module.d.mts";
 import type { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource, OtherTagsOnly } from "@item/base/data/system.ts";
 import type { BaseWeaponType } from "@item/weapon/types.ts";
 import type { DeityDomain, Sanctification } from "./types.ts";

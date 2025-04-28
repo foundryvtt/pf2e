@@ -1,3 +1,4 @@
+import { ImageFilePath, MacroScope, MacroType } from "@common/constants.mjs";
 import type { Document, DocumentMetadata, MetadataPermission } from "../abstract/_module.d.mts";
 import { DatabaseCreateOperation } from "../abstract/_types.mjs";
 import type * as fields from "../data/fields.mjs";

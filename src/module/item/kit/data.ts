@@ -1,4 +1,5 @@
-import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
+import type { ItemUUID } from "@client/documents/_module.d.mts";
+import type { ImageFilePath } from "@common/constants.d.mts";
 import type { KitPF2e } from "@item";
 import { ItemSystemModel, ItemSystemSchema } from "@item/base/data/model.ts";
 import type { BaseItemSourcePF2e, ItemSystemSource } from "@item/base/data/system.ts";

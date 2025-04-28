@@ -1,4 +1,9 @@
 import { userColorForActor } from "@actor/helpers.ts";
+import type { ClientDocument } from "@client/documents/abstract/_module.d.mts";
+import type { CompendiumIndexData } from "@client/documents/collections/compendium-collection.d.mts";
+import type { HexColorString } from "@common/constants.d.mts";
+import type { SourceFromSchema } from "@common/data/fields.d.mts";
+import type { ItemUUID } from "@common/documents/_module.d.mts";
 import type { ItemPF2e } from "@item";
 import type { AuraRuleElement, AuraRuleElementSchema } from "@module/rules/rule-element/aura.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";

@@ -1,7 +1,7 @@
-import { ItemUUID } from "@client/documents/abstract/_module.mjs";
+import { DocumentOwnershipLevel, DocumentOwnershipString, ImageFilePath, UserAction } from "@common/constants.mjs";
 import * as abstract from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
-import { BaseActiveEffect, BaseActor, BaseFolder, BaseUser } from "./_module.mjs";
+import { BaseActiveEffect, BaseActor, BaseFolder, BaseUser, ItemUUID } from "./_module.mjs";
 
 /**
  * The Document definition for an Item.
