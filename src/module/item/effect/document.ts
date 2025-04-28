@@ -72,8 +72,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
 
     /** Unless this effect is temporarily constructed, ignore rule elements if it is expired */
     override prepareRuleElements(options?: RuleElementOptions): RuleElementPF2e[] {
-        const autoExpireEffects = game.settings.get("pf2e", "automation.effectExpiration");
-        if (autoExpireEffects && this.isExpired && this.actor?.items.has(this.id)) {
+        if (this.isExpired && this.actor?.items.has(this.id)) {
             for (const rule of this.system.rules) {
                 rule.ignored = true;
             }

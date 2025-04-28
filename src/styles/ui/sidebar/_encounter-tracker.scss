@@ -1,24 +1,13 @@
 #combat,
 #combat-popout {
-    nav.encounters {
-        line-height: 1.5rem;
-        padding-top: 0.25rem;
-    }
-
     .threat-award {
-        color: var(--text-light);
+        color: var(--color-text-tertiary);
         display: flex;
         font-size: var(--font-size-14);
         gap: 1rem;
         justify-content: center;
         line-height: 1.5rem;
-        text-shadow: 1px 1px 4px var(--color-shadow-dark);
         white-space: nowrap;
-
-        > * {
-            width: 6rem;
-        }
-
         .threat .value {
             &.trivial {
                 color: aqua;
@@ -39,19 +28,26 @@
             &.extreme {
                 color: red;
             }
+            text-shadow: 1px 1px 2px var(--color-shadow-dark);
+        }
+        .award .value {
+            color: var(--color-text-primary);
         }
     }
 
-    .encounter-controls {
-        padding: 0.25rem 0 0.5rem;
+    .combatant-controls {
+        --element-spacing-half: 2px;
     }
 
     li.combatant {
-        cursor: default;
-        padding: 3px 0 3px 3px;
+        cursor: var(--cursor-default);
+        --color-border-disposition: var(--color-warm-2);
+        &.active::before {
+            border-color: var(--color-border-disposition);
+        }
 
         &.gm-draggable {
-            cursor: grab;
+            cursor: var(--cursor-grab);
         }
 
         &.drag-preview {
@@ -64,11 +60,12 @@
             visibility: hidden;
         }
 
-        .hidden-name .token-name h4 {
-            color: var(--color-text-light-7);
+        .hidden-name > strong {
+            color: var(--color-text-subtle);
         }
 
-        .token-name h4 {
+        .token-name > strong {
+            display: flex;
             flex-direction: row;
 
             .users-targeting {
@@ -80,9 +77,5 @@
                 vertical-align: bottom;
             }
         }
-    }
-
-    a.combat-control.center {
-        white-space: nowrap;
     }
 }

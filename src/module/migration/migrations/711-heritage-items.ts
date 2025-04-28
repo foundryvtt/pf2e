@@ -1,10 +1,12 @@
-import { CharacterDetailsSource } from "@actor/character/data.ts";
-import { CreatureTrait } from "@actor/creature/types.ts";
-import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
-import { FeatSystemSource } from "@item/feat/data.ts";
-import { HeritageSource, HeritageSystemSource } from "@item/heritage/data.ts";
-import { Rarity } from "@module/data.ts";
+import type { CharacterDetailsSource } from "@actor/character/data.ts";
+import type { CreatureTrait } from "@actor/creature/types.ts";
+import type { ActorSourcePF2e } from "@actor/data/index.ts";
+import type { ImageFilePath } from "@common/constants.d.mts";
+import type { CompendiumItemUUID } from "@common/documents/_module.d.mts";
+import type { FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
+import type { FeatSystemSource } from "@item/feat/data.ts";
+import type { HeritageSource, HeritageSystemSource } from "@item/heritage/data.ts";
+import type { Rarity } from "@module/data.ts";
 import { creatureTraits } from "@scripts/config/traits.ts";
 import { MigrationBase } from "../base.ts";
 
@@ -17,7 +19,7 @@ export class Migration711HeritageItems extends MigrationBase {
         return feature.type === "feat" && feature.system.featType?.value === "heritage";
     }
 
-    #officialAncestries: Record<string, { name: string; uuid: ItemUUID } | undefined> = {
+    #officialAncestries: Record<string, { name: string; uuid: CompendiumItemUUID } | undefined> = {
         tengu: {
             name: "Tengu",
             uuid: "Compendium.pf2e.ancestries.Item.18xDKYPDBLEv2myX",
@@ -178,7 +180,7 @@ export class Migration711HeritageItems extends MigrationBase {
             feature._stats.compendiumSource = feature._stats.compendiumSource.replace(
                 "ancestryfeatures",
                 "heritages",
-            ) as ItemUUID;
+            ) as CompendiumItemUUID;
         }
 
         return {
@@ -273,7 +275,7 @@ interface HeritageSourceWithNoAncestrySlug extends Omit<HeritageSource, "system"
 }
 
 interface HeritageSystemSourceWithNoAncestrySlug extends Omit<HeritageSystemSource, "ancestry" | "publication"> {
-    ancestry: { uuid: ItemUUID; name: string } | null;
+    ancestry: { uuid: CompendiumItemUUID; name: string } | null;
 }
 
 type MaybeWithStoredHeritage = CharacterDetailsSource & { heritage?: unknown; "-=heritage"?: null };

@@ -1,5 +1,5 @@
 import type { Document, DocumentMetadata } from "../abstract/_module.d.mts";
-import { FOLDER_DOCUMENT_TYPES } from "../constants.mjs";
+import { FOLDER_DOCUMENT_TYPES, FolderDocumentType } from "../constants.mjs";
 import type * as fields from "../data/fields.mjs";
 
 /**

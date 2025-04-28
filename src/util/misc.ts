@@ -1,5 +1,6 @@
 import type Localization from "@client/helpers/localization.d.mts";
 import type { TranslationDictionaryValue } from "@client/helpers/localization.d.mts";
+import { ImageFilePath, VideoFilePath } from "@common/constants.mjs";
 import type { ActionCost } from "@item/base/data/system.ts";
 import * as R from "remeda";
 import type Sortable from "sortablejs";

@@ -1,4 +1,4 @@
-export type Notification = {
+export interface Notification {
     id: number;
     type: string;
     timestamp: number;
@@ -12,32 +12,34 @@ export type Notification = {
     element?: HTMLLIElement;
     remove?: () => void;
     update?: (options: { message?: string; pct?: number }) => void;
-};
+}
+
+export interface ProgressNotification extends Notification {
+    update: (options: { message?: string; pct?: number }) => void;
+}
 
 export interface NotificationOptions {
     /** Should the notification be permanently displayed until dismissed */
     permanent?: boolean;
-
     /** Does this Notification include a progress bar? */
     progress?: boolean;
-
     /** Whether to localize the message content before displaying it */
     localize?: boolean;
-
     /** Whether to log the message to the console */
     console?: boolean;
-
     /** Whether to escape the values of `format` */
     escape?: boolean;
-
     /**
      * Whether to clean the provided message string as untrusted user input. No cleaning is applied if `format` is
      * passed and `escape` is true or `localize` is true and `format` is not passed.
      */
     clean?: boolean;
-
     /** A mapping of formatting strings passed to Localization#format */
     format?: Record<string, string>;
+}
+
+export interface ProgressNotificationOptions extends NotificationOptions {
+    progress: true;
 }
 
 /**
@@ -104,6 +106,7 @@ export default class Notifications {
      * @returns The registered notification
      * @see {@link notify}
      */
+    info(message: string | object, options: ProgressNotificationOptions): Readonly<ProgressNotification>;
     info(message: string | object, options: NotificationOptions): Readonly<Notification>;
 
     /**

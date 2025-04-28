@@ -1,6 +1,7 @@
 import type { CombatTrackerConfig } from "@client/applications/apps/_module.mjs";
 import { ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";
 import Canvas from "@client/canvas/board.mjs";
+import LightingLayer from "@client/canvas/layers/lighting.mjs";
 import Token from "@client/canvas/placeables/token.mjs";
 import {
     Actor,
@@ -103,7 +104,6 @@ export default class Hooks {
     static on(...args: HooksParamsPreUpdateCombat): number;
     static on(...args: HookParamsPreUpdateToken): number;
     static on(...args: HookParamsRender<ChatLog, "ChatLog">): number;
-    static on(...args: HookParamsRender<ChatPopout, "ChatPopout">): number;
     static on(...args: HookParamsRender<CombatTrackerConfig, "CombatTrackerConfig">): number;
     static on(...args: HookParamsRender<CompendiumDirectory, "CompendiumDirectory">): number;
     static on(...args: HookParamsRender<Dialog, "Dialog">): number;
@@ -146,10 +146,8 @@ export default class Hooks {
     static once(...args: HookParamsLightingRefresh): number;
     static once(...args: HookParamsPreCreateItem): number;
     static once(...args: HookParamsPreUpdateToken): number;
-    static once(...args: HookParamsRenderChatMessage): number;
     static once(...args: HookParamsRender<ActorDirectory<Actor<null>>, "ActorDirectory">): number;
     static once(...args: HookParamsRender<ChatLog, "ChatLog">): number;
-    static once(...args: HookParamsRender<ChatPopout, "ChatPopout">): number;
     static once(...args: HookParamsRender<CombatTrackerConfig, "CombatTrackerConfig">): number;
     static once(...args: HookParamsRender<CompendiumDirectory, "CompendiumDirectory">): number;
     static once(...args: HookParamsRender<Dialog, "Dialog">): number;

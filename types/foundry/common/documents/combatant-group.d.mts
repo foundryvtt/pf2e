@@ -1,3 +1,4 @@
+import { ImageFilePath } from "@common/constants.mjs";
 import Document, { DocumentMetadata } from "../abstract/document.mjs";
 import * as fields from "../data/fields.mjs";
 import BaseCombat from "./combat.mjs";

@@ -6,11 +6,12 @@
     display: flex;
     flex-direction: column;
     font-family: var(--sans-serif);
-    gap: var(--space-3);
+    gap: 0.5rem;
 
     h2,
     h3,
     h4 {
+        font-size: inherit;
         font-weight: 600;
     }
 
@@ -50,7 +51,7 @@
     .tags {
         border-bottom: 2px groove white;
         margin: 0;
-        padding: 0 0 var(--space-4) 0;
+        padding-bottom: 0.25rem;
     }
 
     .card-content {
@@ -86,26 +87,24 @@
         display: flex;
         flex-basis: 100%;
         flex-direction: column;
-        margin: var(--space-4) 0;
+        gap: 0.25rem;
 
-        button {
-            margin: var(--space-2) 0;
-
-            span {
-                border: none;
-            }
+        button span {
+            border: none;
         }
 
         .owner-buttons {
             display: flex;
             flex-basis: 100%;
             flex-direction: column;
+            gap: 0.25rem;
         }
 
         .spell-attack-buttons,
         .spell-button {
             display: flex;
             flex-direction: row;
+            gap: 0.25rem;
 
             * {
                 flex-grow: 1;

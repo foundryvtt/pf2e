@@ -1,7 +1,8 @@
 import { DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import { UserPermission } from "@common/constants.mjs";
 import Token from "../canvas/placeables/token.mjs";
 import UserTargets from "../canvas/placeables/tokens/targets.mjs";
-import { BaseUser, Macro } from "./_module.mjs";
+import { BaseUser, Macro, TokenDocument } from "./_module.mjs";
 import ClientDocumentMixin from "./abstract/client-document.mjs";
 
 /**
@@ -25,9 +26,10 @@ export default class User extends ClientDocumentMixin(BaseUser) {
     /** Track the ID of the Scene that is currently being viewed by the User */
     viewedScene: string | null;
 
-    /* ---------------------------------------- */
-    /*  User Properties                         */
-    /* ---------------------------------------- */
+    /**
+     * Track the Token documents that this User is currently moving.
+     */
+    readonly movingTokens: ReadonlySet<TokenDocument>;
 
     /** A flag for whether the current User is a Trusted Player */
     get isTrusted(): boolean;
@@ -35,7 +37,39 @@ export default class User extends ClientDocumentMixin(BaseUser) {
     /** A flag for whether this User is the connected client */
     get isSelf(): boolean;
 
+    /**
+     * Is this User the active GM?
+     */
+    get isActiveGM(): boolean;
+
+    /**
+     * A localized label for this User's role.
+     */
+    get roleLabel(): string;
+
+    /**
+     * The timestamp of the last observed activity for the user.
+     */
+    get lastActivityTime(): number;
+
+    set lastActivityTime(timestamp);
+
     override prepareDerivedData(): void;
+
+    /* ---------------------------------------- */
+    /*  User Methods                            */
+    /* ---------------------------------------- */
+    /**
+     * Is this User the designated User among the Users that satisfy the given condition?
+     * This function calls {@link foundry.documents.collections.Users#getDesignatedUser} and compares the designated User
+     * to this User.
+     * @example
+     * // Is the current User the designated User to create Tokens?
+     * const isDesignated = game.user.isDesignated(user => user.active && user.can("TOKEN_CREATE"));
+     * @param condition The condition the Users must satisfy
+     * @returns Is designated User?
+     */
+    isDesignated(condition: (user: this) => boolean): boolean;
 
     /**
      * Assign a Macro to a numbered hotbar slot between 1 and 50
@@ -82,8 +116,23 @@ export default class User extends ClientDocumentMixin(BaseUser) {
     /**
      * Update the set of Token targets for the user given an array of provided Token ids.
      * @param targetIds An array of Token ids which represents the new target set
+     * @internal
      */
-    updateTokenTargets(targetIds?: string[]): void;
+    _onUpdateTokenTargets(targetIds?: string[]): void;
+
+    /**
+     * Query this User.
+     * @param queryName The query name (must be registered in `CONFIG.queries`)
+     * @param queryData The query data (must be JSON-serializable)
+     * @param queryOptions The query options
+     * @param queryOptions.timeout The timeout in milliseconds
+     * @returns The query result
+     */
+    query(queryName: string, queryData: object, queryOptions?: { timeout?: number }): Promise<unknown>;
+
+    /* -------------------------------------------- */
+    /*  Event Handlers                              */
+    /* -------------------------------------------- */
 
     protected override _onUpdate(
         changed: DeepPartial<foundry.documents.UserSource>,

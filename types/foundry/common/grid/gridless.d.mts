@@ -1,4 +1,5 @@
-import { Point, Rectangle } from "../_types.d.mts";
+import { MovementDirection } from "@common/constants.mjs";
+import { Point, Rectangle } from "../_types.mjs";
 import { BaseGrid } from "./base.mjs";
 
 /** The gridless grid class. */

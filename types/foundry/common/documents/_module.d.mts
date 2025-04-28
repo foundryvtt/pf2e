@@ -1,3 +1,5 @@
+import { WorldDocumentType } from "@common/constants.mjs";
+
 export { ActiveEffectSource, default as BaseActiveEffect } from "./active-effect.mjs";
 export { default as BaseActorDelta } from "./actor-delta.mjs";
 export { ActorSource, default as BaseActor } from "./actor.mjs";
@@ -31,3 +33,12 @@ export { default as BaseTile, TileSource } from "./tile.mjs";
 export { default as BaseToken, TokenSource } from "./token.mjs";
 export { default as BaseUser, UserSource } from "./user.mjs";
 export { default as BaseWall, WallSource } from "./wall.mjs";
+
+export type ActorUUID = `Actor.${string}` | `${TokenDocumentUUID}.Actor.${string}` | CompendiumActorUUID;
+export type CompendiumActorUUID = `Compendium.${string}.Actor.${string}`;
+export type CompendiumItemUUID = `Compendium.${string}.Item.${string}`;
+export type EmbeddedItemUUID = `Actor.${string}.Item.${string}`;
+export type ItemUUID = WorldItemUUID | EmbeddedItemUUID | CompendiumItemUUID;
+export type TokenDocumentUUID = `Scene.${string}.Token.${string}`;
+export type WorldDocumentUUID = `${WorldDocumentType}.${string}`;
+export type WorldItemUUID = `Item.${string}`;

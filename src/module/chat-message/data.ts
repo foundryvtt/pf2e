@@ -1,14 +1,15 @@
 import type { RawDamageDice, RawModifier } from "@actor/modifiers.ts";
-import type { ActorUUID, TokenDocumentUUID } from "@client/documents/abstract/_module.d.mts";
+import type { ActorUUID, TokenDocumentUUID } from "@client/documents/_module.d.mts";
 import type { DocumentUUID } from "@client/utils/_module.d.mts";
+import type { RollMode } from "@common/constants.d.mts";
 import type { ChatMessageFlags } from "@common/documents/chat-message.d.mts";
-import { ItemType, SpellSource } from "@item/base/data/index.ts";
-import { MagicTradition } from "@item/spell/types.ts";
-import { ZeroToTwo } from "@module/data.ts";
-import { RollNoteSource } from "@module/notes.ts";
-import { CheckCheckContext } from "@system/check/index.ts";
-import { DamageDamageContext } from "@system/damage/types.ts";
-import { DegreeAdjustmentsRecord, DegreeOfSuccessString } from "@system/degree-of-success.ts";
+import type { ItemType, SpellSource } from "@item/base/data/index.ts";
+import type { MagicTradition } from "@item/spell/types.ts";
+import type { ZeroToTwo } from "@module/data.ts";
+import type { RollNoteSource } from "@module/notes.ts";
+import type { CheckCheckContext } from "@system/check/index.ts";
+import type { DamageDamageContext } from "@system/damage/types.ts";
+import type { DegreeAdjustmentsRecord, DegreeOfSuccessString } from "@system/degree-of-success.ts";
 
 type ChatMessageSourcePF2e = foundry.documents.ChatMessageSource & {
     flags: ChatMessageFlagsPF2e;

@@ -1,3 +1,4 @@
+import { WallDirection, WallDoorState, WallDoorType, WallMovementType, WallSenseType } from "@common/constants.mjs";
 import type { Document, DocumentMetadata } from "../abstract/_module.d.mts";
 import type * as fields from "../data/fields.mjs";
 import type { BaseScene } from "./_module.mjs";
