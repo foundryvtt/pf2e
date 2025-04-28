@@ -7,7 +7,7 @@ import type {
     ItemUUID,
     TokenDocumentUUID,
     WorldItemUUID,
-} from "@client/documents/abstract/_module.d.mts";
+} from "@client/documents/_module.d.mts";
 import type { CompendiumIndexData } from "@client/documents/collections/compendium-collection.d.mts";
 import type { CompendiumUUID } from "@client/utils/_module.d.mts";
 import type Document from "@common/abstract/document.d.mts";

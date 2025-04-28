@@ -1,10 +1,10 @@
 import { ProseMirrorDropDown } from "./dropdown.mjs";
-import { ProseMirrorPlugin } from "./plugin.mjs";
+import ProseMirrorPlugin from "./plugin.mjs";
 
 /**
  * A class responsible for building a menu for a ProseMirror instance.
  */
-export class ProseMirrorMenu extends ProseMirrorPlugin {
+export default class ProseMirrorMenu extends ProseMirrorPlugin {
     /** The editor view. */
     view: ProseMirror.EditorView;
 
@@ -34,7 +34,7 @@ export class ProseMirrorMenu extends ProseMirrorPlugin {
     /** Additional options to configure the plugin's behaviour. */
     options: ProseMirrorMenuOptions;
 
-    static build(schema: ProseMirror.Schema, options?: ProseMirrorMenuOptions): ProseMirror.Plugin;
+    static override build(schema: ProseMirror.Schema, options?: object): ProseMirror.Plugin;
 
     /** Render the menu's HTML. */
     render(): this;

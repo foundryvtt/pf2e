@@ -1,5 +1,7 @@
-import type * as fields from "../data/fields.mjs";
-import type * as packages from "./_module.d.mts";
+import { PackageAvailabilityCode } from "@common/constants.mjs";
+import * as fields from "../data/fields.mjs";
+import * as packages from "./_module.mjs";
+import { PackageManifestData } from "./_types.mjs";
 
 export default class BaseWorld extends packages.BasePackage<WorldSchema> {
     static override defineSchema(): WorldSchema;
@@ -9,15 +11,17 @@ export default class BaseWorld extends packages.BasePackage<WorldSchema> {
     /** The default icon used for this type of Package. */
     static icon: string;
 
-    static override migrateData(data: Record<string, unknown>): SourceFromSchema<WorldSchema>;
+    static override migrateData(data: Record<string, unknown>): fields.SourceFromSchema<WorldSchema>;
 
     static testAvailability(
-        data?: Partial<packages.PackageManifestData>,
+        data?: Partial<PackageManifestData>,
         release?: packages.ReleaseData,
     ): PackageAvailabilityCode;
 }
 
-export default interface BaseWorld extends packages.BasePackage<WorldSchema>, ModelPropsFromSchema<WorldSchema> {}
+export default interface BaseWorld
+    extends packages.BasePackage<WorldSchema>,
+        fields.ModelPropsFromSchema<WorldSchema> {}
 
 /**
  * The data schema used to define World manifest files.

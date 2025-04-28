@@ -1,5 +1,6 @@
+import type { ItemUUID } from "@common/documents/_module.d.mts";
 import type { SpellPF2e } from "@item";
-import { ItemSourcePF2e, SpellSource } from "@item/base/data/index.ts";
+import type { ItemSourcePF2e, SpellSource } from "@item/base/data/index.ts";
 import { sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
@@ -52,7 +53,7 @@ export class Migration747FixedHeightening extends MigrationBase {
         return this.#loadedSpells;
     }
 
-    fixedHeightenSpells = new Set<DocumentUUID>([
+    fixedHeightenSpells = new Set<ItemUUID>([
         "Compendium.pf2e.spells-srd.Item.0fKHBh5goe2eiFYL",
         "Compendium.pf2e.spells-srd.Item.10VcmSYNBrvBphu1",
         "Compendium.pf2e.spells-srd.Item.2gQYrCPwBmwau26O",

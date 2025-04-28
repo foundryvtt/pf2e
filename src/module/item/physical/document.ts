@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
+import type { ItemUUID } from "@client/documents/_module.d.mts";
 import type { DocumentConstructionContext } from "@common/_types.d.mts";
 import type {
     DatabaseCreateOperation,

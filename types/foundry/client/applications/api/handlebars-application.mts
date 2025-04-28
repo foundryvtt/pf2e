@@ -1,4 +1,4 @@
-import type { ApplicationFormConfiguration, ApplicationRenderOptions } from "../_types.mjs";
+import type { ApplicationFormConfiguration, ApplicationRenderContext, ApplicationRenderOptions } from "../_types.mjs";
 import type ApplicationV2 from "./application.mjs";
 
 /** Augment an Application class with [Handlebars](https://handlebarsjs.com) template rendering behavior. */
@@ -53,9 +53,9 @@ export default function HandlebarsApplicationMixin<TBase extends AbstractConstru
          */
         protected async _preparePartContext(
             partId: string,
-            context: object,
+            context: ApplicationRenderContext,
             options: HandlebarsRenderOptions,
-        ): Promise<object> {
+        ): Promise<ApplicationRenderContext> {
             partId;
             context;
             options;

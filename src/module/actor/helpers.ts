@@ -1,4 +1,6 @@
 import { ActorProxyPF2e, type ActorPF2e } from "@actor";
+import { Rolled } from "@client/dice/_module.mjs";
+import { HexColorString } from "@common/constants.mjs";
 import type { ItemPF2e, MeleePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { AbilityTrait } from "@item/ability/types.ts";
 import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
@@ -41,10 +43,10 @@ import { ActorCommitData, AttributeString, AuraEffectData } from "./types.ts";
 
 /**
  * Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors
- * @param [actors] A list of actors to refresh: if none are provided, all world and synthetic actors are retrieved
- * @param [options] Render options for actor sheets and tokens
- * @param [options.sheets=true] Render actor sheets
- * @param [options.tokens=false] Redraw tokens
+ * @param actors A list of actors to refresh: if none are provided, all world and synthetic actors are retrieved
+ * @param options Render options for actor sheets and tokens
+ * @param options.sheets Render actor sheets
+ * @param options.tokens Redraw tokens
  */
 async function resetActors(actors?: Iterable<ActorPF2e>, options: ResetActorsRenderOptions = {}): Promise<void> {
     actors ??= [
@@ -59,25 +61,6 @@ async function resetActors(actors?: Iterable<ActorPF2e>, options: ResetActorsRen
         if (options.sheets) actor.render();
     }
     game.pf2e.effectPanel.refresh();
-
-    // If expired effects are automatically removed, the actor update cycle will reinitialize vision
-    const refreshScenes =
-        game.settings.get("pf2e", "automation.effectExpiration") &&
-        !game.settings.get("pf2e", "automation.removeExpiredEffects");
-
-    if (refreshScenes) {
-        const scenes = R.unique(
-            Array.from(actors)
-                .flatMap((a) => a.getActiveTokens(false, true))
-                .flatMap((t) => t.scene),
-        );
-        for (const scene of scenes) {
-            scene.reset();
-            if (scene.isView) {
-                canvas.perception.update({ initializeVision: true });
-            }
-        }
-    }
 
     if (options.tokens) {
         for (const token of R.unique(Array.from(actors).flatMap((a) => a.getActiveTokens(true, true)))) {

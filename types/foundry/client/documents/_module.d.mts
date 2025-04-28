@@ -91,9 +91,3 @@ export type CompendiumDocument =
     | Playlist
     | RollTable
     | Scene;
-
-export type WorldDocumentName = WorldDocument["documentName"];
-
-// export type WorldDocumentUUID<T extends WorldDocument = WorldDocument> = `${T["documentName"]}.${string}`;
-
-export type WorldDocumentUUID<T extends WorldDocument = WorldDocument> = string;

@@ -16,10 +16,10 @@ import {
     Combatant,
     RegionDocument,
     Scene,
+    TokenDocumentUUID,
     TrackedAttributesDescription,
     User,
 } from "./_module.mjs";
-import { TokenDocumentUUID } from "./abstract/_module.mjs";
 import { CanvasDocument } from "./abstract/canvas-document.mjs";
 import { ClientDocument } from "./abstract/client-document.mjs";
 

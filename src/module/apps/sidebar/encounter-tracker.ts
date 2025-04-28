@@ -1,102 +1,65 @@
-import type { AppV1RenderOptions } from "@client/appv1/api/application-v1.d.mts";
+import { ApplicationRenderContext } from "@client/applications/_types.mjs";
+import { HandlebarsRenderOptions } from "@client/applications/api/handlebars-application.mjs";
 import { combatantAndTokenDoc } from "@module/doc-helpers.ts";
 import type { CombatantPF2e, EncounterPF2e, RolledCombatant } from "@module/encounter/index.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
-import {
-    ErrorPF2e,
-    createHTMLElement,
-    fontAwesomeIcon,
-    htmlQuery,
-    htmlQueryAll,
-    localizeList,
-    localizer,
-    parseHTML,
-} from "@util";
+import { ErrorPF2e, createHTMLElement, fontAwesomeIcon, htmlQuery, htmlQueryAll, localizeList, localizer } from "@util";
 import Sortable from "sortablejs";
 import tabs = fa.sidebar.tabs;
 
-export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> extends tabs.CombatTracker<TEncounter> {
+export class EncounterTracker<TEncounter extends EncounterPF2e | null> extends tabs.CombatTracker<TEncounter> {
+    static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
+        actions: {
+            toggleTarget: EncounterTracker.#onClickToggleTarget,
+            toggleNameVisibility: EncounterTracker.#onClickToggleNameVisibility,
+        },
+    };
+
     #sortable: Sortable | null = null;
 
     /** Show encounter analysis data if obtainable */
-    protected override async _renderInner(data: object, options: AppV1RenderOptions): Promise<JQuery> {
-        const $html = await super._renderInner(data, options);
-        if (!game.user.isGM) return $html;
-        const metrics = this.viewed?.metrics;
-        if (!metrics) return $html;
-
-        const localize = localizer("PF2E.Encounter.Metrics");
-        const threat = ((): { label: string; tooltip: string } => {
-            const label = game.i18n.localize(`PF2E.Encounter.Budget.Threats.${metrics.threat}`);
-            const tooltip = localize("Budget", metrics.budget);
-            const tempContainer = createHTMLElement("div", { innerHTML: localize("Threat", { threat: label }) });
-            TextEditorPF2e.convertXMLNode(tempContainer, "threat", { classes: ["value", metrics.threat] });
-            return { label: tempContainer.innerHTML, tooltip };
-        })();
-
-        const award = ((): { label: string; tooltip: string } => {
-            const label = localize("Award.Label", { xp: metrics.award.xp });
-            const numRecipients = metrics.award.recipients.length;
-            const tooltip = localize(
-                numRecipients === 1
-                    ? "Award.Tooltip.Singular"
-                    : numRecipients === 4
-                      ? "Award.Tooltip.Four"
-                      : "Award.Tooltip.Plural",
-                { xpPerFour: metrics.budget.spent, recipients: numRecipients },
-            );
-            return { label, tooltip };
-        })();
-
-        const templatePath = "systems/pf2e/templates/sidebar/encounter-tracker/threat-award.hbs";
-        const threatAward = parseHTML(await fa.handlebars.renderTemplate(templatePath, { threat, award }));
-        const html = $html[0];
-        htmlQuery(html, "nav.encounters")?.after(threatAward);
-
-        return $(html);
-    }
-
-    /** Make the combatants sortable */
-    override activateListeners($html: JQuery): void {
-        const html = $html[0];
-        const tracker = htmlQuery(html, "#combat-tracker");
-        if (!tracker) throw ErrorPF2e("No tracker found");
-
+    protected override async _onRender(
+        context: ApplicationRenderContext,
+        options: HandlebarsRenderOptions,
+    ): Promise<void> {
+        await super._onRender(context, options);
         const encounter = this.viewed;
-        if (!encounter) return super.activateListeners($html);
-        const trackerPlaceholder = document.createElement("div");
-        tracker.replaceWith(trackerPlaceholder);
+        const tracker = <HTMLOListElement | null>this.element.querySelector("ol.combat-tracker");
+        if (!encounter || !tracker) return;
 
+        await this.#injectMetrics();
         const tokenSetsNameVisibility = game.pf2e.settings.tokens.nameVisibility;
         const allyColor = (c: CombatantPF2e<EncounterPF2e>) =>
             c.actor?.hasPlayerOwner ? CONFIG.Canvas.dispositionColors.PARTY : CONFIG.Canvas.dispositionColors.FRIENDLY;
 
-        const combatantRows = htmlQueryAll(tracker, "li.combatant");
+        const combatantRows = tracker.querySelectorAll("li");
         for (const row of combatantRows) {
             const combatantId = row.dataset.combatantId ?? "";
             const combatant = encounter.combatants.get(combatantId, { strict: true });
 
             // Set each combatant's initiative as a data attribute for use in drag/drop feature
-            row.dataset.initiative = String(combatant.initiative);
+            if (typeof combatant.initiative === "number") row.dataset.initiative = String(combatant.initiative);
 
             // Highlight the active-turn participant's alliance color
             if (combatant?.actor && this.viewed?.combatant === combatant) {
                 const alliance = combatant.actor.alliance;
-                const dispositionColor = new fu.Color(
+                const dispositionColor = new Color(
                     alliance === "party"
                         ? allyColor(combatant)
                         : alliance === "opposition"
                           ? CONFIG.Canvas.dispositionColors.HOSTILE
                           : CONFIG.Canvas.dispositionColors.NEUTRAL,
                 );
-                row.style.cssText = `--color-border-highlight: ${dispositionColor.toString()}`;
-                row.style.background = dispositionColor.toRGBA(0.1);
+                row.style.cssText = [
+                    `--color-border-disposition: ${dispositionColor.toString()}`,
+                    `--entry-active-bg: ${dispositionColor.toRGBA(0.1)}`,
+                ].join(";\n");
             }
 
             // Create section for list of users targeting a combatant's token
-            const nameHeader = htmlQuery(row, ".token-name h4");
+            const nameHeader = htmlQuery(row, ".token-name > strong");
             if (!nameHeader) continue;
             nameHeader.innerHTML = [
                 createHTMLElement("span", { classes: ["name"], children: [nameHeader.innerText] }).outerHTML,
@@ -104,27 +67,20 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
             ].join("");
 
             // Adjust controls with system extensions
-            for (const control of htmlQueryAll(row, "a.combatant-control")) {
-                const controlIcon = htmlQuery(control, "i");
-                if (!controlIcon) continue;
-
-                // Ensure even spacing between combatant controls
-                controlIcon.classList.remove("fas");
-                controlIcon.classList.add("fa-solid", "fa-fw");
-
-                if (control.dataset.control === "pingCombatant") {
+            for (const button of htmlQueryAll(row, ".combatant-controls button")) {
+                if (button.dataset.action === "pingCombatant") {
                     // Use an icon for the `pingCombatant` control that looks less like a targeting reticle
-                    controlIcon.classList.remove("fa-bullseye-arrow");
-                    controlIcon.classList.add("fa-signal-stream");
+                    button.classList.remove("fa-bullseye-arrow");
+                    button.classList.add("fa-signal-stream");
 
                     // Add a `targetCombatant` control after `toggleDefeated`
                     if (game.scenes.viewed?.tokens.has(combatant.token?.id ?? "")) {
-                        const targetControl = createHTMLElement("a", {
-                            classes: ["combatant-control"],
-                            dataset: { control: "toggleTarget", tooltip: "COMBAT.ToggleTargeting" },
-                            children: [fontAwesomeIcon("location-crosshairs", { style: "duotone", fixedWidth: true })],
-                        });
-                        control.before(targetControl);
+                        const targetButton = button.cloneNode(true) as HTMLButtonElement;
+                        targetButton.classList.replace("fa-solid", "fa-duotone");
+                        targetButton.classList.replace("fa-signal-stream", "fa-location-crosshairs");
+                        targetButton.dataset.action = "toggleTarget";
+                        targetButton.ariaLabel = game.i18n.localize("COMBAT.ToggleTargeting");
+                        button.before(targetButton);
                     }
                 }
             }
@@ -162,27 +118,47 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
         }
 
         // Defer to Combat Enhancements module if in use
-        if (game.user.isGM && !game.modules.get("combat-enhancements")?.active) {
-            this.#sortable?.destroy();
-            this.#sortable = Sortable.create(tracker, {
-                animation: 200,
-                dataIdAttr: "data-combatant-id",
-                direction: "vertical",
-                dragClass: "drag-preview",
-                dragoverBubble: true,
-                easing: "cubic-bezier(1, 0, 0, 1)",
-                ghostClass: "drag-gap",
-                onEnd: this.#adjustFinalOrder.bind(this),
-                onUpdate: this.#onDropCombatant.bind(this),
-            });
+        if (!game.user.isGM) return;
+        this.#createSortable();
+    }
 
-            for (const row of combatantRows) {
-                row.classList.add("gm-draggable");
-            }
-        }
+    /** Inject encounter metrics into the header part. */
+    async #injectMetrics(): Promise<void> {
+        if (!game.user.isGM) return;
+        const metrics = this.viewed?.metrics;
+        if (!metrics) return;
 
-        trackerPlaceholder.replaceWith(tracker);
-        super.activateListeners($html);
+        const localize = localizer("PF2E.Encounter.Metrics");
+        const threat = ((): { label: string; tooltip: string } => {
+            const label = game.i18n.localize(`PF2E.Encounter.Budget.Threats.${metrics.threat}`);
+            const tooltip = localize("Budget", metrics.budget);
+            const tempContainer = createHTMLElement("div", { innerHTML: localize("Threat", { threat: label }) });
+            TextEditorPF2e.convertXMLNode(tempContainer, "threat", { classes: ["value", metrics.threat] });
+            return { label: tempContainer.innerHTML, tooltip };
+        })();
+
+        const award = ((): { label: string; tooltip: string } => {
+            const label = localize("Award.Label", { xp: metrics.award.xp });
+            const numRecipients = metrics.award.recipients.length;
+            const tooltip = localize(
+                numRecipients === 1
+                    ? "Award.Tooltip.Singular"
+                    : numRecipients === 4
+                      ? "Award.Tooltip.Four"
+                      : "Award.Tooltip.Plural",
+                { xpPerFour: metrics.budget.spent, recipients: numRecipients },
+            );
+            return { label, tooltip };
+        })();
+
+        const threatAward = await (async () => {
+            const path = "systems/pf2e/templates/sidebar/encounter-tracker/threat-award.hbs";
+            const content = await fa.handlebars.renderTemplate(path, { threat, award });
+            const html = <HTMLElement>fu.parseHTML(content);
+            TextEditorPF2e.convertXMLNode(html, "award", { classes: ["value"] });
+            return html;
+        })();
+        if (threatAward) htmlQuery(this.element, "nav.encounters")?.after(threatAward);
     }
 
     /** Refresh the list of users targeting a combatant's token as well as the active state of the target toggle */
@@ -233,45 +209,17 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    /** Allow CTRL-clicking to make the rolls blind */
-    protected override async _onCombatControl(
-        event: JQuery.ClickEvent<HTMLElement, HTMLElement, HTMLElement>,
-    ): Promise<void> {
-        const control = event.currentTarget.dataset.control;
-        if ((control === "rollNPC" || control === "rollAll") && this.viewed) {
-            event.stopPropagation();
-            const args = eventToRollParams(event, { type: "check" });
-            await this.viewed[control]({ ...args, messageOptions: { rollMode: args.rollMode } });
-        } else {
-            await super._onCombatControl(event);
-        }
-    }
-
     /** Allow CTRL-clicking to make the roll blind */
-    protected override async _onCombatantControl(
-        event: JQuery.ClickEvent<HTMLElement, HTMLElement, HTMLElement>,
-    ): Promise<void> {
-        event.stopPropagation();
+    protected override async _onCombatantControl(event: PointerEvent, target: HTMLElement): Promise<void> {
         if (!this.viewed) return;
-
-        const control = event.currentTarget.dataset.control;
-        const li = event.currentTarget.closest<HTMLLIElement>(".combatant");
+        const action = target.dataset.action;
+        const li = target.closest("li");
         const combatant = this.viewed.combatants.get(li?.dataset.combatantId ?? "", { strict: true });
-
-        switch (control) {
-            case "rollInitiative": {
-                await this.viewed.rollInitiative([combatant.id], eventToRollParams(event, { type: "check" }));
-                break;
-            }
-            case "toggleTarget": {
-                return this.#onToggleTarget(combatant.token, event.originalEvent);
-            }
-            case "toggleNameVisibility": {
-                return combatant.toggleNameVisibility();
-            }
-            default:
-                return super._onCombatantControl(event);
+        if (action === "rollInitiative") {
+            await this.viewed.rollInitiative([combatant.id], eventToRollParams(event, { type: "check" }));
+            return;
         }
+        return super._onCombatantControl(event, target);
     }
 
     /** Replace parent method with system-specific procedure */
@@ -279,16 +227,51 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
         return combatant.toggleDefeated();
     }
 
-    async #onToggleTarget(tokenDoc: TokenDocumentPF2e | null, event: MouseEvent | undefined): Promise<void> {
+    static async #onClickToggleTarget(
+        this: EncounterTracker<EncounterPF2e>,
+        event: PointerEvent,
+        target: HTMLElement,
+    ): Promise<void> {
+        const combatantId = target.closest("li")?.dataset.combatantId;
+        const combatant = this.viewed.combatants.get(combatantId, { strict: true });
+        const tokenDoc = combatant.token;
         if (!tokenDoc) return;
 
-        const isTargeted = Array.from(game.user.targets).some((t) => t.document === tokenDoc);
+        const isTargeted = game.user.targets.values().some((t) => t.document === tokenDoc);
         if (!tokenDoc.object?.visible) {
             ui.notifications.warn("COMBAT.PingInvisibleToken", { localize: true });
             return;
         }
 
         tokenDoc.object.setTarget(!isTargeted, { releaseOthers: !event?.shiftKey });
+    }
+
+    static async #onClickToggleNameVisibility(
+        this: EncounterTracker<EncounterPF2e>,
+        _event: PointerEvent,
+        target: HTMLElement,
+    ): Promise<void> {
+        const combatantId = target?.closest("li")?.dataset.combatantId;
+        const combatant = this.viewed.combatants.get(combatantId, { strict: true });
+        return combatant.toggleNameVisibility();
+    }
+
+    /** Create and bind the Sortable instance to the tracker list. */
+    #createSortable(): void {
+        this.#sortable?.destroy();
+        const listEl = <HTMLOListElement | null>this.element.querySelector("ol.combat-tracker");
+        if (!listEl) return;
+        this.#sortable = Sortable.create(listEl, {
+            animation: 200,
+            dataIdAttr: "data-combatant-id",
+            direction: "vertical",
+            dragClass: "drag-preview",
+            dragoverBubble: true,
+            easing: "cubic-bezier(1, 0, 0, 1)",
+            ghostClass: "drag-gap",
+            onEnd: this.#adjustFinalOrder.bind(this),
+            onUpdate: this.#onDropCombatant.bind(this),
+        });
     }
 
     /** Handle the drop event of a dragged & dropped combatant */
@@ -366,12 +349,11 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
     /** Adjust the final order of combatants if necessary, keeping unrolled combatants at the bottom */
     #adjustFinalOrder(event: Sortable.SortableEvent): void {
         const row = event.item;
-        const tracker = this.element[0].querySelector<HTMLOListElement>("#combat-tracker");
+        const tracker = <HTMLOListElement | null>this.element.querySelector("ol.combat-tracker");
         if (!tracker) throw ErrorPF2e("Unexpected failure to retriever tracker DOM element");
-        const rows = Array.from(tracker.querySelectorAll<HTMLElement>("li.combatant"));
-
+        const rows = tracker.querySelectorAll("li");
         const [oldIndex, newIndex] = [event.oldIndex ?? 0, event.newIndex ?? 0];
-        const firstRowWithNoRoll = rows.find((row) => Number.isNaN(Number(row.dataset.initiative)));
+        const firstRowWithNoRoll = rows.values().find((r) => Number.isNaN(Number(r.dataset.initiative)));
 
         if (Number.isNaN(Number(row.dataset.initiative))) {
             // Undo drag/drop of unrolled combatant
@@ -380,16 +362,15 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
             } else {
                 tracker.insertBefore(row, rows[oldIndex + 1]);
             }
-        } else if (firstRowWithNoRoll && rows.indexOf(firstRowWithNoRoll) < newIndex) {
+        } else if (firstRowWithNoRoll && Array.from(rows).indexOf(firstRowWithNoRoll) < newIndex) {
             // Always place a rolled combatant before all other unrolled combatants
             tracker.insertBefore(row, firstRowWithNoRoll);
         }
     }
 
     #validateDrop(event: Sortable.SortableEvent): void {
-        const { combat } = game;
-        if (!combat) throw ErrorPF2e("Unexpected error retrieving combat");
-
+        const encounter = this.viewed;
+        if (!encounter) throw ErrorPF2e("Unexpected error retrieving combat");
         const { oldIndex, newIndex } = event;
         if (!(typeof oldIndex === "number" && typeof newIndex === "number")) {
             throw ErrorPF2e("Unexpected error retrieving new index");
@@ -398,15 +379,12 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
 
     /** Retrieve the (rolled) combatants in the real-time order as seen in the DOM */
     #getCombatantsFromDOM(): RolledCombatant<NonNullable<TEncounter>>[] {
-        const { combat } = game;
-        if (!combat) throw ErrorPF2e("Unexpected error retrieving combat");
-
-        const tracker = this.element[0].querySelector<HTMLOListElement>("#combat-tracker");
-        if (!tracker) throw ErrorPF2e("Unexpected failure to retriever tracker DOM element");
-
-        return Array.from(tracker.querySelectorAll<HTMLLIElement>("li.combatant"))
-            .map((row) => row.getAttribute("data-combatant-id") ?? "")
-            .map((id) => combat.combatants.get(id, { strict: true }))
-            .filter((c): c is RolledCombatant<NonNullable<TEncounter>> => typeof c.initiative === "number");
+        const encounter = this.viewed;
+        if (!encounter) throw ErrorPF2e("Unexpected error retrieving combat");
+        const rows = <ArrayIterator<HTMLLIElement>>this.element.querySelectorAll("ol.combat-tracker > li").values();
+        return rows
+            .map((row) => encounter.combatants.get(row.dataset.combatantId, { strict: true }))
+            .filter((c): c is RolledCombatant<NonNullable<TEncounter>> => typeof c.initiative === "number")
+            .toArray();
     }
 }

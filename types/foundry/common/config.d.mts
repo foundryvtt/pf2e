@@ -1,4 +1,5 @@
 import DataModel from "./abstract/data.mjs";
+import { SoftwareUpdateChannel } from "./constants.mjs";
 import * as fields from "./data/fields.mjs";
 
 /**

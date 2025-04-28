@@ -19,7 +19,9 @@ export default class BaseModule extends packages.BasePackage<ModuleSchema> {
     static icon: string;
 }
 
-export default interface BaseModule extends packages.BasePackage<ModuleSchema>, ModelPropsFromSchema<ModuleSchema> {}
+export default interface BaseModule
+    extends packages.BasePackage<ModuleSchema>,
+        fields.ModelPropsFromSchema<ModuleSchema> {}
 
 type ModuleSchema = packages.BasePackageSchema & {
     coreTranslation: fields.BooleanField;

@@ -1,4 +1,5 @@
-import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
+import type { ItemUUID } from "@client/documents/_module.d.mts";
+import type { ImageFilePath } from "@common/constants.d.mts";
 import { ItemSystemModel, ItemSystemSchema } from "@item/base/data/model.ts";
 import type {
     ActionType,

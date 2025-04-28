@@ -1,12 +1,13 @@
 import { ActorPF2e, CreaturePF2e, PartyPF2e } from "@actor";
 import { CREATURE_ACTOR_TYPES } from "@actor/values.ts";
+import { ApplicationRenderContext } from "@client/applications/_types.mjs";
 import type {
     HandlebarsRenderOptions,
     HandlebarsTemplatePart,
 } from "@client/applications/api/handlebars-application.d.mts";
 import type { ContextMenuEntry } from "@client/applications/ux/context-menu.d.mts";
-import type { ActorUUID } from "@client/documents/abstract/_module.d.mts";
 import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
+import type { ActorUUID } from "@common/documents/_module.d.mts";
 import { htmlClosest, htmlQueryAll } from "@util";
 import * as R from "remeda";
 
@@ -31,12 +32,8 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
 
     static override PARTS = ((): Record<string, HandlebarsTemplatePart> => {
         const parts = super.PARTS;
-        return {
-            header: parts.header,
-            parties: { template: "systems/pf2e/templates/sidebar/party-document-partial.hbs" },
-            directory: parts.directory,
-            footer: parts.footer,
-        };
+        parts["parties"] = { template: "systems/pf2e/templates/sidebar/party-document-partial.hbs" };
+        return parts;
     })();
 
     protected static override _entryPartial = "systems/pf2e/templates/sidebar/actor-document-partial.hbs";
@@ -46,6 +43,15 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
 
     /** If we are currently dragging a party. Needed because dragenter/dragover doesn't contain the drag source. */
     #draggingParty = false;
+
+    /** @todo Remove upon release of V13 stable */
+    protected override async _prepareContext(options: HandlebarsRenderOptions): Promise<ApplicationRenderContext> {
+        const context = await super._prepareContext(options);
+        return Object.assign(context, {
+            canCreateEntry: this._canCreateEntry(),
+            canCreateFolder: this._canCreateFolder(),
+        });
+    }
 
     override async _preparePartContext(
         partId: string,

@@ -2,9 +2,9 @@ import Token from "@client/canvas/placeables/token.mjs";
 import { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
 import Document from "@common/abstract/document.mjs";
 import EmbeddedCollection from "@common/abstract/embedded-collection.mjs";
+import { ImageFilePath, VideoFilePath } from "@common/constants.mjs";
 import ActorSheet from "../appv1/sheets/actor-sheet.mjs";
-import { ActiveEffect, BaseActor, Combat, Item, Scene, TokenDocument, User } from "./_module.mjs";
-import { ActorUUID } from "./abstract/_module.mjs";
+import { ActiveEffect, ActorUUID, BaseActor, Combat, Item, Scene, TokenDocument, User } from "./_module.mjs";
 import { ClientDocument } from "./abstract/client-document.mjs";
 import Actors from "./collections/actors.mjs";
 

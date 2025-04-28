@@ -1,6 +1,6 @@
 import type { Language, SenseAcuity, SenseType } from "@actor/creature/types.ts";
 import type { AttributeString, SaveType } from "@actor/types.ts";
-import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
+import type { ItemUUID } from "@client/documents/_module.d.mts";
 import type { SourceFromDataField } from "@common/data/fields.d.mts";
 import { FrequencyField, SelfEffectReference } from "@item/ability/index.ts";
 import { AbilityTraitToggles } from "@item/ability/trait-toggles.ts";

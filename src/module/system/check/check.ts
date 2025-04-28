@@ -54,7 +54,7 @@ class CheckPF2e {
     static async roll(
         check: CheckModifier,
         context: CheckCheckContext = {},
-        event: JQuery.TriggeredEvent | Event | null = null,
+        event: Event | null = null,
         callback?: CheckRollCallback,
     ): Promise<Rolled<CheckRoll> | null> {
         if (context.origin === undefined && context.actor) {
@@ -330,8 +330,7 @@ class CheckPF2e {
 
         if (callback) {
             const msg = message instanceof ChatMessagePF2e ? message : new ChatMessagePF2e(message);
-            const evt = !!event && event instanceof Event ? event : (event?.originalEvent ?? null);
-            await callback(roll, context.outcome, msg, evt);
+            await callback(roll, context.outcome, msg, event);
         }
 
         // Consume one unit of the weapon if it has the consumable trait

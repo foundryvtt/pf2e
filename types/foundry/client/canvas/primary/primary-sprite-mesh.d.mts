@@ -1,4 +1,6 @@
+import { SpriteMesh } from "../containers/_module.mjs";
 import { TextureAlphaData } from "../loader.mjs";
+import { PrimaryBaseSamplerShader } from "../rendering/shaders/_module.mjs";
 import PrimaryOccludableObjectMixin from "./primary-occludable-object.mjs";
 
 /**

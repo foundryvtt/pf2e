@@ -1,4 +1,5 @@
 import type { ActorPF2e, ActorType, CharacterPF2e, NPCPF2e } from "@actor";
+import type { ImageFilePath } from "@common/constants.d.mts";
 import { WeaponPF2e } from "@item";
 import { performLatePreparation } from "@item/helpers.ts";
 import type { NPCAttackTrait } from "@item/melee/types.ts";

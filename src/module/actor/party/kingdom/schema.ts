@@ -1,4 +1,7 @@
 import { RawModifier } from "@actor/modifiers.ts";
+import { DataSchema } from "@common/abstract/_types.mjs";
+import { ImageFilePath } from "@common/constants.mjs";
+import { ItemUUID } from "@common/documents/_module.mjs";
 import { ZeroToFour } from "@module/data.ts";
 import { DataUnionField, RecordField, StrictBooleanField, StrictStringField } from "@system/schema-data-fields.ts";
 import * as R from "remeda";
@@ -59,7 +62,7 @@ function defineKingdomSchema(): KingdomSchema {
         skills: new fields.SchemaField(
             R.mapToObj(KINGDOM_SKILLS, (skill) => {
                 const schema = new fields.SchemaField({
-                    rank: new fields.NumberField<ZeroToFour, ZeroToFour, true, false>({
+                    rank: new fields.NumberField<ZeroToFour, ZeroToFour, true, false, true>({
                         initial: 0,
                         min: 0,
                         max: 4,
@@ -86,30 +89,26 @@ function defineKingdomSchema(): KingdomSchema {
         ),
     };
 
-    const KINGDOM_RESOURCES_SCHEMA = {
+    const KINGDOM_RESOURCES_SCHEMA: ResourceSchema = {
         dice: new fields.SchemaField({
-            number: new fields.NumberField<number, number>(),
-            faces: new fields.NumberField<number, number>(),
-            bonus: new fields.NumberField<number, number, true, false>({ required: true, nullable: false, initial: 0 }),
-            penalty: new fields.NumberField<number, number, true, false>({
-                required: true,
-                nullable: false,
-                initial: 0,
-            }),
+            number: new fields.NumberField(),
+            faces: new fields.NumberField(),
+            bonus: new fields.NumberField({ required: true, nullable: false, initial: 0 }),
+            penalty: new fields.NumberField({ required: true, nullable: false, initial: 0 }),
         }),
         fame: new fields.SchemaField({
-            value: new fields.NumberField<number, number, true, false>({ required: true, nullable: false, initial: 0 }),
-            max: new fields.NumberField<number, number, true, false>({ required: true, nullable: false, initial: 3 }),
+            value: new fields.NumberField({ required: true, nullable: false, initial: 0 }),
+            max: new fields.NumberField({ required: true, nullable: false, initial: 3 }),
         }),
         commodities: new fields.SchemaField(
             R.mapToObj(KINGDOM_COMMODITIES, (type) => {
                 const schema = new fields.SchemaField({
-                    value: new fields.NumberField<number, number, true, false>({
+                    value: new fields.NumberField<number, number, true, false, true>({
                         required: true,
                         nullable: false,
                         initial: 0,
                     }),
-                    max: new fields.NumberField<number, number, true, false>({
+                    max: new fields.NumberField<number, number, true, false, true>({
                         required: true,
                         nullable: false,
                         initial: 0,
@@ -119,26 +118,21 @@ function defineKingdomSchema(): KingdomSchema {
                 return [type, schema];
             }),
         ),
-        points: new fields.NumberField<number, number, false, false, true>({
-            min: 0,
-            required: false,
-            nullable: false,
-            initial: 0,
-        }),
+        points: new fields.NumberField({ min: 0, required: true, nullable: false, initial: 0 }),
         /** Worksites by commodity type, for the commodities that can have work sites */
         workSites: new fields.SchemaField(
             R.mapToObj(["food", "luxuries", "lumber", "ore", "stone"], (type) => {
                 const schema = new fields.SchemaField({
                     /** The number of regular non-resource work sites */
-                    value: new fields.NumberField<number, number, false, false>({
-                        required: false,
+                    value: new fields.NumberField<number, number, true, false, true>({
+                        required: true,
                         nullable: false,
                         min: 0,
                         initial: 0,
                     }),
                     /** The number of worksites that are on resource hexes (these grant double) */
-                    resource: new fields.NumberField<number, number, false, false>({
-                        required: false,
+                    resource: new fields.NumberField<number, number, true, false, true>({
+                        required: true,
                         nullable: false,
                         min: 0,
                         initial: 0,
@@ -165,36 +159,20 @@ function defineKingdomSchema(): KingdomSchema {
         }),
         level: new fields.NumberField({ min: 1, initial: 1, max: 30, nullable: false }),
         overcrowded: new fields.BooleanField(),
-        description: new fields.StringField<string, string, false, false, true>({
-            required: false,
-            nullable: false,
-            blank: true,
-            initial: "",
-        }),
+        description: new fields.StringField({ required: true, nullable: false, blank: true, initial: "" }),
         sort: new fields.IntegerSortField(),
         consumption: new fields.SchemaField({
-            base: new fields.NumberField<number, number, false, false>({
-                required: false,
-                nullable: false,
-                initial: 0,
-            }),
+            base: new fields.NumberField({ required: true, nullable: false, initial: 0 }),
             /** Some settlements reduce consumption, this is the number of reductions that may exist */
-            reduction: new fields.NumberField<number, number, false, false>({
-                required: false,
-                nullable: false,
-                initial: 0,
-            }),
-            total: new fields.NumberField<number, number, false, false>({
-                required: false,
-                nullable: false,
-                initial: 0,
-            }),
+            reduction: new fields.NumberField({ required: true, nullable: false, initial: 0 }),
+            total: new fields.NumberField({ required: true, nullable: false, initial: 0 }),
         }),
         storage: new fields.SchemaField(
             R.mapToObj(["food", "luxuries", "lumber", "ore", "stone"], (type) => {
-                const schema = new fields.NumberField<number, number, false, false>({
-                    required: false,
+                const schema = new fields.NumberField({
+                    required: true,
                     nullable: false,
+                    integer: true,
                     min: 0,
                     initial: 0,
                 });
@@ -204,12 +182,7 @@ function defineKingdomSchema(): KingdomSchema {
     };
 
     return {
-        type: new fields.StringField({
-            choices: ["kingmaker"],
-            required: true,
-            nullable: false,
-            initial: "kingmaker",
-        }),
+        type: new fields.StringField({ choices: ["kingmaker"], required: true, nullable: false, initial: "kingmaker" }),
         active: new DataUnionField(
             [
                 new StrictStringField<"building">({
@@ -235,13 +208,8 @@ function defineKingdomSchema(): KingdomSchema {
             initial: "systems/pf2e/icons/default-icons/kingdom.svg",
         }),
         capital: new fields.StringField({ initial: "", required: true }),
-        size: new fields.NumberField<number, number, true, false>({
-            initial: 1,
-            min: 1,
-            required: true,
-            nullable: false,
-        }),
-        level: new fields.NumberField<number, number, true, false>({
+        size: new fields.NumberField({ initial: 1, min: 1, required: true, nullable: false }),
+        level: new fields.NumberField({
             required: true,
             nullable: false,
             min: 1,
@@ -265,28 +233,32 @@ function defineKingdomSchema(): KingdomSchema {
         abilities: new fields.SchemaField(
             R.mapToObj(KINGDOM_ABILITIES, (ability) => {
                 const schema = new fields.SchemaField({
-                    value: new fields.NumberField<number, number, false, false, true>({
+                    value: new fields.NumberField<number, number, true, false, true>({
                         initial: 10,
-                        required: false,
+                        required: true,
                         nullable: false,
                     }),
-                    mod: new fields.NumberField<number, number, false, false>({
+                    mod: new fields.NumberField<number, number, true, false, true>({
                         initial: 0,
-                        required: false,
+                        required: true,
                         nullable: false,
                     }),
                     ruin: new fields.SchemaField<RuinSchema>({
-                        value: new fields.NumberField<number, number, true, false>({
+                        value: new fields.NumberField<number, number, true, false, true>({
                             required: true,
                             nullable: false,
                             initial: 0,
                         }),
-                        max: new fields.NumberField({ required: true, nullable: false, initial: 10 }),
+                        max: new fields.NumberField<number, number, true, false, true>({
+                            required: true,
+                            nullable: false,
+                            initial: 10,
+                        }),
                     }),
                     // todo: see if this goes away once we wire it up
-                    penalty: new fields.NumberField<number, number, false, false>({
+                    penalty: new fields.NumberField<number, number, true, false, true>({
                         initial: 0,
-                        required: false,
+                        required: true,
                         nullable: false,
                     }),
                 });
@@ -300,8 +272,8 @@ function defineKingdomSchema(): KingdomSchema {
             R.mapToObj(KINGDOM_LEADERSHIP, (role) => {
                 const schema = new fields.SchemaField<LeadershipSchema>({
                     uuid: new fields.DocumentUUIDField({ required: true, nullable: true, initial: null }),
-                    vacant: new fields.BooleanField<boolean>({ initial: true }),
-                    invested: new fields.BooleanField<boolean, boolean, false>({ required: false, initial: false }),
+                    vacant: new fields.BooleanField({ initial: true }),
+                    invested: new fields.BooleanField(),
                 });
                 return [role, schema];
             }),
@@ -314,41 +286,25 @@ function defineKingdomSchema(): KingdomSchema {
             { required: true, nullable: false },
         ),
         consumption: new fields.SchemaField({
-            settlement: new fields.NumberField<number, number, false, false>({ min: 0, initial: 0 }),
-            army: new fields.NumberField<number, number, false, false>({ min: 0, initial: 0 }),
-            value: new fields.NumberField<number, number, false, false>({ min: 0, initial: 0 }),
+            settlement: new fields.NumberField({ required: true, nullable: false, min: 0, initial: 0 }),
+            army: new fields.NumberField({ required: true, nullable: false, min: 0, initial: 0 }),
+            value: new fields.NumberField({ required: true, nullable: false, min: 0, initial: 0 }),
             breakdown: new fields.StringField(),
         }),
         unrest: new fields.SchemaField({
-            value: new fields.NumberField<number, number, false, false, true>({
+            value: new fields.NumberField({
+                required: true,
+                nullable: false,
                 integer: true,
                 min: 0,
                 max: 99,
-                required: false,
-                nullable: false,
                 initial: 0,
             }),
-            anarchyThreshold: new fields.NumberField<number, number, false, false, true>({
-                integer: true,
-                required: false,
-                nullable: false,
-                initial: 20,
-            }),
+            anarchyThreshold: new fields.NumberField({ integer: true, required: true, nullable: false, initial: 20 }),
         }),
         event: new fields.SchemaField({
-            dc: new fields.NumberField<number, number, false, false>({
-                required: false,
-                nullable: false,
-                min: 0,
-                max: 20,
-                initial: 16,
-            }),
-            text: new fields.StringField<string, string, false, false, true>({
-                required: false,
-                nullable: false,
-                blank: true,
-                initial: "",
-            }),
+            dc: new fields.NumberField({ required: true, nullable: false, min: 0, max: 20, initial: 16 }),
+            text: new fields.StringField({ required: true, nullable: false, blank: true, initial: "" }),
         }),
         /** Any kingmaker specific module configuration and tweaks. Not used otherwise */
         module: new fields.ObjectField({ required: true }),
@@ -371,10 +327,10 @@ type GovernmentSchema = CHGSchema & {
     feat: fields.DocumentUUIDField<ItemUUID>;
 };
 
-type NullableSchemaField<TSchema extends fields.DataSchema> = fields.SchemaField<
+type NullableSchemaField<TSchema extends DataSchema> = fields.SchemaField<
     TSchema,
-    SourceFromSchema<TSchema>,
-    ModelPropsFromSchema<TSchema>,
+    fields.SourceFromSchema<TSchema>,
+    fields.ModelPropsFromSchema<TSchema>,
     true,
     true,
     true
@@ -420,16 +376,16 @@ type ResourceSchema = {
             }>
         >
     >;
-    points: fields.NumberField<number, number, false, false, true>;
+    points: fields.NumberField<number, number, true, false, true>;
     /** Worksites by commodity type, for the commodities that can have work sites */
     workSites: fields.SchemaField<
         Record<
             KingdomCommodity,
             fields.SchemaField<{
                 /** The number of regular non-resource work sites */
-                value: fields.NumberField<number, number, false, false, true>;
+                value: fields.NumberField<number, number, true, false, true>;
                 /** The number of worksites that are on resource hexes (these grant double) */
-                resource: fields.NumberField<number, number, false, false, true>;
+                resource: fields.NumberField<number, number, true, false, true>;
             }>
         >
     >;
@@ -440,21 +396,21 @@ type SettlementSchema = {
     type: fields.StringField<KingdomSettlementType, KingdomSettlementType, false, false, true>;
     level: fields.NumberField<number, number, true, false, true>;
     overcrowded: fields.BooleanField;
-    description: fields.StringField<string, string, false, false, true>;
+    description: fields.StringField<string, string, true, false, true>;
     sort: fields.IntegerSortField;
     consumption: fields.SchemaField<{
-        base: fields.NumberField<number, number, false, false, true>;
+        base: fields.NumberField<number, number, true, false, true>;
         /** Some settlements reduce consumption, this is the number of reductions that may exist */
-        reduction: fields.NumberField<number, number, false, false>;
-        total: fields.NumberField<number, number, false, false>;
+        reduction: fields.NumberField<number, number, true, false, true>;
+        total: fields.NumberField<number, number, true, false, true>;
     }>;
-    storage: fields.SchemaField<Record<KingdomCommodity, fields.NumberField<number, number, false, false, true>>>;
+    storage: fields.SchemaField<Record<KingdomCommodity, fields.NumberField<number, number, true, false, true>>>;
 };
 
 type LeadershipSchema = {
     uuid: fields.DocumentUUIDField<ItemUUID>;
     vacant: fields.BooleanField;
-    invested: fields.BooleanField<boolean, boolean, false, false, true>;
+    invested: fields.BooleanField;
 };
 type RuinSchema = {
     value: fields.NumberField<number, number, true, false, true>;
@@ -488,10 +444,10 @@ type KingdomSchema = {
     aspiration: fields.StringField<FameType, FameType, true, false, true>;
     abilities: fields.SchemaField<{
         [key in KingdomAbility]: fields.SchemaField<{
-            value: fields.NumberField<number, number, false, false, true>;
-            mod: fields.NumberField<number, number, false, false, true>;
+            value: fields.NumberField<number, number, true, false, true>;
+            mod: fields.NumberField<number, number, true, false, true>;
             ruin: fields.SchemaField<RuinSchema>;
-            penalty: fields.NumberField<number, number, false, false, true>;
+            penalty: fields.NumberField<number, number, true, false, true>;
         }>;
     }>;
     build: fields.SchemaField<BuildSchema>;
@@ -504,24 +460,24 @@ type KingdomSchema = {
         fields.SchemaField<SettlementSchema>
     >;
     consumption: fields.SchemaField<{
-        settlement: fields.NumberField<number, number, false, false, true>;
-        army: fields.NumberField<number, number, false, false>;
-        value: fields.NumberField<number, number, false, false>;
+        settlement: fields.NumberField<number, number, true, false, true>;
+        army: fields.NumberField<number, number, true, false, true>;
+        value: fields.NumberField<number, number, true, false, true>;
         breakdown: fields.StringField;
     }>;
     unrest: fields.SchemaField<{
-        value: fields.NumberField<number, number, false, false, true>;
-        anarchyThreshold: fields.NumberField<number, number, false, false, true>;
+        value: fields.NumberField<number, number, true, false, true>;
+        anarchyThreshold: fields.NumberField<number, number, true, false, true>;
     }>;
     event: fields.SchemaField<{
-        dc: fields.NumberField<number, number, false, false, true>;
-        text: fields.StringField<string, string, false, false, true>;
+        dc: fields.NumberField<number, number, true, false, true>;
+        text: fields.StringField<string, string, true, false, true>;
     }>;
     /** Any kingmaker specific module configuration and tweaks. Not used otherwise */
     module: fields.ObjectField<object>;
 };
 
-interface KingdomCHG extends ModelPropsFromSchema<CHGSchema> {
+interface KingdomCHG extends fields.ModelPropsFromSchema<CHGSchema> {
     feat?: ItemUUID | null;
     flaw?: KingdomAbility | null;
 }
@@ -531,39 +487,39 @@ interface KingdomCharter extends KingdomCHG {
     flaw: KingdomAbility | null;
 }
 
-interface KingdomHeartland extends ModelPropsFromSchema<CHGSchema> {
+interface KingdomHeartland extends fields.ModelPropsFromSchema<CHGSchema> {
     feat?: never;
     flaw?: never;
 }
 
-interface KingdomGovernment extends ModelPropsFromSchema<GovernmentSchema> {
+interface KingdomGovernment extends fields.ModelPropsFromSchema<GovernmentSchema> {
     skills: KingdomSkill[];
     feat: ItemUUID | null;
     flaw?: never;
 }
 
-interface KingdomBuildData extends ModelPropsFromSchema<BuildSchema> {
+interface KingdomBuildData extends fields.ModelPropsFromSchema<BuildSchema> {
     charter: KingdomCharter | null;
     heartland: KingdomHeartland | null;
     government: KingdomGovernment | null;
 }
 
-interface KingdomData extends ModelPropsFromSchema<KingdomSchema> {
+interface KingdomData extends fields.ModelPropsFromSchema<KingdomSchema> {
     build: KingdomBuildData;
 }
 
 type KingdomAbilityData = KingdomData["abilities"][KingdomAbility];
 
 type KingdomLeadershipData = KingdomData["leadership"][KingdomLeadershipRole];
-type KingdomSettlementData = ModelPropsFromSchema<SettlementSchema>;
-type KingdomSource = SourceFromSchema<KingdomSchema>;
+type KingdomSettlementData = fields.ModelPropsFromSchema<SettlementSchema>;
+type KingdomSource = fields.SourceFromSchema<KingdomSchema>;
 
 export { defineKingdomSchema };
 export type {
     KingdomAbilityData,
     KingdomBuildData,
-    KingdomCHG,
     KingdomCharter,
+    KingdomCHG,
     KingdomData,
     KingdomGovernment,
     KingdomHeartland,

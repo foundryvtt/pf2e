@@ -1,7 +1,8 @@
 import { userColorForActor } from "@actor/helpers.ts";
 import type { AuraAppearanceData, AuraData, AuraEffectData, SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
-import type { ItemUUID } from "@client/documents/abstract/_module.d.mts";
+import type { HexColorString, ImageFilePath, VideoFilePath } from "@common/constants.d.mts";
+import { ItemUUID } from "@common/documents/_module.mjs";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import { DataUnionField, PredicateField, StrictArrayField } from "@system/schema-data-fields.ts";
 import { isImageOrVideoPath, sluggify } from "@util";
@@ -76,7 +77,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 },
                 { required: true, nullable: true, initial: null, label: "PF2E.SavesHeader" },
             ),
-            predicate: new PredicateField({ required: false, nullable: false }),
+            predicate: new PredicateField(),
             removeOnExit: new fields.BooleanField({
                 required: true,
                 nullable: false,
