@@ -208,7 +208,7 @@ class ChatMessagePF2e extends ChatMessage {
                 const defaultRingThickness = 0.1269848;
                 const defaultSubjectThickness = 0.6666666;
                 const scaleCorrection = token.ring.enabled ? 1 / (defaultRingThickness + defaultSubjectThickness) : 1;
-                return [tokenImage, Math.max(1, token.texture.scaleX) * scaleCorrection];
+                return [tokenImage, Math.max(1, token.texture.scaleX ?? 1) * scaleCorrection];
             })();
 
             const image = document.createElement("img");
@@ -287,7 +287,7 @@ class ChatMessagePF2e extends ChatMessage {
         const appliedDamageFlag = this.flags.pf2e.appliedDamage;
         if (!appliedDamageFlag?.isReverted) {
             if (!this.speakerActor?.isOwner) {
-                htmlQuery(html, "button[data-action=revert-damage]")?.remove();
+                htmlQuery(html, "button[data-action=revertDamage]")?.remove();
             }
         }
 
