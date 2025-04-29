@@ -8,7 +8,7 @@ interface DragDropConfiguration {
     /** Permission tests for each action */
     permissions: Record<"dragstart" | "drop", (selector: string) => boolean>;
     /** Callback functions for each action */
-    callbacks: Record<DragAction, (event: DragEvent) => void>;
+    callbacks: Partial<Record<DragAction, (event: DragEvent) => void>>;
 }
 
 /**

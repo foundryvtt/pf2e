@@ -124,7 +124,6 @@
 
         button {
             --button-size: 2em;
-            --button-text-color: var(--color-text-primary);
             align-items: center;
             display: flex;
             flex-direction: column;
@@ -141,7 +140,11 @@
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
                     background-clip: text;
-                    background-image: linear-gradient(to right, var(--color-text-primary) 50%, #999 50%);
+                    background-image: linear-gradient(to right, var(--button-text-color) 50%, #999 50%);
+                }
+
+                &:hover > i {
+                    background-image: linear-gradient(to right, var(--button-hover-text-color) 50%, #999 50%);
                 }
             }
 
@@ -156,11 +159,14 @@
                 text-transform: uppercase;
             }
 
-            &.apply-healing .fa-stack {
-                font-size: 0.5em;
+            &.apply-healing {
+                .fa-stack {
+                    font-size: 0.5em;
 
-                i.fa-plus {
-                    font-size: var(--font-size-11);
+                    i.fa-plus {
+                        --fa-inverse: #999;
+                        font-size: var(--font-size-10);
+                    }
                 }
             }
 
