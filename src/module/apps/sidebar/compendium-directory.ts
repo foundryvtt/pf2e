@@ -98,8 +98,7 @@ class CompendiumDirectoryPF2e extends tabs.CompendiumDirectory {
             });
             html.querySelector(":scope > footer")?.append(browserButton);
             this.matchDragDrop = new fa.ux.DragDrop({
-                dragSelector: ".directory-item",
-                dropSelector: ".directory-list",
+                dragSelector: "li.match",
                 permissions: {
                     dragstart: this._canDragStart.bind(this),
                     drop: this._canDragDrop.bind(this),
