@@ -4,7 +4,7 @@
     "name": "Effect: Wyrm Claw - Armor",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Wyrm Claw]</p>\n<p>You gain resistance 5 to acid, cold, electricity, and fire.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Wyrm Claw], @UUID[Compendium.pf2e.equipment-srd.Item.Wyrm Claw (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Wyrm Claw (Major)]</p>\n<p>You gain resistance to acid, cold, electricity, and fire.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,7 +22,57 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:wyrm-claw",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Wyrm Claw"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:wyrm-claw-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Wyrm Claw (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:wyrm-claw-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Wyrm Claw (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "wyrm-claw"
+            },
+            {
                 "key": "Resistance",
+                "predicate": [
+                    "wyrm-claw:wyrm-claw"
+                ],
                 "type": [
                     "acid",
                     "cold",
@@ -30,6 +80,32 @@
                     "fire"
                 ],
                 "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "wyrm-claw:wyrm-claw-greater"
+                ],
+                "type": [
+                    "acid",
+                    "cold",
+                    "electricity",
+                    "fire"
+                ],
+                "value": 10
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "wyrm-claw:wyrm-claw-major"
+                ],
+                "type": [
+                    "acid",
+                    "cold",
+                    "electricity",
+                    "fire"
+                ],
+                "value": 15
             }
         ],
         "start": {
