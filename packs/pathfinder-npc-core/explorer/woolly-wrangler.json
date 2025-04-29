@@ -380,9 +380,8 @@
                 "traits": {
                     "value": [
                         "disarm",
-                        "finesse",
                         "nonlethal",
-                        "reach-10",
+                        "reach",
                         "trip"
                     ]
                 }
@@ -444,7 +443,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>Whenever the woolly wrangler rolls a success on a Recall Knowledge check using Nature or Mountain Lore, they get a critical success instead.</p>"
+                    "value": "<p>Whenever the woolly wrangler rolls a success on a @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] check using Nature or Mountain Lore, they get a critical success instead.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -526,7 +525,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>While the woolly wrangler is mounted on a Huge or Gargantuan creature, the ground near the mount shakes and buckles. Squares in the aura are difficult terrain for Medium or smaller creatures.</p>"
+                    "value": "<p>10 feet.</p>\n<p>While the woolly wrangler is mounted on a Huge or Gargantuan creature, the ground near the mount shakes and buckles. Squares in the aura are difficult terrain for Medium or smaller creatures.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -535,7 +534,16 @@
                 },
                 "rules": [
                     {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "uneven-footing",
+                        "toggleable": true
+                    },
+                    {
                         "key": "Aura",
+                        "predicate": [
+                            "uneven-footing"
+                        ],
                         "radius": 10
                     }
                 ],

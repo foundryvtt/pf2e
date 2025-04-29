@@ -528,49 +528,6 @@
             "type": "melee"
         },
         {
-            "_id": "WYnsrfUrdoBX3iRl",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "vGlowKcuXsBeguQE"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 900000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "4Uf1Pfid9lyVxz5y": {
-                        "damage": "1d8+8",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "KbYGZddUNQGhrhEf",
             "flags": {
                 "pf2e": {
@@ -579,7 +536,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Composite Longbow",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -623,7 +580,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Expert Subsistence",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -633,7 +590,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>While using Survival to Subsist, if the hunter rolls any result worse than a success, they get a success. On a success, they can provide subsistence living for themselves and 16 additional creatures, and on a critical success, they can take care of twice as many creatures as on a success.</p>"
+                    "value": "<p>While using Survival to [[/act subsist statistic=survival]], if the hunter rolls any result worse than a success, they get a success. On a success, they can provide subsistence living for themselves and 16 additional creatures, and on a critical success, they can take care of twice as many creatures as on a success.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -655,15 +612,16 @@
                     {
                         "key": "Note",
                         "outcome": [
-                            "success",
-                            "criticalSuccess"
+                            "criticalSuccess",
+                            "success"
                         ],
                         "predicate": [
                             "action:subsist"
                         ],
                         "selector": "survival",
-                        "text": "While using Survival to Subsist, if the forager rolls any result worse than a success, they get a success. On a success, they can provide subsistence living for themselves and 16 additional creatures, and on a critical success, they can take care of twice as many creatures as on a success.",
-                        "title": "{item|name}"
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": "expert-subsistence",
@@ -677,7 +635,7 @@
             "_id": "xeEI4dqDE4PmxOeA",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Forest Walker",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -709,7 +667,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "On the Hunt",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -719,7 +677,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The hunter designates one creature they're observing or tracking as their prey.</p>\n<p>The hunter gains a +2 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] the prey and to Survival checks to @UUID[Compendium.pf2e.actionspf2e.Item.Track] the prey.</p>\n<p>The first time the hunter hits the designated prey in a round, they deal an additional 1d4 precision damage. These effects last until the poacher uses On the Hunt again.</p>"
+                    "value": "<p>The hunter designates one creature they're observing or tracking as their prey.</p>\n<p>The hunter gains a +2 circumstance bonus to Perception checks to [[/act seek]] the prey and to Survival checks to [[/act track]] the prey.</p>\n<p>The first time the hunter hits the designated prey in a round, they deal an additional 1d4 precision damage. These effects last until the poacher uses On the Hunt again.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -795,7 +753,7 @@
             "_id": "o82vOevA36JTvcnU",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Forest Lore",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "description": {
                     "value": ""

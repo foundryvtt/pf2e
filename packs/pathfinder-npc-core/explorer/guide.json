@@ -448,7 +448,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The guide is about to roll a Perception or Survival check to determine their initiative</p><hr /><p><strong>Effect</strong> The guide visually or audibly warns allies, granting them a +1 circumstance bonus to their initiative rolls. This bonus increases to +2 if the guide was Scouting. Depending on how the guide warns allies, this action has the auditory or visual trait.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Guide's Warning]</p>"
+                    "value": "<p><strong>Trigger</strong> The guide is about to roll a Perception or Survival check to determine their initiative</p><hr /><p><strong>Effect</strong> The guide visually or audibly warns allies, granting them a +1 circumstance bonus to their initiative rolls. This bonus increases to +2 if the guide was @UUID[Compendium.pf2e.actionspf2e.Item.Scout]{Scouting}. Depending on how the guide warns allies, this action has the auditory or visual trait.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Guide's Warning]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -477,7 +477,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The guide points out a weakness of a creature within 30 feet. Until the start of the guide's next turn, the guide and all allies that can hear the guiding words gain a +1 circumstance bonus to attack rolls against that creature, and the guide's Strikes deal an extra 1d4 precision damage to that creature.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Guiding Words]</p>"
+                    "value": "<p>The guide points out a weakness of a creature within 30 feet. Until the start of the guide's next turn, the guide and all allies that can hear the guiding words gain a +1 circumstance bonus to attack rolls against that creature, and the guide's Strikes deal an extra 1d4 precision damage to that creature.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Guiding Words (Guide)]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -486,18 +486,12 @@
                 },
                 "rules": [
                     {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "guiding-words",
-                        "toggleable": true
-                    },
-                    {
                         "category": "precision",
                         "diceNumber": 1,
                         "dieSize": "d4",
                         "key": "DamageDice",
                         "predicate": [
-                            "guiding-words"
+                            "target:mark:guiding-words-guide"
                         ],
                         "selector": "strike-damage"
                     }

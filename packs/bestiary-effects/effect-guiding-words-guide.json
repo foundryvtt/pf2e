@@ -1,16 +1,16 @@
 {
-    "_id": "UiISDbCjK6AUDsll",
-    "img": "icons/skills/targeting/target-glowing-yellow.webp",
-    "name": "Effect: Guide's Warning",
+    "_id": "wxu8CmL75ZxhCJmG",
+    "img": "systems/pf2e/icons/spells/agitate.webp",
+    "name": "Effect: Guiding Words (Guide)",
     "system": {
         "description": {
-            "value": "<p>You gain a +1 circumstance bonus to your initiative rolls. This bonus increases to +2 if the guide was Scouting.</p>"
+            "value": "<p>You gain a +1 circumstance bonus to attack rolls against the marked creature.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
             "unit": "rounds",
-            "value": 0
+            "value": 1
         },
         "level": {
             "value": 4
@@ -22,21 +22,17 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "selector": "initiative",
-                "slug": "guides-warning",
-                "type": "circumstance",
-                "value": 1
+                "key": "TokenMark",
+                "slug": "guiding-words-guide"
             },
             {
-                "key": "AdjustModifier",
-                "mode": "upgrade",
+                "key": "FlatModifier",
                 "predicate": [
-                    "parent:origin:effect:scout"
+                    "target:mark:guiding-words-guide"
                 ],
-                "selector": "initiative",
-                "slug": "guides-warning",
-                "value": 2
+                "selector": "attack",
+                "type": "circumstance",
+                "value": 1
             }
         ],
         "start": {
