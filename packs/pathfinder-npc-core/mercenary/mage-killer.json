@@ -60,7 +60,7 @@
                     "remaster": true,
                     "title": "Pathfinder Player Core"
                 },
-                "quantity": 1,
+                "quantity": 4,
                 "range": null,
                 "reload": {
                     "value": "-"
@@ -259,7 +259,9 @@
             "sort": 400000,
             "system": {
                 "attackEffects": {
-                    "value": []
+                    "value": [
+                        "magical-static"
+                    ]
                 },
                 "bonus": {
                     "value": 19
@@ -302,7 +304,9 @@
             "sort": 500000,
             "system": {
                 "attackEffects": {
-                    "value": []
+                    "value": [
+                        "magical-static"
+                    ]
                 },
                 "bonus": {
                     "value": 19
@@ -326,6 +330,7 @@
                 "traits": {
                     "value": [
                         "agile",
+                        "finesse",
                         "thrown-10",
                         "versatile-s"
                     ]
@@ -345,7 +350,9 @@
             "sort": 600000,
             "system": {
                 "attackEffects": {
-                    "value": []
+                    "value": [
+                        "magical-static"
+                    ]
                 },
                 "bonus": {
                     "value": 20
@@ -387,7 +394,9 @@
             "sort": 700000,
             "system": {
                 "attackEffects": {
-                    "value": []
+                    "value": [
+                        "magical-static"
+                    ]
                 },
                 "bonus": {
                     "value": 19
@@ -473,10 +482,10 @@
             "sort": 900000,
             "system": {
                 "actionType": {
-                    "value": "action"
+                    "value": "reaction"
                 },
                 "actions": {
-                    "value": 1
+                    "value": null
                 },
                 "category": "defensive",
                 "description": {
@@ -502,10 +511,10 @@
             "sort": 1000000,
             "system": {
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": 1
+                    "value": null
                 },
                 "category": "offensive",
                 "description": {
@@ -531,18 +540,6 @@
                             "magical-static"
                         ],
                         "selector": "strike-damage"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
-                            "magical-static"
-                        ],
-                        "selector": "strike-attack-roll",
-                        "text": "{item|description}",
-                        "title": "{item|name}"
                     }
                 ],
                 "slug": null,
@@ -609,6 +606,10 @@
                             },
                             {
                                 "label": "PF2E.TraitSonic",
+                                "value": "sonic"
+                            },
+                            {
+                                "label": "PF2E.TraitVitality",
                                 "value": "vitality"
                             },
                             {
