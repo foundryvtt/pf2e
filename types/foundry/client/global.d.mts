@@ -5,7 +5,7 @@ import clipperlib from "js-angusj-clipper";
 import PixiJS from "pixi.js";
 import * as Showdown from "showdown";
 import * as SocketIO from "socket.io-client";
-import * as tinymce from "tinymce";
+import { TinyMCE as tinymce } from "./../tinymce-stub.mjs";
 import * as globalFoundry from "./client.mjs";
 
 declare global {
