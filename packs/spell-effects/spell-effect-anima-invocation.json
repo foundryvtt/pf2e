@@ -87,6 +87,7 @@
                     "anima-invocation:success"
                 ],
                 "selector": "strike-damage",
+                "slug": "anima-invocation-spirit-damage",
                 "value": 1
             },
             {
@@ -98,7 +99,20 @@
                 "predicate": [
                     "anima-invocation:critical-success"
                 ],
-                "selector": "strike-damage"
+                "selector": "strike-damage",
+                "slug": "anima-invocation-spirit-damage"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "anima-invocation-spirit-damage"
+                ],
+                "property": "traits",
+                "value": [
+                    "sanctified",
+                    "holy"
+                ]
             }
         ],
         "start": {
