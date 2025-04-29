@@ -503,7 +503,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>While using Survival to Subsist, if the tracker rolls any result worse than a success, they get a success. On a success, they can provide subsistence living for themselves and 8 additional creatures, and on a critical success, they can take care of twice as many creatures as on a success.</p>"
+                    "value": "<p>While using Survival to [[/act subsist statistic=survival]], if the tracker rolls any result worse than a success, they get a success. On a success, they can provide subsistence living for themselves and 8 additional creatures, and on a critical success, they can take care of twice as many creatures as on a success.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -525,14 +525,16 @@
                     {
                         "key": "Note",
                         "outcome": [
-                            "criticalSuccess"
+                            "criticalSuccess",
+                            "success"
                         ],
                         "predicate": [
                             "action:subsist"
                         ],
                         "selector": "survival",
-                        "text": "While using Survival to Subsist, if the tracker rolls any result worse than a success, they get a success. On a success, they can provide subsistence living for themselves and 8 additional creatures, and on a critical success, they can take care of twice as many creatures as on a success.",
-                        "title": "{item|name}"
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": "expert-subsistence",
@@ -588,7 +590,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The tracker designates one creature they're observing or tracking as their prey.</p>\n<p>The tracker gains a +2 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] the prey and to Survival checks to @UUID[Compendium.pf2e.actionspf2e.Item.Track] the prey.</p>\n<p>The first time the tracker hits the designated prey in a round, they deal an additional 1d4 precision damage. These effects last until the poacher uses On the Hunt again.</p>"
+                    "value": "<p>The tracker designates one creature they're observing or tracking as their prey.</p>\n<p>The tracker gains a +2 circumstance bonus to Perception checks to [[/act seek]] the prey and to Survival checks to [[/act track]] the prey.</p>\n<p>The first time the tracker hits the designated prey in a round, they deal an additional 1d4 precision damage. These effects last until the poacher uses On the Hunt again.</p>"
                 },
                 "publication": {
                     "license": "ORC",

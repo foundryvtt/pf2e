@@ -1,19 +1,19 @@
 {
-    "_id": "MLwh53NzVrfN5Bbc",
-    "img": "icons/skills/targeting/target-glowing-yellow.webp",
-    "name": "Effect: On Guard",
+    "_id": "o1VvOndRq2pNhSeK",
+    "img": "icons/creatures/abilities/cougar-roar-rush-orange.webp",
+    "name": "Effect: Sic 'Em!",
     "system": {
         "description": {
-            "value": "<p>You gain a +2 circumstance bonus to your initiative roll.</p>"
+            "value": "<p>You gain a +1 status bonus to attack rolls and a +2 status bonus to damage rolls.</p>"
         },
         "duration": {
-            "expiry": null,
+            "expiry": "turn-end",
             "sustained": false,
-            "unit": "unlimited",
-            "value": -1
+            "unit": "rounds",
+            "value": 1
         },
         "level": {
-            "value": 9
+            "value": 6
         },
         "publication": {
             "license": "ORC",
@@ -23,8 +23,14 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "initiative",
-                "type": "circumstance",
+                "selector": "attack-roll",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "damage",
+                "type": "status",
                 "value": 2
             }
         ],

@@ -147,7 +147,7 @@
         {
             "_id": "k5ccNwHxaLOszQpW",
             "img": "systems/pf2e/icons/equipment/adventuring-gear/waffle-iron.webp",
-            "name": "Wicker Basket",
+            "name": "Wicker Baskets",
             "sort": 300000,
             "system": {
                 "baseItem": null,
@@ -412,7 +412,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>While using Survival to Subsist, if the forager rolls any result worse than a success, they get a success. On a success, they can provide subsistence living for themselves and four additional creatures, and on a critical success, they can take care of twice as many creatures as on a success.</p>"
+                    "value": "<p>While using Survival to [[/act subsist statistic=survival]], if the forager rolls any result worse than a success, they get a success. On a success, they can provide subsistence living for themselves and four additional creatures, and on a critical success, they can take care of twice as many creatures as on a success.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -434,14 +434,16 @@
                     {
                         "key": "Note",
                         "outcome": [
-                            "criticalSuccess"
+                            "criticalSuccess",
+                            "success"
                         ],
                         "predicate": [
                             "action:subsist"
                         ],
                         "selector": "survival",
-                        "text": "While using Survival to [[/act subsist statistic=survival]], if the forager rolls any result worse than a success, they get a success. On a success, they can provide subsistence living for themselves and four additional creatures, and on a critical success, they can take care of twice as many creatures as on a success.",
-                        "title": "{item|name}"
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": "expert-subsistence",
@@ -627,15 +629,15 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 0
+                "value": 5
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 0
+                "value": 8
             },
             "will": {
                 "saveDetail": "",
-                "value": 0
+                "value": 8
             }
         },
         "skills": {
