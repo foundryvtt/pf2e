@@ -1,0 +1,62 @@
+{
+    "_id": "zOaP4yGwbFOszxeJ",
+    "img": "icons/skills/wounds/bone-broken-marrow-yellow.webp",
+    "name": "Effect: Break Legs!",
+    "system": {
+        "description": {
+            "value": "<p>You become clumsy 1, take a –5‐foot penalty to your Speeds, and have weakness 5 to the origin's Strikes.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "all-speeds",
+                "value": -5
+            },
+            {
+                "definition": [
+                    "origin:signature:{item|origin.signature}",
+                    {
+                        "or": [
+                            "item:type:melee",
+                            "item:type:weapon"
+                        ]
+                    }
+                ],
+                "key": "Weakness",
+                "label": "{item|name}",
+                "type": "custom",
+                "value": 5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

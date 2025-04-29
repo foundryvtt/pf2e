@@ -1,0 +1,52 @@
+{
+    "_id": "hJJzppHOKE6g6iEJ",
+    "img": "icons/commodities/currency/coin-plain-gold.webp",
+    "name": "Effect: Never off the Hook",
+    "system": {
+        "description": {
+            "value": "<p>You take a –3 circumstance penalty to your Will DC against the origin's attempts to Demoralize or Coerce you.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:signature:{item|origin.signature}",
+                    {
+                        "or": [
+                            "action:coerce",
+                            "action:demoralize"
+                        ]
+                    }
+                ],
+                "selector": "will-dc",
+                "type": "circumstance",
+                "value": -3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

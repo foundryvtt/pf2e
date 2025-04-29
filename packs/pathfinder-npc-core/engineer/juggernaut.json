@@ -274,7 +274,6 @@
                         "alwaysActive": true,
                         "key": "RollOption",
                         "option": "integrated-weapon",
-                        "selection": "bludgeoning",
                         "suboptions": [
                             {
                                 "label": "PF2E.TraitBludgeoning",
@@ -335,7 +334,6 @@
                         "alwaysActive": true,
                         "key": "RollOption",
                         "option": "power-source",
-                        "selection": "cold",
                         "suboptions": [
                             {
                                 "label": "PF2E.TraitCold",
@@ -450,7 +448,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A juggernaut carries a powerful cannon-like projectile weapon that requires two hands to wield and deals @Damage[14d6[@actor.flags.pf2e.powerSource]|options:area-damage] damage to all creatures in its area with a DC 31 basic save; the damage type, area, and save are based on the armor's power source, as listed below. Once activated, Energy Projector can't be used again for [[/gmr 1d4 #Recharge be used]]{1d4 rounds}.</p><ul><li><strong>Cold</strong> @Template[type:cone|distance:30] of cold (@Check[reflex|basic|dc:31|options:area-effect|traits:cold])</li><li><strong>Electricity</strong> @Template[type:line|distance:60] of electricity (@Check[reflex|basic|dc:31|options:area-effect|traits:electricity])</li><li><strong>Fire</strong> @Template[type:cone|distance:30] of fire (@Check[reflex|basic|dc:31|options:area-effect|traits:fire])</li><li><strong>Poison</strong> @Template[type:cone|distance:30] of poison gas (@Check[fortitude|basic|dc:31|options:area-effect|traits:poison])</li></ul>"
+                    "value": "<p>A juggernaut carries a powerful cannon-like projectile weapon that requires two hands to wield and deals @Damage[14d6[@actor.flags.pf2e.powerSource]|options:area-damage] damage to all creatures in its area with a DC 31 basic save; the damage type, area, and save are based on the armor's power source, as listed below. Once activated, Energy Projector can't be used again for [[/gmr 1d4 #Recharge Energy Projector]]{1d4 rounds}.</p><ul><li><strong>Cold</strong> @Template[type:cone|distance:30] of cold (@Check[reflex|basic|dc:31|options:area-effect|traits:cold])</li><li><strong>Electricity</strong> @Template[type:line|distance:60] of electricity (@Check[reflex|basic|dc:31|options:area-effect|traits:electricity])</li><li><strong>Fire</strong> @Template[type:cone|distance:30] of fire (@Check[reflex|basic|dc:31|options:area-effect|traits:fire])</li><li><strong>Poison</strong> @Template[type:cone|distance:30] of poison gas (@Check[fortitude|basic|dc:31|options:area-effect|traits:poison])</li></ul>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -488,7 +486,22 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "jump-jets",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "jump-jets"
+                        ],
+                        "selector": "fly",
+                        "value": 15
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -595,7 +608,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": 25
+                "value": 20
             }
         },
         "details": {

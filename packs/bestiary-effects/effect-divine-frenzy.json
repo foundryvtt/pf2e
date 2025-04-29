@@ -4,7 +4,7 @@
     "name": "Effect: Divine Frenzy",
     "system": {
         "description": {
-            "value": "<p>The sibyl enters into a divine frenzy that lasts 1 minute. The sibyl can't voluntarily stop frenzying. While in a divine frenzy, the sibyl takes a –2 penalty to Perception checks and Will saves and gains a +2 status bonus to their spell DC and spell attack modifier. During a divine frenzy, the sibyl can't use actions with the concentrate trait unless they're Casting a Spell or Seeking.</p>\n<p>The frenzy lasts for 1 minute, until the sibyl falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], or the encounter ends, whichever comes first. The sibyl can't voluntarily end the frenzy.</p>"
+            "value": "<p>You take a –2 penalty to Perception checks and Will saves and gain a +2 status bonus to your spell DC and spell attack modifier. You can't use actions with the concentrate trait unless you're Casting a Spell or Seeking.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -13,7 +13,7 @@
             "value": 1
         },
         "level": {
-            "value": 1
+            "value": 3
         },
         "publication": {
             "license": "ORC",
@@ -33,8 +33,9 @@
                     }
                 ],
                 "selector": "all",
-                "text": "<p>During a divine frenzy, the sibyl can't use actions with the concentrate trait unless they're Casting a Spell or Seeking.</p>",
-                "title": "{item|name}"
+                "text": "{item|system.description.value}",
+                "title": "{item|name}",
+                "visibility": "owner"
             },
             {
                 "key": "FlatModifier",
@@ -42,7 +43,6 @@
                     "perception",
                     "will"
                 ],
-                "type": "status",
                 "value": -2
             },
             {

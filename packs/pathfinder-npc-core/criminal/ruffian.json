@@ -338,10 +338,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "value": [
-                        "agile",
-                        "sweep"
-                    ]
+                    "value": []
                 }
             },
             "type": "melee"
@@ -385,6 +382,47 @@
             "type": "melee"
         },
         {
+            "_id": "6sHclJAOjSOIHd1o",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "Q5SFRwPF55cicZ7k"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Club",
+            "sort": 700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 8
+                },
+                "damageRolls": {
+                    "DNqKo9wcmZy88mhd": {
+                        "damage": "1d6+5",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "thrown-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
             "_id": "WFByucZQz0Q9slLk",
             "flags": {
                 "pf2e": {
@@ -393,7 +431,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Sling",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -434,7 +472,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Reactive Strike",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -463,7 +501,7 @@
             "_id": "1gLrx7OTMtRPbK9N",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Brutal Beating",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -487,7 +525,9 @@
                             "criticalSuccess"
                         ],
                         "selector": "strike-damage",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong> The ruffian's brutality shakes foes' confidence.</p>\n<p class='compact-text'>When the ruffian deals damage on a critical hit, the target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}, and the ruffian can knock the target up to 10 feet away (this is forced movement).</p>"
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
@@ -501,7 +541,7 @@
             "_id": "qy60SQR1jiyW4CXc",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Combat Grab",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -511,7 +551,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The ruffian has one hand free</p><hr /><p><strong>Effect</strong> The ruffian makes a melee Strike while keeping one hand free. If this Strike hits, the ruffian Grabs the target using their free hand. The creature remains @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] until the end of the ruffian's next turn or until it Escapes, whichever comes first.</p>"
+                    "value": "<p><strong>Trigger</strong> The ruffian has one hand free</p><hr /><p><strong>Effect</strong> The ruffian makes a melee Strike while keeping one hand free. If this Strike hits, the ruffian Grabs the target using their free hand. The creature remains @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] until the end of the ruffian's next turn or until it @UUID[Compendium.pf2e.actionspf2e.Item.Escape]{Escapes}, whichever comes first.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -533,7 +573,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -602,7 +642,7 @@
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 19
+                "value": 18
             },
             "allSaves": {
                 "value": ""
@@ -649,11 +689,11 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 7
+                "value": 9
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 9
+                "value": 8
             },
             "will": {
                 "saveDetail": "",

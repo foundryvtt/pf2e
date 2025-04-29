@@ -488,7 +488,7 @@
             },
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "systems/pf2e/icons/spells/fear.webp",
-            "name": "Fear",
+            "name": "Fear (At Will)",
             "sort": 800000,
             "system": {
                 "area": null,
@@ -951,10 +951,52 @@
             "type": "action"
         },
         {
+            "_id": "Xe5HT5G9ZUqMzGwv",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 to All Saves vs. Magic",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "proficiency",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "awRhQv4pLJEwNvFz",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Mercy Vulnerability",
-            "sort": 1500000,
+            "sort": 1600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -986,7 +1028,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Bloody Attack",
-            "sort": 1600000,
+            "sort": 1700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1046,7 +1088,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Change Shape",
-            "sort": 1700000,
+            "sort": 1800000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1079,7 +1121,7 @@
             "_id": "VWIAMQycyMWvojmM",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Shocking Reveal",
-            "sort": 1800000,
+            "sort": 1900000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -1113,7 +1155,7 @@
             "_id": "CjTaP3byXDmyo87i",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Signature Slaughter",
-            "sort": 1900000,
+            "sort": 2000000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1184,7 +1226,7 @@
             },
             "adjustment": null,
             "allSaves": {
-                "value": ""
+                "value": " +1 to all saves vs. magic"
             },
             "hp": {
                 "details": "",
@@ -1218,8 +1260,13 @@
         "details": {
             "blurb": "",
             "languages": {
-                "details": "",
-                "value": []
+                "details": "telepathy 60 feet",
+                "value": [
+                    "chthonian",
+                    "common",
+                    "draconic",
+                    "empyrean"
+                ]
             },
             "level": {
                 "value": 6

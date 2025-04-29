@@ -9,7 +9,7 @@
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU"
             },
             "img": "icons/weapons/staves/staff-animal-skull.webp",
-            "name": "Dragon-Headed Cane",
+            "name": "Dragon-Headed Cane (Functions as a Staff)",
             "sort": 100000,
             "system": {
                 "baseItem": "staff",
@@ -274,7 +274,27 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "business-savvy",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "business-savvy"
+                        ],
+                        "selector": [
+                            "deception",
+                            "diplomacy",
+                            "perception-dc"
+                        ],
+                        "type": "circumstance",
+                        "value": 8
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -325,7 +345,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>60 feet.</p>\n<p>Creatures in the aura who owe the loan shark money take a –3 circumstance penalty to their Will DC against the loan shark's attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] or @UUID[Compendium.pf2e.actionspf2e.Item.Coerce] them and can't reduce their @UUID[Compendium.pf2e.conditionitems.Item.Frightened] value below 1 while in the aura.</p>"
+                    "value": "<p>60 feet.</p>\n<p>Creatures in the aura who owe the loan shark money take a –3 circumstance penalty to their Will DC against the loan shark's attempts to [[/act demoralize]] or [[/act coerce]] them and can't reduce their @UUID[Compendium.pf2e.conditionitems.Item.Frightened] value below 1 while in the aura.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Owe Money]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -334,6 +354,15 @@
                 },
                 "rules": [
                     {
+                        "effects": [
+                            {
+                                "includesSelf": false,
+                                "predicate": [
+                                    "target:effect:owe-money"
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Never off the Hook"
+                            }
+                        ],
                         "key": "Aura",
                         "radius": 60,
                         "traits": [
@@ -367,7 +396,11 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The loan shark commands an ally within 30 feet to attack a creature who owes the loan shark money. The ally can use a reaction to Strike the debtor, dealing an additional @Damage[1d6[mental]] damage.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The loan shark commands an ally within 30 feet to attack a creature who owes the loan shark money. The ally can use a reaction to Strike the debtor, dealing an additional 1d6 mental damage.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Interest is Due!]</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
                 },
                 "publication": {
                     "license": "ORC",

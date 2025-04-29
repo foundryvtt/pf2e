@@ -1,0 +1,137 @@
+{
+    "_id": "UhV9TLdFjtSOppog",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-tools/vermin-repellent-agent.webp",
+    "name": "Effect: Vermin Repellent Agent",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Vermin Repellent Agent (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Vermin Repellent Agent (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Vermin Repellent Agent (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Vermin Repellent Agent (Major)]</p>\n<p>You gain an item bonus to Fortitude saving throws against poisons.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 4
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Pathfinder Society Guide"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:vermin-repellent-agent-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Vermin Repellent Agent (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:vermin-repellent-agent-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Vermin Repellent Agent (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:vermin-repellent-agent-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Vermin Repellent Agent (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:vermin-repellent-agent-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Vermin Repellent Agent (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "vermin-repellent-agent"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:poison"
+                ],
+                "selector": "fortitude",
+                "slug": "vermin-repellent-bonus",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "vermin-repellent-agent:vermin-repellent-agent-moderate"
+                ],
+                "selector": "fortitude",
+                "slug": "vermin-repellent-bonus",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "vermin-repellent-agent:vermin-repellent-agent-greater"
+                ],
+                "selector": "fortitude",
+                "slug": "vermin-repellent-bonus",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "vermin-repellent-agent:vermin-repellent-agent-major"
+                ],
+                "selector": "fortitude",
+                "slug": "vermin-repellent-bonus",
+                "value": 4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

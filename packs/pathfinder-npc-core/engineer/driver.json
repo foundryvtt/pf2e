@@ -293,7 +293,7 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 10
+                    "value": 7
                 },
                 "damageRolls": {
                     "8SjPTkLR6qjyYCCS": {
@@ -446,7 +446,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>A driver can attempt a Driving Lore check to increase a vehicle's travel Speed when calculating the value for a day. The DC is determined by the GM but is typically based on the vehicle's piloting DC or the difficulty of traversing the environment, whichever is harder. On a success, increase the vehicle's travel Speed by half.</p>"
+                    "value": "<p>A driver can attempt a @Check[driving-lore] check to increase a vehicle's travel Speed when calculating the value for a day. The DC is determined by the GM but is typically based on the vehicle's piloting DC or the difficulty of traversing the environment, whichever is harder. On a success, increase the vehicle's travel Speed by half.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -482,7 +482,75 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "skilled-driver",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "skilled-driver"
+                        ],
+                        "selector": [
+                            "initiative",
+                            "skill-check"
+                        ],
+                        "type": "circumstance",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iGEnHhvX5zg1Tocx",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "+6 Status to All Defenses While Driving",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.Driving",
+                        "option": "driving",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "driving"
+                        ],
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
+                        "type": "status",
+                        "value": 6
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -494,7 +562,7 @@
             "_id": "GhMdQXRxXKeM7lzy",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Vehicle Block",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -523,7 +591,7 @@
             "_id": "dJlALdFes4OIpoMj",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Sideswipe",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -552,7 +620,7 @@
             "_id": "PDTgHGdIwkdHZgAi",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Driving Lore",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "description": {
                     "value": ""
@@ -578,7 +646,7 @@
             "_id": "DKYAJXk6xoAwqW3c",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Engineering Lore",
-            "sort": 1400000,
+            "sort": 1500000,
             "system": {
                 "description": {
                     "value": ""
@@ -604,7 +672,7 @@
             "_id": "OAQWgtdLGx0VLFZp",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Piloting Lore",
-            "sort": 1500000,
+            "sort": 1600000,
             "system": {
                 "description": {
                     "value": ""
@@ -651,11 +719,11 @@
         },
         "attributes": {
             "ac": {
-                "details": "",
+                "details": "+6 status to all defenses while driving",
                 "value": 18
             },
             "allSaves": {
-                "value": ""
+                "value": "+6 status to all defenses while driving"
             },
             "hp": {
                 "details": "",

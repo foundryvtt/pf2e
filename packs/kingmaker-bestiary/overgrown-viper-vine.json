@@ -87,7 +87,8 @@
                     "rarity": "common",
                     "value": [
                         "agile",
-                        "reach-15"
+                        "reach-15",
+                        "unarmed"
                     ]
                 },
                 "weaponType": {
@@ -242,7 +243,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> a creature attempts a Move action in area <strong>A7</strong></p>\n<p><strong>Requirements</strong> the overgrown viper vine is in area <strong>A7</strong></p>\n<hr />\n<p><strong>Effect</strong> The viper vine manipulates its roots to cause foliage around the triggering creature to suddenly seem to spring to life. The triggering creature must attempt a @Check[reflex|dc:35] saving throw.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target treats the first square of its movement as difficult terrain.</p>\n<p><strong>Failure</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] by the foliage, (escape DC 35).</p>\n<p><strong>Critical Failure</strong> As failure but the target also falls @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                    "value": "<p><strong>Trigger</strong> a creature attempts a Move action in area <strong>A7</strong></p>\n<p><strong>Requirements</strong> the overgrown viper vine is in area <strong>A7</strong></p><hr /><p><strong>Effect</strong> The viper vine manipulates its roots to cause foliage around the triggering creature to suddenly seem to spring to life. The triggering creature must attempt a @Check[reflex|dc:35] saving throw.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target treats the first square of its movement as difficult terrain.</p>\n<p><strong>Failure</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] by the foliage, ([[/act escape dc=35]] DC 35).</p>\n<p><strong>Critical Failure</strong> As failure but the target also falls @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -361,15 +362,15 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "otherwise imprecise) 60 feet",
+            "details": "tremorsense is precise in area A7",
             "mod": 24,
             "senses": [
                 {
                     "type": "low-light-vision"
                 },
                 {
-                    "acuity": "precise",
-                    "range": 7,
+                    "acuity": "imprecise",
+                    "range": 60,
                     "type": "tremorsense"
                 }
             ]

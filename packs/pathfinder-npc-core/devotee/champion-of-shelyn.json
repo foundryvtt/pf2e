@@ -607,6 +607,11 @@
                     "2CVyq8JznhCad7Pt": {
                         "damage": "1d8+10",
                         "damageType": "slashing"
+                    },
+                    "dPCpyc1tj8XhZ7Yz": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "vitality"
                     }
                 },
                 "description": {
@@ -624,7 +629,7 @@
                         "deadly-d8",
                         "forceful",
                         "magical",
-                        "reach-10"
+                        "reach"
                     ]
                 }
             },
@@ -724,7 +729,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>15 feet.</p>\n<p>Any follower of Shelyn in the aura knows the champion is a champion of Shelyn. At the end of the champion's turn, each ally in the aura reduces its @UUID[Compendium.pf2e.conditionitems.Item.Frightened] value by 1. The aura can be suppressed or resumed with a single action, which has the concentrate trait, and ends if the champion falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious].</p>"
+                    "value": "<p>15 feet.</p>\n<p>Any follower of @UUID[Compendium.pf2e.deities.Item.Shelyn] in the aura knows the champion is a champion of Shelyn. At the end of the champion's turn, each ally in the aura reduces its @UUID[Compendium.pf2e.conditionitems.Item.Frightened] value by 1. The aura can be suppressed or resumed with a single action, which has the concentrate trait, and ends if the champion falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious].</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -733,7 +738,16 @@
                 },
                 "rules": [
                     {
+                        "key": "RollOption",
+                        "option": "champions-aura",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
                         "key": "Aura",
+                        "predicate": [
+                            "champions-aura"
+                        ],
                         "radius": 15,
                         "traits": [
                             "divine"
@@ -793,7 +807,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> An enemy damages, grabs, or restrains the champion's ally, and both are in the champion's aura</p><hr /><p><strong>Effect</strong> The champion frees an ally from restraint. If the trigger was an ally taking damage, the ally gains resistance 10 to all damage against the triggering damage.</p>\n<p>The ally can attempt to break free of effects grabbing, restraining, immobilizing, or paralyzing them. They either attempt a new save against one such effect that allows a save or attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] from one effect as a free action. Whether or not it needed to escape, the ally can then Step as a free action if it's able to move.</p>"
+                    "value": "<p><strong>Trigger</strong> An enemy damages, grabs, or restrains the champion's ally, and both are in the champion's aura</p><hr /><p><strong>Effect</strong> The champion frees an ally from restraint. If the trigger was an ally taking damage, the ally gains resistance 10 to all damage against the triggering damage.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Liberating Step]</p>\n<p>The ally can attempt to break free of effects grabbing, @UUID[Compendium.pf2e.conditionitems.Item.Restrained]{Restraining}, @UUID[Compendium.pf2e.conditionitems.Item.Immobilized]{Immobilizing}, or @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed]{Paralyzing} them. They either attempt a new save against one such effect that allows a save or attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] from one effect as a free action. Whether or not it needed to escape, the ally can then Step as a free action if it's able to move.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -846,7 +860,7 @@
                         "outcome": [
                             "criticalSuccess"
                         ],
-                        "selector": "glaive-damage",
+                        "selector": "glaive-attack-roll",
                         "text": "{item|description}",
                         "title": "{item|name}"
                     }
