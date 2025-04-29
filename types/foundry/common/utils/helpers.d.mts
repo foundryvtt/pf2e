@@ -271,7 +271,7 @@ export function randomID(length?: number): string;
  * @returns Returns the Collection, Document Type, and Document ID to resolve the parent
  *          document, as well as the remaining Embedded Document parts, if any.
  */
-export function parseUuid(uuid: Maybe<string>, options?: { relative?: Maybe<Document> }): ResolvedUUID;
+export function parseUuid(uuid: Maybe<string>, options?: { relative?: Maybe<Document> }): ResolvedUUID | null;
 
 export interface ResolvedUUID {
     uuid?: string;
