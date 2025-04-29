@@ -180,7 +180,7 @@ export interface DialogData {
     title?: string;
     content?: string | HTMLElement | (() => string | HTMLElement);
     close?: (html: HTMLElement | JQuery) => void;
-    buttons?: Record<string, DialogButton>;
+    buttons: Record<string, DialogButton>;
     default?: string;
     render?: (html: HTMLElement | JQuery) => void;
 }
