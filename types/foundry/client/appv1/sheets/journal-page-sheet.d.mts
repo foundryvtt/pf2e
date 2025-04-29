@@ -1,4 +1,3 @@
-import type * as TinyMCE from "tinymce";
 import { AppV1RenderOptions } from "../api/application-v1.mjs";
 import DocumentSheet, { DocumentSheetData, DocumentSheetV1Options } from "../api/document-sheet-v1.mjs";
 
