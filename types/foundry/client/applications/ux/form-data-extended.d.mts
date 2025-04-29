@@ -1,4 +1,3 @@
-import * as TinyMCE from "tinymce";
 import { TinyMCEEditorData } from "../../appv1/api/form-application-v1.mjs";
 import ProseMirrorEditor from "./prosemirror-editor.mjs";
 
