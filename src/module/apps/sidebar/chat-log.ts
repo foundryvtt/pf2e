@@ -2,8 +2,8 @@ import { ActorPF2e } from "@actor";
 import { handleKingdomChatMessageEvent } from "@actor/party/kingdom/chat.ts";
 import type { ApplicationRenderContext } from "@client/applications/_types.d.mts";
 import type { ContextMenuCondition, ContextMenuEntry } from "@client/applications/ux/context-menu.d.mts";
-import type { RollJSON, Rolled } from "@client/dice/_module.d.mts";
-import type { ChatMessageCreateOperation, ChatMessageSource } from "@common/documents/chat-message.d.mts";
+import type { Rolled } from "@client/dice/_module.d.mts";
+import type { ChatMessageSource, ChatSpeakerData } from "@common/documents/chat-message.d.mts";
 import type { ShieldPF2e } from "@item";
 import { applyDamageFromMessage } from "@module/chat-message/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
@@ -46,19 +46,24 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
     }
 
     /** Replace parent method in order to use DamageRoll class as needed */
-    protected override async _processDiceCommand(
-        command: string,
-        matches: RegExpMatchArray[],
-        chatData: DeepPartial<Omit<ChatMessageSource, "rolls">> & { rolls: (string | RollJSON)[] },
-        createOptions: ChatMessageCreateOperation,
-    ): Promise<void> {
-        const actor = ChatMessage.getSpeakerActor(chatData.speaker ?? {}) || game.user.character;
+    override async processMessage(
+        message: string,
+        options?: { speaker?: ChatSpeakerData },
+    ): Promise<ChatMessagePF2e | undefined>;
+    override async processMessage(
+        message: string,
+        options: { speaker?: ChatSpeakerData } = {},
+    ): Promise<ChatMessage | undefined> {
+        const [command, matches] = ChatLogPF2e.parse(message) ?? [];
+        if (!["roll", "publicroll", "gmroll", "blindroll", "selfroll"].includes(command) || !Array.isArray(matches)) {
+            return super.processMessage(message, options);
+        }
+
+        const speaker = (options.speaker ??= ChatMessagePF2e.getSpeaker());
+        const chatData: DeepPartial<ChatMessageSource> = { speaker, author: game.user.id, flavor: "" };
+        const actor = ChatMessagePF2e.getSpeakerActor(speaker) ?? game.user.character;
         const rollData = actor?.getRollData() ?? {};
         const rolls: Rolled<Roll>[] = [];
-        createOptions.rollMode = objectHasKey(CONFIG.Dice.rollModes, command)
-            ? command
-            : game.settings.get("core", "rollMode");
-
         for (const match of matches.filter((m) => !!m)) {
             const [formula, flavor] = match.slice(2, 4);
             if (flavor && !chatData.flavor) chatData.flavor = flavor;
@@ -74,12 +79,17 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 rolls.push(roll);
             } else {
                 // Super up and return early if this isn't a damage roll
-                return super._processDiceCommand(command, matches, chatData, createOptions);
+                return super.processMessage(message, options);
             }
         }
-        chatData.rolls = rolls.map((r) => r.toJSON());
-        chatData.sound = CONFIG.sounds.dice;
+        if (Hooks.call("chatMessage", this, message, chatData) === false) return;
+        chatData.rolls = rolls.map((r) => JSON.stringify(r.toJSON()));
+        chatData.sound ??= CONFIG.sounds.dice;
         chatData.content = rolls.reduce((t, r) => t + r.total, 0).toString();
+        const operation = {
+            rollMode: objectHasKey(CONFIG.Dice.rollModes, command) ? command : game.settings.get("core", "rollMode"),
+        };
+        return ChatMessagePF2e.create(chatData, operation);
     }
 
     static #messageFromEvent(

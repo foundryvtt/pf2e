@@ -1,6 +1,7 @@
 import { ActorPF2e } from "@actor";
-import type { ApplicationConfiguration } from "@client/applications/_types.d.mts";
+import type { ApplicationConfiguration, ApplicationRenderContext } from "@client/applications/_types.d.mts";
 import type { HandlebarsRenderOptions } from "@client/applications/api/handlebars-application.d.mts";
+import { ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";
 import type CompendiumCollection from "@client/documents/collections/compendium-collection.d.mts";
 import type { CompendiumIndexData } from "@client/documents/collections/compendium-collection.d.mts";
 import { ItemPF2e } from "@item";
@@ -18,7 +19,8 @@ class CompendiumDirectoryPF2e extends tabs.CompendiumDirectory {
     /** Include ability to search and drag document search results */
     static override DEFAULT_OPTIONS: DeepPartial<ApplicationConfiguration> = {
         actions: {
-            onOpenBrowser: CompendiumDirectoryPF2e.#onOpenBrowser,
+            openBrowser: CompendiumDirectoryPF2e.#onClickOpenBrowser,
+            openSheet: CompendiumDirectoryPF2e.#onClickOpenSheet,
         },
     };
 
@@ -76,27 +78,78 @@ class CompendiumDirectoryPF2e extends tabs.CompendiumDirectory {
         return preview;
     }
 
-    override async _prepareContext(options: HandlebarsRenderOptions): Promise<CompendiumDirectoryDataPF2e> {
+    override async _prepareContext(options: HandlebarsRenderOptions): Promise<CompendiumDirectoryRenderContext> {
         return {
             ...(await super._prepareContext(options)),
             searchContents: game.user.settings.searchPackContents,
-            isV13: game.release.generation === 13,
         };
     }
 
+    protected override async _preparePartContext(
+        partId: string,
+        context: CompendiumDirectoryRenderContext,
+        options: HandlebarsRenderOptions,
+    ): Promise<CompendiumDirectoryRenderContext> {
+        if (partId === "footer") {
+            const buttons = (context.buttons ??= []);
+            buttons.push({
+                type: "button",
+                action: "openBrowser",
+                icon: "fa-solid fa-magnifying-glass",
+                label: "PF2E.CompendiumBrowser.Title",
+            });
+        }
+        return super._preparePartContext(partId, context, options);
+    }
+
+    protected override async _onFirstRender(
+        context: ApplicationRenderContext,
+        options: HandlebarsRenderOptions,
+    ): Promise<void> {
+        this._createContextMenu(this.#getDocumentMatchContextEntries, "ol.document-matches > li");
+        return super._onFirstRender(context, options);
+    }
+
+    #getDocumentMatchContextEntries(): ContextMenuEntry[] {
+        return [
+            {
+                name: "COMPENDIUM.ImportEntry",
+                icon: fontAwesomeIcon("download").outerHTML,
+                condition: (li) => {
+                    const uuid = li.dataset.uuid;
+                    if (!uuid) throw ErrorPF2e("Unexpected missing uuid");
+                    const collection = game.packs.get(fromUuidSync(uuid)?.pack ?? "", { strict: true });
+                    const documentClass = collection.documentClass as unknown as typeof foundry.abstract.Document;
+                    return documentClass.canUserCreate(game.user);
+                },
+                callback: (li) => {
+                    const uuid = li.dataset.uuid;
+                    if (!uuid) throw ErrorPF2e("Unexpected missing uuid");
+                    const packCollection = game.packs.get(fromUuidSync(uuid)?.pack ?? "", { strict: true });
+                    const worldCollection = game.collections.get(packCollection.documentName, { strict: true });
+                    const indexData = fromUuidSync(uuid) ?? { _id: "" };
+                    if (!("_id" in indexData && typeof indexData._id === "string")) {
+                        throw ErrorPF2e("Unexpected missing document _id");
+                    }
+                    return worldCollection.importFromCompendium(
+                        packCollection,
+                        indexData._id,
+                        {},
+                        { renderSheet: true },
+                    );
+                },
+            },
+        ];
+    }
+
     protected override _onRender(
-        context: CompendiumDirectoryDataPF2e,
+        context: CompendiumDirectoryRenderContext,
         options: HandlebarsRenderOptions,
     ): Promise<void> {
         if (options.parts.includes("directory")) {
             const matchesList = createHTMLElement("ol", { classes: ["document-matches"] });
             const html = this.element;
             html.querySelector("ol.directory-list")?.append(matchesList);
-            const browserButton = createHTMLElement("button", {
-                dataset: { action: "onOpenBrowser" },
-                children: [fontAwesomeIcon("magnifying-glass"), game.i18n.localize("PF2E.CompendiumBrowser.Title")],
-            });
-            html.querySelector(":scope > footer")?.append(browserButton);
             this.matchDragDrop = new fa.ux.DragDrop({
                 dragSelector: "li.match",
                 permissions: {
@@ -117,7 +170,7 @@ class CompendiumDirectoryPF2e extends tabs.CompendiumDirectory {
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    protected override _getEntryContextOptions(): EntryContextOption[] {
+    protected override _getEntryContextOptions(): ContextMenuEntry[] {
         const options = super._getEntryContextOptions();
 
         options.push({
@@ -142,43 +195,6 @@ class CompendiumDirectoryPF2e extends tabs.CompendiumDirectory {
         return options;
     }
 
-    /** Add a context menu for content search results */
-    protected override _contextMenu(html: HTMLElement): void {
-        super._contextMenu(html);
-
-        ContextMenu.create(this, html, "ol.document-matches > li", [
-            {
-                name: "COMPENDIUM.ImportEntry",
-                icon: fontAwesomeIcon("download").outerHTML,
-                condition: (li) => {
-                    const uuid = li.dataset.uuid;
-                    if (!uuid) throw ErrorPF2e("Unexpected missing uuid");
-                    const collection = game.packs.get(fromUuidSync(uuid)?.pack ?? "", { strict: true });
-                    const documentClass = collection.documentClass as unknown as typeof foundry.abstract.Document;
-
-                    return documentClass.canUserCreate(game.user);
-                },
-                callback: (li) => {
-                    const uuid = li.dataset.uuid;
-                    if (!uuid) throw ErrorPF2e("Unexpected missing uuid");
-                    const packCollection = game.packs.get(fromUuidSync(uuid)?.pack ?? "", { strict: true });
-                    const worldCollection = game.collections.get(packCollection.documentName, { strict: true });
-                    const indexData = fromUuidSync(uuid) ?? { _id: "" };
-                    if (!("_id" in indexData && typeof indexData._id === "string")) {
-                        throw ErrorPF2e("Unexpected missing document _id");
-                    }
-
-                    return worldCollection.importFromCompendium(
-                        packCollection,
-                        indexData._id,
-                        {},
-                        { renderSheet: true },
-                    );
-                },
-            },
-        ]);
-    }
-
     /** System compendium search */
     protected override _onSearchFilter(event: KeyboardEvent, query: string, rgx: RegExp, listElem: HTMLElement): void {
         super._onSearchFilter(event, query, rgx, listElem);
@@ -195,7 +211,6 @@ class CompendiumDirectoryPF2e extends tabs.CompendiumDirectory {
 
         const listElements = filteredMatches.map((match): HTMLLIElement => {
             const li = matchTemplate.content.firstElementChild?.cloneNode(true) as HTMLLIElement;
-            li.dataset.uuid = match.uuid;
             li.dataset.score = match.score.toString();
 
             // Show a thumbnail if available
@@ -208,21 +223,17 @@ class CompendiumDirectoryPF2e extends tabs.CompendiumDirectory {
                 }
             }
 
-            // Open compendium on result click
-            li.addEventListener("click", async (event) => {
-                event.stopPropagation();
-                const doc = await fromUuid(match.uuid);
-                doc?.sheet.render(true, { editable: doc.sheet.isEditable });
-            });
-
-            const anchor = li.querySelector("a");
-            const details = li.querySelector("span");
+            const docAnchor = li.querySelector<HTMLAnchorElement>("a[data-action=openSheet]");
+            const packAnchor = li.querySelector<HTMLAnchorElement>("a[data-action=activateEntry]");
             const systemType = ["Actor", "Item"].includes(match.documentType)
                 ? game.i18n.localize(`TYPES.${match.documentType}.${match.type}`)
                 : null;
-            if (anchor && details) {
-                anchor.innerText = match.name;
-                details.innerText = systemType ? `${systemType} (${match.packLabel})` : `(${match.packLabel})`;
+            if (docAnchor && packAnchor) {
+                docAnchor.innerText = match.name;
+                docAnchor.dataset.uuid = match.uuid;
+                packAnchor.append(systemType ? `${systemType} (${match.packLabel})` : `(${match.packLabel})`);
+                const collection = fu.parseUuid(match.uuid)?.collection as CompendiumCollection | undefined;
+                packAnchor.dataset.pack = collection?.metadata.id;
             }
 
             return li;
@@ -288,8 +299,18 @@ class CompendiumDirectoryPF2e extends tabs.CompendiumDirectory {
         console.debug("PF2e System | Finished compiling search index");
     }
 
-    static async #onOpenBrowser(this: CompendiumDirectoryPF2e): Promise<void> {
+    static async #onClickOpenBrowser(this: CompendiumDirectoryPF2e): Promise<void> {
         game.pf2e.compendiumBrowser.render({ force: true });
+    }
+
+    // Open compendium on result click
+    static async #onClickOpenSheet(
+        this: CompendiumDirectoryPF2e,
+        _event: PointerEvent,
+        target: HTMLElement,
+    ): Promise<void> {
+        const doc = await fromUuid(target.dataset.uuid ?? "");
+        doc?.sheet?.render(true);
     }
 }
 
@@ -297,9 +318,16 @@ interface CompendiumDirectoryPF2e extends tabs.CompendiumDirectory {
     constructor: typeof CompendiumDirectoryPF2e;
 }
 
-interface CompendiumDirectoryDataPF2e extends tabs.CompendiumDirectoryContext {
-    searchContents: boolean;
-    isV13: boolean;
+interface CompendiumDirectoryRenderContext extends ApplicationRenderContext {
+    searchContents?: boolean;
+    buttons?: {
+        type: "button" | "submit";
+        name?: string;
+        action?: string;
+        disabled?: boolean;
+        icon?: string;
+        label?: string;
+    }[];
 }
 
 export { CompendiumDirectoryPF2e };

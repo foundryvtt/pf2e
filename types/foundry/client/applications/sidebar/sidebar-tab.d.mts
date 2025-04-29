@@ -1,4 +1,9 @@
-import type { ApplicationClosingOptions, ApplicationConfiguration, ApplicationRenderOptions } from "../_types.mjs";
+import type {
+    ApplicationClosingOptions,
+    ApplicationConfiguration,
+    ApplicationRenderContext,
+    ApplicationRenderOptions,
+} from "../_types.mjs";
 import type ApplicationV2 from "../api/application.mjs";
 
 /**
@@ -83,5 +88,7 @@ export default abstract class AbstractSidebarTab<
      */
     protected _onDeactivate(): void;
 
-    protected override _onFirstRender(context: object, options: TRenderOptions): Promise<void>;
+    protected override _onFirstRender(context: ApplicationRenderContext, options: TRenderOptions): Promise<void>;
+
+    protected override _onRender(context: ApplicationRenderContext, options: TRenderOptions): Promise<void>;
 }
