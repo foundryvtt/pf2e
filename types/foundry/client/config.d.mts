@@ -1,6 +1,5 @@
 import { DataSchema, Document, TypeDataModel } from "@common/abstract/_module.mjs";
 import { AudioFilePath, ImageFilePath, RollMode } from "@common/constants.mjs";
-import type * as TinyMCE from "tinymce";
 import { DocumentConstructionContext } from "../common/_types.mjs";
 import { ActiveEffectSource } from "../common/documents/active-effect.mjs";
 import DocumentSheetV2 from "./applications/api/document-sheet.mjs";
@@ -774,9 +773,7 @@ export default interface Config<
 
     /** Default configuration options for TinyMCE editors */
     // See https://www.tiny.cloud/docs/configure/content-appearance/
-    TinyMCE: Omit<TinyMCE.EditorOptions, "style_formats"> & {
-        style_formats: NonNullable<TinyMCE.EditorOptions["style_formats"]>;
-    };
+    TinyMCE: TinyMCE.EditorOptions;
 
     ui: {
         actors: ConstructorOf<foundry.applications.sidebar.tabs.ActorDirectory<documents.Actor<null>>>;

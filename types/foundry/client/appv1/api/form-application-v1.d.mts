@@ -1,4 +1,3 @@
-import type * as TinyMCE from "tinymce";
 import Application, { AppV1RenderOptions, ApplicationV1Options } from "./application-v1.mjs";
 
 /**
