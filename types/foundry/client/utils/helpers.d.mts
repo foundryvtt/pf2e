@@ -8,21 +8,21 @@ import {
     WorldDocumentUUID,
 } from "@client/documents/_module.mjs";
 import { ClientDocument } from "@client/documents/abstract/client-document.mjs";
-import { CompendiumDocument } from "@client/documents/collections/compendium-collection.mjs";
+import { CompendiumDocument, CompendiumIndexData } from "@client/documents/collections/compendium-collection.mjs";
 import Document from "@common/abstract/document.mjs";
 import { COMPENDIUM_DOCUMENT_TYPES } from "@common/constants.mjs";
 
 /**
  * Clean a provided HTML fragment, closing unbalanced tags and stripping some undesirable properties
- * @param raw      A raw HTML string
+ * @param raw A raw HTML string
  * @returns The cleaned HTML content
  */
 export function cleanHTML(raw: string): string;
 
 /**
  * Export data content to be saved to a local file
- * @param data     Data content converted to a string
- * @param type     The type of file
+ * @param data Data content converted to a string
+ * @param type The type of file
  * @param filename The filename of the resulting download
  */
 
@@ -37,11 +37,11 @@ export function readTextFromFile(file: File): Promise<string>;
 
 /**
  * Retrieve a Document by its Universally Unique Identifier (uuid).
- * @param uuid    The uuid of the Document to retrieve.
+ * @param uuid The uuid of the Document to retrieve.
  * @param options Options to configure how a UUID is resolved.
  * @param options.relative A Document to resolve relative UUIDs against.
- * @param options.invalid  Allow retrieving an invalid Document.
- * @returns {Promise<Document|null>} Returns the Document if it could be found, otherwise null.
+ * @param options.invalid Allow retrieving an invalid Document.
+ * @returns Returns the Document if it could be found, otherwise null.
  */
 export function fromUuid(uuid: CompendiumUUID, relative?: Maybe<ClientDocument>): Promise<CompendiumDocument | null>;
 export function fromUuid(uuid: ActorUUID, relative?: Maybe<ClientDocument>): Promise<Actor | null>;
@@ -59,16 +59,19 @@ export type DocumentUUID = WorldDocumentUUID | CompendiumUUID | TokenDocumentUUI
 /**
  * Retrieve a Document by its Universally Unique Identifier (uuid) synchronously. If the uuid resolves to a compendium
  * document, that document's index entry will be returned instead.
- * @param {string} uuid                      The uuid of the Document to retrieve.
- * @param {object} [options]                 Options to configure how a UUID is resolved.
- * @param {Document} [options.relative]      A Document to resolve relative UUIDs against.
- * @param {boolean} [options.invalid=false]  Allow retrieving an invalid Document.
- * @param {boolean} [options.strict=true]    Throw an error if the UUID cannot be resolved synchronously.
- * @returns {Document|object|null}           The Document or its index entry if it resides in a Compendium, otherwise
- *                                           null.
+ * @param uuid The uuid of the Document to retrieve.
+ * @param options Options to configure how a UUID is resolved.
+ * @param options.relative A Document to resolve relative UUIDs against.
+ * @param options.invalid Allow retrieving an invalid Document.
+ * @param options.strict Throw an error if the UUID cannot be resolved synchronously.
+ * @returns The Document or its index entry if it resides in a Compendium, otherwise null.
  * @throws If the uuid resolves to a Document that cannot be retrieved synchronously, and the strict option is true.
  */
-export function fromUuidSync<TResult extends Document | object = Document | object>(
+export function fromUuidSync<
+    TResult extends (Document & { name?: string }) | CompendiumIndexData =
+        | (Document & { name?: string })
+        | CompendiumIndexData,
+>(
     uuid: string,
     options?: {
         relative?: Document;
@@ -79,8 +82,8 @@ export function fromUuidSync<TResult extends Document | object = Document | obje
 
 /**
  * Return a reference to the Document class implementation which is configured for use.
- * @param {string} documentName               The canonical Document name, for example "Actor"
- * @returns {typeof Document|undefined}       The configured Document class implementation
+ * @param documentName The canonical Document name, for example "Actor"
+ * @returns The configured Document class implementation
  */
 export function getDocumentClass(documentName: string): typeof Document | undefined;
 
@@ -94,7 +97,7 @@ export function getDocumentClass(documentName: string): typeof Document | undefi
  *   update: {sortKey: sortValue}
  * }
  *
- * @param source  The source object being sorted
+ * @param source The source object being sorted
  * @param options Options which modify the sort behavior
  * @returns An Array of updates for the caller of the helper function to perform
  */
@@ -117,8 +120,8 @@ declare interface SortOptions<TObject extends object> {
 /**
  * Express a timestamp as a relative string.
  * This helper internally uses GameTime#format using the relative formatter and the Earth calendar.
- * @param {Date|string} timeStamp   A timestamp string or Date object to be formatted as a relative time
- * @returns {string}                A string expression for the relative time
+ * @param timeStamp A timestamp string or Date object to be formatted as a relative time
+ * @returns A string expression for the relative time
  */
 export function timeSince(timeStamp: Date | string): string;
 
@@ -126,7 +129,5 @@ export function timeSince(timeStamp: Date | string): string;
  * Parse an HTML string, returning a processed HTMLElement or HTMLCollection.
  * A single HTMLElement is returned if the provided string contains only a single top-level element.
  * An HTMLCollection is returned if the provided string contains multiple top-level elements.
- * @param {string} htmlString
- * @returns {HTMLCollection|HTMLElement}
  */
 export function parseHTML<THTML extends HTMLCollection | HTMLElement>(htmlString: string): THTML;

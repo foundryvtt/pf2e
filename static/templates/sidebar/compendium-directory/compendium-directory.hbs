@@ -1,4 +1,4 @@
-<section class="{{cssClass}} directory flexcol" id="{{cssId}}" data-tab="{{tabName}}"{{#if isV13}} data-group="primary"{{/if}}>
+<section class="{{cssClass}} directory flexcol" id="{{cssId}}" data-tab="{{tabName}}" data-group="primary">
     <!-- Directory Header -->
     <header class="directory-header flexcol">
         <div class="header-actions action-buttons flexrow">
@@ -26,7 +26,7 @@
         {{#each tree.entries}}
             {{> (lookup @root "entryPartial")}}
         {{/each}}
-        <ol class="document-matches"></ol>
+        <ol class="document-matches flexcol"></ol>
     </ol>
 
     <!-- Directory Footer -->
