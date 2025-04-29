@@ -1,6 +1,5 @@
 import User from "@client/documents/user.mjs";
 import Document from "@common/abstract/document.mjs";
-import * as TinyMCE from "tinymce";
 import HTMLSecret from "../../applications/html-secret.mjs";
 import { AppV1RenderOptions, ApplicationV1HeaderButton } from "./application-v1.mjs";
 import FormApplication, { FormApplicationOptions } from "./form-application-v1.mjs";

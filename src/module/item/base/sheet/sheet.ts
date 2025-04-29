@@ -34,7 +34,6 @@ import {
 import { createSortable } from "@util/destroyables.ts";
 import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
-import type * as TinyMCE from "tinymce";
 import { CodeMirror } from "./codemirror.ts";
 import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-element-form/index.ts";
 
