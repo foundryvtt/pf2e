@@ -22,20 +22,17 @@
         },
         "rules": [
             {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "Attacking designated target",
-                "option": "guiding-words-target",
-                "toggleable": true
+                "key": "TokenMark",
+                "slug": "guiding-words"
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "guiding-words-target"
+                    "target:mark:guiding-words"
                 ],
                 "selector": [
                     "attack",
-                    "strike-damage"
+                    "damage"
                 ],
                 "type": "status",
                 "value": 1
