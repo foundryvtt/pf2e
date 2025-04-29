@@ -1,4 +1,5 @@
 import WorldCollection from "../abstract/world-collection.mjs";
+import Combat from "../combat.mjs";
 
 /**
  * The Collection of Combat documents which exist within the active World.
