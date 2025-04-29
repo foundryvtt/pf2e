@@ -11,20 +11,20 @@ section.compendium-sidebar {
 
     ol.directory-list ol.document-matches {
         background: rgba(0, 0, 0, 25%);
-        margin-top: 1px;
+        margin-top: 0;
         padding: 0;
+        gap: 2px;
 
         li.match {
             align-items: center;
             column-gap: 2px;
-            cursor: pointer;
+            cursor: var(--cursor-grab);
             display: grid;
+            flex-basis: fit-content;
             font-size: var(--font-size-12);
-            grid-template-areas:
+            grid-template:
                 "thumbnail name"
-                "thumbnail details";
-            grid-template-columns: calc(36px + 2px) 1fr;
-            grid-template-rows: 1fr 1fr;
+                "thumbnail details" / calc(36px + 2px) 1fr;
             list-style: none;
             padding: 2px 0 2px 4px;
 
@@ -35,7 +35,6 @@ section.compendium-sidebar {
             > * {
                 align-items: inherit;
                 display: flex;
-                height: 100%;
             }
 
             .thumbnail {
@@ -52,12 +51,14 @@ section.compendium-sidebar {
                 }
             }
 
-            .name {
+            a.name {
                 grid-area: name;
             }
 
-            .details {
-                color: var(--color-text-light-primary);
+            a.pack {
+                color: var(--color-text-tertiary);
+                display: flex;
+                gap: 0.25rem;
                 grid-area: details;
             }
         }

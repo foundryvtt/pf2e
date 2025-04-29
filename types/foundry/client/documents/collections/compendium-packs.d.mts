@@ -20,5 +20,6 @@ export default class CompendiumPacks extends DirectoryCollectionMixin(Collection
 
     protected override _getVisibleTreeContents(): CompendiumCollection[];
 
-    static override _sortAlphabetical(a: CompendiumCollection, b: CompendiumCollection): CompendiumCollection[];
+    protected static override _sortAlphabetical(a: CompendiumCollection, b: CompendiumCollection): number;
+    protected static override _sortAlphabetical<T extends { name: string }>(a: T, b: T): number;
 }
