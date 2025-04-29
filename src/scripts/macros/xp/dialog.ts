@@ -148,6 +148,7 @@ function showXP(partyLevel: number, partySize: number, npcLevels: number[], haza
     new foundry.appv1.api.Dialog({
         title: "XP",
         content: dialogTemplate(xp),
+        buttons: {},
     }).render(true);
 }
 
