@@ -1,3 +1,7 @@
+import { Tabs } from "@client/applications/ux/_module.mjs";
+import DragDrop from "@client/applications/ux/drag-drop.mjs";
+import { TabsConfiguration } from "@client/applications/ux/tabs.mjs";
+import { UserAction } from "@common/constants.mjs";
 import SearchFilter, { SearchFilterConfiguration } from "../../applications/ux/search-filter.mjs";
 
 interface ApplicationV1Options {
@@ -24,7 +28,7 @@ interface ApplicationV1Options {
     /** An array of CSS string classes to apply to the rendered HTML */
     classes: string[];
     /** Track Tab navigation handlers which are active for this Application */
-    tabs: TabsOptions[];
+    tabs: TabsConfiguration[];
     dragDrop: {
         callbacks?: {
             dragover?: Function;
