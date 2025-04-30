@@ -44,7 +44,6 @@
 - (Dire Weasel) Add effect for Animalistic Brutality, Blessed Coins, Glimpse Vulnerability, Aurochs Jerky, and Cindergrass Cloak
 - (Dire Weasel) Add effect link for Sinful Bite
 - (Dire Weasel) Add initiative Note to Cloud of Allergens
-- (Dire Weasel) Add predicate to Garrholdion's Belief Fortification
 - (Dire Weasel) Brush up Body of Air, Mage Killer, Memory Maelstrom, and Tooth Tug
 - (Dire Weasel) Fix usage of Rending Gauntlets
 - (Dire Weasel) Fix action cost of Breathe Shrapnel
