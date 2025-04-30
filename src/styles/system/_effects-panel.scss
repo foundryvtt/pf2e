@@ -18,10 +18,16 @@
     padding-left: 2px;
     scrollbar-gutter: stable;
 
+    // This allows glow effects to exist despite overflow cutting them off
+    padding-bottom: 6px;
+    padding-right: 8px;
+    margin-right: -8px;
+
     .effect-item {
+        border-radius: 4px;
+        direction: ltr;
         display: flex;
         justify-content: end;
-        border-radius: 4px;
 
         &[data-badge-type="formula"] .icon {
             cursor: pointer;
@@ -57,11 +63,10 @@
             position: relative;
             height: 46px;
             width: 46px;
-            overflow: hidden;
 
             &.aura {
                 border-radius: 50%;
-                box-shadow: 0px 0px 10px 5px white;
+                box-shadow: 0px 0px 6px 3px white;
             }
 
             &.unidentified {
