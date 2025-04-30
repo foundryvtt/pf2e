@@ -1,3 +1,6 @@
+import { EditorCreateOptions } from "@client/applications/ux/prosemirror-editor.mjs";
+import { Plugin } from "prosemirror-state";
+import { EditorView } from "prosemirror-view";
 import Application, { AppV1RenderOptions, ApplicationV1Options } from "./application-v1.mjs";
 
 /**
@@ -28,12 +31,6 @@ export default abstract class FormApplication<
 
     /** A convenience reference to the form HTLMElement */
     form: HTMLFormElement;
-
-    /**
-     * Keep track of any FilePicker instances which are associated with this form
-     * The values of this Array are inner-objects with references to the FilePicker instances and other metadata
-     */
-    filepickers: FilePicker[];
 
     /**
      * Keep track of any mce editors which may be active as part of this form
@@ -126,9 +123,9 @@ export default abstract class FormApplication<
      */
     activateEditor(
         name: string,
-        options?: { engine?: "prosemirror" | "tinymice" },
+        options?: EditorCreateOptions,
         initialContent?: string,
-    ): Promise<TinyMCE.Editor | ProseMirror.EditorView>;
+    ): Promise<TinyMCE.Editor | EditorView>;
 
     /**
      * Handle saving the content of a specific editor by name
@@ -147,21 +144,7 @@ export default abstract class FormApplication<
      * @param [options]              Additional options to configure the plugins.
      * @param [options.remove=true]  Whether the editor should destroy itself on save.
      */
-    protected _configureProseMirrorPlugins(
-        name: string,
-        options?: { remove?: boolean },
-    ): Record<string, ProseMirror.Plugin>;
-
-    /** Activate a FilePicker instance present within the form */
-    protected _activateFilePicker(button: JQuery | HTMLElement): void;
-
-    /**
-     * Determine the configuration options used to initialize a FilePicker instance within this FormApplication.
-     * Subclasses can extend this method to customize the behavior of pickers within their form.
-     * @param event The initiating mouse click event which opens the picker
-     * @returns Options passed to the FilePicker constructor
-     */
-    protected _getFilePickerOptions(event: PointerEvent): FilePickerOptions;
+    protected _configureProseMirrorPlugins(name: string, options?: { remove?: boolean }): Record<string, Plugin>;
 
     /**
      * Submit the contents of a Form Application, processing its content as defined by the Application
