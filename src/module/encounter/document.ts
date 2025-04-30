@@ -17,9 +17,6 @@ import * as R from "remeda";
 import type { CombatantFlags, CombatantPF2e, RolledCombatant } from "./combatant.ts";
 
 class EncounterPF2e extends Combat {
-    /** Has this document completed `DataModel` initialization? */
-    declare initialized: boolean;
-
     /** Threat assessment and XP award of this encounter */
     declare metrics: EncounterMetrics | null;
 
@@ -97,21 +94,6 @@ class EncounterPF2e extends Combat {
         const participants = { party: fightyPartyMembers, opposition };
 
         return { threat, budget, award, participants };
-    }
-
-    protected override _initialize(options?: Record<string, unknown>): void {
-        this.initialized = false;
-        super._initialize(options);
-    }
-
-    /**
-     * Prevent double data preparation of child documents.
-     * @todo remove in V13
-     */
-    override prepareData(): void {
-        if (game.release.generation === 12 && this.initialized) return;
-        this.initialized = true;
-        super.prepareData();
     }
 
     override prepareDerivedData(): void {
