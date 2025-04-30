@@ -104,7 +104,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
 
     /** Replace core static method to conditionally handle inline damage roll clicks */
     static override async _onClickInlineRoll(event: PointerEvent): Promise<ChatMessage | undefined> {
-        const anchor = event.currentTarget ?? null;
+        const anchor = event.target ?? null;
         if (!(anchor instanceof HTMLAnchorElement && anchor.dataset.formula && "damageRoll" in anchor.dataset)) {
             return super._onClickInlineRoll(event);
         }

@@ -24,17 +24,18 @@ import {
 } from "@actor/modifiers.ts";
 import { CheckContext } from "@actor/roll-context/check.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
-import { AttributeString, MovementType, SkillSlug } from "@actor/types.ts";
+import type { AttributeString, MovementType, SkillSlug } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES } from "@actor/values.ts";
+import type { Rolled } from "@client/dice/_module.d.mts";
 import type { AncestryPF2e, BackgroundPF2e, ClassPF2e, ConsumablePF2e, DeityPF2e, FeatPF2e, HeritagePF2e } from "@item";
 import { WeaponPF2e } from "@item";
-import { AbilityTrait } from "@item/ability/types.ts";
+import type { AbilityTrait } from "@item/ability/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import type { ItemType } from "@item/base/data/index.ts";
 import { getPropertyRuneDegreeAdjustments, getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
-import { WeaponSource } from "@item/weapon/data.ts";
+import type { WeaponSource } from "@item/weapon/data.ts";
 import { processTwoHandTrait } from "@item/weapon/helpers.ts";
-import { WeaponCategory } from "@item/weapon/types.ts";
+import type { WeaponCategory } from "@item/weapon/types.ts";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import {
     extractDegreeOfSuccessAdjustments,
@@ -201,9 +202,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     /** If one exists, prepare this character's familiar */
     override prepareData(): void {
-        if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
-            return;
-        }
         super.prepareData();
 
         if (game.ready && this.familiar && game.actors.has(this.familiar.id)) {
