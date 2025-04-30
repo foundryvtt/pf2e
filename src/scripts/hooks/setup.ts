@@ -20,6 +20,8 @@ export const Setup = {
 
             // Forced panning is intrinsically annoying: change default to false
             game.settings.settings.get("core.chatBubblesPan").default = false;
+            // Skipping defeated combatants is broadly desirable
+            game.settings.settings.get("core.combatTrackerConfig").default.skipDefeated = true;
             // Bronze ring is more pf2e-y
             game.settings.settings.get("core.dynamicTokenRing").default = "coreBronze";
             // Use grid fit mode to allow for informative small-size scaling
