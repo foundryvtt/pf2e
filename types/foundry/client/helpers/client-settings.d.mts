@@ -1,5 +1,8 @@
+import ApplicationV2 from "@client/applications/api/application.mjs";
+import Application from "@client/appv1/api/application-v1.mjs";
 import Setting from "@client/documents/setting.mjs";
-import { SettingConfig } from "@common/_types.mjs";
+import { SettingConfig, SettingSubmenuConfig } from "@common/_types.mjs";
+import { RollMode } from "@common/constants.mjs";
 import Collection from "@common/utils/collection.mjs";
 
 export interface ClientSettingsStorage extends Map<string, Storage | WorldSettingsStorage> {
@@ -16,7 +19,7 @@ export default class ClientSettings {
     settings: ClientSettingsMap;
 
     /** Registered settings menus which trigger secondary applications */
-    menus: Map<string, { type: SettingsMenuConstructor }>;
+    menus: Map<string, { type: ConstructorOf<Application> | ConstructorOf<ApplicationV2> }>;
 
     /**
      * The storage interfaces used for persisting settings
@@ -128,6 +131,13 @@ interface SettingRegistration<
 
 interface ClientSettingsMap extends Map<string, SettingConfig> {
     get(key: "core.chatBubblesPan"): SettingConfig & { default: boolean };
+    get(key: "core.combatTrackerConfig"): SettingConfig & {
+        default: {
+            resource: string;
+            skipDefeated: boolean;
+            turnMarker: { enabled: boolean; animation: string; src: string; disposition: boolean };
+        };
+    };
     get(key: "core.dynamicTokenRing"): SettingConfig & { default: string };
     get(key: "core.dynamicTokenRingFitMode"): SettingConfig & { default: "grid" | "subject" };
     get(key: "core.notesDisplayToggle"): SettingConfig & { default: boolean };

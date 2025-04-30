@@ -90,6 +90,11 @@ export default abstract class ApplicationV2<
     /** The HTMLElement which renders this Application into the DOM. */
     get element(): HTMLElement;
 
+    /**
+     * Does this Application have a top-level form element?
+     */
+    get form(): HTMLFormElement | null;
+
     /** Is this Application instance currently minimized? */
     get minimized(): boolean;
 
@@ -140,7 +145,7 @@ export default abstract class ApplicationV2<
      *                      ApplicationV1#render signature.
      * @returns A Promise which resolves to the rendered Application instance
      */
-    render(options?: Partial<TRenderOptions>): Promise<this>;
+    render(options?: boolean | Partial<TRenderOptions>): Promise<this>;
 
     /**
      * Modify the provided options passed to a render request.
@@ -298,8 +303,16 @@ export default abstract class ApplicationV2<
         options?: { event?: Event; navElement?: HTMLElement; force?: boolean; updatePosition?: boolean },
     ): void;
 
+    /**
+     * Programmatically submit an ApplicationV2 instance which implements a single top-level form.
+     * @param submitOptions Arbitrary options which are supported by and provided to the configured form submission
+     *                      handler.
+     * @returns A promise that resolves to the returned result of the form submission handler, if any.
+     */
+    submit(submitOptions?: object): Promise<unknown>;
+
     /* -------------------------------------------- */
-    /*  Rendering Life-Cycle Methods                */
+    /*  Life-Cycle Handlers                         */
     /* -------------------------------------------- */
 
     /**

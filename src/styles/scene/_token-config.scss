@@ -1,54 +1,10 @@
-.app.token-sheet {
-    .tab.active[data-tab="appearance"] {
-        fieldset {
-            border: 1px solid var(--color-border-light-primary);
-
-            > legend {
-                font-size: var(--font-size-15);
-                color: #333;
-            }
-
-            input[type="number"] {
-                max-width: 60px;
-                text-align: center;
-                &:disabled {
-                    border: none;
-                    color: var(--color-text-dark-6);
-                }
-            }
-
-            select.alternate-images {
-                max-width: 20em;
-            }
-
-            &:last-child {
-                margin: 6px 0;
-            }
-        }
-    }
-
-    .tab[data-tab="vision"] {
-        .disabled[data-tab] {
-            color: var(--color-text-dark-6);
-            pointer-events: none;
-        }
-
-        a.managed-by-rbv {
-            padding-left: 0.33em;
-
-            &.disabled {
-                cursor: default;
-
-                &:hover {
-                    text-shadow: none;
-                }
-            }
-        }
-    }
-
-    .form-group.children-disabled .range-value {
-        border: none;
-        background-color: rgba(0, 0, 0, 0.05);
-        color: #777;
+.application.token-config {
+    label.managed-by-rbv,
+    fieldset.size label,
+    fieldset.size span.label {
+        flex: 0;
+        flex-wrap: nowrap;
+        gap: 0.25rem;
+        white-space: nowrap;
     }
 }

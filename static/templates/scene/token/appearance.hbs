@@ -1,0 +1,94 @@
+<div class="tab scrollable{{#if tab.active}} active{{/if}}" data-group="{{tab.group}}" data-tab="{{tab.id}}">
+    {{formGroup fields.texture.fields.src value=source.texture.src rootId=rootId}}
+    {{#if randomImgEnabled}}
+    {{formGroup fields.randomImg value=source.randomImg classes="slim" rootId=rootId}}
+    {{else if hasAlternates}}
+    <div class="form-group">
+        <label for="{{rootId}}-alternateImages">{{localize "TOKEN.ImageAlts"}}</label>
+        <select for="{{rootId}}-alternateImages" class="alternate-images" name="alternateImages">
+            {{selectOptions alternateImages selected=source.texture.src blank=""}}
+        </select>
+    </div>
+    {{/if}}
+
+    {{#if shapes}}
+    {{formGroup fields.shape value=source.shape choices=shapes classes="slim" rootId=rootId}}
+    {{/if}}
+    {{formGroup fields.texture.fields.fit value=source.texture.fit choices=textureFitModes classes="slim" rootId=rootId}}
+
+    <div class="form-group slim">
+        <label>{{localize "Anchor"}}</label>
+        <div class="form-fields">
+            <label for="{{rootId}}-anchorX">{{localize "TOKEN.FIELDS.texture.anchorX.label"}}</label>
+            {{formInput fields.texture.fields.anchorX value=source.texture.anchorX id=(concat rootId "-anchorX")
+                placeholder="0.5"}}
+            <label for="{{rootId}}-anchorY">{{localize "TOKEN.FIELDS.texture.anchorY.label"}}</label>
+            {{formInput fields.texture.fields.anchorY value=source.texture.anchorY id=(concat rootId "-anchorY")
+                placeholder="0.5"}}
+        </div>
+        <p class="hint">{{localize "TOKEN.AnchorHint"}}</p>
+    </div>
+
+    <div class="form-group slim">
+        <label>{{localize "TOKEN.Mirror"}}</label>
+        <div class="form-fields">
+            <label class="checkbox" for="{{rootId}}-mirrorX">
+                {{localize "TOKEN.MirrorX"}}
+                <input type="checkbox" id="{{rootId}}-mirrorX" name="mirrorX" {{checked mirrorX}}>
+            </label>
+            <label class="checkbox" for="{{rootId}}-mirrorY">
+                {{localize "TOKEN.MirrorY"}}
+                <input type="checkbox" id="{{rootId}}-mirrorY" name="mirrorY" {{checked mirrorY}}>
+            </label>
+        </div>
+    </div>
+
+    {{formGroup fields.texture.fields.tint value=source.texture.tint placeholder="#ffffff" rootId=rootId}}
+    {{formGroup fields.alpha value=source.alpha step=0.05 rootId=rootId}}
+    {{formGroup fields.lockRotation value=source.lockRotation rootId=rootId}}
+
+    <fieldset class="size">
+        <legend>{{localize "PF2E.Token.Size.Label"}}</legend>
+        <div class="form-group slim">
+            <span class="label flexrow">
+                {{localize "TOKEN.Dimensions"}} <span class="units">({{localize "GridSpaces"}})</span>
+                {{~#if sizeLinkable}}
+                    <button type="button" data-tooltip data-action="toggleSizeLink"
+                            aria-label="{{localize (concat "PF2E.Token.Size.LinkToActorSize." linkToSizeTitle)}}"
+                            class="inline-control icon fa-solid fa-lock{{#unless linkToActorSize}}-open{{/unless}}"
+                            ></button>
+                {{/if~}}
+            </span>
+            <div class="form-fields">
+                <label for="{{rootId}}-width">{{localize "DOCUMENT.FIELDS.width.label"}}</label>
+                {{formInput fields.width value=source.width id=(concat rootId "-width") disabled=linkToActorSize}}
+                <label for="{{rootId}}-height">{{localize "DOCUMENT.FIELDS.height.label"}}</label>
+                {{formInput fields.height value=source.height id=(concat rootId "-height") disabled=linkToActorSize}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="flexrow" for="{{rootId}}-scale">
+                {{localize "Scale"}} <span class="units">({{localize "Ratio"}})</span>
+                {{~#if (and sizeLinkable linkToActorSize)}}
+                    <button type="button" data-tooltip data-action="toggleAutoscale"
+                            aria-label="{{localize (concat "PF2E.Token.Size.LinkToActorSize." autoscaleTitle)}}"
+                            class="inline-control icon fa-solid fa-lock{{#unless autoscale}}-open{{/unless}}"></button>
+                {{/if~}}
+            </label>
+            <div class="form-fields">
+                <range-picker id="{{rootId}}-scale" name="scale" value={{scale}}
+                              min="0.2" max="3" step="0.05" {{disabled autoscale}}></range-picker>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>{{localize "TOKEN.RING.SHEET.legend"}}</legend>
+        {{formGroup fields.ring.fields.enabled value=source.ring.enabled rootId=rootId}}
+        {{formGroup fields.ring.fields.colors.fields.ring value=source.ring.colors.ring rootId=rootId}}
+        {{formGroup fields.ring.fields.colors.fields.background value=source.ring.colors.background rootId=rootId}}
+        {{formGroup fields.ring.fields.subject.fields.texture value=source.ring.subject.texture rootId=rootId}}
+        {{formGroup fields.ring.fields.subject.fields.scale value=source.ring.subject.scale max=3 step=0.02 rootId=rootId}}
+        {{formGroup fields.ring.fields.effects value=source.ring.effects input=ringEffectsInput stacked=true rootId=rootId}}
+    </fieldset>
+</div>
