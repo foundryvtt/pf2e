@@ -4,7 +4,7 @@
     "name": "Effect: Warding Statuette - Armor",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Warding Statuette]</p>\n<p>You gain resistance 1 against ranged weapon attacks.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Warding Statuette], @UUID[Compendium.pf2e.equipment-srd.Item.Warding Statuette (Greater)]</p>\n<p>You gain resistance against ranged weapon attacks.</p>"
         },
         "duration": {
             "expiry": null,
@@ -22,6 +22,40 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:warding-statuette",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Warding Statuette"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:warding-statuette-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Warding Statuette (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "warding-statuette"
+            },
+            {
                 "definition": [
                     "item:ranged",
                     {
@@ -36,8 +70,32 @@
                 ],
                 "key": "Resistance",
                 "label": "PF2E.IWR.Custom.RangedWeaponAttacks",
+                "predicate": [
+                    "warding-statuette:warding-statuette"
+                ],
                 "type": "custom",
                 "value": 1
+            },
+            {
+                "definition": [
+                    "item:ranged",
+                    {
+                        "or": [
+                            "item:type:melee",
+                            "item:type:weapon"
+                        ]
+                    },
+                    {
+                        "not": "item:category:unarmed"
+                    }
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.RangedWeaponAttacks",
+                "predicate": [
+                    "warding-statuette:warding-statuette-greater"
+                ],
+                "type": "custom",
+                "value": 5
             }
         ],
         "start": {
