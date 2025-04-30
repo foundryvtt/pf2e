@@ -564,6 +564,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     static override createDialog<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data?: Record<string, unknown>,
+        createOptions?: DatabaseCreateOperation<TDocument>,
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<string, TDocument> | null;
@@ -572,6 +573,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     ): Promise<TDocument | null>;
     static override async createDialog(
         data: { folder?: string } = {},
+        createOptions?: DatabaseCreateOperation<ItemPF2e>,
         context: {
             parent?: ActorPF2e | null;
             pack?: Collection<string, ItemPF2e<null>> | null;
@@ -591,7 +593,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             context.types.findSplice((t) => t === type);
         }
 
-        return super.createDialog(data, context);
+        return super.createDialog(data, createOptions, context);
     }
 
     /** Assess and pre-process this JSON data, ensuring it's importable and fully migrated */
