@@ -119,11 +119,8 @@ export const Ready = {
 
             game.pf2e.system.moduleArt.refresh().then(() => {
                 if (game.modules.get("babele")?.active && game.i18n.lang !== "en") {
-                    // For some reason, Babele calls its own "ready" hook twice, and only the second one is genuine.
                     Hooks.once("babele.ready", () => {
-                        Hooks.once("babele.ready", () => {
-                            ui.compendium.compileSearchIndex();
-                        });
+                        ui.compendium.compileSearchIndex();
                     });
                 } else {
                     ui.compendium.compileSearchIndex();
