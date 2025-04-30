@@ -1,3 +1,8 @@
+import { JournalEntryPageHeading } from "@client/_module.mjs";
+import { EditorCreateOptions } from "@client/applications/ux/prosemirror-editor.mjs";
+import JournalEntryPage from "@client/documents/journal-entry-page.mjs";
+import JournalEntry from "@client/documents/journal-entry.mjs";
+import { EditorView } from "prosemirror-view";
 import { AppV1RenderOptions } from "../api/application-v1.mjs";
 import DocumentSheet, { DocumentSheetData, DocumentSheetV1Options } from "../api/document-sheet-v1.mjs";
 
@@ -23,7 +28,7 @@ export class JournalPageSheet<
     /* -------------------------------------------- */
 
     override getData(
-        options?: Partial<DocumentSheetV1Options> | undefined,
+        options?: Partial<DocumentSheetV1Options>,
     ): DocumentSheetData<TDocument> | Promise<DocumentSheetData<TDocument>>;
 
     protected override _renderInner(data: DocumentSheetData<TDocument>, options: AppV1RenderOptions): Promise<JQuery>;
@@ -42,9 +47,9 @@ export class JournalPageSheet<
 
     override activateEditor(
         name: string,
-        options?: EditorCreateOptions | undefined,
-        initialContent?: string | undefined,
-    ): Promise<TinyMCE.Editor | ProseMirror.EditorView>;
+        options?: EditorCreateOptions,
+        initialContent?: string,
+    ): Promise<TinyMCE.Editor | EditorView>;
 
     /**
      * Update the parent sheet if it is open when the server autosaves the contents of this editor.
@@ -106,9 +111,5 @@ export class JournalTextTinyMCESheet<
 
 export interface JournalTextTinyMCESheet<TDocument extends JournalEntryPage<JournalEntry | null>>
     extends JournalTextPageSheet<TDocument> {
-    activateEditor(
-        name: string,
-        options?: Partial<TinyMCE.EditorOptions>,
-        initialContent?: string,
-    ): Promise<TinyMCE.Editor>;
+    activateEditor(name: string, options?: EditorCreateOptions, initialContent?: string): Promise<TinyMCE.Editor>;
 }
