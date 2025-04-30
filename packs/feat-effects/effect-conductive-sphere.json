@@ -1,0 +1,58 @@
+{
+    "_id": "sl3umfGcLROU3U5U",
+    "img": "icons/magic/lightning/orb-ball-spiral-blue.webp",
+    "name": "Effect: Conductive Sphere",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Conductive Sphere]</p>\n<p>You gain resistance to electricity equal to the level of the origin and add the the <em>@UUID[Compendium.pf2e.equipment-srd.Item.Shock]</em> rune to all your Strikes with metal objects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Kineticist.ConductiveSphere.RollOptionLabel",
+                "option": "conductive-sphere",
+                "toggleable": true
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "conductive-sphere"
+                ],
+                "property": "property-runes",
+                "value": "shock"
+            },
+            {
+                "key": "Resistance",
+                "type": "electricity",
+                "value": "@item.origin.level"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
