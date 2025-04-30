@@ -1,5 +1,7 @@
+import { EditorCreateOptions } from "@client/applications/ux/prosemirror-editor.mjs";
 import User from "@client/documents/user.mjs";
 import Document from "@common/abstract/document.mjs";
+import { EditorView } from "prosemirror-view";
 import HTMLSecret from "../../applications/html-secret.mjs";
 import { AppV1RenderOptions, ApplicationV1HeaderButton } from "./application-v1.mjs";
 import FormApplication, { FormApplicationOptions } from "./form-application-v1.mjs";
@@ -43,9 +45,9 @@ export default class DocumentSheet<
 
     override activateEditor(
         name: string,
-        options?: { engine?: "prosemirror" | "tinymice" },
+        options?: EditorCreateOptions,
         initialContent?: string,
-    ): Promise<TinyMCE.Editor | ProseMirror.EditorView>;
+    ): Promise<TinyMCE.Editor | EditorView>;
 
     override render(force?: boolean, options?: AppV1RenderOptions): this;
 
