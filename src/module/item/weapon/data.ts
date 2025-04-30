@@ -60,9 +60,6 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
         value: number;
     };
     damage: WeaponDamage;
-    bonusDamage: {
-        value: number;
-    };
     splashDamage: {
         value: number;
     };
@@ -89,17 +86,6 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
     /** Doubly-embedded adjustments, attachments, talismans etc. */
     subitems: PhysicalItemSource[];
 
-    // Refers to custom damage, *not* property runes
-    property1: {
-        value: string;
-        dice: number;
-        die: DamageDieSize;
-        damageType: DamageType | "";
-        critDice: number;
-        critDie: DamageDieSize;
-        critDamage: string;
-        critDamageType: DamageType | "";
-    };
     selectedAmmoId: string | null;
 }
 
