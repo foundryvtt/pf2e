@@ -1542,7 +1542,7 @@
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.3OkOKxCee9WruGU5"
             },
             "img": "icons/weapons/staves/staff-ornate-gold-jeweled.webp",
-            "name": "Staff of Healing",
+            "name": "+1 Striking Staff of Healing",
             "sort": 2100000,
             "system": {
                 "baseItem": "staff",
@@ -1837,7 +1837,7 @@
                 }
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Staff of Healing",
+            "name": "Staff",
             "sort": 2500000,
             "system": {
                 "attackEffects": {
@@ -1850,10 +1850,6 @@
                     "CmvBF9oCcY9y74uc": {
                         "damage": "2d4+10",
                         "damageType": "bludgeoning"
-                    },
-                    "QYFj1VAzQXEOxTUD": {
-                        "damage": "2d8",
-                        "damageType": "vitality"
                     }
                 },
                 "description": {
@@ -1898,10 +1894,6 @@
                 "traits": {
                     "value": [
                         "magical",
-                        "parry",
-                        "reach",
-                        "staff",
-                        "trip",
                         "two-hand-d8"
                     ]
                 }
@@ -1942,7 +1934,6 @@
                 "traits": {
                     "value": [
                         "agile",
-                        "finesse",
                         "nonlethal",
                         "unarmed"
                     ]
@@ -1993,7 +1984,11 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> The humanitarian blesses the land and their allies. In a @Template[type:emanation|distance:30], plants grow and become difficult terrain. Additionally, all allies in the emanation gain 20 temporary Hit Points and can ignore the difficult terrain. These effects last for 1 minute.</p>"
+                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> The humanitarian blesses the land and their allies. In a @Template[type:emanation|distance:30], plants grow and become difficult terrain. Additionally, all allies in the emanation gain 20 temporary Hit Points and can ignore the difficult terrain. These effects last for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Cleansing Earth]</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1H"
                 },
                 "publication": {
                     "license": "ORC",
@@ -2025,14 +2020,55 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A staff wielded by the humanitarian hermit gains the parry, reach, and trip traits, and Strikes with it deal an additional @Damage[2d8[vitality]] damage.</p>"
+                    "value": "<p>A staff wielded by the humanitarian hermit gains the parry, reach, and trip traits, and Strikes with it deal an additional 2d8 vitality damage.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:base:staff"
+                        ],
+                        "property": "traits",
+                        "value": "parry"
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:base:staff"
+                        ],
+                        "property": "traits",
+                        "value": "reach"
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:base:staff"
+                        ],
+                        "property": "traits",
+                        "value": "trip"
+                    },
+                    {
+                        "damageType": "vitality",
+                        "diceNumber": 2,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:base:staff"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
