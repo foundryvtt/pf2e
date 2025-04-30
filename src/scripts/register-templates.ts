@@ -142,11 +142,6 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/system/actions/repair/repair-result-partial.hbs",
         "systems/pf2e/templates/system/actions/repair/item-heading-partial.hbs",
 
-        // TokenConfig partials
-        "systems/pf2e/templates/scene/token/partials/appearance.hbs",
-        "systems/pf2e/templates/scene/token/partials/identity.hbs",
-        "systems/pf2e/templates/scene/token/partials/lighting.hbs",
-
         // Partials for multiple document types
         "systems/pf2e/templates/partials/publication-data.hbs",
 
