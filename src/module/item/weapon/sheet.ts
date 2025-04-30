@@ -166,11 +166,8 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        const weapon = this.item;
-
-        formData["system.bonusDamage.value"] ||= 0;
         formData["system.splashDamage.value"] ||= 0;
-
+        const weapon = this.item;
         // Ensure melee usage is absent if not a combination weapon
         if (weapon.system.meleeUsage && !this.item.traits.has("combination")) {
             formData["system.-=meleeUsage"] = null;
