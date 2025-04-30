@@ -182,7 +182,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                         required: true,
                         nullable: false,
                         initial: undefined,
-                        label: "TOKEN.ImagePath",
+                        label: "TOKEN.FIELDS.texture.src.label",
                     }),
                     alpha: new fields.AlphaField({
                         required: true,
