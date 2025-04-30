@@ -1,4 +1,4 @@
-export { default as HTMLSecret } from "../html-secret.d.mts";
+export { default as HTMLSecret } from "../html-secret.mjs";
 export { default as ContextMenu } from "./context-menu.mjs";
 export { default as DragDrop } from "./drag-drop.mjs";
 export { default as Draggable } from "./draggable.mjs";

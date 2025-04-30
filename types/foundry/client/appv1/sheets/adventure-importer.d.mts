@@ -1,3 +1,4 @@
+import { Adventure } from "@client/documents/_module.mjs";
 import { ApplicationV1HeaderButton } from "../api/application-v1.mjs";
 import DocumentSheet, { DocumentSheetData, DocumentSheetV1Options } from "../api/document-sheet-v1.mjs";
 

@@ -10,6 +10,25 @@ export interface ProseMirrorHistory {
     step: Step;
 }
 
+export interface EditorCreateOptions {
+    engine?: "tinymce" | "prosemirror";
+    /** A string to uniquely identify this ProseMirror instance. Ignored for a collaborative editor. */
+    uuid?: string;
+    /** A Document whose content is being edited. Required for collaborative editing and relative
+     *  UUID generation. */
+    document?: ClientDocument;
+    /** The field within the Document that is being edited. Required for collaborative editing. */
+    fieldName?: string;
+    /** Plugins to include with the editor. */
+    plugins?: Record<string, Plugin>;
+    /** Whether to generate relative UUID links to Documents that are dropped on the editor. */
+    relativeLinks?: boolean;
+    /** Whether to enable collaborative editing for this editor. */
+    collaborate?: boolean;
+    /** Additional ProseMirror editor properties. */
+    props?: Record<string, unknown>;
+}
+
 /**
  * A class responsible for managing state and collaborative editing of a single ProseMirror instance.
  */
@@ -97,18 +116,7 @@ export default class ProseMirrorEditor {
      * @param options.relativeLinks Whether to generate relative UUID links to Documents that are dropped on the editor.
      * @param options.collaborate Whether to enable collaborative editing for this editor.
      */
-    static create(
-        target: HTMLElement,
-        content?: string,
-        options?: {
-            uuid?: string;
-            document?: ClientDocument;
-            fieldName?: string;
-            plugins?: Record<string, Plugin>;
-            relativeLinks?: boolean;
-            collaborate?: boolean;
-        },
-    ): Promise<ProseMirrorEditor>;
+    static create(target: HTMLElement, content?: string, options?: EditorCreateOptions): Promise<ProseMirrorEditor>;
 
     /**
      * Create an EditorView with collaborative editing enabled.
