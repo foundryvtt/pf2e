@@ -212,6 +212,7 @@ class CompendiumDirectoryPF2e extends tabs.CompendiumDirectory {
         const listElements = filteredMatches.map((match): HTMLLIElement => {
             const li = matchTemplate.content.firstElementChild?.cloneNode(true) as HTMLLIElement;
             li.dataset.score = match.score.toString();
+            li.dataset.uuid = match.uuid;
 
             // Show a thumbnail if available
             const thumbnail = li.querySelector<HTMLImageElement>("img");
@@ -230,7 +231,6 @@ class CompendiumDirectoryPF2e extends tabs.CompendiumDirectory {
                 : null;
             if (docAnchor && packAnchor) {
                 docAnchor.innerText = match.name;
-                docAnchor.dataset.uuid = match.uuid;
                 packAnchor.append(systemType ? `${systemType} (${match.packLabel})` : `(${match.packLabel})`);
                 const collection = fu.parseUuid(match.uuid)?.collection as CompendiumCollection | undefined;
                 packAnchor.dataset.pack = collection?.metadata.id;
@@ -309,7 +309,7 @@ class CompendiumDirectoryPF2e extends tabs.CompendiumDirectory {
         _event: PointerEvent,
         target: HTMLElement,
     ): Promise<void> {
-        const doc = await fromUuid(target.dataset.uuid ?? "");
+        const doc = await fromUuid(target.closest("li")?.dataset.uuid ?? "");
         doc?.sheet?.render(true);
     }
 }
