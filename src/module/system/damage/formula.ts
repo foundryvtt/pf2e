@@ -324,11 +324,14 @@ function createSimpleFormula(terms: DamagePartialTerm[], { doubleDice }: { doubl
     });
 
     // Create the final term. Double the modifier here if dice doubling is enabled
-    const result = [diceTerms.join(" + "), Math.abs(constant)]
-        .filter((e) => !!e)
-        .map((e) => (typeof e === "number" && doubleDice ? `2 * ${e}` : e))
-        .join(constant > 0 ? " + " : " - ");
-    return result || "0"; // Empty string is an invalid formula
+    if (!diceTerms.length) {
+        return doubleDice && constant ? `2 * ${constant}` : String(constant);
+    } else {
+        return [diceTerms.join(" + "), Math.abs(constant)]
+            .filter((e) => !!e)
+            .map((e) => (typeof e === "number" && doubleDice ? `2 * ${e}` : e))
+            .join(constant > 0 ? " + " : " - ");
+    }
 }
 
 /**
@@ -378,9 +381,15 @@ interface PartialFormulaParams {
 function sumExpression(terms: (string | null)[], { double = false } = {}): string | null {
     if (terms.every((t) => !t)) return null;
 
-    const summed = terms.filter((p): p is string => !!p).join(" + ") || null;
-    const enclosed = double && hasOperators(summed) ? `(${summed})` : summed;
+    const summed = terms
+        .filter((p): p is string => !!p)
+        .join(" + ")
+        .replaceAll(/ \+ -(\d+)/g, " - $1");
+    if (summed === "") {
+        return null;
+    }
 
+    const enclosed = double && hasOperators(summed) ? `(${summed})` : summed;
     return double ? `2 * ${enclosed}` : enclosed;
 }
 
