@@ -5,6 +5,7 @@ import { CreatureSource } from "@actor/data/index.ts";
 import { MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import { ActorSpellcasting } from "@actor/spellcasting.ts";
 import { MovementType, SaveType, SkillSlug } from "@actor/types.ts";
+import type { Rolled } from "@client/dice/_module.d.mts";
 import type { DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
 import { ArmorPF2e, ItemPF2e, type PhysicalItemPF2e, type ShieldPF2e } from "@item";
 import { ArmorSource, ItemType } from "@item/base/data/index.ts";

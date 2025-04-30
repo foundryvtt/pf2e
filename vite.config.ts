@@ -11,9 +11,9 @@ import * as Vite from "vite";
 import checker from "vite-plugin-checker";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import tsconfigPaths from "vite-tsconfig-paths";
-import packageJSON from "./package.json";
+import packageJSON from "./package.json" with { type: "json" };
 import { sluggify } from "./src/util/misc.ts";
-import systemJSON from "./static/system.json";
+import systemJSON from "./static/system.json" with { type: "json" };
 
 const CONDITION_SOURCES = ((): ConditionSource[] => {
     const output = execSync("npm run build:conditions", { encoding: "utf-8" });
@@ -117,7 +117,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 
                     if (context.file.endsWith("en.json")) {
                         const basePath = context.file.slice(context.file.indexOf("lang/"));
-                        console.log(`Updating lang file at ${basePath}`);
+                        console.debug(`Updating lang file at ${basePath}`);
                         fs.promises.copyFile(context.file, `${outDir}/${basePath}`).then(() => {
                             context.server.ws.send({
                                 type: "custom",
@@ -127,7 +127,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                         });
                     } else if (context.file.endsWith(".hbs")) {
                         const basePath = context.file.slice(context.file.indexOf("templates/"));
-                        console.log(`Updating template file at ${basePath}`);
+                        console.debug(`Updating template file at ${basePath}`);
                         fs.promises.copyFile(context.file, `${outDir}/${basePath}`).then(() => {
                             context.server.ws.send({
                                 type: "custom",

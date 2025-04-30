@@ -261,19 +261,28 @@ export class TextureData extends fields.SchemaField<TextureDataSchema> {
 
 type TextureDataSchema = {
     /** The URL of the texture source. */
-    src: fields.FilePathField<ImageFilePath | VideoFilePath, ImageFilePath | VideoFilePath, false, true, true>;
+    src: fields.FilePathField<ImageFilePath | VideoFilePath, ImageFilePath | VideoFilePath, true, true, true>;
+    /** The X coordinate of the texture anchor. */
+    anchorX: fields.NumberField<number, number, true, false, true>;
+    /** The Y coordinate of the texture anchor. */
+    anchorY: fields.NumberField<number, number, true, false, true>;
     /** The scale of the texture in the X dimension. */
-    scaleX: fields.NumberField<number, number, false, false>;
+    scaleX: fields.NumberField<number, number, true, false, true>;
     /** The scale of the texture in the Y dimension. */
-    scaleY: fields.NumberField<number, number, false, false>;
+    scaleY: fields.NumberField<number, number, true, false, true>;
     /** The X offset of the texture with (0,0) in the top left. */
-    offsetX: fields.NumberField<number, number, false, false>;
+    offsetX: fields.NumberField<number, number, true, false, true>;
     /** The Y offset of the texture with (0,0) in the top left. */
-    offsetY: fields.NumberField<number, number, false, false>;
+    offsetY: fields.NumberField<number, number, true, false, true>;
     /** An angle of rotation by which this texture is rotated around its center. */
     rotation: fields.AngleField;
     /** An optional color string used to tint the texture. */
     tint: fields.ColorField;
+    /**
+     * Only pixels with an alpha value at or above this value are consider solid w.r.t. to occlusion testing and
+     * light/weather blocking.
+     */
+    alphaThreshold: fields.AlphaField<true, false, true>;
 };
 
 export class PrototypeToken<TParent extends documents.BaseActor | null> extends DataModel<
