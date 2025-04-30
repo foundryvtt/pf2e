@@ -209,6 +209,17 @@ export class EncounterTracker<TEncounter extends EncounterPF2e | null> extends t
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
+    protected override async _onClickAction(event: PointerEvent, target: HTMLElement): Promise<void> {
+        const action = target.dataset.action;
+        if ((action === "rollNPC" || action === "rollAll") && this.viewed) {
+            event.stopPropagation();
+            const args = eventToRollParams(event, { type: "check" });
+            await this.viewed[action]({ ...args, messageOptions: { rollMode: args.rollMode } });
+            return;
+        }
+        return super._onClickAction(event, target);
+    }
+
     /** Allow CTRL-clicking to make the roll blind */
     protected override async _onCombatantControl(event: PointerEvent, target: HTMLElement): Promise<void> {
         if (!this.viewed) return;

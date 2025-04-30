@@ -17,9 +17,9 @@ class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema> {
                 required: true,
                 nullable: false,
                 initial: undefined,
-                label: "TOKEN.ImagePath",
+                label: "TOKEN.FIELDS.texture.src.label",
             }),
-            tint: new fields.ColorField({ label: "TOKEN.TintColor" }),
+            tint: new fields.ColorField({ label: "TOKEN.FIELDS.texture.tint.label" }),
             alpha: new fields.AlphaField({
                 label: "PF2E.RuleEditor.General.Opacity",
                 required: false,
