@@ -401,6 +401,11 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         ABP.cleanupRunes(this);
         const runes = this.system.runes;
         runes.effects = [];
+        // @todo remove after switch to data model
+        if (!Array.isArray(runes.property)) {
+            runes.property = [];
+            this._source.system.runes.property = [];
+        }
         runes.property.length = Math.min(runes.property.length, getPropertyRuneSlots(this));
 
         // Set damage dice according to striking rune
