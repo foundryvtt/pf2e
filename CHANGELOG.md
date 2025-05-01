@@ -1,3 +1,7 @@
+## 6.12.1
+
+- (stwlam) Fix issue causing corruption of weapon property-rune data in narrow circumstances
+
 ## 6.12.0
 
 ### System Improvements
@@ -38,7 +42,7 @@
 - (Ambrose) Remove invalidated feats and spells
 - (Ambrose) Update Anima Invocation spell effect to remaster rules
 - (Daomephsta) Fix a few enricher syntax typos in creatures and hazards
-- (Dire Weasel) Add automation for Dragon's Flight,  Magus's Analysis
+- (Dire Weasel) Add automation for Dragon's Flight, Magus's Analysis
 - (Dire Weasel) Add bonus against fear to Effect: Swig
 - (Dire Weasel) Add custom IWR to Phantasmal Minion and Armag Twice-Born
 - (Dire Weasel) Add effect for Animalistic Brutality, Blessed Coins, Glimpse Vulnerability, Aurochs Jerky, and Cindergrass Cloak
@@ -63,7 +67,7 @@
 - (kromko) Fix some creature skill modifiers, clean up Beginner Box creature senses
 - (kromko) Fix Spirit Powers effect RE prompt label
 - (kromko) Relabel Rallying Charge feats to indicate the archetypes
-- (rectulo) Fix format of Activate in a few items without <strong>
+- (rectulo) Fix format of Activate in a few items without `<strong>` tag
 - (Rigo) Add effects for Tripartite Omen, Vellumis Excision, and Cenotaph Stance
 - (Rigo) Add holy or unholy traits to Relentless Reaction damage accordingly
 - (Rigo) Add inline healing, notes and effect to Lepidstadt Surgeon Dedication
