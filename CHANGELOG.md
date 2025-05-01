@@ -1,3 +1,106 @@
+## 6.12.0
+
+### System Improvements
+
+- (Michael) Support delta inputs for health and shield hp in the character sheet
+- (Supe) Convert roll inspector to application v2
+
+### Bugfixes
+
+- (Dire Weasel) Fix missing localized string for NPC Shield Max HP
+- (Supe) Avoid persisting automated weapon property runes when closing the item sheet
+- (Supe) Fix dragging and dropping persistent damage
+- (Supe) Fix invisible tokens absorbing drag/drop events on the canvas
+- (Supe) Fix penalties that don't double on crit such as cringe when rolling critical damage
+- (Supe) Fix trick magic item spell DC when using trained or expert skills
+- (Supe) Show description item alterations for effect panel tooltips and expandable self effect actions
+- (Supe) Support multiple token marks instead of overriding them
+- (Vauxs) Exclude eidolons from ABC Picker
+
+### Data Updates
+
+- (Ambrose) Add automation to Hardshell Surki and Conductive Sphere
+- (Ambrose) Add missing price for Aurochs Jerky
+- (Ambrose) Add options introduced in the 2025 April Fool's Paizo Blog
+- (Ambrose) Condense equipment effects and add icons to equipment missing them
+- (Ambrose) Correct minor issues in Paragon Medicine, Wellspring Magic, Unfolding Tree House
+- (Ambrose) Update Archetype journal entry formatting, GM Screen content
+- (Ambrose) Correct Inflammation Flask's damage type and update effect automation
+- (Ambrose) Correct issues in Neshen and Sivanah deity items
+- (Ambrose) Extend Unstable note to actions that have the `unstable` trait and add notes RE to Inventor dedication
+- (Ambrose) Fix automation of Magnetic Shot
+- (Ambrose) Fix issues and improve automation in several NPCS
+- (Ambrose) Link various `Bloodstone of Arzani` effects to their corresponding items
+- (Ambrose) Move `Triumph of the Tusk` backgrounds to their folder under Adventure Paths
+- (Ambrose) Move Beginner Box Pregens backstory text to the `Backstory` section
+- (Ambrose) Remove errant traits from Elemental Counter and Grasp of Droskar
+- (Ambrose) Remove Cooperative Soul's prerequisite
+- (Ambrose) Remove invalidated feats and spells
+- (Ambrose) Update Anima Invocation spell effect to remaster rules
+- (Daomephsta) Fix a few enricher syntax typos in creatures and hazards
+- (Dire Weasel) Add automation for Dragon's Flight,  Magus's Analysis
+- (Dire Weasel) Add bonus against fear to Effect: Swig
+- (Dire Weasel) Add custom IWR to Phantasmal Minion and Armag Twice-Born
+- (Dire Weasel) Add effect for Animalistic Brutality, Blessed Coins, Glimpse Vulnerability, Aurochs Jerky, and Cindergrass Cloak
+- (Dire Weasel) Add effect link for Sinful Bite
+- (Dire Weasel) Add initiative Note to Cloud of Allergens
+- (Dire Weasel) Brush up Body of Air, Mage Killer, Memory Maelstrom, and Tooth Tug
+- (Dire Weasel) Fix usage of Rending Gauntlets
+- (Dire Weasel) Fix action cost of Breathe Shrapnel
+- (Dire Weasel) Fix action details of Aiudara Wraith, Oceanius and Glory Arcely abilities
+- (Dire Weasel) Fix DC and damage of Minognos-Ushad's Wyvern Venom
+- (Dire Weasel) Fix missing toggle in Furious Headbutt
+- (Dire Weasel) Fix senses of Overgrown Viper Vine
+- (Dire Weasel) Improve automation of abilities on Yurgak, Spriggan Warlord, Garrholdion, Tarn Linnorm
+- (Dire Weasel) Redirect FotRP Manananggal to LO:TXWG
+- (Dire Weasel) Refresh all copies of Divine Wrath and True Target on NPCs
+- (Dire Weasel) Tidy description formatting of Nugrah's Swift Summon
+- (Dire Weasel) Update legacy Guiding Words effect to use TokenMark
+- (Dire Weasel) Update some NPC senses to structured data
+- (Dire Weasel) Update Whirlwind area to be a cylinder
+- (In3luki) Correct `Effect: Renewed Vigor` choice set prompt
+- (Intervencion) Add missing properties to Morning Glow
+- (kromko) Fix some creature skill modifiers, clean up Beginner Box creature senses
+- (kromko) Fix Spirit Powers effect RE prompt label
+- (kromko) Relabel Rallying Charge feats to indicate the archetypes
+- (rectulo) Fix format of Activate in a few items without <strong>
+- (Rigo) Add effects for Tripartite Omen, Vellumis Excision, and Cenotaph Stance
+- (Rigo) Add holy or unholy traits to Relentless Reaction damage accordingly
+- (Rigo) Add inline healing, notes and effect to Lepidstadt Surgeon Dedication
+- (Rigo) Add missing bow group note for Grievous rune
+- (Rigo) Add missing predicate to initiate benefit Grant Item in Thaumaturge implements
+- (Rigo) Add notes for half damage on a failure to legendary saves features
+- (Rigo) Add sanctification and conditional expert Stealth to Red Mantis Assassin dedication
+- (Rigo) Add True Target spell effect
+- (Rigo) Automate several Campfire Chronicler features, Sash of Books's Recall Knowledge activation
+- (Rigo) Change Barghest Acrobatics skill into Athletics
+- (Rigo) Change Beginner Box actor ids to match their Monster Core equivalents
+- (Rigo) Change Redcap's halberd base damage to piercing
+- (Rigo) Clean up rule elements on unstable function actions
+- (Rigo) Correct selectors in an Abomination Vaults item's effect
+- (Rigo) Correct size of Arrester Squadron and Watchmage Squadron to gargantuan
+- (Rigo) Fix In Lightning, Life effect formula scaling and link effect in the feat
+- (Rigo) Implement Speak for the Gravelands with Geomancer archetype automation
+- (Rigo) Improve automation of Irongut Goblin, Virtuous Tanuki, and Flash of Grandeur
+- (Rigo) Include Hero Point Deck rules in its journal
+- (Rigo) Remove Fast Movement and Diverse Armor Expert feats
+- (Rigo) Rename and link Swallow Whole effect to include Engulf
+- (Rigo) Update Toxicologist's Field Benefit toggle label to be more informative
+- (Tikael) Add content from Claws of the tyrant
+- (Tikael) Condense Lost Omens Bestiary compendiums
+- (Tikael) Fix several issues in Shades of Blood and PFS actors
+- (Tikael) Implement spring errata
+- (Tikael) Improve automation of Freeze, Ooze, and Elemental Ammunition
+- (Tikael) Move Fox Arson to use item bonus instead of potency rune
+- (Vauxs) Add True Dragon's Flight speeds
+- (Vauxs) Change Dragon Instinct pre-remaster dragons to arcane tradition
+- (Vauxs) Remove Enlarge from Major Clay Sphere
+
+### Under the Hood
+
+- (Supe) `@Check` roll's overrideTraits parameter now supports a list of traits
+- (Supe) Fix retrieving origin when saving against an actor without a token
+
 ## 6.11.1
 
 ### Bugfixes
