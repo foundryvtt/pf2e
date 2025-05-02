@@ -9,7 +9,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>Anyone can use an essence forge to craft an essence charm without needing to know the formula for an essence charm. No larger than a coin, an essence charm is normally worn around the neck or hung from a belt—its exact appearance is up to the crafter. When an essence charm is created, its crafter selects a skill in which they are at least trained. The essence charm grants a +1 item bonus to that skill when worn.</p>\n<p><strong>Activate—Lucky Charm</strong> <span class=\"action-glyph\">r</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You fail or critically fail a check using the essence charm's chosen skill</p><hr /><p><strong>Effect</strong> A failed check becomes a success, and a critical failure becomes a failure.</p>"
+            "value": "<p>Anyone can use an <em>essence forge</em> to craft an <em>essence charm</em> without needing to know the formula for an <em>essence charm</em>. No larger than a coin, an <em>essence charm</em> is normally worn around the neck or hung from a belt—its exact appearance is up to the crafter. When an <em>essence charm</em> is created, its crafter selects a skill in which they are at least trained. The <em>essence charm</em> grants a +1 item bonus to that skill when worn.</p><hr /><p><strong>Activate—Lucky Charm</strong> <span class=\"action-glyph\">r</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You fail or critically fail a check using the <em>essence charm</em>'s chosen skill</p>\n<p><strong>Effect</strong> A failed check becomes a success, and a critical failure becomes a failure.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -34,7 +34,22 @@
             "title": "Pathfinder #214: The Broken Palace"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "choices": {
+                    "config": "skills"
+                },
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.skill}",
+                "type": "item",
+                "value": 1
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "rare",
