@@ -1,3 +1,4 @@
+import type { DialogV2 } from "@client/applications/api/_module.mjs";
 import type { CombatTrackerConfig } from "@client/applications/apps/_module.mjs";
 import { ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";
 import Canvas from "@client/canvas/board.mjs";
@@ -107,6 +108,7 @@ export default class Hooks {
     static on(...args: HookParamsRender<CombatTrackerConfig, "CombatTrackerConfig">): number;
     static on(...args: HookParamsRender<CompendiumDirectory, "CompendiumDirectory">): number;
     static on(...args: HookParamsRender<Dialog, "Dialog">): number;
+    static on(...args: HookParamsRender<DialogV2, "DialogV2">): number;
     static on(...args: HookParamsRender<ActorDirectory<Actor<null>>, "ActorDirectory">): number;
     static on(...args: HookParamsRender<ItemDirectory<Item<null>>, "ItemDirectory">): number;
     static on(...args: HookParamsRender<SceneControls, "SceneControls">): number;
