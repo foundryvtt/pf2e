@@ -4,8 +4,7 @@ import { localizer } from "@util";
 
 export const RenderDialog = {
     listen: (): void => {
-        Hooks.on("renderDialog", (_dialog, $html) => {
-            const html = $html[0];
+        Hooks.on("renderDialogV2", (_dialog, html) => {
             // Break up the item document dialog into option groups
             // The class we're checking for is injected by the item document's createDialog() method
             if (html.classList.contains("dialog-item-create")) {
