@@ -6,7 +6,7 @@
         {
             "_id": "g09JNowhgbOgv51x",
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Focus Spells",
+            "name": "Monk Focus Spells",
             "sort": 100000,
             "system": {
                 "autoHeightenLevel": {
@@ -545,7 +545,7 @@
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FNDq4NFSN0g2HKWO"
             },
             "img": "icons/equipment/hand/gauntlet-simple-leather-brown-gold.webp",
-            "name": "Handwraps of Mighty Blows",
+            "name": "+2 Greater Striking Handwraps of Mighty Blows",
             "sort": 700000,
             "system": {
                 "baseItem": null,
@@ -863,27 +863,8 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "materials",
-                        "value": "cold-iron"
-                    },
-                    {
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "materials",
-                        "value": "silver"
-                    },
-                    {
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "materials",
-                        "value": "adamantine"
-                    }
-                ],
-                "slug": "handwraps-of-mighty-blows",
+                "rules": [],
+                "slug": null,
                 "traits": {
                     "value": [
                         "agile",
@@ -910,7 +891,7 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 33
+                    "value": 31
                 },
                 "damageRolls": {
                     "6CunWX2Pr5JhOUEK": {
@@ -939,13 +920,64 @@
             "type": "melee"
         },
         {
+            "_id": "qOYHhLTMridyJoy3",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Disrupt Qi",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The grandmaster attempts an unarmed Strike against a living creature. On a hit, the creature takes 3d6 persistent void damage and is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} until the persistent damage ends.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "disrupt-qi",
+                        "toggleable": true
+                    },
+                    {
+                        "category": "persistent",
+                        "damageType": "void",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "disrupt-qi",
+                            "item:category:unarmed",
+                            "target:mode:living"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "DJFmV5evM4JqcBe8",
             "_stats": {
                 "compendiumSource": "Actor.zRUKUK93YxtbadPT.Item.PjqwihmMf7cPnPtH"
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Flurry of Blows",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -955,7 +987,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The grandmaster makes two fist Strikes. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>\n<p>The grandmaster can substitute any number of the attacks with temple sword Strikes or attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple], @UUID[Compendium.pf2e.actionspf2e.Item.Reposition], @UUID[Compendium.pf2e.actionspf2e.Item.Shove], or @UUID[Compendium.pf2e.actionspf2e.Item.Trip].</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The grandmaster makes two fist Strikes. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>\n<p>The grandmaster can substitute any number of the attacks with temple sword Strikes or attempts to [[/act grapple]], [[/act reposition]], [[/act shove]], or [[/act trip]].</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -978,7 +1010,7 @@
             "_id": "qkT4nVoSdcKb838L",
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Forbidden Palm",
-            "sort": 1400000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1007,7 +1039,7 @@
             "_id": "UpywR6mdWHYmYNSa",
             "img": "systems/pf2e/icons/actions/TwoThreeActions.webp",
             "name": "One-Millimeter Punch",
-            "sort": 1500000,
+            "sort": 1600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1064,7 +1096,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Powerful Fists",
-            "sort": 1600000,
+            "sort": 1700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1081,7 +1113,35 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:slug:fist"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "adamantine"
+                    },
+                    {
+                        "definition": [
+                            "item:slug:fist"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "cold-iron"
+                    },
+                    {
+                        "definition": [
+                            "item:slug:fist"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "silver"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -1093,7 +1153,7 @@
             "_id": "CjmWBISgt6qVeg05",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Martial Arts Lore",
-            "sort": 1700000,
+            "sort": 1800000,
             "system": {
                 "description": {
                     "value": ""

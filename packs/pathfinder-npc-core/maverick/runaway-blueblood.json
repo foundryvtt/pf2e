@@ -433,6 +433,7 @@
                 "traits": {
                     "value": [
                         "agile",
+                        "finesse",
                         "nonlethal",
                         "unarmed"
                     ]
@@ -488,7 +489,7 @@
         {
             "_id": "FISSmeW1YwcQNDSc",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "“Courageous” Retreat",
+            "name": "\"Courageous\" Retreat",
             "sort": 900000,
             "system": {
                 "actionType": {
@@ -506,7 +507,40 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "courageous-retreat",
+                        "toggleable": true
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "courageous-retreat"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Fleeing"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "courageous-retreat"
+                        ],
+                        "selector": "land-speed",
+                        "type": "status",
+                        "value": 5
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "courageous-retreat"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -531,7 +565,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The runaway blueblood deals an extra @Damage[1d6[untyped]] damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                    "value": "<p>The runaway blueblood deals an extra 1d6 damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -540,7 +574,6 @@
                 },
                 "rules": [
                     {
-                        "category": "precision",
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",

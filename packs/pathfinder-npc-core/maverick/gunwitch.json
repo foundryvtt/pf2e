@@ -121,7 +121,7 @@
         {
             "_id": "Ty6gHYSX9V8oLSSj",
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Focus Spells",
+            "name": "Witch Hex Spells",
             "sort": 200000,
             "system": {
                 "autoHeightenLevel": {
@@ -1700,13 +1700,13 @@
                     "value": 15
                 },
                 "damageRolls": {
-                    "MLI7ItZ3tUmi1LgZ": {
-                        "damage": "1d6",
-                        "damageType": "force"
-                    },
-                    "rTtFlMwljc8jPmCI": {
+                    "0": {
                         "damage": "1d4+6",
                         "damageType": "bludgeoning"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "force"
                     }
                 },
                 "description": {
@@ -1721,13 +1721,13 @@
                     {
                         "domain": "damage",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "label": "PF2E.SpecificRule.TwoHanded.MusketStaff",
                         "option": "two-handed",
                         "toggleable": true
                     },
                     {
                         "key": "DamageDice",
-                        "label": "PF2E.TraitTwoHandD8",
+                        "label": "PF2E.TraitTwoHandD6",
                         "override": {
                             "dieSize": "d6"
                         },
@@ -1814,11 +1814,11 @@
                     "value": 18
                 },
                 "damageRolls": {
-                    "TMFF4RnOpCqHVgRU": {
+                    "0": {
                         "damage": "1d6+6",
                         "damageType": "piercing"
                     },
-                    "n8orlAbdbhijQ3vV": {
+                    "1": {
                         "damage": "1d6",
                         "damageType": "force"
                     }
@@ -1897,7 +1897,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> An attacker the gunwitch can observe targets them with an attack</p><hr /><p><strong>Effect</strong> The gunwitch gains a +2 circumstance bonus to AC against the triggering attack, and after the attack the gunwitch Leaps.</p>"
+                    "value": "<p><strong>Trigger</strong> An attacker the gunwitch can observe targets them with an attack</p><hr /><p><strong>Effect</strong> The gunwitch gains a +2 circumstance bonus to AC against the triggering attack, and after the attack the gunwitch @UUID[Compendium.pf2e.actionspf2e.Item.Leap]{Leaps}.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -1971,7 +1971,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The gunwitch is wielding their firearm familiar and has a hex bullet loaded into it (see Hex Bullet)</p><hr /><p><strong>Effect</strong> The gunwitch unleashes a flurry of projectiles. Each creature in a @Template[type:emanation|distance:60] takes @Damage[8d6[piercing]] damage with a @Check[reflex|dc:25|basic] save.</p>"
+                    "value": "<p><strong>Requirements</strong> The gunwitch is wielding their firearm familiar and has a hex bullet loaded into it (see Hex Bullet)</p><hr /><p><strong>Effect</strong> The gunwitch unleashes a flurry of projectiles. Each creature in a @Template[type:emanation|distance:60] takes @Damage[8d6[piercing]|options:area-damage] damage with a @Check[reflex|dc:25|basic|options:area-effect] save.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -2005,6 +2005,10 @@
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The gunwitch conjures a magical hex bullet in their firearm. It can be used as a normal bullet or for the Bewitched Shot and Bullet Storm abilities. The bullet vanishes if not fired by the end of the turn.</p>"
                 },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
@@ -2036,6 +2040,10 @@
                 "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> The gunwitch's firearm familiar is within 1 mile</p><hr /><p><strong>Effect</strong> The gunwitch summons their firearm into their hand or hands.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
                 },
                 "publication": {
                     "license": "ORC",
@@ -2126,7 +2134,9 @@
             "blurb": "",
             "languages": {
                 "details": "",
-                "value": []
+                "value": [
+                    "common"
+                ]
             },
             "level": {
                 "value": 7

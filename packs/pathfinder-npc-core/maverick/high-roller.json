@@ -96,7 +96,7 @@
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.EsqFTJXcmzfngRgL"
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/playing-cards.webp",
-            "name": "Playing Cards",
+            "name": "Playing Cards (54-Card Deck)",
             "sort": 200000,
             "system": {
                 "baseItem": null,
@@ -284,6 +284,7 @@
                 "traits": {
                     "value": [
                         "agile",
+                        "finesse",
                         "nonlethal",
                         "unarmed"
                     ]
@@ -301,7 +302,7 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 22
+                    "value": 23
                 },
                 "damageRolls": {
                     "xR2OJ0GPQajZSxwP": {
@@ -425,7 +426,6 @@
                             "action:sense-motive"
                         ],
                         "selector": "perception",
-                        "type": "circumstance",
                         "value": 4
                     }
                 ],
@@ -458,6 +458,10 @@
                     "title": ""
                 },
                 "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Tip the Scales",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Tip the Scales"
+                },
                 "slug": null,
                 "traits": {
                     "value": [
@@ -528,7 +532,11 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Requirements</strong> The high roller has at least 16 cards in one hand</p><hr /><p><strong>Effect</strong> The high roller unleashes the cards in a @Template[type:cone|distance:30], dealing @Damage[16d4[slashing]] damage to all creatures in the area with a @Check[reflex|dc:30|basic] save. This ability expends the full deck of cards held.</p>"
+                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Requirements</strong> The high roller has at least 16 cards in one hand</p><hr /><p><strong>Effect</strong> The high roller unleashes the cards in a @Template[type:cone|distance:30], dealing @Damage[16d4[slashing]|options:area-damage] damage to all creatures in the area with a @Check[reflex|dc:30|basic|options:area-effect] save. This ability expends the full deck of cards held.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1H"
                 },
                 "publication": {
                     "license": "ORC",
@@ -615,7 +623,9 @@
             "blurb": "",
             "languages": {
                 "details": "",
-                "value": []
+                "value": [
+                    "common"
+                ]
             },
             "level": {
                 "value": 11
