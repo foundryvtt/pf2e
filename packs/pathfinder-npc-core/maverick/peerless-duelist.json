@@ -288,7 +288,7 @@
                 },
                 "damageRolls": {
                     "SmNqr574P6lVP1AX": {
-                        "damage": "3d6+13",
+                        "damage": "2d6+13",
                         "damageType": "piercing"
                     }
                 },
@@ -372,10 +372,9 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "initiative"
+                            "check:statistic:base:perception"
                         ],
-                        "selector": "perception",
-                        "type": "circumstance",
+                        "selector": "initiative",
                         "value": 3
                     }
                 ],
@@ -439,7 +438,12 @@
                 "rules": [
                     {
                         "key": "Aura",
-                        "radius": 60
+                        "radius": 60,
+                        "traits": [
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
                     }
                 ],
                 "slug": "threatening-aura",
@@ -468,14 +472,20 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The peerless duelist deals an extra die of damage on any firearm Strike they attempt. This extra damage is already included in their dueling pistol Strike.</p>"
+                    "value": "<p>The peerless duelist deals an extra die of damage on any firearm Strike they attempt. This extra damage is already included in their <em>dueling pistol</em> Strike.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "diceNumber": 1,
+                        "key": "DamageDice",
+                        "selector": "firearm-weapon-group-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -613,7 +623,9 @@
             "blurb": "",
             "languages": {
                 "details": "",
-                "value": []
+                "value": [
+                    "common"
+                ]
             },
             "level": {
                 "value": 12

@@ -6,7 +6,7 @@
         {
             "_id": "1AmZDKEmlr6DEFSl",
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Focus Spells",
+            "name": "Monk Focus Spells",
             "sort": 100000,
             "system": {
                 "autoHeightenLevel": {
@@ -181,7 +181,7 @@
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FNDq4NFSN0g2HKWO"
             },
             "img": "icons/equipment/hand/gauntlet-simple-leather-brown-gold.webp",
-            "name": "Handwraps of Mighty Blows",
+            "name": "+1 Striking Handwraps of Mighty Blows",
             "sort": 400000,
             "system": {
                 "baseItem": null,
@@ -493,20 +493,7 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "materials",
-                        "value": "cold-iron"
-                    },
-                    {
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "materials",
-                        "value": "silver"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -581,7 +568,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The black belt makes two fist Strikes. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>\n<p>The black belt can substitute any number of the attacks with bo staff Strikes or attempts to Grapple, Reposition, Shove, or Trip.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The black belt makes two fist Strikes. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>\n<p>The black belt can substitute any number of the attacks with bo staff Strikes or attempts to [[/act grapple]], [[/act reposition]], [[/act shove]], or [[/act trip]].</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -624,7 +611,26 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:slug:fist"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "cold-iron"
+                    },
+                    {
+                        "definition": [
+                            "item:slug:fist"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "silver"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []

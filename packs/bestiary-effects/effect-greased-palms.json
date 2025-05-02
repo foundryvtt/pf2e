@@ -1,0 +1,54 @@
+{
+    "_id": "XwFoyhCUU5TCtG50",
+    "img": "icons/commodities/currency/coins-stitched-pouch-brown.webp",
+    "name": "Effect: Greased Palms",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +2 status bonus to Gather Information in the sheriff's settlement.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 24
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "domain": "skill-check",
+                "key": "RollOption",
+                "option": "sheriffs-settlement",
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:gather-information",
+                    "sheriffs-settlement"
+                ],
+                "selector": "skill-check",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -220,7 +220,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When three or more commoners are adjacent to each other each commoner gets a +1 circumstance bonus to Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Shove], attack rolls, and damage rolls.</p>"
+                    "value": "<p>When three or more commoners are adjacent to each other, each commoner gets a +1 circumstance bonus to Athletics checks to [[/act shove]], attack rolls, and damage rolls.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -241,6 +241,7 @@
                             "power-of-the-mob"
                         ],
                         "selector": "athletics",
+                        "type": "circumstance",
                         "value": 1
                     },
                     {
@@ -248,15 +249,11 @@
                         "predicate": [
                             "power-of-the-mob"
                         ],
-                        "selector": "attack",
-                        "value": 1
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "power-of-the-mob"
+                        "selector": [
+                            "attack",
+                            "damage"
                         ],
-                        "selector": "strike-damage",
+                        "type": "circumstance",
                         "value": 1
                     }
                 ],
