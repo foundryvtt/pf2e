@@ -1,13 +1,17 @@
 import { PointSourcePolygon, PointSourcePolygonConfig } from "../geometry/_module.mjs";
 import VisionMode from "../perception/vision-mode.mjs";
 import Token from "../placeables/token.mjs";
-import { PointRenderedEffectSource } from "./point-effect-source-mixes.mjs";
-import { RenderedEffectSourceData, RenderedEffectSourceLayer } from "./rendered-effect-source.mjs";
+import { AdaptiveVisionShader } from "../rendering/shaders/_module.mjs";
+import PointEffectSourceMixin from "./point-effect-source.mts";
+import RenderedEffectSource, {
+    RenderedEffectSourceData,
+    RenderedEffectSourceLayer,
+} from "./rendered-effect-source.mjs";
 
 /** A specialized subclass of the PointSource abstraction which is used to control the rendering of vision sources. */
-export default class PointVisionSource<
-    TObject extends Token | null = Token | null,
-> extends PointRenderedEffectSource<TObject> {
+export default class PointVisionSource<TObject extends Token | null = Token | null> extends PointEffectSourceMixin(
+    RenderedEffectSource,
+)<TObject> {
     static sourceType: "sight";
 
     protected static override _initializeShaderKeys: string[];
@@ -72,7 +76,7 @@ export default class PointVisionSource<
     /*  Vision Source Initialization                */
     /* -------------------------------------------- */
 
-    protected override _initialize(data: Partial<VisionSourceData>): void;
+    protected override _initialize(data?: Partial<VisionSourceData>): void;
 
     protected override _createShapes(): void;
 

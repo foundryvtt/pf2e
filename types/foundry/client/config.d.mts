@@ -7,7 +7,7 @@ import CameraViews from "./applications/apps/av/cameras.mjs";
 import HTMLEnrichedContentElement from "./applications/elements/enriched-content.mjs";
 import * as sidebar from "./applications/sidebar/_module.mjs";
 import { CompendiumDirectory } from "./applications/sidebar/tabs/_module.mjs";
-import { MainMenu, Notifications, SceneNavigation } from "./applications/ui/_module.mjs";
+import { MainMenu, Notifications, Players, SceneNavigation } from "./applications/ui/_module.mjs";
 import Hotbar from "./applications/ui/hotbar.mjs";
 import { EnrichmentOptions } from "./applications/ux/text-editor.mjs";
 import ActorSheet from "./appv1/sheets/actor-sheet.mjs";
@@ -15,7 +15,7 @@ import ItemSheet from "./appv1/sheets/item-sheet.mjs";
 import JournalSheet from "./appv1/sheets/journal-sheet.mjs";
 import { CanvasAnimationAttribute } from "./canvas/animation/_types.mjs";
 import ChatBubbles from "./canvas/animation/chat-bubbles.mjs";
-import { DoorControl, DoorMesh } from "./canvas/containers/_module.mjs";
+import { DoorControl, DoorMesh, ParticleEffect } from "./canvas/containers/_module.mjs";
 import ClockwiseSweepPolygon from "./canvas/geometry/clockwise-sweep.mjs";
 import EffectsCanvasGroup from "./canvas/groups/effects.mjs";
 import InterfaceCanvasGroup from "./canvas/groups/interface.mjs";
@@ -24,6 +24,7 @@ import * as layers from "./canvas/layers/_module.mjs";
 import * as perception from "./canvas/perception/_module.mjs";
 import * as placeables from "./canvas/placeables/_module.mjs";
 import { TokenRingConfig } from "./canvas/placeables/tokens/_module.mjs";
+import { AbstractWeatherShader, WeatherShaderEffect } from "./canvas/rendering/shaders/_module.mjs";
 import type {
     GlobalLightSource,
     PointDarknessSource,
@@ -746,7 +747,7 @@ export default interface Config<
     canvasTextStyle: PIXI.TextStyle;
 
     /** Available Weather Effects implemntations */
-    weatherEffects: Record<string, SpecialEffect>;
+    weatherEffects: Record<string, WeatherAmbienceConfiguration>;
 
     /** Configuration for dice rolling behaviors in the Foundry VTT client */
     Dice: {
@@ -833,7 +834,7 @@ export default interface Config<
         nav: typeof SceneNavigation;
         notifications: typeof Notifications;
         pause: typeof foundry.applications.ui.GamePause;
-        players: typeof PlayerList;
+        players: typeof Players;
         playlists: typeof sidebar.tabs.PlaylistDirectory;
         scenes: typeof sidebar.tabs.SceneDirectory;
         settings: typeof sidebar.tabs.Settings;
@@ -883,4 +884,34 @@ export interface WallDoorAnimationConfig {
     animate: (open: boolean) => CanvasAnimationAttribute[];
     postAnimate?: (open: boolean) => void | Promise<void>;
     duration: number;
+}
+
+/** Available Weather Effects implementations */
+export interface WeatherAmbienceConfiguration {
+    /** Unique identifier for the weather configuration */
+    id: string;
+    /** Display label for the configuration */
+    label: string;
+    /** Optional filter settings including enable flag and optional blend mode */
+    filter?: {
+        enabled: boolean;
+        blendMode?: PIXI.BLEND_MODES;
+    };
+    /** Array of weather effect configurations */
+    effects: WeatherEffectConfiguration[];
+}
+
+export interface WeatherEffectConfiguration {
+    /** Unique identifier for the weather effect */
+    id: string;
+    /** The class of the weather effect to use, either ParticleEffect or WeatherShaderEffect */
+    effectClass: typeof ParticleEffect | typeof WeatherShaderEffect;
+    /** Optional shader class to apply, must extend AbstractWeatherShader */
+    shaderClass?: typeof AbstractWeatherShader;
+    /** Optional blend mode to use for this effect */
+    blendMode?: PIXI.BLEND_MODES;
+    /** Optional additional configuration for the effect */
+    config?: object;
+    /** Optional numeric value to determine performance requirements */
+    performanceLevel?: number;
 }

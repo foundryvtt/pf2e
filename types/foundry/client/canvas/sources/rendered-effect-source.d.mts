@@ -1,7 +1,67 @@
-import type BaseEffectSource from "./base-effect-source.mjs";
-import type { BaseEffectSourceOptions } from "./base-effect-source.mjs";
+import Color from "@common/utils/color.mjs";
+import PointSourceMesh from "../containers/elements/point-source-mesh.mjs";
+import PlaceableObject from "../placeables/placeable-object.mjs";
+import {
+    AbstractBaseShader,
+    AdaptiveBackgroundShader,
+    AdaptiveColorationShader,
+    AdaptiveDarknessShader,
+    AdaptiveIlluminationShader,
+    AdaptiveLightingShader,
+} from "../rendering/shaders/_module.mjs";
+import BaseEffectSource, { BaseEffectSourceData } from "./base-effect-source.mjs";
 
-/* eslint-disable @typescript-eslint/no-unsafe-function-type */
+export interface RenderedEffectSourceData extends BaseEffectSourceData {
+    /** An animation configuration for the source */
+    animation: object;
+    /** A color applied to the rendered effect */
+    color: number | null;
+    /** An integer seed to synchronize (or de-synchronize) animations */
+    seed: number | null;
+    /** Is this source a temporary preview? */
+    preview: boolean;
+}
+
+export interface RenderedEffectSourceAnimationConfig {
+    /** The human-readable (localized) label for the animation */
+    label?: string;
+    /** The animation function that runs every frame */
+    animation?: Function;
+    /** A custom illumination shader used by this animation */
+    illuminationShader?: AdaptiveIlluminationShader;
+    /** A custom coloration shader used by this animation */
+    colorationShader?: AdaptiveColorationShader;
+    /** A custom background shader used by this animation */
+    backgroundShader?: AdaptiveBackgroundShader;
+    /** A custom darkness shader used by this animation */
+    darknessShader?: AdaptiveDarknessShader;
+    /** The animation seed */
+    seed?: number;
+    /** The animation time */
+    time?: number;
+}
+
+export interface RenderedEffectLayerConfig {
+    /** The default shader used by this layer */
+    defaultShader: typeof AdaptiveLightingShader;
+    /** The blend mode used by this layer */
+    blendMode: PIXI.BLEND_MODES;
+}
+
+export interface RenderedEffectSourceLayer {
+    /** Is this layer actively rendered? */
+    active: boolean;
+    /** Do uniforms need to be reset? */
+    reset: boolean;
+    /** Is this layer temporarily suppressed? */
+    suppressed: boolean;
+    /** The rendered mesh for this layer */
+    mesh: PointSourceMesh;
+    /** The shader instance used for the layer */
+    shader: AdaptiveLightingShader;
+}
+
+type LightingLevel = (typeof CONST.LIGHTING_LEVELS)[keyof typeof CONST.LIGHTING_LEVELS];
 
 /**
  * An abstract class which extends the base PointSource to provide common functionality for rendering.
@@ -14,24 +74,42 @@ export default class RenderedEffectSource<TObject extends PlaceableObject | null
     /** Keys of the data object which require uniforms to be refreshed. */
     protected static _refreshUniformsKeys: string[];
 
+    /** Layers handled by this rendered source. */
+    protected static get _layers(): Record<string, RenderedEffectLayerConfig>;
+
     /** The offset in pixels applied to create soft edges. */
     static EDGE_OFFSET: number;
+
+    static override defaultData: RenderedEffectSourceData;
 
     /* -------------------------------------------- */
     /*  Rendered Source Attributes                  */
     /* -------------------------------------------- */
 
     /** The animation configuration applied to this source */
-    animation: RenderedPointSourceAnimationConfig;
-
-    /** The object of data which configures how the source is rendered */
-    data: RenderedEffectSourceData;
+    animation: RenderedEffectSourceAnimationConfig;
 
     /** Track the status of rendering layers */
-    layers: Record<"background" | "coloration" | "illumination", RenderedEffectSourceLayer>;
+    layers: Record<string, RenderedEffectSourceLayer>;
 
-    /** The color of the source as a RGB vector. */
+    /** The color of the source as an RGB vector. */
     colorRGB: [number, number, number] | null;
+
+    /** PIXI Geometry generated to draw meshes. */
+    protected _geometry: PIXI.Geometry | null;
+
+    /* -------------------------------------------- */
+    /*  Source State                                */
+    /* -------------------------------------------- */
+
+    /** Is the rendered source animated? */
+    get isAnimated(): boolean;
+
+    /** Has the rendered source at least one active layer? */
+    get hasActiveLayer(): boolean;
+
+    /** Is this RenderedEffectSource a temporary preview? */
+    get isPreview(): boolean;
 
     /* -------------------------------------------- */
     /*  Rendered Source Properties                  */
@@ -46,42 +124,54 @@ export default class RenderedEffectSource<TObject extends PlaceableObject | null
     /** A convenience accessor to the illumination layer mesh. */
     get illumination(): PointSourceMesh;
 
-    /** Is the rendered source animated? */
-    get isAnimated(): boolean;
-
-    /** Has the rendered source at least one active layer? */
-    get hasActiveLayer(): boolean;
-
-    /** Is this RenderedPointSource a temporary preview? */
-    get isPreview(): boolean;
-
     /* -------------------------------------------- */
     /*  Rendered Source Initialization              */
     /* -------------------------------------------- */
 
-    protected override _initialize(data: object): void;
+    override initialize(data?: Partial<RenderedEffectSourceData>, options?: { reset?: boolean }): this;
 
-    protected override _configure(changes: object): void;
+    /** Decide whether to render soft edges with a blur.  */
+    protected _initializeSoftEdges(): void;
 
-    /** Decide whether to render soft edges with a blur. */
-    protected _configureSoftEdges(): void;
+    protected _configure(changes: Partial<RenderedEffectSourceData>): void;
 
     /**
-     * Configure the derived color attributes and associated flag.
-     * @param color The color to configure (usually a color coming for the rendered point source data)
-     *              or null if no color is configured for this rendered source.
+     * Configure which shaders are used for each rendered layer.
+     * @returns An object whose keys are layer identifiers and whose values are shader classes.
      */
-    protected _configureColorAttributes(color: number | null): void;
+    protected _configureShaders(): Record<string, typeof AdaptiveLightingShader>;
 
-    /** Specific configuration for a layer. */
+    /**
+     * Specific configuration for a layer.
+     * @param layer
+     * @param layerId
+     */
     protected _configureLayer(layer: RenderedEffectSourceLayer, layerId: string): void;
+
+    /* -------------------------------------------- */
+
+    /**
+     * Create the geometry for the source shape that is used in shaders and compute its bounds for culling purpose.
+     * Triangulate the form and create buffers.
+     */
+    protected _updateGeometry(): void;
 
     /* -------------------------------------------- */
     /*  Rendered Source Canvas Rendering            */
     /* -------------------------------------------- */
 
-    /** Render the containers used to represent this light source within the LightingLayer */
-    drawMeshes(): Record<"background" | "coloration" | "illumination", PIXI.Mesh>;
+    /**
+     * Render the containers used to represent this light source within the LightingLayer
+     * @returns {Record<string, PIXI.Mesh|null>}
+     */
+    drawMeshes(): Record<string, PIXI.Mesh | null>;
+
+    /**
+     * Create a Mesh for a certain rendered layer of this source.
+     * @param layerId The layer key in layers to draw
+     * @returns The drawn mesh for this layer, or null if no mesh is required
+     */
+    protected _drawMesh(layerId: string): Record<string, PIXI.Mesh | null>;
 
     /* -------------------------------------------- */
     /*  Rendered Source Refresh                     */
@@ -89,7 +179,10 @@ export default class RenderedEffectSource<TObject extends PlaceableObject | null
 
     protected override _refresh(): void;
 
-    /** Update shader uniforms used by every rendered layer. */
+    /**
+     * Update shader uniforms used by every rendered layer.
+     * @param shader
+     */
     protected _updateCommonUniforms(shader: AbstractBaseShader): void;
 
     /** Update shader uniforms used for the background layer. */
@@ -115,13 +208,13 @@ export default class RenderedEffectSource<TObject extends PlaceableObject | null
      * Animate the PointSource, if an animation is enabled and if it currently has rendered containers.
      * @param dt Delta time.
      */
-    animate(dt: number): void;
+    animate(dt: number): unknown;
 
     /**
      * Generic time-based animation used for Rendered Point Sources.
-     * @param dt Delta time.
+     *  @param dt                     Delta time.
      * @param [options]               Options which affect the time animation
-     * @param [options.speed=5]       The animation speed, from 1 to 10
+     * @param [options.speed=5]       The animation speed, from 0 to 10
      * @param [options.intensity=5]   The animation intensity, from 1 to 10
      * @param [options.reverse=false] Reverse the animation direction
      */
@@ -133,56 +226,17 @@ export default class RenderedEffectSource<TObject extends PlaceableObject | null
 
     /**
      * Get corrected level according to level and active vision mode data.
-     * @returns {number} The corrected level.
+     * @param level The lighting level (one of {@link CONST.LIGHTING_LEVELS})
+     * @returns The corrected level.
      */
-    static getCorrectedLevel(level: number): number;
+    static getCorrectedLevel(level: LightingLevel): number;
 
-    /** Get corrected color according to level, dim color, bright color and background color. */
-    static getCorrectedColor(level: number, colorDim: Color, colorBright: Color, colorBackground?: Color): Color;
-}
-
-interface RenderedEffectSourceData extends BaseEffectSourceOptions {
-    /** A color applied to the rendered effect */
-    color: number | null;
-    /** An integer seed to synchronize (or de-synchronize) animations */
-    seed: number | null;
-    /** Is this source a temporary preview? */
-    preview: boolean;
-}
-
-interface RenderedPointSourceAnimationConfig {
-    /** The human-readable (localized) label for the animation */
-    label?: string;
-    /** The animation function that runs every frame */
-    animation?: Function;
-    /** A custom illumination shader used by this animation */
-    illuminationShader?: PIXI.Shader;
-    /** A custom coloration shader used by this animation */
-    colorationShader?: PIXI.Shader;
-    /** A custom background shader used by this animation */
-    backgroundShader?: PIXI.Shader;
-    /** A custom darkness shader used by this animation */
-    darknessShader?: PIXI.Shader;
-    /** The animation seed */
-    seed?: number;
-    /** The animation time */
-    time?: number;
-}
-
-interface RendereedEffectLayerConfig {
-    defaultShader: AdaptiveLightingShader;
-    blendMode: PIXI.BLEND_MODES;
-}
-
-interface RenderedEffectSourceLayer {
-    /** Is this layer actively rendered? */
-    active: boolean;
-    /** Do uniforms need to be reset? */
-    reset: boolean;
-    /** Is this layer temporarily suppressed? */
-    suppressed: boolean;
-    /** The rendered mesh for this layer */
-    mesh: PointSourceMesh;
-    /** The shader instance used for the layer */
-    shader: PIXI.Shader;
+    /**
+     * Get corrected color according to level, dim color, bright color and background color.
+     * @param level The lighting level (one of {@link CONST.LIGHTING_LEVELS})
+     * @param colorDim
+     * @param colorBright
+     * @param [colorBackground]
+     */
+    static getCorrectedColor(level: LightingLevel, colorDim: Color, colorBright: Color, colorBackground?: Color): Color;
 }
