@@ -1,4 +1,4 @@
-import RenderedEffectSource, { RenderedEffectSourceData } from "./rendered-effect-source.d.mts";
+import RenderedEffectSource, { RenderedEffectSourceData } from "./rendered-effect-source.mjs";
 
 /**
  * A specialized subclass of the PointSource abstraction which is used to control the rendering of light sources.

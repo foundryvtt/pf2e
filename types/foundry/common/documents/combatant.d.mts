@@ -1,7 +1,7 @@
 import { ImageFilePath } from "@common/constants.mjs";
-import type { Document, DocumentMetadata } from "../abstract/_module.d.mts";
-import type * as fields from "../data/fields.mjs";
-import type { BaseCombat } from "./_module.mjs";
+import { Document, DocumentMetadata } from "../abstract/_module.mjs";
+import * as fields from "../data/fields.mjs";
+import BaseCombat from "./combat.mjs";
 
 /** The Combat document model. */
 export default class BaseCombatant<TParent extends BaseCombat | null> extends Document<TParent, CombatantSchema> {

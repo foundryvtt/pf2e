@@ -1,3 +1,4 @@
+import OutlineOverlayFilter from "@client/canvas/rendering/filters/outline-overlay.mjs";
 import { PlaceableObject, Token } from "../../placeables/_module.mjs";
 import PointVisionSource from "../../sources/point-vision-source.mjs";
 import DetectionMode from "../detection-mode.mjs";

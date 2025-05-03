@@ -1,4 +1,4 @@
-import { Rectangle } from "../../../common/_types.d.mts";
+import { Rectangle } from "@common/_types.mjs";
 
 export interface QuadtreeObject<
     TObject extends object = object,
@@ -154,6 +154,6 @@ export default class Quadtree<TObject extends object> {
 /**
  * A subclass of Quadtree specifically intended for classifying the location of objects on the game canvas.
  */
-export class CanvasQuadtree<TObject extends object> extends Quadtree<TObject> {
+export class CanvasQuadtree<TObject extends object = object> extends Quadtree<TObject> {
     constructor(options?: QuadtreeOptions<TObject>);
 }
