@@ -1,6 +1,6 @@
-import type * as abstract from "../abstract/_module.d.mts";
-import type * as fields from "../data/fields.mjs";
-import type BaseRegion from "./region.mjs";
+import * as abstract from "../abstract/_module.mjs";
+import * as fields from "../data/fields.mjs";
+import BaseRegion from "./region.mjs";
 
 /**
  * The RegionBehavior Document.

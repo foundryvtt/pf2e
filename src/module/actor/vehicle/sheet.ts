@@ -3,6 +3,7 @@ import { createAbilityViewData } from "@actor/sheet/helpers.ts";
 import { VehiclePF2e } from "@actor/vehicle/index.ts";
 import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
+import type { ImageFilePath } from "@common/constants.d.mts";
 import { ItemPF2e } from "@item";
 import { AdjustedValue, getAdjustedValue } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, getActionIcon, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
@@ -15,7 +16,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             ...options,
             classes: [...options.classes, "vehicle"],
             width: 670,
-            height: 480,
+            height: 520,
             tabs: [{ navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "details" }],
             template: "systems/pf2e/templates/actors/vehicle/sheet.hbs",
         };

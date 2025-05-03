@@ -178,7 +178,7 @@ class ChatMessagePF2e extends ChatMessage {
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    override async renderHTML(): Promise<HTMLElement> {
+    override async renderHTML(options?: { canDelete?: boolean; canClose?: boolean }): Promise<HTMLElement> {
         const actor = this.speakerActor;
 
         // Enrich flavor, which is skipped by upstream
@@ -187,7 +187,7 @@ class ChatMessagePF2e extends ChatMessage {
             this.flavor = await TextEditorPF2e.enrichHTML(this.flavor, { rollData, processVisibility: false });
         }
 
-        const html = await super.renderHTML();
+        const html = await super.renderHTML(options);
 
         // Attach actor image to header. Use token if its an image type with a non-default image, otherwise actor image
         // For non-image types consider video thumbnails using game.video.createThumbnail() depending on cache performance

@@ -3,7 +3,7 @@ import { ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";
 import JournalEntryPage from "@client/documents/journal-entry-page.mjs";
 import JournalEntry from "@client/documents/journal-entry.mjs";
 import { DirectorySearchMode, DocumentOwnershipLevel } from "@common/constants.mjs";
-import type { JournalEntryPageSource } from "../../../common/documents/journal-entry-page.d.mts";
+import { JournalEntryPageSource } from "../../../common/documents/journal-entry-page.mjs";
 import { ApplicationV1HeaderButton } from "../api/application-v1.mjs";
 import DocumentSheet, { DocumentSheetData, DocumentSheetV1Options } from "../api/document-sheet-v1.mjs";
 

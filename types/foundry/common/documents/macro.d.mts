@@ -1,8 +1,8 @@
 import { ImageFilePath, MacroScope, MacroType } from "@common/constants.mjs";
-import type { Document, DocumentMetadata, MetadataPermission } from "../abstract/_module.d.mts";
+import { Document, DocumentMetadata, MetadataPermission } from "../abstract/_module.mjs";
 import { DatabaseCreateOperation } from "../abstract/_types.mjs";
-import type * as fields from "../data/fields.mjs";
-import type * as documents from "./_module.mjs";
+import * as fields from "../data/fields.mjs";
+import BaseUser from "./user.mjs";
 
 /**
  * The Document definition for a Macro.
@@ -28,7 +28,7 @@ export default class BaseMacro extends Document<null, MacroSchema> {
     /*  Model Methods                               */
     /* -------------------------------------------- */
 
-    override testUserPermission(user: documents.BaseUser, permission: unknown, options?: { exact?: boolean }): boolean;
+    override testUserPermission(user: BaseUser, permission: unknown, options?: { exact?: boolean }): boolean;
 
     /* -------------------------------------------- */
     /*  Database Event Handlers                     */
@@ -37,7 +37,7 @@ export default class BaseMacro extends Document<null, MacroSchema> {
     protected override _preCreate(
         data: this["_source"],
         options: DatabaseCreateOperation<null>,
-        user: documents.BaseUser,
+        user: BaseUser,
     ): Promise<boolean | void>;
 }
 
@@ -69,7 +69,7 @@ type MacroSchema = {
     /** A Macro subtype from CONST.MACRO_TYPES */
     type: fields.StringField<MacroType, MacroType, true, false, true>;
     /** The _id of a User document which created this Macro */
-    author: fields.ForeignDocumentField<documents.BaseUser>;
+    author: fields.ForeignDocumentField<BaseUser>;
     /** An image file path which provides the thumbnail artwork for this Macro */
     img: fields.FilePathField<ImageFilePath>;
     /** The scope of this Macro application from CONST.MACRO_SCOPES */
