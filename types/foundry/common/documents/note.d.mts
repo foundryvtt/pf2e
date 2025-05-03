@@ -1,8 +1,8 @@
 import { DocumentOwnershipLevel, DocumentOwnershipString, ImageFilePath, TextAnchorPoint } from "@common/constants.mjs";
-import type { Document, DocumentMetadata, MetadataPermission } from "../abstract/_module.d.mts";
-import type * as data from "../data/data.mjs";
-import type * as fields from "../data/fields.mjs";
-import type * as documents from "./_module.mjs";
+import { Document, DocumentMetadata, MetadataPermission } from "../abstract/_module.mjs";
+import * as data from "../data/data.mjs";
+import * as fields from "../data/fields.mjs";
+import { BaseScene, BaseUser } from "./_module.mjs";
 
 /**
  * The Document definition for a Note.
@@ -12,7 +12,7 @@ import type * as documents from "./_module.mjs";
  * @param data    Initial data from which to construct the Note
  * @param context Construction context options
  */
-export default class BaseNote<TParent extends documents.BaseScene | null> extends Document<TParent, NoteSchema> {
+export default class BaseNote<TParent extends BaseScene | null> extends Document<TParent, NoteSchema> {
     /* -------------------------------------------- */
     /*  Model Configuration                         */
     /* -------------------------------------------- */
@@ -29,13 +29,13 @@ export default class BaseNote<TParent extends documents.BaseScene | null> extend
     /* -------------------------------------------- */
 
     testUserPermission(
-        user: documents.BaseUser,
+        user: BaseUser,
         permission: DocumentOwnershipString | DocumentOwnershipLevel,
         { exact }?: { exact?: boolean },
     ): boolean;
 }
 
-export default interface BaseNote<TParent extends documents.BaseScene | null>
+export default interface BaseNote<TParent extends BaseScene | null>
     extends Document<TParent, NoteSchema>,
         fields.ModelPropsFromSchema<NoteSchema> {
     get documentName(): NoteMetadata["name"];

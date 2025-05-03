@@ -1,4 +1,4 @@
-import { ElevatedPoint, Point } from "../../../../common/_types.d.mts";
+import { ElevatedPoint, Point } from "@common/_types.mjs";
 import { PointSourcePolygonConfig } from "../_types.mjs";
 import PolygonVertex from "../edges/vertex.mjs";
 import Ray from "./ray.mjs";

@@ -1,4 +1,4 @@
-import { Point } from "../../../../common/_types.d.mts";
+import { Point } from "@common/_types.mjs";
 import { PolygonRay } from "../_types.mjs";
 
 /**

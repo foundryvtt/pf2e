@@ -1,9 +1,11 @@
 /**
  * A mixin which decorates a PIXI.Filter or PIXI.Shader with common properties.
  * @category Mixins
- * @param TShader The parent ShaderClass class being mixed.
+ * @param Shader The parent ShaderClass class being mixed.
  */
-export default function BaseShaderMixin(TShader: typeof PIXI.Filter | typeof PIXI.Shader): {
+export default function BaseShaderMixin<TShader extends typeof PIXI.Filter | typeof PIXI.Shader>(
+    Shader: TShader,
+): {
     new (
         program: PIXI.Program,
         uniforms?: PIXI.utils.Dict<any>,
@@ -15,7 +17,7 @@ export default function BaseShaderMixin(TShader: typeof PIXI.Filter | typeof PIX
         checkUniformExists(name: string, group: PIXI.UniformGroup): boolean;
         destroy(): void;
         readonly uniforms: PIXI.utils.Dict<any>;
-    };
+    } & InstanceType<TShader>;
 
     /**
      * Useful constant values computed at compile time
@@ -112,5 +114,5 @@ export default function BaseShaderMixin(TShader: typeof PIXI.Filter | typeof PIX
      */
     GLSL1_COMPATIBILITY_FRAGMENT: string;
 
-    from(vertexSrc?: string, fragmentSrc?: string, uniforms?: PIXI.utils.Dict<any>): PIXI.Shader;
+    from(vertexSrc?: string, fragmentSrc?: string, uniforms?: PIXI.utils.Dict<any>): TShader;
 };

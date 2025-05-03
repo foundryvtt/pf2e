@@ -1,3 +1,4 @@
+import { CanvasVisibilityTest, CanvasVisibilityTestConfiguration } from "@client/_module.mjs";
 import * as fields from "../../../common/data/fields.mjs";
 import { PlaceableObject, Token } from "../placeables/_module.mjs";
 import PointVisionSource from "../sources/point-vision-source.mjs";
@@ -50,7 +51,7 @@ export default class DetectionMode extends foundry.abstract.DataModel<null, Dete
     testVisibility(
         visionSource: PointVisionSource<Token>,
         mode: TokenDetectionMode,
-        config?: CanvasVisibilityTestConfig,
+        config?: CanvasVisibilityTestConfiguration,
     ): boolean;
 
     /**

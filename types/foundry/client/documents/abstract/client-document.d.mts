@@ -28,7 +28,7 @@ export class ClientDocument<TParent extends Document | null = Document | null> e
 
     static override name: string;
 
-    protected override _initialize(options?: object): void;
+    protected override _initialize(options?: Record<string, unknown>): void;
 
     /* -------------------------------------------- */
     /*  Properties                                  */
@@ -526,5 +526,3 @@ export class ClientDocument<TParent extends Document | null = Document | null> e
         options: EnrichmentOptions,
     ): Promise<HTMLElement | null>;
 }
-
-// type _ClientDocument = ClientDocument<_ClientDocument | null>;

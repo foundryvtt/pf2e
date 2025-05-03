@@ -1,5 +1,6 @@
 import PlaceableObject from "@client/canvas/placeables/placeable-object.mjs";
-import { Point } from "@common/types.mjs";
+import { Point } from "@common/_types.mjs";
+import { WallSenseType } from "@common/constants.mjs";
 import PolygonVertex from "./vertex.mjs";
 
 /**

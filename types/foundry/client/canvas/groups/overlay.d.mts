@@ -1,7 +1,11 @@
-export {};
+import UnboundContainer from "../containers/advanced/unbound-container.mjs";
+import CanvasGroupMixin from "./canvas-group-mixin.mjs";
 
-declare global {
-    class OverlayCanvasGroup extends CanvasGroup {
-        static override groupName: "overlay";
-    }
+/**
+ * A container group which is not bound to the stage world transform.
+ */
+export default class OverlayCanvasGroup extends CanvasGroupMixin(UnboundContainer) {
+    static override groupName: "overlay";
+
+    static override tearDownChildren: false;
 }
