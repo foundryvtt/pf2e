@@ -1,5 +1,5 @@
-import type * as fields from "../data/fields.mjs";
-import type * as packages from "./_module.d.mts";
+import * as fields from "../data/fields.mjs";
+import * as packages from "./_module.mjs";
 
 /**
  * The data schema used to define System manifest files.

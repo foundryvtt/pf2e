@@ -1,27 +1,28 @@
-import type * as abstract from "../abstract/_module.d.mts";
-import type { REGION_VISIBILITY } from "../constants.mjs";
-import type { BaseShapeData } from "../data/data.mjs";
-import type * as fields from "../data/fields.mjs";
-import type * as documents from "./_module.mjs";
-import type BaseRegionBehavior from "./region-behavior.mjs";
+import { Document, DocumentMetadata, EmbeddedCollection } from "@common/abstract/_module.mjs";
+import { REGION_VISIBILITY } from "../constants.mjs";
+import { BaseShapeData } from "../data/data.mjs";
+import * as fields from "../data/fields.mjs";
+import BaseRegionBehavior from "./region-behavior.mjs";
+import BaseScene from "./scene.mjs";
 
-export default class BaseRegion<
-    TParent extends documents.BaseScene | null = documents.BaseScene | null,
-> extends abstract.Document<TParent, RegionSchema> {
+export default class BaseRegion<TParent extends BaseScene | null = BaseScene | null> extends Document<
+    TParent,
+    RegionSchema
+> {
     static override get metadata(): RegionMetadata;
 
     static override defineSchema(): RegionSchema;
 }
 
-export default interface BaseRegion<TParent extends documents.BaseScene | null = documents.BaseScene | null>
-    extends abstract.Document<TParent, RegionSchema>,
+export default interface BaseRegion<TParent extends BaseScene | null = BaseScene | null>
+    extends Document<TParent, RegionSchema>,
         fields.ModelPropsFromSchema<RegionSchema> {
     get documentName(): RegionMetadata["name"];
 
-    readonly behaviors: abstract.EmbeddedCollection<BaseRegionBehavior<this>>;
+    readonly behaviors: EmbeddedCollection<BaseRegionBehavior<this>>;
 }
 
-interface RegionMetadata extends abstract.DocumentMetadata {
+interface RegionMetadata extends DocumentMetadata {
     name: "Region";
     collection: "regions";
     label: "DOCUMENT.Region";

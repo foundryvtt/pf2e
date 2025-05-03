@@ -28,7 +28,7 @@ export default abstract class Ping extends PIXI.Container {
 
     /**
      * On each tick, advance the animation.
-     * @param dt        The number of ms that elapsed since the previous frame.
+     * @param dt The number of ms that elapsed since the previous frame.
      * @param animation The animation state.
      */
     protected abstract _animateFrame(dt: number, animation: CanvasAnimationData): void;

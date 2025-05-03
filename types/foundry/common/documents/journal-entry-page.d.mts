@@ -1,7 +1,7 @@
 import { DocumentOwnershipLevel, JournalEntryPageFormat } from "@common/constants.mjs";
-import type * as abstract from "../abstract/_module.d.mts";
-import type * as fields from "../data/fields.mjs";
-import type { BaseJournalEntry, BaseUser } from "./_module.mjs";
+import * as abstract from "../abstract/_module.mjs";
+import * as fields from "../data/fields.mjs";
+import { BaseJournalEntry, BaseUser } from "./_module.mjs";
 
 /** The JournalEntryPage document model. */
 export default class BaseJournalEntryPage<TParent extends BaseJournalEntry | null> extends abstract.Document<

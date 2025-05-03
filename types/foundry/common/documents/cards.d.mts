@@ -1,7 +1,7 @@
 import { DocumentOwnershipLevel, DocumentOwnershipString, ImageFilePath, VideoFilePath } from "@common/constants.mjs";
-import type * as abstract from "../abstract/_module.d.mts";
-import type * as fields from "../data/fields.mjs";
-import type * as documents from "./_module.mjs";
+import * as abstract from "../abstract/_module.mjs";
+import * as fields from "../data/fields.mjs";
+import { BaseCard, BaseFolder, BaseUser } from "./_module.mjs";
 
 /**
  * The Document definition for Cards.
@@ -26,7 +26,7 @@ export default class BaseCards extends abstract.Document<null, CardsSchema> {
     static get TYPES(): string[];
 
     override testUserPermission(
-        user: documents.BaseUser,
+        user: BaseUser,
         permission: DocumentOwnershipString | DocumentOwnershipLevel,
         { exact }?: { exact?: boolean },
     ): boolean;
@@ -69,7 +69,7 @@ type CardsSchema = {
     /** Game system data which is defined by the system template.json model */
     system: fields.TypeDataField;
     /** A collection of Card documents which currently belong to this stack */
-    cards: fields.EmbeddedCollectionField<documents.BaseCard<BaseCards>>;
+    cards: fields.EmbeddedCollectionField<BaseCard<BaseCards>>;
     /** The visible width of this stack */
     width: fields.NumberField;
     /** The visible height of this stack */
@@ -79,7 +79,7 @@ type CardsSchema = {
     /** Whether or not to publicly display the number of cards in this stack */
     displayCount: fields.BooleanField;
     /** The _id of a Folder which contains this document */
-    folder: fields.ForeignDocumentField<documents.BaseFolder>;
+    folder: fields.ForeignDocumentField<BaseFolder>;
     /** The sort order of this stack relative to others in its parent collection */
     sort: fields.IntegerSortField;
     /** An object which configures user permissions to this stack */

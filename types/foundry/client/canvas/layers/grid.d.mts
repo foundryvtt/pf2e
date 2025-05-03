@@ -1,4 +1,5 @@
 import { SceneDimensions } from "@client/_types.mjs";
+import { GridType } from "@common/constants.mjs";
 import Color from "@common/utils/color.mjs";
 import { GridHighlight, GridMesh } from "../containers/_module.mjs";
 import CanvasLayer, { CanvasLayerOptions } from "./base/canvas-layer.mjs";

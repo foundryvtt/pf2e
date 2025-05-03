@@ -6,5 +6,5 @@ export { default as HiddenCanvasGroup } from "./hidden.mjs";
 export { default as InterfaceCanvasGroup } from "./interface.mjs";
 export { default as OverlayCanvasGroup } from "./overlay.mjs";
 export { default as PrimaryCanvasGroup } from "./primary.mjs";
-export { default as RenderedCanvasGroup } from "./rendered.d.mts";
+export { default as RenderedCanvasGroup } from "./rendered.mjs";
 export { default as CanvasVisibility } from "./visibility.mjs";

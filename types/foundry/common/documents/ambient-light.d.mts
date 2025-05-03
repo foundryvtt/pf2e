@@ -1,13 +1,10 @@
-import type { Document, DocumentMetadata } from "../abstract/_module.d.mts";
-import type * as data from "../data/data.mjs";
-import type * as fields from "../data/fields.mjs";
-import type * as documents from "./_module.mjs";
+import { Document, DocumentMetadata } from "../abstract/_module.mjs";
+import * as data from "../data/data.mjs";
+import * as fields from "../data/fields.mjs";
+import BaseScene from "./scene.mjs";
 
 /** The AmbientLight embedded document model. */
-export default class BaseAmbientLight<TParent extends documents.BaseScene | null> extends Document<
-    TParent,
-    AmbientLightSchema
-> {
+export default class BaseAmbientLight<TParent extends BaseScene | null> extends Document<TParent, AmbientLightSchema> {
     static override get metadata(): AmbientLightMetadata;
 
     static override defineSchema(): AmbientLightSchema;
@@ -15,7 +12,7 @@ export default class BaseAmbientLight<TParent extends documents.BaseScene | null
     protected override _initialize(): void;
 }
 
-export default interface BaseAmbientLight<TParent extends documents.BaseScene | null>
+export default interface BaseAmbientLight<TParent extends BaseScene | null>
     extends Document<TParent, AmbientLightSchema>,
         fields.ModelPropsFromSchema<AmbientLightSchema> {}
 
@@ -41,7 +38,7 @@ export type AmbientLightSchema = {
     /** Whether or not this light source provides a source of vision */
     vision: fields.BooleanField;
     /** Light configuration data */
-    config: fields.EmbeddedDataField<data.LightData<BaseAmbientLight<documents.BaseScene | null>>>;
+    config: fields.EmbeddedDataField<data.LightData<BaseAmbientLight<BaseScene | null>>>;
     /** Is the light source currently hidden? */
     hidden: fields.BooleanField;
     /** An object of optional key/value flags */

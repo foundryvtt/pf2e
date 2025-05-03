@@ -55,16 +55,28 @@ export default class SceneManager {
     /*  Scene Life-Cycle Methods                    */
     /* -------------------------------------------- */
 
-    /** Additional behaviors to perform when the Canvas is first initialized for the Scene. */
+    /**
+     * Additional behaviors to perform when the Canvas is first initialized for the Scene.
+     * @internal
+     */
     _onInit(): Promise<void>;
 
-    /** Additional behaviors to perform after core groups and layers are drawn to the canvas. */
+    /**
+     * Additional behaviors to perform after core groups and layers are drawn to the canvas.
+     * @internal
+     */
     _onDraw(): Promise<void>;
 
-    /** Additional behaviors to perform after the Canvas is fully initialized for the Scene. */
+    /**
+     * Additional behaviors to perform after the Canvas is fully initialized for the Scene.
+     * @internal
+     */
     _onReady(): Promise<void>;
 
-    /** Additional behaviors to perform when the Scene is deactivated. */
+    /**
+     * Additional behaviors to perform when the Scene is deactivated.
+     * @internal
+     */
     _onTearDown(): Promise<void>;
 
     /* -------------------------------------------- */
@@ -74,12 +86,16 @@ export default class SceneManager {
     /**
      * Register additional hook functions are only used while this Scene is active and is automatically deactivated.
      * Hooks should be registered in this function by calling this._registerHook(hookName, handler)
+     * @internal
      */
     _registerHooks(): void;
 
     /** Register additional hook functions are only used while this Scene is active and is automatically deactivated. */
     registerHook(hookName: string, handler: (...args: unknown[]) => number | void): void;
 
-    /** Deactivate Hook functions that were added specifically for this Scene. */
+    /**
+     * Deactivate Hook functions that were added specifically for this Scene.
+     * @internal
+     */
     _deactivateHooks(): void;
 }
