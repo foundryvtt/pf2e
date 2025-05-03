@@ -1,8 +1,7 @@
 import { DocumentOwnershipLevel, DocumentOwnershipString, ImageFilePath, VideoFilePath } from "@common/constants.mjs";
-import type Document from "../abstract/document.mjs";
-import type { DocumentMetadata } from "../abstract/document.mjs";
-import type * as fields from "../data/fields.mjs";
-import type * as documents from "./_module.mjs";
+import Document, { DocumentMetadata } from "../abstract/document.mjs";
+import * as fields from "../data/fields.mjs";
+import { BaseCards, BaseUser } from "./_module.mjs";
 
 /**
  * The Document definition for a Card.
@@ -12,7 +11,7 @@ import type * as documents from "./_module.mjs";
  * @param data    Initial data from which to construct the Card
  * @param context Construction context options
  */
-export default class BaseCard<TParent extends documents.BaseCards | null> extends Document<TParent, CardSchema> {
+export default class BaseCard<TParent extends BaseCards | null> extends Document<TParent, CardSchema> {
     /* -------------------------------------------- */
     /*  Model Configuration                         */
     /* -------------------------------------------- */
@@ -32,13 +31,13 @@ export default class BaseCard<TParent extends documents.BaseCards | null> extend
     /* -------------------------------------------- */
 
     override testUserPermission(
-        user: documents.BaseUser,
+        user: BaseUser,
         permission: DocumentOwnershipString | DocumentOwnershipLevel,
         { exact }?: { exact?: boolean | undefined },
     ): boolean;
 }
 
-export default interface BaseCard<TParent extends documents.BaseCards | null>
+export default interface BaseCard<TParent extends BaseCards | null>
     extends Document<TParent, CardSchema>,
         fields.ModelPropsFromSchema<CardSchema> {
     get documentName(): CardMetadata["name"];
@@ -76,7 +75,7 @@ type CardSchema = {
     /** Whether this card is currently drawn from its source deck */
     drawn: fields.BooleanField;
     /** The document ID of the origin deck to which this card belongs */
-    origin: fields.ForeignDocumentField<documents.BaseCards>;
+    origin: fields.ForeignDocumentField<BaseCards>;
     /** The visible width of this card */
     width: fields.NumberField;
     /** The visible height of this card */

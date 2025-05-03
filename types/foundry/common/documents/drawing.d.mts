@@ -1,8 +1,8 @@
 import { DocumentOwnershipLevel, DocumentOwnershipString, DrawingFillType, ImageFilePath } from "@common/constants.mjs";
-import type * as abstract from "../abstract/_module.d.mts";
-import type * as data from "../data/data.mjs";
-import type * as fields from "../data/fields.mjs";
-import type * as documents from "./_module.mjs";
+import * as abstract from "../abstract/_module.mjs";
+import * as data from "../data/data.mjs";
+import * as fields from "../data/fields.mjs";
+import { BaseScene, BaseUser } from "./_module.mjs";
 
 /**
  * The Document definition for a Drawing.
@@ -12,10 +12,7 @@ import type * as documents from "./_module.mjs";
  * @param data    Initial data from which to construct the Drawing
  * @param context Construction context options
  */
-export default class BaseDrawing<TParent extends documents.BaseScene | null> extends abstract.Document<
-    TParent,
-    DrawingSchema
-> {
+export default class BaseDrawing<TParent extends BaseScene | null> extends abstract.Document<TParent, DrawingSchema> {
     /* ---------------------------------------- */
     /*  Model Configuration                     */
     /* ---------------------------------------- */
@@ -31,13 +28,13 @@ export default class BaseDrawing<TParent extends documents.BaseScene | null> ext
     /* ---------------------------------------- */
 
     override testUserPermission(
-        user: documents.BaseUser,
+        user: BaseUser,
         permission: DocumentOwnershipString | DocumentOwnershipLevel,
         { exact }?: { exact?: boolean },
     ): boolean;
 }
 
-export default interface BaseDrawing<TParent extends documents.BaseScene | null>
+export default interface BaseDrawing<TParent extends BaseScene | null>
     extends abstract.Document<TParent, DrawingSchema>,
         fields.ModelPropsFromSchema<DrawingSchema> {
     get documentName(): DrawingMetadata["name"];
@@ -61,9 +58,9 @@ type DrawingSchema = {
     /** The _id which uniquely identifies this BaseDrawing embedded document */
     _id: fields.DocumentIdField;
     /** The _id of the user who created the drawing */
-    author: fields.ForeignDocumentField<documents.BaseUser, true, false, true>;
+    author: fields.ForeignDocumentField<BaseUser, true, false, true>;
     /** The geometric shape of the drawing */
-    shape: fields.EmbeddedDataField<data.ShapeData<BaseDrawing<documents.BaseScene | null>>>;
+    shape: fields.EmbeddedDataField<data.ShapeData<BaseDrawing<BaseScene | null>>>;
     /** The x-coordinate position of the top-left corner of the drawn shape */
     x: fields.NumberField<number, number, true, false, true>;
     /** The y-coordinate position of the top-left corner of the drawn shape */

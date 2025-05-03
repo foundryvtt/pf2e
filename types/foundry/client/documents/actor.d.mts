@@ -1,10 +1,9 @@
 import Token from "@client/canvas/placeables/token.mjs";
 import { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
 import Document from "@common/abstract/document.mjs";
-import EmbeddedCollection from "@common/abstract/embedded-collection.mjs";
 import { ImageFilePath, VideoFilePath } from "@common/constants.mjs";
 import ActorSheet from "../appv1/sheets/actor-sheet.mjs";
-import { ActiveEffect, ActorUUID, BaseActor, Combat, Item, Scene, TokenDocument, User } from "./_module.mjs";
+import { ActiveEffect, BaseActor, Combat, Item, Scene, TokenDocument, User } from "./_module.mjs";
 import { ClientDocument } from "./abstract/client-document.mjs";
 import Actors from "./collections/actors.mjs";
 
@@ -295,14 +294,14 @@ declare class Actor<TParent extends TokenDocument | null = TokenDocument | null>
     ): void;
 }
 
-declare interface Actor<TParent extends TokenDocument | null = TokenDocument | null> extends ClientBaseActor<TParent> {
-    readonly effects: EmbeddedCollection<ActiveEffect<this>>;
-    // readonly items: EmbeddedCollection<Item<Actor>>;
+// declare interface Actor<TParent extends TokenDocument | null = TokenDocument | null> extends ClientBaseActor<TParent> {
+//     readonly effects: EmbeddedCollection<ActiveEffect<this>>;
+//     // readonly items: EmbeddedCollection<Item<Actor>>;
 
-    get sheet(): ActorSheet<Actor>;
+//     get sheet(): ActorSheet<Actor>;
 
-    get uuid(): ActorUUID;
-}
+//     get uuid(): ActorUUID;
+// }
 
 declare namespace Actor {
     const implementation: typeof Actor;

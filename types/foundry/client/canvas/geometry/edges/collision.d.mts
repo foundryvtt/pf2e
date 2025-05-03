@@ -1,5 +1,4 @@
-import type { Edge } from "./edge.d.mts";
-import type { PolygonVertex } from "./vertex.d.mts";
+import { Edge, PolygonVertex } from "./_module.mjs";
 
 /**
  * A specialized object that contains the result of a collision in the context of the ClockwiseSweepPolygon.

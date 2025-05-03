@@ -1,7 +1,7 @@
 import { ImageFilePath } from "@common/constants.mjs";
-import type { Document, DocumentMetadata, EmbeddedCollection } from "../abstract/_module.d.mts";
-import type * as fields from "../data/fields.mjs";
-import type * as documents from "./_module.mjs";
+import { Document, DocumentMetadata, EmbeddedCollection } from "../abstract/_module.mjs";
+import * as fields from "../data/fields.mjs";
+import { BaseFolder, BaseTableResult } from "./_module.mjs";
 
 /**
  * The Document definition for a RollTable.
@@ -24,7 +24,7 @@ export default interface BaseRollTable
     extends Document<null, RollTableSchema>,
         fields.ModelPropsFromSchema<RollTableSchema> {
     /** A reference to the Collection of TableResult instances in this document, indexed by _id. */
-    readonly results: EmbeddedCollection<documents.BaseTableResult<this>>;
+    readonly results: EmbeddedCollection<BaseTableResult<this>>;
 
     get documentName(): (typeof BaseRollTable)["metadata"]["name"];
 }
@@ -50,7 +50,7 @@ type RollTableSchema = {
     description: fields.HTMLField;
     /** A Collection of TableResult embedded documents which belong to this RollTable */
     // biome-ignore lint/suspicious/noExplicitAny:
-    results: fields.EmbeddedCollectionField<documents.BaseTableResult<BaseRollTable>>;
+    results: fields.EmbeddedCollectionField<BaseTableResult<BaseRollTable>>;
     /** The Roll formula which determines the results chosen from the table */
     formula: fields.StringField<string>;
     /** Are results from this table drawn with replacement? */
@@ -58,7 +58,7 @@ type RollTableSchema = {
     /** Is the Roll result used to draw from this RollTable displayed in chat? */
     displayRoll: fields.BooleanField;
     /** The _id of a Folder which contains this RollTable */
-    folder: fields.ForeignDocumentField<documents.BaseFolder>;
+    folder: fields.ForeignDocumentField<BaseFolder>;
     /** The numeric sort value which orders this RollTable relative to its siblings */
     sort: fields.IntegerSortField;
     /** An object which configures ownership of this RollTable */

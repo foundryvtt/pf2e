@@ -1,5 +1,5 @@
-import type { Document, DocumentMetadata, MetadataPermission } from "../abstract/_module.d.mts";
-import type * as fields from "../data/fields.mjs";
+import { Document, DocumentMetadata, MetadataPermission } from "../abstract/_module.mjs";
+import * as fields from "../data/fields.mjs";
 import BaseUser from "./user.mjs";
 
 /**

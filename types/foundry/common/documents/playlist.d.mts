@@ -1,6 +1,6 @@
 import { PlaylistMode, PlaylistSortMode } from "@common/constants.mjs";
-import type { Document, DocumentMetadata, EmbeddedCollection } from "../abstract/_module.d.mts";
-import type * as fields from "../data/fields.mjs";
+import { Document, DocumentMetadata, EmbeddedCollection } from "../abstract/_module.mjs";
+import * as fields from "../data/fields.mjs";
 import { BaseFolder, BasePlaylistSound } from "./_module.mjs";
 
 /** The Playlist document model. */
