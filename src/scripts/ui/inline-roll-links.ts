@@ -2,6 +2,7 @@ import { ActorPF2e } from "@actor";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { ClientDocument } from "@client/documents/abstract/client-document.d.mts";
+import type { MeasuredTemplateType } from "@common/constants.d.mts";
 import { ItemPF2e } from "@item";
 import type { AbilityTrait } from "@item/ability/types.ts";
 import { EFFECT_AREA_SHAPES } from "@item/spell/values.ts";
@@ -20,44 +21,43 @@ const inlineSelector = ["action", "check", "effect-area"].map((keyword) => `[dat
 
 export class InlineRollLinks {
     static activatePF2eListeners(): void {
-        document.addEventListener("click", (event) => {
-            function getLinkOrSpan(attr: string) {
-                return htmlClosest<HTMLAnchorElement | HTMLSpanElement>(event.target, `a[${attr}], span[${attr}]`);
-            }
+        document.addEventListener(
+            "click",
+            (event) => {
+                const getLinkOrSpan = (attr: string) =>
+                    htmlClosest<HTMLAnchorElement | HTMLSpanElement>(event.target, `a[${attr}], span[${attr}]`);
 
-            // Handle repost (before everything else)
-            const repostLink = htmlClosest(event.target, "i[data-pf2-repost]");
-            if (repostLink) {
-                event.preventDefault();
-                const link = htmlClosest(repostLink, "a, span");
-                if (link) {
-                    this.#onRepostAction(link);
+                // Handle repost (before everything else)
+                const repostLink = htmlClosest(event.target, "i[data-pf2-repost]");
+                if (repostLink) {
+                    const link = htmlClosest(repostLink, "a, span");
+                    if (link) {
+                        this.#onRepostAction(link);
+                    }
+                    return;
                 }
-                return;
-            }
 
-            // Handle inline check
-            const checkLink = getLinkOrSpan("data-pf2-check");
-            if (checkLink) {
-                event.preventDefault();
-                this.#onClickInlineCheck(event, checkLink);
-                return;
-            }
+                // Handle inline check
+                const checkLink = getLinkOrSpan("data-pf2-check");
+                if (checkLink) {
+                    this.#onClickInlineCheck(event, checkLink);
+                    return;
+                }
 
-            const actionLink = getLinkOrSpan("data-pf2-action");
-            if (actionLink) {
-                event.preventDefault();
-                this.#onClickInlineAction(event, actionLink);
-                return;
-            }
+                const actionLink = getLinkOrSpan("data-pf2-action");
+                if (actionLink) {
+                    this.#onClickInlineAction(event, actionLink);
+                    return;
+                }
 
-            const areaLink = getLinkOrSpan("data-pf2-effect-area");
-            if (areaLink) {
-                event.preventDefault();
-                this.#onClickInlineTemplate(event, areaLink);
-                return;
-            }
-        });
+                const areaLink = getLinkOrSpan("data-pf2-effect-area");
+                if (areaLink) {
+                    this.#onClickInlineTemplate(event, areaLink);
+                    return;
+                }
+            },
+            { passive: true },
+        );
     }
 
     static injectRepostElements(html: HTMLElement, foundryDoc: ClientDocument | null): void {

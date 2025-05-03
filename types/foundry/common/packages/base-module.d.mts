@@ -1,6 +1,6 @@
-import type * as fields from "../data/fields.mjs";
-import type * as packages from "./_module.d.mts";
-import type AdditionalTypesField from "./sub-types.d.mts";
+import * as fields from "../data/fields.mjs";
+import * as packages from "./_module.mjs";
+import AdditionalTypesField from "./sub-types.mjs";
 
 /**
  * The data schema used to define Module manifest files.
