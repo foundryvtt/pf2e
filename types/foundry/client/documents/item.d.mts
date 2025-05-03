@@ -17,7 +17,7 @@ declare interface ClientBaseItem<TParent extends Actor | null> extends InstanceT
  * @see {@link foundry.documents.Items} The world-level collection of Item documents
  * @see {@link foundry.applications.ItemSheet} The Item configuration application
  */
-declare class Item<TParent extends Actor | null = Actor | null> extends ClientBaseItem<TParent> {
+export default class Item<TParent extends Actor | null = Actor | null> extends ClientBaseItem<TParent> {
     /** A convenience alias of Item#parent which is more semantically intuitive */
     get actor(): TParent;
 
@@ -63,15 +63,9 @@ declare class Item<TParent extends Actor | null = Actor | null> extends ClientBa
     ): Promise<void>;
 }
 
-declare interface Item<TParent extends Actor | null = Actor | null> extends ClientBaseItem<TParent> {
+export default interface Item<TParent extends Actor | null = Actor | null> extends ClientBaseItem<TParent> {
     get uuid(): ItemUUID;
     get sheet(): ItemSheet<this, DocumentSheetV1Options>;
 }
-
-declare namespace Item {
-    const implementation: typeof Item;
-}
-
-export default Item;
 
 export {};

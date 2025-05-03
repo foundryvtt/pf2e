@@ -1,6 +1,6 @@
-import type { Document, DocumentMetadata } from "../abstract/_module.d.mts";
+import { Document, DocumentMetadata } from "../abstract/_module.mjs";
 import { FOLDER_DOCUMENT_TYPES, FolderDocumentType } from "../constants.mjs";
-import type * as fields from "../data/fields.mjs";
+import * as fields from "../data/fields.mjs";
 
 /**
  * The Folder Document model.

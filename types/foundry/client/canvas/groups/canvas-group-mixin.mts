@@ -5,9 +5,12 @@ import CanvasLayer from "../layers/base/canvas-layer.mjs";
  * @param {typeof PIXI.Container} ContainerClass  The parent Container class being mixed.
  * @returns A ContainerClass subclass mixed with CanvasGroupMixin features.
  */
-export default function CanvasGroupMixin(ContainerClass: typeof PIXI.Container) {
+export default function CanvasGroupMixin(ContainerClass: ConstructorOf<PIXI.Container>) {
     class CanvasGroup extends ContainerClass {
-        constructor(...args: any[]);
+        constructor(...args: any[]) {
+            super();
+            args;
+        }
 
         /**
          * The name of this canvas group.
@@ -23,25 +26,31 @@ export default function CanvasGroupMixin(ContainerClass: typeof PIXI.Container) 
          * The canonical name of the canvas group is the name of the constructor that is the immediate child of the
          * defined base class.
          */
-        get name(): string;
+        override get name(): string {
+            return "";
+        }
 
         /**
          * The name used by hooks to construct their hook string.
          * Note: You should override this getter if hookName should not return the class constructor name.
          */
-        get hookName(): string;
+        get hookName(): string {
+            return "";
+        }
 
         /**
          * A mapping of CanvasLayer classes which belong to this group.
          */
-        layers: Record<string, CanvasLayer>;
+        declare layers: Record<string, CanvasLayer>;
 
         /* -------------------------------------------- */
 
         /**
          * Create CanvasLayer instances which belong to the canvas group.
          */
-        protected _createLayers(): Record<string, CanvasLayer>;
+        protected _createLayers(): Record<string, CanvasLayer> {
+            return {};
+        }
 
         /* -------------------------------------------- */
         /*  Rendering                                   */
@@ -51,12 +60,17 @@ export default function CanvasGroupMixin(ContainerClass: typeof PIXI.Container) 
          * Draw the canvas group and all its components.
          * @returns A Promise which resolves once the group is fully drawn
          */
-        draw(options?: object): Promise<this>;
+        async draw(options?: object): Promise<this> {
+            options;
+            return this;
+        }
 
         /**
          * Draw the canvas group and all its component layers.
          */
-        protected _draw(options?: object): Promise<void>;
+        protected async _draw(options?: object): Promise<void> {
+            options;
+        }
 
         /* -------------------------------------------- */
         /*  Tear-Down                                   */
@@ -65,12 +79,17 @@ export default function CanvasGroupMixin(ContainerClass: typeof PIXI.Container) 
         /**
          * Remove and destroy all layers from the base canvas.
          */
-        tearDown(options?: object): Promise<this>;
+        async tearDown(options?: object): Promise<this> {
+            options;
+            return this;
+        }
 
         /**
          * Remove and destroy all layers from the base canvas.
          */
-        protected _tearDown(options: object): Promise<void>;
+        protected async _tearDown(options: object): Promise<void> {
+            options;
+        }
     }
     return CanvasGroup;
 }

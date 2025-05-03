@@ -14,7 +14,19 @@
     }
 
     .subsection {
+        display: flex;
+        flex-flow: column nowrap;
+        gap: var(--space-12);
         margin: 0;
+
+        > * {
+            display: flex;
+            flex-flow: row wrap;
+        }
+
+        header {
+            margin-bottom: 0;
+        }
     }
 
     .subsection.details {
@@ -153,9 +165,7 @@
     }
 
     .subsection.background {
-        display: flex;
-        flex-wrap: wrap;
-        margin-bottom: var(--space-4);
+        flex-flow: row wrap;
 
         label {
             align-items: start;
@@ -172,8 +182,6 @@
 
     .subsection.languages {
         ul {
-            display: flex;
-            flex-wrap: wrap;
             gap: var(--space-4);
             margin: 0;
 

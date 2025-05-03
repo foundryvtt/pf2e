@@ -1,10 +1,11 @@
+import { DocumentOwnershipLevel, DocumentOwnershipString, ImageFilePath, UserAction } from "@common/constants.mjs";
 import { DocumentConstructionContext } from "../_types.mjs";
-import type * as abstract from "../abstract/_module.d.mts";
-import type { TombstoneDataSchema } from "../data/data.mjs";
-import type * as fields from "../data/fields.mjs";
+import * as abstract from "../abstract/_module.mjs";
+import { TombstoneDataSchema } from "../data/data.mjs";
+import * as fields from "../data/fields.mjs";
 import Collection from "../utils/collection.mjs";
 import { BaseActiveEffect, BaseActor, BaseItem, BaseToken, BaseUser } from "./_module.mjs";
-import type { ItemSchema } from "./item.d.mts";
+import { ItemSchema } from "./item.mjs";
 
 /**
  * The Document definition for an ActorDelta.

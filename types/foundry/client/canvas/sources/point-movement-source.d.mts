@@ -1,4 +1,4 @@
-import type { PointEffectSource } from "./point-effect-source-mixes.d.mts";
+import type { PointEffectSource } from "./point-effect-source-mixes.mjs";
 
 /**
  * A specialized subclass of the BaseEffectSource which describes a movement-based source.

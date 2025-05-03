@@ -1,5 +1,6 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
-import { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
+import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
+import type { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
 import {
     MATERIAL_DATA,
     MaterialSheetData,
@@ -11,7 +12,7 @@ import {
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, htmlQueryAll, objectHasKey, setHasElement, sortStringRecord, tupleHasValue } from "@util";
 import * as R from "remeda";
-import { ComboWeaponMeleeUsage, SpecificWeaponData, WeaponPersistentDamage } from "./data.ts";
+import type { ComboWeaponMeleeUsage, SpecificWeaponData, WeaponPersistentDamage } from "./data.ts";
 import type { WeaponPF2e } from "./document.ts";
 import { MANDATORY_RANGED_GROUPS, WEAPON_RANGES } from "./values.ts";
 
