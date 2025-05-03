@@ -44,7 +44,7 @@ function SvelteApplicationMixin<
             }
         }
 
-        protected override _onClose(options: fa.ApplicationRenderOptions): void {
+        protected override _onClose(options: fa.ApplicationClosingOptions): void {
             super._onClose(options);
             svelte.unmount(this.#mount);
         }

@@ -5,9 +5,17 @@ import type DataModel from "./common/abstract/data.mjs";
 declare global {
     type Maybe<T> = T | null | undefined;
 
-    type DeepPartial<T extends object> = {
-        [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
-    };
+    type Builtin = Date | Function | Uint8Array | string | number | boolean | symbol | null | undefined;
+
+    type DeepPartial<T> = T extends Builtin
+        ? T
+        : T extends Array<infer U>
+          ? Array<DeepPartial<U>>
+          : T extends ReadonlyArray<infer U>
+            ? ReadonlyArray<DeepPartial<U>>
+            : T extends {}
+              ? { [K in keyof T]?: DeepPartial<T[K]> }
+              : Partial<T>;
 
     type CollectionValue<T> = T extends Collection<string, infer U> ? U : never;
 

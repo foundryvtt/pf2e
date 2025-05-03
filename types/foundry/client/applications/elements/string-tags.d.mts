@@ -1,4 +1,5 @@
-import type { AbstractFormInputElement } from "./form-element.mjs";
+import { FormInputConfig } from "@common/data/_module.mjs";
+import AbstractFormInputElement from "./form-element.mjs";
 
 /**
  * A custom HTML element which allows for arbitrary assignment of a set of string tags.
@@ -26,8 +27,8 @@ export default class HTMLStringTagsElement extends AbstractFormInputElement<Set<
 
     /**
      * Subclasses may impose more strict validation on what tags are allowed.
-     * @param  tag      A candidate tag
-     * @throws          An error if the candidate tag is not allowed
+     * @param tag A candidate tag
+     * @throws An error if the candidate tag is not allowed
      */
     protected _validateTag(tag: string): void;
 

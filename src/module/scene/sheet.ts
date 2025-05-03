@@ -1,10 +1,11 @@
 import { resetActors } from "@actor/helpers.ts";
+import HTMLRangePickerElement from "@client/applications/elements/range-picker.mjs";
 import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import type { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
 import { WorldClock } from "@module/apps/world-clock/app.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import type { SettingsMenuOptions } from "@system/settings/menu.ts";
-import { ErrorPF2e, htmlQuery, htmlQueryAll } from "@util";
+import { createHTMLElement, ErrorPF2e, htmlQuery } from "@util";
 import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
 import type { ScenePF2e } from "./document.ts";
@@ -12,7 +13,7 @@ import type { ScenePF2e } from "./document.ts";
 export class SceneConfigPF2e<TDocument extends ScenePF2e> extends fa.sheets.SceneConfig<TDocument> {
     static override DEFAULT_OPTIONS: DeepPartial<fa.api.DocumentSheetConfiguration> = {
         sheetConfig: false,
-        actions: { openRbvSetting: SceneConfigPF2e.#openRbvSetting },
+        actions: { openAutomationSettings: SceneConfigPF2e.#onClickOpenAutomationSettings },
     };
 
     static override TABS = (() => {
@@ -72,13 +73,13 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends fa.sheets.Scen
 
     /** Hide Global Illumination settings when rules-based vision is enabled. */
     #activateRBVListeners(): void {
-        if (!this.document.rulesBasedVision) return;
+        const scene = this.document;
+        if (!scene.rulesBasedVision) return;
 
         const html = this.element;
         const globalLight = html.querySelector<HTMLInputElement>('input[name="environment.globalLight.enabled"]');
-        const globalLightThreshold = htmlQueryAll<HTMLInputElement>(
-            html,
-            'range-picker[name="environment.globalLight.darkness.max"] > input',
+        const globalLightThreshold = html.querySelector<HTMLRangePickerElement>(
+            'range-picker[name="environment.globalLight.darkness.max"]',
         );
         if (!(globalLight && globalLightThreshold)) {
             throw ErrorPF2e("Unexpected error retrieving scene global light form elements");
@@ -86,29 +87,24 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends fa.sheets.Scen
 
         // Disable all global light settings
         globalLight.disabled = true;
-        for (const input of globalLightThreshold) {
-            input.disabled = true;
-        }
+        globalLightThreshold.disabled = true;
+        // Also set their values to the prepared values
+        globalLight.checked = scene.environment.globalLight.enabled;
+        globalLightThreshold.value = scene.environment.globalLight.darkness.max;
 
         // Indicate that this setting is managed by rules-based vision and create link to open settings
-        for (const input of [globalLight, globalLightThreshold[0]]) {
-            const managedBy = document.createElement("span");
-            managedBy.classList.add("managed");
-            managedBy.innerHTML = " ".concat(game.i18n.localize("PF2E.SETTINGS.Automation.RulesBasedVision.ManagedBy"));
-            const rbvLink = managedBy.querySelector("rbv");
-            const anchor = document.createElement("a");
-            anchor.innerText = rbvLink?.innerHTML ?? "";
-            anchor.setAttribute("href", ""); // Pick up core Foundry styling
-            anchor.addEventListener("click", (event) => {
-                event.preventDefault();
-                event.stopPropagation();
-                const menu = game.settings.menus.get("pf2e.automation");
-                if (!menu) throw ErrorPF2e("Automation Settings application not found");
-                const app = new menu.type();
-                app.render(true);
-            });
-            rbvLink?.replaceWith(anchor);
-            input.closest(".form-group")?.querySelector("p.notes")?.append(managedBy);
+        const managedBy = createHTMLElement("button", {
+            classes: ["inline-control", "icon", "fa-solid", "fa-robot"],
+            dataset: { tooltip: true, action: "openAutomationSettings" },
+            aria: { label: game.i18n.localize("PF2E.SETTINGS.Automation.RulesBasedVision.ManagedBy") },
+        });
+        managedBy.type = "button";
+        managedBy.disabled = !game.user.isGM;
+        for (const input of [globalLight, globalLightThreshold]) {
+            const button = managedBy.cloneNode(true);
+            const labelEl = input.closest(".form-group")?.querySelector("label");
+            labelEl?.classList.add("flexrow", "managed-by-rbv");
+            labelEl?.append(button);
         }
 
         // Disable scene darkness slider if darkness is synced to the world clock
@@ -118,7 +114,7 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends fa.sheets.Scen
                 darknessInput.disabled = true;
                 darknessInput.nextElementSibling?.classList.add("disabled");
                 const managedBy = WorldClock.createSyncedMessage();
-                darknessInput.closest(".form-group")?.querySelector("p.notes")?.append(managedBy);
+                darknessInput.closest(".form-group")?.querySelector("p.hint")?.append(managedBy);
             }
         }
     }
@@ -156,7 +152,7 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends fa.sheets.Scen
     }
 
     /** Open the Automation settings menu and highlight the rules-based vision field. */
-    static #openRbvSetting(this: SceneConfigPF2e<ScenePF2e>): void {
+    static async #onClickOpenAutomationSettings(this: SceneConfigPF2e<ScenePF2e>): Promise<void> {
         const menu = game.settings.menus.get("pf2e.automation");
         if (menu) {
             const options: Partial<SettingsMenuOptions> = { highlightSetting: "rulesBasedVision" };

@@ -10,7 +10,7 @@ interface RollInspectorConfiguration extends ApplicationConfiguration {
     message: ChatMessagePF2e;
 }
 
-class RollInspector extends SvelteApplicationMixin(fa.api.ApplicationV2) {
+class RollInspector extends SvelteApplicationMixin(fa.api.ApplicationV2<RollInspectorConfiguration>) {
     static override DEFAULT_OPTIONS = {
         position: {
             width: 650,
@@ -23,16 +23,13 @@ class RollInspector extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         },
     };
 
-    declare options: RollInspectorConfiguration;
+    protected override root = Root;
 
-    override root = Root;
+    message: ChatMessagePF2e;
 
-    get message(): ChatMessagePF2e {
-        return this.options.message;
-    }
-
-    constructor(options: Partial<RollInspectorConfiguration>) {
+    constructor(options: DeepPartial<Omit<RollInspectorConfiguration, "message">> & { message: ChatMessagePF2e }) {
         super(options);
+        this.message = options.message;
     }
 
     protected override async _prepareContext(): Promise<RollInspectorContext> {
