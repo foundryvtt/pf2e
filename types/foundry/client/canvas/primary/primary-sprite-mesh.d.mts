@@ -3,6 +3,17 @@ import { TextureAlphaData } from "../loader.mjs";
 import { PrimaryBaseSamplerShader } from "../rendering/shaders/_module.mjs";
 import PrimaryOccludableObjectMixin from "./primary-occludable-object.mjs";
 
+export interface PrimarySpriteMeshConstructorOptions {
+    /** Texture passed to the SpriteMesh. */
+    texture?: PIXI.Texture;
+    /** The name of this sprite. */
+    name?: string | null;
+    /** Any object that owns this sprite. */
+    object?: object;
+    /** The shader class used to render this sprite */
+    shaderClass?: typeof PrimaryBaseSamplerShader;
+}
+
 /**
  * A basic PCO sprite mesh which is handling occlusion and depth.
  * @param [options] The constructor options.
@@ -12,10 +23,7 @@ import PrimaryOccludableObjectMixin from "./primary-occludable-object.mjs";
  * @param [options.object]      Any object that owns this sprite.
  */
 export default class PrimarySpriteMesh extends PrimaryOccludableObjectMixin(SpriteMesh) {
-    constructor(
-        options: { texture?: PIXI.Texture; name?: string | null; object?: object },
-        shaderClass: typeof PrimaryBaseSamplerShader,
-    );
+    constructor(options?: PrimarySpriteMeshConstructorOptions);
 
     object: object | null;
 

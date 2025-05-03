@@ -13,8 +13,9 @@ import { EnrichmentOptions } from "./applications/ux/text-editor.mjs";
 import ActorSheet from "./appv1/sheets/actor-sheet.mjs";
 import ItemSheet from "./appv1/sheets/item-sheet.mjs";
 import JournalSheet from "./appv1/sheets/journal-sheet.mjs";
+import { CanvasAnimationAttribute } from "./canvas/animation/_types.mjs";
 import ChatBubbles from "./canvas/animation/chat-bubbles.mjs";
-import { DoorControl } from "./canvas/containers/_module.mjs";
+import { DoorControl, DoorMesh } from "./canvas/containers/_module.mjs";
 import ClockwiseSweepPolygon from "./canvas/geometry/clockwise-sweep.mjs";
 import EffectsCanvasGroup from "./canvas/groups/effects.mjs";
 import InterfaceCanvasGroup from "./canvas/groups/interface.mjs";
@@ -22,6 +23,7 @@ import { AlertPing, ArrowPing, ChevronPing, PulsePing, Ruler } from "./canvas/in
 import * as layers from "./canvas/layers/_module.mjs";
 import * as perception from "./canvas/perception/_module.mjs";
 import * as placeables from "./canvas/placeables/_module.mjs";
+import { TokenRingConfig } from "./canvas/placeables/tokens/_module.mjs";
 import type {
     GlobalLightSource,
     PointDarknessSource,
@@ -63,28 +65,34 @@ export interface TextEditorEnricherConfig {
 }
 
 export default interface Config<
-    TAmbientLightDocument extends documents.AmbientLightDocument<TScene | null>,
-    TActiveEffect extends documents.ActiveEffect<TActor | TItem | null>,
-    TActor extends documents.Actor<TTokenDocument | null>,
-    TActorDelta extends documents.ActorDelta<TTokenDocument | null>,
-    TChatLog extends sidebar.tabs.ChatLog,
-    TChatMessage extends documents.ChatMessage,
-    TCombat extends documents.Combat,
-    TCombatant extends documents.Combatant<TCombat | null, TTokenDocument | null>,
-    TCombatTracker extends sidebar.tabs.CombatTracker<TCombat | null>,
-    TCompendiumDirectory extends CompendiumDirectory,
-    THotbar extends Hotbar<TMacro>,
-    TItem extends documents.Item<TActor | null>,
-    TMacro extends documents.Macro,
-    TMeasuredTemplateDocument extends documents.MeasuredTemplateDocument<TScene | null>,
-    TRegionDocument extends documents.RegionDocument<TScene | null>,
-    TRegionBehavior extends documents.RegionBehavior<TRegionDocument | null>,
-    TTileDocument extends documents.TileDocument<TScene | null>,
-    TTokenDocument extends documents.TokenDocument<TScene | null>,
-    TWallDocument extends documents.WallDocument<TScene | null>,
-    TScene extends documents.Scene,
-    TUser extends documents.User,
-    TEffectsCanvasGroup extends EffectsCanvasGroup,
+    TChatLog extends sidebar.tabs.ChatLog = sidebar.tabs.ChatLog,
+    TChatMessage extends documents.ChatMessage = documents.ChatMessage,
+    TCompendiumDirectory extends CompendiumDirectory = CompendiumDirectory,
+    TMacro extends documents.Macro = documents.Macro,
+    THotbar extends Hotbar<TMacro> = Hotbar<TMacro>,
+    TScene extends documents.Scene = documents.Scene,
+    TAmbientLightDocument extends
+        documents.AmbientLightDocument<TScene | null> = documents.AmbientLightDocument<TScene | null>,
+    TMeasuredTemplateDocument extends
+        documents.MeasuredTemplateDocument<TScene | null> = documents.MeasuredTemplateDocument<TScene | null>,
+    TRegionDocument extends documents.RegionDocument<TScene | null> = documents.RegionDocument<TScene | null>,
+    TRegionBehavior extends
+        documents.RegionBehavior<TRegionDocument | null> = documents.RegionBehavior<TRegionDocument | null>,
+    TTileDocument extends documents.TileDocument<TScene | null> = documents.TileDocument<TScene | null>,
+    TTokenDocument extends documents.TokenDocument<TScene | null> = documents.TokenDocument<TScene | null>,
+    TActor extends documents.Actor<TTokenDocument | null> = documents.Actor<TTokenDocument | null>,
+    TActorDelta extends documents.ActorDelta<TTokenDocument | null> = documents.ActorDelta<TTokenDocument | null>,
+    TCombat extends documents.Combat = documents.Combat,
+    TCombatant extends documents.Combatant<TCombat | null, TTokenDocument | null> = documents.Combatant<
+        TCombat | null,
+        TTokenDocument | null
+    >,
+    TCombatTracker extends sidebar.tabs.CombatTracker<TCombat | null> = sidebar.tabs.CombatTracker<TCombat | null>,
+    TItem extends documents.Item<TActor | null> = documents.Item<TActor | null>,
+    TActiveEffect extends documents.ActiveEffect<TActor | TItem | null> = documents.ActiveEffect<TActor | TItem | null>,
+    TWallDocument extends documents.WallDocument<TScene | null> = documents.WallDocument<TScene | null>,
+    TUser extends documents.User = documents.User,
+    TEffectsCanvasGroup extends EffectsCanvasGroup = EffectsCanvasGroup,
 > {
     /** Configure debugging flags to display additional information */
     debug: {
@@ -375,6 +383,42 @@ export default interface Config<
     Wall: {
         documentClass: ConstructorOf<TWallDocument>;
         objectClass: ConstructorOf<placeables.Wall<TWallDocument>>;
+        /**
+         * The set of animation types that are supported for Wall door animations.
+         */
+        animationTypes: {
+            ascend: {
+                label: "WALL.ANIMATION_TYPES.ASCEND";
+                midpoint: true;
+                animate: typeof DoorMesh.animateAscend;
+                duration: 1000;
+            };
+            descend: {
+                label: "WALL.ANIMATION_TYPES.DESCEND";
+                midpoint: true;
+                initialize: typeof DoorMesh.initializeDescend;
+                animate: typeof DoorMesh.animateDescend;
+                preAnimate: typeof DoorMesh.preAnimateDescend;
+                postAnimate: typeof DoorMesh.postAnimateDescend;
+                duration: 1000;
+            };
+            slide: {
+                label: "WALL.ANIMATION_TYPES.SLIDE";
+                animate: typeof DoorMesh.animateSlide;
+                duration: 500;
+            };
+            swing: {
+                label: "WALL.ANIMATION_TYPES.SWING";
+                animate: typeof DoorMesh.animateSwing;
+                duration: 500;
+            };
+            swivel: {
+                label: "WALL.ANIMATION_TYPES.SWIVEL";
+                midpoint: true;
+                animate: typeof DoorMesh.animateSwing;
+                duration: 500;
+            };
+        };
     };
 
     /* -------------------------------------------- */
@@ -828,4 +872,15 @@ interface FontDefinition extends FontFaceDescriptors {
      * from the client's OS-installed fonts.
      */
     urls: string[];
+}
+
+export interface WallDoorAnimationConfig {
+    label: string;
+    midpoint?: boolean;
+    easing?: string | Function;
+    initialize?: (open: boolean) => void | Promise<void>;
+    preAnimate?: (open: boolean) => void | Promise<void>;
+    animate: (open: boolean) => CanvasAnimationAttribute[];
+    postAnimate?: (open: boolean) => void | Promise<void>;
+    duration: number;
 }
