@@ -1,6 +1,6 @@
-import type { DataSchema } from "../data/fields.mjs";
-import type * as packages from "../packages/_module.d.mts";
-import type * as abstract from "./_module.d.mts";
+import * as packages from "../packages/_module.mjs";
+import * as abstract from "./_module.mjs";
+
 /**
  * A specialized subclass of DataModel, intended to represent a Document's type-specific data.
  * Systems or Modules that provide DataModel implementations for sub-types of Documents (such as Actors or Items)
@@ -62,7 +62,7 @@ import type * as abstract from "./_module.d.mts";
  */
 export default abstract class TypeDataModel<
     TParent extends abstract.DataModel | null,
-    TSchema extends DataSchema,
+    TSchema extends abstract.DataSchema,
 > extends abstract.DataModel<TParent, TSchema> {
     /** The package that is providing this DataModel for the given sub-type. */
     readonly modelProvider: packages.BaseSystem | packages.BaseModule | null;

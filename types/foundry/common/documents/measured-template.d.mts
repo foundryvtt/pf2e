@@ -5,9 +5,9 @@ import {
     MeasuredTemplateType,
     VideoFilePath,
 } from "@common/constants.mjs";
-import type { Document, DocumentMetadata } from "../abstract/_module.d.mts";
-import type * as fields from "../data/fields.mjs";
-import type * as documents from "./_module.mjs";
+import { Document, DocumentMetadata } from "../abstract/_module.mjs";
+import * as fields from "../data/fields.mjs";
+import { BaseScene, BaseUser } from "./_module.mjs";
 
 /**
  * The data schema for a MeasuredTemplate embedded document.
@@ -16,7 +16,7 @@ import type * as documents from "./_module.mjs";
  * @param data                   Initial data used to construct the data object
  * @param [document] The embedded document to which this data object belongs
  */
-export default class BaseMeasuredTemplate<TParent extends documents.BaseScene | null> extends Document<
+export default class BaseMeasuredTemplate<TParent extends BaseScene | null> extends Document<
     TParent,
     MeasuredTemplateSchema
 > {
@@ -33,13 +33,13 @@ export default class BaseMeasuredTemplate<TParent extends documents.BaseScene | 
     /* -------------------------------------------- */
 
     override testUserPermission(
-        user: documents.BaseUser,
+        user: BaseUser,
         permission: DocumentOwnershipString | DocumentOwnershipLevel,
         { exact }?: { exact?: boolean },
     ): boolean;
 }
 
-export default interface BaseMeasuredTemplate<TParent extends documents.BaseScene | null>
+export default interface BaseMeasuredTemplate<TParent extends BaseScene | null>
     extends Document<TParent, MeasuredTemplateSchema>,
         fields.ModelPropsFromSchema<MeasuredTemplateSchema> {
     get documentName(): MeasuredTemplateMetadata["name"];
@@ -56,7 +56,7 @@ type MeasuredTemplateSchema = {
     /** The _id which uniquely identifies this BaseMeasuredTemplate embedded document */
     _id: fields.DocumentIdField;
     /** The _id of the user who created this measured template */
-    user: fields.ForeignDocumentField<documents.BaseUser>;
+    user: fields.ForeignDocumentField<BaseUser>;
     /** The value in CONST.MEASURED_TEMPLATE_TYPES which defines the geometry type of this template */
     t: fields.StringField<MeasuredTemplateType, MeasuredTemplateType, true>;
     /** The x-coordinate position of the origin of the template effect */

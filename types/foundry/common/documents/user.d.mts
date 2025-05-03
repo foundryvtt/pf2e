@@ -6,10 +6,9 @@ import {
     UserRole,
     UserRoleName,
 } from "@common/constants.mjs";
-import type Document from "../abstract/document.mjs";
-import type { DocumentMetadata } from "../abstract/document.mjs";
-import type * as fields from "../data/fields.mjs";
-import type { BaseActor } from "./_module.mjs";
+import Document, { DocumentMetadata } from "../abstract/document.mjs";
+import * as fields from "../data/fields.mjs";
+import { BaseActor } from "./_module.mjs";
 
 /**
  * The base User document, which is extended by both the server and client.

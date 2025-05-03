@@ -9,8 +9,7 @@ import {
     ApplicationTab,
     ApplicationTabsConfiguration,
 } from "../_types.mjs";
-import type ContextMenu from "../ux/context-menu.d.mts";
-import type { ContextMenuEntry } from "../ux/context-menu.d.mts";
+import ContextMenu, { ContextMenuEntry } from "../ux/context-menu.mjs";
 
 /** The Application class is responsible for rendering an HTMLElement into the Foundry Virtual Tabletop user interface. */
 export default abstract class ApplicationV2<

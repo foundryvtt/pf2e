@@ -1,8 +1,8 @@
 import { ImageFilePath, TokenDisplayMode, TokenDisposition, VideoFilePath } from "@common/constants.mjs";
-import type * as abstract from "../abstract/_module.d.mts";
-import type * as data from "../data/data.mjs";
-import type * as fields from "../data/fields.mjs";
-import type * as documents from "./_module.mjs";
+import * as abstract from "../abstract/_module.mjs";
+import * as data from "../data/data.mjs";
+import * as fields from "../data/fields.mjs";
+import * as documents from "./_module.mjs";
 
 /**
  * The Token document model.

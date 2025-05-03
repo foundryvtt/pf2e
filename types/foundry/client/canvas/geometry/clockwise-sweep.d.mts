@@ -1,7 +1,6 @@
-import { Point } from "../../../common/_types.d.mts";
+import { Point } from "@common/_types.mjs";
 import { ClockwiseSweepPolygonConfig, EdgeType, PolygonRay } from "./_types.mjs";
-import { Edge } from "./edges/edge.mjs";
-import PolygonVertex from "./edges/vertex.mjs";
+import { Edge, PolygonVertex } from "./edges/_module.mjs";
 import Ray from "./shapes/ray.mjs";
 import PointSourcePolygon from "./shapes/source-polygon.mjs";
 
