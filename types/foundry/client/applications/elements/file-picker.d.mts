@@ -1,7 +1,8 @@
+import { FormInputConfig } from "@common/data/_module.mjs";
 import FilePicker from "../apps/file-picker.mjs";
 import AbstractFormInputElement from "./form-element.mjs";
 
-interface FilePickerInputConfig extends FormInputConfig<string> {
+export interface FilePickerInputConfig extends FormInputConfig<string> {
     type?: FilePickerOptions["type"];
     placeholder?: string;
     noupload?: boolean;

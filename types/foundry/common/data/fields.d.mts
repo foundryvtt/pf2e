@@ -28,17 +28,13 @@ import { DataModelValidationFailure } from "./validation-failure.mjs";
 /**
  * An abstract class that defines the base pattern for a data field within a data schema.
  *
- * @property name             The name of this data field within the schema that contains it
- * @property [required=false] Is this field required to be populated?
- * @property [nullable=false] Can this field have null values?
- * @property initial          The initial value of a field, or a function which assigns that initial value.
  * @property validate         A data validation function which accepts one argument with the current value.
- * @property [readonly=false] Should the prepared value of the field be read-only, preventing it from being
- *                                        changed unless a change to the _source data is applied.
- * @property {string} label               A localizable label displayed on forms which render this field.
- * @property {string} hint                Localizable help text displayed on forms which render this field.
- * @property {string} validationError     A custom validation error string. When displayed will be prepended with the
- *                                        document name, field name, and candidate value.
+ * @property readonly Should the prepared value of the field be read-only, preventing it from being changed unless a
+ *                    change to the _source data is applied.
+ * @property label A localizable label displayed on forms which render this field.
+ * @property hint Localizable help text displayed on forms which render this field.
+ * @property validationError A custom validation error string. When displayed will be prepended with the document name,
+ *                           field name, and candidate value.
  */
 export abstract class DataField<
     TSourceProp extends JSONValue = JSONValue,
@@ -54,13 +50,6 @@ export abstract class DataField<
      */
     constructor(options?: DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>, context?: DataFieldContext);
 
-    initial: this["options"]["initial"];
-
-    nullable: TNullable;
-
-    /** The initially provided options which configure the data field */
-    options: DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>;
-
     /**
      * The field name of this DataField instance.
      * This is assigned by `SchemaField#initialize`.
@@ -74,6 +63,18 @@ export abstract class DataField<
      * @internal
      */
     parent: abstract.DataSchema | undefined;
+
+    /** The initially provided options which configure the data field */
+    options: DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>;
+
+    /** Is this field required to be populated? */
+    required: TRequired;
+
+    /** Can this field have null values? */
+    nullable: TNullable;
+
+    /** The initial value of a field, or a function which assigns that initial value. */
+    initial: this["options"]["initial"];
 
     /** Whether this field defines part of a Document/Embedded Document hierarchy. */
     static hierarchical: boolean;

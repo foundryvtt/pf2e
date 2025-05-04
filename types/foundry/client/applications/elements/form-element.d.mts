@@ -39,7 +39,7 @@ export default abstract class AbstractFormInputElement<
 
     /** The value of the input element. */
     get value(): TInputValue;
-    set value(value);
+    set value(value: string | TInputValue);
 
     /** The underlying value of the element. */
     protected _value: TInternalValue;
