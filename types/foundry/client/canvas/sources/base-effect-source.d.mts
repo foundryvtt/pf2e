@@ -1,3 +1,4 @@
+import { ElevatedPoint } from "@common/_types.mjs";
 import Collection from "@common/utils/collection.mjs";
 import PlaceableObject from "../placeables/placeable-object.mjs";
 
@@ -21,7 +22,7 @@ export interface BaseEffectSourceOptions {
  * source.destroy();                         // Destroy the point source
  * ```
  */
-export default abstract class BaseEffectSource<TObject extends PlaceableObject | null = PlaceableObject | null> {
+export default abstract class BaseEffectSource {
     static sourceType: string;
 
     static effectsCollection: string;
@@ -33,7 +34,7 @@ export default abstract class BaseEffectSource<TObject extends PlaceableObject |
     /* -------------------------------------------- */
 
     /** Some other object which is responsible for this source. */
-    object: TObject;
+    object: PlaceableObject | null;
 
     /** The source id linked to this effect source */
     sourceId: string;
@@ -142,8 +143,17 @@ export default abstract class BaseEffectSource<TObject extends PlaceableObject |
     /** Add this BaseEffectSource instance to the active collection. */
     add(): void;
 
-    /* -------------------------------------------- */
-
     /** Remove this BaseEffectSource instance from the active collection. */
     remove(): void;
+
+    /* -------------------------------------------- */
+    /*  Visibility Testing                          */
+    /* -------------------------------------------- */
+
+    /**
+     * Test whether the point is contained within the shape of the source.
+     * @param point The point.
+     * @returns Is inside the source?
+     */
+    testPoint(point: ElevatedPoint): boolean;
 }

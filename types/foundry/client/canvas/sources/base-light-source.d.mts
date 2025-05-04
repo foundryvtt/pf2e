@@ -1,12 +1,12 @@
+import { LightSourceAnimationConfig } from "@client/config.mjs";
+import { AmbientLight, Token } from "../placeables/_module.mjs";
 import RenderedEffectSource, { RenderedEffectSourceData } from "./rendered-effect-source.mjs";
 
 /**
  * A specialized subclass of the PointSource abstraction which is used to control the rendering of light sources.
  * @param [options.object] The light-emitting object that generates this light source
  */
-export default class BaseLightSource<
-    TObject extends AmbientLight | Token | null,
-> extends RenderedEffectSource<TObject> {
+export default class BaseLightSource extends RenderedEffectSource {
     static sourceType: string;
 
     protected static override _initializeShaderKeys: string[];
@@ -18,6 +18,11 @@ export default class BaseLightSource<
 
     /** The corresponding lighting levels for bright light. */
     protected static _brightLightingLevel: number;
+
+    /**
+     * The corresponding animation config.
+     */
+    static get ANIMATIONS(): LightSourceAnimationConfig;
 
     /* -------------------------------------------- */
     /*  Light Source Attributes                     */
@@ -87,6 +92,10 @@ export default class BaseLightSource<
      * @param reverse   Is the animation reversed?
      */
     animatePulse(dt: number, options?: { speed?: number; intensity?: number; reverse?: number }): void;
+}
+
+export default interface BaseLightSource extends RenderedEffectSource {
+    object: AmbientLight | Token | null;
 }
 
 declare global {
