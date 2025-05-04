@@ -1,10 +1,10 @@
 {
     "_id": "OBsItGQScxHyUcmR",
-    "img": "icons/magic/unholy/silhouette-evil-horned-giant.webp",
+    "img": "icons/magic/symbols/rune-sigil-green-purple.webp",
     "name": "Effect: Unleash Yaoguai Might",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Unleash Yaoguai Might]</p>\n<p><strong>Frequency</strong> once per day</p>\n<p>As you enter your yaoguai form, you draw upon your internal magic to assume an even greater form. When you Change Shape to enter your yaoguai form, you can spend an additional action to gain the effects of @UUID[Compendium.pf2e.spells-srd.Item.Enlarge] and an additional effect based on your heritage. This effect persists for 1 minute or until you Change Shape again.</p><ul><li><strong>Animal</strong> Your hide thickens, granting a +1 circumstance bonus to AC.</li><li><strong>Celestial</strong> You recover some of your celestial perfection, granting you and all allies within 15 feet a +1 status bonus to attack rolls.</li><li><strong>Elements</strong> You're surrounded in wind and dust, granting concealment each round that you spend at least 1 action that has the move trait. You can't use this concealment to Hide or @UUID[Compendium.pf2e.actionspf2e.Item.Sneak], as normal for sources of obvious concealment.</li><li><strong>Object</strong> Your skin transmutes partially into an inorganic substance, granting resistance 5 to your choice of bludgeoning, piercing, or slashing.</li><li><strong>Vegetation</strong> You trigger an accelerated growth, gaining fast healing 5.</li></ul>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Unleash Yaoguai Might]</p>\n<p>When you Change Shape to enter your yaoguai form, you can spend an additional action to gain the effects of <em>enlarge</em> and an additional effect based on your heritage.</p><ul><li><strong>Animal</strong> Your hide thickens, granting a +1 circumstance bonus to AC.</li><li><strong>Celestial</strong> You recover some of your celestial perfection, granting you and all allies within 15 feet a +1 status bonus to attack rolls.</li><li><strong>Elements</strong> You're surrounded in wind and dust, granting concealment each round that you spend at least 1 action that has the move trait. You can't use this concealment to Hide or Sneak, as normal for sources of obvious concealment.</li><li><strong>Object</strong> Your skin transmutes partially into an inorganic substance, granting resistance 5 to your choice of bludgeoning, piercing, or slashing.</li><li><strong>Vegetation</strong> You trigger an accelerated growth, gaining fast healing 5.</li></ul>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -24,6 +24,7 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
+                    "change-shape:yaoguai",
                     "self:heritage:born-of-animal"
                 ],
                 "selector": "ac",
@@ -39,9 +40,28 @@
                 ],
                 "key": "Aura",
                 "predicate": [
+                    "change-shape:yaoguai",
                     "self:heritage:born-of-celestial"
                 ],
                 "radius": 15
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Yaoguai.UnleashYaoguaiMight.UsedMoveAction",
+                "option": "unleash-elements-concealed",
+                "predicate": [
+                    "self:heritage:born-of-elements"
+                ],
+                "toggleable": true
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "unleash-elements-concealed"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Concealed"
             },
             {
                 "choices": [
@@ -61,6 +81,7 @@
                 "flag": "objectResistanceType",
                 "key": "ChoiceSet",
                 "predicate": [
+                    "change-shape:yaoguai",
                     "self:heritage:born-of-item"
                 ],
                 "prompt": "PF2E.SpecificRule.Prompt.DamageType"
@@ -68,6 +89,7 @@
             {
                 "key": "Resistance",
                 "predicate": [
+                    "change-shape:yaoguai",
                     "self:heritage:born-of-item"
                 ],
                 "type": "{item|flags.pf2e.rulesSelections.objectResistanceType}",
@@ -76,13 +98,65 @@
             {
                 "key": "FastHealing",
                 "predicate": [
+                    "change-shape:yaoguai",
                     "self:heritage:born-of-vegetation"
                 ],
                 "value": 5
             },
             {
+                "key": "CreatureSize",
+                "predicate": [
+                    "change-shape:yaoguai",
+                    {
+                        "not": "legendary-monster-boost:enlarge"
+                    }
+                ],
+                "reach": {
+                    "override": "10"
+                },
+                "resizeEquipment": true,
+                "value": "large"
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "change-shape:yaoguai",
+                    "legendary-monster-boost:enlarge"
+                ],
+                "reach": {
+                    "override": "15"
+                },
+                "resizeEquipment": true,
+                "value": "huge"
+            },
+            {
+                "inMemoryOnly": true,
                 "key": "GrantItem",
-                "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Enlarge"
+                "predicate": [
+                    "change-shape:yaoguai"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "change-shape:yaoguai"
+                ],
+                "selector": "melee-strike-damage",
+                "slug": "unleash-yaoguai-bonus",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "change-shape:yaoguai",
+                    "legendary-monster-boost:enlarge"
+                ],
+                "selector": "melee-strike-damage",
+                "slug": "unleash-yaoguai-bonus",
+                "value": 4
             }
         ],
         "start": {
