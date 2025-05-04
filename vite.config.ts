@@ -66,13 +66,17 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
               })()
             : { foundryPort: 30000, serverPort: 30001 };
 
+    // Add system layer to svelte CSS in HMR
+    const hmrPreprocess = {
+        name: "svelte-hmr-layer",
+        style: ({ content }: { content: string }) => ({ code: `@layer system { ${content} }` }),
+    };
+
     const plugins = [
         checker({ typescript: false }),
         tsconfigPaths({ loose: true }),
         sveltePlugin({
-            preprocess: [
-                { name: "svelte-css-layer", style: ({ content }) => ({ code: `@layer system { ${content} }` }) },
-            ],
+            preprocess: command === "serve" ? hmrPreprocess : undefined,
         }),
     ];
     // Handle minification after build to allow for tree-shaking and whitespace minification
