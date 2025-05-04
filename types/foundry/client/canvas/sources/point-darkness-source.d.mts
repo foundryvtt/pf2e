@@ -1,14 +1,33 @@
-import { Edge } from "../geometry/edges/edge.mjs";
-import { PointEffectLightSource } from "./point-effect-source-mixes.mjs";
+import { LightSourceAnimationConfig } from "@client/config.mjs";
+import { Point } from "@common/_types.mjs";
+import { LightingLevel } from "@common/constants.mjs";
+import { PointSourceMesh } from "../containers/_module.mjs";
+import { PointSourcePolygonConfig } from "../geometry/_types.mjs";
+import BaseLightSource from "./base-light-source.mjs";
+import PointEffectSourceMixin from "./point-effect-source.mjs";
+import { RenderedEffectLayerConfig } from "./rendered-effect-source.mjs";
 
-export default class PointDarknessSource<
-    TObject extends Token | AmbientLight | null,
-> extends PointEffectLightSource<TObject> {
+/**
+ * A specialized subclass of the BaseLightSource which renders a source of darkness as a point-based effect.
+ */
+export default class PointDarknessSource extends PointEffectSourceMixin(BaseLightSource) {
+    static override sourceType: "darkness";
+
+    static override effectsCollection: "darknessSources";
+
+    protected static override _dimLightingLevel: LightingLevel;
+
+    protected static override _brightLightingLevel: LightingLevel;
+
+    static override get ANIMATIONS(): LightSourceAnimationConfig;
+
+    protected static override get _layers(): Record<string, RenderedEffectLayerConfig>;
+
     /**
      * The optional geometric shape is solely utilized for visual representation regarding darkness sources.
      * Used only when an additional radius is added for visuals.
      */
-    _visualShape: PointSourcePolygon;
+    protected _visualShape: PIXI.Polygon;
 
     /**
      * Padding applied on the darkness source shape for visual appearance only.
@@ -16,20 +35,43 @@ export default class PointDarknessSource<
      */
     protected _padding: number;
 
-    /** The Edge instances used by this darkness source */
-    edges: Edge[];
-
     /* -------------------------------------------- */
     /*  Darkness Source Properties                  */
     /* -------------------------------------------- */
 
-    /** A convenience accessor to the darkness layer mesh. */
+    override get requiresEdges(): boolean;
+
+    /**
+     * A convenience accessor to the darkness layer mesh.
+     */
     get darkness(): PointSourceMesh;
+
+    /* -------------------------------------------- */
+    /*  Visibility Testing                          */
+    /* -------------------------------------------- */
+
+    override testPoint(point: Point): boolean;
+
+    /* -------------------------------------------- */
+    /*  Source Initialization and Management        */
+    /* -------------------------------------------- */
+
+    protected override _initialize(data: Record<string, unknown>): void;
+
+    protected override _createShapes(): void;
+
+    protected override _getPolygonConfiguration(): PointSourcePolygonConfig;
+
+    protected override _drawMesh(layerId: string): PIXI.Mesh;
+
+    protected override _updateGeometry(): void;
 
     /* -------------------------------------------- */
     /*  Shader Management                           */
     /* -------------------------------------------- */
 
-    /** Update the uniforms of the shader on the darkness layer. */
-    _updateDarknessUniforms(): void;
+    /**
+     * Update the uniforms of the shader on the darkness layer.
+     */
+    protected _updateDarknessUniforms(): void;
 }
