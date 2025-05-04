@@ -12,7 +12,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You can alter your exoskeleton's size. You constantly gain the effects of @UUID[Compendium.pf2e.spells-srd.Item.Enlarge]. You can dismiss or resume these effects as an action, which has the concentrate trait.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Enlarge]</p>"
+            "value": "<p>You can alter your exoskeleton's size. You constantly gain the effects of @UUID[Compendium.pf2e.spells-srd.Item.Enlarge]. You can dismiss or resume these effects as an action, which has the concentrate trait.</p>"
         },
         "level": {
             "value": 13
@@ -25,7 +25,42 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens The Mwangi Expanse"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "ceremony-of-growth",
+                "toggleable": true
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "ceremony-of-growth"
+                ],
+                "reach": {
+                    "override": "10"
+                },
+                "resizeEquipment": true,
+                "value": "large"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "ceremony-of-growth"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "ceremony-of-growth"
+                ],
+                "selector": "melee-strike-damage",
+                "type": "status",
+                "value": 2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
