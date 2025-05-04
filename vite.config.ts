@@ -96,6 +96,17 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                 ],
             }),
         );
+    } else if (command === "serve") {
+        const file = path.resolve(__dirname, "src/pf2e.ts").replaceAll("\\", "/");
+        plugins.push({
+            name: "hmr-layers",
+            transform: (code, id) => {
+                if (id === file) {
+                    return code.replace("styles/main.scss", "styles/vite-hmr.scss");
+                }
+                return;
+            },
+        });
     } else {
         plugins.push(
             // Foundry expects all esm files listed in system.json to exist: create empty vendor module when in dev mode
