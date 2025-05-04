@@ -5,6 +5,7 @@ import { DocumentSheetConfiguration } from "@client/applications/api/document-sh
 import { HandlebarsRenderOptions } from "@client/applications/api/handlebars-application.mjs";
 import FormDataExtended from "@client/applications/ux/form-data-extended.mjs";
 import { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import { SettingsMenuOptions } from "@system/settings/menu.ts";
 import { createHTMLElement, ErrorPF2e, htmlQuery } from "@util";
 import type { TokenDocumentPF2e } from "./index.ts";
 
@@ -148,12 +149,10 @@ class TokenConfigPF2e extends fa.sheets.TokenConfig {
         const managedBy = createHTMLElement("button", {
             classes: ["inline-control", "icon", "fa-solid", "fa-robot"],
             dataset: { action: "openAutomationSettings", tooltip: true },
+            aria: { label: game.i18n.localize("PF2E.SETTINGS.Automation.RulesBasedVision.ManagedBy") },
         });
         managedBy.type = "button";
         managedBy.disabled = !game.user.isGM;
-        managedBy.ariaLabel = game.i18n
-            .localize("PF2E.SETTINGS.Automation.RulesBasedVision.ManagedBy")
-            .replace(/<\/?rbv>/g, "");
         for (const sightInput of sightInputs) {
             const button = managedBy.cloneNode(true);
             const label = sightInput.closest(".form-group")?.querySelector("label");
@@ -167,8 +166,12 @@ class TokenConfigPF2e extends fa.sheets.TokenConfig {
     /* -------------------------------------------- */
 
     static async #onClickOpenAutomationSettings(): Promise<void> {
-        const MenuCls = game.settings.menus.get("pf2e.automation")?.type;
-        if (MenuCls) await new MenuCls().render(true);
+        const menu = game.settings.menus.get("pf2e.automation");
+        if (menu) {
+            const options: Partial<SettingsMenuOptions> = { highlightSetting: "rulesBasedVision" };
+            const app = new menu.type(undefined, options);
+            app.render(true);
+        }
     }
 
     /** Disable the range input for token scale and style to indicate as much */
