@@ -1,17 +1,18 @@
+import Document, { DocumentMetadata } from "@common/abstract/document.mjs";
 import { ImageFilePath, TokenDisplayMode, TokenDisposition, VideoFilePath } from "@common/constants.mjs";
-import * as abstract from "../abstract/_module.mjs";
 import * as data from "../data/data.mjs";
 import * as fields from "../data/fields.mjs";
-import * as documents from "./_module.mjs";
+import { BaseActorDelta, BaseScene } from "./_module.mjs";
 
 /**
  * The Token document model.
  * @param data Initial data from which to construct the document.
  * @property data The constructed data object for the document.
  */
-export default class BaseToken<
-    TParent extends documents.BaseScene | null = documents.BaseScene | null,
-> extends abstract.Document<TParent, TokenSchema> {
+export default class BaseToken<TParent extends BaseScene | null = BaseScene | null> extends Document<
+    TParent,
+    TokenSchema
+> {
     static override get metadata(): TokenMetadata;
 
     static override defineSchema(): TokenSchema;
@@ -20,14 +21,14 @@ export default class BaseToken<
     static DEFAULT_ICON: ImageFilePath | VideoFilePath;
 }
 
-export default interface BaseToken<TParent extends documents.BaseScene | null = documents.BaseScene | null>
-    extends abstract.Document<TParent, TokenSchema>,
+export default interface BaseToken<TParent extends BaseScene | null = BaseScene | null>
+    extends Document<TParent, TokenSchema>,
         fields.ModelPropsFromSchema<TokenSchema> {
-    delta: documents.BaseActorDelta<this> | null;
+    delta: BaseActorDelta<this> | null;
     light: data.LightData<this>;
 }
 
-interface TokenMetadata extends abstract.DocumentMetadata {
+interface TokenMetadata extends DocumentMetadata {
     name: "Token";
     collection: "tokens";
     label: "DOCUMENT.Token";
@@ -53,7 +54,7 @@ type TokenSchema = {
      * The ActorDelta embedded document which stores the differences between this token and the base actor it
      * represents.
      */
-    delta: ActorDeltaField<documents.BaseActorDelta<BaseToken>>;
+    // delta: ActorDeltaField;
     appendNumber: fields.BooleanField;
     prependAdjective: fields.BooleanField;
     /** The width of the Token in grid units */
@@ -152,8 +153,8 @@ type TokenSchema = {
 
 export type TokenSource = fields.SourceFromSchema<TokenSchema>;
 
-declare class ActorDeltaField<
-    TDocument extends documents.BaseActorDelta<BaseToken> = documents.BaseActorDelta<BaseToken>,
+export class ActorDeltaField<
+    TDocument extends BaseActorDelta<BaseToken> = BaseActorDelta<BaseToken>,
 > extends fields.EmbeddedDocumentField<TDocument> {
     override initialize(
         value: fields.MaybeSchemaProp<TDocument["_source"], true, true, true>,

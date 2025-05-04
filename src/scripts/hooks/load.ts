@@ -44,7 +44,6 @@ import {
     TileDocumentPF2e,
     TokenDocumentPF2e,
 } from "@scene/index.ts";
-import { ActorDeltaPF2e } from "@scene/token-document/actor-delta.ts";
 import { monkeyPatchFoundry } from "@scripts/🐵🩹.ts";
 import { CheckRoll, StrikeAttackRoll } from "@system/check/roll.ts";
 import { ClientDatabaseBackendPF2e } from "@system/client-backend.ts";
@@ -63,7 +62,6 @@ export const Load = {
         CONFIG.ActiveEffect.documentClass = ActiveEffectPF2e;
         CONFIG.Actor.collection = ActorsPF2e;
         CONFIG.Actor.documentClass = ActorProxyPF2e;
-        CONFIG.ActorDelta.documentClass = ActorDeltaPF2e;
         CONFIG.AmbientLight.documentClass = AmbientLightDocumentPF2e;
         CONFIG.AmbientLight.objectClass = AmbientLightPF2e;
         CONFIG.ChatMessage.documentClass = ChatMessagePF2e;
