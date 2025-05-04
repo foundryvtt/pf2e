@@ -9,6 +9,12 @@ import { ErrorPF2e, createHTMLElement, fontAwesomeIcon, htmlQuery, htmlQueryAll,
 import Sortable from "sortablejs";
 import tabs = fa.sidebar.tabs;
 
+interface EncounterMetricsContext {
+    visible: boolean;
+    threat: { label: string; tooltip: string };
+    award: { label: string; tooltip: string };
+}
+
 export class EncounterTracker<TEncounter extends EncounterPF2e | null> extends tabs.CombatTracker<TEncounter> {
     static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
         actions: {
@@ -17,7 +23,64 @@ export class EncounterTracker<TEncounter extends EncounterPF2e | null> extends t
         },
     };
 
+    static override PARTS = {
+        ...super.PARTS,
+        metrics: { template: "systems/pf2e/templates/sidebar/encounter-tracker/metrics.hbs" },
+    };
+
     #sortable: Sortable | null = null;
+
+    protected override _configureRenderOptions(options: Partial<HandlebarsRenderOptions>): void {
+        const parts = options.parts ?? [];
+        if (parts.includes("tracker") && !parts.includes("metrics")) parts.push("metrics");
+        super._configureRenderOptions(options);
+    }
+
+    protected override async _preparePartContext(
+        partId: string,
+        context: ApplicationRenderContext,
+        options: HandlebarsRenderOptions,
+    ): Promise<ApplicationRenderContext> {
+        const partContext = await super._preparePartContext(partId, context, options);
+        if (partId === "metrics") Object.assign(partContext, { metrics: this.#prepareMetrics() });
+        return partContext;
+    }
+
+    /** Inject encounter metrics into the header part. */
+    #prepareMetrics(): EncounterMetricsContext {
+        const notVisible = { visible: false, threat: { label: "", tooltip: "" }, award: { label: "", tooltip: "" } };
+        if (!game.user.isGM) return notVisible;
+        const metrics = this.viewed?.metrics;
+        if (!metrics) return notVisible;
+
+        const localize = localizer("PF2E.Encounter.Metrics");
+        const threat = ((): { label: string; tooltip: string } => {
+            const label = game.i18n.localize(`PF2E.Encounter.Budget.Threats.${metrics.threat}`);
+            const tempContainer = createHTMLElement("div", { innerHTML: localize("Threat", { threat: label }) });
+            TextEditorPF2e.convertXMLNode(tempContainer, "threat", { classes: ["value", metrics.threat] });
+            const tooltip = localize("Budget", metrics.budget);
+            return { label: tempContainer.innerHTML, tooltip };
+        })();
+
+        const award = ((): { label: string; tooltip: string } => {
+            const tempContainer = createHTMLElement("div", {
+                innerHTML: localize("Award.Label", { xp: metrics.award.xp }),
+            });
+            TextEditorPF2e.convertXMLNode(tempContainer, "award", { classes: ["value"] });
+            const numRecipients = metrics.award.recipients.length;
+            const tooltip = localize(
+                numRecipients === 1
+                    ? "Award.Tooltip.Singular"
+                    : numRecipients === 4
+                      ? "Award.Tooltip.Four"
+                      : "Award.Tooltip.Plural",
+                { xpPerFour: metrics.budget.spent, recipients: numRecipients },
+            );
+            return { label: tempContainer.innerHTML, tooltip };
+        })();
+
+        return { visible: true, threat, award };
+    }
 
     /** Show encounter analysis data if obtainable */
     protected override async _onRender(
@@ -25,11 +88,19 @@ export class EncounterTracker<TEncounter extends EncounterPF2e | null> extends t
         options: HandlebarsRenderOptions,
     ): Promise<void> {
         await super._onRender(context, options);
+        if (options.parts.includes("header")) {
+            const metricsPart = this.parts["metrics"];
+            metricsPart.remove();
+            this.parts["header"].querySelector("nav")?.after(metricsPart);
+        }
+        if (options.parts.includes("tracker")) this.#onRenderTracker();
+        if (game.user.isGM) this.#createSortable();
+    }
+
+    #onRenderTracker() {
         const encounter = this.viewed;
         const tracker = <HTMLOListElement | null>this.element.querySelector("ol.combat-tracker");
         if (!encounter || !tracker) return;
-
-        await this.#injectMetrics();
         const tokenSetsNameVisibility = game.pf2e.settings.tokens.nameVisibility;
         const allyColor = (c: CombatantPF2e<EncounterPF2e>) =>
             c.actor?.hasPlayerOwner ? CONFIG.Canvas.dispositionColors.PARTY : CONFIG.Canvas.dispositionColors.FRIENDLY;
@@ -116,49 +187,6 @@ export class EncounterTracker<TEncounter extends EncounterPF2e | null> extends t
                 }
             }
         }
-
-        // Defer to Combat Enhancements module if in use
-        if (!game.user.isGM) return;
-        this.#createSortable();
-    }
-
-    /** Inject encounter metrics into the header part. */
-    async #injectMetrics(): Promise<void> {
-        if (!game.user.isGM) return;
-        const metrics = this.viewed?.metrics;
-        if (!metrics) return;
-
-        const localize = localizer("PF2E.Encounter.Metrics");
-        const threat = ((): { label: string; tooltip: string } => {
-            const label = game.i18n.localize(`PF2E.Encounter.Budget.Threats.${metrics.threat}`);
-            const tooltip = localize("Budget", metrics.budget);
-            const tempContainer = createHTMLElement("div", { innerHTML: localize("Threat", { threat: label }) });
-            TextEditorPF2e.convertXMLNode(tempContainer, "threat", { classes: ["value", metrics.threat] });
-            return { label: tempContainer.innerHTML, tooltip };
-        })();
-
-        const award = ((): { label: string; tooltip: string } => {
-            const label = localize("Award.Label", { xp: metrics.award.xp });
-            const numRecipients = metrics.award.recipients.length;
-            const tooltip = localize(
-                numRecipients === 1
-                    ? "Award.Tooltip.Singular"
-                    : numRecipients === 4
-                      ? "Award.Tooltip.Four"
-                      : "Award.Tooltip.Plural",
-                { xpPerFour: metrics.budget.spent, recipients: numRecipients },
-            );
-            return { label, tooltip };
-        })();
-
-        const threatAward = await (async () => {
-            const path = "systems/pf2e/templates/sidebar/encounter-tracker/threat-award.hbs";
-            const content = await fa.handlebars.renderTemplate(path, { threat, award });
-            const html = <HTMLElement>fu.parseHTML(content);
-            TextEditorPF2e.convertXMLNode(html, "award", { classes: ["value"] });
-            return html;
-        })();
-        if (threatAward) htmlQuery(this.element, "nav.encounters")?.after(threatAward);
     }
 
     /** Refresh the list of users targeting a combatant's token as well as the active state of the target toggle */
