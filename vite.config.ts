@@ -66,7 +66,19 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
               })()
             : { foundryPort: 30000, serverPort: 30001 };
 
-    const plugins = [checker({ typescript: false }), tsconfigPaths({ loose: true }), sveltePlugin()];
+    // Add system layer to svelte CSS in HMR
+    const hmrPreprocess = {
+        name: "svelte-hmr-layer",
+        style: ({ content }: { content: string }) => ({ code: `@layer system { ${content} }` }),
+    };
+
+    const plugins = [
+        checker({ typescript: false }),
+        tsconfigPaths({ loose: true }),
+        sveltePlugin({
+            preprocess: command === "serve" ? hmrPreprocess : undefined,
+        }),
+    ];
     // Handle minification after build to allow for tree-shaking and whitespace minification
     // "Note the build.minify option does not minify whitespaces when using the 'es' format in lib mode, as it removes
     // pure annotations and breaks tree-shaking."
@@ -96,6 +108,17 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                 ],
             }),
         );
+    } else if (command === "serve") {
+        const file = path.resolve(__dirname, "src/pf2e.ts").replaceAll("\\", "/");
+        plugins.push({
+            name: "hmr-layers",
+            transform: (code, id) => {
+                if (id === file) {
+                    return code.replace("styles/main.scss", "styles/vite-hmr.scss");
+                }
+                return;
+            },
+        });
     } else {
         plugins.push(
             // Foundry expects all esm files listed in system.json to exist: create empty vendor module when in dev mode
