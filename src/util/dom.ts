@@ -7,13 +7,15 @@ type MaybeHTML = Maybe<Document | Element | EventTarget>;
 /**
  * Create an `HTMLElement` with classes, dataset, and children
  * @param nodeName  A valid HTML element tag name,
- * @param [options] Additional options for adjusting the created element
- * @param [options.classes=[]]  A list of class names
- * @param [options.dataset={}]  An object of keys and values with which to populate the `dataset`: nullish values will
- *                              be excluded.
- * @param [options.children=[]] A list of child elements as well as strings that will be converted to text nodes
- * @param [options.innerHTML]   A string to set as the inner HTML of the created element. Only one of `children` and
- *                              `innerHTML` can be used.
+ * @param options Additional options for adjusting the created element
+ * @param options.classes A list of class names
+ * @param options.dataset An object of keys and values with which to populate the `dataset`: nullish values and `false`
+ *                        will be excluded. A value of `true` will result in an empty-string value.
+ * @param options.aria An object of keys and values with which to populate the `dataset`: nullish values and `false`
+ *                     will be excluded.
+ * @param options.children A list of child elements as well as strings that will be converted to text nodes
+ * @param options.innerHTML A string to set as the inner HTML of the created element. Only one of `children` and
+ *                          `innerHTML` can be used.
  * @returns The HTML element with all options applied
  */
 function createHTMLElement<K extends keyof HTMLElementTagNameMap>(
@@ -30,13 +32,18 @@ function createHTMLElement<K extends keyof HTMLElementTagNameMap>(
 ): HTMLElementTagNameMap[K];
 function createHTMLElement<K extends keyof HTMLElementTagNameMap>(
     nodeName: K,
-    { classes = [], dataset = {}, children = [], innerHTML }: CreateHTMLElementOptions = {},
+    { classes = [], dataset = {}, aria = {}, children = [], innerHTML }: CreateHTMLElementOptions = {},
 ): HTMLElementTagNameMap[K] {
     const element = document.createElement(nodeName);
     if (classes.length > 0) element.classList.add(...classes);
 
-    for (const [key, value] of Object.entries(dataset).filter(([, v]) => R.isNonNullish(v) && v !== false)) {
+    for (const [key, value] of Object.entries(dataset)) {
+        if (R.isNullish(value) || value === false) continue;
         element.dataset[key] = value === true ? "" : String(value);
+    }
+    for (const [key, value] of Object.entries(aria)) {
+        if (R.isNullish(value) || value === false) continue;
+        element.setAttribute(`aria-${key}`, value);
     }
 
     if (innerHTML) {
@@ -54,6 +61,7 @@ function createHTMLElement<K extends keyof HTMLElementTagNameMap>(
 interface CreateHTMLElementOptions {
     classes?: string[];
     dataset?: Record<string, Maybe<string | number | boolean>>;
+    aria?: Record<string, Maybe<string | false>>;
     children?: (HTMLElement | string)[];
     innerHTML?: string;
 }

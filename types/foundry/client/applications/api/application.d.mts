@@ -1,3 +1,4 @@
+import EventEmitterMixin from "@common/utils/event-emitter.mjs";
 import {
     ApplicationClosingOptions,
     ApplicationConfiguration,
@@ -16,7 +17,7 @@ export default abstract class ApplicationV2<
     TConfig extends ApplicationConfiguration = ApplicationConfiguration,
     TRenderOptions extends ApplicationRenderOptions = ApplicationRenderOptions,
     TRenderContext extends object = object,
-> {
+> extends EventEmitterMixin() {
     constructor(options?: DeepPartial<TConfig>);
 
     /**
