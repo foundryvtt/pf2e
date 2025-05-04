@@ -1,3 +1,4 @@
+import User from "@client/documents/user.mjs";
 import DocumentSheetV2, { DocumentSheetConfiguration, DocumentSheetRenderOptions } from "../api/document-sheet.mjs";
 import HandlebarsApplicationMixin, { HandlebarsTemplatePart } from "../api/handlebars-application.mjs";
 

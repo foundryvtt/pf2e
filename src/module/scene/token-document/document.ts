@@ -10,6 +10,7 @@ import type {
     DatabaseDeleteOperation,
     DatabaseUpdateOperation,
 } from "@common/abstract/_types.d.mts";
+import type { ImageFilePath, TokenDisplayMode, VideoFilePath } from "@common/constants.d.mts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import { TokenAnimationOptionsPF2e } from "@module/canvas/token/object.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
@@ -559,7 +560,7 @@ interface TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null>
     get actor(): ActorPF2e<this | null> | null;
     get combatant(): CombatantPF2e<EncounterPF2e, this> | null;
     get object(): TokenPF2e<this> | null;
-    get sheet(): TokenConfigPF2e<this>;
+    get sheet(): TokenConfigPF2e;
 }
 
 export { TokenDocumentPF2e };

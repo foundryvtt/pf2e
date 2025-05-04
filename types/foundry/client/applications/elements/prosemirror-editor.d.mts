@@ -1,5 +1,6 @@
 import { DocumentUUID } from "@client/utils/_module.mjs";
 import { FormInputConfig } from "@common/data/_types.mjs";
+import * as ProseMirror from "prosemirror-state";
 import AbstractFormInputElement from "./form-element.mjs";
 
 /**
