@@ -66,7 +66,15 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
               })()
             : { foundryPort: 30000, serverPort: 30001 };
 
-    const plugins = [checker({ typescript: false }), tsconfigPaths({ loose: true }), sveltePlugin()];
+    const plugins = [
+        checker({ typescript: false }),
+        tsconfigPaths({ loose: true }),
+        sveltePlugin({
+            preprocess: [
+                { name: "svelte-css-layer", style: ({ content }) => ({ code: `@layer system { ${content} }` }) },
+            ],
+        }),
+    ];
     // Handle minification after build to allow for tree-shaking and whitespace minification
     // "Note the build.minify option does not minify whitespaces when using the 'es' format in lib mode, as it removes
     // pure annotations and breaks tree-shaking."
