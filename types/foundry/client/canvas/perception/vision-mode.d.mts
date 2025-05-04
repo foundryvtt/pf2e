@@ -1,4 +1,4 @@
-import { DataModel } from "@common/abstract/module.mjs";
+import DataModel from "@common/abstract/data.mjs";
 import * as fields from "@common/data/fields.mjs";
 import Token from "../placeables/token.mjs";
 import PointVisionSource from "../sources/point-vision-source.mjs";
@@ -83,7 +83,9 @@ export default class VisionMode extends DataModel<null, VisionModeSchema> {
     animate(dt: number): Promise<void>;
 }
 
-export default interface VisionMode extends DataModel<null, VisionModeSchema>, ModelPropsFromSchema<VisionModeSchema> {}
+export default interface VisionMode
+    extends DataModel<null, VisionModeSchema>,
+        fields.ModelPropsFromSchema<VisionModeSchema> {}
 
 export type LightingVisibility = (typeof VisionMode.LIGHTING_VISIBILITY)[keyof typeof VisionMode.LIGHTING_VISIBILITY];
 

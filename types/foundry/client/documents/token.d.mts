@@ -1,3 +1,4 @@
+import TokenConfig from "@client/applications/sheets/token/token-config.mjs";
 import { DocumentConstructionContext } from "@common/_types.mjs";
 import {
     DatabaseCreateOperation,
@@ -10,7 +11,6 @@ import Collection from "@common/utils/collection.mjs";
 import Token, { TokenAnimationOptions, TokenResourceData } from "../canvas/placeables/token.mjs";
 import {
     Actor,
-    ActorDelta,
     BaseToken,
     Combat,
     Combatant,
@@ -229,10 +229,8 @@ export default class TokenDocument<TParent extends Scene | null = Scene | null> 
 }
 
 export default interface TokenDocument<TParent extends Scene | null = Scene | null> extends CanvasBaseToken<TParent> {
-    delta: ActorDelta<this> | null;
-
     get object(): Token<this> | null;
-    get sheet(): TokenConfig<this>;
+    get sheet(): TokenConfig;
     get uuid(): TokenDocumentUUID;
 }
 

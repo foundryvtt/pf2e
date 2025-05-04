@@ -22,6 +22,11 @@ import { AlertPing, ArrowPing, ChevronPing, PulsePing, Ruler } from "./canvas/in
 import * as layers from "./canvas/layers/_module.mjs";
 import * as perception from "./canvas/perception/_module.mjs";
 import * as placeables from "./canvas/placeables/_module.mjs";
+import {
+    AdaptiveBackgroundShader,
+    AdaptiveColorationShader,
+    AdaptiveIlluminationShader,
+} from "./canvas/rendering/shaders/_module.mjs";
 import type {
     GlobalLightSource,
     PointDarknessSource,
@@ -61,6 +66,20 @@ export interface TextEditorEnricherConfig {
      */
     onRender?: (arg0: HTMLEnrichedContentElement) => unknown;
 }
+
+/**
+ * A light source animation configuration object.
+ */
+export type LightSourceAnimationConfig = Record<
+    string,
+    {
+        label: string;
+        animation: Function;
+        backgroundShader?: typeof AdaptiveBackgroundShader;
+        illuminationShader?: typeof AdaptiveIlluminationShader;
+        colorationShader: typeof AdaptiveColorationShader;
+    }
+>;
 
 export default interface Config<
     TAmbientLightDocument extends documents.AmbientLightDocument<TScene | null>,
