@@ -17,7 +17,7 @@ export default class SceneConfig<TDocument extends Scene> extends HandlebarsAppl
 
     static override TABS: Record<string, ApplicationTabsConfiguration>;
 
-    override _prepareContext(options: HandlebarsRenderOptions): Promise<Record<string, unknown>>;
+    protected override _prepareContext(options: HandlebarsRenderOptions): Promise<Record<string, unknown>>;
 
     protected override _preparePartContext(
         partId: string,
