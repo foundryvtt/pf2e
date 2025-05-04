@@ -200,6 +200,8 @@ export const LIGHTING_LEVELS: Readonly<{
     BRIGHTEST: 3;
 }>;
 
+export type LightingLevel = (typeof LIGHTING_LEVELS)[keyof typeof LIGHTING_LEVELS];
+
 /**
  * The CSS themes which are currently supported for the V11 Setup menu.
  */

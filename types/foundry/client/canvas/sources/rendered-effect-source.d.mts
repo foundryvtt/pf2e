@@ -1,3 +1,6 @@
+import Color from "@common/utils/color.mjs";
+import { PointSourceMesh } from "../containers/_module.mjs";
+import { AbstractBaseShader, AdaptiveLightingShader } from "../rendering/shaders/_module.mjs";
 import type BaseEffectSource from "./base-effect-source.mjs";
 import type { BaseEffectSourceOptions } from "./base-effect-source.mjs";
 
@@ -7,12 +10,17 @@ import type { BaseEffectSourceOptions } from "./base-effect-source.mjs";
  * An abstract class which extends the base PointSource to provide common functionality for rendering.
  * This class is extended by both the LightSource and VisionSource subclasses.
  */
-export default class RenderedEffectSource<TObject extends PlaceableObject | null> extends BaseEffectSource<TObject> {
+export default class RenderedEffectSource extends BaseEffectSource {
     /** Keys of the data object which require shaders to be re-initialized. */
     protected static _initializeShaderKeys: string[];
 
     /** Keys of the data object which require uniforms to be refreshed. */
     protected static _refreshUniformsKeys: string[];
+
+    /**
+     * Layers handled by this rendered source.
+     */
+    protected static get _layers(): Record<string, RenderedEffectLayerConfig>;
 
     /** The offset in pixels applied to create soft edges. */
     static EDGE_OFFSET: number;
@@ -62,6 +70,12 @@ export default class RenderedEffectSource<TObject extends PlaceableObject | null
     protected override _initialize(data: object): void;
 
     protected override _configure(changes: object): void;
+
+    /**
+     * Configure which shaders are used for each rendered layer.
+     * @returns An object whose keys are layer identifiers and whose values are shader classes.
+     */
+    protected _configureShaders(): Record<string, typeof AdaptiveLightingShader>;
 
     /** Decide whether to render soft edges with a blur. */
     protected _configureSoftEdges(): void;
@@ -169,7 +183,7 @@ interface RenderedPointSourceAnimationConfig {
     time?: number;
 }
 
-interface RendereedEffectLayerConfig {
+interface RenderedEffectLayerConfig {
     defaultShader: AdaptiveLightingShader;
     blendMode: PIXI.BLEND_MODES;
 }

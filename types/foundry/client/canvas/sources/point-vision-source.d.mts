@@ -1,13 +1,15 @@
 import { PointSourcePolygon, PointSourcePolygonConfig } from "../geometry/_module.mjs";
 import VisionMode from "../perception/vision-mode.mjs";
-import Token from "../placeables/token.mjs";
-import { PointRenderedEffectSource } from "./point-effect-source-mixes.mjs";
-import { RenderedEffectSourceData, RenderedEffectSourceLayer } from "./rendered-effect-source.mjs";
+import { AdaptiveLightingShader, AdaptiveVisionShader } from "../rendering/shaders/_module.mjs";
+import PointEffectSourceMixin from "./point-effect-source.mjs";
+import RenderedEffectSource, {
+    RenderedEffectLayerConfig,
+    RenderedEffectSourceData,
+    RenderedEffectSourceLayer,
+} from "./rendered-effect-source.mjs";
 
 /** A specialized subclass of the PointSource abstraction which is used to control the rendering of vision sources. */
-export default class PointVisionSource<
-    TObject extends Token | null = Token | null,
-> extends PointRenderedEffectSource<TObject> {
+export default class PointVisionSource extends PointEffectSourceMixin(RenderedEffectSource) {
     static sourceType: "sight";
 
     protected static override _initializeShaderKeys: string[];
@@ -22,15 +24,23 @@ export default class PointVisionSource<
 
     static override EDGE_OFFSET: number;
 
+    static override effectsCollection: "visionSources";
+
+    static override defaultData: RenderedEffectSourceData;
+
+    static override get _layers(): Record<"background" | "coloration" | "illumination", RenderedEffectLayerConfig>;
+
     /* -------------------------------------------- */
     /*  Vision Source Attributes                    */
     /* -------------------------------------------- */
 
-    /** The object of data which configures how the source is rendered */
-    data: VisionSourceData;
-
     /** The vision mode linked to this VisionSource */
     visionMode: VisionMode | null;
+
+    /**
+     * The vision mode activation flag for handlers
+     */
+    _visionModeActivated: boolean;
 
     /** The unconstrained LOS polygon. */
     los: PointSourcePolygon;
@@ -103,17 +113,20 @@ export default class PointVisionSource<
     /*  Shader Management                           */
     /* -------------------------------------------- */
 
-    /** Update shader uniforms by providing data from this VisionSource. */
-    protected _updateColorationUniforms(): void;
+    protected override _configureShaders(): Record<string, typeof AdaptiveLightingShader>;
 
-    /** Update shader uniforms by providing data from this VisionSource. */
-    protected _updateIlluminationUniforms(): void;
+    protected override _updateColorationUniforms(): void;
+
+    protected override _updateIlluminationUniforms(): void;
+
+    protected override _updateBackgroundUniforms(): void;
+
+    protected override _updateCommonUniforms(shader: AdaptiveLightingShader): void;
 
     /**
      * Update layer uniforms according to vision mode uniforms, if any.
-     * @param {AdaptiveVisionShader} shader        The shader being updated.
-     * @param {Array} vmUniforms                   The targeted layer.
-     * @protected
+     * @param shader The shader being updated.
+     * @param vmUniforms The targeted layer.
      */
     protected _updateVisionModeUniforms(shader: AdaptiveVisionShader, vmUniforms: unknown[]): void;
 }

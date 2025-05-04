@@ -47,7 +47,6 @@ import type {
     TileDocumentPF2e,
     TokenDocumentPF2e,
 } from "@scene";
-import type { ActorDeltaPF2e } from "@scene/token-document/actor-delta.ts";
 import type { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config/index.ts";
 import type { DicePF2e } from "@scripts/dice.ts";
 import type {
@@ -282,7 +281,7 @@ type ConfiguredConfig = Config<
     AmbientLightDocumentPF2e<ScenePF2e | null>,
     ActiveEffectPF2e<ActorPF2e | ItemPF2e | null>,
     ActorPF2e,
-    ActorDeltaPF2e<TokenDocumentPF2e>,
+    ActorDelta<TokenDocumentPF2e>,
     ChatLogPF2e,
     ChatMessagePF2e,
     EncounterPF2e,
