@@ -1,4 +1,5 @@
-import { AbstractFormInputElement } from "./form-element.mjs";
+import { MultiSelectInputConfig } from "../forms/fields.mjs";
+import AbstractFormInputElement from "./form-element.mjs";
 
 /**
  * An abstract base class designed to standardize the behavior for a multi-select UI component.
