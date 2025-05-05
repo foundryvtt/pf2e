@@ -109,12 +109,18 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             }),
         );
     } else if (command === "serve") {
-        const file = path.resolve(__dirname, "src/pf2e.ts").replaceAll("\\", "/");
+        const mainCss = path.resolve(__dirname, "src/pf2e.ts").split(path.sep).join("/");
+        const libraryCss = [
+            path.resolve(__dirname, "node_modules/@yaireo/tagify/dist/tagify.css").split(path.sep).join("/"),
+            path.resolve(__dirname, "node_modules/nouislider/dist/nouislider.min.css").split(path.sep).join("/"),
+        ];
         plugins.push({
             name: "hmr-layers",
             transform: (code, id) => {
-                if (id === file) {
+                if (id === mainCss) {
                     return code.replace("styles/main.scss", "styles/vite-hmr.scss");
+                } else if (libraryCss.includes(id)) {
+                    return `@layer system { ${code} }`;
                 }
                 return;
             },
