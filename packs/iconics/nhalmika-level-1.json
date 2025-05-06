@@ -1,0 +1,2416 @@
+{
+    "_id": "Y5XkYihML4IQZQMz",
+    "img": "systems/pf2e/icons/iconics/NhalmikaFull.webp",
+    "items": [
+        {
+            "_id": "czTdyMxPKvbeL5LE",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.ancestries.Item.BYj5ZvlXZdpaEgA6"
+            },
+            "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/dwarf.svg",
+            "name": "Dwarf",
+            "sort": 0,
+            "system": {
+                "additionalLanguages": {
+                    "count": 0,
+                    "custom": "",
+                    "value": [
+                        "gnomish",
+                        "goblin",
+                        "jotun",
+                        "orcish",
+                        "petran",
+                        "sakvroth"
+                    ]
+                },
+                "boosts": {
+                    "0": {
+                        "value": [
+                            "con"
+                        ]
+                    },
+                    "1": {
+                        "value": [
+                            "wis"
+                        ]
+                    },
+                    "2": {
+                        "selected": "str",
+                        "value": [
+                            "str",
+                            "dex",
+                            "con",
+                            "int",
+                            "wis",
+                            "cha"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p><em>Dwarves have a well-earned reputation as a stoic and stern people, ensconced within citadels and cities carved from solid rock. While some see them as dour and humorless crafters of stone and metal, dwarves and those who have spent time among them understand their unbridled zeal for their work, caring far more about quality than quantity. To a stranger, they can seem untrusting and clannish, but to their friends and family, they are warm and caring, their halls filled with the sounds of laughter and hammers hitting anvils.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.45SK8rdbbxvEHfMn.JournalEntryPage.XzRv30zY3UXRbBho]{Dwarf}</em></p>"
+                },
+                "flaws": {
+                    "0": {
+                        "value": [
+                            "cha"
+                        ]
+                    }
+                },
+                "hp": 10,
+                "items": {
+                    "5vjeq": {
+                        "img": "systems/pf2e/icons/equipment/weapons/clan-dagger.webp",
+                        "level": 0,
+                        "name": "Clan Dagger",
+                        "uuid": "Compendium.pf2e.ancestryfeatures.Item.Clan Dagger"
+                    }
+                },
+                "languages": {
+                    "custom": "",
+                    "value": [
+                        "common",
+                        "dwarven"
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "reach": 5,
+                "rules": [],
+                "size": "med",
+                "slug": "dwarf",
+                "speed": 20,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "dwarf",
+                        "humanoid"
+                    ]
+                },
+                "vision": "darkvision"
+            },
+            "type": "ancestry"
+        },
+        {
+            "_id": "G7gh5BRG6bZEKInM",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.ancestryfeatures.Item.Eyuqu6eIaoGCjnMv"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "clanDagger": {
+                            "id": "d5GpCtAMWW65tBXv",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/clan-dagger.webp",
+            "name": "Clan Dagger",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestryfeature",
+                "description": {
+                    "value": "<p>You get one @UUID[Compendium.pf2e.equipment-srd.Item.Clan Dagger] of your clan for free, as it was given to you at birth. Selling this dagger is a terrible taboo and earns you the disdain of other dwarves.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "czTdyMxPKvbeL5LE",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "allowedDrops": {
+                            "label": "level-0 dwarf weapon",
+                            "predicate": [
+                                "item:level:0",
+                                "item:trait:dwarf",
+                                "item:type:weapon"
+                            ]
+                        },
+                        "choices": [
+                            {
+                                "img": "systems/pf2e/icons/equipment/weapons/clan-dagger.webp",
+                                "label": "PF2E.Weapon.Base.clan-dagger",
+                                "value": "clan-dagger"
+                            },
+                            {
+                                "img": "systems/pf2e/icons/equipment/weapons/clan-pistol.webp",
+                                "label": "PF2E.SpecificRule.ClanWeapon.ClanPistol",
+                                "value": "clan-pistol"
+                            }
+                        ],
+                        "flag": "clanWeapon",
+                        "key": "ChoiceSet",
+                        "label": "PF2E.SpecificRule.ClanWeapon.Label",
+                        "prompt": "PF2E.SpecificRule.ClanWeapon.Prompt",
+                        "selection": "clan-dagger"
+                    },
+                    {
+                        "flag": "clanDagger",
+                        "key": "GrantItem",
+                        "predicate": [
+                            "clan-dagger"
+                        ],
+                        "uuid": "Compendium.pf2e.equipment-srd.Item.Clan Dagger"
+                    },
+                    {
+                        "flag": "clanPistol",
+                        "key": "GrantItem",
+                        "nestFeat": false,
+                        "predicate": [
+                            "clan-pistol"
+                        ],
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Clan Pistol"
+                    }
+                ],
+                "slug": "clan-dagger",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "dwarf"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "d5GpCtAMWW65tBXv",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.kJJvKm80KwWXPukV"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "G7gh5BRG6bZEKInM",
+                        "onDelete": "detach"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/clan-dagger.webp",
+            "name": "Clan Dagger",
+            "sort": 0,
+            "system": {
+                "baseItem": "clan-dagger",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d4"
+                },
+                "description": {
+                    "value": "<p>This broad dagger is carried by dwarves as a weapon, tool, and designation of clan. Losing or having to surrender a clan dagger is considered a mark of embarrassment to most dwarves.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "knife",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "clan-dagger",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "agile",
+                        "dwarf",
+                        "parry",
+                        "versatile-b"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "XWnBtdN1NwjGx47a",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.heritages.Item.5CqsBKCZuGON53Hk"
+            },
+            "folder": "Z6Ve0qYfgLQLbcOs",
+            "img": "systems/pf2e/icons/features/ancestry/forge-dwarf.webp",
+            "name": "Forge Dwarf",
+            "sort": 0,
+            "system": {
+                "ancestry": {
+                    "name": "Dwarf",
+                    "slug": "dwarf",
+                    "uuid": "Compendium.pf2e.ancestries.Item.BYj5ZvlXZdpaEgA6"
+                },
+                "description": {
+                    "value": "<p>You have a remarkable adaptation to hot environments. This grants you fire resistance equal to half your level (minimum 1), and you treat environmental heat effects as if they were one step less extreme (incredible heat becomes extreme, extreme heat becomes severe, and so on).</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "Resistance",
+                        "type": "fire",
+                        "value": "max(1,floor(@actor.level/2))"
+                    }
+                ],
+                "slug": "forge-dwarf",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "heritage"
+        },
+        {
+            "_id": "MCKeDU0GcnxGDAP3",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.backgrounds.Item.lX5KDS2hU5LihZRs"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "catFall": {
+                            "id": "1ypSNRMNBzWDhHuU",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/background.svg",
+            "name": "Martial Disciple",
+            "sort": 0,
+            "system": {
+                "boosts": {
+                    "0": {
+                        "selected": "dex",
+                        "value": [
+                            "dex",
+                            "str"
+                        ]
+                    },
+                    "1": {
+                        "selected": "str",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p>You dedicated yourself to intense training and rigorous study to become a great warrior. The school you attended might have been a traditionalist monastery, an elite military academy, or the local branch of a prestigious mercenary organization.</p>\n<p>Choose two attribute boosts. One must be to <strong>Strength</strong> or <strong>Dexterity</strong>, and one is a free attribute boost.</p>\n<p>You're trained in your choice of the Acrobatics or Athletics skill. You gain a skill feat: @UUID[Compendium.pf2e.feats-srd.Item.Cat Fall] if you chose Acrobatics or @UUID[Compendium.pf2e.feats-srd.Item.Quick Jump] if you chose Athletics. You're also trained in the Warfare Lore skill.</p>"
+                },
+                "items": {},
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": [
+                            {
+                                "label": "PF2E.Skill.Acrobatics",
+                                "value": "acrobatics"
+                            },
+                            {
+                                "label": "PF2E.Skill.Athletics",
+                                "value": "athletics"
+                            }
+                        ],
+                        "flag": "skill",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                        "rollOption": "martial-disciple",
+                        "selection": "acrobatics"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                        "value": 1
+                    },
+                    {
+                        "flag": "catFall",
+                        "key": "GrantItem",
+                        "predicate": [
+                            "martial-disciple:acrobatics"
+                        ],
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Cat Fall"
+                    },
+                    {
+                        "flag": "quickJump",
+                        "key": "GrantItem",
+                        "predicate": [
+                            "martial-disciple:athletics"
+                        ],
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Quick Jump"
+                    }
+                ],
+                "slug": "martial-disciple",
+                "trainedSkills": {
+                    "custom": "",
+                    "lore": [
+                        "Warfare Lore"
+                    ],
+                    "value": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "background"
+        },
+        {
+            "_id": "1ypSNRMNBzWDhHuU",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.LQw0yIMDUJJkq1nD"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "MCKeDU0GcnxGDAP3",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "y1yqadf5jPHJk1jW",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Cat Fall",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>Your catlike aerial acrobatics allow you to cushion your falls. Treat falls as 10 feet shorter. If you're an expert in Acrobatics, treat falls as 25 feet shorter and 50 feet if you're a master. If you're legendary in Acrobatics, you always land on your feet and don't take damage, regardless of the distance of the fall.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Acrobatics"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "cat-fall",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "WZ9n3qzEMZpkK6Dl",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classes.Item.Z9li154CPNmun29Q"
+            },
+            "img": "systems/pf2e/icons/classes/gunslinger.webp",
+            "name": "Gunslinger",
+            "sort": 0,
+            "system": {
+                "ancestryFeatLevels": {
+                    "value": [
+                        1,
+                        5,
+                        9,
+                        13,
+                        17
+                    ]
+                },
+                "attacks": {
+                    "advanced": 0,
+                    "martial": 1,
+                    "other": {
+                        "name": "Simple Firearms, Martial Firearms",
+                        "rank": 2
+                    },
+                    "simple": 1,
+                    "unarmed": 1
+                },
+                "classFeatLevels": {
+                    "value": [
+                        1,
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "defenses": {
+                    "heavy": 0,
+                    "light": 1,
+                    "medium": 1,
+                    "unarmored": 1
+                },
+                "description": {
+                    "value": "<p><em>While some fear projectile weapons, you savor the searing flash, wild kick, and cloying smoke that accompanies a gunshot, or snap of the cable and telltale thunk of your crossbow just before your bolt finds purchase. Ready to draw a bead on an enemy at every turn, you rely on your reflexes, steady hand, and knowledge of your weapons to riddle your foes with holes.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.kzxu2dI7tFxv6Ix6.JournalEntryPage.88K0xjShkhkckbhv]{Gunslinger}</em></p>"
+                },
+                "generalFeatLevels": {
+                    "value": [
+                        3,
+                        7,
+                        11,
+                        15,
+                        19
+                    ]
+                },
+                "hp": 8,
+                "items": {
+                    "182it": {
+                        "img": "systems/pf2e/icons/features/classes/shootists-edge.webp",
+                        "level": 17,
+                        "name": "Shootist's Edge",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Shootist's Edge"
+                    },
+                    "1qqd9": {
+                        "img": "systems/pf2e/icons/features/classes/gunslinger-expertise.webp",
+                        "level": 9,
+                        "name": "Gunslinger Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Gunslinger Expertise"
+                    },
+                    "5m24f": {
+                        "img": "systems/pf2e/icons/features/classes/greater-deed.webp",
+                        "level": 15,
+                        "name": "Greater Deed",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Greater Deed"
+                    },
+                    "5vutv": {
+                        "img": "systems/pf2e/icons/features/classes/advanced-deed.webp",
+                        "level": 9,
+                        "name": "Advanced Deed",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Advanced Deed"
+                    },
+                    "6sihc": {
+                        "img": "icons/equipment/chest/breastplate-quilted-brown.webp",
+                        "level": 13,
+                        "name": "Medium Armor Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Medium Armor Expertise"
+                    },
+                    "8ndxn": {
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
+                        "level": 1,
+                        "name": "Gunslinger's Way",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Gunslinger's Way"
+                    },
+                    "An5aC": {
+                        "img": "icons/skills/targeting/crosshair-bars-yellow.webp",
+                        "level": 1,
+                        "name": "Slinger's Precision",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Slinger's Precision"
+                    },
+                    "QEPUa": {
+                        "img": "systems/pf2e/icons/features/classes/incredible-sense.webp",
+                        "level": 19,
+                        "name": "Perception Legend",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Perception Legend"
+                    },
+                    "bskyv": {
+                        "img": "icons/equipment/chest/breastplate-collared-steel.webp",
+                        "level": 19,
+                        "name": "Medium Armor Mastery",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Medium Armor Mastery"
+                    },
+                    "emlsp": {
+                        "img": "systems/pf2e/icons/features/classes/gunslinging-legend.webp",
+                        "level": 13,
+                        "name": "Gunslinging Legend",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Gunslinging Legend"
+                    },
+                    "epPK8": {
+                        "img": "icons/magic/fire/explosion-embers-evade-silhouette.webp",
+                        "level": 11,
+                        "name": "Blast Dodger",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Blast Dodger"
+                    },
+                    "g1XUZ": {
+                        "img": "icons/commodities/materials/bowl-powder-grey.webp",
+                        "level": 17,
+                        "name": "Lead Constitution",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Lead Constitution"
+                    },
+                    "g7b2s": {
+                        "img": "systems/pf2e/icons/features/classes/weapon-specialization.webp",
+                        "level": 7,
+                        "name": "Weapon Specialization",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Specialization"
+                    },
+                    "gfou8": {
+                        "img": "icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp",
+                        "level": 3,
+                        "name": "Stubborn",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Stubborn"
+                    },
+                    "kh0qp": {
+                        "img": "systems/pf2e/icons/features/classes/gunslinger-weapon-mastery.webp",
+                        "level": 5,
+                        "name": "Gunslinger Weapon Mastery",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Gunslinger Weapon Mastery"
+                    },
+                    "vmzyj": {
+                        "img": "icons/magic/perception/eye-tendrils-web-purple.webp",
+                        "level": 7,
+                        "name": "Perception Mastery",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Perception Mastery"
+                    },
+                    "zmmy3": {
+                        "img": "icons/skills/melee/hand-grip-sword-orange.webp",
+                        "level": 15,
+                        "name": "Greater Weapon Specialization (Level 15)",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Greater Weapon Specialization"
+                    }
+                },
+                "keyAbility": {
+                    "value": [
+                        "dex"
+                    ]
+                },
+                "perception": 2,
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "rules": [
+                    {
+                        "definition": [
+                            "item:category:simple",
+                            {
+                                "or": [
+                                    "item:group:firearm",
+                                    "item:group:crossbow"
+                                ]
+                            }
+                        ],
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRule.MartialProficiency.SimpleFirearmsCrossbows",
+                        "slug": "simple-firearms-crossbows",
+                        "value": 2
+                    },
+                    {
+                        "definition": [
+                            "item:category:martial",
+                            {
+                                "or": [
+                                    "item:group:firearm",
+                                    "item:group:crossbow"
+                                ]
+                            }
+                        ],
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRule.MartialProficiency.MartialFirearmsCrossbows",
+                        "slug": "martial-firearms-crossbows",
+                        "value": 2
+                    },
+                    {
+                        "definition": [
+                            "item:category:advanced",
+                            {
+                                "or": [
+                                    "item:group:firearm",
+                                    "item:group:crossbow"
+                                ]
+                            }
+                        ],
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRule.MartialProficiency.AdvancedFirearmsCrossbows",
+                        "slug": "advanced-firearms-crossbows",
+                        "value": 1
+                    }
+                ],
+                "savingThrows": {
+                    "fortitude": 2,
+                    "reflex": 2,
+                    "will": 1
+                },
+                "skillFeatLevels": {
+                    "value": [
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "skillIncreaseLevels": {
+                    "value": [
+                        3,
+                        5,
+                        7,
+                        9,
+                        11,
+                        13,
+                        15,
+                        17,
+                        19
+                    ]
+                },
+                "slug": "gunslinger",
+                "spellcasting": 0,
+                "trainedSkills": {
+                    "additional": 3,
+                    "value": []
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": []
+                }
+            },
+            "type": "class"
+        },
+        {
+            "_id": "4yRZA8j5Y3J297j7",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.LDqVxLKrwEqSegiu"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "wayOfTheVanguard": {
+                            "id": "HN5jooSSpxZPtq5C",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
+            "name": "Gunslinger's Way",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>All gunslingers have a particular way they follow, a combination of philosophy and combat style that defines both how they fight and the weapons they excel with. At 1st level, your way grants you an initial deed, a unique reload action called a slinger's reload, and proficiency with a particular skill. You also gain advanced and greater deeds at later levels, as well as access to way-specific feats.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Way of the Drifter]</strong> You wander across the battlefield, equally at home in and out of the fray.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Way of the Pistolero]</strong> You carefully maintain your distance at a duelist's 10 paces with pistol in hand.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Way of the Sniper]</strong> You practice a methodical style of shooting, striking from far cover.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Way of the Vanguard]</strong> You rely on a brutal combat style that uses heavy weapons and explosive attacks.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Way of the Triggerbrand]</strong> You prefer firearms that work well as weapons in both melee and ranged combat</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "WZ9n3qzEMZpkK6Dl",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:tag:gunslinger-way",
+                                {
+                                    "or": [
+                                        {
+                                            "and": [
+                                                "class:gunslinger",
+                                                "item:tag:gunslinger-way"
+                                            ]
+                                        },
+                                        {
+                                            "and": [
+                                                "item:tag:gunslinger-way",
+                                                {
+                                                    "not": "item:tag:class-archetype"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "flag": "way",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Gunslinger.Way.Prompt",
+                        "selection": "Compendium.pf2e.classfeatures.Item.Way of the Vanguard"
+                    },
+                    {
+                        "flag": "wayOfTheVanguard",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.way}"
+                    }
+                ],
+                "slug": "gunslingers-way",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "gunslinger"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "HN5jooSSpxZPtq5C",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.vB0yVFxJVZwalt2g"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "4yRZA8j5Y3J297j7",
+                        "onDelete": "cascade"
+                    },
+                    "itemGrants": {
+                        "clearAPath": {
+                            "id": "EtqbmHMydLdolQwd",
+                            "onDelete": "detach"
+                        },
+                        "livingFortification": {
+                            "id": "v34tupDjxjGLCh4V",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/way-of-the-vanguard.webp",
+            "name": "Way of the Vanguard",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You practice a unique combat style originated by dwarven siege engineers, using heavy weapons with wide attack areas to blast holes through enemy lines, clear an opening for your allies, and defend the conquered territory.</p>\n<p><strong>Slinger's Reload</strong> @UUID[Compendium.pf2e.actionspf2e.Item.Clear a Path]</p>\n<p><strong>Deeds</strong> <em>Initial</em> @UUID[Compendium.pf2e.actionspf2e.Item.Living Fortification]; <em>Advanced</em> @UUID[Compendium.pf2e.actionspf2e.Item.Spinning Crush]; <em>Greater</em> @UUID[Compendium.pf2e.actionspf2e.Item.Siegebreaker]</p>\n<p><strong>Way Skill</strong> Athletics</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "rules": [
+                    {
+                        "flag": "clearAPath",
+                        "key": "GrantItem",
+                        "predicate": [
+                            "class:gunslinger"
+                        ],
+                        "uuid": "Compendium.pf2e.actionspf2e.Item.Clear a Path"
+                    },
+                    {
+                        "flag": "livingFortification",
+                        "key": "GrantItem",
+                        "predicate": [
+                            "class:gunslinger"
+                        ],
+                        "uuid": "Compendium.pf2e.actionspf2e.Item.Living Fortification"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.skills.athletics.rank",
+                        "value": 1
+                    }
+                ],
+                "slug": "way-of-the-vanguard",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "otherTags": [
+                        "gunslinger-way"
+                    ],
+                    "rarity": "common",
+                    "value": [
+                        "gunslinger"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "EtqbmHMydLdolQwd",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.actionspf2e.Item.tw1KDRPdBAkg5DlS"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "HN5jooSSpxZPtq5C",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Clear a Path",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> You're wielding a two-handed firearm or two-handed crossbow.</p><hr /><p>You push outward with your weapon to clear some space before quickly reloading a fresh round. You make an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Shove] an opponent within your reach using your weapon, then Interact to reload. For this Shove, you don't need a free hand, and you add the weapon's item bonus on attack rolls (if any) to the Athletics check. If your last action or activity this round included a ranged Strike with the weapon, use the same multiple attack penalty as the last Strike you attempted with the weapon for the Shove; the Shove still counts toward your multiple attack penalty on further attacks.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "rules": [],
+                "slug": "clear-a-path",
+                "traits": {
+                    "value": [
+                        "gunslinger"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "v34tupDjxjGLCh4V",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.actionspf2e.Item.9MJcQEMVVrmMyGyq"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "HN5jooSSpxZPtq5C",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Living Fortification",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> You roll initiative.</p><hr /><p>You posture defensively with firearms or crossbows, acting like a walking tower. Interact to draw a firearm or crossbow. You then position that weapon defensively, as the parry trait, gaining a +1 circumstance bonus to AC until the end of your first turn, or a +2 circumstance bonus if the chosen weapon has the parry trait.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Living Fortification]</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Living Fortification (Parry Trait)]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "initiative",
+                        "text": "{item|description}",
+                        "title": "<span class=\"action-glyph\">F</span> {item|name}"
+                    }
+                ],
+                "slug": "living-fortification",
+                "traits": {
+                    "value": [
+                        "gunslinger"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Fz2v2qU7u4MQSJUs",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.vXbk7Nm1TOTTUNvF"
+            },
+            "img": "icons/skills/targeting/crosshair-bars-yellow.webp",
+            "name": "Slinger's Precision",
+            "sort": 100,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You deal an extra +2 precision damage with Strikes made using non-repeating crossbows and you deal an extra 1d4 precision damage on Strikes using non-repeating firearms.</p>\n<p>If you have gunslinging legend, you instead deal +3 additional precision damage with Strikes using non-repeating crossbows and an additional 1d6 precision damage with Strikes using non-repeating firearms.</p>\n<p>If you are using a combination weapon whose ranged form is a firearm or crossbow, you use your proficiency with firearms and crossbows for attacks made with the melee configuration of that weapon.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "WZ9n3qzEMZpkK6Dl",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "rules": [
+                    {
+                        "damageCategory": "precision",
+                        "hideIfDisabled": true,
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "not": "item:trait:repeating"
+                            }
+                        ],
+                        "selector": "crossbow-weapon-group-damage",
+                        "slug": "slingers-precision-crossbow",
+                        "value": 2
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "feature:gunslinging-legend"
+                        ],
+                        "selector": "crossbow-weapon-group-damage",
+                        "slug": "slingers-precision-crossbow",
+                        "value": 3
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "hideIfDisabled": true,
+                        "key": "DamageDice",
+                        "predicate": [
+                            {
+                                "not": "item:trait:repeating"
+                            }
+                        ],
+                        "selector": "firearm-weapon-group-damage",
+                        "slug": "slingers-precision-firearm"
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "feature:gunslinging-legend",
+                            "dice:slug:slingers-precision-firearm"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "firearm-weapon-group-damage"
+                        ]
+                    },
+                    {
+                        "definition": [
+                            "item:category:advanced",
+                            "item:ranged-usage:trait:combination",
+                            {
+                                "or": [
+                                    "item:ranged-usage:group:crossbow",
+                                    "item:ranged-usage:group:firearm"
+                                ]
+                            }
+                        ],
+                        "key": "MartialProficiency",
+                        "priority": 41,
+                        "slug": "slingers-precision-advanced",
+                        "value": "@actor.system.proficiencies.attacks.advanced-firearms-crossbows.rank",
+                        "visible": false
+                    },
+                    {
+                        "definition": [
+                            "item:category:martial",
+                            "item:ranged-usage:trait:combination",
+                            {
+                                "or": [
+                                    "item:ranged-usage:group:crossbow",
+                                    "item:ranged-usage:group:firearm"
+                                ]
+                            }
+                        ],
+                        "key": "MartialProficiency",
+                        "priority": 41,
+                        "slug": "slingers-precision-martial",
+                        "value": "@actor.system.proficiencies.attacks.martial-firearms-crossbows.rank",
+                        "visible": false
+                    },
+                    {
+                        "definition": [
+                            "item:category:simple",
+                            "item:ranged-usage:trait:combination",
+                            {
+                                "or": [
+                                    "item:ranged-usage:group:crossbow",
+                                    "item:ranged-usage:group:firearm"
+                                ]
+                            }
+                        ],
+                        "key": "MartialProficiency",
+                        "priority": 41,
+                        "slug": "slingers-precision-simple",
+                        "value": "@actor.system.proficiencies.attacks.simple-firearms-crossbows.rank",
+                        "visible": false
+                    }
+                ],
+                "slug": "slingers-precision",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "gunslinger"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "8sH7kikdC6JFxSOY",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ewQZ0VeL38v3qFnN"
+            },
+            "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
+            "name": "Studded Leather Armor",
+            "sort": 0,
+            "system": {
+                "acBonus": 2,
+                "baseItem": "studded-leather-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
+                },
+                "dexCap": 3,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "studded-leather-armor",
+                "speedPenalty": 0,
+                "strength": 1,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "Kcm4GuakVibf6lzQ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
+            },
+            "img": "icons/containers/bags/pack-leather-white-tan.webp",
+            "name": "Backpack",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "capacity": 4,
+                    "heldOrStowed": 0.1,
+                    "ignored": 2,
+                    "value": 0
+                },
+                "collapsed": false,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A backpack holds up to 4 Bulk of items and the first 2 Bulk of these items don't count against your Bulk limits. If you're carrying or stowing the pack rather than wearing it on your back, its Bulk is light instead of negligible</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "backpack",
+                "stowing": true,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "wornbackpack"
+                }
+            },
+            "type": "backpack"
+        },
+        {
+            "_id": "8IJUT9fw6YzNBFvJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.jcIabnkJgjwzK6Og"
+            },
+            "img": "icons/weapons/guns/gun-blunderbuss-bronze.webp",
+            "name": "Dwarven Scattergun",
+            "sort": 0,
+            "system": {
+                "baseItem": "dwarven-scattergun",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 2
+                },
+                "category": "advanced",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d8"
+                },
+                "description": {
+                    "value": "<p>A favored weapon of dwarf scouts from Dongun Hold, the dwarven scattergun is a powerful weapon designed to take advantage of a dwarf's sturdy frame. A dwarven scattergun fires a large paper cartridge stuffed with black powder and knuckle-sized lumps of metal, creating a devastating burst so destructive that a foolish dwarf might find themself catching painful ricochets when firing at a too-close target. Some scatterguns are crafted with a clockwork firing tray that can quickly sort and load black powder and shot without needing a prepackaged cartridge, though this is largely an aesthetic feature with no real mechanical benefit.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 2,
+                    "invested": null
+                },
+                "group": "firearm",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 10
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "quantity": 1,
+                "range": 50,
+                "reload": {
+                    "value": "1"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "selectedAmmoId": "rm55mzrNGxInI2aD",
+                "size": "med",
+                "slug": "dwarven-scattergun",
+                "splashDamage": {
+                    "value": 0
+                },
+                "subitems": [
+                    {
+                        "_id": "UvCQlDemvM8HcMLi",
+                        "_stats": {
+                            "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tHIb3ynOHj7dGiCH"
+                        },
+                        "img": "systems/pf2e/icons/equipment/weapons/reinforced-stock.webp",
+                        "name": "Reinforced Stock",
+                        "sort": 0,
+                        "system": {
+                            "baseItem": "reinforced-stock",
+                            "bonus": {
+                                "value": 0
+                            },
+                            "bonusDamage": {
+                                "value": 0
+                            },
+                            "bulk": {
+                                "value": 0.1
+                            },
+                            "category": "martial",
+                            "containerId": null,
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            },
+                            "description": {
+                                "value": "<p>A reinforced stock is a weighted crossbow, firearm haft, or grip customized for striking in melee.</p>"
+                            },
+                            "equipped": {
+                                "carryType": "attached",
+                                "handsHeld": 0
+                            },
+                            "group": "club",
+                            "hardness": 0,
+                            "hp": {
+                                "max": 0,
+                                "value": 0
+                            },
+                            "level": {
+                                "value": 0
+                            },
+                            "material": {
+                                "grade": null,
+                                "type": null
+                            },
+                            "price": {
+                                "value": {
+                                    "sp": 2
+                                }
+                            },
+                            "publication": {
+                                "license": "ORC",
+                                "remaster": true,
+                                "title": "Pathfinder Guns & Gears"
+                            },
+                            "quantity": 1,
+                            "range": null,
+                            "reload": {
+                                "value": ""
+                            },
+                            "rules": [],
+                            "runes": {
+                                "potency": 0,
+                                "property": [],
+                                "striking": 0
+                            },
+                            "size": "med",
+                            "slug": "reinforced-stock",
+                            "splashDamage": {
+                                "value": 0
+                            },
+                            "traits": {
+                                "rarity": "common",
+                                "value": [
+                                    "attached-to-crossbow-or-firearm",
+                                    "finesse",
+                                    "two-hand-d8"
+                                ]
+                            },
+                            "usage": {
+                                "value": "held-in-one-hand"
+                            }
+                        },
+                        "type": "weapon"
+                    }
+                ],
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "concussive",
+                        "dwarf",
+                        "kickback",
+                        "scatter-10"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "rm55mzrNGxInI2aD",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.HUgVrYvdy9SkqRZ9"
+            },
+            "img": "systems/pf2e/icons/equipment/consumables/ammunition/rounds-large.webp",
+            "name": "Rounds (Dwarven Scattergun)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 5,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "quantity": 25,
+                "rules": [],
+                "size": "med",
+                "slug": "rounds-dwarven-scattergun",
+                "stackGroup": "rounds5",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "3Fq5fBdnOG1bPKHa",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.fagzYdmfYyMQ6J77"
+            },
+            "img": "icons/containers/ammunition/quiver-simple-brown.webp",
+            "name": "Bedroll",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "Kcm4GuakVibf6lzQ",
+                "description": {
+                    "value": "<p>A rolled up bed.</p>"
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "bedroll",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "Y6H1D2E2IMqNKjk6",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.xShIDyydOMkGvGNb"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/chalk.webp",
+            "name": "Chalk",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "other",
+                "containerId": "Kcm4GuakVibf6lzQ",
+                "damage": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "stowed"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 10,
+                "rules": [],
+                "size": "med",
+                "slug": "chalk",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "IdDgMV3xLRScC1UX",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UlIxxLm71UdRgCFE"
+            },
+            "img": "icons/commodities/stone/geode-raw-tan.webp",
+            "name": "Flint and Steel",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": "Kcm4GuakVibf6lzQ",
+                "description": {
+                    "value": "<p>Flint and steel are useful in creating a fire if you have the time to catch a spark, though using them is typically too time-consuming to be practical during an encounter. Even in ideal conditions, using flint and steel to light a flame requires using at least 3 actions, and often significantly longer.</p>"
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "flint-and-steel",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "4wZAPd0GLnGBZxHS",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.L9ZV076913otGtiB"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/rations.webp",
+            "name": "Rations",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "other",
+                "containerId": "Kcm4GuakVibf6lzQ",
+                "damage": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "stowed"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 4
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "rations",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 7,
+                    "value": 7
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "V54dtGTCbOrbnwqh",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.fyYnQf1NAx9fWFaS"
+            },
+            "img": "icons/sundries/survival/rope-wrapped-brown.webp",
+            "name": "Rope",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "Kcm4GuakVibf6lzQ",
+                "description": {
+                    "value": "<p>50 feet of rope.</p>"
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "rope",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "DTeMsKHkHW6eEabb",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.81aHsD27HFGnq1Nt"
+            },
+            "img": "icons/sundries/survival/soap.webp",
+            "name": "Soap",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": "Kcm4GuakVibf6lzQ",
+                "description": {
+                    "value": "<p>Bar of soap.</p>"
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "soap",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "aZc3bp4rPLe4qAC7",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8Jdw4yAzWYylGePS"
+            },
+            "img": "icons/sundries/lights/torch-brown.webp",
+            "name": "Torch",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "Kcm4GuakVibf6lzQ",
+                "description": {
+                    "value": "<p>A torch sheds bright light in a 20-foot radius (and dim light to the next 20 feet) for 1 hour. It can be used as an improvised weapon that deals 1d4 bludgeoning damage plus 1 fire damage.</p>"
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 5,
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "lit-torch"
+                        ],
+                        "value": {
+                            "alpha": 0.45,
+                            "animation": {
+                                "intensity": 1,
+                                "speed": 2,
+                                "type": "flame"
+                            },
+                            "attenuation": 0.4,
+                            "bright": 20,
+                            "color": "#ffae3d",
+                            "dim": 40,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "key": "Strike",
+                        "otherTags": [
+                            "improvised"
+                        ],
+                        "predicate": [
+                            {
+                                "not": "lit-torch"
+                            }
+                        ]
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "img": "icons/sundries/lights/torch-brown-lit.webp",
+                        "key": "Strike",
+                        "otherTags": [
+                            "improvised"
+                        ],
+                        "predicate": [
+                            "lit-torch"
+                        ]
+                    },
+                    {
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "lit-torch"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "value": 1
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.LitTorch",
+                        "option": "lit-torch",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenEffectIcon",
+                        "predicate": [
+                            "lit-torch"
+                        ],
+                        "value": "icons/sundries/lights/torch-brown-lit.webp"
+                    }
+                ],
+                "size": "med",
+                "slug": "torch",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "8aN3HQV3reADWFyR",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.VnPh324pKwd2ZB66"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/waterskin.webp",
+            "name": "Waterskin",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "Kcm4GuakVibf6lzQ",
+                "description": {
+                    "value": "<p>When it's full, a waterskin contains roughly 1 day's worth of water for a Small or Medium creature.</p>"
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "waterskin",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "TTIJJDivoNTRlRpz",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.5Ew82vBF9YfaiY9f"
+            },
+            "img": "systems/pf2e/icons/equipment/treasure/currency/silver-pieces.webp",
+            "name": "Silver Pieces",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "silver-pieces",
+                "stackGroup": "coins",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
+            "_id": "F5RTwux1mweOzpHY",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.6EgHimhCuS8L0xDE"
+            },
+            "folder": "WlKsZx5hWV06wH7O",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Explosive Savant",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestry",
+                "description": {
+                    "value": "<p><strong>Access</strong> You are from Dongun Hold or Alkenstar.</p><hr /><p>You've spent a lifetime wielding guns and explosive ordinance. You have familiarity with bombs and firearms; for the purposes of proficiency you treat bombs and martial firearms as simple weapons, and advanced firearms as martial weapons.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "rules": [
+                    {
+                        "definition": [
+                            {
+                                "or": [
+                                    "item:group:bomb",
+                                    {
+                                        "and": [
+                                            "item:group:firearm",
+                                            "item:category:martial"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRule.MartialProficiency.MartialBombsFirearms",
+                        "sameAs": "simple",
+                        "slug": "martial-bombs-firearms"
+                    },
+                    {
+                        "definition": [
+                            "item:category:advanced",
+                            "item:group:firearm"
+                        ],
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRule.MartialProficiency.AdvancedGroup.firearm",
+                        "sameAs": "martial",
+                        "slug": "advanced-firearms"
+                    }
+                ],
+                "slug": "explosive-savant",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "dwarf"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "cUIjJemcOk4OD2qy",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.IzkL60LlKzbKIhY1"
+            },
+            "folder": "BYo2A4Ls3y1QuXTt",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Cover Fire",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> You're wielding a loaded firearm or crossbow.</p>\n<hr />\n<p>You lay down suppressive fire to protect allies by forcing foes to take cover from your wild attacks. Make a firearm or crossbow Strike; the target must decide before you roll your attack whether it will duck out of the way. If the target ducks, it gains a +2 circumstance bonus to AC against your attack, or a +4 circumstance bonus to AC if it has cover. It also takes a -2 circumstance penalty to ranged attack rolls until the end of its next turn. If the target chooses not to duck, you gain a +1 circumstance bonus to your attack roll for that Strike.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
+                    "value": 1
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "class-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "rules": [],
+                "slug": "cover-fire",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "gunslinger"
+                    ]
+                }
+            },
+            "type": "feat"
+        }
+    ],
+    "name": "Nhalmika (Level 1)",
+    "prototypeToken": {
+        "name": "Nhalmika",
+        "texture": {
+            "src": "systems/pf2e/icons/iconics/Nhalmika.webp"
+        }
+    },
+    "system": {
+        "abilities": null,
+        "attributes": {
+            "hp": {
+                "temp": 0,
+                "value": 20
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "build": {
+            "attributes": {
+                "boosts": {
+                    "1": [
+                        "wis",
+                        "con",
+                        "dex",
+                        "str"
+                    ]
+                }
+            }
+        },
+        "details": {
+            "age": {
+                "value": ""
+            },
+            "alliance": "party",
+            "biography": {
+                "allies": "",
+                "anathema": [],
+                "appearance": "",
+                "attitude": "",
+                "backstory": "",
+                "beliefs": "",
+                "birthPlace": "",
+                "campaignNotes": "",
+                "catchphrases": "",
+                "dislikes": "",
+                "edicts": [],
+                "enemies": "",
+                "likes": "",
+                "organizations": ""
+            },
+            "ethnicity": {
+                "value": ""
+            },
+            "gender": {
+                "value": ""
+            },
+            "height": {
+                "value": ""
+            },
+            "keyability": {
+                "value": "str"
+            },
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 1
+            },
+            "nationality": {
+                "value": ""
+            },
+            "weight": {
+                "value": ""
+            },
+            "xp": {
+                "max": 1000,
+                "min": 0,
+                "pct": 0,
+                "value": 0
+            }
+        },
+        "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
+        "pfs": {
+            "characterNumber": null,
+            "currentFaction": "EA",
+            "levelBump": false,
+            "playerNumber": null,
+            "reputation": {
+                "EA": null,
+                "GA": null,
+                "HH": null,
+                "RO": null,
+                "VS": null,
+                "VW": null
+            },
+            "school": null
+        },
+        "resources": {
+            "heroPoints": {
+                "max": 3,
+                "value": 1
+            }
+        },
+        "skills": {}
+    },
+    "type": "character"
+}
