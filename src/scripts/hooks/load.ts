@@ -27,11 +27,14 @@ import {
     TokenPF2e,
 } from "@module/canvas/index.ts";
 import { TokenLayerPF2e } from "@module/canvas/layer/token.ts";
+import { NotePF2e } from "@module/canvas/note.ts";
 import { PointVisionSourcePF2e } from "@module/canvas/perception/point-vision-source.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { ActorsPF2e } from "@module/collection/actors.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
+import { JournalEntryPagePF2e } from "@module/journal-page/data.ts";
 import { MacroPF2e } from "@module/macro.ts";
+import { NoteDocumentPF2e } from "@module/note/document.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import {
     AmbientLightDocumentPF2e,
@@ -70,11 +73,14 @@ export const Load = {
         CONFIG.Combat.documentClass = EncounterPF2e;
         CONFIG.Combatant.documentClass = CombatantPF2e;
         CONFIG.Item.documentClass = ItemProxyPF2e;
+        CONFIG.JournalEntryPage.documentClass = JournalEntryPagePF2e;
         CONFIG.Macro.documentClass = MacroPF2e;
         CONFIG.MeasuredTemplate.defaults.angle = 90;
         CONFIG.MeasuredTemplate.defaults.width = 1;
         CONFIG.MeasuredTemplate.documentClass = MeasuredTemplateDocumentPF2e;
         CONFIG.MeasuredTemplate.objectClass = MeasuredTemplatePF2e;
+        CONFIG.Note.documentClass = NoteDocumentPF2e;
+        CONFIG.Note.objectClass = NotePF2e;
         CONFIG.Region.documentClass = RegionDocumentPF2e;
         CONFIG.Region.objectClass = RegionPF2e;
         CONFIG.RegionBehavior.dataModels.environment = EnvironmentBehaviorType;
