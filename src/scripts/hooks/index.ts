@@ -5,6 +5,7 @@ import { DiceSoNiceRollStart } from "./dice-so-nice-roll-start.ts";
 import { DropCanvasData } from "./drop-canvas-data.ts";
 import { GetProseMirrorMenuDropDowns } from "./get-prosemirror-menu-dropdowns.ts";
 import { GetSceneControlButtons } from "./get-scene-control-buttons.ts";
+import { HotbarDrop } from "./hotbar-drop.ts";
 import { I18nInit } from "./i18n-init.ts";
 import { Init } from "./init.ts";
 import { LightingRefresh } from "./lighting-refresh.ts";
@@ -31,6 +32,7 @@ export const HooksPF2e = {
             DropCanvasData,
             GetProseMirrorMenuDropDowns,
             GetSceneControlButtons,
+            HotbarDrop,
             I18nInit,
             Init,
             LightingRefresh,
