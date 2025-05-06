@@ -14,7 +14,7 @@ export class HotbarDrop {
                 data.type = "Action";
             }
 
-            if (typeof data.type === "string" && ["Action", "Item", "RollOptions"].includes(data.type)) {
+            if (typeof data.type === "string" && ["Action", "Item", "RollOption"].includes(data.type)) {
                 HotbarDrop.#processHotbarDrop(data, Number(slot));
                 return false;
             }
