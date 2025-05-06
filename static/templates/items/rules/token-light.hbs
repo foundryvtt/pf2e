@@ -38,14 +38,14 @@
     <div class="form-group">
         <label>{{ localize "LIGHT.FIELDS.color.label" }}</label>
         <div class="form-fields">
-            <color-picker name="{{concat "system.rules." index ".value.color"}}" value="{{light.color}}"></color-picker>
+            <color-picker name="system.rules.{{index}}.value.color" value="{{light.color}}"></color-picker>
         </div>
     </div>
 
     <div class="form-group">
         <label>{{ localize "LIGHT.FIELDS.alpha.label" }}</label>
         <div class="form-fields">
-            {{rangePicker name=(concat "system.rules." index ".value.alpha") value=light.alpha placeholder="1" min="0" max="1" step="0.05"}}
+            <range-picker name="system.rules.{{index}}.value.alpha" value="{{light.alpha}}" placeholder="1" min="0" max="1" step="0.05" />
         </div>
     </div>
 
@@ -68,7 +68,7 @@
     <div class="form-group">
         <label>{{localize "LIGHT.FIELDS.animation.speed.label"}}</label>
         <div class="form-fields">
-            {{rangePicker name=(concat "system.rules." index ".value.animation.speed") value=light.animation.speed min="0" max="10" step="1"}}
+            <range-picker name="system.rules.{{index}}.value.animation.speed" value="{{light.animation.speed}}" min="0" max="10" step="1" />
         </div>
     </div>
 
@@ -82,7 +82,7 @@
     <div class="form-group">
         <label>{{localize "LIGHT.FIELDS.animation.intensity.label"}}</label>
         <div class="form-fields">
-            {{rangePicker name=(concat "system.rules." index ".value.animation.intensity") value=light.animation.intensity min="1" max="10" step="1"}}
+            <range-picker name="system.rules.{{index}}.value.animation.intensity" value="{{light.animation.intensity}}" min="1" max="10" step="1" />
         </div>
     </div>
 </div>
@@ -100,35 +100,35 @@
     <div class="form-group">
         <label>{{ localize 'LIGHT.FIELDS.luminosity.label' }}</label>
         <div class="form-fields">
-            {{ rangePicker name=(concat "system.rules." index ".value.luminosity") value=light.luminosity min="-1" max="1" step="0.05" }}
+            <range-picker name="system.rules.{{index}}.value.luminosity" value="{{light.luminosity}}" min="-1" max="1" step="0.05" />
         </div>
     </div>
 
     <div class="form-group">
         <label>{{ localize 'LIGHT.FIELDS.attenuation.label' }}</label>
         <div class="form-fields">
-            {{ rangePicker name=(concat "system.rules." index ".value.attenuation") value=light.attenuation min="0" max="1" step="0.05" }}
+            <range-picker name="system.rules.{{index}}.value.attenuation" value="{{light.attenuation}}" min="0" max="1" step="0.05" />
         </div>
     </div>
 
     <div class="form-group">
         <label>{{ localize 'LIGHT.FIELDS.saturation.label' }}</label>
         <div class="form-fields">
-            {{ rangePicker name=(concat "system.rules." index ".value.saturation") value=light.saturation min="-1" max="1" step="0.05" }}
+            <range-picker name="system.rules.{{index}}.value.saturation" value="{{light.saturation}}" min="-1" max="1" step="0.05" />
         </div>
     </div>
 
     <div class="form-group">
         <label>{{ localize 'LIGHT.FIELDS.contrast.label' }}</label>
         <div class="form-fields">
-            {{ rangePicker name=(concat "system.rules." index ".value.contrast") value=light.contrast min="-1" max="1" step="0.05" }}
+            <range-picker name="system.rules.{{index}}.value.contrast" value="{{light.contrast}}" min="-1" max="1" step="0.05" />
         </div>
     </div>
 
     <div class="form-group">
         <label>{{ localize 'LIGHT.FIELDS.shadows.label' }}</label>
         <div class="form-fields">
-            {{ rangePicker name=(concat "system.rules." index ".value.shadows") value=light.shadows min="0" max="1" step="0.05" }}
+            <range-picker name="system.rules.{{index}}.value.shadows" value="{{light.shadows}}" min="0" max="1" step="0.05" />
         </div>
     </div>
 </div>
