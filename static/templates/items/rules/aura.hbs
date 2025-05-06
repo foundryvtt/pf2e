@@ -138,7 +138,7 @@
                 <label for="{{fieldIdPrefix}}border-color">{{localize fields.appearance.fields.border.fields.color.label}}</label>
                 <div class="color-picker">
                     {{#if object.appearance.border}}
-                        <color-picker name="{{concat "system.rules." index ".appearance.border.color"}}" value="{{borderColor}}"></color-picker>
+                        <color-picker name="system.rules.{{index}}.appearance.border.color" value="{{borderColor}}"></color-picker>
                     {{else}}
                         <div>{{localize "PF2E.RuleEditor.Aura.Appearance.NotApplicable"}}</div>
                     {{/if}}
@@ -146,7 +146,7 @@
                     <label class="user">
                         <input
                             type="checkbox"
-                            name={{concat "system.rules." index ".appearance.border.color"}}
+                            name="system.rules.{{index}}.appearance.border.color"
                             data-dtype="String"
                             value="user-color"
                             {{checked (eq object.appearance.border.color "user-color")}}
@@ -158,7 +158,7 @@
 
             <div class="three-items">
                 <label>{{localize fields.appearance.fields.border.fields.alpha.label}}</label>
-                {{rangePicker name=(concat "system.rules." index ".appearance.border.alpha") value=(coalesce object.appearance.border.alpha 0) placeholder="0.75" min="0" max="1" step="0.05"}}
+                <range-picker name="system.rules.{{index}}.appearance.border.alpha" value="{{coalesce object.appearance.border.alpha 0}}" placeholder="0.75" min="0" max="1" step="0.05" />
             </div>
         </div>
     </fieldset>
@@ -169,12 +169,12 @@
             <div class="two-items">
                 <label for="{{fieldIdPrefix}}highlight-color">{{localize fields.appearance.fields.border.fields.color.label}}</label>
                 <div class="color-picker">
-                    <color-picker name="{{concat "system.rules." index ".appearance.highlight.color"}}" value="{{highlightColor}}"></color-picker>
+                    <color-picker name="system.rules.{{index}}.appearance.highlight.color" value="{{highlightColor}}"></color-picker>
 
                     <label class="user">
                         <input
                             type="checkbox"
-                            name={{concat "system.rules." index ".appearance.highlight.color"}}
+                            name="system.rules.{{index}}.appearance.highlight.color"
                             data-dtype="String"
                             value="user-color"
                             {{checked (eq object.appearance.highlight.color "user-color")}}
@@ -185,7 +185,7 @@
             </div>
             <div class="three-items">
                 <label>{{localize fields.appearance.fields.highlight.fields.alpha.label}}</label>
-                {{rangePicker name=(concat "system.rules." index ".appearance.highlight.alpha") value=object.appearance.highlight.alpha placeholder="0.75" min="0" max="1" step="0.05"}}
+                <range-picker name="system.rules.{{index}}.appearance.highlight.alpha" value="{{object.appearance.highlight.alpha}}" placeholder="0.75" min="0" max="1" step="0.05" />
             </div>
         </div>
     </fieldset>
@@ -195,18 +195,18 @@
         <div class="stacked">
             <div class="three-items image-path">
                 <label>{{localize fields.appearance.fields.texture.fields.src.label}}</label>
-                <file-picker name="{{concat "system.rules." index ".appearance.texture.src"}}" value="{{object.appearance.texture.src}}" type="imagevideo"></file-picker>
+                <file-picker name="system.rules.{{index}}.appearance.texture.src" value="{{object.appearance.texture.src}}" type="imagevideo"></file-picker>
             </div>
 
             {{#if object.appearance.texture.src}}
                 <div class="three-items long-label">
                     <label>{{localize fields.appearance.fields.texture.fields.alpha.label}}</label>
-                    {{rangePicker name=(concat "system.rules." index ".appearance.texture.alpha") value=object.appearance.texture.alpha placeholder="1" min="0" max="1" step="0.05"}}
+                    <range-picker name="system.rules.{{index}}.appearance.texture.alpha" value="{{object.appearance.texture.alpha}}" placeholder="1" min="0" max="1" step="0.05" />
                 </div>
 
                 <div class="three-items{{#if (not isImageFile)}} long-label{{/if}}">
                     <label>{{localize fields.appearance.fields.texture.fields.scale.label}}</label>
-                    {{rangePicker name=(concat "system.rules." index ".appearance.texture.scale") value=object.appearance.texture.scale placeholder="1" min="0" max="5" step="0.01"}}
+                    <range-picker name="system.rules.{{index}}.appearance.texture.scale" value="{{object.appearance.texture.scale}}" placeholder="1" min="0" max="5" step="0.01" />
                 </div>
 
                 <div class="three-items translation long-label">
@@ -234,7 +234,7 @@
                             {{localize fields.appearance.fields.texture.fields.playbackRate.label}}
                             <i class="fa-solid fa-circle-info" data-tooltip="{{fields.appearance.fields.texture.fields.playbackRate.hint}}"></i>
                         </label>
-                        {{rangePicker name=(concat "system.rules." index ".appearance.texture.playbackRate") value=object.appearance.texture.playbackRate placeholder="1" min="0" max="4" step="0.05"}}
+                        <range-picker name="system.rules.{{index}}.appearance.texture.playbackRate" value="{{object.appearance.texture.playbackRate}}" placeholder="1" min="0" max="4" step="0.05" />
                     </div>
 
                     <div class="grid-item long-label">
