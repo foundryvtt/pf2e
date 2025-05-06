@@ -152,12 +152,60 @@ class DetectionModeTremorPF2e extends DetectionModeTremor {
     }
 }
 
+class ThoughtsDetectionMode extends DetectionMode {
+    constructor() {
+        super({
+            id: "senseThoughts",
+            label: "PF2E.Actor.Creature.Sense.Type.Thoughtsense",
+            type: DetectionMode.DETECTION_TYPES.OTHER,
+            angle: false,
+        });
+    }
+
+    static override getDetectionFilter(): OutlineOverlayFilter {
+        const filter = (this._detectionFilter ??= OutlineOverlayFilter.create({
+            wave: true,
+            knockout: false,
+            outlineColor: [0, 1, 0, 1],
+        }));
+        filter.thickness = 1;
+        return filter;
+    }
+
+    protected override _canDetect(visionSource: PointVisionSourcePF2e, target: PlaceableObject): boolean {
+        // Not if the target isn't a token
+        if (!(target instanceof TokenPF2e)) return false;
+        const token: TokenPF2e = target;
+        if (!token.actor) return false;
+
+        // Not if the token is GM-hidden
+        if (token.document.hidden) return false;
+
+        // Detection only works on creatures
+        if (!token.actor.isOfType("creature")) return false;
+
+        // Detection cails on mindless creatures
+        if (token.actor.system.traits.value.includes("mindless")) return false;
+
+        // Detection fails if target is immune to mental
+        if (token.actor.attributes.immunities.some((i) => i.type === "mental")) return false;
+
+        return super._canDetect(visionSource, target);
+    }
+}
+
+declare namespace ThoughtsDetectionMode {
+    // eslint-disable-next-line no-var
+    var _detectionFilter: OutlineOverlayFilter | undefined;
+}
+
 function setPerceptionModes(): void {
     CONFIG.Canvas.visionModes.darkvision = darkvision;
     CONFIG.Canvas.detectionModes.basicSight = new VisionDetectionMode();
     CONFIG.Canvas.detectionModes.lightPerception = new LightPerceptionMode();
     CONFIG.Canvas.detectionModes.hearing = new HearingDetectionMode();
     CONFIG.Canvas.detectionModes.feelTremor = new DetectionModeTremorPF2e();
+    CONFIG.Canvas.detectionModes.senseThoughts = new ThoughtsDetectionMode();
 }
 
 export { setPerceptionModes };
