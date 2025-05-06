@@ -1,9 +1,8 @@
 import { AttributeString } from "@actor/types.ts";
-import { AbilityTrait } from "@item/ability/types.ts";
 import { PhysicalItemSource } from "@item/base/data/index.ts";
-import { Size, TraitsWithRarity, ValuesList, ZeroToTwo } from "@module/data.ts";
+import { Size, TraitsWithRarity, ZeroToTwo } from "@module/data.ts";
 import { MaterialDamageEffect } from "@system/damage/types.ts";
-import { ActionCost, BaseItemSourcePF2e, Frequency, ItemSystemData, ItemSystemSource } from "../base/data/system.ts";
+import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "../base/data/system.ts";
 import type { ITEM_CARRY_TYPES } from "../base/data/values.ts";
 import type { CoinsPF2e } from "./helpers.ts";
 import type { PhysicalItemTrait, PhysicalItemType, PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
@@ -33,7 +32,6 @@ interface PhysicalSystemSource extends ItemSystemSource {
     material: ItemMaterialSource;
     size: Size;
     usage?: { value: string };
-    activations?: Record<string, ItemActivation>;
     temporary?: boolean;
     subitems?: PhysicalItemSource[];
 
@@ -123,22 +121,6 @@ interface PhysicalItemTraits<T extends PhysicalItemTrait> extends TraitsWithRari
     otherTags: string[];
 }
 
-interface ItemActivation {
-    id: string;
-    description: {
-        value: string;
-    };
-    actionCost: ActionCost;
-    components: {
-        command: boolean;
-        envision: boolean;
-        interact: boolean;
-        cast: boolean;
-    };
-    frequency?: Frequency;
-    traits: ValuesList<AbilityTrait>;
-}
-
 interface PhysicalItemHPSource {
     value: number;
     max: number;
@@ -175,14 +157,13 @@ export type {
     IdentificationStatus,
     IdentifiedData,
     Investable,
-    ItemActivation,
     ItemCarryType,
     ItemMaterialData,
     ItemMaterialSource,
     MystifiedData,
     PartialPrice,
-    PhysicalItemHPSource,
     PhysicalItemHitPoints,
+    PhysicalItemHPSource,
     PhysicalItemTrait,
     PhysicalItemTraits,
     PhysicalSystemData,
