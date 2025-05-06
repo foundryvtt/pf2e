@@ -13,7 +13,7 @@ class TokenLightForm extends RuleElementForm<TokenLightRuleSource, TokenLightRul
         const data = await super.getData();
         return {
             ...data,
-            colorationTechniques: AdaptiveLightingShader.SHADER_TECHNIQUES,
+            colorationTechniques: fc.rendering.shaders.AdaptiveLightingShader.SHADER_TECHNIQUES,
             light: data.rule.value,
             lightAnimations: R.mapValues(CONFIG.Canvas.lightAnimations, (value) => value.label),
         };
@@ -21,7 +21,7 @@ class TokenLightForm extends RuleElementForm<TokenLightRuleSource, TokenLightRul
 }
 
 interface TokenLightSheetData extends RuleElementFormSheetData<TokenLightRuleSource, TokenLightRuleElement> {
-    colorationTechniques: typeof AdaptiveLightingShader.SHADER_TECHNIQUES;
+    colorationTechniques: typeof fc.rendering.shaders.AdaptiveLightingShader.SHADER_TECHNIQUES;
     light: TokenLightRuleSource["value"];
     lightAnimations: Record<keyof typeof CONFIG.Canvas.lightAnimations, string>;
 }
