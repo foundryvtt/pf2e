@@ -1,104 +1,109 @@
-@import "proficiency-ranks";
-@import "sidebar";
-@import "header";
+// TODO: copy the rest of the "crb" style to here and vehicle
+.actor.sheet.character section.window-content .crb-style {
+    --font-primary: var(--body-serif);
 
-nav.sheet-navigation {
-    .item {
-        &.to-hide {
-            opacity: 45%;
-        }
-        &.hidden {
-            display: none;
-        }
+    @import "proficiency-ranks";
+    @import "sidebar";
+    @import "header";
 
-        .pfs-icon {
-            clip-rule: evenodd;
-            fill-rule: evenodd;
-            padding: var(--space-4);
-            position: relative;
-            stroke-linejoin: round;
-            stroke-miterlimit: 2;
-            top: calc(-1 * var(--space-1));
-
-            path {
-                fill-rule: nonzero;
+    nav.sheet-navigation {
+        .item {
+            &.to-hide {
+                opacity: 45%;
             }
-        }
-    }
+            &.hidden {
+                display: none;
+            }
 
-    .manage-tabs {
-        color: var(--text-light);
-        margin: 0;
-        padding: 0 var(--space-6);
-    }
-}
+            .pfs-icon {
+                clip-rule: evenodd;
+                fill-rule: evenodd;
+                padding: var(--space-4);
+                position: relative;
+                stroke-linejoin: round;
+                stroke-miterlimit: 2;
+                top: calc(-1 * var(--space-1));
 
-.sheet-body .sheet-content {
-    & > .tab.active {
-        display: flex;
-        height: 100%;
-
-        @import "option-toggles";
-    }
-
-    & > .tab:not(.inventory, .actions),
-    .tab-content {
-        flex-grow: 1;
-        min-height: 0;
-        overflow: hidden auto;
-        scrollbar-gutter: stable;
-    }
-
-    nav + .tab-content {
-        padding-top: var(--space-12);
-    }
-
-    .name a:hover {
-        text-shadow: none;
-    }
-
-    // general item-image properties
-    .item-image {
-        &.framed {
-            background-color: var(--tertiary);
-
-            &,
-            i {
-                @include frame-icon;
+                path {
+                    fill-rule: nonzero;
+                }
             }
         }
 
-        i {
-            display: none;
-            position: absolute;
-            width: 100%;
+        .manage-tabs {
+            color: var(--text-light);
+            margin: 0;
+            padding: 0 var(--space-6);
+        }
+    }
+
+    .sheet-body .sheet-content {
+        & > .tab.active {
+            display: flex;
             height: 100%;
-            color: var(--text-dark);
+
+            @import "option-toggles";
         }
 
-        &:hover {
+        & > .tab:not(.inventory, .actions),
+        .tab-content {
+            flex-grow: 1;
+            min-height: 0;
+            overflow: hidden auto;
+            scrollbar-gutter: stable;
+        }
+
+        nav + .tab-content {
+            padding-top: var(--space-12);
+        }
+
+        .name a:hover {
+            text-shadow: none;
+        }
+
+        // general item-image properties
+        .item-image {
+            &.framed {
+                background-color: var(--tertiary);
+
+                &,
+                i {
+                    @include frame-icon;
+                }
+            }
+
             i {
-                background: #f1eee9;
-                display: flex;
-                justify-content: center;
-                align-items: center;
+                display: none;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                color: var(--text-dark);
+            }
+
+            &:hover {
+                i {
+                    background: #f1eee9;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
             }
         }
-    }
 
-    > .tab.active {
-        display: flex;
-        flex-direction: column;
+        > .tab.active {
+            display: flex;
+            flex-direction: column;
 
-        @import "character", "actions", "effects", "spellcasting", "proficiencies", "feats", "biography", "inventory",
-            "pfs", "crafting";
-    }
+            @import "character", "actions", "effects", "spellcasting", "proficiencies", "feats", "biography",
+                "inventory", "pfs", "crafting";
+        }
 
-    .directory-list {
-        display: flex;
-        flex-flow: column nowrap;
-        margin: 0;
-        padding: 0;
-        width: 100%;
+        .directory-list {
+            display: flex;
+            flex-flow: column nowrap;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
     }
 }
