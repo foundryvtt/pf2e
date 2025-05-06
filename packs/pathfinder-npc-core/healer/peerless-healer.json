@@ -2816,7 +2816,7 @@
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.XSwEE8wjHr6UXzpw"
             },
             "img": "icons/weapons/staves/staff-ornate-gold-jeweled.webp",
-            "name": "Staff of Healing (Greater)",
+            "name": "+1 Striking Staff of Healing (Greater)",
             "sort": 3900000,
             "system": {
                 "baseItem": "staff",
@@ -3112,7 +3112,7 @@
                 }
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Staff of Healing (Greater)",
+            "name": "Staff",
             "sort": 4300000,
             "system": {
                 "attackEffects": {
@@ -3149,13 +3149,30 @@
                         "selector": "healing",
                         "type": "item",
                         "value": 2
+                    },
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "selector": "{item|_id}-damage"
                     }
                 ],
                 "slug": "staff-of-healing-greater",
                 "traits": {
                     "value": [
                         "magical",
-                        "staff",
                         "two-hand-d8"
                     ]
                 }
@@ -3201,8 +3218,7 @@
                                 ]
                             }
                         ],
-                        "selector": "medicine",
-                        "type": "skill"
+                        "selector": "medicine"
                     }
                 ],
                 "slug": null,
@@ -3226,7 +3242,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The peerless healer restores Hit Points to an ally using heal</p><hr /><p><strong>Effect</strong> One willing creature within 30 feet who didn't benefit from the triggering spell regains Hit Points equal to half the healing granted. The peerless healer can't use Healing Echo again for [[/gmr 1d4 #Recharge Healing Echo]]{1d4 rounds}.</p>"
+                    "value": "<p><strong>Trigger</strong> The peerless healer restores Hit Points to an ally using @UUID[Compendium.pf2e.spells-srd.Item.Heal]</p><hr /><p><strong>Effect</strong> One willing creature within 30 feet who didn't benefit from the triggering spell regains Hit Points equal to half the healing granted. The peerless healer can't use Healing Echo again for [[/gmr 1d4 #Recharge Healing Echo]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -3306,13 +3322,13 @@
                         "predicate": [
                             {
                                 "or": [
-                                    "disease",
-                                    "poison"
+                                    "item:trait:disease",
+                                    "item:trait:poison"
                                 ]
                             }
                         ],
                         "selector": "saving-throw",
-                        "type": "circumstance",
+                        "type": "status",
                         "value": 2
                     }
                 ],
@@ -3424,7 +3440,7 @@
                 "value": 35
             },
             "allSaves": {
-                "value": ""
+                "value": "+2 status vs. poison and disease"
             },
             "hp": {
                 "details": "",
@@ -3449,7 +3465,10 @@
             "blurb": "",
             "languages": {
                 "details": "",
-                "value": []
+                "value": [
+                    "common",
+                    "empyrean"
+                ]
             },
             "level": {
                 "value": 15

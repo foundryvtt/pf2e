@@ -194,6 +194,7 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
                             }
 
                             weapon.system.runes.property = prunePropertyRunes(propertyRunes, RUNE_DATA.weapon.property);
+                            if (weapon.isOfType("weapon")) weapon.name = game.pf2e.system.generateItemName(weapon);
                         },
                     };
             }

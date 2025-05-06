@@ -1,19 +1,19 @@
 {
-    "_id": "MLwh53NzVrfN5Bbc",
-    "img": "icons/skills/targeting/target-glowing-yellow.webp",
-    "name": "Effect: On Guard",
+    "_id": "haDTCFX3EhkdF9sz",
+    "img": "icons/tools/hand/scale-balances-merchant-brown.webp",
+    "name": "Effect: Tip the Scales",
     "system": {
         "description": {
-            "value": "<p>You gain a +2 circumstance bonus to your initiative roll.</p>"
+            "value": "<p>You roll twice on your next d20 roll before the end of your next turn and take the better result.</p>"
         },
         "duration": {
-            "expiry": null,
+            "expiry": "turn-end",
             "sustained": false,
-            "unit": "unlimited",
-            "value": -1
+            "unit": "rounds",
+            "value": 1
         },
         "level": {
-            "value": 9
+            "value": 11
         },
         "publication": {
             "license": "ORC",
@@ -22,10 +22,9 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "selector": "initiative",
-                "type": "circumstance",
-                "value": 2
+                "keep": "higher",
+                "key": "RollTwice",
+                "selector": "all"
             }
         ],
         "start": {

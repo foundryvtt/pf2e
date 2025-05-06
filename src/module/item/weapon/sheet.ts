@@ -181,8 +181,8 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         const propertyRuneIndices = [0, 1, 2, 3] as const;
         const propertyRuneUpdates = propertyRuneIndices.flatMap((i) => {
             const key = `system.runes.property.${i}`;
-            const sourceValue = fu.getProperty(weapon._source, key);
-            const wasAdjusted = fu.getProperty(weapon, key) !== sourceValue;
+            const sourceValue = weapon._source.system.runes.property[i];
+            const wasAdjusted = formData[key] !== sourceValue;
             const isEventSource = event.target && "name" in event.target && event.target.name === key;
             return (wasAdjusted && !isEventSource ? sourceValue : formData[key]) ?? [];
         });

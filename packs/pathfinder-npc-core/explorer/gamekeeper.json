@@ -376,47 +376,6 @@
             "type": "melee"
         },
         {
-            "_id": "OtC06guQyYAaHq4T",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "3L0e1yhguw2F1b1b"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Club",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "tP8uFLzpOF4W4Smv": {
-                        "damage": "1d6+9",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "club",
-                "traits": {
-                    "value": [
-                        "thrown-10"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "iR6mpiXvRooJNr8l",
             "flags": {
                 "pf2e": {
@@ -425,7 +384,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Arbalest",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -464,7 +423,7 @@
             "_id": "ZUjpZ8qa5zU67u4f",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Keeper's Revenge",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -497,7 +456,7 @@
             "_id": "mnYkgDdgH982pZxa",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Move It!",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -507,7 +466,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>The gamekeeper can Hustle for 30 minutes longer and is not affected by difficult terrain while in their territory.</p>"
+                    "value": "<p>The gamekeeper can @UUID[Compendium.pf2e.actionspf2e.Item.Hustle] for 30 minutes longer and is not affected by difficult terrain while in their territory.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -526,7 +485,7 @@
             "_id": "40j55TPg1eH7egi1",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Sic 'Em!",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -536,7 +495,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> An animal within 60 feet of the gamekeeper is killed</p><hr /><p><strong>Effect</strong> The gamekeeper stokes the ire of the wild. Until the end of the gamekeeper's next turn, they and all animals in a @Template[type:emanation|distance:60] gain a +1 status bonus to attack rolls and a +2 status bonus to damage rolls.</p>"
+                    "value": "<p><strong>Trigger</strong> An animal within 60 feet of the gamekeeper is killed</p><hr /><p><strong>Effect</strong> The gamekeeper stokes the ire of the wild. Until the end of the gamekeeper's next turn, they and all animals in a @Template[type:emanation|distance:60] gain a +1 status bonus to attack rolls and a +2 status bonus to damage rolls.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Sic 'Em!]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -559,7 +518,7 @@
             "_id": "fIusYGjNJuL9pseZ",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Leader of the Pack",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -576,7 +535,27 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "leader-of-the-pack",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "leader-of-the-pack"
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "spell-attack-roll",
+                            "strike-damage",
+                            "attack-spell-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -588,7 +567,7 @@
             "_id": "T6ziNrg4PIf1x1Cv",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Hunting Lore",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "description": {
                     "value": ""

@@ -316,7 +316,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>A physician has a +4 circumstance bonus to Diplomacy checks to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] on or make a Request of a diseased, poisoned, or wounded creature.</p>"
+                    "value": "<p>A physician has a +4 circumstance bonus to Diplomacy checks to [[/act make-an-impression options=bedside-manner]] on or make a [[/act request options=bedside-manner]] of a diseased, poisoned, or wounded creature.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -325,19 +325,18 @@
                 },
                 "rules": [
                     {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Target is diseased, poisoned, or wounded",
-                        "option": "bedside-manner",
-                        "toggleable": true
-                    },
-                    {
                         "key": "FlatModifier",
                         "predicate": [
-                            "beside-manner",
-                            "action:make-an-impression"
+                            "bedside-manner",
+                            {
+                                "or": [
+                                    "action:make-an-impression",
+                                    "action:request"
+                                ]
+                            }
                         ],
                         "selector": "diplomacy",
+                        "type": "circumstance",
                         "value": 4
                     }
                 ],
@@ -384,8 +383,7 @@
                                 ]
                             }
                         ],
-                        "selector": "medicine",
-                        "type": "skill"
+                        "selector": "medicine"
                     }
                 ],
                 "slug": null,

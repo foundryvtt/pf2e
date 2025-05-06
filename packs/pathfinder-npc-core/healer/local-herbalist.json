@@ -150,7 +150,7 @@
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.s1vB3HdXjMigYAnY"
             },
             "img": "icons/containers/bags/pouch-gold-green.webp",
-            "name": "Medicine Bag",
+            "name": "Medicine Bag (Functions as a Healer's Toolkit)",
             "sort": 300000,
             "system": {
                 "baseItem": null,
@@ -391,7 +391,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>The herbalist can use Nature instead of Medicine to @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds] or Administer First Aid, and gains a +3 circumstance bonus to the check if they're in the wilderness with access to fresh herbal ingredients.</p>"
+                    "value": "<p>The herbalist can use Nature instead of Medicine to @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds] or @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid], and gains a +3 circumstance bonus to the check if they're in the wilderness with access to fresh herbal ingredients.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -412,7 +412,7 @@
                         ],
                         "selector": "nature",
                         "type": "circumstance",
-                        "value": 2
+                        "value": 3
                     }
                 ],
                 "slug": "natural-medicine",
@@ -436,7 +436,11 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p>\n<p><strong>Trigger</strong> An ally close enough for the herbalist to reach with a Stride is reduced to 0 Hit Points</p><hr /><p><strong>Effect</strong> The herbalist Strides until adjacent to the ally and Administers First Aid to that ally.</p>"
+                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p>\n<p><strong>Trigger</strong> An ally close enough for the herbalist to reach with a Stride is reduced to 0 Hit Points</p><hr /><p><strong>Effect</strong> The herbalist Strides until adjacent to the ally and @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid]{Administers First Aid} to that ally.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT10M"
                 },
                 "publication": {
                     "license": "ORC",
@@ -466,6 +470,10 @@
                 "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The local herbalist quickly mixes together a potent healing salve with the most precious ingredients from their medicine bag. They create a temporary @UUID[Compendium.pf2e.equipment-srd.Item.Elixir of Life (Lesser)]{lesser elixir of life}. This elixir remains potent for 1 round before becoming sour and useless.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
                 },
                 "publication": {
                     "license": "ORC",

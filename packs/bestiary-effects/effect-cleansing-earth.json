@@ -1,16 +1,16 @@
 {
-    "_id": "MLwh53NzVrfN5Bbc",
-    "img": "icons/skills/targeting/target-glowing-yellow.webp",
-    "name": "Effect: On Guard",
+    "_id": "wLQEa9xChzWEc7Mn",
+    "img": "icons/magic/nature/leaf-flower-wreath-glow-green-blue.webp",
+    "name": "Effect: Cleansing Earth",
     "system": {
         "description": {
-            "value": "<p>You gain a +2 circumstance bonus to your initiative roll.</p>"
+            "value": "<p>You gain 20 temporary Hit Points.</p>"
         },
         "duration": {
-            "expiry": null,
+            "expiry": "turn-start",
             "sustained": false,
-            "unit": "unlimited",
-            "value": -1
+            "unit": "minutes",
+            "value": 1
         },
         "level": {
             "value": 9
@@ -22,10 +22,8 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "selector": "initiative",
-                "type": "circumstance",
-                "value": 2
+                "key": "TempHP",
+                "value": 20
             }
         ],
         "start": {

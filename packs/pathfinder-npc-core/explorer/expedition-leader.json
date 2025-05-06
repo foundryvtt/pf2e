@@ -936,12 +936,28 @@
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> The expedition leader fails a Survival check</p><hr /><p><strong>Effect</strong> The expedition leader rethinks their choices based on prior experience. The degree of success increases by one step, from critical failure to failure or from failure to success.</p>"
                 },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalFailure",
+                            "failure"
+                        ],
+                        "selector": "survival",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -1056,7 +1072,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The expedition leader has a hand free</p><hr /><p><strong>Effect</strong> The expedition leader scoops up a handful of rubble and throws it. Each creature in a @Template[type:cone|distance:15] must succeed at a @Check[reflex|dc:27] save or be @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of the expedition leader's next turn.</p>"
+                    "value": "<p><strong>Requirements</strong> The expedition leader has a hand free</p><hr /><p><strong>Effect</strong> The expedition leader scoops up a handful of rubble and throws it. Each creature in a @Template[type:cone|distance:15] must succeed at a @Check[reflex|dc:27] save or be @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of the expedition leader's next turn.</p>"
                 },
                 "publication": {
                     "license": "ORC",
