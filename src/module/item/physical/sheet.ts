@@ -2,12 +2,12 @@ import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bon
 import type { AppV1RenderOptions } from "@client/appv1/api/application-v1.d.mts";
 import type { PhysicalItemPF2e } from "@item";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
-import { SheetOptions, createSheetTags, getAdjustment } from "@module/sheet/helpers.ts";
+import { getAdjustment } from "@module/sheet/helpers.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, localizer, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { detachSubitem } from "./helpers.ts";
-import { CoinsPF2e, ItemActivation, MaterialValuationData } from "./index.ts";
+import { CoinsPF2e, MaterialValuationData } from "./index.ts";
 import { PRECIOUS_MATERIAL_GRADES } from "./values.ts";
 
 class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
@@ -28,25 +28,12 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         const basePrice = new CoinsPF2e(item._source.system.price.value);
         const priceAdjustment = getAdjustment(item.system.price.value.copperValue, basePrice.copperValue);
 
-        const { actionTraits } = CONFIG.PF2E;
-
         // Enrich content
         const rollData = { ...item.getRollData(), ...this.actor?.getRollData() };
         sheetData.enrichedContent.unidentifiedDescription = await TextEditorPF2e.enrichHTML(
             sheetData.item.system.identification.unidentified.data.description.value,
             { rollData },
         );
-        const activations: PhysicalItemSheetData<TItem>["activations"] = [];
-        for (const action of item.activations) {
-            const description = await TextEditorPF2e.enrichHTML(action.description.value, { rollData });
-            activations.push({
-                action,
-                id: action.id,
-                base: `system.activations.${action.id}`,
-                description,
-                traits: createSheetTags(actionTraits, action.traits ?? { value: [] }),
-            });
-        }
 
         const adjustedLevelHint = ((): string | null => {
             const hintText = ABP.isEnabled(this.actor)
@@ -116,7 +103,6 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
             ],
             isApex: tupleHasValue(item._source.system.traits.value, "apex"),
             isPhysical: true,
-            activations,
             // Do not let user set bulk if in a stack group because the group determines bulk
             bulkDisabled: !!sheetData.data?.stackGroup?.trim(),
         };
@@ -242,13 +228,6 @@ interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemShee
     usageOptions: FormSelectOption[];
     identificationStatusOptions: FormSelectOption[];
     bulkDisabled: boolean;
-    activations: {
-        action: ItemActivation;
-        id: string;
-        base: string;
-        description: string;
-        traits: SheetOptions;
-    }[];
 }
 
 interface MaterialSheetEntry {
