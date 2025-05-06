@@ -9,7 +9,6 @@ import { ZeroToThree, ZeroToTwo } from "@module/data.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
-import { DAMAGE_DIE_SIZES } from "@system/damage/values.ts";
 import { Predicate } from "@system/predication.ts";
 import { ErrorPF2e, getActionGlyph, objectHasKey, sluggify, tupleHasValue } from "@util";
 import { traitSlugToObject } from "@util/tags.ts";
@@ -26,15 +25,6 @@ class PCAttackTraitHelpers extends AttackTraitHelpers {
                         const fatal = trait.replace("-aim", "");
                         if (objectHasKey(CONFIG.PF2E.weaponTraits, fatal) && !traits.includes(fatal)) {
                             traits.push(fatal);
-                        }
-                    }
-                    break;
-                }
-                case "jousting": {
-                    if (weapon.handsHeld === 1) {
-                        const die = /(d\d{1,2})$/.exec(trait)?.[1];
-                        if (tupleHasValue(DAMAGE_DIE_SIZES, die)) {
-                            weapon.system.damage.die = die;
                         }
                     }
                     break;
