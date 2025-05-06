@@ -462,23 +462,15 @@
     @import "coinage";
 }
 
-.actor.sheet {
-    &.character section.window-content {
-        .crb-style {
-            @import "character";
-        }
-    }
+@import "character";
 
-    &.attack-popout section.window-content {
-        background-image: url("/assets/sheet/background.webp");
-        background-position: 75% 10%;
+@import "vehicle";
 
-        @import "character/attack-popout";
-    }
+.actor.sheet.attack-popout section.window-content {
+    background-image: url("/assets/sheet/background.webp");
+    background-position: 75% 10%;
 
-    &.vehicle .crb-style {
-        @import "vehicle";
-    }
+    @import "character/attack-popout";
 }
 
 @import "spell-preparation";
