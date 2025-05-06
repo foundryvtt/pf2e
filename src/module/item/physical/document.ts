@@ -19,7 +19,6 @@ import { getUnidentifiedPlaceholderImage } from "../identification.ts";
 import { Bulk } from "./bulk.ts";
 import type {
     IdentificationStatus,
-    ItemActivation,
     ItemCarryType,
     ItemMaterialData,
     MystifiedData,
@@ -220,21 +219,6 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return new Bulk(this.system.bulk.value)
             .convertToSize(this.size, actorSize ?? this.size)
             .times(bulkRelevantQuantity);
-    }
-
-    get activations(): (ItemActivation & { componentsLabel: string })[] {
-        return Object.values(this.system.activations ?? {}).map((action) => {
-            const components: string[] = [];
-            if (action.components.cast) components.push(game.i18n.localize("PF2E.Item.Activation.Cast"));
-            if (action.components.command) components.push(game.i18n.localize("PF2E.Item.Activation.Command"));
-            if (action.components.envision) components.push(game.i18n.localize("PF2E.Item.Activation.Envision"));
-            if (action.components.interact) components.push(game.i18n.localize("PF2E.Item.Activation.Interact"));
-
-            return {
-                componentsLabel: components.join(", "),
-                ...action,
-            };
-        });
     }
 
     override get uuid(): ItemUUID {
