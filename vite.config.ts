@@ -108,23 +108,6 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                 ],
             }),
         );
-    } else if (command === "serve") {
-        const mainCss = path.resolve(__dirname, "src/pf2e.ts").split(path.sep).join("/");
-        const libraryCss = [
-            path.resolve(__dirname, "node_modules/@yaireo/tagify/dist/tagify.css").split(path.sep).join("/"),
-            path.resolve(__dirname, "node_modules/nouislider/dist/nouislider.min.css").split(path.sep).join("/"),
-        ];
-        plugins.push({
-            name: "hmr-layers",
-            transform: (code, id) => {
-                if (id === mainCss) {
-                    return code.replace("styles/main.scss", "styles/vite-hmr.scss");
-                } else if (libraryCss.includes(id)) {
-                    return `@layer system { ${code} }`;
-                }
-                return;
-            },
-        });
     } else {
         plugins.push(
             // Foundry expects all esm files listed in system.json to exist: create empty vendor module when in dev mode
@@ -168,6 +151,25 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                 },
             },
         );
+
+        // Add system CSS layer for HMR
+        const mainCss = path.resolve(__dirname, "src/pf2e.ts").split(path.sep).join("/");
+        const libraryCss = [
+            path.resolve(__dirname, "node_modules/@yaireo/tagify/dist/tagify.css").split(path.sep).join("/"),
+            path.resolve(__dirname, "node_modules/nouislider/dist/nouislider.min.css").split(path.sep).join("/"),
+        ];
+        plugins.push({
+            name: "hmr-layers",
+            apply: "serve",
+            transform: (code, id) => {
+                if (id === mainCss) {
+                    return code.replace("styles/main.scss", "styles/vite-hmr.scss");
+                } else if (libraryCss.includes(id)) {
+                    return `@layer system { ${code} }`;
+                }
+                return;
+            },
+        });
     }
 
     // Create dummy files for vite dev server
