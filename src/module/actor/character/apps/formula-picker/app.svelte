@@ -201,17 +201,20 @@
                     margin: 0;
                 }
                 .tag {
-                    padding: 0.15em 0.3em 0.1em 0.3em;
+                    /** Roboto has some inherit padding that makes sizing this small cause misalignment w/o line-height */
+                    height: var(--space-17);
+                    line-height: 95%;
                 }
             }
         }
 
         > .quantity {
+            --input-height: 1.375rem;
+
             display: flex;
             margin-top: var(--space-6);
             button {
                 width: 1.375rem;
-                height: 1.375rem;
                 i {
                     margin: 0;
                 }
@@ -219,7 +222,6 @@
             input {
                 border: none;
                 width: 3ch;
-                height: 1.375rem;
                 padding-left: 0;
                 padding-right: 0;
                 text-align: center;
@@ -232,8 +234,8 @@
         }
 
         > button.select {
+            --button-size: 1.75rem;
             width: 1.75rem;
-            height: 1.75rem;
             margin-top: var(--space-4);
             transition: all 0.25s ease-in-out;
 

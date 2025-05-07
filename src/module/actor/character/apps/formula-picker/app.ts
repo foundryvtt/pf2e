@@ -68,7 +68,7 @@ class FormulaPicker extends SvelteApplicationMixin<
         this.options.actor.apps[this.id] = this;
     }
 
-    override _onClose(options: ApplicationRenderOptions): void {
+    protected override _onClose(options: fa.ApplicationClosingOptions): void {
         delete this.options.actor.apps[this.id];
         super._onClose(options);
         this.#resolve?.(this.selection);
