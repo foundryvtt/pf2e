@@ -1,4 +1,5 @@
 import { AttributeString } from "@actor/types.ts";
+import type { ImageFilePath } from "@common/constants.mjs";
 import { PhysicalItemSource } from "@item/base/data/index.ts";
 import { Size, TraitsWithRarity, ZeroToTwo } from "@module/data.ts";
 import { MaterialDamageEffect } from "@system/damage/types.ts";
