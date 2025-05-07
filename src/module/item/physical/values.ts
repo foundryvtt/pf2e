@@ -1,5 +1,6 @@
 const PHYSICAL_ITEM_TYPES = new Set([
     "armor",
+    "augmentation",
     "backpack",
     "book",
     "consumable",

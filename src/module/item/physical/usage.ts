@@ -28,7 +28,14 @@ interface CarriedUsage {
     hands?: 0;
 }
 
-type UsageDetails = HeldUsage | WornUsage | AttachedUsage | CarriedUsage;
+interface ImplantedUsage {
+    value: string;
+    type: "implanted";
+    where?: never;
+    hands?: 0;
+}
+
+type UsageDetails = HeldUsage | WornUsage | AttachedUsage | CarriedUsage | ImplantedUsage;
 
 type UsageType = UsageDetails["type"];
 
@@ -71,6 +78,9 @@ function getUsageDetails(usage: string): UsageDetails {
         case "attached-to-melee-weapon":
         case "attached-to-ships-bow":
             return { value: usage, type: "attached", where: usage.replace(/^attached-to-/, "") };
+
+        case "implanted":
+            return { value: usage, type: "implanted" };
 
         default:
             if (usage.startsWith("worn") && usage.length > 4) {

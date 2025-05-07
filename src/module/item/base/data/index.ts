@@ -2,6 +2,7 @@ import type { AbilitySource } from "@item/ability/data.ts";
 import type { AfflictionSource } from "@item/affliction/data.ts";
 import type { AncestrySource } from "@item/ancestry/data.ts";
 import type { ArmorSource } from "@item/armor/data.ts";
+import type { AugmentationSource } from "@item/augmentation/data.ts";
 import type { BackgroundSource } from "@item/background/data.ts";
 import type { BookSource } from "@item/book/data.ts";
 import type { CampaignFeatureSource } from "@item/campaign-feature/data.ts";
@@ -50,6 +51,7 @@ type ItemType = NonPhysicalItemType | PhysicalItemType;
 
 type PhysicalItemSource =
     | ArmorSource
+    | AugmentationSource
     | BookSource
     | ConsumableSource
     | ContainerSource
