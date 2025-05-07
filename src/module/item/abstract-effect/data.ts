@@ -4,6 +4,7 @@ import type { ItemSystemData, ItemSystemSource, ItemTraitsNoRarity } from "@item
 import type { MagicTradition } from "@item/spell/index.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 import type { EffectTrait } from "./types.ts";
+import { EFFECT_TIME_UNITS } from "./values.ts";
 
 interface AbstractEffectSystemSource extends ItemSystemSource {
     traits: EffectTraits;
@@ -104,7 +105,7 @@ interface EffectAuraData {
 type EffectBadgeSource = EffectBadgeCounterSource | EffectBadgeValueSource | EffectBadgeFormulaSource;
 type EffectBadge = EffectBadgeCounter | EffectBadgeValue | EffectBadgeFormula;
 
-type TimeUnit = "rounds" | "minutes" | "hours" | "days";
+type TimeUnit = (typeof EFFECT_TIME_UNITS)[number];
 type EffectExpiryType = "turn-start" | "turn-end" | "round-end";
 
 interface DurationData {

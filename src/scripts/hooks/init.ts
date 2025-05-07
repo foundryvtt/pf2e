@@ -26,6 +26,11 @@ export const Init = {
         Hooks.once("init", () => {
             console.log("PF2e System | Initializing Pathfinder 2nd Edition System");
 
+            // Remove afflictions from the system document types if production
+            if (BUILD_MODE === "production") {
+                delete game.system.documentTypes.Item.affliction;
+            }
+
             CONFIG.PF2E = PF2ECONFIG;
             CONFIG.debug.ruleElement ??= false;
 
