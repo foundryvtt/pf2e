@@ -40,11 +40,7 @@
     <div class="form-group">
         <label>{{localize "PF2E.Item.Affliction.StageLabel"}}</label>
         <select name="system.stage" data-dtype="Number" {{disabled (not item.actor)}}>
-            {{#if item.onsetDuration}}
-                {{selectOptions @root.stageOptions selected=item.stage}}
-            {{else}}
-                {{selectOptions (omit @root.stageOptions "0") selected=item.stage}}
-            {{/if}}
+            {{selectOptions @root.stageOptions selected=item.stage}}
         </select>
     </div>
 
