@@ -6,4 +6,6 @@ const DURATION_UNITS: Readonly<Record<string, number>> = {
     days: 86400,
 };
 
-export { DURATION_UNITS };
+const EFFECT_TIME_UNITS = ["rounds", "minutes", "hours", "days"] as const;
+
+export { DURATION_UNITS, EFFECT_TIME_UNITS };
