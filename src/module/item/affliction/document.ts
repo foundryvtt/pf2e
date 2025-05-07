@@ -3,7 +3,7 @@ import type { DocumentConstructionContext } from "@common/_types.d.mts";
 import type { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
 import { ConditionPF2e, ItemPF2e } from "@item";
 import { calculateRemainingDuration } from "@item/abstract-effect/helpers.ts";
-import { AbstractEffectPF2e, EffectBadgeCounter } from "@item/abstract-effect/index.ts";
+import { AbstractEffectPF2e, DurationData, EffectBadgeCounter } from "@item/abstract-effect/index.ts";
 import { DURATION_UNITS } from "@item/abstract-effect/values.ts";
 import { ConditionSlug } from "@item/condition/types.ts";
 import { UserPF2e } from "@module/user/index.ts";
@@ -14,7 +14,7 @@ import { DamageRoll } from "@system/damage/roll.ts";
 import { DegreeOfSuccess } from "@system/degree-of-success.ts";
 import { ErrorPF2e } from "@util";
 import * as R from "remeda";
-import { AfflictionFlags, AfflictionSource, AfflictionStageData, AfflictionSystemData } from "./data.ts";
+import { AfflictionFlags, AfflictionSource, AfflictionSystemData } from "./data.ts";
 
 /** Condition types that don't need a duration to eventually disappear. These remain even when the affliction ends */
 const EXPIRING_CONDITIONS: Set<ConditionSlug> = new Set([
@@ -40,36 +40,33 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             value: this.stage,
             min: 1,
             max: this.maxStage,
-            label: this.onset
+            label: this.system.status.onset
                 ? game.i18n.localize("PF2E.Item.Affliction.OnsetLabel")
                 : game.i18n.format("PF2E.Item.Affliction.Stage", { stage: this.stage }),
         };
     }
 
+    /** Returns the current stage. This stage is 1 indexed */
     get stage(): number {
-        return this.system.stage;
-    }
-
-    get stageData(): AfflictionStageData | null {
-        return Object.values(this.system.stages).at(this.stage - 1) ?? null;
+        return this.system.status.stage;
     }
 
     get maxStage(): number {
-        return Object.keys(this.system.stages).length || 1;
+        return this.system.stages.length || 1;
     }
 
     override async increase(): Promise<void> {
-        if (this.onset) {
+        if (this.system.status.onset) {
             await this.update({ system: { "-=onset": null } });
         } else if (this.stage !== this.maxStage) {
-            const stage = Math.min(this.maxStage, this.system.stage + 1);
+            const stage = Math.min(this.maxStage, this.stage + 1);
             await this.update({ system: { stage } });
         }
     }
 
     /** Decreases the affliction stage, deleting if reduced to 0 even if an onset exists */
     override async decrease(): Promise<void> {
-        const stage = this.system.stage - 1;
+        const stage = this.stage - 1;
         if (stage === 0) {
             await this.delete();
             return;
@@ -78,33 +75,18 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         await this.update({ system: { stage } });
     }
 
-    /** Returns true if the affliction is currently in the onset phase */
-    get onset(): boolean {
-        return !!this.system.onset?.active;
-    }
-
     get onsetDuration(): number {
-        if (!this.system.onset) {
-            return 0;
-        }
-        return this.system.onset.value * (DURATION_UNITS[this.system.onset.unit] ?? 0);
+        const onset = this.system.onset;
+        return onset ? onset.value * (DURATION_UNITS[onset.unit] ?? 0) : 0;
     }
 
     get remainingStageDuration(): { expired: boolean; remaining: number } {
-        const stageDuration = this.stageData?.duration ?? { unit: "unlimited" };
-        return calculateRemainingDuration(this, { ...stageDuration, expiry: "turn-end" });
-    }
-
-    override prepareBaseData(): void {
-        super.prepareBaseData();
-        this.system.stage = Math.clamp(this.system.stage, this.badge.min, this.maxStage);
-
-        // Set certain defaults
-        for (const stage of Object.values(this.system.stages)) {
-            for (const condition of Object.values(stage.conditions)) {
-                condition.linked ??= true;
-            }
-        }
+        const stageData = this.system.stages.at(this.stage - 1);
+        const stageDuration: DurationData = {
+            ...(stageData?.duration ?? { unit: "unlimited", value: -1 }),
+            expiry: "turn-end",
+        };
+        return calculateRemainingDuration(this, stageDuration);
     }
 
     /** Retrieves the damage for a specific stage */
@@ -113,7 +95,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
 
         const base: BaseDamageData[] = [];
         for (const data of Object.values(stageData?.damage ?? {})) {
-            const { formula, type: damageType, category } = data;
+            const { formula, damageType, category } = data;
             const terms = parseTermsFromSimpleFormula(formula);
             base.push({ terms, damageType, category: category ?? null });
         }
@@ -164,13 +146,13 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         const itemsToDelete = this.getLinkedItems().map((i) => i.id);
         await actor.deleteEmbeddedDocuments("Item", itemsToDelete);
 
-        const currentStage = this.stageData;
+        const currentStage = Object.values(this.system.stages).at(this.stage - 1);
         if (!currentStage) return;
 
         // Get all conditions we need to add or update
         const conditionsToAdd: ConditionPF2e[] = [];
         const conditionsToUpdate: Record<string, { value: number; linked: boolean }> = {};
-        for (const data of Object.values(currentStage.conditions ?? {})) {
+        for (const data of currentStage.conditions) {
             const value = data.value ?? 1;
 
             // Try to get an existing one to update first. This occurs for unlinked OR auto-expiring ones that linger
@@ -263,8 +245,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             this._source.system.start = { value: game.time.worldTime + this.onsetDuration, initiative };
         } else {
             // Force minimum stage and active onset if there is no actor
-            data.system.stage = 1;
-            if (data.system.onset) data.system.onset.active = true;
+            this.updateSource({ "system.status.-=status": null });
         }
 
         return super._preCreate(data, operation, user);
@@ -302,7 +283,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         super._onUpdate(changed, operation, userId);
 
         // If the stage changed, perform stage change events
-        if (changed.system?.stage && game.user === this.actor?.primaryUpdater) {
+        if (changed.system?.status?.stage && game.user === this.actor?.primaryUpdater) {
             this.handleStageChange();
         }
     }
@@ -330,7 +311,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         const actor = this.actor;
         if (!actor) throw ErrorPF2e("prepareActorData called from unembedded item");
 
-        if (this.onset) {
+        if (this.system.status.onset) {
             actor.rollOptions.all[`self:${this.type}:${this.rollOptionSlug}:onset`] = true;
         }
     }

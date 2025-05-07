@@ -10,6 +10,7 @@ import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { VehicleSystemData } from "@actor/vehicle/data.ts";
 import { ItemProxyPF2e } from "@item";
 import { AbilitySystemData } from "@item/ability/index.ts";
+import { AfflictionSystemData } from "@item/affliction/data.ts";
 import { CampaignFeatureSystemData } from "@item/campaign-feature/data.ts";
 import { FeatSystemData } from "@item/feat/data.ts";
 import { HeritageSystemData } from "@item/heritage/data.ts";
@@ -97,6 +98,9 @@ export const Load = {
         CONFIG.Actor.dataModels.vehicle = VehicleSystemData;
 
         // Item system data models
+        if (BUILD_MODE !== "production") {
+            CONFIG.Item.dataModels.affliction = AfflictionSystemData;
+        }
         CONFIG.Item.dataModels.action = AbilitySystemData;
         CONFIG.Item.dataModels.campaignFeature = CampaignFeatureSystemData;
         CONFIG.Item.dataModels.feat = FeatSystemData;
