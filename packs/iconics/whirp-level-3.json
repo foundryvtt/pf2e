@@ -1,0 +1,628 @@
+{
+    "_id": "q3lfOt6fj3R2lVFk",
+    "img": "systems/pf2e/icons/iconics/WhirpFull.webp",
+    "items": [
+        {
+            "_id": "Xe5Y6OzpFXrp4s1n",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e-animal-companions.AC-Construct-Companions.Item.JG6DlMcAdHpL2Hr7"
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Item.KsKXlXnc0oxcO3Kt"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "constructCompanion": {
+                            "id": "jAe5FFdLXS2r8TM5",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/ancestry.svg",
+            "name": "Prototype Construct",
+            "sort": 400000,
+            "system": {
+                "additionalLanguages": {
+                    "count": 0,
+                    "custom": "",
+                    "value": []
+                },
+                "boosts": {
+                    "0": {
+                        "value": []
+                    },
+                    "1": {
+                        "value": []
+                    },
+                    "2": {
+                        "value": [
+                            "str",
+                            "dex",
+                            "con",
+                            "int",
+                            "wis",
+                            "cha"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "flaws": {
+                    "0": {
+                        "value": []
+                    }
+                },
+                "hp": 10,
+                "items": {
+                    "qmtw9": {
+                        "img": "systems/pf2e/icons/unarmed-attacks/fist-earth-elemental.webp",
+                        "level": 1,
+                        "name": "Unarmed Strike 1",
+                        "uuid": "Compendium.pf2e-animal-companions.AC-Construct-Companions.Item.i4Fz5yg9JufpyVns"
+                    },
+                    "v1ive": {
+                        "img": "systems/pf2e/icons/spells/impaling-spike.webp",
+                        "level": 1,
+                        "name": "Unarmed Strike 2",
+                        "uuid": "Compendium.pf2e-animal-companions.AC-Construct-Companions.Item.mjDtydpNNfI9SuFq"
+                    }
+                },
+                "languages": {
+                    "custom": "",
+                    "value": [
+                        "common"
+                    ]
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "reach": 5,
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.traits.size.value",
+                        "value": "{item|flags.pf2e.rulesSelections.companionSize}"
+                    },
+                    {
+                        "adjustName": false,
+                        "choices": [
+                            {
+                                "label": "PF2E.ActorSizeMedium",
+                                "value": "med"
+                            },
+                            {
+                                "label": "PF2E.ActorSizeSmall",
+                                "value": "sm"
+                            }
+                        ],
+                        "flag": "companionSize",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.CreatureSize",
+                        "selection": "sm"
+                    },
+                    {
+                        "flag": "constructCompanion",
+                        "key": "GrantItem",
+                        "predicate": [
+                            {
+                                "not": "class:construct-companion"
+                            }
+                        ],
+                        "uuid": "Compendium.pf2e-animal-companions.AC-Features.Item.OJePkZgnguu5Z8cA"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.disableABP",
+                        "priority": 10,
+                        "value": true
+                    }
+                ],
+                "size": "med",
+                "slug": "prototype-construct",
+                "speed": 25,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "construct",
+                        "minion"
+                    ]
+                },
+                "vision": "normal"
+            },
+            "type": "ancestry"
+        },
+        {
+            "_id": "jAe5FFdLXS2r8TM5",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e-animal-companions.AC-Features.Item.OJePkZgnguu5Z8cA"
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Item.iOVXqZOCqrOskHcd"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "Xe5Y6OzpFXrp4s1n",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/class.svg",
+            "name": "Construct Companion",
+            "sort": 4400000,
+            "system": {
+                "ancestryFeatLevels": {
+                    "value": []
+                },
+                "attacks": {
+                    "advanced": 0,
+                    "martial": 0,
+                    "other": {
+                        "name": "",
+                        "rank": 0
+                    },
+                    "simple": 0,
+                    "unarmed": 1
+                },
+                "classFeatLevels": {
+                    "value": []
+                },
+                "defenses": {
+                    "heavy": 0,
+                    "light": 0,
+                    "medium": 0,
+                    "unarmored": 1
+                },
+                "description": {
+                    "value": ""
+                },
+                "generalFeatLevels": {
+                    "value": []
+                },
+                "hp": 6,
+                "items": {},
+                "keyAbility": {
+                    "value": []
+                },
+                "perception": 1,
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.abilities.str.mod",
+                        "value": 3
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.abilities.dex.mod",
+                        "value": 3
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.abilities.con.mod",
+                        "value": 2
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.abilities.int.mod",
+                        "value": -4
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.abilities.wis.mod",
+                        "value": 1
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "selector": "unarmed-attack-damage"
+                    },
+                    {
+                        "key": "Immunity",
+                        "type": "bleed"
+                    },
+                    {
+                        "key": "Immunity",
+                        "type": "death-effects"
+                    },
+                    {
+                        "key": "Immunity",
+                        "type": "disease"
+                    },
+                    {
+                        "key": "Immunity",
+                        "type": "doomed"
+                    },
+                    {
+                        "key": "Immunity",
+                        "type": "drained"
+                    },
+                    {
+                        "key": "Immunity",
+                        "type": "fatigued"
+                    },
+                    {
+                        "key": "Immunity",
+                        "type": "healing"
+                    },
+                    {
+                        "key": "Immunity",
+                        "type": "void"
+                    },
+                    {
+                        "key": "Immunity",
+                        "type": "nonlethal-attacks"
+                    },
+                    {
+                        "key": "Immunity",
+                        "type": "paralyzed"
+                    },
+                    {
+                        "key": "Immunity",
+                        "type": "poison"
+                    },
+                    {
+                        "key": "Immunity",
+                        "type": "sickened"
+                    },
+                    {
+                        "key": "Immunity",
+                        "type": "unconscious"
+                    }
+                ],
+                "savingThrows": {
+                    "fortitude": 1,
+                    "reflex": 1,
+                    "will": 1
+                },
+                "skillFeatLevels": {
+                    "value": []
+                },
+                "skillIncreaseLevels": {
+                    "value": []
+                },
+                "slug": "construct-companion",
+                "spellcasting": 0,
+                "trainedSkills": {
+                    "additional": 0,
+                    "custom": "",
+                    "value": [
+                        "acrobatics",
+                        "athletics"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "class"
+        },
+        {
+            "_id": "HwpbjT3n4kZEPeVH",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e-animal-companions.AC-Construct-Companions.Item.i4Fz5yg9JufpyVns"
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Item.r0BretFLl3eDhEUg"
+                }
+            },
+            "img": "systems/pf2e/icons/unarmed-attacks/fist-earth-elemental.webp",
+            "name": "Fist",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestryfeature",
+                "description": {
+                    "value": "<p>Rename this feat to rename the strike created by it, the image of this feat can also be adjusted to the image you want for the strike.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "Xe5Y6OzpFXrp4s1n",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "category": "unarmed",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d8"
+                            }
+                        },
+                        "group": "brawling",
+                        "key": "Strike",
+                        "range": null,
+                        "traits": [
+                            "unarmed"
+                        ]
+                    }
+                ],
+                "slug": "unarmed-strike-1",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "gwecXqVNFLsTsBDb",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e-animal-companions.AC-Construct-Companions.Item.mjDtydpNNfI9SuFq"
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Item.r0BretFLl3eDhEUg"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/impaling-spike.webp",
+            "name": "Ear",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestryfeature",
+                "description": {
+                    "value": "<p>Rename this feat to rename the strike created by it, the image of this feat can also be adjusted to the image you want for the strike.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "Xe5Y6OzpFXrp4s1n",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": [
+                            {
+                                "label": "PF2E.TraitSlashing",
+                                "value": "slashing"
+                            },
+                            {
+                                "label": "PF2E.TraitPiercing",
+                                "value": "piercing"
+                            }
+                        ],
+                        "flag": "damageChoice",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
+                        "selection": "slashing"
+                    },
+                    {
+                        "category": "unarmed",
+                        "damage": {
+                            "base": {
+                                "damageType": "{item|flags.pf2e.rulesSelections.damageChoice}",
+                                "dice": 1,
+                                "die": "d6"
+                            }
+                        },
+                        "group": "brawling",
+                        "key": "Strike",
+                        "range": null,
+                        "traits": [
+                            "finesse",
+                            "agile",
+                            "unarmed"
+                        ]
+                    }
+                ],
+                "slug": "unarmed-strike-2",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "81bblZqjSwjhsZBU",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e-animal-companions.AC-Construct-Breakthroughs.Item.A3UROfr7qu1iWNKy"
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e-animal-companions.AC-Construct-Breakthroughs.Item.A3UROfr7qu1iWNKy"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/feats.webp",
+            "name": "Manual Dexterity",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Your construct innovation has articulated hands or similar appendages with significant manual dexterity. It can perform manipulate actions with up to two of its limbs. As normal for a companion, it still can't wield weapons or held items that don't have the companion trait, and it can't activate items.</p>"
+                },
+                "level": {
+                    "taken": 3,
+                    "value": 1
+                },
+                "location": "classfeature",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "manual-dexterity",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        }
+    ],
+    "name": "Whirp (Level 3)",
+    "prototypeToken": {
+        "name": "Whirp",
+        "texture": {
+            "src": "systems/pf2e/icons/iconics/Whirp.webp"
+        }
+    },
+    "system": {
+        "abilities": null,
+        "attributes": {
+            "hp": {
+                "temp": 0,
+                "value": 34
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "details": {
+            "age": {
+                "value": ""
+            },
+            "alliance": "party",
+            "biography": {
+                "allies": "",
+                "anathema": [],
+                "appearance": "",
+                "attitude": "",
+                "backstory": "",
+                "beliefs": "",
+                "birthPlace": "",
+                "campaignNotes": "",
+                "catchphrases": "",
+                "dislikes": "",
+                "edicts": [],
+                "enemies": "",
+                "likes": "",
+                "organizations": ""
+            },
+            "ethnicity": {
+                "value": ""
+            },
+            "gender": {
+                "value": ""
+            },
+            "height": {
+                "value": ""
+            },
+            "keyability": {
+                "value": "str"
+            },
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 3
+            },
+            "nationality": {
+                "value": ""
+            },
+            "weight": {
+                "value": ""
+            },
+            "xp": {
+                "max": 1000,
+                "min": 0,
+                "pct": 0,
+                "value": 0
+            }
+        },
+        "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
+        "pfs": {
+            "characterNumber": null,
+            "currentFaction": "EA",
+            "levelBump": false,
+            "playerNumber": null,
+            "reputation": {
+                "EA": null,
+                "GA": null,
+                "HH": null,
+                "RO": null,
+                "VS": null,
+                "VW": null
+            },
+            "school": null
+        },
+        "resources": {
+            "heroPoints": {
+                "max": 3,
+                "value": 1
+            }
+        },
+        "skills": {
+            "arcana": {
+                "rank": 0
+            }
+        }
+    },
+    "type": "character"
+}
