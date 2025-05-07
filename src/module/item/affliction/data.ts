@@ -2,7 +2,7 @@ import type { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { ModelPropsFromSchema, SourceFromSchema } from "@common/data/fields.mjs";
 import type { ItemUUID } from "@common/documents/_module.mjs";
-import { EffectAuraData, EffectExpiryType, TimeUnit } from "@item/abstract-effect/index.ts";
+import type { EffectAuraData, EffectExpiryType, TimeUnit } from "@item/abstract-effect/index.ts";
 import { EffectContextField } from "@item/abstract-effect/schema.ts";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import { EFFECT_TIME_UNITS } from "@item/abstract-effect/values.ts";
@@ -17,8 +17,12 @@ import { AfflictionPF2e } from "./document.ts";
 import fields = foundry.data.fields;
 
 class AfflictionSystemData extends ItemSystemModel<AfflictionPF2e, AfflictionSystemSchema> {
+    /** Whether or not the current affliction is expired */
+    declare expired?: boolean;
+
     static override defineSchema(): AfflictionSystemSchema {
         const effectTraits: Record<EffectTrait, string> = CONFIG.PF2E.effectTraits;
+        const damageTypes: Record<DamageType, string> = CONFIG.PF2E.damageTypes;
 
         return {
             ...super.defineSchema(),
@@ -75,9 +79,10 @@ class AfflictionSystemData extends ItemSystemModel<AfflictionPF2e, AfflictionSys
                         new fields.SchemaField({
                             formula: new fields.StringField({ required: true, nullable: false }),
                             damageType: new fields.StringField({
-                                choices: CONFIG.PF2E.damageTypes,
+                                choices: damageTypes,
                                 required: true,
                                 nullable: false,
+                                initial: "untyped" as DamageType,
                             }),
                             category: new fields.StringField({
                                 choices: DAMAGE_CATEGORIES_UNIQUE,
@@ -131,6 +136,7 @@ class AfflictionSystemData extends ItemSystemModel<AfflictionPF2e, AfflictionSys
                 value: new fields.NumberField(),
                 initiative: new fields.NumberField({ required: true, nullable: true, initial: null }),
             }),
+            fromSpell: new fields.BooleanField({ required: true, nullable: false }),
             context: new EffectContextField(),
         };
     }
@@ -191,6 +197,7 @@ type AfflictionSystemSchema = Omit<ItemSystemSchema, "traits"> & {
         value: fields.NumberField;
         initiative: fields.NumberField<number, number, true, true, true>;
     }>;
+    fromSpell: fields.BooleanField<boolean, boolean, true, false, true>;
     /** Origin, target, and roll context of the action that spawned this affliction */
     context: EffectContextField;
 };
