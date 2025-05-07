@@ -1,4 +1,4 @@
-<ol class="form-list">
+<fieldset>
     <div class="form-group">
         <label>{{localize "PF2E.Item.Affliction.SaveLabel"}}</label>
         <div class="form-fields">
@@ -8,70 +8,72 @@
             </select>
         </div>
     </div>
-</ol>
+</fieldset>
 
-{{#each stages as |stage stageId|}}
-    <ol class="form-list subsection affliction-stage" data-stage-id="{{stageId}}">
+{{#each stages as |stage stageIdx|}}
+    <fieldset class="affliction-stage" data-stage-index="{{stageIdx}}">
         <header>
             <h3>{{localize "PF2E.Item.Affliction.Stage" stage=stage.stage}}</h3>
             <div class="item-controls">
-                <i class="fa-solid fa-fw fa-times" data-action="stage-delete"></i>
+                <a data-action="delete-stage"><i class="fa-solid fa-fw fa-times"></i></a>
             </div>
         </header>
 
-        <div class="damage-formulas">
+        <section class="damage-formulas">
             <h3>
-                {{localize "PF2E.Formula"}}
+                {{localize "PF2E.DamageLabel"}}
                 <div class="item-controls">
-                    <i class="fa-solid fa-fw fa-plus" data-action="damage-create"></i>
+                    <a data-action="add-damage"><i class="fa-solid fa-fw fa-plus"></i></a>
                 </div>
             </h3>
 
-            {{#each stage.damage as |damage id|}}
+            {{#each stage.damage as |damage damageIdx|}}
                 <div class="formula-section">
-                    <div class="formula-row">
-                        <input type="text" name="system.stages.{{stageId}}.damage.{{id}}.formula" value="{{damage.formula}}" placeholder="{{localize "PF2E.Formula"}}" />
-                        <select name="system.stages.{{stageId}}.damage.{{id}}.category">
+                    <div class="formula-row" data-damage-index="{{damageIdx}}">
+                        <input type="text" name="system.stages.{{stageIdx}}.damage.{{damageIdx}}.formula" value="{{damage.formula}}" placeholder="{{localize "PF2E.Formula"}}" />
+                        <select name="system.stages.{{stageIdx}}.damage.{{damageIdx}}.category">
                             {{selectOptions @root.damageCategories selected=damage.category blank="" localize=true}}
                         </select>
-                        <select name="system.stages.{{stageId}}.damage.{{id}}.type">
-                            {{selectOptions @root.damageTypes selected=damage.type localize=true}}
+                        <select name="system.stages.{{stageIdx}}.damage.{{damageIdx}}.damageType">
+                            {{selectOptions @root.damageTypes selected=damage.damageType localize=true}}
                         </select>
                         <div class="item-controls">
-                            <a data-action="damage-delete" data-id="{{id}}"><i class="fa-solid fa-fw fa-times"></i></a>
+                            <a data-action="delete-damage" data-idx="{{damageIdx}}"><i class="fa-solid fa-fw fa-times"></i></a>
                         </div>
                     </div>
                 </div>
             {{/each}}
-        </div>
+        </section>
 
         <section>
             <h3>
                 {{localize "PF2E.ConditionsLabel"}}
                 <div class="item-controls">
-                    <i class="fa-solid fa-fw fa-plus" data-action="condition-create"></i>
+                    <a data-action="add-condition"><i class="fa-solid fa-fw fa-plus" ></i></a>
                 </div>
             </h3>
-            <div class="form-group two-by-two">
-                {{#each stage.conditions as |condition key|}}
-                    <div class="form-fields stage-condition" data-condition-id="{{key}}">
-                        <select name="system.stages.{{stageId}}.conditions.{{key}}.slug">
-                            {{selectOptions @root.conditionTypes selected=condition.slug localize=true}}
-                        </select>
-                        {{#if condition.document.system.value.isValued}}
-                            <input type="number" name="system.stages.{{stageId}}.conditions.{{key}}.value" value="{{condition.value}}" />
-                        {{/if}}
-                        {{#if @root.options.editable}}
-                            <div class="item-controls">
-                                <a class="link {{#if condition.linked}}linked{{/if}}" data-action="condition-link" title="{{localize "PF2E.Item.Affliction.Linked.Title"}}">
-                                    <i class="fa-solid fa-fw {{#if condition.linked}}fa-link{{else}}fa-link-slash{{/if}}"></i>
-                                </a>
-                                <a class="remove" data-action="condition-delete"><i class="fa-solid fa-fw fa-times"></i></a>
-                            </div>
-                        {{/if}}
-                    </div>
-                {{/each}}
-            </div>
+            {{#if stage.conditions}}
+                <div class="form-group two-by-two">
+                    {{#each stage.conditions as |condition conditionIdx|}}
+                        <div class="form-fields stage-condition" data-condition-index="{{conditionIdx}}">
+                            <select name="system.stages.{{stageIdx}}.conditions.{{conditionIdx}}.slug">
+                                {{selectOptions @root.conditionTypes selected=condition.slug localize=true}}
+                            </select>
+                            {{#if condition.document.system.value.isValued}}
+                                <input type="number" name="system.stages.{{stageIdx}}.conditions.{{conditionIdx}}.value" value="{{condition.value}}" />
+                            {{/if}}
+                            {{#if @root.options.editable}}
+                                <div class="item-controls">
+                                    <a class="link {{#if condition.linked}}linked{{/if}}" data-action="link-condition" title="{{localize "PF2E.Item.Affliction.Linked.Title"}}">
+                                        <i class="fa-solid fa-fw {{#if condition.linked}}fa-link{{else}}fa-link-slash{{/if}}"></i>
+                                    </a>
+                                    <a class="remove" data-action="delete-condition"><i class="fa-solid fa-fw fa-times"></i></a>
+                                </div>
+                            {{/if}}
+                        </div>
+                    {{/each}}
+                </div>
+            {{/if}}
         </section>
 
         <section class="item-ref-group">
@@ -79,11 +81,13 @@
             {{#if stage.effects}}
                 <ul class="item-refs">
                     {{#each stage.effects as |effect|}}
-                        <li data-uuid="{{effect.uuid}}">
+                        <li data-effect-uuid="{{effect.uuid}}">
                             <img class="icon" src="{{effect.img}}" />
                             <a class="name document-link" data-uuid="{{effect.uuid}}" data-action="view-effect">{{effect.name}}</a>
                             <span></span>
-                            {{#if @root.options.editable}}<a class="remove" data-action="effect-delete"><i class="fa-solid fa-xmark"></i></a>{{/if}}
+                            {{#if @root.options.editable}}
+                                <a class="remove" data-action="delete-effect"><i class="fa-solid fa-xmark"></i></a>
+                            {{/if}}
                         </li>
                     {{/each}}
                 </ul>
@@ -92,11 +96,11 @@
 
         <div class="form-group">
             <label class="short">{{localize "PF2E.Time.Duration"}}</label>
-            {{> systems/pf2e/templates/items/partials/duration.hbs base=(concat "system.stages." stageId ".duration") duration=stage.duration units=../durationUnits}}
+            {{> systems/pf2e/templates/items/partials/duration.hbs base=(concat "system.stages." stageIdx ".duration") duration=stage.duration units=../durationUnits}}
         </div>
-    </ol>
+    </fieldset>
 {{/each}}
 
-<button type="button" data-action="stage-add">
+<button type="button" data-action="add-stage">
     <i class="fa-solid fa-plus"></i>{{localize "PF2E.Item.Affliction.AddStage"}}
 </button>
