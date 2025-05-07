@@ -10,13 +10,13 @@ interface AbstractEffectSystemSource extends ItemSystemSource {
     traits: EffectTraits;
     /** Whether this effect originated from a spell */
     fromSpell?: boolean;
-    expired?: boolean;
 }
 
 interface AbstractEffectSystemData extends ItemSystemData {
     traits: EffectTraits;
     /** Whether this effect originated from a spell */
     fromSpell: boolean;
+    expired?: boolean;
 }
 
 interface EffectBadgeBaseSource {

@@ -1,13 +1,15 @@
 import type { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
-import { RawItemChatData } from "@item/base/data/index.ts";
+import type { DatabaseUpdateOperation } from "@common/abstract/_module.mjs";
+import type { RawItemChatData } from "@item/base/data/index.ts";
 import { PhysicalItemPF2e, getPropertyRuneSlots } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
-import { UserPF2e } from "@module/user/index.ts";
+import type { UserPF2e } from "@module/user/index.ts";
+import type { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, setHasElement, signedInteger, sluggify } from "@util";
 import * as R from "remeda";
 import { ArmorSource, ArmorSystemData } from "./data.ts";
-import { ArmorCategory, ArmorGroup, ArmorTrait, BaseArmorType } from "./types.ts";
+import type { ArmorCategory, ArmorGroup, ArmorTrait, BaseArmorType } from "./types.ts";
 
 class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     static override get validTraits(): Record<ArmorTrait, string> {
@@ -142,7 +144,7 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
 
     override async getChatData(
         this: ArmorPF2e<ActorPF2e>,
-        htmlOptions: EnrichmentOptions = {},
+        htmlOptions: EnrichmentOptionsPF2e = {},
     ): Promise<RawItemChatData> {
         const properties = [
             CONFIG.PF2E.armorCategories[this.category],
