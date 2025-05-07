@@ -1014,6 +1014,7 @@ async function augmentInlineDamageRoll(
 }
 
 interface EnrichmentOptionsPF2e extends EnrichmentOptions {
+    /** @todo as of v13 this should also support functions that produce roll data */
     rollData?: RollDataPF2e;
     /** Whether to run the enriched string through `UserVisibility.process` */
     processVisibility?: boolean;
