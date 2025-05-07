@@ -1,6 +1,6 @@
 {
     "_id": "ELCODoiGDBEqRAtT",
-    "img": "systems/pf2e/icons/spells/monstrosity-form.webp",
+    "img": "icons/creatures/magical/humanoid-horned-rider.webp",
     "name": "Effect: Legendary Monster",
     "system": {
         "description": {
@@ -22,18 +22,43 @@
         },
         "rules": [
             {
-                "key": "GrantItem",
-                "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Enlarge (Heightened 4th)"
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Yaoguai.LegendaryMonster.Options.Enlarge",
+                        "value": "enlarge"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Yaoguai.LegendaryMonster.Options.Damage",
+                        "value": "damage"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Yaoguai.LegendaryMonster.Options.Fly",
+                        "value": "fly"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Yaoguai.LegendaryMonster.Prompt",
+                "rollOption": "legendary-monster-boost"
             },
             {
-                "key": "GrantItem",
-                "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Fly"
+                "key": "BaseSpeed",
+                "predicate": [
+                    "change-shape:yaoguai",
+                    "legendary-monster-boost:fly"
+                ],
+                "selector": "fly",
+                "value": "max(20,@actor.attributes.speed.total)"
             },
             {
                 "damageType": "spirit",
                 "diceNumber": 1,
                 "dieSize": "d4",
+                "hideIfDisabled": true,
                 "key": "DamageDice",
+                "predicate": [
+                    "change-shape:yaoguai",
+                    "legendary-monster-boost:damage"
+                ],
                 "selector": [
                     "strike-damage",
                     "spell-damage"

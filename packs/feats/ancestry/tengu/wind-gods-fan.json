@@ -29,7 +29,45 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:wall-of-wind",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "tengu-fan"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:wall-of-wind",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:tengu"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:tengu-fan",
+                    "item:slug:wall-of-wind"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Tengu.TenguFan.WallOfWind"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
