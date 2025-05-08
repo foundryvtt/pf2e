@@ -6,11 +6,7 @@ import { SvelteApplicationMixin, SvelteApplicationRenderContext } from "@module/
 import * as R from "remeda";
 import Root from "./app.svelte";
 
-interface RollInspectorConfiguration extends ApplicationConfiguration {
-    message: ChatMessagePF2e;
-}
-
-class RollInspector extends SvelteApplicationMixin(fa.api.ApplicationV2<RollInspectorConfiguration>) {
+class RollInspector extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     static override DEFAULT_OPTIONS = {
         position: {
             width: 650,
@@ -27,7 +23,7 @@ class RollInspector extends SvelteApplicationMixin(fa.api.ApplicationV2<RollInsp
 
     message: ChatMessagePF2e;
 
-    constructor(options: DeepPartial<Omit<RollInspectorConfiguration, "message">> & { message: ChatMessagePF2e }) {
+    constructor(options: DeepPartial<ApplicationConfiguration> & { message: ChatMessagePF2e }) {
         super(options);
         this.message = options.message;
     }
