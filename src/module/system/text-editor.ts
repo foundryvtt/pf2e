@@ -643,6 +643,7 @@ class TextEditorPF2e extends TextEditor {
         icon.classList.add("icon");
 
         const name = game.i18n.localize(params.name ?? item?.name ?? params.type);
+        const title = params.title ? game.i18n.localize(params.title) : undefined;
         const localize = localizer("PF2E.InlineCheck");
 
         // Get the label
@@ -677,6 +678,7 @@ class TextEditorPF2e extends TextEditor {
                 pf2RepostFlavor: name,
                 pf2ShowDc: params.showDC === "all" ? null : params.showDC,
                 pf2Label: localize("DCWithName", { name }),
+                pf2ActionLabel: title,
                 pf2Adjustment: Number(params.adjustment) || null,
                 pf2Roller: params.roller || null,
                 targetOwner: params.targetOwner,
@@ -1067,6 +1069,7 @@ interface CheckLinkParams {
     overrideTraits: boolean;
     extraRollOptions: string[];
     name?: string;
+    title?: string;
     showDC: UserVisibility;
     /** Refrain from adding domains to the check. */
     immutable: boolean;
