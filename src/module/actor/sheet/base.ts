@@ -545,15 +545,23 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                 }
             });
 
-            deltaInput.addEventListener("wheel", (event: WheelEvent) => {
-                if (deltaInput === document.activeElement) {
-                    event.preventDefault();
-                    event.stopPropagation();
-
-                    const step = Math.sign(-1 * event.deltaY);
-                    applyDeltaToInput(deltaInput, step);
-                }
-            });
+            deltaInput.addEventListener(
+                "wheel",
+                (event: WheelEvent) => {
+                    if (deltaInput === document.activeElement) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        const step = Math.sign(-1 * event.deltaY);
+                        const min = Number(deltaInput.dataset.min) || 0;
+                        const max = Number(deltaInput.dataset.max) || 0;
+                        const oldValue = Number(deltaInput.value) || min;
+                        const newValue =
+                            max > 0 ? Math.clamp(oldValue + step, min, max) : Math.max(oldValue + step, min);
+                        deltaInput.value = String(newValue);
+                    }
+                },
+                { passive: false },
+            );
         }
 
         // Work around search filter flashing on re-render
