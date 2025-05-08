@@ -1,6 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
 import type { Rolled } from "@client/dice/roll.d.mts";
+import type { DataModelConstructionContext } from "@common/abstract/_module.mjs";
 import type { ChatMessageCreateOperation } from "@common/documents/chat-message.d.mts";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { RollInspector } from "@module/apps/roll-inspector/app.ts";
@@ -18,7 +19,7 @@ import * as Listeners from "./listeners/index.ts";
 
 class ChatMessagePF2e extends ChatMessage {
     /** Set some flags/flag scopes early. */
-    protected override _initializeSource(data: object, options?: DataModelConstructionOptions<null>): this["_source"] {
+    protected override _initializeSource(data: object, options?: DataModelConstructionContext<null>): this["_source"] {
         const source = super._initializeSource(data, options);
         source.flags = fu.mergeObject(source.flags, {
             core: { canPopout: source.flags.core?.canPopout ?? true },

@@ -1,5 +1,9 @@
 import { ActorPF2e } from "@actor";
-import type { DatabaseCreateOperation, DatabaseDeleteOperation } from "@common/abstract/_types.d.mts";
+import type {
+    DatabaseCreateOperation,
+    DatabaseDeleteOperation,
+    DataModelConstructionContext,
+} from "@common/abstract/_types.mjs";
 import { ItemPF2e } from "@item";
 import type { EffectAreaShape } from "@item/spell/types.ts";
 import type { MeasuredTemplatePF2e } from "@module/canvas/measured-template.ts";
@@ -47,7 +51,7 @@ class MeasuredTemplateDocumentPF2e<
     /** Ensure the source has a `pf2e` flag along with an `areaShape` if directly inferable. */
     protected override _initializeSource(
         data: object,
-        options?: DataModelConstructionOptions<TParent>,
+        options?: DataModelConstructionContext<TParent>,
     ): this["_source"] {
         const initialized = super._initializeSource(data, options);
         const areaShape = initialized.t === "cone" ? "cone" : initialized.t === "ray" ? "line" : null;
