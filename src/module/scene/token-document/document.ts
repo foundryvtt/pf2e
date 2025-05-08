@@ -234,7 +234,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         const autoscaleDefault = game.pf2e.settings.tokens.autoscale;
         // Autoscaling is a secondary feature of linking to actor size
         const autoscale = linkToActorSize ? (this.flags.pf2e.autoscale ?? autoscaleDefault) : false;
-        this.flags.pf2e = fu.mergeObject(this.flags.pf2e ?? {}, { linkToActorSize, autoscale });
+        this.flags.pf2e = Object.assign(this.flags.pf2e, { linkToActorSize, autoscale });
 
         // Token dimensions from actor size
         TokenDocumentPF2e.prepareSize(this);
@@ -384,34 +384,14 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     /** Set a TokenData instance's dimensions from actor data. Static so actors can use for their prototypes */
     static prepareSize(token: TokenDocumentPF2e | PrototypeTokenPF2e<ActorPF2e>): void {
-        const actor = token.actor;
-        if (!(actor && token.flags.pf2e.linkToActorSize)) return;
-
-        // If not overridden by an actor override, set according to creature size (skipping gargantuan)
-        const size =
-            {
-                tiny: 0.5,
-                sm: 1,
-                med: 1,
-                lg: 2,
-                huge: 3,
-                grg: Math.max(token.width, 4),
-            }[actor.size] ?? 1; // In case an AE-like corrupted actor size data
-        if (actor.isOfType("vehicle")) {
-            // Vehicles can have unequal dimensions
-            const dimensions = actor.getTokenDimensions();
-            token.width = token._source.width = dimensions.width;
-            token.height = token._source.height = dimensions.height;
-        } else {
-            token.width = token._source.width = size;
-            token.height = token._source.height = size;
-            // if (game.pf2e.settings.tokens.autoscale && token.flags.pf2e.autoscale !== false) {
-            //     const absoluteScale = actor.size === "sm" ? 0.8 : 1;
-            //     const mirrorX = token.texture.scaleX < 0 ? -1 : 1;
-            //     token.texture.scaleX = mirrorX * absoluteScale;
-            //     const mirrorY = token.texture.scaleY < 0 ? -1 : 1;
-            //     token.texture.scaleY = mirrorY * absoluteScale;
-            // }
+        const linkToActorSize = token.flags.pf2e.linkToActorSize;
+        const autoscale = game.pf2e.settings.tokens.autoscale && token.flags.pf2e.autoscale !== false;
+        if (linkToActorSize && autoscale) {
+            const absoluteScale = token.actor?.size === "sm" ? 0.8 : 1;
+            const mirrorX = token.texture.scaleX < 0 ? -1 : 1;
+            token.texture.scaleX = mirrorX * absoluteScale;
+            const mirrorY = token.texture.scaleY < 0 ? -1 : 1;
+            token.texture.scaleY = mirrorY * absoluteScale;
         }
     }
 

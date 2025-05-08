@@ -16,7 +16,7 @@ import type {
     DatabaseUpdateOperation,
     Document,
 } from "@common/abstract/_module.d.mts";
-import type { ImageFilePath } from "@common/constants.d.mts";
+import type { ImageFilePath, VideoFilePath } from "@common/constants.d.mts";
 import type { AbstractEffectPF2e, ArmorPF2e, ConditionPF2e, ContainerPF2e, PhysicalItemPF2e, ShieldPF2e } from "@item";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
@@ -1818,10 +1818,18 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         operation: ActorUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        const isFullReplace = !((operation.diff ?? true) && (operation.recursive ?? true));
-        if (isFullReplace) return super._preUpdate(changed, operation, user);
+        const result = await super._preUpdate(changed, operation, user);
+        if (result === false) return false;
 
-        // Always announce HP changes for player-owned actors as floaty text (via `damageTaken` option)
+        const isFullReplace = !((operation.diff ?? true) && (operation.recursive ?? true));
+        if (isFullReplace) return result;
+
+        this.#prepareDamageBroadcast(changed, operation);
+        return result;
+    }
+
+    /** Always announce HP changes for player-owned actors as floaty text (via `damageTaken` option) */
+    #prepareDamageBroadcast(changed: DeepPartial<this["_source"]>, operation: ActorUpdateOperation<TParent>): void {
         const currentHP = this._source.system.attributes?.hp?.value;
         const updatedHP = changed.system?.attributes?.hp?.value ?? currentHP;
         if (
@@ -1836,8 +1844,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             const updatedLevel = changed.system?.details?.level?.value ?? currentLevel;
             if (damageTaken && currentLevel === updatedLevel) operation.damageTaken = damageTaken;
         }
-
-        return super._preUpdate(changed, operation, user);
     }
 
     protected override _onUpdate(
