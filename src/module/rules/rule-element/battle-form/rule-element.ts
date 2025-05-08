@@ -4,6 +4,7 @@ import { SENSE_TYPES } from "@actor/creature/values.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { DamageDicePF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { MOVEMENT_TYPES } from "@actor/values.ts";
+import type { ImageFilePath } from "@common/constants.d.mts";
 import { WeaponPF2e } from "@item";
 import { RollNotePF2e } from "@module/notes.ts";
 import { Predicate } from "@system/predication.ts";
@@ -21,6 +22,7 @@ import { StrikeRuleElement } from "../strike.ts";
 import { TempHPRuleElement } from "../temp-hp.ts";
 import { BattleFormRuleOverrideSchema, BattleFormRuleSchema } from "./schema.ts";
 import { BattleFormSource, BattleFormStrike, BattleFormStrikeQuery } from "./types.ts";
+import fields = foundry.data.fields;
 
 class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character"];
@@ -35,13 +37,12 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         this.overrides = this.resolveValue(
             this.value,
             this.overrides,
-        ) as ModelPropsFromSchema<BattleFormRuleOverrideSchema>;
+        ) as fields.ModelPropsFromSchema<BattleFormRuleOverrideSchema>;
 
         this.modifierLabel = this.getReducedLabel();
     }
 
     static override defineSchema(): BattleFormRuleSchema {
-        const fields = foundry.data.fields;
         return {
             ...super.defineSchema(),
             value: new ResolvableValueField({ required: false, initial: undefined }),

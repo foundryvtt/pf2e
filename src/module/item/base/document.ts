@@ -913,7 +913,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         action: DatabaseAction,
     ): Promise<boolean | void> {
         // Look for any opportunity to abort early
-        if (this.type !== "ancestry" && !data.system?.rules?.some((r) => r.key === "CreatureSize")) return;
+        if (
+            this.type !== "ancestry" &&
+            !data.system?.rules?.some((r) => ["BattleForm", "CreatureSize"].includes(r.key ?? ""))
+        )
+            return;
         const actor = this.actor;
         if (!actor) return;
         const currentSize = actor.system.traits?.size;
@@ -952,8 +956,6 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         // Add prototype token to list of changes and update tokens across all scenes
         const actorResult = actor.update({ prototypeToken: { width: newWidth, height: newHeight } }, { render: false });
-        const resolvedResult = await actorResult;
-        console.log(resolvedResult);
         const tokens = game.scenes
             .map((s) =>
                 s.tokens.filter(
