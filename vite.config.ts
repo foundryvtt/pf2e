@@ -160,7 +160,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             transform: (code, id) => {
                 if (id === mainCss) {
                     return code.replace("styles/main.scss", "styles/vite-hmr.scss");
-                } else if (id.startsWith("node_modules/") && id.endsWith(".css")) {
+                } else if (/node_modules\/.+\.css$/.test(id)) {
                     return `@layer system { ${code} }`;
                 }
                 return;
