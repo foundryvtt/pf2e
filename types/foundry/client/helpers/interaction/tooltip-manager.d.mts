@@ -178,11 +178,51 @@ export default class TooltipManager {
     static get implementation(): typeof TooltipManager;
 }
 
+/**
+ * Activate the tooltip for a hovered HTML element which defines a tooltip localization key.
+ * @param {HTMLElement} element      The HTML element being hovered.
+ * @param {object} [options={}]      Additional options which can override tooltip behavior.
+ * @param {string} [options.text]
+ * @param {TooltipDirection} [options.direction]  An explicit tooltip expansion direction. If this
+ *                                      is not provided, the direction is acquired from the `data-tooltip-direction`
+ *                                      attribute of the element or one of its parents.
+ * @param {string} [options.cssClass]   An optional, space-separated list of CSS classes to apply to the activated
+ *                                      tooltip. If this is not provided, the CSS classes are acquired from the
+ *                                      `data-tooltip-class` attribute of the element or one of its parents.
+ * @param {boolean} [options.locked=false]  An optional boolean to lock the tooltip after creation. Defaults to false.
+ * @param {HTMLElement|string} [options.html]     Explicit HTML to inject into the tooltip rather than using
+ *                                                tooltip text. If passed as a string, the HTML string is cleaned with
+ *                                                {@link foundry.utils.cleanHTML}. An explicit HTML string may also
+ *                                                be set with the `data-tooltip-html` attribute on the element.
+ */
+
 declare interface TooltipActivationOptions {
+    /**
+     * Explicit tooltip text to display. If this is not provided the tooltip text is acquired from the element's
+     * `data-tooltip-text` attribute if present and otherwise from its `data-tooltip` attribute. The `data-tooltip`
+     * text will be automatically localized. If `data-tooltip` is not a localization string, the text is rendered as
+     * HTML (cleaned). Both `options.text` and `data-tooltip-text` do not support HTML. It is not recommended to use
+     * `data-tooltip` for plain text and HTML as it could cause an unintentional localization. Instead use
+     * `data-tooltip-text` and `data-tooltip-html`, respectively.
+     */
     text?: string;
+    /**
+     * An explicit tooltip expansion direction. If this is not provided, the direction is acquired from the
+     * `data-tooltip-direction` attribute of the element or one of its parents.
+     */
     direction?: TooltipDirection;
+    /**
+     * An optional, space-separated list of CSS classes to apply to the activated tooltip. If this is not provided, the CSS
+     * classes are acquired from the `data-tooltip-class` attribute of the element or one of its parents.
+     */
     cssClass?: string;
+    /** An optional boolean to lock the tooltip after creation. Defaults to false. */
     locked?: boolean;
+    /**
+     * Explicit HTML to inject into the tooltip rather than using tooltip text. If passed as a string, the HTML string
+     * is cleaned with {@link foundry.utils.cleanHTML}. An explicit HTML string may also be set with the
+     * `data-tooltip-html` attribute on the element.
+     */
     html?: HTMLElement | string;
 }
 

@@ -49,8 +49,8 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
         super.prepareBaseData();
 
         // Set the dimensions of this vehicle in its size object
-        const { size } = this.system.traits;
-        const { dimensions } = this;
+        const size = this.system.traits.size;
+        const dimensions = this.dimensions;
         size.length = dimensions.length;
         size.width = dimensions.width;
 
@@ -134,7 +134,7 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
     }
 
     protected override async _preUpdate(
-        changed: DeepPartial<VehicleSource>,
+        changed: DeepPartial<this["_source"]>,
         operation: DatabaseUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {

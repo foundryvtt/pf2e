@@ -8,10 +8,9 @@ import { ItemPF2e } from "@item";
 import { ErrorPF2e, createHTMLElement, fontAwesomeIcon, htmlQuery } from "@util";
 import MiniSearch from "minisearch";
 import { CompendiumMigrationStatus } from "../compendium-migration-status.ts";
-import tabs = foundry.applications.sidebar.tabs;
 
 /** Extend CompendiumDirectory to support a search bar */
-class CompendiumDirectoryPF2e extends tabs.CompendiumDirectory {
+class CompendiumDirectoryPF2e extends fa.sidebar.tabs.CompendiumDirectory {
     static readonly STOP_WORDS = new Set(["of", "th", "the"]);
 
     static #searchEngine: MiniSearch<CompendiumIndexData> | null = null;
@@ -314,7 +313,7 @@ class CompendiumDirectoryPF2e extends tabs.CompendiumDirectory {
     }
 }
 
-interface CompendiumDirectoryPF2e extends tabs.CompendiumDirectory {
+interface CompendiumDirectoryPF2e extends fa.sidebar.tabs.CompendiumDirectory {
     constructor: typeof CompendiumDirectoryPF2e;
 }
 

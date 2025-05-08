@@ -1,5 +1,10 @@
 import * as fields from "../data/fields.mjs";
-import { DataSchema } from "./_types.mjs";
+import {
+    DataModelConstructionContext,
+    DataModelUpdateOptions,
+    DataModelValidationOptions,
+    DataSchema,
+} from "./_types.mjs";
 
 /**
  * The abstract base class which defines the data schema contained within a Document.
@@ -12,7 +17,7 @@ export default abstract class DataModel<
 > {
     constructor(
         data?: DeepPartial<fields.SourceFromSchema<DataSchema>>,
-        options?: DataModelConstructionOptions<TParent>,
+        options?: DataModelConstructionContext<TParent>,
     );
 
     /**
@@ -67,7 +72,7 @@ export default abstract class DataModel<
      * @param [options] Options provided to the model constructor
      * @returns Migrated and cleaned source data which will be stored to the model instance
      */
-    protected _initializeSource(data: object, options?: DataModelConstructionOptions<TParent>): this["_source"];
+    protected _initializeSource(data: object, options?: DataModelConstructionContext<TParent>): this["_source"];
 
     /**
      * Clean a data source object to conform to a specific provided schema.
@@ -96,11 +101,11 @@ export default abstract class DataModel<
 
     /**
      * Clone a model, creating a new data model by combining current data with provided overrides.
-     * @param [data={}]    Additional data which overrides current document data at the time of creation
-     * @param [context={}] Context options passed to the data model constructor
+     * @param data Additional data which overrides current document data at the time of creation
+     * @param context Context options passed to the data model constructor
      * @returns The cloned Document instance
      */
-    clone(data?: Record<string, unknown>, context?: DataModelConstructionOptions<TParent>): this;
+    clone(data?: Record<string, unknown>, context?: DataModelConstructionContext<TParent>): this | Promise<this>;
 
     /* ---------------------------------------- */
     /*  Data Validation Methods                 */
@@ -152,18 +157,20 @@ export default abstract class DataModel<
 
     /**
      * Update the DataModel locally by applying an object of changes to its source data.
-     * The provided changes are cleaned, validated, and stored to the source data object for this model.
+     * The provided changes are expanded, cleaned, validated, and stored to the source data object for this model.
+     * The provided changes argument is mutated in this process.
      * The source data is then re-initialized to apply those changes to the prepared data.
      * The method returns an object of differential changes which modified the original data.
      *
-     * @param changes      New values which should be applied to the data model
-     * @param [options={}] Options which determine how the new data is merged
-     * @returns An object containing the changed keys and values
+     * @param changes New values which should be applied to the data model
+     * @param options Options which determine how the new data is merged
+     * @returns An object containing differential keys and values that were changed
+     * @throws An error if the requested data model changes were invalid
      */
     updateSource(
-        changes?: Record<string, unknown> | undefined,
-        options?: Partial<DocumentSourceUpdateContext>,
-    ): DeepPartial<this["_source"]>;
+        changes?: Record<string, unknown>,
+        options?: DataModelUpdateOptions,
+    ): DeepPartial<fields.SourceFromSchema<TSchema>>;
 
     /* ---------------------------------------- */
     /*  Serialization and Storage               */
@@ -220,36 +227,8 @@ export default abstract class DataModel<
     static migrateDataSafe(source: object): object;
 }
 
-export interface DataModelValidationOptions {
-    changes?: object;
-    clean?: boolean;
-    fallback?: boolean;
-    strict?: boolean;
-    fields?: boolean;
-    joint?: boolean;
-}
-
-declare global {
-    type RawObject<TModel extends DataModel> = TModel extends { system: infer TSystem }
-        ? Omit<TModel, "system"> & { system: TSystem }
-        : TModel["_source"];
-
-    interface DataModelConstructionOptions<TParent extends DataModel | null> {
-        /** A parent DataModel instance to which this DataModel belongs */
-        parent?: TParent;
-        /** Control the strictness of validation for initially provided data */
-        strict?: boolean;
-        /** Attempt to replace invalid values with valid defaults? */
-        fallback?: boolean;
-        /** Allow partial source data, ignoring absent fields? */
-        partial?: boolean;
-        [key: string]: unknown;
-    }
-
-    interface ParentedDataModelConstructionOptions<TParent extends DataModel>
-        extends DataModelConstructionOptions<TParent> {
-        parent: TParent;
-    }
-}
+export type RawObject<TModel extends DataModel> = TModel extends { system: infer TSystem }
+    ? Omit<TModel, "system"> & { system: TSystem }
+    : TModel["_source"];
 
 type _DataModel = DataModel<_DataModel | null, DataSchema>;

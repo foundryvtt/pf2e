@@ -10,20 +10,22 @@ import {
 import BaseUser from "@common/documents/user.mjs";
 import { AppV1RenderOptions } from "../../client/appv1/api/application-v1.mjs";
 import { DataField, SourceFromSchema } from "../data/fields.mjs";
-import * as abstract from "./_module.mjs";
 import {
     DatabaseCreateOperation,
     DatabaseDeleteOperation,
     DatabaseGetOperation,
     DatabaseUpdateOperation,
+    DataModelValidationOptions,
+    DataSchema,
 } from "./_types.mjs";
-import DataModel, { DataModelValidationOptions } from "./data.mjs";
+import DatabaseBackend from "./backend.mjs";
+import DataModel, { RawObject } from "./data.mjs";
 import EmbeddedCollection from "./embedded-collection.mjs";
 
 /** The abstract base interface for all Document types. */
 export default abstract class Document<
     TParent extends Document | null = _Document | null,
-    TSchema extends abstract.DataSchema = abstract.DataSchema,
+    TSchema extends DataSchema = DataSchema,
 > extends DataModel<TParent, TSchema> {
     /** A set of localization prefix paths which are used by this Document model. */
     static LOCALIZATION_PREFIXES: string[];
@@ -53,15 +55,15 @@ export default abstract class Document<
 
     /**
      * The database backend used to execute operations and handle results.
-     * @type {abstract.DatabaseBackend}
      */
-    static get database(): abstract.DatabaseBackend;
+    static get database(): DatabaseBackend;
 
     /** Return a reference to the implemented subclass of this base document type. */
     static get implementation(): ConstructorOf<Document>;
 
     /** The named collection to which this Document belongs. */
     static get collectionName(): string;
+
     /** The named collection to which this Document belongs. */
     get collectionName(): string;
 
@@ -86,7 +88,7 @@ export default abstract class Document<
 
     /**
      * Determine the collection this Document exists in on its parent, if any.
-     * @param [parentCollection]  An explicitly provided parent collection name.
+     * @param parentCollection An explicitly provided parent collection name.
      */
     protected _getParentCollection(parentCollection: string): string | null;
 
@@ -97,7 +99,7 @@ export default abstract class Document<
     get isEmbedded(): boolean;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get uuid(): DocumentUUID | null;
 
     /* ---------------------------------------- */
     /*  Model Permissions                       */
@@ -366,7 +368,7 @@ export default abstract class Document<
      */
     static get(
         documentId: string,
-        operation?: Partial<DatabaseGetOperation<abstract.Document | null>>,
+        operation?: Partial<DatabaseGetOperation<Document | null>>,
     ): Document | null | undefined;
 
     /* -------------------------------------------- */
@@ -545,7 +547,7 @@ export default abstract class Document<
      */
     protected static _preCreateOperation(
         documents: Document[],
-        operation: DatabaseCreateOperation<abstract.Document | null>,
+        operation: DatabaseCreateOperation<Document | null>,
         user: BaseUser,
     ): Promise<boolean | void>;
 
@@ -613,7 +615,7 @@ export default abstract class Document<
      */
     protected static _preUpdateOperation(
         documents: Document[],
-        operation: DatabaseUpdateOperation<abstract.Document | null>,
+        operation: DatabaseUpdateOperation<Document | null>,
         user: BaseUser,
     ): Promise<boolean | void>;
 
@@ -629,7 +631,7 @@ export default abstract class Document<
      */
     protected static _onUpdateOperation(
         documents: Document[],
-        operation: DatabaseUpdateOperation<abstract.Document | null>,
+        operation: DatabaseUpdateOperation<Document | null>,
         user: BaseUser,
     ): Promise<void>;
 
@@ -671,7 +673,7 @@ export default abstract class Document<
      */
     protected static _preDeleteOperation(
         documents: Document[],
-        operation: DatabaseDeleteOperation<abstract.Document | null>,
+        operation: DatabaseDeleteOperation<Document | null>,
         user: BaseUser,
     ): Promise<boolean | void>;
 
@@ -687,20 +689,13 @@ export default abstract class Document<
      */
     protected static _onDeleteOperation(
         documents: Document[],
-        operation: DatabaseDeleteOperation<abstract.Document | null>,
+        operation: DatabaseDeleteOperation<Document | null>,
         user: BaseUser,
     ): Promise<void>;
 
-    /**
-     * Transform the Document instance into a plain object.
-     * The created object is an independent copy of the original data.
-     * See DocumentData#toObject
-     * @param [source=true] Draw values from the underlying data source rather than transformed values
-     * @returns The extracted primitive object
-     */
-    toObject(source?: true): this["_source"];
-    toObject(source: false): RawObject<this>;
-    toObject(source?: boolean): this["_source"] | RawObject<this>;
+    override toObject(source?: true): this["_source"];
+    override toObject(source: false): RawObject<this>;
+    override toObject(source?: boolean): this["_source"] | RawObject<this>;
 }
 
 type MetadataPermission = UserRoleName | UserPermission | ((...args: unknown[]) => boolean);
@@ -726,7 +721,7 @@ export interface DocumentMetadata {
 type _Document = Document<_Document | null>;
 
 declare global {
-    type PreCreate<T extends SourceFromSchema<abstract.DataSchema>> = T extends { name: string; type: string }
+    type PreCreate<T extends SourceFromSchema<DataSchema>> = T extends { name: string; type: string }
         ? Omit<DeepPartial<T>, "_id" | "name" | "type"> & { _id?: Maybe<string>; name: string; type: T["type"] }
         : DeepPartial<T>;
 

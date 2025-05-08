@@ -311,7 +311,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
 
     /** Set flags on granting and grantee items to indicate relationship between the two */
     #setGrantFlags(
-        granter: PreCreate<ItemSourcePF2e>,
+        granter: DeepPartial<ItemSourcePF2e>,
         grantee: ItemSourcePF2e | ItemPF2e<ActorPF2e>,
         itemUpdates: EmbeddedDocumentUpdateData[],
     ): void {
