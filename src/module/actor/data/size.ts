@@ -8,7 +8,7 @@ interface SizeDimensions {
 export class ActorSizePF2e {
     /** The size category of this category */
     value: Size;
-    /** The length dimension of this actor's space */
+    /** The length dimension of this actor's space: corresponds with token height */
     length: number;
     /** The width dimension of this actor's space */
     width: number;

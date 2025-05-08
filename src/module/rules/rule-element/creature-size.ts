@@ -49,7 +49,7 @@ class CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSchema> {
         };
     }
 
-    private static wordToAbbreviation: Record<string, Size | undefined> = {
+    static #WORD_TO_ABBREVIATION: Record<string, Size | undefined> = {
         tiny: "tiny",
         small: "sm",
         medium: "med",
@@ -58,18 +58,18 @@ class CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSchema> {
         gargantuan: "grg",
     };
 
-    private static incrementMap = { tiny: "sm", sm: "med", med: "lg", lg: "huge", huge: "grg", grg: "grg" } as const;
+    static #incrementMap = { tiny: "sm", sm: "med", med: "lg", lg: "huge", huge: "grg", grg: "grg" } as const;
 
-    private static decrementMap = { tiny: "tiny", sm: "tiny", med: "sm", lg: "med", huge: "lg", grg: "huge" } as const;
+    static #decrementMap = { tiny: "tiny", sm: "tiny", med: "sm", lg: "med", huge: "lg", grg: "huge" } as const;
 
-    private incrementSize(size: Size, amount: number): Size {
+    #incrementSize(size: Size, amount: number): Size {
         if (amount === 0) return size;
-        return this.incrementSize(CreatureSizeRuleElement.incrementMap[size], amount - 1);
+        return this.#incrementSize(CreatureSizeRuleElement.#incrementMap[size], amount - 1);
     }
 
-    private decrementSize(size: Size, amount: number): Size {
+    #decrementSize(size: Size, amount: number): Size {
         if (amount === 0) return size;
-        return this.decrementSize(CreatureSizeRuleElement.decrementMap[size], amount - 1);
+        return this.#decrementSize(CreatureSizeRuleElement.#decrementMap[size], amount - 1);
     }
 
     override beforePrepareData(): void {
@@ -83,7 +83,7 @@ class CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSchema> {
             );
             return;
         }
-        const size = CreatureSizeRuleElement.wordToAbbreviation[value] ?? value;
+        const size = CreatureSizeRuleElement.#WORD_TO_ABBREVIATION[value] ?? value;
         if (typeof size === "string" && !tupleHasValue(SIZES, size)) {
             this.failValidation(`"${size}" is not a recognized size`);
             return;
@@ -105,7 +105,7 @@ class CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSchema> {
             actor.system.traits.size = new ActorSizePF2e({ value: size });
         } else {
             const validValues = Array.from(
-                new Set(Object.entries(CreatureSizeRuleElement.wordToAbbreviation).flat()),
+                new Set(Object.entries(CreatureSizeRuleElement.#WORD_TO_ABBREVIATION).flat()),
             ).join('", "');
             this.failValidation(
                 `CreatureSize Rule Element on actor ${actor.id} (${actor.name})`,
@@ -122,9 +122,9 @@ class CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSchema> {
             const sizeDifference = originalSize.difference(actor.system.traits.size, { smallIsMedium: true });
             for (const item of actor.inventory.filter((i) => !(i instanceof TreasurePF2e && i.isCoinage))) {
                 if (sizeDifference < 0) {
-                    item.system.size = this.incrementSize(item.size, Math.abs(sizeDifference));
+                    item.system.size = this.#incrementSize(item.size, Math.abs(sizeDifference));
                 } else if (sizeDifference > 0) {
-                    item.system.size = this.decrementSize(item.size, Math.abs(sizeDifference));
+                    item.system.size = this.#decrementSize(item.size, Math.abs(sizeDifference));
                 }
             }
 

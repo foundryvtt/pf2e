@@ -1,8 +1,12 @@
 import type { ActorPF2e, ActorType } from "@actor";
 import type { CheckModifier, DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
 import type { Rolled } from "@client/dice/roll.d.mts";
-import type { DatabaseCreateOperation, DatabaseDeleteOperation } from "@common/abstract/_types.d.mts";
-import type { DataModelValidationOptions } from "@common/abstract/data.d.mts";
+import type {
+    DatabaseCreateOperation,
+    DatabaseDeleteOperation,
+    DataModelConstructionContext,
+    DataModelValidationOptions,
+} from "@common/abstract/_types.d.mts";
 import type { ModelPropsFromSchema } from "@common/data/fields.d.mts";
 import { ItemPF2e, type WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
@@ -552,7 +556,7 @@ interface ResolveValueParams {
     warn?: boolean;
 }
 
-interface RuleElementOptions extends ParentedDataModelConstructionOptions<ItemPF2e<ActorPF2e>> {
+interface RuleElementOptions extends DataModelConstructionContext<ItemPF2e<ActorPF2e>> {
     /** If created from an item, the index in the source data */
     sourceIndex?: number;
     /** If data validation fails for any reason, do not emit console warnings */

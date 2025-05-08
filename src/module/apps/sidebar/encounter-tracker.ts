@@ -237,6 +237,7 @@ export class EncounterTracker<TEncounter extends EncounterPF2e | null> extends t
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
+    /** For some reason, upstream handles these actions in an override of this method. */
     protected override async _onClickAction(event: PointerEvent, target: HTMLElement): Promise<void> {
         const action = target.dataset.action;
         if ((action === "rollNPC" || action === "rollAll") && this.viewed) {
