@@ -1,10 +1,47 @@
 import { DocumentUUID } from "@client/utils/helpers.mjs";
 import { DataField } from "@common/data/fields.mjs";
-import * as abstract from "./_module.mjs";
+import { DataModel, Document } from "./_module.mjs";
 
-export type DataSchema = Record<string, DataField<JSONValue, unknown, boolean>>;
+export type DataSchema = { [K in string]: DataField<JSONValue, unknown> };
 
-interface DataModelUpdateOptions {
+export interface DataModelValidationOptions {
+    /** Validate each individual field */
+    fields?: boolean;
+    /**
+     * Perform joint validation on the full data model?
+     * Joint validation will be performed by default if no changes are passed.
+     * Joint validation will be disabled by default if changes are passed.
+     * Joint validation can be performed on a complete set of changes (for example
+     * testing a complete data model) by explicitly passing true.
+     */
+    joint?: boolean;
+    /** A specific set of proposed changes to validate, rather than the full source data of the model. */
+    changes?: object;
+    /**
+     * If changes are provided, attempt to clean the changes before validating them? This option mutates the provided
+     * changes.
+     */
+    clean?: boolean;
+    /** Throw an error if validation fails. */
+    strict?: boolean;
+    /** Allow replacement of invalid values with valid defaults? This option mutates the provided changes. */
+    fallback?: boolean;
+    /**
+     * If true, invalid embedded documents will emit a warning and be placed in the invalidDocuments collection rather
+     * than causing the parent to be considered invalid. This option mutates the provided changes.
+     */
+    dropInvalidEmbedded?: boolean;
+}
+
+interface DataModelConstructionContext<TParent extends DataModel | null>
+    extends Pick<DataModelValidationOptions, "strict" | "fallback" | "dropInvalidEmbedded"> {
+    /** A parent DataModel instance to which this DataModel belongs */
+    parent?: TParent;
+    /** Allow partial source data, ignoring absent fields? */
+    partial?: boolean;
+}
+
+export interface DataModelUpdateOptions {
     /** Do not finally apply the change, but instead simulate the update workflow */
     dryRun?: boolean;
 
@@ -18,7 +55,7 @@ interface DataModelUpdateOptions {
     restoreDelta?: boolean;
 }
 
-export interface DatabaseGetOperation<TParent extends abstract.Document | null> {
+export interface DatabaseGetOperation<TParent extends Document | null> {
     /** A query object which identifies the set of Documents retrieved */
     query: Record<string, unknown>;
     /** Get requests are never broadcast */
@@ -35,7 +72,8 @@ export interface DatabaseGetOperation<TParent extends abstract.Document | null> 
     parentUuid?: DocumentUUID;
 }
 
-export interface DatabaseCreateOperation<TParent extends abstract.Document | null> {
+export interface DatabaseCreateOperation<TParent extends Document | null> {
+    action: "create";
     /** Whether the database operation is broadcast to other connected clients */
     broadcast: boolean;
     /** An array of data objects from which to create Documents */
@@ -60,7 +98,8 @@ export interface DatabaseCreateOperation<TParent extends abstract.Document | nul
     parentUuid?: DocumentUUID;
 }
 
-export interface DatabaseUpdateOperation<TParent extends abstract.Document | null> {
+export interface DatabaseUpdateOperation<TParent extends Document | null> {
+    action: "update";
     /** Whether the database operation is broadcast to other connected clients */
     broadcast: boolean;
     /**
@@ -89,7 +128,7 @@ export interface DatabaseUpdateOperation<TParent extends abstract.Document | nul
     parentUuid?: DocumentUUID;
 }
 
-export interface DatabaseDeleteOperation<TParent extends abstract.Document | null> {
+export interface DatabaseDeleteOperation<TParent extends Document | null> {
     /** Whether the database operation is broadcast to other connected clients */
     broadcast: boolean;
     /** An array of Document ids which should be deleted */
@@ -112,7 +151,7 @@ export interface DatabaseDeleteOperation<TParent extends abstract.Document | nul
 
 export type DatabaseAction = "get" | "create" | "update" | "delete";
 
-export type DatabaseOperation<TParent extends abstract.Document | null> =
+export type DatabaseOperation<TParent extends Document | null> =
     | DatabaseGetOperation<TParent>
     | DatabaseCreateOperation<TParent>
     | DatabaseUpdateOperation<TParent>
@@ -124,7 +163,7 @@ export interface DocumentSocketRequest {
     /** The action of the request */
     action: DatabaseAction;
     /** Operation parameters for the request */
-    operation: DatabaseOperation<abstract.Document | null>;
+    operation: DatabaseOperation<Document | null>;
     /** The id of the requesting User */
     userId: string;
     /** Should the response be broadcast to other connected clients? */

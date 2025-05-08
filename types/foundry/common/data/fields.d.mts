@@ -555,7 +555,7 @@ export class NumberField<
         TModelProp extends NonNullable<JSONValue> = TSourceProp,
         TRequired extends boolean = false,
         TNullable extends boolean = true,
-        THasInitial extends boolean = TRequired,
+        THasInitial extends boolean = TNullable,
     >
     extends DataField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial>
     implements Omit<NumberFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>, "validate">

@@ -30,7 +30,7 @@ export default class ItemSheet<TItem extends Item, TOptions extends DocumentShee
     /** The Actor instance which owns this item. This may be null if the item is unowned. */
     get actor(): TItem["parent"];
 
-    override getData(option?: Partial<TOptions>): ItemSheetData<TItem> | Promise<ItemSheetData<TItem>>;
+    override getData(option?: Partial<TOptions>): Promise<ItemSheetData<TItem>>;
 
     /**
      * Activate listeners which provide interactivity for item sheet events
