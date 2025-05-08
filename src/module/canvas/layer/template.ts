@@ -1,11 +1,14 @@
+import type { InteractionLayer } from "@client/canvas/layers/_module.mjs";
+import type { PlaceablesLayerPointerEvent } from "@client/canvas/layers/base/placeables-layer.mjs";
+import type { Point } from "@common/_types.mjs";
 import type { MeasuredTemplatePF2e } from "../measured-template.ts";
 
-export class TemplateLayerPF2e<TObject extends MeasuredTemplatePF2e = MeasuredTemplatePF2e> extends foundry.canvas
-    .layers.TemplateLayer<TObject> {
+class TemplateLayerPF2e<TObject extends MeasuredTemplatePF2e = MeasuredTemplatePF2e> extends fc.layers
+    .TemplateLayer<TObject> {
     /** Preview event listeners that can be referenced across methods */
     #previewListeners: TemplatePreviewEventListeners | null = null;
 
-    async createPreview(createData: Record<string, unknown>): Promise<TObject> {
+    async createPreview(createData: DeepPartial<TObject["document"]["_source"]>): Promise<TObject> {
         const initialLayer = canvas.activeLayer;
         const preview = await this._createPreview({ ...createData, ...canvas.mousePosition }, { renderSheet: false });
         this.#activatePreviewListeners(preview, initialLayer);
@@ -14,7 +17,7 @@ export class TemplateLayerPF2e<TObject extends MeasuredTemplatePF2e = MeasuredTe
 
     /** Overriden to snap according to the dragged template's type */
     override getSnappedPoint(point: Point): Point {
-        const template = this.preview.children.at(0);
+        const template = this.preview;
         if (!template || !canvas.grid.isSquare) {
             return super.getSnappedPoint(point);
         }
@@ -160,6 +163,11 @@ export class TemplateLayerPF2e<TObject extends MeasuredTemplatePF2e = MeasuredTe
     }
 }
 
+interface TemplateLayerPF2e<TObject extends MeasuredTemplatePF2e = MeasuredTemplatePF2e>
+    extends fc.layers.TemplateLayer<TObject> {
+    _onDragLeftCancel(event: PIXI.FederatedPointerEvent | PlaceablesLayerPointerEvent<TObject>): void;
+}
+
 interface TemplatePreviewEventListeners {
     mousemove: (event: PIXI.FederatedPointerEvent) => void;
     wheel: (event: Event) => void;
@@ -167,3 +175,5 @@ interface TemplatePreviewEventListeners {
     mousedown: (event: PIXI.FederatedPointerEvent) => void;
     rightdown: (event: PIXI.FederatedPointerEvent) => void;
 }
+
+export { TemplateLayerPF2e };
