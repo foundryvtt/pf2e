@@ -16,6 +16,7 @@ import {
     EffectsCanvasGroup,
     EnvironmentCanvasGroup,
     InterfaceCanvasGroup,
+    OverlayCanvasGroup,
     PrimaryCanvasGroup,
     RenderedCanvasGroup,
 } from "./groups/_module.mjs";
