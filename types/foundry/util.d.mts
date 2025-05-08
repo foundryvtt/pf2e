@@ -5,17 +5,11 @@ import type DataModel from "./common/abstract/data.mjs";
 declare global {
     type Maybe<T> = T | null | undefined;
 
-    type Builtin = Date | Function | Uint8Array | string | number | boolean | symbol | null | undefined;
-
-    type DeepPartial<T> = T extends Builtin
+    type DeepPartial<T> = T extends Date | FileList | File | NestedValue
         ? T
-        : T extends Array<infer U>
-          ? Array<DeepPartial<U>>
-          : T extends ReadonlyArray<infer U>
-            ? ReadonlyArray<DeepPartial<U>>
-            : T extends {}
-              ? { [K in keyof T]?: DeepPartial<T[K]> }
-              : Partial<T>;
+        : T extends (infer U)[]
+          ? DeepPartial<U>[]
+          : { [K in keyof T]?: ExtractObjects<T[K]> extends never ? T[K] : DeepPartial<T[K]> };
 
     type CollectionValue<T> = T extends Collection<string, infer U> ? U : never;
 
@@ -44,3 +38,11 @@ declare global {
     /** A JSON-compatible value, plus `undefined` */
     type JSONValue = string | number | boolean | object | null | undefined;
 }
+
+type ExtractObjects<T> = T extends infer U ? (U extends object ? U : never) : never;
+
+declare const $NestedValue: unique symbol;
+
+type NestedValue<TValue extends object = object> = { [$NestedValue]: never } & TValue;
+
+export {};

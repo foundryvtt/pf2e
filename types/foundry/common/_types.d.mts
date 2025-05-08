@@ -1,6 +1,7 @@
 import { TokenShape } from "@client/canvas/placeables/token.mjs";
 import ApplicationV2 from "../client/applications/api/application.mjs";
 import Application from "../client/appv1/api/application-v1.mjs";
+import { DataModelConstructionContext } from "./abstract/_types.mjs";
 import DataModel from "./abstract/data.mjs";
 import Document from "./abstract/document.mjs";
 import * as CONST from "./constants.mjs";
@@ -13,7 +14,7 @@ import Color from "./utils/color.mjs";
 /* ----------------------------------------- */
 
 export interface DocumentConstructionContext<TParent extends Document | null>
-    extends DataModelConstructionOptions<TParent> {
+    extends DataModelConstructionContext<TParent> {
     /** The compendium collection ID which contains this Document, if any */
     pack?: string | null;
 }
@@ -309,3 +310,5 @@ interface TokenHexagonalShapeData {
     /** The snapping anchor in normalized coordiantes, i.e. the top-left grid hex center in the snapped position */
     anchor: Point;
 }
+
+type ModifierKey = "Control" | "Shift" | "Alt";

@@ -1,14 +1,14 @@
 import type { HandlebarsRenderOptions } from "@client/applications/api/handlebars-application.d.mts";
+import type { ContextMenuEntry } from "@client/applications/ux/context-menu.d.mts";
 import type { ItemPF2e } from "@item";
 import { fontAwesomeIcon, htmlQuery, htmlQueryAll } from "@util";
 import { ItemAttacher } from "../item-attacher.ts";
-import sidebar = foundry.applications.sidebar;
 
 /** Extend ItemDirectory to show more information */
 export class ItemDirectoryPF2e<TItem extends ItemPF2e<null>> extends fa.sidebar.tabs.ItemDirectory<TItem> {
     protected static override _entryPartial = "systems/pf2e/templates/sidebar/item-document-partial.hbs";
 
-    static override DEFAULT_OPTIONS: Partial<sidebar.DocumentDirectoryConfiguration> = {
+    static override DEFAULT_OPTIONS: Partial<fa.sidebar.DocumentDirectoryConfiguration> = {
         renderUpdateKeys: ["system.level.value"],
     };
 
@@ -31,7 +31,7 @@ export class ItemDirectoryPF2e<TItem extends ItemPF2e<null>> extends fa.sidebar.
         options.push({
             name: "PF2E.Item.Physical.Attach.SidebarContextMenuOption",
             icon: fontAwesomeIcon("paperclip").outerHTML,
-            condition: (li) => {
+            condition: (li: HTMLElement) => {
                 const item = game.items.get(li.dataset.entryId, { strict: true });
                 return (
                     item.isOwner &&
@@ -39,7 +39,7 @@ export class ItemDirectoryPF2e<TItem extends ItemPF2e<null>> extends fa.sidebar.
                     game.items.some((i) => i !== item && i.isOwner && i.isOfType("physical") && i.acceptsSubitem(item))
                 );
             },
-            callback: (li) => {
+            callback: (li: HTMLElement) => {
                 const item = game.items.get(li.dataset.entryId, { strict: true });
                 if (
                     item.isOwner &&

@@ -1,8 +1,9 @@
 import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
+import type { ProseMirrorEditor } from "@client/applications/ux/_module.d.mts";
 import type { ApplicationV1HeaderButton, AppV1RenderOptions } from "@client/appv1/api/application-v1.d.mts";
 import { ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { Rarity } from "@module/data.ts";
+import type { ItemSourcePF2e } from "@item/base/data/index.ts";
+import type { Rarity } from "@module/data.ts";
 import { RuleElements, RuleElementSource } from "@module/rules/index.ts";
 import {
     createSheetTags,
@@ -33,6 +34,7 @@ import {
 } from "@util";
 import { createSortable } from "@util/destroyables.ts";
 import { tagify } from "@util/tags.ts";
+import type { Plugin } from "prosemirror-state";
 import * as R from "remeda";
 import { CodeMirror } from "./codemirror.ts";
 import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-element-form/index.ts";
@@ -262,9 +264,9 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
 
     override async activateEditor(
         name: string,
-        options: { engine?: "prosemirror" | "tinymice" } = {},
+        options: { engine?: "prosemirror" | "tinymce" } = {},
         initialContent = "",
-    ): Promise<TinyMCE.Editor | ProseMirror.EditorView> {
+    ): Promise<TinyMCE.Editor | ProseMirrorEditor> {
         // Ensure the source description is edited rather than a prepared one
         const sourceContent =
             name === "system.description.value" ? this.item._source.system.description.value : initialContent;
@@ -290,13 +292,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
             htmlQuery(html, ".tab.description")?.classList.add("editing");
         }
 
-        // Prevent additional description content from some item types getting injected into the editor content
-        const instance = await super.activateEditor(name, options, sourceContent);
-        if ("startContent" in instance && sourceContent.trim() === "") {
-            instance.resetContent(sourceContent);
-        }
-
-        return instance;
+        return super.activateEditor(name, options, sourceContent);
     }
 
     override async close(options?: { force?: boolean }): Promise<void> {
@@ -307,7 +303,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
     protected override _configureProseMirrorPlugins(
         name: string,
         options: { remove?: boolean },
-    ): Record<string, ProseMirror.Plugin> {
+    ): Record<string, Plugin> {
         const plugins = super._configureProseMirrorPlugins(name, options);
         plugins.menu = foundry.prosemirror.ProseMirrorMenu.build(foundry.prosemirror.defaultSchema, {
             destroyOnSave: options.remove,
@@ -361,7 +357,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
             });
             game.tooltip.dismissLockedTooltips();
             game.tooltip.activate(viewRollOptionsElement, {
-                content: createHTMLElement("div", { innerHTML: content }),
+                html: createHTMLElement("div", { innerHTML: content }),
                 locked: true,
             });
         });
