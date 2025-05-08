@@ -2,10 +2,21 @@ import { ElevatedPoint } from "@common/_types.mjs";
 import Collection from "@common/utils/collection.mjs";
 import PlaceableObject from "../placeables/placeable-object.mjs";
 
-export interface BaseEffectSourceOptions {
+export interface BaseEffectSourceOptions<TObject extends PlaceableObject> {
+    /** An optional PlaceableObject which is responsible for this source */
+    object?: TObject;
+    /** A unique ID for this source. This will be set automatically if an object is provided, otherwise is required. */
+    sourceId?: string;
+}
+
+export interface BaseEffectSourceData {
+    /** The x-coordinate of the source location */
     x: number;
+    /** The y-coordinate of the source location */
     y: number;
+    /** The elevation of the point source */
     elevation: number;
+    /** Whether or not the source is disabled */
     disabled: boolean;
 }
 
@@ -22,25 +33,31 @@ export interface BaseEffectSourceOptions {
  * source.destroy();                         // Destroy the point source
  * ```
  */
-export default abstract class BaseEffectSource {
+export default abstract class BaseEffectSource<TObject extends PlaceableObject = PlaceableObject> {
+    /**
+     * An effect source is constructed by providing configuration options.
+     * @param [options]  Options which modify the base effect source instance
+     */
+    constructor(options?: BaseEffectSourceOptions<TObject>);
+
     static sourceType: string;
 
     static effectsCollection: string;
 
-    static defaulBaseEffectSourceData: BaseEffectSourceOptions;
+    static defaulBaseEffectSourceData: BaseEffectSourceData;
 
     /* -------------------------------------------- */
     /*  Source Data                                 */
     /* -------------------------------------------- */
 
     /** Some other object which is responsible for this source. */
-    object: PlaceableObject | null;
+    object: TObject | null;
 
     /** The source id linked to this effect source */
     sourceId: string;
 
     /** The data of this source. */
-    data: BaseEffectSourceOptions;
+    data: BaseEffectSourceData;
 
     /** The geometric shape of the effect source which is generated later */
     shape: PIXI.Polygon;
@@ -99,13 +116,13 @@ export default abstract class BaseEffectSource {
      * @param data      Provided data for configuration
      * @param [options.reset]   Should source data be reset to default values before applying changes?
      */
-    initialize(data?: Partial<BaseEffectSourceOptions>, options?: { reset?: boolean }): this;
+    initialize(data?: Partial<BaseEffectSourceData>, options?: { reset?: boolean }): this;
 
     /**
      * Subclass specific data initialization steps.
      * @param data Provided data for configuration
      */
-    protected _initialize(data: Partial<BaseEffectSourceOptions>): void;
+    protected _initialize(data: Partial<BaseEffectSourceData>): void;
 
     /** Create the polygon shape (or shapes) for this source using configured data. */
     protected _createShapes(): void;
