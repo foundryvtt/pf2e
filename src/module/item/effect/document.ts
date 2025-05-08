@@ -195,7 +195,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
                     return false;
                 }
 
-                badgeChange.value = Math.clamp(badgeChange.value, minValue, maxValue);
+                badgeChange.value = Math.clamp(badgeChange.value ?? 0, minValue, maxValue);
             }
 
             // Delete min/max under certain conditions.
