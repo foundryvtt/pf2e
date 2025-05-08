@@ -4,9 +4,9 @@ import * as R from "remeda";
 import fields = foundry.data.fields;
 
 type RuleElementSource = {
-    key?: JSONValue;
-    label?: JSONValue;
-    slug?: JSONValue;
+    key: string;
+    label?: string;
+    slug?: string | null;
     predicate?: JSONValue;
     priority?: JSONValue;
     ignored?: JSONValue;
