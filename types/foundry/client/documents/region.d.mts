@@ -2,11 +2,13 @@ import { RegionPolygonTree } from "@client/data/region-shapes/polygon-tree.mjs";
 import { RegionShape } from "@client/data/region-shapes/shape.mjs";
 import Region, { RegionMovementSegment, RegionMovementWaypoint } from "../canvas/placeables/region.mjs";
 import { BaseRegion, Scene, User } from "./_module.mjs";
-import { CanvasDocument } from "./abstract/canvas-document.mjs";
+import { CanvasDocument, CanvasDocumentStatic } from "./abstract/canvas-document.mjs";
 
-declare const CanvasBaseRegion: new <TParent extends Scene | null>(
-    ...args: any
-) => InstanceType<typeof BaseRegion<TParent>> & InstanceType<typeof CanvasDocument<TParent>>;
+interface CanvasBaseRegionStatic extends Omit<typeof BaseRegion, "new">, CanvasDocumentStatic {}
+
+declare const CanvasBaseRegion: {
+    new <TParent extends Scene | null>(...args: any): BaseRegion<TParent> & CanvasDocument<TParent>;
+} & CanvasBaseRegionStatic;
 
 interface CanvasBaseRegion<TParent extends Scene | null> extends InstanceType<typeof CanvasBaseRegion<TParent>> {}
 

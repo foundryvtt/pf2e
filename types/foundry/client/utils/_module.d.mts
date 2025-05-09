@@ -1,4 +1,4 @@
 /** @module utils */
 
-export * from "@common/utils/module.mjs";
+export * from "@common/utils/_module.mjs";
 export * from "./helpers.mjs";

@@ -5,7 +5,7 @@ import Scene from "./scene.mjs";
 
 declare const CanvasBaseAmbientSound: new <TParent extends Scene | null>(
     ...args: any
-) => InstanceType<typeof BaseAmbientSound<TParent>> & InstanceType<typeof CanvasDocument<TParent>>;
+) => BaseAmbientSound<TParent> & CanvasDocument<TParent>;
 
 interface CanvasBaseAmbientSound<TParent extends Scene | null>
     extends InstanceType<typeof CanvasBaseAmbientSound<TParent>> {}

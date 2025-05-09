@@ -8,7 +8,7 @@ import JournalEntry from "./journal-entry.mjs";
 
 declare const ClientBaseJournalEntryPage: new <TParent extends JournalEntry | null>(
     ...args: any
-) => InstanceType<typeof BaseJournalEntryPage<TParent>> & InstanceType<typeof ClientDocument<TParent>>;
+) => BaseJournalEntryPage<TParent> & ClientDocument<TParent>;
 
 interface ClientBaseJournalEntryPage<TParent extends JournalEntry | null>
     extends InstanceType<typeof ClientBaseJournalEntryPage<TParent>> {}

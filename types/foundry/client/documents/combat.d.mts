@@ -3,12 +3,15 @@ import { DatabaseCreateOperation, DatabaseDeleteOperation, DatabaseUpdateOperati
 import Document from "@common/abstract/document.mjs";
 import { ChatMessageCreateOperation } from "@common/documents/chat-message.mjs";
 import BaseCombat, { CombatSource } from "@common/documents/combat.mjs";
-import { ClientDocument } from "./abstract/client-document.mjs";
+import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
 import Combatant from "./combatant.mjs";
 
-declare const ClientBaseCombat: new (
-    ...args: any
-) => InstanceType<typeof BaseCombat> & InstanceType<typeof ClientDocument<null>>;
+type BaseCombatStatic = typeof BaseCombat;
+interface ClientBaseCombatStatic extends BaseCombatStatic, ClientDocumentStatic {}
+
+declare const ClientBaseCombat: {
+    new (...args: any): BaseCombat & ClientDocument<null>;
+} & ClientBaseCombatStatic;
 
 interface ClientBaseCombat extends InstanceType<typeof ClientBaseCombat> {}
 

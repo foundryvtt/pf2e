@@ -5,7 +5,7 @@ import { ClientDocument } from "./abstract/client-document.mjs";
 
 declare const ClientBaseActorDelta: new <TParent extends BaseToken | null>(
     ...args: any
-) => InstanceType<typeof BaseActorDelta<TParent>> & InstanceType<typeof ClientDocument<TParent>>;
+) => BaseActorDelta<TParent> & ClientDocument<TParent>;
 
 interface ClientBaseActorDelta<TParent extends BaseToken | null>
     extends InstanceType<typeof ClientBaseActorDelta<TParent>> {}
