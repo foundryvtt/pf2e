@@ -470,7 +470,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         // Assess the full diff using `diffObject`: additions, removals, and changes
         const aurasChanged = () => !!this.scene?.isInFocus && !R.isDeepEqual(preUpdateAuras, postUpdateAuras);
 
-        if ("disposition" in tokenChanges || "width" in tokenChanges || "height" in tokenChanges || aurasChanged()) {
+        if ("disposition" in tokenChanges || aurasChanged()) {
             this.scene?.checkAuras?.();
         }
     }

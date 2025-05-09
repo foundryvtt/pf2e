@@ -162,7 +162,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
     }
 
     protected override async _preUpdate(
-        changed: DeepPartial<EffectSource>,
+        changed: DeepPartial<this["_source"]>,
         operation: DatabaseUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
