@@ -91,7 +91,11 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     /** A reference to an animation that is currently in progress for this Token, if any */
     get animation(): Promise<boolean> | null {
-        return this.animationContexts.get(this.animationName)?.promise ?? null;
+        return (
+            this.animationContexts.get(this.animationName)?.promise ??
+            this.animationContexts.get(this.movementAnimationName)?.promise ??
+            null
+        );
     }
 
     /** Is this token currently animating? */
