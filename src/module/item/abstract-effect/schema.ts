@@ -4,7 +4,7 @@ import type { ModelPropsFromSchema, SourceFromSchema } from "@common/data/fields
 import type { ActorUUID, ItemUUID, TokenDocumentUUID } from "@common/documents/_module.mjs";
 import type { MagicTradition } from "@item/spell/types.ts";
 import type { DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
-import type { EffectContextData } from "./data.ts";
+import type { EffectContextData, EffectExpiryType, TimeUnit } from "./data.ts";
 import fields = foundry.data.fields;
 
 class EffectContextField extends fields.SchemaField<
@@ -120,4 +120,11 @@ type EffectContextRollSchema = {
     degreeOfSuccess: fields.NumberField<DegreeOfSuccessIndex, DegreeOfSuccessIndex, false, true, true>;
 };
 
+type DurationDataSchema = {
+    value: fields.NumberField<number, number, true, false, true>;
+    unit: fields.StringField<TimeUnit | "unlimited" | "encounter", TimeUnit | "unlimited" | "encounter", true, false>;
+    expiry: fields.StringField<EffectExpiryType, EffectExpiryType, true, true>;
+};
+
 export { EffectContextField };
+export type { DurationDataSchema };

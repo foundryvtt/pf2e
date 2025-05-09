@@ -2,8 +2,8 @@ import type { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { ModelPropsFromSchema, SourceFromSchema } from "@common/data/fields.mjs";
 import type { ItemUUID } from "@common/documents/_module.mjs";
-import type { EffectAuraData, EffectExpiryType, TimeUnit } from "@item/abstract-effect/index.ts";
-import { EffectContextField } from "@item/abstract-effect/schema.ts";
+import type { EffectAuraData, TimeUnit } from "@item/abstract-effect/index.ts";
+import { type DurationDataSchema, EffectContextField } from "@item/abstract-effect/schema.ts";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import { EFFECT_TIME_UNITS } from "@item/abstract-effect/values.ts";
 import { ItemSystemModel, ItemSystemSchema } from "@item/base/data/model.ts";
@@ -133,7 +133,7 @@ class AfflictionSystemData extends ItemSystemModel<AfflictionPF2e, AfflictionSys
                 }),
             }),
             start: new fields.SchemaField({
-                value: new fields.NumberField(),
+                value: new fields.NumberField({ required: true, nullable: false, initial: 0 }),
                 initiative: new fields.NumberField({ required: true, nullable: true, initial: null }),
             }),
             fromSpell: new fields.BooleanField({ required: true, nullable: false }),
@@ -194,7 +194,7 @@ type AfflictionSystemSchema = Omit<ItemSystemSchema, "traits"> & {
     duration: fields.SchemaField<DurationDataSchema>;
     /** When this data was applied during initiative */
     start: fields.SchemaField<{
-        value: fields.NumberField;
+        value: fields.NumberField<number, number, true, false, true>;
         initiative: fields.NumberField<number, number, true, true, true>;
     }>;
     fromSpell: fields.BooleanField<boolean, boolean, true, false, true>;
@@ -202,14 +202,8 @@ type AfflictionSystemSchema = Omit<ItemSystemSchema, "traits"> & {
     context: EffectContextField;
 };
 
-type DurationDataSchema = {
-    value: fields.NumberField<number, number, true, false>;
-    unit: fields.StringField<TimeUnit | "unlimited" | "encounter", TimeUnit | "unlimited" | "encounter", true, false>;
-    expiry: fields.StringField<EffectExpiryType, EffectExpiryType, true, true>;
-};
-
 type AfflictionOnsetSchema = {
-    value: fields.NumberField<number, number, true, false>;
+    value: fields.NumberField<number, number, true, false, true>;
     unit: fields.StringField<TimeUnit, TimeUnit, true, false>;
 };
 
@@ -218,7 +212,7 @@ type AfflictionStageSchema = {
     conditions: fields.ArrayField<fields.SchemaField<AfflictionConditionSchema>>;
     effects: fields.ArrayField<fields.SchemaField<{ uuid: fields.DocumentUUIDField<ItemUUID, true, false> }>>;
     duration: fields.SchemaField<{
-        value: fields.NumberField<number, number, true, false>;
+        value: fields.NumberField<number, number, true, false, true>;
         unit: fields.StringField<
             TimeUnit | "unlimited" | "encounter",
             TimeUnit | "unlimited" | "encounter",
