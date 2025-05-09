@@ -4,7 +4,7 @@ import { CanvasDocument } from "./abstract/canvas-document.mjs";
 
 declare const CanvasBaseMeasuredTemplate: new <TParent extends Scene | null>(
     ...args: any
-) => InstanceType<typeof BaseMeasuredTemplate<TParent>> & InstanceType<typeof CanvasDocument<TParent>>;
+) => BaseMeasuredTemplate<TParent> & CanvasDocument<TParent>;
 
 interface CanvasBaseMeasuredTemplate<TParent extends Scene | null>
     extends InstanceType<typeof CanvasBaseMeasuredTemplate<TParent>> {}

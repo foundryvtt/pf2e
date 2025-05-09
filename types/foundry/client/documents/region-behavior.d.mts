@@ -1,12 +1,14 @@
 import { DocumentConstructionContext } from "@common/_types.mjs";
 import type { RegionBehaviorSource } from "@common/documents/region-behavior.mjs";
 import BaseRegionBehavior from "@common/documents/region-behavior.mjs";
-import { ClientDocument } from "./abstract/client-document.mjs";
+import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
 import RegionDocument, { RegionEvent } from "./region.mjs";
 
-declare const ClientBaseRegionBehavior: new <TParent extends RegionDocument | null>(
-    ...args: any
-) => InstanceType<typeof BaseRegionBehavior<TParent>> & InstanceType<typeof ClientDocument<TParent>>;
+interface CanvasBaseRegionBehaviorStatic extends Omit<typeof BaseRegionBehavior, "new">, ClientDocumentStatic {}
+
+declare const ClientBaseRegionBehavior: {
+    new <TParent extends RegionDocument | null>(...args: any): BaseRegionBehavior<TParent> & ClientDocument<TParent>;
+} & CanvasBaseRegionBehaviorStatic;
 
 interface ClientBaseRegionBehavior<TParent extends RegionDocument | null>
     extends InstanceType<typeof ClientBaseRegionBehavior<TParent>> {}
