@@ -17,6 +17,14 @@
         data-hands-held="2"
     ><i class="fa-solid fa-fw fa-hand-rock"></i>{{localize "PF2E.CarryType.held2"}}</a>
 </li>
+{{#if (eq item.system.usage.type "implanted")}}
+    <li>
+        <a
+            {{#if (eq item.system.equipped.carryType "implanted")}}class="selected"{{/if}}
+            data-carry-type="implanted"
+        ><i class="fa-solid fa-fw fa-plug"></i>{{localize "PF2E.CarryType.implanted"}}</a>
+    </li>
+{{/if}}
 {{#if (and (eq item.system.usage.type "worn") item.system.usage.where)}}
     <li>
         <a

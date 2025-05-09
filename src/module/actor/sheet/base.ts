@@ -219,6 +219,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                 types: ["consumable"],
                 items: [],
             },
+            { label: game.i18n.localize("PF2E.Item.Augmentation.Plural"), types: ["augmentation"], items: [] },
             { label: game.i18n.localize("TYPES.Item.treasure"), types: ["treasure"], items: [] },
             { label: game.i18n.localize("PF2E.Item.Container.Plural"), types: ["backpack"], items: [] },
         ];
@@ -228,6 +229,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             if (item.isInContainer) continue;
             const section = sections.find((s) => s.types.includes(item.type));
             section?.items.push(this.prepareInventoryItem(item));
+        }
+
+        // Remove augmentation sections if empty
+        const augmentationSectionIdx = sections.findIndex((s) => s.types[0] === "augmentation");
+        if (augmentationSectionIdx > 0 && !sections[augmentationSectionIdx].items.length) {
+            sections.splice(augmentationSectionIdx, 1);
         }
 
         return {

@@ -80,6 +80,8 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/items/ancestry-details.hbs",
         "systems/pf2e/templates/items/ancestry-sidebar.hbs",
         "systems/pf2e/templates/items/armor-details.hbs",
+        "systems/pf2e/templates/items/augmentation-details.hbs",
+        "systems/pf2e/templates/items/augmentation-sidebar.hbs",
         "systems/pf2e/templates/items/background-details.hbs",
         "systems/pf2e/templates/items/backpack-details.hbs",
         "systems/pf2e/templates/items/book-details.hbs",

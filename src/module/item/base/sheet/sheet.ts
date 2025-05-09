@@ -1,6 +1,7 @@
 import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import type { ProseMirrorEditor } from "@client/applications/ux/_module.d.mts";
 import type { ApplicationV1HeaderButton, AppV1RenderOptions } from "@client/appv1/api/application-v1.d.mts";
+import { SchemaField } from "@common/data/fields.mjs";
 import { ItemPF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { Rarity } from "@module/data.ts";
@@ -36,6 +37,7 @@ import { createSortable } from "@util/destroyables.ts";
 import { tagify } from "@util/tags.ts";
 import type { Plugin } from "prosemirror-state";
 import * as R from "remeda";
+import { ItemSystemModel } from "../data/model.ts";
 import { CodeMirror } from "./codemirror.ts";
 import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-element-form/index.ts";
 
@@ -138,6 +140,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
             item,
             isPhysical: false,
             data: item.system,
+            systemFields: this.item.system instanceof ItemSystemModel ? this.item.system.schema.fields : {},
             fieldRootId: this.item.collection?.has(this.item.id) ? this.id : fu.randomID(),
             fieldIdPrefix: `field-${this.appId}-`,
             enrichedContent,
@@ -666,6 +669,7 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemShee
     detailsTemplate: string;
     item: TItem;
     data: TItem["system"];
+    systemFields: Record<string, SchemaField>;
     /** The leading part of IDs used for label-input/select matching */
     fieldRootId: string;
     /** Legacy value of the above */
