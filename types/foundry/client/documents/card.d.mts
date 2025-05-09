@@ -4,7 +4,7 @@ import { ClientDocument } from "./abstract/client-document.mjs";
 
 declare const ClientBaseCard: new <TParent extends Cards | null>(
     ...args: any
-) => InstanceType<typeof BaseCard<TParent>> & InstanceType<typeof ClientDocument<TParent>>;
+) => BaseCard<TParent> & ClientDocument<TParent>;
 
 /**
  * The client-side Card document which extends the common BaseCard document model.

@@ -12,7 +12,7 @@ import { ClientDocument } from "./abstract/client-document.mjs";
 
 declare const ClientBaseActiveEffect: new <TParent extends BaseActor | BaseItem | null>(
     ...args: any
-) => InstanceType<typeof BaseActiveEffect<TParent>> & InstanceType<typeof ClientDocument<TParent>>;
+) => BaseActiveEffect<TParent> & ClientDocument<TParent>;
 
 /**
  * The ActiveEffect embedded document within an Actor or Item document which extends the BaseRollTable abstraction.

@@ -119,13 +119,13 @@ export default class Token<TDocument extends TokenDocument = TokenDocument> exte
      * A reference to the VisionSource object which defines this vision source area of effect.
      * This is undefined if the Token does not provide an active source of vision.
      */
-    vision: PointVisionSource<this> | undefined;
+    vision: PointVisionSource | undefined;
 
     /**
      * A reference to the LightSource object which defines this light source area of effect.
      * This is undefined if the Token does not provide an active source of light.
      */
-    light: PointLightSource<this>;
+    light: PointLightSource;
 
     /** The current animations of this Token. */
     get animationContexts(): Map<string, TokenAnimationContext>;
@@ -209,6 +209,11 @@ export default class Token<TDocument extends TokenDocument = TokenDocument> exte
 
     /** The animation name used for Token movement */
     get animationName(): string;
+
+    /**
+     * The animation name used to animate this Token's movement.
+     */
+    get movementAnimationName(): string;
 
     /* -------------------------------------------- */
     /*  Lighting and Vision Attributes              */

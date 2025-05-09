@@ -3,11 +3,13 @@ import Application from "@client/appv1/api/application-v1.mjs";
 import Sound from "@client/audio/sound.mjs";
 import { DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_module.mjs";
 import { BasePlaylistSound, Playlist, User } from "./_module.mjs";
-import { ClientDocument } from "./abstract/client-document.mjs";
+import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
 
-declare const ClientBasePlaylistSound: new <TParent extends Playlist | null>(
-    ...args: any
-) => InstanceType<typeof BasePlaylistSound<TParent>> & InstanceType<typeof ClientDocument<TParent>>;
+interface CanvasBasePlaylistSoundStatic extends Omit<typeof BasePlaylistSound, "new">, ClientDocumentStatic {}
+
+declare const ClientBasePlaylistSound: {
+    new <TParent extends Playlist | null>(...args: any): BasePlaylistSound<TParent> & ClientDocument<TParent>;
+} & CanvasBasePlaylistSoundStatic;
 
 interface ClientBasePlaylistSound<TParent extends Playlist | null>
     extends InstanceType<typeof ClientBasePlaylistSound<TParent>> {}
