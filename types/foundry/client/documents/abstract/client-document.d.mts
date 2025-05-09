@@ -23,7 +23,7 @@ export default function ClientDocumentMixin<TParent extends Document | null, TDo
     Base: ConstructorOf<TDocument>,
 ): ConstructorOf<ClientDocument<TParent> & TDocument>;
 
-export class ClientDocument<TParent extends Document | null = Document | null> extends Document {
+export class ClientDocument<TParent extends Document | null = Document | null> extends Document<TParent> {
     readonly apps: Record<string, Application | ApplicationV2>;
 
     static override name: string;
@@ -525,4 +525,45 @@ export class ClientDocument<TParent extends Document | null = Document | null> e
         config: DocumentHTMLEmbedConfig,
         options: EnrichmentOptions,
     ): Promise<HTMLElement | null>;
+}
+
+export interface ClientDocumentStatic {
+    /**
+     * Gets the default new name for a Document
+     * @param context The context for which to create the Document name.
+     * @param context.type The sub-type of the document
+     * @param context.parent A parent document within which the created Document should belong
+     * @param context.pack A compendium pack within which the Document should be created
+     */
+    defaultName(context?: { type?: string | null; parent?: Document | null; pack?: string | null }): string;
+
+    /* -------------------------------------------- */
+    /*  Importing and Exporting                     */
+    /* -------------------------------------------- */
+
+    /**
+     * Present a Dialog form to create a new Document of this type.
+     * Choose a name and a type from a select menu of types.
+     * @param data             Document creation data
+     * @param createOptions    Document creation options.
+     * @param options          Options forwarded to DialogV2.prompt
+     * @param options.folders  Available folders in which the new Document can be place
+     * @param options.types    A restriction of the selectable sub-types of the Dialog.
+     * @param options.template A template to use for the dialog contents instead of the default.
+     * @param options.context  Additional render context to provide to the template.
+     * @returns A Promise which resolves to the created Document, or null if the dialog was closed.
+     */
+    createDialog<T extends typeof Document>(
+        this: T,
+        data?: object,
+        createOptions?: Partial<DatabaseCreateOperation<Document | null>>,
+        options?: {
+            folders?: { id: string; name: string }[];
+            types?: string[];
+            template?: string;
+            context?: object;
+        },
+    ): Promise<InstanceType<T> | null>;
+
+    fromDropData<T extends typeof Document>(this: T, data: object, options?: object): Promise<InstanceType<T>>;
 }

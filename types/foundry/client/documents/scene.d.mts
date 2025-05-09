@@ -6,12 +6,15 @@ import { ImageFilePath } from "@common/constants.mjs";
 import { BaseScene, NoteSource, RegionSource, TokenSource } from "@common/documents/_module.mjs";
 import SceneConfig from "../applications/sheets/scene-config.mjs";
 import { User } from "./_module.mjs";
-import { ClientDocument } from "./abstract/client-document.mjs";
+import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
 import CompendiumCollection from "./collections/compendium-collection.mjs";
 
-declare const ClientBaseScene: new (
-    ...args: any
-) => InstanceType<typeof BaseScene> & InstanceType<typeof ClientDocument<null>>;
+type BaseSceneStatic = typeof BaseScene;
+interface ClientBaseSceneStatic extends BaseSceneStatic, ClientDocumentStatic {}
+
+declare const ClientBaseScene: {
+    new (...args: any): BaseScene & ClientDocument<null>;
+} & ClientBaseSceneStatic;
 
 interface ClientBaseScene extends InstanceType<typeof ClientBaseScene> {}
 

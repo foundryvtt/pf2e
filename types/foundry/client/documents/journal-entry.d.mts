@@ -2,11 +2,14 @@ import Note from "@client/canvas/placeables/note.mjs";
 import { DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
 import JournalSheet from "../appv1/sheets/journal-sheet.mjs";
 import { BaseJournalEntry } from "./_module.mjs";
-import { ClientDocument } from "./abstract/client-document.mjs";
+import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
 
-declare const ClientBaseJournalEntry: new (
-    ...args: any
-) => InstanceType<typeof BaseJournalEntry> & InstanceType<typeof ClientDocument<null>>;
+type BaseJournalEntryStatic = typeof BaseJournalEntry;
+interface ClientBaseJournalEntryStatic extends BaseJournalEntryStatic, ClientDocumentStatic {}
+
+declare const ClientBaseJournalEntry: {
+    new (...args: any): BaseJournalEntry & ClientDocument<null>;
+} & ClientBaseJournalEntryStatic;
 
 interface ClientBaseJournalEntry extends InstanceType<typeof ClientBaseJournalEntry> {}
 

@@ -4,11 +4,13 @@ import { DatabaseCreateOperation, DatabaseDeleteOperation, DatabaseUpdateOperati
 import { RollMode } from "@common/constants.mjs";
 import BaseChatMessage, { ChatMessageSource, ChatSpeakerData } from "@common/documents/chat-message.mjs";
 import { Actor, BaseActor, BaseUser, Scene, TokenDocument, User } from "./_module.mjs";
-import { ClientDocument } from "./abstract/client-document.mjs";
+import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
 
-declare const ClientBaseChatMessage: new <TUser extends User | null>(
-    ...args: any
-) => InstanceType<typeof BaseChatMessage<TUser>> & InstanceType<typeof ClientDocument<null>>;
+interface ClientBaseChatMessageStatic extends Omit<typeof BaseChatMessage, "new">, ClientDocumentStatic {}
+
+declare const ClientBaseChatMessage: {
+    new <TUser extends User | null>(...args: any): BaseChatMessage<TUser> & ClientDocument<null>;
+} & ClientBaseChatMessageStatic;
 
 /**
  * The client-side ChatMessage document which extends the common BaseChatMessage abstraction.

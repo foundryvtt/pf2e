@@ -3,19 +3,21 @@ import Document from "@common/abstract/document.mjs";
 import { DocumentSheetV1Options } from "../appv1/api/document-sheet-v1.mjs";
 import ItemSheet from "../appv1/sheets/item-sheet.mjs";
 import { Actor, BaseItem, ItemUUID, User } from "./_module.mjs";
-import { ClientDocument } from "./abstract/client-document.mjs";
+import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
 
-declare const ClientBaseItem: new <TParent extends Actor | null>(
-    ...args: any
-) => InstanceType<typeof BaseItem<TParent>> & InstanceType<typeof ClientDocument<TParent>>;
+interface ClientBaseItemStatic extends Omit<typeof BaseItem, "new">, ClientDocumentStatic {}
+
+declare const ClientBaseItem: {
+    new <TParent extends Actor | null>(...args: any): BaseItem<TParent> & ClientDocument<TParent>;
+} & ClientBaseItemStatic;
 
 declare interface ClientBaseItem<TParent extends Actor | null> extends InstanceType<typeof ClientBaseItem<TParent>> {}
 
 /**
  * The client-side Item document which extends the common BaseItem model.
  *
- * @see {@link foundry.documents.Items} The world-level collection of Item documents
- * @see {@link foundry.applications.ItemSheet} The Item configuration application
+ * @see {@link foundry.documents.collections.Items} The world-level collection of Item documents
+ * @see {@link foundry.applications.sheets.ItemSheetV2} The Item configuration application
  */
 export default class Item<TParent extends Actor | null = Actor | null> extends ClientBaseItem<TParent> {
     /** A convenience alias of Item#parent which is more semantically intuitive */
@@ -56,10 +58,10 @@ export default class Item<TParent extends Actor | null = Actor | null> extends C
         context: DatabaseCreateOperation<TDocument["parent"]>,
     ): Promise<void>;
 
-    protected static override _onDeleteOperation<TDocument extends Document>(
-        this: ConstructorOf<TDocument>,
-        items: TDocument[],
-        context: DatabaseDeleteOperation<TDocument["parent"]>,
+    protected static override _onDeleteOperation(
+        documents: Document[],
+        operation: DatabaseDeleteOperation<Document | null>,
+        user: User,
     ): Promise<void>;
 }
 

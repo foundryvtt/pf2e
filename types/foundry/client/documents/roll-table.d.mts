@@ -4,12 +4,15 @@ import { RollMode } from "@common/constants.mjs";
 import { ChatMessageCreateOperation } from "@common/documents/chat-message.mjs";
 import Roll from "../dice/roll.mjs";
 import { BaseRollTable, ChatMessage, Folder, TableResult } from "./_module.mjs";
-import { ClientDocument } from "./abstract/client-document.mjs";
+import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
 import CompendiumCollection from "./collections/compendium-collection.mjs";
 
-declare const ClientBaseRollTable: new (
-    ...args: any
-) => InstanceType<typeof BaseRollTable> & InstanceType<typeof ClientDocument<null>>;
+type BaseRollTableStatic = typeof BaseRollTable;
+interface ClientBaseRollTableStatic extends BaseRollTableStatic, ClientDocumentStatic {}
+
+declare const ClientBaseRollTable: {
+    new (...args: any): BaseRollTable & ClientDocument<null>;
+} & ClientBaseRollTableStatic;
 
 interface ClientBaseRollTable extends InstanceType<typeof ClientBaseRollTable> {}
 

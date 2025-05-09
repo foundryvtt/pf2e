@@ -1,10 +1,13 @@
 import { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
 import { BaseSetting } from "./_module.mjs";
-import { ClientDocument } from "./abstract/client-document.mjs";
+import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
 
-declare const ClientBaseSetting: new (
-    ...args: any
-) => InstanceType<typeof BaseSetting> & InstanceType<typeof ClientDocument<null>>;
+type BaseSettingStatic = typeof BaseSetting;
+interface ClientBaseSettingStatic extends BaseSettingStatic, ClientDocumentStatic {}
+
+declare const ClientBaseSetting: {
+    new (...args: any): BaseSetting & ClientDocument<null>;
+} & ClientBaseSettingStatic;
 
 /**
  * The client-side Setting document which extends the common BaseSetting model.
