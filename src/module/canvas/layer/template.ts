@@ -84,48 +84,41 @@ class TemplateLayerPF2e<TObject extends MeasuredTemplatePF2e = MeasuredTemplateP
     }
 
     #activatePreviewListeners(preview: TObject, initialLayer: InteractionLayer | null): void {
-        let lastMove = Date.now(); // Throttle 25ms
+        let lastMove = Date.now(); // Throttle 50ms
 
         const listeners: TemplatePreviewEventListeners = (this.#previewListeners = {
+            locked: false,
             mousemove: (event: PIXI.FederatedPointerEvent): void => {
                 event.stopPropagation();
                 const now = Date.now();
-                if (now - lastMove <= 25) return;
+                if (now - lastMove <= 50) return;
 
                 canvas._onDragCanvasPan(event);
                 const destination = event.getLocalPosition(this);
-                const dx = destination.x - preview.document.x;
-                const dy = destination.y - preview.document.y;
-                preview.document.updateSource({ x: preview.document.x + dx, y: preview.document.y + dy });
+
+                if (this.#previewListeners?.locked) {
+                    const origin = preview.position;
+                    const ray = new fc.geometry.Ray(origin, destination);
+                    if (ray.distance < canvas.grid.size / 4) return;
+                    if (preview.document.t === "cone" && !(event.ctrlKey || event.metaKey)) {
+                        const snapAngle = Math.PI / (canvas.grid.isHexagonal ? 6 : 4);
+                        preview.document.updateSource({
+                            direction: Math.toDegrees(Math.floor(ray.angle / snapAngle + 0.5) * snapAngle),
+                        });
+                    } else {
+                        preview.document.updateSource({ direction: Math.toDegrees(ray.angle) });
+                    }
+                } else {
+                    const dx = destination.x - preview.document.x;
+                    const dy = destination.y - preview.document.y;
+                    preview.document.updateSource({ x: preview.document.x + dx, y: preview.document.y + dy });
+                }
                 preview.renderFlags.set({ refresh: true });
                 lastMove = now;
             },
-            wheel: (event: Event): void => {
-                if (!(event instanceof WheelEvent)) return;
-                event.preventDefault();
-                event.stopPropagation();
-                const now = Date.now();
-                if (now - lastMove <= 25) return;
-
-                const { direction } = preview.document;
-                const distance = preview.document.distance ?? 5;
-
-                if (event.ctrlKey) {
-                    const snap = event.shiftKey || distance <= 30 ? 15 : 5;
-                    preview.document.updateSource({ direction: direction + snap * Math.sign(event.deltaY) });
-                    preview.renderFlags.set({ refresh: true });
-                } else if (event.shiftKey) {
-                    const snap = canvas.grid.isHexagonal ? 60 : 45;
-                    preview.document.updateSource({ direction: direction + snap * Math.sign(event.deltaY) });
-                    preview.renderFlags.set({ refresh: true });
-                }
-                lastMove = now;
-            },
-            wheelAbortController: new AbortController(),
             mousedown: (event: PIXI.FederatedPointerEvent): void => {
                 event.stopPropagation();
                 const { document, position } = preview;
-                this.#deactivatePreviewListeners(initialLayer, event);
                 document.updateSource(
                     canvas.grid.isSquare
                         ? canvas.grid.getSnappedPoint(position, {
@@ -133,21 +126,29 @@ class TemplateLayerPF2e<TObject extends MeasuredTemplatePF2e = MeasuredTemplateP
                           })
                         : super.getSnappedPoint(position),
                 );
-                canvas.scene?.createEmbeddedDocuments("MeasuredTemplate", [document.toObject()]);
+                if (this.#previewListeners?.locked || event.shiftKey || !["ray", "cone"].includes(preview.document.t)) {
+                    this.#deactivatePreviewListeners(initialLayer, event);
+                    canvas.scene?.createEmbeddedDocuments("MeasuredTemplate", [document.toObject()]);
+                } else if (this.#previewListeners) {
+                    this.#previewListeners.locked = true;
+                    preview.renderFlags.set({ refresh: true });
+                }
             },
             rightdown: (event: PIXI.FederatedPointerEvent): void => {
                 event.stopPropagation();
-                this.#deactivatePreviewListeners(initialLayer, event);
+                if (this.#previewListeners?.locked) {
+                    this.#previewListeners.locked = false;
+                    preview.document.updateSource({ direction: 0 });
+                    this.#previewListeners.mousemove(event);
+                } else {
+                    this.#deactivatePreviewListeners(initialLayer, event);
+                }
             },
         });
 
         canvas.stage.on("mousemove", listeners.mousemove);
-        canvas.app.view.addEventListener?.("wheel", listeners.wheel, {
-            passive: false,
-            signal: listeners.wheelAbortController.signal,
-        });
-        canvas.stage.once("mousedown", listeners.mousedown);
-        canvas.stage.once("rightdown", listeners.rightdown);
+        canvas.stage.on("mousedown", listeners.mousedown);
+        canvas.stage.on("rightdown", listeners.rightdown);
     }
 
     #deactivatePreviewListeners(initialLayer: InteractionLayer | null, event: PIXI.FederatedPointerEvent): void {
@@ -156,7 +157,6 @@ class TemplateLayerPF2e<TObject extends MeasuredTemplatePF2e = MeasuredTemplateP
             canvas.stage.off("mousemove", this.#previewListeners.mousemove);
             canvas.stage.off("mousedown", this.#previewListeners.mousedown);
             canvas.stage.off("rightdown", this.#previewListeners.rightdown);
-            this.#previewListeners.wheelAbortController.abort();
             this.#previewListeners = null;
         }
         if (initialLayer !== this) initialLayer?.activate();
@@ -169,9 +169,8 @@ interface TemplateLayerPF2e<TObject extends MeasuredTemplatePF2e = MeasuredTempl
 }
 
 interface TemplatePreviewEventListeners {
+    locked: boolean;
     mousemove: (event: PIXI.FederatedPointerEvent) => void;
-    wheel: (event: Event) => void;
-    wheelAbortController: AbortController;
     mousedown: (event: PIXI.FederatedPointerEvent) => void;
     rightdown: (event: PIXI.FederatedPointerEvent) => void;
 }
