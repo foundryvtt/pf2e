@@ -48,6 +48,8 @@ type NonPhysicalItemType =
 
 type ItemType = NonPhysicalItemType | PhysicalItemType;
 
+type AbstractEffectSource = EffectSource | ConditionSource | AfflictionSource;
+
 type PhysicalItemSource =
     | ArmorSource
     | BookSource
@@ -60,15 +62,13 @@ type PhysicalItemSource =
 
 type ItemSourcePF2e =
     | PhysicalItemSource
+    | AbstractEffectSource
     | AbilitySource
-    | AfflictionSource
     | AncestrySource
     | BackgroundSource
     | CampaignFeatureSource
     | ClassSource
-    | ConditionSource
     | DeitySource
-    | EffectSource
     | FeatSource
     | HeritageSource
     | KitSource
@@ -111,6 +111,7 @@ export type {
 
 export type {
     AbilitySource,
+    AbstractEffectSource,
     AncestrySource,
     ArmorSource,
     BackgroundSource,
