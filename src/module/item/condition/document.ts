@@ -1,4 +1,5 @@
 import type { ActorPF2e } from "@actor";
+import type { DatabaseUpdateOperation } from "@common/abstract/_module.d.mts";
 import type { ItemPF2e } from "@item";
 import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect/index.ts";
 import { reduceItemName } from "@item/helpers.ts";
