@@ -1,12 +1,15 @@
 import { DatabaseCreateOperation, DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
 import Document from "@common/abstract/document.mjs";
 import { BasePlaylist, PlaylistSound, User } from "./_module.mjs";
-import { ClientDocument } from "./abstract/client-document.mjs";
+import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
 import CompendiumCollection from "./collections/compendium-collection.mjs";
 
-declare const ClientBasePlaylist: new (
-    ...args: any
-) => InstanceType<typeof BasePlaylist> & InstanceType<typeof ClientDocument<null>>;
+type BasePlaylistStatic = typeof BasePlaylist;
+interface ClientBasePlaylistStatic extends BasePlaylistStatic, ClientDocumentStatic {}
+
+declare const ClientBasePlaylist: {
+    new (...args: any): BasePlaylist & ClientDocument<null>;
+} & ClientBasePlaylistStatic;
 
 interface ClientBasePlaylist extends InstanceType<typeof ClientBasePlaylist> {}
 

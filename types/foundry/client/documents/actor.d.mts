@@ -5,12 +5,14 @@ import EmbeddedCollection from "@common/abstract/embedded-collection.mjs";
 import { ImageFilePath, VideoFilePath } from "@common/constants.mjs";
 import ActorSheet from "../appv1/sheets/actor-sheet.mjs";
 import { ActiveEffect, ActorUUID, BaseActor, Combat, Item, Scene, TokenDocument, User } from "./_module.mjs";
-import { ClientDocument } from "./abstract/client-document.mjs";
+import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
 import Actors from "./collections/actors.mjs";
 
-declare const ClientBaseActor: new <TParent extends TokenDocument | null>(
-    ...args: any
-) => InstanceType<typeof BaseActor<TParent>> & InstanceType<typeof ClientDocument<TParent>>;
+interface ClientBaseActorStatic extends Omit<typeof BaseActor, "new">, ClientDocumentStatic {}
+
+declare const ClientBaseActor: {
+    new <TParent extends TokenDocument | null>(...args: any): BaseActor<TParent> & ClientDocument<TParent>;
+} & ClientBaseActorStatic;
 
 declare interface ClientBaseActor<TParent extends TokenDocument | null>
     extends InstanceType<typeof ClientBaseActor<TParent>> {}
@@ -217,11 +219,6 @@ declare class Actor<TParent extends TokenDocument | null = TokenDocument | null>
     protected override _preCreate(
         data: this["_source"],
         options: DatabaseCreateOperation<TParent>,
-        user: User,
-    ): Promise<boolean | void>;
-    protected override _preCreate(
-        data: this["_source"],
-        options: DatabaseCreateOperation<Document | null>,
         user: User,
     ): Promise<boolean | void>;
 

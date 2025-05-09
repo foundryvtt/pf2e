@@ -1,11 +1,13 @@
 import Tile from "../canvas/placeables/tile.mjs";
 import { BaseTile } from "./_module.mjs";
-import { CanvasDocument } from "./abstract/canvas-document.mjs";
+import { CanvasDocument, CanvasDocumentStatic } from "./abstract/canvas-document.mjs";
 import Scene from "./scene.mjs";
 
-declare const CanvasBaseTile: new <TParent extends Scene | null>(
-    ...args: any
-) => InstanceType<typeof BaseTile<TParent>> & InstanceType<typeof CanvasDocument<TParent>>;
+interface CanvasBaseTileStatic extends Omit<typeof BaseTile, "new">, CanvasDocumentStatic {}
+
+declare const CanvasBaseTile: {
+    new <TParent extends Scene | null>(...args: any): BaseTile<TParent> & CanvasDocument<TParent>;
+} & CanvasBaseTileStatic;
 
 interface CanvasBaseTile<TParent extends Scene | null> extends InstanceType<typeof CanvasBaseTile<TParent>> {}
 

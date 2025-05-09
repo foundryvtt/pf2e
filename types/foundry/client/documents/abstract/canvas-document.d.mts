@@ -7,7 +7,7 @@ import {
 } from "@common/abstract/_module.mjs";
 import Document from "@common/abstract/document.mjs";
 import User from "../user.mjs";
-import { ClientDocument } from "./client-document.mjs";
+import { ClientDocument, ClientDocumentStatic } from "./client-document.mjs";
 
 /**
  * A specialized subclass of the ClientDocumentMixin which is used for document types that are intended to be
@@ -73,3 +73,5 @@ export class CanvasDocument<TParent extends Document | null = Document | null> e
 
     protected override _onDelete(options: DatabaseDeleteOperation<TParent>, userId: string): void;
 }
+
+export interface CanvasDocumentStatic extends ClientDocumentStatic {}

@@ -20,12 +20,14 @@ import {
     TrackedAttributesDescription,
     User,
 } from "./_module.mjs";
-import { CanvasDocument } from "./abstract/canvas-document.mjs";
+import { CanvasDocument, CanvasDocumentStatic } from "./abstract/canvas-document.mjs";
 import { ClientDocument } from "./abstract/client-document.mjs";
 
-declare const CanvasBaseToken: new <TParent extends Scene | null>(
-    ...args: any
-) => InstanceType<typeof BaseToken<TParent>> & InstanceType<typeof CanvasDocument<TParent>>;
+interface CanvasBaseTokenStatic extends Omit<typeof BaseToken, "new">, CanvasDocumentStatic {}
+
+declare const CanvasBaseToken: {
+    new <TParent extends Scene | null>(...args: any): BaseToken<TParent> & CanvasDocument<TParent>;
+} & CanvasBaseTokenStatic;
 
 interface CanvasBaseToken<TParent extends Scene | null> extends InstanceType<typeof CanvasBaseToken<TParent>> {}
 
