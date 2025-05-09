@@ -179,15 +179,6 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         );
     }
 
-    /** The number of units of ammunition required to attack with this weapon */
-    get ammoRequired(): number {
-        return this.isRanged && !this.isThrown && ![null, "-"].includes(this.reload)
-            ? this.system.traits.toggles.doubleBarrel.selected
-                ? 2
-                : 1
-            : 0;
-    }
-
     get ammo(): ConsumablePF2e<ActorPF2e> | WeaponPF2e<ActorPF2e> | null {
         const ammo = this.actor?.items.get(this.system.selectedAmmoId ?? "");
         return ammo?.isOfType("consumable", "weapon") ? ammo : null;
@@ -433,6 +424,11 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         if (this.system.usage.canBeAmmo && !this.isThrowable) {
             this.system.usage.canBeAmmo = false;
         }
+
+        // Initialize expend value
+        const canHaveExpend = this.isRanged && !this.isThrown;
+        const isDoubleBarrel = this.system.traits.toggles.doubleBarrel.selected;
+        this.system.expend = canHaveExpend ? (isDoubleBarrel ? 2 : (this.system.expend ?? 1)) : 0;
     }
 
     /** Add the rule elements of this weapon's linked ammunition to its own list */
@@ -743,8 +739,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     /** Consume a unit of ammunition used by this weapon */
     async consumeAmmo(): Promise<void> {
         const ammo = this.ammo;
-        if (ammo?.isOfType("consumable")) {
-            return ammo.consume(this.ammoRequired);
+        if (this.system.expend && ammo?.isOfType("consumable")) {
+            return ammo.consume(this.system.expend);
         } else if (ammo?.isOfType("weapon")) {
             if (!ammo.system.usage.canBeAmmo) {
                 throw ErrorPF2e("attempted to consume weapon not usable as ammunition");
@@ -758,7 +754,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     /* -------------------------------------------- */
 
     protected override _preUpdate(
-        changed: DeepPartial<this["_source"]>,
+        changed: DeepPartial<WeaponSource>,
         operation: DatabaseUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
@@ -786,6 +782,15 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 changed.system.damage.die ||= null;
             }
         }
+
+        // Ensure expend stays a valid value (removable once we have data models), and set it when swapping to a ranged weapon
+        const isThrown = (changed?.system?.traits?.value ?? this._source.system.traits.value)?.includes("thrown");
+        const mandatoryRanged = setHasElement(MANDATORY_RANGED_GROUPS, changed.system.group ?? this.system.group);
+        const isRanged =
+            mandatoryRanged || !!("range" in changed.system ? changed.system.range : this._source.system.range);
+        const isRangedChanged = isRanged !== !!this._source.system.range;
+        const expend = changed.system.expend ?? (isRangedChanged ? (isRanged ? 1 : 0) : this._source.system.expend);
+        changed.system.expend = isRanged && !isThrown ? Math.max(0, Number(expend ?? 1)) : 0;
 
         return super._preUpdate(changed, operation, user);
     }

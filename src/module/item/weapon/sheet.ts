@@ -9,7 +9,7 @@ import {
     RUNE_DATA,
     getPropertyRuneSlots,
 } from "@item/physical/index.ts";
-import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
+import { type AdjustedValue, type SheetOptions, createSheetTags, getAdjustedValue } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, htmlQueryAll, objectHasKey, setHasElement, sortStringRecord, tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { ComboWeaponMeleeUsage, SpecificWeaponData, WeaponPersistentDamage } from "./data.ts";
@@ -101,6 +101,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             damageDie: CONFIG.PF2E.damageDie,
             damageDieFaces,
             damageTypes: sortStringRecord(CONFIG.PF2E.damageTypes),
+            expend: getAdjustedValue(weapon.system.expend, weapon._source.system.expend ?? 1),
             groups: sortStringRecord(CONFIG.PF2E.weaponGroups),
             isBomb: weapon.group === "bomb",
             isComboWeapon,
@@ -214,6 +215,7 @@ interface WeaponSheetData extends PhysicalItemSheetData<WeaponPF2e> {
     damageDie: typeof CONFIG.PF2E.damageDie;
     damageDieFaces: Record<string, string>;
     damageTypes: typeof CONFIG.PF2E.damageTypes;
+    expend: AdjustedValue;
     groups: typeof CONFIG.PF2E.weaponGroups;
     isBomb: boolean;
     isComboWeapon: boolean;

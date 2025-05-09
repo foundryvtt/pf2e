@@ -41,6 +41,13 @@
                 {{selectOptions weaponReload selected=data.reload.value blank="" localize=true}}
             </select>
         </div>
+
+        {{#unless item.isThrowable}}
+            <div class="form-group">
+                <label for="{{fieldIdPrefix}}expend">{{localize "PF2E.Item.Weapon.Expend"}}</label>
+                <input type="number" id="{{fieldIdPrefix}}expend" class="{{expend.adjustmentClass}}" data-property="system.expend" value="{{expend.value}}" min="1">
+            </div>
+        {{/unless}}
     {{/if}}
 
     {{#if isBomb}}
