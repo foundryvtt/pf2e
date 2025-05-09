@@ -24,7 +24,7 @@ export default class PlaceablesLayer<TObject extends PlaceableObject = Placeable
     objects: PIXI.Container | null;
 
     /** Preview Object Placement */
-    preview: TObject | null;
+    preview: PIXI.Container<TObject> | null;
 
     /** Keep track of history so that CTRL+Z can undo changes. */
     history: CanvasHistoryEvent<TObject>[];
