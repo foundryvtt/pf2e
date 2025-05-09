@@ -103,6 +103,50 @@
                     }
                 ],
                 "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:fire",
+                            "item:damage:persistent:fire",
+                            "item:damage:fire"
+                        ]
+                    }
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "inline-damage",
+                    "attack-damage",
+                    "spell-damage"
+                ],
+                "value": 0
+            },
+            {
+                "damageType": "fire",
+                "key": "AdjustModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:fire",
+                            "item:damage:persistent:fire",
+                            "item:damage:fire",
+                            "fire"
+                        ]
+                    }
+                ],
+                "selectors": [
+                    "inline-damage",
+                    "attack-damage",
+                    "spell-damage"
+                ],
+                "suppress": true
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.other-effects.Item.Effect: Remaining Air"
             }
         ],
         "start": {
