@@ -1,8 +1,4 @@
-/**
- * A string tree node consists of zero-or-more string keys, and a leaves property that contains any objects that
- * terminate at the current node.
- */
-export type StringTreeNode<TEntry extends object> = { leaves: TEntry[] };
+import { StringTreeNode } from "./_types.mjs";
 
 /**
  * @param entry The entry to filter.

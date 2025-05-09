@@ -1,18 +1,5 @@
-import StringTree, { StringTreeEntryFilter, StringTreeNode } from "./string-tree.mjs";
-
-/**
- * A leaf entry in the tree.
- */
-export type WordTreeEntry = {
-    /** An object that this entry represents. */
-    entry: Document | object;
-    /** The document type. */
-    documentName: string;
-    /** The document's UUID. */
-    uuid: string;
-    /** The pack ID. */
-    pack?: string;
-};
+import { StringTreeNode, WordTreeEntry } from "./_types.mjs";
+import StringTree, { StringTreeEntryFilter } from "./string-tree.mjs";
 
 /**
  * A data structure for quickly retrieving objects by a string prefix.

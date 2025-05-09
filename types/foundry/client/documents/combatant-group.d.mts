@@ -4,7 +4,7 @@ import { ClientDocument } from "./abstract/client-document.mjs";
 
 declare const ClientBaseCombatantGroup: new <TParent extends Combat | null>(
     ...args: any
-) => InstanceType<typeof BaseCombatantGroup<TParent>> & InstanceType<typeof ClientDocument<TParent>>;
+) => BaseCombatantGroup<TParent> & ClientDocument<TParent>;
 
 interface ClientBaseCombatantGroup<TParent extends Combat | null>
     extends InstanceType<typeof ClientBaseCombatantGroup<TParent>> {}

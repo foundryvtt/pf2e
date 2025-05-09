@@ -2,7 +2,7 @@ import { DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstra
 import { UserPermission } from "@common/constants.mjs";
 import Token from "../canvas/placeables/token.mjs";
 import UserTargets from "../canvas/placeables/tokens/targets.mjs";
-import { BaseUser, Macro, TokenDocument } from "./_module.mjs";
+import { BaseUser, Macro, TokenDocument, UserUUID } from "./_module.mjs";
 import ClientDocumentMixin from "./abstract/client-document.mjs";
 
 /**
@@ -141,6 +141,10 @@ export default class User extends ClientDocumentMixin(BaseUser) {
     ): void;
 
     protected override _onDelete(options: DatabaseDeleteOperation<null>, userId: string): void;
+}
+
+export default interface User {
+    get uuid(): UserUUID;
 }
 
 export interface UserActivity {
