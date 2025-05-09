@@ -5,7 +5,7 @@ import Scene from "./scene.mjs";
 
 declare const CanvasBaseAmbientLight: new <TParent extends Scene | null>(
     ...args: any
-) => InstanceType<typeof BaseAmbientLight<TParent>> & InstanceType<typeof CanvasDocument<TParent>>;
+) => BaseAmbientLight<TParent> & CanvasDocument<TParent>;
 
 interface CanvasBaseAmbientLight<TParent extends Scene | null>
     extends InstanceType<typeof CanvasBaseAmbientLight<TParent>> {}

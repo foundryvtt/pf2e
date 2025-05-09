@@ -4,9 +4,7 @@ import { BaseMacro } from "./_module.mjs";
 import { ClientDocument } from "./abstract/client-document.mjs";
 import Actor from "./actor.mjs";
 
-declare const ClientBaseMacro: new (
-    ...args: any
-) => InstanceType<typeof BaseMacro> & InstanceType<typeof ClientDocument<null>>;
+declare const ClientBaseMacro: new (...args: any) => BaseMacro & ClientDocument<null>;
 
 interface ClientBaseMacro extends InstanceType<typeof ClientBaseMacro> {}
 

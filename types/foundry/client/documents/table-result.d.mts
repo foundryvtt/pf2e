@@ -5,7 +5,7 @@ import RollTable from "./roll-table.mjs";
 
 declare const ClientBaseTableResult: new <TParent extends RollTable | null>(
     ...args: any
-) => InstanceType<typeof BaseTableResult<TParent>> & InstanceType<typeof ClientDocument<TParent>>;
+) => BaseTableResult<TParent> & ClientDocument<TParent>;
 
 /**
  * The client-side TableResult document which extends the common BaseTableResult document model.
