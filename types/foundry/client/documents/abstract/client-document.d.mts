@@ -565,5 +565,5 @@ export interface ClientDocumentStatic {
         },
     ): Promise<InstanceType<T> | null>;
 
-    fromDropData<T extends typeof Document>(this: T, data: object, options?: object): Promise<InstanceType<T>>;
+    fromDropData<T extends typeof Document>(this: T, data: object, options?: object): Promise<InstanceType<T> | null>;
 }

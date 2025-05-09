@@ -594,8 +594,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Don't allow the user to create in-development actor types. */
-    static override createDialog<TDocument extends Document>(
-        this: ConstructorOf<TDocument>,
+    static override createDialog<T extends typeof Document>(
+        this: T,
         data?: Record<string, unknown>,
         createOptions?: Partial<DatabaseCreateOperation<Document | null>>,
         options?: {
@@ -604,7 +604,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             template?: string;
             context?: object;
         } & Partial<DialogV2Configuration>,
-    ): Promise<TDocument | null>;
+    ): Promise<InstanceType<T> | null>;
     static override createDialog(
         data?: Record<string, unknown>,
         createOptions?: Partial<DatabaseCreateOperation<TokenDocumentPF2e | null>>,
@@ -614,7 +614,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             template?: string;
             context?: object;
         } & Partial<DialogV2Configuration> = {},
-    ): Promise<Actor | null> {
+    ): Promise<Document | null> {
         options.types &&= R.unique(options.types);
         options.types ??= [...ACTOR_TYPES];
 

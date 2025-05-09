@@ -1,6 +1,6 @@
 import type { ActorPF2e } from "@actor/base.ts";
+import type { DialogV2Configuration } from "@client/applications/api/dialog.d.mts";
 import type { DocumentHTMLEmbedConfig } from "@client/applications/ux/text-editor.d.mts";
-import type { FormApplicationOptions } from "@client/appv1/api/form-application-v1.d.mts";
 import type { ItemUUID } from "@client/documents/_module.d.mts";
 import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
 import type { DocumentConstructionContext } from "@common/_types.d.mts";
@@ -107,15 +107,12 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
      * Set a source ID on a dropped embedded item without a full data reset
      * This is currently necessary as of 10.291 due to system measures to prevent premature data preparation
      */
-    static override async fromDropData<TDocument extends Document>(
-        this: ConstructorOf<TDocument>,
+    static override async fromDropData<T extends typeof Document>(
+        this: T,
         data: object,
-        options?: Record<string, unknown>,
-    ): Promise<TDocument | undefined>;
-    static override async fromDropData(
-        data: object,
-        options?: Record<string, unknown>,
-    ): Promise<foundry.abstract.Document | undefined> {
+        options?: object,
+    ): Promise<InstanceType<T> | null>;
+    static override async fromDropData(data: object, options?: Record<string, unknown>): Promise<Document | null> {
         if ("uuid" in data && UUIDUtils.isItemUUID(data.uuid)) {
             const item = await fromUuid(data.uuid);
             if (item instanceof ItemPF2e && item.parent && !item.sourceId) {
@@ -250,8 +247,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         );
 
         // Create the chat message
+        const operation = { rollMode, renderSheet: false };
         return (options.create ?? true)
-            ? ChatMessagePF2e.create(chatData, { rollMode, renderSheet: false })
+            ? ChatMessagePF2e.create(chatData, operation)
             : new ChatMessagePF2e(chatData, { rollMode });
     }
 
@@ -562,16 +560,17 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** Don't allow the user to create a condition or spellcasting entry from the sidebar. */
-    static override createDialog<TDocument extends foundry.abstract.Document>(
-        this: ConstructorOf<TDocument>,
+    static override createDialog<T extends typeof Document>(
+        this: T,
         data?: Record<string, unknown>,
-        createOptions?: DatabaseCreateOperation<TDocument>,
-        context?: {
-            parent?: TDocument["parent"];
-            pack?: Collection<string, TDocument> | null;
-            types?: ItemType[];
-        } & Partial<FormApplicationOptions>,
-    ): Promise<TDocument | null>;
+        createOptions?: Partial<DatabaseCreateOperation<Document | null>>,
+        options?: {
+            folders?: { id: string; name: string }[];
+            types?: string[];
+            template?: string;
+            context?: object;
+        } & Partial<DialogV2Configuration>,
+    ): Promise<InstanceType<T> | null>;
     static override async createDialog(
         data: { folder?: string } = {},
         createOptions?: DatabaseCreateOperation<ItemPF2e>,
@@ -579,8 +578,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             parent?: ActorPF2e | null;
             pack?: Collection<string, ItemPF2e<null>> | null;
             types?: string[];
-        } & Partial<FormApplicationOptions> = {},
-    ): Promise<Item | null> {
+        } & Partial<DialogV2Configuration> = {},
+    ): Promise<Document | null> {
         context.classes = [...(context.classes ?? []), "dialog-item-create"];
         context.types &&= R.unique(context.types);
         context.types ??= Object.keys(game.system.documentTypes.Item);
@@ -608,7 +607,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         return { ...super.toDragData(), itemType: this.type };
     }
 
-    static override async createDocuments<TDocument extends foundry.abstract.Document>(
+    static override async createDocuments<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
         data?: (TDocument | PreCreate<TDocument["_source"]>)[],
         operation?: Partial<DatabaseCreateOperation<TDocument["parent"]>>,
@@ -616,7 +615,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     static override async createDocuments(
         data: (ItemPF2e | PreCreate<ItemSourcePF2e>)[] = [],
         operation: Partial<DatabaseCreateOperation<ActorPF2e | null>> = {},
-    ): Promise<foundry.abstract.Document[]> {
+    ): Promise<Document[]> {
         // Convert all `ItemPF2e`s to source objects
         const sources: PreCreate<ItemSourcePF2e>[] = data.map(
             (d): PreCreate<ItemSourcePF2e> => (d instanceof ItemPF2e ? d.toObject() : d),
@@ -778,7 +777,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         return super.createDocuments(nonKits, operation);
     }
 
-    static override async deleteDocuments<TDocument extends foundry.abstract.Document>(
+    static override async deleteDocuments<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
         ids?: string[],
         operation?: Partial<DatabaseDeleteOperation<TDocument["parent"]>>,
@@ -976,7 +975,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     /** Store certain data to be checked in _onUpdateOperation */
     static override async _preUpdateOperation(
-        documents: foundry.abstract.Document<foundry.abstract._Document | null, foundry.data.fields.DataSchema>[],
+        documents: Document[],
         operation: ItemPF2eDatabaseUpdateOperation,
         user: UserPF2e,
     ): Promise<boolean | void> {
@@ -995,9 +994,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     /** Overriden to handle max hp updates when certain items changes. These updates should not occur due to temporary changes */
     static override async _onUpdateOperation(
-        documents: foundry.abstract.Document<foundry.abstract._Document | null, foundry.data.fields.DataSchema>[],
+        documents: Document[],
         operation: ItemPF2eDatabaseUpdateOperation,
-        user: foundry.documents.BaseUser<foundry.documents.BaseActor<null>>,
+        user: UserPF2e,
     ): Promise<void> {
         await super._onUpdateOperation(documents, operation, user);
 
@@ -1166,7 +1165,7 @@ interface RefreshFromCompendiumParams {
 }
 
 /** An extension of DatabaseUpdateOperation to pass on system specific data between phases */
-type ItemPF2eDatabaseUpdateOperation = DatabaseUpdateOperation<foundry.abstract.Document | null> & {
+type ItemPF2eDatabaseUpdateOperation = DatabaseUpdateOperation<Document | null> & {
     previous?: { maxHitPoints?: number };
 };
 
