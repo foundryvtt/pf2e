@@ -87,7 +87,7 @@ class TemplateLayerPF2e<TObject extends MeasuredTemplatePF2e = MeasuredTemplateP
         let lastMove = Date.now(); // Throttle 50ms
 
         const listeners: TemplatePreviewEventListeners = (this.#previewListeners = {
-            locked: false,
+            lockedInPlace: false,
             mousemove: (event: PIXI.FederatedPointerEvent): void => {
                 event.stopPropagation();
                 const now = Date.now();
@@ -96,7 +96,7 @@ class TemplateLayerPF2e<TObject extends MeasuredTemplatePF2e = MeasuredTemplateP
                 canvas._onDragCanvasPan(event);
                 const destination = event.getLocalPosition(this);
 
-                if (this.#previewListeners?.locked) {
+                if (this.#previewListeners?.lockedInPlace) {
                     const origin = preview.position;
                     const ray = new fc.geometry.Ray(origin, destination);
                     if (ray.distance < canvas.grid.size / 4) return;
@@ -126,18 +126,22 @@ class TemplateLayerPF2e<TObject extends MeasuredTemplatePF2e = MeasuredTemplateP
                           })
                         : super.getSnappedPoint(position),
                 );
-                if (this.#previewListeners?.locked || event.shiftKey || !["ray", "cone"].includes(preview.document.t)) {
+                if (
+                    this.#previewListeners?.lockedInPlace ||
+                    event.shiftKey ||
+                    !["ray", "cone"].includes(preview.document.t)
+                ) {
                     this.#deactivatePreviewListeners(initialLayer, event);
                     canvas.scene?.createEmbeddedDocuments("MeasuredTemplate", [document.toObject()]);
                 } else if (this.#previewListeners) {
-                    this.#previewListeners.locked = true;
+                    this.#previewListeners.lockedInPlace = true;
                     preview.renderFlags.set({ refresh: true });
                 }
             },
             rightdown: (event: PIXI.FederatedPointerEvent): void => {
                 event.stopPropagation();
-                if (this.#previewListeners?.locked) {
-                    this.#previewListeners.locked = false;
+                if (this.#previewListeners?.lockedInPlace) {
+                    this.#previewListeners.lockedInPlace = false;
                     preview.document.updateSource({ direction: 0 });
                     this.#previewListeners.mousemove(event);
                 } else {
@@ -169,7 +173,8 @@ interface TemplateLayerPF2e<TObject extends MeasuredTemplatePF2e = MeasuredTempl
 }
 
 interface TemplatePreviewEventListeners {
-    locked: boolean;
+    /** Whether the preview position is locked in place on the canvas */
+    lockedInPlace: boolean;
     mousemove: (event: PIXI.FederatedPointerEvent) => void;
     mousedown: (event: PIXI.FederatedPointerEvent) => void;
     rightdown: (event: PIXI.FederatedPointerEvent) => void;
