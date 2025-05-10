@@ -40,6 +40,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             value: this.stage,
             min: 1,
             max: this.maxStage,
+            labels: null,
             label: this.system.status.onset
                 ? game.i18n.localize("PF2E.Item.Affliction.OnsetLabel")
                 : game.i18n.format("PF2E.Item.Affliction.Stage", { stage: this.stage }),
@@ -244,15 +245,15 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             const initiative = this.origin?.combatant?.initiative ?? game.combat?.combatant?.initiative ?? null;
             this._source.system.start = { value: game.time.worldTime + this.onsetDuration, initiative };
         } else {
-            // Force minimum stage and active onset if there is no actor
-            this.updateSource({ "system.status.-=status": null });
+            // Reset stage and active onset if there is no actor
+            this.updateSource({ "system.status": undefined });
         }
 
         return super._preCreate(data, operation, user);
     }
 
     protected override async _preUpdate(
-        changed: DeepPartial<AfflictionSource>,
+        changed: DeepPartial<this["_source"]>,
         operation: DatabaseUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
