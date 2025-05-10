@@ -1,4 +1,11 @@
 <section class="tab effects actions-pane major" data-group="primary" data-tab="effects">
+    {{#if document.itemTypes.affliction}}
+        <header>{{localize "PF2E.Item.Affliction.Plural"}}</header>
+        <ol class="effects-list directory-list item-list">
+            {{> "systems/pf2e/templates/actors/partials/effects.hbs" effects=document.itemTypes.affliction}}
+        </ol>
+    {{/if}}
+
     <header>{{localize "PF2E.ConditionsLabel"}}</header>
     <ol class="effects-list directory-list item-list">
         {{> "systems/pf2e/templates/actors/partials/effects.hbs" effects=document.conditions.active}}

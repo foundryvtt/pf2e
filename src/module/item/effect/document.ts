@@ -4,8 +4,9 @@ import type {
     DatabaseDeleteOperation,
     DatabaseUpdateOperation,
 } from "@common/abstract/_types.d.mts";
-import type { BadgeReevaluationEventType, EffectBadge } from "@item/abstract-effect/data.ts";
-import { AbstractEffectPF2e, EffectBadgeFormulaSource, EffectBadgeValueSource } from "@item/abstract-effect/index.ts";
+import type { EffectBadge, EffectBadgeFormulaSource, EffectBadgeValueSource } from "@item/abstract-effect/data.ts";
+import { AbstractEffectPF2e } from "@item/abstract-effect/index.ts";
+import { BadgeReevaluationEventType } from "@item/abstract-effect/types.ts";
 import { reduceItemName } from "@item/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import type { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
@@ -43,31 +44,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-
-        const system = this.system;
-        if (["unlimited", "encounter"].includes(system.duration.unit)) {
-            system.duration.expiry = null;
-        } else {
-            system.duration.expiry ||= "turn-start";
-        }
-        system.expired = this.remainingDuration.expired;
-
-        const badge = system.badge;
-        if (badge) {
-            if (badge.type === "formula") {
-                badge.label = null;
-            } else {
-                if (badge.type === "counter") badge.loop ??= false;
-                badge.min = badge.labels ? 1 : (badge.min ?? 1);
-                badge.max = badge.labels?.length ?? badge.max ?? Infinity;
-                badge.value = Math.clamp(badge.value, badge.min, badge.max);
-                badge.label = badge.labels?.at(badge.value - 1)?.trim() || null;
-            }
-
-            if (badge.type === "value" && badge.reevaluate) {
-                badge.reevaluate.initial ??= badge.value;
-            }
-        }
+        this.system.expired = this.remainingDuration.expired;
     }
 
     /** Unless this effect is temporarily constructed, ignore rule elements if it is expired */
@@ -169,6 +146,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
         const duration = changed.system?.duration;
         if (duration?.unit === "unlimited") {
             duration.expiry = null;
+            duration.value = -1;
         } else if (typeof duration?.unit === "string" && !["unlimited", "encounter"].includes(duration.unit)) {
             duration.expiry ||= "turn-start";
             if (duration.value === -1) duration.value = 1;
@@ -184,9 +162,9 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
                 badgeChange.value = 1;
             } else if (badgeChange.type === "counter") {
                 // Clamp to the counter value, or delete if decremented to 0
-                const labels = badgeChange.labels;
-                const [minValue, maxValue] = labels
-                    ? [1, Math.min(labels.length, badgeChange.max ?? Infinity)]
+                badgeChange.labels ??= null;
+                const [minValue, maxValue] = badgeChange.labels
+                    ? [1, Math.min(badgeChange.labels.length, badgeChange.max ?? Infinity)]
                     : [badgeChange.min ?? 1, badgeChange.max ?? Infinity];
 
                 // Delete the item if it goes below the minimum value, but only if it is embedded
@@ -198,20 +176,14 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
                 badgeChange.value = Math.clamp(badgeChange.value ?? 0, minValue, maxValue);
             }
 
-            // Delete min/max under certain conditions.
-            if (badgeTypeChanged || badgeChange.labels || badgeChange.min === null) {
-                delete badgeChange.min;
-                if (badgeSource) fu.mergeObject(badgeChange, { "-=min": null });
-            }
-            if (badgeTypeChanged || badgeChange.labels || badgeChange.max === null) {
-                delete badgeChange.max;
-                if (badgeSource) fu.mergeObject(badgeChange, { "-=max": null });
-            }
-
-            // remove loop when type changes or labels are removed
-            if ("loop" in badgeChange && (!badgeChange.labels || badgeTypeChanged)) {
-                delete badgeChange.loop;
-                if (badgeSource) fu.mergeObject(badgeChange, { "-=loop": null });
+            // Delete certain counter props under certain conditions.
+            if (badgeChange.type === "counter") {
+                if (badgeChange.labels) {
+                    badgeChange.min = null;
+                    badgeChange.max = null;
+                } else {
+                    badgeChange.loop = false;
+                }
             }
         }
 
