@@ -1,11 +1,13 @@
 import { CreaturePF2e } from "@actor";
 import type { Abilities } from "@actor/creature/data.ts";
 import type { CreatureUpdateOperation } from "@actor/creature/index.ts";
+import { ActorSizePF2e } from "@actor/data/size.ts";
 import { setHitPointsRollOptions, strikeFromMeleeItem } from "@actor/helpers.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import type { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
+import type { UserAction } from "@common/constants.d.mts";
 import type { ItemPF2e, MeleePF2e } from "@item";
 import type { ItemType } from "@item/base/data/index.ts";
 import { calculateDC } from "@module/dc.ts";
@@ -578,14 +580,17 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
     }
 
     protected override async _preUpdate(
-        changed: DeepPartial<NPCSource>,
+        changed: DeepPartial<this["_source"]>,
         operation: CreatureUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
+        const result = await super._preUpdate(changed, operation, user);
         const isFullReplace = !((operation.diff ?? true) && (operation.recursive ?? true));
-        if (isFullReplace) return super._preUpdate(changed, operation, user);
+        if (isFullReplace || result === false || !changed.system) return result;
 
-        if (changed.system?.skills) {
+        this.#updatePrototypeToken(changed);
+
+        if (changed.system.skills) {
             for (const [key, skill] of Object.entries(changed.system.skills)) {
                 if (key.startsWith("-=") || !skill) continue;
 
@@ -595,8 +600,20 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 }
             }
         }
+    }
 
-        return super._preUpdate(changed, operation, user);
+    /** Update the prototype token dimensions along with this actor's size category. */
+    async #updatePrototypeToken(changes: DeepPartial<this["_source"]>): Promise<void> {
+        if (this.isToken || !this.prototypeToken.flags.pf2e.linkToActorSize || !changes.system?.traits?.size?.value) {
+            return;
+        }
+        const newSize = new ActorSizePF2e({ value: changes.system.traits.size.value });
+        const currentSize = this.system.traits.size;
+        if (newSize.width !== currentSize.width || newSize.length !== currentSize.length) {
+            const prototypeToken = (changes.prototypeToken ??= {});
+            prototypeToken.width = newSize.width / 5;
+            prototypeToken.height = newSize.length / 5;
+        }
     }
 }
 

@@ -1,5 +1,6 @@
 import { DocumentConstructionContext } from "@common/_types.mjs";
 import Collection, { CollectionGetOptions } from "../utils/collection.mjs";
+import { RawObject } from "./data.mjs";
 import Document from "./document.mjs";
 
 /** Used for the specific task of containing embedded Document instances within a parent Document. */
