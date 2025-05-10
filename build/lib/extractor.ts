@@ -2,6 +2,7 @@ import type { ActorSourcePF2e } from "@actor/data/index.ts";
 import type { NPCAttributesSource, NPCSystemSource } from "@actor/npc/data.ts";
 import type { CompendiumMetadata } from "@client/documents/collections/compendium-collection.d.mts";
 import type { CompendiumDocumentType } from "@client/utils/_module.d.mts";
+import type { ImageFilePath } from "@common/constants.mjs";
 import type { DocumentStatsData } from "@common/data/fields.d.mts";
 import type { AbilitySource, ItemSourcePF2e, ItemType, SpellcastingEntrySource } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
@@ -14,8 +15,8 @@ import { JSDOM } from "jsdom";
 import path from "path";
 import process from "process";
 import * as R from "remeda";
-import systemJSON from "../../static/system.json" assert { type: "json" };
-import templateJSON from "../../static/template.json" assert { type: "json" };
+import systemJSON from "../../static/system.json" with { type: "json" };
+import templateJSON from "../../static/template.json" with { type: "json" };
 import { CompendiumPack, isActorSource, isItemSource } from "./compendium-pack.ts";
 import { PackError, getFilesRecursively } from "./helpers.ts";
 import { DBFolder, LevelDatabase } from "./level-database.ts";
@@ -633,20 +634,21 @@ class PackExtractor {
             return [];
         }
         const itemTypes: ItemType[] = [
-            "spellcastingEntry",
-            "spell",
-            "weapon",
-            "shield",
+            "action",
+            "affliction",
             "armor",
-            "equipment",
-            "consumable",
-            "treasure",
             "backpack",
             "condition",
+            "consumable",
             "effect",
-            "melee",
-            "action",
+            "equipment",
             "lore",
+            "melee",
+            "shield",
+            "spell",
+            "spellcastingEntry",
+            "treasure",
+            "weapon",
         ];
 
         type ItemSourcesByType = { [T in ItemType]?: ItemInstances<null>[T]["_source"][] };

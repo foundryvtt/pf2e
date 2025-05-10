@@ -1,14 +1,12 @@
 import type { ActorPF2e } from "@actor";
 import type { DatabaseCreateOperation, DatabaseDeleteOperation } from "@common/abstract/_types.d.mts";
 import { ItemPF2e } from "@item";
-import type { AfflictionSource, AfflictionSystemData } from "@item/affliction/data.ts";
-import type { ConditionSource, ConditionSystemData } from "@item/condition/data.ts";
-import type { EffectSource, EffectSystemData } from "@item/effect/data.ts";
+import type { AbstractEffectSource } from "@item/base/data/index.ts";
 import type { ShowFloatyEffectParams } from "@module/canvas/token/object.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e, sluggify } from "@util";
-import type { EffectBadge } from "./data.ts";
+import type { AbstractEffectSystemData, EffectBadge } from "./data.ts";
 import { calculateRemainingDuration } from "./helpers.ts";
 import type { EffectTrait } from "./types.ts";
 import { DURATION_UNITS } from "./values.ts";
@@ -213,8 +211,8 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
 }
 
 interface AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
-    readonly _source: AfflictionSource | ConditionSource | EffectSource;
-    system: AfflictionSystemData | ConditionSystemData | EffectSystemData;
+    readonly _source: AbstractEffectSource;
+    system: AbstractEffectSystemData;
 }
 
 export { AbstractEffectPF2e };

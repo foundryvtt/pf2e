@@ -2,12 +2,17 @@ import type { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { ModelPropsFromSchema, SourceFromSchema } from "@common/data/fields.mjs";
 import type { ItemUUID } from "@common/documents/_module.mjs";
-import type { EffectAuraData, TimeUnit } from "@item/abstract-effect/index.ts";
-import { type DurationDataSchema, EffectContextField } from "@item/abstract-effect/schema.ts";
-import type { EffectTrait } from "@item/abstract-effect/types.ts";
+import { type DurationDataSchema, EffectContextField } from "@item/abstract-effect/data.ts";
+import type { EffectAuraData } from "@item/abstract-effect/index.ts";
+import type { EffectTrait, TimeUnit } from "@item/abstract-effect/types.ts";
 import { EFFECT_TIME_UNITS } from "@item/abstract-effect/values.ts";
 import { ItemSystemModel, ItemSystemSchema } from "@item/base/data/model.ts";
-import type { BaseItemSourcePF2e, ItemFlagsPF2e, ItemSystemSource } from "@item/base/data/system.ts";
+import type {
+    BaseItemSourcePF2e,
+    ItemFlagsPF2e,
+    ItemSourceFlagsPF2e,
+    ItemSystemSource,
+} from "@item/base/data/system.ts";
 import type { ConditionSlug } from "@item/condition/index.ts";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
 import type { DamageCategoryUnique, DamageType } from "@system/damage/types.ts";
@@ -15,6 +20,14 @@ import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 import { LaxArrayField, SlugField } from "@system/schema-data-fields.ts";
 import { AfflictionPF2e } from "./document.ts";
 import fields = foundry.data.fields;
+
+type AfflictionSource = BaseItemSourcePF2e<"affliction", AfflictionSystemSource> & {
+    flags: ItemSourceFlagsPF2e & {
+        pf2e?: {
+            aura?: EffectAuraData;
+        };
+    };
+};
 
 class AfflictionSystemData extends ItemSystemModel<AfflictionPF2e, AfflictionSystemSchema> {
     /** Whether or not the current affliction is expired */
@@ -239,10 +252,6 @@ type AfflictionConditionSchema = {
 
 type AfflictionSystemSource = SourceFromSchema<AfflictionSystemSchema> & {
     schema?: ItemSystemSource["schema"];
-};
-
-type AfflictionSource = BaseItemSourcePF2e<"affliction", AfflictionSystemSource> & {
-    flags: DeepPartial<AfflictionFlags>;
 };
 
 type AfflictionFlags = ItemFlagsPF2e & {

@@ -1,8 +1,9 @@
-import { EffectBadgeSource } from "@item/abstract-effect/index.ts";
-import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
+import type { FormSelectOption } from "@client/applications/forms/fields.mjs";
+import type { EffectBadgeSource } from "@item/abstract-effect/index.ts";
+import { type ItemSheetDataPF2e, type ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { ErrorPF2e } from "@util";
 import { htmlQuery, htmlQueryAll } from "@util/dom.ts";
-import { EffectSource } from "./data.ts";
+import type { EffectSource } from "./data.ts";
 import type { EffectPF2e } from "./document.ts";
 
 export class EffectSheetPF2e extends ItemSheetPF2e<EffectPF2e> {
@@ -46,7 +47,7 @@ export class EffectSheetPF2e extends ItemSheetPF2e<EffectPF2e> {
 
         htmlQuery(html, "[data-action=badge-add]")?.addEventListener("click", () => {
             const type = htmlQuery<HTMLSelectElement>(html, ".badge-type")?.value;
-            const badge: EffectBadgeSource =
+            const badge: Partial<EffectBadgeSource> =
                 type === "formula" ? { type: "formula", value: "1d20", evaluate: true } : { type: "counter", value: 1 };
             this.item.update({ system: { badge } });
         });
@@ -69,7 +70,7 @@ export class EffectSheetPF2e extends ItemSheetPF2e<EffectPF2e> {
                 if (labels) {
                     labels.splice(index, 1);
                     if (labels.length === 0) {
-                        this.item.update({ "system.badge.-=labels": null });
+                        this.item.update({ "system.badge.labels": null });
                     } else {
                         this.item.update({ system: { badge: { labels } } });
                     }
@@ -81,15 +82,9 @@ export class EffectSheetPF2e extends ItemSheetPF2e<EffectPF2e> {
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         const expanded = fu.expandObject<DeepPartial<EffectSource>>(formData);
         const badge = expanded.system?.badge;
-        if (badge) {
-            // Ensure badge labels remain an array
-            if ("labels" in badge && typeof badge.labels === "object") {
-                badge.labels = Object.values(badge.labels);
-            }
-            // Null out empty-string `badge.reevaluate`
-            if ("reevaluate" in badge) {
-                badge.reevaluate ||= null;
-            }
+        // Ensure badge labels remain an array, needed due to _preUpdate clamping
+        if (badge && "labels" in badge && typeof badge.labels === "object") {
+            badge.labels = Object.values(badge.labels ?? []);
         }
 
         super._updateObject(event, fu.flattenObject(expanded));
