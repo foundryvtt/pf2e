@@ -1,36 +1,25 @@
-.persistent-damage-dialog {
-    /** Work around Font Awesome styling bug present as of version 6.2 */
-    i.fa-fw {
-        min-width: 1em;
-    }
-
-    h3 {
+.persistent-damage-editor .window-content {
+    header {
         display: flex;
         align-items: baseline;
         justify-content: space-between;
-        a {
-            float: right;
-            font-size: 0.8em;
-            &:hover i {
-                @include die-spin;
-            }
+        white-space: nowrap;
+        font-size: var(--font-h6-size);
+        &:not(:first-child) {
+            margin-top: var(--space-8);
         }
     }
 
     .entries {
         display: flex;
         flex-direction: column;
-        gap: 0.125rem;
-
-        &:not(.new) {
-            margin-bottom: 0.5rem;
-        }
+        gap: var(--space-4);
     }
 
     .persistent-entry {
         display: flex;
         align-items: baseline;
-        gap: 0.25rem;
+        gap: var(--space-4);
 
         &.inactive .input-fields {
             input,
@@ -55,8 +44,13 @@
         gap: 0.25rem;
         align-items: baseline;
 
-        select: {
-            height: var(--form-field-height);
+        input {
+            flex: 1 1 0;
+        }
+
+        select {
+            flex: 0;
+            min-width: fit-content;
         }
 
         label {
@@ -64,6 +58,7 @@
             align-items: baseline;
             gap: 0.19rem;
             height: 100%;
+            margin-left: var(--space-4);
         }
 
         .dc {

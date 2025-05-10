@@ -1,0 +1,49 @@
+<header>
+    <span>{{localize "PF2E.Item.Condition.PersistentDamage.Dialog.Add"}}</span>
+</header>
+
+<section class="entries new">
+    <section class="persistent-entry">
+        <div class="input-fields">
+            <i class="fa-solid fa-dice-d6 fa-fw"></i>
+            <input type="text" class="formula" placeholder="1d6" {{#unless selectedItemId}}autofocus{{/unless}} />
+            <select class="damageType">
+                {{selectOptions @root.damageTypes valueAttr="type"}}
+            </select>
+            <label>
+                <span>DC</span>
+                <input type="number" class="dc" placeholder="15" />
+            </label>
+        </div>
+        <a data-action="add" data-tooltip="PF2E.Item.Condition.PersistentDamage.Dialog.Add"><i class="fa-solid fa-floppy-disk fa-fw"></i></a>
+    </section>
+</section>
+
+{{#if existing}}
+    <header>
+        <span>{{localize "PF2E.Item.Condition.PersistentDamage.Dialog.Edit"}}</span>
+        {{#if existing}}
+            <button class="inline-control" data-action="roll">
+                <i class="fa-solid fa-dice-d6"></i> {{localize "PF2E.Item.Condition.PersistentDamage.RollDamage"}}
+            </button>
+        {{/if}}
+    </header>
+    <section class="entries">
+        {{#each existing as |condition|}}
+            <section class="persistent-entry {{#unless condition.active}}inactive{{/unless}}" data-id="{{condition.id}}">
+                <div class="input-fields">
+                    {{{condition.bullet}}}
+                    <input type="text" class="formula" value="{{condition.formula}}" {{#if (eq @root.selectedItemId condition.id)}}autofocus{{/if}} />
+                    <select class="damageType">
+                        {{selectOptions @root.damageTypes valueAttr="type" selected=condition.damageType}}
+                    </select>
+                    <label>
+                        <span>DC</span>
+                        <input type="number" class="dc" placeholder="15" value="{{condition.dc}}" />
+                    </label>
+                </div>
+                <a data-action="delete" data-tooltip="PF2E.Item.Condition.PersistentDamage.Dialog.Remove"><i class="fa-solid fa-xmark fa-fw"></i></a>
+            </section>
+        {{/each}}
+    </section>
+{{/if}}
