@@ -544,8 +544,9 @@ export default abstract class Document<
      * @param operation Parameters of the database creation operation
      * @param user      The User requesting the creation operation
      * @returns Return false to cancel the creation operation entirely
+     * @internal
      */
-    protected static _preCreateOperation(
+    static _preCreateOperation(
         documents: Document[],
         operation: DatabaseCreateOperation<Document | null>,
         user: BaseUser,
@@ -560,8 +561,9 @@ export default abstract class Document<
      * @param documents The Document instances which were created
      * @param operation Parameters of the database creation operation
      * @param user      The User who performed the creation operation
+     * @internal
      */
-    protected static _onCreateOperation<TDocument extends Document>(
+    static _onCreateOperation<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
         items: TDocument[],
         context: DatabaseCreateOperation<TDocument["parent"]>,
@@ -612,8 +614,9 @@ export default abstract class Document<
      * @param operation Parameters of the database update operation
      * @param user      The User requesting the update operation
      * @returns Return false to cancel the update operation entirely
+     * @internal
      */
-    protected static _preUpdateOperation(
+    static _preUpdateOperation(
         documents: Document[],
         operation: DatabaseUpdateOperation<Document | null>,
         user: BaseUser,
@@ -628,8 +631,9 @@ export default abstract class Document<
      * @param documents The Document instances which were updated
      * @param operation Parameters of the database update operation
      * @param user      The User who performed the update operation
+     * @internal
      */
-    protected static _onUpdateOperation(
+    static _onUpdateOperation(
         documents: Document[],
         operation: DatabaseUpdateOperation<Document | null>,
         user: BaseUser,
@@ -670,8 +674,9 @@ export default abstract class Document<
      * @param operation   Parameters of the database update operation
      * @param user             The User requesting the deletion operation
      * @returns Return false to cancel the deletion operation entirely
+     * @internal
      */
-    protected static _preDeleteOperation(
+    static _preDeleteOperation(
         documents: Document[],
         operation: DatabaseDeleteOperation<Document | null>,
         user: BaseUser,
@@ -686,8 +691,9 @@ export default abstract class Document<
      * @param documents The Document instances which were deleted
      * @param operation Parameters of the database deletion operation
      * @param user      The User who performed the deletion operation
+     * @internal
      */
-    protected static _onDeleteOperation(
+    static _onDeleteOperation(
         documents: Document[],
         operation: DatabaseDeleteOperation<Document | null>,
         user: BaseUser,
