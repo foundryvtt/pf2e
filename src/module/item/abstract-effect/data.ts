@@ -97,7 +97,7 @@ class EffectContextField extends fields.SchemaField<
                         },
                         { required: false, nullable: true, initial: null },
                     ),
-                    rollOptions: new fields.ArrayField(new fields.StringField(), { required: false, nullable: false }),
+                    rollOptions: new fields.ArrayField(new fields.StringField({ required: true, blank: false })),
                 }),
                 target: new fields.SchemaField(
                     {
@@ -144,7 +144,7 @@ type EffectContextDataSchema = {
             true,
             true
         >;
-        rollOptions: fields.ArrayField<fields.StringField, string[], string[], false, false>;
+        rollOptions: fields.ArrayField<fields.StringField<string, string, true, false, false>>;
     }>;
     target: fields.SchemaField<
         EffectContextTargetSchema,
