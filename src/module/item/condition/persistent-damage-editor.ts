@@ -1,30 +1,44 @@
 import type { ActorPF2e } from "@actor";
+import type { ApplicationConfiguration, ApplicationRenderContext } from "@client/applications/_module.mjs";
+import type { HandlebarsRenderOptions } from "@client/applications/api/_module.mjs";
 import { damageDiceIcon } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import { DamageType } from "@system/damage/types.ts";
+import type { DamageType } from "@system/damage/types.ts";
 import { DAMAGE_TYPE_ICONS } from "@system/damage/values.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 import * as R from "remeda";
 import type { PersistentDamagePF2e } from "./document.ts";
-import appv1 = foundry.appv1;
 
-class PersistentDamageDialog extends appv1.api.Application<PersistentDamageDialogOptions> {
-    constructor(
-        private actor: ActorPF2e,
-        options: Partial<PersistentDamageDialogOptions> = {},
-    ) {
-        super(options);
-        actor.apps[this.appId] = this;
-    }
-
-    static override get defaultOptions(): appv1.api.ApplicationV1Options {
-        return {
-            ...super.defaultOptions,
-            classes: ["persistent-damage-dialog"],
-            template: "systems/pf2e/templates/items/persistent-damage-dialog.hbs",
+class PersistentDamageEditor extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV2) {
+    static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
+        classes: ["persistent-damage-editor"],
+        position: {
             width: 380,
             height: "auto",
-        };
+        },
+        actions: {
+            add: PersistentDamageEditor.#onAdd,
+            delete: PersistentDamageEditor.#onDelete,
+            roll: PersistentDamageEditor.#onRoll,
+        },
+    };
+
+    static override PARTS: Record<string, fa.api.HandlebarsTemplatePart> = {
+        main: {
+            template: "systems/pf2e/templates/items/persistent-damage-editor.hbs",
+            root: true,
+        },
+    };
+
+    actor: ActorPF2e;
+
+    editing?: string;
+
+    constructor(options: DeepPartial<ApplicationConfiguration> & PersistentDamageDialogOptions) {
+        super(options);
+        this.actor = options.actor;
+        this.editing = options.itemId;
+        this.actor.apps[this.id] = this;
     }
 
     /** Override to guarantee one persistent damage dialog per actor */
@@ -36,12 +50,12 @@ class PersistentDamageDialog extends appv1.api.Application<PersistentDamageDialo
         return game.i18n.format("PF2E.Item.Condition.PersistentDamage.Dialog.Title", { actor: this.actor.name });
     }
 
-    override async getData(): Promise<PersistentDialogData> {
+    protected override async _prepareContext(): Promise<PersistentDialogData> {
         const existing = this.actor.itemTypes.condition
             .filter((c): c is PersistentDamagePF2e<ActorPF2e> => c.slug === "persistent-damage")
             .map((c) => ({
                 id: c.id,
-                bullet: damageDiceIcon(c.system.persistent.damage).outerHTML,
+                bullet: damageDiceIcon(c.system.persistent.damage, { fixedWidth: true }).outerHTML,
                 active: c.active,
                 ...R.pick(c.system.persistent, ["formula", "damageType", "dc"]),
             }));
@@ -84,8 +98,45 @@ class PersistentDamageDialog extends appv1.api.Application<PersistentDamageDialo
         return input.reportValidity();
     }
 
-    override activateListeners($html: JQuery<HTMLElement>): void {
-        const html = $html[0];
+    static #onAdd(this: PersistentDamageEditor, event: PointerEvent) {
+        const section = htmlClosest(event.target, ".persistent-entry");
+        if (!section) return;
+
+        const elements = this.#getInputElements(section);
+        const formula = elements.formula?.value.trim() || "1d6";
+        const damageType = elements.damageType?.value;
+        const dc = Number(elements.dc?.value) || 15;
+
+        if (this.#reportFormulaValidity(`(${formula})[${damageType}]`, elements.formula)) {
+            const baseConditionSource = game.pf2e.ConditionManager.getCondition("persistent-damage").toObject();
+            const persistentSource = fu.mergeObject(baseConditionSource, {
+                system: {
+                    persistent: { formula, damageType, dc },
+                },
+            });
+            this.actor.createEmbeddedDocuments("Item", [persistentSource]);
+        }
+    }
+
+    static #onDelete(this: PersistentDamageEditor, event: PointerEvent) {
+        const existingId = htmlClosest(event.target, ".persistent-entry[data-id]")?.dataset.id;
+        const existing = this.actor.items.get(existingId, { strict: true });
+        existing.delete();
+    }
+
+    static #onRoll(this: PersistentDamageEditor) {
+        const existing = this.actor.itemTypes.condition.filter((c) => c.slug === "persistent-damage");
+        for (const condition of existing) {
+            condition.onEndTurn();
+        }
+    }
+
+    protected override async _onRender(
+        context: ApplicationRenderContext,
+        options: HandlebarsRenderOptions,
+    ): Promise<void> {
+        await super._onRender(context, options);
+        const html = this.element;
 
         for (const section of htmlQueryAll(html, ".persistent-entry[data-id")) {
             const id = section.dataset.id;
@@ -102,38 +153,18 @@ class PersistentDamageDialog extends appv1.api.Application<PersistentDamageDialo
                     }
                 });
             }
-
-            htmlQuery(section, "a[data-action=delete")?.addEventListener("click", () => {
-                existing.delete();
-            });
         }
+    }
 
-        html.querySelector("a[data-action=add]")?.addEventListener("click", (event) => {
-            const section = htmlClosest(event.target, ".persistent-entry");
-            if (!section) return;
+    /** Overriden to autofocus on first render behavior */
+    protected override _onFirstRender(context: object, options: fa.ApplicationRenderOptions): void {
+        super._onFirstRender(context, options);
 
-            const elements = this.#getInputElements(section);
-            const formula = elements.formula?.value.trim() || "1d6";
-            const damageType = elements.damageType?.value;
-            const dc = Number(elements.dc?.value) || 15;
+        const html = this.element;
 
-            if (this.#reportFormulaValidity(`(${formula})[${damageType}]`, elements.formula)) {
-                const baseConditionSource = game.pf2e.ConditionManager.getCondition("persistent-damage").toObject();
-                const persistentSource = fu.mergeObject(baseConditionSource, {
-                    system: {
-                        persistent: { formula, damageType, dc },
-                    },
-                });
-                this.actor.createEmbeddedDocuments("Item", [persistentSource]);
-            }
-        });
-
-        html.querySelector("a[data-action=roll-persistent]")?.addEventListener("click", () => {
-            const existing = this.actor.itemTypes.condition.filter((c) => c.slug === "persistent-damage");
-            for (const condition of existing) {
-                condition.onEndTurn();
-            }
-        });
+        // Since this is an initial render, focus the formula
+        const existing = this.editing ? htmlQuery(html, `[data-id="${this.editing}"] .formula`) : null;
+        (existing ?? htmlQuery(html, ".new .formula"))?.focus();
     }
 
     #getInputElements(section: HTMLElement) {
@@ -143,20 +174,11 @@ class PersistentDamageDialog extends appv1.api.Application<PersistentDamageDialo
             dc: htmlQuery<HTMLInputElement>(section, ".dc"),
         };
     }
-
-    /** Overriden to autofocus on first render behavior */
-    protected override _injectHTML($html: JQuery<HTMLElement>): void {
-        super._injectHTML($html);
-        const html = $html[0];
-
-        // Since this is an initial render, focus the formula
-        const existing = this.options.editing ? htmlQuery(html, `[data-id=${this.options.editing}] .formula`) : null;
-        (existing ?? htmlQuery(html, ".new .formula"))?.focus();
-    }
 }
 
-interface PersistentDamageDialogOptions extends appv1.api.ApplicationV1Options {
-    editing?: string;
+interface PersistentDamageDialogOptions {
+    actor: ActorPF2e;
+    itemId?: string;
 }
 
 interface PersistentDialogData {
@@ -179,4 +201,4 @@ interface DamageTypeData {
     label: string;
 }
 
-export { PersistentDamageDialog as PersistentDialog };
+export { PersistentDamageEditor };

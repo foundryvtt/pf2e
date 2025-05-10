@@ -1,12 +1,7 @@
-<form spellcheck="false" data-tooltip-class="pf2e">
-    <h3>
-        {{localize "PF2E.ConditionTypePersistent"}}
-        {{#if existing}}
-            <a data-action="roll-persistent">
-                <i class="fa-solid fa-dice-d6"></i> {{localize "PF2E.Item.Condition.PersistentDamage.RollDamage"}}
-            </a>
-        {{/if}}
-    </h3>
+<div>
+    <header>
+        <span>{{localize "PF2E.Item.Condition.PersistentDamage.Dialog.Add"}}</span>
+    </header>
 
     <section class="entries new">
         <section class="persistent-entry">
@@ -25,6 +20,14 @@
 
     {{#if existing}}
         <hr />
+        <header>
+            <span>{{localize "PF2E.Item.Condition.PersistentDamage.Dialog.Edit"}}</span>
+            {{#if existing}}
+                <a data-action="roll">
+                    <i class="fa-solid fa-dice-d6"></i> {{localize "PF2E.Item.Condition.PersistentDamage.RollDamage"}}
+                </a>
+            {{/if}}
+        </header>
         <section class="entries">
             {{#each existing as |condition|}}
                 <section class="persistent-entry {{#unless condition.active}}inactive{{/unless}}" data-id="{{condition.id}}">
@@ -42,7 +45,7 @@
             {{/each}}
         </section>
     {{/if}}
-</form>
+</div>
 
 {{~#*inline "damageTypeSelect"~}}
     <select class="damageType">
