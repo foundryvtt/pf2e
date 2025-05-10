@@ -183,7 +183,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         }
 
         // Create a temporary owned item and run its actor-data preparation and early-stage rule-element callbacks
-        const tempGranted = new ItemProxyPF2e(fu.deepClone(grantedSource), { parent: this.actor });
+        const tempGranted = new ItemProxyPF2e<ActorPF2e>(fu.deepClone(grantedSource), { parent: this.actor });
         tempGranted.grantedBy = this.item;
 
         // Check for immunity and bail if a match
@@ -311,7 +311,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
 
     /** Set flags on granting and grantee items to indicate relationship between the two */
     #setGrantFlags(
-        granter: DeepPartial<ItemSourcePF2e>,
+        granter: ItemSourcePF2e,
         grantee: ItemSourcePF2e | ItemPF2e<ActorPF2e>,
         itemUpdates: EmbeddedDocumentUpdateData[],
     ): void {
@@ -395,7 +395,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         }
 
         const flags = { pf2e: { grantedBy: { id: this.item.id, onDelete: "cascade" } } };
-        const condition = new ConditionPF2e(
+        const condition = new ConditionPF2e<ActorPF2e>(
             fu.mergeObject(conditionSource, {
                 _id: fu.randomID(),
                 flags,
