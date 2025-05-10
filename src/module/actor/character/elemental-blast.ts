@@ -462,6 +462,28 @@ class ElementalBlast {
         const extraModifiers = [...damageSynthetics.modifiers, this.#strengthModToDamage(item, domains)].filter(
             R.isTruthy,
         );
+
+        // Forceful trait
+        if (item.system.traits.value.some((t) => t === "forceful")) {
+            const diceNumber = processedDamage.dice;
+            extraModifiers.push(
+                new ModifierPF2e({
+                    slug: "forceful-second",
+                    label: "PF2E.Item.Weapon.Forceful.Second",
+                    modifier: diceNumber,
+                    type: "circumstance",
+                    ignored: true,
+                }),
+                new ModifierPF2e({
+                    slug: "forceful-third",
+                    label: "PF2E.Item.Weapon.Forceful.Third",
+                    modifier: 2 * diceNumber,
+                    type: "circumstance",
+                    ignored: true,
+                }),
+            );
+        }
+
         const modifiers = new StatisticModifier("", extraModifiers).modifiers;
         const formulaData: DamageFormulaData = {
             dice: damageSynthetics.dice,
