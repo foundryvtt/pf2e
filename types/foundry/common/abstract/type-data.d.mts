@@ -1,3 +1,7 @@
+import { HTMLDocumentEmbedElement } from "@client/applications/elements/_module.mjs";
+import { DocumentHTMLEmbedConfig, EnrichmentOptions } from "@client/applications/ux/text-editor.mjs";
+import User from "@client/documents/user.mjs";
+import { SourceFromSchema } from "@common/data/fields.mjs";
 import * as packages from "../packages/_module.mjs";
 import * as abstract from "./_module.mjs";
 
@@ -70,7 +74,7 @@ export default abstract class TypeDataModel<
     /** A set of localization prefix paths which are used by this data model. */
     static LOCALIZATION_PREFIXES: string[];
 
-    constructor(data?: object, options?: DataModelConstructionOptions<abstract.Document | null>);
+    constructor(data?: object, options?: abstract.DataModelConstructionContext<abstract.Document | null>);
 
     /** Prepare data related to this DataModel itself, before any derived data is computed. */
     prepareBaseData(): void;
@@ -80,4 +84,91 @@ export default abstract class TypeDataModel<
      * Compute data fields whose values are not stored to the database.
      */
     prepareDerivedData(): void;
+
+    /**
+     * Convert this Document to some HTML display for embedding purposes.
+     * @param config Configuration for embedding behavior.
+     * @param options The original enrichment options for cases where the Document embed content also contains text that must be enriched.
+     */
+    toEmbed(
+        config: DocumentHTMLEmbedConfig,
+        options?: EnrichmentOptions,
+    ): Promise<HTMLDocumentEmbedElement | HTMLElement | HTMLCollection | null>;
+
+    /* -------------------------------------------- */
+    /*  Database Operations                         */
+    /* -------------------------------------------- */
+
+    /**
+     * Called by ClientDocument#_preCreate.
+     *
+     * @param data The initial data object provided to the document creation request
+     * @param options Additional options which modify the creation request
+     * @param user The User requesting the document creation
+     * @returns Return false to exclude this Document from the creation operation
+     */
+    protected _preCreate(
+        data: { system?: DeepPartial<SourceFromSchema<TSchema>> },
+        options: object,
+        user: User,
+    ): Promise<boolean | void>;
+
+    /* -------------------------------------------- */
+
+    /**
+     * Called by ClientDocument#_onCreate.
+     *
+     * @param data The initial data object provided to the document creation request
+     * @param options Additional options which modify the creation request
+     * @param userId The id of the User requesting the document update
+     */
+    protected _onCreate(
+        data: { system?: DeepPartial<SourceFromSchema<TSchema>> },
+        options: object,
+        userId: string,
+    ): void;
+
+    /* -------------------------------------------- */
+
+    /**
+     * Called by ClientDocumentMixin#_preUpdate.
+     *
+     * @param changes The candidate changes to the Document
+     * @param options Additional options which modify the update request
+     * @param user The User requesting the document update
+     * @returns A return value of false indicates the update operation should be cancelled.
+     */
+    protected _preUpdate(changes: Record<string, unknown>, options: object, user: User): Promise<boolean | void>;
+
+    /* -------------------------------------------- */
+
+    /**
+     * Called by ClientDocumentMixin#_onUpdate.
+     *
+     * @param changed The differential data that was changed relative to the documents prior values
+     * @param options Additional options which modify the update request
+     * @param userId The id of the User requesting the document update
+     */
+    protected _onUpdate(changed: Record<string, unknown>, options: object, userId: string): void;
+
+    /* -------------------------------------------- */
+
+    /**
+     * Called by ClientDocumentMixin#_preDelete.
+     *
+     * @param options Additional options which modify the deletion request
+     * @param user The User requesting the document deletion
+     * @returns A return value of false indicates the deletion operation should be cancelled.
+     */
+    protected _preDelete(options: object, user: User): Promise<boolean | void>;
+
+    /* -------------------------------------------- */
+
+    /**
+     * Called by ClientDocumentMixin#_onDelete.
+     *
+     * @param options Additional options which modify the deletion request
+     * @param userId The id of the User requesting the document update
+     */
+    protected _onDelete(options: object, userId: string): void;
 }

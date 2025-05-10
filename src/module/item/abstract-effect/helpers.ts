@@ -1,10 +1,10 @@
-import type { AbstractEffectPF2e, AfflictionPF2e, ConditionPF2e, EffectPF2e } from "@item/index.ts";
-import { DurationData } from "./data.ts";
+import type { AbstractEffectPF2e } from "@item/index.ts";
+import type { DurationData } from "./data.ts";
 import { DURATION_UNITS } from "./values.ts";
 
 export function calculateRemainingDuration(
-    effect: AfflictionPF2e | ConditionPF2e | EffectPF2e | AbstractEffectPF2e,
-    durationData: DurationData | { unit: "unlimited" },
+    effect: AbstractEffectPF2e,
+    durationData: DurationData,
 ): { expired: boolean; remaining: number } {
     if (durationData.unit === "encounter") {
         const isExpired = effect.system.expired;
