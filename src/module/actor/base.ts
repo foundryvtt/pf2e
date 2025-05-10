@@ -504,6 +504,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                         token: origin.token.uuid,
                         item: null,
                         spellcasting: null,
+                        rollOptions: [],
                     },
                     roll: null,
                 };
@@ -944,7 +945,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             this.prototypeToken.flags,
         );
         TokenDocumentPF2e.assignDefaultImage(this.prototypeToken);
-        TokenDocumentPF2e.prepareSize(this.prototypeToken);
+        TokenDocumentPF2e.prepareScale(this.prototypeToken);
     }
 
     /* -------------------------------------------- */

@@ -24,11 +24,17 @@ class VehicleSystemData extends ActorSystemModel<VehiclePF2e, VehicleSystemSchem
         const vehicleTraits: Record<VehicleTrait, string> = CONFIG.PF2E.vehicleTraits;
         const sizes: Record<Size, string> = CONFIG.PF2E.actorSizes;
         const requiredInteger = ({ min, initial = min }: { min: number; initial?: number }) =>
-            new fields.NumberField({ required: true, nullable: false, integer: true, min, initial });
+            new fields.NumberField<number, number, true, false, boolean>({
+                required: true,
+                nullable: false,
+                integer: true,
+                min,
+                initial,
+            });
         const blankableString = () =>
             new fields.StringField({ required: true, nullable: false, blank: true, initial: "" });
         const spaceDimension = () =>
-            new fields.NumberField({
+            new fields.NumberField<number, number, true, false, true>({
                 required: true,
                 nullable: false,
                 integer: true,

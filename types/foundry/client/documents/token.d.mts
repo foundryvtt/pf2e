@@ -218,10 +218,13 @@ export default class TokenDocument<TParent extends Scene | null = Scene | null> 
 
     /**
      * Whenever the token's actor delta changes, or the base actor changes, perform associated refreshes.
-     * @param [update]  The update delta.
-     * @param [options] The options provided to the update.
+     * @param update The update delta.
+     * @param options The options provided to the update.
      */
-    protected _onRelatedUpdate(update?: Record<string, unknown>, options?: DatabaseUpdateOperation<null>): void;
+    protected _onRelatedUpdate(
+        update: { _id?: string; [key: string]: unknown },
+        options: Partial<DatabaseOperation<Document | null>>,
+    ): void;
 
     /** Get an Array of attribute choices which could be tracked for Actors in the Combat Tracker */
     static getTrackedAttributes(data?: object, _path?: string[]): TrackedAttributesDescription;
@@ -234,6 +237,11 @@ export default interface TokenDocument<TParent extends Scene | null = Scene | nu
     get object(): Token<this> | null;
     get sheet(): TokenConfig;
     get uuid(): TokenDocumentUUID;
+
+    update(
+        data: Record<string, unknown>,
+        operation?: Partial<TokenUpdateOperation<TParent>>,
+    ): Promise<this | undefined>;
 }
 
 export interface TokenDocumentConstructionContext<

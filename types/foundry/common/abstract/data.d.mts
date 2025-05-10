@@ -167,10 +167,7 @@ export default abstract class DataModel<
      * @returns An object containing differential keys and values that were changed
      * @throws An error if the requested data model changes were invalid
      */
-    updateSource(
-        changes?: Record<string, unknown>,
-        options?: DataModelUpdateOptions,
-    ): DeepPartial<fields.SourceFromSchema<TSchema>>;
+    updateSource(changes?: Record<string, unknown>, options?: DataModelUpdateOptions): DeepPartial<this["_source"]>;
 
     /* ---------------------------------------- */
     /*  Serialization and Storage               */

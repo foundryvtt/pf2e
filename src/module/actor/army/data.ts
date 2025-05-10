@@ -234,19 +234,23 @@ type ArmyWeaponSchema = {
     potency: fields.NumberField<number, number, true, false, true>;
 };
 
-type ArmySystemSource = fields.SourceFromSchema<ArmySystemSchema> & {
-    attributes: {
-        immunities?: ImmunitySource[];
-        weaknesses?: WeaknessSource[];
-        resistances?: ResistanceSource[];
-        flanking: never;
-        hp: {
-            details: string;
-        };
-    };
+interface ArmyAttributesSource extends fields.SourceFromSchema<ArmyAttributesSchema> {
+    immunities?: ImmunitySource[];
+    weaknesses?: WeaknessSource[];
+    resistances?: ResistanceSource[];
+    flanking?: never;
+}
+
+interface ArmyTraitSource extends fields.SourceFromSchema<ArmyTraitsSchema> {
+    size?: never;
+}
+
+interface ArmySystemSource extends fields.SourceFromSchema<ArmySystemSchema> {
+    attributes: ArmyAttributesSource;
+    traits: ArmyTraitSource;
     /** Legacy location of `MigrationRecord` */
     schema?: ActorSystemSource["schema"];
-};
+}
 
 type ArmySource = BaseActorSourcePF2e<"army", ArmySystemSource>;
 

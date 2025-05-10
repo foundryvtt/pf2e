@@ -7,7 +7,7 @@
 /*  Imports for JavaScript Usage             */
 /* ----------------------------------------- */
 
-import "@common/primitives/module.mjs";
+import "@common/primitives/_module.mjs";
 
 // View Controllers
 
