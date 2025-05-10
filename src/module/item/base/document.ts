@@ -944,10 +944,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         // Simple case: synthetic actor and its single token
         const newWidth = newSize.width / 5;
         const newHeight = newSize.length / 5;
+        const operation = { animation: { movementSpeed: 2 } };
         const unlinkedToken = actor.token;
         if (unlinkedToken) {
             if (unlinkedToken?.linkToActorSize) {
-                const result = await unlinkedToken.update({ width: newWidth, height: newHeight });
+                const result = await unlinkedToken.update({ width: newWidth, height: newHeight }, operation);
                 if (!result) return false;
             }
             return;
@@ -958,16 +959,15 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const tokens = game.scenes
             .map((s) =>
                 s.tokens.filter(
-                    (t) =>
-                        t.actorId === actor.id &&
-                        t.isOwner &&
-                        t.linkToActorSize &&
-                        (t.width !== newWidth || t.height !== newHeight),
+                    (t) => t.actor === actor && t.linkToActorSize && (t.width !== newWidth || t.height !== newHeight),
                 ),
             )
             .flat();
         const updates = R.filter(
-            await Promise.all([actorResult, ...tokens.map((t) => t.update({ width: newWidth, height: newHeight }))]),
+            await Promise.all([
+                actorResult,
+                ...tokens.map((t) => t.update({ width: newWidth, height: newHeight }, { ...operation })),
+            ]),
             R.isDefined,
         );
         if (![tokens.length, tokens.length + 1].includes(updates.length)) return false;
@@ -982,10 +982,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         if ((await super._preUpdateOperation(documents, operation, user)) === false) {
             return false;
         }
-
         // If this item is of a certain type and belongs to a PC, store current hp to be checked later
-        const actor = documents.find((d): d is ItemPF2e => d instanceof ItemPF2e)?.actor;
-        if (actor) {
+        const actor = operation.parent;
+        if (actor instanceof Actor) {
             operation.previous = fu.mergeObject(operation.previous ?? {}, {
                 maxHitPoints: actor.hitPoints?.max,
             });
@@ -999,12 +998,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         user: UserPF2e,
     ): Promise<void> {
         await super._onUpdateOperation(documents, operation, user);
-
-        const featureItem = documents.find(
-            (d): d is ItemPF2e =>
-                d instanceof ItemPF2e && d.isOfType("ancestry", "background", "class", "feat", "heritage"),
-        );
-        const actor = featureItem?.actor;
+        const actor = operation.parent;
         const previousHitPoints = operation.previous?.maxHitPoints;
         if (actor?.isOfType("character") && typeof previousHitPoints === "number") {
             const hpMaxDifference = actor.hitPoints.max - previousHitPoints;
@@ -1165,8 +1159,8 @@ interface RefreshFromCompendiumParams {
 }
 
 /** An extension of DatabaseUpdateOperation to pass on system specific data between phases */
-type ItemPF2eDatabaseUpdateOperation = DatabaseUpdateOperation<Document | null> & {
+interface ItemPF2eDatabaseUpdateOperation extends DatabaseUpdateOperation<ActorPF2e | null> {
     previous?: { maxHitPoints?: number };
-};
+}
 
 export { ItemPF2e, ItemProxyPF2e };

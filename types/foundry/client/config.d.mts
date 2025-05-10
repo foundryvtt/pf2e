@@ -14,7 +14,7 @@ import ActorSheet from "./appv1/sheets/actor-sheet.mjs";
 import ItemSheet from "./appv1/sheets/item-sheet.mjs";
 import JournalSheet from "./appv1/sheets/journal-sheet.mjs";
 import ChatBubbles from "./canvas/animation/chat-bubbles.mjs";
-import { DoorControl } from "./canvas/containers/_module.mjs";
+import { DoorControl, ParticleEffect } from "./canvas/containers/_module.mjs";
 import ClockwiseSweepPolygon from "./canvas/geometry/clockwise-sweep.mjs";
 import EffectsCanvasGroup from "./canvas/groups/effects.mjs";
 import InterfaceCanvasGroup from "./canvas/groups/interface.mjs";
@@ -22,10 +22,13 @@ import { AlertPing, ArrowPing, ChevronPing, PulsePing, Ruler } from "./canvas/in
 import * as layers from "./canvas/layers/_module.mjs";
 import * as perception from "./canvas/perception/_module.mjs";
 import * as placeables from "./canvas/placeables/_module.mjs";
+import TokenRingConfig from "./canvas/placeables/tokens/ring-config.mjs";
 import {
+    AbstractWeatherShader,
     AdaptiveBackgroundShader,
     AdaptiveColorationShader,
     AdaptiveIlluminationShader,
+    WeatherShaderEffect,
 } from "./canvas/rendering/shaders/_module.mjs";
 import type {
     GlobalLightSource,
@@ -80,6 +83,28 @@ export type LightSourceAnimationConfig = Record<
         colorationShader: typeof AdaptiveColorationShader;
     }
 >;
+
+/**
+ * Available Weather Effects implementations
+ */
+interface WeatherAmbienceConfiguration {
+    id: string;
+    label: string;
+    filter?: {
+        enabled: boolean;
+        blendMode?: PIXI.BLEND_MODES;
+    };
+    effects: WeatherEffectConfiguration[];
+}
+
+interface WeatherEffectConfiguration {
+    id: string;
+    effectClass: typeof ParticleEffect | typeof WeatherShaderEffect;
+    shaderClass?: typeof AbstractWeatherShader;
+    blendMode?: PIXI.BLEND_MODES;
+    config?: object;
+    performanceLevel?: number;
+}
 
 export default interface Config<
     TAmbientLightDocument extends documents.AmbientLightDocument<TScene | null>,
@@ -422,29 +447,27 @@ export default interface Config<
         unexploredColor: number;
         darknessToDaylightAnimationMS: number;
         daylightToDarknessAnimationMS: number;
-        darknessSourceClass: ConstructorOf<
-            PointDarknessSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>
-        >;
-        lightSourceClass: ConstructorOf<PointLightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>>;
-        globalLightSourceClass: ConstructorOf<GlobalLightSource>;
-        rulerClass: ConstructorOf<Ruler>;
-        visionSourceClass: ConstructorOf<PointVisionSource<TTokenDocument["object"]>>;
-        soundSourceClass: ConstructorOf<PointSoundSource>;
+        darknessSourceClass: typeof PointDarknessSource;
+        lightSourceClass: typeof PointLightSource;
+        globalLightSourceClass: typeof GlobalLightSource;
+        rulerClass: typeof Ruler;
+        visionSourceClass: typeof PointVisionSource;
+        soundSourceClass: typeof PointSoundSource;
         groups: {
             hidden: {
-                groupClass: ConstructorOf<PIXI.Container>;
+                groupClass: typeof PIXI.Container;
                 parent: "stage";
             };
             rendered: {
-                groupClass: ConstructorOf<PIXI.Container>;
+                groupClass: typeof PIXI.Container;
                 parent: "stage";
             };
             environment: {
-                groupClass: ConstructorOf<PIXI.Container>;
+                groupClass: typeof PIXI.Container;
                 parent: "rendered";
             };
             primary: {
-                groupClass: ConstructorOf<PIXI.Container>;
+                groupClass: typeof PIXI.Container;
                 parent: "environment";
             };
             effects: {
@@ -452,7 +475,7 @@ export default interface Config<
                 parent: "environment";
             };
             interface: {
-                groupClass: ConstructorOf<InterfaceCanvasGroup>;
+                groupClass: typeof InterfaceCanvasGroup;
                 parent: "rendered";
             };
         };
@@ -514,141 +537,7 @@ export default interface Config<
         dragSpeedModifier: number;
         maxZoom: number;
         objectBorderThickness: number;
-        lightAnimations: {
-            flame: {
-                label: "LIGHT.AnimationFlame";
-                animation: PointLightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTorch"];
-                illuminationShader: typeof PIXI.Shader;
-                colorationShader: typeof PIXI.Shader;
-            };
-            torch: {
-                label: "LIGHT.AnimationTorch";
-                animation: PointLightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTorch"];
-                illuminationShader: typeof PIXI.Shader;
-                colorationShader: typeof PIXI.Shader;
-            };
-            pulse: {
-                label: "LIGHT.AnimationPulse";
-                animation: PointLightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animatePulse"];
-                illuminationShader: typeof PIXI.Shader;
-                colorationShader: typeof PIXI.Shader;
-            };
-            chroma: {
-                label: "LIGHT.AnimationChroma";
-                animation: PointLightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
-                colorationShader: typeof PIXI.Shader;
-            };
-            wave: {
-                label: "LIGHT.AnimationWave";
-                animation: PointLightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
-                illuminationShader: typeof PIXI.Shader;
-                colorationShader: typeof PIXI.Shader;
-            };
-            fog: {
-                label: "LIGHT.AnimationFog";
-                animation: PointLightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
-                colorationShader: typeof PIXI.Shader;
-            };
-            sunburst: {
-                label: "LIGHT.AnimationSunburst";
-                animation: PointLightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
-                illuminationShader: typeof PIXI.Shader;
-                colorationShader: typeof PIXI.Shader;
-            };
-            dome: {
-                label: "LIGHT.AnimationLightDome";
-                animation: PointLightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
-                colorationShader: typeof PIXI.Shader;
-            };
-            emanation: {
-                label: "LIGHT.AnimationEmanation";
-                animation: PointLightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
-                colorationShader: typeof PIXI.Shader;
-            };
-            hexa: {
-                label: "LIGHT.AnimationHexaDome";
-                animation: PointLightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
-                colorationShader: typeof PIXI.Shader;
-            };
-            ghost: {
-                label: "LIGHT.AnimationGhostLight";
-                animation: PointLightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
-                illuminationShader: typeof PIXI.Shader;
-                colorationShader: typeof PIXI.Shader;
-            };
-            energy: {
-                label: "LIGHT.AnimationEnergyField";
-                animation: PointLightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
-                colorationShader: typeof PIXI.Shader;
-            };
-            vortex: {
-                label: "LIGHT.AnimationVortex";
-                animation: PointLightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
-                illuminationShader: typeof PIXI.Shader;
-                colorationShader: typeof PIXI.Shader;
-            };
-            witchwave: {
-                label: "LIGHT.AnimationBewitchingWave";
-                animation: PointLightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
-                colorationShader: typeof PIXI.Shader;
-            };
-            rainbowswirl: {
-                label: "LIGHT.AnimationSwirlingRainbow";
-                animation: PointLightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
-                colorationShader: typeof PIXI.Shader;
-            };
-            radialrainbow: {
-                label: "LIGHT.AnimationRadialRainbow";
-                animation: PointLightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
-                colorationShader: typeof PIXI.Shader;
-            };
-            fairy: {
-                label: "LIGHT.AnimationFairyLight";
-                animation: PointLightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
-                illuminationShader: typeof PIXI.Shader;
-                colorationShader: typeof PIXI.Shader;
-            };
-            grid: {
-                label: "LIGHT.AnimationForceGrid";
-                animation: PointLightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
-                colorationShader: typeof PIXI.Shader;
-            };
-            starlight: {
-                label: "LIGHT.AnimationStarLight";
-                animation: PointLightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
-                colorationShader: typeof PIXI.Shader;
-            };
-            smokepatch: {
-                label: "LIGHT.AnimationSmokePatch";
-                animation: PointLightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
-                illuminationShader: typeof PIXI.Shader;
-                colorationShader: typeof PIXI.Shader;
-            };
-        };
-
-        darknessAnimations: {
-            magicalGloom: {
-                label: "LIGHT.AnimationMagicalGloom";
-                animation: PointDarknessSource<
-                    TAmbientLightDocument["object"] | TTokenDocument["object"]
-                >["animateTime"];
-                darknessShader: typeof PIXI.Shader;
-            };
-            roiling: {
-                label: "LIGHT.AnimationRoilingMass";
-                animation: PointDarknessSource<
-                    TAmbientLightDocument["object"] | TTokenDocument["object"]
-                >["animateTime"];
-                darknessShader: typeof PIXI.Shader;
-            };
-            hole: {
-                label: "LIGHT.AnimationBlackHole";
-                animation: PointDarknessSource<
-                    TAmbientLightDocument["object"] | TTokenDocument["object"]
-                >["animateTime"];
-                darknessShader: typeof PIXI.Shader;
-            };
-        };
+        lightAnimations: Record<string, LightSourceAnimationConfig>;
 
         pings: {
             types: {
@@ -721,7 +610,7 @@ export default interface Config<
     canvasTextStyle: PIXI.TextStyle;
 
     /** Available Weather Effects implemntations */
-    weatherEffects: Record<string, SpecialEffect>;
+    weatherEffects: Record<string, WeatherAmbienceConfiguration>;
 
     /** Configuration for dice rolling behaviors in the Foundry VTT client */
     Dice: {

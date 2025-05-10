@@ -84,29 +84,24 @@ class TokenConfigPF2e extends fa.sheets.TokenConfig {
 
     #swapDispositionField(): void {
         const input = this.form?.elements.namedItem("disposition");
-        if (input instanceof HTMLSelectElement) {
-            const formGroup = input.closest<HTMLElement>(".form-group");
-            if (!formGroup) return;
-            const label = formGroup.querySelector("label");
-            if (label) label.innerText = game.i18n.localize("PF2E.Token.SecretDisposition.Label");
-            const pEl = document.createElement("p");
-            pEl.className = "hint";
-            pEl.innerText = game.i18n.localize("PF2E.Token.SecretDisposition.Hint");
-            formGroup.append(pEl);
-            const checkbox = document.createElement("input");
-            checkbox.type = "checkbox";
-            checkbox.name = input.name;
-            checkbox.id = input.id;
-            checkbox.value = String(CONST.TOKEN_DISPOSITIONS.SECRET);
-            checkbox.dataset.dtype = "Number";
-            checkbox.defaultChecked = this.token._source.disposition === CONST.TOKEN_DISPOSITIONS.SECRET;
-            input.replaceWith(checkbox);
-        }
-        // <div class="form-group">
-        //     <label>{{localize "PF2E.Token.SecretDisposition.Label"}}</label>
-        //     <input type="checkbox" name="disposition" value="-2" data-dtype="Number" {{checked (eq object.disposition -2)}} />
-        //     <p class="hint">{{localize "PF2E.Token.SecretDisposition.Hint"}}</p>
-        // </div>
+        if (!(input instanceof HTMLSelectElement)) return;
+        const formGroup = input.closest<HTMLElement>(".form-group");
+        if (!formGroup) return;
+
+        const label = formGroup.querySelector("label");
+        if (label) label.innerText = game.i18n.localize("PF2E.Token.SecretDisposition.Label");
+        const pEl = document.createElement("p");
+        pEl.className = "hint";
+        pEl.innerText = game.i18n.localize("PF2E.Token.SecretDisposition.Hint");
+        formGroup.append(pEl);
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.name = input.name;
+        checkbox.id = input.id;
+        checkbox.value = String(CONST.TOKEN_DISPOSITIONS.SECRET);
+        checkbox.dataset.dtype = "Number";
+        checkbox.defaultChecked = this.token._source.disposition === CONST.TOKEN_DISPOSITIONS.SECRET;
+        input.replaceWith(checkbox);
     }
 
     #disableVisionInputs(): void {

@@ -1,5 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import type { PrototypeTokenPF2e } from "@actor/data/base.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
 import type { TrackedAttributesDescription } from "@client/_types.d.mts";
 import type { TokenResourceData } from "@client/canvas/placeables/token.d.mts";
@@ -8,8 +9,9 @@ import type { Point } from "@common/_types.d.mts";
 import type {
     DatabaseCreateOperation,
     DatabaseDeleteOperation,
-    DatabaseUpdateOperation,
+    DatabaseOperation,
 } from "@common/abstract/_types.d.mts";
+import type Document from "@common/abstract/document.d.mts";
 import type { ImageFilePath, TokenDisplayMode, VideoFilePath } from "@common/constants.d.mts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import { TokenAnimationOptionsPF2e } from "@module/canvas/token/object.ts";
@@ -237,7 +239,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         this.flags.pf2e = Object.assign(this.flags.pf2e, { linkToActorSize, autoscale });
 
         // Token dimensions from actor size
-        TokenDocumentPF2e.prepareSize(this);
+        TokenDocumentPF2e.prepareScale(this);
 
         // Merge token overrides from REs into this document
         const tokenOverrides = actor.synthetics.tokenOverrides;
@@ -383,7 +385,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     }
 
     /** Set a TokenData instance's dimensions from actor data. Static so actors can use for their prototypes */
-    static prepareSize(token: TokenDocumentPF2e | PrototypeTokenPF2e<ActorPF2e>): void {
+    static prepareScale(token: TokenDocumentPF2e | PrototypeTokenPF2e<ActorPF2e>): void {
         const linkToActorSize = token.flags.pf2e.linkToActorSize;
         const autoscale = game.pf2e.settings.tokens.autoscale && token.flags.pf2e.autoscale !== false;
         if (linkToActorSize && autoscale) {
@@ -464,7 +466,11 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             this.#lastAnimation = R.isDeepEqual(animation, this.#lastAnimation ?? {})
                 ? null
                 : (tokenOverrides.animation ?? null);
-            this.object?._onUpdate(tokenChanges, { broadcast: false, updates: [], animation }, game.user.id);
+            this.object?._onUpdate(
+                tokenChanges,
+                { action: "update", broadcast: false, updates: [], animation },
+                game.user.id,
+            );
         }
 
         // Assess the full diff using `diffObject`: additions, removals, and changes
@@ -510,12 +516,35 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         return super._onUpdate(changed, operation, userId);
     }
 
+    /** @todo fix once https://github.com/foundryvtt/foundryvtt/issues/12782 is resolved */
     protected override _onRelatedUpdate(
-        update: Record<string, unknown> = {},
-        operation: DatabaseUpdateOperation<null>,
+        update: { _id?: string; [key: string]: unknown },
+        operation: Partial<DatabaseOperation<Document | null>>,
+    ): void;
+    protected override _onRelatedUpdate(
+        update: { _id?: string; [key: string]: unknown } | { _id?: string; [key: string]: unknown }[],
+        operation: Partial<DatabaseOperation<Document | null>>,
     ): void {
-        super._onRelatedUpdate(update, operation);
-        this.simulateUpdate(update);
+        const updates = Array.isArray(update) ? update : [update];
+        for (const changed of updates) {
+            super._onRelatedUpdate(changed, operation);
+            if (changed.system && changed._id && [this.delta?.id, this.actor?.id].includes(changed._id)) {
+                this.#resizeFromActor(changed);
+                this.simulateUpdate(changed);
+            }
+        }
+    }
+
+    /** Follow up actor size-category or (in case of vehicles) dimensions change with dimensions update. */
+    #resizeFromActor(changed: DeepPartial<ActorSourcePF2e>) {
+        const actor = this.actor;
+        if (!actor || !this.linkToActorSize || !changed.system) return;
+        const isNPCSizeChange = actor.isOfType("npc") && changed.system.traits?.size;
+        const isVehicleSizeCange = actor.isOfType("vehicle") && "space" in (changed.system.details ?? {});
+        if (isNPCSizeChange || isVehicleSizeCange) {
+            const newSize = actor.system.traits.size;
+            this.update({ width: newSize.width / 5, height: newSize.length / 5 }, { animation: { movementSpeed: 2 } });
+        }
     }
 
     protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void {
