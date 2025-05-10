@@ -1,4 +1,4 @@
-import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
+import { PersistentDamageEditor } from "@item/condition/persistent-damage-editor.ts";
 import { ActionDefaultOptions } from "@system/action-macros/index.ts";
 import * as R from "remeda";
 
@@ -10,6 +10,6 @@ export async function editPersistent(options: ActionDefaultOptions): Promise<voi
     }
 
     for (const actor of actors) {
-        new PersistentDialog(actor).render(true);
+        new PersistentDamageEditor({ actor }).render({ force: true });
     }
 }
