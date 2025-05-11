@@ -1,10 +1,10 @@
 import { ActorProxyPF2e, type ActorPF2e } from "@actor";
-import { Rolled } from "@client/dice/_module.mjs";
-import { HexColorString } from "@common/constants.mjs";
+import type { Rolled } from "@client/dice/_module.d.mts";
+import type { HexColorString } from "@common/constants.d.mts";
 import type { ItemPF2e, MeleePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
-import { AbilityTrait } from "@item/ability/types.ts";
+import type { AbilityTrait } from "@item/ability/types.ts";
 import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
-import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
+import type { ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import {
@@ -22,13 +22,13 @@ import { CheckCheckContext, CheckPF2e, CheckRoll } from "@system/check/index.ts"
 import { DamageDamageContext, DamagePF2e } from "@system/damage/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
-import { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
+import type { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
 import { ErrorPF2e, getActionGlyph, signedInteger, sluggify } from "@util/misc.ts";
 import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
 import { AttackTraitHelpers } from "./creature/helpers.ts";
-import { DamageRollFunction } from "./data/base.ts";
-import { ActorSourcePF2e } from "./data/index.ts";
+import type { DamageRollFunction } from "./data/base.ts";
+import type { ActorSourcePF2e } from "./data/index.ts";
 import {
     CheckModifier,
     ModifierPF2e,
@@ -36,10 +36,10 @@ import {
     adjustModifiers,
     createAttributeModifier,
 } from "./modifiers.ts";
-import { NPCStrike } from "./npc/data.ts";
+import type { NPCStrike } from "./npc/data.ts";
 import { CheckContext } from "./roll-context/check.ts";
 import { DamageContext } from "./roll-context/damage.ts";
-import { ActorCommitData, AttributeString, AuraEffectData } from "./types.ts";
+import type { ActorCommitData, AttributeString, AuraEffectData } from "./types.ts";
 
 /**
  * Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors

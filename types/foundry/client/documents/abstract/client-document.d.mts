@@ -553,8 +553,8 @@ export interface ClientDocumentStatic {
      * @param options.context  Additional render context to provide to the template.
      * @returns A Promise which resolves to the created Document, or null if the dialog was closed.
      */
-    createDialog<T extends typeof Document>(
-        this: T,
+    createDialog<T extends Document>(
+        this: ConstructorOf<T>,
         data?: object,
         createOptions?: Partial<DatabaseCreateOperation<Document | null>>,
         options?: {
@@ -563,7 +563,7 @@ export interface ClientDocumentStatic {
             template?: string;
             context?: object;
         },
-    ): Promise<InstanceType<T> | null>;
+    ): Promise<T | null>;
 
     fromDropData<T extends typeof Document>(this: T, data: object, options?: object): Promise<InstanceType<T> | null>;
 }

@@ -1,10 +1,10 @@
 import { ActorPF2e } from "@actor";
 import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
-import { ApplicationRenderContext } from "@client/applications/_types.mjs";
-import { DocumentSheetConfiguration } from "@client/applications/api/document-sheet.mjs";
-import { HandlebarsRenderOptions } from "@client/applications/api/handlebars-application.mjs";
-import FormDataExtended from "@client/applications/ux/form-data-extended.mjs";
-import { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import type { ApplicationRenderContext } from "@client/applications/_types.d.mts";
+import type { DocumentSheetConfiguration } from "@client/applications/api/document-sheet.d.mts";
+import type { HandlebarsRenderOptions } from "@client/applications/api/handlebars-application.d.mts";
+import type FormDataExtended from "@client/applications/ux/form-data-extended.d.mts";
+import type { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
 import { SettingsMenuOptions } from "@system/settings/menu.ts";
 import { createHTMLElement, ErrorPF2e, htmlQuery } from "@util";
 import type { TokenDocumentPF2e } from "./index.ts";

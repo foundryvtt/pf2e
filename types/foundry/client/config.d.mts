@@ -2,6 +2,7 @@ import { DataSchema, Document, TypeDataModel } from "@common/abstract/_module.mj
 import { AudioFilePath, ImageFilePath, RollMode } from "@common/constants.mjs";
 import { DocumentConstructionContext } from "../common/_types.mjs";
 import { ActiveEffectSource } from "../common/documents/active-effect.mjs";
+import { applications, dice, documents } from "./_module.mjs";
 import DocumentSheetV2 from "./applications/api/document-sheet.mjs";
 import CameraViews from "./applications/apps/av/cameras.mjs";
 import HTMLEnrichedContentElement from "./applications/elements/enriched-content.mjs";
@@ -38,8 +39,6 @@ import type {
     PointVisionSource,
 } from "./canvas/sources/_module.mjs";
 import ClientDatabaseBackend from "./data/client-backend.mjs";
-import * as dice from "./dice/_module.mjs";
-import * as documents from "./documents/_module.mjs";
 import WorldCollection from "./documents/abstract/world-collection.mjs";
 import * as collections from "./documents/collections/_module.mjs";
 
@@ -688,7 +687,7 @@ export default interface Config<
         chat: ConstructorOf<TChatLog>;
         combat: ConstructorOf<TCombatTracker>;
         compendium: ConstructorOf<TCompendiumDirectory>;
-        controls: typeof foundry.applications.ui.SceneControls;
+        controls: typeof applications.ui.SceneControls;
         hotbar: ConstructorOf<THotbar>;
         items: ConstructorOf<sidebar.tabs.ItemDirectory<documents.Item<null>>>;
         journal: typeof sidebar.tabs.JournalDirectory;
@@ -696,7 +695,7 @@ export default interface Config<
         menu: typeof MainMenu;
         nav: typeof SceneNavigation;
         notifications: typeof Notifications;
-        pause: typeof foundry.applications.ui.GamePause;
+        pause: typeof applications.ui.GamePause;
         players: typeof PlayerList;
         playlists: typeof sidebar.tabs.PlaylistDirectory;
         scenes: typeof sidebar.tabs.SceneDirectory;
@@ -704,6 +703,15 @@ export default interface Config<
         sidebar: typeof sidebar.Sidebar;
         tables: typeof sidebar.tabs.RollTableDirectory;
         webrtc: typeof CameraViews;
+    };
+
+    ux: {
+        ContextMenu: typeof applications.ux.ContextMenu;
+        Draggable: typeof applications.ux.Draggable;
+        DragDrop: typeof applications.ux.DragDrop;
+        FilePicker: typeof applications.apps.FilePicker;
+        TextEditor: typeof applications.ux.TextEditor;
+        TooltipManager: typeof foundry.helpers.interaction.TooltipManager;
     };
 }
 
