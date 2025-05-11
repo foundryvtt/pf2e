@@ -1,6 +1,7 @@
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
+import type { ImageFilePath, VideoFilePath } from "@common/constants.d.mts";
+import type { TokenSource } from "@common/documents/token.d.mts";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
-import type { TokenSource } from "types/foundry/common/documents/token.d.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Clean up Calling items, setting a category and removing tags */
