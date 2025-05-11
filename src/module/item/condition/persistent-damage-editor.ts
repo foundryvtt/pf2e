@@ -1,9 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import type { ApplicationConfiguration } from "@client/applications/_module.mjs";
-import { damageDiceIcon } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import type { DamageType } from "@system/damage/types.ts";
-import { DAMAGE_TYPE_ICONS } from "@system/damage/values.ts";
 import { htmlClosest, htmlQuery } from "@util";
 import * as R from "remeda";
 import type { PersistentDamagePF2e } from "./document.ts";
@@ -12,16 +10,12 @@ class PersistentDamageEditor extends fa.api.HandlebarsApplicationMixin(fa.api.Ap
     static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
         classes: ["persistent-damage-editor"],
         tag: "form",
-        position: {
-            width: 380,
-        },
-        window: {
-            contentClasses: ["standard-form"],
-        },
+        window: { icon: "fa-solid fa-droplet", contentClasses: ["standard-form"] },
+        position: { width: 420 },
         actions: {
             add: PersistentDamageEditor.#onClickAdd,
-            delete: PersistentDamageEditor.#onDelete,
-            roll: PersistentDamageEditor.#onRoll,
+            delete: PersistentDamageEditor.#onClickDelete,
+            roll: PersistentDamageEditor.#onClickRoll,
         },
     };
 
@@ -37,6 +31,7 @@ class PersistentDamageEditor extends fa.api.HandlebarsApplicationMixin(fa.api.Ap
     selectedItemId: string | null;
 
     constructor(options: DeepPartial<ApplicationConfiguration> & PersistentDamageDialogOptions) {
+        options.uniqueId = `persistent-damage-editor-${options.actor.uuid.replaceAll(".", "-")}`;
         super(options);
         this.actor = options.actor;
         this.selectedItemId = options.selectedItemId ?? null;
@@ -57,7 +52,6 @@ class PersistentDamageEditor extends fa.api.HandlebarsApplicationMixin(fa.api.Ap
             .filter((c): c is PersistentDamagePF2e<ActorPF2e> => c.slug === "persistent-damage")
             .map((c) => ({
                 id: c.id,
-                bullet: damageDiceIcon(c.system.persistent.damage, { fixedWidth: true }).outerHTML,
                 active: c.active,
                 ...R.pick(c.system.persistent, ["formula", "damageType", "dc"]),
             }));
@@ -70,18 +64,10 @@ class PersistentDamageEditor extends fa.api.HandlebarsApplicationMixin(fa.api.Ap
     }
 
     #prepareDamageTypes(): DamageTypeData[] {
-        const types = Object.keys(CONFIG.PF2E.damageTypes).map((type) => {
-            const labels: Record<string, string | undefined> = CONFIG.PF2E.damageTypes;
-            const icons: Record<string, string | null | undefined> = DAMAGE_TYPE_ICONS;
-            const faGlyph = icons[type] ?? "question";
-            return {
-                type,
-                iconClass: `fa-${faGlyph}`,
-                label: game.i18n.localize(labels[type] ?? type),
-            };
-        });
-
-        return types.sort((a, b) => a.label.localeCompare(b.label));
+        const labels = CONFIG.PF2E.damageTypes;
+        return R.keys(labels)
+            .map((type) => ({ type, label: game.i18n.localize(labels[type] ?? type) }))
+            .sort((a, b) => a.label.localeCompare(b.label));
     }
 
     /** Determine whether an inputted formula is valid, reporting to the user if not. */
@@ -101,8 +87,32 @@ class PersistentDamageEditor extends fa.api.HandlebarsApplicationMixin(fa.api.Ap
         return input.reportValidity();
     }
 
-    static #onClickAdd(this: PersistentDamageEditor, event: PointerEvent) {
-        const section = htmlClosest(event.target, ".persistent-entry");
+    #getInputElements(section: HTMLElement) {
+        return {
+            formula: htmlQuery<HTMLInputElement>(section, "input[type=text]"),
+            damageType: htmlQuery<HTMLSelectElement>(section, "select"),
+            dc: htmlQuery<HTMLInputElement>(section, "input[type=number]"),
+        };
+    }
+
+    protected override _onChangeForm(formConfig: fa.ApplicationFormConfiguration, event: Event): void {
+        super._onChangeForm(formConfig, event);
+
+        const section = htmlClosest(event.target, "[data-id]");
+        if (!section) return;
+        const id = section.dataset.id;
+        const existing = this.actor.items.get(id, { strict: true });
+        const elements = this.#getInputElements(section);
+        const formula = elements.formula?.value.trim() ?? "";
+        const damageType = elements.damageType?.value;
+        const dc = Number(elements.dc?.value) || 15;
+        if (this.#reportFormulaValidity(formula, elements.formula)) {
+            existing.update({ system: { persistent: { formula, damageType, dc } } });
+        }
+    }
+
+    static async #onClickAdd(this: PersistentDamageEditor, event: PointerEvent): Promise<void> {
+        const section = htmlClosest(event.target, ".form-group");
         if (!section) return;
 
         const elements = this.#getInputElements(section);
@@ -113,50 +123,21 @@ class PersistentDamageEditor extends fa.api.HandlebarsApplicationMixin(fa.api.Ap
         if (this.#reportFormulaValidity(`(${formula})[${damageType}]`, elements.formula)) {
             const baseConditionSource = game.pf2e.ConditionManager.getCondition("persistent-damage").toObject();
             const persistentSource = fu.mergeObject(baseConditionSource, {
-                system: {
-                    persistent: { formula, damageType, dc },
-                },
+                system: { persistent: { formula, damageType, dc } },
             });
-            this.actor.createEmbeddedDocuments("Item", [persistentSource]);
+            await this.actor.createEmbeddedDocuments("Item", [persistentSource]);
         }
     }
 
-    static #onDelete(this: PersistentDamageEditor, event: PointerEvent) {
-        const existingId = htmlClosest(event.target, ".persistent-entry[data-id]")?.dataset.id;
+    static async #onClickDelete(this: PersistentDamageEditor, event: PointerEvent): Promise<void> {
+        const existingId = htmlClosest(event.target, "[data-id]")?.dataset.id;
         const existing = this.actor.items.get(existingId, { strict: true });
-        existing.delete();
+        await existing.delete();
     }
 
-    static #onRoll(this: PersistentDamageEditor) {
+    static async #onClickRoll(this: PersistentDamageEditor): Promise<void> {
         const existing = this.actor.itemTypes.condition.filter((c) => c.slug === "persistent-damage");
-        for (const condition of existing) {
-            condition.onEndTurn();
-        }
-    }
-
-    protected override _onChangeForm(formConfig: fa.ApplicationFormConfiguration, event: Event): void {
-        super._onChangeForm(formConfig, event);
-
-        const section = htmlClosest(event.target, ".persistent-entry[data-id]");
-        if (section) {
-            const id = section.dataset.id;
-            const existing = this.actor.items.get(id, { strict: true });
-            const elements = this.#getInputElements(section);
-            const formula = elements.formula?.value.trim() ?? "";
-            const damageType = elements.damageType?.value;
-            const dc = Number(elements.dc?.value) || 15;
-            if (this.#reportFormulaValidity(formula, elements.formula)) {
-                existing.update({ system: { persistent: { formula, damageType, dc } } });
-            }
-        }
-    }
-
-    #getInputElements(section: HTMLElement) {
-        return {
-            formula: htmlQuery<HTMLInputElement>(section, ".formula"),
-            damageType: htmlQuery<HTMLSelectElement>(section, ".damageType"),
-            dc: htmlQuery<HTMLInputElement>(section, ".dc"),
-        };
+        await Promise.all(existing.map((c) => c.onEndTurn()));
     }
 }
 
@@ -173,7 +154,6 @@ interface PersistentDialogContext {
 
 interface DamageEntryData {
     id: string;
-    bullet: string;
     active: boolean;
     formula: string;
     damageType: DamageType;
@@ -182,7 +162,6 @@ interface DamageEntryData {
 
 interface DamageTypeData {
     type: string;
-    iconClass: string;
     label: string;
 }
 
