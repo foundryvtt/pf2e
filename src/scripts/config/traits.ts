@@ -1156,6 +1156,7 @@ const traitDescriptions = {
     brutal: "PF2E.TraitDescriptionBrutal",
     bugbear: "PF2E.TraitDescriptionBugbear",
     bulwark: "PF2E.TraitDescriptionBulwark",
+    bravado: "PF2E.TraitDescriptionBravado",
     caligni: "PF2E.TraitDescriptionCaligni",
     calling: "PF2E.TraitDescriptionCalling",
     cantrip: "PF2E.TraitDescriptionCantrip",
