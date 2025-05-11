@@ -53,7 +53,8 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
                 : this.token.combatant?.encounter.active);
 
         return (
-            canvas.scene?.grid.type === CONST.GRID_TYPES.SQUARE &&
+            canvas.scene !== null &&
+            canvas.scene.canHaveAuras &&
             // Assume if token vision is disabled then the scene is not intended for play.
             canvas.scene.tokenVision &&
             // The scene must be active, or a GM must be the only user logged in.
