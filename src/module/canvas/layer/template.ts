@@ -83,6 +83,18 @@ class TemplateLayerPF2e<TObject extends MeasuredTemplatePF2e = MeasuredTemplateP
         return template.rotate(template.document.direction + delta, snap);
     }
 
+    protected override _onDragLeftStart(event: PlaceablesLayerPointerEvent<TObject>): void {
+        // Prevent normal drag operations when a preview is active
+        if (this.#previewListeners) return;
+        return super._onDragLeftStart(event);
+    }
+
+    protected override _onDragLeftCancel(event: PlaceablesLayerPointerEvent<TObject>): void {
+        // Prevent normal drag operations when a preview is active
+        if (this.#previewListeners) return;
+        return super._onDragLeftCancel(event);
+    }
+
     #activatePreviewListeners(preview: TObject, initialLayer: InteractionLayer | null): void {
         let lastMove = Date.now(); // Throttle 50ms
 
@@ -105,6 +117,12 @@ class TemplateLayerPF2e<TObject extends MeasuredTemplatePF2e = MeasuredTemplateP
                         preview.document.updateSource({
                             direction: Math.toDegrees(Math.floor(ray.angle / snapAngle + 0.5) * snapAngle),
                         });
+                    } else if (preview.document.t === "ray" && !(event.ctrlKey || event.metaKey)) {
+                        // Snap lines in 5 degree increments
+                        const snapAngle = 0.08726646259971647; // = Math.toRadians(5)
+                        preview.document.updateSource({
+                            direction: Math.toDegrees(Math.floor(ray.angle / snapAngle) * snapAngle),
+                        });
                     } else {
                         preview.document.updateSource({ direction: Math.toDegrees(ray.angle) });
                     }
@@ -118,21 +136,15 @@ class TemplateLayerPF2e<TObject extends MeasuredTemplatePF2e = MeasuredTemplateP
             },
             mousedown: (event: PIXI.FederatedPointerEvent): void => {
                 event.stopPropagation();
-                const { document, position } = preview;
-                document.updateSource(
-                    canvas.grid.isSquare
-                        ? canvas.grid.getSnappedPoint(position, {
-                              mode: preview.snappingMode,
-                          })
-                        : super.getSnappedPoint(position),
-                );
+                const point = this.getSnappedPoint(preview.position);
+                preview.document.updateSource({ x: point.x, y: point.y });
                 if (
                     this.#previewListeners?.lockedInPlace ||
                     event.shiftKey ||
                     !["ray", "cone"].includes(preview.document.t)
                 ) {
                     this.#deactivatePreviewListeners(initialLayer, event);
-                    canvas.scene?.createEmbeddedDocuments("MeasuredTemplate", [document.toObject()]);
+                    canvas.scene?.createEmbeddedDocuments("MeasuredTemplate", [preview.document.toObject()]);
                 } else if (this.#previewListeners) {
                     this.#previewListeners.lockedInPlace = true;
                     preview.renderFlags.set({ refresh: true });
@@ -155,21 +167,19 @@ class TemplateLayerPF2e<TObject extends MeasuredTemplatePF2e = MeasuredTemplateP
         canvas.stage.on("rightdown", listeners.rightdown);
     }
 
-    #deactivatePreviewListeners(initialLayer: InteractionLayer | null, event: PIXI.FederatedPointerEvent): void {
-        this._onDragLeftCancel(event);
+    #deactivatePreviewListeners(
+        initialLayer: InteractionLayer | null,
+        event: PIXI.FederatedPointerEvent | PlaceablesLayerPointerEvent<TObject>,
+    ): void {
         if (this.#previewListeners) {
             canvas.stage.off("mousemove", this.#previewListeners.mousemove);
             canvas.stage.off("mousedown", this.#previewListeners.mousedown);
             canvas.stage.off("rightdown", this.#previewListeners.rightdown);
             this.#previewListeners = null;
         }
+        if ("interactionData" in event) this._onDragLeftCancel(event);
         if (initialLayer !== this) initialLayer?.activate();
     }
-}
-
-interface TemplateLayerPF2e<TObject extends MeasuredTemplatePF2e = MeasuredTemplatePF2e>
-    extends fc.layers.TemplateLayer<TObject> {
-    _onDragLeftCancel(event: PIXI.FederatedPointerEvent | PlaceablesLayerPointerEvent<TObject>): void;
 }
 
 interface TemplatePreviewEventListeners {
