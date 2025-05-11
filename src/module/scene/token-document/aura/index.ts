@@ -70,7 +70,13 @@ class TokenAura implements TokenAuraData {
     /** Does this aura overlap with (at least part of) a token? */
     containsToken(token: TokenDocumentPF2e): boolean {
         // If either token is hidden or not rendered, return false early
-        if (this.token.hidden || token.hidden || !this.token.object || !token.object) {
+        if (
+            this.token.hidden ||
+            token.hidden ||
+            !this.token.object ||
+            !token.object ||
+            this.scene.grid.type !== CONST.GRID_TYPES.SQUARE
+        ) {
             return false;
         }
 
