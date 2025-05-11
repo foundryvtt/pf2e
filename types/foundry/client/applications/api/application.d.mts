@@ -130,7 +130,7 @@ export default abstract class ApplicationV2<
      * @param options      Options provided directly to the constructor
      * @returns Configured options for the application instance
      */
-    protected _initializeApplicationOptions(options: Partial<TConfig>): TConfig;
+    protected _initializeApplicationOptions(options: DeepPartial<TConfig>): TConfig;
 
     /* -------------------------------------------- */
     /*  Rendering                                   */

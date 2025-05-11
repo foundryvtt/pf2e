@@ -1,9 +1,9 @@
 import type { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import type { ActorUUID, ItemUUID, TokenDocumentUUID } from "@client/documents/_module.d.mts";
-import type { ModelPropsFromSchema, SourceFromSchema } from "@common/data/fields.mjs";
+import type { ModelPropsFromSchema, SourceFromSchema } from "@common/data/fields.d.mts";
 import type { ItemSystemSchema } from "@item/base/data/model.ts";
-import { ItemDescriptionData } from "@item/base/data/system.ts";
+import type { ItemDescriptionData } from "@item/base/data/system.ts";
 import type { MagicTradition } from "@item/spell/index.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 import type { DegreeOfSuccessIndex } from "@system/degree-of-success.ts";

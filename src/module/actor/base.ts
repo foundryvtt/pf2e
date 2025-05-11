@@ -595,8 +595,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Don't allow the user to create in-development actor types. */
-    static override createDialog<T extends typeof Document>(
-        this: T,
+    static override createDialog<T extends Document>(
+        this: ConstructorOf<T>,
         data?: Record<string, unknown>,
         createOptions?: Partial<DatabaseCreateOperation<Document | null>>,
         options?: {
@@ -605,7 +605,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             template?: string;
             context?: object;
         } & Partial<DialogV2Configuration>,
-    ): Promise<InstanceType<T> | null>;
+    ): Promise<T | null>;
     static override createDialog(
         data?: Record<string, unknown>,
         createOptions?: Partial<DatabaseCreateOperation<TokenDocumentPF2e | null>>,

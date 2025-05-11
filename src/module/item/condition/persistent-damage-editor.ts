@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import type { ApplicationConfiguration } from "@client/applications/_module.mjs";
+import type { ApplicationConfiguration } from "@client/applications/_module.d.mts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import type { DamageType } from "@system/damage/types.ts";
 import { htmlClosest, htmlQuery } from "@util";
