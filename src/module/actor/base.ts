@@ -23,7 +23,7 @@ import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import type { AfflictionSource } from "@item/affliction/index.ts";
 import type { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/base/data/index.ts";
 import type { ConditionKey, ConditionSlug, ConditionSource } from "@item/condition/index.ts";
-import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
+import { PersistentDamageEditor } from "@item/condition/persistent-damage-editor.ts";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import type { EffectFlags, EffectSource } from "@item/effect/data.ts";
@@ -1723,7 +1723,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     ): Promise<ConditionPF2e<this> | null> {
         // Persistent damage goes through a dialog instead
         if (conditionSlug === "persistent-damage") {
-            new PersistentDialog(this).render(true);
+            new PersistentDamageEditor({ actor: this }).render({ force: true });
             return null;
         }
 
