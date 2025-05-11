@@ -1,6 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import { AbstractEffectPF2e, AfflictionPF2e, ConditionPF2e, EffectPF2e } from "@item";
-import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
+import { PersistentDamageEditor } from "@item/condition/persistent-damage-editor.ts";
 import { createTooltipListener } from "@module/sheet/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { ErrorPF2e, createHTMLElement, htmlQuery, htmlQueryAll } from "@util";
@@ -236,7 +236,7 @@ export class EffectsPanel extends fa.api.HandlebarsApplicationMixin(fa.api.Appli
 
                 content.querySelector("[data-action=edit]")?.addEventListener("click", () => {
                     if (effect.isOfType("condition") && effect.slug === "persistent-damage") {
-                        new PersistentDialog(actor, { editing: effect.id }).render(true);
+                        new PersistentDamageEditor({ actor, selectedItemId: effect.id }).render({ force: true });
                     } else {
                         effect.sheet.render(true);
                     }
