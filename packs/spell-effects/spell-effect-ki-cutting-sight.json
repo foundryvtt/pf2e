@@ -1,0 +1,64 @@
+{
+    "_id": "IFbDmy0HhKa8XaEU",
+    "img": "icons/magic/perception/third-eye-blue-red.webp",
+    "name": "Spell Effect: Ki Cutting Sight",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Ki Cutting Sight]</p>\n<p>The next time you deal damage to the target with a Strike or ki spell, you deal additional slashing damage.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Wake the Dead #2"
+        },
+        "rules": [
+            {
+                "domain": "damage",
+                "key": "RollOption",
+                "option": "ki-cutting-sight",
+                "toggleable": true
+            },
+            {
+                "damageType": "slashing",
+                "diceNumber": "@item.level + 1",
+                "dieSize": "d10",
+                "key": "DamageDice",
+                "predicate": [
+                    "ki-cutting-sight",
+                    {
+                        "or": [
+                            "action:strike",
+                            {
+                                "and": [
+                                    "item:trait:focus",
+                                    "item:trait:monk"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

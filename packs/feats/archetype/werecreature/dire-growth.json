@@ -34,9 +34,19 @@
         },
         "rules": [
             {
-                "key": "CreatureSize",
+                "domain": "all",
+                "key": "RollOption",
+                "option": "dire-growth",
                 "predicate": [
                     "change-shape:animal"
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "change-shape:animal",
+                    "dire-growth"
                 ],
                 "reach": {
                     "override": "10"
@@ -48,12 +58,17 @@
                 "inMemoryOnly": true,
                 "key": "GrantItem",
                 "predicate": [
-                    "change-shape:animal"
+                    "change-shape:animal",
+                    "dire-growth"
                 ],
                 "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
             },
             {
                 "key": "FlatModifier",
+                "predicate": [
+                    "change-shape:animal",
+                    "dire-growth"
+                ],
                 "selector": "melee-strike-damage",
                 "type": "status",
                 "value": 2
