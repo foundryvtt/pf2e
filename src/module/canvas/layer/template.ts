@@ -83,6 +83,18 @@ class TemplateLayerPF2e<TObject extends MeasuredTemplatePF2e = MeasuredTemplateP
         return template.rotate(template.document.direction + delta, snap);
     }
 
+    protected override _onDragLeftStart(event: PlaceablesLayerPointerEvent<TObject>): void {
+        // Prevent normal drag operations when a preview is active
+        if (this.#previewListeners) return;
+        return super._onDragLeftStart(event);
+    }
+
+    protected override _onDragLeftCancel(event: PlaceablesLayerPointerEvent<TObject>): void {
+        // Prevent normal drag operations when a preview is active
+        if (this.#previewListeners) return;
+        return super._onDragLeftCancel(event);
+    }
+
     #activatePreviewListeners(preview: TObject, initialLayer: InteractionLayer | null): void {
         let lastMove = Date.now(); // Throttle 50ms
 
