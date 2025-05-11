@@ -1,0 +1,47 @@
+<div>
+    <fieldset class="form-group add stacked">
+        <legend>{{localize "PF2E.Item.Condition.PersistentDamage.Dialog.Add"}}</legend>
+        <div class="form-fields">
+            <input type="text" class="formula" placeholder="1d6"
+                aria-label="{{localize "PF2E.Item.Condition.PersistentDamage.Dialog.Formula"}}"
+                {{#unless selectedItemId}}autofocus{{/unless}} />
+            <select class="damageType" aria-label="{{localize "PF2E.Item.Condition.PersistentDamage.Dialog.Formula"}}">
+                {{selectOptions @root.damageTypes valueAttr="type"}}
+            </select>
+            <label class="dc flexrow">
+                <span>DC</span>
+                <input type="number" class="dc" placeholder="15" />
+            </label>
+            <button type="button" data-action="add" class="inline-control icon fa-solid fa-floppy-disk"
+                    data-tooltip aria-label="{{localize "PF2E.Item.Condition.PersistentDamage.Dialog.Add"}}"></button>
+        </div>
+    </fieldset>
+
+    {{#if existing}}
+    <fieldset class="list">
+        <legend>
+            <button class="inline-control" data-action="roll">
+                <i class="fa-solid fa-dice-d6" inert></i> {{localize "PF2E.Item.Condition.PersistentDamage.RollDamage"}}
+            </button>
+        </legend>
+        <menu class="form-group stacked">
+            {{#each existing as |condition|}}
+            <li class="form-fields{{#unless condition.active}} inactive{{/unless}}" data-id="{{condition.id}}">
+                <input type="text" class="formula" value="{{condition.formula}}"
+                    aria-label="{{localize "PF2E.Item.Condition.PersistentDamage.Dialog.Formula"}}"
+                    {{#if (eq @root.selectedItemId condition.id)}}autofocus{{/if}} />
+                <select class="damageType" aria-label="{{localize "PF2E.Item.Condition.PersistentDamage.Dialog.Formula"}}">
+                    {{selectOptions @root.damageTypes valueAttr="type" selected=condition.damageType}}
+                </select>
+                <label class="dc flexrow">
+                    <span>{{localize "PF2E.Item.Condition.PersistentDamage.Dialog.DC"}}</span>
+                    <input type="number" class="dc" placeholder="15" value="{{condition.dc}}" />
+                </label>
+                <button type="button" data-action="delete" class="inline-control icon fa-solid fa-xmark" data-tooltip
+                        aria-label="{{localize "PF2E.Item.Condition.PersistentDamage.Dialog.Remove"}}"></button>
+            </li>
+            {{/each}}
+        </menu>
+    </fieldset>
+    {{/if}}
+</div>
