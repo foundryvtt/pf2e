@@ -1,10 +1,10 @@
-import type { ModelPropsFromSchema, SourceFromSchema } from "@common/data/fields.mjs";
+import type { ModelPropsFromSchema, SourceFromSchema } from "@common/data/fields.d.mts";
 import {
+    DurationDataSchema,
+    EffectBadgeCounterSchema,
+    EffectBadgeFormulaSchema,
+    EffectBadgeValueSchema,
     EffectContextField,
-    type DurationDataSchema,
-    type EffectBadgeCounterSchema,
-    type EffectBadgeFormulaSchema,
-    type EffectBadgeValueSchema,
 } from "@item/abstract-effect/data.ts";
 import type { AbstractEffectSchema, EffectAuraData, EffectBadge } from "@item/abstract-effect/index.ts";
 import type { BadgeReevaluationEventType, EffectTrait } from "@item/abstract-effect/types.ts";

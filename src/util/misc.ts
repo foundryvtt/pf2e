@@ -1,6 +1,6 @@
 import type Localization from "@client/helpers/localization.d.mts";
 import type { TranslationDictionaryValue } from "@client/helpers/localization.d.mts";
-import { ImageFilePath, VideoFilePath } from "@common/constants.mjs";
+import type { ImageFilePath, VideoFilePath } from "@common/constants.d.mts";
 import type { ActionCost } from "@item/base/data/system.ts";
 import * as R from "remeda";
 import type Sortable from "sortablejs";
@@ -407,10 +407,9 @@ const SORTABLE_BASE_OPTIONS: Sortable.Options = {
 };
 
 export {
-    ErrorPF2e,
-    SORTABLE_BASE_OPTIONS,
     applyNTimes,
     configFromLocalization,
+    ErrorPF2e,
     fontAwesomeIcon,
     getActionGlyph,
     getActionIcon,
@@ -429,6 +428,7 @@ export {
     setHasElement,
     signedInteger,
     sluggify,
+    SORTABLE_BASE_OPTIONS,
     sortLabeledRecord,
     sortObjByKey,
     sortStringRecord,

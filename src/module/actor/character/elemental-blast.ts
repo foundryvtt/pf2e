@@ -3,12 +3,14 @@ import { AttackTraitHelpers } from "@actor/creature/helpers.ts";
 import { calculateMAPs } from "@actor/helpers.ts";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
+import type { Rolled } from "@client/dice/roll.d.mts";
+import type { ImageFilePath } from "@common/constants.d.mts";
 import type { AbilityItemPF2e } from "@item";
-import { AbilityTrait } from "@item/ability/types.ts";
-import { EffectTrait } from "@item/abstract-effect/types.ts";
-import { RangeData } from "@item/types.ts";
-import { WeaponDamage } from "@item/weapon/data.ts";
-import { WeaponTrait } from "@item/weapon/types.ts";
+import type { AbilityTrait } from "@item/ability/types.ts";
+import type { EffectTrait } from "@item/abstract-effect/types.ts";
+import type { RangeData } from "@item/types.ts";
+import type { WeaponDamage } from "@item/weapon/data.ts";
+import type { WeaponTrait } from "@item/weapon/types.ts";
 import {
     extractDamageDice,
     extractModifierAdjustments,
@@ -23,7 +25,7 @@ import { DamageModifierDialog } from "@system/damage/dialog.ts";
 import { createDamageFormula } from "@system/damage/formula.ts";
 import { DamageCategorization, processBaseDamage } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import {
+import type {
     BaseDamageData,
     DamageDamageContext,
     DamageDiceFaces,
@@ -33,7 +35,7 @@ import {
 } from "@system/damage/types.ts";
 import { DAMAGE_TYPE_ICONS } from "@system/damage/values.ts";
 import { DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
-import { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
+import type { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, objectHasKey, signedInteger } from "@util";
 import * as R from "remeda";
@@ -598,9 +600,9 @@ type BlastInfusionSchema = {
     }>;
 };
 
-type BlastInfusionData = ModelPropsFromSchema<BlastInfusionSchema>;
+type BlastInfusionData = fields.ModelPropsFromSchema<BlastInfusionSchema>;
 
-interface ElementalBlastConfig extends Omit<ModelPropsFromSchema<BlastConfigSchema>, "damageTypes" | "range"> {
+interface ElementalBlastConfig extends Omit<fields.ModelPropsFromSchema<BlastConfigSchema>, "damageTypes" | "range"> {
     damageTypes: BlastConfigDamageType[];
     range: RangeData & { label: string };
     statistic: Statistic;

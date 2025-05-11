@@ -1,6 +1,6 @@
 import { ActorPF2e, CreaturePF2e, PartyPF2e } from "@actor";
 import { CREATURE_ACTOR_TYPES } from "@actor/values.ts";
-import { ApplicationRenderContext } from "@client/applications/_types.mjs";
+import type { ApplicationRenderContext } from "@client/applications/_types.d.mts";
 import type {
     HandlebarsRenderOptions,
     HandlebarsTemplatePart,

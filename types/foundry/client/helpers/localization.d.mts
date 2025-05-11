@@ -1,3 +1,6 @@
+import DataModel from "@common/abstract/data.mjs";
+import { DataField, SchemaField } from "@common/data/fields.mjs";
+
 /**
  * A helper class which assists with localization and string translation
  */
@@ -17,7 +20,10 @@ export default class Localization {
      */
     _fallback: Record<string, TranslationDictionaryValue>;
 
-    constructor();
+    /**
+     * @param serverLanguage The default language configuration setting for the server
+     */
+    constructor(serverLanguage: string);
 
     /**
      * Initialize the Localization module
@@ -25,29 +31,86 @@ export default class Localization {
      */
     initialize(): Promise<void>;
 
-    /**
-     * Discover the available supported languages from the set of packages which are provided
-     */
-    protected _discoverLanguages(): void;
+    /* -------------------------------------------- */
+    /*  Data Model Localization                     */
+    /* -------------------------------------------- */
 
     /**
-     * Prepare the dictionary of translation strings for the requested language
-     * @param lang  The language for which to load translations
+     * Perform one-time localization of the fields in a DataModel schema, translating their label and hint properties.
+     * @param {typeof DataModel} model          The DataModel class to localize
+     * @param {object} options                  Options which configure how localization is performed
+     * @param {string[]} [options.prefixes]       An array of localization key prefixes to use. If not specified, prefixes
+     *                                            are learned from the DataModel.LOCALIZATION_PREFIXES static property.
+     * @param {string} [options.prefixPath]       A localization path prefix used to prefix all field names within this
+     *                                            model. This is generally not required.
+     *
+     * @example
+     * JavaScript class definition and localization call.
+     * ```js
+     * class MyDataModel extends foundry.abstract.DataModel {
+     *   static defineSchema() {
+     *     return {
+     *       foo: new foundry.data.fields.StringField(),
+     *       bar: new foundry.data.fields.NumberField()
+     *     };
+     *   }
+     *   static LOCALIZATION_PREFIXES = ["MYMODULE.MYDATAMODEL"];
+     * }
+     *
+     * Hooks.on("i18nInit", () => {
+     *   Localization.localizeDataModel(MyDataModel);
+     * });
+     * ```
+     *
+     * JSON localization file
+     * ```json
+     * {
+     *   "MYMODULE": {
+     *     "MYDATAMODEL": {
+     *       "FIELDS" : {
+     *         "foo": {
+     *           "label": "Foo",
+     *           "hint": "Instructions for foo"
+     *         },
+     *         "bar": {
+     *           "label": "Bar",
+     *           "hint": "Instructions for bar"
+     *         }
+     *       }
+     *     }
+     *   }
+     * }
+     * ```
      */
-    protected _getTranslations(lang: string): Promise<Record<string, TranslationDictionaryValue>>;
+    static localizeDataModel(model: typeof DataModel, options?: { prefixes?: string[]; prefixPath?: string }): void;
 
     /**
-     * Load a single translation file and return its contents as processed JSON
-     * @param src   The translation file path to load
-     */
-    protected _loadTranslationFile(src: string): Promise<Record<string, TranslationDictionaryValue>>;
+   * Localize the "label" and "hint" properties for all fields in a data schema.
+
+   */
+    static localizeSchema(
+        schema: SchemaField,
+        prefixes?: string[],
+        options?: { prefixPath?: string; seenFields?: Set<DataField> },
+    ): void;
 
     /**
      * Set a language as the active translation source for the session
-     * @param lang  A language string in CONFIG.supportedLanguages
-     * @return      A Promise which resolves once the translations for the requested language are ready
+     * @param lang A language string in CONFIG.supportedLanguages
+     * @returns A Promise which resolves once the translations for the requested language are ready
      */
     setLanguage(lang: string): Promise<void>;
+
+    /* -------------------------------------------- */
+    /*  Localization API                            */
+    /* -------------------------------------------- */
+
+    /**
+     * Return whether a certain string has a known translation defined.
+     * @param stringId The string key being translated
+     * @param fallback Allow fallback translations to count?
+     */
+    has(stringId: string, fallback?: boolean): boolean;
 
     /**
      * Localize a string by drawing a translation from the available translations dictionary, if available
@@ -73,11 +136,12 @@ export default class Localization {
     format(stringId: string, data?: { [key: string]: string | number | boolean | null }): string;
 
     /**
-     * Return whether a certain string has a known translation defined.
-     * @param stringId The string key being translated
-     * @param fallback
+     * Retrieve list formatter configured to the world's language setting.
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/ListFormat/ListFormat}
+     * @param options.style The list formatter style, either "long", "short", or "narrow".
+     * @param options.type The list formatter type, either "conjunction", "disjunction", or "unit".
      */
-    has(stringId: string, fallback?: boolean): boolean;
+    getListFormatter(options?: { style?: Intl.ListFormatStyle; type?: Intl.ListFormatType }): Intl.ListFormat;
 }
 
 type TranslationDictionaryValue = string | { [key: string]: TranslationDictionaryValue };

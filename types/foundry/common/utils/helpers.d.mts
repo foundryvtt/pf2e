@@ -122,7 +122,7 @@ export function flattenObject(obj: object, _d?: number): Record<string, unknown>
  * @param _d   Recursion depth, to prevent overflow
  * @return     An expanded object
  */
-export function expandObject<T extends Record<string, unknown>>(obj: object, _d?: number): T;
+export function expandObject<T extends object = Record<string, unknown>>(obj: object, _d?: number): T;
 
 /**
  * A simple function to test whether or not an Object is empty

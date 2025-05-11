@@ -560,8 +560,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** Don't allow the user to create a condition or spellcasting entry from the sidebar. */
-    static override createDialog<T extends typeof Document>(
-        this: T,
+    static override createDialog<T extends Document>(
+        this: ConstructorOf<T>,
         data?: Record<string, unknown>,
         createOptions?: Partial<DatabaseCreateOperation<Document | null>>,
         options?: {
@@ -570,19 +570,19 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             template?: string;
             context?: object;
         } & Partial<DialogV2Configuration>,
-    ): Promise<InstanceType<T> | null>;
+    ): Promise<T | null>;
     static override async createDialog(
         data: { folder?: string } = {},
         createOptions?: DatabaseCreateOperation<ItemPF2e>,
-        context: {
+        options: {
             parent?: ActorPF2e | null;
             pack?: Collection<string, ItemPF2e<null>> | null;
             types?: string[];
         } & Partial<DialogV2Configuration> = {},
-    ): Promise<Document | null> {
-        context.classes = [...(context.classes ?? []), "dialog-item-create"];
-        context.types &&= R.unique(context.types);
-        context.types ??= Object.keys(game.system.documentTypes.Item);
+    ): Promise<Item | null> {
+        options.classes = [...(options.classes ?? []), "dialog-item-create"];
+        options.types &&= R.unique(options.types);
+        options.types ??= Object.keys(game.system.documentTypes.Item);
 
         // Figure out the types to omit
         const omittedTypes: ItemType[] = ["condition", "spellcastingEntry", "lore"];
@@ -590,10 +590,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         if (game.settings.get("pf2e", "campaignType") !== "kingmaker") omittedTypes.push("campaignFeature");
 
         for (const type of omittedTypes) {
-            context.types.findSplice((t) => t === type);
+            options.types.findSplice((t) => t === type);
         }
 
-        return super.createDialog(data, createOptions, context);
+        return super.createDialog(data, createOptions, options);
     }
 
     /** Assess and pre-process this JSON data, ensuring it's importable and fully migrated */

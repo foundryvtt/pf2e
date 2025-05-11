@@ -1,4 +1,4 @@
-import type { ModelPropsFromSchema, SourceFromSchema } from "@common/data/fields.mjs";
+import type { ModelPropsFromSchema, SourceFromSchema } from "@common/data/fields.d.mts";
 import type { AbstractEffectSchema, DurationData } from "@item/abstract-effect/data.ts";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import type { ItemType } from "@item/base/data/index.ts";
