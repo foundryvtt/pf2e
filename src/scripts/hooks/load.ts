@@ -12,6 +12,7 @@ import { ItemProxyPF2e } from "@item";
 import { AbilitySystemData } from "@item/ability/index.ts";
 import { AfflictionSystemData } from "@item/affliction/data.ts";
 import { CampaignFeatureSystemData } from "@item/campaign-feature/data.ts";
+import { ClassSystemData } from "@item/class/data.ts";
 import { ConditionSystemData } from "@item/condition/data.ts";
 import { EffectSystemData } from "@item/effect/data.ts";
 import { FeatSystemData } from "@item/feat/data.ts";
@@ -105,6 +106,7 @@ export const Load = {
         }
         CONFIG.Item.dataModels.action = AbilitySystemData;
         CONFIG.Item.dataModels.campaignFeature = CampaignFeatureSystemData;
+        CONFIG.Item.dataModels.class = ClassSystemData;
         CONFIG.Item.dataModels.condition = ConditionSystemData;
         CONFIG.Item.dataModels.effect = EffectSystemData;
         CONFIG.Item.dataModels.feat = FeatSystemData;
