@@ -54,7 +54,6 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
 
         return (
             canvas.scene !== null &&
-            // Check if aura is supported
             canvas.scene.canHaveAuras &&
             // Assume if token vision is disabled then the scene is not intended for play.
             canvas.scene.tokenVision &&

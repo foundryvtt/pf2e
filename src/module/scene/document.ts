@@ -18,7 +18,7 @@ class ScenePF2e extends Scene {
         return this.flags.pf2e.rulesBasedVision ?? game.pf2e.settings.rbv;
     }
 
-    /** Is aura supported on this scene? */
+    /** Are auras supported on this scene? */
     get canHaveAuras(): boolean {
         return this.grid.type === CONST.GRID_TYPES.SQUARE;
     }
