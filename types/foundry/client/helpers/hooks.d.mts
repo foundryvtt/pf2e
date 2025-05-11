@@ -33,12 +33,12 @@ type HookCallback<P extends unknown[]> = (...args: P) => boolean | void | Promis
 type HookParameters<H extends string, C extends unknown[]> = [hook: H, callback: HookCallback<C>];
 
 // Sequence of hooks called on world load
-type HookParamsInit = HookParameters<"init", never>;
-type HookParamsSetup = HookParameters<"setup", never>;
-type HookParamsI18nInit = HookParameters<"i18nInit", never>;
+type HookParamsInit = HookParameters<"init", never[]>;
+type HookParamsSetup = HookParameters<"setup", never[]>;
+type HookParamsI18nInit = HookParameters<"i18nInit", never[]>;
 type HookParamsCanvasInit = HookParameters<"canvasInit", [Canvas]>;
 type HookParamsCanvasReady = HookParameters<"canvasReady", [Canvas]>;
-type HookParamsReady = HookParameters<"ready", never>;
+type HookParamsReady = HookParameters<"ready", never[]>;
 
 type HookParamsClose<T extends ApplicationV2, N extends string> = HookParameters<`close${N}`, [T]>;
 type HookParamsDeleteCombat = HookParameters<"deleteCombat", [Combat, { [key: string]: unknown }, string]>;

@@ -1,9 +1,9 @@
-import { AttributeString } from "@actor/types.ts";
-import type { ImageFilePath } from "@common/constants.mjs";
-import { PhysicalItemSource } from "@item/base/data/index.ts";
-import { Size, TraitsWithRarity, ZeroToTwo } from "@module/data.ts";
-import { MaterialDamageEffect } from "@system/damage/types.ts";
-import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "../base/data/system.ts";
+import type { AttributeString } from "@actor/types.ts";
+import type { ImageFilePath } from "@common/constants.d.mts";
+import type { PhysicalItemSource } from "@item/base/data/index.ts";
+import type { Size, TraitsWithRarity, ZeroToTwo } from "@module/data.ts";
+import type { MaterialDamageEffect } from "@system/damage/types.ts";
+import type { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "../base/data/system.ts";
 import type { ITEM_CARRY_TYPES } from "../base/data/values.ts";
 import type { CoinsPF2e } from "./helpers.ts";
 import type { PhysicalItemTrait, PhysicalItemType, PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
