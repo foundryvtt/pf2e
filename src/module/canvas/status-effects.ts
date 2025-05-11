@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { resetActors } from "@actor/helpers.ts";
 import type { PlaceableHUDContext } from "@client/applications/hud/placeable-hud.d.mts";
-import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
+import { PersistentDamageEditor } from "@item/condition/persistent-damage-editor.ts";
 import { ConditionSlug } from "@item/condition/types.ts";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
 import type { TokenPF2e } from "@module/canvas/token/index.ts";
@@ -229,7 +229,7 @@ export class StatusEffects {
         for (const [token, actor] of tokensAndActors) {
             // Persistent damage goes through a dialog instead
             if (slug === "persistent-damage") {
-                new PersistentDialog(actor).render(true);
+                new PersistentDamageEditor({ actor }).render({ force: true });
                 continue;
             }
 
