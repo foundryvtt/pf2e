@@ -1,7 +1,7 @@
 import type { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
-import type { ModelPropsFromSchema, SourceFromSchema } from "@common/data/fields.mjs";
-import type { ItemUUID } from "@common/documents/_module.mjs";
+import type { ModelPropsFromSchema, SourceFromSchema } from "@common/data/fields.d.mts";
+import type { ItemUUID } from "@common/documents/_module.d.mts";
 import { type DurationDataSchema, EffectContextField } from "@item/abstract-effect/data.ts";
 import type { EffectAuraData } from "@item/abstract-effect/index.ts";
 import type { EffectTrait, TimeUnit } from "@item/abstract-effect/types.ts";
@@ -18,7 +18,7 @@ import { CONDITION_SLUGS } from "@item/condition/values.ts";
 import type { DamageCategoryUnique, DamageType } from "@system/damage/types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 import { LaxArrayField, SlugField } from "@system/schema-data-fields.ts";
-import { AfflictionPF2e } from "./document.ts";
+import type { AfflictionPF2e } from "./document.ts";
 import fields = foundry.data.fields;
 
 type AfflictionSource = BaseItemSourcePF2e<"affliction", AfflictionSystemSource> & {

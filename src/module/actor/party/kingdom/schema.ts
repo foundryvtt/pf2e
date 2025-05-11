@@ -1,8 +1,8 @@
-import { RawModifier } from "@actor/modifiers.ts";
-import { DataSchema } from "@common/abstract/_types.mjs";
-import { ImageFilePath } from "@common/constants.mjs";
-import { ItemUUID } from "@common/documents/_module.mjs";
-import { ZeroToFour } from "@module/data.ts";
+import type { RawModifier } from "@actor/modifiers.ts";
+import type { DataSchema } from "@common/abstract/_types.d.mts";
+import type { ImageFilePath } from "@common/constants.d.mts";
+import type { ItemUUID } from "@common/documents/_module.d.mts";
+import type { ZeroToFour } from "@module/data.ts";
 import { DataUnionField, RecordField, StrictBooleanField, StrictStringField } from "@system/schema-data-fields.ts";
 import * as R from "remeda";
 import type {
@@ -169,7 +169,7 @@ function defineKingdomSchema(): KingdomSchema {
         }),
         storage: new fields.SchemaField(
             R.mapToObj(["food", "luxuries", "lumber", "ore", "stone"], (type) => {
-                const schema = new fields.NumberField({
+                const schema = new fields.NumberField<number, number, true, false, true>({
                     required: true,
                     nullable: false,
                     integer: true,

@@ -1,6 +1,6 @@
-import type { FormSelectOption } from "@client/applications/forms/fields.mjs";
+import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import type { EffectBadgeSource } from "@item/abstract-effect/index.ts";
-import { type ItemSheetDataPF2e, type ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
+import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { ErrorPF2e } from "@util";
 import { htmlQuery, htmlQueryAll } from "@util/dom.ts";
 import type { EffectSource } from "./data.ts";

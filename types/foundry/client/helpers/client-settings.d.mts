@@ -5,9 +5,10 @@ import { SettingConfig, SettingSubmenuConfig } from "@common/_types.mjs";
 import { RollMode } from "@common/constants.mjs";
 import Collection from "@common/utils/collection.mjs";
 
-export interface ClientSettingsStorage extends Map<string, Storage | WorldSettingsStorage> {
+export interface ClientSettingsStorage extends Map<"client" | "world" | "user", Storage | WorldSettings> {
     get(key: "client"): Storage;
-    get(key: "world"): WorldSettingsStorage;
+    get(key: "world"): WorldSettings;
+    get(key: "user"): WorldSettings;
 }
 
 /**
@@ -142,10 +143,11 @@ interface ClientSettingsMap extends Map<string, SettingConfig> {
     get(key: "core.dynamicTokenRingFitMode"): SettingConfig & { default: "grid" | "subject" };
     get(key: "core.notesDisplayToggle"): SettingConfig & { default: boolean };
     get(key: "core.tokenAutoRotate"): SettingConfig & { default: boolean };
+    get(key: string): SettingConfig | undefined;
 }
 
 /** A simple interface for World settings storage which imitates the API provided by localStorage */
-export class WorldSettingsStorage extends Collection<string, Setting> {
+export class WorldSettings extends Collection<string, Setting> {
     constructor(settings: object);
 
     getItem(key: string): string | null;

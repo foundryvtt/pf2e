@@ -3,7 +3,7 @@ import type {
     DatabaseCreateOperation,
     DatabaseDeleteOperation,
     DataModelConstructionContext,
-} from "@common/abstract/_types.mjs";
+} from "@common/abstract/_types.d.mts";
 import { ItemPF2e } from "@item";
 import type { EffectAreaShape } from "@item/spell/types.ts";
 import type { MeasuredTemplatePF2e } from "@module/canvas/measured-template.ts";
