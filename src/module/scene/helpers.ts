@@ -7,7 +7,7 @@ let auraCheckLock = Promise.resolve();
 
 /** Check for auras containing newly-placed or moved tokens */
 const checkAuras = fu.debounce(async function (this: ScenePF2e): Promise<void> {
-    if (!(canvas.ready && this.isInFocus && this.grid.type === CONST.GRID_TYPES.SQUARE)) {
+    if (!(canvas.ready && this.isInFocus)) {
         return;
     }
 

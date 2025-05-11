@@ -5,7 +5,7 @@ import { TokenDocumentPF2e } from "@scene";
 import type { TokenPF2e } from "../index.ts";
 
 export function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {
-    if (!canvas.ready) return [];
+    if (!canvas.ready || canvas.scene?.grid?.type !== CONST.GRID_TYPES.SQUARE) return [];
     const squareWidth = canvas.dimensions.size;
     const rowCount = Math.ceil(data.bounds.width / squareWidth);
     const emptyVector = Array<null>(rowCount - 1).fill(null);
