@@ -464,7 +464,7 @@ class ElementalBlast {
         );
 
         // Forceful trait
-        if (item.system.traits.value.some((t) => t === "forceful")) {
+        if (item.system.traits.value.includes("forceful")) {
             const diceNumber = processedDamage.dice;
             extraModifiers.push(
                 new ModifierPF2e({
