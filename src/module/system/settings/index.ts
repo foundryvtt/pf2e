@@ -251,14 +251,6 @@ export function registerSettings(): void {
     });
     HomebrewElements.registerSettings();
 
-    game.settings.registerMenu("pf2e", "worldClock", {
-        name: game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.name),
-        label: game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.label),
-        hint: game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.hint),
-        icon: "fa-regular fa-clock",
-        type: WorldClockSettings,
-        restricted: true,
-    });
     WorldClockSettings.registerSettings();
 
     // Secret for now until the user side is complete and a UI is built

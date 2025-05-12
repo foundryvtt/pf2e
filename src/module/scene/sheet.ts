@@ -1,19 +1,19 @@
 import { resetActors } from "@actor/helpers.ts";
 import HTMLRangePickerElement from "@client/applications/elements/range-picker.mjs";
-import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
-import type { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
 import { WorldClock } from "@module/apps/world-clock/app.ts";
-import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import type { SettingsMenuOptions } from "@system/settings/menu.ts";
-import { createHTMLElement, ErrorPF2e, htmlQuery } from "@util";
-import { tagify } from "@util/tags.ts";
+import { createHTMLElement, ErrorPF2e } from "@util";
 import * as R from "remeda";
 import type { ScenePF2e } from "./document.ts";
+import fields = foundry.data.fields;
 
 export class SceneConfigPF2e<TDocument extends ScenePF2e> extends fa.sheets.SceneConfig<TDocument> {
     static override DEFAULT_OPTIONS: DeepPartial<fa.api.DocumentSheetConfiguration> = {
         sheetConfig: false,
-        actions: { openAutomationSettings: SceneConfigPF2e.#onClickOpenAutomationSettings },
+        actions: {
+            openAutomationSettings: SceneConfigPF2e.#onClickOpenAutomationSettings,
+            openWorldClockSettings: SceneConfigPF2e.#onClickOpenWorldClockSettings,
+        },
     };
 
     static override TABS = (() => {
@@ -36,27 +36,46 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends fa.sheets.Scen
     /** Prepare context data for the pf2e tab */
     protected override async _preparePartContext(
         partId: string,
-        context: Record<string, unknown>,
+        context: fa.api.DocumentSheetRenderContext,
         options: fa.api.HandlebarsRenderOptions,
-    ): Promise<Record<string, unknown>> {
+    ): Promise<fa.api.DocumentSheetRenderContext> {
         const partContext = await super._preparePartContext(partId, context, options);
-        if (partId === "pf2e") {
-            const worldDefault = game.i18n.localize(
-                game.pf2e.settings.rbv
-                    ? "PF2E.SETTINGS.EnabledDisabled.Enabled"
-                    : "PF2E.SETTINGS.EnabledDisabled.Disabled",
-            );
-            partContext.rbvOptions = [
+        if (partId !== "pf2e") return partContext;
+        return Object.assign(partContext, {
+            scene: this.document,
+            rbvOptions: [
                 {
                     value: "",
-                    label: game.i18n.format("PF2E.SETTINGS.EnabledDisabled.Default", { worldDefault }),
+                    label: game.i18n.format("PF2E.SETTINGS.EnabledDisabled.Default", {
+                        worldDefault: game.i18n.localize(
+                            game.pf2e.settings.rbv
+                                ? "PF2E.SETTINGS.EnabledDisabled.Enabled"
+                                : "PF2E.SETTINGS.EnabledDisabled.Disabled",
+                        ),
+                    }),
                 },
                 { value: "true", label: game.i18n.localize("PF2E.SETTINGS.EnabledDisabled.Enabled") },
                 { value: "false", label: game.i18n.localize("PF2E.SETTINGS.EnabledDisabled.Disabled") },
-            ] satisfies FormSelectOption[];
-            partContext.environmentTypes = this.document.flags.pf2e.environmentTypes ?? [];
-        }
-        return partContext;
+            ],
+            syncDarknessOptions: [
+                {
+                    value: "default",
+                    label: game.i18n.format("PF2E.SETTINGS.EnabledDisabled.Default", {
+                        worldDefault: game.i18n.localize(
+                            game.pf2e.settings.worldClock.syncDarkness
+                                ? "PF2E.SETTINGS.EnabledDisabled.Enabled"
+                                : "PF2E.SETTINGS.EnabledDisabled.Disabled",
+                        ),
+                    }),
+                },
+                { value: "enabled", label: game.i18n.localize("PF2E.SETTINGS.EnabledDisabled.Enabled") },
+                { value: "disabled", label: game.i18n.localize("PF2E.SETTINGS.EnabledDisabled.Disabled") },
+            ],
+            environmentTypes: new fields.SetField(
+                new fields.StringField({ required: true, initial: undefined, choices: CONFIG.PF2E.environmentTypes }),
+                { label: "PF2E.Region.Environment.Type.Label", hint: "PF2E.Region.Environment.Type.SceneHint" },
+            ),
+        });
     }
 
     protected override async _onRender(
@@ -64,15 +83,11 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends fa.sheets.Scen
         options: fa.api.HandlebarsRenderOptions,
     ): Promise<void> {
         await super._onRender(context, options);
-        this.#activateRBVListeners();
-        tagify(htmlQuery<HTMLTagifyTagsElement>(this.element, 'tagify-tags[name="flags.pf2e.environmentTypes"]'), {
-            whitelist: CONFIG.PF2E.environmentTypes,
-            enforceWhitelist: true,
-        });
+        this.#adjustForm();
     }
 
-    /** Hide Global Illumination settings when rules-based vision is enabled. */
-    #activateRBVListeners(): void {
+    /** Disable Global Illumination settings when rules-based vision is enabled. */
+    #adjustForm(): void {
         const scene = this.document;
         if (!scene.rulesBasedVision) return;
 
@@ -119,27 +134,24 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends fa.sheets.Scen
         }
     }
 
-    /** Intercept flag update and change to boolean/null. */
-    protected override async _processSubmitData(
+    protected override _prepareSubmitData(
         event: SubmitEvent,
         form: HTMLFormElement,
-        submitData: Record<string, unknown>,
-        options?: Partial<DatabaseCreateOperation<null>> | Partial<DatabaseUpdateOperation<null>>,
-    ): Promise<void> {
-        const rbvSetting = submitData["flags.pf2e.rulesBasedVision"];
-        submitData["flags.pf2e.rulesBasedVision"] =
+        formData: fa.ux.FormDataExtended,
+        updateData?: Record<string, unknown>,
+    ): Record<string, unknown> {
+        const rbvSetting = formData.object["flags.pf2e.rulesBasedVision"];
+        formData.object["flags.pf2e.rulesBasedVision"] =
             rbvSetting === "true" ? true : rbvSetting === "false" ? false : null;
 
-        const hearingRange = submitData["flags.pf2e.hearingRange"];
-        submitData["flags.pf2e.hearingRange"] =
+        const hearingRange = formData.object["flags.pf2e.hearingRange"];
+        formData.object["flags.pf2e.hearingRange"] =
             typeof hearingRange === "number" ? Math.ceil(Math.clamp(hearingRange || 5, 5, 3000) / 5) * 5 : null;
 
         const terrainChanged = !R.isDeepEqual(
-            submitData["flags.pf2e.environmentTypes"],
+            formData.object["flags.pf2e.environmentTypes"],
             this.document._source.flags?.pf2e?.environmentTypes ?? [],
         );
-
-        await super._processSubmitData(event, form, submitData, options);
 
         if (terrainChanged) {
             // Scene terrain changed. Reset all affected actors
@@ -149,7 +161,13 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends fa.sheets.Scen
         }
         // Rerender scene region legend to update the scene terrain tags
         canvas.scene?.apps["region-legend"]?.render();
+
+        return super._prepareSubmitData(event, form, formData, updateData);
     }
+
+    /* -------------------------------------------- */
+    /*  Click Handlers                              */
+    /* -------------------------------------------- */
 
     /** Open the Automation settings menu and highlight the rules-based vision field. */
     static async #onClickOpenAutomationSettings(this: SceneConfigPF2e<ScenePF2e>): Promise<void> {
@@ -159,5 +177,10 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends fa.sheets.Scen
             const app = new menu.type(undefined, options);
             app.render(true);
         }
+    }
+
+    static async #onClickOpenWorldClockSettings(this: SceneConfigPF2e<ScenePF2e>): Promise<void> {
+        const menu = game.settings.menus.get("pf2e.worldClock");
+        if (menu) new menu.type().render(true);
     }
 }
