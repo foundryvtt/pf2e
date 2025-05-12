@@ -1,10 +1,24 @@
-import type { Rarity } from "./data.ts";
+import type { SkillSlug } from "@actor/types.ts";
+import type { Rarity, ZeroToFour } from "./data.ts";
 import fields = foundry.data.fields;
 
 class RarityField extends fields.StringField<Rarity, Rarity, true, false, true> {
     constructor() {
         const rarityChoices: Record<Rarity, string> = CONFIG.PF2E.rarityTraits;
         super({ required: true, nullable: false, choices: rarityChoices, initial: "common" });
+    }
+}
+
+class ProficiencyRankField extends fields.NumberField<ZeroToFour, ZeroToFour, true, false, true> {
+    constructor() {
+        super({
+            min: 0,
+            max: 4,
+            integer: true,
+            required: true,
+            nullable: false,
+            initial: 0,
+        });
     }
 }
 
@@ -39,4 +53,31 @@ type PublicationSchema = {
     remaster: fields.BooleanField;
 };
 
-export { PublicationField, RarityField };
+const SKILL_ABBREVIATIONS = [
+    "acr",
+    "arc",
+    "ath",
+    "cra",
+    "dec",
+    "dip",
+    "itm",
+    "med",
+    "nat",
+    "occ",
+    "prf",
+    "rel",
+    "soc",
+    "ste",
+    "sur",
+    "thi",
+];
+
+/**
+ * A function to generate choices for data models that include both old and new skill slugs, for compatibility purposes.
+ * @todo: remove once migrations are functional for structural changes
+ */
+function getCompatSkills(): SkillSlug[] {
+    return [...SKILL_ABBREVIATIONS, ...Object.keys(CONFIG.PF2E.skills)] as unknown as SkillSlug[];
+}
+
+export { getCompatSkills, ProficiencyRankField, PublicationField, RarityField };
