@@ -1,6 +1,7 @@
 import { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
 import type { ClassPF2e } from "@item/class/document.ts";
 import { createSheetTags, SheetOptions } from "@module/sheet/helpers.ts";
+import * as R from "remeda";
 import { ABCSheetData, ABCSheetPF2e } from "../abc/sheet.ts";
 
 export class ClassSheetPF2e extends ABCSheetPF2e<ClassPF2e> {
@@ -10,7 +11,7 @@ export class ClassSheetPF2e extends ABCSheetPF2e<ClassPF2e> {
 
         return {
             ...sheetData,
-            proficiencyChoices: CONFIG.PF2E.proficiencyLevels,
+            proficiencyChoices: R.mapValues(CONFIG.PF2E.proficiencyLevels, (v) => game.i18n.localize(v)),
             selectedKeyAbility: this.getLocalizedAbilities(itemData.system.keyAbility),
             trainedSkills: createSheetTags(CONFIG.PF2E.skills, itemData.system.trainedSkills),
             ancestryFeatLevels: createSheetTags(CONFIG.PF2E.levels, itemData.system.ancestryFeatLevels),
@@ -23,7 +24,7 @@ export class ClassSheetPF2e extends ABCSheetPF2e<ClassPF2e> {
 }
 
 interface ClassSheetData extends ABCSheetData<ClassPF2e> {
-    proficiencyChoices: typeof CONFIG.PF2E.proficiencyLevels;
+    proficiencyChoices: Record<number, string>;
     selectedKeyAbility: Record<string, string>;
     trainedSkills: SheetOptions;
     ancestryFeatLevels: SheetOptions;

@@ -1,8 +1,5 @@
 <fieldset class="basics">
-    <div class="form-group">
-        <label>{{localize "PF2E.HitPointsHeader"}}</label>
-        <input type="number" name="system.hp" min="6" max="12" value="{{data.hp}}">
-    </div>
+    {{formGroup systemFields.hp value=data.hp}}
 
     <div class="form-group form-group-trait">
         <label class="pf-title">
@@ -24,120 +21,43 @@
         </ul>
     </div>
 
-    <div class="form-group">
-        <label>{{localize "PF2E.PerceptionLabel"}}</label>
-        <select name="system.perception" data-dtype="Number">
-            {{selectOptions proficiencyChoices selected=data.perception localize=true}}
-        </select>
-    </div>
+    {{formGroup systemFields.perception value=data.perception choices=proficiencyChoices}}
 </fieldset>
 
 <fieldset>
     <legend>{{localize "PF2E.SavesHeader"}}</legend>
-
-    <div class="form-group">
-        <label>{{localize "PF2E.SavesFortitude"}}</label>
-        <select name="system.savingThrows.fortitude" data-dtype="Number">
-            {{selectOptions proficiencyChoices selected=data.savingThrows.fortitude localize=true}}
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label>{{localize "PF2E.SavesReflex"}}</label>
-        <select name="system.savingThrows.reflex" data-dtype="Number">
-            {{selectOptions proficiencyChoices selected=data.savingThrows.reflex localize=true}}
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label>{{localize "PF2E.SavesWill"}}</label>
-        <select name="system.savingThrows.will" data-dtype="Number">
-            {{selectOptions proficiencyChoices selected=data.savingThrows.will localize=true}}
-        </select>
-    </div>
+    {{formGroup systemFields.savingThrows.fields.fortitude value=data.savingThrows.fortitude choices=proficiencyChoices}}
+    {{formGroup systemFields.savingThrows.fields.reflex value=data.savingThrows.reflex choices=proficiencyChoices}}
+    {{formGroup systemFields.savingThrows.fields.will value=data.savingThrows.will choices=proficiencyChoices}}
 </fieldset>
 
 <fieldset>
     <legend>{{localize "PF2E.Actor.Character.Proficiency.Attack.Title"}}</legend>
 
-    <div class="form-group">
-        <label>{{localize "PF2E.Actor.Character.Proficiency.Attack.Simple"}}</label>
-        <select name="system.attacks.simple" data-dtype="Number">
-            {{selectOptions proficiencyChoices selected=data.attacks.simple localize=true}}
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label>{{localize "PF2E.Actor.Character.Proficiency.Attack.Martial"}}</label>
-        <select name="system.attacks.martial" data-dtype="Number">
-            {{selectOptions proficiencyChoices selected=data.attacks.martial localize=true}}
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label>{{localize "PF2E.Actor.Character.Proficiency.Attack.Advanced"}}</label>
-        <select name="system.attacks.advanced" data-dtype="Number">
-            {{selectOptions proficiencyChoices selected=data.attacks.advanced localize=true}}
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label>{{localize "PF2E.Actor.Character.Proficiency.Attack.Unarmed"}}</label>
-        <select name="system.attacks.unarmed" data-dtype="Number">
-            {{selectOptions proficiencyChoices selected=data.attacks.unarmed localize=true}}
-        </select>
-    </div>
+    {{formGroup systemFields.attacks.fields.simple value=data.attacks.simple choices=proficiencyChoices}}
+    {{formGroup systemFields.attacks.fields.martial value=data.attacks.martial choices=proficiencyChoices}}
+    {{formGroup systemFields.attacks.fields.advanced value=data.attacks.advanced choices=proficiencyChoices}}
+    {{formGroup systemFields.attacks.fields.unarmed value=data.attacks.unarmed choices=proficiencyChoices}}
 
     <div class="form-group other-weapons">
         <label>{{localize "PF2E.WeaponTypeSpecial"}}</label>
-        <input type="text" name="system.attacks.other.name" value="{{data.attacks.other.name}}">
-        <select name="system.attacks.other.rank" data-dtype="Number">
-            {{selectOptions proficiencyChoices selected=data.attacks.other.rank localize=true}}
-        </select>
+        {{formInput systemFields.attacks.fields.other.fields.name value=data.attacks.other.name}}
+        {{formInput systemFields.attacks.fields.other.fields.rank value=data.attacks.other.rank choices=proficiencyChoices}}
     </div>
 </fieldset>
 
 <fieldset>
     <legend>{{localize "PF2E.Actor.Character.Proficiency.Defense.Title"}}</legend>
 
-    <div class="form-group">
-        <label>{{localize "PF2E.Actor.Character.Proficiency.Defense.Light"}}</label>
-        <select name="system.defenses.light" data-dtype="Number">
-            {{selectOptions proficiencyChoices selected=data.defenses.light localize=true}}
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label>{{localize "PF2E.Actor.Character.Proficiency.Defense.Medium"}}</label>
-        <select name="system.defenses.medium" data-dtype="Number">
-            {{selectOptions proficiencyChoices selected=data.defenses.medium localize=true}}
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label>{{localize "PF2E.Actor.Character.Proficiency.Defense.Heavy"}}</label>
-        <select name="system.defenses.heavy" data-dtype="Number">
-            {{selectOptions proficiencyChoices selected=data.defenses.heavy localize=true}}
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label>{{localize "PF2E.Actor.Character.Proficiency.Defense.Unarmored"}}</label>
-        <select name="system.defenses.unarmored" data-dtype="Number">
-            {{selectOptions proficiencyChoices selected=data.defenses.unarmored localize=true}}
-        </select>
-    </div>
+    {{formGroup systemFields.defenses.fields.light value=data.defenses.light choices=proficiencyChoices}}
+    {{formGroup systemFields.defenses.fields.medium value=data.defenses.medium choices=proficiencyChoices}}
+    {{formGroup systemFields.defenses.fields.heavy value=data.defenses.heavy choices=proficiencyChoices}}
+    {{formGroup systemFields.defenses.fields.unarmored value=data.defenses.unarmored choices=proficiencyChoices}}
 </fieldset>
 
 <fieldset>
     <legend>{{localize "PF2E.Item.Spell.Plural"}}</legend>
-
-    <div class="form-group">
-        <label>{{localize "PF2E.Actor.Creature.Spellcasting.Label"}}</label>
-        <select name="system.spellcasting" data-dtype="Number">
-            {{selectOptions proficiencyChoices selected=data.spellcasting localize=true}}
-        </select>
-    </div>
+    {{formGroup systemFields.spellcasting value=data.spellcasting choices=proficiencyChoices}}
 </fieldset>
 
 <fieldset>
@@ -178,10 +98,9 @@
         </ul>
     </div>
 
-
     <div class="form-group additional-language">
         <label>{{localize "PF2E.AdditionalSkills"}}</label>
-        <input type="number" name="system.trainedSkills.additional" value="{{data.trainedSkills.additional}}">
+        {{formInput systemFields.trainedSkills.fields.additional value=data.trainedSkills.additional}}
         <span>{{localize "PF2E.AdditionalLanguagePlusInt"}}</span>
     </div>
 </fieldset>
