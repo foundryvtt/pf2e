@@ -167,6 +167,12 @@ export default abstract class ApplicationV2<
     protected _prepareTabs(group: string): Record<string, ApplicationTab>;
 
     /**
+     * Get the configuration for a tabs group.
+     * @param group The ID of a tabs group
+     */
+    protected _getTabsConfig(group: string): ApplicationTabsConfiguration | null;
+
+    /**
      * Configure the array of header control menu options
      */
     protected _getHeaderControls(): ApplicationHeaderControlsEntry[];

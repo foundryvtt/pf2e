@@ -13,7 +13,7 @@ export default class BaseWorld extends packages.BasePackage<WorldSchema> {
 
     static override migrateData(data: Record<string, unknown>): fields.SourceFromSchema<WorldSchema>;
 
-    static testAvailability(
+    static override testAvailability(
         data?: Partial<PackageManifestData>,
         release?: packages.ReleaseData,
     ): PackageAvailabilityCode;
@@ -29,7 +29,7 @@ export default interface BaseWorld
  */
 type WorldSchema = Omit<packages.BasePackageSchema, "version"> & {
     /** The game system name which this world relies upon */
-    system: fields.StringField<string, string, true, false, false>;
+    // system: fields.StringField<string, string, true, false, false>;
     /** A web URL or local file path which provides a background banner image */
     background: fields.StringField<string, string, false, false, false>;
     /** The theme to use for this world's join page. */
@@ -47,4 +47,9 @@ type WorldSchema = Omit<packages.BasePackageSchema, "version"> & {
     /** Should the world launch in safe mode? */
     safeMode: fields.BooleanField<boolean, boolean, false, false, false>;
     version: fields.StringField<string, string, true, true, true>;
+    demo: fields.SchemaField<{ sourceZip: fields.StringField<string, string, true, true, true> }>;
 };
+
+export interface WorldSource extends fields.SourceFromSchema<WorldSchema> {}
+
+export {};

@@ -28,3 +28,7 @@ type ModuleSchema = packages.BasePackageSchema & {
     library: fields.BooleanField;
     documentTypes: AdditionalTypesField;
 };
+
+export interface ModuleSource extends fields.SourceFromSchema<ModuleSchema> {}
+
+export {};
