@@ -1,5 +1,5 @@
 import { CompendiumDocumentType } from "@client/utils/helpers.mjs";
-import { DataSchema } from "@common/abstract/_types.mjs";
+import { DataModelConstructionContext, DataSchema } from "@common/abstract/_types.mjs";
 import { DocumentOwnershipLevel, PackageAvailabilityCode, PackageType, UserRole } from "@common/constants.mjs";
 import { DataFieldOptions, ObjectFieldOptions } from "@common/data/_module.mjs";
 import type DataModel from "../abstract/data.mjs";
@@ -99,7 +99,10 @@ export class PackageCompendiumPacks<TSchema extends PackageCompendiumSchema> ext
  * The data schema used to define a Package manifest.
  * Specific types of packages extend this schema with additional fields.
  */
-export default abstract class BasePackage<TDataSchema extends BasePackageSchema> extends DataModel<null, TDataSchema> {
+export default abstract class BasePackage<TDataSchema extends BasePackageSchema = BasePackageSchema> extends DataModel<
+    null,
+    TDataSchema
+> {
     /** An availability code in PACKAGE_AVAILABILITY_CODES which defines whether this package can be used. */
     availability: PackageAvailabilityCode;
 
@@ -122,7 +125,7 @@ export default abstract class BasePackage<TDataSchema extends BasePackageSchema>
      * @param data         Source data for the package
      * @param [options={}] Options which affect DataModel construction
      */
-    constructor(data: PackageManifestData, options?: DataModelConstructionOptions<null>);
+    constructor(data: PackageManifestData, options?: DataModelConstructionContext<null>);
 
     /**
      * Define the package type in CONST.PACKAGE_TYPES that this class represents.
