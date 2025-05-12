@@ -696,7 +696,7 @@ export default interface Config<
         nav: typeof SceneNavigation;
         notifications: typeof Notifications;
         pause: typeof applications.ui.GamePause;
-        players: typeof PlayerList;
+        players: typeof applications.ui.Players;
         playlists: typeof sidebar.tabs.PlaylistDirectory;
         scenes: typeof sidebar.tabs.SceneDirectory;
         settings: typeof sidebar.tabs.Settings;
