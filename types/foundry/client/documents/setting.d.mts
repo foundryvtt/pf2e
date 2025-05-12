@@ -1,3 +1,4 @@
+import SettingsConfig from "@client/applications/settings/config.mjs";
 import { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
 import { BaseSetting } from "./_module.mjs";
 import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
