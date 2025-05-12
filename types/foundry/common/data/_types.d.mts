@@ -238,7 +238,7 @@ interface NumberFieldOptions<
 
     choices?:
         | readonly TSourceProp[]
-        | Record<string, number>
+        | Record<string | number, string>
         | (() => readonly TSourceProp[] | Record<string | number, string>);
 }
 
