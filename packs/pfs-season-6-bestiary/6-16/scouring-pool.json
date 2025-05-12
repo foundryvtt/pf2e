@@ -1,0 +1,135 @@
+{
+    "_id": "o43EV2QLt9eR6lv5",
+    "folder": "YS4lVVJWrshcV2oc",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "QVCYT7YOA9I93DXX",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Echoing Spring",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> a creature within 10 feet can see or hear the cleansing pool</p><hr /><p><strong>Effect</strong> each creature within range must succeed a @Check[will|dc:25] save or become @UUID[Compendium.pf2e.conditionitems.Item.Fascinated], using all of their available actions to move toward and into the pool. The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dQ1SSPxoR1M0LMAP",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Drown the Nonbelievers",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> a @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] creature enters the pool</p><hr /><p><strong>Effect</strong> the waters rush up to encircle the creature, which must succeed on a @Check[fortitude|dc:25] save or begin drowning.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Scouring Pool",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 25
+            },
+            "emitsSound": "encounter",
+            "hardness": 17,
+            "hp": {
+                "details": "",
+                "max": 60,
+                "temp": 0,
+                "value": 60
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert) to notice the enticing effects of the pool</p>",
+                "value": 17
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The swirling water in this pool entices anyone who can see or hear it to wander into its depths, drowning its victims.</p>",
+            "disable": "<p>@Check[thievery|dc:27] to scratch out the runes creating the effect, @Check[occultism|dc:23] (expert) or @Check[Demon Lore|dc:23] (expert) to determine the password that identifies the party as believers, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (3rd-rank; counteract DC 25); two total successes are required to deactivate the pool.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 7
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Society Scenario #6-16: The Heart of the City"
+            },
+            "reset": "",
+            "routine": "<p>(1 action; mental) The cleansing pool uses its first action to try and compel all creatures within 5 feet to enter into the pool. Creatures must attempt a @Check[will|dc:23|traits:mental] save.</p><hr><p><strong>Critical Success</strong> The creature is immune to the pool's routine for 1 minute.</p><p><strong>Success</strong> No effect.</p><p><strong>Failure</strong> The creature gains the @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] condition and attempts to enter the pool.</p><p><strong>Critical Failure</strong> As failure, but the creature must also use all of their actions on their next turn to try and pull one of their allies into the pool with them.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 17
+            },
+            "reflex": {
+                "value": 12
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mechanical",
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

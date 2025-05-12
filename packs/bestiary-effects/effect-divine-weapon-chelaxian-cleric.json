@@ -26,22 +26,21 @@
                 "diceNumber": 1,
                 "dieSize": "d4",
                 "key": "DamageDice",
-                "predicate": [
-                    {
-                        "not": "target:trait:holy"
-                    }
-                ],
-                "selector": "strike-damage"
+                "selector": "strike-damage",
+                "slug": "divine-weapon"
             },
             {
-                "damageType": "spirit",
-                "diceNumber": 2,
-                "dieSize": "d4",
-                "key": "DamageDice",
+                "key": "DamageAlteration",
+                "mode": "override",
                 "predicate": [
-                    "target:trait:holy"
+                    "target:trait:holy",
+                    "dice:slug:divine-weapon"
                 ],
-                "selector": "strike-damage"
+                "property": "dice-number",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "value": 2
             },
             {
                 "key": "AdjustStrike",

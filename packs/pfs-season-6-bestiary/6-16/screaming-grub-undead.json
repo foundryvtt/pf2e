@@ -1,0 +1,198 @@
+{
+    "_id": "DclMSxfKDPrsc48z",
+    "folder": "YS4lVVJWrshcV2oc",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "sXhnWHseClry0Qnd",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Strike",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "bhJuF4I77z3qHxPj": {
+                        "damage": "2d12",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "dq9hPvH5kbRiym2B",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Undead Form",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "undead-form",
+                        "selection": "skeleton",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Ghost",
+                                "value": "ghost"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Skeleton",
+                                "value": "skeleton"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Zombie",
+                                "value": "zombie"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            "undead-form:ghost"
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "strike-damage"
+                        ],
+                        "value": "spirit"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Screaming Grub Undead",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": 0
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 0
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 23
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 1,
+                "temp": 0,
+                "value": 1
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 20
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 7
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Society Scenario #6-16: The Heart of the City"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 0,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 15
+            }
+        },
+        "skills": {},
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": []
+        }
+    },
+    "type": "npc"
+}

@@ -1,0 +1,133 @@
+{
+    "_id": "orG22hYO8TmiVnsD",
+    "folder": "q8RRA15OWs6kMBwB",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "b6UAgeSGi5OQpqVs",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Shockwave",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The fourth round of combat begins</p><hr /><p><strong>Effect</strong> The shadow beacon malfunctions, releasing a shock wave of energy. All creatures within 100 feet of the shadow beacon must succeed at a @Check[reflex|dc:29] save or be knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. Creatures who are flying are instead knocked down 15 feet on a failure, taking @Damage[(1d10+5)[bludgeoning]] damage and landing prone if they collide with a solid object during this movement. The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8VpNCzlvQyu8eGFb",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Electric Bolt",
+            "sort": 0,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {
+                    "gDtLC4TGWnvzQUBx": {
+                        "damage": "2d10+9",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": "<p>no multiple attack penalty</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Shocking Malfunction",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "",
+                "value": 17
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The <em>shadow beacon</em> malfunctions, firing bolts of electricity across the battlefield.</p>",
+            "disable": "<p>@Check[crafting|dc:25] or @Check[thievery|dc:25] (master) to ground the device, or @Check[arcana|dc:25], @Check[nature|dc:25], @Check[occultism|dc:25], or @Check[religion|dc:25] (master) to safely vent the magical energy; three total successes in any combination to disable</p><p><strong>Special</strong> Disabling the shocking malfunction does not disable the shadow beacon.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 7
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #215: To Blot Out the Sun"
+            },
+            "reset": "",
+            "routine": "<p>(3 actions) The shadow beacon makes three electric bolt Strikes at random creatures within 100 feet. One of these Strikes targets either Deg or Nizca, and the other two target PCs. The trap loses 1 action for each successful disable.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 0
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

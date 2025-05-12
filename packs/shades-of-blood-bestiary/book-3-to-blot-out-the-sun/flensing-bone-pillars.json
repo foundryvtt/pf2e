@@ -1,0 +1,145 @@
+{
+    "_id": "hDfVyBCE7K6fcPxf",
+    "folder": "q8RRA15OWs6kMBwB",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "NdFhlC44qVmwD6cf",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spin",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature who doesn't worship Zon-Kuthon and who isn't granted immunity by a velstrac enters the area</p><hr /><p><strong>Effect</strong> The bones composing the pillars begin to spin, then makes a bone spur attack against one creature adjacent to any pillar. The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PzP8WmeBhSHf7pfi",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Bone Spur",
+            "sort": 0,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "46Sw2O9AeXMuCEat": {
+                        "category": "persistent",
+                        "damage": "1d4",
+                        "damageType": "bleed"
+                    },
+                    "yscFZMYrraxQhzfG": {
+                        "damage": "2d8+13",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Flensing Bone Pillars",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 25
+            },
+            "emitsSound": "encounter",
+            "hardness": 6,
+            "hp": {
+                "details": "",
+                "max": 24,
+                "temp": 0,
+                "value": 24
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 20
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Eight pillars composed of jagged bones spin, damaging anyone adjacent who doesn't worship Zon-Kuthon.</p>",
+            "disable": "<p>@Check[thievery|dc:22] to disassemble one pillar, @Check[religion|dc:22] to ritually purify one pillar, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (4th rank; counteract DC 26) once to counteract the magic binding all the bone pillars together, deactivating the whole trap</p>",
+            "isComplex": true,
+            "level": {
+                "value": 9
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #215: To Blot Out the Sun"
+            },
+            "reset": "<p>The trap deactivates and resets after 1 minute. The trap is automatically destroyed if all the velstracs on this floor are killed.</p>",
+            "routine": "<p>(8 actions) Each of the functioning bone pillars makes a bone spur Strike against an adjacent creature. This trap doesn't take a multiple attack penalty. This trap loses one action for each disabled or destroyed pillar.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 21
+            },
+            "reflex": {
+                "value": 15
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "divine",
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}
