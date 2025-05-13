@@ -45,6 +45,10 @@ interface DamageRollRenderData {
 interface DamageDamageContext extends BaseRollContext {
     type: "damage-roll";
     sourceType: "attack" | "check" | "save";
+    /** A string of some kind to identify the roll: will be included in `DamageRoll#options` */
+    identifier?: Maybe<string>;
+    /** The slug of an action, of which this roll is a workflow component */
+    action?: Maybe<string>;
     outcome?: DegreeOfSuccessString | null;
     self?: RollOrigin | null;
     target?: RollTarget | null;
