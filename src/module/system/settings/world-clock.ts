@@ -1,243 +1,148 @@
-import type { SettingRegistration } from "@client/helpers/client-settings.d.mts";
-import type { SettingConfig } from "@common/_types.d.mts";
-import { htmlQuery, localizer } from "@util";
-import { DateTime } from "luxon";
-import appv1 = foundry.appv1;
+import type { ApplicationConfiguration, FormFooterButton } from "@client/applications/_module.d.mts";
+import type { FormDataExtended } from "@client/applications/ux/_module.d.mts";
+import { localizer } from "@util";
+import * as R from "remeda";
+import fields = foundry.data.fields;
 
-type SettingsKey =
-    | "dateTheme"
-    | "timeConvention"
-    | "playersCanView"
-    | "syncDarkness"
-    | "worldCreatedOn"
-    | "showClockButton";
-
-interface FormInputData extends Omit<SettingConfig, "config" | "namespace" | "scope"> {
-    value: unknown;
-    isSelect: boolean;
-    isCheckbox: boolean;
-    isDateTime: boolean;
+interface SettingsContext {
+    rootId: string;
+    fields: WorldClockSettingSchema;
+    settings: WorldClockSettingData;
+    dateThemes: Record<string, string>;
+    timeConventions: Record<12 | 24, string>;
+    buttons: FormFooterButton[];
 }
 
-interface TemplateData extends appv1.api.FormApplicationData {
-    settings: FormInputData[];
-}
+type WorldClockSettingSchema = {
+    dateTheme: fields.StringField<"AR" | "IC" | "AD" | "CE", "AR" | "IC" | "AD" | "CE", true, false, true>;
+    playersCanView: fields.BooleanField;
+    showClockButton: fields.BooleanField;
+    syncDarkness: fields.BooleanField;
+    timeConvention: fields.NumberField<12 | 24, 12 | 24, true, false, true>;
+    worldCreatedOn: fields.StringField<string, string, true, true, true>;
+};
 
-interface UpdateData {
-    dateTheme: string;
-    timeConvention: boolean;
-    playersCanView: boolean;
-    syncDarkness: boolean;
-    syncDarknessScene: boolean;
-    worldCreatedOn: string;
-    showClockButton: boolean;
-}
+export interface WorldClockSettingData extends fields.SourceFromSchema<WorldClockSettingSchema> {}
 
-export class WorldClockSettings extends appv1.api.FormApplication {
-    static override get defaultOptions(): appv1.api.FormApplicationOptions {
-        return fu.mergeObject(super.defaultOptions, {
-            title: CONFIG.PF2E.SETTINGS.worldClock.name,
-            id: "world-clock-settings",
-            template: "systems/pf2e/templates/system/settings/world-clock/index.hbs",
-            width: 550,
-            height: "auto",
+export class WorldClockSettings extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV2) {
+    constructor(options?: DeepPartial<ApplicationConfiguration>) {
+        super(options);
+    }
+
+    static override DEFAULT_OPTIONS: DeepPartial<ApplicationConfiguration> = {
+        id: "world-clock-settings",
+        tag: "form",
+        window: {
+            title: "PF2E.SETTINGS.WorldClock.Name",
+            icon: "fa-solid fa-clock",
+            contentClasses: ["standard-form"],
+        },
+        position: { width: 560 },
+        actions: {
+            resetWorldTime: WorldClockSettings.#onClickResetWorldTime,
+        },
+        form: {
             closeOnSubmit: true,
+            handler: WorldClockSettings.#onSubmit,
+        },
+    };
+
+    static override PARTS = {
+        settings: { template: "systems/pf2e/templates/system/settings/world-clock/settings.hbs", root: true },
+        footer: { template: "templates/generic/form-footer.hbs" },
+    };
+
+    static #SCHEMA: fields.SchemaField<WorldClockSettingSchema> = new fields.SchemaField({
+        dateTheme: new fields.StringField({ required: true, choices: ["AR", "IC", "AD", "CE"], initial: "AR" }),
+        playersCanView: new fields.BooleanField(),
+        showClockButton: new fields.BooleanField({ initial: true }),
+        syncDarkness: new fields.BooleanField(),
+        timeConvention: new fields.NumberField({ required: true, nullable: false, choices: [12, 24], initial: 24 }),
+        worldCreatedOn: new fields.StringField({ required: true, nullable: true, blank: false, initial: null }),
+    });
+
+    /** Register World Clock settings and this menu. */
+    static registerSettings(): void {
+        game.settings.register("pf2e", "worldClock", {
+            name: "PF2E.SETTINGS.WorldClock.Name",
+            scope: "world",
+            config: false,
+            type: WorldClockSettings.#SCHEMA,
+            onChange: (data) => {
+                game.pf2e.settings.worldClock = { ...(data as WorldClockSettingData) };
+            },
+        });
+        game.settings.registerMenu("pf2e", "worldClock", {
+            name: "PF2E.SETTINGS.WorldClock.Name",
+            label: "PF2E.SETTINGS.WorldClock.Label",
+            hint: "PF2E.SETTINGS.WorldClock.Hint",
+            icon: "fa-solid fa-clock",
+            type: WorldClockSettings,
+            restricted: true,
         });
     }
 
-    override async getData(): Promise<TemplateData> {
-        const worldDefault = game.settings.get("pf2e", "worldClock.syncDarkness")
-            ? game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarknessScene.enabled)
-            : game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarknessScene.disabled);
-        const sceneSetting: [string, SettingRegistration] = [
-            "syncDarknessScene",
+    static localizeSchema(): void {
+        fh.Localization.localizeSchema(WorldClockSettings.#SCHEMA, ["PF2E.SETTINGS.WorldClock"], {
+            prefixPath: "pf2e.worldClock.",
+        });
+    }
+
+    override async _prepareContext(): Promise<SettingsContext> {
+        const buttons = [
+            { type: "submit", icon: "fa-solid fa-floppy-disk", label: "SETTINGS.Save" },
             {
-                name: CONFIG.PF2E.SETTINGS.worldClock.syncDarknessScene.name,
-                hint: CONFIG.PF2E.SETTINGS.worldClock.syncDarknessScene.hint,
-                default: "default",
-                type: String,
-                choices: {
-                    enabled: CONFIG.PF2E.SETTINGS.worldClock.syncDarknessScene.enabled,
-                    disabled: CONFIG.PF2E.SETTINGS.worldClock.syncDarknessScene.disabled,
-                    default: game.i18n.format(CONFIG.PF2E.SETTINGS.worldClock.syncDarknessScene.default, {
-                        worldDefault,
-                    }),
-                },
+                type: "button",
+                icon: "fa-solid fa-clock-rotate-left",
+                label: "PF2E.SETTINGS.WorldClock.ResetWorldTime.Label",
+                tooltip: "PF2E.SETTINGS.WorldClock.ResetWorldTime.Hint",
             },
         ];
-
-        const visibleSettings = [
-            ...Object.entries(WorldClockSettings.settings).filter(([key]) => key !== "worldCreatedOn"),
-            sceneSetting,
-        ];
-
-        const settings: FormInputData[] = visibleSettings.map(([key, setting]) => {
-            const value = ((): unknown => {
-                if (key === "syncDarknessScene") return canvas.scene?.flags.pf2e.syncDarkness;
-                const rawValue = game.settings.get("pf2e", `worldClock.${key}`);
-
-                // Present the world-creation timestamp as an HTML datetime-locale input
-                if (key === "worldCreatedOn" && typeof rawValue === "string") {
-                    return DateTime.fromISO(rawValue).toFormat("yyyy-MM-dd'T'HH:mm");
-                }
-                return rawValue;
-            })();
-
-            return {
-                ...setting,
-                key: key,
-                value: value,
-                isSelect: "choices" in setting,
-                isCheckbox: setting.type === Boolean,
-                isDateTime: setting.type === String && !("choices" in setting),
-            };
-        });
-        return fu.mergeObject(await super.getData(), { settings });
+        return {
+            rootId: this.id,
+            fields: WorldClockSettings.#SCHEMA.fields,
+            settings: game.pf2e.settings.worldClock,
+            dateThemes: R.mapToObj(["AR", "IC", "AD", "CE"], (k) => [
+                k,
+                game.i18n.localize(`PF2E.SETTINGS.WorldClock.DateThemes.${k}`),
+            ]),
+            timeConventions: {
+                12: game.i18n.localize("PF2E.SETTINGS.WorldClock.TimeConventions.12"),
+                24: game.i18n.localize("PF2E.SETTINGS.WorldClock.TimeConventions.24"),
+            },
+            buttons,
+        };
     }
 
-    /** Register World Clock settings */
-    static registerSettings(): void {
-        game.settings.register("pf2e", "worldClock.dateTheme", this.settings.dateTheme);
-        game.settings.register("pf2e", "worldClock.timeConvention", this.settings.timeConvention);
-        game.settings.register("pf2e", "worldClock.playersCanView", this.settings.playersCanView);
-        game.settings.register("pf2e", "worldClock.syncDarkness", this.settings.syncDarkness);
-        game.settings.register("pf2e", "worldClock.worldCreatedOn", this.settings.worldCreatedOn);
-        game.settings.register("pf2e", "worldClock.showClockButton", this.settings.showClockButton);
-    }
-
-    override activateListeners($html: JQuery): void {
-        super.activateListeners($html);
-        const html = $html[0];
-
+    static async #onClickResetWorldTime(this: WorldClockSettings): Promise<void> {
         const localize = localizer("PF2E.SETTINGS.WorldClock");
         const title = localize("ResetWorldTime.Name");
-        $html.find("button.reset-world-time").on("click", async () => {
-            const template = await fa.handlebars.renderTemplate(
-                "systems/pf2e/templates/system/settings/world-clock/confirm-reset.hbs",
-            );
-            foundry.applications.api.DialogV2.confirm({
-                window: {
-                    title,
+        const templatePath = "systems/pf2e/templates/system/settings/world-clock/confirm-reset.hbs";
+        const content = await fa.handlebars.renderTemplate(templatePath);
+        fa.api.DialogV2.confirm({
+            window: { title },
+            content,
+            yes: {
+                callback: () => {
+                    game.time.advance(-1 * game.time.worldTime);
+                    this.close();
                 },
-                content: template,
-                yes: {
-                    callback: () => {
-                        game.time.advance(-1 * game.time.worldTime);
-                        this.close();
-                    },
-                    default: false,
-                },
-            });
-        });
-
-        const syncDarknessInput = htmlQuery<HTMLInputElement>(html, 'input[name="syncDarkness"]');
-        syncDarknessInput?.addEventListener("change", () => {
-            const worldDefault = syncDarknessInput.checked
-                ? game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarknessScene.enabled)
-                : game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarknessScene.disabled);
-            const option = htmlQuery(html, 'select[name="syncDarknessScene"] > option[value="default"]');
-            if (option) {
-                option.innerText = game.i18n.format(CONFIG.PF2E.SETTINGS.worldClock.syncDarknessScene.default, {
-                    worldDefault,
-                });
-            }
+            },
+            no: { default: true },
         });
     }
 
-    protected override async _updateObject(_event: Event, data: Record<string, unknown> & UpdateData): Promise<void> {
-        const keys: (keyof UpdateData)[] = [
-            "dateTheme",
-            "timeConvention",
-            "playersCanView",
-            "syncDarkness",
-            "showClockButton",
-        ];
-        for (const key of keys) {
-            const settingKey = `worldClock.${key}`;
-            const newValue = key === "worldCreatedOn" ? DateTime.fromISO(data[key]).toUTC() : data[key];
-            await game.settings.set("pf2e", settingKey, newValue);
-        }
-
-        await canvas.scene?.setFlag("pf2e", "syncDarkness", data.syncDarknessScene ?? "default");
-        delete (data as { syncDarknessScene?: unknown }).syncDarknessScene;
-
-        game.pf2e.worldClock.render(false);
-    }
-
-    /** Settings to be registered and also later referenced during user updates */
-    private static get settings(): Record<SettingsKey, SettingRegistration> {
-        return {
-            // Date theme, currently either one of Golarian's calenders, Earth (Material Plane, 95 years ago), or
-            // Earth (real world)
-            dateTheme: {
-                name: CONFIG.PF2E.SETTINGS.worldClock.dateTheme.name,
-                hint: CONFIG.PF2E.SETTINGS.worldClock.dateTheme.hint,
-                scope: "world",
-                config: false,
-                default: "AR",
-                type: String,
-                choices: {
-                    AR: CONFIG.PF2E.SETTINGS.worldClock.dateTheme.AR,
-                    IC: CONFIG.PF2E.SETTINGS.worldClock.dateTheme.IC,
-                    AD: CONFIG.PF2E.SETTINGS.worldClock.dateTheme.AD,
-                    CE: CONFIG.PF2E.SETTINGS.worldClock.dateTheme.CE,
-                },
-            },
-            timeConvention: {
-                name: CONFIG.PF2E.SETTINGS.worldClock.timeConvention.name,
-                hint: CONFIG.PF2E.SETTINGS.worldClock.timeConvention.hint,
-                scope: "world",
-                config: false,
-                default: 24,
-                type: Number,
-                choices: {
-                    24: CONFIG.PF2E.SETTINGS.worldClock.timeConvention.twentyFour,
-                    12: CONFIG.PF2E.SETTINGS.worldClock.timeConvention.twelve,
-                },
-            },
-            // Show the World Clock
-            showClockButton: {
-                name: CONFIG.PF2E.SETTINGS.worldClock.showClockButton.name,
-                hint: CONFIG.PF2E.SETTINGS.worldClock.showClockButton.hint,
-                scope: "world",
-                config: false,
-                default: true,
-                type: Boolean,
-                onChange: () => {
-                    game.settings.set(
-                        "pf2e",
-                        "worldClock.playersCanView",
-                        game.settings.get("pf2e", "worldClock.showClockButton"),
-                    );
-                },
-            },
-            // Players can view the World Clock
-            playersCanView: {
-                name: CONFIG.PF2E.SETTINGS.worldClock.playersCanView.name,
-                hint: CONFIG.PF2E.SETTINGS.worldClock.playersCanView.hint,
-                scope: "world",
-                config: false,
-                default: false,
-                type: Boolean,
-            },
-            // Synchronize a scene's Darkness Level with the time of day, given Global Illumination is turned on
-            syncDarkness: {
-                name: CONFIG.PF2E.SETTINGS.worldClock.syncDarkness.name,
-                hint: CONFIG.PF2E.SETTINGS.worldClock.syncDarkness.hint,
-                scope: "world",
-                config: false,
-                default: false,
-                type: Boolean,
-            },
-            // The Unix timestamp of the world's creation date
-            worldCreatedOn: {
-                name: CONFIG.PF2E.SETTINGS.worldClock.worldCreatedOn.name,
-                hint: CONFIG.PF2E.SETTINGS.worldClock.worldCreatedOn.hint,
-                scope: "world",
-                config: false,
-                default: DateTime.utc().toISO()!,
-                type: String,
-            },
+    static async #onSubmit(
+        this: WorldClockSettings,
+        _event: Event,
+        _form: HTMLFormElement,
+        formData: FormDataExtended,
+    ): Promise<void> {
+        const update = {
+            ...fu.expandObject<{ pf2e: { worldClock: WorldClockSettingData } }>(formData.object).pf2e.worldClock,
+            worldCreatedOn: game.pf2e.settings.worldClock.worldCreatedOn,
         };
+        await game.settings.set("pf2e", "worldClock", update);
+        game.pf2e.worldClock.render();
     }
 }

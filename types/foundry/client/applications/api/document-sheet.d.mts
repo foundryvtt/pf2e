@@ -1,14 +1,25 @@
-import { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import User from "@client/documents/user.mjs";
+import { DatabaseCreateOperation, DatabaseUpdateOperation, DataSchema } from "@common/abstract/_types.mjs";
 import Document from "@common/abstract/document.mjs";
 import {
     ApplicationClosingOptions,
     ApplicationConfiguration,
     ApplicationFormConfiguration,
     ApplicationHeaderControlsEntry,
+    ApplicationRenderContext,
     ApplicationRenderOptions,
 } from "../_types.mjs";
 import FormDataExtended from "../ux/form-data-extended.mjs";
 import ApplicationV2 from "./application.mjs";
+
+export interface DocumentSheetRenderContext extends ApplicationRenderContext {
+    document: Document;
+    source: Record<string, JSONValue | undefined>;
+    fields: DataSchema;
+    editable: boolean;
+    user: User;
+    rootId: string;
+}
 
 export default abstract class DocumentSheetV2<
     TConfig extends DocumentSheetConfiguration = DocumentSheetConfiguration,
@@ -40,7 +51,7 @@ export default abstract class DocumentSheetV2<
 
     protected override _configureRenderOptions(options: DeepPartial<TRenderOptions>): TRenderOptions;
 
-    protected override _prepareContext(options: TRenderOptions): Promise<object>;
+    protected override _prepareContext(options: TRenderOptions): Promise<DocumentSheetRenderContext>;
 
     protected override _renderFrame(options: TRenderOptions): Promise<HTMLElement>;
 

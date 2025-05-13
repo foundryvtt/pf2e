@@ -1,6 +1,6 @@
 import ApplicationV2 from "./api/application.mjs";
 
-export * as types from "./_types.mjs";
+export * from "./_types.mjs";
 export * as api from "./api/_module.mjs";
 export * as apps from "./apps/_module.mjs";
 export * as dice from "./dice/_module.mjs";

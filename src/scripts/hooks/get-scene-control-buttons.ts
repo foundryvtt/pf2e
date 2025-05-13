@@ -9,15 +9,14 @@ export const GetSceneControlButtons = {
             // World Clock
             const tokenTools = controls.tokens?.tools;
             if (tokenTools) {
+                const settings = game.pf2e.settings.worldClock;
                 tokenTools.worldClock = {
                     name: "worldClock",
                     title: "CONTROLS.WorldClock",
                     icon: "fa-solid fa-clock",
                     order: Object.keys(tokenTools).length,
                     button: true,
-                    visible:
-                        game.settings.get("pf2e", "worldClock.showClockButton") &&
-                        (game.user.isGM || game.settings.get("pf2e", "worldClock.playersCanView")),
+                    visible: settings.showClockButton && (game.user.isGM || settings.playersCanView),
                     onChange: () => {
                         if (game.pf2e.worldClock.rendered) {
                             game.pf2e.worldClock.close({ force: true });
