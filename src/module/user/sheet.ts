@@ -33,7 +33,7 @@ class UserConfigPF2e extends fa.sheets.UserConfig<UserPF2e> {
         return tabs;
     }
 
-    override async _prepareContext(options: DocumentSheetRenderOptions): Promise<UserConfigDataPF2e> {
+    override async _prepareContext(options: DocumentSheetRenderOptions): Promise<UserConfigRenderContextPF2e> {
         const data = await super._prepareContext(options);
 
         // Remove party actors from the selection
@@ -57,7 +57,7 @@ class UserConfigPF2e extends fa.sheets.UserConfig<UserPF2e> {
     }
 }
 
-interface UserConfigDataPF2e extends fa.sheets.UserConfigData<UserPF2e> {
+interface UserConfigRenderContextPF2e extends fa.sheets.UserConfigRenderContext<UserPF2e> {
     tabs: Partial<ApplicationTab>[];
     tabGroups: Record<string, string>;
 }

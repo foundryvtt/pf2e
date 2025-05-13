@@ -2,7 +2,7 @@
 
 import type { ActorPF2e } from "@actor";
 import type { Action } from "@actor/actions/index.ts";
-import type { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
+import type { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import type { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import type { FeatGroupData } from "@actor/character/feats/index.ts";
 import type { CheckModifier, ModifierPF2e, ModifierType, StatisticModifier } from "@actor/modifiers.ts";
@@ -72,6 +72,7 @@ import type {
     HomebrewTraitSettingsKey,
     LanguageSettings,
 } from "@system/settings/homebrew/index.ts";
+import type { WorldClockSettingData } from "@system/settings/world-clock.ts";
 import type { TextEditorPF2e } from "@system/text-editor.ts";
 import type { sluggify } from "@util";
 import type EnJSON from "../static/lang/en.json";
@@ -114,12 +115,7 @@ interface ClientSettingsPF2e extends fh.ClientSettings {
 
     get(module: "pf2e", setting: "tokens.autoscale"): boolean;
 
-    get(module: "pf2e", setting: "worldClock.dateTheme"): "AR" | "IC" | "AD" | "CE";
-    get(module: "pf2e", setting: "worldClock.playersCanView"): boolean;
-    get(module: "pf2e", setting: "worldClock.showClockButton"): boolean;
-    get(module: "pf2e", setting: "worldClock.syncDarkness"): boolean;
-    get(module: "pf2e", setting: "worldClock.timeConvention"): 24 | 12;
-    get(module: "pf2e", setting: "worldClock.worldCreatedOn"): string;
+    get(module: "pf2e", setting: "worldClock"): WorldClockSettingData;
 
     get(module: "pf2e", setting: "campaignFeats"): boolean;
     get(module: "pf2e", setting: "campaignFeatSections"): FeatGroupData[];
@@ -272,6 +268,7 @@ interface GamePF2e
                 /** Stamina */
                 stamina: boolean;
             };
+            worldClock: WorldClockSettingData;
         };
     };
     settings: ClientSettingsPF2e;
@@ -318,8 +315,7 @@ declare global {
     const canvas: CanvasPF2e;
 
     namespace globalThis {
-        // eslint-disable-next-line no-var
-        var game: GamePF2e;
+        const game: GamePF2e;
         export import fa = foundry.applications;
         export import fav1 = foundry.appv1;
         export import fc = foundry.canvas;
@@ -327,15 +323,16 @@ declare global {
         export import fh = foundry.helpers;
         export import fu = foundry.utils;
 
-        // eslint-disable-next-line no-var
-        var ui: FoundryUI<
+        const ui: FoundryUI<
             ActorDirectoryPF2e,
-            foundry.applications.sidebar.tabs.ItemDirectory<ItemPF2e<null>>,
+            fa.sidebar.tabs.ItemDirectory<ItemPF2e<null>>,
             ChatLogPF2e,
             CompendiumDirectoryPF2e,
             EncounterTracker<EncounterPF2e | null>,
             Hotbar<MacroPF2e>
         >;
+
+        const AutomaticBonusProgression: typeof ABP;
 
         // Add functions to the `Math` namespace for use in `Roll` formulas
         interface Math {
@@ -349,13 +346,9 @@ declare global {
         }
     }
 
-    interface Window {
-        AutomaticBonusProgression: typeof AutomaticBonusProgression;
-    }
-
     namespace foundry {
         interface ClientSettingsMap {
-            get(key: "pf2e.worldClock.worldCreatedOn"): SettingConfig & { default: string };
+            get(key: "pf2e.worldClock"): SettingConfig & { default: WorldClockSettingData };
         }
     }
 

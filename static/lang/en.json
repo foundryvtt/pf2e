@@ -3676,49 +3676,49 @@
                 "Title": "Variant Rules"
             },
             "WorldClock": {
-                "DateTheme": {
+                "DateThemes": {
                     "AD": "Earth (Gregorian Calendar)",
                     "AR": "Golarion (Absalom Reckoning)",
                     "CE": "Unthemed (Gregorian Calendar)",
-                    "Hint": "Set the theme of the World Clock application.",
-                    "IC": "Golarion (Imperial Calendar)",
-                    "Name": "Date Theme"
+                    "IC": "Golarion (Imperial Calendar)"
                 },
                 "Hint": "Configure the appearance of the World Clock application.",
                 "Label": "Configure World Clock",
-                "Name": "World Clock",
-                "PlayersCanView": {
-                    "Hint": "Set whether players can view the World Clock.",
-                    "Name": "Player Access"
-                },
+                "Name": "World Clock Configuration",
                 "ResetWorldTime": {
-                    "Button": "Reset",
                     "Confirm": {
                         "Question": "Are you sure you want to reset this world's elapsed time?",
                         "Warning1": "Time-dependent game effects may be impacted.",
                         "Warning2": "This action cannot be undone."
                     },
                     "Hint": "Reset this world's time elapsed time to zero.",
-                    "Name": "Reset World Date/Time"
+                    "Label": "Reset World Date/Time"
                 },
-                "ShowClockButton": {
-                    "Hint": "Set whether to show the clock button at all (requires refresh).",
-                    "Name": "Show Clock Button"
+                "TimeConventions": {
+                    "12": "12-Hour",
+                    "24": "24-Hour"
                 },
-                "SyncDarkness": {
-                    "Hint": "Set whether any scene's Darkness Level will reflect the time of day.",
-                    "Name": "Synchronize Darkness (World Default)"
-                },
-                "SyncDarknessScene": {
-                    "Hint": "Set whether this scene's Darkness Level will reflect the time of day.",
-                    "ManagedBy": "Synchronized with <wt>world time</wt>.",
-                    "Name": "Synchronize Darkness (Current Scene)"
-                },
-                "TimeConvention": {
-                    "Hint": "Display either a 24-hour or 12-hour clock.",
-                    "Name": "Time Convention",
-                    "Twelve": "12-Hour",
-                    "TwentyFour": "24-Hour"
+                "FIELDS": {
+                    "dateTheme": {
+                        "hint": "Set the theme of the World Clock application.",
+                        "label": "Date Theme"
+                    },
+                    "playersCanView": {
+                        "hint": "Set whether players can view the World Clock.",
+                        "label": "Player Access"
+                    },
+                    "showClockButton": {
+                        "hint": "Set whether to show the clock button at all (requires refresh).",
+                        "label": "Show Clock Button"
+                    },
+                    "syncDarkness": {
+                        "hint": "Set whether any scene's Darkness Level will reflect the time of day.",
+                        "label": "Synchronize Darkness"
+                    },
+                    "timeConvention": {
+                        "hint": "Display either a 24-hour or 12-hour clock.",
+                        "label": "Time Convention"
+                    }
                 }
             },
             "WorldSchemaVersion": {
@@ -3760,8 +3760,12 @@
             "HearingRange": {
                 "Caveat": "*For performance reasons, the radius is a real measurement rather than a grid-based one.",
                 "Hint": "Limit the range* creatures can hear in this scene as a representation of \"an environment that distorts the sense, such as a noisy room\" (Pathfinder Player Core pg. 432). Requires rules-based vision to be enabled.",
-                "Name": "Hearing Range (ft.)",
+                "Label": "Hearing Range (ft.)",
                 "Unlimited": "Unlimited"
+            },
+            "SyncDarkness": {
+                "Label": "Synchronize Darkness to Time",
+                "Hint": "When the time of day changes in this scene, automatically adjust the darkness level to match (darker toward evening hours, lighter toward daytime)."
             }
         },
         "ScoreTitle": "Score",

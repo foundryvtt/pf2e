@@ -158,6 +158,7 @@ export const SetGamePF2e = {
                 },
                 stamina: game.settings.get("pf2e", "staminaVariant"),
             },
+            worldClock: game.settings.get("pf2e", "worldClock"),
         };
     },
 

@@ -6,33 +6,37 @@
                 {{selectOptions rbvOptions selected=scene.flags.pf2e.rulesBasedVision}}
             </select>
 
-            <button type="button" class="automation-settings" data-action="openRbvSetting"
-                data-tooltip="PF2E.SETTINGS.Automation.RulesBasedVision.ViewWorldSetting"
-            >
-                <i class="fa-solid fa-globe fa-fw"></i>
-            </button>
+            <button type="button" class="icon fa-solid fa-robot" data-action="openAutomationSettings" data-tooltip
+                    aria-label="{{localize "PF2E.SETTINGS.Automation.RulesBasedVision.ViewWorldSetting"}}"></button>
         </div>
         <p class="hint">{{localize "PF2E.SETTINGS.Automation.RulesBasedVision.Hint"}}</p>
     </div>
 
     <div class="form-group">
-        <label for="{{rootId}}-hearing-range">{{localize "PF2E.Scene.HearingRange.Name"}}</label>
+        <label for="{{rootId}}-hearing-range">{{localize "PF2E.Scene.HearingRange.Label"}}</label>
         <div class="form-fields">
             <input type="number" id="{{rootId}}-hearing-range" name="flags.pf2e.hearingRange"
-                value="{{scene.flags.pf2e.hearingRange}}"
-                placeholder="{{localize "PF2E.Scene.HearingRange.Unlimited"}}"
+                   value="{{scene.flags.pf2e.hearingRange}}"
+                   placeholder="{{localize "PF2E.Scene.HearingRange.Unlimited"}}"
             />
         </div>
         <p class="hint">{{localize "PF2E.Scene.HearingRange.Hint"}}</p>
         <p class="hint caveat">{{localize "PF2E.Scene.HearingRange.Caveat"}}</p>
     </div>
 
-    <div class="form-group">
-        <label for="{{rootId}}-environment-types">{{localize "PF2E.Region.Environment.Type.Label"}}</label>
+    {{formGroup environmentTypes name="flags.pf2e.environmentTypes" value=document.flags.pf2e.environmentTypes
+                rootId=rootId localize=true}}
+
+    <div class="form-group slim">
+        <label for="{{rootId}}-sync-darkness">{{localize "PF2E.Scene.SyncDarkness.Label"}}</label>
         <div class="form-fields">
-            <tagify-tags class="pf2e-tagify tags" id="{{rootId}}-environment-types" name="flags.pf2e.environmentTypes"
-                value="{{json environmentTypes}}">
+            <select id="{{rootId}}-sync-darkness" name="flags.pf2e.syncDarkness">
+                {{selectOptions syncDarknessOptions selected=scene.flags.pf2e.syncDarkness}}
+            </select>
+
+            <button type="button" class="icon fa-solid fa-clock" data-action="openWorldClockSettings" data-tooltip
+                    aria-label="{{localize "PF2E.SETTINGS.Automation.WorldClock.ViewSettings"}}"></button>
         </div>
-        <p class="hint">{{localize "PF2E.Region.Environment.Type.SceneHint"}}</p>
+        <p class="hint">{{localize "PF2E.Scene.SyncDarkness.Hint"}}</p>
     </div>
 </section>
