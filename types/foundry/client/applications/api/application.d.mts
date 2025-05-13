@@ -145,13 +145,13 @@ export default abstract class ApplicationV2<
      *                      ApplicationV1#render signature.
      * @returns A Promise which resolves to the rendered Application instance
      */
-    render(options?: boolean | Partial<TRenderOptions>): Promise<this>;
+    render(options?: boolean | DeepPartial<TRenderOptions>): Promise<this>;
 
     /**
      * Modify the provided options passed to a render request.
      * @param options                 Options which configure application rendering behavior
      */
-    protected _configureRenderOptions(options: Partial<TRenderOptions>): void;
+    protected _configureRenderOptions(options: DeepPartial<TRenderOptions>): void;
 
     /**
      * Prepare application rendering context data for a given render request.

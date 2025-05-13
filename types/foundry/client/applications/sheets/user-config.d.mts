@@ -1,5 +1,9 @@
 import User from "@client/documents/user.mjs";
-import DocumentSheetV2, { DocumentSheetConfiguration, DocumentSheetRenderOptions } from "../api/document-sheet.mjs";
+import DocumentSheetV2, {
+    DocumentSheetConfiguration,
+    DocumentSheetRenderContext,
+    DocumentSheetRenderOptions,
+} from "../api/document-sheet.mjs";
 import HandlebarsApplicationMixin, { HandlebarsTemplatePart } from "../api/handlebars-application.mjs";
 
 /**
@@ -13,16 +17,15 @@ export default class UserConfig<TDocument extends User> extends HandlebarsApplic
 
     static override PARTS: Record<string, HandlebarsTemplatePart>;
 
-    override _prepareContext(options: DocumentSheetRenderOptions): Promise<UserConfigData<TDocument>>;
+    override _prepareContext(options: DocumentSheetRenderOptions): Promise<UserConfigRenderContext<TDocument>>;
 }
 
 export default interface UserConfig<TDocument extends User> {
     get document(): TDocument;
 }
 
-export interface UserConfigData<TUser extends User> {
+export interface UserConfigRenderContext<TUser extends User> extends DocumentSheetRenderContext {
     user: TUser;
     source: TUser["_source"];
-    fields: unknown;
     characterWidget: (...args: unknown[]) => HTMLDivElement;
 }

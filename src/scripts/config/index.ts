@@ -874,48 +874,6 @@ export const PF2ECONFIG = {
                 hint: "PF2E.SETTINGS.Automation.LootableNPCs.Hint",
             },
         },
-        worldClock: {
-            name: "PF2E.SETTINGS.WorldClock.Name",
-            label: "PF2E.SETTINGS.WorldClock.Label",
-            hint: "PF2E.SETTINGS.WorldClock.Hint",
-            dateTheme: {
-                name: "PF2E.SETTINGS.WorldClock.DateTheme.Name",
-                hint: "PF2E.SETTINGS.WorldClock.DateTheme.Hint",
-                AR: "PF2E.SETTINGS.WorldClock.DateTheme.AR",
-                IC: "PF2E.SETTINGS.WorldClock.DateTheme.IC",
-                AD: "PF2E.SETTINGS.WorldClock.DateTheme.AD",
-                CE: "PF2E.SETTINGS.WorldClock.DateTheme.CE",
-            },
-            timeConvention: {
-                name: "PF2E.SETTINGS.WorldClock.TimeConvention.Name",
-                hint: "PF2E.SETTINGS.WorldClock.TimeConvention.Hint",
-                twentyFour: "PF2E.SETTINGS.WorldClock.TimeConvention.TwentyFour",
-                twelve: "PF2E.SETTINGS.WorldClock.TimeConvention.Twelve",
-            },
-            showClockButton: {
-                name: "PF2E.SETTINGS.WorldClock.ShowClockButton.Name",
-                hint: "PF2E.SETTINGS.WorldClock.ShowClockButton.Hint",
-            },
-            playersCanView: {
-                name: "PF2E.SETTINGS.WorldClock.PlayersCanView.Name",
-                hint: "PF2E.SETTINGS.WorldClock.PlayersCanView.Hint",
-            },
-            syncDarkness: {
-                name: "PF2E.SETTINGS.WorldClock.SyncDarkness.Name",
-                hint: "PF2E.SETTINGS.WorldClock.SyncDarkness.Hint",
-            },
-            syncDarknessScene: {
-                name: "PF2E.SETTINGS.WorldClock.SyncDarknessScene.Name",
-                hint: "PF2E.SETTINGS.WorldClock.SyncDarknessScene.Hint",
-                enabled: "PF2E.SETTINGS.EnabledDisabled.Enabled",
-                default: "PF2E.SETTINGS.EnabledDisabled.Default",
-                disabled: "PF2E.SETTINGS.EnabledDisabled.Disabled",
-            },
-            worldCreatedOn: {
-                name: "PF2E.SETTINGS.WorldClock.WorldCreatedOn.Name",
-                hint: "PF2E.SETTINGS.WorldClock.WorldCreatedOn.Hint",
-            },
-        },
         CampaignFeats: {
             name: "PF2E.SETTINGS.CampaignFeats.Name",
             hint: "PF2E.SETTINGS.CampaignFeats.Hint",
