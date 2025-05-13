@@ -1,8 +1,8 @@
 import { ErrorPF2e, htmlQuery, htmlQueryAll, ordinalString, tupleHasValue } from "@util";
 import { DateTime } from "luxon";
+import * as R from "remeda";
 import { animateDarkness } from "./animate-darkness.ts";
 import { TimeChangeMode, TimeOfDay } from "./time-of-day.ts";
-import appv1 = foundry.appv1;
 
 interface WorldClockData {
     date: string;
@@ -12,7 +12,7 @@ interface WorldClockData {
     sign: "+" | "-";
 }
 
-export class WorldClock extends appv1.api.Application {
+export class WorldClock extends fav1.api.Application {
     /** Is the ctrl key currently held down? */
     private ctrlKeyDown = false;
 
@@ -20,25 +20,17 @@ export class WorldClock extends appv1.api.Application {
 
     constructor() {
         super();
-
-        /* Save world creation date/time if equal to default (i.e., server time at first retrieval of the setting) */
-        const settingValue = game.settings.get("pf2e", "worldClock.worldCreatedOn");
-        const defaultValue = game.settings.settings.get("pf2e.worldClock.worldCreatedOn")?.default;
-        if (typeof settingValue === "string" && settingValue === defaultValue) {
-            game.settings.set("pf2e", "worldClock.worldCreatedOn", settingValue);
-        } else if (!DateTime.fromISO(settingValue).isValid) {
-            game.settings.set("pf2e", "worldClock.worldCreatedOn", defaultValue);
-        }
+        this.#initialize();
     }
 
     /** Setting: the date theme (Imperial Calendar not yet supported) */
     get dateTheme(): "AR" | "IC" | "AD" | "CE" {
-        return game.settings.get("pf2e", "worldClock.dateTheme");
+        return game.pf2e.settings.worldClock.dateTheme;
     }
 
     /** Setting: display either a 24-hour or 12-hour clock */
     get timeConvention(): 24 | 12 {
-        const setting = game.settings.get("pf2e", "worldClock.timeConvention");
+        const setting = game.pf2e.settings.worldClock.timeConvention;
         if (setting !== 24 && setting !== 12) {
             throw Error("PF2e System | Unrecognized time convention");
         }
@@ -51,14 +43,14 @@ export class WorldClock extends appv1.api.Application {
         return {
             enabled: true,
             disabled: false,
-            default: game.settings.get("pf2e", "worldClock.syncDarkness"),
+            default: game.pf2e.settings.worldClock.syncDarkness,
         }[sceneSetting];
     }
 
     /** Setting: Date and time of the Foundry world's creation date */
     get worldCreatedOn(): DateTime {
-        const value = game.settings.get("pf2e", "worldClock.worldCreatedOn");
-        return DateTime.fromISO(value).toUTC();
+        const value = game.pf2e.settings.worldClock.worldCreatedOn;
+        return DateTime.fromISO(value ?? "").toUTC();
     }
 
     /** The current date and time of the game world */
@@ -66,7 +58,7 @@ export class WorldClock extends appv1.api.Application {
         return this.worldCreatedOn.plus({ seconds: game.time.worldTime });
     }
 
-    static override get defaultOptions(): appv1.api.ApplicationV1Options {
+    static override get defaultOptions(): fav1.api.ApplicationV1Options {
         return fu.mergeObject(super.defaultOptions, {
             id: "world-clock",
             width: 400,
@@ -76,7 +68,7 @@ export class WorldClock extends appv1.api.Application {
     }
 
     /** The era in the game */
-    private get era(): string {
+    get era(): string {
         switch (this.dateTheme) {
             case "AR": // Absalom Reckoning
             case "IC": // Imperial Calendar
@@ -90,12 +82,12 @@ export class WorldClock extends appv1.api.Application {
     }
 
     /** The year in the game */
-    private get year(): number {
+    get year(): number {
         return this.worldTime.year + CONFIG.PF2E.worldClock[this.dateTheme].yearOffset;
     }
 
     /** The month in the game */
-    private get month(): string {
+    get month(): string {
         switch (this.dateTheme) {
             case "AR":
             case "IC": {
@@ -109,7 +101,7 @@ export class WorldClock extends appv1.api.Application {
     }
 
     /** The day of the week in the game */
-    private get weekday(): string {
+    get weekday(): string {
         switch (this.dateTheme) {
             case "AR":
             case "IC": {
@@ -122,7 +114,17 @@ export class WorldClock extends appv1.api.Application {
         }
     }
 
-    override getData(options?: appv1.api.ApplicationV1Options): WorldClockData {
+    #initialize() {
+        /* Save world creation date/time if equal to default (i.e., server time at first retrieval of the setting) */
+        const setting = game.pf2e.settings.worldClock;
+        const defaults = game.settings.settings.get("pf2e.worldClock")?.default;
+        if (!R.isPlainObject(defaults)) throw ErrorPF2e("Unexpected failure to find setting");
+        if (setting.worldCreatedOn === null) {
+            game.settings.set("pf2e", "worldClock", { ...setting, worldCreatedOn: DateTime.utc().toISO() });
+        }
+    }
+
+    override getData(options?: fav1.api.ApplicationV1Options): WorldClockData {
         const date =
             this.dateTheme === "CE"
                 ? this.worldTime.toLocaleString(DateTime.DATE_HUGE)
@@ -143,8 +145,8 @@ export class WorldClock extends appv1.api.Application {
         return { date, time, options, user: game.user, sign };
     }
 
-    protected override _getHeaderButtons(): appv1.api.ApplicationV1HeaderButton[] {
-        const settingsButton: appv1.api.ApplicationV1HeaderButton[] = game.user.isGM
+    protected override _getHeaderButtons(): fav1.api.ApplicationV1HeaderButton[] {
+        const settingsButton: fav1.api.ApplicationV1HeaderButton[] = game.user.isGM
             ? [
                   {
                       label: "PF2E.SETTINGS.Settings",
@@ -210,9 +212,11 @@ export class WorldClock extends appv1.api.Application {
             $(document).on(eventName, (event) => {
                 const { originalEvent } = event;
                 if (!(originalEvent instanceof KeyboardEvent)) return;
-                const ctrlKeys = KeyboardManager.CONTROL_KEY_STRING === "⌘" ? ["Control", "Meta"] : ["Control"];
+                const CONTROL_KEY_STRING = fh.interaction.KeyboardManager.CONTROL_KEY_STRING;
+                const ctrlKeys = CONTROL_KEY_STRING === "⌘" ? ["Control", "Meta"] : ["Control"];
                 if (originalEvent.repeat || !ctrlKeys.includes(originalEvent.key)) return;
-                if (!(event.ctrlKey || this.ctrlKeyDown)) return;
+                const eventKey = CONTROL_KEY_STRING === "⌘" ? event.metaKey : event.ctrlKey;
+                if (!(eventKey || this.ctrlKeyDown)) return;
 
                 const retractTime = (this.ctrlKeyDown = event.type === "keydown");
 

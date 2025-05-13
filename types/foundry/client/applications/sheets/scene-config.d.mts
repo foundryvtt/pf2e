@@ -1,6 +1,6 @@
 import Scene from "@client/documents/scene.mjs";
 import { ApplicationClosingOptions, ApplicationFormConfiguration, ApplicationTabsConfiguration } from "../_types.mjs";
-import DocumentSheetV2, { DocumentSheetConfiguration } from "../api/document-sheet.mjs";
+import DocumentSheetV2, { DocumentSheetConfiguration, DocumentSheetRenderContext } from "../api/document-sheet.mjs";
 import HandlebarsApplicationMixin, {
     HandlebarsRenderOptions,
     HandlebarsTemplatePart,
@@ -17,13 +17,13 @@ export default class SceneConfig<TDocument extends Scene> extends HandlebarsAppl
 
     static override TABS: Record<string, ApplicationTabsConfiguration>;
 
-    protected override _prepareContext(options: HandlebarsRenderOptions): Promise<Record<string, unknown>>;
+    protected override _prepareContext(options: HandlebarsRenderOptions): Promise<DocumentSheetRenderContext>;
 
     protected override _preparePartContext(
         partId: string,
-        context: Record<string, unknown>,
+        context: DocumentSheetRenderContext,
         options: HandlebarsRenderOptions,
-    ): Promise<Record<string, unknown>>;
+    ): Promise<DocumentSheetRenderContext>;
 
     override changeTab(
         tab: string,
