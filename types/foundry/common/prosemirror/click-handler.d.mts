@@ -1,11 +1,13 @@
+import { Schema } from "prosemirror-model";
+import { Plugin } from "prosemirror-state";
+import { EditorView } from "prosemirror-view";
 import ProseMirrorPlugin from "./plugin.mjs";
 
 /**
  * A class responsible for managing click events inside a ProseMirror editor.
- * @extends {ProseMirrorPlugin}
  */
 export default class ProseMirrorClickHandler extends ProseMirrorPlugin {
-    static override build(schema: ProseMirror.Schema, options?: object): ProseMirror.Plugin;
+    static override build(schema: Schema, options?: object): Plugin;
 
     /**
      * Handle a click on the editor.
@@ -19,7 +21,7 @@ export default class ProseMirrorClickHandler extends ProseMirrorPlugin {
      *          ProseMirror will call preventDefault on it.
      */
     protected _onClick(
-        view: ProseMirror.EditorView,
+        view: EditorView,
         pos: number,
         node: Node,
         nodePos: number,
