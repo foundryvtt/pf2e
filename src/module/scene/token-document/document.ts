@@ -516,18 +516,13 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         return super._onUpdate(changed, operation, userId);
     }
 
-    /** @todo fix once https://github.com/foundryvtt/foundryvtt/issues/12782 is resolved */
-    protected override _onRelatedUpdate(
-        update: { _id?: string; [key: string]: unknown },
-        operation: Partial<DatabaseOperation<Document | null>>,
-    ): void;
     protected override _onRelatedUpdate(
         update: { _id?: string; [key: string]: unknown } | { _id?: string; [key: string]: unknown }[],
         operation: Partial<DatabaseOperation<Document | null>>,
     ): void {
+        super._onRelatedUpdate(update, operation);
         const updates = Array.isArray(update) ? update : [update];
         for (const changed of updates) {
-            super._onRelatedUpdate(changed, operation);
             if (changed.system && changed._id && [this.delta?.id, this.actor?.id].includes(changed._id)) {
                 this.#resizeFromActor(changed);
                 this.simulateUpdate(changed);
@@ -537,6 +532,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     /** Follow up actor size-category or (in case of vehicles) dimensions change with dimensions update. */
     #resizeFromActor(changed: DeepPartial<ActorSourcePF2e>) {
+        if (this.inCompendium) return;
         const actor = this.actor;
         if (!actor || !this.linkToActorSize || !changed.system) return;
         const isNPCSizeChange = actor.isOfType("npc") && changed.system.traits?.size;
