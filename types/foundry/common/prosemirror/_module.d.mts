@@ -23,23 +23,23 @@ import { parseHTMLString, serializeHTMLString } from "./util.mjs";
 declare const dom: {
     parser: DOMParser;
     serializer: DOMSerializer;
-    parseString: parseHTMLString;
-    serializeString: serializeHTMLString;
+    parseString: typeof parseHTMLString;
+    serializeString: typeof serializeHTMLString;
 };
 
 declare const defaultPlugins: {
-    inputRules: ProseMirror.Plugin;
-    keyMaps: ProseMirror.Plugin;
-    menu: ProseMirror.Plugin;
-    isDirty: ProseMirror.Plugin;
-    clickHandler: ProseMirror.Plugin;
-    pasteTransformer: ProseMirror.Plugin;
-    baseKeyMap: ProseMirror.Plugin;
-    dropCursor: ProseMirror.Plugin;
-    gapCursor: ProseMirror.Plugin;
-    history: ProseMirror.Plugin;
-    columnResizing: ProseMirror.Plugin;
-    tables: ProseMirror.Plugin;
+    inputRules: Plugin;
+    keyMaps: Plugin;
+    menu: Plugin;
+    isDirty: Plugin;
+    clickHandler: Plugin;
+    pasteTransformer: Plugin;
+    baseKeyMap: Plugin;
+    dropCursor: Plugin;
+    gapCursor: Plugin;
+    history: Plugin;
+    columnResizing: Plugin;
+    tables: Plugin;
 };
 
 export * as commands from "prosemirror-commands";
@@ -51,10 +51,15 @@ export * as transform from "prosemirror-transform";
 
 export {
     AllSelection,
+    collab,
+    defaultPlugins,
+    defaultSchema,
+    dom,
     DOMParser,
     DOMSerializer,
     EditorState,
     EditorView,
+    keymap,
     Plugin,
     PluginKey,
     ProseMirrorClickHandler,
@@ -69,9 +74,4 @@ export {
     Schema,
     Step,
     TextSelection,
-    collab,
-    defaultPlugins,
-    defaultSchema,
-    dom,
-    keymap,
 };

@@ -1,3 +1,6 @@
+import { MarkType, NodeType, Schema } from "prosemirror-model";
+import { Command, Plugin } from "prosemirror-state";
+import { EditorView } from "prosemirror-view";
 import { ProseMirrorDropDown } from "./dropdown.mjs";
 import ProseMirrorPlugin from "./plugin.mjs";
 
@@ -6,7 +9,7 @@ import ProseMirrorPlugin from "./plugin.mjs";
  */
 export default class ProseMirrorMenu extends ProseMirrorPlugin {
     /** The editor view. */
-    view: ProseMirror.EditorView;
+    view: EditorView;
 
     /** The items configured for this menu. */
     items: ProseMirrorMenuItem[];
@@ -22,7 +25,7 @@ export default class ProseMirrorMenu extends ProseMirrorPlugin {
      * @param view         The editor view.
      * @param [options]    Additional options to configure the plugin's behaviour.
      */
-    constructor(schema: ProseMirror.Schema, view: ProseMirror.EditorView, options?: ProseMirrorMenuOptions);
+    constructor(schema: Schema, view: EditorView, options?: ProseMirrorMenuOptions);
 
     /** An enumeration of editor scopes in which a menu item can appear */
     protected static _MENU_ITEM_SCOPES: {
@@ -34,7 +37,7 @@ export default class ProseMirrorMenu extends ProseMirrorPlugin {
     /** Additional options to configure the plugin's behaviour. */
     options: ProseMirrorMenuOptions;
 
-    static override build(schema: ProseMirror.Schema, options?: object): ProseMirror.Plugin;
+    static override build(schema: Schema, options?: object): Plugin;
 
     /** Render the menu's HTML. */
     render(): this;
@@ -47,7 +50,7 @@ export default class ProseMirrorMenu extends ProseMirrorPlugin {
      * @param view       The current editor state.
      * @param prevState  The previous editor state.
      */
-    update(view: ProseMirror.EditorView, prevState: ProseMirror.EditorView): void;
+    update(view: EditorView, prevState: EditorView): void;
 
     /** Called when the view is destroyed or receives a state with different plugins. */
     destroy(): void;
@@ -133,8 +136,8 @@ export default class ProseMirrorMenu extends ProseMirrorPlugin {
      * @param  [options.attrs]         Attributes for the node.
      */
     _toggleBlock(
-        node: ProseMirror.NodeType,
-        wrap: (node: ProseMirror.NodeType, attrs?: object | null) => ProseMirror.Command,
+        node: NodeType,
+        wrap: (node: NodeType, attrs?: object | null) => Command,
         options?: { attrs?: Record<string, unknown> | null },
     ): void;
 
@@ -144,7 +147,7 @@ export default class ProseMirrorMenu extends ProseMirrorPlugin {
      * @param  [options]        Additional options to configure behaviour.
      * @param  [options.attrs]  Attributes for the node.
      */
-    _toggleTextBlock(node: ProseMirror.NodeType, options?: { attrs?: Record<string, unknown> | null }): void;
+    _toggleTextBlock(node: NodeType, options?: { attrs?: Record<string, unknown> | null }): void;
 }
 
 declare global {
@@ -171,9 +174,9 @@ declare global {
         /** The menu item's icon HTML. */
         icon?: string;
         /** The mark to apply to the selected text. */
-        mark?: ProseMirror.MarkType;
+        mark?: MarkType;
         /** The node to wrap the selected text in. */
-        node?: ProseMirror.NodeType;
+        node?: NodeType;
         /** An object of attributes for the node or mark. */
         attrs?: Record<string, unknown>;
         /**
@@ -187,7 +190,7 @@ declare global {
          */
         priority?: number;
         /** The command to run when the menu item is clicked. */
-        cmd?: ProseMirror.Command;
+        cmd?: Command;
         /** Whether the current item is active under the given selection or cursor. Default: false */
         active?: boolean;
     }
