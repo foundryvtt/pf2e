@@ -1,4 +1,4 @@
-import { AttributeSpec, MarkSpec, NodeSpec } from "prosemirror-model";
+import { AttributeSpec, MarkSpec, Node, NodeSpec } from "prosemirror-model";
 
 /**
  * An abstract interface for a ProseMirror schema definition.
