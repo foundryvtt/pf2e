@@ -222,7 +222,7 @@ export default class TokenDocument<TParent extends Scene | null = Scene | null> 
      * @param options The options provided to the update.
      */
     protected _onRelatedUpdate(
-        update: { _id?: string; [key: string]: unknown },
+        update: { _id?: string; [key: string]: unknown } | { _id?: string; [key: string]: unknown }[],
         options: Partial<DatabaseOperation<Document | null>>,
     ): void;
 
