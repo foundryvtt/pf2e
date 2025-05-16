@@ -11,7 +11,7 @@ import type { DiceTerm, NumericTermData, PoolTermData, RollTerm, RollTermData } 
 import { DamageRollFlag } from "@module/chat-message/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
-import { BaseRollDataPF2e } from "@system/rolls.ts";
+import { DiceRollOptionsPF2e } from "@system/rolls.ts";
 import { ErrorPF2e, fontAwesomeIcon, tupleHasValue } from "@util";
 import type Peggy from "peggy";
 import * as R from "remeda";
@@ -652,7 +652,7 @@ interface AbstractDamageRollData extends RollOptions {
     evaluatePersistent?: boolean;
 }
 
-interface DamageRollData extends BaseRollDataPF2e, AbstractDamageRollData {
+interface DamageRollData extends DiceRollOptionsPF2e, AbstractDamageRollData {
     /** Whether to double dice or total on critical hits */
     critRule?: Maybe<CriticalDoublingRule>;
     /** Data used to construct the damage formula and options */
