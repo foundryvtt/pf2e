@@ -541,6 +541,8 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         }),
     ];
 
+    const identifier = `${item.id}.${attackSlug}.${meleeOrRanged}`;
+
     strike.variants = [null, ...(["map1", "map2"] as const).map(createMapModifier)].map((map, mapIncreases) => ({
         label: labels[mapIncreases],
         roll: async (params: AttackRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
@@ -587,7 +589,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             const check = new CheckModifier("strike", context.origin.statistic ?? strike, allModifiers);
             const checkContext: CheckCheckContext = {
                 type: "attack-roll",
-                identifier: `${item.id}.${attackSlug}.${meleeOrRanged}`,
+                identifier,
                 action: "strike",
                 title,
                 actor: context.origin.actor,
@@ -652,6 +654,8 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             const damageContext: DamageDamageContext = {
                 type: "damage-roll",
                 sourceType: "attack",
+                identifier,
+                action: "strike",
                 self: context.origin,
                 target: context.target,
                 outcome,

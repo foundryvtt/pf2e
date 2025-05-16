@@ -8,7 +8,7 @@ import type { ZeroToThree } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractNotes } from "@module/rules/helpers.ts";
 import { DEGREE_OF_SUCCESS, DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
-import { createHTMLElement, objectHasKey } from "@util";
+import { createHTMLElement, objectHasKey, sluggify } from "@util";
 import { DamageRoll, DamageRollData } from "./roll.ts";
 import type { DamageDamageContext, DamageTemplate } from "./types.ts";
 
@@ -180,6 +180,8 @@ export class DamagePF2e {
                       : "double-dice";
 
             const options: DamageRollData = {
+                identifier: context.identifier,
+                action: context.action ? sluggify(context.action) || null : null,
                 rollerId,
                 damage: data,
                 degreeOfSuccess,
@@ -240,6 +242,7 @@ export class DamagePF2e {
         const contextFlag: DamageDamageContextFlag = {
             type: context.type,
             sourceType: context.sourceType,
+            identifier: context.identifier ?? null,
             actor: context.self?.actor?.id ?? null,
             token: context.self?.token?.id ?? null,
             target: targetFlag,

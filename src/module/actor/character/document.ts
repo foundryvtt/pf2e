@@ -1457,6 +1457,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 new CheckModifier("strike-map2", statistic, otherModifiers),
         ];
 
+        const identifier = `${weapon.id}.${weaponSlug}.${meleeOrRanged}`;
+
         action.variants = ([0, 1, 2] as const).map((mapIncreases) => ({
             get label(): string {
                 const penalty = createMAPenalty(initialMAPs, mapIncreases);
@@ -1546,7 +1548,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
                 const checkContext: CheckCheckContext = {
                     type: "attack-roll",
-                    identifier: `${weapon.id}.${weaponSlug}.${meleeOrRanged}`,
+                    identifier,
                     action: "strike",
                     title,
                     actor: context.origin.actor,
@@ -1627,6 +1629,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 const damageContext: DamageDamageContext = {
                     type: "damage-roll",
                     sourceType: "attack",
+                    identifier,
+                    action: "strike",
                     self: origin,
                     target,
                     outcome,
@@ -1787,7 +1791,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     /* -------------------------------------------- */
 
     protected override async _preUpdate(
-        changed: DeepPartial<CharacterSource>,
+        changed: DeepPartial<this["_source"]>,
         options: CreatureUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
@@ -1834,7 +1838,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (changed.system.resources?.crafting?.infusedReagents?.value !== undefined) {
             const infusedReagents = changed.system.resources.crafting.infusedReagents;
             const max = Math.max(0, this.system.resources.crafting.infusedReagents.max || 0);
-            infusedReagents.value = Math.clamp(Math.floor(infusedReagents.value) || 0, 0, max);
+            infusedReagents.value = Math.clamp(Math.floor(infusedReagents.value ?? 0) || 0, 0, max);
         }
 
         // Clamp Stamina and Resolve

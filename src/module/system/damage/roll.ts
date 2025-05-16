@@ -653,6 +653,10 @@ interface AbstractDamageRollData extends RollOptions {
 }
 
 interface DamageRollData extends RollDataPF2e, AbstractDamageRollData {
+    /** A string of some kind to help system API identify the roll */
+    identifier?: Maybe<string>;
+    /** The slug of an action associated with this roll */
+    action?: Maybe<string>;
     /** Whether to double dice or total on critical hits */
     critRule?: Maybe<CriticalDoublingRule>;
     /** Data used to construct the damage formula and options */
