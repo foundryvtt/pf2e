@@ -10,7 +10,7 @@ import type { RollTwiceOption } from "./check/index.ts";
 import type { CheckDC, DEGREE_OF_SUCCESS_STRINGS } from "./degree-of-success.ts";
 import dice = foundry.dice;
 
-interface RollDataPF2e extends dice.RollOptions {
+interface BaseRollDataPF2e extends dice.RollOptions {
     rollerId?: string;
     totalModifier?: number;
     /** Whether to show roll formula and tooltip to players */
@@ -74,4 +74,4 @@ interface BaseRollContext {
     skipDialog?: boolean;
 }
 
-export type { AttackRollParams, BaseRollContext, DamageRollParams, RollDataPF2e, RollParameters, RollTwiceOption };
+export type { AttackRollParams, BaseRollContext, BaseRollDataPF2e, DamageRollParams, RollParameters, RollTwiceOption };
