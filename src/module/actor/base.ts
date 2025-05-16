@@ -1264,7 +1264,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const finePowder = instantDeath === "fine-powder";
 
         if (damageResult.totalApplied !== 0) {
-            const updated = await this.update(damageResult.updates, {
+            const updated = await this.update(fu.deepClone(damageResult.updates), {
                 damageTaken: damageResult.totalApplied,
                 finePowder,
             });
