@@ -1,10 +1,12 @@
 import type { ActorPF2e } from "@actor";
 import { InventoryBulk } from "@actor/inventory/index.ts";
+import type { DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
 import { RawItemChatData } from "@item/base/data/index.ts";
 import { EquipmentTrait } from "@item/equipment/data.ts";
 import { Bulk } from "@item/physical/bulk.ts";
 import { PhysicalItemPF2e } from "@item/physical/document.ts";
 import type { UserPF2e } from "@module/user/index.ts";
+import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import type { ContainerSource, ContainerSystemData } from "./data.ts";
 import { hasExtraDimensionalParent } from "./helpers.ts";
 
@@ -14,7 +16,7 @@ class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     }
 
     /** This container's contents, reloaded every data preparation cycle */
-    contents: Collection<PhysicalItemPF2e<NonNullable<TParent>>> = new Collection();
+    contents: Collection<string, PhysicalItemPF2e<NonNullable<TParent>>> = new Collection();
 
     /** Is this an actual stowing container or merely one of the old pouches/quivers/etc.? */
     get stowsItems(): boolean {
@@ -51,15 +53,6 @@ class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         return super.bulk.plus(this.capacity.value.minus(this.bulkIgnored));
     }
 
-    override prepareBaseData(): void {
-        super.prepareBaseData();
-
-        // Simple measure to avoid self-recursive containers
-        if (this.system.containerId === this.id) {
-            this.system.containerId = null;
-        }
-    }
-
     /** Reload this container's contents following Actor embedded-document preparation */
     override prepareSiblingData(this: ContainerPF2e<ActorPF2e>): void {
         super.prepareSiblingData();
@@ -84,7 +77,7 @@ class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
 
     override async getChatData(
         this: ContainerPF2e<TParent>,
-        htmlOptions: EnrichmentOptions = {},
+        htmlOptions: EnrichmentOptionsPF2e = {},
     ): Promise<RawItemChatData> {
         return this.processChatData(htmlOptions, {
             ...(await super.getChatData()),
