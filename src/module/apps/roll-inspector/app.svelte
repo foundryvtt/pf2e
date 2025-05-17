@@ -108,7 +108,10 @@
                 <li class="modifier" class:disabled={!d.enabled} data-type="dice" data-idx={idx}>
                     <header>
                         <span class="label-slug">{d.label} ({d.slug})</span>
-                        <i class="fa-solid fa-circle-info"></i>
+                        <i
+                            class="fa-solid fa-circle-info"
+                            onpointerenter={(evt) => showOptionsTooltip(evt.currentTarget, new DamageDicePF2e(d))}
+                        ></i>
                     </header>
                     <div>
                         <span>

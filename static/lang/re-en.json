@@ -5548,6 +5548,9 @@
                 "Sight": "Low-light vision and darkvision",
                 "Speed": "+20-foot status bonus to Speed"
             },
+            "SpellEffectFieryBody": {
+                "Note": "The attacker takes @Damage[(ternary(gte(@item.level,9),4,3))d6[fire]] damage."
+            },
             "SpellEffectGluttonsJaw": {
                 "Text": "If you hit with your jaws and deal damage, you gain [[/r (ceil(@item.level/2))d6 #Temporary Hit Points]] temporary Hit Points."
             },
@@ -5812,7 +5815,7 @@
                 "RockslideSpell": "A number of 5-foot squares in the area equal to the spell rank become difficult terrain for 1 round. These squares must be on the ground, and the entire area of difficult terrain must be contiguous. The spell gains the earth trait.",
                 "SafeguardSpell": "If the next action you take is to Cast a Spell with an area, you aren't affected by the spell even if you are within the area.",
                 "ScintillatingSpell": "If your next action is to Cast a Spell that doesn't have the darkness trait, has no duration, and requires creatures to attempt a Reflex save, the spell explodes in a spray of scintillating lights, in addition to its other effects. Each creature that failed its Reflex save against the spell is @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled} for 1 round, and those who critically failed are instead @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} for 1 round.",
-                "SecondaryDetonationArray": "If your next action is to Cast a Spell that deals damage, has no duration, and affects an area, a glowing magic circle appears in a @Template[burst|distance:5] within that area. At the beginning of your next turn, the circle detonates, dealing @Damage[(@item.level)d6[force]] damage to all creatures within the circle, with a @Check[reflex|against:spell]. If the spell dealt a different type of damage, the circle deals @Damage[(@item.level)d6[@actor.flags.pf2e.spellshape.arrayDamage]]{this type of damage instead} (or one type of your choice if the spell could deal multiple types of damage)",
+                "SecondaryDetonationArray": "If your next action is to Cast a Spell that deals damage, has no duration, and affects an area, a glowing magic circle appears in a @Template[burst|distance:5] within that area. At the beginning of your next turn, the circle detonates, dealing @Damage[(@item.level)d6[force]|options:area-damage] damage to all creatures within the circle, with a @Check[reflex|against:spell|options:area-effect,damaging-effect]. If the spell dealt a different type of damage, the circle deals @Damage[(@item.level)d6[@actor.flags.pf2e.spellshape.arrayDamage]|options:area-damage]{this type of damage instead} (or one type of your choice if the spell could deal multiple types of damage)",
                 "SeneschalSpell": "If your next action is to Cast a Spell and your charge is within 30 feet, you can have the spell originate from your charge instead. That creature can use their reaction to roughly complete the spell's incantation, which gives the spell the subtle trait for you (but not for them) as the manifestation appears solely around your charge.",
                 "SinbladedSpell": "If you either succeed on your attack roll or the target fails its saving throw against the spell, you deal @Damage[(@item.rank)[bleed]] damage to the target.",
                 "SnowdriftSpell": "Select one creature affected by the spell on the ground. Each square on the ground under or adjacent to the creature fills with ankle-deep snow. Those squares are difficult terrain until the beginning of your next turn. A creature can Interact to clear a square of snow, and the snow in a square melts if that square is exposed to a fire effect.",
@@ -6054,6 +6057,11 @@
                 "Water": "Water"
             },
             "Tengu": {
+                "TenguFan": {
+                    "GustOfWind": "You can cast the 1st-rank @UUID[Compendium.pf2e.spells-srd.Item.g8QqHpv2CWDwmIm1]{Gust of Wind} spell by activating your tengu feather fan. @Check[fortitude|against:class-spell|traits:air] save.",
+                    "LightningBolt": "You can cast the 5th-rank @UUID[Compendium.pf2e.spells-srd.Item.9AAkVUCwF6WVNNY2]{Lightning Bolt} spell by activating your tengu feather fan. @Check[reflex|against:class-spell|basic|traits:electricity] save.",
+                    "WallOfWind": "You can cast the 3rd-rank @UUID[Compendium.pf2e.spells-srd.Item.it4ZsAi6XgvGcodc]{Wall of Wind} spell by activating your tengu feather fan. @Check[fortitude|against:class-spell|traits:air]{Fortitude saving throw} save."
+                },
                 "WeaponFamiliarity": {
                     "Prompt1": "Select a weapon from the sword group.",
                     "Prompt2": "Select a second weapon from the sword group."
@@ -6431,6 +6439,35 @@
             "Yaoguai": {
                 "AwakenedYaoguai": {
                     "Prompt": "Select a yaoguai heritage."
+                },
+                "LegendaryMonster": {
+                    "Effect": "@UUID[Compendium.pf2e.feat-effects.Item.ELCODoiGDBEqRAtT]{Effect: Legendary Monster}",
+                    "Options": {
+                        "Damage": "Additional spirit damage",
+                        "Enlarge": "4th rank Enlarge",
+                        "Fly": "Fly Speed"
+                    },
+                    "Prompt": "Choose an additional benefit",
+                    "RollOptionLabel": "Use Legendary Monster",
+                    "Text": {
+                        "Damage": "Your spiritual power erupts to punish your enemies. You deal an additional 1d4 spirit damage with all Strikes and attack spells, and your Strikes and attack spells gain the spirit trait.",
+                        "Description": "Once per day when you Unleash Yaoguai Might, you can gain one of the following additional benefits, which persists for 1 minute or until you Change Shape again.",
+                        "Enlarge": "Your body grows to impossible heights. Your Enlarge effect is heightened to 4th rank.",
+                        "Fly": "You can leap off the air itself. You gain the effects of the *fly* spell.",
+                        "Frequency": "You can Unleash Yaoguai Might any number of times per day.",
+                        "Title": "**Legendary Monster**"
+                    }
+                },
+                "UnleashYaoguaiMight": {
+                    "BornOfAnimal": "**Animal** Your hide thickens, granting a +1 circumstance bonus to AC.",
+                    "BornOfCelestial": "**Celestial** You recover some of your celestial perfection, granting you and all allies within 15 feet a +1 status bonus to attack rolls.",
+                    "BornOfElements": "**Elements** You're surrounded in wind and dust, granting concealment each round that you spend at least 1 action that has the move trait. You can't use this concealment to Hide or Sneak, as normal for sources of obvious concealment.",
+                    "BornOfItem": "**Object ** Your skin transmutes partially into an inorganic substance, granting resistance 5 to your choice of bludgeoning, piercing, or slashing.",
+                    "BornOfVegetation": "**Vegetation** You trigger an accelerated growth, gaining fast healing 5.",
+                    "Description": "As you enter your yaoguai form, you draw upon your internal magic to assume an even greater form. When you Change Shape to enter your yaoguai form, you can spend an additional action to gain the effects of Enlarge and an additional effect based on your heritage. This effect persists for 1 minute or until you Change Shape again.",
+                    "Effect": "@UUID[Compendium.pf2e.feat-effects.Item.OBsItGQScxHyUcmR]{Effect: Unleash Yaoguai Might}",
+                    "Frequency": "**Frequency** once per day",
+                    "UsedMoveAction": "Used action that has the move trait."
                 }
             },
             "Zombie": {
