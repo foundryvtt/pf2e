@@ -55,33 +55,33 @@ export const webrtc: applications.apps.av.CameraViews;
 export const windows: Record<string, appv1.api.Application>;
 
 export interface FoundryUI<
-    TActorDirectory extends typeof actors,
-    TItemDirectory extends typeof items,
-    TChatLog extends typeof chat,
-    TCompendiumDirectory extends typeof compendium,
-    TCombatTracker extends typeof combat,
-    THotbar extends typeof hotbar,
+    TActorDirectory extends applications.sidebar.tabs.ActorDirectory,
+    TItemDirectory extends applications.sidebar.tabs.ItemDirectory,
+    TChatLog extends applications.sidebar.tabs.ChatLog,
+    TCompendiumDirectory extends applications.sidebar.tabs.CompendiumDirectory,
+    TCombatTracker extends applications.sidebar.tabs.CombatTracker,
+    THotbar extends applications.ui.Hotbar<Macro>,
 > {
     actors: TActorDirectory;
-    cards: typeof cards;
+    cards: applications.sidebar.tabs.CardsDirectory;
     chat: TChatLog;
     combat: TCombatTracker;
     compendium: TCompendiumDirectory;
-    controls: typeof controls;
+    controls: applications.ui.SceneControls;
     hotbar: THotbar;
     items: TItemDirectory;
-    journal: typeof journal;
-    macros: typeof macros;
-    menu: typeof menu;
-    nav: typeof nav;
-    notifications: typeof notifications;
-    pause: typeof pause;
-    players: typeof players;
-    playlists: typeof playlists;
-    scenes: typeof scenes;
-    settings: typeof settings;
-    sidebar: typeof sidebar;
-    tables: typeof tables;
-    webrtc: typeof webrtc;
-    windows: typeof windows;
+    journal: applications.sidebar.tabs.JournalDirectory;
+    macros: applications.sidebar.tabs.MacroDirectory;
+    menu: applications.ui.MainMenu;
+    nav: applications.ui.SceneNavigation;
+    notifications: applications.ui.Notifications;
+    pause: applications.ui.GamePause;
+    players: applications.ui.Players;
+    playlists: applications.sidebar.tabs.PlaylistDirectory;
+    scenes: applications.sidebar.tabs.SceneDirectory;
+    settings: applications.sidebar.tabs.Settings;
+    sidebar: applications.sidebar.Sidebar;
+    tables: applications.sidebar.tabs.RollTableDirectory;
+    webrtc: applications.apps.av.CameraViews;
+    windows: Record<string, appv1.api.Application>;
 }
