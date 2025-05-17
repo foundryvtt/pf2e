@@ -33,7 +33,6 @@ type ChatMessageFlagsPF2e = ChatMessageFlags & {
         casting?: { id: string; tradition: MagicTradition; embeddedSpell?: SpellSource } | null;
         modifiers?: RawModifier[];
         dice?: RawDamageDice[];
-        preformatted?: "flavor" | "content" | "both";
         journalEntry?: DocumentUUID;
         appliedDamage?: AppliedDamageFlag | null;
         treatWoundsMacroFlag?: { bonus: number };

@@ -269,7 +269,6 @@ export class DamagePF2e {
                             dice: data.modifiers?.flatMap((m) => ("diceNumber" in m ? m.toObject() : [])) ?? [],
                             origin: item?.getOriginData(),
                             strike,
-                            preformatted: "both",
                         },
                     },
                 },
