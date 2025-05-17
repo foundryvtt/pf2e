@@ -101,18 +101,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         });
     }
 
-    /** @todo fixme for V13 */
-    constructor(actor: TActor, options?: Partial<ActorSheetOptions>) {
-        super(actor, options);
-
-        // On initial opening, adjust width according to `fontSize` setting
-        const baseWidth = this.options.width;
-        if (game.release.generation === 12 && typeof baseWidth === "number") {
-            const calculatedWidth = (baseWidth * game.settings.get("core", "fontSize")) / 5;
-            this.position.width &&= Math.floor(Math.clamp(calculatedWidth, 0.75 * baseWidth, 1024));
-        }
-    }
-
     /** Implementation used to handle the toggling and rendering of item summaries */
     itemRenderer: ItemSummaryRenderer<TActor, ActorSheetPF2e<TActor>> = new ItemSummaryRenderer(this);
 

@@ -57,10 +57,6 @@ class ScenePF2e extends Scene {
         return (this.active && !soleUserIsGM) || (this.isView && soleUserIsGM);
     }
 
-    /**
-     * Prevent double data preparation of child documents.
-     * @removeme in V13
-     */
     override prepareData(): void {
         super.prepareData();
         Promise.resolve().then(() => {

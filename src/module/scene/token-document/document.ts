@@ -468,7 +468,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                 : (tokenOverrides.animation ?? null);
             this.object?._onUpdate(
                 tokenChanges,
-                { action: "update", broadcast: false, updates: [], animation },
+                { action: "update", parent: this.scene, broadcast: false, updates: [], animation },
                 game.user.id,
             );
         }
