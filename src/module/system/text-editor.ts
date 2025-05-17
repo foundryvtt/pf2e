@@ -198,7 +198,8 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
 
     static processUserVisibility(content: string, options: EnrichmentOptionsPF2e): string {
         const html = createHTMLElement("div", { innerHTML: content });
-        const document = options.rollData?.actor ?? options.relativeTo;
+        const rollData = resolveRollData(options.rollData);
+        const document = rollData.actor ?? options.relativeTo;
         UserVisibilityPF2e.process(html, { document });
 
         return html.innerHTML;
@@ -209,18 +210,19 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
         options: EnrichmentOptionsPF2e = {},
     ): Promise<HTMLElement | null> {
         if (data.length < 4) return null;
-        const item = options.rollData?.item ?? null;
+        const rollData = resolveRollData(options.rollData);
+        const item = rollData.item ?? null;
         const [_match, inlineType, paramString, inlineLabel] = data;
 
         switch (inlineType) {
             case "act":
                 return this.#createAction(data.groups?.slug ?? "", data.groups?.options ?? "", data.groups?.label);
             case "Check": {
-                const actor = options.rollData?.actor ?? item?.actor ?? null;
+                const actor = rollData.actor ?? item?.actor ?? null;
                 return this.#createCheck({ paramString, inlineLabel, item, actor });
             }
             case "Damage":
-                return this.#createDamageRoll({ paramString, rollData: options.rollData, inlineLabel });
+                return this.#createDamageRoll({ paramString, rollData, inlineLabel });
             case "Localize":
                 return this.#localize(paramString, options);
             case "Template":
@@ -1013,9 +1015,12 @@ async function augmentInlineDamageRoll(
     }
 }
 
+function resolveRollData(rollData: EnrichmentOptionsPF2e["rollData"] = {}): RollDataPF2e {
+    return rollData instanceof Function ? rollData() : rollData;
+}
+
 interface EnrichmentOptionsPF2e extends EnrichmentOptions {
-    /** @todo as of v13 this should also support functions that produce roll data */
-    rollData?: RollDataPF2e;
+    rollData?: RollDataPF2e | (() => RollDataPF2e);
     /** Whether to run the enriched string through `UserVisibility.process` */
     processVisibility?: boolean;
 }
@@ -1084,4 +1089,5 @@ interface AugmentInlineDamageOptions {
     extraRollOptions: string[];
 }
 
-export { TextEditorPF2e, type EnrichmentOptionsPF2e };
+export { TextEditorPF2e };
+export type { EnrichmentOptionsPF2e, RollDataPF2e };
