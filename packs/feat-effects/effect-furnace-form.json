@@ -4,7 +4,7 @@
     "name": "Effect: Furnace Form",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Furnace Form]</p>\n<p>You gain fire immunity, resistance 10 to precision damage, and weakness 5 to cold and to water. Your unarmed attacks deal 1d4 additional fire damage, and your fire spells deal one additional die of fire damage (of the same damage die the spell uses). Your fire Elemental Blasts deal an additional die of damage. In fire form, you have a fly Speed of 40 feet.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Furnace Form]</p>\n<p>You gain fire immunity, resistance 10 to precision damage, weakness 5 to cold and to water, and a fly Speed of 40 feet. Any creature that touches you or damages you with an unarmed attack or non-reach melee weapon takes @Damage[3d6[fire]] damage.</p>\n<p>Your unarmed attacks deal 1d4 additional fire damage, and your fire spells deal one additional die of fire damage (of the same damage die the spell uses). Your fire Elemental Blasts deal an additional die of damage.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -69,6 +69,22 @@
                     "item:trait:fire"
                 ],
                 "selector": "elemental-blast-damage"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:category:unarmed",
+                            {
+                                "not": "item:trait:reach"
+                            }
+                        ]
+                    }
+                ],
+                "selector": "damage-received",
+                "text": "PF2E.SpecificRule.SpellEffectFurnaceForm.Note",
+                "title": "{item|name}"
             }
         ],
         "start": {
