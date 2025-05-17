@@ -53,8 +53,10 @@
     .hit-points {
         display: flex;
         flex: 0;
+        align-items: center;
         justify-content: end;
         margin-left: auto;
+        font-size: var(--font-size-16);
 
         input.current {
             font-weight: normal;
@@ -66,12 +68,12 @@
         .slash {
             align-items: center;
             display: flex;
-            font-size: var(--font-size-16);
             padding: 0 var(--space-1);
         }
 
         .max {
-            text-align: center;
+            font-weight: 600;
+            text-align: end;
 
             &.lt10 {
                 width: 0.5rem;
@@ -86,12 +88,6 @@
     }
 
     &.shield {
-        .hit-points {
-            .max {
-                font-size: var(--font-size-16);
-            }
-        }
-
         .shield-details {
             align-items: baseline;
             display: flex;
