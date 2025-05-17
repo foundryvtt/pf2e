@@ -1,6 +1,7 @@
 import type { LootPF2e } from "@actor";
 import { transferItemsBetweenActors } from "@actor/helpers.ts";
 import type { ActorSheetDataPF2e, InventoryItem, SheetInventory } from "@actor/sheet/data-types.ts";
+import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
 import type { PhysicalItemPF2e } from "@item";
 import { TextEditorPF2e } from "@system/text-editor.ts";
