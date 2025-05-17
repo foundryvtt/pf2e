@@ -1,6 +1,5 @@
 import { ActorPF2e, CreaturePF2e, PartyPF2e } from "@actor";
 import { CREATURE_ACTOR_TYPES } from "@actor/values.ts";
-import type { ApplicationRenderContext } from "@client/applications/_types.d.mts";
 import type {
     HandlebarsRenderOptions,
     HandlebarsTemplatePart,
@@ -43,15 +42,6 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
 
     /** If we are currently dragging a party. Needed because dragenter/dragover doesn't contain the drag source. */
     #draggingParty = false;
-
-    /** @todo Remove upon release of V13 stable */
-    protected override async _prepareContext(options: HandlebarsRenderOptions): Promise<ApplicationRenderContext> {
-        const context = await super._prepareContext(options);
-        return Object.assign(context, {
-            canCreateEntry: this._canCreateEntry(),
-            canCreateFolder: this._canCreateFolder(),
-        });
-    }
 
     override async _preparePartContext(
         partId: string,

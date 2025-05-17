@@ -1,6 +1,7 @@
 import Roll, { Rolled } from "@client/dice/roll.mjs";
 import { DocumentConstructionContext } from "@common/_types.mjs";
 import { DatabaseCreateOperation, DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import Document from "@common/abstract/document.mjs";
 import { RollMode } from "@common/constants.mjs";
 import BaseChatMessage, { ChatMessageSource, ChatSpeakerData } from "@common/documents/chat-message.mjs";
 import { Actor, BaseActor, BaseUser, Scene, TokenDocument, User } from "./_module.mjs";
@@ -16,7 +17,7 @@ declare const ClientBaseChatMessage: {
  * The client-side ChatMessage document which extends the common BaseChatMessage abstraction.
  * Each ChatMessage document contains ChatMessageData which defines its data schema.
  */
-export default class ChatMessage<TUser extends User | null = User | null> extends ClientBaseChatMessage<TUser> {
+declare class ChatMessage<TUser extends User | null = User | null> extends ClientBaseChatMessage<TUser> {
     rolls: Rolled<Roll>[];
 
     /** Is this ChatMessage currently displayed in the sidebar ChatLog? */
@@ -155,8 +156,32 @@ export default class ChatMessage<TUser extends User | null = User | null> extend
     export(): string;
 }
 
+declare namespace ChatMessage {
+    function create<TDocument extends Document>(
+        this: ConstructorOf<TDocument>,
+        data: PreCreate<TDocument["_source"]>,
+        operation?: Partial<ChatMessageCreateOperation>,
+    ): Promise<TDocument | undefined>;
+    function create<TDocument extends Document>(
+        this: ConstructorOf<TDocument>,
+        data: PreCreate<TDocument["_source"]>[],
+        operation?: Partial<ChatMessageCreateOperation>,
+    ): Promise<TDocument[]>;
+    function create<TDocument extends Document>(
+        this: ConstructorOf<TDocument>,
+        data: PreCreate<TDocument["_source"]> | PreCreate<TDocument["_source"]>[],
+        operation?: Partial<ChatMessageCreateOperation>,
+    ): Promise<TDocument[] | TDocument | undefined>;
+}
+
+export default ChatMessage;
+
 export interface MessageConstructionContext extends DocumentConstructionContext<null> {
     rollMode?: RollMode | "roll";
+}
+
+export interface ChatMessageCreateOperation extends DatabaseCreateOperation<null> {
+    rollMode?: RollMode;
 }
 
 export interface ChatMessageRenderData {
