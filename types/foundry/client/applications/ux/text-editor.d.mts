@@ -24,7 +24,7 @@ interface EnrichmentOptions {
     custom?: boolean;
 
     /** The data object providing context for inline rolls, or a function that produces it. */
-    rollData?: object | Function;
+    rollData?: Record<string, unknown> | (() => Record<string, unknown>);
 
     /** A document to resolve relative UUIDs against. */
     relativeTo?: ClientDocument;
