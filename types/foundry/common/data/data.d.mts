@@ -1,3 +1,4 @@
+import { DataModelConstructionContext } from "@common/abstract/_types.mjs";
 import { ImageFilePath, ShapeDataType, TileOcclusionMode, VideoFilePath } from "@common/constants.mjs";
 import DataModel from "../abstract/data.mjs";
 import * as documents from "../documents/_module.mjs";
@@ -289,7 +290,7 @@ export class PrototypeToken<TParent extends documents.BaseActor | null> extends 
     TParent,
     PrototypeTokenSchema
 > {
-    constructor(data: DeepPartial<PrototypeTokenSource>, options?: DataModelConstructionOptions<TParent>);
+    constructor(data: DeepPartial<PrototypeTokenSource>, options?: DataModelConstructionContext<TParent>);
 
     static override defineSchema(): PrototypeTokenSchema;
 

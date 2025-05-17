@@ -9,6 +9,7 @@ import type { CheckModifier, ModifierPF2e, ModifierType, StatisticModifier } fro
 import type Hotbar from "@client/applications/ui/hotbar.d.mts";
 import type Config from "@client/config.d.mts";
 import type WallDocument from "@client/documents/wall.d.mts";
+import type { FoundryUI } from "@client/ui.d.mts";
 import type { CompendiumUUID } from "@client/utils/_module.d.mts";
 import type { SettingConfig } from "@common/_types.d.mts";
 import type { ImageFilePath, RollMode, UserRole } from "@common/constants.d.mts";
