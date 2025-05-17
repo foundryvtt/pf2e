@@ -60,7 +60,7 @@ import type {
     Statistic,
     StatisticDifficultyClass,
 } from "@system/statistic/index.ts";
-import { EnrichmentOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
+import { type RollDataPF2e, TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, localizer, objectHasKey, setHasElement, signedInteger, sluggify, tupleHasValue } from "@util";
 import { Duration } from "luxon";
 import * as R from "remeda";
@@ -1654,7 +1654,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** This allows @actor.level and such to work for macros and inline rolls */
-    override getRollData(): NonNullable<EnrichmentOptionsPF2e["rollData"]> {
+    override getRollData(): RollDataPF2e {
         return { actor: this };
     }
 

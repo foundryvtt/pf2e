@@ -24,7 +24,7 @@ import { RuleElementOptions, RuleElementPF2e, RuleElementSource, RuleElements } 
 import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers.ts";
 import { eventToRollMode } from "@module/sheet/helpers.ts";
 import type { UserPF2e } from "@module/user/document.ts";
-import { EnrichmentOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
+import { type EnrichmentOptionsPF2e, type RollDataPF2e, TextEditorPF2e } from "@system/text-editor.ts";
 import {
     ErrorPF2e,
     createHTMLElement,
@@ -204,7 +204,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         return rollOptions;
     }
 
-    override getRollData(): NonNullable<EnrichmentOptionsPF2e["rollData"]> {
+    override getRollData(): RollDataPF2e {
         const actorRollData = this.actor?.getRollData() ?? { actor: null };
         return { ...actorRollData, item: this };
     }

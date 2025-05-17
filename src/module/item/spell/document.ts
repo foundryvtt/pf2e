@@ -47,7 +47,7 @@ import {
 } from "@system/damage/types.ts";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
 import { StatisticRollParameters } from "@system/statistic/index.ts";
-import { EnrichmentOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
+import { type EnrichmentOptionsPF2e, type RollDataPF2e, TextEditorPF2e } from "@system/text-editor.ts";
 import {
     ErrorPF2e,
     createHTMLElement,
@@ -255,9 +255,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return Math.max(this.baseRank, slotNumber ?? this.rank) as OneToTen;
     }
 
-    override getRollData(
-        rollOptions: { castRank?: number | string } = {},
-    ): NonNullable<EnrichmentOptionsPF2e["rollData"]> {
+    override getRollData(rollOptions: { castRank?: number | string } = {}): RollDataPF2e {
         const spellRank = Number(rollOptions?.castRank) || null;
         const castRank = Math.max(this.baseRank, spellRank || this.rank);
 
