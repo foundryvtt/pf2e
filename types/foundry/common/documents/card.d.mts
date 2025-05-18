@@ -63,7 +63,7 @@ type CardSchema = {
     /** Game system data which is defined by the system template.json model */
     system: fields.TypeDataField;
     /** An optional suit designation which is used by default sorting */
-    suit: fields.StringField;
+    suit: fields.StringField<string, string, true>;
     /** An optional numeric value of the card which is used by default sorting */
     value: fields.NumberField;
     /** An object of face data which describes the back of this card */
@@ -85,7 +85,7 @@ type CardSchema = {
     /** The sort order of this card relative to others in the same stack */
     sort: fields.IntegerSortField;
     /** An object of optional key/value flags */
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.DocumentFlagsField;
 };
 
 type CardFaceSchema = {

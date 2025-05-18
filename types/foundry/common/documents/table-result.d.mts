@@ -57,7 +57,9 @@ type TableResultSchema = {
     /** Has this result already been drawn (without replacement) */
     drawn: fields.BooleanField;
     /** An object of optional key/value flags */
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.DocumentFlagsField;
+    /** An object of creation and access information */
+    _stats: fields.DocumentStatsField;
 };
 
 export type TableResultSource = fields.SourceFromSchema<TableResultSchema>;

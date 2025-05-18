@@ -86,7 +86,7 @@ export type ItemSchema<TType extends string = string, TSystemSource extends obje
     /** An object which configures ownership of this Item */
     ownership: fields.DocumentOwnershipField;
     /** An object of optional key/value flags */
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.DocumentFlagsField;
     /** An object of creation and access information */
     _stats: fields.DocumentStatsField<ItemUUID>;
 };

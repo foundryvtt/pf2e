@@ -1,9 +1,9 @@
 import { FormInputConfig } from "@common/data/_module.mjs";
-import FilePicker from "../apps/file-picker.mjs";
+import FilePicker, { FilePickerFileType } from "../apps/file-picker.mjs";
 import AbstractFormInputElement from "./form-element.mjs";
 
 export interface FilePickerInputConfig extends FormInputConfig<string> {
-    type?: FilePickerOptions["type"];
+    type?: FilePickerFileType;
     placeholder?: string;
     noupload?: boolean;
 }
@@ -33,7 +33,7 @@ export default class HTMLFilePickerElement extends AbstractFormInputElement<stri
      * A type of file which can be selected in this field.
      * @see {@link foundry.applications.apps.FilePicker.FILE_TYPES}
      */
-    get type(): FilePickerOptions["type"];
+    get type(): FilePickerFileType;
 
     set type(value);
 

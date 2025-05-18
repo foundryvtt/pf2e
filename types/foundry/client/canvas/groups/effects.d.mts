@@ -1,5 +1,5 @@
-import { Point } from "@common/types.mjs";
-import { Collection } from "@common/utils/collection.mjs";
+import { Point } from "@common/_types.mjs";
+import Collection from "@common/utils/collection.mjs";
 import CanvasLayer from "../layers/base/canvas-layer.mjs";
 import { AmbientLight, Token } from "../placeables/_module.mjs";
 import type { GlobalLightSource, PointLightSource, PointVisionSource } from "../sources/_module.mjs";
@@ -26,10 +26,10 @@ export default class EffectsCanvasGroup extends CanvasGroupMixin(PIXI.Container)
     animateVisionSources: boolean;
 
     /** A mapping of light sources which are active within the rendered Scene. */
-    lightSources: Collection<PointLightSource<AmbientLight | Token>>;
+    lightSources: Collection<string, PointLightSource<AmbientLight | Token>>;
 
     /** A Collection of vision sources which are currently active within the rendered Scene. */
-    visionSources: Collection<PointVisionSource<Token>>;
+    visionSources: Collection<string, PointVisionSource<Token>>;
 
     /** A set of vision mask filters used in visual effects group */
     visualEffectsMaskingFilters: Set<PIXI.Filter>;

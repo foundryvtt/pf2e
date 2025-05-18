@@ -77,7 +77,7 @@ type ActiveEffectSchema = {
     tint: fields.ColorField;
     transfer: fields.BooleanField;
     statuses: fields.SetField<fields.StringField<string, string, true, false, false>>;
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.DocumentFlagsField;
     _stats: fields.DocumentStatsField;
 };
 

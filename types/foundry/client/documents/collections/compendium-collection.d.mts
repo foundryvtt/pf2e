@@ -8,7 +8,7 @@ import {
 import { DocumentOwnershipLevel, DocumentOwnershipString, ImageFilePath } from "@common/constants.mjs";
 import Collection from "@common/utils/collection.mjs";
 import { ApplicationRenderOptions } from "../../applications/_types.mjs";
-import { Actor, Cards, Item, JournalEntry, Macro, Playlist, RollTable, Scene, User } from "../_module.mjs";
+import { CompendiumDocument, User } from "../_module.mjs";
 import DocumentCollection from "../abstract/document-collection.mjs";
 
 /**
@@ -209,4 +209,3 @@ export interface CompendiumIndexData {
 }
 
 export type CompendiumIndex = Collection<string, CompendiumIndexData>;
-export type CompendiumDocument = Actor<null> | Cards | Item<null> | JournalEntry | Macro | Playlist | RollTable | Scene;

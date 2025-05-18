@@ -11,7 +11,7 @@ import ApplicationV2 from "../api/application.mjs";
 
 export type FilePickerSource = "data" | "public" | "s3";
 
-type FilePickerFileType = (typeof FilePicker.FILE_TYPES)[number];
+export type FilePickerFileType = (typeof FilePicker.FILE_TYPES)[number];
 
 type FilerPickerDisplayMode = (typeof FilePicker.DISPLAY_MODES)[number];
 
@@ -328,3 +328,5 @@ export default class FilePicker extends HandlebarsApplicationMixin(ApplicationV2
      */
     static fromButton(button: HTMLButtonElement): FilePicker;
 }
+
+export {};

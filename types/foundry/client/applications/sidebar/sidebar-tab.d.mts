@@ -50,13 +50,13 @@ export default abstract class AbstractSidebarTab<
     /*  Rendering                                   */
     /* -------------------------------------------- */
 
-    protected override _initializeApplicationOptions(options: Partial<TConfig>): TConfig;
+    protected override _initializeApplicationOptions(options: DeepPartial<TConfig>): TConfig;
 
     protected override _prepareContext(options: TRenderOptions): Promise<object>;
 
     protected override _renderFrame(options: TRenderOptions): Promise<HTMLElement>;
 
-    override render(options: TRenderOptions): Promise<this>;
+    override render(options?: boolean | DeepPartial<TRenderOptions>): Promise<this>;
 
     /* -------------------------------------------- */
     /*  Public API                                  */

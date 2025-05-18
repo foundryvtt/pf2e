@@ -727,9 +727,7 @@ export interface DocumentMetadata {
 type _Document = Document<_Document | null>;
 
 declare global {
-    type PreCreate<T extends SourceFromSchema<DataSchema>> = T extends { name: string; type: string }
-        ? Omit<DeepPartial<T>, "_id" | "name" | "type"> & { _id?: Maybe<string>; name: string; type: T["type"] }
-        : DeepPartial<T>;
+    type PreCreate<T extends SourceFromSchema<DataSchema>> = DeepPartial<T>;
 
     type EmbeddedDocumentUpdateData = {
         _id: string;
@@ -741,8 +739,6 @@ declare global {
             permission?: boolean;
         };
     }
-
-    type DocumentFlags = Record<string, Record<string, unknown> | undefined>;
 
     interface DocumentCloneContext extends Omit<DocumentConstructionContext<null>, "parent"> {
         save?: boolean;

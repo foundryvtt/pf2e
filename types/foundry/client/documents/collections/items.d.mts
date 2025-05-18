@@ -1,4 +1,5 @@
 import WorldCollection from "../abstract/world-collection.mjs";
+import Item from "../item.mjs";
 
 /**
  * The singleton collection of Item documents which exist within the active World.

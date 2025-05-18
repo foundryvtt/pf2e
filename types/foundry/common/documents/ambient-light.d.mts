@@ -42,7 +42,7 @@ export type AmbientLightSchema = {
     /** Is the light source currently hidden? */
     hidden: fields.BooleanField;
     /** An object of optional key/value flags */
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.DocumentFlagsField;
 };
 
 export type AmbientLightSource = fields.SourceFromSchema<AmbientLightSchema>;

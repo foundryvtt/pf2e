@@ -12,7 +12,7 @@ import AbstractBaseShader from "../base-shader.mjs";
 export default class BaseSamplerShader extends AbstractBaseShader {
     static override defaultUniforms: {
         sampler?: number | null;
-        tintAlpha: number[];
+        tintAlpha?: number[];
     };
 
     /**
@@ -105,7 +105,7 @@ export default class BaseSamplerShader extends AbstractBaseShader {
      * Create a batch plugin for this sampler class.
      * @returns The batch plugin class linked to this sampler class.
      */
-    static createPlugin(): typeof BatchPlugin;
+    static createPlugin(): typeof BatchRenderer;
 
     /**
      * Register the plugin for this sampler.

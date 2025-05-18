@@ -61,7 +61,7 @@ type WallSchema = {
     /** Configuration of threshold data for this wall */
     threshold: fields.SchemaField<WallThresholdSchema>;
     /** An object of optional key/value flags */
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.DocumentFlagsField;
 };
 
 type WallThresholdSchema = {

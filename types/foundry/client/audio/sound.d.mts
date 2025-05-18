@@ -1,12 +1,14 @@
-import EventEmitterMixin from "../../common/utils/event-emitter.mjs";
+import { EventEmitter } from "@common/utils/event-emitter.mjs";
 import { SoundPlaybackOptions, SoundScheduleCallback } from "./_types.mjs";
+
+type SoundState = (typeof Sound.STATES)[keyof typeof Sound.STATES];
 
 /**
  * A container around an AudioNode which manages sound playback in Foundry Virtual Tabletop.
  * Each Sound is either an AudioBufferSourceNode (for short sources) or a MediaElementAudioSourceNode (for long ones).
  * This class provides an interface around both types which allows standardized control over playback.
  */
-export default class Sound extends EventEmitterMixin(Object) {
+export default class Sound extends EventEmitter {
     /**
      * Construct a Sound by providing the source URL and other options.
      * @param src     The audio source path, either a relative path or a remote URL
@@ -62,39 +64,26 @@ export default class Sound extends EventEmitterMixin(Object) {
 
     /**
      * The GainNode used to control volume for this sound.
-     * @type {GainNode}
      */
-    gainNode;
+    gainNode: GainNode;
 
     /**
      * An AudioBuffer instance, if this Sound uses an AudioBufferSourceNode for playback.
-     * @type {AudioBuffer|null}
      */
-    buffer = null;
+    buffer: AudioBuffer | null;
 
     /**
      * An HTMLAudioElement, if this Sound uses a MediaElementAudioSourceNode for playback.
-     * @type {HTMLAudioElement|null}
      */
-    element = null;
-
-    /**
-     * Force usage of an AudioBufferSourceNode regardless of audio duration?
-     * @type {boolean}
-     */
-    #forceBuffer = false;
+    element: HTMLAudioElement | null;
 
     /**
      * The life-cycle state of the sound.
-     * @see {Sound.STATES}
-     * @type {number}
-     * @protected
      */
     protected _state: SoundState;
 
     /**
      * Has the audio file been loaded either fully or for streaming.
-     * @type {boolean}
      */
     get loaded(): boolean;
 
@@ -299,3 +288,5 @@ export default class Sound extends EventEmitterMixin(Object) {
      */
     protected _disconnectPipeline(): void;
 }
+
+export {};
