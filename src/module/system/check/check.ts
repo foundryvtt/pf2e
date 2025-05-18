@@ -31,6 +31,7 @@ import {
     DegreeAdjustmentsRecord,
     DegreeOfSuccess,
     DegreeOfSuccessString,
+    type CheckDC,
 } from "../degree-of-success.ts";
 import { TextEditorPF2e } from "../text-editor.ts";
 import { CheckModifiersDialog } from "./dialog.ts";
@@ -524,7 +525,7 @@ class CheckPF2e {
         }
 
         const degree = ((): DegreeOfSuccess | null => {
-            const dc = context.dc;
+            const dc = context.dc as Maybe<CheckDC>;
             if (!dc) return null;
             if (["ac", "armor"].includes(dc.slug ?? "")) {
                 const targetActor = ((): ActorPF2e | null => {
