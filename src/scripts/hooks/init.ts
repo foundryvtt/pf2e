@@ -19,6 +19,16 @@ import { SetGamePF2e } from "@scripts/set-game-pf2e.ts";
 import { registerSettings } from "@system/settings/index.ts";
 import { htmlQueryAll } from "@util";
 import * as R from "remeda";
+import { accessInfosphere } from "@system/action-macros/computers/access-infosphere.ts";
+import { drive } from "@system/action-macros/piloting/drive.ts";
+import { hack } from "@system/action-macros/computers/hack.ts";
+import { navigate } from "@system/action-macros/piloting/navigate.ts";
+import { plotCourse } from "@system/action-macros/piloting/plot-course.ts";
+import { program } from "@system/action-macros/computers/program.ts";
+import { runOver } from "@system/action-macros/piloting/run-over.ts";
+import { stop } from "@system/action-macros/piloting/stop.ts";
+import { stunt } from "@system/action-macros/piloting/stunt.ts";
+import { takeControl } from "@system/action-macros/piloting/take-control.ts";
 
 export const Init = {
     listen: (): void => {
@@ -172,6 +182,21 @@ export const Init = {
             }
 
             game.pf2e.StatusEffects.initialize();
+
+            if (game.modules.get("starfinder-field-test-for-pf2e")?.active) {
+                [
+                    accessInfosphere,
+                    drive,
+                    hack,
+                    navigate,
+                    plotCourse,
+                    program,
+                    runOver,
+                    stop,
+                    stunt,
+                    takeControl,
+                ].forEach((action) => game.pf2e.actions.set(action.slug, action));
+            }
         });
     },
 };
