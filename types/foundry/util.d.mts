@@ -11,6 +11,18 @@ declare global {
           ? DeepPartial<U>[]
           : { [K in keyof T]?: ExtractObjects<T[K]> extends never ? T[K] : DeepPartial<T[K]> };
 
+    type DeepReadonly<T> = {
+        readonly [K in keyof T]: T[K] extends undefined | null | boolean | number | string | symbol | bigint | Function
+            ? T[K]
+            : T[K] extends Array<infer V>
+              ? ReadonlyArray<DeepReadonly<V>>
+              : T[K] extends Map<infer K_1, infer V>
+                ? ReadonlyMap<DeepReadonly<K_1>, DeepReadonly<V>>
+                : T[K] extends Set<infer V_1>
+                  ? ReadonlySet<DeepReadonly<V_1>>
+                  : DeepReadonly<T[K]>;
+    };
+
     type CollectionValue<T> = T extends Collection<string, infer U> ? U : never;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

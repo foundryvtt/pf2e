@@ -148,7 +148,7 @@ type TokenSchema = {
         }>;
     }>;
     /** An object of optional key/value flags */
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.DocumentFlagsField;
 };
 
 export type TokenSource = fields.SourceFromSchema<TokenSchema>;

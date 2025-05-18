@@ -41,7 +41,7 @@ type PlaylistSchema = {
     seed: fields.NumberField;
     sort: fields.IntegerSortField;
     ownership: fields.DocumentOwnershipField;
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.DocumentFlagsField;
     _stats: fields.DocumentStatsField;
 };
 

@@ -213,3 +213,7 @@ export function CanvasTransformMixin<TBase extends ConstructorOf<PIXI.DisplayObj
 
     return CanvasTransformObject;
 }
+
+export type PrimaryCanvasObject = ReturnType<typeof PrimaryCanvasObjectMixin>;
+
+export {};

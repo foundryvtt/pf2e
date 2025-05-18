@@ -67,7 +67,7 @@ type AmbientSoundSchema = {
         max: fields.AlphaField;
     }>;
     /** A darkness range (min and max) for which the source should be active */
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.DocumentFlagsField;
 };
 
 export type AmbientSoundSource = fields.SourceFromSchema<AmbientSoundSchema>;

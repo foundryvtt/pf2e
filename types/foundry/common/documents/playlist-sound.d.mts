@@ -55,7 +55,7 @@ type PlaylistSoundSchema = {
     /** The sort order of the PlaylistSound relative to others in the same collection */
     sort: fields.IntegerSortField;
     /** An object of optional key/value flags */
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.DocumentFlagsField;
 };
 
 export type PlaylistSoundSource = fields.SourceFromSchema<PlaylistSoundSchema>;

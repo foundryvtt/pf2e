@@ -1,3 +1,5 @@
+import { Point } from "@common/_types.mjs";
+
 /**
  * A ray for the purposes of computing sight and collision
  * Given points A[x,y] and B[x,y]

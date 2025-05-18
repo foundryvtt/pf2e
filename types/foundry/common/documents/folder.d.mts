@@ -57,7 +57,8 @@ type FolderSchema = {
     /** A color string used for the background color of this Folder */
     color: fields.ColorField;
     /** An object of optional key/value flags */
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.DocumentFlagsField;
+    /** An object of creation and access information. */
     _stats: fields.DocumentStatsField;
 };
 

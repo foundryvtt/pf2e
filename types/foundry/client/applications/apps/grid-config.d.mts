@@ -2,6 +2,7 @@ import Scene from "@client/documents/scene.mjs";
 import { FormFooterButton } from "../_types.mjs";
 import {
     DocumentSheetConfiguration,
+    DocumentSheetRenderContext,
     DocumentSheetV2,
     HandlebarsApplicationMixin,
     HandlebarsRenderOptions,
@@ -9,7 +10,7 @@ import {
 } from "../api/_module.mjs";
 import SceneConfig from "../sheets/scene-config.mjs";
 
-interface GridConfigContext<TScene extends Scene = Scene> {
+interface GridConfigContext<TScene extends Scene = Scene> extends DocumentSheetRenderContext {
     scene: TScene;
     gridTypes: Record<string, string>;
     scale: number;

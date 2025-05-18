@@ -1,5 +1,6 @@
 import Color from "@common/utils/color.mjs";
 import { PointSourceMesh } from "../containers/_module.mjs";
+import { PlaceableObject } from "../placeables/_module.mjs";
 import { AbstractBaseShader, AdaptiveLightingShader } from "../rendering/shaders/_module.mjs";
 import type BaseEffectSource from "./base-effect-source.mjs";
 import type { BaseEffectSourceOptions } from "./base-effect-source.mjs";
@@ -155,7 +156,7 @@ export default class RenderedEffectSource extends BaseEffectSource {
     static getCorrectedColor(level: number, colorDim: Color, colorBright: Color, colorBackground?: Color): Color;
 }
 
-interface RenderedEffectSourceData extends BaseEffectSourceOptions {
+interface RenderedEffectSourceData extends BaseEffectSourceOptions<PlaceableObject> {
     /** A color applied to the rendered effect */
     color: number | null;
     /** An integer seed to synchronize (or de-synchronize) animations */
