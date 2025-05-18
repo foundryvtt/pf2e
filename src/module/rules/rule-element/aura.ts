@@ -4,7 +4,7 @@ import { SAVE_TYPES } from "@actor/values.ts";
 import type { HexColorString, ImageFilePath, VideoFilePath } from "@common/constants.d.mts";
 import { ItemUUID } from "@common/documents/_module.mjs";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
-import { DataUnionField, PredicateField, StrictArrayField } from "@system/schema-data-fields.ts";
+import { DataUnionField, LaxArrayField, PredicateField, StrictArrayField } from "@system/schema-data-fields.ts";
 import { isImageOrVideoPath, sluggify } from "@util";
 import * as R from "remeda";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
@@ -35,7 +35,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
             required: true,
             nullable: false,
             initial: undefined,
-            choices: { ...CONFIG.PF2E.spellTraits, ...CONFIG.PF2E.actionTraits },
+            choices: CONFIG.PF2E.effectTraits,
         });
 
         const effectSchemaField: fields.SchemaField<AuraEffectSchema> = new fields.SchemaField({
@@ -240,7 +240,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 label: "PF2E.RuleEditor.Aura.Basics.Level.Label",
                 hint: "PF2E.RuleEditor.Aura.Basics.Level.Hint",
             }),
-            traits: new StrictArrayField(auraTraitField, {
+            traits: new LaxArrayField(auraTraitField, {
                 required: true,
                 nullable: false,
                 label: "PF2E.TraitsLabel",

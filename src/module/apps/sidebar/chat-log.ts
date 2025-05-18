@@ -4,7 +4,8 @@ import type { ApplicationRenderContext } from "@client/applications/_types.d.mts
 import type { ContextMenuCondition, ContextMenuEntry } from "@client/applications/ux/context-menu.d.mts";
 import type { Rolled } from "@client/dice/_module.d.mts";
 import type { ChatMessageSource, ChatSpeakerData } from "@common/documents/chat-message.d.mts";
-import type { ShieldPF2e } from "@item";
+import { EffectPF2e, type ShieldPF2e } from "@item";
+import { EffectSource } from "@item/effect/data.ts";
 import { applyDamageFromMessage } from "@module/chat-message/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { CombatantPF2e } from "@module/encounter/index.ts";
@@ -12,12 +13,13 @@ import { TokenDocumentPF2e } from "@scene";
 import { CheckPF2e } from "@system/check/index.ts";
 import { looksLikeDamageRoll } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import { ErrorPF2e, htmlClosest, htmlQuery, objectHasKey } from "@util";
+import { createHTMLElement, ErrorPF2e, htmlClosest, htmlQuery, objectHasKey } from "@util";
 
 class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
     static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
         actions: {
             applyDamage: ChatLogPF2e.#onClickApplyDamage,
+            applyEffect: ChatLogPF2e.#onClickApplyEffect,
             findToken: ChatLogPF2e.#onClickFindToken,
             kingdomAction: ChatLogPF2e.#onClickKingdomAction,
             revertDamage: ChatLogPF2e.#onClickRevertDamage,
@@ -114,6 +116,59 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
             addend: 0,
             promptModifier: event.shiftKey,
         });
+    }
+
+    static async #onClickApplyEffect(this: ChatLogPF2e, event: PointerEvent, button: HTMLElement): Promise<void> {
+        if (!(button instanceof HTMLButtonElement)) return;
+        button.disabled = true;
+        const target = fromUuidSync(button.dataset.targets ?? "");
+        const message = ChatLogPF2e.#messageFromEvent(event).message;
+        const { actor, item } = message ?? {};
+        if (!message || !actor || !item) return;
+        const effect =
+            item.isOfType("action", "feat") && item.system.selfEffect
+                ? await fromUuid(item.system.selfEffect.uuid)
+                : null;
+        if (!(target instanceof ActorPF2e) || !(effect instanceof EffectPF2e)) return;
+        const traits = item.system.traits.value?.filter((t) => t in EffectPF2e.validTraits) ?? [];
+        const effectSource: EffectSource = fu.mergeObject(effect.toObject(), {
+            _id: null,
+            system: {
+                context: {
+                    origin: {
+                        actor: actor.uuid,
+                        token: message.token?.uuid ?? null,
+                        item: item.uuid,
+                        spellcasting: null,
+                        rollOptions: item.getOriginData().rollOptions,
+                    },
+                    target: {
+                        actor: target.uuid,
+                        token: target.getActiveTokens(true, true).at(0)?.uuid ?? null,
+                    },
+                    roll: null,
+                },
+                traits: { value: traits },
+            },
+        });
+        await target.createEmbeddedDocuments("Item", [effectSource]);
+        const parsedMessageContent = ((): HTMLElement => {
+            const container = document.createElement("div");
+            container.innerHTML = message.content;
+            return container;
+        })();
+
+        // Replace the "Apply Effect" button with a success notice
+        const buttons = htmlQuery(parsedMessageContent, ".message-buttons");
+        if (buttons) {
+            const span = createHTMLElement("span", { classes: ["effect-applied"] });
+            const anchor = effect.toAnchor({ attrs: { draggable: "true" } });
+            const locKey = "PF2E.Item.Ability.SelfAppliedEffect.Applied";
+            const statement = game.i18n.format(locKey, { effect: anchor.outerHTML });
+            span.innerHTML = statement;
+            htmlQuery(buttons, "button[data-action=applyEffect]")?.replaceWith(span);
+            await message.update({ content: parsedMessageContent.innerHTML });
+        }
     }
 
     static async #onClickSetAsInitiative(this: ChatLogPF2e, event: PointerEvent): Promise<void> {
