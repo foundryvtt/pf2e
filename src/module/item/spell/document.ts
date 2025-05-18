@@ -869,7 +869,9 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             )
             .sort((a, b) => a.sort - b.sort);
 
-        const rollData = htmlOptions.rollData ?? this.getRollData({ castRank });
+        const rollData =
+            (htmlOptions.rollData instanceof Function ? htmlOptions.rollData() : htmlOptions.rollData) ??
+            this.getRollData({ castRank });
         rollData.item ??= this;
 
         const systemData: SpellSystemData = this.system;
