@@ -4,7 +4,7 @@ import Document from "@common/abstract/document.mjs";
 import EmbeddedCollection from "@common/abstract/embedded-collection.mjs";
 import { ImageFilePath, VideoFilePath } from "@common/constants.mjs";
 import ActorSheet from "../appv1/sheets/actor-sheet.mjs";
-import { ActiveEffect, ActorUUID, BaseActor, Combat, Item, Scene, TokenDocument, User } from "./_module.mjs";
+import { ActiveEffect, ActorUUID, BaseActor, Combat, Scene, TokenDocument, User } from "./_module.mjs";
 import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
 import Actors from "./collections/actors.mjs";
 
@@ -244,37 +244,21 @@ declare class Actor<TParent extends TokenDocument | null = TokenDocument | null>
         userId: string,
     ): void;
 
-    protected override _onCreateDescendantDocuments(
-        parent: this,
-        collection: "effects" | "items",
-        documents: ActiveEffect<Item<this>>[] | Item<this>[],
-        result: ActiveEffect<Item<this>>["_source"][] | Item<this>["_source"][],
-        options: DatabaseCreateOperation<this>,
-        userId: string,
-    ): void;
-    protected override _onCreateDescendantDocuments<TP extends Document>(
-        parent: TP,
+    protected _onCreateDescendantDocuments<P extends Document>(
+        parent: P,
         collection: string,
-        documents: Document<TP>[],
+        documents: Document<P>[],
         data: object[],
-        options: DatabaseCreateOperation<TP>,
+        options: DatabaseCreateOperation<P>,
         userId: string,
     ): void;
 
-    protected override _onUpdateDescendantDocuments(
-        parent: this,
-        collection: "effects" | "items",
-        documents: ActiveEffect<this>[] | Item<this>[],
-        changes: ActiveEffect<this>["_source"][] | Item<this>["_source"][],
-        options: DatabaseUpdateOperation<this>,
-        userId: string,
-    ): void;
-    protected _onUpdateDescendantDocuments<TP extends Document>(
-        parent: TP,
+    protected _onUpdateDescendantDocuments<P extends Document>(
+        parent: P,
         collection: string,
-        documents: Document<TP>[],
+        documents: Document<P>[],
         changes: Record<string, unknown>[],
-        options: DatabaseUpdateOperation<TP>,
+        options: DatabaseUpdateOperation<P>,
         userId: string,
     ): void;
 
