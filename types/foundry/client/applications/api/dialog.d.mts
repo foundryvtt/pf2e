@@ -7,7 +7,7 @@ export default class DialogV2<
 > extends ApplicationV2<TConfig, TRenderOptions> {
     static override DEFAULT_OPTIONS: DeepPartial<DialogV2Configuration>;
 
-    override _initializeApplicationOptions(options: Partial<TConfig>): TConfig;
+    override _initializeApplicationOptions(options: DeepPartial<TConfig>): TConfig;
 
     protected override _renderHTML(): Promise<HTMLFormElement>;
 

@@ -1,7 +1,13 @@
 import { CustomFormGroup, CustomFormInput, FormSelectOption } from "@client/applications/forms/fields.mjs";
 import { DocumentUUID } from "@client/utils/_module.mjs";
 import { DocumentType, FileCategory, FilePath } from "@common/constants.mjs";
-import { DataField, DocumentStatsSchema, MaybeSchemaProp, SourceFromSchema } from "./fields.mjs";
+import {
+    DataField,
+    DocumentFlagsField,
+    DocumentStatsData,
+    MaybeSchemaProp,
+    ModelPropFromDataField,
+} from "./fields.mjs";
 import { DataModelValidationFailure } from "./validation-failure.mjs";
 
 /**
@@ -315,9 +321,9 @@ interface FilePathFieldOptions<
     wildcard?: boolean;
 }
 
-export type DocumentFlags = Record<string, Record<string, unknown>>;
+export type DocumentFlags = ModelPropFromDataField<DocumentFlagsField>;
 
-export interface DocumentStats extends SourceFromSchema<DocumentStatsSchema> {}
+export interface DocumentStats extends DocumentStatsData {}
 
 export interface JavaScriptFieldOptions<
     TRequired extends boolean,

@@ -1,6 +1,7 @@
 import Roll from "@client/dice/roll.mjs";
 import { DatabaseCreateOperation } from "@common/abstract/_types.mjs";
 import { AudioFilePath, ChatMessageStyle, DocumentOwnershipLevel, RollMode } from "@common/constants.mjs";
+import { DocumentFlags } from "@common/data/_module.mjs";
 import { Document, DocumentMetadata } from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
 import BaseUser from "./user.mjs";
@@ -61,18 +62,18 @@ declare type ChatMessageSchema = {
     /** Is this message styled as an emote? */
     emote: fields.BooleanField;
     /** An object of optional key/value flags */
-    flags: fields.ObjectField<ChatMessageFlags>;
+    flags: fields.DocumentFlagsField;
     /** An object of creation and access information. */
     _stats: fields.DocumentStatsField;
 };
 
-export interface ChatMessageFlags extends DocumentFlags {
+export type ChatMessageFlags = DocumentFlags & {
     core?: {
         canPopout?: boolean;
         initiativeRoll?: boolean;
         RollTable?: string;
     };
-}
+};
 
 declare type ChatSpeakerSchema = {
     /** The _id of the Scene where this message was created */
@@ -100,3 +101,5 @@ export interface ChatMessageCreateOperation extends DatabaseCreateOperation<null
 }
 
 export type ChatMessageSource = fields.SourceFromSchema<ChatMessageSchema>;
+
+export {};

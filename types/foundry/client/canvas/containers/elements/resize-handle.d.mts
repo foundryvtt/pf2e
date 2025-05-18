@@ -1,4 +1,4 @@
-import { Point, Rectangle } from "@common/types.mjs";
+import { Point, Rectangle } from "@common/_types.mjs";
 
 /**
  * A class based on PIXI.Graphics, that allows to create a resize handle in the desired area.

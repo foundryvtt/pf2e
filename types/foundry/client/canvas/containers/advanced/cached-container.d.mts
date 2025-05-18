@@ -18,7 +18,7 @@ export default class CachedContainer extends PIXI.Container {
         multisample: PIXI.MSAA_QUALITY;
         scaleMode: PIXI.SCALE_MODES;
         format: PIXI.FORMATS;
-        mipmap: PIXI.MIPMAP_MODES;
+        mipmap?: PIXI.MIPMAP_MODES;
     };
 
     /**

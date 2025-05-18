@@ -87,7 +87,7 @@ type ActorDeltaSchema = {
     >;
     effects: fields.EmbeddedCollectionDeltaField<BaseActiveEffect<BaseActor>>;
     ownership: fields.DocumentOwnershipField;
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.DocumentFlagsField;
 };
 
 export type ActorDeltaSource = fields.SourceFromSchema<ActorDeltaSchema>;

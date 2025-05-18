@@ -83,7 +83,7 @@ type MacroSchema = {
     /** An object which configures ownership of this Macro */
     ownership: fields.DocumentOwnershipField;
     /** An object of optional key/value flags */
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.DocumentFlagsField;
     /** An object of creation and access information */
     _stats: fields.DocumentStatsField;
 };

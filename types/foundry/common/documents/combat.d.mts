@@ -41,7 +41,8 @@ type CombatSchema = {
     /** The current sort order of this Combat relative to others in the same Scene */
     sort: fields.IntegerSortField;
     /** An object of optional key/value flags */
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.DocumentFlagsField;
+    /** An object of creation and access information */
     _stats: fields.DocumentStatsField;
 };
 

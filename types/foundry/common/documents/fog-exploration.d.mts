@@ -51,7 +51,7 @@ type FogExplorationSchema = {
     positions: fields.ObjectField<object>;
     /** The timestamp at which this fog exploration was last updated */
     timestamp: fields.NumberField<number, number, false, true, true>;
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.DocumentFlagsField;
 };
 
 export type FogExplorationSource = fields.SourceFromSchema<FogExplorationSchema>;

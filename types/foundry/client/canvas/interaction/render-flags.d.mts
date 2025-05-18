@@ -31,3 +31,41 @@ export default class RenderFlags extends Set<string> {
      */
     set(changes: Record<string, boolean>): void;
 }
+
+/**
+ * Add RenderFlags functionality to some other object.
+ * This mixin standardizes the interface for such functionality.
+ * @param Base The base class being mixed: defaults to an anonymous empty class.
+ */
+export function RenderFlagsMixin<TBase extends object>(
+    Base?: AbstractConstructorOf<TBase>,
+): ConstructorOf<RenderFlagsObject> & TBase;
+
+export class RenderFlagsObject {
+    constructor(...args: any[]);
+
+    /**
+     * Configure the render flags used for this class.
+     */
+    static RENDER_FLAGS: Record<string, RenderFlag>;
+
+    /**
+     * The ticker priority when RenderFlags of this class are handled.
+     * Valid values are OBJECTS or PERCEPTION.
+     */
+    static RENDER_FLAG_PRIORITY: "OBJECTS" | "PERCEPTION";
+
+    /**
+     * Status flags which are applied at render-time to update the PlaceableObject.
+     * If an object defines RenderFlags, it should at least include flags for "redraw" and "refresh".
+     */
+    renderFlags: RenderFlags;
+
+    /**
+     * Apply any current render flags, clearing the renderFlags set.
+     * Subclasses should override this method to define behavior.
+     */
+    applyRenderFlags(): void;
+}
+
+export {};

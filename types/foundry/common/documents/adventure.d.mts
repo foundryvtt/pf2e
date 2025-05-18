@@ -106,7 +106,7 @@ type AdventureSchema = {
     /** The sort order of this adventure relative to its siblings */
     sort: fields.IntegerSortField;
     /** An object of optional key/value flags */
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.DocumentFlagsField;
     /** An object of creation and access information */
     _stats: fields.DocumentStatsField;
 };

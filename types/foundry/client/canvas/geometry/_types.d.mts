@@ -1,7 +1,7 @@
-import { PointEffectSource } from "../sources/point-effect-source-mixes.mjs";
+import { PointEffectSource } from "../sources/point-effect-source.mjs";
 import { Ray } from "./_module.mjs";
 import { CollisionResult } from "./edges/collision.mjs";
-import { Edge } from "./edges/edge.mjs";
+import Edge from "./edges/edge.mjs";
 import PolygonVertex from "./edges/vertex.mjs";
 import Quadtree from "./quad-tree.mjs";
 
