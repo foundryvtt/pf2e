@@ -34,15 +34,9 @@ async function createUseActionMessage(
     const consumeResources = !!resource?.value;
     const craftedItem = await (async () => {
         if (!isCraftingAction) return null;
-
         const picker = new FormulaPicker({ actor, item, ability: craftingAbility, mode: "craft" });
         const selection = await picker.resolveSelection();
-        return selection
-            ? craftingAbility.craft(selection, {
-                  consume: consumeResources,
-                  destination: "hand",
-              })
-            : null;
+        return selection ? craftingAbility.craft(selection, { consume: consumeResources, destination: "hand" }) : null;
     })();
     if (!craftedItem && isCraftingAction) return null;
 
