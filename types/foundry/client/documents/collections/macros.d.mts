@@ -1,5 +1,6 @@
 import DocumentDirectory from "@client/applications/sidebar/document-directory.mjs";
 import WorldCollection from "../abstract/world-collection.mjs";
+import Macro from "../macro.mjs";
 
 /**
  * The Collection of Macro documents which exist within the active World.

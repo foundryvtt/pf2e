@@ -66,7 +66,7 @@ type TileSchema = {
     /** The tile's video settings */
     video: fields.SchemaField<TileVideoSchema>;
     /** An object of optional key/value flags */
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.DocumentFlagsField;
 };
 
 type TileOcclusionSchema = {

@@ -1,12 +1,12 @@
 import User from "@client/documents/user.mjs";
 import { ElevatedPoint, Point } from "@common/_types.mjs";
 import { RenderFlag } from "../_types.mjs";
-import { RenderFlagsMixin } from "../render-flags.mjs";
+import { RenderFlagsObject } from "../render-flags.mjs";
 
 /**
  * The ruler that is used to measure distances on the Canvas.
  */
-export default abstract class BaseRuler extends RenderFlagsMixin(Object) {
+export default abstract class BaseRuler extends RenderFlagsObject {
     /**
      * @param user The User for whom to construct the Ruler instance
      */

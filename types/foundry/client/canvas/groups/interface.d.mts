@@ -1,4 +1,5 @@
-import { Point } from "@common/types.mjs";
+import { Point } from "@common/_types.mjs";
+import GridLayer from "../layers/grid.mjs";
 import CanvasGroupMixin from "./canvas-group-mixin.mjs";
 
 /** A container group which displays interface elements rendered above other canvas groups. */

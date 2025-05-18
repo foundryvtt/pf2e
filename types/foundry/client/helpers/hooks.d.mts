@@ -1,5 +1,6 @@
 import type { DialogV2 } from "@client/applications/api/_module.mjs";
 import type { CombatTrackerConfig } from "@client/applications/apps/_module.mjs";
+import SettingsConfig from "@client/applications/settings/config.mjs";
 import { ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";
 import Canvas from "@client/canvas/board.mjs";
 import LightingLayer from "@client/canvas/layers/lighting.mjs";

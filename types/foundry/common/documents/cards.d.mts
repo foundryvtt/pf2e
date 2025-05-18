@@ -85,7 +85,7 @@ type CardsSchema = {
     /** An object which configures user permissions to this stack */
     ownership: fields.DocumentOwnershipField;
     /** An object of optional key/value flags */
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.DocumentFlagsField;
     /** An object of creation and access information */
     _stats: fields.DocumentStatsField;
 };

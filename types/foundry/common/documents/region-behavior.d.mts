@@ -50,7 +50,7 @@ type RegionBehaviorSchema<TType extends string = string, TSystemData extends obj
     /** Is the RegionBehavior currently disabled? */
     disabled: fields.BooleanField;
     /** An object of optional key/value flags */
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.DocumentFlagsField;
     /** An object of creation and access information */
     _stats: fields.DocumentStatsField;
 };

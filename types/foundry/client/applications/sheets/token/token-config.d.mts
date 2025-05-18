@@ -3,7 +3,7 @@ import { Actor, Scene, TokenDocument } from "@client/documents/_module.mjs";
 import { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
 import { TokenSchema } from "@common/documents/token.mjs";
 import { ApplicationClosingOptions, ApplicationFormConfiguration, ApplicationRenderContext } from "../../_types.mjs";
-import DocumentSheetV2 from "../../api/document-sheet.mjs";
+import DocumentSheetV2, { DocumentSheetRenderContext } from "../../api/document-sheet.mjs";
 import { HandlebarsRenderOptions } from "../../api/handlebars-application.mts";
 import TokenApplicationMixin from "./mixin.mts";
 
@@ -23,7 +23,7 @@ export default class TokenConfig extends TokenApplicationMixin(DocumentSheetV2) 
 
     protected override _initializeTokenPreview(): Promise<void>;
 
-    protected override _prepareContext(options: HandlebarsRenderOptions): Promise<ApplicationRenderContext>;
+    protected override _prepareContext(options: HandlebarsRenderOptions): Promise<DocumentSheetRenderContext>;
 
     protected override _prepareAppearanceTab(): Promise<ApplicationRenderContext>;
 

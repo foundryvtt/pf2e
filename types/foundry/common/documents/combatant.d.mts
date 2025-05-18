@@ -43,7 +43,7 @@ type CombatantSchema = {
     /** Has this Combatant been defeated? */
     defeated: fields.BooleanField;
     /** An object of optional key/value flags */
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.DocumentFlagsField;
 };
 
 export type CombatantSource = fields.SourceFromSchema<CombatantSchema>;
