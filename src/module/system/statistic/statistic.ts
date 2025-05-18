@@ -12,6 +12,7 @@ import {
 import { CheckContext } from "@actor/roll-context/check.ts";
 import { AttributeString } from "@actor/types.ts";
 import type { Rolled } from "@client/dice/_module.d.mts";
+import type { RollMode } from "@common/constants.d.mts";
 import type { ItemPF2e } from "@item";
 import { AbilityTrait } from "@item/ability/types.ts";
 import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
