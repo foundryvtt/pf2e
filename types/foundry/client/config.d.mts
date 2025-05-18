@@ -14,6 +14,7 @@ import { EnrichmentOptions } from "./applications/ux/text-editor.mjs";
 import ActorSheet from "./appv1/sheets/actor-sheet.mjs";
 import ItemSheet from "./appv1/sheets/item-sheet.mjs";
 import JournalSheet from "./appv1/sheets/journal-sheet.mjs";
+import { CanvasAnimationAttribute } from "./canvas/animation/_types.mjs";
 import ChatBubbles from "./canvas/animation/chat-bubbles.mjs";
 import { DoorControl, ParticleEffect } from "./canvas/containers/_module.mjs";
 import ClockwiseSweepPolygon from "./canvas/geometry/clockwise-sweep.mjs";
@@ -103,6 +104,35 @@ interface WeatherEffectConfiguration {
     blendMode?: PIXI.BLEND_MODES;
     config?: object;
     performanceLevel?: number;
+}
+
+interface WallDoorSound {
+    /** A localization string label */
+    label: string;
+    /** A sound path when the door is closed */
+    close: string;
+    /** A sound path when the door becomes locked */
+    lock: string;
+    /** A sound path when opening the door */
+    open: string;
+    /** A sound path when attempting to open a locked door */
+    test: string;
+    /** A sound path when the door becomes unlocked */
+    unlock: string;
+}
+
+type WallDoorAnimationFunction = (open: boolean) => CanvasAnimationAttribute[];
+type WallDoorAnimationHook = (open: boolean) => Promise<void> | void;
+
+interface WallDoorAnimationConfig {
+    label: string;
+    midpoint?: boolean;
+    easing?: string | Function;
+    initialize?: WallDoorAnimationHook;
+    preAnimate?: WallDoorAnimationHook;
+    animate: WallDoorAnimationFunction;
+    postAnimate?: WallDoorAnimationHook;
+    duration: number;
 }
 
 export default interface Config<

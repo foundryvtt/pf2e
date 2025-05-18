@@ -80,7 +80,7 @@ type MeasuredTemplateSchema = {
     /** Is the template currently hidden? */
     hidden: fields.BooleanField;
     /** An object of optional key/value flags */
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.DocumentFlagsField;
 };
 
 export type MeasuredTemplateSource = fields.SourceFromSchema<MeasuredTemplateSchema>;

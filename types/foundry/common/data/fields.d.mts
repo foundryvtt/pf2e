@@ -652,8 +652,17 @@ export class ObjectField<
     ): DataModelValidationFailure | boolean | void;
 }
 
-export class TypedObjectField<TField extends DataField = DataField> extends ObjectField<
-    Record<string, SourceFromDataField<TField>>
+export class TypedObjectField<
+    TField extends DataField,
+    TRequired extends boolean = true,
+    TNullable extends boolean = false,
+    THasInitial extends boolean = true,
+> extends ObjectField<
+    Record<string, SourceFromDataField<TField>>,
+    Record<string, ModelPropFromDataField<TField>>,
+    TRequired,
+    TNullable,
+    THasInitial
 > {
     /**
      * @param element The value type of each entry in this object.
@@ -679,9 +688,16 @@ export class TypedObjectField<TField extends DataField = DataField> extends Obje
 
     protected override _validateType(data: object, options?: object): DataModelValidationFailure | void;
 
-    override _validateModel(changes: Record<string, unknown>, options?: object): void;
+    override _validateModel(
+        changes: Record<string, SourceFromDataField<TField>>,
+        options?: DataFieldValidationOptions,
+    ): void;
 
-    initialize(value: object, model: unknown, options?: object): Record<string, SourceFromDataField<TField>>;
+    override initialize(
+        value: unknown,
+        model?: ConstructorOf<abstract.DataModel>,
+        options?: ObjectFieldOptions<Record<string, SourceFromDataField<TField>>, TRequired, TNullable, THasInitial>,
+    ): MaybeSchemaProp<Record<string, ModelPropFromDataField<TField>>, TRequired, TNullable, THasInitial>;
 
     override _updateDiff(
         source: object,
@@ -693,7 +709,9 @@ export class TypedObjectField<TField extends DataField = DataField> extends Obje
 
     override _updateCommit(source: object, key: string, value: unknown, diff: unknown, options: object): void;
 
-    override toObject(value: unknown): Record<string, SourceFromDataField<TField>>;
+    override toObject(
+        value: Record<string, ModelPropFromDataField<TField>>,
+    ): MaybeSchemaProp<Record<string, SourceFromDataField<TField>>, TRequired, TNullable, THasInitial>;
 
     override apply(
         fn: string | ((field: this, value?: unknown, options?: Record<string, unknown>) => unknown),
@@ -1223,14 +1241,19 @@ export class IntegerSortField<
 /**
  * A subclass of {@link foundry.data.fields.TypedObjectField} that is used specifically for the Document "flags" field.
  */
-export class DocumentFlagsField extends TypedObjectField<ObjectField<Record<string, unknown>>> {
+export class DocumentFlagsField extends TypedObjectField<
+    ObjectField<Record<string, JSONValue | undefined>, Record<string, unknown>, true, false, true>
+> {
     /**
      * @param options Options which configure the behavior of the field
      * @param context Additional context which describes the field
      */
-    constructor(options?: ObjectFieldOptions<Record<string, unknown>>, context?: DataFieldContext);
+    constructor(
+        options?: ObjectFieldOptions<Record<string, Record<string, JSONValue | undefined>>, true, false, true>,
+        context?: DataFieldContext,
+    );
 
-    static override get _defaults(): ObjectFieldOptions<Record<string, Record<string, unknown>>>;
+    static override get _defaults(): ObjectFieldOptions<Record<string, Record<string, JSONValue | undefined>>>;
 }
 
 /**
@@ -1324,7 +1347,7 @@ export class TypeDataField<
     /**
      * Get the DataModel definition that should be used for this type of document.
      * @param type The Document instance type
-     * @returns {typeof DataModel|null}  The DataModel class or null
+     * @returns The DataModel class or null
      */
     getModelForType(type: string): typeof abstract.DataModel | null;
 
@@ -1473,13 +1496,13 @@ export class JavaScriptField<
 // System utility types
 
 export type SourceFromDataField<T> =
-    T extends DataField<infer TSourceProp, infer _TModelProp, infer TRequired, infer TNullable, infer THasInitial>
+    T extends DataField<infer TSourceProp, unknown, infer TRequired, infer TNullable, infer THasInitial>
         ? MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>
         : never;
 
 export type SourceFromDocument<T extends abstract.Document> = SourceFromDataField<T["schema"]>;
 export type ModelPropFromDataField<T> =
-    T extends DataField<infer _TSourceProp, infer TModelProp, infer TRequired, infer TNullable, infer THasInitial>
+    T extends DataField<JSONValue, infer TModelProp, infer TRequired, infer TNullable, infer THasInitial>
         ? MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>
         : never;
 
@@ -1488,17 +1511,15 @@ export type MaybeSchemaProp<
     TRequired extends boolean,
     TNullable extends boolean,
     THasInitial extends boolean,
-> = TRequired extends true
-    ? TNullable extends true
-        ? TProp | null
-        : TProp
-    : TNullable extends true
-      ? THasInitial extends true
-          ? TProp | null
-          : TProp | null | undefined
-      : THasInitial extends true
-        ? TProp
-        : TProp | undefined;
+> = ResolveNullable<ResolveRequired<TProp, TRequired, THasInitial>, TNullable>;
+
+type ResolveRequired<TProp, TRequired extends boolean, THasInitial extends boolean> = TRequired extends true
+    ? TProp
+    : THasInitial extends true
+      ? TProp
+      : TProp | undefined;
+
+type ResolveNullable<TProp, TNullable extends boolean> = TNullable extends false ? TProp : TProp | null;
 
 export type ModelPropsFromSchema<TDataSchema extends abstract.DataSchema> = {
     [K in keyof TDataSchema]: ModelPropFromDataField<TDataSchema[K]>;
@@ -1517,3 +1538,5 @@ export type DocumentSourceFromSchema<TDataSchema extends abstract.DataSchema, TH
               : string | null
         : SourceFromDataField<TDataSchema[K]>;
 };
+
+export {};

@@ -82,7 +82,7 @@ type NoteSchema = {
     /** Whether this map pin is globally visible or requires LoS to see. */
     global: fields.BooleanField;
     /** An object of optional key/value flags */
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.DocumentFlagsField;
 };
 
 export type NoteSource = fields.SourceFromSchema<NoteSchema>;

@@ -5,6 +5,7 @@ import { ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";
 import Folder from "@client/documents/folder.mjs";
 import PlaylistSound from "@client/documents/playlist-sound.mjs";
 import Playlist from "@client/documents/playlist.mjs";
+import { PlaylistMode } from "@common/constants.mjs";
 import { NumberField } from "@common/data/fields.mjs";
 import DocumentDirectory, { DocumentDirectoryConfiguration } from "../document-directory.mjs";
 
@@ -251,11 +252,22 @@ export default class PlaylistDirectory extends DocumentDirectory<Playlist> {
     /*  Search & Filter                             */
     /* -------------------------------------------- */
 
-    protected override _onMatchSearchEntry(query: string, entryIds, element, options?: { soundIds?: string[] }): void;
+    protected override _onMatchSearchEntry(
+        query: string,
+        entryIds: string[],
+        element,
+        options?: { soundIds?: string[] },
+    ): void;
 
-    protected override _matchSearchEntries(query: string, entryIds, folderIds, autoExpandIds, options = {}): void;
+    protected override _matchSearchEntries(
+        query: string,
+        entryIds: string[],
+        folderIds: string[],
+        autoExpandIds: string[],
+        options?: object,
+    ): void;
 
-    protected override _matchSearchFolders(query: string, folderIds, autoExpandIds): void;
+    protected override _matchSearchFolders(query: string, folderIds: string[], autoExpandIds: string[]): void;
 
     /* -------------------------------------------- */
     /*  Drag & Drop                                 */

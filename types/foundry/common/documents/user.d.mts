@@ -86,8 +86,8 @@ type UserSchema<TActor extends BaseActor<null>> = {
     pronouns: fields.StringField<string, string, true, false, true>;
     hotbar: fields.ObjectField<Record<number, string>>;
     permissions: fields.ObjectField<Record<string, boolean>>;
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.DocumentFlagsField;
     _stats: fields.DocumentStatsField;
 };
 
-export type UserSource = fields.SourceFromSchema<UserSchema<BaseActor<null>>>;
+export interface UserSource extends fields.SourceFromSchema<UserSchema<BaseActor<null>>> {}

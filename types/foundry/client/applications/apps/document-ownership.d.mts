@@ -1,5 +1,6 @@
 import {
     DocumentSheetConfiguration,
+    DocumentSheetRenderContext,
     DocumentSheetV2,
     HandlebarsApplicationMixin,
     HandlebarsRenderOptions,
@@ -12,5 +13,5 @@ export default class DocumentOwnershipConfig extends HandlebarsApplicationMixin(
 
     static override PARTS: Record<string, HandlebarsTemplatePart>;
 
-    override _prepareContext(options: HandlebarsRenderOptions): Promise<object>;
+    override _prepareContext(options: HandlebarsRenderOptions): Promise<DocumentSheetRenderContext>;
 }

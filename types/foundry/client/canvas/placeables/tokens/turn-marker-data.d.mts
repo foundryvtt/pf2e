@@ -31,11 +31,11 @@ export interface TurnMarkerAnimationConfigData {
 /**
  * Turn marker configuration data model.
  */
-declare class TurnMarkerData extends DataModel<null, TurnMarkerDataSchema> {
+export default class TurnMarkerData extends DataModel<null, TurnMarkerDataSchema> {
     static override defineSchema(): TurnMarkerDataSchema;
 }
 
-declare interface TurnMarkerData
+export default interface TurnMarkerData
     extends DataModel<null, TurnMarkerDataSchema>,
         fields.ModelPropsFromSchema<TurnMarkerDataSchema> {}
 

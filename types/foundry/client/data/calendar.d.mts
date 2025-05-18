@@ -58,7 +58,7 @@ export default interface CalendarData<TComponents extends TimeComponents = TimeC
     extends DataModel<null, CalendarDataSchema>,
         fields.ModelPropsFromSchema<CalendarDataSchema> {}
 
-type CalendarDataSchema = {
+export type CalendarDataSchema = {
     /** The name of the calendar being used. */
     name: fields.StringField<string, string, true, false, true>;
 
@@ -84,40 +84,11 @@ type CalendarDataSchema = {
     months: fields.SchemaField<
         {
             /** An array of months in the calendar year. */
-            values: fields.ArrayField<
-                /** A definition of a month within a calendar year. */
-                fields.SchemaField<{
-                    /** The full name of the month. */
-                    name: fields.StringField<string, string, true, false, false>;
-                    /** The abbreviated name of the month. */
-                    abbreviation: fields.StringField;
-                    /** The ordinal position of this month in the year. */
-                    ordinal: fields.NumberField<number, number, true, false, false>;
-                    /** The number of days in the month. */
-                    days: fields.NumberField<number, number, true, false, false>;
-                    /** The number of days in the month during a leap year. If not defined the value of days is used. */
-                    leapDays: fields.NumberField;
-                }>
-            >;
+            values: fields.ArrayField<fields.SchemaField<MonthSchema>>;
         },
-        {
-            values: {
-                name: string;
-                abbreviation: string | undefined;
-                ordinal: number;
-                days: number;
-                leapDays: number | null | undefined;
-            }[];
-        },
-        {
-            values: {
-                name: string;
-                abbreviation: string | undefined;
-                ordinal: number;
-                days: number;
-                leapDays: number | null | undefined;
-            }[];
-        },
+        { values: fields.SourceFromSchema<MonthSchema>[] },
+        { values: fields.ModelPropsFromSchema<MonthSchema>[] },
+        true,
         true,
         true
     >;
@@ -188,4 +159,20 @@ type CalendarDataSchema = {
     >;
 };
 
+/** A definition of a month within a calendar year. */
+type MonthSchema = {
+    /** The full name of the month. */
+    name: fields.StringField<string, string, true, false, false>;
+    /** The abbreviated name of the month. */
+    abbreviation: fields.StringField;
+    /** The ordinal position of this month in the year. */
+    ordinal: fields.NumberField<number, number, true, false, false>;
+    /** The number of days in the month. */
+    days: fields.NumberField<number, number, true, false, false>;
+    /** The number of days in the month during a leap year. If not defined the value of days is used. */
+    leapDays: fields.NumberField;
+};
+
 export const SIMPLIFIED_GREGORIAN_CALENDAR_CONFIG: CalendarConfig;
+
+export {};

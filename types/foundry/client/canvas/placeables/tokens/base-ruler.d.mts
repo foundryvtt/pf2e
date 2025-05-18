@@ -1,5 +1,4 @@
-import { TokenRulerData } from "@client/types.mjs";
-import { DeepReadonly } from "@common/types.mjs";
+import { TokenRulerData } from "@client/_module.mjs";
 import Token from "../token.mjs";
 
 /**
