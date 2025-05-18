@@ -94,7 +94,7 @@ interface SpellHeightenLayer {
 }
 
 interface SpellOverlayOverride {
-    system?: DeepPartial<SpellSystemSource>;
+    system?: Partial<Omit<SpellSystemSource, "overlays">>;
     name?: string;
     overlayType: "override";
     sort: number;
@@ -135,8 +135,8 @@ export type {
     SpellArea,
     SpellDamage,
     SpellDamageSource,
-    SpellHeightenLayer,
     SpellHeighteningInterval,
+    SpellHeightenLayer,
     SpellOverlay,
     SpellOverlayOverride,
     SpellOverlayType,
