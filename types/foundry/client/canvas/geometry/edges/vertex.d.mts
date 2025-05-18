@@ -1,4 +1,4 @@
-import { Point } from "@common/types.mjs";
+import { Point } from "@common/_types.mjs";
 import Edge from "./edge.mjs";
 
 /**

@@ -33,7 +33,7 @@ type PackageRelationshipsSchema = {
     /** Packages that are recommended for optimal functionality */
     recommends: fields.SetField<RelatedPackage>;
     conflicts: fields.SetField<RelatedPackage>;
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.ObjectField<Record<string, JSONValue | undefined>, Record<string, unknown>>;
 };
 
 /**
@@ -228,7 +228,7 @@ type BasePackageSchema = {
     bugs: fields.StringField<string, string, false, false, false>;
     /** A web url where notes detailing package updates are available */
     changelog: fields.StringField<string, string, false, false, false>;
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.ObjectField<Record<string, JSONValue | undefined>, Record<string, unknown>>;
     media: fields.SetField<
         fields.SchemaField<{
             type: fields.StringField<string, string, false, false, false>;
@@ -236,7 +236,7 @@ type BasePackageSchema = {
             caption: fields.StringField<string, string, false, false, false>;
             loop: fields.BooleanField;
             thumbnail: fields.StringField<string, string, false, false, false>;
-            flags: fields.ObjectField<DocumentFlags>;
+            flags: fields.ObjectField<Record<string, JSONValue | undefined>, Record<string, unknown>>;
         }>
     >;
 
@@ -278,7 +278,7 @@ type PackageAuthorSchema = {
     url: fields.StringField<string, string, false, false, false>;
     /** A Discord username for the author */
     discord: fields.StringField<string, string, false, false, false>;
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.ObjectField<Record<string, JSONValue | undefined>, Record<string, unknown>>;
 };
 
 type PackageCompendiumSchema = {
@@ -294,7 +294,7 @@ type PackageCompendiumSchema = {
     /** Denote that this compendium pack requires a specific game system to function properly */
     system: fields.StringField<string, string, false, false, false>;
     ownership: CompendiumOwnershipField;
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.ObjectField<Record<string, JSONValue | undefined>, Record<string, unknown>>;
 };
 export type PackageCompendiumData = fields.ModelPropsFromSchema<PackageCompendiumSchema>;
 
@@ -309,6 +309,6 @@ type PackageLanguageSchema = {
     system: fields.StringField<string, string, false, false, false>;
     /** Only apply this set of translations when a specific module is active */
     module: fields.StringField<string, string, false, false, false>;
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.ObjectField<Record<string, JSONValue | undefined>, Record<string, unknown>>;
 };
 export type ReleaseData = object;

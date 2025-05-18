@@ -1,5 +1,6 @@
+import { User, UserSource } from "../_module.mjs";
 import WorldCollection from "../abstract/world-collection.mjs";
-import User, { Active, UserActivity } from "../user.mjs";
+import { UserActivity } from "../user.mjs";
 
 /**
  * The Collection of User documents which exist within the active World.
@@ -10,10 +11,12 @@ import User, { Active, UserActivity } from "../user.mjs";
 export default class Users<TUser extends User = User> extends WorldCollection<TUser> {
     constructor(data?: foundry.documents.UserSource[]);
 
-    /** The User entity of the currently connected user */
-    current: Active<TUser> | null;
+    /**
+     * The User document of the currently connected user
+     */
+    current: TUser | null;
 
-    protected override _initialize(data: TUser["_source"][]): void;
+    protected override _initialize(data: UserSource[]): void;
 
     static override documentName: "User";
 

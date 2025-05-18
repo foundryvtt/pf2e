@@ -1,4 +1,6 @@
+import RollTableDirectory from "@client/applications/sidebar/tabs/roll-table-directory.mjs";
 import WorldCollection from "../abstract/world-collection.mjs";
+import RollTable from "../roll-table.mjs";
 
 /**
  * The Collection of RollTable documents which exist within the active World.

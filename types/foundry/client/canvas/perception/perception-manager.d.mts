@@ -1,4 +1,4 @@
-import { RenderFlag } from "../interaction/render-flags.mjs";
+import { RenderFlag } from "../interaction/_types.mjs";
 
 /**
  * A helper class which manages the refresh workflow for perception layers on the canvas.

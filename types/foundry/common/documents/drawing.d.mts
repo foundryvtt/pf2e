@@ -100,7 +100,7 @@ type DrawingSchema = {
     /** Is the drawing currently locked? */
     locked: fields.BooleanField;
     /** An object of optional key/value flags */
-    flags: fields.ObjectField<DocumentFlags>;
+    flags: fields.DocumentFlagsField;
 };
 
 export type DrawingSource = fields.SourceFromSchema<DrawingSchema>;

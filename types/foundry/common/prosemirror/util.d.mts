@@ -1,7 +1,5 @@
-import { Slice } from "prosemirror-model";
+import { Schema, Slice } from "prosemirror-model";
 import { ProseMirrorSliceTransformer } from "./_types.mjs";
-import DOMParser from "./dom-parser.mjs";
-import { schema as defaultSchema } from "./schema.mjs";
 
 /**
  * @import {ProseMirrorSliceTransformer} from "./_types.mjs";
@@ -10,15 +8,11 @@ import { schema as defaultSchema } from "./schema.mjs";
 /**
  * Use the DOM and ProseMirror's DOMParser to construct a ProseMirror document state from an HTML string. This cannot be
  * used server-side.
- * @param {string} htmlString  A string of HTML.
- * @param {Schema} [schema]    The ProseMirror schema to use instead of the default one.
- * @returns {Node}             The document node.
+ * @param htmlString A string of HTML.
+ * @param schema The ProseMirror schema to use instead of the default one.
+ * @returns The document node.
  */
-export function parseHTMLString(htmlString: string, schema: Schema): Node {
-    const target = document.createElement("template");
-    target.innerHTML = htmlString;
-    return DOMParser.fromSchema(schema ?? defaultSchema).parse(target.content);
-}
+export function parseHTMLString(htmlString: string, schema?: Schema): Node;
 
 /**
  * Use the StringSerializer to convert a ProseMirror document into an HTML string. This can be used server-side.

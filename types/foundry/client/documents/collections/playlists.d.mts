@@ -1,3 +1,4 @@
+import { Playlist, Scene } from "../_module.mjs";
 import WorldCollection from "../abstract/world-collection.mjs";
 
 /**

@@ -1,6 +1,7 @@
 import {
     Actor,
     ActorUUID,
+    CompendiumDocument,
     Item,
     ItemUUID,
     TokenDocument,
@@ -8,7 +9,7 @@ import {
     WorldDocumentUUID,
 } from "@client/documents/_module.mjs";
 import { ClientDocument } from "@client/documents/abstract/client-document.mjs";
-import { CompendiumDocument, CompendiumIndexData } from "@client/documents/collections/compendium-collection.mjs";
+import { CompendiumIndexData } from "@client/documents/collections/compendium-collection.mjs";
 import Document from "@common/abstract/document.mjs";
 import { COMPENDIUM_DOCUMENT_TYPES } from "@common/constants.mjs";
 

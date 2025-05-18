@@ -1,9 +1,12 @@
+import { CanvasVisibilityTextureConfiguration } from "@client/_module.mjs";
 import FogExploration from "@client/documents/fog-exploration.mjs";
+import { EventEmitter } from "@common/utils/event-emitter.mjs";
+import { SpriteMesh } from "../containers/_module.mjs";
 
 /**
  * A fog of war management class which is the singleton canvas.fog instance.
  */
-export default class FogManager {
+export default class FogManager extends EventEmitter {
     /** The FogExploration document which applies to this canvas view */
     exploration: FogExploration | null;
 
@@ -18,7 +21,7 @@ export default class FogManager {
     get sprite(): SpriteMesh;
 
     /** The configured options used for the saved fog-of-war texture. */
-    get textureConfiguration(): FogTextureConfiguration;
+    get textureConfiguration(): CanvasVisibilityTextureConfiguration;
 
     /** Does the currently viewed Scene support Token field of vision? */
     get tokenVision(): boolean;

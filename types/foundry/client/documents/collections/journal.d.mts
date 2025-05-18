@@ -1,5 +1,6 @@
 import * as io from "socket.io";
 import WorldCollection from "../abstract/world-collection.mjs";
+import JournalEntry from "../journal-entry.mjs";
 
 /**
  * The Collection of JournalEntry documents which exist within the active World.

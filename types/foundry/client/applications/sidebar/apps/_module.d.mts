@@ -2,7 +2,6 @@ export { default as ChatPopout } from "./chat-popout.mjs";
 export { default as Compendium } from "./compendium.mjs";
 export { default as ControlsConfig } from "./controls-config.mjs";
 export { default as FolderExport } from "./folder-export.mjs";
-export { default as FrameViewer } from "./frame-viewer.mjs";
 export { default as InvitationLinks } from "./invitation-links.mjs";
 export { default as ModuleManagement } from "./module-management.mjs";
 export { default as SupportDetails } from "./support-details.mjs";
