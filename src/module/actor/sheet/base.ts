@@ -49,6 +49,7 @@ import {
 } from "@util";
 import { createSortable } from "@util/destroyables.ts";
 import MiniSearch from "minisearch";
+import type { Plugin } from "prosemirror-state";
 import * as R from "remeda";
 import Sortable from "sortablejs";
 import { ActorSizePF2e } from "../data/size.ts";
@@ -1466,7 +1467,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
     protected override _configureProseMirrorPlugins(
         name: string,
         options: { remove?: boolean },
-    ): Record<string, ProseMirror.Plugin> {
+    ): Record<string, Plugin> {
         const plugins = super._configureProseMirrorPlugins(name, options);
         plugins.menu = foundry.prosemirror.ProseMirrorMenu.build(foundry.prosemirror.defaultSchema, {
             destroyOnSave: options.remove,
