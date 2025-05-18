@@ -9,7 +9,7 @@ import type { ZeroToTwo } from "@module/data.ts";
 import type { RollNoteSource } from "@module/notes.ts";
 import type { CheckCheckContext } from "@system/check/index.ts";
 import type { DamageDamageContext } from "@system/damage/types.ts";
-import type { DegreeAdjustmentsRecord, DegreeOfSuccessString } from "@system/degree-of-success.ts";
+import type { CheckDC, DegreeAdjustmentsRecord, DegreeOfSuccessString } from "@system/degree-of-success.ts";
 
 type ChatMessageSourcePF2e = foundry.documents.ChatMessageSource & {
     flags: ChatMessageFlagsPF2e;
@@ -73,6 +73,7 @@ type ContextFlagOmission =
     | "altUsage"
     | "createMessage"
     | "damaging"
+    | "dc"
     | "dosAdjustments"
     | "item"
     | "mapIncreases"
@@ -91,6 +92,7 @@ interface CheckContextChatFlag extends Required<Omit<CheckCheckContext, ContextF
     actor: string | null;
     token: string | null;
     item?: string;
+    dc?: Omit<CheckDC, "statistic"> | null;
     dosAdjustments?: DegreeAdjustmentsRecord;
     roller?: "origin" | "target";
     origin: ActorTokenFlag | null;
