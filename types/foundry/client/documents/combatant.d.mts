@@ -1,13 +1,15 @@
 import { DocumentOwnershipLevel, DocumentOwnershipString } from "@common/constants.mjs";
 import Roll, { Rolled } from "../dice/roll.mjs";
 import { BaseCombatant, Combat, TokenDocument, User } from "./_module.mjs";
-import { ClientDocument } from "./abstract/client-document.mjs";
+import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
 
-declare const ClientBaseCombatant: new <TParent extends Combat | null>(
-    ...args: any
-) => BaseCombatant<TParent> & ClientDocument<TParent>;
+interface ClientBaseCombatantStatic extends Omit<typeof BaseCombatant, "new">, ClientDocumentStatic {}
 
-interface ClientBaseCombatant<TParent extends Combat | null>
+declare const ClientBaseCombatant: {
+    new <TParent extends Combat | null>(...args: any): BaseCombatant<TParent> & ClientDocument<TParent>;
+} & ClientBaseCombatantStatic;
+
+declare interface ClientBaseCombatant<TParent extends Combat | null>
     extends InstanceType<typeof ClientBaseCombatant<TParent>> {}
 
 /**
