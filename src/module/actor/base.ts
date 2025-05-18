@@ -633,7 +633,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
      * As of Foundry 0.8: All subclasses of ActorPF2e need to use this factory method rather than having their own
      * overrides, since Foundry itself will call `ActorPF2e.create` when a new actor is created from the sidebar.
      */
-    static override async createDocuments<TDocument extends foundry.abstract.Document>(
+    static override async createDocuments<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
         data?: (TDocument | PreCreate<TDocument["_source"]>)[],
         operation?: Partial<DatabaseCreateOperation<TDocument["parent"]>>,

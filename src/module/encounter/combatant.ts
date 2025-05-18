@@ -5,6 +5,7 @@ import type {
     DatabaseDeleteOperation,
     DatabaseUpdateOperation,
 } from "@common/abstract/_types.d.mts";
+import type Document from "@common/abstract/document.d.mts";
 import type { CombatantSource } from "@common/documents/combatant.d.mts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { ErrorPF2e } from "@util";
@@ -14,7 +15,7 @@ class CombatantPF2e<
     TParent extends EncounterPF2e | null = EncounterPF2e | null,
     TTokenDocument extends TokenDocumentPF2e | null = TokenDocumentPF2e | null,
 > extends Combatant<TParent, TTokenDocument> {
-    static override async createDocuments<TDocument extends foundry.abstract.Document>(
+    static override async createDocuments<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
         data?: (TDocument | PreCreate<TDocument["_source"]>)[],
         operation?: Partial<DatabaseCreateOperation<TDocument["parent"]>>,
