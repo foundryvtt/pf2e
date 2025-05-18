@@ -111,7 +111,7 @@ class ChatMessagePF2e extends ChatMessage {
         const strike = this._strike;
         if (strike?.item) return strike.item;
 
-        const item = (() => {
+        const item = ((): ItemPF2e<ActorPF2e> | null => {
             const embeddedSpell = this.flags.pf2e.casting?.embeddedSpell;
             if (actor && embeddedSpell) return new ItemProxyPF2e(embeddedSpell, { parent: actor });
 
@@ -248,7 +248,7 @@ class ChatMessagePF2e extends ChatMessage {
         await Listeners.DamageTaken.listen(this, html);
         CriticalHitAndFumbleCards.appendButtons(this, html);
         Listeners.ChatCards.listen(this, html);
-        Listeners.DegreeOfSuccessHighlights.listen(this, html);
+        this.#highlightDoS(this, html);
         if (canvas.ready || !game.settings.get("core", "noCanvas")) this.#appendSetAsInitiative(html);
 
         // Add persistent damage recovery button and listener (if evaluating persistent)
@@ -262,26 +262,6 @@ class ChatMessagePF2e extends ChatMessage {
                 html.querySelector(".message-content")?.append(section);
                 html.dataset.actorIsTarget = "true";
             }
-
-            htmlQuery(html, "[data-action=recover-persistent-damage]")?.addEventListener("click", () => {
-                const actor = this.speakerActor;
-                if (!actor) return;
-
-                const damageType = roll.instances.find((i) => i.persistent)?.type;
-                if (!damageType) return;
-
-                const condition = actor.getCondition(`persistent-damage-${damageType}`);
-                if (!condition?.system.persistent) {
-                    const damageTypeLocalized = game.i18n.localize(CONFIG.PF2E.damageTypes[damageType] ?? damageType);
-                    const message = game.i18n.format("PF2E.Item.Condition.PersistentDamage.Error.DoesNotExist", {
-                        damageType: damageTypeLocalized,
-                    });
-                    ui.notifications.warn(message);
-                    return;
-                }
-
-                condition.rollRecovery();
-            });
         }
 
         // Remove revert damage button based on user permissions
@@ -301,6 +281,30 @@ class ChatMessagePF2e extends ChatMessage {
         }
 
         return html;
+    }
+
+    /** Highlight critical success or failure on d20 rolls */
+    #highlightDoS(message: ChatMessagePF2e, html: HTMLElement): void {
+        const firstRoll = message.rolls[0];
+        const shouldHighlight =
+            firstRoll instanceof CheckRoll &&
+            message.isContentVisible &&
+            (game.user.isGM || firstRoll.options.showBreakdown) &&
+            !html.querySelector(".reroll-indicator");
+        if (!shouldHighlight) return;
+
+        const firstDice = firstRoll.dice.at(0);
+        if (!(firstDice instanceof foundry.dice.terms.Die && firstDice.faces === 20)) {
+            return;
+        }
+
+        const diceTotal = htmlQuery(html, ".dice-total");
+        const results = firstDice.results.filter((r) => r.active);
+        if (results.every((r) => r.result === 20)) {
+            diceTotal?.classList.add("success");
+        } else if (results.every((r) => r.result === 1)) {
+            diceTotal?.classList.add("failure");
+        }
     }
 
     /**
