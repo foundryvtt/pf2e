@@ -266,6 +266,7 @@ export class InlineRollLinks {
                     if (defenseStat) {
                         return {
                             label:
+                                pf2Label ??
                                 defenseStat.dc.label ??
                                 game.i18n.format("PF2E.InlineCheck.DCWithName", { name: defenseStat.label }),
                             statistic: defenseStat.dc,
