@@ -21,6 +21,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
             findToken: ChatLogPF2e.#onClickFindToken,
             kingdomAction: ChatLogPF2e.#onClickKingdomAction,
             revertDamage: ChatLogPF2e.#onClickRevertDamage,
+            recoverPersistentDamage: ChatLogPF2e.#onClickRecoverPersistent,
             setAsInitiative: ChatLogPF2e.#onClickSetAsInitiative,
             shieldBlock: ChatLogPF2e.#onClickShieldBlock,
         } satisfies Record<string, fa.ApplicationClickAction>,
@@ -158,6 +159,27 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
             "flags.pf2e.appliedDamage.isReverted": true,
             content: htmlQuery(element, ".message-content")?.innerHTML ?? message.content,
         });
+    }
+
+    static async #onClickRecoverPersistent(event: PointerEvent): Promise<void> {
+        const message = ChatLogPF2e.#messageFromEvent(event).message;
+        const actor = message?.speakerActor;
+        const roll = message?.rolls.find((r): r is Rolled<DamageRoll> => r instanceof DamageRoll);
+        if (!actor || !roll) return;
+
+        const damageType = roll.instances.find((i) => i.persistent)?.type;
+        if (!damageType) return;
+
+        const condition = actor.getCondition(`persistent-damage-${damageType}`);
+        if (!condition?.system.persistent) {
+            const damageTypeLocalized = game.i18n.localize(CONFIG.PF2E.damageTypes[damageType] ?? damageType);
+            const message = game.i18n.format("PF2E.Item.Condition.PersistentDamage.Error.DoesNotExist", {
+                damageType: damageTypeLocalized,
+            });
+            ui.notifications.warn(message);
+            return;
+        }
+        await condition.rollRecovery();
     }
 
     static async #onClickShieldBlock(event: PointerEvent, button: HTMLElement): Promise<void> {
