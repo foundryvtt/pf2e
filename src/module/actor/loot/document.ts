@@ -5,6 +5,7 @@ import type {
     DatabaseUpdateOperation,
 } from "@common/abstract/_types.d.mts";
 import type Document from "@common/abstract/document.d.mts";
+import type { UserAction } from "@common/constants.d.mts";
 import { ItemType } from "@item/base/data/index.ts";
 import { UserPF2e } from "@module/user/document.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
@@ -77,7 +78,7 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
 
     /** Set base emphemeral data for later updating by derived-data preparation. */
     override prepareBaseData(): void {
-        const system: DeepPartial<LootSystemData> = this.system;
+        const system: { attributes?: object } = this.system;
         system.attributes = {};
         super.prepareBaseData();
     }
