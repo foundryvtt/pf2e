@@ -107,7 +107,7 @@ export default class Notifications {
      * @see {@link notify}
      */
     info(message: string | object, options: ProgressNotificationOptions): Readonly<ProgressNotification>;
-    info(message: string | object, options: NotificationOptions): Readonly<Notification>;
+    info(message: string | object, options?: NotificationOptions): Readonly<Notification>;
 
     /**
      * Display a notification with the "warning" type.
