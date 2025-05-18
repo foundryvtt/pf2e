@@ -441,7 +441,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
      * Use actor updates (real or otherwise) that propagate down to ephemeral token changes  to provoke canvas object
      * re-rendering.
      */
-    simulateUpdate(actorUpdates: Record<string, unknown> = {}): void {
+    simulateUpdate(updates: Record<string, unknown> = {}): void {
         // If this scene isn't in view nor in focus, skip all later checks
         // This method is called for every scene a linked actor's token is present in
         if (!this.scene?.isInFocus && !this.scene?.isView) return;
@@ -450,7 +450,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         const initializeVision =
             !!this.scene?.isView &&
             this.sight.enabled &&
-            Object.keys(fu.flattenObject(actorUpdates)).some((k) => k.startsWith("system.perception.senses"));
+            Object.keys(fu.flattenObject(updates)).some((k) => k.startsWith("system.perception.senses"));
         if (initializeVision) canvas.perception.update({ initializeVision });
 
         const preUpdate = this.toObject(false);
@@ -522,10 +522,10 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     ): void {
         super._onRelatedUpdate(update, operation);
         const updates = Array.isArray(update) ? update : [update];
+        this.simulateUpdate(updates[0]);
         for (const changed of updates) {
             if (changed.system && changed._id && [this.delta?.id, this.actor?.id].includes(changed._id)) {
                 this.#resizeFromActor(changed);
-                this.simulateUpdate(changed);
             }
         }
     }
