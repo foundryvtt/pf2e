@@ -3,24 +3,14 @@ import { craftItem, craftSpellConsumable } from "@actor/character/crafting/helpe
 import { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { Rolled } from "@client/dice/roll.d.mts";
-import { EffectPF2e, PhysicalItemPF2e, type ItemPF2e } from "@item";
+import { PhysicalItemPF2e, type ItemPF2e } from "@item";
 import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
-import { EffectSource } from "@item/effect/data.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { effectTraits } from "@scripts/config/traits.ts";
 import { onRepairChatCardEvent } from "@system/action-macros/crafting/repair.ts";
 import { CheckRoll } from "@system/check/index.ts";
-import {
-    ErrorPF2e,
-    createHTMLElement,
-    htmlClosest,
-    htmlQuery,
-    htmlQueryAll,
-    objectHasKey,
-    sluggify,
-    tupleHasValue,
-} from "@util";
+import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, objectHasKey, sluggify, tupleHasValue } from "@util";
 import { ChatMessagePF2e, CheckContextChatFlag } from "../index.ts";
 
 class ChatCards {
@@ -35,9 +25,7 @@ class ChatCards {
 
     static async #onClickButton({ message, event, html, button }: OnClickButtonParams): Promise<void> {
         const currentTime = Date.now();
-        if (currentTime - this.#lastClick < 500) {
-            return;
-        }
+        if (currentTime - this.#lastClick < 500) return;
         this.#lastClick = currentTime;
 
         // Extract card data
@@ -182,56 +170,6 @@ class ChatCards {
                     if (element) {
                         element.innerHTML = (await item.getDescription()).value;
                         element.scrollIntoView({ behavior: "smooth", block: "center" });
-                    }
-                    break;
-                }
-                case "apply-effect": {
-                    button.disabled = true;
-                    const target = fromUuidSync(button.dataset.targets ?? "");
-                    const effect =
-                        item.isOfType("action", "feat") && item.system.selfEffect
-                            ? await fromUuid(item.system.selfEffect.uuid)
-                            : null;
-                    if (target instanceof ActorPF2e && effect instanceof EffectPF2e) {
-                        const traits = item.system.traits.value?.filter((t) => t in EffectPF2e.validTraits) ?? [];
-                        const effectSource: EffectSource = fu.mergeObject(effect.toObject(), {
-                            _id: null,
-                            system: {
-                                context: {
-                                    origin: {
-                                        actor: actor.uuid,
-                                        token: message.token?.uuid ?? null,
-                                        item: item.uuid,
-                                        spellcasting: null,
-                                        rollOptions: item.getOriginData().rollOptions,
-                                    },
-                                    target: {
-                                        actor: target.uuid,
-                                        token: target.getActiveTokens(true, true).at(0)?.uuid ?? null,
-                                    },
-                                    roll: null,
-                                },
-                                traits: { value: traits },
-                            },
-                        });
-                        await target.createEmbeddedDocuments("Item", [effectSource]);
-                        const parsedMessageContent = ((): HTMLElement => {
-                            const container = document.createElement("div");
-                            container.innerHTML = message.content;
-                            return container;
-                        })();
-
-                        // Replace the "Apply Effect" button with a success notice
-                        const buttons = htmlQuery(parsedMessageContent, ".message-buttons");
-                        if (buttons) {
-                            const span = createHTMLElement("span", { classes: ["effect-applied"] });
-                            const anchor = effect.toAnchor({ attrs: { draggable: "true" } });
-                            const locKey = "PF2E.Item.Ability.SelfAppliedEffect.Applied";
-                            const statement = game.i18n.format(locKey, { effect: anchor.outerHTML });
-                            span.innerHTML = statement;
-                            htmlQuery(buttons, "button[data-action=apply-effect]")?.replaceWith(span);
-                            await message.update({ content: parsedMessageContent.innerHTML });
-                        }
                     }
                     break;
                 }
