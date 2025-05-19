@@ -7,8 +7,8 @@
         </div>
     </section>
 {{else}}
-    <div class="rules">
-        <div class="nerd-details">
+    <div class="rules flexcol">
+        <div class="nerd-details flexcol">
             <div class="form-group">
                 <label for="{{options.id}}-uuid">
                     <span>{{localize "PF2E.UUID.Label"}}</span>
@@ -48,7 +48,7 @@
                 </a>
             </div>
         </div>
-        <div class="rule-element-forms">
+        <div class="rule-element-forms flexcol">
             {{#each rules.elements as |form|}}
                 {{{form.template}}}
             {{/each}}
