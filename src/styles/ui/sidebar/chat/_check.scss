@@ -18,26 +18,26 @@
             .adjusted {
                 text-decoration: underline dotted;
                 &.increased {
-                    color: $degree-success-critical;
+                    color: var(--color-pf-text-critical-success);
                 }
                 &.decreased {
-                    color: $degree-failure-critical;
+                    color: var(--color-pf-text-critical-failure);
                 }
             }
         }
 
         .degree-of-success {
             .criticalSuccess {
-                color: $degree-success-critical;
+                color: var(--color-pf-text-critical-success);
             }
             .success {
-                color: $degree-success;
+                color: var(--color-pf-text-success);
             }
             .failure {
-                color: $degree-failure;
+                color: var(--color-pf-text-failure);
             }
             .criticalFailure {
-                color: $degree-failure-critical;
+                color: var(--color-pf-text-critical-failure);
             }
         }
 
@@ -55,6 +55,15 @@
 }
 
 > .message-content {
+    h4.dice-total {
+        &.success {
+            color: var(--color-pf-text-critical-success);
+        }
+        &.failure {
+            color: var(--color-pf-text-critical-failure);
+        }
+    }
+
     .dice-total button.set-as-initiative {
         --button-size: 2em;
         height: var(--button-size);
