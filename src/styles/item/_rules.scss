@@ -1,4 +1,8 @@
 .tab.active.rules {
+    > .rules {
+        gap: 0.75rem;
+    }
+
     select {
         width: auto;
 
@@ -18,7 +22,7 @@
     }
 
     .nerd-details {
-        margin-bottom: 10px;
+        gap: 1px;
 
         .form-group {
             margin: 0;
@@ -28,10 +32,11 @@
             align-items: center;
             display: flex;
             flex: 0 0 4.5rem;
-            white-space: nowrap;
+            gap: 0.5rem;
             line-height: 1.5em;
             margin-right: 1.25rem;
             min-width: 8em;
+            white-space: nowrap;
 
             i.fa-info-circle {
                 margin-left: auto;
@@ -114,11 +119,14 @@
         }
     }
 
+    .rule-element-forms {
+        gap: 0.5rem;
+    }
+
     // Style of a single rule editor form
     .rule-form {
         border-bottom: 1px solid var(--color-border-light-primary);
         padding-bottom: 0.5rem;
-        margin-bottom: 0.5rem;
 
         &.drag-preview {
             background: url(../ui/parchment.jpg) repeat;
