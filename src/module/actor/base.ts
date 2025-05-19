@@ -671,6 +671,13 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             merged.prototypeToken.height ??= dimensionMap[source.type] ?? 1;
             merged.prototypeToken.width ??= merged.prototypeToken.height;
 
+            const sourceSize = source.system?.traits?.size?.value;
+            if (linkToActorSize && sourceSize) {
+                const size = new ActorSizePF2e({ value: sourceSize });
+                merged.prototypeToken.width = size.width / 5;
+                merged.prototypeToken.height = size.length / 5;
+            }
+
             switch (merged.type) {
                 case "character":
                 case "familiar":
@@ -940,10 +947,18 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Set defaults for this actor's prototype token */
     private preparePrototypeToken(): void {
-        this.prototypeToken.flags = fu.mergeObject(
-            { pf2e: { linkToActorSize: SIZE_LINKABLE_ACTOR_TYPES.has(this.type) } },
-            this.prototypeToken.flags,
-        );
+        const linkToActorSize = SIZE_LINKABLE_ACTOR_TYPES.has(this.type);
+        const size = this.system.traits?.size;
+
+        if (linkToActorSize && size) {
+            const width = size.width / 5;
+            const height = size.length / 5;
+            if (this.prototypeToken.width !== width || this.prototypeToken.height !== height) {
+                this.prototypeToken.updateSource({ width, height });
+            }
+        }
+
+        this.prototypeToken.flags = fu.mergeObject({ pf2e: { linkToActorSize } }, this.prototypeToken.flags);
         TokenDocumentPF2e.assignDefaultImage(this.prototypeToken);
         TokenDocumentPF2e.prepareScale(this.prototypeToken);
     }
