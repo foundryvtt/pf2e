@@ -60,7 +60,7 @@ import type {
     Statistic,
     StatisticDifficultyClass,
 } from "@system/statistic/index.ts";
-import { type RollDataPF2e, TextEditorPF2e } from "@system/text-editor.ts";
+import { TextEditorPF2e, type RollDataPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, localizer, objectHasKey, setHasElement, signedInteger, sluggify, tupleHasValue } from "@util";
 import { Duration } from "luxon";
 import * as R from "remeda";
@@ -1782,6 +1782,52 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
     }
 
+    /** Store certain data to be checked in _onUpdateDescendantDocuments */
+    protected override _preUpdateDescendantDocuments<P extends Document>(
+        parent: P,
+        collection: string,
+        changes: Record<string, unknown>[],
+        options: ActorDiffDatabaseUpdateOperation<P>,
+        userId: string,
+    ): void {
+        super._preUpdateDescendantDocuments(parent, collection, changes, options, userId);
+
+        if (parent === this && collection === "items") {
+            options.previous = {
+                maxHitPoints: this.hitPoints?.max,
+            };
+        }
+    }
+
+    /** Overriden to handle max hp updates when certain items changes. */
+    protected override _onUpdateDescendantDocuments<P extends Document>(
+        parent: P,
+        collection: string,
+        documents: Document<P>[],
+        changes: Record<string, unknown>[],
+        options: ActorDiffDatabaseUpdateOperation<P>,
+        userId: string,
+    ): void {
+        super._onUpdateDescendantDocuments(parent, collection, documents, changes, options, userId);
+
+        if (!(parent === this && collection === "items")) return;
+
+        // Ensure the items being updated are all permanent character building options.
+        // These updates should not occur due to temporary changes from something like drained
+        const items = documents.filter((d): d is ItemPF2e => d instanceof ItemPF2e);
+        if (
+            this?.isOfType("character") &&
+            items.every((d) => d.isOfType("ancestry", "background", "class", "feat", "heritage"))
+        ) {
+            const previousHitPoints = options.previous?.maxHitPoints;
+            const hpMaxDifference = typeof previousHitPoints === "number" ? this.hitPoints.max - previousHitPoints : 0;
+            if (hpMaxDifference !== 0) {
+                const newHitPoints = this._source.system.attributes.hp.value + hpMaxDifference;
+                this.update({ "system.attributes.hp.value": newHitPoints }, { allowHPOverage: true });
+            }
+        }
+    }
+
     /** Redirect to `toggleCondition` if possible. */
     override async toggleStatusEffect(
         statusId: string,
@@ -1992,6 +2038,15 @@ const ActorProxyPF2e = new Proxy(ActorPF2e, {
         return new ActorClass(...args);
     },
 });
+
+/**
+ * An extension of DatabaseUpdateOperation to pass on system specific data between phases.
+ * While it is intended to be used for actors, descendant document updates accept any document type.
+ * Make sure to check that its an ActorPF2e.
+ */
+interface ActorDiffDatabaseUpdateOperation<TParent extends Document | null> extends DatabaseUpdateOperation<TParent> {
+    previous?: { maxHitPoints?: number };
+}
 
 export { ActorPF2e, ActorProxyPF2e };
 export type { ActorUpdateOperation, HitPointsSummary };

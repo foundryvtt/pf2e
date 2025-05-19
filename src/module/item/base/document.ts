@@ -973,42 +973,6 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         if (![tokens.length, tokens.length + 1].includes(updates.length)) return false;
     }
 
-    /** Store certain data to be checked in _onUpdateOperation */
-    static override async _preUpdateOperation(
-        documents: Document[],
-        operation: ItemPF2eDatabaseUpdateOperation,
-        user: UserPF2e,
-    ): Promise<boolean | void> {
-        if ((await super._preUpdateOperation(documents, operation, user)) === false) {
-            return false;
-        }
-        // If this item is of a certain type and belongs to a PC, store current hp to be checked later
-        const actor = operation.parent;
-        if (actor instanceof Actor) {
-            operation.previous = fu.mergeObject(operation.previous ?? {}, {
-                maxHitPoints: actor.hitPoints?.max,
-            });
-        }
-    }
-
-    /** Overriden to handle max hp updates when certain items changes. These updates should not occur due to temporary changes */
-    static override async _onUpdateOperation(
-        documents: Document[],
-        operation: ItemPF2eDatabaseUpdateOperation,
-        user: UserPF2e,
-    ): Promise<void> {
-        await super._onUpdateOperation(documents, operation, user);
-        const actor = operation.parent;
-        const previousHitPoints = operation.previous?.maxHitPoints;
-        if (actor?.isOfType("character") && typeof previousHitPoints === "number") {
-            const hpMaxDifference = actor.hitPoints.max - previousHitPoints;
-            if (hpMaxDifference !== 0) {
-                const newHitPoints = actor.hitPoints.value + hpMaxDifference;
-                await actor.update({ "system.attributes.hp.value": newHitPoints }, { allowHPOverage: true });
-            }
-        }
-    }
-
     /** Call onCreate rule-element hooks */
     protected override _onCreate(
         data: ItemSourcePF2e,
@@ -1156,11 +1120,6 @@ interface RefreshFromCompendiumParams {
     notify?: boolean;
     /** Whether to run the update: if false, a clone with updated source is returned. */
     update?: boolean;
-}
-
-/** An extension of DatabaseUpdateOperation to pass on system specific data between phases */
-interface ItemPF2eDatabaseUpdateOperation extends DatabaseUpdateOperation<ActorPF2e | null> {
-    previous?: { maxHitPoints?: number };
 }
 
 export { ItemPF2e, ItemProxyPF2e };
