@@ -1,3 +1,61 @@
+## 6.12.2
+
+### Bugfixes
+
+- (stwlam) Avoid skipping sanctification choice set for deities permitting no sanctification
+- (Supe) Fix display of NPC Shield health when 3 digits long
+- (Supe) Fix showing damage dice options in roll inspector
+
+### Data Updates
+
+- (Ambrose) Add Bestiaries to Remaster Changes journal
+- (Ambrose) Add localization for Investigator's Perception Mastery description.
+- (Ambrose) Automate Ceremony of Growth, Dinosaur Boots, Dire Growth, Spellguard Shield, Reflecting Shield, and Wall of Wind
+- (Ambrose) Correct Curse Maelstrom effect radius formula
+- (Ambrose) Correct Mithral Golem size
+- (Ambrose) Correct predicates for several Ranger Hunt Prey associated items
+- (Ambrose) Correct Saving Throw values for Azlanti Altered Lion variants
+- (Ambrose) Mark multiple feats and effects as dealing area damage or being a damage effect
+- (Ambrose) Move Signature Weapon Yaoguai automation effects to the feat
+- (Ambrose) Remove Choral actor and redirect to Monster Core equivalent
+- (Ambrose) Remove Concentrate trait from Blood Vendetta spell
+- (Ambrose) Remove Harm font from Dalenydra
+- (Ambrose) Set up automation for Unleash Yaoguai Might and Legendary Monster
+- (Ambrose) Suppress Fire Damage and link Remaining Air effect to Aquatic Combat effect
+- (Ambrose) Update feats for Campfire Chronicler
+- (Ambrose) Update predicate for Agile Shield Grip feat
+- (Ambrose) Update Tengu Fan Item usage, description text, publication source and add automation to feats.
+- (Ambrose) Update Zura domains and deity journal
+- (Dire Weasel) Add monk trait and effect to Ki Cutting Sight
+- (Dire Weasel) Add toggle for Wraith's Void's Embrace resistance
+- (Dire Weasel) Fix formatting of Essence Forge description
+- (Dire Weasel) Tidy descriptions of Ogre Spider Venom
+- (Dire Weasel) Tidy formatting of remaster Pantheons list
+- (Dire Weasel) Update Elder Outcrop, the Lonely Warrior, and some NPC Core actors
+- (Ikaguia) Automate hurl at the horizon
+- (Intervencion) Fix Blinding of the Needle action cost
+- (kromko) Fix "level" accidentally changed to "Feat" in archetype journal
+- (MechaMaya) Add Guns & Gears iconics
+- (mose) fix bands of force worn type
+- (Nisviik) Add type "status" to the Symbol of Loyalty Effect
+- (pehala) Add automation for Fiery Body and Furnace Form return damage
+- (rectulo) Add description for the bravado trait
+- (SpartanCPA) Add AdjustSuccess to Minotaur Hunter
+- (SpartanCPA) Add Crystal Xorn variant
+- (SpartanCPA) Add precision resistance to Denizen of Leng
+- (SpartanCPA) Correct Damage Override for Valerie
+- (SpartanCPA) Correct treatment of Aquatic Combat Penalty
+- (Tikael) Add action link to united assault
+- (Tikael) Add PFS content for Paizocon
+- (Tikael) Fix action cost of Ringing Challenge
+- (Tikael) Remove melee predicate from aquatic combat
+- (TMun) Add NPCs from PFS Quest 24
+- (Unoblueboy) Add additional forceful damage to forceful weapon infusion elemental blast damage rolls
+- (Vauxs) Clean up Animal Instinct tables
+- (websterguy) Fix description of Change Formation to the correct text
+- (websterguy) Fix Mutant Physique Deadly D10 ItemAlteration
+- (websterguy) Set party alliance default on newer Iconics
+
 ## 6.12.1
 
 - (stwlam) Fix issue causing corruption of weapon property-rune data in narrow circumstances
