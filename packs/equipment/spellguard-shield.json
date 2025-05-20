@@ -37,10 +37,18 @@
         "quantity": 1,
         "rules": [
             {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.SpellguardShield.RollOptionLabel",
+                "option": "spellguard-shield",
+                "toggleable": true
+            },
+            {
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
                 "predicate": [
                     "self:shield:raised",
-                    "spell"
+                    "spellguard-shield",
+                    "item:type:spell"
                 ],
                 "selector": "saving-throw",
                 "type": "circumstance",
