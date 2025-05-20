@@ -1,0 +1,146 @@
+{
+    "_id": "gLXKdNb5qY5jJYEX",
+    "folder": "q8RRA15OWs6kMBwB",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "iCzY6b2BjONhbw4i",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Opening Shot",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters area <strong>A1</strong>, and that creature isn't wearing a <em>security badge</em> and isn't in the custody of a creature wearing a <em>security badge</em></p><hr /><p><strong>Effect</strong> All four prisms light up, shedding dim light in 15 feet. The trap makes one energy ray Strike against the triggering creature. The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "attack",
+                        "fire",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BYkPWtbM3p1O9yh4",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Energy Ray",
+            "sort": 0,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "ksEucHu4BoB39R3V": {
+                        "damage": "1d6+5",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "range-increment-60",
+                        "versatile-cold"
+                    ]
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Prism Ray Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 22
+            },
+            "emitsSound": "encounter",
+            "hardness": 12,
+            "hp": {
+                "details": "",
+                "max": 14,
+                "temp": 0,
+                "value": 14
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 16
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Four magical prisms integrated into an aeon stone matrix fire energy beams at intruders. The trap doesn't target creatures wearing <em>security badges</em>, or in the custody of a creature wearing a <em>security badge</em>.</p>",
+            "disable": "<p>@Check[thievery|dc:23] (expert) to disconnect one prism from the aeon stone matrix, or @Check[arcana|dc:21] (trained) to disrupt one prism's magical energy, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (3rd rank; counteract DC 23) to counteract one prism; four total successes are required to disable the trap.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #215: To Blot Out the Sun"
+            },
+            "reset": "<p>The trap deactivates and resets when there are no viable targets in area <strong>A1</strong>. Damaged prisms are fully repaired after 24 hours.</p>",
+            "routine": "<p>(4 actions) Each prism uses 1 action to make an energy ray Strike against the nearest creature who is not wearing a <em>security badge</em> or in the custody of a creature wearing a <em>security badge</em>. This trap doesn't take a multiple attack penalty. This trap loses 1 action for each prism disabled or destroyed.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 0
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

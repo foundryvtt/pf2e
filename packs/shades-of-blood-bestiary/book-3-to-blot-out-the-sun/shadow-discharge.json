@@ -1,0 +1,100 @@
+{
+    "_id": "oRPyPtY3u9iESh0L",
+    "folder": "q8RRA15OWs6kMBwB",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "eOT0RfATuP1KM8on",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Priming",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Nizca and Deg activate the shadow beacon</p><hr /><p><strong>Effect</strong> The <em>shadow beacon</em> sparks to life. The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "cold",
+                        "shadow"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Shadow Discharge",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "",
+                "value": 18
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The <em>shadow beacon's</em> operation causes harmful energy to blast out of the base of the device.</p>",
+            "disable": "<p>@Check[crafting|dc:27] or @Check[thievery|dc:27] (master) to rig a dispersal system, or @Check[arcana|dc:27], @Check[nature|dc:27], @Check[occultism|dc:27], or @Check[religion|dc:27] (master) to safely vent the magical energy; four total successes in any combination to disable</p><hr><p><strong>Special</strong> Disabling the shadow discharge does not disable the shadow beacon.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 7
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #215: To Blot Out the Sun"
+            },
+            "reset": "",
+            "routine": "<p>(1 action) The shadow beacon fires shadows into the sky, discharging excess energy out of the device's lower half. The trap deals @Damage[4d6[cold],4d6[void]|options:area-damage] damage to all non-shadow creatures in a @Template[type:emanation|distance:60] from the base of the device (@Check[fortitude|dc:26|basic] save). For each successful check to disable the trap, the cold and void damage dealt by the trap on subsequent rounds are both reduced by 1d6 damage (see below). A creature that fails their save is pushed back 10 feet (15 feet on a critical failure).</p><p>@Damage[3d6[cold],3d6[void]|options:area-damage]</p><p>@Damage[2d6[cold],2d6[void]|options:area-damage]</p><p>@Damage[1d6[cold],1d6[void]|options:area-damage]</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 0
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

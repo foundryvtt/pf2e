@@ -1,0 +1,129 @@
+{
+    "_id": "sWEU6a4CUbooqypZ",
+    "folder": "pqMqBOdF0Drm8jCX",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "28eLpCUGl5RyRYZJ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Tendril Entanglement",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> a creature moves into a square adjacent to the bud pile or into the square the bud pile occupies</p><hr /><p><strong>Effect</strong> The sargassum bud pile whips out numerous tendrils, attempting to grab the creature. The target must attempt a @Check[reflex|dc:28] save.</p><hr /><p><strong>Critical Success</strong> The target dodges the tendril and is unaffected.</p>\n<p><strong>Success</strong> A couple of tendrils latch on to the target. The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]. The target can @UUID[Compendium.pf2e.actionspf2e.Item.Escape] by attempting an Athletics or Acrobatics skill check of DC 28.</p>\n<p><strong>Failure</strong> Several tendrils grab the target. The target becomes grabbed and must make a @Check[fortitude|dc:30] or fall @UUID[Compendium.pf2e.conditionitems.Item.Prone]. If the target cannot breathe in water, they begin to suffocate. The DC to Escape increases to 30.</p>\n<p><strong>Critical Failure</strong> As failure, except the DC to Escape increases to 35.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "object-immunities"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Sargassum Bud Pile",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 20
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 180,
+                "temp": 0,
+                "value": 180
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "cold",
+                    "value": 10
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 20
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "slashing",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>Sargassum heaps that have only started to grow have no intelligence, but are incredibly tenacious and can reflexively grab onto nearby prey. They obtain nutrients by drowning prey in the water they grow in.</p>",
+            "disable": "<p>@Check[athletics|dc:32] (expert) to rip the reflexive tendrils off the bud or @Check[thievery|dc:32] (expert) to trigger the tendrils beforehand and keep them occupied.</p>",
+            "isComplex": false,
+            "level": {
+                "value": 9
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Society Scenario #6-17: The Devil In the Details"
+            },
+            "reset": "<p>1 hour if the bud pile has something in its grasps. 1 round if the bud pile has nothing in its grasps.</p>",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "value": 21
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

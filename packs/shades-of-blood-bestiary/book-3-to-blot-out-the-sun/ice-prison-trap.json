@@ -1,0 +1,97 @@
+{
+    "_id": "Ic9RRSNlYOxCRxo7",
+    "folder": "q8RRA15OWs6kMBwB",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "QsIYIyDyiUW7tppT",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Cryo Mist",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the area, and that creature is not a clockwork soldier and is not openly wearing a <em>security badge</em></p><hr /><p><strong>Effect</strong> The trap fills the area with frigid air, which deals @Damage[(2d8+7)[cold]] damage to creatures in the area (@Check[fortitude|dc:22|basic] save). Clockwork soldiers and any creatures openly wearing a <em>security badge</em> are immune to this damage. The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Ice Prison Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 26
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Magical sensors trigger clockwork cryomisters to expel frigid air, freezing intruders and potentially encasing them in a block of ice.</p>",
+            "disable": "<p>@Check[thievery|dc:22] (expert) to disable the cryomisters, or @Check[arcana|dc:24] (expert) to trick the magical sensors, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (3rd rank; counteract DC 24) to counteract the sensors</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #215: To Blot Out the Sun"
+            },
+            "reset": "<p>The trap resets after 10 minutes.</p>",
+            "routine": "<p>(1 action) On its turn, the trap fills the area with frigid air, which deals @Damage[(2d8+7)[cold]] damage to creatures in the area. Creatures damaged must attempt a @Check[fortitude|dc:22] save. Clockwork soldiers and any creatures wearing a security badge are immune to this damage. The accumulating ice causes the floor in the area to become difficult terrain that lasts for 1 minute after the trap's routine ends.</p><hr><p><strong>Critical Success</strong> The target is unaffected.</p><p><strong>Success</strong> The target takes half damage and increases its @UUID[Compendium.pf2e.conditionitems.Item.Slowed] condition by 1.</p><p><strong>Failure</strong> The target takes full damage and increases its slowed condition by 1.</p><p><strong>Critical Failure</strong> The target takes double damage and increases its slowed condition by 2.</p><hr><p>Once a creature's actions are reduced to 0 by this slowed condition, the creature is completely encased in ice. The ice has Hardness 5 and 20 Hit Points, and its DC to @UUID[Compendium.pf2e.actionspf2e.Item.Force Open] is DC 22. Breaking the ice frees the creature and reduces their slowed condition by 1. Each round a creature is encased in ice, they take @Damage[(1d8+7)[cold]] damage (@Check[fortitude|dc:22|basic] save).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 0
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "cold",
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

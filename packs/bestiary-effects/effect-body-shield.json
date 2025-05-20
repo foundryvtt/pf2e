@@ -1,0 +1,50 @@
+{
+    "_id": "YH57XXyIQCRe6pcR",
+    "img": "icons/equipment/shield/targe-wooden-boss-steel.webp",
+    "name": "Effect: Body Shield",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +1 circumstance bonus to AC. This bonus stacks with the circumstance bonus from cover.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #215: To Blot Out the Sun"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "selector": "ac",
+                "slug": "cover",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

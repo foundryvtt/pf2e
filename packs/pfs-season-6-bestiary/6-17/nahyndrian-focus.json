@@ -1,0 +1,157 @@
+{
+    "_id": "J39qptAcoN1QU3JI",
+    "folder": "pqMqBOdF0Drm8jCX",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "tBtqDgIdfjsi1P6C",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Offensive Configuration",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Yollen activates the Nahyndrian Focus</p><hr /><p><strong>Effect</strong> The Nahyndrian Focus shifts into attack mode and rolls initiative. All creatures without the unholy trait in within @Template[emanation|distance:60]{60 feet} must make a @Check[fortitude|dc:31|basic] save against @Damage[(4d10+22)[spirit]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "y91jEmjoNT8K883e",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Select Condition",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Nahyndrian Focus rolls a [[/gmr 1d4 #Condition]] to randomly decide whether it is going cause the @UUID[Compendium.pf2e.conditionitems.Item.Clumsy], @UUID[Compendium.pf2e.conditionitems.Item.Drained], @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled], or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied] condition when it uses Inflict until the end of its turn. After the first round, it changes the random roll die to [[/gmr 1d6 #Condition]] as it does not pick the same condition it had in the previous round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Kr9nlJew5BTyUlPI",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Inflict",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>An unhealthy beam shoots out from the focus. One creature without the unholy trait within 60 feet of the Focus must make a @Check[fortitude|dc:31] save.</p><hr /><p><strong>Critical Success</strong> The target becomes immune to Inflict for 1 minute.</p>\n<p><strong>Success</strong> The targe gains the condition from Select Condition with a value of 1 for 1 minute.</p>\n<p><strong>Failure</strong> As success, but with a value of 2.</p>\n<p><strong>Critical Failure</strong> As success, but with a value of 3.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "magical",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Nahyndrian Focus",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 27
+            },
+            "emitsSound": "encounter",
+            "hardness": 16,
+            "hp": {
+                "details": "",
+                "max": 70,
+                "temp": 0,
+                "value": 70
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 28
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A metal lattice forged from warshards feeds into a dark purplish crystal that pulses with energy. If the configuration of the lattice changes, so does the energy the device emits.</p>",
+            "disable": "<p>Three [[/act disable-device dc=27]] (see Disabling the Focus under Event 1 on page 18).</p>",
+            "isComplex": true,
+            "level": {
+                "value": 8
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Society Scenario #6-17: The Devil In the Details"
+            },
+            "reset": "",
+            "routine": "<p>(3 actions) The Nahyndrian Focus uses Select Condition to determine which condition it is going to inflict. It then uses Inflict twice, usually on two different targets. If the focus is broken, it is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}, and can only Inflict once per turn.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 19
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}
