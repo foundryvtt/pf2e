@@ -208,6 +208,21 @@
                         "selector": "survival",
                         "text": "{item|system.description.value}",
                         "title": "{item|name}"
+                    },
+                    {
+                        "adjustment": {
+                            "all": "to-critical-success"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:track",
+                                    "action:sense-direction"
+                                ]
+                            }
+                        ],
+                        "selector": "survival"
                     }
                 ],
                 "slug": null,
