@@ -114,12 +114,18 @@ export default abstract class Document<
 
     /**
      * Get the explicit permission level that a User has over this Document, a value in CONST.DOCUMENT_OWNERSHIP_LEVELS.
-     * This method returns the value recorded in Document ownership, regardless of the User's role.
+     * Compendium content ignores the ownership field in favor of User role-based ownership. Otherwise, Documents use
+     * granular per-User ownership definitions and Embedded Documents defer to their parent ownership.
+     *
+     * This method returns the value recorded in Document ownership, regardless of the User's role, for example a
+     * GAMEMASTER user might still return a result of NONE if they are not explicitly denoted as having a level.
+     *
      * To test whether a user has a certain capability over the document, testUserPermission should be used.
-     * @param {BaseUser} user     The User being tested
-     * @returns {number|null}               A numeric permission level from CONST.DOCUMENT_OWNERSHIP_LEVELS or null
+     *
+     * @param user The User being tested
+     * @returns A numeric permission level from CONST.DOCUMENT_OWNERSHIP_LEVELS
      */
-    getUserLevel(user: BaseUser): DocumentOwnershipLevel | null;
+    getUserLevel(user: BaseUser): DocumentOwnershipLevel;
 
     /**
      * Test whether a certain User has a requested permission level (or greater) over the Document
