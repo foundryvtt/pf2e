@@ -371,16 +371,16 @@
                     "value": 27
                 },
                 "damageRolls": {
-                    "LfyN05KVRGuVExy4": {
+                    "0": {
+                        "damage": "3d6",
+                        "damageType": "untyped"
+                    },
+                    "1": {
                         "category": "persistent",
                         "damage": "10",
                         "damageType": "untyped"
                     },
-                    "PRGOJlAnb6qeqXV2": {
-                        "damage": "3d6",
-                        "damageType": "untyped"
-                    },
-                    "hHnCeDk2lVfrXu0x": {
+                    "2": {
                         "category": "splash",
                         "damage": "10",
                         "damageType": "untyped"
@@ -431,7 +431,6 @@
                         "alwaysActive": true,
                         "key": "RollOption",
                         "option": "alchemical-grenades",
-                        "selection": "acid",
                         "suboptions": [
                             {
                                 "label": "PF2E.TraitAcid",
@@ -488,7 +487,18 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "damage-received",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -556,7 +566,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The siegebreaker's grenades deal splash damage in a 10-foot radius</p>"
+                    "value": "<p>The siegebreaker's grenades deal splash damage in a @Template[burst|distance:10]{10-foot radius}.</p>"
                 },
                 "publication": {
                     "license": "ORC",

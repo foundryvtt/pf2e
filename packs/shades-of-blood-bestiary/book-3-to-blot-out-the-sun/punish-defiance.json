@@ -1,0 +1,109 @@
+{
+    "_id": "85MHlW9fI4HlNCzS",
+    "folder": "q8RRA15OWs6kMBwB",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "jiVGw6NcB2h4cpWv",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Final Warning",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature defies the prison's authority (such as by attacking a clockwork soldier or living graffiti)</p><hr /><p><strong>Effect</strong> The mural commands the inmate to cease their defiance and surrender to authority. All living creatures in the room must attempt a @Check[will|dc:24] save, becoming @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} on a failure, or @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} on a critical failure. The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fear",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Punish Defiance",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 19
+            },
+            "emitsSound": "encounter",
+            "hardness": 14,
+            "hp": {
+                "details": "",
+                "max": 54,
+                "temp": 0,
+                "value": 54
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 23
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A magical mural threatens uncooperative inmates, causing mental trauma.</p>",
+            "disable": "<p>@Check[thievery|dc:26] (expert) to deactivate the mural, or @Check[arcana|dc:26] (trained) to disrupt the mural's magic, or @Check[deception|dc:24] (trained) to pose as a superior and order the mural to deactivate, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (3rd rank; counteract DC 24) to counteract the mural</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #215: To Blot Out the Sun"
+            },
+            "reset": "<p>1 hour.</p>",
+            "routine": "<p>(1 action) On its turn, the trap threatens all living creatures in the room, dealing @Damage[(3d6+5)[mental]] damage (@Check[will|dc:22|basic] save).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 15
+            },
+            "reflex": {
+                "value": 9
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

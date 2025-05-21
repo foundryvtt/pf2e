@@ -57,17 +57,20 @@
                 "value": "thrown-15"
             },
             {
-                "key": "Note",
-                "predicate": [
+                "definition": [
+                    "item:thrown",
                     "item:tag:physical-ikon:{item|flags.pf2e.rulesSelections.ikon}",
-                    "divine-spark:{item|flags.pf2e.rulesSelections.ikon}",
                     {
                         "not": "item:tag:thrown-from-hurl-at-the-horizon"
                     }
                 ],
-                "selector": "ranged-strike-attack-roll",
-                "text": "PF2E.SpecificRule.Exemplar.HurlAtTheHorizon.Note",
-                "title": "{item|name}"
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "divine-spark:{item|flags.pf2e.rulesSelections.ikon}"
+                ],
+                "property": "range-increment",
+                "value": 10
             }
         ],
         "traits": {
