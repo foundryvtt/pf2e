@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import type { ApplicationV1Options } from "@client/appv1/api/application-v1.d.mts";
+import type { HandlebarsRenderOptions } from "@client/applications/api/handlebars-application.d.mts";
 import { ItemPF2e } from "@item";
 import {
     PickableThing,
@@ -31,18 +31,19 @@ class ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, string | num
         this.allowedDrops = this.containsItems ? data.allowedDrops : null;
     }
 
-    static override get defaultOptions(): ApplicationV1Options {
-        return {
-            ...super.defaultOptions,
-            classes: ["choice-set-prompt"],
-            dragDrop: [{ dropSelector: ".drop-zone" }],
-            template: "systems/pf2e/templates/system/rules-elements/choice-set-prompt.hbs",
-        };
-    }
+    static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
+        window: {
+            contentClasses: ["choice-set-prompt"],
+        },
+    };
 
-    override async getData(): Promise<ChoiceSetTemplateData> {
+    static override PARTS: Record<string, fa.api.HandlebarsTemplatePart> = {
+        base: { template: "systems/pf2e/templates/system/rules-elements/choice-set-prompt.hbs" },
+    };
+
+    override async _prepareContext(): Promise<ChoiceSetTemplateData> {
         return {
-            ...(await super.getData()),
+            ...(await super._prepareContext()),
             choices: this.choices.map((c, index) => ({
                 ...c,
                 value: index,
@@ -56,9 +57,9 @@ class ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, string | num
         };
     }
 
-    override activateListeners($html: JQuery): void {
-        super.activateListeners($html);
-        const html = $html[0];
+    protected override async _onRender(context: object, options: HandlebarsRenderOptions): Promise<void> {
+        await super._onRender(context, options);
+        const html = this.element;
 
         htmlQuery(html, "button[data-action=close]")?.addEventListener("click", () => {
             this.close();
@@ -112,6 +113,10 @@ class ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, string | num
                 }
             }
         }
+
+        if (this.allowedDrops) {
+            htmlQuery(html, ".drop-zone")?.addEventListener("drop", this._onDrop.bind(this));
+        }
     }
 
     /** Return early if there is only one choice */
@@ -129,26 +134,28 @@ class ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, string | num
                     item: this.item.name,
                 }),
             );
-            this.close({ force: true });
+            this.close();
             return null;
         }
 
         return super.resolveSelection();
     }
 
-    override async close(options?: { force?: boolean }): Promise<void> {
+    protected override _onClose(options: fa.ApplicationClosingOptions): void {
         if (this.choices.length > 0 && !this.selection && !this.allowNoSelection) {
             ui.notifications.warn(
                 game.i18n.format("PF2E.UI.RuleElements.Prompt.NoSelectionMade", { item: this.item.name }),
             );
         }
 
-        return super.close(options);
+        return super._onClose(options);
     }
 
     /** Handle a dropped homebrew item */
-    protected override async _onDrop(event: DragEvent): Promise<void> {
+    protected async _onDrop(event: DragEvent): Promise<void> {
         event.preventDefault();
+        if (!this.actor.isOwner) return;
+
         const dataString = event.dataTransfer?.getData("text/plain");
         const dropData: DropCanvasItemDataPF2e | undefined = JSON.parse(dataString ?? "");
         if (dropData?.type !== "Item") {
@@ -217,10 +224,6 @@ class ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, string | num
 
             dropZone?.replaceWith(newButton);
         }
-    }
-
-    protected override _canDragDrop(): boolean {
-        return this.actor.isOwner;
     }
 }
 
