@@ -50,7 +50,7 @@ interface MigrationBase {
      * @param source Item to update. This should be an `ItemData` from the previous version.
      * @param actorSource If the item is part of an actor, this is set to the actor. For instance
      */
-    updateItem?(source: ItemSourcePF2e, actorSource?: ActorSourcePF2e): Promise<void>;
+    updateItem?(source: ItemSourcePF2e, actorSource?: ActorSourcePF2e): Promise<void> | void;
 
     /**
      * Update the macro to the latest schema version.

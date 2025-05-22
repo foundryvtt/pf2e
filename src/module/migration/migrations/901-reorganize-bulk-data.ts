@@ -9,7 +9,7 @@ import { MigrationBase } from "../base.ts";
 export class Migration901ReorganizeBulkData extends MigrationBase {
     static override version = 0.901;
 
-    override async updateItem(source: ItemSourcePF2e): Promise<void> {
+    override updateItem(source: ItemSourcePF2e): void {
         this.#migrateRules(source);
         if (!itemIsOfType(source, "physical")) return;
 
